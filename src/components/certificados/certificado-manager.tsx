@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,9 @@ import {
     FileText, User, UserCheck, Heart, 
     ArrowRight, ArrowLeft, Download, Send, 
     Share2, QrCode, CheckCircle, ShieldCheck,
-    Printer, Loader2, Search, Briefcase, Landmark
+    Printer, Loader2, Search, Briefcase, Landmark,
+    Eye,
+    FileSignature
 } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -23,7 +25,7 @@ import Image from "next/image";
 const mockEmployees = [
   { id: "EMP-001", name: "Ana Pérez", ci: "V-12.345.678", cargo: "Gerente Finanzas", ingreso: "15/01/2020", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
   { id: "EMP-002", name: "Luis Gómez", ci: "V-18.765.432", cargo: "Analista Senior", ingreso: "10/02/2021", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
-  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Maestro", ingreso: "01/01/2024", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
+  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe", ingreso: "01/01/2024", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
 ];
 
 const mockHistory = [
@@ -100,7 +102,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         <div className="space-y-10">
             {step === 'selector' && (
                 <div className="grid md:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card onClick={() => handleSelectType('dependiente')} className="glass-card border-none p-10 cursor-pointer group hover:bg-primary/5 transition-all text-center">
+                    <Card onClick={() => handleSelectType('dependiente')} className="glass-card border-none p-10 cursor-pointer group hover:bg-primary/5 transition-all text-center rounded-[2.5rem]">
                         <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mx-auto mb-8 border border-primary/20 group-hover:scale-110 transition-transform shadow-inner">
                             <Briefcase className="h-10 w-10 text-primary" />
                         </div>
@@ -109,7 +111,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <Button variant="outline" className="w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/20 text-primary">Generar certificado</Button>
                     </Card>
 
-                    <Card onClick={() => handleSelectType('independiente')} className="glass-card border-none p-10 cursor-pointer group hover:bg-secondary/5 transition-all text-center">
+                    <Card onClick={() => handleSelectType('independiente')} className="glass-card border-none p-10 cursor-pointer group hover:bg-secondary/5 transition-all text-center rounded-[2.5rem]">
                         <div className="p-6 bg-secondary/10 rounded-[2rem] w-fit mx-auto mb-8 border border-secondary/20 group-hover:scale-110 transition-transform shadow-inner">
                             <UserCheck className="h-10 w-10 text-secondary" />
                         </div>
@@ -118,7 +120,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <Button variant="outline" className="w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest border-secondary/20 text-secondary">Generar certificado</Button>
                     </Card>
 
-                    <Card onClick={() => handleSelectType('pensionado')} className="glass-card border-none p-10 cursor-pointer group hover:bg-rose-500/5 transition-all text-center">
+                    <Card onClick={() => handleSelectType('pensionado')} className="glass-card border-none p-10 cursor-pointer group hover:bg-rose-500/5 transition-all text-center rounded-[2.5rem]">
                         <div className="p-6 bg-rose-500/10 rounded-[2rem] w-fit mx-auto mb-8 border border-rose-500/20 group-hover:scale-110 transition-transform shadow-inner">
                             <Heart className="h-10 w-10 text-rose-500" />
                         </div>
@@ -135,7 +137,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="flex items-center gap-6">
                             <Button variant="ghost" onClick={() => setStep('selector')} className="h-10 w-10 rounded-full bg-white/10"><ArrowLeft className="h-4 w-4" /></Button>
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tighter">Expediente de Ingreso</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tighter">Dossier de Ingreso</CardTitle>
                                 <CardDescription className="text-[10px] font-bold uppercase text-primary tracking-widest">Formulario: {type?.toUpperCase()}</CardDescription>
                             </div>
                         </div>
@@ -233,7 +235,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                 <Logo className="h-16 w-16" />
                                 <div className="space-y-1">
                                     <h4 className="text-xl font-black italic uppercase tracking-tighter">System Kyron</h4>
-                                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] opacity-60">Control Maestro • 2026</p>
+                                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] opacity-60">Control Integral • 2026</p>
                                 </div>
                             </div>
                             <div className="text-right">
