@@ -4,7 +4,25 @@
 import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Printer, CheckCircle, MailOpen, Activity, Terminal, ArrowLeft, Send, Landmark, Building2, Gavel, Radio, Recycle, Zap } from "lucide-react";
+import { 
+    FileText, 
+    Download, 
+    Printer, 
+    CheckCircle, 
+    MailOpen, 
+    Terminal, 
+    ArrowLeft, 
+    Search, 
+    ChevronDown,
+    User,
+    Building2,
+    Landmark,
+    Gavel,
+    Smartphone,
+    Globe,
+    Zap,
+    X
+} from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -14,6 +32,8 @@ import { formatDate } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const institutions = [
     { id: "seniat", name: "SENIAT", address: "Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)\nUnidad de Tributos Internos" },
@@ -22,21 +42,42 @@ const institutions = [
     { id: "minec", name: "MINEC", address: "Ministerio del Poder Popular para el Ecosocialismo (MINEC)\nDirección de Gestión de Residuos" },
     { id: "intt", name: "INTT", address: "Instituto Nacional de Transporte Terrestre (INTT)\nDirección de Carga" },
     { id: "mintur", name: "MINTUR", address: "Ministerio del Poder Popular para el Turismo (MINTUR)\nRegistro Turístico Nacional" },
+    { id: "ivss", name: "IVSS", address: "Instituto Venezolano de los Seguros Sociales (IVSS)\nDirección de Afiliación y Prestaciones" },
+    { id: "banavih", name: "BANAVIH", address: "Banco Nacional de Vivienda y Hábitat (BANAVIH)\nGerencia de Fiscalización (FAOV)" },
+    { id: "inces", name: "INCES", address: "Instituto Nacional de Capacitación y Educación Socialista (INCES)\nUnidad de Tributos" },
+    { id: "inpsasel", name: "INPSASEL", address: "Instituto Nacional de Prevención, Salud y Seguridad Laborales (INPSASEL)\nGerencia de Salud de los Trabajadores" },
+    { id: "min_trabajo", name: "MIN. TRABAJO", address: "Ministerio del Poder Popular para el Proceso Social de Trabajo\nInspectoría del Trabajo" },
+    { id: "sudeban", name: "SUDEBAN", address: "Superintendencia de las Instituciones del Sector Bancario (SUDEBAN)\nUnidad de Inteligencia Financiera" },
+    { id: "sunavi", name: "SUNAVI", address: "Superintendencia Nacional de Arrendamiento de Vivienda (SUNAVI)\nDirección de Registro" },
+    { id: "sunacrip", name: "SUNACRIP", address: "Superintendencia Nacional de Criptoactivos y Actividades Conexas (SUNACRIP)\nDirección de Fiscalización" },
+    { id: "alcaldia", name: "ALCALDÍA MUNICIPAL", address: "Alcaldía Municipal\nDirección de Hacienda y Tributos" },
+    { id: "gobernacion", name: "GOBERNACIÓN", address: "Gobernación Estadal\nDirección de Administración y Finanzas" },
+    { id: "fona", name: "FONA", address: "Fondo Nacional Antidrogas (FONA)\nUnidad de Recaudación" },
+    { id: "fonacit", name: "FONACIT", address: "Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT)\nUnidad de LOCTI" },
+    { id: "comex", name: "MIN. COMERCIO EXT.", address: "Ministerio del Poder Popular de Comercio Exterior e Inversión Internacional\nDirección de Exportaciones" },
+    { id: "industria", name: "MIN. INDUSTRIAS", address: "Ministerio del Poder Popular de Industrias y Producción Nacional\nRegistro Industrial" },
 ];
 
 export default function ComunicacionesSeniatPage() {
     const { toast } = useToast();
     const [institucionId, setInstitucionId] = useState("seniat");
     const [tipoCarta, setTipoCarta] = useState("inactividad");
+    const [searchQuery, setSearchQuery] = useState("");
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
         rif: "J-12345678-9",
         representante: "Carlos Mattar",
         cedula: "V-32.855.496",
-        periodo: "Enero - Marzo 2026",
-        motivo: "Cese de actividades comerciales por reestructuración operativa.",
+        periodo: "Marzo 2026",
+        motivo: "Reestructuración operativa interna.",
         fecha: new Date().toISOString().substring(0, 10),
     });
+
+    const filteredInstitutions = useMemo(() => {
+        return institutions.filter(inst => 
+            inst.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }, [searchQuery]);
 
     const selectedInst = useMemo(() => institutions.find(i => i.id === institucionId) || institutions[0], [institucionId]);
 
@@ -56,34 +97,27 @@ export default function ComunicacionesSeniatPage() {
         const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
         
         if (tipoCarta === 'inactividad') {
-            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL (Ventas ni Compras) durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia, queda de ustedes.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
         }
 
-        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo del cierre: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada, de conformidad con lo establecido en las leyes vigentes de la República.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
     };
 
     const handleDownloadWord = () => {
         const content = getLetterContent();
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-            "xmlns='http://www.w3.org/TR/REC-html40'>"+
-            "<head><meta charset='utf-8'><title>Comunicación Oficial</title><style>body { font-family: 'Times New Roman', serif; padding: 20pt; }</style></head><body>";
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Comunicación Oficial</title><style>body { font-family: 'Times New Roman', serif; padding: 40pt; }</style></head><body>";
         const footer = "</body></html>";
-        const sourceHTML = header + `<div style="text-align: justify; line-height: 1.5;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
+        const sourceHTML = header + `<div style="text-align: justify; line-height: 1.5; font-size: 12pt;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
 
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = `Comunicacion_${selectedInst.name}_${data.empresa.replace(/\s+/g, '_')}.doc`;
+        fileDownload.download = `Comunicacion_${selectedInst.name}_Kyron.doc`;
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
-        toast({
-            title: "DESCARGA INICIADA",
-            description: "El documento ha sido exportado en formato Word.",
-            action: <CheckCircle className="text-emerald-500 h-4 w-4" />
-        });
+        toast({ title: "DESCARGA INICIADA", description: "Documento Word generado exitosamente." });
     };
 
   return (
@@ -97,7 +131,7 @@ export default function ComunicacionesSeniatPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Institucionales • Protocolo de Despacho 2026</p>
         </div>
         <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
-            <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER AL CENTRO</Link>
+            <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER</Link>
         </Button>
       </header>
 
@@ -108,77 +142,94 @@ export default function ComunicacionesSeniatPage() {
                     <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Configuración de Carta</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-6">
+                    
+                    {/* BÚSQUEDA DE INSTITUCIÓN */}
                     <div className="space-y-3">
                         <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución Destino</Label>
-                        <Select value={institucionId} onValueChange={setInstitucionId}>
-                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl">
-                                {institutions.map(inst => (
-                                    <SelectItem key={inst.id} value={inst.id} className="uppercase text-xs font-bold">{inst.name}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button variant="outline" className="w-full h-12 rounded-xl bg-white/5 border-border justify-between px-4 text-xs font-bold uppercase">
+                                    {selectedInst.name}
+                                    <ChevronDown className="h-4 w-4 opacity-40" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[300px] p-0 bg-black/95 border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl">
+                                <div className="p-3 border-b border-white/5 bg-white/5">
+                                    <div className="relative">
+                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-white/40" />
+                                        <Input 
+                                            placeholder="Buscar ente..." 
+                                            className="h-8 pl-7 text-[10px] bg-black/40 border-white/10 rounded-lg text-white font-bold uppercase tracking-widest"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <ScrollArea className="h-[250px]">
+                                    <div className="p-2">
+                                        {filteredInstitutions.map((inst) => (
+                                            <button
+                                                key={inst.id}
+                                                onClick={() => { setInstitucionId(inst.id); setSearchQuery(""); }}
+                                                className={cn(
+                                                    "w-full text-left px-4 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all",
+                                                    institucionId === inst.id ? "bg-primary text-white" : "text-white/40 hover:bg-white/5 hover:text-white"
+                                                )}
+                                            >
+                                                {inst.name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </ScrollArea>
+                            </PopoverContent>
+                        </Popover>
                     </div>
 
                     <div className="space-y-3">
                         <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Tipo de Comunicación</Label>
                         <Select value={tipoCarta} onValueChange={setTipoCarta}>
-                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase">
+                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase text-xs">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent className="rounded-xl">
-                                <SelectItem value="inactividad" className="uppercase text-xs font-bold">Carta de Inactividad</SelectItem>
-                                <SelectItem value="cierre_temporal" className="uppercase text-xs font-bold">Cierre Temporal</SelectItem>
-                                <SelectItem value="cierre_definitivo" className="uppercase text-xs font-bold">Cierre Definitivo</SelectItem>
+                            <SelectContent className="rounded-xl bg-black border-white/10">
+                                <SelectItem value="inactividad" className="uppercase text-[10px] font-black">Carta de Inactividad</SelectItem>
+                                <SelectItem value="cierre_temporal" className="uppercase text-[10px] font-black">Cierre Temporal</SelectItem>
+                                <SelectItem value="cierre_definitivo" className="uppercase text-[10px] font-black">Cierre Definitivo</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
 
                     <div className="space-y-3">
-                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Periodo o Fecha Efectiva</Label>
+                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Referencia Temporal</Label>
                         <Input 
                             value={tipoCarta === 'inactividad' ? data.periodo : data.fecha} 
                             onChange={e => setData({...data, [tipoCarta === 'inactividad' ? 'periodo' : 'fecha']: e.target.value})} 
-                            className="h-12 rounded-xl bg-white/5 border-border font-bold text-white"
+                            className="h-12 rounded-xl bg-white/5 border-border font-bold text-white text-xs"
                         />
                     </div>
 
-                    {(tipoCarta === 'cierre_temporal' || tipoCarta === 'cierre_definitivo') && (
-                        <div className="space-y-3 animate-in fade-in">
-                            <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Motivo del Cierre</Label>
-                            <Textarea 
-                                value={data.motivo} 
-                                onChange={e => setData({...data, motivo: e.target.value})}
-                                className="bg-white/5 border-border rounded-xl p-4 text-xs font-bold uppercase text-white"
-                            />
-                        </div>
-                    )}
-
                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
-                        <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-4">Firmante Autorizado</p>
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-primary/10 rounded-xl shadow-inner border border-primary/20">
-                                <UserIcon className="h-4 w-4 text-primary" />
+                                <User className="h-4 w-4 text-primary" />
                             </div>
                             <div>
-                                <p className="text-xs font-black uppercase italic text-white">{data.representante}</p>
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase">{data.cedula}</p>
+                                <p className="text-[9px] font-black uppercase text-primary mb-1">Representante</p>
+                                <p className="text-xs font-black uppercase italic text-white leading-none">{data.representante}</p>
                             </div>
                         </div>
                     </div>
                 </CardContent>
                 <CardFooter className="p-0 pt-10">
                     <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl" onClick={() => handleAction('registro')}>
-                        <CheckCircle className="mr-3 h-5 w-5" /> VALIDAR Y SELLAR
+                        <CheckCircle className="mr-3 h-5 w-5" /> SELLAR Y REGISTRAR
                     </Button>
                 </CardFooter>
             </Card>
         </div>
 
         <div className="lg:col-span-7">
-            <Card className="border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900 min-h-[800px] flex flex-col">
+            <Card className="border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900 min-h-[850px] flex flex-col">
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
                     <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                 </div>
@@ -191,25 +242,23 @@ export default function ComunicacionesSeniatPage() {
                             <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: {data.rif}</p>
                         </div>
                     </div>
-                    <div className="text-right">
-                        <Badge variant="outline" className="border-slate-900 text-slate-900 text-[8px] font-black uppercase px-3 h-6 rounded-lg">OFICIAL</Badge>
-                    </div>
+                    <Badge variant="outline" className="border-slate-900 text-slate-900 text-[8px] font-black uppercase px-3 h-6 rounded-lg">OFICIAL</Badge>
                 </header>
 
-                <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 flex-grow">
+                <div className="whitespace-pre-wrap text-base md:text-lg text-justify leading-relaxed relative z-10 flex-grow">
                     {getLetterContent()}
                 </div>
 
                 <footer className="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 no-print relative z-10">
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-slate-400 italic">
-                        <Terminal className="h-4 w-4" /> SELLADO ELECTRÓNICO ACTIVO
+                        <Terminal className="h-4 w-4" /> TRANSMISIÓN AUTORIZADA KYRON
                     </div>
                     <div className="flex gap-3">
                         <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => window.print()}>
                             <Printer className="mr-2 h-3.5 w-3.5" /> IMPRIMIR
                         </Button>
                         <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('descarga')}>
-                            <Download className="mr-2 h-3.5 w-3.5" /> DESCARGAR .DOC
+                            <Download className="mr-2 h-3.5 w-3.5" /> BAJAR WORD (.DOC)
                         </Button>
                     </div>
                 </footer>
@@ -218,13 +267,4 @@ export default function ComunicacionesSeniatPage() {
       </div>
     </div>
   );
-}
-
-function UserIcon({ className }: { className?: string }) {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-        </svg>
-    );
 }
