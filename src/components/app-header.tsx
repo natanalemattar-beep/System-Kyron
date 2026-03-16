@@ -59,13 +59,6 @@ const navigationConfig = [
       prefix: '⚡'
   },
   { 
-      label: "NOTIFICACIONES", 
-      href: "/notificaciones", 
-      icon: Bell,
-      type: 'link',
-      prefix: '🔔'
-  },
-  { 
       label: "REPORTES", 
       href: "/reportes", 
       icon: BarChart3,
@@ -133,12 +126,9 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                             </div>
                         ))}
                         <div className="mt-10 pt-6 border-t border-border">
-                            <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3">MI CUENTA</p>
+                            <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3"> ALERTAS</p>
                             <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
-                                <Link href="/perfil"><User className="h-4 w-4 opacity-40" /> Perfil Maestro</Link>
-                            </Button>
-                            <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
-                                <Link href="/configuracion"><Settings className="h-4 w-4 opacity-40" /> Configuración</Link>
+                                <Link href="/notificaciones"><Bell className="h-4 w-4 opacity-40" /> Notificaciones</Link>
                             </Button>
                         </div>
                     </div>
@@ -205,6 +195,19 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
 
           <div className="flex items-center justify-end gap-3 min-w-fit">
             <ThemeToggle />
+            
+            <Button variant="ghost" size="icon" asChild className="relative h-10 w-10 rounded-xl bg-white/5 border border-border group hover:bg-primary/5 hover:border-primary/20 transition-all duration-300">
+                <Link href="/notificaciones">
+                    <div className="relative">
+                        <Bell className={cn("h-5 w-5 transition-colors", pathname.includes('/notificaciones') ? "text-primary" : "text-muted-foreground/60 group-hover:text-primary")} />
+                        <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span>
+                        </span>
+                    </div>
+                </Link>
+            </Button>
+
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-xl border border-border p-0 overflow-hidden bg-muted group">
