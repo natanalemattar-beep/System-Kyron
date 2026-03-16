@@ -45,7 +45,8 @@ import {
   Truck,
   GraduationCap,
   Sparkles,
-  Gavel
+  Gavel,
+  Star
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -102,7 +103,7 @@ const libraryCategories = [
       { label: "Análisis ABC", href: "#", kpi: "Clase A: 20%", icon: Boxes, color: "text-blue-600" },
       { label: "Rotación de Stock", href: "#", kpi: "Ciclo: 12d", icon: RefreshCw, color: "text-emerald-600" },
       { label: "Previsión de Quiebre", href: "#", kpi: "Salud: Ok", icon: ShieldAlert, color: "text-rose-600" },
-      { label: "Valoración Kardex", href: "/contabilidad/libros/inventario", kpi: "FIFO Pro", icon: Calculator, color: "text-primary" },
+      { label: "Valoración Kardex", href: "/contabilidad/libros/inventario", kpi: "FIFO Maestra", icon: Calculator, color: "text-primary" },
     ]
   },
   {
@@ -122,7 +123,7 @@ const libraryCategories = [
       { label: "Presión Tributaria", href: "#", kpi: "Tasa: 18%", icon: Scale, color: "text-rose-600" },
       { label: "Optimización Créditos", href: "#", kpi: "Ahorro: 5%", icon: Zap, color: "text-emerald-600" },
       { label: "Análisis de Gacetas", href: "/gaceta-6952", kpi: "IA Sync", icon: Gavel, color: "text-primary" },
-      { label: "Simulador de Multas", href: "/contabilidad/impuestos/multas", kpi: "Riesgo: 0", icon: ShieldCheck, color: "text-emerald-600" },
+      { label: "Simulador de Multas", href: "/contabilidad/tributos/multas", kpi: "Riesgo: 0", icon: ShieldCheck, color: "text-emerald-600" },
     ]
   },
   {
@@ -131,7 +132,7 @@ const libraryCategories = [
     items: [
       { label: "Análisis Sentimiento", href: "#", kpi: "Positivo: 94%", icon: BrainCircuit, color: "text-primary" },
       { label: "Tendencia de NPS", href: "#", kpi: "Score: 78", icon: Target, color: "text-emerald-600" },
-      { label: "Fidelización Pro", href: "/fidelizacion-clientes", kpi: "Activa", icon: Star, color: "text-yellow-600" },
+      { label: "Fidelización Integral", href: "/fidelizacion-clientes", kpi: "Activa", icon: Star, color: "text-yellow-600" },
     ]
   },
   {
@@ -214,7 +215,7 @@ export default function TodasLasAnalisisPage() {
             <Sparkles className="h-10 w-10 text-primary animate-pulse" />
             Directorio de Inteligencia
           </h1>
-          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca Maestra de Business Intelligence y Analítica Pro</p>
+          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca Maestra de Business Intelligence y Analítica 2026</p>
         </div>
       </header>
 
@@ -223,7 +224,7 @@ export default function TodasLasAnalisisPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 h-5 w-5" />
         <Input 
             placeholder="Buscar métrica, ratio o estudio..." 
-            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300"
+            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300 text-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
         />
@@ -279,7 +280,7 @@ export default function TodasLasAnalisisPage() {
       </div>
 
       <footer className="pt-20 pb-10 text-center opacity-20 border-t border-border">
-        <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground italic">SYSTEM KYRON • ANALYTICS NODE • 2026</p>
+        <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground italic">SYSTEM KYRON • ANALYTICS HUB • 2026</p>
       </footer>
     </div>
   );

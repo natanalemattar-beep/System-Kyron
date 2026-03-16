@@ -26,7 +26,8 @@ import {
     Globe,
     Cpu,
     Battery,
-    Wifi
+    Wifi,
+    Download
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -85,7 +86,6 @@ const chartConfig = {
 export default function SostenibilidadPage() {
     const { toast } = useToast();
     const [balance, setBalance] = useState(12450);
-    const [isProcessing, setIsProcessing] = useState(false);
 
     return (
         <div className="space-y-12 pb-20 px-6 md:px-10">
@@ -93,7 +93,7 @@ export default function SostenibilidadPage() {
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-secondary pl-8 py-2 mt-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
-                        <Leaf className="h-3 w-3" /> NODO SUSTENTABLE
+                        <Leaf className="h-3 w-3" /> ÁREA SUSTENTABLE
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Impacto <span className="text-secondary italic">Ambiental</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
@@ -110,7 +110,7 @@ export default function SostenibilidadPage() {
                 <div className="p-8 md:p-12 grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-8">
                         <div className="space-y-2">
-                            <Badge className="bg-secondary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow-secondary">Hardware de Tercera Generación</Badge>
+                            <Badge className="bg-secondary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow-secondary">Hardware Avanzado</Badge>
                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white leading-none">AMERU <span className="text-secondary">IA</span></h2>
                             <p className="text-lg font-medium italic text-white/60 leading-relaxed uppercase">La papelera inteligente definitiva para el sector privado venezolano.</p>
                         </div>
@@ -163,7 +163,7 @@ export default function SostenibilidadPage() {
                     { label: "Eficiencia Clasif.", val: "98.4%", icon: ShieldCheck, color: "text-primary", desc: "Score de precisión" }
                 ].map((kpi, i) => (
                     <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl group hover:scale-[1.02] transition-all">
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex justify-between items-start mb-6">
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">{kpi.label}</p>
                             <div className="p-2 bg-white/5 rounded-lg border border-white/5 group-hover:bg-white/10 transition-all">
                                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -18,7 +19,8 @@ import {
     Cpu,
     Network,
     ShieldCheck,
-    Globe
+    Globe,
+    Download
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -93,7 +95,7 @@ export default function MiLineaPage() {
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-4">
-                        <h1 className="text-2xl md:text-4xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G Pro</span></h1>
+                        <h1 className="text-2xl md:text-4xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G</span></h1>
                         
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>

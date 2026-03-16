@@ -44,7 +44,7 @@ export default function RetencionesIslrPage() {
                     <Card key={c.id} className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl flex flex-col justify-between group hover:border-primary/30 transition-all">
                         <div className="space-y-4">
                             <div className="flex justify-between items-center">
-                                <Badge variant="outline" className="text-[7px] font-black uppercase tracking-widest border-primary/20 text-primary">Concepto Pro</Badge>
+                                <Badge variant="outline" className="text-[7px] font-black uppercase tracking-widest border-primary/20 text-primary">Concepto Validado</Badge>
                                 <Zap className={cn("h-4 w-4 opacity-20", c.color)} />
                             </div>
                             <div>

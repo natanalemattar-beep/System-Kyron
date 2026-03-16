@@ -70,22 +70,22 @@ export default function VentaLineaPage() {
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-3">
                                         <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Nombre Completo</Label>
-                                        <Input placeholder="Ej: Juan Pérez" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs" />
+                                        <Input placeholder="Ej: Juan Pérez" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                     <div className="space-y-3">
                                         <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Identificación (V/E/J)</Label>
-                                        <Input placeholder="Número de Documento" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs" />
+                                        <Input placeholder="Número de Documento" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                      <div className="space-y-3">
                                         <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Email para Activación</Label>
-                                        <Input type="email" placeholder="cliente@kyron.com" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs" />
+                                        <Input type="email" placeholder="cliente@kyron.com" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                     <div className="space-y-3">
                                         <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Número a Asignar</Label>
                                         <div className="flex gap-2">
-                                            <Input placeholder="Asignación Automática" className="h-11 rounded-xl bg-white/[0.03] border-white/10 text-xs" readOnly />
+                                            <Input placeholder="Asignación Automática" className="h-11 rounded-xl bg-white/[0.03] border-white/10 text-xs text-white" readOnly />
                                             <Button type="button" variant="outline" className="h-11 w-11 p-0 rounded-xl border-white/10 hover:bg-white/5"><Search className="h-4 w-4"/></Button>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@ export default function VentaLineaPage() {
                                         >
                                             <div className="flex-1">
                                                 <p className="font-black text-[10px] uppercase tracking-tight text-white/90">{plan.nombre}</p>
-                                                <p className="text-[8px] text-muted-foreground font-bold uppercase opacity-40">{plan.descripcion}</p>
+                                                <p className="text-[8px] text-muted-foreground font-bold uppercase opacity-40">{plan.description}</p>
                                             </div>
                                             <p className="font-black text-primary italic text-xs">{formatCurrency(plan.precio, 'USD')}</p>
                                         </div>

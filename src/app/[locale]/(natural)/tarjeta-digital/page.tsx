@@ -98,7 +98,7 @@ export default function TarjetaDigitalPage() {
         
         toast({ 
             title: "Contacto Actualizado", 
-            description: "Se ha descargado la ficha vCard Pro para tu agenda.",
+            description: "Se ha descargado la ficha vCard para tu agenda.",
         });
     };
 
@@ -134,8 +134,8 @@ export default function TarjetaDigitalPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-3">
                     <Sparkles className="h-3 w-3" /> Identidad Digital
                 </div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tighter mb-2">ID Digital Interactiva</h1>
-                <p className="text-muted-foreground font-bold text-xs">Pulsa la tarjeta para girar</p>
+                <h1 className="text-3xl md:text-4xl font-black tracking-tighter mb-2 text-white">ID Digital Interactiva</h1>
+                <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Pulsa la tarjeta para girar</p>
             </motion.div>
 
             <div 
@@ -203,8 +203,8 @@ export default function TarjetaDigitalPage() {
                             <div className="p-4 bg-primary/10 rounded-2xl w-fit mx-auto mb-4 shadow-inner border border-primary/5">
                                 <QrCode className="h-10 w-10 text-primary"/>
                             </div>
-                            <h3 className="font-black text-xl tracking-tighter mb-1 text-white">Acceso Digital</h3>
-                            <p className="text-[10px] text-muted-foreground font-semibold">Escanea para conectar</p>
+                            <h3 className="font-black text-xl tracking-tighter mb-1 text-white uppercase italic">Acceso Digital</h3>
+                            <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-widest">Escanea para conectar</p>
                         </div>
 
                         <div className="p-4 bg-white rounded-2xl shadow-xl border-[1px] border-black/5 relative group/qr">
@@ -216,7 +216,7 @@ export default function TarjetaDigitalPage() {
                         </div>
                         
                         <div className="mt-8 space-y-3 w-full">
-                            <Button variant="outline" className="w-full rounded-xl h-10 border-primary/10 hover:bg-primary/5 text-xs font-bold" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
+                            <Button variant="outline" className="w-full rounded-xl h-10 border-primary/10 hover:bg-primary/5 text-[9px] font-black uppercase tracking-widest" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
                                 <Globe className="mr-2 h-3.5 w-3.5" /> Visitar Website
                             </Button>
                             <Button variant="ghost" className="no-print rounded-lg font-black uppercase text-[8px] tracking-[0.2em] opacity-50 hover:opacity-100" onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}>
@@ -233,10 +233,10 @@ export default function TarjetaDigitalPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
             >
-                <Button className="flex-1 h-11 font-black rounded-xl shadow-lg btn-3d-primary text-xs" onClick={handleSaveContact}>
+                <Button className="flex-1 h-11 font-black rounded-xl shadow-lg btn-3d-primary text-[9px] uppercase tracking-widest" onClick={handleSaveContact}>
                     <Download className="mr-2 h-4 w-4"/> Guardar VCF
                 </Button>
-                <Button variant="secondary" className="flex-1 h-11 font-black rounded-xl shadow-md text-xs border border-border/50" onClick={handleShare}>
+                <Button variant="secondary" className="flex-1 h-11 font-black rounded-xl shadow-md text-[9px] uppercase tracking-widest border border-border/50" onClick={handleShare}>
                     <Share2 className="mr-2 h-4 w-4"/> Compartir
                 </Button>
             </motion.div>
