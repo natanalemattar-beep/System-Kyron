@@ -41,7 +41,10 @@ import {
     History,
     Activity,
     Stamp,
-    Banknote
+    Banknote,
+    Building2,
+    UserCheck,
+    FileSignature
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -61,8 +64,11 @@ const navigationConfig = [
       items: [
           { label: "Libros Maestros", href: "/contabilidad/libros", icon: BookOpen },
           { label: "Gestión de Cuentas", href: "/contabilidad/cuentas", icon: Wallet },
-          { label: "Análisis Estratégico", href: "/contabilidad/analisis", icon: PieChart },
+          { label: "Análisis e Inteligencia", href: "/contabilidad/analisis", icon: PieChart },
           { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
+          { label: "Certificación Empresa", href: "/contabilidad/certificaciones/empresa", icon: Building2 },
+          { label: "Certificación Socios", href: "/contabilidad/certificaciones/socios", icon: UserCheck },
+          { label: "Constancia Trabajo", href: "/contabilidad/certificaciones/trabajo", icon: FileSignature },
       ]
   },
   { 

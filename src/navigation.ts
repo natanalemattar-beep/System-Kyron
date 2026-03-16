@@ -60,11 +60,17 @@ export const pathnames = {
 
   // ANALISIS SUB-PORTAL
   '/contabilidad/analisis': '/contabilidad/analisis',
+  '/contabilidad/analisis/factibilidad': '/estudio-factibilidad-economica',
   '/contabilidad/analisis/por-producto': '/contabilidad/analisis/por-producto',
   '/contabilidad/analisis/por-cliente': '/contabilidad/analisis/por-cliente',
   '/contabilidad/analisis/ratios': '/contabilidad/analisis/ratios',
   '/contabilidad/analisis/sensibilidad': '/contabilidad/analisis/sensibilidad',
   '/contabilidad/analisis/benchmarking': '/contabilidad/analisis/benchmarking',
+
+  // CERTIFICACIONES
+  '/contabilidad/certificaciones/empresa': '/contabilidad/certificaciones/empresa',
+  '/contabilidad/certificaciones/socios': '/contabilidad/certificaciones/socios',
+  '/contabilidad/certificaciones/trabajo': '/contabilidad/certificaciones/trabajo',
 
   // ANALISIS RENTABILIDAD
   '/analisis-rentabilidad': '/analisis-rentabilidad',

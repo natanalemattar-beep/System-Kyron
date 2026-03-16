@@ -42,7 +42,8 @@ import {
   History,
   Percent,
   BookOpen,
-  Calendar
+  Calendar,
+  Building2
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -98,7 +99,7 @@ export const adminNavGroups = [
         { href: "/contabilidad", label: "Centro Contable", icon: Calculator },
         { href: "/contabilidad/libros", label: "Libros Maestros", icon: BookOpen },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
-        { href: "/contabilidad/analisis", label: "Análisis BI", icon: PieChart },
+        { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart },
     ],
     subGroups: []
   },
@@ -112,6 +113,16 @@ export const adminNavGroups = [
         { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario", icon: Calendar },
         { href: "/contabilidad/tributos/multas", label: "Multas", icon: Gavel },
         { href: "/contabilidad/tributos/homologacion", label: "Homologación", icon: ShieldCheck },
+    ],
+    subGroups: []
+  },
+  {
+    title: "Certificaciones",
+    icon: ShieldCheck,
+    items: [
+        { href: "/contabilidad/certificaciones/empresa", label: "Cert. Empresa", icon: Building2 },
+        { href: "/contabilidad/certificaciones/socios", label: "Cert. Socios", icon: UserCheck },
+        { href: "/contabilidad/certificaciones/trabajo", label: "Constancia Trabajo", icon: FileSignature },
     ],
     subGroups: []
   },
