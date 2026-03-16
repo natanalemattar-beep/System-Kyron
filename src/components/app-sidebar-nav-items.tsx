@@ -64,7 +64,6 @@ export const naturalNavGroups = [
         title: "Identidad",
         icon: User,
         items: [
-            { href: "/dashboard", label: "Panel Central", icon: Home },
             { href: "/tarjeta-digital", label: "ID Digital 3D", icon: User },
             { href: "/perfil", label: "Datos Maestros", icon: UserCog },
             { href: "/seguridad", label: "Privacidad", icon: ShieldCheck },
@@ -109,20 +108,18 @@ export const naturalNavGroups = [
 ];
 
 export const adminNavGroups = [
-  { 
-    title: "Administración", 
-    icon: LayoutDashboard, 
-    items: [
-        { href: "/dashboard-empresa", label: "Resumen General", icon: LayoutDashboard },
-        { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
-    ], 
-    subGroups: [] 
-  },
   {
-    title: "Proyectos e Ingeniería",
+    title: "Estrategia",
     icon: Hammer,
     items: [
+        { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
         { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
+    ]
+  },
+  {
+    title: "Proyectos",
+    icon: ClipboardList,
+    items: [
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
     ]
@@ -203,9 +200,8 @@ export const sostenibilidadNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Inicio", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Inicio Legal", icon: Gavel }], subGroups: [] },
   { 
-    title: "Gestión", 
+    title: "Gestión Jurídica", 
     icon: Gavel, 
     items: [
         { href: "/generador-documentos", label: "Crear Contratos", icon: Wand2 },
@@ -217,9 +213,8 @@ export const legalNavGroups = [
 ];
 
 export const rrhhNavGroups = [
-    { title: "Inicio", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Inicio RR.HH.", icon: LayoutDashboard }], subGroups: []},
     { 
-        title: "Operaciones", 
+        title: "Operaciones RR.HH.", 
         icon: Users, 
         items: [
             { href: "/nominas", label: "Pago de Nómina", icon: Users },
@@ -231,23 +226,19 @@ export const rrhhNavGroups = [
 ];
 
 export const sociosNavGroups = [
-    { title: "Estrategia", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Dashboard Socios", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas Holding", icon: Gavel },
-    ], subGroups: [] },
+    { 
+        title: "Supervisión", 
+        icon: Briefcase, 
+        items: [
+            { href: "/poderes-representacion", label: "Empresas Holding", icon: Gavel },
+        ], 
+        subGroups: [] 
+    },
 ];
 
 export const telecomNavGroups = [
   { 
-    title: "Estado Técnico", 
-    icon: Signal, 
-    items: [ 
-      { href: "/dashboard-telecom", label: "Estado de Red", icon: Signal },
-    ], 
-    subGroups: [] 
-  },
-  { 
-    title: "Servicios", 
+    title: "Servicios Telecom", 
     icon: Smartphone, 
     items: [ 
       { href: "/venta-linea", label: "Nueva Línea", icon: Phone },

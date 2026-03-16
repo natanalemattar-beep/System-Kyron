@@ -113,7 +113,10 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                             </div>
                         </DropdownMenuLabel>
                         <div className="grid grid-cols-2 gap-1.5">
-                            {group.items.filter(i => i.label !== 'Inicio' && i.label !== 'Panel Central' && i.label !== 'Resumen General' && i.href !== dashboardHref).map((item) => (
+                            {group.items.filter(item => 
+                                item.href !== dashboardHref && 
+                                !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
+                            ).map((item) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-xl h-11 focus:bg-primary/5 group/item cursor-pointer">
                                     <Link href={item.href as any} className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
                                         <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 transition-colors">
