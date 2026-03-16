@@ -44,33 +44,58 @@ import {
   BookOpen,
   Calendar,
   Building2,
-  Bot
+  Bot,
+  Stethoscope,
+  BookMarked,
+  LifeBuoy
 } from "lucide-react";
 
 export const naturalNavGroups = [
     {
-        title: "Principal",
-        icon: Home,
+        title: "Identidad",
+        icon: User,
         items: [
-            { href: "/dashboard", label: "Inicio", icon: Home },
-            { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
-            { href: "/cuenta-personal/certificados-ingreso", label: "Cert. Ingreso", icon: FileText },
-            { href: "/seguridad", label: "Seguridad", icon: Shield },
-            { href: "/notificaciones", label: "Avisos", icon: Bell },
+            { href: "/dashboard", label: "Panel Central", icon: Home },
+            { href: "/tarjeta-digital", label: "ID Digital 3D", icon: User },
+            { href: "/perfil", label: "Datos Maestros", icon: UserCog },
+            { href: "/seguridad", label: "Privacidad", icon: ShieldCheck },
         ],
-        subGroups: [],
     },
     {
-        title: "Trámites",
-        icon: FileText,
+        title: "Documentos",
+        icon: FolderArchive,
         items: [
-            { href: "/documentos", label: "Mis Documentos", icon: File },
-            { href: "/partidas-nacimiento", label: "Partida de Nacimiento", icon: Heart },
-            { href: "/actas-matrimonio", label: "Acta de Matrimonio", icon: FileText },
-            { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-            { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+            { href: "/documentos", label: "Bóveda Civil", icon: Lock },
+            { href: "/cuenta-personal/certificados-ingreso", label: "Cert. Ingresos", icon: Banknote },
+            { href: "/antecedentes-penales", label: "Antecedentes", icon: Gavel },
+            { href: "/registro-rif", label: "RIF Familiar", icon: FileEdit },
         ],
-        subGroups: [],
+    },
+    {
+        title: "Salud y Bienestar",
+        icon: Stethoscope,
+        items: [
+            { href: "/directorio-medico", label: "Red Médica", icon: Stethoscope },
+            { href: "/carnet-personal", label: "Carnet Salud", icon: Heart },
+            { href: "/manutencion", label: "LOPNNA Sync", icon: Scale },
+        ],
+    },
+    {
+        title: "Gestión Civil",
+        icon: BookMarked,
+        items: [
+            { href: "/partidas-nacimiento", label: "Partidas", icon: FileText },
+            { href: "/actas-matrimonio", label: "Actas Nupciales", icon: Heart },
+            { href: "/documentos-judiciales", label: "Buzón Judicial", icon: Gavel },
+        ],
+    },
+    {
+        title: "Ayuda",
+        icon: LifeBuoy,
+        items: [
+            { href: "/manual-usuario", label: "Guía Usuario", icon: BookOpen },
+            { href: "/notificaciones", label: "Avisos", icon: Bell },
+        ],
     }
 ];
 

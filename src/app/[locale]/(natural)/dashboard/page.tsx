@@ -1,55 +1,58 @@
 
 "use client";
 
-import { Card, CardContent, CardTitle, CardDescription, CardHeader, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
     CheckCircle, 
+    Clock, 
     ShieldAlert, 
-    Fingerprint, 
-    ArrowRight, 
+    User, 
     FileText, 
-    Bell,
-    Settings,
-    ShieldCheck,
-    History
+    Stethoscope, 
+    Scale, 
+    History,
+    ChevronRight,
+    Search,
+    Lock,
+    LifeBuoy
 } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatDate, cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 const kpiData = [
-  { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15 días", color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "ID Digital", value: "VERIFICADA", icon: Fingerprint, desc: "Acceso Nivel 5", color: "text-primary", bg: "bg-primary/10" },
-  { title: "Trámites", value: "2 en curso", icon: History, desc: "Partida de Nacimiento", color: "text-emerald-400", bg: "bg-emerald-400/5" },
+  { title: "Expediente Civil", value: "Completo", icon: FileText, color: "text-blue-600", bg: "bg-blue-50", desc: "4 documentos verificados" },
+  { title: "ID Digital 3D", value: "Nivel 5", icon: Lock, color: "text-primary", bg: "bg-primary/5", desc: "Acceso Maestro Activado" },
+  { title: "Gestiones", value: "2 Activas", icon: Clock, color: "text-amber-600", bg: "bg-amber-50", desc: "1 respuesta pendiente" },
+  { title: "Salud Cobertura", value: "Vigente", icon: Stethoscope, color: "text-emerald-600", bg: "bg-emerald-50", desc: "Red El Ávila activa" },
 ];
 
 export default function DashboardPersonalPage() {
   return (
-    <div className="space-y-12 w-full animate-in fade-in duration-700 px-6 md:px-10 pb-20">
-      
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-8 py-2">
-        <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/10">
-                <ShieldCheck className="h-3 w-3" /> IDENTIDAD VERIFICADA
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">¡Hola, Carlos!</h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Acceso Seguro • Gestión Personal 2.6</p>
+    <div className="space-y-8 animate-in fade-in duration-700">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="space-y-1">
+            <h1 className="text-xl md:text-3xl font-black tracking-tight uppercase italic text-foreground/90">Mi Terminal <span className="text-primary">Ciudadana</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Expediente Maestro • Usuario: Carlos Mattar</p>
         </div>
         
-        <div className="flex gap-3">
-            <Button asChild variant="outline" className="h-12 px-6 rounded-xl border-white/5 bg-white/5 text-white/60 font-black text-[9px] uppercase tracking-widest hover:bg-white/10">
-                <Link href="/tarjeta-digital" className="flex items-center gap-2"><UserCircleIcon className="h-4 w-4" /> Mi ID Digital</Link>
-            </Button>
-            <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
-                <Link href="/notificaciones"><Bell className="h-5 w-5 text-white/40" /></Link>
+        <div className="flex gap-2">
+            <div className="relative hidden md:block">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                <Input placeholder="Buscar trámite..." className="h-9 w-64 rounded-xl pl-9 text-[10px] font-bold uppercase bg-white/5 border-border" />
+            </div>
+            <Button asChild size="sm" className="btn-3d-primary h-9 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest">
+                <Link href="/tarjeta-digital">Ver ID Digital</Link>
             </Button>
         </div>
       </header>
       
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {/* KPIs Compactos */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {kpiData.map((kpi, index) => (
             <motion.div
               key={kpi.title}
@@ -57,56 +60,57 @@ export default function DashboardPersonalPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="bg-white/[0.02] border-white/5 rounded-[2rem] overflow-hidden group hover:bg-white/[0.04] transition-all duration-500 shadow-xl">
-                  <CardContent className="p-8">
-                      <div className="flex justify-between items-center mb-8">
-                        <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/20">{kpi.title}</p>
-                        <div className={cn("p-3 rounded-xl border border-white/5 transition-all group-hover:-rotate-6", kpi.bg)}>
-                            <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+              <Card className="border-none shadow-sm bg-card/40 backdrop-blur-sm rounded-2xl group hover:bg-white/[0.05] transition-all">
+                  <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">{kpi.title}</p>
+                        <div className={cn("p-2 rounded-lg", kpi.bg, kpi.color)}>
+                            <kpi.icon className="h-3.5 w-3.5" />
                         </div>
                       </div>
-                      <p className="text-2xl font-black italic text-white/90 leading-none mb-3 uppercase">{kpi.value}</p>
-                      <p className={cn("text-[10px] font-bold uppercase tracking-widest", kpi.title === "Mis Documentos" ? "text-amber-400" : "text-white/30")}>{kpi.desc}</p>
+                      <p className="text-xl font-black italic tracking-tighter text-foreground/90 leading-none">{kpi.value}</p>
+                      <p className="text-[8px] font-bold text-muted-foreground uppercase mt-2 tracking-widest">{kpi.desc}</p>
                   </CardContent>
               </Card>
             </motion.div>
         ))}
       </div>
 
-      <div className="grid gap-10 grid-cols-1 lg:grid-cols-12">
-        <Card className="lg:col-span-8 bg-white/[0.01] border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
-            <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
-                <div className="space-y-1">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
-                        <Fingerprint className="text-primary h-6 w-6" /> Mis Documentos Recientes
-                    </CardTitle>
-                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Archivo Personal Protegido</p>
-                </div>
-                <Button variant="ghost" asChild size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">
-                    <Link href="/documentos">Ver Todo</Link>
-                </Button>
+      <div className="grid gap-8 lg:grid-cols-12">
+        {/* Historial Principal */}
+        <Card className="lg:col-span-8 border-none shadow-xl bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+            <CardHeader className="p-8 border-b border-border/50 bg-muted/10 flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-primary">Estado de Solicitudes</CardTitle>
+                <CardDescription className="text-[10px] font-bold text-muted-foreground mt-1">Trámites ante registros y notarías</CardDescription>
+              </div>
+              <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary">Archivo histórico</Button>
             </CardHeader>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-white/[0.02] border-none">
-                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Documento</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Fecha</TableHead>
-                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Acción</TableHead>
+                        <TableRow className="bg-muted/30 border-none">
+                            <TableHead className="pl-8 text-[9px] font-black uppercase tracking-widest">Referencia</TableHead>
+                            <TableHead className="text-[9px] font-black uppercase tracking-widest">Servicio Institucional</TableHead>
+                            <TableHead className="text-right pr-8 text-[9px] font-black uppercase tracking-widest">Estatus</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {[
-                            { name: "Cédula de Identidad", date: "15/01/2024", type: "Identidad" },
-                            { name: "RIF Personal", date: "20/05/2024", type: "Fiscal" },
-                        ].map((doc, i) => (
-                            <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
-                                <TableCell className="pl-10 py-6 font-black text-xs text-white/80 uppercase italic">{doc.name}</TableCell>
-                                <TableCell className="py-6 text-[10px] font-bold text-white/30 uppercase">{doc.date}</TableCell>
-                                <TableCell className="text-right pr-10">
-                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary">
-                                        <ArrowRight className="h-4 w-4" />
-                                    </Button>
+                            { ref: "CIV-2026-X1", label: "Cédula Digital", date: "15/03/2026", status: "Aprobado", color: "text-emerald-500", bg: "bg-emerald-50" },
+                            { ref: "REG-2026-M4", label: "Partida de Nacimiento", date: "12/03/2026", status: "En Proceso", color: "text-blue-500", bg: "bg-blue-50" },
+                            { ref: "FIS-2026-R9", label: "Actualización RIF", date: "Hoy", status: "Acción Requerida", color: "text-rose-500", bg: "bg-rose-50" },
+                        ].map((row, i) => (
+                            <TableRow key={i} className="hover:bg-muted/5 border-b border-border/50 group">
+                                <TableCell className="font-mono text-[10px] font-black text-primary pl-8">{row.ref}</TableCell>
+                                <TableCell className="py-4">
+                                    <div className="flex flex-col">
+                                        <span className="text-xs font-black uppercase italic group-hover:text-primary transition-colors">{row.label}</span>
+                                        <span className="text-[9px] text-muted-foreground font-medium uppercase mt-0.5">{row.date}</span>
+                                    </div>
+                                </TableCell>
+                                <TableCell className="text-right pr-8">
+                                    <Badge variant="outline" className={cn("text-[8px] font-black uppercase tracking-widest h-5 px-2 border-none", row.bg, row.color)}>{row.status}</Badge>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -115,59 +119,78 @@ export default function DashboardPersonalPage() {
             </CardContent>
         </Card>
 
-        <div className="lg:col-span-4 space-y-8">
-           <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-primary">
-                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><ShieldCheck className="h-20 w-20" /></div>
-                <h3 className="text-sm font-black text-primary uppercase tracking-[0.3em] mb-6 flex items-center gap-3 text-white">
-                    Protección de Datos
-                </h3>
-                <div className="space-y-6">
-                    <p className="text-xs font-medium text-white/40 leading-relaxed uppercase">
-                        Su identidad está sellada mediante el protocolo Kyron v2.6. Sus documentos civiles residen en un nodo de almacenamiento cifrado inaccesible para terceros.
-                    </p>
-                    <Button asChild variant="outline" className="w-full h-12 rounded-xl border-primary/20 text-primary hover:bg-primary/10 font-black text-[9px] uppercase tracking-widest">
-                        <Link href="/seguridad">GESTIONAR PRIVACIDAD</Link>
-                    </Button>
+        {/* Accesos y Alertas */}
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="border-none shadow-xl bg-primary text-primary-foreground rounded-[2rem] overflow-hidden relative group">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+                    <LifeBuoy className="h-20 w-20" />
                 </div>
+                <CardHeader className="p-8 pb-4">
+                    <CardTitle className="text-sm font-black uppercase italic tracking-tighter">Asistencia Legal</CardTitle>
+                    <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Consultoría Personal</p>
+                </CardHeader>
+                <CardContent className="px-8 pb-8 space-y-4">
+                    <p className="text-[10px] leading-relaxed font-medium uppercase tracking-wide opacity-80">
+                        ¿Tienes dudas sobre tu declaración de ISLR o un trámite sucesoral? Solicita orientación a nuestro nodo jurídico.
+                    </p>
+                    <Button variant="secondary" asChild className="w-full h-10 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">
+                        <Link href="/manual-usuario">Pedir ayuda IA</Link>
+                    </Button>
+                </CardContent>
            </Card>
 
-           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm rounded-[2rem]">
-                <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Avisos del Sistema</CardTitle>
+           <Card className="border-none shadow-sm bg-card/40 backdrop-blur-sm rounded-[2rem] p-2">
+                <CardHeader className="p-6 pb-2">
+                    <CardTitle className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Notificaciones Críticas</CardTitle>
                 </CardHeader>
-                <CardContent className="px-8 pb-8">
-                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10 flex items-start gap-3">
-                        <ShieldAlert className="h-4 w-4 text-red-500 mt-0.5" />
-                        <div className="text-[10px]">
-                            <p className="font-black text-red-500 uppercase">Actualización de RIF</p>
-                            <p className="text-red-400/70 mt-1 font-medium leading-tight uppercase">Su registro fiscal requiere actualización antes del cierre del periodo.</p>
+                <CardContent className="p-6 pt-4 space-y-4">
+                    <div className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/10 flex items-start gap-4">
+                        <ShieldAlert className="h-4 w-4 text-rose-500 mt-0.5" />
+                        <div className="space-y-1">
+                            <p className="text-[9px] font-black text-rose-600 uppercase">Renovación de RIF</p>
+                            <p className="text-[8px] text-rose-500/70 font-bold leading-tight uppercase">Su registro fiscal vence el 15/04/2026. Evite multas del SENIAT.</p>
+                        </div>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-start gap-4">
+                        <History className="h-4 w-4 text-blue-500 mt-0.5" />
+                        <div className="space-y-1">
+                            <p className="text-[9px] font-black text-blue-600 uppercase">Firma de Documentos</p>
+                            <p className="text-[8px] text-blue-500/70 font-bold leading-tight uppercase">Tienes 1 acta pendiente por sellar en tu buzón judicial.</p>
                         </div>
                     </div>
                 </CardContent>
            </Card>
         </div>
       </div>
+
+      {/* Servicios Ciudadanos Secundarios */}
+      <section className="pt-4">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 ml-4 mb-6">Módulos Especializados</h3>
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
+            {[
+                { title: "Directorio Médico", icon: Stethoscope, href: "/directorio-medico", desc: "Clínicas y especialistas afiliados." },
+                { title: "LOPNNA Sync", icon: Scale, href: "/manutencion", desc: "Gestión de obligación de manutención." },
+                { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo inmutable de documentos." },
+            ].map((serv, i) => (
+                <Link key={i} href={serv.href as any} className="group">
+                    <Card className="border-none shadow-md bg-card/40 hover:bg-primary/5 transition-all rounded-[2rem] p-8 flex flex-col justify-between min-h-[160px]">
+                        <div className="flex items-center gap-5">
+                            <div className="p-3.5 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20">
+                                <serv.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                            </div>
+                            <div className="space-y-1">
+                                <h4 className="text-sm font-black uppercase italic tracking-tight text-foreground group-hover:text-primary transition-colors">{serv.title}</h4>
+                                <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{serv.desc}</p>
+                            </div>
+                        </div>
+                        <div className="flex justify-end">
+                            <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                        </div>
+                    </Card>
+                </Link>
+            ))}
+        </div>
+      </section>
     </div>
   );
-}
-
-function UserCircleIcon(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="10" r="3" />
-            <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
-        </svg>
-    )
 }
