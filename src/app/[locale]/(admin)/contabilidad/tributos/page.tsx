@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -95,11 +96,11 @@ const tributoCategories = [
 ];
 
 const registrationStatus = [
-    { label: "SENIAT (RIF)", status: "Vigente", date: "15/01/2027", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { label: "IVSS (Patronal)", status: "Vigente", date: "Indefinido", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { label: "SAPI (Marcas)", status: "Vigente", date: "10/02/2032", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { label: "MIN. INDUSTRIAS", status: "Alerta", date: "15/05/2026", color: "text-amber-500", bg: "bg-amber-500/10" },
-    { label: "CONATEL", status: "Vigente", date: "20/03/2028", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: "SENIAT (RIF)", status: "Vigente", date: "15/01/2027", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/iva" },
+    { label: "IVSS (Patronal)", status: "Vigente", date: "Indefinido", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/aportes-parafiscales" },
+    { label: "SAPI (Marcas)", status: "Vigente", date: "10/02/2032", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/permisos" },
+    { label: "MIN. INDUSTRIAS", status: "Alerta", date: "15/05/2026", color: "text-amber-500", bg: "bg-amber-500/10", href: "/contabilidad/tributos/ministerio-industrias" },
+    { label: "CONATEL", status: "Vigente", date: "20/03/2028", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/conatel/licenses" },
 ];
 
 export default function TributosHubPage() {
@@ -210,15 +211,17 @@ export default function TributosHubPage() {
 
                     <div className="space-y-4">
                         {registrationStatus.map((reg, i) => (
-                            <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between group/item hover:bg-white/10 transition-all">
-                                <div className="space-y-1">
-                                    <p className="text-[9px] font-black text-white/80 uppercase">{reg.label}</p>
-                                    <p className="text-[7px] font-bold text-white/20 uppercase tracking-widest">Vence: {reg.date}</p>
+                            <Link key={i} href={reg.href as any} className="block">
+                                <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between group/item hover:bg-white/10 transition-all">
+                                    <div className="space-y-1">
+                                        <p className="text-[9px] font-black text-white/80 uppercase">{reg.label}</p>
+                                        <p className="text-[7px] font-bold text-white/20 uppercase tracking-widest">Vence: {reg.date}</p>
+                                    </div>
+                                    <Badge className={cn("text-[7px] font-black uppercase px-2 h-5 border-none shadow-glow-sm", reg.bg, reg.color)}>
+                                        {reg.status}
+                                    </Badge>
                                 </div>
-                                <Badge className={cn("text-[7px] font-black uppercase px-2 h-5 border-none shadow-glow-sm", reg.bg, reg.color)}>
-                                    {reg.status}
-                                </Badge>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 
