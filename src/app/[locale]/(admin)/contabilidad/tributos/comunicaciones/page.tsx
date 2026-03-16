@@ -34,6 +34,7 @@ import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from "next/image";
 
 const institutions = [
     { id: "seniat", name: "SENIAT", address: "Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)\nUnidad de Tributos Internos" },
@@ -97,10 +98,10 @@ export default function ComunicacionesSeniatPage() {
         const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
         
         if (tipoCarta === 'inactividad') {
-            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia.\n\nAtentamente,\n\n\n\n`;
         }
 
-        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada.\n\nAtentamente,\n\n\n\n`;
     };
 
     const handleDownloadWord = () => {
@@ -143,7 +144,6 @@ export default function ComunicacionesSeniatPage() {
                 </CardHeader>
                 <CardContent className="p-0 space-y-6">
                     
-                    {/* BÚSQUEDA DE INSTITUCIÓN */}
                     <div className="space-y-3">
                         <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución Destino</Label>
                         <Popover>
@@ -247,6 +247,46 @@ export default function ComunicacionesSeniatPage() {
 
                 <div className="whitespace-pre-wrap text-base md:text-lg text-justify leading-relaxed relative z-10 flex-grow">
                     {getLetterContent()}
+                </div>
+
+                {/* SECCIÓN DE FIRMA Y SELLO INTEGRADO */}
+                <div className="mt-10 pt-10 flex justify-between items-end relative z-10">
+                    <div className="flex flex-col items-center">
+                        <div className="relative mb-4">
+                            {/* Firma Digitalizada Placeholder */}
+                            <Image 
+                                src="https://picsum.photos/seed/signature-kyron/200/100" 
+                                alt="Firma" 
+                                width={160} 
+                                height={80} 
+                                className="mix-blend-multiply opacity-90 brightness-90 contrast-125"
+                            />
+                            {/* Sello Institucional Kyron */}
+                            <div className="absolute -top-6 -right-10 w-28 h-28 border-4 border-primary/20 rounded-full flex items-center justify-center rotate-12 pointer-events-none bg-primary/5 backdrop-blur-[1px]">
+                                <div className="text-center p-2">
+                                    <Logo className="h-10 w-10 opacity-40 grayscale mb-1" />
+                                    <p className="text-[6px] font-black uppercase text-primary/40 leading-none">VALIDADO<br/>KYRON 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-56 h-[1.5px] bg-slate-900 mb-2" />
+                        <p className="font-black text-xs uppercase tracking-tight">{data.representante}</p>
+                        <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
+                        <p className="text-[9px] uppercase font-bold opacity-40">Representante Legal</p>
+                    </div>
+                    
+                    <div className="text-right">
+                        <div className="p-2 border-2 border-slate-100 rounded-2xl bg-white shadow-inner inline-block">
+                            <Image 
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`} 
+                                alt="QR Verificacion" 
+                                width={90} 
+                                height={90} 
+                                className="grayscale"
+                            />
+                        </div>
+                        <p className="text-[7px] font-black uppercase mt-3 opacity-20 tracking-[0.3em]">Integridad Digital Sellada</p>
+                    </div>
                 </div>
 
                 <footer className="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 no-print relative z-10">
