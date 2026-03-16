@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     ShieldCheck, Calculator, Activity, Landmark, Percent, Zap, 
     Building2, Terminal, Download, ClipboardList, Copy, CheckCircle2,
-    Clock, AlertTriangle, ArrowLeft
+    Clock, AlertTriangle, ArrowLeft, HeartPulse, UserX
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
@@ -60,6 +60,36 @@ const parafiscales = [
         color: "text-amber-500", 
         bg: "bg-amber-500/10",
         status: "Activo"
+    },
+    { 
+        id: "paro_forzoso", 
+        name: "Paro Forzoso", 
+        logo: UserX, 
+        rates: { patronal: "2%", empleado: "0.5%" }, 
+        base: "Tope: 10 Salarios Mínimos", 
+        legal: "Ley del Régimen Prestacional de Empleo",
+        bank: "Banco de Venezuela",
+        account: "0102-0001-22-0000123456",
+        rif: "G-20000001-0",
+        documents: ["Planilla de Egreso", "Registro de Empresa", "Listado de Cotizantes"],
+        color: "text-rose-500", 
+        bg: "bg-rose-500/10",
+        status: "Activo"
+    },
+    { 
+        id: "lopcymat", 
+        name: "LOPCYMAT (Salud Laboral)", 
+        logo: HeartPulse, 
+        rates: { patronal: "0.75% - 10%", empleado: "0%" }, 
+        base: "Nómina Mensual s/riesgo", 
+        legal: "LOPCYMAT",
+        bank: "Banco de Venezuela (INPSASEL)",
+        account: "0102-0001-22-0000777888",
+        rif: "G-20000004-0",
+        documents: ["Registro INPSASEL", "Programa de Seguridad", "Delegados de Prevención"],
+        color: "text-purple-500", 
+        bg: "bg-purple-500/10",
+        status: "Activo"
     }
 ];
 
@@ -83,7 +113,7 @@ export default function AportesParafiscalesPage() {
                         <Building2 className="h-3 w-3" /> NODO DE SEGURIDAD SOCIAL
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Aportes <span className="text-primary italic">Parafiscales</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">IVSS • FAOV • INCES • LOPCYMAT • 2026</p>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">IVSS • FAOV • INCES • PARO FORZOSO • LOPCYMAT • 2026</p>
                 </div>
                 <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
                     <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER AL HUB</Link>
@@ -91,9 +121,9 @@ export default function AportesParafiscalesPage() {
             </header>
 
             <Tabs defaultValue="ivss" onValueChange={setSelectedTab} className="w-full">
-                <TabsList className="flex h-16 bg-white border border-border rounded-[2rem] p-2 mb-12 shadow-inner overflow-x-auto no-scrollbar">
+                <TabsList className="flex h-16 bg-white dark:bg-card/40 border border-border dark:border-white/5 rounded-[2rem] p-2 mb-12 shadow-inner overflow-x-auto no-scrollbar">
                     {parafiscales.map(p => (
-                        <TabsTrigger key={p.id} value={p.id} className="flex-1 rounded-2xl font-black uppercase text-[10px] tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all min-w-[120px]">
+                        <TabsTrigger key={p.id} value={p.id} className="flex-1 rounded-2xl font-black uppercase text-[9px] tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all min-w-[120px]">
                             {p.name.split(' (')[0]}
                         </TabsTrigger>
                     ))}
@@ -104,35 +134,35 @@ export default function AportesParafiscalesPage() {
                         <div className="grid gap-10 lg:grid-cols-12">
                             {/* Información Técnica */}
                             <div className="lg:col-span-7 space-y-10">
-                                <Card className="glass-card border-none rounded-[3rem] bg-white p-10 shadow-2xl">
+                                <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-10 shadow-2xl">
                                     <div className="flex justify-between items-start mb-10">
                                         <div className="flex items-center gap-6">
-                                            <div className={cn("p-5 rounded-[2rem] border border-border shadow-inner", p.bg)}>
+                                            <div className={cn("p-5 rounded-[2rem] border border-border dark:border-white/5 shadow-inner", p.bg)}>
                                                 <p.logo className={cn("h-8 w-8", p.color)} />
                                             </div>
                                             <div>
-                                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800">{p.name}</h3>
+                                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">{p.name}</h3>
                                                 <p className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">{p.legal}</p>
                                             </div>
                                         </div>
-                                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none h-7 px-4 text-[9px] font-black uppercase">{p.status}</Badge>
+                                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none h-7 px-4 text-[9px] font-black uppercase tracking-widest">{p.status}</Badge>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div className="space-y-6">
                                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 italic">Tasas Vigentes</h4>
                                             <div className="space-y-4">
-                                                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                                                <div className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3">
                                                     <span className="text-[9px] font-bold text-slate-500 uppercase">Patronal</span>
-                                                    <span className="text-sm font-black text-slate-800">{p.rates.patronal}</span>
+                                                    <span className="text-sm font-black text-slate-800 dark:text-white">{p.rates.patronal}</span>
                                                 </div>
-                                                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                                                <div className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3">
                                                     <span className="text-[9px] font-bold text-slate-500 uppercase">Empleado</span>
-                                                    <span className="text-sm font-black text-slate-800">{p.rates.empleado}</span>
+                                                    <span className="text-sm font-black text-slate-800 dark:text-white">{p.rates.empleado}</span>
                                                 </div>
                                                 <div className="pt-2">
                                                     <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-1">Base de Cálculo</p>
-                                                    <p className="text-xs font-bold text-slate-600">{p.base}</p>
+                                                    <p className="text-xs font-bold text-slate-600 dark:text-slate-400">{p.base}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +171,7 @@ export default function AportesParafiscalesPage() {
                                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 italic">Requisitos de Inscripción</h4>
                                             <ul className="space-y-3">
                                                 {p.documents.map((doc, i) => (
-                                                    <li key={i} className="flex items-center gap-3 text-[10px] font-bold text-slate-500 uppercase leading-snug">
+                                                    <li key={i} className="flex items-center gap-3 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase leading-snug">
                                                         <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" /> {doc}
                                                     </li>
                                                 ))}
@@ -149,7 +179,7 @@ export default function AportesParafiscalesPage() {
                                         </div>
                                     </div>
                                     
-                                    <div className="mt-10 pt-10 border-t border-slate-100">
+                                    <div className="mt-10 pt-10 border-t border-slate-100 dark:border-white/5">
                                         <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={() => alert("Asesoría disponible en la versión completa")}>INICIAR TRÁMITE DE REGISTRO</Button>
                                     </div>
                                 </Card>
@@ -193,15 +223,15 @@ export default function AportesParafiscalesPage() {
                                     </div>
                                 </Card>
 
-                                <Card className="glass-card border-none rounded-[2.5rem] bg-white p-8 shadow-xl">
+                                <Card className="glass-card border-none rounded-[2.5rem] bg-white dark:bg-card/40 p-8 shadow-xl">
                                     <div className="flex items-center gap-4 mb-6">
                                         <Clock className="h-6 w-6 text-amber-500 animate-pulse" />
-                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-800">Próxima Renovación</h4>
+                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-800 dark:text-white">Próxima Renovación</h4>
                                     </div>
                                     <div className="space-y-4">
-                                        <div className="flex justify-between items-end border-b border-slate-100 pb-4">
+                                        <div className="flex justify-between items-end border-b border-slate-100 dark:border-white/5 pb-4">
                                             <span className="text-[9px] font-bold text-slate-400 uppercase">Última:</span>
-                                            <span className="text-xs font-black text-slate-600">15/01/2024</span>
+                                            <span className="text-xs font-black text-slate-600 dark:text-slate-300">15/01/2024</span>
                                         </div>
                                         <div className="flex justify-between items-end">
                                             <span className="text-[9px] font-bold text-slate-400 uppercase">Vencimiento:</span>
