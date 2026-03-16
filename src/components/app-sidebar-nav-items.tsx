@@ -38,7 +38,9 @@ import {
   Wallet,
   Landmark,
   BarChart3,
-  Scale
+  Scale,
+  History,
+  Percent
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -82,7 +84,7 @@ export const adminNavGroups = [
     title: "Administración", 
     icon: LayoutDashboard, 
     items: [
-        { href: "/resumen-negocio", label: "Resumen General", icon: LayoutDashboard },
+        { href: "/dashboard-empresa", label: "Resumen General", icon: LayoutDashboard },
         { href: "/analisis-rentabilidad", label: "Rentabilidad Pro", icon: TrendingUp },
     ], 
     subGroups: [] 
@@ -92,12 +94,22 @@ export const adminNavGroups = [
     icon: Calculator,
     items: [
         { href: "/contabilidad", label: "Centro Contable", icon: Calculator },
-        { href: "/libro-compra-venta", label: "Libros Fiscales", icon: Landmark },
-        { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
-        { href: "/islr-arc", label: "Comprobantes AR-C", icon: Banknote },
-        { href: "/ajuste-por-inflacion", label: "Ajuste RIPF", icon: Activity },
-        { href: "/analisis-caja", label: "Flujo de Caja", icon: Wallet },
-        { href: "/analisis-rentabilidad", label: "Rentabilidad Pro", icon: TrendingUp },
+        { href: "/contabilidad/libros", label: "Libros Maestros", icon: BookOpen },
+        { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
+        { href: "/contabilidad/analisis", label: "Análisis BI", icon: PieChart },
+    ],
+    subGroups: []
+  },
+  {
+    title: "Tributos",
+    icon: Landmark,
+    items: [
+        { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent },
+        { href: "/contabilidad/tributos/retenciones-islr", label: "Retenciones ISLR", icon: Banknote },
+        { href: "/contabilidad/tributos/municipales", label: "Municipales", icon: Landmark },
+        { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario", icon: Calendar },
+        { href: "/contabilidad/tributos/multas", label: "Multas", icon: Gavel },
+        { href: "/contabilidad/tributos/homologacion", label: "Homologación", icon: ShieldCheck },
     ],
     subGroups: []
   },

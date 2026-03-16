@@ -32,7 +32,15 @@ import {
     BarChart3,
     ChevronRight,
     Terminal,
-    TrendingUp
+    TrendingUp,
+    Percent,
+    Calendar,
+    ShieldCheck,
+    Gavel,
+    FileText,
+    History,
+    Activity,
+    Stamp
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -50,11 +58,24 @@ const navigationConfig = [
       icon: Calculator,
       type: 'menu',
       items: [
-          { label: "Libros", href: "/contabilidad/libros", icon: BookOpen },
-          { label: "Tributos", href: "/contabilidad/tributos", icon: Landmark },
-          { label: "Cuentas", href: "/contabilidad/cuentas", icon: Wallet },
-          { label: "Análisis", href: "/contabilidad/analisis", icon: PieChart },
+          { label: "Libros Maestros", href: "/contabilidad/libros", icon: BookOpen },
+          { label: "Gestión de Cuentas", href: "/contabilidad/cuentas", icon: Wallet },
+          { label: "Análisis Estratégico", href: "/contabilidad/analisis", icon: PieChart },
           { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
+      ]
+  },
+  { 
+      label: "TRIBUTOS", 
+      icon: Landmark,
+      type: 'menu',
+      items: [
+          { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
+          { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
+          { label: "Impuestos Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
+          { label: "Calendario Fiscal", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
+          { label: "Multas y Sanciones", href: "/contabilidad/tributos/multas", icon: Gavel },
+          { label: "Homologación SENIAT", href: "/contabilidad/tributos/homologacion", icon: ShieldCheck },
+          { label: "Archivo Declaraciones", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
       ]
   },
   { 
