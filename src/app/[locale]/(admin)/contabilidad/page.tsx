@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -77,11 +76,11 @@ export default function ContabilidadPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
                 <BrainCircuit className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
             </div>
-            <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none text-white italic-shadow">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
+            <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Operating System v2.6.5 • Control Global</p>
         </div>
         <div className="flex gap-3 no-print">
-            <button className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border border-border bg-card/50 text-white/60 hover:bg-primary/5 hover:text-primary transition-all flex items-center gap-3" onClick={runForensicAudit} disabled={isAuditing}>
+            <button className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border border-border bg-card/50 text-foreground/60 hover:bg-primary/5 hover:text-primary transition-all flex items-center gap-3" onClick={runForensicAudit} disabled={isAuditing}>
                 {isAuditing ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldAlert className="h-4 w-4 text-primary" />}
                 AUDITORÍA FORENSE
             </button>
@@ -95,13 +94,13 @@ export default function ContabilidadPage() {
         {kpiData.map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-6">
-              <CardTitle className="text-[9px] font-black uppercase tracking-widest text-slate-400">{kpi.label}</CardTitle>
+              <CardTitle className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</CardTitle>
               <div className="p-2.5 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
             </CardHeader>
             <CardContent className="p-6 pt-0">
-              <div className="text-2xl font-black italic tracking-tighter text-white">{kpi.val}</div>
+              <div className="text-2xl font-black italic tracking-tighter text-foreground">{kpi.val}</div>
               <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend}</p>
             </CardContent>
           </Card>
@@ -114,8 +113,8 @@ export default function ContabilidadPage() {
                 <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-48 w-48 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">Neural Network Health</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Agente Fiscal Autónomo</h3>
+                        <Badge className="bg-primary text-primary-foreground border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">Neural Network Health</Badge>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Agente Fiscal Autónomo</h3>
                     </div>
                     
                     <div className="space-y-6">
@@ -124,21 +123,21 @@ export default function ContabilidadPage() {
                                 <span>Capacidad de Aprendizaje</span>
                                 <span>94.2%</span>
                             </div>
-                            <Progress value={94.2} className="h-1.5 bg-white/5" />
+                            <Progress value={94.2} className="h-1.5 bg-muted" />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Correcciones</p>
-                                <p className="text-xl font-black text-white italic">145</p>
+                            <div className="p-4 bg-background/50 rounded-2xl border border-border text-center">
+                                <p className="text-[8px] font-black uppercase text-muted-foreground/40 mb-1">Correcciones</p>
+                                <p className="text-xl font-black text-foreground italic">145</p>
                             </div>
-                            <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Ahorro Tiempo</p>
+                            <div className="p-4 bg-background/50 rounded-2xl border border-border text-center">
+                                <p className="text-[8px] font-black uppercase text-muted-foreground/40 mb-1">Ahorro Tiempo</p>
                                 <p className="text-xl font-black text-primary italic">12h</p>
                             </div>
                         </div>
                     </div>
 
-                    <Button variant="secondary" className="w-full h-14 rounded-2xl bg-white text-primary hover:bg-white/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
+                    <Button variant="secondary" className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
                         GESTIONAR PROTOCOLOS
                     </Button>
                 </div>
@@ -152,15 +151,15 @@ export default function ContabilidadPage() {
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 group hover:bg-emerald-500/10 transition-all cursor-pointer">
                         <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
                         <div className="space-y-1">
-                            <p className="text-[10px] font-black text-emerald-400 uppercase">Ajuste RIPF Pendiente</p>
-                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Se detectó una discrepancia del 2% en activos. Aplicar para blindaje fiscal.</p>
+                            <p className="text-[10px] font-black text-emerald-600 uppercase">Ajuste RIPF Pendiente</p>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase leading-snug">Se detectó una discrepancia del 2% en activos. Aplicar para blindaje fiscal.</p>
                         </div>
                     </div>
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-primary/5 border border-primary/10 group hover:bg-primary/10 transition-all cursor-pointer">
                         <Activity className="h-5 w-5 text-primary shrink-0" />
                         <div className="space-y-1">
                             <p className="text-[10px] font-black text-primary uppercase">Crédito Fiscal</p>
-                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Excedente de retenciones IVA disponible para compensación.</p>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase leading-snug">Excedente de retenciones IVA disponible para compensación.</p>
                         </div>
                     </div>
                 </div>
@@ -173,25 +172,25 @@ export default function ContabilidadPage() {
             <div className="space-y-6">
                 <div className="flex items-center gap-4 ml-2">
                     <div className="p-2 bg-primary/10 rounded-xl"><Activity className="h-5 w-5 text-primary" /></div>
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60 italic">Accesos Directos</h3>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/60 italic">Accesos Directos</h3>
                     <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {frequentAccess.map((item, i) => (
                         <Link key={i} href={item.href as any}>
-                            <Card className="glass-card border-none bg-card/40 hover:bg-white/[0.05] transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/5 transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
                                 <div className="flex items-center gap-5">
                                     <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                                     </div>
                                     <div>
-                                        <p className="text-sm font-black uppercase tracking-tight text-white/80 group-hover:text-primary transition-colors italic">{item.label}</p>
+                                        <p className="text-sm font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors italic">{item.label}</p>
                                         <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">{item.kpi}</p>
                                     </div>
                                 </div>
                                 <div className="flex justify-end mt-4">
-                                    <ArrowRight className="h-4 w-4 text-white/10 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                                    <ArrowRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                                 </div>
                             </Card>
                         </Link>
