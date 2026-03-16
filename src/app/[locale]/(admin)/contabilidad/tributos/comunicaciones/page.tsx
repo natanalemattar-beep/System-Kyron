@@ -15,27 +15,22 @@ import {
     Search, 
     ChevronDown,
     User,
-    Building2,
-    Landmark,
-    Gavel,
-    Smartphone,
-    Globe,
-    Zap,
-    X,
     Lock,
-    ShieldCheck
+    ShieldCheck,
+    X
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, formatCurrency } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const institutions = [
@@ -77,7 +72,6 @@ export default function ComunicacionesPage() {
         fecha: new Date().toISOString().substring(0, 10),
     });
 
-    // Resetear firma si cambian los datos
     useEffect(() => {
         setIsSigned(false);
     }, [institucionId, tipoCarta, data]);
@@ -128,20 +122,108 @@ export default function ComunicacionesPage() {
     };
 
     const handleDownloadWord = () => {
-        const content = getLetterContent();
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Comunicación Oficial</title><style>body { font-family: 'Times New Roman', serif; padding: 40pt; }</style></head><body>";
-        const footer = "</body></html>";
-        const sourceHTML = header + `<div style="text-align: justify; line-height: 1.5; font-size: 12pt;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
+        const letterBody = getLetterContent();
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`;
+        const signatureImg = "https://picsum.photos/seed/signature-kyron/200/100";
 
-        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        const fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = `Comunicacion_${selectedInst.name}_Kyron.doc`;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
+        const docHtml = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <meta charset='utf-8'>
+                <title>Comunicación Oficial - System Kyron</title>
+                <style>
+                    @page { size: 8.5in 11in; margin: 1in; }
+                    body { font-family: 'Times New Roman', Times, serif; color: #0f172a; line-height: 1.5; padding: 0; }
+                    .header-table { width: 100%; border-bottom: 2pt solid #000000; margin-bottom: 30pt; padding-bottom: 10pt; }
+                    .company-name { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0; }
+                    .company-rif { font-size: 10pt; color: #64748b; margin: 0; }
+                    .letter-body { text-align: justify; font-size: 12pt; white-space: pre-wrap; margin-bottom: 40pt; }
+                    .footer-table { width: 100%; margin-top: 50pt; }
+                    .signature-line { border-top: 1pt solid #000000; width: 200pt; margin-top: 10pt; padding-top: 5pt; text-align: center; }
+                    .signature-img { width: 120pt; height: 60pt; margin-bottom: -10pt; }
+                    .qr-container { text-align: right; }
+                    .qr-img { width: 80pt; height: 80pt; border: 1pt solid #e2e8f0; padding: 2pt; }
+                    .seal-overlay { 
+                        position: absolute; 
+                        bottom: 100pt; 
+                        left: 150pt; 
+                        width: 80pt; 
+                        height: 80pt; 
+                        opacity: 0.4;
+                        border: 3pt double #2563eb;
+                        border-radius: 50%;
+                        text-align: center;
+                        padding-top: 20pt;
+                        color: #2563eb;
+                        font-size: 8pt;
+                        font-weight: bold;
+                        transform: rotate(-15deg);
+                    }
+                </style>
+            </head>
+            <body>
+                <table class="header-table">
+                    <tr>
+                        <td style="width: 60pt; vertical-align: middle;">
+                            <div style="width: 40pt; height: 40pt; background-color: #000; border-radius: 8pt;"></div>
+                        </td>
+                        <td style="vertical-align: middle;">
+                            <p class="company-name">${data.empresa}</p>
+                            <p class="company-rif">RIF: ${data.rif}</p>
+                        </td>
+                        <td style="text-align: right; vertical-align: top;">
+                            <span style="font-size: 8pt; font-weight: bold; border: 1pt solid #000; padding: 2pt 8pt; border-radius: 4pt;">OFICIAL</span>
+                        </td>
+                    </tr>
+                </table>
 
-        toast({ title: "DESCARGA INICIADA", description: "Documento Word generado exitosamente." });
+                <div class="letter-body">${letterBody.replace(/\n/g, '<br/>')}</div>
+
+                ${isSigned ? `
+                <table class="footer-table">
+                    <tr>
+                        <td style="vertical-align: bottom; width: 60%;">
+                            <div style="text-align: center; width: 200pt;">
+                                <img src="${signatureImg}" class="signature-img" />
+                                <div class="signature-line">
+                                    <p style="margin: 0; font-weight: bold; font-size: 10pt;">${data.representante}</p>
+                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">C.I: ${data.cedula}</p>
+                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">Representante Legal</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="qr-container" style="vertical-align: bottom;">
+                            <img src="${qrUrl}" class="qr-img" />
+                            <p style="font-size: 6pt; color: #94a3b8; margin-top: 5pt; text-transform: uppercase;">Integridad Digital Sellada</p>
+                        </td>
+                    </tr>
+                </table>
+                <div class="seal-overlay">
+                    VALIDADO<br/>KYRON 2026
+                </div>
+                ` : `
+                <div style="border: 1pt dashed #e2e8f0; padding: 20pt; text-align: center; color: #94a3b8; font-style: italic; font-size: 10pt;">
+                    Documento pendiente de firma y sellado institucional
+                </div>
+                `}
+
+                <div style="margin-top: 100pt; border-top: 1pt solid #e2e8f0; padding-top: 10pt; text-align: center;">
+                    <p style="font-size: 8pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 2pt;">System Kyron v2.6.5 • Transmisión Autorizada</p>
+                </div>
+            </body>
+            </html>
+        `;
+
+        const blob = new Blob(['\ufeff', docHtml], { type: 'application/vnd.ms-word' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `Comunicacion_${selectedInst.name}_${tipoCarta}_Kyron.doc`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        toast({ title: "DESCARGA COMPLETADA", description: "El documento Word ha sido generado con éxito." });
     };
 
   return (
@@ -282,7 +364,6 @@ export default function ComunicacionesPage() {
                     {getLetterContent()}
                 </div>
 
-                {/* SECCIÓN DE FIRMA Y SELLO INTEGRADO (SÓLO SI ESTÁ FIRMADO) */}
                 <div className="mt-10 pt-10 flex justify-between items-end relative z-10 min-h-[180px]">
                     {isSigned ? (
                         <>
