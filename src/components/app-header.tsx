@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -12,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
 import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
@@ -30,21 +29,16 @@ import {
     Settings,
     User,
     BarChart3,
-    ChevronRight,
-    Terminal,
     TrendingUp,
     Percent,
     Calendar,
     ShieldCheck,
     Gavel,
-    FileText,
     History,
     Activity,
-    Stamp,
     Banknote,
     Building2,
     UserCheck,
-    FileSignature,
     Briefcase
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
@@ -129,6 +123,10 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5 flex flex-col">
+                    <SheetHeader className="sr-only">
+                        <SheetTitle>Menú Principal</SheetTitle>
+                        <SheetDescription>Navegación contextual del ecosistema Kyron.</SheetDescription>
+                    </SheetHeader>
                     <AppSidebar />
                 </SheetContent>
             </Sheet>

@@ -8,8 +8,8 @@ import {
     TabletSmartphone, Plus, Minus, X, CheckCircle, 
     Smartphone, Phone, Landmark, CreditCard, Banknote, 
     Loader2, Search, Radio, Wallet, Lock, Clock, 
-    Calendar, ShieldAlert, History, CheckSquare, Settings2,
-    ChevronRight, ArrowRight
+    ShieldAlert, History, CheckSquare, Settings2,
+    ArrowRight
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { 
@@ -146,7 +146,7 @@ export default function PuntoDeVentaPage() {
             toast({
                 variant: "destructive",
                 title: "⚠️ OPERACIÓN BLOQUEADA",
-                description: "Fuera de horario laboral. Operación no permitida. Contacta a tu gerente para autorización.",
+                description: "Fuera de horario laboral. Operación no permitida. Contacta a tu gerente para autorización maestra.",
             });
             return;
         }
@@ -163,7 +163,7 @@ export default function PuntoDeVentaPage() {
             toast({ 
                 title: "Venta Registrada", 
                 description: paymentMethod === "Billetera Kyron" 
-                    ? "Transacción sellada y Eco-Créditos procesados." 
+                    ? "Transacción sellada en Ledger Kyron y Eco-Créditos procesados." 
                     : "La factura fiscal ha sido generada.", 
                 action: <CheckCircle className="text-green-500" /> 
             });
@@ -173,7 +173,7 @@ export default function PuntoDeVentaPage() {
     const handleSaveSchedule = () => {
         toast({
             title: "Configuración Guardada",
-            description: "Los horarios laborales y turnos han sido actualizados.",
+            description: "Los horarios laborales y turnos han sido actualizados en el sistema central.",
             action: <CheckCircle className="text-primary" />
         });
         setIsScheduleOpen(false);
@@ -188,7 +188,7 @@ export default function PuntoDeVentaPage() {
                     </div>
                     <div>
                         <h1 className="text-xl font-black uppercase tracking-tighter italic text-primary">System Kyron</h1>
-                        <p className="text-[8px] font-bold uppercase tracking-[0.2em] opacity-40">Punto de Venta</p>
+                        <p className="text-[8px] font-bold uppercase tracking-[0.2em] opacity-40">Punto de Venta Profesional</p>
                     </div>
                 </div>
                  {!activeCashier ? (
@@ -207,7 +207,7 @@ export default function PuntoDeVentaPage() {
                     <div className="flex items-center gap-4">
                         <div className="text-right hidden sm:block">
                             <p className="text-[10px] font-black uppercase text-primary leading-none">{activeCashier}</p>
-                            <p className="text-[8px] font-bold text-muted-foreground uppercase mt-1">Turno Actual</p>
+                            <p className="text-[8px] font-bold text-muted-foreground uppercase mt-1">Turno: Mañana</p>
                         </div>
                         <div className="relative w-64">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -229,7 +229,7 @@ export default function PuntoDeVentaPage() {
                                             </div>
                                             <div>
                                                 <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter">Horarios y Turnos</DialogTitle>
-                                                <DialogDescription className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">Configuración de la Unidad</DialogDescription>
+                                                <DialogDescription className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">Configuración Maestra del Establecimiento</DialogDescription>
                                             </div>
                                         </div>
                                     </DialogHeader>
@@ -279,7 +279,7 @@ export default function PuntoDeVentaPage() {
 
                                         <TabsContent value="excepciones" className="mt-0 space-y-6">
                                             <div className="flex justify-between items-center mb-4">
-                                                <h3 className="text-sm font-black uppercase italic tracking-widest text-primary">Días Festivos</h3>
+                                                <h3 className="text-sm font-black uppercase italic tracking-widest text-primary">Días Festivos y Especiales</h3>
                                                 <Button size="sm" className="rounded-xl h-9 px-4 text-[9px] font-bold uppercase tracking-widest bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
                                                     <Plus className="mr-2 h-3.5 w-3.5" /> Agregar Excepción
                                                 </Button>
@@ -346,7 +346,13 @@ export default function PuntoDeVentaPage() {
                                 </Tabs>
 
                                 <div className="p-8 border-t border-white/5 flex justify-between items-center bg-white/[0.01]">
-                                    <div className="flex gap-3 ml-auto">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox id="manager-role" checked={isManager} onCheckedChange={(val) => setIsManager(!!val)} />
+                                            <Label htmlFor="manager-role" className="text-[9px] font-black uppercase text-white/40 cursor-pointer">Simular Rol Gerente</Label>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
                                         <Button variant="ghost" className="rounded-xl h-12 px-8 text-[10px] font-bold uppercase tracking-widest text-white/40" onClick={() => setIsScheduleOpen(false)}>Cancelar</Button>
                                         <Button className="rounded-xl h-12 px-10 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={handleSaveSchedule}>Aplicar Cambios</Button>
                                     </div>
@@ -410,17 +416,17 @@ export default function PuntoDeVentaPage() {
                                 </div>
                                 <div>
                                     <p className="text-xs font-black uppercase tracking-[0.4em]">Cesta Vacía</p>
-                                    <p className="text-[10px] font-bold uppercase mt-2">Seleccione productos</p>
+                                    <p className="text-[10px] font-bold uppercase mt-2">Seleccione productos para facturar</p>
                                 </div>
                             </div>
                         )}
                     </CardContent>
                     <CardFooter className="flex-col !p-8 border-t border-white/10 gap-6 bg-black/40">
                         <div className="w-full space-y-3">
-                            <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>Sub-Total:</span><span className="text-white/60">{formatCurrency(totalInCurrency, currency)}</span></div>
-                            <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>IVA (16%):</span><span className="text-white/60">{formatCurrency(iva, currency)}</span></div>
+                            <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>Sub-Total Bruto:</span><span className="text-white/60">{formatCurrency(totalInCurrency, currency)}</span></div>
+                            <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>IVA Aplicado (16%):</span><span className="text-white/60">{formatCurrency(iva, currency)}</span></div>
                             <div className="flex justify-between text-2xl font-black text-primary pt-4 border-t border-white/5 shadow-glow-text">
-                                <span className="italic uppercase tracking-tighter">Total:</span>
+                                <span className="italic uppercase tracking-tighter">Total a Pagar:</span>
                                 <span className="italic tracking-tighter">{formatCurrency(total, currency)}</span>
                             </div>
                         </div>
@@ -436,7 +442,7 @@ export default function PuntoDeVentaPage() {
                                 </SelectContent>
                             </Select>
                             <Button className="w-full h-14 rounded-xl text-xs font-black shadow-2xl btn-3d-primary uppercase tracking-widest italic" onClick={handleCheckout} disabled={cart.length === 0 || !activeCashier}>
-                                COBRAR
+                                COBRAR AHORA
                             </Button>
                         </div>
                     </CardFooter>
@@ -480,17 +486,20 @@ export default function PuntoDeVentaPage() {
                     <DialogFooter className="mt-8 flex flex-col gap-4">
                         <Button onClick={handleFinalizeTransaction} disabled={isProcessing || !paymentMethod} className="w-full h-16 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl btn-3d-primary italic">
                             {isProcessing ? <Loader2 className="animate-spin mr-3 h-5 w-5"/> : <CheckCircle className="mr-3 h-5 w-5"/>}
-                            {isProcessing ? "SELLANDO LEDGER..." : "PROCESAR"}
+                            {isProcessing ? "SELLANDO LEDGER..." : "PROCESAR FACTURA"}
                         </Button>
-                        <Button variant="ghost" className="w-full h-12 text-[10px] font-black uppercase text-white/20 hover:text-white" onClick={() => setIsCheckoutOpen(false)}>Cancelar</Button>
+                        <Button variant="ghost" className="w-full h-12 text-[10px] font-black uppercase text-white/20 hover:text-white" onClick={() => setIsCheckoutOpen(false)}>Cancelar Operación</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
                 <DialogContent className="sm:max-w-md rounded-[3rem] bg-black/95 backdrop-blur-3xl border-white/10 p-10">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Factura Digital Kyron</DialogTitle>
+                    <DialogHeader className="text-center mb-8">
+                        <DialogTitle className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</DialogTitle>
+                        <DialogDescription className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto mt-4">
+                            <Lock className="h-3 w-3 mr-2 inline" /> Sellado en Ledger Digital v2.6
+                        </DialogDescription>
                     </DialogHeader>
                     <div className="text-center space-y-8">
                         <div className="relative mx-auto w-24 h-24">
@@ -499,15 +508,9 @@ export default function PuntoDeVentaPage() {
                                 <CheckCircle className="h-12 w-12 text-emerald-500" />
                             </div>
                         </div>
-                        
-                        <div className="space-y-2">
-                            <h2 className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</h2>
-                            <div className="flex items-center justify-center gap-2 text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto">
-                                <Lock className="h-3 w-3" /> Sellado en Ledger Digital
-                            </div>
-                        </div>
 
                         <div className="p-6 bg-white rounded-[2.5rem] shadow-2xl relative group">
+                            <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] blur-xl scale-0 group-hover:scale-110 transition-transform" />
                             {qrCodeData && (
                                 <div className="relative z-10 p-2 bg-white rounded-2xl border-4 border-slate-50">
                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrCodeData)}&bgcolor=ffffff&color=000000&margin=1`} alt="Factura QR" width={180} height={180} className="mx-auto" />
@@ -517,7 +520,8 @@ export default function PuntoDeVentaPage() {
                         </div>
 
                         <div className="space-y-3">
-                            <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest btn-3d-primary shadow-xl italic">NUEVA VENTA</Button>
+                            <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest btn-3d-primary shadow-xl italic">NUEVA OPERACIÓN</Button>
+                            <Button variant="outline" className="w-full h-12 rounded-xl border-white/10 bg-white/5 font-black uppercase text-[9px] tracking-[0.2em] text-white/40">COMPARTIR COMPROBANTE</Button>
                         </div>
                     </div>
                 </DialogContent>
