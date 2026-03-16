@@ -40,7 +40,9 @@ import {
   BarChart3,
   Scale,
   History,
-  Percent
+  Percent,
+  BookOpen,
+  Calendar
 } from "lucide-react";
 
 export const naturalNavGroups = [
