@@ -2,8 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
     Landmark, FileText, Banknote, Percent, 
     ShieldCheck, Calendar, Gavel, History,
@@ -12,7 +10,7 @@ import {
     Scale, Globe, Truck, Leaf, Palmtree, Cpu,
     BookOpen, ShieldAlert, ChevronDown, Bell,
     Settings2, Smartphone, CheckCircle2, Copy,
-    Terminal, Coins, Microscope, Ship
+    Terminal, Coins, Microscope, Ship, Clock, AlertTriangle
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -95,9 +93,16 @@ const tributoCategories = [
     }
 ];
 
+const registrationStatus = [
+    { label: "SENIAT (RIF)", status: "Vigente", date: "15/01/2027", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: "IVSS (Patronal)", status: "Vigente", date: "Indefinido", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: "SAPI (Marcas)", status: "Vigente", date: "10/02/2032", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: "MIN. INDUSTRIAS", status: "Alerta", date: "15/05/2026", color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: "CONATEL", status: "Vigente", date: "20/03/2028", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+];
+
 export default function TributosHubPage() {
   const { toast } = useToast();
-  const [isAutoPayActive, setIsAutoPayActive] = useState(false);
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
@@ -105,7 +110,7 @@ export default function TributosHubPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-sm mb-4">
             <Landmark className="h-3 w-3" /> NODO TRIBUTARIO MAESTRO
         </div>
-        <h1 className="text-3xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white uppercase leading-none">
+        <h1 className="text-3xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white uppercase leading-none italic-shadow">
             Gestión <span className="text-secondary italic">de Tributos</span>
         </h1>
         <p className="text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-[0.6em] mt-4 italic opacity-60">Oficina Virtual de Impuestos • Sincronización Global 2026</p>
@@ -113,10 +118,11 @@ export default function TributosHubPage() {
 
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8 space-y-10">
+            {/* --- ACORDEONES DE CATEGORÍAS --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
                 <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 flex justify-between items-center">
                     <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Directorio de Entidades y Gestión 2026</h3>
-                    <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary">Acreditado SNAT/2025/000091</Badge>
+                    <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Acreditado SNAT/2025/000091</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
                     {tributoCategories.map((cat) => (
@@ -146,7 +152,10 @@ export default function TributosHubPage() {
                                                     {item.icon && <item.icon className="h-3.5 w-3.5 opacity-30 group-hover/item:opacity-100 transition-opacity" />}
                                                     {item.label}
                                                 </span>
-                                                <ArrowRight className="h-4 w-4 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all" />
+                                                <div className="flex items-center gap-2 opacity-0 group-hover/item:opacity-100 transition-all">
+                                                    <span className="text-[7px] font-bold text-primary italic">GESTIONAR</span>
+                                                    <ArrowRight className="h-4 w-4 group-hover/item:translate-x-1 transition-all" />
+                                                </div>
                                             </Link>
                                         </Button>
                                     ))}
@@ -168,7 +177,7 @@ export default function TributosHubPage() {
                             <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-blue-600 group-hover:translate-x-2 transition-all" />
                         </div>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Calendario Fiscal 2026</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma Preventivo dinámico adaptado a tu Terminal de RIF según Gaceta N° 43.273.</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma dinámico adaptado a tu Terminal de RIF.</p>
                     </Card>
                 </Link>
                 <Link href="/contabilidad/tributos/multas">
@@ -181,13 +190,46 @@ export default function TributosHubPage() {
                             <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-rose-600 group-hover:translate-x-2 transition-all" />
                         </div>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Multas y Sanciones</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Calculadora de contingencias (100%-300%) e intereses moratorios según el COT.</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Calculadora de contingencias según el COT vigente.</p>
                     </Card>
                 </Link>
             </div>
         </div>
 
         <div className="lg:col-span-4 space-y-10">
+            {/* --- MONITOR DE INSCRIPCIÓN Y RENOVACIÓN (NUEVO) --- */}
+            <Card className="glass-card border-none rounded-[3rem] bg-[#050505] p-10 shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Terminal className="h-40 w-40 text-primary" /></div>
+                <div className="relative z-10 space-y-8">
+                    <div className="space-y-2">
+                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">REGISTRATION MONITOR</Badge>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus de Registros</h3>
+                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Inscripción y Renovación por Ente</p>
+                    </div>
+
+                    <div className="space-y-4">
+                        {registrationStatus.map((reg, i) => (
+                            <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between group/item hover:bg-white/10 transition-all">
+                                <div className="space-y-1">
+                                    <p className="text-[9px] font-black text-white/80 uppercase">{reg.label}</p>
+                                    <p className="text-[7px] font-bold text-white/20 uppercase tracking-widest">Vence: {reg.date}</p>
+                                </div>
+                                <Badge className={cn("text-[7px] font-black uppercase px-2 h-5 border-none shadow-glow-sm", reg.bg, reg.color)}>
+                                    {reg.status}
+                                </Badge>
+                            </div>
+                        ))}
+                    </div>
+
+                    <Button variant="secondary" asChild className="w-full h-14 bg-white text-primary hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl">
+                        <Link href="/contabilidad/tributos/homologacion" className="flex items-center gap-2">
+                            AUDITAR EXPEDIENTE MAESTRO <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                    </Button>
+                </div>
+            </Card>
+
+            {/* --- ALERTAS MAESTRO --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-slate-100 dark:bg-card/60 shadow-2xl p-10 overflow-hidden relative border-l-4 border-primary">
                 <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none"><Bell className="h-48 w-48" /></div>
                 <div className="relative z-10 space-y-8">
@@ -206,8 +248,7 @@ export default function TributosHubPage() {
                             { id: "iva", label: "IVA (Días 12 al 27)" },
                             { id: "islr", label: "ISLR / Estimadas" },
                             { id: "igtf", label: "IGTF (3% Divisas)" },
-                            { id: "dpp", label: "Pensiones (9%)" },
-                            { id: "igp", label: "Patrimonio (Oct/Nov)" }
+                            { id: "dpp", label: "Pensiones (9%)" }
                         ].map((tax) => (
                             <div key={tax.id} className="flex items-center justify-between group">
                                 <Label htmlFor={`alert-${tax.id}`} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-white/40 group-hover:text-primary transition-colors cursor-pointer">{tax.label}</Label>
@@ -216,19 +257,7 @@ export default function TributosHubPage() {
                         ))}
                     </div>
 
-                    <Button onClick={() => toast({ title: "ALERTAS CONFIGURADAS", description: "Recibirá avisos a los 15, 7 y 3 días antes del vencimiento." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR PREFERENCIAS</Button>
-                </div>
-            </Card>
-
-            <Card className="bg-[#050505] border border-white/10 rounded-[3rem] p-10 relative overflow-hidden shadow-2xl group">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Bot className="h-40 w-40 text-primary" /></div>
-                <div className="relative z-10 space-y-8">
-                    <div className="space-y-2">
-                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-4 shadow-glow">AUTOPAY ACTIVE</Badge>
-                        <h3 className="text-3xl font-black uppercase italic tracking-tighter text-white">Pago Autónomo</h3>
-                        <p className="text-xs font-bold text-white/40 leading-relaxed uppercase">Autorice liquidaciones automáticas desde su Caja Digital configurada.</p>
-                    </div>
-                    <Button variant="secondary" className="w-full h-14 bg-white text-primary hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl">CONFIGURAR NODO</Button>
+                    <Button onClick={() => toast({ title: "ALERTAS CONFIGURADAS", description: "Avisos activos a los 15, 7 y 3 días." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR PREFERENCIAS</Button>
                 </div>
             </Card>
 
