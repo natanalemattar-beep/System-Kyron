@@ -51,7 +51,8 @@ import {
   UserCog,
   FolderArchive,
   Star,
-  Zap
+  Zap,
+  BrainCircuit
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -117,7 +118,7 @@ export const adminNavGroups = [
     title: "Contabilidad",
     icon: Calculator,
     items: [
-        { href: "/contabilidad", label: "Centro Contable", icon: Calculator },
+        { href: "/contabilidad", label: "Centro Contable", icon: BrainCircuit },
         { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
         { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart },
