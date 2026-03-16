@@ -65,7 +65,7 @@ export default function ContabilidadPage() {
         toast({
             title: "ANÁLISIS COMPLETADO",
             description: "Integridad de datos: 99.8%. 1 entrada requiere verificación manual.",
-            action: <ShieldCheck className="text-primary h-4 w-4" />
+            action: <CheckCircle className="text-primary h-4 w-4" />
         });
     }, 3000);
   };
@@ -74,17 +74,17 @@ export default function ContabilidadPage() {
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
                 <BrainCircuit className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
             </div>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none text-white italic-shadow">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Operating System v2.6.5 • Control Global</p>
         </div>
         <div className="flex gap-3 no-print">
-            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-white/60 hover:bg-primary/5 hover:text-primary transition-all" onClick={runForensicAudit} disabled={isAuditing}>
-                {isAuditing ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <ShieldAlert className="mr-3 h-4 w-4" />}
+            <button className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border border-border bg-card/50 text-white/60 hover:bg-primary/5 hover:text-primary transition-all flex items-center gap-3" onClick={runForensicAudit} disabled={isAuditing}>
+                {isAuditing ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldAlert className="h-4 w-4 text-primary" />}
                 AUDITORÍA FORENSE
-            </Button>
+            </button>
             <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">
                 <Receipt className="mr-3 h-4 w-4" /> CERRAR PERIODO
             </Button>
@@ -114,7 +114,7 @@ export default function ContabilidadPage() {
                 <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-48 w-48 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase tracking-[0.4em] shadow-glow">Neural Network Health</Badge>
+                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">Neural Network Health</Badge>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Agente Fiscal Autónomo</h3>
                     </div>
                     

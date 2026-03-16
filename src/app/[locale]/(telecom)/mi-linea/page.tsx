@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -33,6 +34,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
+import { Logo } from "@/components/logo";
+import { formatDate } from "@/lib/utils";
 
 const associatedLines = [
     { id: "line-1", number: "0414-9377068", label: "Principal", plan: "Infinite 5G Master", used: 12.4, total: 30, balance: 15.00, status: "Activa", iccid: "895804...4567", ip: "10.42.0.1" },
@@ -88,7 +91,6 @@ export default function MiLineaPage() {
 
     return (
         <div className="space-y-10 pb-20 px-4 md:px-10 lg:px-16 animate-in fade-in duration-1000">
-            {/* Header UHD */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
@@ -142,7 +144,6 @@ export default function MiLineaPage() {
             </header>
 
             <div className="grid lg:grid-cols-12 gap-10">
-                {/* Consumo y Telemetría */}
                 <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden shadow-2xl relative">
                     <AnimatePresence mode="wait">
                         {isSwitching && (
@@ -241,7 +242,6 @@ export default function MiLineaPage() {
                     </CardContent>
                 </Card>
 
-                {/* Sidebar de Acciones */}
                 <div className="lg:col-span-4 space-y-10">
                     <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 relative overflow-hidden shadow-glow group border-none">
                         <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
@@ -263,14 +263,14 @@ export default function MiLineaPage() {
                                 </motion.p>
                             </div>
                             
-                            <Button 
-                                className="w-full h-16 rounded-2xl bg-white text-primary hover:bg-slate-100 font-black uppercase text-xs tracking-widest shadow-2xl transition-all active:scale-95"
+                            <button 
+                                className="w-full h-16 rounded-2xl bg-white text-primary hover:bg-slate-100 font-black uppercase text-xs tracking-widest shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3"
                                 onClick={handleRecharge}
                                 disabled={isRecharging}
                             >
-                                {isRecharging ? <Loader2 className="animate-spin mr-3 h-5 w-5" /> : <CreditCard className="mr-3 h-5 w-5" />}
+                                {isRecharging ? <Loader2 className="animate-spin h-5 w-5" /> : <CreditCard className="h-5 w-5" />}
                                 RECARGAR SALDO
-                            </Button>
+                            </button>
                         </div>
                     </Card>
 
