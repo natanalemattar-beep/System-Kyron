@@ -76,15 +76,15 @@ const navigationConfig = [
       icon: Landmark,
       type: 'menu',
       items: [
+          { label: "Asistente IA", href: "/gaceta-6952", icon: Bot },
           { label: "Centro Tributario", href: "/contabilidad/tributos", icon: Landmark },
-          { label: "Asistente Fiscal IA", href: "/gaceta-6952", icon: Bot },
-          { label: "Aportes Parafiscales", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
-          { label: "Protección Pensiones", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
+          { label: "Parafiscales", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
+          { label: "Pensiones (DPP)", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
           { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
           { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
           { label: "Impuesto IGTF", href: "/contabilidad/tributos/igtf", icon: CreditCard },
-          { label: "Impuestos Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
-          { label: "Calendario Fiscal", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
+          { label: "Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
+          { label: "Calendario 2026", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
           { label: "Multas y Sanciones", href: "/contabilidad/tributos/multas", icon: Gavel },
           { label: "Archivo Maestro", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
       ]
@@ -176,25 +176,41 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
-                                className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2"
+                                className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary data-[state=open]:bg-primary/5"
                             >
-                                <nav.icon className="h-3.5 w-3.5 opacity-30" />
+                                <nav.icon className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:opacity-100 transition-opacity" />
                                 {nav.label}
-                                <ChevronDown className="h-3 w-3 opacity-20" />
+                                <ChevronDown className="h-3 w-3 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="center" className="w-64 p-2 rounded-2xl border-border bg-card/95 backdrop-blur-3xl shadow-xl">
-                            <DropdownMenuLabel className="p-3 mb-1">
-                                <p className="text-[8px] font-black text-primary uppercase tracking-[0.4em]">{nav.label}</p>
+                        <DropdownMenuContent align="center" className="w-[520px] p-4 rounded-[2.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
+                            <DropdownMenuLabel className="p-4 mb-4 bg-primary/5 rounded-3xl border border-primary/10">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
+                                        <nav.icon className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] leading-none">{nav.label}</span>
+                                        <span className="text-[7px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5 italic">Terminal de Gestión de Alta Densidad</span>
+                                    </div>
+                                </div>
                             </DropdownMenuLabel>
-                            {nav.items?.map((item) => (
-                                <DropdownMenuItem key={item.href} asChild className="rounded-xl h-10 mb-1 last:mb-0">
-                                    <Link href={item.href as any} className="flex items-center px-3 text-[9px] font-bold uppercase tracking-widest gap-3 group/item">
-                                        <item.icon className="h-3.5 w-3.5 text-primary/40 group-hover/item:text-primary transition-colors" />
-                                        <span>{item.label}</span>
-                                    </Link>
-                                </DropdownMenuItem>
-                            ))}
+                            <div className="grid grid-cols-2 gap-2">
+                                {nav.items?.map((item) => (
+                                    <DropdownMenuItem key={item.href} asChild className="rounded-[1.2rem] h-14 mb-0 focus:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group/item">
+                                        <Link href={item.href as any} className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
+                                            <div className="p-2.5 bg-muted rounded-xl border border-border group-hover/item:bg-primary/10 group-hover/item:border-primary/20 transition-all shadow-inner">
+                                                <item.icon className="h-4 w-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
+                                            </div>
+                                            <span className="group-hover/item:text-foreground transition-colors">{item.label}</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </div>
+                            <div className="mt-4 p-3 bg-muted/20 border-t border-border/50 text-center rounded-b-3xl">
+                                <span className="text-[7px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron • Intelligence Node 2026</span>
+                            </div>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 )
