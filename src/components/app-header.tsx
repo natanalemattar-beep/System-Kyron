@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -39,7 +40,9 @@ import {
     Banknote,
     Building2,
     UserCheck,
-    Briefcase
+    Briefcase,
+    FileText,
+    Boxes
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -74,7 +77,7 @@ const navigationConfig = [
           { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
           { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
           { label: "Impuestos Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
-          { label: "Calendario Fiscal", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
+          { label: "Calendario Fiscal 2026", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
           { label: "Multas y Sanciones", href: "/contabilidad/tributos/multas", icon: Gavel },
           { label: "Homologación SENIAT", href: "/contabilidad/tributos/homologacion", icon: ShieldCheck },
           { label: "Archivo Declaraciones", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
@@ -123,9 +126,12 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5 flex flex-col">
-                    <SheetHeader className="sr-only">
-                        <SheetTitle>Menú Principal</SheetTitle>
-                        <SheetDescription>Navegación contextual del ecosistema Kyron.</SheetDescription>
+                    <SheetHeader className="p-6 border-b border-white/5">
+                        <SheetTitle className="sr-only">Navegación del Ecosistema</SheetTitle>
+                        <div className="flex items-center gap-3">
+                            <Logo className="h-8 w-8" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">System Kyron</span>
+                        </div>
                     </SheetHeader>
                     <AppSidebar />
                 </SheetContent>
