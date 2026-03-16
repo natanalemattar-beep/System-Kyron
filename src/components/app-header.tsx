@@ -40,7 +40,8 @@ import {
     FileText,
     History,
     Activity,
-    Stamp
+    Stamp,
+    Banknote
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
