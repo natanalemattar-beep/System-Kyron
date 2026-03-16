@@ -8,7 +8,7 @@ import {
     ArrowRight, Activity, Zap, Bot,
     Building2, Users, Printer, Scale, Globe, Truck, Leaf, Palmtree, 
     Terminal, Coins, Microscope, Ship, Clock, AlertTriangle,
-    MailOpen, Checkbox, Settings2, Bell
+    MailOpen, Checkbox, Settings2, Bell, ShieldAlert
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
