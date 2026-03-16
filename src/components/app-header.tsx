@@ -12,28 +12,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
     LogOut, 
     ChevronDown,
     Menu,
-    Zap,
     Bell,
     Settings,
     User,
     Activity,
-    Sparkles
+    LayoutGrid
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { AppSidebar } from "./app-sidebar";
-
-/**
- * @fileOverview AppHeader Contextual.
- * Recibe navGroups como prop para renderizar la navegación específica del portal activo.
- */
 
 interface AppHeaderProps {
   user: any;
@@ -58,29 +52,29 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   }, []);
 
   if (!mounted) return (
-    <header className="fixed top-0 left-0 right-0 z-[150] bg-background/50 h-20 w-full" />
+    <header className="fixed top-0 left-0 right-0 z-[150] bg-background/50 h-16 w-full" />
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-3xl h-20 flex items-center w-full shadow-sm overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-2xl h-16 flex items-center w-full shadow-sm overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       
-      <div className="w-full px-4 md:px-10">
+      <div className="w-full px-4 md:px-8">
         <div className="flex items-center justify-between w-full gap-4">
           
           <div className="flex items-center gap-4">
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="lg:hidden h-10 w-10 rounded-xl bg-white/5 border border-border group">
-                        <Menu className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                    <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 rounded-lg bg-white/5 border border-border">
+                        <Menu className="h-4 w-4 text-primary" />
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5 flex flex-col">
                     <SheetHeader className="p-6 border-b border-white/5">
-                        <SheetTitle className="sr-only">Navegación del Ecosistema</SheetTitle>
+                        <SheetTitle className="sr-only">Navegación Kyron</SheetTitle>
                         <div className="flex items-center gap-3">
-                            <Logo className="h-8 w-8" />
-                            <span className="text-[10px] font-black uppercase tracking-widest">System Kyron</span>
+                            <Logo className="h-7 w-7" />
+                            <span className="text-[10px] font-black uppercase tracking-widest italic">System Kyron</span>
                         </div>
                     </SheetHeader>
                     <AppSidebar />
@@ -88,55 +82,48 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
             </Sheet>
 
             <Link href={dashboardHref as any} className="flex items-center gap-3 group shrink-0">
-                <Logo className="h-9 w-9 drop-shadow-glow" /> 
-                <div className="flex flex-col -mt-1 hidden sm:flex">
-                    <span className="text-[11px] font-black tracking-[0.3em] uppercase text-foreground italic leading-none">System Kyron</span>
-                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Control Maestro</p>
+                <Logo className="h-8 w-8 transition-transform group-hover:scale-105" /> 
+                <div className="flex flex-col -mt-0.5 hidden sm:flex">
+                    <span className="text-[10px] font-black tracking-[0.2em] uppercase text-foreground italic leading-none">System Kyron</span>
+                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-50">Portal Maestro</p>
                 </div>
             </Link>
           </div>
 
-          {/* NAVEGACIÓN CONTEXTUAL DINÁMICA */}
-          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-5xl mx-auto overflow-hidden">
+          {/* NAVEGACIÓN CONTEXTUAL REFINADA */}
+          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-4xl mx-auto overflow-hidden">
             {navGroups?.map((group) => (
                 <DropdownMenu key={group.title}>
                     <DropdownMenuTrigger asChild>
                         <Button 
                             variant="ghost" 
-                            className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary data-[state=open]:bg-primary/5"
+                            className="h-9 px-3 rounded-lg text-[9px] font-black uppercase tracking-[0.1em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary"
                         >
-                            <group.icon className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:opacity-100 transition-opacity" />
+                            <group.icon className="h-3 w-3 opacity-40 group-data-[state=open]:opacity-100" />
                             {group.title}
-                            <ChevronDown className="h-3 w-3 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
+                            <ChevronDown className="h-2.5 w-2.5 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="w-[480px] p-4 rounded-[2.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
-                        <DropdownMenuLabel className="p-4 mb-4 bg-primary/5 rounded-3xl border border-primary/10">
-                            <div className="flex items-center gap-4">
-                                <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
-                                    <group.icon className="h-5 w-5 text-primary" />
+                    <DropdownMenuContent align="center" className="w-[440px] p-3 rounded-[2rem] border-border bg-card/98 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                        <DropdownMenuLabel className="p-3 mb-3 bg-primary/5 rounded-2xl border border-primary/10">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-primary/10 rounded-xl">
+                                    <group.icon className="h-4 w-4 text-primary" />
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] leading-none">{group.title}</span>
-                                    <span className="text-[7px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5 italic">Protocolo de Gestión Activo</span>
-                                </div>
+                                <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">{group.title}</span>
                             </div>
                         </DropdownMenuLabel>
-                        <div className="grid grid-cols-2 gap-2">
-                            {group.items.map((item) => (
-                                <DropdownMenuItem key={item.href} asChild className="rounded-[1.2rem] h-14 mb-0 focus:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group/item">
-                                    <Link href={item.href as any} className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                                        <div className="p-2.5 bg-muted rounded-xl border border-border group-hover/item:bg-primary/10 group-hover/item:border-primary/20 transition-all shadow-inner">
-                                            <item.icon className="h-4 w-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
+                        <div className="grid grid-cols-2 gap-1.5">
+                            {group.items.filter(i => i.label !== 'Inicio' && i.label !== 'Panel Central').map((item) => (
+                                <DropdownMenuItem key={item.href} asChild className="rounded-xl h-11 focus:bg-primary/5 group/item cursor-pointer">
+                                    <Link href={item.href as any} className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
+                                        <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 transition-colors">
+                                            <item.icon className="h-3.5 w-3.5 text-muted-foreground group-hover/item:text-primary" />
                                         </div>
                                         <span className="group-hover/item:text-foreground transition-colors">{item.label}</span>
                                     </Link>
                                 </DropdownMenuItem>
                             ))}
-                        </div>
-                        <div className="mt-4 p-3 bg-muted/20 border-t border-border/50 text-center rounded-b-3xl">
-                            <span className="text-[7px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron • Intelligence Node 2026</span>
                         </div>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -144,62 +131,57 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
           </nav>
 
           <div className="flex items-center justify-end gap-3 min-w-fit">
-            <ThemeToggle />
-            
-            <Button variant="ghost" size="icon" asChild className="relative h-10 w-10 rounded-xl bg-white/5 border border-border group hover:bg-primary/5 hover:border-primary/20 transition-all duration-300">
-                <Link href="/notificaciones">
-                    <div className="relative">
-                        <Bell className={cn("h-5 w-5 transition-colors", pathname.includes('/notificaciones') ? "text-primary" : "text-muted-foreground/60 group-hover:text-primary")} />
-                        <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span>
-                        </span>
-                    </div>
-                </Link>
-            </Button>
+            <div className="hidden sm:flex items-center gap-2">
+                <ThemeToggle />
+                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-lg bg-white/5 border border-border group">
+                    <Link href="/notificaciones">
+                        <Bell className={cn("h-4 w-4 transition-colors", pathname.includes('/notificaciones') ? "text-primary" : "text-muted-foreground/60 group-hover:text-primary")} />
+                        <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-rose-500 shadow-glow-sm" />
+                    </Link>
+                </Button>
+            </div>
 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-xl border border-border p-0 overflow-hidden bg-muted group">
+                <Button variant="ghost" className="relative h-9 w-9 rounded-lg border border-border p-0 overflow-hidden bg-muted group">
                     <Avatar className="h-full w-full rounded-none">
-                    <AvatarFallback className="rounded-none font-black text-xs text-white bg-primary shadow-glow">
+                    <AvatarFallback className="rounded-none font-black text-[10px] text-white bg-primary shadow-glow">
                         {user?.fallback || "AD"}
                     </AvatarFallback>
                     </Avatar>
                 </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-72 p-2 rounded-[2rem] border-border bg-card/98 backdrop-blur-3xl shadow-xl">
-                <DropdownMenuLabel className="p-6 bg-muted/30 rounded-2xl mb-2">
-                    <div className="flex flex-col gap-1">
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground italic">Operador Autorizado</p>
-                        <p className="text-[8px] text-muted-foreground font-mono truncate">{user?.email || "admin@kyron.com"}</p>
+                <DropdownMenuContent align="end" className="w-64 p-2 rounded-[1.5rem] border-border bg-card/98 backdrop-blur-3xl shadow-xl">
+                    <DropdownMenuLabel className="p-4 bg-muted/30 rounded-xl mb-2">
+                        <div className="flex flex-col gap-0.5">
+                            <p className="text-[9px] font-black uppercase tracking-widest text-foreground italic leading-none">Operador</p>
+                            <p className="text-[8px] text-muted-foreground font-mono truncate opacity-60">{user?.email || "admin@kyron.com"}</p>
+                        </div>
+                    </DropdownMenuLabel>
+                    
+                    <div className="space-y-0.5">
+                        <DropdownMenuItem asChild className="rounded-lg h-10">
+                            <Link href="/perfil" className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
+                                <User className="h-3.5 w-3.5 text-primary/60" />
+                                <span>Mi Perfil</span>
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="rounded-lg h-10">
+                            <Link href="/configuracion" className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
+                                <Settings className="h-3.5 w-3.5 text-primary/60" />
+                                <span>Ajustes</span>
+                            </Link>
+                        </DropdownMenuItem>
                     </div>
-                </DropdownMenuLabel>
-                
-                <div className="p-1 space-y-1">
-                    <DropdownMenuItem asChild className="rounded-xl h-12">
-                        <Link href="/perfil" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                            <User className="h-4 w-4 text-primary" />
-                            <span>Mi Perfil Maestro</span>
+
+                    <DropdownMenuSeparator className="my-1 opacity-50" />
+                    
+                    <DropdownMenuItem asChild className="rounded-lg h-10 text-rose-500 focus:text-white focus:bg-rose-600">
+                        <Link href="/login" className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
+                            <LogOut className="h-3.5 w-3.5" />
+                            <span>Salir</span>
                         </Link>
                     </DropdownMenuItem>
-
-                    <DropdownMenuItem asChild className="rounded-xl h-12">
-                        <Link href="/configuracion" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                            <Settings className="h-4 w-4 text-primary" />
-                            <span>Configuración</span>
-                        </Link>
-                    </DropdownMenuItem>
-                </div>
-
-                <DropdownMenuSeparator className="my-1 border-border/50" />
-                
-                <DropdownMenuItem asChild className="rounded-xl h-12 text-rose-500 focus:text-white focus:bg-rose-600">
-                    <Link href="/login" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                        <LogOut className="h-4 w-4" />
-                        <span>Cerrar Sesión</span>
-                    </Link>
-                </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
           </div>

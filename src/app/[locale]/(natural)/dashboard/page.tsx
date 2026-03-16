@@ -36,17 +36,17 @@ export default function DashboardPersonalPage() {
     <div className="space-y-8 animate-in fade-in duration-700">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
-            <h1 className="text-xl md:text-3xl font-black tracking-tight uppercase italic text-foreground/90">Mi Terminal <span className="text-primary">Ciudadana</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Expediente Maestro • Usuario: Carlos Mattar</p>
+            <h1 className="text-xl md:text-2xl font-black tracking-tight uppercase italic text-foreground/90">Mi Terminal <span className="text-primary">Ciudadana</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Expediente Maestro • Carlos Mattar</p>
         </div>
         
         <div className="flex gap-2">
             <div className="relative hidden md:block">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                <Input placeholder="Buscar trámite..." className="h-9 w-64 rounded-xl pl-9 text-[10px] font-bold uppercase bg-white/5 border-border" />
+                <Input placeholder="Buscar trámite..." className="h-9 w-64 rounded-xl pl-9 text-[9px] font-bold uppercase bg-white/5 border-border" />
             </div>
             <Button asChild size="sm" className="btn-3d-primary h-9 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest">
-                <Link href="/tarjeta-digital">Ver ID Digital</Link>
+                <Link href="/tarjeta-digital">ID DIGITAL</Link>
             </Button>
         </div>
       </header>
@@ -68,7 +68,7 @@ export default function DashboardPersonalPage() {
                             <kpi.icon className="h-3.5 w-3.5" />
                         </div>
                       </div>
-                      <p className="text-xl font-black italic tracking-tighter text-foreground/90 leading-none">{kpi.value}</p>
+                      <p className="text-lg font-black italic tracking-tighter text-foreground/90 leading-none">{kpi.value}</p>
                       <p className="text-[8px] font-bold text-muted-foreground uppercase mt-2 tracking-widest">{kpi.desc}</p>
                   </CardContent>
               </Card>
@@ -78,13 +78,13 @@ export default function DashboardPersonalPage() {
 
       <div className="grid gap-8 lg:grid-cols-12">
         {/* Historial Principal */}
-        <Card className="lg:col-span-8 border-none shadow-xl bg-card/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden">
+        <Card className="lg:col-span-8 border-none shadow-xl bg-card/40 backdrop-blur-sm rounded-[2rem] overflow-hidden">
             <CardHeader className="p-8 border-b border-border/50 bg-muted/10 flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-primary">Estado de Solicitudes</CardTitle>
                 <CardDescription className="text-[10px] font-bold text-muted-foreground mt-1">Trámites ante registros y notarías</CardDescription>
               </div>
-              <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary">Archivo histórico</Button>
+              <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary">HISTÓRICO</Button>
             </CardHeader>
             <CardContent className="p-0">
                 <Table>
@@ -105,8 +105,8 @@ export default function DashboardPersonalPage() {
                                 <TableCell className="font-mono text-[10px] font-black text-primary pl-8">{row.ref}</TableCell>
                                 <TableCell className="py-4">
                                     <div className="flex flex-col">
-                                        <span className="text-xs font-black uppercase italic group-hover:text-primary transition-colors">{row.label}</span>
-                                        <span className="text-[9px] text-muted-foreground font-medium uppercase mt-0.5">{row.date}</span>
+                                        <span className="text-[11px] font-black uppercase italic group-hover:text-primary transition-colors">{row.label}</span>
+                                        <span className="text-[8px] text-muted-foreground font-medium uppercase mt-0.5">{row.date}</span>
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-right pr-8">
@@ -148,14 +148,7 @@ export default function DashboardPersonalPage() {
                         <ShieldAlert className="h-4 w-4 text-rose-500 mt-0.5" />
                         <div className="space-y-1">
                             <p className="text-[9px] font-black text-rose-600 uppercase">Renovación de RIF</p>
-                            <p className="text-[8px] text-rose-500/70 font-bold leading-tight uppercase">Su registro fiscal vence el 15/04/2026. Evite multas del SENIAT.</p>
-                        </div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-start gap-4">
-                        <History className="h-4 w-4 text-blue-500 mt-0.5" />
-                        <div className="space-y-1">
-                            <p className="text-[9px] font-black text-blue-600 uppercase">Firma de Documentos</p>
-                            <p className="text-[8px] text-blue-500/70 font-bold leading-tight uppercase">Tienes 1 acta pendiente por sellar en tu buzón judicial.</p>
+                            <p className="text-[8px] text-rose-500/70 font-bold leading-tight uppercase">Su registro fiscal vence el 15/04/2026.</p>
                         </div>
                     </div>
                 </CardContent>
@@ -165,21 +158,21 @@ export default function DashboardPersonalPage() {
 
       {/* Servicios Ciudadanos Secundarios */}
       <section className="pt-4">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 ml-4 mb-6">Módulos Especializados</h3>
+        <h3 className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 ml-4 mb-6">Módulos Especializados</h3>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
             {[
-                { title: "Directorio Médico", icon: Stethoscope, href: "/directorio-medico", desc: "Clínicas y especialistas afiliados." },
-                { title: "LOPNNA Sync", icon: Scale, href: "/manutencion", desc: "Gestión de obligación de manutención." },
-                { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo inmutable de documentos." },
+                { title: "Directorio Médico", icon: Stethoscope, href: "/directorio-medico", desc: "Red de salud afiliada." },
+                { title: "LOPNNA Sync", icon: Scale, href: "/manutencion", desc: "Obligación de manutención." },
+                { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo de documentos." },
             ].map((serv, i) => (
                 <Link key={i} href={serv.href as any} className="group">
-                    <Card className="border-none shadow-md bg-card/40 hover:bg-primary/5 transition-all rounded-[2rem] p-8 flex flex-col justify-between min-h-[160px]">
+                    <Card className="border-none shadow-md bg-card/40 hover:bg-primary/5 transition-all rounded-[2rem] p-8 flex flex-col justify-between min-h-[140px]">
                         <div className="flex items-center gap-5">
-                            <div className="p-3.5 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20">
-                                <serv.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                            <div className="p-3 bg-muted rounded-xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20">
+                                <serv.icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                             </div>
                             <div className="space-y-1">
-                                <h4 className="text-sm font-black uppercase italic tracking-tight text-foreground group-hover:text-primary transition-colors">{serv.title}</h4>
+                                <h4 className="text-xs font-black uppercase italic tracking-tight text-foreground group-hover:text-primary transition-colors">{serv.title}</h4>
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{serv.desc}</p>
                             </div>
                         </div>

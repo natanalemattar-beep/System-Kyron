@@ -47,7 +47,10 @@ import {
   Bot,
   Stethoscope,
   BookMarked,
-  LifeBuoy
+  LifeBuoy,
+  UserCog,
+  FolderArchive,
+  Star
 } from "lucide-react";
 
 export const naturalNavGroups = [
