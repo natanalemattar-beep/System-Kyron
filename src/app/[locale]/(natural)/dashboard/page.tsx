@@ -26,7 +26,7 @@ import { Input } from "@/components/ui/input";
 
 const kpiData = [
   { title: "Expediente Civil", value: "Completo", icon: FileText, color: "text-blue-600", bg: "bg-blue-50", desc: "4 documentos verificados" },
-  { title: "ID Digital 3D", value: "Nivel 5", icon: Lock, color: "text-primary", bg: "bg-primary/5", desc: "Acceso Maestro Activado" },
+  { title: "ID Digital 3D", value: "Nivel 5", icon: Lock, color: "text-primary", bg: "bg-primary/5", desc: "Acceso Seguro Activado" },
   { title: "Gestiones", value: "2 Activas", icon: Clock, color: "text-amber-600", bg: "bg-amber-50", desc: "1 respuesta pendiente" },
   { title: "Salud Cobertura", value: "Vigente", icon: Stethoscope, color: "text-emerald-600", bg: "bg-emerald-50", desc: "Red El Ávila activa" },
 ];
@@ -37,7 +37,7 @@ export default function DashboardPersonalPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
             <h1 className="text-xl md:text-2xl font-black tracking-tight uppercase italic text-foreground/90">Mi Terminal <span className="text-primary">Ciudadana</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Expediente Maestro • Carlos Mattar</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Historial Unificado • Carlos Mattar</p>
         </div>
         
         <div className="flex gap-2">
@@ -63,7 +63,7 @@ export default function DashboardPersonalPage() {
               <Card className="border-none shadow-sm bg-card/40 backdrop-blur-sm rounded-2xl group hover:bg-white/[0.05] transition-all">
                   <CardContent className="p-6">
                       <div className="flex justify-between items-center mb-4">
-                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">{kpi.title}</p>
+                        <p className="text-[8px] font-black uppercase tracking-0.2em text-muted-foreground/60">{kpi.title}</p>
                         <div className={cn("p-2 rounded-lg", kpi.bg, kpi.color)}>
                             <kpi.icon className="h-3.5 w-3.5" />
                         </div>
@@ -147,7 +147,7 @@ export default function DashboardPersonalPage() {
                     <div className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/10 flex items-start gap-4">
                         <ShieldAlert className="h-4 w-4 text-rose-500 mt-0.5" />
                         <div className="space-y-1">
-                            <p className="text-[9px] font-black text-rose-600 uppercase">Renovación de RIF</p>
+                            <p className="text-[9px] font-black text-rose-600 uppercase">Actualización Registro</p>
                             <p className="text-[8px] text-rose-500/70 font-bold leading-tight uppercase">Su registro fiscal vence el 15/04/2026.</p>
                         </div>
                     </div>

@@ -122,7 +122,7 @@ export default function TributosHubPage() {
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-sm mb-4">
-            <Landmark className="h-3 w-3" /> PORTAL TRIBUTARIO MAESTRO
+            <Landmark className="h-3 w-3" /> CENTRO FISCAL CONSOLIDADO
         </div>
         <h1 className="text-3xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white uppercase leading-none italic-shadow">
             Centro <span className="text-secondary italic">Tributario</span>
@@ -132,11 +132,10 @@ export default function TributosHubPage() {
 
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8 space-y-10">
-            {/* --- ACORDEONES DE CATEGORÍAS --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
                 <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-100/50 dark:bg-white/5 flex justify-between items-center">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white italic">Centro de Gestión Fiscal 2026</h3>
-                    <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Acreditado SNAT/2025/000091</Badge>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white italic">Gestión de Cumplimiento 2026</h3>
+                    <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Certificado SNAT/2025/000091</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
                     {tributoCategories.map((cat) => (
@@ -190,8 +189,8 @@ export default function TributosHubPage() {
                             </div>
                             <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-blue-600 group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Calendario Fiscal 2026</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma dinámico adaptado a tu Terminal de RIF.</p>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Cronograma Tributario 2026</h3>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Vencimientos dinámicos adaptados a tu Terminal de RIF.</p>
                     </Card>
                 </Link>
                 <Link href="/contabilidad/tributos/multas">
@@ -203,22 +202,21 @@ export default function TributosHubPage() {
                             </div>
                             <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-rose-600 group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Multas y Sanciones</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Calculadora de contingencias según el COT vigente.</p>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Contingencias y Multas</h3>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Calculadora de riesgos según el Código Orgánico Tributario.</p>
                     </Card>
                 </Link>
             </div>
         </div>
 
         <div className="lg:col-span-4 space-y-10">
-            {/* --- MONITOR DE INSCRIPCIÓN Y RENOVACIÓN --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-[#050505] p-10 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Terminal className="h-40 w-40 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
                         <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">ESTATUS REGISTRAL</Badge>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Centro de Registros</h3>
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Monitor de Vigencia por Ente</p>
+                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Monitor de Vigencia Integral</p>
                     </div>
 
                     <div className="space-y-4">
@@ -239,13 +237,12 @@ export default function TributosHubPage() {
 
                     <Button variant="secondary" asChild className="w-full h-14 bg-white text-primary hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl">
                         <Link href="/contabilidad/tributos/homologacion" className="flex items-center gap-2">
-                            AUDITAR EXPEDIENTE MAESTRO <ArrowRight className="h-3.5 w-3.5" />
+                            AUDITAR DOSSIER REGULATORIO <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
                     </Button>
                 </div>
             </Card>
 
-            {/* --- ALERTAS MAESTRO --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-slate-100 dark:bg-card/60 shadow-2xl p-10 overflow-hidden relative border-l-4 border-primary">
                 <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none"><Bell className="h-48 w-48" /></div>
                 <div className="relative z-10 space-y-8">
@@ -254,7 +251,7 @@ export default function TributosHubPage() {
                             <Settings2 className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Alertas Maestro</h3>
+                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Alertas Globales</h3>
                             <p className="text-[9px] font-black text-primary uppercase tracking-widest">Sincronización RIF</p>
                         </div>
                     </div>
@@ -273,7 +270,7 @@ export default function TributosHubPage() {
                         ))}
                     </div>
 
-                    <Button onClick={() => toast({ title: "ALERTAS CONFIGURADAS", description: "Avisos activos a los 15, 7 y 3 días." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR PREFERENCIAS</Button>
+                    <Button onClick={() => toast({ title: "PREFERENCIAS GUARDADAS", description: "Notificaciones activas en periodos de 15, 7 y 3 días." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR AJUSTES</Button>
                 </div>
             </Card>
 
@@ -285,8 +282,8 @@ export default function TributosHubPage() {
                         </div>
                         <ArrowRight className="h-4 w-4 text-slate-200 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
                     </div>
-                    <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Archivo de Declaraciones</h3>
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-2">Dossier Histórico Inmutable</p>
+                    <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Histórico de Declaraciones</h3>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-2">Dossier Inmutable de Tributos</p>
                 </Card>
             </Link>
         </div>

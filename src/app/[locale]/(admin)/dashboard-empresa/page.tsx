@@ -73,7 +73,7 @@ export default function DashboardEmpresaPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-6 py-2 mt-6 md:mt-10">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2 md:mb-3">
-                <Calculator className="h-3 w-3" /> NODO DE INTELIGENCIA
+                <Calculator className="h-3 w-3" /> NODO OPERATIVO CENTRAL
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
                 CENTRO DE <span className="text-primary italic">MANDO</span>
@@ -118,7 +118,7 @@ export default function DashboardEmpresaPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between ml-2 gap-4">
             <div className="flex items-center gap-4">
                 <div className="p-2 bg-primary/10 rounded-xl"><BookOpen className="h-5 w-5 text-primary" /></div>
-                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Libros Certificados</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Registros Certificados</h3>
             </div>
             <Button asChild variant="link" className="text-primary font-black uppercase text-[10px] tracking-widest p-0 h-auto self-start sm:self-auto">
                 <Link href="/contabilidad/libros" className="flex items-center gap-2">

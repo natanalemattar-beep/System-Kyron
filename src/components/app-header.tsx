@@ -85,12 +85,11 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 <Logo className="h-8 w-8 transition-transform group-hover:scale-105" /> 
                 <div className="flex flex-col -mt-0.5 hidden sm:flex">
                     <span className="text-[10px] font-black tracking-[0.2em] uppercase text-foreground italic leading-none">System Kyron</span>
-                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-50">Portal Maestro</p>
+                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-50">Portal Corporativo</p>
                 </div>
             </Link>
           </div>
 
-          {/* NAVEGACIÓN CONTEXTUAL REFINADA */}
           <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-4xl mx-auto overflow-hidden">
             {navGroups?.map((group) => (
                 <DropdownMenu key={group.title}>

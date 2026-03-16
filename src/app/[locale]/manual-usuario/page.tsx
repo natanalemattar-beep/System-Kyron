@@ -50,7 +50,7 @@ const chapters = [
     id: "bienvenida",
     title: "01. Bienvenida al Ecosistema",
     icon: Target,
-    content: `Bienvenido a la documentación maestra de System Kyron. Este documento representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el centro de inteligencia que fusiona telecomunicaciones, finanzas blockchain y cumplimiento legal automatizado. Este manual detalla las capacidades previstas para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
+    content: `Bienvenido a la documentación unificada de System Kyron. Este legajo representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el núcleo de inteligencia que fusiona telecomunicaciones, finanzas blockchain y cumplimiento legal automatizado. Este manual detalla las capacidades técnicas previstas para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
     details: [
       "Propósito: Centralizar el 100% de las operaciones críticas en una plataforma única.",
       "Identidad: Desarrollo de ingeniería soberana nacido en el Colegio Gabriela Mistral.",
@@ -62,9 +62,9 @@ const chapters = [
     id: "empezar",
     title: "02. Cómo empezar",
     icon: Zap,
-    content: `El despliegue de System Kyron está diseñado para ser fluido e intuitivo. Al iniciar, el sistema le guiará a través de una configuración maestra donde definirá el perfil de su organización o identidad personal. Nuestra propuesta incluye un asistente de configuración que mapea automáticamente sus necesidades según el sector económico, asegurando que los módulos de FACTURACIÓN, CONTABILIDAD y RECURSOS HUMANOS se activen con los parámetros legales correspondientes a su jurisdicción.`,
+    content: `El despliegue de System Kyron está diseñado para ser fluido e intuitivo. Al iniciar, el sistema le guiará a través de una configuración inicial donde definirá el perfil de su organización o identidad personal. Nuestra propuesta incluye un asistente de configuración que mapea automáticamente sus necesidades según el sector económico, asegurando que los módulos de FACTURACIÓN, CONTABILIDAD y RECURSOS HUMANOS se activen con los parámetros legales correspondientes a su jurisdicción.`,
     details: [
-      "Perfil Maestro: Registro de RIF, Razón Social y datos de contacto oficiales.",
+      "Perfil Consolidado: Registro de RIF, Razón Social y datos de contacto oficiales.",
       "Selector de Áreas: Activación bajo demanda de las 10 secciones principales.",
       "Onboarding IA: Guía asistida por voz y texto para la carga inicial de datos.",
       "Multilingüe: Soporte completo para operaciones nacionales e internacionales."
@@ -74,7 +74,7 @@ const chapters = [
     id: "seguridad",
     title: "03. Protegiendo tu cuenta",
     icon: ShieldCheck,
-    content: `La seguridad en System Kyron no es una opción, es la base de nuestra arquitectura. El sistema implementa el 'Protocolo de Seguridad Nivel 5', que combina cifrado de grado militar AES-512 con autenticación biométrica 3D. Para proteger sus activos digitales, la propuesta incluye la validación obligatoria de Dos Factores (2FA). Cada vez que se intente un acceso sensible, el sistema requerirá una confirmación desde su terminal MI LÍNEA 5G vinculado, garantizando que solo el titular posea la llave de desencriptación de la Bóveda Maestra.`,
+    content: `La seguridad en System Kyron no es una opción, es la base de nuestra arquitectura. El sistema implementa el 'Protocolo de Seguridad Nivel 5', que combina cifrado de grado militar AES-512 con autenticación biométrica 3D. Para proteger sus activos digitales, la propuesta incluye la validación obligatoria de Dos Factores (2FA). Cada vez que se intente un acceso sensible, el sistema requerirá una confirmación desde su terminal MI LÍNEA 5G vinculado, garantizando que solo el titular posea la llave de desencriptación de la Bóveda Protegida.`,
     details: [
       "Cifrado Inmutable: Sus documentos se sellan mediante tecnología Blockchain.",
       "Auth Nivel 5: Reconocimiento facial y dactilar estándar eIDAS.",
@@ -127,19 +127,19 @@ const chapters = [
       "Aportes Parafiscales: Cálculo automático de IVSS, FAOV e INCES.",
       "Recibos WhatsApp: Notificación instantánea y ecológica de pagos.",
       "Mensajes de Incentivo: Reconocimiento automatizado de metas y cumpleaños.",
-      "Expediente Digital: Resguardo de títulos, contratos y solvencias de salud."
+      "Dossier Digital: Resguardo de títulos, contratos y solvencias de salud."
     ]
   },
   {
     id: "tpv",
     title: "08. FACTURACIÓN (Punto de Venta)",
     icon: ShoppingCart,
-    content: `El área de FACTURACIÓN integra un Punto de Venta (TPV) de alta velocidad que respeta estrictamente el horario laboral configurado por la gerencia. Si un operador intenta procesar una venta fuera de su turno, el sistema bloqueará la transacción, requiriendo autorización de un gerente con clave maestra. Esta funcionalidad, junto con la homologación de equipos fiscales, asegura un control total sobre el inventario y los ingresos, eliminando el riesgo de ventas no registradas o discrepancias en el arqueo de caja.`,
+    content: `El área de FACTURACIÓN integra un Punto de Venta (TPV) de alta velocidad que respeta estrictamente el horario laboral configurado por la gerencia. Si un operador intenta procesar una venta fuera de su turno, el sistema bloqueará la transacción, requiriendo autorización de un gerente con clave de acceso. Esta funcionalidad, junto con la homologación de equipos fiscales, asegura un control total sobre el inventario y los ingresos, eliminando el riesgo de ventas no registradas o discrepancias en el arqueo de caja.`,
     details: [
       "Control de Horario: Bloqueo automático del TPV fuera del tiempo laboral.",
       "Venta Multimoneda: Cobro mixto (Bs./Divisas) con cálculo exacto de IGTF.",
       "Inventario Síncrono: Actualización de existencias con cada transacción.",
-      "Autorización Maestra: Registro de excepciones supervisadas por gerencia."
+      "Autorización Especial: Registro de excepciones supervisadas por gerencia."
     ]
   },
   {
@@ -199,7 +199,7 @@ const chapters = [
       "Reportes Ejecutivos: Resúmenes de alto nivel para socios y directores.",
       "Análisis de Tendencias: Proyecciones de ventas basadas en IA.",
       "Exportación Fiscal: Documentos listos para auditorías del SENIAT.",
-      "Historial de Operaciones: Ledger completo de cada acción en el sistema."
+      "Historial de Operaciones: Registro completo de cada acción en el sistema."
     ]
   },
   {
@@ -234,7 +234,7 @@ const chapters = [
     details: [
       "Bóveda Civil: Resguardo de documentos de identidad y propiedad.",
       "LOPNNA Sync: Cálculo de pensión alimenticia con ajuste inflacionario.",
-      "Trámites Ante SAREN: Seguimiento de expedientes personales.",
+      "Trámites Ante SAREN: Seguimiento de documentos personales.",
       "Identidad Digital: Su ficha única para todos los servicios del Estado."
     ]
   },
@@ -264,9 +264,9 @@ const chapters = [
   },
   {
     id: "locales",
-    title: "19. Múltiples locales",
+    title: "19. Múltiples sedes",
     icon: Building2,
-    content: `Para las empresas en expansión, System Kyron ofrece gestión multi-local. Podrá controlar inventarios, ventas y personal de diferentes sedes desde una cuenta maestra de SOCIOS Y DIRECTIVOS. El sistema permite consolidar la operación global del negocio manteniendo la independencia administrativa de cada punto, ideal para franquicias o holdings que operan en distintos estados de Venezuela o a nivel internacional.`,
+    content: `Para las empresas en expansión, System Kyron ofrece gestión multi-local. Podrá controlar inventarios, ventas y personal de diferentes sedes desde una cuenta ejecutiva de SOCIOS Y DIRECTIVOS. El sistema permite consolidar la operación global del negocio manteniendo la independencia administrativa de cada punto, ideal para franquicias o holdings que operan en distintos estados de Venezuela o a nivel internacional.`,
     details: [
       "Consolidación Global: Reportes unificados de todos sus puntos de venta.",
       "Transferencias de Stock: Movimiento de mercancía entre locales.",
@@ -358,11 +358,11 @@ export default function ManualUsuarioPage() {
         <div class="header">
           <img src="${logoBase64}" class="logo" />
           <h1>SYSTEM KYRON</h1>
-          <p class="subtitle">Manual de Usuario Maestro v2.6.5</p>
+          <p class="subtitle">Guía de Operaciones Unificada v2.6.5</p>
         </div>
 
         <div class="intro">
-          Este manual representa la documentación maestra de System Kyron (v2.6.5), un ecosistema tecnológico integral diseñado por Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS). La plataforma se proyecta como una solución de misión crítica para el mercado venezolano en 2026, integrando normativas del SENIAT, CONATEL, LOTTT y otros entes reguladores. Esta guía detalla las funcionalidades previstas para garantizar la excelencia operativa y el cumplimiento legal absoluto de su organización.
+          Este manual representa la documentación unificada de System Kyron (v2.6.5), un ecosistema tecnológico integral diseñado por Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS). La plataforma se proyecta como una solución de misión crítica para el mercado venezolano en 2026, integrando normativas del SENIAT, CONATEL, LOTTT y otros entes reguladores. Esta guía detalla las capacidades previstas para garantizar la excelencia operativa y el cumplimiento legal absoluto de su organización.
         </div>
 
         ${chapters.map((ch) => `
@@ -384,7 +384,7 @@ export default function ManualUsuarioPage() {
 
         <div class="footer">
           <p>System Kyron • Telecom, Reciclaje y Control Total • Caracas, Venezuela</p>
-          <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad Maestro.</p>
+          <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad Central.</p>
         </div>
       </body>
       </html>
@@ -394,7 +394,7 @@ export default function ManualUsuarioPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Manual de usuario System Kyron.doc';
+    link.download = 'Guía de usuario System Kyron.doc';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -402,7 +402,7 @@ export default function ManualUsuarioPage() {
     setIsExporting(false);
     toast({
         title: "PROTOCOLO DE DESCARGA FINALIZADO",
-        description: "El manual maestro detallado (20 capítulos) ha sido generado con éxito.",
+        description: "La guía de operaciones detallada (20 capítulos) ha sido generada con éxito.",
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
   };
@@ -421,10 +421,10 @@ export default function ManualUsuarioPage() {
       <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="space-y-3">
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-            <BookOpen className="h-3 w-3" /> DOCUMENTACIÓN MAESTRA v2.6.5
+            <BookOpen className="h-3 w-3" /> DOCUMENTACIÓN UNIFICADA v2.6.5
             </div>
             <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-none">
-            Manual de <span className="text-primary not-italic">Usuario</span>
+            Guía de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
             Consolidado Técnico de 20 Capítulos • Alineado con Gacetas Oficiales 2026 • CM | SG | MS

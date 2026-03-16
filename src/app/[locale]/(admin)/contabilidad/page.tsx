@@ -37,7 +37,7 @@ const frequentAccess = [
     { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Marzo: Al día", color: "text-blue-600" },
     { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "23 Empleados", color: "text-emerald-600" },
     { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box, kpi: "45 SKUs", color: "text-amber-600" },
-    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Alícuotas: Ok", color: "text-rose-600" },
+    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Ok", color: "text-rose-600" },
 ];
 
 export default function ContabilidadPage() {
@@ -46,7 +46,7 @@ export default function ContabilidadPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
-                <Calculator className="h-3 w-3" /> SISTEMA CONTABLE MAESTRO
+                <Calculator className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
             </div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Control de Gestión Financiera • 2026</p>
@@ -85,11 +85,11 @@ export default function ContabilidadPage() {
             </div>
             <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Biblioteca de <br/> Libros Contables</h3>
-                    <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda a todos los libros fiscales, laborales y contables del sistema desde un repositorio centralizado.</p>
+                    <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Biblioteca de <br/> Libros Certificados</h3>
+                    <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda a todos los registros fiscales, laborales y operativos desde un repositorio centralizado.</p>
                     <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none">
                         <Link href="/contabilidad/libros" className="flex items-center gap-4">
-                            VER TODOS LOS LIBROS <ArrowRight className="h-5 w-5" />
+                            VER TODOS LOS REGISTROS <ArrowRight className="h-5 w-5" />
                         </Link>
                     </Button>
                 </div>
@@ -97,7 +97,7 @@ export default function ContabilidadPage() {
                     <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-md shadow-inner text-center space-y-4">
                         <BookOpen className="h-16 w-16 mx-auto text-white/40 mb-2" />
                         <p className="text-4xl font-black italic tracking-tighter text-white">30</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Registros Maestros</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Módulos de Control</p>
                     </div>
                 </div>
             </div>
