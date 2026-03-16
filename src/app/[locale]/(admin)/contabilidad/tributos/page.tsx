@@ -110,7 +110,7 @@ export default function TributosHubPage() {
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-sm mb-4">
-            <Landmark className="h-3 w-3" /> NODO TRIBUTARIO MAESTRO
+            <Landmark className="h-3 w-3" /> PORTAL TRIBUTARIO MAESTRO
         </div>
         <h1 className="text-3xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white uppercase leading-none italic-shadow">
             Gestión <span className="text-secondary italic">de Tributos</span>
@@ -204,8 +204,8 @@ export default function TributosHubPage() {
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Terminal className="h-40 w-40 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">REGISTRATION MONITOR</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus de Registros</h3>
+                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">CENTRO DE REGISTROS</Badge>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus Maestro</h3>
                         <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Inscripción y Renovación por Ente</p>
                     </div>
 

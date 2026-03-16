@@ -235,7 +235,9 @@ export function ChatDialog() {
               {isLoading && (
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-lg bg-white/5 border border-white/10 shrink-0"><Bot className="h-3 w-3 text-emerald-500" /></div>
-                  <div className="bg-muted/30 rounded-2xl p-4 shadow-inner"><ThinkingAnimation /></div>
+                  <div className="bg-muted/30 rounded-2xl p-4 shadow-inner">
+                    <span className="text-[10px] font-black text-primary animate-pulse uppercase tracking-widest italic">Procesando Inferencia...</span>
+                  </div>
                 </div>
               )}
             </div>
