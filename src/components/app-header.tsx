@@ -128,7 +128,6 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
         <div className="flex items-center justify-between w-full gap-4">
           
           <div className="flex items-center gap-4">
-            {/* Mobile Menu Trigger */}
             <Sheet>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="lg:hidden h-10 w-10 rounded-xl bg-white/5 border border-white/10">
@@ -139,7 +138,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                     <SheetHeader className="p-8 border-b border-white/5">
                         <div className="flex items-center gap-4">
                             <Logo className="h-10 w-10" />
-                            <SheetTitle className="text-xl font-black uppercase italic tracking-tighter">NAVEGACIÓN</SheetTitle>
+                            <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-white">MENÚ</SheetTitle>
                         </div>
                     </SheetHeader>
                     <div className="p-4 overflow-y-auto max-h-[calc(100vh-8rem)]">
@@ -148,7 +147,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                                 <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3">{nav.label}</p>
                                 <div className="space-y-1">
                                     {nav.type === 'link' ? (
-                                        <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
+                                        <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4 text-white/70">
                                             <Link href={nav.href as any}>
                                                 <nav.icon className="h-4 w-4 opacity-40" />
                                                 {nav.label}
@@ -156,7 +155,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                                         </Button>
                                     ) : (
                                         nav.items?.map(item => (
-                                            <Button key={item.label} asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
+                                            <Button key={item.label} asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4 text-white/70">
                                                 <Link href={item.href as any}>
                                                     <item.icon className="h-4 w-4 opacity-40" />
                                                     {item.label}
@@ -183,7 +182,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-4xl mx-auto">
+          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-4xl mx-auto overflow-hidden">
             {navigationConfig.map((nav) => (
                 nav.type === 'link' ? (
                     <Button 
@@ -191,7 +190,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                         asChild 
                         variant="ghost" 
                         className={cn(
-                            "h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 border border-transparent whitespace-nowrap group",
+                            "h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 border border-transparent whitespace-nowrap group",
                             pathname.includes(nav.href!) 
                                 ? "bg-primary/10 text-primary border-primary/20" 
                                 : "text-muted-foreground/60 hover:text-primary hover:bg-white/5"
@@ -207,7 +206,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
-                                className="h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-white/5 whitespace-nowrap gap-2"
+                                className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-white/5 whitespace-nowrap gap-2"
                             >
                                 <nav.icon className="h-3.5 w-3.5 opacity-30" />
                                 {nav.label}
@@ -233,7 +232,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
           </nav>
 
           <div className="flex items-center justify-end gap-3 md:gap-5 min-w-fit">
-            <div className="hidden sm:flex items-center gap-3 px-4 py-1.5 rounded-xl bg-white/[0.02] border border-white/5 shadow-inner">
+            <div className="hidden xs:flex items-center gap-3 px-3 md:px-4 py-1.5 rounded-xl bg-white/[0.02] border border-white/5 shadow-inner">
                 <div className="flex flex-col items-end">
                     <span className="text-[6px] font-black uppercase text-muted-foreground/30 tracking-[0.2em] leading-none">Net Node</span>
                     <span className="text-[9px] font-mono font-bold text-emerald-500 italic leading-none mt-1 uppercase">14MS</span>

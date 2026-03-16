@@ -19,7 +19,7 @@ export default function AdminLayout({
     };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
+      <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
           {/* Fondo HUD Dinámico */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.04] hud-grid" />
@@ -29,19 +29,19 @@ export default function AdminLayout({
 
           <AppSidebar />
 
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative w-full">
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative w-full overflow-x-hidden">
               <AppHeader 
                 user={headerUser} 
                 dashboardHref="/dashboard-empresa" 
               />
               
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                  <div className="max-w-[1600px] mx-auto">
+                  <div className="max-w-[1400px] mx-auto w-full">
                     {children}
                   </div>
               </motion.main>

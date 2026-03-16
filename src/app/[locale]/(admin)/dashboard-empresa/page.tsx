@@ -1,12 +1,11 @@
+
 "use client";
 
 import { useState } from "react";
 import { 
     Calculator, 
-    Wallet, 
     TrendingUp, 
     TrendingDown,
-    ShieldCheck, 
     Activity, 
     CheckCircle,
     Zap,
@@ -15,16 +14,13 @@ import {
     Landmark,
     Users,
     History,
-    Calendar,
     Box,
-    FileText,
-    Banknote,
     Receipt,
     Loader2,
     ShieldAlert,
     BarChart3
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -73,45 +69,45 @@ export default function DashboardEmpresaPage() {
   };
 
   return (
-    <div className="space-y-10 pb-20">
-      <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+    <div className="space-y-8 md:space-y-10 pb-20">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-6 py-2 mt-6 md:mt-10">
+        <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2 md:mb-3">
                 <Calculator className="h-3 w-3" /> NODO DE INTELIGENCIA
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
                 CENTRO DE <span className="text-primary italic">MANDO</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
                 Portal Empresarial • Modo Prototipo 2026
             </p>
         </div>
-        <div className="flex gap-3 no-print">
-            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-white/60">
-                <History className="mr-3 h-4 w-4" /> AUDITORÍA
+        <div className="flex w-full md:w-auto gap-3 no-print">
+            <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-white/60">
+                <History className="mr-2 h-4 w-4" /> AUDITORÍA
             </Button>
             <Button 
-                className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest"
+                className="flex-1 md:flex-none btn-3d-primary h-11 md:h-12 px-6 md:px-10 rounded-xl font-black text-[9px] uppercase tracking-widest"
                 onClick={handleClosePeriod}
                 disabled={isClosing}
             >
-                {isClosing ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Receipt className="mr-3 h-4 w-4" />}
+                {isClosing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Receipt className="mr-2 h-4 w-4" />}
                 {isClosing ? "PROCESANDO" : "CERRAR PERIODO"}
             </Button>
         </div>
       </header>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {kpiStats.map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group">
-            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-6">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4 md:p-6">
               <CardTitle className="text-[9px] font-black uppercase tracking-widest text-slate-400">{kpi.label}</CardTitle>
-              <div className="p-2.5 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
+              <div className="p-2 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
             </CardHeader>
-            <CardContent className="p-6 pt-0">
-              <div className="text-2xl font-black italic tracking-tighter text-white">{kpi.value}</div>
+            <CardContent className="p-4 md:p-6 pt-0">
+              <div className="text-xl md:text-2xl font-black italic tracking-tighter text-white break-words">{kpi.value}</div>
               <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend || kpi.sub}</p>
             </CardContent>
           </Card>
@@ -119,22 +115,22 @@ export default function DashboardEmpresaPage() {
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center justify-between ml-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between ml-2 gap-4">
             <div className="flex items-center gap-4">
                 <div className="p-2 bg-primary/10 rounded-xl"><BookOpen className="h-5 w-5 text-primary" /></div>
                 <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Libros Certificados</h3>
             </div>
-            <Button asChild variant="link" className="text-primary font-black uppercase text-[10px] tracking-widest p-0 h-auto">
+            <Button asChild variant="link" className="text-primary font-black uppercase text-[10px] tracking-widest p-0 h-auto self-start sm:self-auto">
                 <Link href="/contabilidad/libros" className="flex items-center gap-2">
                     BIBLIOTECA COMPLETA <ArrowRight className="h-3 w-3"/>
                 </Link>
             </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {quickBooks.map((item, i) => (
                 <Link key={i} href={item.href as any}>
-                    <Card className="glass-card border-none bg-card/40 hover:bg-white/[0.05] transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                    <Card className="glass-card border-none bg-card/40 hover:bg-white/[0.05] transition-all rounded-2xl p-6 md:p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
                         <div className="flex items-center gap-5">
                             <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                                 <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
@@ -153,14 +149,14 @@ export default function DashboardEmpresaPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-7">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-7 w-full overflow-hidden">
             <OverviewChart />
         </div>
 
         <div className="lg:col-span-5 space-y-8">
-            <Card className="glass-card border-none bg-[#050505] p-10 text-white relative overflow-hidden group shadow-2xl">
-                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><BarChart3 className="h-48 w-48" /></div>
+            <Card className="glass-card border-none bg-[#050505] p-8 md:p-10 text-white relative overflow-hidden group shadow-2xl">
+                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><BarChart3 className="h-32 md:h-48 w-32 md:w-48" /></div>
                 <div className="relative z-10 space-y-8">
                     <div>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-[#00A86B]">Escenarios IA</h3>
