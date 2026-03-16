@@ -17,7 +17,8 @@ import {
     User,
     Lock,
     ShieldCheck,
-    X
+    X,
+    Activity
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -95,14 +96,6 @@ export default function ComunicacionesPage() {
             return;
         }
         if (action === 'descarga') {
-            if (!isSigned) {
-                toast({
-                    variant: "destructive",
-                    title: "DOCUMENTO NO VÁLIDO",
-                    description: "Debe sellar y registrar el documento antes de su descarga."
-                });
-                return;
-            }
             handleDownloadWord();
             return;
         }
@@ -143,22 +136,6 @@ export default function ComunicacionesPage() {
                     .signature-img { width: 120pt; height: 60pt; margin-bottom: -10pt; }
                     .qr-container { text-align: right; }
                     .qr-img { width: 80pt; height: 80pt; border: 1pt solid #e2e8f0; padding: 2pt; }
-                    .seal-overlay { 
-                        position: absolute; 
-                        bottom: 100pt; 
-                        left: 150pt; 
-                        width: 80pt; 
-                        height: 80pt; 
-                        opacity: 0.4;
-                        border: 3pt double #2563eb;
-                        border-radius: 50%;
-                        text-align: center;
-                        padding-top: 20pt;
-                        color: #2563eb;
-                        font-size: 8pt;
-                        font-weight: bold;
-                        transform: rotate(-15deg);
-                    }
                 </style>
             </head>
             <body>
@@ -179,33 +156,24 @@ export default function ComunicacionesPage() {
 
                 <div class="letter-body">${letterBody.replace(/\n/g, '<br/>')}</div>
 
-                ${isSigned ? `
                 <table class="footer-table">
                     <tr>
                         <td style="vertical-align: bottom; width: 60%;">
                             <div style="text-align: center; width: 200pt;">
-                                <img src="${signatureImg}" class="signature-img" />
+                                ${isSigned ? `<img src="${signatureImg}" class="signature-img" />` : `<div style="height: 60pt;"></div>`}
                                 <div class="signature-line">
                                     <p style="margin: 0; font-weight: bold; font-size: 10pt;">${data.representante}</p>
                                     <p style="margin: 0; font-size: 8pt; color: #64748b;">C.I: ${data.cedula}</p>
-                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">Representante Legal</p>
+                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">${isSigned ? 'Representante Legal' : 'Firma en Físico'}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="qr-container" style="vertical-align: bottom;">
-                            <img src="${qrUrl}" class="qr-img" />
-                            <p style="font-size: 6pt; color: #94a3b8; margin-top: 5pt; text-transform: uppercase;">Integridad Digital Sellada</p>
+                            ${isSigned ? `<img src="${qrUrl}" class="qr-img" />` : ''}
+                            <p style="font-size: 6pt; color: #94a3b8; margin-top: 5pt; text-transform: uppercase;">${isSigned ? 'Integridad Digital Sellada' : ''}</p>
                         </td>
                     </tr>
                 </table>
-                <div class="seal-overlay">
-                    VALIDADO<br/>KYRON 2026
-                </div>
-                ` : `
-                <div style="border: 1pt dashed #e2e8f0; padding: 20pt; text-align: center; color: #94a3b8; font-style: italic; font-size: 10pt;">
-                    Documento pendiente de firma y sellado institucional
-                </div>
-                `}
 
                 <div style="margin-top: 100pt; border-top: 1pt solid #e2e8f0; padding-top: 10pt; text-align: center;">
                     <p style="font-size: 8pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 2pt;">System Kyron v2.6.5 • Transmisión Autorizada</p>
@@ -411,9 +379,11 @@ export default function ComunicacionesPage() {
                             </motion.div>
                         </>
                     ) : (
-                        <div className="w-full border-2 border-dashed border-slate-100 rounded-[2rem] p-10 flex flex-col items-center justify-center gap-4 opacity-20 italic">
-                            <Lock className="h-10 w-10" />
-                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-center">Documento pendiente de firma y sellado institucional</p>
+                        <div className="w-full flex flex-col items-center">
+                            <div className="w-64 h-[1px] bg-slate-900 mb-4" />
+                            <p className="font-black text-xs uppercase tracking-tight text-slate-900">{data.representante}</p>
+                            <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
+                            <p className="text-[9px] uppercase font-bold opacity-40 italic">Firma en Físico</p>
                         </div>
                     )}
                 </div>
