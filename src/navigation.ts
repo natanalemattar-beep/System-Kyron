@@ -54,28 +54,21 @@ export const pathnames = {
   '/contabilidad/tributos/municipales': '/contabilidad/tributos/municipales',
   '/contabilidad/tributos/multas': '/contabilidad/tributos/multas',
   '/contabilidad/tributos/homologacion': '/contabilidad/tributos/homologacion',
+  '/contabilidad/tributos/poderes-representacion': '/contabilidad/tributos/poderes-representacion',
+  '/contabilidad/tributos/permisos': '/contabilidad/tributos/permisos',
+  '/contabilidad/tributos/ministerio-industrias': '/contabilidad/tributos/ministerio-industrias',
+  '/contabilidad/tributos/ministerio-comercio-exterior': '/contabilidad/tributos/ministerio-comercio-exterior',
+  '/contabilidad/tributos/ministerio-transporte': '/contabilidad/tributos/ministerio-transporte',
+  '/contabilidad/tributos/ministerio-ecosocialismo': '/contabilidad/tributos/ministerio-ecosocialismo',
+  '/contabilidad/tributos/ministerio-turismo': '/contabilidad/tributos/ministerio-turismo',
 
   // CUENTAS SUB-PORTAL
   '/contabilidad/cuentas': '/contabilidad/cuentas',
-  '/contabilidad/cuentas/conciliacion': '/contabilidad/cuentas/conciliacion',
-  '/contabilidad/cuentas/libro-bancos': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/cheques': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/depositos': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/transferencias': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/anticipos-proveedores': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/anticipos-clientes': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/flujo-caja-proyectado': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/antiguedad-saldos': '/contabilidad/cuentas/libro-bancos',
   '/contabilidad/cuentas/todas': '/contabilidad/cuentas/todas',
 
   // ANALISIS SUB-PORTAL
   '/contabilidad/analisis': '/contabilidad/analisis',
   '/contabilidad/analisis/factibilidad': '/estudio-factibilidad-economica',
-  '/contabilidad/analisis/por-producto': '/contabilidad/analisis/por-producto',
-  '/contabilidad/analisis/por-cliente': '/contabilidad/analisis/por-cliente',
-  '/contabilidad/analisis/ratios': '/contabilidad/analisis/ratios',
-  '/contabilidad/analisis/sensibilidad': '/contabilidad/analisis/sensibilidad',
-  '/contabilidad/analisis/benchmarking': '/contabilidad/analisis/benchmarking',
   '/contabilidad/analisis/todos': '/contabilidad/analisis/todos',
 
   // CERTIFICACIONES
@@ -100,7 +93,7 @@ export const pathnames = {
   '/libro-compra-venta': '/libro-compra-venta',
   '/ajuste-por-inflacion': '/ajuste-por-inflacion',
   '/acta-asamblea': '/acta-asamblea',
-  '/poderes-representacion': '/poderes-representacion',
+  '/poderes-representacion': '/contabilidad/tributos/poderes-representacion',
   '/activos-inmobiliarios': '/activos-inmobiliarios',
 } as const;
 

@@ -50,8 +50,8 @@ const tributoCategories = [
             { label: "ISLR", href: "/islr-arc" },
             { label: "IGTF (3% Divisas)", href: "/contabilidad/tributos/igtf" },
             { label: "DPP (Ley de Pensiones 9%)", href: "/contabilidad/tributos/proteccion-pensiones" },
-            { label: "IGP (Grandes Patrimonios)", href: "#" },
-            { label: "Impuesto a Juegos", href: "#" },
+            { label: "IGP (Grandes Patrimonios)", href: "/contabilidad/tributos/declaraciones-anteriores" },
+            { label: "Impuesto a Juegos", href: "/contabilidad/tributos/declaraciones-anteriores" },
         ]
     },
     {
@@ -73,13 +73,13 @@ const tributoCategories = [
         color: "text-indigo-600",
         items: [
             { label: "Homologación SENIAT", href: "/contabilidad/tributos/homologacion" },
-            { label: "Registro SAREN", href: "/poderes-representacion" },
-            { label: "Propiedad Intelectual SAPI", href: "/permisos" },
-            { label: "Min. Industrias y Comercio", href: "#" },
-            { label: "Min. Comercio Exterior", href: "#" },
-            { label: "Min. Transporte", href: "#" },
-            { label: "Min. Ecosocialismo", href: "#" },
-            { label: "Min. Turismo", href: "#" },
+            { label: "Registro de Comercio (SAREN)", href: "/contabilidad/tributos/poderes-representacion" },
+            { label: "Propiedad Intelectual (SAPI)", href: "/contabilidad/tributos/permisos" },
+            { label: "Ministerio de Industrias", href: "/contabilidad/tributos/ministerio-industrias" },
+            { label: "Ministerio de Comercio Exterior", href: "/contabilidad/tributos/ministerio-comercio-exterior" },
+            { label: "Ministerio de Transporte", href: "/contabilidad/tributos/ministerio-transporte" },
+            { label: "Ministerio de Ecosocialismo", href: "/contabilidad/tributos/ministerio-ecosocialismo" },
+            { label: "Ministerio de Turismo", href: "/contabilidad/tributos/ministerio-turismo" },
         ]
     }
 ];
@@ -110,7 +110,6 @@ export default function TributosHubPage() {
 
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8 space-y-10">
-            {/* Gestión por Entes */}
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
                 <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5">
                     <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Directorio de Entidades y Gestión</h3>
@@ -195,9 +194,7 @@ export default function TributosHubPage() {
             </div>
         </div>
 
-        {/* Lado Derecho: Configuración y Alertas */}
         <div className="lg:col-span-4 space-y-10">
-            {/* Panel de Alertas */}
             <Card className="glass-card border-none rounded-[3rem] bg-slate-100 dark:bg-card/60 shadow-2xl p-10 overflow-hidden relative border-l-4 border-primary">
                 <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none"><Bell className="h-48 w-48" /></div>
                 <div className="relative z-10 space-y-8">
@@ -244,7 +241,6 @@ export default function TributosHubPage() {
                 </div>
             </Card>
 
-            {/* Pago Automático */}
             <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
                 <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-40 w-48" /></div>
                 <div className="relative z-10 space-y-8">
@@ -278,8 +274,4 @@ export default function TributosHubPage() {
       </div>
     </div>
   );
-}
-
-function CardComponent({ children, className }: { children: React.ReactNode, className?: string }) {
-    return <div className={cn("rounded-xl border bg-card text-card-foreground shadow-sm", className)}>{children}</div>;
 }
