@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Banknote, Download, Calculator, ShieldCheck, Activity, Terminal, Percent } from "lucide-react";
@@ -14,13 +14,13 @@ export default function RetencionesIslrPage() {
     const { toast } = useToast();
 
     const islrCategories = [
-        { id: "sueldos", label: "Sueldos", icon: Banknote },
-        { id: "honorarios", label: "Honorarios", icon: Calculator },
-        { id: "arrendamientos", label: "Arriendos", icon: Percent },
-        { id: "comisiones", label: "Comisiones", icon: Banknote },
-        { id: "intereses", label: "Intereses", icon: Activity },
-        { id: "publicidad", label: "Publicidad", icon: Terminal },
-        { id: "acciones", label: "Acciones", icon: ShieldCheck },
+        { id: "sueldos", label: "Sueldos", desc: "Art. 9, Num. 1" },
+        { id: "honorarios", label: "Honorarios", desc: "Art. 9, Num. 1" },
+        { id: "arrendamientos", label: "Arriendos", desc: "Art. 9, Num. 1" },
+        { id: "comisiones", label: "Comisiones", desc: "Art. 9, Num. 1" },
+        { id: "intereses", label: "Intereses", desc: "Art. 9, Num. 1" },
+        { id: "publicidad", label: "Publicidad", desc: "Art. 9, Num. 1" },
+        { id: "acciones", label: "Acciones", desc: "Art. 9, Num. 1" },
     ];
 
     return (
@@ -28,13 +28,13 @@ export default function RetencionesIslrPage() {
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Banknote className="h-3 w-3" /> CONTROL DE IMPUESTO SOBRE LA RENTA
+                        <Banknote className="h-3 w-3" /> NODO ISLR
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Retenciones <span className="text-primary italic">de ISLR</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Decreto N° 1.808 • Reglamento de Retenciones</p>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Decreto N° 1.808 • Control de Pagos a Terceros</p>
                 </div>
                 <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    <Download className="mr-3 h-4 w-4" /> EXPORTAR XML (SENIAT)
+                    <Download className="mr-3 h-4 w-4" /> EXPORTAR XML
                 </Button>
             </header>
 
@@ -50,14 +50,14 @@ export default function RetencionesIslrPage() {
                 <TabsContent value="honorarios" className="animate-in fade-in slide-in-from-bottom-2">
                     <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                         <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Honorarios Profesionales (Servicios No Mercantiles)</CardTitle>
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Relación de Honorarios Profesionales</CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-muted/30 border-none">
                                         <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Beneficiario</TableHead>
-                                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Base de Cálculo</TableHead>
+                                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Base Imponible</TableHead>
                                         <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Tarifa (%)</TableHead>
                                         <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Retenido</TableHead>
                                     </TableRow>
@@ -66,7 +66,6 @@ export default function RetencionesIslrPage() {
                                     {[
                                         { name: "Abog. Maria Hernandez", base: 15000, pct: "3%", ret: 450 },
                                         { name: "Ing. Juan Castillo", base: 8500, pct: "3%", ret: 255 },
-                                        { name: "Dr. Roberto Silva", base: 22000, pct: "3%", ret: 660 },
                                     ].map((row, i) => (
                                         <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
                                             <TableCell className="pl-10 py-6">
