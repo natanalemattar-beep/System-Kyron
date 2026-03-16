@@ -69,6 +69,7 @@ export const pathnames = {
   '/contabilidad/tributos/ministerio-transporte': '/contabilidad/tributos/ministerio-transporte',
   '/contabilidad/tributos/ministerio-ecosocialismo': '/contabilidad/tributos/ministerio-ecosocialismo',
   '/contabilidad/tributos/ministerio-turismo': '/contabilidad/tributos/ministerio-turismo',
+  '/contabilidad/tributos/comunicaciones': '/contabilidad/tributos/comunicaciones',
 
   // CUENTAS SUB-PORTAL
   '/contabilidad/cuentas': '/contabilidad/cuentas',

@@ -10,7 +10,8 @@ import {
     Scale, Globe, Truck, Leaf, Palmtree, Cpu,
     BookOpen, ShieldAlert, ChevronDown, Bell,
     Settings2, Smartphone, CheckCircle2, Copy,
-    Terminal, Coins, Microscope, Ship, Clock, AlertTriangle
+    Terminal, Coins, Microscope, Ship, Clock, AlertTriangle,
+    MailOpen
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -38,6 +39,17 @@ const tributoCategories = [
             { label: "DPP (Ley de Pensiones 9%)", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
             { label: "IGP (Grandes Patrimonios)", href: "/contabilidad/tributos/igp", icon: Coins },
             { label: "Impuesto a Juegos de Azar", href: "/contabilidad/tributos/juegos", icon: Zap },
+        ]
+    },
+    {
+        id: "comunicaciones",
+        title: "Comunicaciones SENIAT",
+        desc: "Cartas de inactividad, cierre y notificaciones.",
+        icon: MailOpen,
+        color: "text-primary",
+        items: [
+            { label: "Generar Comunicaciones", href: "/contabilidad/tributos/comunicaciones", icon: FileText },
+            { label: "Archivo de Notificaciones", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
         ]
     },
     {
@@ -113,7 +125,7 @@ export default function TributosHubPage() {
             <Landmark className="h-3 w-3" /> PORTAL TRIBUTARIO MAESTRO
         </div>
         <h1 className="text-3xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white uppercase leading-none italic-shadow">
-            Gestión <span className="text-secondary italic">de Tributos</span>
+            Centro <span className="text-secondary italic">Tributario</span>
         </h1>
         <p className="text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-[0.6em] mt-4 italic opacity-60">Oficina Virtual de Impuestos • Sincronización Global 2026</p>
       </header>
@@ -123,7 +135,7 @@ export default function TributosHubPage() {
             {/* --- ACORDEONES DE CATEGORÍAS --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
                 <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-100/50 dark:bg-white/5 flex justify-between items-center">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white italic">Directorio de Entidades y Gestión 2026</h3>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white italic">Centro de Gestión Fiscal 2026</h3>
                     <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Acreditado SNAT/2025/000091</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
@@ -204,9 +216,9 @@ export default function TributosHubPage() {
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Terminal className="h-40 w-40 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">CENTRO DE REGISTROS</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus Maestro</h3>
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Inscripción y Renovación por Ente</p>
+                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">ESTATUS REGISTRAL</Badge>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Centro de Registros</h3>
+                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Monitor de Vigencia por Ente</p>
                     </div>
 
                     <div className="space-y-4">
@@ -273,7 +285,7 @@ export default function TributosHubPage() {
                         </div>
                         <ArrowRight className="h-4 w-4 text-slate-200 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
                     </div>
-                    <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Archivo Maestro</h3>
+                    <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Archivo de Declaraciones</h3>
                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-2">Dossier Histórico Inmutable</p>
                 </Card>
             </Link>
