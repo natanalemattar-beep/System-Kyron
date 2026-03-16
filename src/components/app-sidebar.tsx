@@ -16,7 +16,9 @@ import {
     legalNavGroups, 
     rrhhNavGroups, 
     sociosNavGroups, 
-    telecomNavGroups 
+    telecomNavGroups,
+    ventasNavGroups,
+    sostenibilidadNavGroups
 } from "./app-sidebar-nav-items";
 
 /**
@@ -30,6 +32,8 @@ export function AppSidebar() {
   // Lógica de selección de grupo basada en contexto de ruta
   const getContextualGroups = () => {
     if (pathname.includes('/contabilidad')) return adminNavGroups;
+    if (pathname.includes('/ventas') || pathname.includes('/punto-de-venta') || pathname.includes('/proformas')) return ventasNavGroups;
+    if (pathname.includes('/sostenibilidad') || pathname.includes('/mercado-ecocreditos')) return sostenibilidadNavGroups;
     if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) return legalNavGroups;
     if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas')) return rrhhNavGroups;
     if (pathname.includes('/dashboard-socios') || pathname.includes('/poderes-representacion')) return sociosNavGroups;

@@ -29,39 +29,39 @@ import { Badge } from "@/components/ui/badge";
 export default function AnalisisPage() {
   const quickAccess = [
     { 
-      label: "VENTAS E INGRESOS", 
+      label: "PULSO DE INGRESOS", 
       href: "/analisis-ventas", 
       icon: BarChart3, 
       color: "text-blue-600",
-      desc: "Análisis de volumen y tendencias comerciales."
+      desc: "Auditoría de ingresos y tendencias por libros."
     },
     { 
-      label: "RIESGO FINANCIERO", 
+      label: "ALERTA DE MOROSIDAD", 
       href: "/analisis-riesgo", 
       icon: ShieldCheck, 
       color: "text-rose-600",
-      desc: "Monitor de morosidad y alertas preventivas."
+      desc: "Monitor de cuentas incobrables y riesgo de cartera."
     },
     { 
       label: "RENTABILIDAD PRO", 
       href: "/analisis-rentabilidad", 
       icon: TrendingUp, 
       color: "text-emerald-600",
-      desc: "Márgenes netos y optimización de ROI."
+      desc: "Análisis de utilidad neta y eficiencia fiscal."
     },
     { 
       label: "FACTIBILIDAD", 
       href: "/contabilidad/analisis/factibilidad", 
       icon: Calculator, 
       color: "text-amber-600",
-      desc: "VAN, TIR y escenarios de inversión."
+      desc: "VAN, TIR y escenarios de inversión auditados."
     },
     { 
-      label: "COSTOS", 
+      label: "AUDITORÍA COSTOS", 
       href: "/estructura-costos", 
       icon: Activity, 
       color: "text-slate-600",
-      desc: "Desglose de gastos fijos y variables."
+      desc: "Análisis de centros de costo y gastos fijos."
     }
   ];
 
@@ -72,13 +72,13 @@ export default function AnalisisPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
             <PieChart className="h-3 w-3" /> ÁREA ESTRATÉGICA
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow text-white">
             Inteligencia <span className="text-primary">Analítica</span>
           </h1>
-          <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Business Intelligence y Factibilidad 2026</p>
+          <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Business Intelligence y Control Financiero 2026</p>
         </div>
-        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
-          <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver</Link>
+        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
+          <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
         </Button>
       </header>
 
@@ -86,44 +86,44 @@ export default function AnalisisPage() {
         <Card className="bg-primary/5 border-primary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Wallet className="h-16 w-16 text-primary" /></div>
             <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60 mb-2">Salud de Caja</p>
-            <p className="text-3xl font-black italic text-foreground tracking-tighter mb-4">Bs. 45.6k <span className="text-xs opacity-40 tracking-normal">Disponibles</span></p>
+            <p className="text-3xl font-black italic text-white tracking-tighter mb-4">Bs. 45.6k <span className="text-xs opacity-40 tracking-normal italic">Auditado</span></p>
             <div className="flex items-center gap-2 text-emerald-500">
                 <TrendingUp className="h-3 w-3" />
-                <span className="text-[10px] font-black uppercase">Suficiencia: ÓPTIMA</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">SOLVENCIA: ÓPTIMA</span>
             </div>
         </Card>
         <Card className="bg-secondary/5 border-secondary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Zap className="h-16 w-16 text-secondary" /></div>
-            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-secondary/60 mb-2">Eficiencia Operativa</p>
-            <p className="text-3xl font-black italic text-foreground tracking-tighter mb-4">92.4% <span className="text-xs opacity-40 tracking-normal">Capacidad</span></p>
+            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-secondary/60 mb-2">Eficiencia de Capital</p>
+            <p className="text-3xl font-black italic text-white tracking-tighter mb-4">92.4% <span className="text-xs opacity-40 tracking-normal italic">ROI</span></p>
             <div className="flex items-center gap-2 text-primary">
                 <Target className="h-3 w-3" />
-                <span className="text-[10px] font-black uppercase">Meta: 100% MARZO</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">OBJETIVO: 100% Q2</span>
             </div>
         </Card>
         <Card className="bg-rose-500/5 border-rose-500/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16 text-rose-500" /></div>
-            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-rose-500/60 mb-2">Riesgo Fiscal</p>
-            <p className="text-3xl font-black italic text-foreground tracking-tighter mb-4">0.00% <span className="text-xs opacity-40 tracking-normal">Alertas</span></p>
+            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-rose-500/60 mb-2">Seguridad Fiscal</p>
+            <p className="text-3xl font-black italic text-white tracking-tighter mb-4">0.00% <span className="text-xs opacity-40 tracking-normal italic">Riesgo</span></p>
             <div className="flex items-center gap-2 text-emerald-500">
-                <CheckCircle className="h-3 w-3" />
-                <span className="text-[10px] font-black uppercase">Blindaje: ACTIVO</span>
+                <CheckCircle2 className="h-3 w-3" />
+                <span className="text-[10px] font-black uppercase tracking-widest">BLINDAJE: NIVEL 5</span>
             </div>
         </Card>
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground/40 ml-2">Módulos de Análisis</h3>
+        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40 ml-2">Módulos de Análisis Financiero</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {quickAccess.map((item, i) => (
             <Link key={i} href={item.href as any}>
-                <Card className="glass-card border-none bg-card p-8 flex flex-col justify-between group shadow-sm hover:shadow-2xl transition-all duration-500 rounded-[2rem] min-h-[200px]">
+                <Card className="glass-card border-none bg-card/40 p-8 flex flex-col justify-between group shadow-sm hover:shadow-2xl transition-all duration-500 rounded-[2rem] min-h-[200px]">
                 <div className="space-y-6">
                     <div className="p-3 bg-muted rounded-xl w-fit group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                     <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                     </div>
                     <div className="space-y-1">
-                    <h3 className="text-sm font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
+                    <h3 className="text-sm font-black uppercase italic tracking-tighter text-white group-hover:text-primary transition-colors">{item.label}</h3>
                     <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest leading-tight">{item.desc}</p>
                     </div>
                 </div>
@@ -144,11 +144,11 @@ export default function AnalisisPage() {
           </div>
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
-              <Badge className="bg-primary text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Módulo Maestro</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">FACTIBILIDAD <br/> ECONÓMICA</h3>
-              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda al dictamen técnico de VAN, TIR y retorno de inversión de los proyectos activos del holding.</p>
+              <Badge className="bg-primary text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">ESTUDIO DE <br/> FACTIBILIDAD</h3>
+              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic">Consulte el dictamen técnico de VAN, TIR y retorno de inversión de los activos estratégicos del grupo.</p>
               <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
-                VER ESTUDIO COMPLETO <ArrowRight className="ml-4 h-5 w-5" />
+                VER ESTUDIO MAESTRO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>
             </div>
           </div>
@@ -156,4 +156,24 @@ export default function AnalisisPage() {
       </motion.div>
     </div>
   );
+}
+
+function CheckCircle2(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  )
 }

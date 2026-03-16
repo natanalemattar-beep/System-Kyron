@@ -149,9 +149,12 @@ export const adminNavGroups = [
         { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
     ],
     subGroups: []
-  },
+  }
+];
+
+export const ventasNavGroups = [
   { 
-    title: "Ventas", 
+    title: "Operaciones", 
     icon: ShoppingCart, 
     items: [
         { href: "/facturacion", label: "Centro de Facturas", icon: FileText },
@@ -162,14 +165,25 @@ export const adminNavGroups = [
     subGroups: []
   },
   {
-    title: "Sostenibilidad",
-    icon: Recycle,
+    title: "Inteligencia",
+    icon: TrendingUp,
     items: [
-        { href: "/sostenibilidad", label: "Dashboard Verde", icon: Leaf },
-        { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
-    ],
-    subGroups: []
+        { href: "/analisis-ventas", label: "Análisis Comercial", icon: BarChart3 },
+        { href: "/estrategias-ventas", label: "Estrategias IA", icon: Zap },
+    ]
   }
+];
+
+export const sostenibilidadNavGroups = [
+    {
+        title: "Impacto Verde",
+        icon: Recycle,
+        items: [
+            { href: "/sostenibilidad", label: "Dashboard Ambiental", icon: Leaf },
+            { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
+            { href: "/tarjeta-reciclaje", label: "Tarjeta Pro", icon: Recycle },
+        ]
+    }
 ];
 
 export const legalNavGroups = [
