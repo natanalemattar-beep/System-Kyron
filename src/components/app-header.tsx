@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -29,11 +30,12 @@ import {
     Settings,
     User,
     BarChart3,
-    ChevronRight
+    ChevronRight,
+    Terminal
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
-import { adminNavGroups } from "./app-sidebar-nav-items";
+import { AppSidebar } from "./app-sidebar";
 
 const navigationConfig = [
   { 
@@ -95,39 +97,8 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                         <Menu className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5">
-                    <SheetHeader className="p-8 border-b border-white/5 bg-muted/10">
-                        <div className="flex items-center gap-4">
-                            <Logo className="h-10 w-10" />
-                            <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">SISTEMA</SheetTitle>
-                        </div>
-                    </SheetHeader>
-                    <div className="p-4 overflow-y-auto max-h-[calc(100vh-8rem)] space-y-8 py-10">
-                        {adminNavGroups.map((group) => (
-                            <div key={group.title}>
-                                <p className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] mb-4 italic">{group.title}</p>
-                                <div className="space-y-1">
-                                    {group.items.map((item) => (
-                                        <SheetClose key={item.label} asChild>
-                                            <Link 
-                                                href={item.href as any}
-                                                className={cn(
-                                                    "flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300",
-                                                    pathname.includes(item.href) ? "bg-primary/10 text-primary" : "text-muted-foreground/60 hover:text-primary hover:bg-primary/5"
-                                                )}
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <item.icon className="h-4 w-4 opacity-40" />
-                                                    <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
-                                                </div>
-                                                <ChevronRight className="h-3 w-3 opacity-20" />
-                                            </Link>
-                                        </SheetClose>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5 flex flex-col">
+                    <AppSidebar />
                 </SheetContent>
             </Sheet>
 

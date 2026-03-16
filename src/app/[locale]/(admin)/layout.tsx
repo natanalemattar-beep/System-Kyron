@@ -1,9 +1,15 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+
+/**
+ * @fileOverview Layout Administrativo Consolidado.
+ * En v2.6.5 se elimina la sidebar permanente de escritorio para maximizar el área de trabajo.
+ * La navegación móvil se gestiona dinámicamente desde el AppHeader.
+ */
 
 export default function AdminLayout({
   children,
@@ -19,16 +25,14 @@ export default function AdminLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
-          {/* Fondo HUD Dinámico - Optimizada */}
+          {/* Fondo HUD Dinámico */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.04] hud-grid" />
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.02] rounded-full blur-[300px]" />
             <div className="absolute -bottom-[20%] -left-[10%] w-[800px] h-[800px] bg-primary/[0.03] rounded-full blur-[200px]" />
           </div>
 
-          <AppSidebar />
-
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative w-full overflow-x-hidden">
+          <div className="flex-1 flex flex-col min-h-screen relative w-full overflow-x-hidden">
               <AppHeader 
                 user={headerUser} 
                 dashboardHref="/dashboard-empresa" 

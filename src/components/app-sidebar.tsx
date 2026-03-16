@@ -1,25 +1,45 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
-  LayoutDashboard, 
   ChevronRight,
   ShieldCheck,
-  Terminal,
-  Activity
+  Activity,
+  Terminal
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
-import { adminNavGroups } from "./app-sidebar-nav-items";
+import { 
+    adminNavGroups, 
+    legalNavGroups, 
+    rrhhNavGroups, 
+    sociosNavGroups, 
+    telecomNavGroups 
+} from "./app-sidebar-nav-items";
 
 /**
- * @fileOverview AppSidebar - Rediseño HUD de Alta Fidelidad.
- * Sincronizado con la estética Glassmorphism del AppHeader.
+ * @fileOverview AppSidebar Contextual.
+ * Determina qué grupo de navegación mostrar basándose en la URL actual.
  */
 
 export function AppSidebar() {
   const pathname = usePathname();
+
+  // Lógica de selección de grupo basada en contexto de ruta
+  const getContextualGroups = () => {
+    if (pathname.includes('/contabilidad')) return adminNavGroups;
+    if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) return legalNavGroups;
+    if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas')) return rrhhNavGroups;
+    if (pathname.includes('/dashboard-socios') || pathname.includes('/poderes-representacion')) return sociosNavGroups;
+    if (pathname.includes('/dashboard-telecom') || pathname.includes('/venta-linea')) return telecomNavGroups;
+    
+    // Default para Dashboard General o rutas no mapeadas
+    return adminNavGroups;
+  };
+
+  const currentGroups = getContextualGroups();
 
   const MenuItem = ({ item }: { item: any }) => {
     const isActive = pathname.includes(item.href) && item.href !== '/';
@@ -53,24 +73,19 @@ export function AppSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-background/40 backdrop-blur-3xl border-r border-white/5 flex flex-col z-[100] hidden lg:flex overflow-hidden shadow-2xl">
-      {/* Fondo HUD sutil */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none hud-grid" />
-      
-      <div className="p-10 border-b border-white/5 flex flex-col items-center gap-4 relative z-10 bg-muted/10">
-        <Link href="/dashboard-empresa" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
-          <Logo className="h-12 w-12 drop-shadow-glow" /> 
-          <div className="text-center">
-            <span className="text-[11px] font-black tracking-[0.4em] text-foreground uppercase italic italic-shadow">System Kyron</span>
-            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-2 opacity-60">Control Maestro</p>
-          </div>
-        </Link>
+    <aside className="flex flex-col h-full bg-transparent overflow-hidden">
+      <div className="p-8 border-b border-white/5 flex flex-col items-center gap-4 bg-muted/5">
+        <Logo className="h-10 w-10 drop-shadow-glow" /> 
+        <div className="text-center">
+            <span className="text-[10px] font-black tracking-[0.4em] text-foreground uppercase italic leading-none">System Kyron</span>
+            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Centro de Mando</p>
+        </div>
       </div>
       
-      <div className="flex-grow py-8 px-4 space-y-10 overflow-y-auto custom-scrollbar relative z-10">
-        {adminNavGroups.map((group) => (
+      <div className="flex-grow py-8 px-4 space-y-10 overflow-y-auto custom-scrollbar">
+        {currentGroups.map((group) => (
           <section key={group.title} className="space-y-3">
-            <div className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] flex items-center gap-2">
+            <div className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] flex items-center gap-2 italic">
               <div className="h-px w-4 bg-primary/20" /> {group.title}
             </div>
             <div className="space-y-1">
@@ -82,15 +97,15 @@ export function AppSidebar() {
         ))}
       </div>
 
-      <div className="p-6 border-t border-white/5 bg-muted/5 relative z-10">
+      <div className="p-6 border-t border-white/5 bg-muted/5">
         <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex flex-col gap-3 shadow-inner">
             <div className="flex items-center gap-3">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest">Enlace Seguro</span>
+                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest leading-none">Protocolo Activo</span>
             </div>
             <div className="flex items-center gap-3">
                 <Activity className="h-3.5 w-3.5 text-emerald-500 animate-pulse" />
-                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest">Sincronizado</span>
+                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest leading-none">Sync: T+0</span>
             </div>
         </div>
       </div>
