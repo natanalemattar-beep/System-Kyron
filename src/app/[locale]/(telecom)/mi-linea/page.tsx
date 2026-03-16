@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -20,7 +19,8 @@ import {
     Zap,
     Cpu,
     Network,
-    ShieldCheck
+    ShieldCheck,
+    Globe
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
