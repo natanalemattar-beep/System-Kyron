@@ -114,10 +114,47 @@ export default function ComunicacionesPage() {
         return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada.\n\nAtentamente,\n\n\n\n`;
     };
 
-    const handleDownloadWord = () => {
+    const handleDownloadWord = async () => {
         const letterBody = getLetterContent();
+        
+        // Convert SVG Logo to Base64 for Word compatibility
+        let logoBase64 = "";
+        const logoElement = document.querySelector('svg'); 
+        if (logoElement) {
+            const svgData = new XMLSerializer().serializeToString(logoElement);
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const img = new Image();
+            
+            // Set canvas size (higher res for better print)
+            canvas.width = 400;
+            canvas.height = 400;
+            
+            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(svgBlob);
+            
+            await new Promise((resolve) => {
+                img.onload = () => {
+                    if (ctx) {
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, 400, 400);
+                        ctx.drawImage(img, 0, 0, 400, 400);
+                    }
+                    URL.revokeObjectURL(url);
+                    resolve(true);
+                };
+                img.src = url;
+            });
+            logoBase64 = canvas.toDataURL("image/png");
+        }
+
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`;
         const signatureImg = "https://picsum.photos/seed/signature-kyron/200/100";
+
+        // Structured paragraphs for better justification in Word
+        const formattedBody = letterBody.split('\n\n').map(p => 
+            `<p style="text-align: justify; margin-bottom: 12pt; font-family: 'Times New Roman', serif;">${p.replace(/\n/g, '<br/>')}</p>`
+        ).join('');
 
         const docHtml = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -127,11 +164,11 @@ export default function ComunicacionesPage() {
                 <style>
                     @page { size: 8.5in 11in; margin: 1in; }
                     body { font-family: 'Times New Roman', Times, serif; color: #0f172a; line-height: 1.5; padding: 0; }
-                    .header-table { width: 100%; border-bottom: 2pt solid #000000; margin-bottom: 30pt; padding-bottom: 10pt; }
+                    .header-table { width: 100%; border-bottom: 2pt solid #000000; margin-bottom: 30pt; padding-bottom: 10pt; border-collapse: collapse; }
                     .company-name { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0; }
                     .company-rif { font-size: 10pt; color: #64748b; margin: 0; }
-                    .letter-body { text-align: justify; font-size: 12pt; white-space: pre-wrap; margin-bottom: 40pt; }
-                    .footer-table { width: 100%; margin-top: 50pt; }
+                    .letter-body { text-align: justify; font-size: 12pt; margin-bottom: 40pt; }
+                    .footer-table { width: 100%; margin-top: 50pt; border-collapse: collapse; }
                     .signature-line { border-top: 1pt solid #000000; width: 200pt; margin-top: 10pt; padding-top: 5pt; text-align: center; }
                     .signature-img { width: 120pt; height: 60pt; margin-bottom: -10pt; }
                     .qr-container { text-align: right; }
@@ -142,9 +179,9 @@ export default function ComunicacionesPage() {
                 <table class="header-table">
                     <tr>
                         <td style="width: 60pt; vertical-align: middle;">
-                            <div style="width: 40pt; height: 40pt; background-color: #000; border-radius: 8pt;"></div>
+                            ${logoBase64 ? `<img src="${logoBase64}" width="50" height="50" style="border-radius: 8pt;" />` : `<div style="width: 40pt; height: 40pt; background-color: #000; border-radius: 8pt;"></div>`}
                         </td>
-                        <td style="vertical-align: middle;">
+                        <td style="vertical-align: middle; padding-left: 10pt;">
                             <p class="company-name">${data.empresa}</p>
                             <p class="company-rif">RIF: ${data.rif}</p>
                         </td>
@@ -154,7 +191,7 @@ export default function ComunicacionesPage() {
                     </tr>
                 </table>
 
-                <div class="letter-body">${letterBody.replace(/\n/g, '<br/>')}</div>
+                <div class="letter-body">${formattedBody}</div>
 
                 <table class="footer-table">
                     <tr>
@@ -191,7 +228,7 @@ export default function ComunicacionesPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "DESCARGA COMPLETADA", description: "El documento Word ha sido generado con éxito." });
+        toast({ title: "DESCARGA COMPLETADA", description: "El documento Word con logo y justificado ha sido generado." });
     };
 
   return (
@@ -388,7 +425,7 @@ export default function ComunicacionesPage() {
                     )}
                 </div>
 
-                <footer className="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 no-print relative z-10">
+                <footer className="mt-20 pt-8 border-t border-slate-100 flex justify-between items-center gap-8 no-print relative z-10">
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-slate-400 italic">
                         <Terminal className="h-4 w-4" /> TRANSMISIÓN AUTORIZADA KYRON
                     </div>
