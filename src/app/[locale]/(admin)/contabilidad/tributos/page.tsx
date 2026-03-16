@@ -6,22 +6,23 @@ import { Button } from "@/components/ui/button";
 import { 
     Landmark, FileText, Banknote, Percent, 
     ShieldCheck, Calendar, Gavel, History,
-    ArrowRight, Activity, Zap, Bot, CreditCard
+    ArrowRight, Activity, Zap, Bot, CreditCard,
+    Building2, Users, Printer, FolderArchive
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 
 const tributosModules = [
-    { title: "Asistente Fiscal IA", desc: "Consultoría en tiempo real sobre Gacetas y leyes.", icon: Bot, href: "/gaceta-6952" },
-    { title: "Aportes Parafiscales", desc: "IVSS, FAOV, INCES y Seguro de Paro Forzoso.", icon: Landmark, href: "/contabilidad/tributos/aportes-parafiscales" },
-    { title: "Protección Pensiones", desc: "Contribución especial del 9% sobre nómina.", icon: ShieldCheck, href: "/contabilidad/tributos/proteccion-pensiones" },
-    { title: "Retenciones IVA", desc: "Control de agentes y retenciones practicadas.", icon: Percent, href: "/contabilidad/tributos/retenciones-iva" },
-    { title: "Retenciones ISLR", desc: "Honorarios, fletes y otros conceptos de retención.", icon: Banknote, href: "/contabilidad/tributos/retenciones-islr" },
-    { title: "Impuesto IGTF", desc: "Gestión del 3% en transacciones multimoneda.", icon: CreditCard, href: "/contabilidad/tributos/igtf" },
-    { title: "Impuestos Municipales", desc: "Actividad económica, patentes y mínimo tributario.", icon: Landmark, href: "/contabilidad/tributos/municipales" },
-    { title: "Calendario Fiscal 2026", desc: "Cronograma de Sujetos Pasivos Especiales.", icon: Calendar, href: "/contabilidad/tributos/calendario-fiscal" },
-    { title: "Multas y Sanciones", desc: "Calculadora de riesgos según el COT.", icon: Gavel, href: "/contabilidad/tributos/multas" },
-    { title: "Archivo de Declaraciones", desc: "Historial inmutable de gestiones fiscales.", icon: History, href: "/contabilidad/tributos/declaraciones-anteriores" },
+    { title: "Seguridad Social", desc: "IVSS, FAOV, INCES y LOPCYMAT.", icon: Users, href: "/contabilidad/tributos/aportes-parafiscales" },
+    { title: "Protección Pensiones", desc: "Contribución del 9% (G.O. 6.806).", icon: ShieldCheck, href: "/contabilidad/tributos/proteccion-pensiones" },
+    { title: "Retenciones ISLR", desc: "Honorarios, arrendamientos y más.", icon: Banknote, href: "/contabilidad/tributos/retenciones-islr" },
+    { title: "Retenciones IVA", desc: "Control de agentes y el 75%.", icon: Percent, href: "/contabilidad/tributos/retenciones-iva" },
+    { title: "Impuesto IGTF", desc: "Gestión del 3% en divisas.", icon: CreditCard, href: "/contabilidad/tributos/igtf" },
+    { title: "Impuestos Municipales", desc: "Actividad económica y patentes.", icon: Building2, href: "/contabilidad/tributos/municipales" },
+    { title: "Calendario Fiscal 2026", desc: "Vencimientos por terminal RIF.", icon: Calendar, href: "/contabilidad/tributos/calendario-fiscal" },
+    { title: "Multas y Sanciones", desc: "Simulador de riesgos según COT.", icon: Gavel, href: "/contabilidad/tributos/multas" },
+    { title: "Homologación SENIAT", desc: "Control de equipos fiscales.", icon: Printer, href: "/contabilidad/tributos/homologacion" },
+    { title: "Archivo Maestro", desc: "Dossier histórico de declaraciones.", icon: FolderArchive, href: "/contabilidad/tributos/declaraciones-anteriores" },
 ];
 
 export default function TributosHubPage() {
@@ -31,8 +32,8 @@ export default function TributosHubPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
             <Landmark className="h-3 w-3" /> ÁREA TRIBUTARIA
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro de <span className="text-primary italic">Tributos</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Oficina Virtual de Impuestos y Cumplimiento • 2026</p>
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión <span className="text-primary italic">de Tributos</span></h1>
+        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Oficina Virtual de Impuestos y Parafiscales • 2026</p>
       </header>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -50,7 +51,7 @@ export default function TributosHubPage() {
                     </div>
                     <CardFooter className="p-0 pt-10">
                         <Button asChild variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all">
-                            <Link href={item.href as any}>GESTIONAR MÓDULO <ArrowRight className="ml-3 h-4 w-4" /></Link>
+                            <Link href={item.href as any}>GESTIONAR <ArrowRight className="ml-3 h-4 w-4" /></Link>
                         </Button>
                     </CardFooter>
                 </Card>
@@ -63,8 +64,8 @@ export default function TributosHubPage() {
         <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <h3 className="text-3xl font-black uppercase italic tracking-tighter leading-tight">Blindaje Fiscal Automático</h3>
-                <p className="text-lg font-medium opacity-90 italic leading-relaxed">System Kyron audita cada factura y asiento contable en tiempo real contra la Providencia 0071, eliminando el riesgo de multas administrativas.</p>
-                <Button variant="secondary" className="h-14 px-10 rounded-2xl bg-white text-primary font-black uppercase text-xs tracking-widest shadow-2xl">ACTIVAR SUPERVISOR IA</Button>
+                <p className="text-lg font-medium opacity-90 italic leading-relaxed">System Kyron audita cada factura y aporte parafiscal en tiempo real, garantizando el cumplimiento del 100% de las obligaciones legales venezolanas.</p>
+                <Button variant="secondary" className="h-14 px-10 rounded-2xl bg-white text-primary font-black uppercase text-xs tracking-widest shadow-2xl" onClick={() => alert("Asistente Fiscal IA Activado")}>ACTIVAR SUPERVISOR</Button>
             </div>
             <div className="hidden md:flex justify-center">
                 <ShieldCheck className="h-40 w-40 text-white/20 animate-pulse" />
