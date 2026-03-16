@@ -12,7 +12,7 @@ import {
     Scale, Globe, Truck, Leaf, Palmtree, Cpu,
     BookOpen, ShieldAlert, ChevronDown, Bell,
     Settings2, Smartphone, CheckCircle2, Copy,
-    Terminal
+    Terminal, Coins, Microscope
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,43 +26,54 @@ import { cn } from "@/lib/utils";
 
 const tributoCategories = [
     {
-        id: "parafiscales",
-        title: "Aportes Parafiscales",
-        desc: "Seguridad Social y Contribuciones Laborales.",
-        icon: Users,
-        color: "text-primary",
-        items: [
-            { label: "IVSS (Seguro Social)", href: "/contabilidad/tributos/aportes-parafiscales" },
-            { label: "FAOV (Vivienda)", href: "/contabilidad/tributos/aportes-parafiscales" },
-            { label: "INCES (Capacitación)", href: "/contabilidad/tributos/aportes-parafiscales" },
-            { label: "Paro Forzoso", href: "/contabilidad/tributos/aportes-parafiscales" },
-            { label: "LOPCYMAT", href: "/contabilidad/tributos/aportes-parafiscales" },
-        ]
-    },
-    {
         id: "nacionales",
-        title: "Impuestos Nacionales",
-        desc: "Gestión directa ante el SENIAT.",
+        title: "Impuestos Nacionales (SENIAT)",
+        desc: "IVA, ISLR, IGTF, Pensiones y Grandes Patrimonios.",
         icon: Landmark,
         color: "text-secondary",
         items: [
-            { label: "IVA", href: "/declaracion-iva" },
-            { label: "ISLR", href: "/islr-arc" },
-            { label: "IGTF (3% Divisas)", href: "/contabilidad/tributos/igtf" },
-            { label: "DPP (Ley de Pensiones 9%)", href: "/contabilidad/tributos/proteccion-pensiones" },
-            { label: "IGP (Grandes Patrimonios)", href: "/contabilidad/tributos/declaraciones-anteriores" },
-            { label: "Impuesto a Juegos", href: "/contabilidad/tributos/declaraciones-anteriores" },
+            { label: "IVA (Impuesto al Valor Agregado)", href: "/contabilidad/tributos/iva", icon: FileText },
+            { label: "ISLR (Renta y Retenciones)", href: "/contabilidad/tributos/islr", icon: Banknote },
+            { label: "IGTF (Transacciones Divisas 3%)", href: "/contabilidad/tributos/igtf", icon: CreditCard },
+            { label: "DPP (Ley de Pensiones 9%)", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
+            { label: "IGP (Grandes Patrimonios)", href: "/contabilidad/tributos/igp", icon: Coins },
+            { label: "Impuesto a Juegos de Azar", href: "/contabilidad/tributos/juegos", icon: Zap },
         ]
     },
     {
-        id: "retenciones",
-        title: "Sistema de Retenciones",
-        desc: "Control de agentes y conceptos.",
-        icon: Percent,
+        id: "aportes_especiales",
+        title: "Aportes y Contribuciones Especiales",
+        desc: "Entes descentralizados, FONACIT y Ciencia.",
+        icon: Scale,
+        color: "text-indigo-500",
+        items: [
+            { label: "Aporte 70% (Entes Descentralizados)", href: "/contabilidad/tributos/aporte-70", icon: Landmark },
+            { label: "FONACIT / LOCTI (Ciencia e Innovación)", href: "/contabilidad/tributos/fonacit", icon: Microscope },
+        ]
+    },
+    {
+        id: "regimenes",
+        title: "Regímenes Especiales Sectoriales",
+        desc: "Hidrocarburos, Minería y Exportación.",
+        icon: Globe,
         color: "text-amber-600",
         items: [
-            { label: "Retenciones de IVA", href: "/contabilidad/tributos/retenciones-iva" },
-            { label: "Retenciones de ISLR", href: "/contabilidad/tributos/retenciones-islr" },
+            { label: "Hidrocarburos y Minería (Sin Regalías)", href: "/contabilidad/tributos/hidrocarburos", icon: Zap },
+            { label: "Exportadores Minerales (Con Regalías)", href: "/contabilidad/tributos/exportadores", icon: Ship },
+            { label: "Declaración Trimestral IVA (Exentos)", href: "/contabilidad/tributos/iva-trimestral", icon: FileText },
+        ]
+    },
+    {
+        id: "parafiscales",
+        title: "Seguridad Social y Parafiscales",
+        desc: "IVSS, FAOV, INCES y LOPCYMAT.",
+        icon: Users,
+        color: "text-primary",
+        items: [
+            { label: "IVSS (Seguro Social)", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
+            { label: "FAOV (Vivienda)", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
+            { label: "INCES (Capacitación)", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
+            { label: "Paro Forzoso / LOPCYMAT", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
         ]
     },
     {
@@ -72,14 +83,14 @@ const tributoCategories = [
         icon: ShieldCheck,
         color: "text-indigo-600",
         items: [
-            { label: "Homologación SENIAT", href: "/contabilidad/tributos/homologacion" },
-            { label: "Registro de Comercio (SAREN)", href: "/contabilidad/tributos/poderes-representacion" },
-            { label: "Propiedad Intelectual (SAPI)", href: "/contabilidad/tributos/permisos" },
-            { label: "Ministerio de Industrias", href: "/contabilidad/tributos/ministerio-industrias" },
-            { label: "Ministerio de Comercio Exterior", href: "/contabilidad/tributos/ministerio-comercio-exterior" },
-            { label: "Ministerio de Transporte", href: "/contabilidad/tributos/ministerio-transporte" },
-            { label: "Ministerio de Ecosocialismo", href: "/contabilidad/tributos/ministerio-ecosocialismo" },
-            { label: "Ministerio de Turismo", href: "/contabilidad/tributos/ministerio-turismo" },
+            { label: "Homologación SENIAT (Equipos)", href: "/contabilidad/tributos/homologacion", icon: Printer },
+            { label: "Registro de Comercio (SAREN)", href: "/contabilidad/tributos/poderes-representacion", icon: Gavel },
+            { label: "Propiedad Intelectual (SAPI)", href: "/contabilidad/tributos/permisos", icon: ShieldCheck },
+            { label: "Ministerio de Industrias", href: "/contabilidad/tributos/ministerio-industrias", icon: Building2 },
+            { label: "Ministerio de Comercio Exterior", href: "/contabilidad/tributos/ministerio-comercio-exterior", icon: Globe },
+            { label: "Ministerio de Transporte", href: "/contabilidad/tributos/ministerio-transporte", icon: Truck },
+            { label: "Ministerio de Ecosocialismo", href: "/contabilidad/tributos/ministerio-ecosocialismo", icon: Leaf },
+            { label: "Ministerio de Turismo", href: "/contabilidad/tributos/ministerio-turismo", icon: Palmtree },
         ]
     }
 ];
@@ -87,14 +98,6 @@ const tributoCategories = [
 export default function TributosHubPage() {
   const { toast } = useToast();
   const [isAutoPayActive, setIsAutoPayActive] = useState(false);
-
-  const handleSaveConfig = () => {
-    toast({
-        title: "CONFIGURACIÓN GUARDADA",
-        description: "Protocolos de alerta y pago actualizados en el sistema maestro.",
-        action: <CheckCircle2 className="text-primary h-4 w-4" />
-    });
-  };
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
@@ -111,8 +114,9 @@ export default function TributosHubPage() {
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8 space-y-10">
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
-                <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Directorio de Entidades y Gestión</h3>
+                <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 flex justify-between items-center">
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Directorio de Entidades y Gestión 2026</h3>
+                    <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary">Acreditado SNAT/2025/000091</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
                     {tributoCategories.map((cat) => (
@@ -133,28 +137,17 @@ export default function TributosHubPage() {
                                     {cat.items.map((item) => (
                                         <Button 
                                             key={item.label}
-                                            asChild={item.href !== "#"}
+                                            asChild
                                             variant="ghost" 
                                             className="justify-between h-14 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-slate-50 dark:bg-white/5 border border-transparent hover:border-primary/20 hover:bg-white dark:hover:bg-white/10 group/item transition-all"
-                                            onClick={item.href === "#" ? () => alert("Área en construcción") : undefined}
                                         >
-                                            {item.href !== "#" ? (
-                                                <Link href={item.href as any}>
-                                                    <span className="flex items-center gap-3">
-                                                        <div className="h-1.5 w-1.5 rounded-full bg-primary/20 group-hover/item:bg-primary transition-colors" />
-                                                        {item.label}
-                                                    </span>
-                                                    <ArrowRight className="h-4 w-4 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all" />
-                                                </Link>
-                                            ) : (
-                                                <div className="flex items-center justify-between w-full">
-                                                    <span className="flex items-center gap-3">
-                                                        <div className="h-1.5 w-1.5 rounded-full bg-slate-200" />
-                                                        {item.label}
-                                                    </span>
-                                                    <Badge variant="outline" className="text-[7px] font-black opacity-40">DEV</Badge>
-                                                </div>
-                                            )}
+                                            <Link href={item.href as any}>
+                                                <span className="flex items-center gap-3">
+                                                    {item.icon && <item.icon className="h-3.5 w-3.5 opacity-30 group-hover/item:opacity-100 transition-opacity" />}
+                                                    {item.label}
+                                                </span>
+                                                <ArrowRight className="h-4 w-4 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all" />
+                                            </Link>
                                         </Button>
                                     ))}
                                 </div>
@@ -165,19 +158,6 @@ export default function TributosHubPage() {
             </Card>
 
             <div className="grid md:grid-cols-2 gap-10">
-                <Link href="/contabilidad/tributos/municipales">
-                    <Card className="glass-card border-none p-10 rounded-[3rem] bg-white dark:bg-card/40 hover:bg-slate-50 dark:hover:bg-white/10 transition-all group shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-all"><Building2 className="h-24 w-24" /></div>
-                        <div className="flex justify-between items-center mb-10">
-                            <div className="p-4 bg-secondary/10 rounded-2xl border border-secondary/20">
-                                <Building2 className="h-8 w-8 text-secondary" />
-                            </div>
-                            <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-secondary group-hover:translate-x-2 transition-all" />
-                        </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Impuestos Municipales</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Gestión de Alícuotas por Rubro, Mínimo Tributario (240 UT) y Patentes Locales.</p>
-                    </Card>
-                </Link>
                 <Link href="/contabilidad/tributos/calendario-fiscal">
                     <Card className="glass-card border-none p-10 rounded-[3rem] bg-white dark:bg-card/40 hover:bg-slate-50 dark:hover:bg-white/10 transition-all group shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-all"><Calendar className="h-24 w-24" /></div>
@@ -188,7 +168,20 @@ export default function TributosHubPage() {
                             <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-blue-600 group-hover:translate-x-2 transition-all" />
                         </div>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Calendario Fiscal 2026</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma Preventivo dinámico adaptado a tu Terminal de RIF.</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma Preventivo dinámico adaptado a tu Terminal de RIF según Gaceta N° 43.273.</p>
+                    </Card>
+                </Link>
+                <Link href="/contabilidad/tributos/multas">
+                    <Card className="glass-card border-none p-10 rounded-[3rem] bg-white dark:bg-card/40 hover:bg-slate-50 dark:hover:bg-white/10 transition-all group shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-all"><ShieldAlert className="h-24 w-24" /></div>
+                        <div className="flex justify-between items-center mb-10">
+                            <div className="p-4 bg-rose-600/10 rounded-2xl border border-rose-600/20">
+                                <ShieldAlert className="h-8 w-8 text-rose-600" />
+                            </div>
+                            <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-rose-600 group-hover:translate-x-2 transition-all" />
+                        </div>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Multas y Sanciones</h3>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Calculadora de contingencias (100%-300%) e intereses moratorios según el COT.</p>
                     </Card>
                 </Link>
             </div>
@@ -203,18 +196,18 @@ export default function TributosHubPage() {
                             <Settings2 className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Alertas y Avisos</h3>
-                            <p className="text-[9px] font-black text-primary uppercase tracking-widest">Configuración de Canales</p>
+                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Alertas Maestro</h3>
+                            <p className="text-[9px] font-black text-primary uppercase tracking-widest">Sincronización RIF</p>
                         </div>
                     </div>
 
                     <div className="space-y-6">
                         {[
-                            { id: "iva", label: "IVA (Terminal RIF)" },
-                            { id: "islr", label: "ISLR / Anticipos" },
-                            { id: "igtf", label: "IGTF / Retenciones" },
-                            { id: "dpp", label: "DPP (Pensiones)" },
-                            { id: "ivss", label: "Seguridad Social" }
+                            { id: "iva", label: "IVA (Días 12 al 27)" },
+                            { id: "islr", label: "ISLR / Estimadas" },
+                            { id: "igtf", label: "IGTF (3% Divisas)" },
+                            { id: "dpp", label: "Pensiones (9%)" },
+                            { id: "igp", label: "Patrimonio (Oct/Nov)" }
                         ].map((tax) => (
                             <div key={tax.id} className="flex items-center justify-between group">
                                 <Label htmlFor={`alert-${tax.id}`} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-white/40 group-hover:text-primary transition-colors cursor-pointer">{tax.label}</Label>
@@ -223,53 +216,34 @@ export default function TributosHubPage() {
                         ))}
                     </div>
 
-                    <div className="p-6 bg-white/50 dark:bg-black/20 rounded-2xl border border-slate-200 dark:border-white/5 space-y-4">
-                        <p className="text-[8px] font-black uppercase text-slate-400 text-center tracking-[0.2em]">Canales de Transmisión</p>
-                        <div className="flex justify-around">
-                            <div className="flex flex-col items-center gap-2">
-                                <div className="p-3 bg-white dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm"><Smartphone className="h-4 w-4 text-secondary" /></div>
-                                <span className="text-[7px] font-black uppercase dark:text-white/40">WhatsApp</span>
-                            </div>
-                            <div className="flex flex-col items-center gap-2">
-                                <div className="p-3 bg-white dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm"><FileText className="h-4 w-4 text-primary" /></div>
-                                <span className="text-[7px] font-black uppercase dark:text-white/40">Email</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <Button onClick={handleSaveConfig} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR PREFERENCIAS</Button>
+                    <Button onClick={() => toast({ title: "ALERTAS CONFIGURADAS", description: "Recibirá avisos a los 15, 7 y 3 días antes del vencimiento." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR PREFERENCIAS</Button>
                 </div>
             </Card>
 
-            <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
-                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-40 w-48" /></div>
+            <Card className="bg-[#050505] border border-white/10 rounded-[3rem] p-10 relative overflow-hidden shadow-2xl group">
+                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Bot className="h-40 w-40 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-white/20 text-white border-none text-[8px] font-black px-4 uppercase mb-4">Módulo Maestro IA</Badge>
-                        <h3 className="text-3xl font-black uppercase italic tracking-tighter">Pago Automático</h3>
-                        <p className="text-xs font-bold opacity-60 leading-relaxed uppercase">Autorice liquidaciones directas desde su cuenta bancaria configurada.</p>
+                        <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-4 shadow-glow">AUTOPAY ACTIVE</Badge>
+                        <h3 className="text-3xl font-black uppercase italic tracking-tighter text-white">Pago Autónomo</h3>
+                        <p className="text-xs font-bold text-white/40 leading-relaxed uppercase">Autorice liquidaciones automáticas desde su Caja Digital configurada.</p>
                     </div>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer" onClick={() => setIsAutoPayActive(!isAutoPayActive)}>
-                            <Checkbox checked={isAutoPayActive} className="h-5 w-5 border-white/40 data-[state=checked]:bg-secondary data-[state=checked]:text-black" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest">Activar Débito Directo</span>
-                        </div>
-                    </div>
-
                     <Button variant="secondary" className="w-full h-14 bg-white text-primary hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl">CONFIGURAR NODO</Button>
                 </div>
             </Card>
 
-            <Card className="glass-card border-none bg-secondary/5 dark:bg-secondary/10 p-8 rounded-[2rem] border-l-4 border-secondary shadow-inner">
-                <div className="flex items-center gap-4 mb-4">
-                    <Bot className="h-6 w-6 text-secondary animate-pulse" />
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-secondary">Estado del Nodo</h4>
-                </div>
-                <p className="text-[9px] font-bold text-slate-500 dark:text-white/40 uppercase leading-relaxed text-justify italic">
-                    "El Supervisor Fiscal monitorea su terminal de RIF. Próximo vencimiento: IVA (Terminal 4) en 5 días."
-                </p>
-            </Card>
+            <Link href="/contabilidad/tributos/declaraciones-anteriores">
+                <Card className="glass-card border-none p-10 rounded-[3rem] bg-white dark:bg-card/40 hover:bg-slate-50 dark:hover:bg-white/10 transition-all group shadow-xl">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
+                            <FolderArchive className="h-6 w-6 text-indigo-500" />
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-slate-200 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
+                    </div>
+                    <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">Archivo Maestro</h3>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-2">Dossier Histórico Inmutable</p>
+                </Card>
+            </Link>
         </div>
       </div>
     </div>
