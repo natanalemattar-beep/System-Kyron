@@ -1,32 +1,29 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "@/navigation";
 import { 
-  Calculator, 
-  Wallet, 
-  TrendingUp, 
-  Activity, 
-  BookOpen, 
-  Receipt,
-  Users,
-  HandCoins,
-  Zap,
-  ArrowRight,
-  Book,
-  History,
-  Box,
-  Landmark,
-  Banknote,
-  BrainCircuit,
-  ShieldCheck,
-  ShieldAlert,
-  Cpu,
-  RefreshCw,
-  Clock,
-  Sparkles,
-  Bot
+    Calculator, 
+    Wallet, 
+    TrendingUp, 
+    Activity, 
+    BookOpen, 
+    Receipt,
+    Users,
+    HandCoins,
+    Zap,
+    ArrowRight,
+    Book,
+    History,
+    Box,
+    Landmark,
+    BrainCircuit,
+    ShieldCheck,
+    Bot,
+    Loader2,
+    ShieldAlert,
+    BarChart3
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
@@ -39,22 +36,21 @@ import { useToast } from "@/hooks/use-toast";
 
 const kpiData = [
   { label: "LIQUIDEZ CERTIFICADA", val: "Bs. 123.456", trend: "+5.2%", color: "text-emerald-500", icon: Wallet },
-  { label: "CUENTAS POR COBRAR", val: "Bs. 45.678", trend: "12 Activos", color: "text-blue-500", icon: TrendingUp },
+  { label: "CUENTAS POR COBRAR", val: "Bs. 45.678", trend: "12 Activos", color: "text-primary", icon: TrendingUp },
   { label: "CUENTAS POR PAGAR", val: "Bs. 23.456", trend: "8 Compromisos", color: "text-rose-500", icon: HandCoins },
   { label: "EXPOSICIÓN FISCAL", val: "0.00%", trend: "BAJO RIESGO", color: "text-emerald-500", icon: ShieldCheck },
 ];
 
 const frequentAccess = [
-    { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Marzo: Al día", color: "text-blue-500" },
+    { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Marzo: Al día", color: "text-primary" },
     { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "23 Empleados", color: "text-emerald-500" },
     { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box, kpi: "45 SKUs", color: "text-amber-500" },
-    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Ok", color: "text-rose-500" },
+    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Ok", color: "text-primary" },
 ];
 
 export default function ContabilidadPage() {
   const { toast } = useToast();
   const [isAuditing, setIsAuditing] = useState(false);
-  const [auditScore, setAuditScore] = useState(100);
 
   const runForensicAudit = () => {
     setIsAuditing(true);
@@ -65,7 +61,6 @@ export default function ContabilidadPage() {
 
     setTimeout(() => {
         setIsAuditing(false);
-        setAuditScore(99.8);
         toast({
             title: "ANÁLISIS COMPLETADO",
             description: "Integridad de datos: 99.8%. 1 entrada requiere verificación manual.",
@@ -79,14 +74,14 @@ export default function ContabilidadPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
-                <BrainCircuit className="h-3 w-3" /> NÚCLEO CONTABLE INTELIGENTE
+                <BrainCircuit className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
             </div>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none text-white italic-shadow">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Operating System v2.6.5 • Control Global</p>
         </div>
         <div className="flex gap-3 no-print">
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-white/60 hover:bg-primary/5 hover:text-primary transition-all" onClick={runForensicAudit} disabled={isAuditing}>
-                {isAuditing ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <ShieldSearch className="mr-3 h-4 w-4" />}
+                {isAuditing ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <ShieldAlert className="mr-3 h-4 w-4" />}
                 AUDITORÍA FORENSE
             </Button>
             <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">
@@ -95,7 +90,6 @@ export default function ContabilidadPage() {
         </div>
       </header>
 
-      {/* KPIs DE ALTA DENSIDAD */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group">
@@ -114,7 +108,6 @@ export default function ContabilidadPage() {
       </div>
 
       <div className="grid lg:grid-cols-12 gap-8">
-        {/* PANEL DEL AGENTE FISCAL (INNOVACIÓN) */}
         <div className="lg:col-span-4 space-y-8">
             <Card className="glass-card border-primary/20 bg-primary/5 p-10 rounded-[3rem] relative overflow-hidden shadow-2xl group">
                 <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-48 w-48 text-primary" /></div>
@@ -134,53 +127,52 @@ export default function ContabilidadPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Inconsistencias Corregidas</p>
+                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Correcciones</p>
                                 <p className="text-xl font-black text-white italic">145</p>
                             </div>
                             <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Tiempo Ahorrado (Mes)</p>
+                                <p className="text-[8px] font-black uppercase text-white/30 mb-1">Ahorro Tiempo</p>
                                 <p className="text-xl font-black text-primary italic">12h</p>
                             </div>
                         </div>
                     </div>
 
                     <Button variant="secondary" className="w-full h-14 rounded-2xl bg-white text-primary hover:bg-white/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
-                        GESTIONAR PROTOCOLOS IA
+                        GESTIONAR PROTOCOLOS
                     </Button>
                 </div>
             </Card>
 
             <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-8 italic flex items-center gap-3">
-                    <Zap className="h-4 w-4" /> Sugerencias de Optimización
+                    <Zap className="h-4 w-4" /> Optimización Inteligente
                 </h4>
                 <div className="space-y-6">
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 group hover:bg-emerald-500/10 transition-all cursor-pointer">
                         <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
                         <div className="space-y-1">
                             <p className="text-[10px] font-black text-emerald-400 uppercase">Ajuste RIPF Pendiente</p>
-                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Se detectó una discrepancia del 2% en activos no monetarios. Aplicar ahora para blindaje fiscal.</p>
+                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Se detectó una discrepancia del 2% en activos. Aplicar para blindaje fiscal.</p>
                         </div>
                     </div>
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-primary/5 border border-primary/10 group hover:bg-primary/10 transition-all cursor-pointer">
                         <Activity className="h-5 w-5 text-primary shrink-0" />
                         <div className="space-y-1">
-                            <p className="text-[10px] font-black text-primary uppercase">Oportunidad de Crédito</p>
-                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Excedente de retenciones de IVA puede compensar el pago de IGTF del próximo periodo.</p>
+                            <p className="text-[10px] font-black text-primary uppercase">Crédito Fiscal</p>
+                            <p className="text-[9px] font-bold text-white/40 uppercase leading-snug">Excedente de retenciones IVA disponible para compensación.</p>
                         </div>
                     </div>
                 </div>
             </Card>
         </div>
 
-        {/* GRÁFICO Y ACCESOS RÁPIDOS */}
         <div className="lg:col-span-8 space-y-10">
             <OverviewChart />
 
             <div className="space-y-6">
                 <div className="flex items-center gap-4 ml-2">
                     <div className="p-2 bg-primary/10 rounded-xl"><Activity className="h-5 w-5 text-primary" /></div>
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60 italic">Accesos Directos al Ledger</h3>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60 italic">Accesos Directos</h3>
                     <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
                 </div>
 
@@ -208,7 +200,6 @@ export default function ContabilidadPage() {
         </div>
       </div>
 
-      {/* BANNER DE BIBLIOTECA MAESTRA */}
       <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="bg-[#050505] border-none rounded-[3rem] p-12 text-primary-foreground relative overflow-hidden shadow-2xl group cursor-pointer">
             <Link href="/contabilidad/libros" className="absolute inset-0 z-20" />
@@ -219,7 +210,7 @@ export default function ContabilidadPage() {
                 <div className="space-y-6">
                     <Badge className="bg-primary text-white border-none text-[9px] font-black px-4 py-1.5 rounded-lg shadow-glow uppercase tracking-widest">Repositorio Certificado</Badge>
                     <h3 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter leading-none text-white italic-shadow">Biblioteca de <br/> Libros Digitales</h3>
-                    <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic">Acceda al legajo completo de registros fiscales, laborales y patrimoniales con sellado Blockchain.</p>
+                    <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Legajo completo de registros fiscales, laborales y patrimoniales sellados.</p>
                     <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none">
                         EXPLORAR BIBLIOTECA <ArrowRight className="ml-4 h-5 w-5" />
                     </Button>
@@ -227,8 +218,8 @@ export default function ContabilidadPage() {
                 <div className="hidden md:flex justify-end">
                     <div className="p-12 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-md shadow-inner text-center space-y-4">
                         <BookOpen className="h-16 w-16 mx-auto text-white/40 mb-2 drop-shadow-glow" />
-                        <p className="text-5xl font-black italic tracking-tighter text-white">30</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Módulos de Control</p>
+                        <p className="text-5xl font-black italic tracking-tighter text-white">30+</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Módulos Activos</p>
                     </div>
                 </div>
             </div>
@@ -236,25 +227,4 @@ export default function ContabilidadPage() {
       </motion.div>
     </div>
   );
-}
-
-function ShieldSearch(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-      <circle cx="12" cy="12" r="3" />
-      <path d="m14.5 14.5 2.5 2.5" />
-    </svg>
-  )
 }

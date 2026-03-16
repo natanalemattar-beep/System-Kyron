@@ -32,58 +32,58 @@ export default function AnalisisPage() {
       label: "PULSO DE INGRESOS", 
       href: "/analisis-ventas", 
       icon: BarChart3, 
-      color: "text-blue-600",
+      color: "text-primary",
       desc: "Auditoría de ingresos y tendencias por libros."
     },
     { 
       label: "ALERTA DE MOROSIDAD", 
       href: "/analisis-riesgo", 
       icon: ShieldCheck, 
-      color: "text-rose-600",
+      color: "text-rose-500",
       desc: "Monitor de cuentas incobrables y riesgo de cartera."
     },
     { 
       label: "RENTABILIDAD PRO", 
       href: "/analisis-rentabilidad", 
       icon: TrendingUp, 
-      color: "text-emerald-600",
+      color: "text-emerald-500",
       desc: "Análisis de utilidad neta y eficiencia fiscal."
     },
     { 
       label: "FACTIBILIDAD", 
-      href: "/contabilidad/analisis/factibilidad", 
+      href: "/estudio-factibilidad-economica", 
       icon: Calculator, 
-      color: "text-amber-600",
+      color: "text-primary",
       desc: "VAN, TIR y escenarios de inversión auditados."
     },
     { 
       label: "AUDITORÍA COSTOS", 
       href: "/estructura-costos", 
       icon: Activity, 
-      color: "text-slate-600",
+      color: "text-primary",
       desc: "Análisis de centros de costo y gastos fijos."
     }
   ];
 
   return (
-    <div className="space-y-12 pb-20 px-4 md:px-10">
+    <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
-            <PieChart className="h-3 w-3" /> ÁREA ESTRATÉGICA
+            <PieChart className="h-3 w-3" /> NODO ANALÍTICO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow text-white">
-            Inteligencia <span className="text-primary">Analítica</span>
+          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic italic-shadow leading-none">
+            Inteligencia <span className="text-primary">Estratégica</span>
           </h1>
-          <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Business Intelligence y Control Financiero 2026</p>
+          <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Business Intelligence y Control Proyectivo 2026</p>
         </div>
-        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
+        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-all">
           <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
         </Button>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-primary/5 border-primary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Wallet className="h-16 w-16 text-primary" /></div>
             <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60 mb-2">Salud de Caja</p>
             <p className="text-3xl font-black italic text-white tracking-tighter mb-4">Bs. 45.6k <span className="text-xs opacity-40 tracking-normal italic">Auditado</span></p>
@@ -92,7 +92,7 @@ export default function AnalisisPage() {
                 <span className="text-[10px] font-black uppercase tracking-widest">SOLVENCIA: ÓPTIMA</span>
             </div>
         </Card>
-        <Card className="bg-secondary/5 border-secondary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Zap className="h-16 w-16 text-secondary" /></div>
             <p className="text-[9px] font-black uppercase tracking-[0.3em] text-secondary/60 mb-2">Eficiencia de Capital</p>
             <p className="text-3xl font-black italic text-white tracking-tighter mb-4">92.4% <span className="text-xs opacity-40 tracking-normal italic">ROI</span></p>
@@ -101,9 +101,9 @@ export default function AnalisisPage() {
                 <span className="text-[10px] font-black uppercase tracking-widest">OBJETIVO: 100% Q2</span>
             </div>
         </Card>
-        <Card className="bg-rose-500/5 border-rose-500/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
-            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16 text-rose-500" /></div>
-            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-rose-500/60 mb-2">Seguridad Fiscal</p>
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
+            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16 text-emerald-500" /></div>
+            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500/60 mb-2">Seguridad Fiscal</p>
             <p className="text-3xl font-black italic text-white tracking-tighter mb-4">0.00% <span className="text-xs opacity-40 tracking-normal italic">Riesgo</span></p>
             <div className="flex items-center gap-2 text-emerald-500">
                 <CheckCircle2 className="h-3 w-3" />
@@ -113,7 +113,7 @@ export default function AnalisisPage() {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40 ml-2">Módulos de Análisis Financiero</h3>
+        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40 ml-2">Módulos Analíticos</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {quickAccess.map((item, i) => (
             <Link key={i} href={item.href as any}>
@@ -144,9 +144,9 @@ export default function AnalisisPage() {
           </div>
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
-              <Badge className="bg-primary text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
+              <Badge className="bg-primary text-white border-none text-[10px] font-black px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
               <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">ESTUDIO DE <br/> FACTIBILIDAD</h3>
-              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic">Consulte el dictamen técnico de VAN, TIR y retorno de inversión de los activos estratégicos del grupo.</p>
+              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el nodo central.</p>
               <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
                 VER ESTUDIO MAESTRO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>
