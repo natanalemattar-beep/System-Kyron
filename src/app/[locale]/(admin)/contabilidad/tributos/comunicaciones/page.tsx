@@ -1,10 +1,10 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Printer, CheckCircle, MailOpen, Activity, Terminal, ArrowLeft, Send } from "lucide-react";
+import { FileText, Download, Printer, CheckCircle, MailOpen, Activity, Terminal, ArrowLeft, Send, Landmark, Building2, Gavel, Radio, Recycle, Zap } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -15,8 +15,18 @@ import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 
+const institutions = [
+    { id: "seniat", name: "SENIAT", address: "Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)\nUnidad de Tributos Internos" },
+    { id: "saren", name: "SAREN", address: "Servicio Autónomo de Registros y Notarías (SAREN)\nRegistro Mercantil / Notaría Pública" },
+    { id: "sapi", name: "SAPI", address: "Servicio Autónomo de la Propiedad Intelectual (SAPI)\nDirección de Marcas y Patentes" },
+    { id: "minec", name: "MINEC", address: "Ministerio del Poder Popular para el Ecosocialismo (MINEC)\nDirección de Gestión de Residuos" },
+    { id: "intt", name: "INTT", address: "Instituto Nacional de Transporte Terrestre (INTT)\nDirección de Carga" },
+    { id: "mintur", name: "MINTUR", address: "Ministerio del Poder Popular para el Turismo (MINTUR)\nRegistro Turístico Nacional" },
+];
+
 export default function ComunicacionesSeniatPage() {
     const { toast } = useToast();
+    const [institucionId, setInstitucionId] = useState("seniat");
     const [tipoCarta, setTipoCarta] = useState("inactividad");
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
@@ -28,6 +38,8 @@ export default function ComunicacionesSeniatPage() {
         fecha: new Date().toISOString().substring(0, 10),
     });
 
+    const selectedInst = useMemo(() => institutions.find(i => i.id === institucionId) || institutions[0], [institucionId]);
+
     const handleAction = (action: string) => {
         toast({
             title: `PROTOCOLO ${action.toUpperCase()} ACTIVADO`,
@@ -36,55 +48,15 @@ export default function ComunicacionesSeniatPage() {
         });
     };
 
-    const getInactividadContent = () => `
-Caracas, ${formatDate(data.fecha)}
+    const getLetterContent = () => {
+        const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
+        
+        if (tipoCarta === 'inactividad') {
+            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL (Ventas ni Compras) durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia, queda de ustedes.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+        }
 
-Ciudadanos
-Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)
-Unidad de Tributos Internos
-Presente.-
-
-Asunto: Comunicación de Inactividad Comercial
-
-Yo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL (Ventas ni Compras) durante el periodo comprendido: ${data.periodo}.
-
-Esta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.
-
-Sin más a que hacer referencia, queda de ustedes.
-
-Atentamente,
-
-_________________________
-${data.representante}
-C.I: ${data.cedula}
-Representante Legal
-`;
-
-    const getCierreContent = () => `
-Caracas, ${formatDate(data.fecha)}
-
-Ciudadanos
-Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)
-División de Recaudación / Registro de Información Fiscal
-Presente.-
-
-Asunto: Notificación de Cierre de Actividades
-
-Yo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.
-
-Motivo del cierre: ${data.motivo}
-
-Solicito se realicen las anotaciones correspondientes en el Registro Único de Información Fiscal (RIF) de mi representada, de conformidad con lo establecido en el Código Orgánico Tributario.
-
-Atentamente,
-
-_________________________
-${data.representante}
-C.I: ${data.cedula}
-Representante Legal
-`;
-
-    const currentContent = tipoCarta === 'inactividad' ? getInactividadContent() : getCierreContent();
+        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo del cierre: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada, de conformidad con lo establecido en las leyes vigentes de la República.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+    };
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10">
@@ -93,8 +65,8 @@ Representante Legal
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                 <MailOpen className="h-3 w-3" /> NODO DE CORRESPONDENCIA
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Comunicaciones <span className="text-primary italic">Oficiales</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones ante el SENIAT • Protocolo de Despacho 2026</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Centro de <span className="text-primary italic">Comunicaciones</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Institucionales • Protocolo de Despacho 2026</p>
         </div>
         <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
             <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER AL CENTRO</Link>
@@ -108,14 +80,31 @@ Representante Legal
                     <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Configuración de Carta</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-6">
+                    {/* Selector de Institución */}
+                    <div className="space-y-3">
+                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución Destino</Label>
+                        <Select value={institucionId} onValueChange={setInstitucionId}>
+                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl">
+                                {institutions.map(inst => (
+                                    <SelectItem key={inst.id} value={inst.id} className="uppercase text-xs font-bold">{inst.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
                     <div className="space-y-3">
                         <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Tipo de Comunicación</Label>
                         <Select value={tipoCarta} onValueChange={setTipoCarta}>
-                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue /></SelectTrigger>
+                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase">
+                                <SelectValue />
+                            </SelectTrigger>
                             <SelectContent className="rounded-xl">
                                 <SelectItem value="inactividad" className="uppercase text-xs font-bold">Carta de Inactividad</SelectItem>
                                 <SelectItem value="cierre_temporal" className="uppercase text-xs font-bold">Cierre Temporal</SelectItem>
-                                <SelectItem value="cierre_definitivo" className="uppercase text-xs font-bold">Cierre Definivo</SelectItem>
+                                <SelectItem value="cierre_definitivo" className="uppercase text-xs font-bold">Cierre Definitivo</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -125,7 +114,7 @@ Representante Legal
                         <Input 
                             value={tipoCarta === 'inactividad' ? data.periodo : data.fecha} 
                             onChange={e => setData({...data, [tipoCarta === 'inactividad' ? 'periodo' : 'fecha']: e.target.value})} 
-                            className="h-12 rounded-xl bg-white/5 border-border font-bold"
+                            className="h-12 rounded-xl bg-white/5 border-border font-bold text-white"
                         />
                     </div>
 
@@ -135,7 +124,7 @@ Representante Legal
                             <Textarea 
                                 value={data.motivo} 
                                 onChange={e => setData({...data, motivo: e.target.value})}
-                                className="bg-white/5 border-border rounded-xl p-4 text-xs font-bold uppercase"
+                                className="bg-white/5 border-border rounded-xl p-4 text-xs font-bold uppercase text-white"
                             />
                         </div>
                     )}
@@ -145,7 +134,7 @@ Representante Legal
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-primary/10 rounded-xl"><UserIcon className="h-4 w-4 text-primary" /></div>
                             <div>
-                                <p className="text-xs font-black uppercase italic text-foreground">{data.representante}</p>
+                                <p className="text-xs font-black uppercase italic text-white">{data.representante}</p>
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase">{data.cedula}</p>
                             </div>
                         </div>
@@ -160,7 +149,7 @@ Representante Legal
         </div>
 
         <div className="lg:col-span-7">
-            <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900">
+            <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900 min-h-[800px] flex flex-col">
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
                     <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                 </div>
@@ -178,8 +167,8 @@ Representante Legal
                     </div>
                 </header>
 
-                <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">
-                    {currentContent}
+                <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 flex-grow">
+                    {getLetterContent()}
                 </div>
 
                 <footer className="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 no-print relative z-10">
