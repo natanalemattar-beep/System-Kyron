@@ -1,5 +1,4 @@
-
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -32,11 +31,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
-import { formatDate } from "@/lib/utils";
 
 const associatedLines = [
     { id: "line-1", number: "0414-9377068", label: "Principal", plan: "Infinite 5G Master", used: 12.4, total: 30, balance: 15.00, status: "Activa", iccid: "895804...4567", ip: "10.42.0.1" },
-    { id: "line-2", number: "0412-1234567", label: "Nodo Datos / TPV", plan: "Enterprise 100GB", used: 28.1, total: 100, balance: 45.50, status: "Activa", iccid: "895804...1122", ip: "10.42.0.8" },
+    { id: "line-2", number: "0412-1234567", label: "Área Datos / TPV", plan: "Enterprise 100GB", used: 28.1, total: 100, balance: 45.50, status: "Activa", iccid: "895804...1122", ip: "10.42.0.8" },
     { id: "line-3", number: "0424-5558899", label: "Backup / Seguridad", plan: "Emergency 5GB", used: 0.5, total: 5, balance: 0.00, status: "Suspendida", iccid: "895804...9900", ip: "N/A" },
 ];
 
@@ -57,7 +55,7 @@ export default function MiLineaPage() {
 
         setIsSwitching(true);
         toast({
-            title: "SINCRONIZANDO NODO",
+            title: "SINCRONIZANDO CANAL",
             description: `Aprovisionando perfil eSIM para ${newLine.number}...`,
         });
 
@@ -91,7 +89,7 @@ export default function MiLineaPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-6 py-2 mt-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Signal className="h-3 w-3" /> NODO DE TELECOMUNICACIONES
+                        <Signal className="h-3 w-3" /> ÁREA DE TELECOMUNICACIONES
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-4">
@@ -105,7 +103,7 @@ export default function MiLineaPage() {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-64 bg-black/95 border-white/10 backdrop-blur-2xl rounded-2xl p-2 shadow-glow">
-                                <p className="p-3 text-[7px] font-black uppercase tracking-[0.3em] text-white/20 border-b border-white/5 mb-2">Selector de Nodo Activo</p>
+                                <p className="p-3 text-[7px] font-black uppercase tracking-[0.3em] text-white/20 border-b border-white/5 mb-2">Selector de Línea Activa</p>
                                 {associatedLines.map(line => (
                                     <DropdownMenuItem 
                                         key={line.id} 
@@ -150,7 +148,7 @@ export default function MiLineaPage() {
                             >
                                 <Loader2 className="h-12 w-12 text-primary animate-spin" />
                                 <div className="text-center space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/60 animate-pulse">Sincronizando Nodo</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/60 animate-pulse">Sincronizando Sistema</p>
                                     <p className="text-[7px] font-bold text-primary uppercase tracking-widest">Protocolo OTA Activo</p>
                                 </div>
                             </motion.div>
@@ -224,7 +222,7 @@ export default function MiLineaPage() {
                             {[
                                 { label: "Velocidad Peak", val: "1.4 Gbps", icon: Zap, color: "text-yellow-400" },
                                 { label: "Network Slice", val: "ACTIVE", icon: Cpu, color: "text-emerald-400" },
-                                { label: "IPv6 Node", val: activeLine.ip, icon: Globe, color: "text-blue-400" },
+                                { label: "IPv6 Central", val: activeLine.ip, icon: Globe, color: "text-blue-400" },
                                 { label: "Cifrado Red", val: "AES-512", icon: Lock, color: "text-primary" }
                             ].map(stat => (
                                 <div key={stat.label} className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl text-center group hover:bg-white/[0.03] transition-all">
@@ -246,7 +244,7 @@ export default function MiLineaPage() {
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2">
                                     <ShieldCheck className="h-3.5 w-3.5 opacity-60" />
-                                    <h3 className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Saldo de Nodo</h3>
+                                    <h3 className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Saldo Certificado</h3>
                                 </div>
                                 <motion.p 
                                     key={activeLine.balance}
@@ -309,12 +307,12 @@ export default function MiLineaPage() {
                         </CardHeader>
                         <CardContent className="p-0 space-y-4">
                             {[
-                                { date: "15 MAR", desc: "Recarga Nodo", amount: 15.00, type: "plus" },
+                                { date: "15 MAR", desc: "Recarga Portal", amount: 15.00, type: "plus" },
                                 { date: "14 MAR", desc: "Plan Mensual", amount: -25.00, type: "minus" },
                             ].map((item, i) => (
                                 <div key={i} className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest group">
                                     <div className="flex items-center gap-3">
-                                        <div className={cn("h-1 w-1 rounded-full", item.type === 'plus' ? "bg-emerald-500" : "bg-rose-500")} />
+                                        <div className={cn("h-1 w-1 rounded-full", item.type === 'plus' ? "bg-emerald-500" : "bg-rose-50")} />
                                         <span className="text-white/30 group-hover:text-white/60 transition-colors">{item.date} • {item.desc}</span>
                                     </div>
                                     <span className={cn(
@@ -330,7 +328,7 @@ export default function MiLineaPage() {
 
             <footer className="mt-16 pt-8 border-t border-white/5 flex flex-col items-center gap-4 opacity-20 text-center">
                 <Logo className="h-10 w-10 grayscale" />
-                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white italic">KYRON TELECOM • 2026</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white italic">KYRON TELECOM INFRASTRUCTURE • 2026</p>
             </footer>
         </div>
     );

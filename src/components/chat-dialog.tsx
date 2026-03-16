@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2, Sparkles, ShieldCheck, Gavel, Cpu, Recycle } from "lucide-react";
+import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2, Sparkles, Gavel, Cpu, Recycle } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -15,9 +14,8 @@ import {
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { cn, formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
-import { ThinkingAnimation } from "./thinking-animation";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 
@@ -26,9 +24,6 @@ type Message = {
   text: string;
 };
 
-/**
- * Determina la "Persona" de la IA basada en la ruta actual para especializar el soporte.
- */
 const getAIIdentity = (pathname: string) => {
   if (pathname.includes('/contabilidad') || pathname.includes('/resumen-negocio') || pathname.includes('/facturacion')) {
     return {
@@ -100,7 +95,7 @@ export function ChatDialog() {
     setIsLoading(true);
 
     try {
-      const context = `El usuario está en el portal gestionado por el ${identity.role}. Su experiencia es: ${identity.expertise}. Responde siempre con autoridad en esta área específica.`;
+      const context = `El usuario está en el portal gestionado por el ${identity.role}. Su experiencia es: ${identity.expertise}. Responde siempre con autoridad en esta área específica. No uses la palabra nodo.`;
       const botResponse = await chat({ message: currentInput, context });
       const botMessage: Message = { role: 'bot', text: botResponse };
       setMessages(prev => [...prev, botMessage]);
@@ -110,14 +105,6 @@ export function ChatDialog() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const showWalletSummary = () => {
-    setIsWalletOpen(true);
-    toast({
-        title: "SISTEMA DE CAJA DIGITAL",
-        description: "Obteniendo saldos certificados...",
-    });
   };
 
   return (
@@ -130,20 +117,20 @@ export function ChatDialog() {
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-card/95 backdrop-blur-3xl border-l-white/10 flex flex-col h-full">
         <SheetHeader className="p-6 md:p-8 border-b border-white/5 bg-white/[0.02]">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 text-left">
             <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
               <identity.icon className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground text-left">{identity.role}</SheetTitle>
-              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60 text-left">Inteligencia Especializada Activa</SheetDescription>
+              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">{identity.role}</SheetTitle>
+              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60">Inteligencia Especializada Activa</SheetDescription>
             </div>
           </div>
         </SheetHeader>
 
         <div className="p-4 bg-white/[0.01] border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
-            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={showWalletSummary}>
-                <Wallet className="mr-2 h-3 w-3" /> Caja Digital
+            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={() => setIsWalletOpen(true)}>
+                <Wallet className="mr-2 h-3 w-3" /> Billetera Digital
             </Button>
             <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-white/10 text-muted-foreground shrink-0">
                 <Activity className="mr-2 h-3 w-3" /> Estatus Red
@@ -152,14 +139,14 @@ export function ChatDialog() {
 
         <Tabs defaultValue="consulta" className="flex-1 flex flex-col overflow-hidden">
           <TabsList className="grid grid-cols-3 bg-muted/30 p-1 rounded-none border-b border-white/5">
-            <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Registros</TabsTrigger>
+            <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Eventos</TabsTrigger>
             <TabsTrigger value="sugerencias" className="text-[8px] font-black uppercase tracking-widest">Protocolos</TabsTrigger>
             <TabsTrigger value="consulta" className="text-[8px] font-black uppercase tracking-widest">Chat IA</TabsTrigger>
           </TabsList>
 
           <TabsContent value="acciones" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
-              <Activity className="h-3 w-3" /> Eventos del Centro
+              <Activity className="h-3 w-3" /> Historial Reciente
             </h4>
             
             {isWalletOpen && (
@@ -168,8 +155,8 @@ export function ChatDialog() {
                         <span className="text-[9px] font-black text-primary uppercase">Saldo Certificado</span>
                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsWalletOpen(false)}><X className="h-3 w-3"/></Button>
                     </div>
-                    <div className="space-y-2">
-                        <div className="flex justify-between text-xs font-bold text-foreground/80"><span>Bs.</span> <span>45.678,90</span></div>
+                    <div className="space-y-2 font-mono">
+                        <div className="flex justify-between text-xs font-bold text-foreground/80"><span>VES</span> <span>45.678,90</span></div>
                         <div className="flex justify-between text-xs font-bold text-primary"><span>USD</span> <span>$ 12.345,67</span></div>
                     </div>
                 </div>
@@ -193,10 +180,10 @@ export function ChatDialog() {
 
           <TabsContent value="sugerencias" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-secondary flex items-center gap-2">
-              <ShieldCheck className="h-3 w-3" /> Protocolos IA
+              <ShieldCheck className="h-3 w-3" /> Sugerencias IA
             </h4>
             {[
-              { mod: "Prioridad", text: "Actualizar expediente legal antes del cierre.", action: "Ir al Área" },
+              { mod: "Prioridad", text: "Actualizar expediente legal antes del cierre.", action: "Ver Área" },
               { mod: "Ahorro", text: "Optimizar consumo de datos en la línea principal.", action: "Ver Detalles" },
               { mod: "Ambiente", text: "Canjear Eco-Créditos acumulados.", action: "Canjear" },
             ].map((item, i) => (
@@ -257,7 +244,7 @@ export function ChatDialog() {
         </Tabs>
 
         <footer className="p-6 border-t border-white/5 bg-black/40 text-center">
-          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10 italic">Kyron Intelligence Node • 2026</p>
+          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10 italic">Kyron Intelligence • 2026</p>
         </footer>
       </SheetContent>
     </Sheet>
