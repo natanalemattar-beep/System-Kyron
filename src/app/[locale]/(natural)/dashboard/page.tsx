@@ -9,12 +9,9 @@ import {
     Fingerprint, 
     ArrowRight, 
     FileText, 
-    Recycle, 
-    Smartphone,
     Bell,
     Settings,
     ShieldCheck,
-    Zap,
     History
 } from 'lucide-react';
 import { Link } from "@/navigation";
@@ -25,8 +22,8 @@ import { formatDate, cn } from "@/lib/utils";
 
 const kpiData = [
   { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15 días", color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "Mi Línea 5G", value: "12.4 GB", icon: Smartphone, desc: "Saldo: $ 15.00", color: "text-primary", bg: "bg-primary/10" },
-  { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ evitado", color: "text-secondary", bg: "bg-secondary/10" },
+  { title: "ID Digital", value: "VERIFICADA", icon: Fingerprint, desc: "Acceso Nivel 5", color: "text-primary", bg: "bg-primary/10" },
+  { title: "Trámites", value: "2 en curso", icon: History, desc: "Partida de Nacimiento", color: "text-emerald-400", bg: "bg-emerald-400/5" },
 ];
 
 export default function DashboardPersonalPage() {
@@ -44,7 +41,7 @@ export default function DashboardPersonalPage() {
         
         <div className="flex gap-3">
             <Button asChild variant="outline" className="h-12 px-6 rounded-xl border-white/5 bg-white/5 text-white/60 font-black text-[9px] uppercase tracking-widest hover:bg-white/10">
-                <Link href="/cuenta-personal/certificados-ingreso" className="flex items-center gap-2"><FileText className="h-4 w-4" /> Certificados de Ingreso</Link>
+                <Link href="/tarjeta-digital" className="flex items-center gap-2"><UserCircleIcon className="h-4 w-4" /> Mi ID Digital</Link>
             </Button>
             <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
                 <Link href="/notificaciones"><Bell className="h-5 w-5 text-white/40" /></Link>
@@ -68,7 +65,7 @@ export default function DashboardPersonalPage() {
                             <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                         </div>
                       </div>
-                      <p className="text-3xl font-black tracking-tighter italic text-white/90 leading-none mb-3">{kpi.value}</p>
+                      <p className="text-2xl font-black italic text-white/90 leading-none mb-3 uppercase">{kpi.value}</p>
                       <p className={cn("text-[10px] font-bold uppercase tracking-widest", kpi.title === "Mis Documentos" ? "text-amber-400" : "text-white/30")}>{kpi.desc}</p>
                   </CardContent>
               </Card>
@@ -81,7 +78,7 @@ export default function DashboardPersonalPage() {
             <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
                 <div className="space-y-1">
                     <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
-                        <Fingerprint className="text-primary h-6 w-6" /> Mis Documentos
+                        <Fingerprint className="text-primary h-6 w-6" /> Mis Documentos Recientes
                     </CardTitle>
                     <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Archivo Personal Protegido</p>
                 </div>
@@ -89,59 +86,88 @@ export default function DashboardPersonalPage() {
                     <Link href="/documentos">Ver Todo</Link>
                 </Button>
             </CardHeader>
-            <CardContent className="p-0 text-center py-20 opacity-40">
-                <History className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
-                <p className="text-[10px] font-black uppercase tracking-[0.4em]">Sincronizando con Bóveda de Documentos...</p>
+            <CardContent className="p-0">
+                <Table>
+                    <TableHeader>
+                        <TableRow className="bg-white/[0.02] border-none">
+                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Documento</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Fecha</TableHead>
+                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Acción</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {[
+                            { name: "Cédula de Identidad", date: "15/01/2024", type: "Identidad" },
+                            { name: "RIF Personal", date: "20/05/2024", type: "Fiscal" },
+                        ].map((doc, i) => (
+                            <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
+                                <TableCell className="pl-10 py-6 font-black text-xs text-white/80 uppercase italic">{doc.name}</TableCell>
+                                <TableCell className="py-6 text-[10px] font-bold text-white/30 uppercase">{doc.date}</TableCell>
+                                <TableCell className="text-right pr-10">
+                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary">
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </CardContent>
         </Card>
 
         <div className="lg:col-span-4 space-y-8">
-           <Card className="border-none bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group p-1 shadow-2xl">
-                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                    <Zap className="h-32 w-32" />
-                </div>
-                <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
-                    <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea 5G</CardTitle>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos Pro</p>
-                    </div>
-                    <div className="space-y-4">
-                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                            <span>Uso: 12.4GB / 30GB</span>
-                            <span className="italic">41%</span>
-                        </div>
-                        <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
-                            <div className="h-full w-[41%] bg-white shadow-glow" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 pt-4">
-                            <Button variant="secondary" asChild className="h-10 text-[8px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">
-                                <Link href="/mi-linea">RECARGAR</Link>
-                            </Button>
-                            <Button variant="outline" asChild className="h-10 text-[8px] font-black border-white/20 text-white hover:bg-white/10 rounded-xl uppercase tracking-tighter">
-                                <Link href="/mi-linea">DETALLES</Link>
-                            </Button>
-                        </div>
-                    </div>
+           <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-primary">
+                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><ShieldCheck className="h-20 w-20" /></div>
+                <h3 className="text-sm font-black text-primary uppercase tracking-[0.3em] mb-6 flex items-center gap-3 text-white">
+                    Protección de Datos
+                </h3>
+                <div className="space-y-6">
+                    <p className="text-xs font-medium text-white/40 leading-relaxed uppercase">
+                        Su identidad está sellada mediante el protocolo Kyron v2.6. Sus documentos civiles residen en un nodo de almacenamiento cifrado inaccesible para terceros.
+                    </p>
+                    <Button asChild variant="outline" className="w-full h-12 rounded-xl border-primary/20 text-primary hover:bg-primary/10 font-black text-[9px] uppercase tracking-widest">
+                        <Link href="/seguridad">GESTIONAR PRIVACIDAD</Link>
+                    </Button>
                 </div>
            </Card>
 
-           <Card className="bg-white/[0.02] border-white/5 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-secondary">
-                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Recycle className="h-20 w-20" /></div>
-                <h3 className="text-sm font-black text-secondary uppercase tracking-[0.3em] mb-6 flex items-center gap-3 text-white">
-                    Eco-Créditos Acumulados
-                </h3>
-                <div className="space-y-6">
-                    <div>
-                        <p className="text-4xl font-black italic tracking-tighter text-white">1,250</p>
-                        <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mt-1">Disponibles para canje</p>
+           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm rounded-[2rem]">
+                <CardHeader className="p-8 pb-4">
+                    <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Avisos del Sistema</CardTitle>
+                </CardHeader>
+                <CardContent className="px-8 pb-8">
+                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10 flex items-start gap-3">
+                        <ShieldAlert className="h-4 w-4 text-red-500 mt-0.5" />
+                        <div className="text-[10px]">
+                            <p className="font-black text-red-500 uppercase">Actualización de RIF</p>
+                            <p className="text-red-400/70 mt-1 font-medium leading-tight uppercase">Su registro fiscal requiere actualización antes del cierre del periodo.</p>
+                        </div>
                     </div>
-                    <Button asChild variant="outline" className="w-full h-12 rounded-xl border-secondary/20 text-secondary hover:bg-secondary/10 font-black text-[9px] uppercase tracking-widest">
-                        <Link href="/tarjeta-reciclaje">VER RECOMPENSAS</Link>
-                    </Button>
-                </div>
+                </CardContent>
            </Card>
         </div>
       </div>
     </div>
   );
+}
+
+function UserCircleIcon(props: any) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="10" r="3" />
+            <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+        </svg>
+    )
 }

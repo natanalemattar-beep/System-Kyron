@@ -54,7 +54,6 @@ export const naturalNavGroups = [
         items: [
             { href: "/dashboard", label: "Inicio", icon: Home },
             { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
-            { href: "/mi-linea", label: "Mi Línea 5G", icon: Smartphone },
             { href: "/cuenta-personal/certificados-ingreso", label: "Cert. Ingreso", icon: FileText },
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Avisos", icon: Bell },
@@ -70,15 +69,6 @@ export const naturalNavGroups = [
             { href: "/actas-matrimonio", label: "Acta de Matrimonio", icon: FileText },
             { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
             { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-        ],
-        subGroups: [],
-    },
-    {
-        title: "Sostenibilidad",
-        icon: Recycle,
-        items: [
-            { href: "/tarjeta-reciclaje", label: "Puntos Verdes", icon: Recycle },
-            { href: "/mercado-ecocreditos", label: "Canje de Puntos", icon: Coins },
         ],
         subGroups: [],
     }
