@@ -71,6 +71,10 @@ export const pathnames = {
   '/contabilidad/certificaciones/empresa': '/contabilidad/certificaciones/empresa',
   '/contabilidad/certificaciones/socios': '/contabilidad/certificaciones/socios',
   '/contabilidad/certificaciones/trabajo': '/contabilidad/certificaciones/trabajo',
+  '/contabilidad/rrhh/certificados-laborales': '/contabilidad/rrhh/certificados-laborales',
+
+  // CUENTA PERSONAL EXTRAS
+  '/cuenta-personal/certificados-ingreso': '/cuenta-personal/certificados-ingreso',
 
   // ANALISIS RENTABILIDAD
   '/analisis-rentabilidad': '/analisis-rentabilidad',

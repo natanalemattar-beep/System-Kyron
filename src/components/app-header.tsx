@@ -44,7 +44,8 @@ import {
     Banknote,
     Building2,
     UserCheck,
-    FileSignature
+    FileSignature,
+    Briefcase
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -68,7 +69,7 @@ const navigationConfig = [
           { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
           { label: "Certificación Empresa", href: "/contabilidad/certificaciones/empresa", icon: Building2 },
           { label: "Certificación Socios", href: "/contabilidad/certificaciones/socios", icon: UserCheck },
-          { label: "Constancia Trabajo", href: "/contabilidad/certificaciones/trabajo", icon: FileSignature },
+          { label: "Certificados Laborales", href: "/contabilidad/rrhh/certificados-laborales", icon: Briefcase },
       ]
   },
   { 

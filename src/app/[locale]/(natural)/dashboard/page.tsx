@@ -14,7 +14,8 @@ import {
     Bell,
     Settings,
     ShieldCheck,
-    Zap
+    Zap,
+    History
 } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
@@ -26,13 +27,6 @@ const kpiData = [
   { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15 días", color: "text-blue-400", bg: "bg-blue-400/5" },
   { title: "Mi Línea 5G", value: "12.4 GB", icon: Smartphone, desc: "Saldo: $ 15.00", color: "text-primary", bg: "bg-primary/10" },
   { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ evitado", color: "text-secondary", bg: "bg-secondary/10" },
-];
-
-const misDocumentos = [
-    { id: "V-32.855.496", doc: "Cédula de Identidad", estado: "Vigente", vencimiento: "2031", validez: "Válida" },
-    { id: "J-12345678-9", doc: "RIF Personal", estado: "Por Renovar", vencimiento: "15 días", validez: "Alerta" },
-    { id: "PAS-V00123", doc: "Pasaporte", estado: "Vigente", vencimiento: "2028", validez: "Válida" },
-    { id: "MS-9988", doc: "Carnet de Salud", estado: "Vigente", vencimiento: "2026", validez: "Válida" },
 ];
 
 export default function DashboardPersonalPage() {
@@ -49,11 +43,11 @@ export default function DashboardPersonalPage() {
         </div>
         
         <div className="flex gap-3">
-            <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
-                <Link href="/notificaciones"><Bell className="h-5 w-5 text-white/40" /></Link>
+            <Button asChild variant="outline" className="h-12 px-6 rounded-xl border-white/5 bg-white/5 text-white/60 font-black text-[9px] uppercase tracking-widest hover:bg-white/10">
+                <Link href="/cuenta-personal/certificados-ingreso" className="flex items-center gap-2"><FileText className="h-4 w-4" /> Certificados de Ingreso</Link>
             </Button>
             <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
-                <Link href="/seguridad"><Settings className="h-5 w-5 text-white/40" /></Link>
+                <Link href="/notificaciones"><Bell className="h-5 w-5 text-white/40" /></Link>
             </Button>
         </div>
       </header>
@@ -95,41 +89,9 @@ export default function DashboardPersonalPage() {
                     <Link href="/documentos">Ver Todo</Link>
                 </Button>
             </CardHeader>
-            <CardContent className="p-0">
-                <Table>
-                    <TableHeader>
-                        <TableRow className="bg-white/[0.01] border-none">
-                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Documento</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Vencimiento</TableHead>
-                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {misDocumentos.map((doc, idx) => (
-                            <TableRow key={idx} className="hover:bg-white/[0.02] border-white/5 transition-all">
-                                <TableCell className="pl-10 py-6">
-                                    <div className="flex flex-col gap-1">
-                                        <span className="text-xs font-black uppercase tracking-tight text-white/80">{doc.doc}</span>
-                                        <span className="text-[9px] text-primary font-bold tracking-widest font-mono italic">{doc.id}</span>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="py-6">
-                                    <Badge variant="outline" className={cn(
-                                        "text-[8px] font-black uppercase tracking-widest h-6 px-3 rounded-lg",
-                                        doc.estado === "Vigente" ? "border-emerald-500/20 text-emerald-400 bg-emerald-500/5" : "border-amber-500/20 text-amber-400 bg-amber-500/5"
-                                    )}>{doc.estado}</Badge>
-                                </TableCell>
-                                <TableCell className="py-6 text-[10px] font-bold text-white/30 uppercase">{doc.vencimiento}</TableCell>
-                                <TableCell className="text-right pr-10 py-6">
-                                    <Button variant="ghost" size="sm" className="h-9 rounded-xl hover:bg-primary/10 hover:text-primary font-black text-[9px] uppercase tracking-widest transition-all">
-                                        {doc.estado === "Por Renovar" ? "Tramitar" : "Visualizar"}
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+            <CardContent className="p-0 text-center py-20 opacity-40">
+                <History className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em]">Sincronizando con Bóveda de Documentos...</p>
             </CardContent>
         </Card>
 
