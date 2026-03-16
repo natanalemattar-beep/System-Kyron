@@ -23,9 +23,9 @@ import { Logo } from "@/components/logo";
 import Image from "next/image";
 
 const mockEmployees = [
-  { id: "EMP-001", name: "Ana Pérez", ci: "V-12.345.678", cargo: "Gerente Finanzas", ingreso: "15/01/2020", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
-  { id: "EMP-002", name: "Luis Gómez", ci: "V-18.765.432", cargo: "Analista Senior", ingreso: "10/02/2021", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
-  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe", ingreso: "01/01/2024", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
+  { id: "EMP-001", name: "Ana Pérez", ci: "V-12.345.678", cargo: "Gerente Finanzas", ingreso: "2020-01-15", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
+  { id: "EMP-002", name: "Luis Gómez", ci: "V-18.765.432", cargo: "Analista Senior", ingreso: "2021-02-10", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
+  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe", ingreso: "2024-01-01", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
 ];
 
 const mockHistory = [
@@ -41,24 +41,34 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
     const [step, setStep] = useState<'selector' | 'form' | 'preview'>('selector');
     const [type, setType] = useState<CertType>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [formData, setFormData] = useState<any>({});
+    const [formData, setFormData] = useState<any>({
+        nombre: "",
+        cedula: "",
+        empresa: "System Kyron, C.A.",
+        rif: "J-12345678-9",
+        cargo: "",
+        salario: 0,
+        ingreso: new Date().toISOString().substring(0, 10),
+        tlf: "0212-1234567",
+        profesion: "",
+        actividad: "",
+        fuente: "Honorarios Profesionales",
+        ente: "IVSS",
+        numCarnet: ""
+    });
 
     const handleSelectType = (selectedType: CertType) => {
         setType(selectedType);
         if (mode === 'personal') {
             setFormData({
+                ...formData,
                 nombre: "Usuario Natural",
                 cedula: "V-32.855.496",
-                empresa: "System Kyron, C.A.",
-                rif: "J-12345678-9",
                 cargo: "Consultor de Ingeniería",
                 salario: 12000,
-                ingreso: "01/01/2024",
-                tlf: "0212-1234567",
+                ingreso: "2024-01-01",
                 profesion: "Ingeniero",
                 actividad: "Consultoría IT",
-                fuente: "Honorarios Profesionales",
-                ente: "IVSS",
                 numCarnet: "12345678"
             });
         }
@@ -69,6 +79,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         const emp = mockEmployees.find(e => e.id === empId);
         if (emp) {
             setFormData({
+                ...formData,
                 nombre: emp.name,
                 cedula: emp.ci,
                 empresa: emp.empresa,
@@ -145,9 +156,9 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                     <CardContent className="p-10 space-y-8">
                         {mode === 'hr' && (
                             <div className="space-y-3">
-                                <Label className="text-[9px] font-black uppercase text-primary/60 ml-1">Seleccionar Empleado</Label>
+                                <Label className="text-[9px] font-black uppercase text-primary/60 ml-1">Seleccionar Empleado de Nómina</Label>
                                 <Select onValueChange={handleEmployeeSelect}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder="Buscar en nómina..." /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder="Buscar en la lista..." /></SelectTrigger>
                                     <SelectContent className="rounded-xl">
                                         {mockEmployees.map(e => <SelectItem key={e.id} value={e.id} className="uppercase text-xs font-bold">{e.name} ({e.ci})</SelectItem>)}
                                     </SelectContent>
@@ -158,21 +169,21 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="space-y-2">
                                 <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Nombre Completo</Label>
-                                <Input value={formData.nombre || ""} readOnly={mode === 'personal'} onChange={e => setFormData({...formData, nombre: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold text-foreground" />
+                                <Input value={formData.nombre || ""} onChange={e => setFormData({...formData, nombre: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold text-foreground" />
                             </div>
                             <div className="space-y-2">
                                 <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Cédula de Identidad</Label>
-                                <Input value={formData.cedula || ""} readOnly={mode === 'personal'} onChange={e => setFormData({...formData, cedula: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold text-foreground" />
+                                <Input value={formData.cedula || ""} onChange={e => setFormData({...formData, cedula: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold text-foreground" />
                             </div>
 
                             {type === 'dependiente' && (
                                 <>
                                     <div className="space-y-2">
-                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Empresa</Label>
+                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Empresa / Razón Social</Label>
                                         <Input value={formData.empresa || ""} onChange={e => setFormData({...formData, empresa: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Cargo</Label>
+                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Cargo a Certificar</Label>
                                         <Input value={formData.cargo || ""} onChange={e => setFormData({...formData, cargo: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold" />
                                     </div>
                                 </>
@@ -198,18 +209,18 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                         <Input value={formData.ente || ""} onChange={e => setFormData({...formData, ente: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Nro. Carnet IVSS</Label>
+                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Nro. Carnet Institucional</Label>
                                         <Input value={formData.numCarnet || ""} onChange={e => setFormData({...formData, numCarnet: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold" />
                                     </div>
                                 </>
                             )}
 
                             <div className="space-y-2">
-                                <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Ingreso Mensual</Label>
+                                <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Monto de Ingreso Mensual (Bs.)</Label>
                                 <Input type="number" value={formData.salario || ""} onChange={e => setFormData({...formData, salario: Number(e.target.value)})} className="h-12 rounded-xl bg-white/5 border-border font-black text-primary italic" />
                             </div>
                             <div className="space-y-2">
-                                <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Fecha {type === 'pensionado' ? 'Jubilación' : 'Ingreso'}</Label>
+                                <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Fecha de {type === 'pensionado' ? 'Jubilación' : 'Ingreso'}</Label>
                                 <Input type="date" value={formData.ingreso || ""} onChange={e => setFormData({...formData, ingreso: e.target.value})} className="h-12 rounded-xl bg-white/5 border-border font-bold" />
                             </div>
                         </div>
@@ -217,7 +228,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                     <CardFooter className="p-10 bg-primary/5 border-t border-border flex justify-end">
                         <Button onClick={handleGenerate} className="h-14 px-12 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl" disabled={isLoading}>
                             {isLoading ? <Loader2 className="mr-3 h-5 w-5 animate-spin" /> : <FileText className="mr-3 h-5 w-5" />}
-                            SELLAR CERTIFICADO
+                            GENERAR Y SELLAR
                         </Button>
                     </CardFooter>
                 </Card>
@@ -230,7 +241,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                         </div>
                         
-                        <header className="flex justify-between items-start mb-20 border-b-2 border-slate-900 pb-10">
+                        <header className="flex justify-between items-start mb-20 border-b-2 border-slate-900 pb-10 relative z-10">
                             <div className="flex items-center gap-6">
                                 <Logo className="h-16 w-16" />
                                 <div className="space-y-1">
@@ -244,13 +255,19 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             </div>
                         </header>
 
-                        <div className="space-y-12 text-justify leading-loose text-lg">
+                        <div className="space-y-12 text-justify leading-loose text-lg relative z-10">
                             <p className="indent-12">
-                                Mediante la presente se hace constar que el(la) ciudadano(a) <strong className="uppercase">{formData.nombre}</strong>, titular de la Cédula de Identidad Nro. <strong>{formData.cedula}</strong>, {type === 'pensionado' ? 'se encuentra en condición de Jubilado/Pensionado' : `presta sus servicios en la organización ${formData.empresa || 'System Kyron'} (RIF: ${formData.rif || 'J-12345678-9'})`}.
+                                Mediante la presente se hace constar que el(la) ciudadano(a) <strong className="uppercase">{formData.nombre}</strong>, titular de la Cédula de Identidad Nro. <strong>{formData.cedula}</strong>, {
+                                    type === 'pensionado' 
+                                    ? `se encuentra en condición de Jubilado/Pensionado ante la institución ${formData.ente || 'IVSS'}, portador del carnet Nro. ${formData.numCarnet || 'N/A'}, desde la fecha ${formatDate(formData.ingreso)}` 
+                                    : type === 'independiente'
+                                    ? `ejerce de forma libre e independiente la profesión de ${formData.profesion || 'Profesional'} en el área de ${formData.actividad || 'Servicios'}, realizando estas labores de forma ininterrumpida desde el ${formatDate(formData.ingreso)}`
+                                    : `presta sus servicios profesionales en la organización ${formData.empresa || 'System Kyron'} (RIF: ${formData.rif || 'J-12345678-9'}), desempeñando el cargo de ${formData.cargo || 'Especialista'} desde el ${formatDate(formData.ingreso)}`
+                                }.
                             </p>
                             
                             <p className="indent-12">
-                                Se certifica que el titular de la presente percibe un ingreso mensual de <strong>{formatCurrency(formData.salario || 0, 'Bs.')}</strong>, {type === 'pensionado' ? 'por concepto de pensión de jubilación' : `desempeñando el cargo de ${formData.cargo || formData.profesion || 'Consultor'}`}.
+                                Se certifica formalmente que el titular de la presente percibe un ingreso mensual de <strong>{formatCurrency(formData.salario || 0, 'Bs.')}</strong>, {type === 'pensionado' ? 'derivado de su asignación de jubilación' : `por concepto de su actividad laboral antes descrita`}.
                             </p>
 
                             <p className="indent-12">
@@ -258,7 +275,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             </p>
                         </div>
 
-                        <footer className="mt-32 grid md:grid-cols-2 gap-20">
+                        <footer className="mt-32 grid md:grid-cols-2 gap-20 relative z-10">
                             <div className="flex flex-col items-center">
                                 <div className="w-full h-px bg-slate-900 mb-4" />
                                 <p className="font-bold text-sm uppercase">Firma del Certificador</p>
@@ -266,13 +283,13 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             </div>
                             <div className="flex flex-col items-end">
                                 <div className="p-4 border-2 border-slate-900 rounded-xl bg-white shadow-inner">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=CERT-${formData.cedula}`} alt="QR Verification" width={80} height={80} className="grayscale" />
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=CERT-${formData.cedula}-${formData.ingreso}`} alt="QR Verification" width={80} height={80} className="grayscale" />
                                 </div>
                                 <p className="text-[8px] font-black uppercase tracking-widest mt-3 opacity-40">Sello de Integridad Digital</p>
                             </div>
                         </footer>
 
-                        <div className="mt-20 pt-10 border-t border-slate-100 text-center">
+                        <div className="mt-20 pt-10 border-t border-slate-100 text-center relative z-10">
                             <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300 italic">CERTIFICADO VÁLIDO POR 90 DÍAS • VERIFICACIÓN BLOCKCHAIN ACTIVA</p>
                         </div>
                     </Card>
