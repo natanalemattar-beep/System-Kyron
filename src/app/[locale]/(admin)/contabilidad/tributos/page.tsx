@@ -12,7 +12,7 @@ import {
     Scale, Globe, Truck, Leaf, Palmtree, Cpu,
     BookOpen, ShieldAlert, ChevronDown, Bell,
     Settings2, Smartphone, CheckCircle2, Copy,
-    Terminal, Coins, Microscope
+    Terminal, Coins, Microscope, Ship
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
