@@ -41,6 +41,10 @@ export default function ComunicacionesSeniatPage() {
     const selectedInst = useMemo(() => institutions.find(i => i.id === institucionId) || institutions[0], [institucionId]);
 
     const handleAction = (action: string) => {
+        if (action === 'descarga') {
+            handleDownloadWord();
+            return;
+        }
         toast({
             title: `PROTOCOLO ${action.toUpperCase()} ACTIVADO`,
             description: "Comunicación procesada bajo cifrado legal.",
@@ -56,6 +60,30 @@ export default function ComunicacionesSeniatPage() {
         }
 
         return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo del cierre: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada, de conformidad con lo establecido en las leyes vigentes de la República.\n\nAtentamente,\n\n_________________________\n${data.representante}\nC.I: ${data.cedula}\nRepresentante Legal`;
+    };
+
+    const handleDownloadWord = () => {
+        const content = getLetterContent();
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'><title>Comunicación Oficial</title><style>body { font-family: 'Times New Roman', serif; padding: 20pt; }</style></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + `<div style="text-align: justify; line-height: 1.5;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `Comunicacion_${selectedInst.name}_${data.empresa.replace(/\s+/g, '_')}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+
+        toast({
+            title: "DESCARGA INICIADA",
+            description: "El documento ha sido exportado en formato Word.",
+            action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+        });
     };
 
   return (
@@ -80,7 +108,6 @@ export default function ComunicacionesSeniatPage() {
                     <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Configuración de Carta</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-6">
-                    {/* Selector de Institución */}
                     <div className="space-y-3">
                         <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución Destino</Label>
                         <Select value={institucionId} onValueChange={setInstitucionId}>
@@ -132,7 +159,9 @@ export default function ComunicacionesSeniatPage() {
                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
                         <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-4">Firmante Autorizado</p>
                         <div className="flex items-center gap-4">
-                            <div className="p-3 bg-primary/10 rounded-xl"><UserIcon className="h-4 w-4 text-primary" /></div>
+                            <div className="p-3 bg-primary/10 rounded-xl shadow-inner border border-primary/20">
+                                <UserIcon className="h-4 w-4 text-primary" />
+                            </div>
                             <div>
                                 <p className="text-xs font-black uppercase italic text-white">{data.representante}</p>
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase">{data.cedula}</p>
@@ -149,7 +178,7 @@ export default function ComunicacionesSeniatPage() {
         </div>
 
         <div className="lg:col-span-7">
-            <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900 min-h-[800px] flex flex-col">
+            <Card className="border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900 min-h-[800px] flex flex-col">
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
                     <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                 </div>
@@ -176,11 +205,11 @@ export default function ComunicacionesSeniatPage() {
                         <Terminal className="h-4 w-4" /> SELLADO ELECTRÓNICO ACTIVO
                     </div>
                     <div className="flex gap-3">
-                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase" onClick={() => window.print()}>
+                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => window.print()}>
                             <Printer className="mr-2 h-3.5 w-3.5" /> IMPRIMIR
                         </Button>
-                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase" onClick={() => handleAction('descarga')}>
-                            <Download className="mr-2 h-3.5 w-3.5" /> DESCARGAR PDF
+                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('descarga')}>
+                            <Download className="mr-2 h-3.5 w-3.5" /> DESCARGAR .DOC
                         </Button>
                     </div>
                 </footer>
