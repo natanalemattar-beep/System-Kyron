@@ -50,7 +50,8 @@ import {
   LifeBuoy,
   UserCog,
   FolderArchive,
-  Star
+  Star,
+  Zap
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -108,7 +109,7 @@ export const adminNavGroups = [
     icon: LayoutDashboard, 
     items: [
         { href: "/dashboard-empresa", label: "Resumen General", icon: LayoutDashboard },
-        { href: "/analisis-rentabilidad", label: "Rentabilidad Pro", icon: TrendingUp },
+        { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
     ], 
     subGroups: [] 
   },
@@ -117,7 +118,7 @@ export const adminNavGroups = [
     icon: Calculator,
     items: [
         { href: "/contabilidad", label: "Centro Contable", icon: Calculator },
-        { href: "/contabilidad/libros", label: "Libros Maestros", icon: BookOpen },
+        { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
         { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart },
     ],
@@ -181,7 +182,7 @@ export const sostenibilidadNavGroups = [
         items: [
             { href: "/sostenibilidad", label: "Dashboard Ambiental", icon: Leaf },
             { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
-            { href: "/tarjeta-reciclaje", label: "Tarjeta Pro", icon: Recycle },
+            { href: "/tarjeta-reciclaje", label: "Tarjeta Avanzada", icon: Recycle },
         ]
     }
 ];

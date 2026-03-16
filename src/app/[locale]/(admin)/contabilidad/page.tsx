@@ -48,7 +48,7 @@ export default function ContabilidadPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
                 <Calculator className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
+            <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Control de Gestión Financiera • 2026</p>
         </div>
         <div className="flex gap-3 no-print">
@@ -85,7 +85,7 @@ export default function ContabilidadPage() {
             </div>
             <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Biblioteca de <br/> Libros Certificados</h3>
+                    <h3 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter leading-none">Biblioteca de <br/> Libros Certificados</h3>
                     <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda a todos los registros fiscales, laborales y operativos desde un repositorio centralizado.</p>
                     <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none">
                         <Link href="/contabilidad/libros" className="flex items-center gap-4">

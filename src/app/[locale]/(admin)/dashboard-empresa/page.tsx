@@ -75,11 +75,11 @@ export default function DashboardEmpresaPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2 md:mb-3">
                 <Calculator className="h-3 w-3" /> NODO OPERATIVO CENTRAL
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
                 CENTRO DE <span className="text-primary italic">MANDO</span>
             </h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
-                Portal Empresarial • Modo Prototipo 2026
+                Portal Empresarial • Gestión Consolidada 2026
             </p>
         </div>
         <div className="flex w-full md:w-auto gap-3 no-print">
