@@ -95,17 +95,17 @@ export default function MiLineaPage() {
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-4">
-                        <h1 className="text-2xl md:text-4xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G</span></h1>
+                        <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G</span></h1>
                         
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="h-10 px-4 rounded-xl border-white/10 bg-white/5 text-white text-[9px] font-black uppercase tracking-widest shadow-2xl group hover:border-primary/40">
+                                <Button variant="outline" className="h-10 px-4 rounded-xl border-border bg-card/5 text-foreground text-[9px] font-black uppercase tracking-widest shadow-2xl group hover:border-primary/40">
                                     {activeLine.number}
                                     <ChevronDown className="ml-2 h-3 w-3 opacity-40 group-hover:opacity-100 group-hover:rotate-180 transition-all" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-64 bg-black/95 border-white/10 backdrop-blur-2xl rounded-2xl p-2 shadow-glow">
-                                <p className="p-3 text-[7px] font-black uppercase tracking-[0.3em] text-white/20 border-b border-white/5 mb-2">Selector de Línea Activa</p>
+                            <DropdownMenuContent className="w-64 bg-card/95 backdrop-blur-2xl rounded-2xl p-2 shadow-glow border-border">
+                                <p className="p-3 text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground border-b border-border mb-2">Selector de Línea Activa</p>
                                 {associatedLines.map(line => (
                                     <DropdownMenuItem 
                                         key={line.id} 
@@ -131,49 +131,49 @@ export default function MiLineaPage() {
                 
                 <Badge variant="outline" className={cn(
                     "h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all",
-                    activeLine.status === "Activa" ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400" : "border-rose-500/20 bg-rose-500/5 text-rose-400"
+                    activeLine.status === "Activa" ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-600" : "border-rose-500/20 bg-rose-500/5 text-rose-600"
                 )}>
-                    <div className={cn("h-1.5 w-1.5 rounded-full mr-2 shadow-glow", activeLine.status === "Activa" ? "bg-emerald-500 animate-pulse" : "bg-rose-50")} />
+                    <div className={cn("h-1.5 w-1.5 rounded-full mr-2 shadow-glow", activeLine.status === "Activa" ? "bg-emerald-500 animate-pulse" : "bg-rose-500")} />
                     {activeLine.status.toUpperCase()}
                 </Badge>
             </header>
 
             <div className="grid lg:grid-cols-12 gap-8">
-                <Card className="lg:col-span-8 glass-card border-none rounded-[2.5rem] bg-white/[0.01] overflow-hidden shadow-2xl relative">
+                <Card className="lg:col-span-8 glass-card border-none rounded-[2.5rem] overflow-hidden shadow-2xl relative">
                     <AnimatePresence mode="wait">
                         {isSwitching && (
                             <motion.div 
                                 initial={{ opacity: 0 }} 
                                 animate={{ opacity: 1 }} 
                                 exit={{ opacity: 0 }}
-                                className="absolute inset-0 z-50 bg-black/80 backdrop-blur-xl flex flex-col items-center justify-center gap-4"
+                                className="absolute inset-0 z-50 bg-background/80 backdrop-blur-xl flex flex-col items-center justify-center gap-4"
                             >
                                 <Loader2 className="h-12 w-12 text-primary animate-spin" />
                                 <div className="text-center space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/60 animate-pulse">Sincronizando Sistema</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground animate-pulse">Sincronizando Sistema</p>
                                     <p className="text-[7px] font-bold text-primary uppercase tracking-widest">Protocolo OTA Activo</p>
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01] flex flex-row items-center justify-between">
+                    <CardHeader className="p-8 border-b border-border bg-muted/10 flex flex-row items-center justify-between">
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
                                 <Activity className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Telemetría de Datos</CardTitle>
-                                <CardDescription className="text-[9px] font-bold uppercase opacity-30 tracking-widest italic">{activeLine.plan}</CardDescription>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Telemetría de Datos</CardTitle>
+                                <CardDescription className="text-[9px] font-bold uppercase opacity-40 tracking-widest italic">{activeLine.plan}</CardDescription>
                             </div>
                         </div>
-                        <Badge className="bg-white/5 border-white/10 text-white/40 text-[8px] font-black uppercase px-3 h-7 flex items-center gap-2">
-                            <Lock className="h-3 w-3" /> SECURE TUNNEL
+                        <Badge className="bg-muted border-border text-muted-foreground text-[8px] font-black uppercase px-3 h-7 flex items-center gap-2">
+                            <Lock className="h-3 w-3 opacity-40" /> SECURE TUNNEL
                         </Badge>
                     </CardHeader>
                     
                     <CardContent className="p-8 space-y-10">
-                        <div className="relative flex flex-col items-center justify-center py-12 md:py-16 bg-white/[0.02] border border-white/5 rounded-[2.5rem] shadow-inner overflow-hidden group/gauge">
+                        <div className="relative flex flex-col items-center justify-center py-12 md:py-16 bg-muted/20 border border-border rounded-[2.5rem] shadow-inner overflow-hidden group/gauge">
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover/gauge:opacity-10 transition-all duration-1000">
                                 <Wifi className="h-48 w-48 rotate-12" />
                             </div>
@@ -183,19 +183,19 @@ export default function MiLineaPage() {
                                     key={activeLine.used}
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="text-6xl md:text-8xl font-black italic text-white tracking-tighter leading-none shadow-glow-text"
+                                    className="text-6xl md:text-8xl font-black italic text-foreground tracking-tighter leading-none italic-shadow"
                                 >
                                     {activeLine.used}
                                 </motion.span>
-                                <span className="text-xl font-black text-white/20 uppercase tracking-tighter">GB</span>
+                                <span className="text-xl font-black text-muted-foreground opacity-20 uppercase tracking-tighter">GB</span>
                             </div>
                             
                             <div className="w-full max-w-lg space-y-4 px-8 relative z-10">
-                                <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-white/40">
+                                <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
                                     <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-primary" /> CONSUMIDO</span>
                                     <span>LIMITE: {activeLine.total} GB</span>
                                 </div>
-                                <div className="h-2.5 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10 shadow-inner">
+                                <div className="h-2.5 w-full bg-muted rounded-full overflow-hidden p-0.5 border border-border shadow-inner">
                                     <motion.div 
                                         key={activeLine.id}
                                         initial={{ width: 0 }}
@@ -209,12 +209,12 @@ export default function MiLineaPage() {
                                 </div>
                                 <div className="flex justify-center gap-8 pt-2">
                                     <div className="text-center">
-                                        <p className="text-[7px] font-black text-white/20 uppercase mb-1">Restante</p>
+                                        <p className="text-[7px] font-black text-muted-foreground/40 uppercase mb-1">Restante</p>
                                         <p className="text-lg font-black italic text-primary">{(activeLine.total - activeLine.used).toFixed(1)} GB</p>
                                     </div>
                                     <div className="text-center">
-                                        <p className="text-[7px] font-black text-white/20 uppercase mb-1">Renovación</p>
-                                        <p className="text-lg font-black italic text-white">12 DÍAS</p>
+                                        <p className="text-[7px] font-black text-muted-foreground/40 uppercase mb-1">Renovación</p>
+                                        <p className="text-lg font-black italic text-foreground">12 DÍAS</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,15 +222,15 @@ export default function MiLineaPage() {
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {[
-                                { label: "Velocidad Peak", val: "1.4 Gbps", icon: Zap, color: "text-yellow-400" },
-                                { label: "Network Slice", val: "ACTIVE", icon: Cpu, color: "text-emerald-400" },
-                                { label: "IPv6 Central", val: activeLine.ip, icon: Globe, color: "text-blue-400" },
+                                { label: "Velocidad Peak", val: "1.4 Gbps", icon: Zap, color: "text-yellow-500" },
+                                { label: "Network Slice", val: "ACTIVE", icon: Cpu, color: "text-emerald-500" },
+                                { label: "IPv6 Central", val: activeLine.ip, icon: Globe, color: "text-blue-500" },
                                 { label: "Cifrado Red", val: "AES-512", icon: Lock, color: "text-primary" }
                             ].map(stat => (
-                                <div key={stat.label} className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl text-center group hover:bg-white/[0.03] transition-all">
-                                    <stat.icon className={cn("h-4 w-4 mx-auto mb-3 opacity-20 group-hover:opacity-100 transition-all", stat.color)} />
-                                    <p className="text-[8px] font-black uppercase text-white/20 mb-1 tracking-widest">{stat.label}</p>
-                                    <p className="text-[10px] font-black text-white italic tracking-tight uppercase">{stat.val}</p>
+                                <div key={stat.label} className="p-4 bg-muted/10 border border-border rounded-2xl text-center group hover:bg-muted/20 transition-all">
+                                    <stat.icon className={cn("h-4 w-4 mx-auto mb-3 opacity-40 group-hover:opacity-100 transition-all", stat.color)} />
+                                    <p className="text-[8px] font-black uppercase text-muted-foreground/40 mb-1 tracking-widest">{stat.label}</p>
+                                    <p className="text-[10px] font-black text-foreground italic tracking-tight uppercase">{stat.val}</p>
                                 </div>
                             ))}
                         </div>
@@ -246,13 +246,13 @@ export default function MiLineaPage() {
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2">
                                     <ShieldCheck className="h-3.5 w-3.5 opacity-60" />
-                                    <h3 className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Saldo Certificado</h3>
+                                    <h3 className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60">Saldo Certificado</h3>
                                 </div>
                                 <motion.p 
                                     key={activeLine.balance}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="text-5xl font-black italic tracking-tighter text-white leading-none shadow-glow-text"
+                                    className="text-5xl font-black italic tracking-tighter leading-none shadow-glow-text"
                                 >
                                     {formatCurrency(activeLine.balance, 'USD')}
                                 </motion.p>
@@ -269,9 +269,9 @@ export default function MiLineaPage() {
                         </div>
                     </Card>
 
-                    <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 shadow-2xl">
-                        <CardHeader className="p-0 mb-6 border-b border-white/5 pb-4">
-                            <CardTitle className="text-xs font-black uppercase tracking-[0.4em] text-white/40 italic flex items-center gap-3">
+                    <Card className="glass-card border-none bg-card/40 rounded-[2.5rem] p-8 shadow-2xl">
+                        <CardHeader className="p-0 mb-6 border-b border-border pb-4">
+                            <CardTitle className="text-xs font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic flex items-center gap-3">
                                 <Network className="h-4 w-4 text-primary" /> Líneas Vinculadas
                             </CardTitle>
                         </CardHeader>
@@ -285,25 +285,25 @@ export default function MiLineaPage() {
                                         "w-full group p-4 rounded-xl border transition-all text-left flex items-center justify-between relative overflow-hidden",
                                         line.id === activeLine.id 
                                             ? "bg-primary/10 border-primary/40 cursor-default shadow-inner" 
-                                            : "bg-white/[0.03] border-white/5 hover:border-primary/30 hover:bg-primary/5 cursor-pointer"
+                                            : "bg-muted/20 border-border hover:border-primary/30 hover:bg-primary/5 cursor-pointer"
                                     )}
                                 >
                                     <div className="space-y-0.5">
-                                        <p className="text-xs font-black italic text-white/90 group-hover:text-primary transition-colors">{line.number}</p>
-                                        <p className="text-[8px] font-bold text-white/20 uppercase tracking-widest">{line.label}</p>
+                                        <p className="text-xs font-black italic text-foreground group-hover:text-primary transition-colors">{line.number}</p>
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">{line.label}</p>
                                     </div>
                                     <div className={cn(
-                                        "h-1.5 w-1.5 rounded-full",
-                                        line.status === "Activa" ? "bg-emerald-500 shadow-glow-secondary" : "bg-rose-500"
+                                        "h-1.5 w-1.5 rounded-full shadow-glow-sm",
+                                        line.status === "Activa" ? "bg-emerald-500" : "bg-rose-500"
                                     )} />
                                 </button>
                             ))}
                         </CardContent>
                     </Card>
 
-                    <Card className="glass-card border-none bg-white/[0.01] rounded-[2.5rem] p-8">
+                    <Card className="glass-card border-none bg-card/40 rounded-[2.5rem] p-8">
                         <CardHeader className="p-0 mb-6">
-                            <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 italic flex items-center gap-3">
+                            <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic flex items-center gap-3">
                                 <History className="h-4 w-4 opacity-40" /> Actividad Reciente
                             </CardTitle>
                         </CardHeader>
@@ -314,12 +314,12 @@ export default function MiLineaPage() {
                             ].map((item, i) => (
                                 <div key={i} className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest group">
                                     <div className="flex items-center gap-3">
-                                        <div className={cn("h-1 w-1 rounded-full", item.type === 'plus' ? "bg-emerald-500" : "bg-rose-50")} />
-                                        <span className="text-white/30 group-hover:text-white/60 transition-colors">{item.date} • {item.desc}</span>
+                                        <div className={cn("h-1 w-1 rounded-full", item.type === 'plus' ? "bg-emerald-500" : "bg-rose-500")} />
+                                        <span className="text-muted-foreground/60 group-hover:text-foreground transition-colors">{item.date} • {item.desc}</span>
                                     </div>
                                     <span className={cn(
                                         "italic font-black text-[10px]",
-                                        item.type === 'plus' ? "text-emerald-400" : "text-white/60"
+                                        item.type === 'plus' ? "text-emerald-600" : "text-foreground/60"
                                     )}>{item.type === 'plus' ? '+' : ''}{formatCurrency(item.amount, 'USD')}</span>
                                 </div>
                             ))}
@@ -328,9 +328,9 @@ export default function MiLineaPage() {
                 </div>
             </div>
 
-            <footer className="mt-16 pt-8 border-t border-white/5 flex flex-col items-center gap-4 opacity-20 text-center">
+            <footer className="mt-16 pt-8 border-t border-border flex flex-col items-center gap-4 opacity-40 text-center">
                 <Logo className="h-10 w-10 grayscale" />
-                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white italic">KYRON TELECOM INFRASTRUCTURE • 2026</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-foreground italic">KYRON TELECOM INFRASTRUCTURE • 2026</p>
             </footer>
         </div>
     );

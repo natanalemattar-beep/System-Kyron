@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    /* Light Mode - Tonos Limpios y Profesionales */
+    /* Light Mode - Tonos Limpios y Profesionales - Reforzados para Legibilidad */
     --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
     
@@ -15,14 +15,15 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
-    --primary: 221 83% 24%; /* #0A2472 aproximado */
+    --primary: 221 83% 24%;
     --primary-foreground: 210 40% 98%;
     
-    --secondary: 158 100% 33%; /* #00A86B aproximado */
+    --secondary: 158 100% 33%;
     --secondary-foreground: 210 40% 98%;
     
+    /* Oscurecido para mejor contraste en blanco */
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 25% 35%;
     
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
@@ -97,7 +98,7 @@
   }
 
   .glass-card {
-    @apply bg-card/40 border border-border/50 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-primary/30;
+    @apply bg-card/60 dark:bg-card/40 border border-border/50 dark:border-white/10 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-primary/30;
   }
 
   .shadow-glow {
@@ -109,7 +110,7 @@
   }
 
   .italic-shadow {
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+    @apply dark:drop-shadow-[2px_2px_10px_rgba(0,0,0,0.5)] drop-shadow-sm;
   }
 
   .hud-grid {

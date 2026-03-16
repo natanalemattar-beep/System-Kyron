@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from "react";
@@ -115,8 +116,8 @@ export function ChatDialog() {
           <div className="absolute -top-1 -right-1 h-4 w-4 bg-emerald-500 rounded-full border-2 border-background animate-pulse shadow-glow-secondary" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-card/95 backdrop-blur-3xl border-l-white/10 flex flex-col h-full">
-        <SheetHeader className="p-6 md:p-8 border-b border-white/5 bg-white/[0.02]">
+      <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-card/95 backdrop-blur-3xl border-l-border dark:border-l-white/10 flex flex-col h-full">
+        <SheetHeader className="p-6 md:p-8 border-b border-border bg-muted/10">
           <div className="flex items-center gap-4 text-left">
             <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
               <identity.icon className="h-6 w-6 text-primary" />
@@ -128,17 +129,17 @@ export function ChatDialog() {
           </div>
         </SheetHeader>
 
-        <div className="p-4 bg-white/[0.01] border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
-            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={() => setIsWalletOpen(true)}>
+        <div className="p-4 bg-muted/20 border-b border-border flex gap-2 overflow-x-auto no-scrollbar">
+            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0 shadow-inner" onClick={() => setIsWalletOpen(true)}>
                 <Wallet className="mr-2 h-3 w-3" /> Billetera Digital
             </Button>
-            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-white/10 text-muted-foreground shrink-0">
+            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-border text-muted-foreground shrink-0 bg-background/50">
                 <Activity className="mr-2 h-3 w-3" /> Estatus Red
             </Button>
         </div>
 
         <Tabs defaultValue="consulta" className="flex-1 flex flex-col overflow-hidden">
-          <TabsList className="grid grid-cols-3 bg-muted/30 p-1 rounded-none border-b border-white/5">
+          <TabsList className="grid grid-cols-3 bg-muted/30 p-1 rounded-none border-b border-border">
             <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Eventos</TabsTrigger>
             <TabsTrigger value="sugerencias" className="text-[8px] font-black uppercase tracking-widest">Protocolos</TabsTrigger>
             <TabsTrigger value="consulta" className="text-[8px] font-black uppercase tracking-widest">Chat IA</TabsTrigger>
@@ -167,7 +168,7 @@ export function ChatDialog() {
               { mod: "Fiscal", text: "Validación de RIF completada", status: "Ok", time: "hace 1h" },
               { mod: "Red", text: "Canal 5G sincronizado", status: "Ok", time: "hace 3h" },
             ].map((item, i) => (
-              <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-start group hover:bg-white/10 transition-all">
+              <div key={i} className="p-4 bg-background/50 rounded-2xl border border-border flex justify-between items-start group hover:border-primary/20 transition-all shadow-sm">
                 <div className="space-y-1">
                   <p className="text-[8px] font-black uppercase text-primary/60">{item.mod}</p>
                   <p className="text-xs font-bold text-foreground/80">{item.text}</p>
@@ -180,7 +181,7 @@ export function ChatDialog() {
 
           <TabsContent value="sugerencias" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-secondary flex items-center gap-2">
-              <ShieldCheck className="h-3 w-3" /> Sugerencias IA
+              <ShieldCheck className="h-3 w-3 text-secondary" /> Sugerencias IA
             </h4>
             {[
               { mod: "Prioridad", text: "Actualizar expediente legal antes del cierre.", action: "Ver Área" },
@@ -203,14 +204,14 @@ export function ChatDialog() {
             <div ref={chatContainerRef} className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 mb-4">
               {messages.length === 0 && !isLoading ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-30 px-8">
-                  <MessageCircle className="h-12 w-12 mb-4" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">Comunicación Cifrada Activa</p>
-                  <p className="text-[8px] font-bold uppercase mt-2">Personalidad actual: {identity.role}</p>
+                  <MessageCircle className="h-12 w-12 mb-4 text-muted-foreground" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground">Comunicación Cifrada Activa</p>
+                  <p className="text-[8px] font-bold uppercase mt-2 text-muted-foreground">Personalidad actual: {identity.role}</p>
                 </div>
               ) : (
                 messages.map((msg, index) => (
                   <div key={index} className={cn('flex items-start gap-3', msg.role === 'user' ? 'flex-row-reverse' : 'flex-row')}>
-                    <div className={cn('p-2 rounded-lg border shrink-0', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10')}>
+                    <div className={cn('p-2 rounded-lg border shrink-0', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-muted/50 border-border')}>
                       {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                     </div>
                     <div className={cn('max-w-[85%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white shadow-glow-sm' : 'bg-muted/50 text-foreground/80 shadow-sm border border-border/50')}>
@@ -221,7 +222,7 @@ export function ChatDialog() {
               )}
               {isLoading && (
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-white/5 border border-white/10 shrink-0"><Bot className="h-3 w-3 text-emerald-500" /></div>
+                  <div className="p-2 rounded-lg bg-muted border border-border shrink-0"><Bot className="h-3 w-3 text-emerald-500" /></div>
                   <div className="bg-muted/30 rounded-2xl p-4 shadow-inner">
                     <span className="text-[10px] font-black text-primary animate-pulse uppercase tracking-widest italic">Procesando Inferencia...</span>
                   </div>
@@ -233,7 +234,7 @@ export function ChatDialog() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Comando para el ${identity.role}...`} 
-                className="h-12 rounded-xl bg-muted/50 border-border/50 text-xs font-bold focus-visible:ring-primary shadow-inner text-foreground"
+                className="h-12 rounded-xl bg-muted/50 border-border/50 text-xs font-bold focus-visible:ring-primary shadow-inner text-foreground placeholder:text-muted-foreground/40"
                 disabled={isLoading}
               />
               <Button type="submit" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 btn-3d-primary rounded-lg" disabled={isLoading || !input.trim()}>
@@ -243,8 +244,8 @@ export function ChatDialog() {
           </TabsContent>
         </Tabs>
 
-        <footer className="p-6 border-t border-white/5 bg-black/40 text-center">
-          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10 italic">Kyron Intelligence • 2026</p>
+        <footer className="p-6 border-t border-border bg-muted/10 text-center">
+          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">Kyron Intelligence • 2026</p>
         </footer>
       </SheetContent>
     </Sheet>

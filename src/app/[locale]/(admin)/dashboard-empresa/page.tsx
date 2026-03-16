@@ -75,7 +75,7 @@ export default function DashboardEmpresaPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2 md:mb-3">
                 <Calculator className="h-3 w-3" /> NODO OPERATIVO CENTRAL
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-white italic-shadow">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-foreground italic-shadow">
                 CENTRO DE <span className="text-primary italic">MANDO</span>
             </h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
@@ -83,7 +83,7 @@ export default function DashboardEmpresaPage() {
             </p>
         </div>
         <div className="flex w-full md:w-auto gap-3 no-print">
-            <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-white/60">
+            <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60">
                 <History className="mr-2 h-4 w-4" /> AUDITORÍA
             </Button>
             <Button 
@@ -101,13 +101,13 @@ export default function DashboardEmpresaPage() {
         {kpiStats.map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4 md:p-6">
-              <CardTitle className="text-[9px] font-black uppercase tracking-widest text-slate-400">{kpi.label}</CardTitle>
-              <div className="p-2 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
+              <CardTitle className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</CardTitle>
+              <div className="p-2 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform shadow-inner">
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
             </CardHeader>
             <CardContent className="p-4 md:p-6 pt-0">
-              <div className="text-xl md:text-2xl font-black italic tracking-tighter text-white break-words">{kpi.value}</div>
+              <div className="text-xl md:text-2xl font-black italic tracking-tighter text-foreground break-words">{kpi.value}</div>
               <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend || kpi.sub}</p>
             </CardContent>
           </Card>
@@ -118,7 +118,7 @@ export default function DashboardEmpresaPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between ml-2 gap-4">
             <div className="flex items-center gap-4">
                 <div className="p-2 bg-primary/10 rounded-xl"><BookOpen className="h-5 w-5 text-primary" /></div>
-                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Registros Certificados</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Registros Certificados</h3>
             </div>
             <Button asChild variant="link" className="text-primary font-black uppercase text-[10px] tracking-widest p-0 h-auto self-start sm:self-auto">
                 <Link href="/contabilidad/libros" className="flex items-center gap-2">
@@ -130,18 +130,18 @@ export default function DashboardEmpresaPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {quickBooks.map((item, i) => (
                 <Link key={i} href={item.href as any}>
-                    <Card className="glass-card border-none bg-card/40 hover:bg-white/[0.05] transition-all rounded-2xl p-6 md:p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                    <Card className="glass-card border-none bg-card/40 hover:bg-muted/5 transition-all rounded-2xl p-6 md:p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
                         <div className="flex items-center gap-5">
                             <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                                 <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                             </div>
                             <div>
-                                <p className="text-sm font-black uppercase tracking-tight text-white/80 group-hover:text-primary transition-colors">{item.label}</p>
-                                <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-1">{item.kpi}</p>
+                                <p className="text-sm font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors italic">{item.label}</p>
+                                <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">{item.kpi}</p>
                             </div>
                         </div>
                         <div className="flex justify-end mt-4">
-                            <ArrowRight className="h-4 w-4 text-white/10 group-hover:text-primary transition-all" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary transition-all" />
                         </div>
                     </Card>
                 </Link>
@@ -184,7 +184,7 @@ export default function DashboardEmpresaPage() {
                         {simulation && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-6 bg-white/10 rounded-2xl border border-white/20">
                                 <p className="text-[9px] font-black uppercase text-[#00A86B] mb-2">Impacto Proyectado</p>
-                                <p className="text-sm font-bold italic opacity-80 uppercase leading-relaxed">
+                                <p className="text-sm font-bold italic opacity-80 uppercase leading-relaxed text-white/90">
                                     {simulation === 'ventas' ? "Incremento del 28% en rentabilidad neta para el Q2." : 
                                      "Requerimiento de liquidez adicional del 15% para cubrir costos op."}
                                 </p>
