@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -9,12 +10,17 @@ import {
     ArrowRight, Activity, Zap, Bot, CreditCard,
     Building2, Users, Printer, FolderArchive,
     Scale, Globe, Truck, Leaf, Palmtree, Cpu,
-    BookOpen, ShieldAlert, ChevronDown
+    BookOpen, ShieldAlert, ChevronDown, Bell,
+    Settings2, Smartphone, CheckCircle2, Copy,
+    Terminal
 } from "lucide-react";
 import { Link } from "@/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const tributoCategories = [
     {
@@ -77,7 +83,16 @@ const tributoCategories = [
 ];
 
 export default function TributosHubPage() {
-  const handleAlert = () => alert("Módulo en construcción para el prototipo v2.6.5");
+  const { toast } = useToast();
+  const [isAutoPayActive, setIsAutoPayActive] = useState(false);
+
+  const handleSaveConfig = () => {
+    toast({
+        title: "CONFIGURACIÓN GUARDADA",
+        description: "Protocolos de alerta y pago actualizados en el sistema maestro.",
+        action: <CheckCircle2 className="text-primary h-4 w-4" />
+    });
+  };
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-[#f5f7fa] min-h-screen">
@@ -90,42 +105,51 @@ export default function TributosHubPage() {
       </header>
 
       <div className="grid gap-10 lg:grid-cols-12">
-        {/* Lado Izquierdo: Menús Desplegables */}
-        <div className="lg:col-span-8 space-y-6">
-            <Card className="glass-card border-none rounded-[2rem] bg-white p-2 shadow-xl">
+        <div className="lg:col-span-8 space-y-10">
+            {/* Gestión por Entes */}
+            <Card className="glass-card border-none rounded-[3rem] bg-white p-2 shadow-2xl overflow-hidden">
+                <div className="p-8 border-b border-slate-100 bg-slate-50/50">
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Directorio de Entidades y Gestión</h3>
+                </div>
                 <Accordion type="single" collapsible className="w-full">
                     {tributoCategories.map((cat) => (
-                        <AccordionItem value={cat.id} key={cat.id} className="border-b border-slate-100 last:border-none px-6 py-2">
+                        <AccordionItem value={cat.id} key={cat.id} className="border-b border-slate-100 last:border-none px-8 py-2">
                             <AccordionTrigger className="hover:no-underline group">
                                 <div className="flex items-center gap-6">
-                                    <div className={cn("p-3 rounded-2xl bg-slate-50 border border-slate-100 group-hover:scale-110 transition-transform", cat.color)}>
+                                    <div className={cn("p-4 rounded-[1.5rem] bg-slate-50 border border-slate-100 group-hover:scale-110 transition-transform shadow-inner", cat.color)}>
                                         <cat.icon className="h-6 w-6" />
                                     </div>
                                     <div className="text-left">
-                                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-800">{cat.title}</h3>
+                                        <h3 className="text-base font-black uppercase tracking-widest text-slate-800">{cat.title}</h3>
                                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{cat.desc}</p>
                                     </div>
                                 </div>
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 pb-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-16">
+                            <AccordionContent className="pt-6 pb-10">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-20">
                                     {cat.items.map((item) => (
                                         <Button 
                                             key={item.label}
                                             asChild={item.href !== "#"}
                                             variant="ghost" 
-                                            className="justify-start h-10 rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-[#0A2472] hover:bg-[#0A2472]/5 gap-3"
-                                            onClick={item.href === "#" ? handleAlert : undefined}
+                                            className="justify-between h-14 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-slate-50 border border-transparent hover:border-primary/20 hover:bg-white group/item transition-all"
+                                            onClick={item.href === "#" ? () => alert("Área en construcción") : undefined}
                                         >
                                             {item.href !== "#" ? (
                                                 <Link href={item.href as any}>
-                                                    <div className="h-1 w-1 rounded-full bg-slate-300" />
-                                                    {item.label}
+                                                    <span className="flex items-center gap-3">
+                                                        <div className="h-1.5 w-1.5 rounded-full bg-primary/20 group-hover/item:bg-primary transition-colors" />
+                                                        {item.label}
+                                                    </span>
+                                                    <ArrowRight className="h-4 w-4 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all" />
                                                 </Link>
                                             ) : (
-                                                <div className="flex items-center gap-3">
-                                                    <div className="h-1 w-1 rounded-full bg-slate-300" />
-                                                    {item.label}
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className="flex items-center gap-3">
+                                                        <div className="h-1.5 w-1.5 rounded-full bg-slate-200" />
+                                                        {item.label}
+                                                    </span>
+                                                    <Badge variant="outline" className="text-[7px] font-black opacity-40">DEV</Badge>
                                                 </div>
                                             )}
                                         </Button>
@@ -137,65 +161,121 @@ export default function TributosHubPage() {
                 </Accordion>
             </Card>
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-10">
                 <Link href="/contabilidad/tributos/municipales">
-                    <Card className="glass-card border-none p-8 rounded-[2rem] bg-white hover:bg-slate-50 transition-all group shadow-lg">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className="p-3 bg-[#00A86B]/10 rounded-2xl border border-[#00A86B]/20">
-                                <Building2 className="h-6 w-6 text-[#00A86B]" />
+                    <Card className="glass-card border-none p-10 rounded-[3rem] bg-white hover:bg-slate-50 transition-all group shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-all"><Building2 className="h-24 w-24" /></div>
+                        <div className="flex justify-between items-center mb-10">
+                            <div className="p-4 bg-[#00A86B]/10 rounded-2xl border border-[#00A86B]/20">
+                                <Building2 className="h-8 w-8 text-[#00A86B]" />
                             </div>
-                            <ArrowRight className="h-4 w-4 text-slate-200 group-hover:text-[#00A86B] group-hover:translate-x-2 transition-all" />
+                            <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-[#00A86B] group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800">Impuestos Municipales</h3>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Alícuotas, Mínimo Tributario y Licencias</p>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800">Impuestos Municipales</h3>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Gestión de Alícuotas por Rubro, Mínimo Tributario (240 UT) y Patentes Locales.</p>
                     </Card>
                 </Link>
                 <Link href="/contabilidad/tributos/calendario-fiscal">
-                    <Card className="glass-card border-none p-8 rounded-[2rem] bg-white hover:bg-slate-50 transition-all group shadow-lg">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className="p-3 bg-blue-600/10 rounded-2xl border border-blue-600/20">
-                                <Calendar className="h-6 w-6 text-blue-600" />
+                    <Card className="glass-card border-none p-10 rounded-[3rem] bg-white hover:bg-slate-50 transition-all group shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-all"><Calendar className="h-24 w-24" /></div>
+                        <div className="flex justify-between items-center mb-10">
+                            <div className="p-4 bg-blue-600/10 rounded-2xl border border-blue-600/20">
+                                <Calendar className="h-8 w-8 text-blue-600" />
                             </div>
-                            <ArrowRight className="h-4 w-4 text-slate-200 group-hover:text-blue-600 group-hover:translate-x-2 transition-all" />
+                            <ArrowRight className="h-5 w-5 text-slate-200 group-hover:text-blue-600 group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-lg font-black uppercase italic tracking-tighter text-slate-800">Calendario Fiscal 2026</h3>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Cronograma dinámico por terminal RIF</p>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800">Calendario Fiscal 2026</h3>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-4 leading-relaxed">Cronograma Preventivo dinámico adaptado a tu Terminal de RIF.</p>
                     </Card>
                 </Link>
             </div>
         </div>
 
-        {/* Lado Derecho: Acciones de Riesgo y Archivo */}
-        <div className="lg:col-span-4 space-y-8">
-            <Card className="bg-[#0A2472] text-white rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl group border-none">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Gavel className="h-32 w-32" /></div>
-                <div className="relative z-10">
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Multas y Sanciones</h3>
-                    <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Cuantifique contingencias legales según el Código Orgánico Tributario.</p>
+        {/* Lado Derecho: Configuración y Alertas */}
+        <div className="lg:col-span-4 space-y-10">
+            {/* Panel de Alertas */}
+            <Card className="glass-card border-none rounded-[3rem] bg-white shadow-2xl p-10 overflow-hidden relative">
+                <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none"><Bell className="h-48 w-48" /></div>
+                <div className="relative z-10 space-y-8">
+                    <div className="flex items-center gap-4 border-b border-slate-100 pb-6">
+                        <div className="p-3 bg-primary/10 rounded-2xl">
+                            <Settings2 className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800">Alertas y Avisos</h3>
+                            <p className="text-[9px] font-black text-primary uppercase tracking-widest">Configuración de Canales</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        {[
+                            { id: "iva", label: "IVA (Terminal RIF)" },
+                            { id: "islr", label: "ISLR / Anticipos" },
+                            { id: "igtf", label: "IGTF / Retenciones" },
+                            { id: "dpp", label: "DPP (Pensiones)" },
+                            { id: "ivss", label: "Seguridad Social" }
+                        ].map((tax) => (
+                            <div key={tax.id} className="flex items-center justify-between group">
+                                <Label htmlFor={`alert-${tax.id}`} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-primary transition-colors cursor-pointer">{tax.label}</Label>
+                                <Checkbox id={`alert-${tax.id}`} defaultChecked className="rounded-md h-5 w-5 border-slate-200" />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
+                        <p className="text-[8px] font-black uppercase text-slate-400 text-center tracking-[0.2em]">Canales de Transmisión</p>
+                        <div className="flex justify-around">
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm"><Smartphone className="h-4 w-4 text-emerald-500" /></div>
+                                <span className="text-[7px] font-black uppercase">WhatsApp</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm"><FileText className="h-4 w-4 text-blue-500" /></div>
+                                <span className="text-[7px] font-black uppercase">Email</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Button onClick={handleSaveConfig} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest">GUARDAR PREFERENCIAS</Button>
                 </div>
-                <Button asChild variant="secondary" className="w-full h-12 bg-white text-[#0A2472] hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-xl relative z-10">
-                    <Link href="/contabilidad/tributos/multas">CALCULAR RIESGO</Link>
-                </Button>
             </Card>
 
-            <Card className="glass-card border-none p-10 rounded-[2.5rem] bg-white shadow-2xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform duration-1000"><FolderArchive className="h-32 w-32" /></div>
-                <div className="relative z-10">
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-slate-800 mb-2">Archivo Maestro</h3>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-8">Dossier Histórico de Declaraciones</p>
-                    <Button asChild variant="outline" className="w-full h-12 border-slate-200 text-slate-400 font-black uppercase text-[9px] tracking-widest rounded-xl hover:bg-[#0A2472] hover:text-white transition-all">
-                        <Link href="/contabilidad/tributos/declaraciones-anteriores">ACCEDER AL REPOSITORIO</Link>
-                    </Button>
+            {/* Pago Automático */}
+            <Card className="bg-[#0A2472] text-white rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl border-none group">
+                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-40 w-48" /></div>
+                <div className="relative z-10 space-y-8">
+                    <div className="space-y-2">
+                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black px-4 uppercase mb-4">Módulo Maestro IA</Badge>
+                        <h3 className="text-3xl font-black uppercase italic tracking-tighter">Pago Automático</h3>
+                        <p className="text-xs font-bold opacity-60 leading-relaxed uppercase">Autorice a Kyron a realizar liquidaciones directas desde su cuenta bancaria configurada.</p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer" onClick={() => setIsAutoPayActive(!isAutoPayActive)}>
+                            <Checkbox checked={isAutoPayActive} className="h-5 w-5 border-white/40 data-[state=checked]:bg-emerald-500" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Activar Débito Directo</span>
+                        </div>
+                        
+                        <div className="p-6 bg-black/40 rounded-3xl border border-white/5 space-y-4">
+                            <p className="text-[8px] font-black uppercase tracking-[0.3em] opacity-40 italic">Credenciales Bancarias (SIM)</p>
+                            <div className="space-y-3">
+                                <div className="h-10 bg-white/5 rounded-xl border border-white/10 flex items-center px-4"><div className="h-1 w-32 bg-white/20 rounded-full" /></div>
+                                <div className="h-10 bg-white/5 rounded-xl border border-white/10 flex items-center px-4"><div className="h-1 w-24 bg-white/20 rounded-full" /></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Button variant="secondary" className="w-full h-14 bg-white text-[#0A2472] hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl" onClick={() => alert("Configuración de Pago Automático Guardada (SIMULACIÓN)")}>SINCRONIZAR BÓVEDA</Button>
                 </div>
             </Card>
 
-            <Card className="glass-card border-none bg-[#00A86B]/5 p-8 rounded-[2rem] border-l-4 border-[#00A86B] shadow-inner">
+            <Card className="glass-card border-none bg-emerald-500/5 p-8 rounded-[2rem] border-l-4 border-emerald-500 shadow-inner">
                 <div className="flex items-center gap-4 mb-4">
-                    <Bot className="h-6 w-6 text-[#00A86B] animate-pulse" />
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-[#00A86B]">Supervisor Fiscal Activo</h4>
+                    <Bot className="h-6 w-6 text-emerald-500 animate-pulse" />
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Estado del Nodo</h4>
                 </div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase leading-relaxed text-justify">
-                    El sistema audita automáticamente el 100% de las retenciones practicadas este mes contra las facturas del TPV.
+                <p className="text-[9px] font-bold text-slate-500 uppercase leading-relaxed text-justify italic">
+                    "El Supervisor Fiscal está monitoreando su terminal de RIF. Próximo vencimiento: IVA (Terminal 4) en 5 días."
                 </p>
             </Card>
         </div>
