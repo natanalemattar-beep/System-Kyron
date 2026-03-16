@@ -1,10 +1,6 @@
 
 import { CertificadoManager } from "@/components/certificados/certificado-manager";
-import { FileText, User } from "lucide-react";
-
-/**
- * @fileOverview Portal de Gestión de Certificados de Ingreso (Vista Ciudadana).
- */
+import { User } from "lucide-react";
 
 export default function CertificadosIngresoPersonalPage() {
   return (

@@ -1,10 +1,6 @@
 
 import { CertificadoManager } from "@/components/certificados/certificado-manager";
-import { Briefcase, FileSignature } from "lucide-react";
-
-/**
- * @fileOverview Módulo de Gestión de Certificados Laborales (Vista Administrativa).
- */
+import { Briefcase } from "lucide-react";
 
 export default function CertificadosLaboralesRRHHPage() {
   return (

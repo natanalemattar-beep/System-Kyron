@@ -55,6 +55,7 @@ export const naturalNavGroups = [
             { href: "/dashboard", label: "Inicio", icon: Home },
             { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
             { href: "/mi-linea", label: "Mi Línea 5G", icon: Smartphone },
+            { href: "/cuenta-personal/certificados-ingreso", label: "Cert. Ingreso", icon: FileText },
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Avisos", icon: Bell },
         ],
@@ -108,13 +109,16 @@ export const adminNavGroups = [
     title: "Tributos",
     icon: Landmark,
     items: [
+        { href: "/contabilidad/tributos", label: "Centro Tributario", icon: Landmark },
         { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
+        { href: "/contabilidad/tributos/aportes-parafiscales", label: "Parafiscales", icon: Landmark },
+        { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protecc. Pensiones", icon: ShieldCheck },
         { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent },
         { href: "/contabilidad/tributos/retenciones-islr", label: "Retenciones ISLR", icon: Banknote },
+        { href: "/contabilidad/tributos/igtf", label: "IGTF 3%", icon: CreditCard },
         { href: "/contabilidad/tributos/municipales", label: "Municipales", icon: Landmark },
         { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario", icon: Calendar },
         { href: "/contabilidad/tributos/multas", label: "Multas", icon: Gavel },
-        { href: "/contabilidad/tributos/homologacion", label: "Homologación", icon: ShieldCheck },
     ],
     subGroups: []
   },
@@ -124,7 +128,7 @@ export const adminNavGroups = [
     items: [
         { href: "/contabilidad/certificaciones/empresa", label: "Cert. Empresa", icon: Building2 },
         { href: "/contabilidad/certificaciones/socios", label: "Cert. Socios", icon: UserCheck },
-        { href: "/contabilidad/certificaciones/trabajo", label: "Constancia Trabajo", icon: FileSignature },
+        { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
     ],
     subGroups: []
   },
@@ -171,6 +175,7 @@ export const rrhhNavGroups = [
         icon: Users, 
         items: [
             { href: "/nominas", label: "Pago de Nómina", icon: Users },
+            { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
             { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Calculator },
         ],
         subGroups: []

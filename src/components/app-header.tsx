@@ -43,7 +43,8 @@ import {
     Briefcase,
     FileText,
     Boxes,
-    Bot
+    Bot,
+    CreditCard
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -75,14 +76,17 @@ const navigationConfig = [
       icon: Landmark,
       type: 'menu',
       items: [
+          { label: "Centro Tributario", href: "/contabilidad/tributos", icon: Landmark },
           { label: "Asistente Fiscal IA", href: "/gaceta-6952", icon: Bot },
+          { label: "Aportes Parafiscales", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
+          { label: "Protección Pensiones", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
           { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
           { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
+          { label: "Impuesto IGTF", href: "/contabilidad/tributos/igtf", icon: CreditCard },
           { label: "Impuestos Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
-          { label: "Calendario Fiscal 2026", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
+          { label: "Calendario Fiscal", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
           { label: "Multas y Sanciones", href: "/contabilidad/tributos/multas", icon: Gavel },
-          { label: "Homologación SENIAT", href: "/contabilidad/tributos/homologacion", icon: ShieldCheck },
-          { label: "Archivo Declaraciones", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
+          { label: "Archivo Maestro", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
       ]
   },
   { 

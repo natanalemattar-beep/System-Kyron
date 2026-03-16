@@ -44,8 +44,11 @@ export const pathnames = {
 
   // TRIBUTOS SUB-PORTAL
   '/contabilidad/tributos': '/contabilidad/tributos',
+  '/contabilidad/tributos/aportes-parafiscales': '/contabilidad/tributos/aportes-parafiscales',
+  '/contabilidad/tributos/proteccion-pensiones': '/contabilidad/tributos/proteccion-pensiones',
   '/contabilidad/tributos/retenciones-iva': '/contabilidad/tributos/retenciones-iva',
   '/contabilidad/tributos/retenciones-islr': '/contabilidad/tributos/retenciones-islr',
+  '/contabilidad/tributos/igtf': '/contabilidad/tributos/igtf',
   '/contabilidad/tributos/declaraciones-anteriores': '/contabilidad/tributos/declaraciones-anteriores',
   '/contabilidad/tributos/calendario-fiscal': '/contabilidad/tributos/calendario-fiscal',
   '/contabilidad/tributos/municipales': '/contabilidad/tributos/municipales',
