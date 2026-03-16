@@ -28,6 +28,7 @@ export const pathnames = {
   '/contabilidad/proyectos/anteproyecto': '/contabilidad/proyectos/anteproyecto',
   '/contabilidad/proyectos/proyecto-maestro': '/contabilidad/proyectos/proyecto-maestro',
   '/contabilidad/certificaciones/financiera': '/contabilidad/certificaciones/financiera',
+  '/contabilidad/certificaciones/contables': '/contabilidad/certificaciones/contables',
   '/estudio-factibilidad-economica': '/estudio-factibilidad-economica',
 
   // LIBROS SUB-PORTAL

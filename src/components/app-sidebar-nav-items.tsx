@@ -125,7 +125,6 @@ export const adminNavGroups = [
         { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
-        { href: "/contabilidad/certificaciones/financiera", label: "Certificación Financ.", icon: ShieldCheck },
     ]
   },
   {
@@ -160,9 +159,10 @@ export const adminNavGroups = [
     title: "Certificaciones",
     icon: ShieldCheck,
     items: [
-        { href: "/contabilidad/certificaciones/empresa", label: "Cert. Empresa", icon: Building2 },
-        { href: "/contabilidad/certificaciones/socios", label: "Cert. Socios", icon: UserCheck },
-        { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
+        { href: "/contabilidad/certificaciones/empresa", label: "Dossier Empresa", icon: Building2 },
+        { href: "/contabilidad/certificaciones/contables", label: "Cert. Contables", icon: FileSignature },
+        { href: "/contabilidad/certificaciones/financiera", label: "Dictamen Financiero", icon: Calculator },
+        { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: Users },
     ],
     subGroups: []
   }
