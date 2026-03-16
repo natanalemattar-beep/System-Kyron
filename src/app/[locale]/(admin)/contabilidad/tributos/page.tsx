@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -197,7 +198,7 @@ export default function TributosHubPage() {
         </div>
 
         <div className="lg:col-span-4 space-y-10">
-            {/* --- MONITOR DE INSCRIPCIÓN Y RENOVACIÓN (NUEVO) --- */}
+            {/* --- MONITOR DE INSCRIPCIÓN Y RENOVACIÓN --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-[#050505] p-10 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all"><Terminal className="h-40 w-40 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
