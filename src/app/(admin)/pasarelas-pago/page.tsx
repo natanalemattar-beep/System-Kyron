@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, CreditCard, Banknote, Smartphone, Globe, Shield } from "lucide-react";
+import { CircleCheck as CheckCircle, CreditCard, Banknote, Smartphone, Globe, Shield } from "lucide-react";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
@@ -32,7 +32,7 @@ const paymentGateways = [
         description: "Acepta pagos en criptoactivos como Bitcoin (BTC) o Ethereum (ETH) a través de tu propia billetera o un procesador.",
         logoId: "crypto-logo",
         fees: "Bajas (costo de la red o 'gas')",
-        currencies: ["BTC", "ETH", "USDT", etc."],
+        currencies: ["BTC", "ETH", "USDT", "etc."],
         advantages: ["Transacciones sin fronteras", "Bajas comisiones", "No hay contracargos (chargebacks)"],
         bestFor: "Negocios innovadores, Mercados globales, Privacidad"
     },
@@ -101,7 +101,7 @@ export default function PasarelasDePagoPage() {
                                 </Button>
                             </CardFooter>
                         </Card>
-                    )
+                    );
                 })}
             </div>
         </div>
