@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Camera, CheckCircle, RefreshCw, AlertTriangle, Cpu, Shield, FileText } from "lucide-react";
+import { User, Camera, CircleCheck as CheckCircle, RefreshCw, TriangleAlert as AlertTriangle, Cpu, Shield, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 

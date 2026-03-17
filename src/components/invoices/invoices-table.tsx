@@ -13,7 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MoreHorizontal, Loader2 } from "lucide-react";
+import { MoveHorizontal as MoreHorizontal, Loader as Loader2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

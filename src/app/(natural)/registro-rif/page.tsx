@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileEdit, UserPlus, Info, CheckCircle, ArrowRight, Download, ShieldCheck } from "lucide-react";
+import { File as FileEdit, UserPlus, Info, CircleCheck as CheckCircle, ArrowRight, Download, ShieldCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const recaudos = [

@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileSignature, Printer, Download, CheckCircle } from "lucide-react";
+import { Signature as FileSignature, Printer, Download, CircleCheck as CheckCircle } from "lucide-react";
 import {
   Select,
   SelectContent,

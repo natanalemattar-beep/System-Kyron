@@ -15,7 +15,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { ShieldCheck, Loader2 } from "lucide-react";
+import { ShieldCheck, Loader as Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 

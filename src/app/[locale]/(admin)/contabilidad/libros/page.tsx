@@ -3,38 +3,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/navigation";
-import { 
-  Book, 
-  ArrowLeft, 
-  Search, 
-  FileText, 
-  BookOpen, 
-  Scale, 
-  Receipt, 
-  HandCoins, 
-  Banknote, 
-  Calculator, 
-  Landmark, 
-  Coins, 
-  CheckCircle, 
-  Building2, 
-  Activity, 
-  Wallet, 
-  Users, 
-  Timer, 
-  Zap, 
-  Clock, 
-  Box, 
-  TrendingUp, 
-  Gavel, 
-  ShieldCheck, 
-  FileSearch, 
-  LayoutDashboard,
-  PieChart,
-  BarChart3,
-  ArrowRight,
-  Terminal
-} from "lucide-react";
+import { Book, ArrowLeft, Search, FileText, BookOpen, Scale, Receipt, HandCoins, Banknote, Calculator, Landmark, Coins, CircleCheck as CheckCircle, Building2, Activity, Wallet, Users, Timer, Zap, Clock, Box, TrendingUp, Gavel, ShieldCheck, FileSearch, LayoutDashboard, ChartPie as PieChart, ChartBar as BarChart3, ArrowRight, Terminal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

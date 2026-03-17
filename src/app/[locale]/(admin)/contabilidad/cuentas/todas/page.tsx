@@ -3,29 +3,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/navigation";
-import { 
-  Building2, 
-  ArrowLeft, 
-  Search, 
-  Landmark, 
-  FileText, 
-  History, 
-  HandCoins, 
-  Coins, 
-  TrendingUp, 
-  PieChart, 
-  BarChart3, 
-  Activity, 
-  Calculator,
-  ShieldCheck,
-  FileSearch,
-  Banknote,
-  ArrowUpRight,
-  Wallet,
-  Clock,
-  ExternalLink,
-  ChevronRight
-} from "lucide-react";
+import { Building2, ArrowLeft, Search, Landmark, FileText, History, HandCoins, Coins, TrendingUp, ChartPie as PieChart, ChartBar as BarChart3, Activity, Calculator, ShieldCheck, FileSearch, Banknote, ArrowUpRight, Wallet, Clock, ExternalLink, ChevronRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Loader2, CheckCircle } from "lucide-react";
+import { UserPlus, Loader as Loader2, CircleCheck as CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";

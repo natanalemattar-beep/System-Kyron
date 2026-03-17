@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Image from "next/image";
-import { Eye, FileDown, AlertTriangle } from "lucide-react";
+import { Eye, FileDown, TriangleAlert as AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export type Solicitud = {

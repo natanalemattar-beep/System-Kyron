@@ -2,7 +2,7 @@
 "use client";
 
 import { ReportsView } from "@/components/reports/reports-view";
-import { BarChart3, Download, Printer, Activity } from "lucide-react";
+import { ChartBar as BarChart3, Download, Printer, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ReportsPage() {

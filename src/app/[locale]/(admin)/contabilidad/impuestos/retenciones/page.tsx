@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ShieldCheck, PlusCircle, ArrowLeft, Download, FileText, Filter } from "lucide-react";
+import { ShieldCheck, CirclePlus as PlusCircle, ArrowLeft, Download, FileText, Filter } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 

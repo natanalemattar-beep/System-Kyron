@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight, Lock, KeyRound, UserPlus } from 'lucide-react';
+import { Loader as Loader2, TriangleAlert as AlertTriangle, ChevronLeft, CircleCheck as CheckCircle2, ShieldCheck, ArrowRight, Lock, KeyRound, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Link } from "@/navigation";

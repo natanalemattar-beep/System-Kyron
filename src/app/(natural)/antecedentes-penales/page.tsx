@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Download, PlusCircle, CheckCircle } from "lucide-react";
+import { Shield, Download, CirclePlus as PlusCircle, CircleCheck as CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 

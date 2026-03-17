@@ -5,21 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { 
-    Archive, 
-    PlusCircle, 
-    Download, 
-    MoreHorizontal, 
-    Activity, 
-    Zap, 
-    Terminal, 
-    CalendarClock, 
-    ShieldAlert, 
-    TrendingDown, 
-    Wand2,
-    CheckCircle,
-    ArrowRight
-} from "lucide-react";
+import { Archive, CirclePlus as PlusCircle, Download, MoveHorizontal as MoreHorizontal, Activity, Zap, Terminal, CalendarClock, ShieldAlert, TrendingDown, Wand as Wand2, CircleCheck as CheckCircle, ArrowRight } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";

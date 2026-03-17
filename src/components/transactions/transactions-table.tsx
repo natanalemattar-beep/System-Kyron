@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader as Loader2, Sparkles } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { categorizeTransactionAction } from "@/app/actions/transactions";

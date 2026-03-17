@@ -4,24 +4,7 @@
 import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    Signal, 
-    Users, 
-    Activity, 
-    DollarSign, 
-    AlertTriangle, 
-    ArrowLeft, 
-    Download, 
-    Search, 
-    MoreHorizontal, 
-    CheckCircle, 
-    PlusCircle,
-    FileText,
-    Zap,
-    Clock,
-    ShieldCheck,
-    BarChart3
-} from "lucide-react";
+import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, MoveHorizontal as MoreHorizontal, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, Clock, ShieldCheck, ChartBar as BarChart3 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";

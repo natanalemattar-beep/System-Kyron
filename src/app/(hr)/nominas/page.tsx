@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download, QrCode, HelpCircle, ArrowRight } from "lucide-react";
+import { Users, CirclePlus as PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download, QrCode, CircleHelp as HelpCircle, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";

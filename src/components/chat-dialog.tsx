@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2, Sparkles, Gavel, Cpu, Recycle, ShieldCheck } from "lucide-react";
+import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader as Loader2, Sparkles, Gavel, Cpu, Recycle, ShieldCheck } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 

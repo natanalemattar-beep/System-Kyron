@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Scale, Book, AlertTriangle, Link as LinkIcon, Gavel } from "lucide-react";
+import { Scale, Book, TriangleAlert as AlertTriangle, Link as LinkIcon, Gavel } from "lucide-react";
 
 export default function SistemaLegalContablePage() {
   return (

@@ -5,13 +5,7 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { 
-    TabletSmartphone, Plus, Minus, X, CheckCircle, 
-    Smartphone, Phone, Landmark, CreditCard, Banknote, 
-    Loader2, Search, Radio, Wallet, Lock, Clock, 
-    Calendar, ShieldAlert, History, CheckSquare, Settings2,
-    ChevronRight, ArrowRight
-} from "lucide-react";
+import { TabletSmartphone, Plus, Minus, X, CircleCheck as CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader as Loader2, Search, Radio, Wallet, Lock, Clock, Calendar, ShieldAlert, History, SquareCheck as CheckSquare, Settings2, ChevronRight, ArrowRight } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { 
     Dialog, 

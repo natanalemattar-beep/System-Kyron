@@ -2,24 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { 
-    Calculator, 
-    TrendingUp, 
-    TrendingDown,
-    Activity, 
-    CheckCircle,
-    Zap,
-    ArrowRight,
-    BookOpen,
-    Landmark,
-    Users,
-    History,
-    Box,
-    Receipt,
-    Loader2,
-    ShieldAlert,
-    BarChart3
-} from "lucide-react";
+import { Calculator, TrendingUp, TrendingDown, Activity, CircleCheck as CheckCircle, Zap, ArrowRight, BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2, ShieldAlert, ChartBar as BarChart3 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";

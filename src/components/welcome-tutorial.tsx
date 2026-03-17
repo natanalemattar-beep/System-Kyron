@@ -12,19 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-    Sparkles, 
-    Magnet, 
-    ShieldCheck, 
-    Rocket,
-    ChevronRight,
-    ChevronLeft,
-    CheckCircle2,
-    UserCircle,
-    UserPlus,
-    Radio,
-    ShieldAlert
-} from "lucide-react";
+import { Sparkles, Magnet, ShieldCheck, Rocket, ChevronRight, ChevronLeft, CircleCheck as CheckCircle2, CircleUser as UserCircle, UserPlus, Radio, ShieldAlert } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 

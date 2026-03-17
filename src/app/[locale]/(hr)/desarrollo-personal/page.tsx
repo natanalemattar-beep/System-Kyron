@@ -3,21 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    School, 
-    Target, 
-    Award, 
-    TrendingUp, 
-    BookOpen, 
-    Zap, 
-    Terminal, 
-    Activity, 
-    ShieldCheck, 
-    PlusCircle,
-    CheckCircle,
-    Search,
-    Wand2
-} from "lucide-react";
+import { School, Target, Award, TrendingUp, BookOpen, Zap, Terminal, Activity, ShieldCheck, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Search, Wand as Wand2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";

@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Gavel, Scale, ShieldCheck, FileSignature } from "lucide-react";
+import { Gavel, Scale, ShieldCheck, Signature as FileSignature } from "lucide-react";
 
 export default function LoginEscritorioJuridicoPage() {
     return (

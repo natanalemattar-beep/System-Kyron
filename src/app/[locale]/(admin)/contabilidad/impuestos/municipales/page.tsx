@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Landmark, ArrowLeft, Download, PlusCircle, MapPin, Search } from "lucide-react";
+import { Landmark, ArrowLeft, Download, CirclePlus as PlusCircle, MapPin, Search } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";

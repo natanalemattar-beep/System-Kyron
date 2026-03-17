@@ -2,30 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/navigation";
-import { 
-    Calculator, 
-    Wallet, 
-    TrendingUp, 
-    Activity, 
-    BookOpen, 
-    Receipt,
-    Users,
-    HandCoins,
-    Zap,
-    ArrowRight,
-    Book,
-    History,
-    Box,
-    Landmark,
-    BrainCircuit,
-    ShieldCheck,
-    Bot,
-    Loader2,
-    ShieldAlert,
-    BarChart3,
-    CheckCircle,
-    Handshake
-} from "lucide-react";
+import { Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap, ArrowRight, Book, History, Box, Landmark, BrainCircuit, ShieldCheck, Bot, Loader as Loader2, ShieldAlert, ChartBar as BarChart3, CircleCheck as CheckCircle, Handshake } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

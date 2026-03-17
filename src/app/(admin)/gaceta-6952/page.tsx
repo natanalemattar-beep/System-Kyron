@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Scale, Loader2, Sparkles } from "lucide-react";
+import { Scale, Loader as Loader2, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { consultGaceta6952, type GacetaConsultantOutput } from "@/ai/flows/gaceta-6952-consultant";
 

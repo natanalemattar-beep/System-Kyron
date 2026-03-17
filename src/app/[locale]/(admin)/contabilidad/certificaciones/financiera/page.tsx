@@ -4,11 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    ShieldCheck, Download, Printer, Activity, Landmark, 
-    CheckCircle, Terminal, FileText, Loader2, Search,
-    Scale, Calculator
-} from "lucide-react";
+import { ShieldCheck, Download, Printer, Activity, Landmark, CircleCheck as CheckCircle, Terminal, FileText, Loader as Loader2, Search, Scale, Calculator } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";

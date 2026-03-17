@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Archive, Folder, File, UploadCloud } from "lucide-react";
+import { Archive, Folder, File, CloudUpload as UploadCloud } from "lucide-react";
 
 export default function DocumentsPage() {
     return (

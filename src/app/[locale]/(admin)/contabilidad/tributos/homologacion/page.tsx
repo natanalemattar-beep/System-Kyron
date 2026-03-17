@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Printer, PlusCircle, Activity, Terminal, ShieldAlert, CheckCircle, AlertTriangle } from "lucide-react";
+import { ShieldCheck, Printer, CirclePlus as PlusCircle, Activity, Terminal, ShieldAlert, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";

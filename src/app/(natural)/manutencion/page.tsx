@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, History, CheckCircle, AlertTriangle, Download } from "lucide-react";
+import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";

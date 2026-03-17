@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, Info, AlertTriangle, CheckCircle } from "lucide-react";
+import { Bell, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const notificaciones = [

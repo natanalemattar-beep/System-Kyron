@@ -23,7 +23,7 @@ import {
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CalendarIcon, PlusCircle, Trash2 } from "lucide-react";
+import { Calendar as CalendarIcon, CirclePlus as PlusCircle, Trash2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
 import { cn, formatCurrency } from "@/lib/utils";

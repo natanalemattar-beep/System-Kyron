@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Gavel, PlusCircle, CheckCircle, Edit, Users, Building, Eye, Info, Terminal, Activity, Download, Printer } from "lucide-react";
+import { Gavel, CirclePlus as PlusCircle, CircleCheck as CheckCircle, CreditCard as Edit, Users, Building, Eye, Info, Terminal, Activity, Download, Printer } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";

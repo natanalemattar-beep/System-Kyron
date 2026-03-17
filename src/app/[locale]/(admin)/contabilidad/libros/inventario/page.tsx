@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Box, PlusCircle, ArrowLeft, AlertTriangle, RefreshCw, BarChart3 } from "lucide-react";
+import { Box, CirclePlus as PlusCircle, ArrowLeft, TriangleAlert as AlertTriangle, RefreshCw, ChartBar as BarChart3 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 

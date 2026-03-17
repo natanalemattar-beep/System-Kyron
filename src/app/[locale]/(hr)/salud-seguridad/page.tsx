@@ -3,20 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    Stethoscope, 
-    ShieldCheck, 
-    Activity, 
-    FileWarning, 
-    Terminal, 
-    Heart, 
-    Zap, 
-    CheckCircle,
-    PlusCircle,
-    Download,
-    AlertTriangle,
-    Users
-} from "lucide-react";
+import { Stethoscope, ShieldCheck, Activity, FileWarning, Terminal, Heart, Zap, CircleCheck as CheckCircle, CirclePlus as PlusCircle, Download, TriangleAlert as AlertTriangle, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";

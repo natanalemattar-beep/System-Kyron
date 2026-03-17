@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Zap, Bot, ShieldCheck, Activity, PlusCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { Zap, Bot, ShieldCheck, Activity, CirclePlus as PlusCircle, ArrowRight, CircleCheck as CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";

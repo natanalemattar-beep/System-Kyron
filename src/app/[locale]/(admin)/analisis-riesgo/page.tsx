@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { ShieldQuestion, ShieldCheck, AlertTriangle, Activity, Terminal, ShieldAlert } from "lucide-react";
+import { ShieldQuestion, ShieldCheck, TriangleAlert as AlertTriangle, Activity, Terminal, ShieldAlert } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Landmark, PlusCircle, Download, FileText, Activity, Zap, Search } from "lucide-react";
+import { Landmark, CirclePlus as PlusCircle, Download, FileText, Activity, Zap, Search } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";

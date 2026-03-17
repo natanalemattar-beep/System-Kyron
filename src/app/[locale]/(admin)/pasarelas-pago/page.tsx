@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, CreditCard, Banknote, Smartphone, Globe, ShieldCheck, Activity, Terminal } from "lucide-react";
+import { CircleCheck as CheckCircle, CreditCard, Banknote, Smartphone, Globe, ShieldCheck, Activity, Terminal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 

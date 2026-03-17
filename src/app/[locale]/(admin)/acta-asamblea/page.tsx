@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileSignature, Printer, Download, CheckCircle, Gavel, Activity, Terminal } from "lucide-react";
+import { Signature as FileSignature, Printer, Download, CircleCheck as CheckCircle, Gavel, Activity, Terminal } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";

@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BarChart as LucideBarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
+import { ChartBar as LucideBarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, BarChart, CartesianGrid, XAxis, YAxis, Bar } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";

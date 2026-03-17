@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail, Bot, Loader2 } from "lucide-react";
+import { FilePlus, CirclePlus as PlusCircle, Trash2, CreditCard, CircleCheck as CheckCircle, Download, Smartphone, Lock, Clock as Unlock, Mail, Bot, Loader as Loader2 } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";

@@ -7,14 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-    FileText, User, UserCheck, Heart, 
-    ArrowRight, ArrowLeft, Download, Send, 
-    Share2, QrCode, CheckCircle, ShieldCheck,
-    Printer, Loader2, Search, Briefcase, Landmark,
-    Eye,
-    FileSignature
-} from "lucide-react";
+import { FileText, User, UserCheck, Heart, ArrowRight, ArrowLeft, Download, Send, Share2, QrCode, CircleCheck as CheckCircle, ShieldCheck, Printer, Loader as Loader2, Search, Briefcase, Landmark, Eye, Signature as FileSignature } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";

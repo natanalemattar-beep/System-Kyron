@@ -2,14 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { 
-    Landmark, FileText, Banknote, CreditCard, 
-    ShieldCheck, Calendar, Gavel, History,
-    ArrowRight, Activity, Zap, Bot,
-    Building2, Users, Printer, Scale, Globe, Truck, Leaf, Palmtree, 
-    Terminal, Coins, Microscope, Ship, Clock, AlertTriangle,
-    MailOpen, Settings2, Bell, ShieldAlert
-} from "lucide-react";
+import { Landmark, FileText, Banknote, CreditCard, ShieldCheck, Calendar, Gavel, History, ArrowRight, Activity, Zap, Bot, Building2, Users, Printer, Scale, Globe, Truck, Leaf, TreePalm as Palmtree, Terminal, Coins, Microscope, Ship, Clock, TriangleAlert as AlertTriangle, MailOpen, Settings2, Bell, ShieldAlert } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";

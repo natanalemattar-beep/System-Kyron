@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit, UserCog, Gavel, Link as LinkIcon, AlertTriangle, CheckCircle } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, File as FileEdit, UserCog, Gavel, Link as LinkIcon, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";

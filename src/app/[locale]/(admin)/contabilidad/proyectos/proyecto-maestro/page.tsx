@@ -3,11 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    ClipboardList, PlusCircle, CheckCircle, Activity, 
-    Terminal, ShieldCheck, Download, Search, 
-    LayoutDashboard, Hammer, Target, Zap
-} from "lucide-react";
+import { ClipboardList, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Activity, Terminal, ShieldCheck, Download, Search, LayoutDashboard, Hammer, Target, Zap } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";

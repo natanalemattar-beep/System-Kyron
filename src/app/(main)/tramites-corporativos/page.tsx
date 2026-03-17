@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Globe, UserCog, CheckCircle, ArrowRight, TrendingDown, BookOpen } from "lucide-react";
+import { Globe, UserCog, CircleCheck as CheckCircle, ArrowRight, TrendingDown, BookOpen } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 

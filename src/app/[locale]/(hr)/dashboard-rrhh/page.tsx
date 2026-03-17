@@ -1,26 +1,7 @@
 
 "use client";
 
-import {
-  Briefcase,
-  Users,
-  DollarSign,
-  UserPlus,
-  ArrowRight,
-  FileWarning,
-  CalendarCheck2,
-  ShieldCheck,
-  Activity,
-  Zap,
-  Heart,
-  Scale,
-  BrainCircuit,
-  School,
-  Terminal,
-  CheckCircle,
-  Stethoscope,
-  TrendingUp
-} from "lucide-react";
+import { Briefcase, Users, DollarSign, UserPlus, ArrowRight, FileWarning, CalendarCheck2, ShieldCheck, Activity, Zap, Heart, Scale, BrainCircuit, School, Terminal, CircleCheck as CheckCircle, Stethoscope, TrendingUp } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { formatCurrency, cn } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid } from "recharts";

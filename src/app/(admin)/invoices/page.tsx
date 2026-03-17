@@ -3,7 +3,7 @@
 import { InvoicesTable } from "@/components/invoices/invoices-table";
 import { CreateInvoiceSheet } from "@/components/invoices/create-invoice-sheet";
 import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
+import { CirclePlus as PlusCircle } from "lucide-react";
 import { mockInvoices } from "@/lib/data";
 
 export default function InvoicesPage() {

@@ -2,26 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { 
-    Recycle, 
-    Leaf, 
-    TrendingUp, 
-    MapPin, 
-    Coins, 
-    ArrowUpRight, 
-    ArrowDownRight, 
-    RefreshCw, 
-    ShieldCheck, 
-    Zap, 
-    Cpu, 
-    Battery, 
-    Wifi, 
-    Download,
-    Activity,
-    Clock,
-    BarChart3,
-    ArrowRight
-} from "lucide-react";
+import { Recycle, Leaf, TrendingUp, MapPin, Coins, ArrowUpRight, ArrowDownRight, RefreshCw, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Clock, ChartBar as BarChart3, ArrowRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

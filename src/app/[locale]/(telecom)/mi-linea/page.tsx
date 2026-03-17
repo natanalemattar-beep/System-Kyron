@@ -3,24 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    Activity, 
-    Wallet, 
-    History, 
-    CreditCard, 
-    Signal, 
-    Loader2,
-    Wifi,
-    ChevronDown,
-    Lock,
-    CheckCircle,
-    Zap,
-    Cpu,
-    Network,
-    ShieldCheck,
-    Globe,
-    Download
-} from "lucide-react";
+import { Activity, Wallet, History, CreditCard, Signal, Loader as Loader2, Wifi, ChevronDown, Lock, CircleCheck as CheckCircle, Zap, Cpu, Network, ShieldCheck, Globe, Download } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";

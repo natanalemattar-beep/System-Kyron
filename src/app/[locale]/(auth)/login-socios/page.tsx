@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Users, BarChart3, ShieldCheck, Building2 } from "lucide-react";
+import { Users, ChartBar as BarChart3, ShieldCheck, Building2 } from "lucide-react";
 
 export default function LoginSociosPage() {
     return (

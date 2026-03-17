@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Calculator, CheckCircle, AlertTriangle, Activity } from "lucide-react";
+import { FileText, Download, Calculator, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Activity } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";

@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, FileSignature, ShieldCheck, Scale, ArrowRight, Building, Network } from "lucide-react";
+import { Gavel, Signature as FileSignature, ShieldCheck, Scale, ArrowRight, Building, Network } from "lucide-react";
 import Link from "next/link";
 
 const responsabilidades = [

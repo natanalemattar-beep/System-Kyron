@@ -5,7 +5,7 @@ import { StatsCards } from "@/components/dashboard/stats-cards";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
-import { BookOpen, Scale, ArrowRight, Bot, CheckCircle, Settings2, Sparkles } from "lucide-react";
+import { BookOpen, Scale, ArrowRight, Bot, CircleCheck as CheckCircle, Settings2, Sparkles } from "lucide-react";
 import { librosContablesNavItems } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart, ShieldCheck, Activity } from "lucide-react";
+import { HandCoins, TriangleAlert as AlertTriangle, Clock, Lightbulb, ChartBar as BarChart, ShieldCheck, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";

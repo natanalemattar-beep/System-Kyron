@@ -3,22 +3,7 @@
 
 import React from "react";
 import { Link } from "@/navigation";
-import { 
-  PieChart, 
-  ArrowLeft, 
-  TrendingUp, 
-  ShieldCheck, 
-  Activity, 
-  ArrowRight,
-  Calculator,
-  BarChart3,
-  ChevronRight,
-  Sparkles,
-  Zap,
-  Target,
-  BrainCircuit,
-  Wallet
-} from "lucide-react";
+import { ChartPie as PieChart, ArrowLeft, TrendingUp, ShieldCheck, Activity, ArrowRight, Calculator, ChartBar as BarChart3, ChevronRight, Sparkles, Zap, Target, BrainCircuit, Wallet } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";

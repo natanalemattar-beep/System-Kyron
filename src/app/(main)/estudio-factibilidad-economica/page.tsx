@@ -6,19 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { 
-  Download, 
-  Printer, 
-  TrendingUp, 
-  BarChart, 
-  CheckCircle, 
-  PieChart, 
-  ArrowRight,
-  FileText,
-  ShieldCheck,
-  Zap,
-  Globe
-} from "lucide-react";
+import { Download, Printer, TrendingUp, ChartBar as BarChart, CircleCheck as CheckCircle, ChartPie as PieChart, ArrowRight, FileText, ShieldCheck, Zap, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";

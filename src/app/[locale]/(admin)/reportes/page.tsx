@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BarChart3, Download, Printer, Activity, Terminal, ShieldCheck, PieChart, TrendingUp, Search } from "lucide-react";
+import { ChartBar as BarChart3, Download, Printer, Activity, Terminal, ShieldCheck, ChartPie as PieChart, TrendingUp, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";

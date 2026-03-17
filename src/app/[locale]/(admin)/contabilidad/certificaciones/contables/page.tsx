@@ -4,21 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    FileSignature, 
-    Banknote, 
-    Scale, 
-    Coins, 
-    ShieldCheck, 
-    ArrowRight, 
-    Activity, 
-    Terminal,
-    Printer,
-    Download,
-    CheckCircle,
-    Loader2,
-    X
-} from "lucide-react";
+import { Signature as FileSignature, Banknote, Scale, Coins, ShieldCheck, ArrowRight, Activity, Terminal, Printer, Download, CircleCheck as CheckCircle, Loader as Loader2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";

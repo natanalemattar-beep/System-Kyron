@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckCircle, ArrowLeft, Printer, PlusCircle, AlertTriangle, ShieldCheck } from "lucide-react";
+import { CircleCheck as CheckCircle, ArrowLeft, Printer, CirclePlus as PlusCircle, TriangleAlert as AlertTriangle, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 

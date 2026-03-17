@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Gift, Zap, Award, Coffee, Ticket, Recycling, TrendingUp, Handshake, CheckCircle, Smartphone, Cpu, Package, Coins, Magnet, BarChart3, Clock } from "lucide-react";
+import { ArrowRight, Download, Gift, Zap, Award, Coffee, Ticket, Recycle as Recycling, TrendingUp, Handshake, CircleCheck as CheckCircle, Smartphone, Cpu, Package, Coins, Magnet, ChartBar as BarChart3, Clock } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 

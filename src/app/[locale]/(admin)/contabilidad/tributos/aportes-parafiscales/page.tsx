@@ -4,11 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    ShieldCheck, Calculator, Activity, Landmark, Percent, Zap, 
-    Building2, Terminal, Download, ClipboardList, Copy, CheckCircle2,
-    Clock, AlertTriangle, ArrowLeft, HeartPulse, UserX
-} from "lucide-react";
+import { ShieldCheck, Calculator, Activity, Landmark, Percent, Zap, Building2, Terminal, Download, ClipboardList, Copy, CircleCheck as CheckCircle2, Clock, TriangleAlert as AlertTriangle, ArrowLeft, HeartPulse, UserX } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn, formatCurrency } from "@/lib/utils";

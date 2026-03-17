@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CheckCircle, Clock, Loader2, Activity } from "lucide-react";
+import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Clock, Loader as Loader2, Activity } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";

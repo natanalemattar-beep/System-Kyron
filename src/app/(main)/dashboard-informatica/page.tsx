@@ -1,17 +1,7 @@
 
 "use client";
 
-import {
-  Cpu,
-  Shield,
-  BrainCircuit,
-  Puzzle,
-  Server,
-  Database,
-  CheckCircle,
-  AlertTriangle,
-  LayoutDashboard
-} from "lucide-react";
+import { Cpu, Shield, BrainCircuit, Puzzle, Server, Database, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, LayoutDashboard } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { informaticaNavGroups } from "@/components/app-sidebar-nav-items";
 import Link from "next/link";

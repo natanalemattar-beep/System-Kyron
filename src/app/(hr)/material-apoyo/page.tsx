@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Paintbrush, Download, Settings, CheckCircle } from "lucide-react";
+import { Paintbrush, Download, Settings, CircleCheck as CheckCircle } from "lucide-react";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycle, TrendingUp, Handshake, CheckCircle, Magnet } from "lucide-react";
+import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycle, TrendingUp, Handshake, CircleCheck as CheckCircle, Magnet } from "lucide-react";
 import { motion } from "framer-motion";
 
 const howItWorks = [

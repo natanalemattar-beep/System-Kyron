@@ -7,27 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-    FileText, 
-    PlusCircle, 
-    FileDown, 
-    ArrowLeft, 
-    Landmark, 
-    CheckCircle, 
-    Activity, 
-    ShieldCheck, 
-    Terminal, 
-    Filter,
-    Info,
-    AlertTriangle,
-    Globe,
-    Zap,
-    Scale,
-    Layers,
-    History,
-    FileSearch,
-    BookOpen
-} from "lucide-react";
+import { FileText, CirclePlus as PlusCircle, FileDown, ArrowLeft, Landmark, CircleCheck as CheckCircle, Activity, ShieldCheck, Terminal, Filter, Info, TriangleAlert as AlertTriangle, Globe, Zap, Scale, Layers, History, FileSearch, BookOpen } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";

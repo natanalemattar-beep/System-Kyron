@@ -4,11 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    Calculator, Calendar, ShieldCheck, AlertTriangle, Terminal, 
-    Zap, Activity, Landmark, Download, Smartphone,
-    CheckCircle2, Copy, Wallet, Info, ArrowLeft
-} from "lucide-react";
+import { Calculator, Calendar, ShieldCheck, TriangleAlert as AlertTriangle, Terminal, Zap, Activity, Landmark, Download, Smartphone, CircleCheck as CheckCircle2, Copy, Wallet, Info, ArrowLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatCurrency, cn } from "@/lib/utils";

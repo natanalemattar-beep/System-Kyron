@@ -4,22 +4,7 @@ import { useState } from "react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { 
-    LayoutGrid, 
-    Cpu, 
-    Users, 
-    HelpCircle, 
-    Smartphone, 
-    Zap, 
-    Magnet, 
-    Phone,
-    ShoppingCart,
-    ShieldCheck,
-    Contact,
-    Package,
-    ChevronDown,
-    UserCircle2
-} from "lucide-react";
+import { LayoutGrid, Cpu, Users, CircleHelp as HelpCircle, Smartphone, Zap, Magnet, Phone, ShoppingCart, ShieldCheck, Contact, Package, ChevronDown, CircleUser as UserCircle2 } from "lucide-react";
 import {
     Collapsible,
     CollapsibleContent,

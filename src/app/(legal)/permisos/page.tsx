@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, Mail, MessageSquare, Gavel, Stamp, FileEdit, BookOpen, Link as LinkIcon, Newspaper, UserCog, Calendar, AlertTriangle } from "lucide-react";
+import { UserCheck, CirclePlus as PlusCircle, Download, RefreshCw, Eye, CircleCheck as CheckCircle, FileUp, Info, Mail, MessageSquare, Gavel, Stamp, File as FileEdit, BookOpen, Link as LinkIcon, Newspaper, UserCog, Calendar, TriangleAlert as AlertTriangle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";

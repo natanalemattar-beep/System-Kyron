@@ -3,10 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    Zap, Download, Calculator, CheckCircle, 
-    Activity, Terminal, Landmark, Coins
-} from "lucide-react";
+import { Zap, Download, Calculator, CircleCheck as CheckCircle, Activity, Terminal, Landmark, Coins } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";

@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Palmtree, PlusCircle, CheckCircle, FileText, Activity, Terminal, Star, Download, Printer } from "lucide-react";
+import { TreePalm as Palmtree, CirclePlus as PlusCircle, CircleCheck as CheckCircle, FileText, Activity, Terminal, Star, Download, Printer } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

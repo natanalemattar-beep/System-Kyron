@@ -3,41 +3,7 @@
 import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { 
-  BookOpen, 
-  ShieldCheck, 
-  Zap, 
-  Calculator, 
-  Users, 
-  Lock,
-  Smartphone,
-  School,
-  Download,
-  Printer,
-  ChevronLeft,
-  Loader2,
-  CheckCircle,
-  Target,
-  LayoutDashboard,
-  ShoppingCart,
-  Clock,
-  ShieldAlert,
-  History,
-  Scale,
-  Landmark,
-  Globe,
-  Coins,
-  Activity,
-  Cpu,
-  MessageSquare,
-  Building2,
-  FileText,
-  Gavel,
-  Radio,
-  Recycle,
-  Wallet,
-  BarChart3
-} from "lucide-react";
+import { BookOpen, ShieldCheck, Zap, Calculator, Users, Lock, Smartphone, School, Download, Printer, ChevronLeft, Loader as Loader2, CircleCheck as CheckCircle, Target, LayoutDashboard, ShoppingCart, Clock, ShieldAlert, History, Scale, Landmark, Globe, Coins, Activity, Cpu, MessageSquare, Building2, FileText, Gavel, Radio, Recycle, Wallet, ChartBar as BarChart3 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";

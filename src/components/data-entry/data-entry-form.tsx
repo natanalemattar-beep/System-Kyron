@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, UploadCloud, CheckCircle, AlertCircle, Download } from "lucide-react";
+import { Loader as Loader2, CloudUpload as UploadCloud, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Download } from "lucide-react";
 import { processDocumentAction } from "@/app/(main)/data-entry/actions";
 import type { AutomatedDataEntryOutput } from "@/ai/flows/automated-data-entry-from-image";
 import { formatCurrency, formatDate } from "@/lib/utils";

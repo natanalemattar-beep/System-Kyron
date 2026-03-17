@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint,
-  Activity, Calendar, ShieldAlert, Lock, Zap, ArrowRight
-} from 'lucide-react';
+import { ChartBar as BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, Activity, Calendar, ShieldAlert, Lock, Zap, ArrowRight } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer

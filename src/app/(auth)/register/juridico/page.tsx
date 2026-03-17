@@ -15,18 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Building,
-  User,
-  Mail,
-  Phone,
-  FileText,
-  Loader2,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-  UploadCloud,
-} from 'lucide-react';
+import { Building, User, Mail, Phone, FileText, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, CloudUpload as UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';

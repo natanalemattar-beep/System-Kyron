@@ -2,29 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { 
-  Printer, 
-  Download, 
-  ChevronLeft, 
-  CheckCircle,
-  Users,
-  Cpu,
-  Activity,
-  Target,
-  ShieldCheck,
-  Zap,
-  Lock,
-  Terminal,
-  FileText,
-  Scale,
-  TrendingUp,
-  BarChart3,
-  BookOpen,
-  Calculator,
-  Magnet,
-  School,
-  Globe
-} from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, Cpu, Activity, Target, ShieldCheck, Zap, Lock, Terminal, FileText, Scale, TrendingUp, ChartBar as BarChart3, BookOpen, Calculator, Magnet, School, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";

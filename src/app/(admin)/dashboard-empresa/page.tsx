@@ -1,7 +1,7 @@
 
 'use client';
 
-import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle, TrendingDown } from "lucide-react";
+import { DollarSign, TrendingUp, Users, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, TrendingDown } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";

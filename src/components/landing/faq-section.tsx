@@ -1,7 +1,7 @@
 'use client';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HelpCircle } from "lucide-react";
+import { CircleHelp as HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";

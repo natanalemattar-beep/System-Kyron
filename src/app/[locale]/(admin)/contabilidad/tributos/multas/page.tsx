@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, ShieldAlert, Activity, Terminal, ShieldX, TrendingDown, RefreshCw, Zap, AlertTriangle } from "lucide-react";
+import { Gavel, Calculator, ShieldAlert, Activity, Terminal, ShieldX, TrendingDown, RefreshCw, Zap, TriangleAlert as AlertTriangle } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";

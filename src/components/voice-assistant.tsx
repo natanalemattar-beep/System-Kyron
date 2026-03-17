@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles } from "lucide-react";
+import { Mic, MicOff, Volume2, X, Bot, Send, Loader as Loader2, User, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";

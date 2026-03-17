@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Ticket, Loader2, Send, Building2, ShieldCheck } from "lucide-react";
+import { Ticket, Loader as Loader2, Send, Building2, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

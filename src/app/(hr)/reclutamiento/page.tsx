@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserPlus, PlusCircle, CalendarDays, MapPin, Briefcase, Eye, Calendar, Mail, FileText } from "lucide-react";
+import { UserPlus, CirclePlus as PlusCircle, CalendarDays, MapPin, Briefcase, Eye, Calendar, Mail, FileText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";

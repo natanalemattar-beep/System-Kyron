@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Archive, PlusCircle, Download, Edit, MoreHorizontal, AlertTriangle, Trash2, Send, QrCode } from "lucide-react";
+import { Archive, CirclePlus as PlusCircle, Download, CreditCard as Edit, MoveHorizontal as MoreHorizontal, TriangleAlert as AlertTriangle, Trash2, Send, QrCode } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";

@@ -1,22 +1,7 @@
 
 "use client";
 
-import {
-  Users,
-  Building,
-  DollarSign,
-  TrendingUp,
-  LayoutDashboard,
-  Network,
-  Cpu,
-  Zap,
-  ArrowRight,
-  Download,
-  AlertTriangle,
-  LineChart,
-  BarChart,
-  BarChart3
-} from "lucide-react";
+import { Users, Building, DollarSign, TrendingUp, LayoutDashboard, Network, Cpu, Zap, ArrowRight, Download, TriangleAlert as AlertTriangle, ChartLine as LineChart, ChartBar as BarChart, ChartBar as BarChart3 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";

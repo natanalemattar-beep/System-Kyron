@@ -3,7 +3,7 @@
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Calendar as CalendarIcon, ArrowLeft, Bell, Clock, AlertTriangle } from "lucide-react";
+import { Calendar as CalendarIcon, ArrowLeft, Bell, Clock, TriangleAlert as AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 

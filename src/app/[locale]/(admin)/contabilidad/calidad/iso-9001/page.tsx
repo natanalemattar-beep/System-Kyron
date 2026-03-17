@@ -4,21 +4,7 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    ShieldCheck, 
-    FileText, 
-    CheckCircle, 
-    Activity, 
-    Terminal, 
-    Download, 
-    Eye, 
-    Layers, 
-    Scale,
-    ClipboardCheck,
-    Search,
-    Wand2,
-    Settings
-} from "lucide-react";
+import { ShieldCheck, FileText, CircleCheck as CheckCircle, Activity, Terminal, Download, Eye, Layers, Scale, ClipboardCheck, Search, Wand as Wand2, Settings } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";

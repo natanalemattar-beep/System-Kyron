@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { FileText, PlusCircle, Filter, AlertTriangle, Calculator, Download, Checkbox, FileUp, Info } from "lucide-react";
+import { FileText, CirclePlus as PlusCircle, Filter, TriangleAlert as AlertTriangle, Calculator, Download, Check as Checkbox, FileUp, Info } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";

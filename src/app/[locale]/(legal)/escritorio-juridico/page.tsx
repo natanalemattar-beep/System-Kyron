@@ -1,25 +1,7 @@
 
 "use client";
 
-import { 
-  Gavel, 
-  FileSignature, 
-  ShieldCheck, 
-  Clock, 
-  AlertTriangle, 
-  PlusCircle, 
-  Download,
-  Eye,
-  FileText,
-  Search,
-  Scale,
-  Activity,
-  Lock,
-  Wand2,
-  Terminal,
-  ArrowRight,
-  Sparkles
-} from "lucide-react";
+import { Gavel, Signature as FileSignature, ShieldCheck, Clock, TriangleAlert as AlertTriangle, CirclePlus as PlusCircle, Download, Eye, FileText, Search, Scale, Activity, Lock, Wand as Wand2, Terminal, ArrowRight, Sparkles } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

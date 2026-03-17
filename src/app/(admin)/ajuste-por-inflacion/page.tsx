@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { TrendingUp, FileWarning, HelpCircle, CheckCircle, ListOrdered, Calculator } from "lucide-react";
+import { TrendingUp, FileWarning, CircleHelp as HelpCircle, CircleCheck as CheckCircle, ListOrdered, Calculator } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 const calculoSimplificado = [

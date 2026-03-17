@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Landmark, MapPin, Download, PlusCircle, Activity, Target, ShieldCheck, Scale, Terminal, Zap, Calculator } from "lucide-react";
+import { Landmark, MapPin, Download, CirclePlus as PlusCircle, Activity, Target, ShieldCheck, Scale, Terminal, Zap, Calculator } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
