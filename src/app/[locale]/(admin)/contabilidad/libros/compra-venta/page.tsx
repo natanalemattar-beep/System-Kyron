@@ -7,112 +7,115 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, PlusCircle, FileDown, ArrowLeft, Landmark, CheckCircle, Activity } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { FileText, PlusCircle, FileDown, ArrowLeft, Landmark, CheckCircle, Activity, ShieldCheck, Terminal, Filter } from "lucide-react";
+import { formatCurrency, cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-
-const mockCompras = [
-  { fecha: "01/03/2026", factura: "00123", proveedor: "Suministros Caracas, C.A.", rif: "J-12345678-9", monto: 5000, iva: 800, total: 5800, estado: "Pagado" },
-  { fecha: "02/03/2026", factura: "00456", proveedor: "TecnoVentas S.A.", rif: "J-98765432-1", monto: 1200, iva: 192, total: 1392, estado: "Pendiente" },
-];
+import { useToast } from "@/hooks/use-toast";
 
 const mockVentas = [
-  { fecha: "01/03/2026", factura: "V-001", cliente: "Tech Solutions", rif: "J-11111111-1", monto: 15000, iva: 2400, total: 17400, estado: "Cobrado" },
+  { fecha: "15/03/2026", factura: "V-001", cliente: "Tech Solutions LLC", rif: "J-12345678-9", base: 15000, iva: 2400, total: 17400, ret: 1800, status: "Conciliado" },
+  { fecha: "14/03/2026", factura: "V-002", cliente: "Innovate Corp", rif: "J-98765432-1", base: 8500, iva: 1360, total: 9860, ret: 1020, status: "Sincronizado" },
+];
+
+const mockCompras = [
+  { fecha: "15/03/2026", factura: "C-450", proveedor: "Suministros Globales", rif: "J-31245678-0", base: 5000, iva: 800, total: 5800, ret: 600, status: "Pagado" },
 ];
 
 export default function LibroCompraVentaPage() {
-  const handleAction = (msg: string) => alert(msg);
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState("ventas");
+
+  const handleExport = (format: string) => {
+    toast({
+        title: `GENERANDO ARCHIVO ${format}`,
+        description: `Libro de ${activeTab.toUpperCase()} procesado para el periodo actual.`,
+        action: <CheckCircle className="text-primary h-4 w-4" />
+    });
+  };
 
   return (
-    <div className="p-6 md:p-12 bg-background min-h-screen space-y-8">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-l-4 border-primary pl-8 py-2 mt-10">
+    <div className="space-y-12 pb-20 px-4 md:px-10">
+      <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-1">
-          <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-2">
-            <Link href="/contabilidad/libros"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
-          </Button>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tighter flex items-center gap-3">
-            <Landmark className="h-8 w-8 text-primary" />
-            Compra y Venta
-          </h1>
-          <p className="text-muted-foreground font-medium text-sm uppercase tracking-widest opacity-60">REGISTRO FISCAL SENIAT • 2026</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+            <Landmark className="h-3 w-3" /> NODO FISCAL
+          </div>
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic leading-none italic-shadow text-white">Libros <span className="text-primary">Fiscales</span></h1>
+          <p className="text-muted-foreground font-bold text-[10px] uppercase tracking-[0.6em] opacity-40 mt-2 italic">Control de Compra y Venta • Sincronización SENIAT 2026</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="rounded-xl border-primary text-primary hover:bg-primary/10" onClick={() => handleAction("Generando TXT...")}>
-            <FileDown className="mr-2 h-4 w-4" /> EXPORTAR TXT
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={() => handleExport("TXT")}>
+            <FileDown className="mr-3 h-4 w-4" /> EXPORTAR TXT
           </Button>
-          <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-            <PlusCircle className="mr-2 h-4 w-4" /> REGISTRAR OPERACIÓN
+          <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+            <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR FACTURA
           </Button>
         </div>
       </header>
 
-      <Card className="glass-card border-none shadow-sm rounded-[2.5rem] overflow-hidden bg-card/40">
-        <Tabs defaultValue="ventas" className="w-full">
-          <TabsList className="w-full justify-start rounded-none bg-white/5 border-b border-white/5 h-14 px-8 gap-8">
-            <TabsTrigger value="ventas" className="text-[10px] font-black uppercase tracking-widest data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full transition-all">Ventas Fiscales</TabsTrigger>
-            <TabsTrigger value="compras" className="text-[10px] font-black uppercase tracking-widest data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full transition-all">Compras Fiscales</TabsTrigger>
+      <Card className="glass-card border-none rounded-[3.5rem] bg-card/40 overflow-hidden shadow-2xl">
+        <Tabs defaultValue="ventas" onValueChange={setActiveTab} className="w-full">
+          <TabsList className="w-full justify-start rounded-none bg-white/5 border-b border-border/50 h-16 px-10 gap-10">
+            <TabsTrigger value="ventas" className="text-[10px] font-black uppercase tracking-[0.3em] data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full transition-all">Ventas Fiscales</TabsTrigger>
+            <TabsTrigger value="compras" className="text-[10px] font-black uppercase tracking-[0.3em] data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full transition-all">Compras Fiscales</TabsTrigger>
           </TabsList>
 
-          <div className="p-8">
-            <TabsContent value="ventas" className="mt-0 space-y-10">
+          <div className="p-0">
+            <TabsContent value="ventas" className="mt-0">
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30 border-none">
-                    <TableHead className="pl-8 font-black uppercase text-[10px] tracking-widest opacity-30">Fecha</TableHead>
-                    <TableHead className="font-black uppercase text-[10px] tracking-widest opacity-30">RIF / Cliente</TableHead>
-                    <TableHead className="text-right font-black uppercase text-[10px] tracking-widest opacity-30">Monto</TableHead>
-                    <TableHead className="text-right font-black uppercase text-[10px] tracking-widest opacity-30">IVA (16%)</TableHead>
-                    <TableHead className="text-right pr-8 font-black uppercase text-[10px] tracking-widest opacity-30">Total</TableHead>
+                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha / Referencia</TableHead>
+                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Cliente / RIF</TableHead>
+                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Base Imponible</TableHead>
+                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">IVA (16%)</TableHead>
+                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Retención IVA</TableHead>
+                    <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Total Neto</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {mockVentas.map((v, i) => (
-                    <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors group">
-                      <TableCell className="pl-8 text-xs font-bold text-white/40">{v.fecha}</TableCell>
-                      <TableCell>
-                        <p className="font-black text-xs text-white/80 uppercase italic group-hover:text-primary transition-colors">{v.cliente}</p>
-                        <p className="text-[8px] font-mono font-bold text-white/20 uppercase mt-1">{v.rif}</p>
+                    <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
+                      <TableCell className="pl-10 py-6">
+                        <p className="font-black text-xs text-foreground/80 uppercase italic">{v.fecha}</p>
+                        <p className="text-[8px] font-mono text-muted-foreground font-bold">{v.factura}</p>
                       </TableCell>
-                      <TableCell className="text-right font-mono text-xs font-bold text-white/60">{formatCurrency(v.monto, 'Bs.')}</TableCell>
-                      <TableCell className="text-right font-mono text-xs font-bold text-white/40">{formatCurrency(v.iva, 'Bs.')}</TableCell>
-                      <TableCell className="text-right pr-8 font-mono text-sm font-black text-primary italic">{formatCurrency(v.total, 'Bs.')}</TableCell>
+                      <TableCell className="py-6">
+                        <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{v.cliente}</p>
+                        <p className="text-[8px] font-mono text-primary font-bold">{v.rif}</p>
+                      </TableCell>
+                      <TableCell className="text-right py-6 font-mono text-xs font-bold text-foreground/70">{formatCurrency(v.base, 'Bs.')}</TableCell>
+                      <TableCell className="text-right py-6 font-mono text-xs font-bold text-foreground/40">{formatCurrency(v.iva, 'Bs.')}</TableCell>
+                      <TableCell className="text-right py-6 font-mono text-xs font-black text-rose-500 italic">({formatCurrency(v.ret, 'Bs.')})</TableCell>
+                      <TableCell className="text-right pr-10 py-6 font-mono text-sm font-black text-primary italic shadow-glow-text">{formatCurrency(v.total, 'Bs.')}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-              <div className="grid md:grid-cols-3 gap-6 pt-10 border-t border-white/5">
-                <div className="p-6 bg-white/[0.02] rounded-2xl border border-white/5">
-                  <p className="text-[10px] font-black uppercase text-white/20 mb-1">Base Imponible</p>
-                  <p className="text-2xl font-black text-white italic">{formatCurrency(43000, 'Bs.')}</p>
-                </div>
-                <div className="p-6 bg-white/[0.02] rounded-2xl border border-white/5">
-                  <p className="text-[10px] font-black uppercase text-emerald-500/40 mb-1">IVA Débito Fiscal</p>
-                  <p className="text-2xl font-black text-emerald-500 italic">{formatCurrency(6880, 'Bs.')}</p>
-                </div>
-                <div className="p-6 bg-primary/10 rounded-2xl border border-primary/20 shadow-glow-sm">
-                  <p className="text-[10px] font-black uppercase text-primary mb-1">Ventas Totales</p>
-                  <p className="text-2xl font-black text-primary italic">{formatCurrency(49880, 'Bs.')}</p>
-                </div>
-              </div>
             </TabsContent>
 
             <TabsContent value="compras" className="mt-0">
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30 border-none">
-                    <TableHead className="pl-8 font-black uppercase text-[10px] tracking-widest opacity-30">Fecha</TableHead>
-                    <TableHead className="font-black uppercase text-[10px] tracking-widest opacity-30">Proveedor</TableHead>
-                    <TableHead className="text-right font-black uppercase text-[10px] tracking-widest opacity-30">Monto</TableHead>
-                    <TableHead className="text-right pr-8 font-black uppercase text-[10px] tracking-widest opacity-30">IVA</TableHead>
+                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha / Factura</TableHead>
+                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Proveedor / RIF</TableHead>
+                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Base Imponible</TableHead>
+                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">IVA Soportado</TableHead>
+                    <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Total Operación</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {mockCompras.map((c, i) => (
-                    <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
-                      <TableCell className="pl-8 text-xs text-white/40">{c.fecha}</TableCell>
-                      <TableCell className="font-black text-xs text-white/80 uppercase italic">{c.proveedor}</TableCell>
-                      <TableCell className="text-right font-mono text-xs font-bold text-white/60">{formatCurrency(c.monto, 'Bs.')}</TableCell>
-                      <TableCell className="text-right pr-8 font-mono text-xs font-black text-rose-500">{formatCurrency(c.iva, 'Bs.')}</TableCell>
+                    <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all">
+                      <TableCell className="pl-10 py-6 text-xs font-bold text-foreground/60">{c.fecha} • {c.factura}</TableCell>
+                      <TableCell className="py-6">
+                        <p className="font-black text-xs text-foreground/80 uppercase italic">{c.proveedor}</p>
+                        <p className="text-[8px] font-mono text-primary font-bold">{c.rif}</p>
+                      </TableCell>
+                      <TableCell className="text-right py-6 font-mono text-xs font-bold text-foreground/70">{formatCurrency(c.base, 'Bs.')}</TableCell>
+                      <TableCell className="text-right py-6 font-mono text-xs font-black text-rose-500">({formatCurrency(c.iva, 'Bs.')})</TableCell>
+                      <TableCell className="text-right pr-10 py-6 font-mono text-sm font-black text-foreground/80 italic">{formatCurrency(c.total, 'Bs.')}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -120,6 +123,21 @@ export default function LibroCompraVentaPage() {
             </TabsContent>
           </div>
         </Tabs>
+        <CardFooter className="p-10 bg-primary/5 border-t border-border flex justify-between items-center">
+            <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
+                <Terminal className="h-4 w-4" /> Validado por Kyron Intelligence v2.6.5
+            </div>
+            <div className="flex gap-10">
+                <div className="text-right">
+                    <p className="text-[8px] font-black uppercase text-muted-foreground/40 mb-1">Base Imponible Total</p>
+                    <p className="text-xl font-black italic text-foreground tracking-tighter">{formatCurrency(23500, 'Bs.')}</p>
+                </div>
+                <div className="text-right">
+                    <p className="text-[8px] font-black uppercase text-primary mb-1">Débito Fiscal Neto</p>
+                    <p className="text-xl font-black italic text-primary tracking-tighter shadow-glow-text">{formatCurrency(3760, 'Bs.')}</p>
+                </div>
+            </div>
+        </CardFooter>
       </Card>
     </div>
   );
