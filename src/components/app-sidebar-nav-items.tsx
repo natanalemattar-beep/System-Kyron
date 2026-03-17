@@ -56,7 +56,8 @@ import {
   ClipboardList,
   Target,
   FileSearch,
-  Hammer
+  Hammer,
+  MailOpen
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -141,6 +142,7 @@ export const adminNavGroups = [
     items: [
         { href: "/contabilidad/tributos", label: "Centro Tributario", icon: Landmark },
         { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
+        { href: "/contabilidad/tributos/comunicaciones", label: "Centro Comunicaciones", icon: MailOpen },
         { href: "/contabilidad/tributos/aportes-parafiscales", label: "Parafiscales", icon: Landmark },
         { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protecc. Pensiones", icon: ShieldCheck },
         { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent },

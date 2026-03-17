@@ -18,7 +18,12 @@ import {
     Lock,
     ShieldCheck,
     X,
-    Activity
+    Activity,
+    Smartphone,
+    Recycle,
+    Gavel,
+    Globe,
+    Zap
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,31 +41,19 @@ import Image from "next/image";
 
 const institutions = [
     { id: "seniat", name: "SENIAT", address: "Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)\nUnidad de Tributos Internos" },
-    { id: "saren", name: "SAREN", address: "Servicio Autónomo de Registros y Notarías (SAREN)\nRegistro Mercantil / Notaría Pública" },
     { id: "sapi", name: "SAPI", address: "Servicio Autónomo de la Propiedad Intelectual (SAPI)\nDirección de Marcas y Patentes" },
+    { id: "conatel", name: "CONATEL", address: "Comisión Nacional de Telecomunicaciones (CONATEL)\nGerencia de Habilitaciones" },
+    { id: "ameru", name: "AMERU IA", address: "Ameru IA - Gestión Ambiental\nFundación Kyron para la Sostenibilidad" },
+    { id: "telecom_ops", name: "OPERADORAS TELECOM", address: "Gerencia de Interconexión\nOperadoras de Telefonía (Movistar / Digitel / Movilnet)" },
+    { id: "saren", name: "SAREN", address: "Servicio Autónomo de Registros y Notarías (SAREN)\nRegistro Mercantil / Notaría Pública" },
     { id: "minec", name: "MINEC", address: "Ministerio del Poder Popular para el Ecosocialismo (MINEC)\nDirección de Gestión de Residuos" },
-    { id: "intt", name: "INTT", address: "Instituto Nacional de Transporte Terrestre (INTT)\nDirección de Carga" },
-    { id: "mintur", name: "MINTUR", address: "Ministerio del Poder Popular para el Turismo (MINTUR)\nRegistro Turístico Nacional" },
-    { id: "ivss", name: "IVSS", address: "Instituto Venezolano de los Seguros Sociales (IVSS)\nDirección de Afiliación y Prestaciones" },
-    { id: "banavih", name: "BANAVIH", address: "Banco Nacional de Vivienda y Hábitat (BANAVIH)\nGerencia de Fiscalización (FAOV)" },
-    { id: "inces", name: "INCES", address: "Instituto Nacional de Capacitación y Educación Socialista (INCES)\nUnidad de Tributos" },
-    { id: "inpsasel", name: "INPSASEL", address: "Instituto Nacional de Prevención, Salud y Seguridad Laborales (INPSASEL)\nGerencia de Salud de los Trabajadores" },
-    { id: "min_trabajo", name: "MIN. TRABAJO", address: "Ministerio del Poder Popular para el Proceso Social de Trabajo\nInspectoría del Trabajo" },
-    { id: "sudeban", name: "SUDEBAN", address: "Superintendencia de las Instituciones del Sector Bancario (SUDEBAN)\nUnidad de Inteligencia Financiera" },
-    { id: "sunavi", name: "SUNAVI", address: "Superintendencia Nacional de Arrendamiento de Vivienda (SUNAVI)\nDirección de Registro" },
-    { id: "sunacrip", name: "SUNACRIP", address: "Superintendencia Nacional de Criptoactivos y Actividades Conexas (SUNACRIP)\nDirección de Fiscalización" },
-    { id: "alcaldia", name: "ALCALDÍA MUNICIPAL", address: "Alcaldía Municipal\nDirección de Hacienda y Tributos" },
-    { id: "gobernacion", name: "GOBERNACIÓN", address: "Gobernación Estadal\nDirección de Administración y Finanzas" },
-    { id: "fona", name: "FONA", address: "Fondo Nacional Antidrogas (FONA)\nUnidad de Recaudación" },
-    { id: "fonacit", name: "FONACIT", address: "Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT)\nUnidad de LOCTI" },
-    { id: "comex", name: "MIN. COMERCIO EXT.", address: "Ministerio del Poder Popular de Comercio Exterior e Inversión Internacional\nDirección de Exportaciones" },
-    { id: "industria", name: "MIN. INDUSTRIAS", address: "Ministerio del Poder Popular de Industrias y Producción Nacional\nRegistro Industrial" },
+    { id: "ivss", name: "IVSS", address: "Instituto Venezolano de los Seguros Sociales (IVSS)\nDirección de Afiliación" },
 ];
 
 export default function ComunicacionesPage() {
     const { toast } = useToast();
     const [institucionId, setInstitucionId] = useState("seniat");
-    const [tipoCarta, setTipoCarta] = useState("inactividad");
+    const [tipoCarta, setTipoCarta] = useState("solicitud");
     const [searchQuery, setSearchQuery] = useState("");
     const [isSigned, setIsSigned] = useState(false);
     const [data, setData] = useState({
@@ -69,7 +62,7 @@ export default function ComunicacionesPage() {
         representante: "Carlos Mattar",
         cedula: "V-32.855.496",
         periodo: "Marzo 2026",
-        motivo: "Reestructuración operativa interna.",
+        motivo: "Requerimiento de servicios y cumplimiento normativo.",
         fecha: new Date().toISOString().substring(0, 10),
     });
 
@@ -85,150 +78,41 @@ export default function ComunicacionesPage() {
 
     const selectedInst = useMemo(() => institutions.find(i => i.id === institucionId) || institutions[0], [institucionId]);
 
+    const getLetterContent = () => {
+        const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
+        
+        if (institucionId === 'ameru') {
+            return header + `Asunto: Solicitud de Despliegue de Nodos Ameru IA\n\nPor la presente, actuando en nombre de ${data.empresa}, me dirijo a ustedes para formalizar nuestra solicitud de despliegue de los sistemas de reciclaje inteligente Ameru IA en nuestras instalaciones comerciales. Buscamos integrar la tecnología de inducción magnética para la trazabilidad de nuestros activos verdes y la acumulación de Eco-Créditos.\n\nAgradecemos la asignación de un técnico para la evaluación de campo.\n\nAtentamente,\n\n\n\n`;
+        }
+
+        if (institucionId === 'telecom_ops') {
+            return header + `Asunto: Solicitud de Convenio de Conectividad 5G y eSIM\n\nCumplo con el deber de solicitar formalmente el acceso al protocolo de aprovisionamiento masivo de perfiles eSIM para nuestra flota corporativa. Nuestra meta es garantizar la latencia cero en nuestras operaciones fiscales mediante el estándar 5G gestionado por el ecosistema Kyron.\n\nSin más a que hacer referencia.\n\nAtentamente,\n\n\n\n`;
+        }
+
+        if (institucionId === 'sapi') {
+            return header + `Asunto: Solicitud de Registro de Propiedad Industrial\n\nAcudo ante su autoridad para iniciar el trámite de registro referente a la marca/patente: "SYSTEM KYRON / AMERU IA". Adjuntamos la memoria descriptiva técnica y los pliegos de reivindicaciones correspondientes para su evaluación técnica.\n\nAtentamente,\n\n\n\n`;
+        }
+
+        if (institucionId === 'conatel') {
+            return header + `Asunto: Solicitud de Habilitación / Permiso de Red\n\nEn cumplimiento con la Ley Orgánica de Telecomunicaciones, solicitamos la actualización de nuestra habilitación general para la prestación de servicios digitales avanzados. Anexamos el proyecto técnico de red y las garantías de fiel cumplimiento.\n\nAtentamente,\n\n\n\n`;
+        }
+
+        return header + `Asunto: Comunicación de Deberes Formales\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento el cumplimiento de nuestras obligaciones referentes al periodo: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los estándares de transparencia del sistema.\n\nAtentamente,\n\n\n\n`;
+    };
+
     const handleAction = (action: string) => {
         if (action === 'registro') {
             setIsSigned(true);
             toast({
-                title: "PROTOCOLO DE FIRMA COMPLETADO",
+                title: "PROTOCOLO DE FIRMA ACTIVADO",
                 description: "Documento sellado y registrado en el Ledger Kyron.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
             return;
         }
-        if (action === 'descarga') {
-            handleDownloadWord();
-            return;
-        }
         if (action === 'impresion') {
             window.print();
         }
-    };
-
-    const getLetterContent = () => {
-        const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
-        
-        if (tipoCarta === 'inactividad') {
-            return header + `Asunto: Comunicación de Inactividad Comercial\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, me dirijo a ustedes en la oportunidad de hacer de su conocimiento que mi representada NO PRESENTÓ ACTIVIDAD COMERCIAL durante el periodo comprendido: ${data.periodo}.\n\nEsta notificación se realiza en cumplimiento de los deberes formales para mantener actualizado el expediente administrativo de la entidad ante esta institución.\n\nSin más a que hacer referencia.\n\nAtentamente,\n\n\n\n`;
-        }
-
-        return header + `Asunto: Notificación de Cierre de Actividades\n\nYo, ${data.representante}, titular de la Cédula de Identidad N° ${data.cedula}, actuando en mi carácter de Representante Legal de la empresa ${data.empresa}, portadora del RIF ${data.rif}, cumplo con el deber formal de notificar ante este órgano el CIERRE ${tipoCarta === 'cierre_definitivo' ? 'DEFINITIVO' : 'TEMPORAL'} de nuestras actividades económicas a partir de la fecha: ${formatDate(data.fecha)}.\n\nMotivo: ${data.motivo}\n\nSolicito se realicen las anotaciones correspondientes en el expediente de mi representada.\n\nAtentamente,\n\n\n\n`;
-    };
-
-    const handleDownloadWord = async () => {
-        const letterBody = getLetterContent();
-        
-        // Convert SVG Logo to Base64 for Word compatibility
-        let logoBase64 = "";
-        const logoElement = document.querySelector('svg'); 
-        if (logoElement) {
-            const svgData = new XMLSerializer().serializeToString(logoElement);
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            const img = new Image();
-            
-            // Set canvas size (higher res for better print)
-            canvas.width = 400;
-            canvas.height = 400;
-            
-            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-            const url = URL.createObjectURL(svgBlob);
-            
-            await new Promise((resolve) => {
-                img.onload = () => {
-                    if (ctx) {
-                        ctx.fillStyle = "white";
-                        ctx.fillRect(0, 0, 400, 400);
-                        ctx.drawImage(img, 0, 0, 400, 400);
-                    }
-                    URL.revokeObjectURL(url);
-                    resolve(true);
-                };
-                img.src = url;
-            });
-            logoBase64 = canvas.toDataURL("image/png");
-        }
-
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`;
-        const signatureImg = "https://picsum.photos/seed/signature-kyron/200/100";
-
-        // Structured paragraphs for better justification in Word
-        const formattedBody = letterBody.split('\n\n').map(p => 
-            `<p style="text-align: justify; margin-bottom: 12pt; font-family: 'Times New Roman', serif;">${p.replace(/\n/g, '<br/>')}</p>`
-        ).join('');
-
-        const docHtml = `
-            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head>
-                <meta charset='utf-8'>
-                <title>Comunicación Oficial - System Kyron</title>
-                <style>
-                    @page { size: 8.5in 11in; margin: 1in; }
-                    body { font-family: 'Times New Roman', Times, serif; color: #0f172a; line-height: 1.5; padding: 0; }
-                    .header-table { width: 100%; border-bottom: 2pt solid #000000; margin-bottom: 30pt; padding-bottom: 10pt; border-collapse: collapse; }
-                    .company-name { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin: 0; }
-                    .company-rif { font-size: 10pt; color: #64748b; margin: 0; }
-                    .letter-body { text-align: justify; font-size: 12pt; margin-bottom: 40pt; }
-                    .footer-table { width: 100%; margin-top: 50pt; border-collapse: collapse; }
-                    .signature-line { border-top: 1pt solid #000000; width: 200pt; margin-top: 10pt; padding-top: 5pt; text-align: center; }
-                    .signature-img { width: 120pt; height: 60pt; margin-bottom: -10pt; }
-                    .qr-container { text-align: right; }
-                    .qr-img { width: 80pt; height: 80pt; border: 1pt solid #e2e8f0; padding: 2pt; }
-                </style>
-            </head>
-            <body>
-                <table class="header-table">
-                    <tr>
-                        <td style="width: 60pt; vertical-align: middle;">
-                            ${logoBase64 ? `<img src="${logoBase64}" width="50" height="50" style="border-radius: 8pt;" />` : `<div style="width: 40pt; height: 40pt; background-color: #000; border-radius: 8pt;"></div>`}
-                        </td>
-                        <td style="vertical-align: middle; padding-left: 10pt;">
-                            <p class="company-name">${data.empresa}</p>
-                            <p class="company-rif">RIF: ${data.rif}</p>
-                        </td>
-                        <td style="text-align: right; vertical-align: top;">
-                            <span style="font-size: 8pt; font-weight: bold; border: 1pt solid #000; padding: 2pt 8pt; border-radius: 4pt;">OFICIAL</span>
-                        </td>
-                    </tr>
-                </table>
-
-                <div class="letter-body">${formattedBody}</div>
-
-                <table class="footer-table">
-                    <tr>
-                        <td style="vertical-align: bottom; width: 60%;">
-                            <div style="text-align: center; width: 200pt;">
-                                ${isSigned ? `<img src="${signatureImg}" class="signature-img" />` : `<div style="height: 60pt;"></div>`}
-                                <div class="signature-line">
-                                    <p style="margin: 0; font-weight: bold; font-size: 10pt;">${data.representante}</p>
-                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">C.I: ${data.cedula}</p>
-                                    <p style="margin: 0; font-size: 8pt; color: #64748b;">${isSigned ? 'Representante Legal' : 'Firma en Físico'}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="qr-container" style="vertical-align: bottom;">
-                            ${isSigned ? `<img src="${qrUrl}" class="qr-img" />` : ''}
-                            <p style="font-size: 6pt; color: #94a3b8; margin-top: 5pt; text-transform: uppercase;">${isSigned ? 'Integridad Digital Sellada' : ''}</p>
-                        </td>
-                    </tr>
-                </table>
-
-                <div style="margin-top: 100pt; border-top: 1pt solid #e2e8f0; padding-top: 10pt; text-align: center;">
-                    <p style="font-size: 8pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 2pt;">System Kyron v2.6.5 • Transmisión Autorizada</p>
-                </div>
-            </body>
-            </html>
-        `;
-
-        const blob = new Blob(['\ufeff', docHtml], { type: 'application/vnd.ms-word' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `Comunicacion_${selectedInst.name}_${tipoCarta}_Kyron.doc`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        toast({ title: "DESCARGA COMPLETADA", description: "El documento Word con logo y justificado ha sido generado." });
     };
 
   return (
@@ -238,8 +122,8 @@ export default function ComunicacionesPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                 <MailOpen className="h-3 w-3" /> NODO DE CORRESPONDENCIA
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Centro de <span className="text-primary italic">Comunicaciones</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Institucionales • Protocolo de Despacho 2026</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro de <span className="text-primary italic">Comunicaciones</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Estratégicas • Despacho v2.6</p>
         </div>
         <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
             <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER</Link>
@@ -250,12 +134,12 @@ export default function ComunicacionesPage() {
         <div className="lg:col-span-5 space-y-8">
             <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl">
                 <CardHeader className="p-0 mb-8">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Configuración de Carta</CardTitle>
+                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Configuración de Solicitud</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-6">
                     
                     <div className="space-y-3">
-                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución Destino</Label>
+                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Institución / Empresa Destino</Label>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Button variant="outline" className="w-full h-12 rounded-xl bg-white/5 border-border justify-between px-4 text-xs font-bold uppercase">
@@ -263,13 +147,13 @@ export default function ComunicacionesPage() {
                                     <ChevronDown className="h-4 w-4 opacity-40" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[300px] p-0 bg-black/95 border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl">
-                                <div className="p-3 border-b border-white/5 bg-white/5">
+                            <PopoverContent className="w-[300px] p-0 bg-card border-border rounded-2xl overflow-hidden shadow-2xl">
+                                <div className="p-3 border-b border-border bg-muted/30">
                                     <div className="relative">
-                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-white/40" />
+                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
                                         <Input 
                                             placeholder="Buscar ente..." 
-                                            className="h-8 pl-7 text-[10px] bg-black/40 border-white/10 rounded-lg text-white font-bold uppercase tracking-widest"
+                                            className="h-8 pl-7 text-[10px] bg-background border-border rounded-lg font-bold uppercase tracking-widest"
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)}
                                         />
@@ -283,7 +167,7 @@ export default function ComunicacionesPage() {
                                                 onClick={() => { setInstitucionId(inst.id); setSearchQuery(""); }}
                                                 className={cn(
                                                     "w-full text-left px-4 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all",
-                                                    institucionId === inst.id ? "bg-primary text-white" : "text-white/40 hover:bg-white/5 hover:text-white"
+                                                    institucionId === inst.id ? "bg-primary text-white shadow-glow-sm" : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
                                                 )}
                                             >
                                                 {inst.name}
@@ -295,29 +179,6 @@ export default function ComunicacionesPage() {
                         </Popover>
                     </div>
 
-                    <div className="space-y-3">
-                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Tipo de Comunicación</Label>
-                        <Select value={tipoCarta} onValueChange={setTipoCarta}>
-                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase text-xs">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-black border-white/10">
-                                <SelectItem value="inactividad" className="uppercase text-[10px] font-black">Carta de Inactividad</SelectItem>
-                                <SelectItem value="cierre_temporal" className="uppercase text-[10px] font-black">Cierre Temporal</SelectItem>
-                                <SelectItem value="cierre_definitivo" className="uppercase text-[10px] font-black">Cierre Definitivo</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className="space-y-3">
-                        <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Referencia Temporal</Label>
-                        <Input 
-                            value={tipoCarta === 'inactividad' ? data.periodo : data.fecha} 
-                            onChange={e => setData({...data, [tipoCarta === 'inactividad' ? 'periodo' : 'fecha']: e.target.value})} 
-                            className="h-12 rounded-xl bg-white/5 border-border font-bold text-white text-xs"
-                        />
-                    </div>
-
                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-primary/10 rounded-xl shadow-inner border border-primary/20">
@@ -325,7 +186,7 @@ export default function ComunicacionesPage() {
                             </div>
                             <div>
                                 <p className="text-[9px] font-black uppercase text-primary mb-1">Representante</p>
-                                <p className="text-xs font-black uppercase italic text-white leading-none">{data.representante}</p>
+                                <p className="text-xs font-black uppercase italic text-foreground leading-none">{data.representante}</p>
                             </div>
                         </div>
                     </div>
@@ -358,14 +219,14 @@ export default function ComunicacionesPage() {
                     <div className="flex items-center gap-4">
                         <Logo className="h-14 w-14" />
                         <div>
-                            <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none">{data.empresa}</h4>
+                            <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none text-slate-900">{data.empresa}</h4>
                             <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: {data.rif}</p>
                         </div>
                     </div>
-                    <Badge variant="outline" className="border-slate-900 text-slate-900 text-[8px] font-black uppercase px-3 h-6 rounded-lg">OFICIAL</Badge>
+                    <Badge variant="outline" className="border-slate-900 text-slate-900 text-[8px] font-black uppercase px-3 h-6 rounded-lg">EXPEDIENTE MAESTRO</Badge>
                 </header>
 
-                <div className="whitespace-pre-wrap text-base md:text-lg text-justify leading-relaxed relative z-10 flex-grow">
+                <div className="whitespace-pre-wrap text-base md:text-lg text-justify leading-relaxed relative z-10 flex-grow text-slate-800">
                     {getLetterContent()}
                 </div>
 
@@ -393,8 +254,7 @@ export default function ComunicacionesPage() {
                                     </div>
                                 </div>
                                 <div className="w-56 h-[1.5px] bg-slate-900 mb-2" />
-                                <p className="font-black text-xs uppercase tracking-tight">{data.representante}</p>
-                                <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
+                                <p className="font-black text-xs uppercase tracking-tight text-slate-900">{data.representante}</p>
                                 <p className="text-[9px] uppercase font-bold opacity-40">Representante Legal</p>
                             </motion.div>
                             
@@ -403,24 +263,23 @@ export default function ComunicacionesPage() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="text-right"
                             >
-                                <div className="p-2 border-2 border-slate-100 rounded-2xl bg-white shadow-inner inline-block">
+                                <div className="p-2 border-2 border-slate-900 rounded-2xl bg-white shadow-inner inline-block">
                                     <Image 
-                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`} 
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-STRAT-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`} 
                                         alt="QR Verificacion" 
                                         width={90} 
                                         height={90} 
                                         className="grayscale"
                                     />
                                 </div>
-                                <p className="text-[7px] font-black uppercase mt-3 opacity-20 tracking-[0.3em]">Integridad Digital Sellada</p>
+                                <p className="text-[7px] font-black uppercase mt-3 opacity-40 tracking-[0.3em] text-slate-900">Integridad Digital Sellada</p>
                             </motion.div>
                         </>
                     ) : (
                         <div className="w-full flex flex-col items-center">
                             <div className="w-64 h-[1px] bg-slate-900 mb-4" />
                             <p className="font-black text-xs uppercase tracking-tight text-slate-900">{data.representante}</p>
-                            <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
-                            <p className="text-[9px] uppercase font-bold opacity-40 italic">Firma en Físico</p>
+                            <p className="text-[9px] uppercase font-bold opacity-40 italic">Firma en Físico Requerida</p>
                         </div>
                     )}
                 </div>
@@ -433,8 +292,8 @@ export default function ComunicacionesPage() {
                         <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('impresion')}>
                             <Printer className="mr-2 h-3.5 w-3.5" /> IMPRIMIR
                         </Button>
-                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('descarga')}>
-                            <Download className="mr-2 h-3.5 w-3.5" /> BAJAR WORD (.DOC)
+                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest">
+                            <Download className="mr-2 h-3.5 w-3.5" /> BAJAR .DOC
                         </Button>
                     </div>
                 </footer>
