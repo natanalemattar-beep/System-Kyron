@@ -95,6 +95,15 @@ export const pathnames = {
   '/contabilidad/certificaciones/trabajo': '/contabilidad/certificaciones/trabajo',
   '/contabilidad/rrhh/certificados-laborales': '/contabilidad/rrhh/certificados-laborales',
 
+  // RECURSOS HUMANOS EXTRAS
+  '/dashboard-rrhh': '/dashboard-rrhh',
+  '/nominas': '/nominas',
+  '/reclutamiento': '/reclutamiento',
+  '/salud-seguridad': '/salud-seguridad',
+  '/clima-organizacional': '/clima-organizacional',
+  '/desarrollo-personal': '/desarrollo-personal',
+  '/prestaciones-sociales': '/prestaciones-sociales',
+
   // CUENTA PERSONAL EXTRAS
   '/cuenta-personal/certificados-ingreso': '/cuenta-personal/certificados-ingreso',
 

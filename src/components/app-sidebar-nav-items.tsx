@@ -58,7 +58,9 @@ import {
   FileSearch,
   Hammer,
   MailOpen,
-  Settings2
+  Settings2,
+  School,
+  HeartPulse
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -224,15 +226,25 @@ export const legalNavGroups = [
 
 export const rrhhNavGroups = [
     { 
-        title: "Operaciones RR.HH.", 
+        title: "Operaciones Maestro", 
         icon: Users, 
         items: [
-            { href: "/nominas", label: "Pago de Nómina", icon: Users },
+            { href: "/nominas", label: "Pago de Nómina", icon: Calculator },
             { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
-            { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Calculator },
+            { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale },
         ],
         subGroups: []
     },
+    {
+        title: "Gestión Humana",
+        icon: Heart,
+        items: [
+            { href: "/reclutamiento", label: "Selección e Inducción", icon: UserPlus },
+            { href: "/salud-seguridad", label: "Salud / LOPCYMAT", icon: Stethoscope },
+            { href: "/clima-organizacional", label: "Clima y Liderazgo", icon: BrainCircuit },
+            { href: "/desarrollo-personal", label: "Carrera y Formación", icon: School },
+        ]
+    }
 ];
 
 export const sociosNavGroups = [
