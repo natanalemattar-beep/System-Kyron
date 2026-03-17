@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -37,15 +36,15 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 
 const kpiData = [
-  { label: "LIQUIDEZ CERTIFICADA", val: "Bs. 123.456", trend: "+5.2%", color: "text-emerald-500", icon: Wallet },
+  { label: "LIQUIDEZ CERTIFICADA", val: "Bs. 123.456", trend: "+5.2%", color: "text-emerald-600", icon: Wallet },
   { label: "CUENTAS POR COBRAR", val: "Bs. 45.678", trend: "12 Activos", color: "text-primary", icon: TrendingUp },
-  { label: "CUENTAS POR PAGAR", val: "Bs. 23.456", trend: "8 Compromisos", color: "text-rose-500", icon: HandCoins },
-  { label: "EXPOSICIÓN FISCAL", val: "0.00%", trend: "BAJO RIESGO", color: "text-emerald-500", icon: ShieldCheck },
+  { label: "CUENTAS POR PAGAR", val: "Bs. 23.456", trend: "8 Compromisos", color: "text-rose-600", icon: HandCoins },
+  { label: "EXPOSICIÓN FISCAL", val: "0.00%", trend: "BAJO RIESGO", color: "text-emerald-600", icon: ShieldCheck },
 ];
 
 const frequentAccess = [
     { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Al día", color: "text-primary" },
-    { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "23 Empleados", color: "text-emerald-500" },
+    { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "23 Empleados", color: "text-emerald-600" },
     { label: "ESFL y Condominios", href: "/contabilidad/entidades-sin-fines-lucro", icon: Handshake, kpi: "Transparencia", color: "text-emerald-600" },
     { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Ok", color: "text-primary" },
 ];
@@ -76,7 +75,7 @@ export default function ContabilidadPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
-                <BrainCircuit className="h-3 w-3" /> NÚCLEO CONTABLE INTEGRAL
+                <BrainCircuit className="h-3 w-3" /> ÁREA CONTABLE INTEGRAL
             </div>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">CENTRO DE <span className="text-primary italic">CONTABILIDAD</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Operating System v2.6.5 • Control Global</p>
@@ -94,7 +93,7 @@ export default function ContabilidadPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((kpi, i) => (
-          <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group">
+          <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all group overflow-visible">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-6">
               <CardTitle className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</CardTitle>
               <div className="p-2.5 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
@@ -111,12 +110,12 @@ export default function ContabilidadPage() {
 
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-8">
-            <Card className="glass-card border-primary/20 bg-primary/5 p-10 rounded-[3rem] relative overflow-hidden shadow-2xl group">
+            <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] relative overflow-hidden shadow-2xl group">
                 <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Bot className="h-48 w-48 text-primary" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
-                        <Badge className="bg-primary text-primary-foreground border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">Neural Network Health</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Agente Fiscal Autónomo</h3>
+                        <Badge className="bg-primary text-primary-foreground border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">Inteligencia Maestra</Badge>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Asistente Autónomo</h3>
                     </div>
                     
                     <div className="space-y-6">
@@ -145,7 +144,7 @@ export default function ContabilidadPage() {
                 </div>
             </Card>
 
-            <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl">
+            <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl overflow-visible">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-8 italic flex items-center gap-3">
                     <Zap className="h-4 w-4" /> Optimización Inteligente
                 </h4>
@@ -181,7 +180,7 @@ export default function ContabilidadPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {frequentAccess.map((item, i) => (
                         <Link key={i} href={item.href as any}>
-                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/5 transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/5 transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-xl min-h-[140px] overflow-visible">
                                 <div className="flex items-center gap-5">
                                     <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
@@ -201,32 +200,6 @@ export default function ContabilidadPage() {
             </div>
         </div>
       </div>
-
-      <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
-        <Card className="bg-[#050505] border-none rounded-[3rem] p-12 text-primary-foreground relative overflow-hidden shadow-2xl group cursor-pointer">
-            <Link href="/contabilidad/libros" className="absolute inset-0 z-20" />
-            <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
-                <Book className="h-64 w-64 text-primary" />
-            </div>
-            <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6">
-                    <Badge className="bg-primary text-white border-none text-[9px] font-black px-4 py-1.5 rounded-lg shadow-glow uppercase tracking-widest">Repositorio Certificado</Badge>
-                    <h3 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter leading-none text-white italic-shadow">Biblioteca de <br/> Libros Digitales</h3>
-                    <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Legajo completo de registros fiscales, laborales y patrimoniales sellados.</p>
-                    <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none">
-                        EXPLORAR BIBLIOTECA <ArrowRight className="ml-4 h-5 w-5" />
-                    </Button>
-                </div>
-                <div className="hidden md:flex justify-end">
-                    <div className="p-12 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-md shadow-inner text-center space-y-4">
-                        <BookOpen className="h-16 w-16 mx-auto text-white/40 mb-2 drop-shadow-glow" />
-                        <p className="text-5xl font-black italic tracking-tighter text-white">30+</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60 text-white">Módulos Activos</p>
-                    </div>
-                </div>
-            </div>
-        </Card>
-      </motion.div>
     </div>
   );
 }
