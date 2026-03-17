@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo";
 
 /**
  * @fileOverview Fondo dinámico optimizado para alto rendimiento.
- * v2.6.5: Mejora de visibilidad del logo en modo claro.
+ * v2.6.5: Mejora de visibilidad del logo en modo claro (opacidad al 8%).
  */
 export function DynamicBackground() {
   const { activeHoliday, isHolidayActive } = useHoliday();

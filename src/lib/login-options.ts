@@ -9,16 +9,10 @@ export const loginOptions = [
         description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." 
     },
     { 
-        href: "/login-linea-personal", 
-        label: "Mi Línea Personal", 
+        href: "/login-linea", 
+        label: "Mi Línea 5G", 
         icon: Smartphone, 
-        description: "Gestión de conectividad, recargas de saldo y perfiles eSIM individuales." 
-    },
-    { 
-        href: "/login-linea-empresa", 
-        label: "Mi Línea Empresa", 
-        icon: Signal, 
-        description: "Control de flota corporativa, facturación masiva y límites de consumo para empleados." 
+        description: "Gestión de conectividad, recargas de saldo y perfiles eSIM individuales o corporativos." 
     },
     { 
         href: "/login-empresa", 
