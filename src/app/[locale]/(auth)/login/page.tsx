@@ -11,11 +11,11 @@ import { motion } from "framer-motion";
 export default function LoginSelectionPage() {
     // Definimos qué opciones van en el Portal Ciudadano (Personal)
     const personalOptions = loginOptions.filter(o => 
-        ['/login-personal', '/login-linea'].includes(o.href)
+        ['/login-personal', '/login-linea-personal'].includes(o.href)
     );
     // Definimos qué opciones van en Corporativos
     const enterpriseOptions = loginOptions.filter(o => 
-        !['/login-personal', '/login-linea'].includes(o.href)
+        !['/login-personal', '/login-linea-personal'].includes(o.href)
     );
 
     const containerVariants = {
