@@ -5,15 +5,17 @@ import { Link } from "@/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { loginOptions } from "@/lib/login-options";
-import { User, Building2, ArrowRight, ChevronLeft, Sparkles, ShieldCheck, Smartphone, Signal } from "lucide-react";
+import { User, Building2, ArrowRight, ChevronLeft, Sparkles, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoginSelectionPage() {
+    // Definimos qué opciones van en el Portal Ciudadano (Personal)
     const personalOptions = loginOptions.filter(o => 
-        ['/login-personal', '/login-linea-personal'].includes(o.href)
+        ['/login-personal', '/login-linea'].includes(o.href)
     );
+    // Definimos qué opciones van en Corporativos
     const enterpriseOptions = loginOptions.filter(o => 
-        !['/login-personal', '/login-linea-personal'].includes(o.href)
+        !['/login-personal', '/login-linea'].includes(o.href)
     );
 
     const containerVariants = {
@@ -46,14 +48,14 @@ export default function LoginSelectionPage() {
                         </Button>
                     </motion.div>
                     
-                    <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-6">
+                    <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-6 shadow-glow-sm">
                         <ShieldCheck className="h-3.5 w-3.5" /> Acceso Seguro
                     </motion.div>
 
-                    <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-balance leading-none">
-                        Portal de <span className="text-primary">Ecosistema</span>
+                    <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-balance leading-none text-foreground italic-shadow">
+                        Portal de <span className="text-primary italic">Ecosistema</span>
                     </motion.h1>
-                    <motion.p variants={itemVariants} className="text-base md:text-lg text-muted-foreground max-w-2xl text-balance leading-snug font-medium">
+                    <motion.p variants={itemVariants} className="text-base md:text-lg text-muted-foreground max-w-2xl text-balance leading-snug font-medium uppercase tracking-tight opacity-60">
                         Selecciona tu portal de acceso para gestionar operaciones, finanzas y cumplimiento.
                     </motion.p>
                 </header>
@@ -63,7 +65,7 @@ export default function LoginSelectionPage() {
                     <motion.section variants={itemVariants}>
                         <div className="flex items-center gap-4 mb-6">
                             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-border"></div>
-                            <h2 className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 flex items-center gap-2.5 text-primary">
+                            <h2 className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 flex items-center gap-2.5 text-primary italic">
                                 <User className="h-3.5 w-3.5" /> Portal Ciudadano
                             </h2>
                             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-border"></div>
@@ -78,13 +80,13 @@ export default function LoginSelectionPage() {
                                     <Card className="h-full group hover:border-primary/40 transition-all duration-300 bg-card/40 backdrop-blur-xl flex flex-col border-border/50 shadow-lg hover:shadow-primary/5 rounded-[1.5rem] overflow-hidden">
                                         <Link href={option.href as any} className="flex flex-col h-full">
                                             <CardHeader className="flex-row items-center gap-4 p-6 pb-4">
-                                                <div className="p-3 bg-primary/5 rounded-xl group-hover:bg-primary/10 group-hover:scale-105 transition-all duration-300 border border-primary/5">
+                                                <div className="p-3 bg-primary/5 rounded-xl group-hover:bg-primary/10 group-hover:scale-105 transition-all duration-300 border border-primary/5 shadow-inner">
                                                     <option.icon className="h-6 w-6 text-primary" />
                                                 </div>
-                                                <CardTitle className="text-lg font-black group-hover:text-primary transition-colors tracking-tight leading-tight">{option.label}</CardTitle>
+                                                <CardTitle className="text-lg font-black group-hover:text-primary transition-colors tracking-tight leading-tight uppercase italic">{option.label}</CardTitle>
                                             </CardHeader>
                                             <CardContent className="flex-grow px-6 pb-6">
-                                                <CardDescription className="text-xs md:text-sm leading-snug text-muted-foreground font-medium">{option.description}</CardDescription>
+                                                <CardDescription className="text-xs md:text-sm leading-snug text-muted-foreground font-medium uppercase tracking-tight">{option.description}</CardDescription>
                                             </CardContent>
                                             <div className="p-4 pt-0 mt-auto border-t border-border/10">
                                                 <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary/40 group-hover:text-primary inline-flex items-center transition-all duration-300">
@@ -102,7 +104,7 @@ export default function LoginSelectionPage() {
                     <motion.section variants={itemVariants}>
                         <div className="flex items-center gap-4 mb-8">
                             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-border"></div>
-                            <h2 className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 flex items-center gap-2.5 text-primary">
+                            <h2 className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 flex items-center gap-2.5 text-primary italic">
                                 <Building2 className="h-3.5 w-3.5" /> Corporativos
                             </h2>
                             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-border"></div>
@@ -117,13 +119,13 @@ export default function LoginSelectionPage() {
                                     <Card className="h-full group hover:border-primary/40 transition-all duration-300 bg-card/40 backdrop-blur-xl flex flex-col border-border/50 shadow-lg hover:shadow-primary/5 rounded-[1.5rem] overflow-hidden">
                                         <Link href={option.href as any} className="flex flex-col h-full">
                                             <CardHeader className="flex-row items-center gap-4 p-6 pb-4">
-                                                <div className="p-3 bg-primary/5 rounded-xl group-hover:bg-primary/10 group-hover:scale-105 transition-all duration-300 border border-primary/5">
+                                                <div className="p-3 bg-primary/5 rounded-xl group-hover:bg-primary/10 group-hover:scale-105 transition-all duration-300 border border-primary/5 shadow-inner">
                                                     <option.icon className="h-6 w-6 text-primary" />
                                                 </div>
-                                                <CardTitle className="text-lg font-black group-hover:text-primary transition-colors tracking-tight leading-tight">{option.label}</CardTitle>
+                                                <CardTitle className="text-lg font-black group-hover:text-primary transition-colors tracking-tight leading-tight uppercase italic">{option.label}</CardTitle>
                                             </CardHeader>
                                             <CardContent className="flex-grow px-6 pb-6">
-                                                <CardDescription className="text-xs md:text-sm leading-snug text-muted-foreground font-medium">{option.description}</CardDescription>
+                                                <CardDescription className="text-xs md:text-sm leading-snug text-muted-foreground font-medium uppercase tracking-tight">{option.description}</CardDescription>
                                             </CardContent>
                                             <div className="p-4 pt-0 mt-auto border-t border-border/10">
                                                 <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary/40 group-hover:text-primary inline-flex items-center transition-all duration-300">
