@@ -16,14 +16,12 @@ import {
   Calculator, 
   Landmark, 
   Coins, 
-  Stamp, 
   CheckCircle, 
   Building2, 
   Activity, 
   Wallet, 
   Users, 
   Timer, 
-  Plane, 
   Zap, 
   Clock, 
   Box, 
@@ -34,9 +32,10 @@ import {
   LayoutDashboard,
   PieChart,
   BarChart3,
-  ArrowRight
+  ArrowRight,
+  Terminal
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -44,45 +43,38 @@ import { cn } from "@/lib/utils";
 
 const libraryCategories = [
   {
-    title: "Contables Básicos",
+    title: "Contables Maestros",
     icon: Book,
     items: [
-      { label: "Libro Diario", href: "#", kpi: "Asientos al día", icon: FileText, color: "text-primary" },
-      { label: "Libro Mayor", href: "#", kpi: "Saldos revisados", icon: BookOpen, color: "text-primary" },
-      { label: "Libro de Balance", href: "/reports", kpi: "Cierre mensual", icon: Scale, color: "text-emerald-500" },
+      { label: "Libro Diario", href: "/contabilidad/libros/diario", kpi: "Asientos: Ok", icon: FileText, color: "text-primary" },
+      { label: "Libro Mayor", href: "#", kpi: "Saldos síncronos", icon: BookOpen, color: "text-primary" },
+      { label: "Inventario de Bienes", href: "/contabilidad/libros/inventario", kpi: "Stock auditado", icon: Box, color: "text-amber-600" },
     ]
   },
   {
-    title: "Fiscales y Tributarios",
+    title: "Especializados IVA",
     icon: Landmark,
     items: [
-      { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", kpi: "Marzo: Al día", icon: Receipt, color: "text-primary" },
-      { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", kpi: "15 registradas", icon: HandCoins, color: "text-emerald-500" },
-      { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", kpi: "Pendiente AR-C", icon: Banknote, color: "text-amber-600" },
-      { label: "Libro de IVA", href: "/contabilidad/tributos/iva", kpi: "Débito vs Crédito", icon: Calculator, color: "text-primary" },
-      { label: "Libro de ISLR", href: "/contabilidad/tributos/islr", kpi: "Estimada 2026", icon: Landmark, color: "text-primary" },
-      { label: "Libro de IGTF", href: "/contabilidad/tributos/igtf", kpi: "Operaciones 3%", icon: Coins, color: "text-rose-600" },
-      { label: "Homologación", href: "/contabilidad/tributos/homologacion", kpi: "Equipos: Ok", icon: CheckCircle, color: "text-emerald-500" },
+      { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", kpi: "Dossier Completo", icon: Receipt, color: "text-primary" },
+      { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", kpi: "75%/100% Sync", icon: HandCoins, color: "text-emerald-500" },
+      { label: "Prorrateo Fiscal", href: "/contabilidad/libros/compra-venta", kpi: "Cálculo Activo", icon: Calculator, color: "text-primary" },
     ]
   },
   {
-    title: "Tesorería y Bancos",
-    icon: Wallet,
+    title: "Especies y Otros",
+    icon: Landmark,
     items: [
-      { label: "Libro de Bancos", href: "/contabilidad/cuentas", kpi: "4 cuentas", icon: Building2, color: "text-primary" },
-      { label: "Conciliación", href: "/analisis-caja", kpi: "Conciliado hoy", icon: Activity, color: "text-emerald-500" },
-      { label: "Anticipos Prov.", href: "/cuentas-por-pagar", kpi: "2 pendientes", icon: HandCoins, color: "text-rose-600" },
-      { label: "Anticipos Cli.", href: "/cuentas-por-cobrar", kpi: "Saldo favor", icon: Coins, color: "text-emerald-500" },
+      { label: "Control de Licores", href: "/contabilidad/libros/control-licores", kpi: "Ley Alcohólicas", icon: Landmark, color: "text-rose-600" },
+      { label: "Grandes Patrimonios", href: "/contabilidad/tributos/igp", kpi: "Base Anual", icon: Coins, color: "text-amber-600" },
     ]
   },
   {
-    title: "Laborales",
+    title: "Laborales LOTTT",
     icon: Users,
     items: [
-      { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", kpi: "23 Empleados", icon: Users, color: "text-primary" },
-      { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", kpi: "Vigente", icon: Banknote, color: "text-emerald-500" },
-      { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", kpi: "17h este mes", icon: Timer, color: "text-amber-600" },
-      { label: "Prestaciones", href: "/prestaciones-sociales", kpi: "Fondo acumulado", icon: Scale, color: "text-emerald-500" },
+      { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", kpi: "Auditoría Ok", icon: Users, color: "text-primary" },
+      { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", kpi: "Control Diario", icon: Timer, color: "text-amber-600" },
+      { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", kpi: "Beneficio Alim.", icon: Banknote, color: "text-emerald-500" },
     ]
   }
 ];
@@ -95,8 +87,8 @@ export default function TodosLosLibrosPage() {
     if (item.href === "#") {
       e.preventDefault();
       toast({
-        title: "NODO EN DESARROLLO",
-        description: `El registro "${item.label}" está siendo sincronizado con el sistema central.`,
+        title: "ÁREA EN DESARROLLO",
+        description: `El registro "${item.label}" está siendo sincronizado con el motor central.`,
       });
     }
   };
@@ -112,7 +104,7 @@ export default function TodosLosLibrosPage() {
             <Book className="h-10 w-10 text-primary" />
             Bóveda de <span className="text-primary">Registros</span>
           </h1>
-          <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Biblioteca Central de Libros Digitales 2026</p>
+          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca Central de Libros Digitales 2026</p>
         </div>
       </header>
 
