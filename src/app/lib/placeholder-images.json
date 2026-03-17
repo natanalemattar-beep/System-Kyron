@@ -36,6 +36,12 @@
       "description": "Retrato profesional de una gerente corporativa.",
       "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026702d",
       "imageHint": "businesswoman portrait"
+    },
+    {
+      "id": "ameru-ia-bin",
+      "description": "Papelera inteligente Ameru IA con diseño futurista y sensores de inducción magnética.",
+      "imageUrl": "https://picsum.photos/seed/ameru-bin/800/600",
+      "imageHint": "smart bin"
     }
   ]
 }

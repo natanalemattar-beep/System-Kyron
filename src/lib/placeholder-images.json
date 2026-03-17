@@ -75,7 +75,7 @@
     {
       "id": "presentation-template-3",
       "description": "A clean and minimalist presentation slide layout.",
-      "imageUrl": "https://images.unsplash.com/photo-1748801583967-3038967d7279?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2Njk2ODQ5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1748801583967-3038967d7279?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBwaW5rJTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2Njk2ODQ5MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist presentation"
     },
     {
@@ -99,7 +99,7 @@
     {
       "id": "letterhead-template-2",
       "description": "A modern letterhead design with a sidebar for contact info.",
-      "imageUrl": "https://images.unsplash.com/photo-1735050871569-4cb29aae3a30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2NjkwNjgyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1735050871569-4cb29aae3a30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb2Rlcm4lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2NjkwNjgyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern letterhead"
     },
     {
@@ -211,34 +211,10 @@
       "imageHint": "mobile payment"
     },
     {
-      "id": "client-logo-1",
-      "description": "Placeholder for a client logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWNoJTIwY29tcGFueXxlbnwwfHx8fDE3NjkyNjc3NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "tech company"
-    },
-    {
-      "id": "client-logo-2",
-      "description": "Placeholder for a client logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1686325279056-53256d829d43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb25zdHJ1Y3Rpb24lMjBmaXJtfGVufDB8fHx8MTc2OTMwMTgwOXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "construction firm"
-    },
-    {
-      "id": "client-logo-3",
-      "description": "Placeholder for a client logo.",
-      "imageUrl": "https://picsum.photos/seed/c3/120/50",
-      "imageHint": "investment group"
-    },
-    {
-      "id": "client-logo-4",
-      "description": "Placeholder for a client logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1702152758730-dd0d963e43d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxsb2dpc3RpY3MlMjBjb21wYW55fGVufDB8fHx8MTc2OTMwMTgwOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "logistics company"
-    },
-    {
-      "id": "client-logo-5",
-      "description": "Placeholder for a client logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1611241893603-3c359704e0ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjcmVhdGl2ZSUyMGFnZW5jeXxlbnwwfHx8fDE3NjkzMDE4MDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "creative agency"
+      "id": "ameru-ia-bin",
+      "description": "Papelera inteligente Ameru IA con diseño futurista.",
+      "imageUrl": "https://picsum.photos/seed/ameru-bin/800/600",
+      "imageHint": "smart bin"
     }
   ]
 }
