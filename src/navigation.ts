@@ -24,6 +24,9 @@ export const pathnames = {
   // CONTABILIDAD BASE
   '/contabilidad': '/contabilidad',
   
+  // CALIDAD Y NORMATIVA
+  '/contabilidad/calidad/iso-9001': '/contabilidad/calidad/iso-9001',
+
   // PROYECTOS E INGENIERÍA
   '/contabilidad/proyectos/anteproyecto': '/contabilidad/proyectos/anteproyecto',
   '/contabilidad/proyectos/proyecto-maestro': '/contabilidad/proyectos/proyecto-maestro',

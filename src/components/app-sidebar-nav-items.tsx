@@ -57,7 +57,8 @@ import {
   Target,
   FileSearch,
   Hammer,
-  MailOpen
+  MailOpen,
+  Settings2
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -94,7 +95,7 @@ export const naturalNavGroups = [
         icon: BookMarked,
         items: [
             { href: "/partidas-nacimiento", label: "Partidas", icon: FileText },
-            { href: "/actas-matrimonio", label: "Actas Nupciales", icon: Heart },
+            { href: "/actas-matrimonio", label: "Partidas Nupciales", icon: Heart },
             { href: "/documentos-judiciales", label: "Buzón Judicial", icon: Gavel },
         ],
     },
@@ -115,6 +116,13 @@ export const adminNavGroups = [
     items: [
         { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
         { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
+    ]
+  },
+  {
+    title: "Calidad",
+    icon: ShieldCheck,
+    items: [
+        { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText },
     ]
   },
   {
