@@ -258,7 +258,6 @@ export const sociosNavGroups = [
         items: [
             { href: "/poderes-representacion", label: "Empresas Holding", icon: Gavel },
         ], 
-        subGroups: [] 
     },
 ];
 
@@ -269,7 +268,7 @@ export const telecomNavGroups = [
     items: [ 
       { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
       { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
+      { href: "/flota-empresarial", label: "Flota Empresarial", icon: Building },
     ], 
-    subGroups: [] 
   },
 ];

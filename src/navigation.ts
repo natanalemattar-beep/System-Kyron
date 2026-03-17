@@ -113,6 +113,9 @@ export const pathnames = {
   // ANALISIS RENTABILIDAD
   '/analisis-rentabilidad': '/analisis-rentabilidad',
 
+  // TELECOM EMPRESARIAL
+  '/flota-empresarial': '/flota-empresarial',
+
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/facturacion': '/ventas/facturacion',
