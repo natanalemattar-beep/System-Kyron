@@ -48,14 +48,6 @@ export default function DashboardEmpresaPage() {
   const [simulation, setSimulation] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
-  const runSimulation = (type: string) => {
-    setSimulation(type);
-    toast({
-      title: "SIMULACIÓN COMPUTADA",
-      description: "Resultados proyectados integrados al tablero.",
-    });
-  };
-
   const handleClosePeriod = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -72,8 +64,8 @@ export default function DashboardEmpresaPage() {
     <div className="space-y-8 md:space-y-10 pb-20">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-6 py-2 mt-6 md:mt-10">
         <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2 md:mb-3">
-                <Calculator className="h-3 w-3" /> NODO OPERATIVO CENTRAL
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-2 md:mb-3">
+                <Calculator className="h-3 w-3" /> CENTRO OPERATIVO CENTRAL
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-foreground italic-shadow">
                 CENTRO DE <span className="text-primary italic">MANDO</span>
@@ -164,7 +156,7 @@ export default function DashboardEmpresaPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-3">
                         <Button 
-                            onClick={() => runSimulation("ventas")}
+                            onClick={() => toast({ title: "SIMULACIÓN ACTIVA" })}
                             variant="outline" 
                             className="justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-[#00A86B] hover:border-[#00A86B] group text-white"
                         >
@@ -172,7 +164,7 @@ export default function DashboardEmpresaPage() {
                             <span className="text-[10px] font-black uppercase tracking-widest">Aumento Ventas 20%</span>
                         </Button>
                         <Button 
-                            onClick={() => runSimulation("crisis")}
+                            onClick={() => toast({ title: "SIMULACIÓN ACTIVA" })}
                             variant="outline" 
                             className="justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-rose-500 hover:border-rose-500 group text-white"
                         >
@@ -180,17 +172,6 @@ export default function DashboardEmpresaPage() {
                             <span className="text-[10px] font-black uppercase tracking-widest">Escenario Inflación</span>
                         </Button>
                     </div>
-                    <AnimatePresence mode="wait">
-                        {simulation && (
-                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-6 bg-white/10 rounded-2xl border border-white/20">
-                                <p className="text-[9px] font-black uppercase text-[#00A86B] mb-2">Impacto Proyectado</p>
-                                <p className="text-sm font-bold italic opacity-80 uppercase leading-relaxed text-white/90">
-                                    {simulation === 'ventas' ? "Incremento del 28% en rentabilidad neta para el Q2." : 
-                                     "Requerimiento de liquidez adicional del 15% para cubrir costos op."}
-                                </p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
                 </div>
             </Card>
         </div>

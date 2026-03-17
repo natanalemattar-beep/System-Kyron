@@ -10,7 +10,7 @@ export default function TelecomDesignShowcasePage() {
         <div className="space-y-16 pb-20">
             <header className="border-l-4 border-amber-500 pl-10 py-4 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 shadow-glow mb-4">
-                    <Terminal className="h-3 w-3" /> NODO DESIGN
+                    <Terminal className="h-3 w-3" /> ÁREA DESIGN
                 </div>
                 <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Telecom <span className="text-amber-500">Design Lab</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Muestrario de Componentes UHD • Protocolo de Interfaz v2.6</p>
@@ -43,7 +43,7 @@ export default function TelecomDesignShowcasePage() {
                 </Card>
 
                 <Card className="bg-amber-600 text-black rounded-[3rem] p-10 flex flex-col justify-between shadow-glow-secondary">
-                    <CardTitle className="text-3xl font-black uppercase italic tracking-tighter leading-none">NODO <br/> MAESTRO</CardTitle>
+                    <CardTitle className="text-3xl font-black uppercase italic tracking-tighter leading-none">ÁREA <br/> MAESTRA</CardTitle>
                     <div className="flex items-center gap-4 pt-10">
                         <Cpu className="h-8 w-8 opacity-40" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Auth v2.6.5</span>
