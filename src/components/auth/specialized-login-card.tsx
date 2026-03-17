@@ -52,7 +52,6 @@ export function SpecializedLoginCard({
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        // Aplicamos .trim() para ignorar espacios accidentales
         const username = (formData.get('email') as string || "").trim().toLowerCase();
         const password = (formData.get('password') as string || "").trim();
 
@@ -119,7 +118,7 @@ export function SpecializedLoginCard({
                 {/* Formulario de Auth */}
                 <div className="p-8 md:p-12 flex flex-col justify-center bg-card">
                     <div className="mb-8 space-y-1">
-                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-primary">Acceso de Demo</h2>
+                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-primary">Acceso Común</h2>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Protocolo Kyron v2.6.5</p>
                     </div>
 
@@ -133,7 +132,7 @@ export function SpecializedLoginCard({
                         )}
 
                         <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl mb-2">
-                            <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-2 italic">Credenciales Sugeridas:</p>
+                            <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-2 italic">Credenciales Registradas:</p>
                             <div className="flex flex-col gap-1">
                                 <p className="text-[9px] font-bold text-foreground/60 uppercase">Usuario: <span className="text-foreground font-black">{demoUsername}</span></p>
                                 <p className="text-[9px] font-bold text-foreground/60 uppercase">Clave: <span className="text-foreground font-black">{demoPassword}</span></p>
@@ -151,7 +150,7 @@ export function SpecializedLoginCard({
                         </div>
 
                         <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl" disabled={isLoading}>
-                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "AUTENTICAR DEMO"}
+                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "ACCEDER"}
                         </Button>
                     </form>
 
@@ -162,7 +161,7 @@ export function SpecializedLoginCard({
                     </div>
                 </div>
             </motion.div>
-            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Prototyping Mode</p>
+            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Control Operativo</p>
         </div>
     );
 }

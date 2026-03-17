@@ -9,6 +9,17 @@ export const pathnames = {
   '/': '/',
   '/login': '/login',
   '/register': '/register',
+  '/login-personal': '/login-personal',
+  '/login-linea-personal': '/login-linea-personal',
+  '/login-linea-empresa': '/login-linea-empresa',
+  '/login-empresa': '/login-empresa',
+  '/login-escritorio-juridico': '/login-escritorio-juridico',
+  '/login-ventas': '/login-ventas',
+  '/login-rrhh': '/login-rrhh',
+  '/login-socios': '/login-socios',
+  '/login-sostenibilidad': '/login-sostenibilidad',
+  '/login-telecom': '/login-telecom',
+  '/login-informatica': '/login-informatica',
   
   // ÁREA MAESTRA
   '/dashboard-empresa': '/dashboard-empresa',
@@ -115,6 +126,7 @@ export const pathnames = {
 
   // TELECOM EMPRESARIAL
   '/flota-empresarial': '/flota-empresarial',
+  '/mi-linea': '/mi-linea',
 
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
