@@ -24,6 +24,9 @@ export const pathnames = {
   // CONTABILIDAD BASE
   '/contabilidad': '/contabilidad',
   
+  // ENTIDADES SIN FINES DE LUCRO
+  '/contabilidad/entidades-sin-fines-lucro': '/contabilidad/entidades-sin-fines-lucro',
+
   // CALIDAD Y NORMATIVA
   '/contabilidad/calidad/iso-9001': '/contabilidad/calidad/iso-9001',
 
