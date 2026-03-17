@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight, LogIn } from 'lucide-react';
+import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight, Lock, KeyRound, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Link } from "@/navigation";
@@ -21,6 +21,8 @@ interface SpecializedLoginCardProps {
     icon: React.ElementType;
     demoUsername: string;
     demoPassword: string;
+    accentColor?: string; // e.g., "primary", "secondary", "rose-500"
+    bgPattern?: React.ReactNode;
     features?: string[];
     footerLinks?: {
       primary: { href: string; text: string };
@@ -38,6 +40,8 @@ export function SpecializedLoginCard({
     icon: Icon, 
     demoUsername, 
     demoPassword, 
+    accentColor = "primary",
+    bgPattern,
     features = [],
     footerLinks 
 }: SpecializedLoginCardProps) {
@@ -74,38 +78,47 @@ export function SpecializedLoginCard({
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-slate-50 dark:bg-[#020202] w-full hud-grid">
-            <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-primary">
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 w-full hud-grid relative overflow-hidden">
+            <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground border border-transparent hover:border-border transition-all">
                 <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
             </Button>
 
             <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="w-full max-w-4xl grid md:grid-cols-2 gap-0 bg-white dark:bg-card border border-border/50 rounded-[2.5rem] shadow-2xl overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-4xl grid md:grid-cols-2 gap-0 bg-card border border-border/50 rounded-[3rem] shadow-glow overflow-hidden relative z-10"
             >
-                {/* Información del Portal */}
-                <div className="p-8 md:p-12 bg-primary text-primary-foreground relative overflow-hidden flex flex-col justify-center">
-                    <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12">
-                        <Icon className="h-48 w-48" />
+                {/* Información del Portal - Lado Dinámico */}
+                <div className={cn(
+                    "p-10 md:p-16 relative overflow-hidden flex flex-col justify-center text-white",
+                    `bg-${accentColor}`
+                )}>
+                    {/* Patrón de Fondo Único */}
+                    <div className="absolute inset-0 opacity-10 pointer-events-none">
+                        {bgPattern}
                     </div>
                     
-                    <div className="relative z-10 space-y-8">
-                        <div className="p-4 bg-white/10 rounded-2xl w-fit border border-white/10 shadow-inner">
-                            <Icon className="h-10 w-10 text-white"/>
-                        </div>
-                        <div className="space-y-2">
-                            <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic">{portalName}</h1>
-                            <p className="text-sm font-bold opacity-80 leading-relaxed uppercase tracking-widest">{portalDescription}</p>
+                    <div className="relative z-10 space-y-10">
+                        <motion.div 
+                            initial={{ scale: 0.8 }}
+                            animate={{ scale: 1 }}
+                            className="p-5 bg-white/10 rounded-[2rem] w-fit border border-white/20 shadow-2xl backdrop-blur-sm"
+                        >
+                            <Icon className="h-12 w-12 text-white"/>
+                        </motion.div>
+                        
+                        <div className="space-y-3">
+                            <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic italic-shadow leading-none">{portalName}</h1>
+                            <p className="text-sm font-bold opacity-80 leading-relaxed uppercase tracking-widest max-w-xs">{portalDescription}</p>
                         </div>
 
                         {features.length > 0 && (
-                            <div className="space-y-4 pt-4 border-t border-white/10">
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Seguridad Activa</p>
+                            <div className="space-y-4 pt-6 border-t border-white/10">
+                                <p className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60">Protocolos de Nodo</p>
                                 <ul className="space-y-3">
                                     {features.map((feature, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-tight">
-                                            <ShieldCheck className="h-4 w-4 text-secondary shrink-0" />
+                                        <li key={i} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-tight">
+                                            <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />
                                             {feature}
                                         </li>
                                     ))}
@@ -115,53 +128,64 @@ export function SpecializedLoginCard({
                     </div>
                 </div>
 
-                {/* Formulario de Auth */}
-                <div className="p-8 md:p-12 flex flex-col justify-center bg-card">
-                    <div className="mb-8 space-y-1">
-                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-primary">Acceso Común</h2>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Protocolo Kyron v2.6.5</p>
+                {/* Formulario de Auth - Lado Corporativo */}
+                <div className="p-10 md:p-16 flex flex-col justify-center bg-card">
+                    <div className="mb-10 space-y-2">
+                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-foreground/90">Acceso Común</h2>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Protocolo de Verificación Kyron</p>
                     </div>
 
-                    <form onSubmit={handleAuth} className="space-y-5">
+                    <form onSubmit={handleAuth} className="space-y-6">
                         {error && (
-                            <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600">
+                            <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600 animate-in shake-in-1">
                                 <AlertTriangle className="h-4 w-4" />
-                                <AlertTitle className="text-xs font-black uppercase tracking-widest">Error de Acceso</AlertTitle>
-                                <AlertDescription className="text-[10px] font-black uppercase tracking-widest">{error}</AlertDescription>
+                                <AlertTitle className="text-[10px] font-black uppercase tracking-widest">Fallo de Protocolo</AlertTitle>
+                                <AlertDescription className="text-[9px] font-bold uppercase tracking-widest">{error}</AlertDescription>
                             </Alert>
                         )}
 
-                        <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl mb-2">
-                            <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-2 italic">Credenciales Registradas:</p>
-                            <div className="flex flex-col gap-1">
-                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Usuario: <span className="text-foreground font-black">{demoUsername}</span></p>
-                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Clave: <span className="text-foreground font-black">{demoPassword}</span></p>
+                        <div className="p-5 rounded-[1.5rem] bg-muted/30 border border-border shadow-inner relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity"><Lock className="h-12 w-12"/></div>
+                            <p className="text-[8px] font-black text-primary uppercase tracking-[0.3em] mb-3 italic">Canal de Prueba Activo:</p>
+                            <div className="flex flex-col gap-1.5">
+                                <p className="text-[9px] font-bold text-muted-foreground uppercase">ID: <span className="text-foreground font-black">{demoUsername}</span></p>
+                                <p className="text-[9px] font-bold text-muted-foreground uppercase">KEY: <span className="text-foreground font-black">{demoPassword}</span></p>
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Usuario / Email</Label>
-                            <Input name="email" placeholder={demoUsername} required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold uppercase" />
-                        </div>
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 ml-1">Identificador / Email</Label>
+                                <Input name="email" placeholder={demoUsername} required className="h-12 bg-white/5 border-border rounded-xl focus-visible:ring-primary font-bold uppercase text-xs" />
+                            </div>
 
-                        <div className="space-y-2">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Contraseña</Label>
-                            <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center px-1">
+                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Contraseña Maestra</Label>
+                                    <Button variant="link" asChild className="p-0 h-auto text-[8px] font-black text-primary uppercase hover:no-underline">
+                                        <Link href="/recover-legal">¿Olvido su clave?</Link>
+                                    </Button>
+                                </div>
+                                <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-white/5 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                            </div>
                         </div>
 
                         <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl" disabled={isLoading}>
-                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "ACCEDER"}
+                            {isLoading ? <Loader2 className="mr-3 h-5 w-5 animate-spin" /> : "ACCEDER AL NODO"}
                         </Button>
                     </form>
 
-                    <div className="mt-8 pt-6 border-t border-border/50 text-center">
-                        {footerLinks && (
-                            <Link href={footerLinks.primary.href as any} className="block text-[9px] font-bold uppercase text-slate-400 hover:text-primary transition-colors">{footerLinks.primary.text}</Link>
-                        )}
+                    <div className="mt-12 pt-8 border-t border-border flex flex-col items-center gap-4">
+                        <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">¿No posee una cuenta corporativa?</p>
+                        <Button variant="outline" asChild className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-primary/5 hover:text-primary transition-all">
+                            <Link href="/register" className="flex items-center gap-2">
+                                <UserPlus className="h-3.5 w-3.5" /> REGISTRAR EMPRESA
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </motion.div>
-            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Control Operativo</p>
+            <p className="mt-12 text-[8px] font-black text-muted-foreground/20 uppercase tracking-[1em] italic">SYSTEM KYRON v2.6.5 • ENLACE SEGURO</p>
         </div>
     );
 }

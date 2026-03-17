@@ -1,25 +1,31 @@
+
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Gavel } from "lucide-react";
+import { Gavel, Scale, ShieldCheck, FileSignature } from "lucide-react";
 
 export default function LoginEscritorioJuridicoPage() {
     return (
         <SpecializedLoginCard 
             portalName="Asesoría Legal" 
-            portalDescription="Gestión de contratos, trámites mercantiles y cumplimiento regulatorio."
+            portalDescription="Blindaje jurídico y gestión de instrumentos notariales inmutables."
             redirectPath="/escritorio-juridico"
             icon={Gavel}
-            demoUsername="admin"
+            accentColor="slate-800"
+            demoUsername="abogado.master"
             demoPassword="kyron2026"
+            bgPattern={
+                <div className="grid grid-cols-3 gap-12 p-12 opacity-10">
+                    <Scale className="h-24 w-24" />
+                    <ShieldCheck className="h-24 w-24" />
+                    <FileSignature className="h-24 w-24" />
+                </div>
+            }
             features={[
-                "Generador de Contratos con IA",
-                "Bóveda de Documentos Certificados",
-                "Control de Vencimientos de Poderes"
+                "Generador de Contratos IA",
+                "Monitor de Poderes SAREN",
+                "Bóveda Legal Zero-Knowledge"
             ]}
-            footerLinks={{
-              primary: { href: "/login", text: "Volver" }
-            }}
         />
     );
 }

@@ -2,25 +2,30 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Users } from "lucide-react";
+import { Users, BarChart3, ShieldCheck, Building2 } from "lucide-react";
 
 export default function LoginSociosPage() {
     return (
         <SpecializedLoginCard 
-            portalName="Socios y Directivos" 
-            portalDescription="Dashboard estratégico para la supervisión de resultados y rentabilidad."
+            portalName="Socios" 
+            portalDescription="Consola ejecutiva para la supervisión de resultados y rentabilidad del holding."
             redirectPath="/dashboard-socios"
             icon={Users}
+            accentColor="indigo-950"
             demoUsername="socio.maestro"
-            demoPassword="password123"
+            demoPassword="kyron2026"
+            bgPattern={
+                <div className="grid grid-cols-3 gap-16 p-16 opacity-5">
+                    <BarChart3 className="h-32 w-32" />
+                    <Building2 className="h-32 w-32" />
+                    <ShieldCheck className="h-32 w-32" />
+                </div>
+            }
             features={[
-                "Simulador Estratégico (Gemelo Digital)",
-                "Reparto de Beneficios y Dividendos",
-                "Auditoría de Holding Consolidada"
+                "Simulador Gemelo Digital",
+                "Reparto de Dividendos",
+                "Consolidación Multi-Sede"
             ]}
-            footerLinks={{
-              primary: { href: "/login", text: "Acceso Corporativo" }
-            }}
         />
     );
 }
