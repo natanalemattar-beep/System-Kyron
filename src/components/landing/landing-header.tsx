@@ -97,6 +97,9 @@ export function LandingHeader() {
                     <div className="flex items-center justify-end gap-3 sm:gap-6 shrink-0">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
+                            <Button variant="ghost" asChild className="rounded-xl h-10 px-5 text-[9px] font-black uppercase tracking-[0.2em] border border-border hover:border-primary/40 hover:text-primary transition-all">
+                                <Link href="/register">Registrarse</Link>
+                            </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-[0.2em] btn-3d-primary shadow-glow">
@@ -169,9 +172,12 @@ export function LandingHeader() {
                                             </Link>
                                         </SheetClose>
                                     ))}
-                                    <div className="pt-10">
+                                    <div className="pt-10 flex flex-col gap-3">
                                         <Button asChild className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase tracking-widest text-[10px]">
                                             <Link href="/login">ACCEDER AL PORTAL</Link>
+                                        </Button>
+                                        <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-black uppercase tracking-widest text-[10px] border-border hover:border-primary/40 hover:text-primary">
+                                            <Link href="/register">REGISTRARSE</Link>
                                         </Button>
                                     </div>
                                 </nav>
