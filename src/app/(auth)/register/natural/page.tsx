@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
@@ -15,45 +15,13 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  User, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Lock,
+  User, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   MapPin, Phone, Mail, Calendar, Shield,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 
 const TOTAL_STEPS = 4;
-
-const step1Schema = z.object({
-  nombre: z.string().min(2, 'El nombre es requerido.'),
-  apellido: z.string().min(2, 'El apellido es requerido.'),
-  cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-12345678 o E-12345678'),
-  fecha_nacimiento: z.string().min(1, 'La fecha de nacimiento es requerida.'),
-  genero: z.string().min(1, 'Selecciona el género.'),
-  estado_civil: z.string().min(1, 'Selecciona el estado civil.'),
-});
-
-const step2Schema = z.object({
-  telefono: z.string().min(10, 'El teléfono principal es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
-  telefono_alt: z.string().optional(),
-  estado_residencia: z.string().min(1, 'El estado es requerido.'),
-  municipio: z.string().min(2, 'El municipio es requerido.'),
-  ciudad: z.string().min(2, 'La ciudad/parroquia es requerida.'),
-  direccion: z.string().min(10, 'La dirección completa es requerida.'),
-});
-
-const step3Schema = z.object({
-  email: z.string().email('Correo electrónico inválido.'),
-  password: z.string()
-    .min(8, 'Mínimo 8 caracteres.')
-    .regex(/[A-Z]/, 'Debe tener al menos una mayúscula.')
-    .regex(/[0-9]/, 'Debe tener al menos un número.'),
-  confirmPassword: z.string().min(8),
-}).refine(d => d.password === d.confirmPassword, {
-  message: 'Las contraseñas no coinciden.',
-  path: ['confirmPassword'],
-});
-
-type FormData = z.infer<typeof step1Schema> & z.infer<typeof step2Schema> & z.infer<typeof step3Schema>;
 
 const ESTADOS_VE = [
   'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
@@ -62,23 +30,52 @@ const ESTADOS_VE = [
   'Sucre', 'Táchira', 'Trujillo', 'La Guaira', 'Yaracuy', 'Zulia',
 ];
 
-const stepSchemas = [step1Schema, step2Schema, step3Schema];
+const fullSchema = z.object({
+  nombre: z.string().min(2, 'El nombre es requerido.'),
+  apellido: z.string().min(2, 'El apellido es requerido.'),
+  cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-12345678 o E-12345678'),
+  fecha_nacimiento: z.string().min(1, 'La fecha de nacimiento es requerida.'),
+  genero: z.string().min(1, 'Selecciona el género.'),
+  estado_civil: z.string().min(1, 'Selecciona el estado civil.'),
+  telefono: z.string().min(10, 'El teléfono principal es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
+  telefono_alt: z.string().optional(),
+  estado_residencia: z.string().min(1, 'El estado es requerido.'),
+  municipio: z.string().min(2, 'El municipio es requerido.'),
+  ciudad: z.string().min(2, 'La ciudad/parroquia es requerida.'),
+  direccion: z.string().min(10, 'La dirección completa es requerida.'),
+  email: z.string().email('Correo electrónico inválido.'),
+  password: z.string()
+    .min(8, 'Mínimo 8 caracteres.')
+    .regex(/[A-Z]/, 'Debe tener al menos una mayúscula.')
+    .regex(/[0-9]/, 'Debe tener al menos un número.'),
+  confirmPassword: z.string().min(8, 'Confirma tu contraseña.'),
+}).refine(d => d.password === d.confirmPassword, {
+  message: 'Las contraseñas no coinciden.',
+  path: ['confirmPassword'],
+});
+
+type FormData = z.infer<typeof fullSchema>;
+
+const step1Fields = ['nombre', 'apellido', 'cedula', 'fecha_nacimiento', 'genero', 'estado_civil'] as const;
+const step2Fields = ['telefono', 'estado_residencia', 'municipio', 'ciudad', 'direccion'] as const;
+const step3Fields = ['email', 'password', 'confirmPassword'] as const;
 
 export default function RegisterNaturalPage() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
-  const [genero, setGenero] = useState('');
-  const [estadoCivil, setEstadoCivil] = useState('');
-  const [estadoResidencia, setEstadoResidencia] = useState('');
   const { toast } = useToast();
   const router = useRouter();
 
-  const { register, handleSubmit, formState: { errors }, trigger, getValues, setValue } =
-    useForm<FormData>({ resolver: zodResolver(stepSchemas[step - 1] ?? step3Schema) });
+  const { register, handleSubmit, control, formState: { errors }, trigger } =
+    useForm<FormData>({
+      resolver: zodResolver(fullSchema),
+      mode: 'onTouched',
+    });
 
   const nextStep = async () => {
-    const valid = await trigger();
+    const fields = step === 1 ? step1Fields : step === 2 ? step2Fields : step3Fields;
+    const valid = await trigger(fields as any);
     if (valid) setStep(s => s + 1);
   };
 
@@ -111,21 +108,21 @@ export default function RegisterNaturalPage() {
 
   const Field = ({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) => (
     <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id} className="text-sm font-medium text-foreground">{label}</Label>
       {children}
-      {error && <p className="text-destructive text-xs">{error}</p>}
+      {error && <p className="text-destructive text-xs font-medium">{error}</p>}
     </div>
   );
 
   return (
     <div className="w-full max-w-xl mx-auto">
-      <Card className="bg-card/80 backdrop-blur-sm">
+      <Card className="bg-card border-border shadow-lg">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-xl">
+          <CardTitle className="flex items-center gap-3 text-xl text-foreground">
             <div className="p-2 bg-primary/10 rounded-lg"><User className="h-5 w-5 text-primary" /></div>
             Registro de Persona Natural
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-muted-foreground">
             {step < TOTAL_STEPS
               ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
               : stepLabels[TOTAL_STEPS - 1]}
@@ -143,7 +140,6 @@ export default function RegisterNaturalPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-5">
 
-            {/* PASO 1: Datos Personales */}
             {step === 1 && (
               <>
                 <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
@@ -151,50 +147,65 @@ export default function RegisterNaturalPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="nombre" label="Nombre(s)" error={errors.nombre?.message}>
-                    <Input id="nombre" placeholder="Juan Carlos" {...register('nombre')} />
+                    <Input id="nombre" placeholder="Juan Carlos" className="bg-background border-input" {...register('nombre')} />
                   </Field>
                   <Field id="apellido" label="Apellido(s)" error={errors.apellido?.message}>
-                    <Input id="apellido" placeholder="González Pérez" {...register('apellido')} />
+                    <Input id="apellido" placeholder="González Pérez" className="bg-background border-input" {...register('apellido')} />
                   </Field>
                 </div>
                 <Field id="cedula" label="Cédula de Identidad" error={errors.cedula?.message}>
-                  <Input id="cedula" placeholder="V-12345678" {...register('cedula')} />
+                  <Input id="cedula" placeholder="V-12345678" className="bg-background border-input" {...register('cedula')} />
                 </Field>
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="fecha_nacimiento" type="date" className="pl-9" {...register('fecha_nacimiento')} />
+                    <Input id="fecha_nacimiento" type="date" className="pl-9 bg-background border-input" {...register('fecha_nacimiento')} />
                   </div>
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="genero" label="Género" error={errors.genero?.message}>
-                    <Select value={genero} onValueChange={v => { setGenero(v); setValue('genero', v); }}>
-                      <SelectTrigger id="genero"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Masculino">Masculino</SelectItem>
-                        <SelectItem value="Femenino">Femenino</SelectItem>
-                        <SelectItem value="No binario">No binario</SelectItem>
-                        <SelectItem value="Prefiero no decir">Prefiero no decir</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="genero"
+                      control={control}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger id="genero" className="bg-background border-input">
+                            <SelectValue placeholder="Seleccionar" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Masculino">Masculino</SelectItem>
+                            <SelectItem value="Femenino">Femenino</SelectItem>
+                            <SelectItem value="No binario">No binario</SelectItem>
+                            <SelectItem value="Prefiero no decir">Prefiero no decir</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </Field>
                   <Field id="estado_civil" label="Estado Civil" error={errors.estado_civil?.message}>
-                    <Select value={estadoCivil} onValueChange={v => { setEstadoCivil(v); setValue('estado_civil', v); }}>
-                      <SelectTrigger id="estado_civil"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Soltero/a">Soltero/a</SelectItem>
-                        <SelectItem value="Casado/a">Casado/a</SelectItem>
-                        <SelectItem value="Divorciado/a">Divorciado/a</SelectItem>
-                        <SelectItem value="Viudo/a">Viudo/a</SelectItem>
-                        <SelectItem value="Unión Estable de Hecho">Unión Estable de Hecho</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="estado_civil"
+                      control={control}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger id="estado_civil" className="bg-background border-input">
+                            <SelectValue placeholder="Seleccionar" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Soltero/a">Soltero/a</SelectItem>
+                            <SelectItem value="Casado/a">Casado/a</SelectItem>
+                            <SelectItem value="Divorciado/a">Divorciado/a</SelectItem>
+                            <SelectItem value="Viudo/a">Viudo/a</SelectItem>
+                            <SelectItem value="Unión Estable de Hecho">Unión Estable de Hecho</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </Field>
                 </div>
               </>
             )}
 
-            {/* PASO 2: Residencia y Contacto */}
             {step === 2 && (
               <>
                 <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
@@ -204,13 +215,13 @@ export default function RegisterNaturalPage() {
                   <Field id="telefono" label="Teléfono Principal" error={errors.telefono?.message}>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input id="telefono" placeholder="0412-1234567" className="pl-9" {...register('telefono')} />
+                      <Input id="telefono" placeholder="0412-1234567" className="pl-9 bg-background border-input" {...register('telefono')} />
                     </div>
                   </Field>
                   <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message}>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9" {...register('telefono_alt')} />
+                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9 bg-background border-input" {...register('telefono_alt')} />
                     </div>
                   </Field>
                 </div>
@@ -218,19 +229,27 @@ export default function RegisterNaturalPage() {
                   <MapPin className="h-4 w-4" /> Dirección de Residencia
                 </div>
                 <Field id="estado_residencia" label="Estado / Entidad Federal" error={errors.estado_residencia?.message}>
-                  <Select value={estadoResidencia} onValueChange={v => { setEstadoResidencia(v); setValue('estado_residencia', v); }}>
-                    <SelectTrigger id="estado_residencia"><SelectValue placeholder="Selecciona el estado" /></SelectTrigger>
-                    <SelectContent>
-                      {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
+                  <Controller
+                    name="estado_residencia"
+                    control={control}
+                    render={({ field }) => (
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id="estado_residencia" className="bg-background border-input">
+                          <SelectValue placeholder="Selecciona el estado" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="municipio" label="Municipio" error={errors.municipio?.message}>
-                    <Input id="municipio" placeholder="Ej: Sucre" {...register('municipio')} />
+                    <Input id="municipio" placeholder="Ej: Sucre" className="bg-background border-input" {...register('municipio')} />
                   </Field>
                   <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
-                    <Input id="ciudad" placeholder="Ej: Petare" {...register('ciudad')} />
+                    <Input id="ciudad" placeholder="Ej: Petare" className="bg-background border-input" {...register('ciudad')} />
                   </Field>
                 </div>
                 <Field id="direccion" label="Dirección Completa" error={errors.direccion?.message}>
@@ -239,7 +258,7 @@ export default function RegisterNaturalPage() {
                     <textarea
                       id="direccion"
                       placeholder="Av. Principal, Residencias X, Piso 2, Apto 2-B..."
-                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       {...register('direccion')}
                     />
                   </div>
@@ -247,7 +266,6 @@ export default function RegisterNaturalPage() {
               </>
             )}
 
-            {/* PASO 3: Acceso */}
             {step === 3 && (
               <>
                 <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
@@ -256,23 +274,23 @@ export default function RegisterNaturalPage() {
                 <Field id="email" label="Correo Electrónico" error={errors.email?.message}>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="email" type="email" placeholder="tu@correo.com" className="pl-9" {...register('email')} />
+                    <Input id="email" type="email" placeholder="tu@correo.com" className="pl-9 bg-background border-input" {...register('email')} />
                   </div>
                 </Field>
                 <Field id="password" label="Contraseña" error={errors.password?.message}>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="password" type="password" className="pl-9" {...register('password')} />
+                    <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="password" type="password" className="pl-9 bg-background border-input" {...register('password')} />
                   </div>
                   <p className="text-xs text-muted-foreground">Mínimo 8 caracteres, una mayúscula y un número.</p>
                 </Field>
                 <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="confirmPassword" type="password" className="pl-9" {...register('confirmPassword')} />
+                    <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="confirmPassword" type="password" className="pl-9 bg-background border-input" {...register('confirmPassword')} />
                   </div>
                 </Field>
-                <div className="p-3 bg-muted/50 rounded-lg text-xs text-muted-foreground">
+                <div className="p-3 bg-muted/50 rounded-lg text-xs text-muted-foreground border border-border">
                   Al crear tu cuenta aceptas nuestros{' '}
                   <a href="/terms" className="text-primary underline">Términos de Servicio</a>{' '}
                   y nuestra{' '}
@@ -281,13 +299,12 @@ export default function RegisterNaturalPage() {
               </>
             )}
 
-            {/* PASO 4: Confirmación */}
             {step === TOTAL_STEPS && (
               <div className="text-center py-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
                   <CheckCircle className="h-12 w-12 text-green-500" />
                 </div>
-                <h2 className="text-2xl font-bold">¡Cuenta Creada!</h2>
+                <h2 className="text-2xl font-bold text-foreground">¡Cuenta Creada!</h2>
                 <p className="text-muted-foreground mt-2 text-sm">
                   Tu cuenta personal ha sido registrada exitosamente con el correo:{' '}
                   <span className="font-semibold text-primary">{registeredEmail}</span>

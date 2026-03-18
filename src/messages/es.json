@@ -1,4 +1,3 @@
-
 {
     "LandingHeader": {
         "home": "Inicio",
@@ -15,5 +14,74 @@
         "subtitle": "Automatización fiscal, tecnología magnética, venta de telefonía y cumplimiento normativo en una única plataforma de grado corporativo.",
         "cta_main": "Comienza Ahora",
         "cta_secondary": "Guía de Usuario"
+    },
+    "Auth": {
+        "login": "Iniciar Sesión",
+        "logout": "Cerrar Sesión",
+        "register": "Registrarse",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "confirm_password": "Confirmar Contraseña",
+        "forgot_password": "¿Olvidaste tu clave?",
+        "no_account": "¿No tienes cuenta?",
+        "have_account": "¿Ya tienes cuenta?",
+        "access_portal": "Acceder al Portal",
+        "register_company": "Registrar Empresa",
+        "loading": "Cargando...",
+        "error_invalid": "Credenciales incorrectas. Verifica tu correo y contraseña.",
+        "error_connection": "Error de conexión. Por favor intenta de nuevo.",
+        "success_login": "Acceso concedido",
+        "success_register": "Cuenta creada exitosamente"
+    },
+    "Dashboard": {
+        "welcome": "Bienvenido",
+        "overview": "Resumen",
+        "notifications": "Notificaciones",
+        "settings": "Configuración",
+        "profile": "Perfil",
+        "help": "Ayuda",
+        "loading": "Cargando datos...",
+        "no_data": "Sin datos disponibles",
+        "update": "Actualizar",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "view": "Ver",
+        "export": "Exportar",
+        "import": "Importar",
+        "search": "Buscar",
+        "filter": "Filtrar",
+        "sort": "Ordenar",
+        "date": "Fecha",
+        "amount": "Monto",
+        "status": "Estatus",
+        "actions": "Acciones"
+    },
+    "Marketing": {
+        "title": "Dashboard de Inversión",
+        "subtitle": "Alertas en tiempo real • Análisis financiero",
+        "alerts_active": "Alertas Activas",
+        "buy_signals": "Señales de Compra",
+        "market_alerts": "Alertas de Mercado",
+        "company_analysis": "Análisis Financiero de la Empresa",
+        "payment_alternatives": "Alternativas de Pago y Crédito",
+        "monitor": "Monitorear",
+        "dismiss": "Descartar",
+        "request_financing": "Solicitar Financiamiento",
+        "update": "Actualizar",
+        "restore_alerts": "Restaurar Alertas",
+        "no_alerts": "No hay alertas activas",
+        "risk_notice": "Aviso de Riesgo",
+        "recommended": "Recomendado"
+    },
+    "LineaAccess": {
+        "title": "Selecciona tu Tipo de Acceso",
+        "subtitle": "Elige entre tu gestión de línea personal o la administración de flota corporativa.",
+        "personal_tag": "PERSONAL",
+        "corporate_tag": "CORPORATIVO",
+        "access": "Acceder",
+        "back": "Volver al Portal"
     }
 }

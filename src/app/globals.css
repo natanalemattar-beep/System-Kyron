@@ -4,67 +4,67 @@
 
 @layer base {
   :root {
-    /* Light Mode - Refinado para Máxima Legibilidad y Suavidad */
-    --background: 210 40% 99%;
-    --foreground: 222.2 84% 4.9%;
-    
+    /* Light Mode — Alta Legibilidad y Suavidad */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 8%;
+
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    
+    --card-foreground: 222 47% 8%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    
-    --primary: 221 83% 24%;
+    --popover-foreground: 222 47% 8%;
+
+    --primary: 221 83% 30%;
     --primary-foreground: 210 40% 98%;
-    
-    --secondary: 158 100% 33%;
+
+    --secondary: 158 70% 28%;
     --secondary-foreground: 210 40% 98%;
-    
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 25% 25%;
-    
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    
-    --destructive: 0 84.2% 60.2%;
+
+    --muted: 210 30% 94%;
+    --muted-foreground: 215 20% 40%;
+
+    --accent: 210 30% 94%;
+    --accent-foreground: 222 47% 15%;
+
+    --destructive: 0 84% 55%;
     --destructive-foreground: 210 40% 98%;
-    
-    --border: 214.3 31.8% 91%;
-    --input: 214.3 31.8% 91%;
-    --ring: 221 83% 24%;
-    
+
+    --border: 214 25% 82%;
+    --input: 214 25% 82%;
+    --ring: 221 83% 30%;
+
     --radius: 1.5rem;
   }
 
   .dark {
-    /* Dark Mode - Estética HUD Titanium Inalterada */
+    /* Dark Mode — Estética HUD Titanium */
     --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
-    
+    --foreground: 210 40% 96%;
+
     --card: 222 47% 6%;
-    --card-foreground: 210 40% 98%;
-    
-    --popover: 222 47% 4%;
-    --popover-foreground: 210 40% 98%;
-    
-    --primary: 217 91% 60%; 
-    --primary-foreground: 222.2 47.4% 11.2%;
-    
-    --secondary: 158 100% 33%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    
-    --muted: 217.2 32.6% 12%;
-    --muted-foreground: 215 20.2% 65.1%;
-    
-    --accent: 217.2 32.6% 12%;
-    --accent-foreground: 210 40% 98%;
-    
-    --destructive: 0 62.8% 30.6%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 40% 5%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 8%;
+
+    --secondary: 158 80% 38%;
+    --secondary-foreground: 222 47% 8%;
+
+    --muted: 217 32% 14%;
+    --muted-foreground: 215 25% 62%;
+
+    --accent: 217 32% 14%;
+    --accent-foreground: 210 40% 96%;
+
+    --destructive: 0 70% 50%;
     --destructive-foreground: 210 40% 98%;
-    
-    --border: 217.2 32.6% 12%;
-    --input: 217.2 32.6% 12%;
-    --ring: 224.3 76.3% 48%;
+
+    --border: 217 32% 16%;
+    --input: 217 32% 14%;
+    --ring: 217 91% 60%;
   }
 }
 
@@ -84,6 +84,11 @@
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tighter font-black;
   }
+
+  /* Light mode: ensure inputs have proper visible backgrounds */
+  input, textarea, select {
+    color: hsl(var(--foreground));
+  }
 }
 
 @layer utilities {
@@ -95,27 +100,29 @@
     @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all;
   }
 
-  /* Rediseño de Glass Card para evitar sombras recortadas */
   .glass-card {
-    @apply bg-card/70 dark:bg-card/40 border border-border/40 dark:border-white/10 backdrop-blur-xl transition-all duration-500 hover:border-primary/20;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
+    @apply bg-card/80 dark:bg-card/40 border border-border/60 dark:border-white/10 backdrop-blur-xl transition-all duration-500 hover:border-primary/20;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.06), 0 2px 8px -2px rgba(0, 0, 0, 0.03);
   }
 
   .dark .glass-card {
     box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
   }
 
-  /* Sombras de resplandor multi-capa (Layered Shadows) */
   .shadow-glow {
     box-shadow: 
       0 10px 40px -10px hsla(var(--primary), 0.15),
-      0 0 20px -5px hsla(var(--primary), 0.1);
+      0 0 20px -5px hsla(var(--primary), 0.08);
+  }
+
+  .shadow-glow-sm {
+    box-shadow: 0 4px 16px -4px hsla(var(--primary), 0.2);
   }
 
   .shadow-glow-secondary {
     box-shadow: 
       0 10px 40px -10px hsla(var(--secondary), 0.15),
-      0 0 20px -5px hsla(var(--secondary), 0.1);
+      0 0 20px -5px hsla(var(--secondary), 0.08);
   }
 
   .italic-shadow {
@@ -124,8 +131,8 @@
 
   .hud-grid {
     background-image: 
-      linear-gradient(to right, hsla(var(--foreground) / 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, hsla(var(--foreground) / 0.03) 1px, transparent 1px);
+      linear-gradient(to right, hsla(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsla(var(--foreground) / 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
@@ -144,7 +151,7 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-foreground/10 rounded-full hover:bg-foreground/20 transition-colors;
+    @apply bg-foreground/15 rounded-full hover:bg-foreground/25 transition-colors;
   }
 }
 

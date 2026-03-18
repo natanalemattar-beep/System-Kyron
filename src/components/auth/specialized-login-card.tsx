@@ -2,11 +2,11 @@
 "use client";
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader as Loader2, TriangleAlert as AlertTriangle, ChevronLeft, CircleCheck as CheckCircle2, ShieldCheck, ArrowRight, Lock, KeyRound, UserPlus } from 'lucide-react';
+import { Loader as Loader2, TriangleAlert as AlertTriangle, ChevronLeft, CircleCheck as CheckCircle2, ShieldCheck, ArrowRight, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Link } from "@/navigation";
@@ -19,9 +19,7 @@ interface SpecializedLoginCardProps {
     portalDescription: string;
     redirectPath: string;
     icon: React.ElementType;
-    demoUsername: string;
-    demoPassword: string;
-    accentColor?: string; // e.g., "primary", "secondary", "rose-500"
+    accentColor?: string;
     bgPattern?: React.ReactNode;
     features?: string[];
     footerLinks?: {
@@ -38,8 +36,6 @@ export function SpecializedLoginCard({
     portalDescription, 
     redirectPath, 
     icon: Icon, 
-    demoUsername, 
-    demoPassword, 
     accentColor = "primary",
     bgPattern,
     features = [],
@@ -56,31 +52,42 @@ export function SpecializedLoginCard({
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const username = (formData.get('email') as string || "").trim().toLowerCase();
-        const password = (formData.get('password') as string || "").trim();
+        const email = (formData.get('email') as string || "").trim().toLowerCase();
+        const password = formData.get('password') as string;
 
-        const validUser = demoUsername.toLowerCase();
-        const validPass = demoPassword;
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
 
-        setTimeout(() => {
-            if ((username === validUser || username === 'admin' || username === 'master') && (password === validPass || password === 'kyron2026')) {
-                toast({
-                    title: "ACCESO CONCEDIDO",
-                    description: `Enlace establecido con el portal de ${portalName}.`,
-                    action: <CheckCircle2 className="text-emerald-500 h-4 w-4" />
-                });
-                router.push(redirectPath as any);
-            } else {
-                setError("CREDENCIALES INCORRECTAS. USE LAS INDICADAS EN EL PANEL.");
+            const json = await res.json();
+
+            if (!res.ok) {
+                setError(json.error || 'Credenciales incorrectas. Verifica tu correo y contraseña.');
                 setIsLoading(false);
+                return;
             }
-        }, 600);
+
+            toast({
+                title: "ACCESO CONCEDIDO",
+                description: `Bienvenido al portal de ${portalName}, ${json.user?.nombre ?? ''}.`,
+                action: <CheckCircle2 className="text-emerald-500 h-4 w-4" />
+            });
+            router.push(redirectPath as any);
+        } catch {
+            setError('Error de conexión. Por favor intenta de nuevo.');
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 w-full hud-grid relative overflow-hidden">
             <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground border border-transparent hover:border-border transition-all">
-                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
+                <Link href={footerLinks?.primary.href as any ?? "/login"} className="flex items-center">
+                    <ChevronLeft className="mr-2 h-4 w-4"/> {footerLinks?.primary.text ?? 'Volver'}
+                </Link>
             </Button>
 
             <motion.div 
@@ -88,12 +95,11 @@ export function SpecializedLoginCard({
                 animate={{ opacity: 1, y: 0 }}
                 className="w-full max-w-4xl grid md:grid-cols-2 gap-0 bg-card border border-border/50 rounded-[3rem] shadow-glow overflow-hidden relative z-10"
             >
-                {/* Información del Portal - Lado Dinámico */}
+                {/* Panel de Información del Portal */}
                 <div className={cn(
                     "p-10 md:p-16 relative overflow-hidden flex flex-col justify-center text-white",
                     `bg-${accentColor}`
                 )}>
-                    {/* Patrón de Fondo Único */}
                     <div className="absolute inset-0 opacity-10 pointer-events-none">
                         {bgPattern}
                     </div>
@@ -114,7 +120,7 @@ export function SpecializedLoginCard({
 
                         {features.length > 0 && (
                             <div className="space-y-4 pt-6 border-t border-white/10">
-                                <p className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60">Protocolos de Nodo</p>
+                                <p className="text-[9px] font-black uppercase tracking-[0.4em] opacity-60">Funcionalidades</p>
                                 <ul className="space-y-3">
                                     {features.map((feature, i) => (
                                         <li key={i} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-tight">
@@ -128,64 +134,82 @@ export function SpecializedLoginCard({
                     </div>
                 </div>
 
-                {/* Formulario de Auth - Lado Corporativo */}
+                {/* Formulario de Autenticación */}
                 <div className="p-10 md:p-16 flex flex-col justify-center bg-card">
                     <div className="mb-10 space-y-2">
-                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-foreground/90">Acceso Común</h2>
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Protocolo de Verificación Kyron</p>
+                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Iniciar Sesión</h2>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Protocolo de Verificación Kyron</p>
                     </div>
 
                     <form onSubmit={handleAuth} className="space-y-6">
                         {error && (
-                            <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600 animate-in shake-in-1">
+                            <Alert variant="destructive" className="rounded-2xl border-destructive/30 bg-destructive/10">
                                 <AlertTriangle className="h-4 w-4" />
-                                <AlertTitle className="text-[10px] font-black uppercase tracking-widest">Fallo de Protocolo</AlertTitle>
+                                <AlertTitle className="text-[10px] font-black uppercase tracking-widest">Error de Acceso</AlertTitle>
                                 <AlertDescription className="text-[9px] font-bold uppercase tracking-widest">{error}</AlertDescription>
                             </Alert>
                         )}
 
-                        <div className="p-5 rounded-[1.5rem] bg-muted/30 border border-border shadow-inner relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity"><Lock className="h-12 w-12"/></div>
-                            <p className="text-[8px] font-black text-primary uppercase tracking-[0.3em] mb-3 italic">Canal de Prueba Activo:</p>
-                            <div className="flex flex-col gap-1.5">
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase">ID: <span className="text-foreground font-black">{demoUsername}</span></p>
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase">KEY: <span className="text-foreground font-black">{demoPassword}</span></p>
-                            </div>
-                        </div>
-
                         <div className="space-y-4">
                             <div className="space-y-2">
-                                <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 ml-1">Identificador / Email</Label>
-                                <Input name="email" placeholder={demoUsername} required className="h-12 bg-white/5 border-border rounded-xl focus-visible:ring-primary font-bold uppercase text-xs" />
+                                <Label className="text-sm font-semibold text-foreground">Correo Electrónico</Label>
+                                <Input
+                                    name="email"
+                                    type="email"
+                                    placeholder="tu@correo.com"
+                                    required
+                                    autoComplete="email"
+                                    className="h-12 bg-background border-input rounded-xl focus-visible:ring-primary text-foreground text-sm"
+                                />
                             </div>
 
                             <div className="space-y-2">
-                                <div className="flex justify-between items-center px-1">
-                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Contraseña Maestra</Label>
-                                    <Button variant="link" asChild className="p-0 h-auto text-[8px] font-black text-primary uppercase hover:no-underline">
-                                        <Link href="/recover-legal">¿Olvido su clave?</Link>
+                                <div className="flex justify-between items-center">
+                                    <Label className="text-sm font-semibold text-foreground">Contraseña</Label>
+                                    <Button variant="link" asChild className="p-0 h-auto text-xs font-medium text-primary hover:no-underline">
+                                        <Link href="/recover-legal">¿Olvidaste tu clave?</Link>
                                     </Button>
                                 </div>
-                                <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-white/5 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                    autoComplete="current-password"
+                                    className="h-12 bg-background border-input rounded-xl focus-visible:ring-primary text-foreground"
+                                />
                             </div>
                         </div>
 
                         <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl" disabled={isLoading}>
-                            {isLoading ? <Loader2 className="mr-3 h-5 w-5 animate-spin" /> : "ACCEDER AL NODO"}
+                            {isLoading ? <Loader2 className="mr-3 h-5 w-5 animate-spin" /> : "ACCEDER AL PORTAL"}
                         </Button>
                     </form>
 
                     <div className="mt-12 pt-8 border-t border-border flex flex-col items-center gap-4">
-                        <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">¿No posee una cuenta corporativa?</p>
-                        <Button variant="outline" asChild className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-primary/5 hover:text-primary transition-all">
+                        <p className="text-xs font-medium text-muted-foreground">¿No tienes cuenta?</p>
+                        <Button variant="outline" asChild className="w-full h-12 rounded-xl border-border bg-background text-sm font-semibold hover:bg-primary/5 hover:text-primary transition-all">
                             <Link href="/register" className="flex items-center gap-2">
-                                <UserPlus className="h-3.5 w-3.5" /> REGISTRAR EMPRESA
+                                <UserPlus className="h-4 w-4" /> Registrarse
                             </Link>
                         </Button>
+
+                        {footerLinks?.secondaryLinks && (
+                            <div className="text-center text-xs text-muted-foreground space-y-1 mt-2">
+                                {footerLinks.secondaryLinks.title && (
+                                    <p className="font-medium">{footerLinks.secondaryLinks.title}</p>
+                                )}
+                                {footerLinks.secondaryLinks.links.map(link => (
+                                    <Link key={link.href} href={link.href as any} className="block text-primary hover:underline font-medium">
+                                        {link.text}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </motion.div>
-            <p className="mt-12 text-[8px] font-black text-muted-foreground/20 uppercase tracking-[1em] italic">SYSTEM KYRON v2.6.5 • ENLACE SEGURO</p>
+            <p className="mt-12 text-[8px] font-black text-muted-foreground/30 uppercase tracking-[1em] italic">SYSTEM KYRON v2.6.5 • ENLACE SEGURO</p>
         </div>
     );
 }

@@ -128,6 +128,13 @@ export const pathnames = {
   '/flota-empresarial': '/flota-empresarial',
   '/mi-linea': '/mi-linea',
 
+  // MARKETING & NUEVA LÍNEA
+  '/login-linea': '/login-linea',
+  '/login-marketing': '/login-marketing',
+  '/marketing': '/marketing',
+  '/marketing/inversion': '/marketing/inversion',
+  '/marketing/campanas': '/marketing/campanas',
+
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/facturacion': '/ventas/facturacion',
