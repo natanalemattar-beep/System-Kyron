@@ -1,41 +1,28 @@
 'use server';
-/**
- * @fileOverview Flujo de chat especializado por rol.
- *
- * - chat - Procesa mensajes del usuario basándose en el contexto operativo del portal.
- * - ChatInput - Entrada con mensaje y contexto de rol.
- * - ChatOutput - Respuesta en texto plano.
- */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-
-const ChatInputSchema = z.object({
-  message: z.string().describe('El mensaje del usuario.'),
-  context: z.string().optional().describe('El contexto de rol o área actual donde se encuentra el usuario.'),
-});
-export type ChatInput = z.infer<typeof ChatInputSchema>;
+export type ChatInput = {
+  message: string;
+  context?: string;
+};
 
 export type ChatOutput = string;
 
 export async function chat(input: ChatInput): Promise<ChatOutput> {
-  return chatFlow(input);
-}
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
-const chatFlow = ai.defineFlow(
-  {
-    name: 'chatFlow',
-    inputSchema: ChatInputSchema,
-    outputSchema: z.string(),
-  },
-  async (input) => {
-    const { text } = await ai.generate({
-      model: 'googleai/gemini-1.5-pro-latest',
-      prompt: `Eres la Inteligencia Maestra de "System Kyron", un ecosistema tecnológico integral. 
+  if (!apiKey) {
+    return "El chat de IA no está configurado. Contacta al administrador del sistema para activar la inteligencia Kyron.";
+  }
+
+  const { ai } = await import('@/ai/genkit');
+
+  const { text } = await ai.generate({
+    model: 'googleai/gemini-1.5-pro-latest',
+    prompt: `Eres la Inteligencia Maestra de "System Kyron", un ecosistema tecnológico integral. 
 Tu identidad y conocimientos deben adaptarse estrictamente al área de acceso actual del usuario.
 
 CONTEXTO DEL ÁREA ACTUAL:
-{{{context}}}
+${input.context ?? 'Portal general del ecosistema Kyron.'}
 
 INSTRUCCIONES DE COMPORTAMIENTO:
 1. Si el contexto indica que eres un "Administrador Fiscal", habla con autoridad sobre impuestos (IVA, ISLR, IGTF), contabilidad VEN-NIF y optimización de caja.
@@ -51,14 +38,13 @@ NORMAS GENERALES:
 - Si el mensaje no tiene que ver con el contexto, actúa como un asistente global del ecosistema Kyron.
 
 MENSAJE DEL USUARIO:
-{{{message}}}
+${input.message}
 `,
-      input,
-      config: {
-        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
-        temperature: 0.7,
-      }
-    });
-    return text;
-  }
-);
+    config: {
+      safetySettings: [{ category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' }],
+      temperature: 0.7,
+    }
+  });
+
+  return text;
+}
