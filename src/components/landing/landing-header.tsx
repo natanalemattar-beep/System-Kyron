@@ -66,11 +66,11 @@ export function LandingHeader() {
                 <div className="flex items-center justify-between h-12 w-full">
                     
                     {/* LOGO (LEFT) */}
-                    <div className="flex items-center justify-start min-w-[180px]">
-                        <Link href="/" className="flex items-center gap-4 group shrink-0">
-                            <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
+                    <div className="flex items-center justify-start shrink-0">
+                        <Link href="/" className="flex items-center gap-2 sm:gap-4 group shrink-0">
+                            <Logo className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow shrink-0" /> 
                             <div className="flex flex-col -mt-1">
-                                <span className="text-sm font-black tracking-[0.4em] text-foreground uppercase italic italic-shadow leading-none">System Kyron</span>
+                                <span className="text-xs sm:text-sm font-black tracking-[0.3em] sm:tracking-[0.4em] text-foreground uppercase italic italic-shadow leading-none">System Kyron</span>
                                 <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-80">
                                     {t('slogan')}
                                 </span>
@@ -94,7 +94,7 @@ export function LandingHeader() {
                     </nav>
 
                     {/* ACTIONS (RIGHT) */}
-                    <div className="flex items-center justify-end gap-6 min-w-[120px]">
+                    <div className="flex items-center justify-end gap-3 sm:gap-6 shrink-0">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             <DropdownMenu>

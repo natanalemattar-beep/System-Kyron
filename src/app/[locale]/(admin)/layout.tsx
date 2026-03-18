@@ -5,6 +5,7 @@ import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
+import { useAuth } from "@/lib/auth/context";
 
 /**
  * @fileOverview Layout Administrativo Consolidado.
@@ -17,10 +18,13 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const { user } = useAuth();
+    const displayName = user?.nombre || "Empresa";
+    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "AD";
     const headerUser = { 
-        name: "Administrador", 
-        email: "master@kyron.com", 
-        fallback: "AD",
+        name: displayName,
+        email: user?.email || "",
+        fallback: initials,
         color: "bg-primary shadow-glow"
     };
 
@@ -53,7 +57,7 @@ export default function AdminLayout({
               
               <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
-                  System Kyron v2.6.5 • Control de Mando Consolidado • 2026
+                  System Kyron v2.7.0 Demo • Portal Empresarial • 2026
                 </p>
               </footer>
           </div>

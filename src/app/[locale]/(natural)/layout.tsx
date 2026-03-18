@@ -5,6 +5,7 @@ import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
+import { useAuth } from "@/lib/auth/context";
 
 /**
  * @fileOverview Layout del Portal Natural (Ciudadano).
@@ -16,10 +17,13 @@ export default function NaturalLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const { user: authUser } = useAuth();
+    const fullName = authUser ? `${authUser.nombre}${authUser.apellido ? ' ' + authUser.apellido : ''}` : "Usuario";
+    const initials = fullName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
     const user = { 
-        name: "Carlos Mattar", 
-        email: "carlos@kyron.com", 
-        fallback: "CM",
+        name: fullName,
+        email: authUser?.email || "",
+        fallback: initials,
         color: "bg-primary shadow-glow"
     };
 
@@ -52,7 +56,7 @@ export default function NaturalLayout({
               
               <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
-                  System Kyron v2.6.5 • Nodo Personal • 2026
+                  System Kyron v2.7.0 Demo • Portal Ciudadano • 2026
                 </p>
               </footer>
           </div>

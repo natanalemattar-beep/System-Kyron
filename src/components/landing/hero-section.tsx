@@ -62,7 +62,7 @@ export function HeroSection() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-border">
+            <div className="flex flex-wrap gap-6 sm:gap-10 pt-8 border-t border-border justify-center lg:justify-start">
                 {[
                     { label: "CONEXIÓN", val: "ESTABLE", icon: Zap },
                     { label: "SEGURIDAD", val: "CIFRADA", icon: ShieldCheck }
