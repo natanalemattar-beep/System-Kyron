@@ -10,21 +10,25 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { formatDate, cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/lib/auth/context";
 
 const kpiData = [
-  { title: "Expediente Civil", value: "Completo", icon: FileText, color: "text-blue-600", bg: "bg-blue-50", desc: "4 documentos verificados" },
-  { title: "ID Digital 3D", value: "Nivel 5", icon: Lock, color: "text-primary", bg: "bg-primary/5", desc: "Acceso Seguro Activado" },
-  { title: "Gestiones", value: "2 Activas", icon: Clock, color: "text-amber-600", bg: "bg-amber-50", desc: "1 respuesta pendiente" },
-  { title: "Salud Cobertura", value: "Vigente", icon: Stethoscope, color: "text-emerald-600", bg: "bg-emerald-50", desc: "Red El Ávila activa" },
+  { title: "Expediente Civil", value: "Pendiente", icon: FileText, color: "text-blue-600", bg: "bg-blue-50", desc: "Sin documentos aún" },
+  { title: "ID Digital 3D", value: "Nivel 1", icon: Lock, color: "text-primary", bg: "bg-primary/5", desc: "Cuenta recién creada" },
+  { title: "Gestiones", value: "0 Activas", icon: Clock, color: "text-amber-600", bg: "bg-amber-50", desc: "Sin trámites iniciados" },
+  { title: "Salud Cobertura", value: "Sin datos", icon: Stethoscope, color: "text-emerald-600", bg: "bg-emerald-50", desc: "Configura tu cobertura" },
 ];
 
 export default function DashboardPersonalPage() {
+  const { user } = useAuth();
+  const displayName = user ? `${user.nombre}${user.apellido ? ' ' + user.apellido : ''}` : '—';
+
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
             <h1 className="text-xl md:text-2xl font-black tracking-tight uppercase italic text-foreground/90">Mi Terminal <span className="text-primary">Ciudadana</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Historial Unificado • Carlos Mattar</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Historial Unificado • {displayName}</p>
         </div>
         
         <div className="flex gap-2">
@@ -83,24 +87,15 @@ export default function DashboardPersonalPage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {[
-                            { ref: "CIV-2026-X1", label: "Cédula Digital", date: "15/03/2026", status: "Aprobado", color: "text-emerald-500", bg: "bg-emerald-50" },
-                            { ref: "REG-2026-M4", label: "Partida de Nacimiento", date: "12/03/2026", status: "En Proceso", color: "text-blue-500", bg: "bg-blue-50" },
-                            { ref: "FIS-2026-R9", label: "Actualización RIF", date: "Hoy", status: "Acción Requerida", color: "text-rose-500", bg: "bg-rose-50" },
-                        ].map((row, i) => (
-                            <TableRow key={i} className="hover:bg-muted/5 border-b border-border/50 group">
-                                <TableCell className="font-mono text-[10px] font-black text-primary pl-8">{row.ref}</TableCell>
-                                <TableCell className="py-4">
-                                    <div className="flex flex-col">
-                                        <span className="text-[11px] font-black uppercase italic group-hover:text-primary transition-colors">{row.label}</span>
-                                        <span className="text-[8px] text-muted-foreground font-medium uppercase mt-0.5">{row.date}</span>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="text-right pr-8">
-                                    <Badge variant="outline" className={cn("text-[8px] font-black uppercase tracking-widest h-5 px-2 border-none", row.bg, row.color)}>{row.status}</Badge>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        <TableRow>
+                            <TableCell colSpan={3} className="py-12 text-center">
+                                <div className="flex flex-col items-center gap-2">
+                                    <FileText className="h-8 w-8 text-muted-foreground/20" />
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Sin solicitudes registradas</p>
+                                    <p className="text-[9px] text-muted-foreground/30 font-medium uppercase">Inicia un trámite para verlo aquí</p>
+                                </div>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </CardContent>
@@ -131,12 +126,9 @@ export default function DashboardPersonalPage() {
                     <CardTitle className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Notificaciones Críticas</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 pt-4 space-y-4">
-                    <div className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/10 flex items-start gap-4">
-                        <ShieldAlert className="h-4 w-4 text-rose-500 mt-0.5" />
-                        <div className="space-y-1">
-                            <p className="text-[9px] font-black text-rose-600 uppercase">Actualización Registro</p>
-                            <p className="text-[8px] text-rose-500/70 font-bold leading-tight uppercase">Su registro fiscal vence el 15/04/2026.</p>
-                        </div>
+                    <div className="flex flex-col items-center py-4 gap-2">
+                        <CheckCircle className="h-6 w-6 text-muted-foreground/20" />
+                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/30">Sin notificaciones</p>
                     </div>
                 </CardContent>
            </Card>

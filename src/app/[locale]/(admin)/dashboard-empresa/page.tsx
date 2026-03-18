@@ -11,23 +11,25 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
+import { useAuth } from "@/lib/auth/context";
 
 const kpiStats = [
-  { label: "INGRESOS TOTALES", value: "Bs. 45.231,89", trend: "+20.1%", icon: TrendingUp, color: "text-emerald-600" },
-  { label: "GASTOS TOTALES", value: "Bs. 21.345,67", trend: "+12.5%", icon: TrendingDown, color: "text-rose-600" },
-  { label: "UTILIDAD NETA", value: "Bs. 23.886,22", trend: "+30.2%", icon: Zap, color: "text-primary" },
-  { label: "LIQUIDEZ SISTEMA", value: "2.45", sub: "ÓPTIMO", icon: Activity, color: "text-blue-500" },
+  { label: "INGRESOS TOTALES", value: "Bs. 0,00", trend: "Sin movimientos", icon: TrendingUp, color: "text-emerald-600" },
+  { label: "GASTOS TOTALES", value: "Bs. 0,00", trend: "Sin movimientos", icon: TrendingDown, color: "text-rose-600" },
+  { label: "UTILIDAD NETA", value: "Bs. 0,00", trend: "Sin movimientos", icon: Zap, color: "text-primary" },
+  { label: "LIQUIDEZ SISTEMA", value: "—", sub: "SIN DATOS", icon: Activity, color: "text-blue-500" },
 ];
 
 const quickBooks = [
-    { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Al día", color: "text-blue-600" },
-    { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "23 Empleados", color: "text-emerald-600" },
-    { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box, kpi: "45 SKUs", color: "text-amber-600" },
-    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Ok", color: "text-rose-600" },
+    { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: Receipt, kpi: "Sin registros", color: "text-blue-600" },
+    { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: "Sin empleados", color: "text-emerald-600" },
+    { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box, kpi: "Sin artículos", color: "text-amber-600" },
+    { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Sin registros", color: "text-rose-600" },
 ];
 
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [simulation, setSimulation] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -54,7 +56,7 @@ export default function DashboardEmpresaPage() {
                 CENTRO DE <span className="text-primary italic">MANDO</span>
             </h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
-                Portal Empresarial • Gestión Consolidada 2026
+                {user?.nombre ? `${user.nombre} • ` : ''}Portal Empresarial • Gestión Consolidada 2026
             </p>
         </div>
         <div className="flex w-full md:w-auto gap-3 no-print">

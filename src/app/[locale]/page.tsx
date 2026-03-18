@@ -13,6 +13,8 @@ import {
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
+import { DemoBanner } from "@/components/demo-banner";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { use } from 'react';
 
 /**
@@ -30,6 +32,8 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
       <WelcomeTutorial />
       
+      <DemoBanner />
+
       {/* Barra de Progreso HUD */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-primary/60 shadow-glow origin-left z-[200]" 
@@ -63,6 +67,8 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
 
       {/* Rejilla HUD sutil */}
       <div className="fixed inset-0 pointer-events-none -z-10 opacity-[0.03] dark:opacity-[0.05] hud-grid" />
+
+      <WhatsAppButton />
     </div>
   );
 }
