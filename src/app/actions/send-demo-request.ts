@@ -1,9 +1,7 @@
-
 'use server';
 
 import { Resend } from 'resend';
-import { initializeFirebase } from '@/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { query } from '@/lib/db';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder_123');
 
@@ -20,13 +18,12 @@ export async function sendDemoRequestAction(data: {
   message?: string;
 }) {
   try {
-    const { firestore } = initializeFirebase();
-    await addDoc(collection(firestore, 'demoRequests'), {
-      ...data,
-      source: 'Landing Page v2.6',
-      status: 'new',
-      timestamp: serverTimestamp(),
-    });
+    await query(
+      `INSERT INTO demo_requests (name, role, email, phone, company, company_size, sector, urgency, module, message, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'new')
+       ON CONFLICT DO NOTHING`,
+      [data.name, data.role, data.email, data.phone, data.company, data.companySize, data.sector, data.urgency, data.module, data.message ?? '']
+    ).catch(() => null);
 
     await resend.emails.send({
       from: 'System Kyron <onboarding@resend.dev>',
