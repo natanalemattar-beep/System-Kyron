@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Radio, ShieldCheck, Zap, Activity, Smartphone } from "lucide-react";
+import { ArrowRight, Radio, ShieldCheck, Zap, Activity, Smartphone, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/navigation";
@@ -103,16 +103,26 @@ export function HeroSection() {
                     </Card>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-card flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-primary/5">
-                            <Radio className="h-6 w-6 text-primary mb-4" />
-                            <h3 className="font-black text-[9px] uppercase italic text-foreground mb-1 tracking-widest">RED 5G ACTIVA</h3>
-                            <p className="text-[7px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Conectividad de baja latencia para empresas.</p>
-                        </Card>
-                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-card flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-primary/5">
-                            <Smartphone className="h-6 w-6 text-secondary mb-4" />
-                            <h3 className="font-black text-[9px] uppercase italic text-foreground mb-1 tracking-widest">GESTIÓN DE LÍNEA</h3>
-                            <p className="text-[7px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Control total de consumo y recargas.</p>
-                        </Card>
+                        <Link href="/login-linea" className="block group">
+                            <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-card flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-primary/5 hover:border-primary/20 border border-transparent cursor-pointer h-full">
+                                <Smartphone className="h-6 w-6 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                                <h3 className="font-black text-[9px] uppercase italic text-foreground mb-1 tracking-widest group-hover:text-primary transition-colors">GESTIÓN DE LÍNEA</h3>
+                                <p className="text-[7px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed mb-3">Personal y Empresa — acceso combinado.</p>
+                                <span className="text-[7px] font-black uppercase tracking-[0.3em] text-primary/40 group-hover:text-primary flex items-center gap-1 transition-colors mt-auto">
+                                    ACCEDER <ArrowRight className="h-3 w-3" />
+                                </span>
+                            </Card>
+                        </Link>
+                        <Link href="/login-marketing" className="block group">
+                            <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-card flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-secondary/5 hover:border-secondary/20 border border-transparent cursor-pointer h-full">
+                                <Megaphone className="h-6 w-6 text-secondary mb-4 group-hover:scale-110 transition-transform" />
+                                <h3 className="font-black text-[9px] uppercase italic text-foreground mb-1 tracking-widest group-hover:text-secondary transition-colors">MARKETING IA</h3>
+                                <p className="text-[7px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed mb-3">Alertas de inversión y análisis de mercado.</p>
+                                <span className="text-[7px] font-black uppercase tracking-[0.3em] text-secondary/40 group-hover:text-secondary flex items-center gap-1 transition-colors mt-auto">
+                                    ACCEDER <ArrowRight className="h-3 w-3" />
+                                </span>
+                            </Card>
+                        </Link>
                     </div>
                 </div>
           </motion.div>

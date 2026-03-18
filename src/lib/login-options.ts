@@ -1,5 +1,5 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Smartphone, Recycle } from "lucide-react";
+import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Smartphone, Recycle, Megaphone } from "lucide-react";
 
 export const loginOptions = [
     { 
@@ -67,5 +67,11 @@ export const loginOptions = [
         label: "Ingeniería e IT", 
         icon: Cpu, 
         description: "Control de infraestructura tecnológica, planos y presupuestos técnicos." 
+    },
+    { 
+        href: "/login-marketing", 
+        label: "Marketing IA", 
+        icon: Megaphone, 
+        description: "Estrategias comerciales, alertas de inversión y análisis de mercado potenciados por IA." 
     },
 ];

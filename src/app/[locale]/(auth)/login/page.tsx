@@ -5,17 +5,22 @@ import { Link } from "@/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { loginOptions } from "@/lib/login-options";
-import { User, Building2, ArrowRight, ChevronLeft, Sparkles, ShieldCheck } from "lucide-react";
+import { User, Building2, ArrowRight, ChevronLeft, Sparkles, ShieldCheck, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoginSelectionPage() {
-    // Definimos qué opciones van en el Portal Ciudadano (Personal)
-    const personalOptions = loginOptions.filter(o => 
-        ['/login-personal', '/login-linea-personal'].includes(o.href)
-    );
-    // Definimos qué opciones van en Corporativos
+    // Entrada combinada para Gestión de Línea (Personal + Empresa juntos)
+    const lineaEntry = { href: "/login-linea", label: "Gestión de Línea", icon: Smartphone, description: "Acceso combinado Personal y Empresa. Selecciona tu tipo de línea al ingresar." };
+
+    // Portal Ciudadano: cuenta personal + acceso combinado de línea
+    const personalOptions = [
+        ...loginOptions.filter(o => ['/login-personal'].includes(o.href)),
+        lineaEntry,
+    ];
+
+    // Corporativos: todo excepto personal, linea-personal y linea-empresa (ya unificadas)
     const enterpriseOptions = loginOptions.filter(o => 
-        !['/login-personal', '/login-linea-personal'].includes(o.href)
+        !['/login-personal', '/login-linea-personal', '/login-linea-empresa'].includes(o.href)
     );
 
     const containerVariants = {
