@@ -9,16 +9,10 @@ export const loginOptions = [
         description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." 
     },
     { 
-        href: "/login-linea-personal", 
-        label: "Mi Línea Personal", 
-        icon: Smartphone, 
-        description: "Gestión individual de tu línea móvil, recargas y consumo de datos." 
-    },
-    { 
-        href: "/login-linea-empresa", 
-        label: "Mi Línea Empresa", 
+        href: "/login-linea", 
+        label: "Mis Líneas", 
         icon: Signal, 
-        description: "Centro de control de flota corporativa para la gestión masiva de líneas." 
+        description: "Portal unificado para gestionar tu línea personal y la flota corporativa de empresa." 
     },
     { 
         href: "/login-empresa", 
