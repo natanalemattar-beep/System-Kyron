@@ -3,64 +3,83 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CircleHelp as HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useHoliday } from "@/hooks/use-holiday";
-import { cn } from "@/lib/utils";
 
 const faqItems = [
     {
-        question: "¿Cómo garantizan el 'Cero Riesgo Fiscal'?",
-        answer: "Nuestra confianza se basa en un sistema de triple validación: reglas de negocio actualizadas, auditoría continua por IA y sellado de transacciones en Blockchain para crear un registro inmutable."
+        question: "¿Cómo garantizan el cumplimiento fiscal venezolano?",
+        answer: "System Kyron monitorea la Gaceta Oficial diariamente con IA. Todas las declaraciones de IVA 16%, IGTF 3% e ISLR 34% se calculan automáticamente según la normativa VEN-NIF vigente. Las actualizaciones legales se despliegan sin intervención del usuario."
     },
     {
-        question: "¿La plataforma puede gestionar un holding?",
-        answer: "Sí. System Kyron permite consolidar la contabilidad y generar reportes financieros a nivel de grupo desde un único Centro de Mando, manteniendo la independencia de datos de cada empresa."
+        question: "¿Puedo gestionar múltiples empresas o un holding?",
+        answer: "Sí. El portal de Socios y Directivos permite consolidar la contabilidad de varias entidades en un único Centro de Mando. Cada empresa mantiene su propia independencia de datos con reportes a nivel de grupo disponibles en tiempo real."
     },
     {
-        question: "¿Es difícil migrar mi información actual?",
-        answer: "No. Nuestro equipo te guiará para importar tus datos históricos de forma masiva. Para la mayoría de los sistemas estándar, la migración se completa en menos de 48 horas."
+        question: "¿Cómo funciona la tasa BCV en facturas y pagos?",
+        answer: "La tasa del Banco Central de Venezuela se actualiza automáticamente en la plataforma. Cada factura y transacción en bolívares genera automáticamente su equivalente en USD aplicando la tasa BCV del momento, facilitando el cumplimiento del IGTF 3%."
     },
     {
-        question: "¿Cómo se adapta a los cambios de leyes?",
-        answer: "Nuestro equipo legal y nuestra IA monitorean la Gaceta Oficial diariamente. Cualquier cambio normativo se traduce en actualizaciones automáticas en la plataforma."
-    }
+        question: "¿Es difícil migrar mis datos desde otro sistema?",
+        answer: "No. Nuestro equipo guía la importación masiva de datos históricos. Para la mayoría de sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
+    },
+    {
+        question: "¿El módulo Telecom funciona con operadoras venezolanas?",
+        answer: "Sí. El portal de Telecomunicaciones gestiona líneas de Movilnet, Digitel y Movistar, incluyendo activación de eSIM, provisión 5G y gestión de flota corporativa por departamento con límites de consumo configurables."
+    },
+    {
+        question: "¿Qué son los Eco-Créditos de Ameru IA?",
+        answer: "Ameru es nuestro módulo de sostenibilidad. Permite clasificar residuos mediante inteligencia artificial, generar eco-créditos certificados por cada kilogramo reciclado y participar en el mercado de eco-créditos Kyron para monetizar el impacto ambiental."
+    },
+    {
+        question: "¿Cuál es el nivel de seguridad de la plataforma?",
+        answer: "Toda la información se cifra con AES-256. La autenticación usa JWT con cookies HTTP-only y sesiones de 7 días. El registro de auditoría es inmutable y cada acción queda registrada con timestamp, IP y usuario responsable."
+    },
+    {
+        question: "¿Cómo funciona el registro de persona natural vs. jurídica?",
+        answer: "El registro diferencia entre personas naturales (cédula, datos personales) y personas jurídicas (RIF, razón social, representante legal). Cada tipo desbloquea los módulos correspondientes: documentos civiles para naturales, contabilidad y nómina para jurídicas."
+    },
 ];
 
-
 export function FaqSection() {
-    const { isHolidayActive } = useHoliday();
     return (
-        <section id="faq" className={cn("py-16 md:py-28", !isHolidayActive && "bg-muted/10 rounded-[2.5rem] md:rounded-[4rem]")}>
-            <div className="container mx-auto px-4 md:px-10">
-                <motion.div 
-                    className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4"
+        <section id="faq" className="py-16 md:py-28">
+            <div className="container mx-auto px-4 md:px-10 max-w-5xl">
+                <motion.div
+                    className="text-center mb-12 md:mb-16 space-y-4"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase italic">Preguntas <span className="text-primary not-italic">Frecuentes</span></h2>
-                    <p className="text-sm md:text-lg text-muted-foreground font-medium">Resolvemos tus dudas técnicas para facilitar tu toma de decisiones.</p>
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase italic italic-shadow">
+                        Preguntas <span className="text-primary not-italic">Frecuentes</span>
+                    </h2>
+                    <p className="text-sm md:text-base text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+                        Resolvemos las dudas más comunes sobre la plataforma para que puedas tomar decisiones con confianza.
+                    </p>
                 </motion.div>
-                <motion.div 
-                    className="max-w-3xl mx-auto"
+
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: 0.15 }}
                 >
-                    <Accordion type="single" collapsible className="w-full">
+                    <Accordion type="single" collapsible className="w-full space-y-3">
                         {faqItems.map((item, index) => (
-                            <AccordionItem key={index} value={`item-${index}`} className={cn(
-                                "border-none rounded-2xl mb-4 px-6 overflow-hidden transition-all hover:bg-foreground/5",
-                                isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card/40 shadow-sm"
-                            )}>
-                                <AccordionTrigger className="text-left hover:no-underline py-6">
+                            <AccordionItem
+                                key={index}
+                                value={`item-${index}`}
+                                className="border border-border/50 rounded-2xl px-6 overflow-hidden bg-card/40 hover:bg-card/70 transition-all hover:border-primary/20 data-[state=open]:border-primary/20"
+                            >
+                                <AccordionTrigger className="text-left hover:no-underline py-5">
                                     <div className="flex items-start gap-4">
-                                        <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                                        <span className="text-xs md:text-sm font-black uppercase tracking-tight italic text-foreground/90">{item.question}</span>
+                                        <HelpCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                                        <span className="text-xs md:text-sm font-black uppercase tracking-tight text-foreground/90 leading-snug">
+                                            {item.question}
+                                        </span>
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className="pb-6 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-9 border-t border-border/10 pt-4">
+                                <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-8 border-t border-border/20 pt-4">
                                     {item.answer}
                                 </AccordionContent>
                             </AccordionItem>
