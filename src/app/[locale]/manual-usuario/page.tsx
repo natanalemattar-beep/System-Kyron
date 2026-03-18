@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ShieldCheck, Zap, Calculator, Users, Lock, Smartphone, School, Download, Printer, ChevronLeft, Loader as Loader2, CircleCheck as CheckCircle, Target, LayoutDashboard, ShoppingCart, Clock, ShieldAlert, History, Scale, Landmark, Globe, Coins, Activity, Cpu, MessageSquare, Building2, FileText, Gavel, Radio, Recycle, Wallet, ChartBar as BarChart3 } from "lucide-react";
+import { BookOpen, ShieldCheck, Zap, Calculator, Users, Lock, Smartphone, School, Download, Printer, ChevronLeft, Loader as Loader2, CircleCheck as CheckCircle, Target, LayoutDashboard, ShoppingCart, Clock, ShieldAlert, History, Scale, Landmark, Globe, Coins, Activity, Cpu, MessageSquare, Building2, FileText, Gavel, Radio, Recycle, Wallet, ChartBar as BarChart3, BrainCircuit, ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -249,6 +250,19 @@ const chapters = [
       "Mantenimiento Proactivo: Actualizaciones de sistema sin interrupciones.",
       "Comunidad Kyron: Foro de usuarios para compartir mejores prácticas."
     ]
+  },
+  {
+    id: "modelo-zedu",
+    title: "21. Modelo ZEDU — AutoMind AI",
+    icon: BrainCircuit,
+    content: `El Modelo Zedu de System Kyron corresponde al proyecto educativo AutoMind AI, desarrollado por Miguel Uzcategui, Miguel Angel Goites y Joaquin de Barros en el Colegio Santa Rosa de Lima, Caracas. Este proyecto transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, un chatbot de atención automatizada para representantes y herramientas de inteligencia artificial de apoyo administrativo. El documento completo del Modelo Zedu — incluyendo análisis del problema, solución propuesta, presupuesto, aliados y plan de acción — está disponible en la sección Sector Privado del portal. Puede imprimirlo o descargarlo en formato Word (.doc) desde esa misma página.`,
+    details: [
+      "Equipo: Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros — Colegio Santa Rosa de Lima.",
+      "Módulo de Archivo Digital: Digitalización y búsqueda instantánea de expedientes estudiantiles con OCR.",
+      "Chatbot IA: Atención automatizada a representantes 24/7 vía WhatsApp y portal web.",
+      "Asistente Administrativo IA: Generación de reportes, circulares y análisis estratégico para la dirección.",
+      "Acceso directo: Disponible en /sector-privado-system-kyron con opción de descarga en Word."
+    ]
   }
 ];
 
@@ -326,7 +340,7 @@ export default function ManualUsuarioPage() {
         </div>
 
         <div class="intro">
-          Este manual representa la documentación unificada de System Kyron (v2.6.5), un ecosistema tecnológico integral diseñado por Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS). La plataforma se proyecta como una solución de misión crítica para el mercado venezolano en 2026, integrando normativas del SENIAT, CONATEL, LOTTT y otros entes reguladores. Esta guía detalla las capacidades previstas para garantizar la excelencia operativa y el cumplimiento legal absoluto de su organización.
+          Este manual representa la documentación unificada de System Kyron (v2.6.5), un ecosistema tecnológico integral diseñado por Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS). Incluye 21 capítulos operativos, entre ellos el Capítulo 21 dedicado al Modelo ZEDU — proyecto AutoMind AI del Colegio Santa Rosa de Lima. La plataforma se proyecta como una solución de misión crítica para el mercado venezolano en 2026, integrando normativas del SENIAT, CONATEL, LOTTT y otros entes reguladores. Esta guía detalla las capacidades previstas para garantizar la excelencia operativa y el cumplimiento legal absoluto de su organización.
         </div>
 
         ${chapters.map((ch) => `
@@ -366,7 +380,7 @@ export default function ManualUsuarioPage() {
     setIsExporting(false);
     toast({
         title: "PROTOCOLO DE DESCARGA FINALIZADO",
-        description: "La guía de operaciones detallada (20 capítulos) ha sido generada con éxito.",
+        description: "La guía de operaciones detallada (21 capítulos, incluye Modelo ZEDU) ha sido generada con éxito.",
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
   };
@@ -391,7 +405,7 @@ export default function ManualUsuarioPage() {
             Guía de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
-            Consolidado Técnico de 20 Capítulos • Alineado con Gacetas Oficiales 2026 • CM | SG | MS
+            Consolidado Técnico de 21 Capítulos • Incluye Modelo ZEDU AutoMind AI • CM | SG | MS
             </p>
         </div>
         <div className="flex gap-3 no-print">
@@ -458,9 +472,20 @@ export default function ManualUsuarioPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="mt-8 pt-6 border-t border-border">
-                                <p className="text-[8px] font-black text-muted-foreground/20 uppercase tracking-[0.4em]">Protocolo Verificado v2.6.5</p>
-                            </div>
+                            {chapter.id === "modelo-zedu" && (
+                                <div className="mt-8 pt-6 border-t border-border">
+                                    <Button asChild className="w-full btn-3d-primary rounded-xl font-black text-[10px] uppercase tracking-widest gap-2">
+                                        <Link href="/sector-privado-system-kyron">
+                                            <ExternalLink className="h-4 w-4" /> VER DOCUMENTO COMPLETO
+                                        </Link>
+                                    </Button>
+                                </div>
+                            )}
+                            {chapter.id !== "modelo-zedu" && (
+                                <div className="mt-8 pt-6 border-t border-border">
+                                    <p className="text-[8px] font-black text-muted-foreground/20 uppercase tracking-[0.4em]">Protocolo Verificado v2.6.5</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

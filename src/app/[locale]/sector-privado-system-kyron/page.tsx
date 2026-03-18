@@ -1,1003 +1,670 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  Mic, FileText, ChevronDown, ChevronRight, Play, Pause,
-  Target, Zap, TrendingUp, Users, Globe, Shield, Heart,
-  Phone, MessageSquare, Wifi, CreditCard, Banknote, Building2,
-  CheckCircle, Star, Award, ArrowRight, Download, Printer,
-  BrainCircuit, Handshake, Receipt, Car, BarChart2, Rocket,
-  DollarSign, Clock, Activity, Lock, Sparkles, Database,
-  FileDown, History, X, Copy, Check, ChevronUp
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, School, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/logo";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
-const secciones = [
-  {
-    id: "apertura",
-    numero: "01",
-    titulo: "APERTURA — GANCHO INICIAL",
-    duracion: "2 min",
-    color: "text-primary",
-    bg: "bg-primary/10",
-    border: "border-primary/20",
-    icon: Mic,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "¿Cuántas horas a la semana pierde tu empresa haciendo a mano lo que una máquina puede hacer en segundos?",
-      },
-      {
-        tipo: "PAUSA DRAMÁTICA",
-        texto: "[Dejar que la pregunta resuene. Mirar al público. 3 segundos de silencio.]",
-        esNota: true,
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "En Venezuela, el 78% de las PYMEs y empresas medianas aún llevan su contabilidad en Excel. El 61% desconoce cuánto debe exactamente al SENIAT en tiempo real. Y el 84% no puede verificar un pago móvil en menos de 5 minutos.",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Eso no es un problema de capacidad. Es un problema de herramientas. Hoy les presentamos la solución.",
-      },
-      {
-        tipo: "REVEAL",
-        texto: "System Kyron. El sistema operativo del empresario venezolano del siglo XXI.",
-        esDestacado: true,
-      },
-    ],
-    cifrasApoyo: [
-      { val: "78%", desc: "PYMEs sin sistema contable automatizado" },
-      { val: "61%", desc: "Desconocen su exposición fiscal en tiempo real" },
-      { val: "84%", desc: "Verifican pagos móviles manualmente" },
-    ],
-  },
-  {
-    id: "problema",
-    numero: "02",
-    titulo: "EL PROBLEMA — CONTEXTO VENEZOLANO",
-    duracion: "3 min",
-    color: "text-rose-500",
-    bg: "bg-rose-500/10",
-    border: "border-rose-500/20",
-    icon: Target,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "El empresario venezolano de hoy enfrenta un entorno único en el mundo. Maneja simultáneamente: bolívares y dólares, IVA al 16%, IGTF al 3% en operaciones en divisa, retenciones de ISLR, libros del SENIAT, normas VEN-NIF, y un tipo de cambio que fluctúa a diario.",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Al mismo tiempo, necesita emitir facturas, cobrar por pago móvil, Zelle, Reserve, Binance. Manejar puntos de venta. Gestionar nómina. Controlar inventario. Y cumplir con Saren, LOPCYMAT, INPSASEL, municipalidades…",
-      },
-      {
-        tipo: "ÉNFASIS",
-        texto: "Todo esto, con equipos pequeños, en tiempo real, sin margen de error.",
-        esDestacado: true,
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "El costo promedio de un error fiscal en Venezuela puede llegar al 150% del tributo omitido más intereses y sanciones. Una sola inconsistencia en libros puede paralizar operaciones. Una retención mal calculada puede generar una fiscalización que dure meses.",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Las soluciones existentes en el mercado — software contable importado, ERPs costosos, hojas de cálculo compartidas — no fueron diseñadas para este contexto. System Kyron sí.",
-      },
-    ],
-    cifrasApoyo: [
-      { val: "150%", desc: "Sanción máxima por tributo omitido (SENIAT)" },
-      { val: "Bs. 50,45", desc: "Tasa BCV USD referencial – marzo 2026" },
-      { val: "16% + 3%", desc: "IVA + IGTF en operaciones con divisas" },
-    ],
-  },
-  {
-    id: "solucion",
-    numero: "03",
-    titulo: "LA SOLUCIÓN — SYSTEM KYRON",
-    duracion: "5 min",
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
-    border: "border-emerald-500/20",
-    icon: Rocket,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "System Kyron es una plataforma de gestión empresarial integral, diseñada específicamente para el mercado venezolano. No es solo software contable. Es el sistema nervioso de tu empresa.",
-      },
-      {
-        tipo: "MÓDULO",
-        titulo: "CONTABILIDAD INTELIGENTE",
-        texto: "Normas VEN-NIF automatizadas. Libros del SENIAT generados en un clic: Libro de Compra-Venta, Diario, Mayor, Inventario. Ajuste por inflación RIPF automático con el índice BCV. Declaraciones de IVA, ISLR, IGTF precalculadas.",
-        icono: "📊",
-      },
-      {
-        tipo: "MÓDULO",
-        titulo: "PAGOS DIGITALES VERIFICADOS",
-        texto: "Verificación automática de pago móvil en tiempo real. El cliente paga y en 3 segundos el sistema confirma, registra y acredita. Sin llamadas. Sin esperas. Integración con Banesco, BdV, Mercantil, BNC, BOD, BBVA Provincial.",
-        icono: "📱",
-      },
-      {
-        tipo: "MÓDULO",
-        titulo: "TELECOMUNICACIONES CORPORATIVAS",
-        texto: "En alianza con nuestra línea telefónica, el sistema incluye internet ilimitado, telefonía corporativa con planes contables integrados, y WhatsApp Business con IA que responde a tus clientes 24/7 automáticamente.",
-        icono: "📡",
-      },
-      {
-        tipo: "MÓDULO",
-        titulo: "ALIANZAS ESTRATÉGICAS",
-        texto: "Acceso directo a Chévere Salud para cobertura médica corporativa, Mercantil Seguros para protección de activos, y Mapfre para seguros vehiculares. Todo gestionado dentro del sistema con integración contable automática.",
-        icono: "🤝",
-      },
-      {
-        tipo: "ÉNFASIS",
-        texto: "Un solo sistema. Todo lo que tu empresa necesita para operar, crecer y cumplir en Venezuela.",
-        esDestacado: true,
-      },
-    ],
-    cifrasApoyo: [
-      { val: "12+", desc: "Módulos integrados en una sola plataforma" },
-      { val: "3 seg", desc: "Verificación automática de pago móvil" },
-      { val: "100%", desc: "Cumplimiento SENIAT garantizado" },
-    ],
-  },
-  {
-    id: "mercado",
-    numero: "04",
-    titulo: "MERCADO OBJETIVO",
-    duracion: "2 min",
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
-    border: "border-amber-500/20",
-    icon: Target,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "Venezuela cuenta con más de 120.000 empresas formalmente registradas en el SENIAT. De ellas, aproximadamente 94.000 son PYMEs con entre 5 y 250 empleados. Ese es nuestro mercado primario.",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Nuestro cliente ideal es el director o dueño de empresa entre 35 y 60 años, con operaciones en Caracas, Maracaibo, Valencia, Barquisimeto o Maracay, que factura entre $5.000 y $200.000 USD mensuales y que actualmente usa Excel, un contador externo, o software desactualizado.",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Segmentos verticales con mayor tracción inicial: Distribuidoras, Farmacias, Ferreterías, Constructoras, Bufetes de abogados, Clínicas privadas, Empresas de servicios y Condominios.",
-      },
-      {
-        tipo: "DATOS",
-        titulo: "TAMAÑO DE MERCADO DIRECCIONABLE",
-        texto: "TAM: 120.000 empresas · SAM: 94.000 PYMEs formales · SOM (primer año): 2.400 clientes · Precio promedio: $150 USD/mes · ARR potencial año 1: $4.320.000 USD",
-        esDestacado: true,
-      },
-    ],
-    cifrasApoyo: [
-      { val: "120K", desc: "Empresas registradas en SENIAT Venezuela" },
-      { val: "94K", desc: "PYMEs en mercado objetivo" },
-      { val: "$150", desc: "Precio promedio mensual por empresa (USD)" },
-    ],
-  },
-  {
-    id: "modelo",
-    numero: "05",
-    titulo: "MODELO DE NEGOCIO",
-    duracion: "3 min",
-    color: "text-violet-500",
-    bg: "bg-violet-500/10",
-    border: "border-violet-500/20",
-    icon: DollarSign,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "System Kyron opera bajo un modelo de suscripción mensual SaaS con tres niveles, más ingresos adicionales por servicios de valor agregado y comisiones de alianzas.",
-      },
-      {
-        tipo: "PLAN",
-        titulo: "PLAN PROFESIONAL — $99 USD/mes",
-        texto: "Contabilidad completa VEN-NIF. Facturación electrónica ilimitada. Conciliación bancaria 3 bancos. Pago móvil verificado. Hasta 10 usuarios. Telefonía básica incluida.",
-        icono: "🔷",
-      },
-      {
-        tipo: "PLAN",
-        titulo: "PLAN CORPORATIVO — $199 USD/mes",
-        texto: "Todo del plan Profesional. Conciliación 6 bancos. Módulo RRHH completo. WhatsApp IA activado. Telefonía corporativa 5 líneas. Módulos legal y tributario avanzados. Hasta 50 usuarios.",
-        icono: "🔶",
-      },
-      {
-        tipo: "PLAN",
-        titulo: "PLAN ENTERPRISE — $399 USD/mes",
-        texto: "Plataforma completa sin límites. Onboarding personalizado. SLA garantizado 99.9%. Integración API con sistemas bancarios. Módulo de telecomunicaciones completo. Alianzas de seguros y salud integradas. Usuarios ilimitados.",
-        icono: "💎",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Ingresos adicionales: 1) Comisiones por afiliación de clientes a Chévere Salud, Mercantil Seguros y Mapfre. 2) Margen en planes telefónicos corporativos. 3) Servicios de implementación y capacitación a empresas grandes.",
-      },
-    ],
-    cifrasApoyo: [
-      { val: "$99", desc: "Precio entrada Plan Profesional / mes (USD)" },
-      { val: "LTV $3.600+", desc: "Valor promedio de cliente en 3 años" },
-      { val: "< $80", desc: "Costo de adquisición de cliente (CAC)" },
-    ],
-  },
-  {
-    id: "diferenciadores",
-    numero: "06",
-    titulo: "VENTAJAS COMPETITIVAS",
-    duracion: "3 min",
-    color: "text-cyan-500",
-    bg: "bg-cyan-500/10",
-    border: "border-cyan-500/20",
-    icon: Shield,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "Lo que nos diferencia no es solo tecnología. Es contexto. Somos el único sistema diseñado desde Venezuela, para Venezuela.",
-      },
-      {
-        tipo: "DIFERENCIADOR",
-        titulo: "INTELIGENCIA FISCAL VENEZOLANA",
-        texto: "Conocemos el SENIAT, la Gaceta Oficial, el BCV, la LOPCYMAT, el SAREN, el SAPI. Actualizaciones automáticas ante cualquier cambio regulatorio. Cero riesgo de incumplimiento involuntario.",
-        icono: "⚡",
-      },
-      {
-        tipo: "DIFERENCIADOR",
-        titulo: "VERIFICACIÓN DE PAGO MÓVIL EN TIEMPO REAL",
-        texto: "Nadie más en Venezuela ofrece verificación automática de pago móvil integrada al sistema contable. El cliente paga, el sistema lo confirma y lo registra. 0% de fraude. 100% de trazabilidad.",
-        icono: "📱",
-      },
-      {
-        tipo: "DIFERENCIADOR",
-        titulo: "ECOSISTEMA TODO EN UNO",
-        texto: "No solo contabilidad. Telefonía, internet, seguros, salud, nómina, legal, inventario. Todo integrado. El empresario venezolano no tiene que salir de Kyron para operar su empresa.",
-        icono: "🌐",
-      },
-      {
-        tipo: "DIFERENCIADOR",
-        titulo: "IA GENERATIVA APLICADA AL CONTEXTO LOCAL",
-        texto: "Usando Google Gemini 1.5 Pro, el sistema redacta documentos legales venezolanos, extrae datos de facturas y recibos por foto, y responde consultas contables y tributarias en lenguaje natural.",
-        icono: "🧠",
-      },
-      {
-        tipo: "ÉNFASIS",
-        texto: "Software importado como SAP, QuickBooks o Aspel no tienen ni la mitad de estas capacidades adaptadas al mercado venezolano. Y cuestan 10 veces más.",
-        esDestacado: true,
-      },
-    ],
-    cifrasApoyo: [
-      { val: "0", desc: "Competidores directos con verificación de pago móvil integrada" },
-      { val: "10x", desc: "Más económico que ERPs importados equivalentes" },
-      { val: "34h", desc: "Promedio de horas ahorradas por empresa al mes" },
-    ],
-  },
-  {
-    id: "traccion",
-    numero: "07",
-    titulo: "TRACCIÓN Y VALIDACIÓN",
-    duracion: "2 min",
-    color: "text-indigo-500",
-    bg: "bg-indigo-500/10",
-    border: "border-indigo-500/20",
-    icon: TrendingUp,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "System Kyron no es una idea. Es un producto funcionando, con clientes reales, en el mercado venezolano hoy.",
-      },
-      {
-        tipo: "LOGRO",
-        titulo: "CLIENTES ACTIVOS",
-        texto: "Actualmente gestionamos la contabilidad y operaciones de empresas en sectores: distribución, retail, servicios profesionales, salud privada y construcción. Más de 240 empresas en lista de espera.",
-        icono: "🏢",
-      },
-      {
-        tipo: "LOGRO",
-        titulo: "VOLUMEN DE TRANSACCIONES",
-        texto: "En el último trimestre procesamos más de Bs. 18.400.000.000 en transacciones registradas, equivalentes a aproximadamente $364 millones USD al tipo de cambio BCV promedio del período.",
-        icono: "💰",
-      },
-      {
-        tipo: "LOGRO",
-        titulo: "ALIANZAS FORMALIZADAS",
-        texto: "Acuerdos marco firmados con Chévere Salud, Mercantil Seguros y Mapfre Venezuela. Negociaciones avanzadas con Banesco y BNC para integración API bancaria certificada.",
-        icono: "🤝",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "NPS (Net Promoter Score) promedio entre clientes actuales: 72 puntos. Tasa de retención mensual: 96.4%. Tiempo promedio desde demo a contrato firmado: 11 días.",
-      },
-    ],
-    cifrasApoyo: [
-      { val: "96.4%", desc: "Tasa de retención mensual de clientes" },
-      { val: "72 NPS", desc: "Satisfacción de clientes activos" },
-      { val: "11 días", desc: "Ciclo promedio de venta (demo → contrato)" },
-    ],
-  },
-  {
-    id: "proyecciones",
-    numero: "08",
-    titulo: "PROYECCIONES FINANCIERAS",
-    duracion: "2 min",
-    color: "text-emerald-600",
-    bg: "bg-emerald-600/10",
-    border: "border-emerald-600/20",
-    icon: BarChart2,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "Proyectamos un crecimiento conservador basado en nuestra tracción actual y en los 240 clientes en lista de espera.",
-      },
-      {
-        tipo: "DATOS",
-        titulo: "AÑO 1 — 2026",
-        texto: "Meta: 500 empresas activas · Ingreso ARR: $720.000 USD · EBITDA estimado: 24% · MRR al cierre: $60.000 USD",
-        icono: "📈",
-      },
-      {
-        tipo: "DATOS",
-        titulo: "AÑO 2 — 2027",
-        texto: "Meta: 2.400 empresas activas · Ingreso ARR: $3.840.000 USD · EBITDA: 38% · Expansión a mercados LATAM: Colombia, Ecuador",
-        icono: "📈",
-      },
-      {
-        tipo: "DATOS",
-        titulo: "AÑO 3 — 2028",
-        texto: "Meta: 8.000 empresas activas · Ingreso ARR: $14.400.000 USD · EBITDA: 52% · Plataforma regional consolidada",
-        icono: "🚀",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "Estas proyecciones asumen una tasa de conversión del 2.5% del mercado venezolano SAM y un churn mensual inferior al 4%, consistente con nuestros números actuales.",
-      },
-    ],
-    cifrasApoyo: [
-      { val: "$14.4M", desc: "ARR proyectado año 3 (2028)" },
-      { val: "52%", desc: "Margen EBITDA proyectado año 3" },
-      { val: "3", desc: "Países objetivo para 2027 (VE, CO, EC)" },
-    ],
-  },
-  {
-    id: "equipo",
-    numero: "09",
-    titulo: "EL EQUIPO",
-    duracion: "2 min",
-    color: "text-rose-400",
-    bg: "bg-rose-400/10",
-    border: "border-rose-400/20",
-    icon: Users,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "Detrás de System Kyron hay un equipo fundador con más de 20 años de experiencia combinada en contabilidad venezolana, tecnología y telecomunicaciones.",
-      },
-      {
-        tipo: "MIEMBRO",
-        titulo: "FUNDADOR / CEO",
-        texto: "Contador Público colegiado con 15 años de experiencia fiscal en Venezuela. Ex-gerente tributario en firma Big Four. Especialista en VEN-NIF, SENIAT y cumplimiento regulatorio venezolano.",
-        icono: "👤",
-      },
-      {
-        tipo: "MIEMBRO",
-        titulo: "CTO",
-        texto: "Ingeniero en computación. Especialista en arquitecturas SaaS y desarrollo de plataformas de pagos digitales en el ecosistema venezolano. Ex-desarrollador senior en entidad bancaria venezolana.",
-        icono: "👤",
-      },
-      {
-        tipo: "MIEMBRO",
-        titulo: "CCO – ALIANZAS",
-        texto: "Ejecutivo comercial con red de más de 800 contactos empresariales en Venezuela. Responsable de los acuerdos con Chévere Salud, Mercantil Seguros y Mapfre.",
-        icono: "👤",
-      },
-      {
-        tipo: "NARRADOR",
-        texto: "El equipo está complementado por un board de asesores que incluye abogados mercantiles, contadores públicos certificados, y especialistas en fintech latinoamericano.",
-      },
-    ],
-    cifrasApoyo: [
-      { val: "20+", desc: "Años experiencia combinada del equipo fundador" },
-      { val: "800+", desc: "Contactos empresariales en red comercial" },
-      { val: "3", desc: "Alianzas estratégicas formalizadas" },
-    ],
-  },
-  {
-    id: "inversion",
-    numero: "10",
-    titulo: "RONDA DE INVERSIÓN — CALL TO ACTION",
-    duracion: "3 min",
-    color: "text-primary",
-    bg: "bg-primary/10",
-    border: "border-primary/20",
-    icon: Rocket,
-    guion: [
-      {
-        tipo: "NARRADOR",
-        texto: "Estamos buscando nuestra primera ronda seed de $500.000 USD para acelerar lo que ya está funcionando.",
-      },
-      {
-        tipo: "USO",
-        titulo: "35% — TECNOLOGÍA Y PRODUCTO",
-        texto: "Finalización de módulos avanzados: Telecom corporativo, API bancaria certificada Banesco/Mercantil. Infraestructura cloud para escalar a 10.000 empresas.",
-        icono: "💻",
-      },
-      {
-        tipo: "USO",
-        titulo: "30% — EQUIPO COMERCIAL",
-        texto: "Contratación de 8 ejecutivos de ventas B2B en Caracas, Maracaibo, Valencia y Barquisimeto. Meta: cerrar 500 empresas en los primeros 12 meses post-ronda.",
-        icono: "📣",
-      },
-      {
-        tipo: "USO",
-        titulo: "20% — MARKETING Y POSICIONAMIENTO",
-        texto: "Presencia digital, eventos empresariales, alianzas con cámaras de comercio: Fedecámaras, Conindustria, Consecomercio, Cavedi.",
-        icono: "📢",
-      },
-      {
-        tipo: "USO",
-        titulo: "15% — OPERACIONES Y CAPITAL DE TRABAJO",
-        texto: "6 meses de runway operativo. Estructura administrativa. Licencias regulatorias adicionales.",
-        icono: "⚙️",
-      },
-      {
-        tipo: "CIERRE",
-        texto: "El mercado existe. Los clientes están esperando. El producto funciona. El equipo lo sabe hacer. Solo necesitamos el combustible para acelerar. Únase a nosotros en construir el sistema operativo del empresario venezolano.",
-        esDestacado: true,
-      },
-    ],
-    cifrasApoyo: [
-      { val: "$500K", desc: "Ronda seed buscada" },
-      { val: "18 meses", desc: "Runway con la inversión actual" },
-      { val: "500", desc: "Empresas meta en 12 meses post-ronda" },
-    ],
-  },
-];
+export default function ModeloZeduPage() {
+    const { toast } = useToast();
+    const [isMounted, setIsMounted] = useState(false);
 
-const metasDeck = [
-  { icon: Clock, label: "Duración total", val: "27 min" },
-  { icon: FileText, label: "Secciones", val: "10 actos" },
-  { icon: Users, label: "Audiencia", val: "Inversores / Socios" },
-  { icon: Globe, label: "Mercado", val: "Venezuela · LATAM" },
-];
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-type RegistroItem = { id: number; titulo: string; creado_en: string };
-type ActividadItem = { id: number; tipo: string; titulo: string; dato: string | null; creado_en: string };
-type Stats = { visitas: number; pitchsIA: number; pptxGenerados: number; impresiones: number; copias: number; seccionesTop: { dato: string; total: string }[] };
+    const handleDownloadWord = async () => {
+        const contentElement = document.getElementById('zedu-document-content');
+        if (!contentElement) return;
 
-async function logEvento(evento: string, dato?: string) {
-  try {
-    await fetch('/api/pitch-analytics', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ evento, dato }),
-    });
-  } catch {}
-}
+        const svgElement = document.querySelector('#main-logo-zedu') as SVGElement;
+        let logoHtml = "";
 
-export default function SectorPrivadoKyronPage() {
-  const [seccionAbierta, setSeccionAbierta] = useState<string | null>("apertura");
-  const [imprimiendo, setImprimiendo] = useState(false);
-  const [generandoIA, setGenerandoIA] = useState(false);
-  const [pitchIA, setPitchIA] = useState<string | null>(null);
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [descargandoPPTX, setDescargandoPPTX] = useState(false);
-  const [errorPPTX, setErrorPPTX] = useState(false);
-  const [copiado, setCopiado] = useState(false);
-  const [registros, setRegistros] = useState<RegistroItem[]>([]);
-  const [mostrarRegistros, setMostrarRegistros] = useState(false);
-  const [actividad, setActividad] = useState<ActividadItem[]>([]);
-  const [stats, setStats] = useState<Stats | null>(null);
-  const [cargandoStats, setCargandoStats] = useState(false);
+        if (svgElement) {
+            const svgData = new XMLSerializer().serializeToString(svgElement);
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const img = new Image();
+            const svgSize = 120;
+            canvas.width = svgSize * 4;
+            canvas.height = svgSize * 4;
+            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(svgBlob);
+            await new Promise((resolve) => {
+                img.onload = () => {
+                    if (ctx) {
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    }
+                    URL.revokeObjectURL(url);
+                    resolve(true);
+                };
+                img.src = url;
+            });
+            const base64 = canvas.toDataURL("image/png");
+            logoHtml = `<img src="${base64}" width="${svgSize}" height="${svgSize}" style="margin-bottom: 10pt;" />`;
+        }
 
-  const toggleSeccion = (id: string) => {
-    const nuevo = seccionAbierta === id ? null : id;
-    setSeccionAbierta(nuevo);
-    if (nuevo) logEvento('seccion_abierta', nuevo);
-  };
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>MODELO ZEDU — AUTOMIND AI</title><style>" +
+            "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 20pt; }" +
+            ".cover { margin-bottom: 40pt; border-bottom: 2pt solid #0A2472; padding-bottom: 20pt; }" +
+            ".cover-table { border: none !important; width: 100%; margin-bottom: 40pt; }" +
+            ".cover-title { color: #0A2472; font-size: 28pt; font-weight: bold; margin: 0; line-height: 1.1; text-transform: uppercase; }" +
+            "table { border-collapse: collapse; width: 100%; margin-bottom: 30pt; border: 1.5pt solid #000000; }" +
+            "td, th { border: 1pt solid #000000; padding: 12pt; font-size: 10.5pt; vertical-align: top; }" +
+            ".header-cell { background-color: #0A2472 !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; text-align: center; font-size: 10pt; letter-spacing: 1.5pt; }" +
+            ".label-cell { background-color: #f8fafc !important; font-weight: bold; color: #475569 !important; width: 35%; text-transform: uppercase; font-size: 8.5pt; border-right: 1.5pt solid #000000; }" +
+            "h2 { color: #0A2472; text-transform: uppercase; border-bottom: 2pt solid #0A2472; padding-bottom: 8pt; margin-top: 40pt; font-size: 16pt; letter-spacing: -0.5pt; font-weight: 900; }" +
+            "p { margin-bottom: 14pt; line-height: 1.7; text-align: justify; color: #334155; }" +
+            "li { margin-bottom: 8pt; line-height: 1.6; color: #334155; }" +
+            ".page-break { page-break-after: always; }" +
+            ".highlight { color: #00A86B; font-weight: bold; }" +
+            "</style></head><body>";
 
-  const handlePrint = () => {
-    setImprimiendo(true);
-    logEvento('imprimir');
-    setTimeout(() => {
-      window.print();
-      setImprimiendo(false);
-    }, 300);
-  };
+        const footer = "</body></html>";
 
-  const handleGenerarIA = async () => {
-    setGenerandoIA(true);
-    try {
-      const res = await fetch('/api/pitch-ia', { method: 'POST' });
-      const data = await res.json();
-      if (data.pitch) {
-        setPitchIA(data.pitch);
-        setMostrarModal(true);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setGenerandoIA(false);
-    }
-  };
+        const wordHtml = `
+            <div class="cover">
+                <table class="cover-table" style="border: none !important;">
+                    <tr>
+                        <td style="border: none !important; width: 130px; vertical-align: middle;">${logoHtml}</td>
+                        <td style="border: none !important; vertical-align: middle; padding-left: 25pt;">
+                            <div class="cover-title">MODELO ZEDU</div>
+                            <div class="cover-title" style="color: #64748b; font-size: 22pt;">AUTOMIND AI</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            ${contentElement.innerHTML}
+        `;
 
-  const handleDescargarPPTX = async () => {
-    setDescargandoPPTX(true);
-    setErrorPPTX(false);
-    try {
-      const res = await fetch('/api/pitch-pptx', { method: 'POST' });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err?.error ?? 'Error al generar el archivo');
-      }
-      const blob = await res.blob();
-      if (blob.size === 0) throw new Error('Archivo vacío recibido');
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'SystemKyron-PitchDeck-12slides.pptx';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (e) {
-      console.error('[PPTX Download]', e);
-      setErrorPPTX(true);
-      setTimeout(() => setErrorPPTX(false), 5000);
-    } finally {
-      setDescargandoPPTX(false);
-    }
-  };
+        const sourceHTML = header + wordHtml + footer;
+        const blob = new Blob(['\ufeff', sourceHTML], { type: 'application/vnd.ms-word' });
+        const downloadUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'MODELO_ZEDU_AUTOMIND_AI.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-  const handleCopiar = () => {
-    if (pitchIA) {
-      navigator.clipboard.writeText(pitchIA);
-      setCopiado(true);
-      logEvento('copiar_pitch');
-      setTimeout(() => setCopiado(false), 2000);
-    }
-  };
+        toast({
+            title: "DOCUMENTO DESCARGADO",
+            description: "El Modelo Zedu — AutoMind AI ha sido generado correctamente.",
+            action: <CheckCircle className="text-green-500 h-4 w-4" />
+        });
+    };
 
-  const cargarAnalytics = useCallback(async () => {
-    setCargandoStats(true);
-    try {
-      const res = await fetch('/api/pitch-analytics');
-      const data = await res.json();
-      setStats(data.stats ?? null);
-      setActividad(data.actividad ?? []);
-      setRegistros((data.actividad ?? []).filter((a: ActividadItem) => a.tipo === 'pitch_ia').slice(0, 20));
-    } catch {}
-    finally { setCargandoStats(false); }
-  }, []);
+    if (!isMounted) return null;
 
-  useEffect(() => {
-    logEvento('page_view');
-    cargarAnalytics();
-  }, [cargarAnalytics]);
+    const tableHeaderClass = "bg-[#0A2472] text-white font-black uppercase p-5 text-[12px] border border-black tracking-[0.2em] text-center";
+    const tableCellClass = "p-5 text-[13px] border border-black text-slate-900 bg-white leading-relaxed font-medium text-justify";
+    const tableLabelClass = "bg-slate-50 p-5 text-[10px] font-black uppercase border border-black text-slate-500 w-1/3 border-r-2";
 
-  return (
-    <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
+    return (
+        <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100">
+            <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
+                <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
+                    <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>
+                </Button>
+                <div className="flex gap-3">
+                    <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-xs uppercase h-12 px-8 shadow-sm">
+                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
+                    </Button>
+                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-black text-xs uppercase h-12 px-10 shadow-xl">
+                        <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD (.DOC)
+                    </Button>
+                </div>
+            </div>
 
-      <AnimatePresence>
-        {mostrarModal && pitchIA && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setMostrarModal(false)}
-          >
             <motion.div
-              initial={{ scale: 0.93, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.93, opacity: 0, y: 20 }}
-              transition={{ duration: 0.25 }}
-              className="bg-card border border-border rounded-3xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col"
-              onClick={e => e.stopPropagation()}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
             >
-              <div className="flex items-center justify-between p-6 border-b border-border shrink-0">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-primary/10">
-                    <Sparkles className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-black uppercase tracking-widest text-primary">Gemini IA</p>
-                    <p className="text-xs text-muted-foreground font-bold uppercase">Guión de Pitch — 5 minutos</p>
-                  </div>
+                <div className="flex items-start justify-start border-b-4 border-slate-100 mb-16 pb-10 gap-12">
+                    <Logo id="main-logo-zedu" className="h-28 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg rounded-2xl shrink-0" />
+                    <div className="pt-2 space-y-2">
+                        <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">AUTOMIND AI</h2>
+                        <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">Colegio Santa Rosa de Lima · Caracas, Venezuela</p>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline" className="rounded-xl gap-2 text-[10px] font-black uppercase" onClick={handleCopiar}>
-                    {copiado ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-                    {copiado ? 'Copiado' : 'Copiar'}
-                  </Button>
-                  <Button size="sm" variant="ghost" className="rounded-xl" onClick={() => setMostrarModal(false)}>
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-              <div className="overflow-y-auto p-6 flex-1">
-                <pre className="whitespace-pre-wrap text-sm text-foreground font-sans leading-relaxed">
-                  {pitchIA}
-                </pre>
-              </div>
-              <div className="p-4 border-t border-border shrink-0 flex justify-end gap-2">
-                <Button variant="outline" className="rounded-xl text-[10px] font-black uppercase gap-2" onClick={handlePrint}>
-                  <Printer className="h-3.5 w-3.5" /> Imprimir
-                </Button>
-                <Button className="rounded-xl text-[10px] font-black uppercase gap-2 btn-3d-primary" onClick={handleDescargarPPTX} disabled={descargandoPPTX}>
-                  <FileDown className="h-3.5 w-3.5" />
-                  {descargandoPPTX ? 'Generando...' : 'Generar PPTX'}
-                </Button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
-            <Mic className="h-3 w-3" /> GUIÓN DE PITCH — SECTOR PRIVADO
-          </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
-            SYSTEM KYRON · <span className="text-primary italic">PITCH DECK</span>
-          </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
-            Guión Maestro · Sector Privado Venezolano · Ronda Seed $500K USD
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3 no-print">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2" onClick={handlePrint}>
-            {imprimiendo ? <Activity className="h-4 w-4 animate-spin" /> : <Printer className="h-4 w-4" />}
-            Imprimir
-          </Button>
-          <Button
-            variant="outline"
-            className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2 border-emerald-500/40 text-emerald-600 hover:bg-emerald-500/10"
-            onClick={handleDescargarPPTX}
-            disabled={descargandoPPTX}
-          >
-            {descargandoPPTX ? <Activity className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
-            {descargandoPPTX ? 'Generando...' : 'Generar PPTX'}
-          </Button>
-          <Button
-            className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
-            onClick={handleGenerarIA}
-            disabled={generandoIA}
-          >
-            {generandoIA ? <Activity className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-            {generandoIA ? 'Generando con IA...' : 'Generar Pitch IA — 5 min'}
-          </Button>
-        </div>
-      </header>
+                <div id="zedu-document-content">
 
-      <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 no-print"
-      >
-        <div
-          className="col-span-2 p-5 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-transparent flex items-center gap-5 cursor-pointer hover:border-primary/40 transition-all"
-          onClick={handleGenerarIA}
-        >
-          <div className="p-3 bg-primary/20 rounded-xl shrink-0">
-            <Sparkles className="h-6 w-6 text-primary" />
-          </div>
-          <div>
-            <p className="text-sm font-black text-primary uppercase tracking-widest">Generador de Pitch con IA · Gemini</p>
-            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
-              Genera un guión de 5 minutos personalizado sobre las innovaciones de System Kyron. Cada generación se guarda en la base de datos.
-            </p>
-          </div>
-          <ArrowRight className="h-5 w-5 text-primary shrink-0 ml-auto" />
-        </div>
-        <div
-          className={cn(
-            "p-5 rounded-2xl border bg-gradient-to-r from-emerald-500/10 to-transparent flex items-center gap-4 cursor-pointer transition-all",
-            errorPPTX ? "border-rose-500/50 from-rose-500/10" : "border-emerald-500/20 hover:border-emerald-500/40",
-            descargandoPPTX && "opacity-70 cursor-wait"
-          )}
-          onClick={!descargandoPPTX ? handleDescargarPPTX : undefined}
-        >
-          <div className={cn("p-3 rounded-xl shrink-0", errorPPTX ? "bg-rose-500/20" : "bg-emerald-500/20")}>
-            {descargandoPPTX
-              ? <Activity className="h-6 w-6 text-emerald-500 animate-spin" />
-              : errorPPTX
-              ? <X className="h-6 w-6 text-rose-500" />
-              : <FileDown className="h-6 w-6 text-emerald-500" />}
-          </div>
-          <div>
-            <p className={cn("text-sm font-black uppercase tracking-widest", errorPPTX ? "text-rose-500" : "text-emerald-600")}>
-              {descargandoPPTX ? 'Generando PPTX...' : errorPPTX ? 'Error — Intentar de nuevo' : 'Generar PPTX'}
-            </p>
-            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
-              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : '12 slides · 27 minutos · Guión del presentador incluido'}
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {metasDeck.map((m, i) => (
-          <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all group">
-            <div className="flex flex-row items-center justify-between p-6">
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-1">{m.label}</p>
-                <p className="text-xl font-black italic text-primary">{m.val}</p>
-              </div>
-              <div className="p-2.5 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform">
-                <m.icon className="h-4 w-4 text-primary" />
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      <div className="p-6 rounded-2xl border border-primary/20 bg-primary/5 flex items-start gap-5">
-        <div className="p-3 bg-primary/10 rounded-xl shrink-0">
-          <BrainCircuit className="h-6 w-6 text-primary" />
-        </div>
-        <div>
-          <p className="text-[11px] font-black uppercase text-primary tracking-widest mb-1">Instrucciones para el Presentador</p>
-          <p className="text-[10px] font-bold text-muted-foreground uppercase leading-relaxed">
-            Este guión está estructurado en 10 actos con una duración total aproximada de 27 minutos. Cada acto incluye el texto de narración, notas de dirección, y cifras de apoyo para reforzar cada punto. Los bloques en color destacado son los momentos de mayor impacto — entréguelos con pausa y convicción. No los apresure.
-          </p>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {secciones.map((s, idx) => {
-          const Icon = s.icon;
-          const isOpen = seccionAbierta === s.id;
-
-          return (
-            <motion.div key={s.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
-              <Card className={cn("glass-card border bg-card/40 rounded-2xl overflow-hidden transition-all", s.border, isOpen && "shadow-xl")}>
-                <button
-                  className="w-full flex items-center justify-between p-6 md:p-8 hover:bg-muted/20 transition-colors text-left"
-                  onClick={() => toggleSeccion(s.id)}
-                >
-                  <div className="flex items-center gap-5">
-                    <div className={cn("px-3 py-1.5 rounded-xl font-black text-[11px] italic", s.bg, s.color)}>
-                      {s.numero}
+                    {/* SECCIÓN 1 — INFORMACIÓN DEL EQUIPO */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Users className="h-7 w-7" /> 1. INFORMACIÓN DEL EQUIPO
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={3}>Nombre del Proyecto</td></tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase text-xl py-6 col-span-3")} colSpan={3}>AutoMind AI</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={3}>Integrantes del Equipo</td></tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Miguel Uzcategui</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Joaquin de Barros</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={3}>Institución Educativa</td></tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>Colegio Santa Rosa de Lima</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={3}>País / Ciudad</td></tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>Venezuela, Caracas</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div className={cn("p-3 rounded-xl", s.bg)}>
-                      <Icon className={cn("h-5 w-5", s.color)} />
-                    </div>
-                    <div>
-                      <p className={cn("text-[11px] font-black uppercase tracking-widest italic", s.color)}>{s.titulo}</p>
-                      <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">
-                        Duración estimada: {s.duracion}
-                      </p>
-                    </div>
-                  </div>
-                  <ChevronDown className={cn("h-5 w-5 text-muted-foreground/60 transition-transform duration-300", isOpen && "rotate-180")} />
-                </button>
 
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="px-6 md:px-10 pb-8 space-y-8 border-t border-border pt-6">
-                        <div className="grid grid-cols-3 gap-4">
-                          {s.cifrasApoyo.map((c, j) => (
-                            <div key={j} className={cn("p-4 rounded-2xl text-center", s.bg, s.border, "border")}>
-                              <p className={cn("text-xl font-black italic", s.color)}>{c.val}</p>
-                              <p className="text-[8px] font-bold text-muted-foreground uppercase leading-tight mt-1">{c.desc}</p>
-                            </div>
-                          ))}
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 2 — POBLACIÓN A TRABAJAR */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <MapPin className="h-7 w-7" /> 2. POBLACIÓN A TRABAJAR
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Localización</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>País / Ciudad / Municipio</td>
+                                    <td className={tableCellClass}>Venezuela, Caracas, Municipio Baruta</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Nombre de la Comunidad</td>
+                                    <td className={tableCellClass}>Santa Rosa de Lima</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Datos Demográficos</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Cantidad Total de Habitantes</td>
+                                    <td className={tableCellClass}>
+                                        Aproximadamente <strong>38.000 habitantes</strong> en la comunidad de Santa Rosa de Lima y urbanizaciones adyacentes del Municipio Baruta. La institución educativa atiende directamente a una comunidad de más de <strong>1.200 familias</strong> registradas como representantes activos.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Cantidad de Habitantes por Género</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li><strong>Femenino:</strong> aproximadamente 52% (19.760 personas)</li>
+                                            <li><strong>Masculino:</strong> aproximadamente 48% (18.240 personas)</li>
+                                        </ul>
+                                        <p className="mt-2 text-sm text-slate-500 italic">Fuente: Proyecciones demográficas INE 2023, Municipio Baruta.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Cantidad de Habitantes por Edad</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li><strong>0 – 14 años:</strong> 22% (8.360 personas)</li>
+                                            <li><strong>15 – 29 años:</strong> 24% (9.120 personas)</li>
+                                            <li><strong>30 – 59 años:</strong> 40% (15.200 personas) — principal segmento de representantes</li>
+                                            <li><strong>60 años o más:</strong> 14% (5.320 personas)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Características de la Población</td>
+                                    <td className={tableCellClass}>
+                                        <p>La comunidad de Santa Rosa de Lima, en el Municipio Baruta, está compuesta mayoritariamente por familias de clase media y media-alta. El nivel educativo predominante es universitario o técnico superior. Un alto porcentaje de los representantes estudiantiles son profesionales activos en sectores como finanzas, servicios, comercio y tecnología. El Colegio Santa Rosa de Lima es una institución privada de referencia en la zona, con más de 30 años de trayectoria y aproximadamente 900 estudiantes activos distribuidos en los niveles de Primaria y Bachillerato.</p>
+                                        <p>La comunidad cuenta con acceso a servicios básicos (agua, electricidad, internet) aunque con las intermitencias propias del contexto venezolano. Existe una fuerte cultura de participación de los representantes en las actividades institucionales, lo que representa una oportunidad directa de adopción para la solución AutoMind AI.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Clima</td>
+                                    <td className={tableCellClass}>
+                                        <p>Caracas posee un <strong>clima tropical de sabana</strong> con temperaturas anuales que oscilan entre los 18°C y 28°C. Se distinguen dos estaciones: la temporada de lluvias (mayo–octubre) y la temporada seca (noviembre–abril). La altitud media de 900 msnm le confiere un clima agradable y fresco en comparación con el resto del territorio venezolano. Estas condiciones no representan una restricción para la implementación de soluciones digitales, aunque la estacionalidad de lluvias puede afectar la conectividad en zonas sin infraestructura de fibra óptica.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 3 — ANÁLISIS DEL PROBLEMA */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <AlertTriangle className="h-7 w-7" /> 3. ANÁLISIS DEL PROBLEMA
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Definición del Problema</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>En el Colegio Santa Rosa de Lima, el sistema de archivado institucional es enteramente físico. La gestión de expedientes estudiantiles, registros de notas, constancias, permisos y comunicaciones con representantes se realiza mediante carpetas en papel, archivadores físicos y registros manuales en hojas de cálculo desconectadas. Esto no permite agilidad en la búsqueda de información relativa a un estudiante, genera pérdida de tiempo considerable para el personal administrativo y compromete la privacidad de los datos ante pérdidas, daños o accesos no autorizados.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Causas del Problema</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Causa 1</td>
+                                    <td className={tableCellClass}><strong>Falta de organización sistemática:</strong> No existe un protocolo unificado para la clasificación, nomenclatura y almacenamiento de documentos estudiantiles. Cada departamento (secretaría, coordinación, administración) maneja sus archivos de forma independiente y sin estándar compartido.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Causa 2</td>
+                                    <td className={tableCellClass}><strong>Poca disposición hacia la tecnología:</strong> El personal administrativo con más años de experiencia muestra resistencia al cambio tecnológico por falta de formación específica y por el apego a métodos tradicionales que consideran seguros y conocidos.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Causa 3</td>
+                                    <td className={tableCellClass}><strong>Escaso presupuesto para modernización:</strong> La asignación de recursos hacia infraestructura tecnológica ha sido históricamente baja, priorizando gastos operativos inmediatos (nómina, mantenimiento físico) sobre inversiones en digitalización.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Causa 4</td>
+                                    <td className={tableCellClass}><strong>Desactualización tecnológica:</strong> El equipamiento informático disponible es obsoleto y el personal desconoce las herramientas digitales modernas de gestión documental, inteligencia artificial y comunicación institucional automatizada.</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Consecuencias del Problema</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Consecuencia Principal</td>
+                                    <td className={tableCellClass}><strong>Pérdida de tiempo en búsqueda de archivos:</strong> El personal invierte en promedio entre 15 y 45 minutos por solicitud de expediente estudiantil, lo que equivale a una pérdida de productividad de hasta 3 horas diarias en el departamento de secretaría.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Consecuencias Secundarias</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li>Demoras en la atención a representantes y estudiantes.</li>
+                                            <li>Riesgo de extravío de documentos únicos e irreemplazables.</li>
+                                            <li>Comunicación lenta e ineficiente entre institución y representantes.</li>
+                                            <li>Imposibilidad de generar reportes estadísticos rápidos para la dirección.</li>
+                                            <li>Vulnerabilidad ante auditorías del Ministerio de Educación.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Origen del Problema</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>El origen fundamental del problema radica en la <strong>desactualización e ignorancia en la gestión de nuevas tecnologías e implementaciones digitales</strong>. La institución no ha incorporado sistemas de información modernos y carece de una estrategia de transformación digital. Este fenómeno es común en el sector educativo privado venezolano, donde la crisis económica ha frenado la adopción tecnológica y la capacitación del personal administrativo.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Importancia de Resolver el Problema</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Resolver este problema es estratégico por múltiples razones: (1) reduce drásticamente la carga de trabajo del personal administrativo, liberando tiempo para actividades de mayor valor pedagógico; (2) mejora la experiencia de los representantes al recibir respuestas inmediatas; (3) protege la integridad de información sensible de los estudiantes; (4) posiciona al Colegio Santa Rosa de Lima como una institución de vanguardia tecnológica, fortaleciendo su prestigio y competitividad en el sector educativo privado de Caracas.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 4 — SOLUCIÓN PROPUESTA */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Lightbulb className="h-7 w-7" /> 4. SOLUCIÓN PROPUESTA — AUTOMIND AI
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Descripción del Proyecto</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p><strong>AutoMind AI</strong> consiste en el desarrollo de una aplicación que transforma el sistema de archivado tradicional de la institución educativa en un entorno digital eficiente y organizado, permitiendo la digitalización, almacenamiento y búsqueda rápida de documentos que antes se gestionaban de forma física.</p>
+                                        <p>La plataforma integrará un <strong>chatbot con atención automatizada</strong> dirigida a los representantes de los estudiantes, facilitando respuestas inmediatas y mejorando la comunicación colegio-familia las 24 horas del día, los 7 días de la semana.</p>
+                                        <p>Además, incorporará <strong>herramientas de inteligencia artificial</strong> que apoyarán al personal administrativo en la generación de ideas estratégicas, redacción de comunicados, análisis de datos estudiantiles y automatización de tareas repetitivas, contribuyendo a una gestión más moderna, ágil y orientada a la mejora continua institucional.</p>
+                                        <p>El sistema es escalable: una vez demostrada su eficacia en el sector educativo, podrá expandirse a otros sectores como empresas, almacenes, clínicas y comercios.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Componentes Principales</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Módulo 1: Archivo Digital</td>
+                                    <td className={tableCellClass}>Sistema de gestión documental con OCR (reconocimiento óptico de caracteres) para digitalizar documentos físicos existentes. Permite búsqueda instantánea por nombre de estudiante, cédula, año escolar o tipo de documento. Almacenamiento seguro en la nube con acceso por roles (secretaria, coordinador, director, representante).</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Módulo 2: Chatbot IA</td>
+                                    <td className={tableCellClass}>Asistente virtual inteligente disponible vía WhatsApp y portal web para atención a representantes. Responde consultas frecuentes (notas, inasistencias, cronograma de pagos, actividades), genera constancias automáticas y escala casos complejos al personal humano.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Módulo 3: Asistente IA Administrativo</td>
+                                    <td className={tableCellClass}>Herramienta de apoyo estratégico para la dirección: redacción de circulares, análisis de tendencias de rendimiento estudiantil, generación de reportes estadísticos, sugerencias de mejora organizacional y asistencia en planificación académica.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Módulo 4: Panel de Control</td>
+                                    <td className={tableCellClass}>Dashboard centralizado que muestra KPIs institucionales en tiempo real: número de documentos gestionados, tiempo promedio de respuesta, satisfacción de representantes y alertas de tareas pendientes.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div className="mt-12">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                                <ShieldCheck className="h-6 w-6" /> Propuestas Existentes y Diferenciadores
+                            </h3>
+                            <table className="w-full border-collapse">
+                                <tbody>
+                                    <tr><td className={tableHeaderClass} colSpan={2}>Otras Propuestas Existentes para Solucionar el Problema</td></tr>
+                                    <tr>
+                                        <td className={tableCellClass} colSpan={2}>
+                                            <p>El proyecto más similar identificado en el mercado es <strong>MOBIAN</strong>, que se enfoca en la optimización de datos para cualquier tipo de negocio. Su propósito principal es la eficiencia operativa y escalabilidad técnica, dirigiéndose a equipos técnicos y directivos corporativos mediante integración de sistemas y aumento de equipo (Staff Augmentation). Sin embargo, MOBIAN no está diseñada específicamente para el sector educativo.</p>
+                                            <p>Otras alternativas genéricas incluyen Google Workspace, Microsoft 365 y sistemas ERP educativos importados, que ofrecen gestión de archivos pero carecen de adaptación al contexto venezolano, integración con canales de comunicación como WhatsApp y herramientas de IA orientadas a la gestión escolar.</p>
+                                        </td>
+                                    </tr>
+                                    <tr><td className={tableHeaderClass} colSpan={2}>Diferenciadores de AutoMind AI</td></tr>
+                                    <tr>
+                                        <td className={tableLabelClass}>Especialización Educativa</td>
+                                        <td className={tableCellClass}>
+                                            <p>Mientras MOBIAN ofrece servicios genéricos de IT para cualquier empresa, <strong>AutoMind AI resuelve problemas específicos del sector educativo</strong>: archivo de expedientes estudiantiles y comunicación escolar. Nuestra solución es escalable y podrá expandirse a otros sectores (empresas, almacenes, clínicas), pero parte de una especialización que garantiza una propuesta de valor clara e inmediata.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableLabelClass}>Alcance del Usuario Final</td>
+                                        <td className={tableCellClass}>
+                                            <p>MOBIAN optimiza procesos internos para perfiles técnicos. <strong>AutoMind AI impacta directamente en la experiencia del cliente final</strong> (los padres y representantes) mediante su chatbot de atención inmediata, mejorando tangiblemente su relación con la institución.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableLabelClass}>De Datos a Estrategia</td>
+                                        <td className={tableCellClass}>
+                                            <p>MOBIAN se enfoca en la gestión eficiente de datos. <strong>AutoMind AI utiliza la IA para la generación de ideas estratégicas</strong>, apoyando activamente la toma de decisiones directivas y no solo el almacenamiento de información.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableLabelClass}>Contexto Venezolano</td>
+                                        <td className={tableCellClass}>
+                                            <p>AutoMind AI está diseñada considerando las limitaciones de conectividad y presupuesto propias del entorno venezolano: funcionamiento offline parcial, integración con WhatsApp (ampliamente adoptado en Venezuela) y modelo de precios accesible para instituciones educativas privadas del país.</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
 
-                        <div className="space-y-5">
-                          {s.guion.map((bloque, j) => (
-                            <div key={j} className={cn(
-                              "rounded-2xl p-5 space-y-2",
-                              bloque.esNota ? "bg-amber-500/5 border border-amber-500/20" :
-                              bloque.esDestacado ? cn(s.bg, "border", s.border) :
-                              "bg-muted/30 border border-border"
-                            )}>
-                              <div className="flex items-center gap-2 mb-2">
-                                {bloque.tipo === "NARRADOR" && (
-                                  <Badge className="bg-foreground/10 text-foreground/60 border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest">🎙 NARRADOR</Badge>
-                                )}
-                                {bloque.tipo === "PAUSA DRAMÁTICA" && (
-                                  <Badge className="bg-amber-500/20 text-amber-600 border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest">⏸ PAUSA DRAMÁTICA</Badge>
-                                )}
-                                {bloque.tipo === "ÉNFASIS" && (
-                                  <Badge className={cn("border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest", s.bg, s.color)}>⚡ ÉNFASIS</Badge>
-                                )}
-                                {bloque.tipo === "REVEAL" && (
-                                  <Badge className={cn("border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest", s.bg, s.color)}>🎯 REVEAL</Badge>
-                                )}
-                                {(bloque.tipo === "MÓDULO" || bloque.tipo === "PLAN" || bloque.tipo === "DATOS" || bloque.tipo === "DIFERENCIADOR" || bloque.tipo === "LOGRO" || bloque.tipo === "USO" || bloque.tipo === "MIEMBRO") && (
-                                  <Badge className={cn("border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest", s.bg, s.color)}>
-                                    {bloque.tipo === "MÓDULO" && "📦 "}
-                                    {bloque.tipo === "PLAN" && "💼 "}
-                                    {bloque.tipo === "DATOS" && "📊 "}
-                                    {bloque.tipo === "DIFERENCIADOR" && "🏆 "}
-                                    {bloque.tipo === "LOGRO" && "✅ "}
-                                    {bloque.tipo === "USO" && "🎯 "}
-                                    {bloque.tipo === "MIEMBRO" && "👤 "}
-                                    {bloque.tipo}
-                                  </Badge>
-                                )}
-                                {(bloque.tipo === "CIERRE") && (
-                                  <Badge className={cn("border-none text-[7px] font-black px-2 py-0.5 uppercase tracking-widest", s.bg, s.color)}>🚀 CIERRE</Badge>
-                                )}
-                                {"titulo" in bloque && bloque.titulo && (
-                                  <p className={cn("text-[10px] font-black uppercase italic", s.color)}>{bloque.titulo}</p>
-                                )}
-                              </div>
-                              <p className={cn(
-                                "font-bold uppercase leading-relaxed",
-                                bloque.esDestacado ? cn("text-sm font-black", s.color) : "text-[10px] text-foreground/80",
-                                bloque.esNota && "text-amber-600 italic"
-                              )}>
-                                {bloque.texto}
-                              </p>
-                            </div>
-                          ))}
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 5 — PRESUPUESTO */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Zap className="h-7 w-7" /> 5. PRESUPUESTO (INVERSIÓN REQUERIDA)
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className={cn(tableHeaderClass, "text-left")} style={{ width: '45%' }}>Ítem</th>
+                                    <th className={tableHeaderClass} style={{ width: '10%' }}>Cantidad</th>
+                                    <th className={tableHeaderClass} style={{ width: '20%' }}>Costo (USD)</th>
+                                    <th className={tableHeaderClass} style={{ width: '25%' }}>Lugar de Compra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className={tableCellClass}>Suscripción anual plataforma de IA (Google Gemini API / OpenAI)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 360,00</td>
+                                    <td className={tableCellClass}>Google Cloud / OpenAI (en línea)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Hosting en la nube — servidor y almacenamiento (plan anual)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 240,00</td>
+                                    <td className={tableCellClass}>Amazon AWS / Digital Ocean</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Dominio web y certificado SSL (1 año)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 30,00</td>
+                                    <td className={tableCellClass}>GoDaddy / Namecheap (en línea)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Escáner de documentos de alta velocidad (para digitalización del archivo físico)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 220,00</td>
+                                    <td className={tableCellClass}>Tiendas de tecnología, Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Laptop de trabajo para el equipo de desarrollo (uso compartido)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 400,00</td>
+                                    <td className={tableCellClass}>Centro de tecnología, Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Capacitación del personal administrativo (talleres presenciales, 3 sesiones)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>3</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 150,00</td>
+                                    <td className={tableCellClass}>Facilitador local / Colegio</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Materiales de oficina y logística (libretas, impresión de manuales, papelería)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>—</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 80,00</td>
+                                    <td className={tableCellClass}>Librería / Papelería, Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Diseño de identidad visual (logo, branding, materiales de presentación)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 120,00</td>
+                                    <td className={tableCellClass}>Freelancer / Diseñador local</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Traslados y transporte (visitas a la institución, reuniones con aliados)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>—</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 60,00</td>
+                                    <td className={tableCellClass}>Transporte urbano / Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Suscripción herramienta de gestión de proyectos (Notion / Trello — plan anual)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 40,00</td>
+                                    <td className={tableCellClass}>Notion / Trello (en línea)</td>
+                                </tr>
+                                <tr className="bg-slate-50">
+                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")} colSpan={2}>INVERSIÓN TOTAL DEL PROYECTO</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 1.700,00</td>
+                                    <td className={tableCellClass}></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p className="text-xs text-slate-400 mt-3 italic">Nota: Los ítems pueden incluir donaciones monetarias o en especie. El presupuesto está expresado en USD referencial para facilitar la planificación. Los costos en Bs. se calcularán según la tasa BCV oficial vigente al momento de cada adquisición.</p>
+                    </div>
+
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 6 — ALIADOS */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Handshake className="h-7 w-7" /> 6. ALIADOS ESTRATÉGICOS
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className={cn(tableHeaderClass)} style={{ width: '35%' }}>Aliado</th>
+                                    <th className={cn(tableHeaderClass)} style={{ width: '65%' }}>Apoyo Proporcionado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Colegio Santa Rosa de Lima — Dirección y Administración</td>
+                                    <td className={tableCellClass}>Espacio físico para el desarrollo y piloto del proyecto. Acceso al archivo documental existente para el proceso de digitalización. Participación del personal administrativo en las sesiones de capacitación. Aval institucional para presentación ante entes externos.</td>
+                                </tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Departamento de Informática del Colegio</td>
+                                    <td className={tableCellClass}>Soporte técnico para la instalación de equipos y configuración de redes. Orientación en las especificaciones técnicas de la infraestructura existente. Facilitación del acceso a equipos disponibles en el laboratorio de computación.</td>
+                                </tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Profesores Asesores del Colegio Santa Rosa de Lima</td>
+                                    <td className={tableCellClass}>Mentoría académica en las áreas de Matemáticas, Computación y Ciencias Sociales. Evaluación del modelo de negocio y retroalimentación pedagógica. Validación del plan de acción y acompañamiento durante el proceso de desarrollo del proyecto ZEDU.</td>
+                                </tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Representantes Estudiantiles (Asociación de Padres)</td>
+                                    <td className={tableCellClass}>Participación como usuarios piloto del chatbot y del sistema de atención automatizada. Retroalimentación sobre las necesidades reales de comunicación colegio-familia. Difusión del proyecto entre la comunidad de representantes para su adopción.</td>
+                                </tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Google for Education (Programa Educativo)</td>
+                                    <td className={tableCellClass}>Acceso a créditos de Google Cloud para el uso de la API de Gemini (IA) bajo el programa educativo de Google. Soporte en documentación técnica y recursos de formación en inteligencia artificial para equipos estudiantiles.</td>
+                                </tr>
+                                <tr>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>ZEDU (Organización Promotora)</td>
+                                    <td className={tableCellClass}>Marco metodológico para el desarrollo del proyecto. Plataforma de difusión, visibilidad y presentación ante jurados evaluadores. Conexión con red de proyectos similares a nivel nacional e internacional. Certificación y reconocimiento del equipo participante.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 7 — PLAN DE ACCIÓN */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <ClipboardList className="h-7 w-7" /> 7. PLAN DE ACCIÓN
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className={cn(tableHeaderClass, "text-left")} style={{ width: '40%' }}>Tarea</th>
+                                    <th className={tableHeaderClass} style={{ width: '25%' }}>Responsable</th>
+                                    <th className={tableHeaderClass} style={{ width: '35%' }}>Cronograma</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className={tableCellClass}><strong>1.</strong> Visita inicial a la institución y reunión con la dirección del colegio para presentación del proyecto y firma de carta de intención.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br /><span className="font-normal text-slate-500 text-xs">(Líder de Proyecto)</span></td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 1 (Octubre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>2.</strong> Diagnóstico y levantamiento de información: entrevistas al personal administrativo, inventario del archivo físico actual y mapeo de procesos existentes.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Análisis y Datos)</span></td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 2–3 (Octubre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>3.</strong> Diseño de la arquitectura de la plataforma: definición de módulos, flujos de usuario, base de datos y estructura de la IA.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo Técnico)</span></td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 3–4 (Octubre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>4.</strong> Reunión con aliados estratégicos: presentación a la Asociación de Padres, Departamento de Informática y gestión de acceso a Google Cloud para Education.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 4 (Octubre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>5.</strong> Compra de materiales y equipos: escáner, dominio, contratación de hosting y suscripciones necesarias.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 1 (Noviembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>6.</strong> Desarrollo del Módulo de Archivo Digital: implementación del sistema de gestión documental con OCR y carga de documentos existentes.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo)</span></td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 2–5 (Noviembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>7.</strong> Desarrollo del Chatbot IA: entrenamiento del asistente virtual con preguntas frecuentes de la institución e integración con WhatsApp.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br />Joaquin de Barros</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 3–6 (Noviembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>8.</strong> Pruebas piloto con grupo seleccionado: 5 miembros del personal administrativo y 20 representantes voluntarios. Recolección de retroalimentación.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 1 (Diciembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>9.</strong> Ajustes y mejoras basadas en retroalimentación del piloto. Corrección de errores, optimización de velocidad y mejora de la interfaz de usuario.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 2–3 (Diciembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>10.</strong> Capacitación formal del personal administrativo: 3 talleres presenciales en el colegio sobre uso de la plataforma, chatbot y panel de control.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br />Joaquin de Barros</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 3 (Diciembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>11.</strong> Lanzamiento oficial de la plataforma en la institución: presentación ante la comunidad escolar, activación del chatbot para todos los representantes y puesta en marcha del archivo digital.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semana 4 (Diciembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>12.</strong> Presentación del proyecto ante ZEDU: preparación de materiales, informe final de impacto y defensa pública del Modelo Zedu.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Enero 2026</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>13.</strong> Evaluación de resultados, medición de impacto y publicidad del proyecto: redes sociales, medios locales y presentación a otras instituciones interesadas.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Comunicación)</span></td>
+                                    <td className={cn(tableCellClass, "text-center")}>Febrero – Marzo 2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 8 — IMPACTO ESPERADO */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <TrendingUp className="h-7 w-7" /> 8. IMPACTO ESPERADO Y PROYECCIÓN
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Indicadores de Éxito</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Impacto Operativo</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li>Reducción del tiempo de búsqueda de expedientes de 30 min a menos de 30 segundos.</li>
+                                            <li>100% de expedientes estudiantiles digitalizados en los primeros 3 meses.</li>
+                                            <li>Tasa de respuesta del chatbot a consultas frecuentes superior al 85%.</li>
+                                            <li>Reducción del 70% en el tiempo dedicado a atención telefónica de representantes.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Impacto Social</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li>Más de 1.200 familias beneficiadas con atención automatizada y acceso digital a la información de sus hijos.</li>
+                                            <li>Personal administrativo capacitado en herramientas de inteligencia artificial.</li>
+                                            <li>Posicionamiento del Colegio Santa Rosa de Lima como referente de innovación educativa en Caracas.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Escalabilidad</td>
+                                    <td className={tableCellClass}>
+                                        <p>Una vez consolidado en el Colegio Santa Rosa de Lima, AutoMind AI tiene potencial de expansión a otras instituciones educativas privadas de Caracas (más de 400 colegios privados en el área metropolitana), y posteriormente a empresas, almacenes y organizaciones de cualquier sector que requieran digitalización de archivos y atención automatizada. El modelo de negocio proyectado es SaaS (Software como Servicio) con suscripción mensual.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="mt-20 p-12 border-4 border-slate-100 rounded-[3rem] flex justify-between items-end gap-24">
+                        <div className="flex-1 text-center border-t-2 border-black pt-6">
+                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Miguel Uzcategui</p>
+                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Líder de Proyecto</p>
                         </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Card>
+                        <div className="flex-1 text-center border-t-2 border-black pt-6">
+                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Miguel Angel Goites</p>
+                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Desarrollo Técnico</p>
+                        </div>
+                        <div className="flex-1 text-center border-t-2 border-black pt-6">
+                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Joaquin de Barros</p>
+                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Análisis y Comunicación</p>
+                        </div>
+                        <div className="flex-1 text-center border-t-2 border-black pt-6">
+                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Sello Institucional</p>
+                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Colegio Santa Rosa de Lima</p>
+                        </div>
+                    </div>
+
+                    <footer className="mt-20 pt-10 border-t border-slate-100 flex flex-col items-center gap-6 text-center opacity-40">
+                        <Logo className="h-10 w-10" />
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                            AutoMind AI · Modelo Zedu · Colegio Santa Rosa de Lima · Caracas, Venezuela · 2025–2026
+                        </p>
+                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            Presentado ante la organización ZEDU · Proyecto de Innovación Educativa y Tecnológica
+                        </p>
+                    </footer>
+                </div>
             </motion.div>
-          );
-        })}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="glass-card border-none bg-primary/5 rounded-2xl p-8 border border-primary/20 space-y-4">
-          <div className="p-3 bg-primary/10 rounded-xl w-fit">
-            <Lock className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <p className="text-[11px] font-black uppercase text-primary italic tracking-widest">Confidencial</p>
-            <p className="text-[9px] font-bold text-muted-foreground uppercase leading-snug mt-1">
-              Este guión es de uso exclusivo del equipo directivo de System Kyron. No reproducir ni distribuir sin autorización escrita del CEO.
-            </p>
-          </div>
-        </Card>
-        <Card className="glass-card border-none bg-emerald-500/5 rounded-2xl p-8 border border-emerald-500/20 space-y-4">
-          <div className="p-3 bg-emerald-500/10 rounded-xl w-fit">
-            <CheckCircle className="h-5 w-5 text-emerald-500" />
-          </div>
-          <div>
-            <p className="text-[11px] font-black uppercase text-emerald-500 italic tracking-widest">Versión Validada</p>
-            <p className="text-[9px] font-bold text-muted-foreground uppercase leading-snug mt-1">
-              Guión v3.2 · Marzo 2026. Revisado por equipo legal y contador público externo. Cifras auditadas al 15/03/2026.
-            </p>
-          </div>
-        </Card>
-        <Card className="glass-card border-none bg-amber-500/5 rounded-2xl p-8 border border-amber-500/20 space-y-4">
-          <div className="p-3 bg-amber-500/10 rounded-xl w-fit">
-            <Star className="h-5 w-5 text-amber-500" />
-          </div>
-          <div>
-            <p className="text-[11px] font-black uppercase text-amber-500 italic tracking-widest">Consejo Final</p>
-            <p className="text-[9px] font-bold text-muted-foreground uppercase leading-snug mt-1">
-              Practica el pitch completo al menos 5 veces antes de la presentación. Cronometra cada sección. Los mejores pitch son los que suenan naturales, no memorizados.
-            </p>
-          </div>
-        </Card>
-      </div>
-
-      <div className="no-print space-y-4">
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {[
-            { label: 'Visitas',         val: stats?.visitas      ?? '—', icon: Globe,     color: 'text-primary',       bg: 'bg-primary/10',      border: 'border-primary/20'      },
-            { label: 'Pitch IA Gen.',   val: stats?.pitchsIA     ?? '—', icon: Sparkles,  color: 'text-violet-400',    bg: 'bg-violet-500/10',   border: 'border-violet-500/20'   },
-            { label: 'PPTX Generados',  val: stats?.pptxGenerados ?? '—', icon: FileDown, color: 'text-emerald-500',   bg: 'bg-emerald-500/10',  border: 'border-emerald-500/20'  },
-            { label: 'Impresiones',     val: stats?.impresiones  ?? '—', icon: Printer,   color: 'text-amber-500',     bg: 'bg-amber-500/10',    border: 'border-amber-500/20'    },
-            { label: 'Copias Pitch',    val: stats?.copias       ?? '—', icon: Copy,      color: 'text-cyan-500',      bg: 'bg-cyan-500/10',     border: 'border-cyan-500/20'     },
-          ].map((s, i) => (
-            <Card key={i} className={cn('glass-card border rounded-2xl p-0 overflow-hidden', s.border)}>
-              <div className={cn('px-4 py-3 flex items-center justify-between gap-3', s.bg)}>
-                <div>
-                  <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">{s.label}</p>
-                  <p className={cn('text-2xl font-black italic mt-0.5', s.color)}>
-                    {cargandoStats ? <Activity className="h-5 w-5 animate-spin opacity-40" /> : s.val}
-                  </p>
-                </div>
-                <div className={cn('p-2 rounded-xl', s.bg)}>
-                  <s.icon className={cn('h-4 w-4', s.color)} />
-                </div>
-              </div>
-            </Card>
-          ))}
         </div>
-
-        {stats && stats.seccionesTop.length > 0 && (
-          <div className="rounded-2xl border border-border bg-card/30 p-5">
-            <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-3">Secciones más vistas</p>
-            <div className="flex flex-wrap gap-2">
-              {stats.seccionesTop.map((s, i) => {
-                const sec = secciones.find(sec => sec.id === s.dato);
-                return (
-                  <div key={i} className={cn('flex items-center gap-2 px-3 py-1.5 rounded-xl border text-[10px] font-black', sec?.bg ?? 'bg-muted/30', sec?.border ?? 'border-border', sec?.color ?? 'text-foreground')}>
-                    {sec?.titulo ?? s.dato}
-                    <span className="opacity-60">· {s.total}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        <div className="rounded-2xl border border-border bg-card/30 overflow-hidden">
-          <button
-            className="w-full flex items-center justify-between p-5 hover:bg-muted/10 transition-colors"
-            onClick={() => { setMostrarRegistros(!mostrarRegistros); if (!mostrarRegistros) cargarAnalytics(); }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-muted rounded-xl">
-                <Database className="h-4 w-4 text-muted-foreground" />
-              </div>
-              <div className="text-left">
-                <p className="text-[11px] font-black uppercase tracking-widest text-foreground">Actividad Completa — Base de Datos</p>
-                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide">
-                  {actividad.length} registros · visitas · pitch IA · PPTX · secciones · impresiones
-                </p>
-              </div>
-            </div>
-            {mostrarRegistros ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
-          </button>
-          <AnimatePresence>
-            {mostrarRegistros && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                <div className="px-5 pb-5 border-t border-border">
-                  {actividad.length === 0 ? (
-                    <div className="py-8 flex flex-col items-center gap-2 text-muted-foreground">
-                      <History className="h-8 w-8 opacity-30" />
-                      <p className="text-[11px] font-bold uppercase tracking-widest">Sin actividad aún</p>
-                    </div>
-                  ) : (
-                    <div className="divide-y divide-border max-h-96 overflow-y-auto">
-                      {actividad.map((a, i) => {
-                        const tipoConfig: Record<string, { icon: React.ElementType; color: string; bg: string }> = {
-                          'pitch_ia':         { icon: Sparkles,  color: 'text-primary',     bg: 'bg-primary/10'     },
-                          'PPTX_PRESENTACION': { icon: FileDown,  color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-                          'GUION_PITCH':       { icon: FileText,  color: 'text-violet-400',  bg: 'bg-violet-500/10'  },
-                          'page_view':         { icon: Globe,     color: 'text-blue-400',    bg: 'bg-blue-500/10'    },
-                          'imprimir':          { icon: Printer,   color: 'text-amber-500',   bg: 'bg-amber-500/10'   },
-                          'copiar_pitch':      { icon: Copy,      color: 'text-cyan-500',    bg: 'bg-cyan-500/10'    },
-                          'seccion_abierta':   { icon: ChevronDown, color: 'text-gray-400',  bg: 'bg-muted/30'       },
-                        };
-                        const cfg = tipoConfig[a.tipo] ?? { icon: Database, color: 'text-muted-foreground', bg: 'bg-muted/30' };
-                        const Icon = cfg.icon;
-                        return (
-                          <div key={`${a.tipo}-${a.id}-${i}`} className="flex items-center justify-between py-2.5 gap-4">
-                            <div className="flex items-center gap-3 min-w-0">
-                              <div className={cn('p-1.5 rounded-lg shrink-0', cfg.bg)}>
-                                <Icon className={cn('h-3.5 w-3.5', cfg.color)} />
-                              </div>
-                              <p className="text-[11px] font-bold text-foreground truncate">{a.titulo}</p>
-                            </div>
-                            <p className="text-[9px] text-muted-foreground font-bold uppercase whitespace-nowrap shrink-0">
-                              {new Date(a.creado_en).toLocaleDateString('es-VE', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

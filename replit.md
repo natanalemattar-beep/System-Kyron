@@ -82,7 +82,8 @@ PostgreSQL integrada de Replit. Schema general creado y gestionado centralmente.
 - Cookie: `sk_session` (httpOnly, secure en producción, 7 días)
 
 ## Páginas Especiales
-- `/es/sector-privado-system-kyron` — Guión de pitch inversores (10 actos, 27 min, $500K seed)
+- `/es/sector-privado-system-kyron` — Modelo Zedu: proyecto AutoMind AI (Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros / Colegio Santa Rosa de Lima). Documento completo con 8 secciones: equipo, población, análisis del problema, solución, presupuesto, aliados, plan de acción e impacto. Con descarga en Word (.doc) e impresión.
+- `/es/manual-usuario` — Manual de usuario (21 capítulos, incluye Capítulo 21 Modelo ZEDU). Capítulo 21 contiene enlace directo al documento Modelo Zedu.
 
 ## Variables de Entorno
 - `DATABASE_URL` — PostgreSQL (auto-configurada por Replit)
