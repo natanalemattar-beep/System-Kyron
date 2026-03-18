@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { VoiceAssistant } from "@/components/voice-assistant";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 
@@ -34,6 +35,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <div className="relative flex min-h-screen flex-col">
         {children}
         <VoiceAssistant />
+        <WhatsAppButton />
       </div>
     </NextIntlClientProvider>
   );
