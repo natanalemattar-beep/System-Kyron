@@ -506,7 +506,7 @@ export default function SectorPrivadoKyronPage() {
     setDescargandoPPTX(true);
     setErrorPPTX(false);
     try {
-      const res = await fetch('/api/pitch-pptx');
+      const res = await fetch('/api/pitch-pptx', { method: 'POST' });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err?.error ?? 'Error al generar el archivo');
@@ -516,7 +516,7 @@ export default function SectorPrivadoKyronPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'SystemKyron-PitchDeck-5min.pptx';
+      a.download = 'SystemKyron-PitchDeck-12slides.pptx';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -601,7 +601,7 @@ export default function SectorPrivadoKyronPage() {
                 </Button>
                 <Button className="rounded-xl text-[10px] font-black uppercase gap-2 btn-3d-primary" onClick={handleDescargarPPTX} disabled={descargandoPPTX}>
                   <FileDown className="h-3.5 w-3.5" />
-                  {descargandoPPTX ? 'Generando...' : 'Descargar PPTX'}
+                  {descargandoPPTX ? 'Generando...' : 'Generar PPTX'}
                 </Button>
               </div>
             </motion.div>
@@ -633,7 +633,7 @@ export default function SectorPrivadoKyronPage() {
             disabled={descargandoPPTX}
           >
             {descargandoPPTX ? <Activity className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
-            {descargandoPPTX ? 'Generando...' : 'Descargar PPTX'}
+            {descargandoPPTX ? 'Generando...' : 'Generar PPTX'}
           </Button>
           <Button
             className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
@@ -683,10 +683,10 @@ export default function SectorPrivadoKyronPage() {
           </div>
           <div>
             <p className={cn("text-sm font-black uppercase tracking-widest", errorPPTX ? "text-rose-500" : "text-emerald-600")}>
-              {descargandoPPTX ? 'Generando PPTX...' : errorPPTX ? 'Error — Intentar de nuevo' : 'Descargar PPTX'}
+              {descargandoPPTX ? 'Generando PPTX...' : errorPPTX ? 'Error — Intentar de nuevo' : 'Generar PPTX'}
             </p>
             <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
-              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : '10 slides · 5 minutos exactos · Guión del presentador incluido'}
+              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : '12 slides · 27 minutos · Guión del presentador incluido'}
             </p>
           </div>
         </div>
