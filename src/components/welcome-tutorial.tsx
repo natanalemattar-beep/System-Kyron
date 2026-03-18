@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 const steps = [
   {
     title: "Bienvenido a System Kyron",
-    description: "Estás ante el ecosistema de gestión más avanzado de Venezuela. Una plataforma de misión crítica diseñada para la excelencia operativa.",
+    description: "El ecosistema de inteligencia operativa más avanzado de Venezuela. Diseñado para líderes que no aceptan límites — donde cada decisión es respaldada por datos, blindada por IA y ejecutada con precisión absoluta.",
     icon: Sparkles,
     color: "text-yellow-400",
     bg: "bg-yellow-400/10"
