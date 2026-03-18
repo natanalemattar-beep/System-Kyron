@@ -13,16 +13,42 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import {
   Building, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
-  CloudUpload as UploadCloud, BookOpen, BarChart2, Users, Landmark, ShieldCheck,
-  Wallet, FileText, Package, Scale, Cpu, Handshake, Megaphone, Globe, TrendingUp,
-  Smartphone, Signal, Recycle, Gavel, ShoppingCart, Briefcase, Lock,
+  CloudUpload as UploadCloud, Lock, MapPin, Phone, Mail, Calendar, Shield,
+  BookOpen, BarChart2, Users, Landmark, ShieldCheck, Wallet, FileText, Package,
+  Scale, Cpu, Handshake, Megaphone, Globe, TrendingUp, Smartphone, Signal,
+  Recycle, Gavel, ShoppingCart, Briefcase,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
+
+const ESTADOS_VE = [
+  'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
+  'Cojedes', 'Delta Amacuro', 'Dependencias Federales', 'Distrito Capital', 'Falcón',
+  'Guárico', 'Lara', 'Mérida', 'Miranda', 'Monagas', 'Nueva Esparta', 'Portuguesa',
+  'Sucre', 'Táchira', 'Trujillo', 'La Guaira', 'Yaracuy', 'Zulia',
+];
+
+const TIPOS_EMPRESA = [
+  'Compañía Anónima (C.A.)',
+  'Compañía de Responsabilidad Limitada (C.R.L.)',
+  'Sociedad Anónima (S.A.)',
+  'Sociedad de Responsabilidad Limitada (S.R.L.)',
+  'Cooperativa',
+  'Asociación Civil',
+  'Fundación',
+  'ONG',
+  'Empresa Pública',
+  'Organismo del Estado',
+  'Persona Natural con Actividad Económica',
+  'Otro',
+];
 
 const moduleGroups = [
   {
@@ -33,7 +59,7 @@ const moduleGroups = [
     ],
   },
   {
-    group: 'Módulos Empresariales',
+    group: 'Módulos Empresariales Principales',
     modules: [
       { id: 'linea-empresa', label: 'Mi Línea Empresa', icon: Signal },
       { id: 'contabilidad', label: 'Contabilidad', icon: BookOpen },
@@ -50,8 +76,8 @@ const moduleGroups = [
     group: 'Administración & Finanzas',
     modules: [
       { id: 'inventario', label: 'Inventario', icon: Package },
-      { id: 'cuentas-por-cobrar', label: 'Cuentas por Cobrar', icon: TrendingUp },
-      { id: 'cuentas-por-pagar', label: 'Cuentas por Pagar', icon: Landmark },
+      { id: 'cuentas-cobrar', label: 'Cuentas por Cobrar', icon: TrendingUp },
+      { id: 'cuentas-pagar', label: 'Cuentas por Pagar', icon: Landmark },
       { id: 'pasarelas-pago', label: 'Pasarelas de Pago', icon: Wallet },
       { id: 'analisis-caja', label: 'Análisis de Caja', icon: BarChart2 },
       { id: 'tramites-fiscales', label: 'Trámites Fiscales', icon: Scale },
@@ -61,7 +87,7 @@ const moduleGroups = [
     group: 'Recursos Humanos',
     modules: [
       { id: 'nominas', label: 'Nóminas', icon: Users },
-      { id: 'prestaciones-sociales', label: 'Prestaciones Sociales', icon: ShieldCheck },
+      { id: 'prestaciones', label: 'Prestaciones Sociales', icon: ShieldCheck },
       { id: 'reclutamiento', label: 'Reclutamiento', icon: Handshake },
       { id: 'libro-vacaciones', label: 'Libro de Vacaciones', icon: BookOpen },
     ],
@@ -71,7 +97,7 @@ const moduleGroups = [
     modules: [
       { id: 'escritorio-juridico', label: 'Escritorio Jurídico', icon: Scale },
       { id: 'tramites-corporativos', label: 'Trámites Corporativos', icon: FileText },
-      { id: 'poderes-representacion', label: 'Poderes y Representación', icon: ShieldCheck },
+      { id: 'poderes', label: 'Poderes y Representación', icon: ShieldCheck },
     ],
   },
   {
@@ -80,58 +106,79 @@ const moduleGroups = [
       { id: 'ingenieria-ia', label: 'Ingeniería IA', icon: Cpu },
       { id: 'analisis-mercado', label: 'Análisis de Mercado', icon: Globe },
       { id: 'analisis-riesgo', label: 'Análisis de Riesgo', icon: BarChart2 },
-      { id: 'estudio-factibilidad', label: 'Factibilidad Económica', icon: TrendingUp },
+      { id: 'factibilidad', label: 'Factibilidad Económica', icon: TrendingUp },
     ],
   },
   {
     group: 'Ventas & Clientes',
     modules: [
-      { id: 'fidelizacion-clientes', label: 'Fidelización de Clientes', icon: Handshake },
-      { id: 'solicitud-credito', label: 'Solicitud de Crédito', icon: Wallet },
-      { id: 'propuesta-proyecto', label: 'Propuesta de Proyecto', icon: Megaphone },
+      { id: 'fidelizacion', label: 'Fidelización de Clientes', icon: Handshake },
+      { id: 'credito', label: 'Solicitud de Crédito', icon: Wallet },
+      { id: 'propuesta', label: 'Propuesta de Proyecto', icon: Megaphone },
     ],
   },
 ];
 
 const step1Schema = z.object({
   razonSocial: z.string().min(3, 'La razón social es requerida.'),
-  rif: z.string().min(9).regex(/^[JGVEP][-]\d{8}[-]\d$/, 'Formato: J-12345678-9'),
-  telefono: z.string().min(10, 'El teléfono es requerido.'),
-  direccion: z.string().min(10, 'La dirección fiscal es requerida.'),
+  rif: z.string().min(9).regex(/^[JGCVEP][-]\d{8}[-]\d$/, 'Formato: J-12345678-9'),
+  tipo_empresa: z.string().min(1, 'Selecciona el tipo de empresa.'),
+  actividad_economica: z.string().min(5, 'Describe la actividad económica.'),
+  codigo_ciiu: z.string().optional(),
+  fecha_constitucion: z.string().optional(),
+  registro_mercantil: z.string().optional(),
+  capital_social: z.string().optional(),
 });
 
 const step2Schema = z.object({
-  repNombre: z.string().min(3, 'El nombre es requerido.'),
+  telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
+  telefono_alt: z.string().optional(),
+  estado_empresa: z.string().min(1, 'El estado es requerido.'),
+  municipio_empresa: z.string().min(2, 'El municipio es requerido.'),
+  direccion: z.string().min(10, 'La dirección fiscal es requerida.'),
+});
+
+const step3Schema = z.object({
+  repNombre: z.string().min(2, 'El nombre es requerido.'),
+  repApellido: z.string().min(2, 'El apellido es requerido.'),
   repCedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-12345678'),
-  repEmail: z.string().email('Correo inválido.'),
-  password: z.string().min(8, 'Mínimo 8 caracteres.'),
+  rep_cargo: z.string().min(2, 'El cargo es requerido.'),
+  rep_telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Inválido.'),
+  repEmail: z.string().email('Correo electrónico inválido.'),
+  password: z.string()
+    .min(8, 'Mínimo 8 caracteres.')
+    .regex(/[A-Z]/, 'Debe tener al menos una mayúscula.')
+    .regex(/[0-9]/, 'Debe tener al menos un número.'),
   confirmPassword: z.string().min(8),
 }).refine(d => d.password === d.confirmPassword, {
   message: 'Las contraseñas no coinciden.',
   path: ['confirmPassword'],
 });
 
-const step3Schema = z.object({
-  fileRif: z.any().refine(f => f, 'El RIF digital es requerido.'),
+const step4Schema = z.object({
+  fileRif: z.any().refine(f => f, 'El RIF digitalizado es requerido.'),
   fileActa: z.any().refine(f => f, 'El acta constitutiva es requerida.'),
 });
 
-type FormData = z.infer<typeof step1Schema> & z.infer<typeof step2Schema> & z.infer<typeof step3Schema>;
+type FormData = z.infer<typeof step1Schema> & z.infer<typeof step2Schema> & z.infer<typeof step3Schema> & z.infer<typeof step4Schema>;
+
+const stepSchemas = [step1Schema, step2Schema, step3Schema, step4Schema];
 
 export default function RegisterJuridicoPage() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [fileRifName, setFileRifName] = useState<string | null>(null);
-  const [fileActaName, setFileActaName] = useState<string | null>(null);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
   const [registeredEmail, setRegisteredEmail] = useState('');
+  const [registeredRazon, setRegisteredRazon] = useState('');
+  const [tipoEmpresa, setTipoEmpresa] = useState('');
+  const [estadoEmpresa, setEstadoEmpresa] = useState('');
+  const [fileRifName, setFileRifName] = useState<string | null>(null);
+  const [fileActaName, setFileActaName] = useState<string | null>(null);
   const { toast } = useToast();
   const router = useRouter();
 
-  const schema = step === 1 ? step1Schema : step === 2 ? step2Schema : step3Schema;
-
   const { register, handleSubmit, formState: { errors }, trigger, getValues, setValue } =
-    useForm<FormData>({ resolver: zodResolver(schema) });
+    useForm<FormData>({ resolver: zodResolver(stepSchemas[step - 1] ?? step4Schema) });
 
   const toggleModule = (id: string) => {
     setSelectedModules(prev => {
@@ -142,7 +189,7 @@ export default function RegisterJuridicoPage() {
   };
 
   const nextStep = async () => {
-    if (step <= 3) {
+    if (step <= 4) {
       const valid = await trigger();
       if (valid) setStep(s => s + 1);
     } else {
@@ -154,7 +201,6 @@ export default function RegisterJuridicoPage() {
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
-
     const selectedModuleList = moduleGroups.flatMap(g =>
       g.modules.filter(m => selectedModules.has(m.id)).map(m => ({ id: m.id, label: m.label }))
     );
@@ -167,10 +213,21 @@ export default function RegisterJuridicoPage() {
           tipo: 'juridico',
           razonSocial: data.razonSocial,
           rif: data.rif,
+          tipo_empresa: data.tipo_empresa,
+          actividad_economica: data.actividad_economica,
+          codigo_ciiu: data.codigo_ciiu,
+          fecha_constitucion: data.fecha_constitucion,
+          registro_mercantil: data.registro_mercantil,
+          capital_social: data.capital_social,
           telefono: data.telefono,
+          telefono_alt: data.telefono_alt,
+          estado_empresa: data.estado_empresa,
+          municipio_empresa: data.municipio_empresa,
           direccion: data.direccion,
-          repNombre: data.repNombre,
+          repNombre: `${data.repNombre} ${data.repApellido}`,
           repCedula: data.repCedula,
+          rep_cargo: data.rep_cargo,
+          rep_telefono: data.rep_telefono,
           repEmail: data.repEmail,
           password: data.password,
           modules: selectedModuleList,
@@ -178,156 +235,282 @@ export default function RegisterJuridicoPage() {
       });
 
       const json = await res.json();
-
       if (!res.ok) {
-        toast({ title: 'Error', description: json.error, variant: 'destructive' });
-        setIsLoading(false);
+        toast({ title: 'Error al registrarse', description: json.error, variant: 'destructive' });
         return;
       }
 
       setRegisteredEmail(data.repEmail);
+      setRegisteredRazon(data.razonSocial);
       setStep(TOTAL_STEPS);
     } catch {
-      toast({ title: 'Error', description: 'Error de conexión', variant: 'destructive' });
+      toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
     } finally {
       setIsLoading(false);
     }
   };
 
   const progressValue = (step / TOTAL_STEPS) * 100;
-  const stepLabels = ['Datos de la Empresa', 'Representante Legal', 'Documentos', 'Módulos', 'Confirmación'];
+  const stepLabels = [
+    'Datos de la Empresa',
+    'Sede y Contacto',
+    'Representante Legal',
+    'Documentos',
+    'Módulos del Sistema',
+    'Registro Completado',
+  ];
+
+  const Field = ({ id, label, error, children, optional }: { id: string; label: string; error?: string; children: React.ReactNode; optional?: boolean }) => (
+    <div className="space-y-2">
+      <Label htmlFor={id} className="flex items-center gap-2">
+        {label}
+        {optional && <span className="text-[10px] text-muted-foreground font-normal">(opcional)</span>}
+      </Label>
+      {children}
+      {error && <p className="text-destructive text-xs">{error}</p>}
+    </div>
+  );
 
   return (
     <div className="w-full max-w-2xl mx-auto">
       <Card className="bg-card/80 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-2xl">
-            <Building /> Registro de Persona Jurídica
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <div className="p-2 bg-primary/10 rounded-lg"><Building className="h-5 w-5 text-primary" /></div>
+            Registro de Persona Jurídica
           </CardTitle>
           <CardDescription>
-            {step < TOTAL_STEPS ? `Paso ${step} de ${TOTAL_STEPS - 1}: ${stepLabels[step - 1]}` : 'Registro completado'}
+            {step < TOTAL_STEPS
+              ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
+              : stepLabels[TOTAL_STEPS - 1]}
           </CardDescription>
-          <Progress value={progressValue} className="mt-4" />
+          <Progress value={progressValue} className="mt-3" />
+          {step < TOTAL_STEPS && (
+            <div className="flex gap-1 mt-2">
+              {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
+                <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i < step ? 'bg-primary' : 'bg-border'}`} />
+              ))}
+            </div>
+          )}
         </CardHeader>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent>
+          <CardContent className="space-y-5">
+
             {/* PASO 1: Datos de la Empresa */}
             {step === 1 && (
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg">Datos de la Empresa</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="razonSocial">Razón Social</Label>
-                    <Input id="razonSocial" {...register('razonSocial')} />
-                    {errors.razonSocial && <p className="text-destructive text-sm">{errors.razonSocial.message}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="rif">RIF</Label>
-                    <Input id="rif" {...register('rif')} placeholder="J-12345678-9" />
-                    {errors.rif && <p className="text-destructive text-sm">{errors.rif.message}</p>}
-                  </div>
+              <>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <Building className="h-4 w-4" /> Identificación de la Empresa
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="direccion">Dirección Fiscal</Label>
-                  <Input id="direccion" {...register('direccion')} placeholder="Av. Principal, Edificio..." />
-                  {errors.direccion && <p className="text-destructive text-sm">{errors.direccion.message}</p>}
+                <Field id="razonSocial" label="Razón Social" error={errors.razonSocial?.message}>
+                  <Input id="razonSocial" placeholder="Empresa Ejemplo, C.A." {...register('razonSocial')} />
+                </Field>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="rif" label="RIF" error={errors.rif?.message}>
+                    <Input id="rif" placeholder="J-12345678-9" {...register('rif')} />
+                  </Field>
+                  <Field id="tipo_empresa" label="Tipo de Empresa" error={errors.tipo_empresa?.message}>
+                    <Select value={tipoEmpresa} onValueChange={v => { setTipoEmpresa(v); setValue('tipo_empresa', v); }}>
+                      <SelectTrigger id="tipo_empresa"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
+                      <SelectContent>
+                        {TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </Field>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="telefono">Teléfono de Contacto</Label>
-                  <Input id="telefono" {...register('telefono')} placeholder="0212-1234567" />
-                  {errors.telefono && <p className="text-destructive text-sm">{errors.telefono.message}</p>}
+                <Field id="actividad_economica" label="Actividad Económica Principal" error={errors.actividad_economica?.message}>
+                  <textarea
+                    id="actividad_economica"
+                    placeholder="Describe el giro o actividad principal de la empresa..."
+                    className="flex min-h-[70px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    {...register('actividad_economica')}
+                  />
+                </Field>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="codigo_ciiu" label="Código CIIU" error={errors.codigo_ciiu?.message} optional>
+                    <Input id="codigo_ciiu" placeholder="Ej: 6201" {...register('codigo_ciiu')} />
+                  </Field>
+                  <Field id="fecha_constitucion" label="Fecha de Constitución" error={errors.fecha_constitucion?.message} optional>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="fecha_constitucion" type="date" className="pl-9" {...register('fecha_constitucion')} />
+                    </div>
+                  </Field>
                 </div>
-              </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="registro_mercantil" label="N° Registro Mercantil" error={errors.registro_mercantil?.message} optional>
+                    <Input id="registro_mercantil" placeholder="Tomo X, Folio Y, N° Z" {...register('registro_mercantil')} />
+                  </Field>
+                  <Field id="capital_social" label="Capital Social" error={errors.capital_social?.message} optional>
+                    <Input id="capital_social" placeholder="Ej: Bs. 1.000.000" {...register('capital_social')} />
+                  </Field>
+                </div>
+              </>
             )}
 
-            {/* PASO 2: Representante Legal */}
+            {/* PASO 2: Sede y Contacto */}
             {step === 2 && (
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg">Datos del Representante Legal</h3>
-                <div className="space-y-2">
-                  <Label htmlFor="repNombre">Nombres y Apellidos</Label>
-                  <Input id="repNombre" {...register('repNombre')} />
-                  {errors.repNombre && <p className="text-destructive text-sm">{errors.repNombre.message}</p>}
+              <>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <Phone className="h-4 w-4" /> Datos de Contacto Corporativo
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="repCedula">Cédula de Identidad</Label>
-                    <Input id="repCedula" {...register('repCedula')} placeholder="V-12345678" />
-                    {errors.repCedula && <p className="text-destructive text-sm">{errors.repCedula.message}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="repEmail">Correo Electrónico</Label>
-                    <Input id="repEmail" type="email" {...register('repEmail')} />
-                    {errors.repEmail && <p className="text-destructive text-sm">{errors.repEmail.message}</p>}
-                  </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="telefono" label="Teléfono Corporativo" error={errors.telefono?.message}>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="telefono" placeholder="0212-1234567" className="pl-9" {...register('telefono')} />
+                    </div>
+                  </Field>
+                  <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message} optional>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9" {...register('telefono_alt')} />
+                    </div>
+                  </Field>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="flex items-center gap-1"><Lock className="w-3 h-3" /> Contraseña</Label>
-                    <Input id="password" type="password" {...register('password')} />
-                    {errors.password && <p className="text-destructive text-sm">{errors.password.message}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirmar Contraseña</Label>
-                    <Input id="confirmPassword" type="password" {...register('confirmPassword')} />
-                    {errors.confirmPassword && <p className="text-destructive text-sm">{errors.confirmPassword.message}</p>}
-                  </div>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-1">
+                  <MapPin className="h-4 w-4" /> Dirección Fiscal / Sede Principal
                 </div>
-              </div>
+                <Field id="estado_empresa" label="Estado / Entidad Federal" error={errors.estado_empresa?.message}>
+                  <Select value={estadoEmpresa} onValueChange={v => { setEstadoEmpresa(v); setValue('estado_empresa', v); }}>
+                    <SelectTrigger id="estado_empresa"><SelectValue placeholder="Selecciona el estado" /></SelectTrigger>
+                    <SelectContent>
+                      {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </Field>
+                <Field id="municipio_empresa" label="Municipio" error={errors.municipio_empresa?.message}>
+                  <Input id="municipio_empresa" placeholder="Ej: Chacao" {...register('municipio_empresa')} />
+                </Field>
+                <Field id="direccion" label="Dirección Fiscal Completa" error={errors.direccion?.message}>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <textarea
+                      id="direccion"
+                      placeholder="Av. Francisco de Miranda, Centro Lido, Torre A, Piso 8, Ofic. 8-B..."
+                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      {...register('direccion')}
+                    />
+                  </div>
+                </Field>
+              </>
             )}
 
-            {/* PASO 3: Documentos */}
+            {/* PASO 3: Representante Legal */}
             {step === 3 && (
-              <div className="space-y-6">
-                <h3 className="font-semibold text-lg">Carga de Documentos</h3>
-                <div className="space-y-2">
-                  <Label>RIF Digitalizado</Label>
-                  <FileInputTrigger onFileSelect={f => { setValue('fileRif', f); setFileRifName(f.name); }}>
-                    <div className="flex items-center justify-center w-full p-4 border-2 border-dashed rounded-lg cursor-pointer hover:bg-secondary">
-                      <UploadCloud className="w-6 h-6 mr-2 text-muted-foreground" />
-                      <span className={cn('text-muted-foreground', fileRifName && 'text-primary')}>
-                        {fileRifName || 'Seleccionar archivo (PDF, JPG)'}
-                      </span>
-                    </div>
-                  </FileInputTrigger>
-                  {errors.fileRif && <p className="text-destructive text-sm">El RIF es requerido</p>}
+              <>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <Users className="h-4 w-4" /> Datos del Representante Legal
                 </div>
-                <div className="space-y-2">
-                  <Label>Acta Constitutiva y Modificaciones (PDF)</Label>
-                  <FileInputTrigger onFileSelect={f => { setValue('fileActa', f); setFileActaName(f.name); }}>
-                    <div className="flex items-center justify-center w-full p-4 border-2 border-dashed rounded-lg cursor-pointer hover:bg-secondary">
-                      <UploadCloud className="w-6 h-6 mr-2 text-muted-foreground" />
-                      <span className={cn('text-muted-foreground', fileActaName && 'text-primary')}>
-                        {fileActaName || 'Seleccionar archivo (PDF)'}
-                      </span>
-                    </div>
-                  </FileInputTrigger>
-                  {errors.fileActa && <p className="text-destructive text-sm">El acta es requerida</p>}
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="repNombre" label="Nombre(s)" error={errors.repNombre?.message}>
+                    <Input id="repNombre" placeholder="María José" {...register('repNombre')} />
+                  </Field>
+                  <Field id="repApellido" label="Apellido(s)" error={errors.repApellido?.message}>
+                    <Input id="repApellido" placeholder="Rodríguez López" {...register('repApellido')} />
+                  </Field>
                 </div>
-              </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="repCedula" label="Cédula de Identidad" error={errors.repCedula?.message}>
+                    <Input id="repCedula" placeholder="V-12345678" {...register('repCedula')} />
+                  </Field>
+                  <Field id="rep_cargo" label="Cargo en la Empresa" error={errors.rep_cargo?.message}>
+                    <Input id="rep_cargo" placeholder="Director Gerente / Presidente" {...register('rep_cargo')} />
+                  </Field>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field id="rep_telefono" label="Teléfono Directo" error={errors.rep_telefono?.message}>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="rep_telefono" placeholder="0414-1234567" className="pl-9" {...register('rep_telefono')} />
+                    </div>
+                  </Field>
+                  <Field id="repEmail" label="Correo Electrónico" error={errors.repEmail?.message}>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="repEmail" type="email" placeholder="rep@empresa.com" className="pl-9" {...register('repEmail')} />
+                    </div>
+                  </Field>
+                </div>
+                <div className="border-t pt-4 mt-2">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                    <Shield className="h-4 w-4" /> Credenciales de Acceso
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <Field id="password" label="Contraseña" error={errors.password?.message}>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input id="password" type="password" className="pl-9" {...register('password')} />
+                      </div>
+                    </Field>
+                    <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input id="confirmPassword" type="password" className="pl-9" {...register('confirmPassword')} />
+                      </div>
+                    </Field>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Mínimo 8 caracteres, una mayúscula y un número.</p>
+                </div>
+              </>
             )}
 
-            {/* PASO 4: Módulos */}
+            {/* PASO 4: Documentos */}
             {step === 4 && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-lg">Selecciona los Módulos</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Activa los módulos que tu empresa necesita.
-                    {selectedModules.size > 0 && (
-                      <span className="ml-2 font-medium text-primary">
-                        ({selectedModules.size} seleccionado{selectedModules.size !== 1 ? 's' : ''})
-                      </span>
-                    )}
-                  </p>
+              <>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <FileText className="h-4 w-4" /> Documentos Legales Requeridos
                 </div>
-                <div className="space-y-6 max-h-[420px] overflow-y-auto pr-1">
+                <p className="text-xs text-muted-foreground mb-4">
+                  Sube los documentos en formato PDF o imagen (JPG, PNG). Máx. 10 MB por archivo.
+                </p>
+                {[
+                  { key: 'fileRif', label: 'RIF Digitalizado *', desc: 'Registro de Información Fiscal vigente (PDF o imagen)', stateName: fileRifName, setStateFn: setFileRifName, field: 'fileRif' as keyof FormData },
+                  { key: 'fileActa', label: 'Acta Constitutiva *', desc: 'Última acta notariada con todas sus modificaciones (PDF)', stateName: fileActaName, setStateFn: setFileActaName, field: 'fileActa' as keyof FormData },
+                ].map(({ key, label, desc, stateName, setStateFn, field }) => (
+                  <div key={key} className="space-y-2">
+                    <Label>{label}</Label>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
+                    <FileInputTrigger onFileSelect={f => { setValue(field, f); setStateFn(f.name); }}>
+                      <div className={cn(
+                        'flex items-center justify-center w-full p-4 border-2 border-dashed rounded-lg cursor-pointer transition-colors',
+                        stateName ? 'border-primary/50 bg-primary/5' : 'hover:bg-secondary hover:border-primary/30'
+                      )}>
+                        <UploadCloud className={cn('w-5 h-5 mr-2', stateName ? 'text-primary' : 'text-muted-foreground')} />
+                        <span className={cn('text-sm', stateName ? 'text-primary font-medium' : 'text-muted-foreground')}>
+                          {stateName || 'Seleccionar archivo...'}
+                        </span>
+                      </div>
+                    </FileInputTrigger>
+                    {errors[field] && <p className="text-destructive text-xs">Este documento es requerido</p>}
+                  </div>
+                ))}
+                <div className="p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg text-xs text-amber-700 dark:text-amber-400">
+                  <strong>Nota:</strong> Los documentos serán verificados por nuestro equipo en un plazo de 24-48 horas hábiles.
+                  Asegúrate de que estén vigentes y legibles.
+                </div>
+              </>
+            )}
+
+            {/* PASO 5: Módulos */}
+            {step === 5 && (
+              <>
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <Globe className="h-4 w-4" /> Selección de Módulos del Sistema
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Activa los módulos que tu empresa necesita. Puedes cambiar esta selección después.
+                  {selectedModules.size > 0 && (
+                    <span className="ml-2 font-semibold text-primary">
+                      {selectedModules.size} módulo{selectedModules.size !== 1 ? 's' : ''} seleccionado{selectedModules.size !== 1 ? 's' : ''}
+                    </span>
+                  )}
+                </p>
+                <div className="space-y-5 max-h-[440px] overflow-y-auto pr-1 mt-2">
                   {moduleGroups.map(group => (
                     <div key={group.group}>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                        {group.group}
-                      </p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">{group.group}</p>
                       <div className="grid grid-cols-2 gap-2">
                         {group.modules.map(({ id, label, icon: Icon }) => {
                           const selected = selectedModules.has(id);
@@ -337,15 +520,15 @@ export default function RegisterJuridicoPage() {
                               type="button"
                               onClick={() => toggleModule(id)}
                               className={cn(
-                                'flex items-center gap-2 p-3 rounded-lg border text-sm text-left transition-all',
+                                'flex items-center gap-2 p-2.5 rounded-lg border text-xs text-left transition-all',
                                 selected
-                                  ? 'border-primary bg-primary/10 text-primary font-medium'
-                                  : 'border-border bg-card hover:border-primary/50 hover:bg-secondary text-foreground'
+                                  ? 'border-primary bg-primary/10 text-primary font-semibold'
+                                  : 'border-border bg-card hover:border-primary/40 hover:bg-secondary text-foreground'
                               )}
                             >
-                              <Icon className="w-4 h-4 shrink-0" />
+                              <Icon className="w-3.5 h-3.5 shrink-0" />
                               <span className="leading-tight">{label}</span>
-                              {selected && <CheckCircle className="w-4 h-4 ml-auto shrink-0 text-primary" />}
+                              {selected && <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0" />}
                             </button>
                           );
                         })}
@@ -353,46 +536,51 @@ export default function RegisterJuridicoPage() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </>
             )}
 
-            {/* PASO 5: Confirmación */}
+            {/* PASO 6: Confirmación */}
             {step === TOTAL_STEPS && (
-              <div className="text-center p-8">
-                <CheckCircle className="h-20 w-20 text-green-500 mx-auto mb-6" />
-                <h2 className="text-2xl font-bold">¡Registro Completado!</h2>
-                <p className="text-muted-foreground mt-2">
-                  Tu empresa ha sido registrada exitosamente. Hemos enviado las instrucciones a{' '}
-                  <span className="font-semibold text-primary">{registeredEmail}</span>.
+              <div className="text-center py-8">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+                  <CheckCircle className="h-12 w-12 text-green-500" />
+                </div>
+                <h2 className="text-2xl font-bold">¡Empresa Registrada!</h2>
+                <p className="text-muted-foreground mt-2 text-sm">
+                  <span className="font-semibold text-foreground">{registeredRazon}</span> ha sido registrada exitosamente.
                 </p>
                 {selectedModules.size > 0 && (
-                  <p className="text-sm text-muted-foreground mt-3">
+                  <p className="text-sm text-muted-foreground mt-1">
                     {selectedModules.size} módulo{selectedModules.size !== 1 ? 's' : ''} activado{selectedModules.size !== 1 ? 's' : ''}.
                   </p>
                 )}
-                <Button className="mt-6" onClick={() => router.push('/login')}>
-                  Iniciar Sesión <ArrowRight className="ml-2 h-4 w-4" />
+                <div className="mt-5 p-4 bg-primary/5 border border-primary/10 rounded-lg text-left text-sm space-y-1">
+                  <p className="font-semibold text-primary">Próximos pasos:</p>
+                  <p className="text-muted-foreground">• Revisa el correo <strong>{registeredEmail}</strong> para verificar tu cuenta</p>
+                  <p className="text-muted-foreground">• Nuestro equipo verificará tus documentos en 24-48 hrs</p>
+                  <p className="text-muted-foreground">• Recibirás acceso completo a los módulos seleccionados</p>
+                </div>
+                <Button className="mt-6 w-full" onClick={() => router.push('/login')}>
+                  Ir a Iniciar Sesión <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             )}
           </CardContent>
 
           {step < TOTAL_STEPS && (
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-between pt-2">
               <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
               </Button>
-              {step < 4 && (
-                <Button type="button" onClick={nextStep}>
-                  Siguiente <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              )}
-              {step === 4 && (
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Finalizar Registro
-                </Button>
-              )}
+              {step < 5
+                ? <Button type="button" onClick={nextStep}>Siguiente <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                : (
+                  <Button type="submit" disabled={isLoading}>
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Finalizar Registro
+                  </Button>
+                )
+              }
             </CardFooter>
           )}
         </form>

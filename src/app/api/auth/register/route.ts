@@ -22,9 +22,14 @@ export async function POST(req: NextRequest) {
 }
 
 async function registerNatural(body: Record<string, unknown>) {
-    const { nombre, apellido, cedula, telefono, email, password } = body as Record<string, string>;
+    const {
+        nombre, apellido, cedula, telefono, telefono_alt,
+        fecha_nacimiento, genero, estado_civil,
+        estado_residencia, municipio, ciudad, direccion,
+        email, password,
+    } = body as Record<string, string>;
 
-    if (!email || !password || !nombre || !cedula) {
+    if (!email || !password || !nombre || !apellido || !cedula) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
     }
 
@@ -33,26 +38,41 @@ async function registerNatural(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
 
+    const cedulaExisting = await queryOne('SELECT id FROM users WHERE cedula = $1', [cedula]);
+    if (cedulaExisting) {
+        return NextResponse.json({ error: 'Ya existe una cuenta con esa cédula' }, { status: 409 });
+    }
+
     const password_hash = await bcrypt.hash(password, 12);
 
     const [user] = await query<{ id: number; email: string }>(
-        `INSERT INTO users (email, password_hash, nombre, apellido, cedula, telefono, tipo)
-         VALUES ($1, $2, $3, $4, $5, $6, 'natural')
+        `INSERT INTO users (
+            email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
+            fecha_nacimiento, genero, estado_civil,
+            estado_residencia, municipio, ciudad, direccion, tipo
+         )
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural')
          RETURNING id, email`,
-        [email, password_hash, nombre, apellido ?? '', cedula, telefono ?? '']
+        [
+            email, password_hash,
+            nombre, apellido, cedula,
+            telefono ?? '', telefono_alt ?? '',
+            fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
+            estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
+        ]
     );
 
     const token = await createToken({
         userId: user.id,
         email: user.email,
         tipo: 'natural',
-        nombre: nombre,
+        nombre: `${nombre} ${apellido}`,
     });
 
     const cookie = setSessionCookie(token);
     const res = NextResponse.json({
         success: true,
-        user: { id: user.id, email: user.email, tipo: 'natural', nombre },
+        user: { id: user.id, email: user.email, tipo: 'natural', nombre: `${nombre} ${apellido}` },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
     return res;
@@ -60,8 +80,10 @@ async function registerNatural(body: Record<string, unknown>) {
 
 async function registerJuridico(body: Record<string, unknown>) {
     const {
-        razonSocial, rif, telefono, direccion,
-        repNombre, repCedula, repEmail, password,
+        razonSocial, rif, tipo_empresa, actividad_economica, codigo_ciiu,
+        fecha_constitucion, registro_mercantil, capital_social,
+        telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
+        repNombre, repCedula, rep_cargo, rep_telefono, repEmail, password,
         modules,
     } = body as Record<string, unknown>;
 
@@ -75,21 +97,48 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
 
+    const rifExisting = await queryOne('SELECT id FROM users WHERE rif = $1', [rif]);
+    if (rifExisting) {
+        return NextResponse.json({ error: 'Ya existe una empresa registrada con ese RIF' }, { status: 409 });
+    }
+
     const password_hash = await bcrypt.hash(password as string, 12);
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, tipo,
-            razon_social, rif, telefono, direccion,
-            rep_nombre, rep_cedula, rep_email, nombre
+            nombre, razon_social, rif, tipo_empresa, actividad_economica, codigo_ciiu,
+            fecha_constitucion, registro_mercantil, capital_social,
+            telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
+            rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono
          )
-         VALUES ($1, $2, 'juridico', $3, $4, $5, $6, $7, $8, $9, $10)
+         VALUES ($1, $2, 'juridico',
+                 $3, $4, $5, $6, $7, $8,
+                 $9, $10, $11,
+                 $12, $13, $14, $15, $16,
+                 $17, $18, $19, $20, $21)
          RETURNING id, email`,
         [
             email, password_hash,
-            razonSocial, rif, telefono, direccion,
-            repNombre, repCedula, repEmail,
-            repNombre,
+            razonSocial as string,
+            razonSocial as string,
+            rif as string,
+            (tipo_empresa ?? '') as string,
+            (actividad_economica ?? '') as string,
+            (codigo_ciiu ?? '') as string,
+            fecha_constitucion ? (fecha_constitucion as string) : null,
+            (registro_mercantil ?? '') as string,
+            (capital_social ?? '') as string,
+            (telefono ?? '') as string,
+            (telefono_alt ?? '') as string,
+            (estado_empresa ?? '') as string,
+            (municipio_empresa ?? '') as string,
+            (direccion ?? '') as string,
+            (repNombre ?? '') as string,
+            (repCedula ?? '') as string,
+            email,
+            (rep_cargo ?? '') as string,
+            (rep_telefono ?? '') as string,
         ]
     );
 
