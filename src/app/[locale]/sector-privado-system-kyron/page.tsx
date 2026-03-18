@@ -516,7 +516,7 @@ export default function SectorPrivadoKyronPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'SystemKyron-PitchDeck-2026.pptx';
+      a.download = 'SystemKyron-PitchDeck-5min.pptx';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -686,7 +686,7 @@ export default function SectorPrivadoKyronPage() {
               {descargandoPPTX ? 'Generando PPTX...' : errorPPTX ? 'Error — Intentar de nuevo' : 'Descargar PPTX'}
             </p>
             <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
-              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : 'Presentación de 13 slides profesional lista para inversores'}
+              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : '10 slides · 5 minutos exactos · Guión del presentador incluido'}
             </p>
           </div>
         </div>
