@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Mic, FileText, ChevronDown, ChevronRight, Play, Pause,
   Target, Zap, TrendingUp, Users, Globe, Shield, Heart,
   Phone, MessageSquare, Wifi, CreditCard, Banknote, Building2,
   CheckCircle, Star, Award, ArrowRight, Download, Printer,
   BrainCircuit, Handshake, Receipt, Car, BarChart2, Rocket,
-  DollarSign, Clock, Activity, Lock
+  DollarSign, Clock, Activity, Lock, Sparkles, Database,
+  FileDown, History, X, Copy, Check, ChevronUp
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -459,9 +460,18 @@ const metasDeck = [
   { icon: Globe, label: "Mercado", val: "Venezuela · LATAM" },
 ];
 
+type RegistroItem = { id: number; titulo: string; creado_en: string };
+
 export default function SectorPrivadoKyronPage() {
   const [seccionAbierta, setSeccionAbierta] = useState<string | null>("apertura");
   const [imprimiendo, setImprimiendo] = useState(false);
+  const [generandoIA, setGenerandoIA] = useState(false);
+  const [pitchIA, setPitchIA] = useState<string | null>(null);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [descargandoPPTX, setDescargandoPPTX] = useState(false);
+  const [copiado, setCopiado] = useState(false);
+  const [registros, setRegistros] = useState<RegistroItem[]>([]);
+  const [mostrarRegistros, setMostrarRegistros] = useState(false);
 
   const toggleSeccion = (id: string) => {
     setSeccionAbierta(seccionAbierta === id ? null : id);
@@ -475,8 +485,120 @@ export default function SectorPrivadoKyronPage() {
     }, 300);
   };
 
+  const handleGenerarIA = async () => {
+    setGenerandoIA(true);
+    try {
+      const res = await fetch('/api/pitch-ia', { method: 'POST' });
+      const data = await res.json();
+      if (data.pitch) {
+        setPitchIA(data.pitch);
+        setMostrarModal(true);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setGenerandoIA(false);
+    }
+  };
+
+  const handleDescargarPPTX = async () => {
+    setDescargandoPPTX(true);
+    try {
+      const res = await fetch('/api/pitch-pptx');
+      if (!res.ok) throw new Error('Error');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'SystemKyron-PitchDeck.pptx';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setDescargandoPPTX(false);
+    }
+  };
+
+  const handleCopiar = () => {
+    if (pitchIA) {
+      navigator.clipboard.writeText(pitchIA);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
+    }
+  };
+
+  const cargarRegistros = useCallback(async () => {
+    try {
+      const res = await fetch('/api/pitch-ia');
+      const data = await res.json();
+      setRegistros(data.sessions ?? []);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    cargarRegistros();
+  }, [cargarRegistros]);
+
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
+
+      <AnimatePresence>
+        {mostrarModal && pitchIA && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setMostrarModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.93, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.93, opacity: 0, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="bg-card border border-border rounded-3xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-6 border-b border-border shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-primary/10">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-black uppercase tracking-widest text-primary">Gemini IA</p>
+                    <p className="text-xs text-muted-foreground font-bold uppercase">Guión de Pitch — 5 minutos</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" className="rounded-xl gap-2 text-[10px] font-black uppercase" onClick={handleCopiar}>
+                    {copiado ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copiado ? 'Copiado' : 'Copiar'}
+                  </Button>
+                  <Button size="sm" variant="ghost" className="rounded-xl" onClick={() => setMostrarModal(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              <div className="overflow-y-auto p-6 flex-1">
+                <pre className="whitespace-pre-wrap text-sm text-foreground font-sans leading-relaxed">
+                  {pitchIA}
+                </pre>
+              </div>
+              <div className="p-4 border-t border-border shrink-0 flex justify-end gap-2">
+                <Button variant="outline" className="rounded-xl text-[10px] font-black uppercase gap-2" onClick={handlePrint}>
+                  <Printer className="h-3.5 w-3.5" /> Imprimir
+                </Button>
+                <Button className="rounded-xl text-[10px] font-black uppercase gap-2 btn-3d-primary" onClick={handleDescargarPPTX} disabled={descargandoPPTX}>
+                  <FileDown className="h-3.5 w-3.5" />
+                  {descargandoPPTX ? 'Generando...' : 'Descargar PPTX'}
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <header className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
@@ -489,16 +611,64 @@ export default function SectorPrivadoKyronPage() {
             Guión Maestro · Sector Privado Venezolano · Ronda Seed $500K USD
           </p>
         </div>
-        <div className="flex gap-3 no-print">
+        <div className="flex flex-wrap gap-3 no-print">
           <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2" onClick={handlePrint}>
             {imprimiendo ? <Activity className="h-4 w-4 animate-spin" /> : <Printer className="h-4 w-4" />}
-            IMPRIMIR GUIÓN
+            Imprimir
           </Button>
-          <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
-            <Download className="h-4 w-4" /> DESCARGAR PDF
+          <Button
+            variant="outline"
+            className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2 border-emerald-500/40 text-emerald-600 hover:bg-emerald-500/10"
+            onClick={handleDescargarPPTX}
+            disabled={descargandoPPTX}
+          >
+            {descargandoPPTX ? <Activity className="h-4 w-4 animate-spin" /> : <FileDown className="h-4 w-4" />}
+            {descargandoPPTX ? 'Generando...' : 'Descargar PPTX'}
+          </Button>
+          <Button
+            className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
+            onClick={handleGenerarIA}
+            disabled={generandoIA}
+          >
+            {generandoIA ? <Activity className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+            {generandoIA ? 'Generando con IA...' : 'Generar Pitch IA — 5 min'}
           </Button>
         </div>
       </header>
+
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 no-print"
+      >
+        <div
+          className="col-span-2 p-5 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-transparent flex items-center gap-5 cursor-pointer hover:border-primary/40 transition-all"
+          onClick={handleGenerarIA}
+        >
+          <div className="p-3 bg-primary/20 rounded-xl shrink-0">
+            <Sparkles className="h-6 w-6 text-primary" />
+          </div>
+          <div>
+            <p className="text-sm font-black text-primary uppercase tracking-widest">Generador de Pitch con IA · Gemini</p>
+            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
+              Genera un guión de 5 minutos personalizado sobre las innovaciones de System Kyron. Cada generación se guarda en la base de datos.
+            </p>
+          </div>
+          <ArrowRight className="h-5 w-5 text-primary shrink-0 ml-auto" />
+        </div>
+        <div
+          className="p-5 rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-transparent flex items-center gap-4 cursor-pointer hover:border-emerald-500/40 transition-all"
+          onClick={handleDescargarPPTX}
+        >
+          <div className="p-3 bg-emerald-500/20 rounded-xl shrink-0">
+            <FileDown className="h-6 w-6 text-emerald-500" />
+          </div>
+          <div>
+            <p className="text-sm font-black text-emerald-600 uppercase tracking-widest">PPTX</p>
+            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">Presentación de 10 slides lista para inversores</p>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         {metasDeck.map((m, i) => (
@@ -669,6 +839,61 @@ export default function SectorPrivadoKyronPage() {
             </p>
           </div>
         </Card>
+      </div>
+
+      <div className="no-print rounded-2xl border border-border bg-card/30 overflow-hidden">
+        <button
+          className="w-full flex items-center justify-between p-5 hover:bg-muted/10 transition-colors"
+          onClick={() => { setMostrarRegistros(!mostrarRegistros); if (!mostrarRegistros) cargarRegistros(); }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-muted rounded-xl">
+              <Database className="h-4 w-4 text-muted-foreground" />
+            </div>
+            <div className="text-left">
+              <p className="text-[11px] font-black uppercase tracking-widest text-foreground">Registro de Documentos</p>
+              <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide">
+                {registros.length} generaciones guardadas en base de datos
+              </p>
+            </div>
+          </div>
+          {mostrarRegistros ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+        </button>
+        <AnimatePresence>
+          {mostrarRegistros && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <div className="px-5 pb-5 border-t border-border">
+                {registros.length === 0 ? (
+                  <div className="py-8 flex flex-col items-center gap-2 text-muted-foreground">
+                    <History className="h-8 w-8 opacity-30" />
+                    <p className="text-[11px] font-bold uppercase tracking-widest">Sin registros aún — genera tu primer pitch con IA</p>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-border">
+                    {registros.map((r) => (
+                      <div key={r.id} className="flex items-center justify-between py-3 gap-4">
+                        <div className="flex items-center gap-3">
+                          <div className="p-1.5 bg-primary/10 rounded-lg shrink-0">
+                            <FileText className="h-3.5 w-3.5 text-primary" />
+                          </div>
+                          <p className="text-[11px] font-bold text-foreground truncate max-w-xs">{r.titulo}</p>
+                        </div>
+                        <p className="text-[9px] text-muted-foreground font-bold uppercase whitespace-nowrap">
+                          {new Date(r.creado_en).toLocaleDateString('es-VE', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
