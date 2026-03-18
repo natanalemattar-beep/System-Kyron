@@ -461,6 +461,18 @@ const metasDeck = [
 ];
 
 type RegistroItem = { id: number; titulo: string; creado_en: string };
+type ActividadItem = { id: number; tipo: string; titulo: string; dato: string | null; creado_en: string };
+type Stats = { visitas: number; pitchsIA: number; pptxGenerados: number; impresiones: number; copias: number; seccionesTop: { dato: string; total: string }[] };
+
+async function logEvento(evento: string, dato?: string) {
+  try {
+    await fetch('/api/pitch-analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ evento, dato }),
+    });
+  } catch {}
+}
 
 export default function SectorPrivadoKyronPage() {
   const [seccionAbierta, setSeccionAbierta] = useState<string | null>("apertura");
@@ -473,13 +485,19 @@ export default function SectorPrivadoKyronPage() {
   const [copiado, setCopiado] = useState(false);
   const [registros, setRegistros] = useState<RegistroItem[]>([]);
   const [mostrarRegistros, setMostrarRegistros] = useState(false);
+  const [actividad, setActividad] = useState<ActividadItem[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [cargandoStats, setCargandoStats] = useState(false);
 
   const toggleSeccion = (id: string) => {
-    setSeccionAbierta(seccionAbierta === id ? null : id);
+    const nuevo = seccionAbierta === id ? null : id;
+    setSeccionAbierta(nuevo);
+    if (nuevo) logEvento('seccion_abierta', nuevo);
   };
 
   const handlePrint = () => {
     setImprimiendo(true);
+    logEvento('imprimir');
     setTimeout(() => {
       window.print();
       setImprimiendo(false);
@@ -534,21 +552,27 @@ export default function SectorPrivadoKyronPage() {
     if (pitchIA) {
       navigator.clipboard.writeText(pitchIA);
       setCopiado(true);
+      logEvento('copiar_pitch');
       setTimeout(() => setCopiado(false), 2000);
     }
   };
 
-  const cargarRegistros = useCallback(async () => {
+  const cargarAnalytics = useCallback(async () => {
+    setCargandoStats(true);
     try {
-      const res = await fetch('/api/pitch-ia');
+      const res = await fetch('/api/pitch-analytics');
       const data = await res.json();
-      setRegistros(data.sessions ?? []);
+      setStats(data.stats ?? null);
+      setActividad(data.actividad ?? []);
+      setRegistros((data.actividad ?? []).filter((a: ActividadItem) => a.tipo === 'pitch_ia').slice(0, 20));
     } catch {}
+    finally { setCargandoStats(false); }
   }, []);
 
   useEffect(() => {
-    cargarRegistros();
-  }, [cargarRegistros]);
+    logEvento('page_view');
+    cargarAnalytics();
+  }, [cargarAnalytics]);
 
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
@@ -863,59 +887,116 @@ export default function SectorPrivadoKyronPage() {
         </Card>
       </div>
 
-      <div className="no-print rounded-2xl border border-border bg-card/30 overflow-hidden">
-        <button
-          className="w-full flex items-center justify-between p-5 hover:bg-muted/10 transition-colors"
-          onClick={() => { setMostrarRegistros(!mostrarRegistros); if (!mostrarRegistros) cargarRegistros(); }}
-        >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-muted rounded-xl">
-              <Database className="h-4 w-4 text-muted-foreground" />
-            </div>
-            <div className="text-left">
-              <p className="text-[11px] font-black uppercase tracking-widest text-foreground">Registro de Documentos</p>
-              <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide">
-                {registros.length} generaciones guardadas en base de datos
-              </p>
+      <div className="no-print space-y-4">
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          {[
+            { label: 'Visitas',         val: stats?.visitas      ?? '—', icon: Globe,     color: 'text-primary',       bg: 'bg-primary/10',      border: 'border-primary/20'      },
+            { label: 'Pitch IA Gen.',   val: stats?.pitchsIA     ?? '—', icon: Sparkles,  color: 'text-violet-400',    bg: 'bg-violet-500/10',   border: 'border-violet-500/20'   },
+            { label: 'PPTX Generados',  val: stats?.pptxGenerados ?? '—', icon: FileDown, color: 'text-emerald-500',   bg: 'bg-emerald-500/10',  border: 'border-emerald-500/20'  },
+            { label: 'Impresiones',     val: stats?.impresiones  ?? '—', icon: Printer,   color: 'text-amber-500',     bg: 'bg-amber-500/10',    border: 'border-amber-500/20'    },
+            { label: 'Copias Pitch',    val: stats?.copias       ?? '—', icon: Copy,      color: 'text-cyan-500',      bg: 'bg-cyan-500/10',     border: 'border-cyan-500/20'     },
+          ].map((s, i) => (
+            <Card key={i} className={cn('glass-card border rounded-2xl p-0 overflow-hidden', s.border)}>
+              <div className={cn('px-4 py-3 flex items-center justify-between gap-3', s.bg)}>
+                <div>
+                  <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">{s.label}</p>
+                  <p className={cn('text-2xl font-black italic mt-0.5', s.color)}>
+                    {cargandoStats ? <Activity className="h-5 w-5 animate-spin opacity-40" /> : s.val}
+                  </p>
+                </div>
+                <div className={cn('p-2 rounded-xl', s.bg)}>
+                  <s.icon className={cn('h-4 w-4', s.color)} />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {stats && stats.seccionesTop.length > 0 && (
+          <div className="rounded-2xl border border-border bg-card/30 p-5">
+            <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-3">Secciones más vistas</p>
+            <div className="flex flex-wrap gap-2">
+              {stats.seccionesTop.map((s, i) => {
+                const sec = secciones.find(sec => sec.id === s.dato);
+                return (
+                  <div key={i} className={cn('flex items-center gap-2 px-3 py-1.5 rounded-xl border text-[10px] font-black', sec?.bg ?? 'bg-muted/30', sec?.border ?? 'border-border', sec?.color ?? 'text-foreground')}>
+                    {sec?.titulo ?? s.dato}
+                    <span className="opacity-60">· {s.total}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          {mostrarRegistros ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
-        </button>
-        <AnimatePresence>
-          {mostrarRegistros && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              <div className="px-5 pb-5 border-t border-border">
-                {registros.length === 0 ? (
-                  <div className="py-8 flex flex-col items-center gap-2 text-muted-foreground">
-                    <History className="h-8 w-8 opacity-30" />
-                    <p className="text-[11px] font-bold uppercase tracking-widest">Sin registros aún — genera tu primer pitch con IA</p>
-                  </div>
-                ) : (
-                  <div className="divide-y divide-border">
-                    {registros.map((r) => (
-                      <div key={r.id} className="flex items-center justify-between py-3 gap-4">
-                        <div className="flex items-center gap-3">
-                          <div className="p-1.5 bg-primary/10 rounded-lg shrink-0">
-                            <FileText className="h-3.5 w-3.5 text-primary" />
-                          </div>
-                          <p className="text-[11px] font-bold text-foreground truncate max-w-xs">{r.titulo}</p>
-                        </div>
-                        <p className="text-[9px] text-muted-foreground font-bold uppercase whitespace-nowrap">
-                          {new Date(r.creado_en).toLocaleDateString('es-VE', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
+        )}
+
+        <div className="rounded-2xl border border-border bg-card/30 overflow-hidden">
+          <button
+            className="w-full flex items-center justify-between p-5 hover:bg-muted/10 transition-colors"
+            onClick={() => { setMostrarRegistros(!mostrarRegistros); if (!mostrarRegistros) cargarAnalytics(); }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-muted rounded-xl">
+                <Database className="h-4 w-4 text-muted-foreground" />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <div className="text-left">
+                <p className="text-[11px] font-black uppercase tracking-widest text-foreground">Actividad Completa — Base de Datos</p>
+                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide">
+                  {actividad.length} registros · visitas · pitch IA · PPTX · secciones · impresiones
+                </p>
+              </div>
+            </div>
+            {mostrarRegistros ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+          </button>
+          <AnimatePresence>
+            {mostrarRegistros && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              >
+                <div className="px-5 pb-5 border-t border-border">
+                  {actividad.length === 0 ? (
+                    <div className="py-8 flex flex-col items-center gap-2 text-muted-foreground">
+                      <History className="h-8 w-8 opacity-30" />
+                      <p className="text-[11px] font-bold uppercase tracking-widest">Sin actividad aún</p>
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-border max-h-96 overflow-y-auto">
+                      {actividad.map((a, i) => {
+                        const tipoConfig: Record<string, { icon: React.ElementType; color: string; bg: string }> = {
+                          'pitch_ia':         { icon: Sparkles,  color: 'text-primary',     bg: 'bg-primary/10'     },
+                          'PPTX_PRESENTACION': { icon: FileDown,  color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+                          'GUION_PITCH':       { icon: FileText,  color: 'text-violet-400',  bg: 'bg-violet-500/10'  },
+                          'page_view':         { icon: Globe,     color: 'text-blue-400',    bg: 'bg-blue-500/10'    },
+                          'imprimir':          { icon: Printer,   color: 'text-amber-500',   bg: 'bg-amber-500/10'   },
+                          'copiar_pitch':      { icon: Copy,      color: 'text-cyan-500',    bg: 'bg-cyan-500/10'    },
+                          'seccion_abierta':   { icon: ChevronDown, color: 'text-gray-400',  bg: 'bg-muted/30'       },
+                        };
+                        const cfg = tipoConfig[a.tipo] ?? { icon: Database, color: 'text-muted-foreground', bg: 'bg-muted/30' };
+                        const Icon = cfg.icon;
+                        return (
+                          <div key={`${a.tipo}-${a.id}-${i}`} className="flex items-center justify-between py-2.5 gap-4">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className={cn('p-1.5 rounded-lg shrink-0', cfg.bg)}>
+                                <Icon className={cn('h-3.5 w-3.5', cfg.color)} />
+                              </div>
+                              <p className="text-[11px] font-bold text-foreground truncate">{a.titulo}</p>
+                            </div>
+                            <p className="text-[9px] text-muted-foreground font-bold uppercase whitespace-nowrap shrink-0">
+                              {new Date(a.creado_en).toLocaleDateString('es-VE', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
