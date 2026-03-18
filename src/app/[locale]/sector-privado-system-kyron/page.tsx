@@ -469,6 +469,7 @@ export default function SectorPrivadoKyronPage() {
   const [pitchIA, setPitchIA] = useState<string | null>(null);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [descargandoPPTX, setDescargandoPPTX] = useState(false);
+  const [errorPPTX, setErrorPPTX] = useState(false);
   const [copiado, setCopiado] = useState(false);
   const [registros, setRegistros] = useState<RegistroItem[]>([]);
   const [mostrarRegistros, setMostrarRegistros] = useState(false);
@@ -503,18 +504,27 @@ export default function SectorPrivadoKyronPage() {
 
   const handleDescargarPPTX = async () => {
     setDescargandoPPTX(true);
+    setErrorPPTX(false);
     try {
       const res = await fetch('/api/pitch-pptx');
-      if (!res.ok) throw new Error('Error');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error ?? 'Error al generar el archivo');
+      }
       const blob = await res.blob();
+      if (blob.size === 0) throw new Error('Archivo vacío recibido');
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'SystemKyron-PitchDeck.pptx';
+      a.download = 'SystemKyron-PitchDeck-2026.pptx';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (e) {
-      console.error(e);
+      console.error('[PPTX Download]', e);
+      setErrorPPTX(true);
+      setTimeout(() => setErrorPPTX(false), 5000);
     } finally {
       setDescargandoPPTX(false);
     }
@@ -657,15 +667,27 @@ export default function SectorPrivadoKyronPage() {
           <ArrowRight className="h-5 w-5 text-primary shrink-0 ml-auto" />
         </div>
         <div
-          className="p-5 rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-transparent flex items-center gap-4 cursor-pointer hover:border-emerald-500/40 transition-all"
-          onClick={handleDescargarPPTX}
+          className={cn(
+            "p-5 rounded-2xl border bg-gradient-to-r from-emerald-500/10 to-transparent flex items-center gap-4 cursor-pointer transition-all",
+            errorPPTX ? "border-rose-500/50 from-rose-500/10" : "border-emerald-500/20 hover:border-emerald-500/40",
+            descargandoPPTX && "opacity-70 cursor-wait"
+          )}
+          onClick={!descargandoPPTX ? handleDescargarPPTX : undefined}
         >
-          <div className="p-3 bg-emerald-500/20 rounded-xl shrink-0">
-            <FileDown className="h-6 w-6 text-emerald-500" />
+          <div className={cn("p-3 rounded-xl shrink-0", errorPPTX ? "bg-rose-500/20" : "bg-emerald-500/20")}>
+            {descargandoPPTX
+              ? <Activity className="h-6 w-6 text-emerald-500 animate-spin" />
+              : errorPPTX
+              ? <X className="h-6 w-6 text-rose-500" />
+              : <FileDown className="h-6 w-6 text-emerald-500" />}
           </div>
           <div>
-            <p className="text-sm font-black text-emerald-600 uppercase tracking-widest">PPTX</p>
-            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">Presentación de 10 slides lista para inversores</p>
+            <p className={cn("text-sm font-black uppercase tracking-widest", errorPPTX ? "text-rose-500" : "text-emerald-600")}>
+              {descargandoPPTX ? 'Generando PPTX...' : errorPPTX ? 'Error — Intentar de nuevo' : 'Descargar PPTX'}
+            </p>
+            <p className="text-[11px] text-muted-foreground font-bold mt-0.5">
+              {errorPPTX ? 'No se pudo generar el archivo. Haz clic para reintentar.' : 'Presentación de 13 slides profesional lista para inversores'}
+            </p>
           </div>
         </div>
       </motion.div>

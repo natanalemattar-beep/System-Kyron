@@ -10,43 +10,30 @@ const ai = new GoogleGenAI({
   },
 });
 
-const PITCH_PROMPT = `Eres el mejor experto en pitch de startups tecnológicas de América Latina. 
-Tu tarea es generar un GUIÓN DE PITCH INNOVADOR para System Kyron — la plataforma de gestión empresarial más avanzada para Venezuela y LATAM.
+const PITCH_PROMPT = `Eres el mejor experto en pitch de startups tecnológicas de América Latina.
+Genera un GUIÓN DE PITCH para System Kyron — plataforma de gestión empresarial todo-en-uno para Venezuela y LATAM.
 
-INFORMACIÓN DEL PRODUCTO:
-- Sistema operativo empresarial todo-en-uno para el mercado venezolano
-- Módulos: Contabilidad VEN-NIF, SENIAT, IVA 16%/IGTF 3%/ISLR 34%, Facturación electrónica, RRHH, Nómina, Telecomunicaciones 5G, Sostenibilidad IA (Ameru), Legal IA, Verificación de pago móvil en tiempo real, WhatsApp Business IA
-- Tech: Next.js 15, IA Generativa (Gemini 1.5 Pro), PostgreSQL, JWT Auth
-- Ronda: Seed $500.000 USD
-- Mercado: 120.000 empresas registradas en Venezuela, 94.000 PYMEs objetivo
-- Precio: $99–$399 USD/mes según plan
+PRODUCTO:
+- ERP venezolano: Contabilidad VEN-NIF, SENIAT automático (IVA 16%/IGTF 3%/ISLR 34%), Facturación electrónica, RRHH/Nómina LOTTT, Telecomunicaciones 5G, Sostenibilidad IA (Ameru), Legal IA con Gemini, Verificación pago móvil en tiempo real (3 segundos), WhatsApp Business IA 24/7
+- Ronda Seed: $500.000 USD | Mercado: 120.000 empresas Venezuela, 94K PYMEs | Precio: $99–$399 USD/mes
+- Tracción: 96.4% retención, NPS 72, 240+ empresas en lista de espera, 11 días demo→contrato
 
-INNOVACIONES CLAVE A DESTACAR:
-1. ÚNICA plataforma con verificación de pago móvil en tiempo real (pago → confirmado en 3 segundos)
-2. IA que extrae datos de facturas por foto (OCR con Gemini)
-3. Generador de documentos legales venezolanos con IA (contratos, actas, poderes)
-4. Módulo de sostenibilidad con clasificación de residuos IA y mercado de Eco-Créditos
-5. Cumplimiento SENIAT 100% automatizado con actualización ante cambios en Gaceta Oficial
-6. Ajuste por inflación RIPF automático con índice BCV en tiempo real
-7. WhatsApp Business IA que responde clientes 24/7
-8. Telecomunicaciones corporativas integradas con contabilidad
-9. Tasa BCV sincronizada en todas las transacciones Bs/USD
+ESTRUCTURA DEL GUIÓN (exactamente en este orden, sin secciones extra):
+1. GANCHO (30 seg): Estadística impactante + pregunta que sacude al auditorio
+2. EL PROBLEMA (45 seg): El caos operativo real del empresario venezolano (fiscal, cambiario, digital)
+3. LA SOLUCIÓN (90 seg): System Kyron + las 3 innovaciones más disruptivas
+4. TRACCIÓN (45 seg): Números reales + lista de espera + alianzas
+5. MERCADO & MODELO (30 seg): TAM/SAM/SOM + precios $99/$199/$399
+6. EL EQUIPO (20 seg): Credibilidad en dos líneas
+7. ASK + CIERRE (30 seg): $500K seed + llamado a la acción memorable e inspiracional
 
-INSTRUCCIONES PARA EL GUIÓN:
-- Duración: exactamente 5 minutos de presentación oral (aprox. 700-800 palabras)
-- Tono: poderoso, seguro, con urgencia y visión de futuro
-- Estructura obligatoria:
-  1. GANCHO (30 seg): Pregunta o estadística impactante que sacude al auditorio
-  2. EL PROBLEMA (45 seg): El caos operativo del empresario venezolano
-  3. LA SOLUCIÓN (90 seg): System Kyron + sus 3 innovaciones más impactantes
-  4. TRACCIÓN (45 seg): Números reales + 240 empresas en lista de espera
-  5. MERCADO & MODELO (30 seg): TAM/SAM/SOM + precios
-  6. EL EQUIPO (20 seg): Credibilidad en dos líneas
-  7. ASK + CIERRE (30 seg): $500K seed + llamado a la acción memorable
-- Incluir [PAUSA DRAMÁTICA], [MOSTRAR PANTALLA], [ÉNFASIS] como notas de dirección
-- El cierre debe ser memorable e inspiracional — que el inversor quiera unirse YA
+FORMATO:
+- Usa [PAUSA DRAMÁTICA], [MOSTRAR PANTALLA], [ÉNFASIS] como acotaciones
+- Tono: poderoso, seguro, urgente, con visión de futuro
+- Longitud: 700-750 palabras exactas
+- El cierre debe ser memorable — que el inversor quiera invertir YA
 
-Genera el guión completo, listo para ser presentado en vivo.`;
+Genera el guión completo listo para presentar en vivo.`;
 
 async function ensureTable() {
   await query(`
@@ -80,7 +67,10 @@ export async function POST(req: Request) {
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: [{ role: 'user', parts: [{ text: PITCH_PROMPT }] }],
-      config: { maxOutputTokens: 8192 },
+      config: {
+        maxOutputTokens: 2048,
+        thinkingConfig: { thinkingBudget: 0 },
+      },
     });
 
     const pitch = response.text ?? '';
