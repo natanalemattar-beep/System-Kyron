@@ -323,8 +323,11 @@ export default function RegisterNaturalPage() {
                   <p className="text-muted-foreground">• Accede a tus documentos y servicios personales</p>
                   <p className="text-muted-foreground">• Completa tu perfil para acceder a todos los módulos</p>
                 </div>
-                <Button className="mt-6 w-full" onClick={() => router.push('/login-personal')}>
-                  Ir a Iniciar Sesión <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="mt-6 w-full" onClick={() => {
+                  localStorage.setItem('kyron-just-registered', 'true');
+                  router.push('/');
+                }}>
+                  Explorar la Plataforma <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             )}

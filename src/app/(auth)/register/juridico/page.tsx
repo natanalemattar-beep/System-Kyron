@@ -569,8 +569,11 @@ export default function RegisterJuridicoPage() {
                   <p className="text-muted-foreground">• Completa la configuración de los módulos activados</p>
                   <p className="text-muted-foreground">• Importa tus datos contables y de nómina</p>
                 </div>
-                <Button className="mt-6 w-full" onClick={() => router.push('/login-empresa')}>
-                  Ir a Iniciar Sesión Corporativo <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="mt-6 w-full" onClick={() => {
+                  localStorage.setItem('kyron-just-registered', 'true');
+                  router.push('/');
+                }}>
+                  Explorar la Plataforma <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             )}

@@ -26,7 +26,7 @@ export function DemoBanner() {
                 <span className="text-amber-500 mr-1">DEMO —</span>
                 <span className="hidden xs:inline">Esta plataforma está en fase de demostración.</span>
                 <span className="xs:hidden">Plataforma en demo.</span>
-                <span className="hidden sm:inline"> Pueden existir cambios sin previo aviso. El botón de WhatsApp es solo en la página principal.</span>
+                <span className="hidden sm:inline"> Pueden existir cambios sin previo aviso.</span>
               </p>
             </div>
             <button

@@ -73,7 +73,7 @@ const steps = [
   },
   {
     title: "¡Estás Listo!",
-    description: "Explora libremente la plataforma. Recuerda que estás en versión demo — todos los datos comienzan en cero cuando te registras. Cualquier duda, usa el botón de WhatsApp en la página principal.",
+    description: "Explora libremente la plataforma. Recuerda que estás en versión demo — todos los datos comienzan en cero cuando te registras. Navega con libertad y descubre todo lo que System Kyron tiene para ofrecerte.",
     icon: Rocket,
     color: "text-purple-500",
     bg: "bg-purple-500/10",
@@ -85,8 +85,9 @@ export function WelcomeTutorial() {
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
-    const hasSeenTutorial = localStorage.getItem('kyron-tutorial-seen');
-    if (!hasSeenTutorial) {
+    const justRegistered = localStorage.getItem('kyron-just-registered');
+    if (justRegistered) {
+      localStorage.removeItem('kyron-just-registered');
       setIsOpen(true);
     }
   }, []);
@@ -106,7 +107,6 @@ export function WelcomeTutorial() {
   };
 
   const handleClose = () => {
-    localStorage.setItem('kyron-tutorial-seen', 'true');
     setIsOpen(false);
   };
 
