@@ -9,6 +9,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+interface SiteStats {
+    totalUsuarios: number;
+    totalEmpresas: number;
+    cumplimiento: number;
+    erroresFiscales: number;
+}
+
 const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
     const [displayValue, setDisplayValue] = useState(from);
     const count = useMotionValue(from);
@@ -23,7 +30,7 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
     }, [count, inView, to, duration]);
 
     useEffect(() => {
-        return rounded.onChange(latest => setDisplayValue(latest));
+        return rounded.on('change', (latest: number) => setDisplayValue(latest));
     }, [rounded]);
 
     return <motion.span ref={ref}>{displayValue}</motion.span>;
@@ -50,6 +57,19 @@ const testimonials = [
 
 export function AboutUsSection() {
     const economyImage = PlaceHolderImages.find(img => img.id === "digital-economy");
+    const [stats, setStats] = useState<SiteStats>({
+        totalUsuarios: 0,
+        totalEmpresas: 0,
+        cumplimiento: 100,
+        erroresFiscales: 0,
+    });
+
+    useEffect(() => {
+        fetch('/api/stats')
+            .then(res => res.json())
+            .then((data: SiteStats) => setStats(data))
+            .catch(() => {});
+    }, []);
 
     return (
         <section id="nosotros" className="py-20 md:py-32 bg-transparent relative overflow-hidden w-full">
@@ -109,9 +129,9 @@ export function AboutUsSection() {
                     >
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             {[
-                                { val: 500, label: "EMPRESAS", icon: ShieldCheck, color: "text-primary" },
-                                { val: 100, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
-                                { val: 0, label: "ERRORES FISCALES", suffix: "%", icon: Zap, color: "text-rose-400" }
+                                { val: stats.totalEmpresas, label: "EMPRESAS", icon: ShieldCheck, color: "text-primary" },
+                                { val: stats.cumplimiento, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
+                                { val: stats.erroresFiscales, label: "ERRORES FISCALES", suffix: "%", icon: Zap, color: "text-rose-400" }
                             ].map((stat, i) => (
                                 <Card key={i} className="glass-card border-none p-8 text-center rounded-[2rem] bg-white/[0.02] relative overflow-hidden group shadow-2xl border border-white/5">
                                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all"><stat.icon className="h-16 w-16" /></div>
