@@ -28,40 +28,36 @@ Todas las rutas de la app están bajo `src/app/[locale]/` para soportar i18n.
 - `[locale]/(telecom)/` — Telecomunicaciones
 - `[locale]/(ventas)/` — Facturación y Ventas
 
-## Base de Datos — Schema Completo (20 tablas)
-PostgreSQL en Replit, schema creado en v2.7.0:
+## Base de Datos — Schema Completo (18 tablas)
+PostgreSQL integrada de Replit. Schema general creado y gestionado centralmente.
 
 ### Auth & Core
-- `users` — Usuarios (naturales y jurídicos) con todos los campos VEN
+- `users` — Usuarios (naturales y jurídicos) con todos los campos VEN + representante legal
 - `user_modules` — Módulos habilitados por usuario
-- `session_log` — Log de inicios de sesión
-- `demo_requests` — Solicitudes de demo
+- `activity_log` — Auditoría completa del sistema (auth, contabilidad, rrhh, banco, ia, telecom, eco, legal, nomina)
 
-### Contabilidad
-- `cuentas_bancarias` — Cuentas bancarias (BdV, Banesco, Mercantil, BBVA, BNC, BOD)
-- `movimientos_bancarios` — Movimientos/transacciones bancarias
-- `asientos_contables` — Asientos del libro diario
-- `kpi_snapshots` — Snapshots de KPIs para el dashboard
-
-### Facturación
-- `facturas` — Facturas de venta/compra con IVA, IGTF, tasa BCV
+### Contabilidad & Facturación
+- `facturas` — Facturas de venta/compra con IVA 16%, IGTF 3%, tasa BCV, total USD
 - `factura_items` — Líneas de detalle de facturas
 - `clientes` — Clientes (personas naturales y jurídicas)
 - `proveedores` — Proveedores
+- `transacciones_pagos` — Pagos: pago móvil, Zelle, Binance, POS, transferencia
 
-### Pagos
-- `transacciones_pagos` — Pago móvil, Zelle, Binance, POS, etc.
-- `terminales_pos` — Terminales punto de venta
+### Banca & Flujo de Caja
+- `cuentas_bancarias` — Cuentas bancarias con saldo actual y disponible
+- `movimientos_bancarios` — Libro mayor: créditos y débitos por cuenta
 
 ### RRHH
 - `empleados` — Empleados con datos laborales venezolanos
-- `nomina_pagos` — Pagos de nómina con deducciones SSO/INCE/ISLR
-- `beneficiarios_salud` — Beneficiarios del seguro de salud
+- `nomina` — Nómina por período con SSO, FAOV, LPH y neto a pagar
 
-### Otros
-- `polizas_seguros` — Pólizas (Mercantil Seguros, Mapfre, Chévere Salud)
-- `lineas_telefonicas` — Líneas corporativas
-- `whatsapp_mensajes` — Log de mensajes WhatsApp empresarial
+### Módulos Especializados
+- `documentos_legales` — Documentos legales (permisos, contratos, poderes, etc.)
+- `sector_solicitudes` — Solicitudes sector público/privado
+- `alianzas_petroleras` — Solicitudes de alianzas sector petrolero y energético
+- `telecom_lineas` — Líneas telefónicas corporativas (física, eSIM, 5G)
+- `eco_creditos` — Eco-créditos de sostenibilidad (clasificación IA de residuos)
+- `pitch_analytics` — Analítica de presentaciones de pitch
 
 ## API Routes
 ### Auth
