@@ -34,8 +34,6 @@ const ACCESS_TYPES = {
         icon: Smartphone,
         accentClass: 'bg-primary',
         redirectPath: '/mi-linea',
-        demoUsername: 'carlos@kyron.com',
-        demoPassword: 'kyron2025',
         features: [
             'Activación de eSIM Individual',
             'Recargas de Saldo Prepago',
@@ -56,8 +54,6 @@ const ACCESS_TYPES = {
         icon: Signal,
         accentClass: 'bg-amber-600',
         redirectPath: '/flota-empresarial',
-        demoUsername: 'telecom.admin@kyron.com',
-        demoPassword: 'kyron2025',
         features: [
             'Control de Flota por Departamento',
             'Límites de Consumo por Empleado',
@@ -242,7 +238,7 @@ export default function LoginLineaUnifiedPage() {
                                     <Input
                                         name="email"
                                         type="email"
-                                        placeholder={current.demoUsername}
+                                        placeholder="tu@correo.com"
                                         required
                                         autoComplete="email"
                                         className="h-12 bg-background border-input rounded-xl focus-visible:ring-primary text-foreground text-sm"
