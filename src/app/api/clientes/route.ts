@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,5 +54,14 @@ export async function POST(req: NextRequest) {
         ]
     );
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVO_CLIENTE',
+        categoria: 'clientes',
+        descripcion: `Cliente registrado: ${(cliente as { razon_social?: string; nombre_contacto?: string }).razon_social ?? (cliente as { razon_social?: string; nombre_contacto?: string }).nombre_contacto ?? 'Sin nombre'}`,
+        entidadTipo: 'cliente',
+        entidadId: (cliente as { id: number }).id,
+        metadata: { tipo: tipo ?? 'juridico', rif: rif ?? null },
+    });
     return NextResponse.json({ success: true, cliente });
 }

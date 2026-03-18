@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,5 +45,14 @@ export async function POST(req: NextRequest) {
         [session.userId, banco, codigo_banco, numero_cuenta, tipo_cuenta ?? 'corriente', titular ?? '', parseFloat(saldo_actual ?? '0')]
     );
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVA_CUENTA_BANCARIA',
+        categoria: 'banco',
+        descripcion: `Cuenta bancaria registrada: ${banco} Nº ${numero_cuenta} (${tipo_cuenta ?? 'corriente'})`,
+        entidadTipo: 'cuenta_bancaria',
+        entidadId: (cuenta as { id: number }).id,
+        metadata: { banco, codigo_banco, numero_cuenta, tipo_cuenta: tipo_cuenta ?? 'corriente', titular: titular ?? null },
+    });
     return NextResponse.json({ success: true, cuenta });
 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
+import { logActivity } from '@/lib/activity-logger';
 
 interface DbUser {
     id: number;
@@ -64,6 +65,15 @@ export async function POST(req: NextRequest) {
             },
         });
         res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+        await logActivity({
+            userId: user.id,
+            evento: 'LOGIN',
+            categoria: 'auth',
+            descripcion: `Inicio de sesión: ${displayName} (${user.email})`,
+            entidadTipo: 'usuario',
+            entidadId: user.id,
+            metadata: { email: user.email, tipo: user.tipo },
+        });
         return res;
     } catch (err) {
         console.error('Login error:', err);

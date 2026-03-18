@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -54,5 +55,14 @@ export async function POST(req: NextRequest) {
         ]
     );
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVO_EMPLEADO',
+        categoria: 'rrhh',
+        descripcion: `Empleado registrado: ${nombre} ${apellido} — ${cargo ?? 'Sin cargo'} · C.I. ${cedula}`,
+        entidadTipo: 'empleado',
+        entidadId: (empleado as { id: number }).id,
+        metadata: { cedula, cargo: cargo ?? null, departamento: departamento ?? null },
+    });
     return NextResponse.json({ success: true, empleado });
 }

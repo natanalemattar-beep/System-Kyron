@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,5 +79,14 @@ export async function POST(req: NextRequest) {
         ]
     );
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVA_TRANSACCION',
+        categoria: 'contabilidad',
+        descripcion: `Pago registrado: ${tipo_pago} — ${(tx as { monto: string }).monto} ${moneda ?? 'VES'}${referencia ? ` · Ref: ${referencia}` : ''}`,
+        entidadTipo: 'transaccion',
+        entidadId: (tx as { id: number }).id,
+        metadata: { tipo_pago, monto: (tx as { monto: string }).monto, moneda: moneda ?? 'VES', referencia: referencia ?? null, verificado: true },
+    });
     return NextResponse.json({ success: true, transaccion: tx });
 }

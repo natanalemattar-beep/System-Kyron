@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
+import { logActivity } from '@/lib/activity-logger';
 
 export async function POST(req: NextRequest) {
     try {
@@ -75,6 +76,15 @@ async function registerNatural(body: Record<string, unknown>) {
         user: { id: user.id, email: user.email, tipo: 'natural', nombre: `${nombre} ${apellido}` },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+    await logActivity({
+        userId: user.id,
+        evento: 'REGISTRO_USUARIO',
+        categoria: 'auth',
+        descripcion: `Nuevo usuario natural registrado: ${nombre} ${apellido} (${email})`,
+        entidadTipo: 'usuario',
+        entidadId: user.id,
+        metadata: { email, tipo: 'natural', cedula },
+    });
     return res;
 }
 
@@ -165,5 +175,14 @@ async function registerJuridico(body: Record<string, unknown>) {
         user: { id: user.id, email: user.email, tipo: 'juridico', nombre: razonSocial },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+    await logActivity({
+        userId: user.id,
+        evento: 'REGISTRO_USUARIO',
+        categoria: 'auth',
+        descripcion: `Nueva empresa registrada: ${razonSocial as string} (RIF: ${rif as string})`,
+        entidadTipo: 'usuario',
+        entidadId: user.id,
+        metadata: { email, tipo: 'juridico', rif, razon_social: razonSocial },
+    });
     return res;
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,5 +70,14 @@ export async function POST(req: NextRequest) {
         );
     }
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVO_MOVIMIENTO',
+        categoria: 'banco',
+        descripcion: `Movimiento bancario: ${tipo === 'credito' ? '↑ Crédito' : '↓ Débito'} ${monto} — ${concepto}`,
+        entidadTipo: 'movimiento',
+        entidadId: (mov as { id: number }).id,
+        metadata: { tipo, monto, concepto, cuenta_id: cuenta_id ?? null, referencia: referencia ?? null },
+    });
     return NextResponse.json({ success: true, movimiento: mov });
 }

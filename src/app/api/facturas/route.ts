@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
@@ -101,5 +102,14 @@ export async function POST(req: NextRequest) {
         }
     }
 
+    await logActivity({
+        userId: session.userId,
+        evento: 'NUEVA_FACTURA',
+        categoria: 'contabilidad',
+        descripcion: `Factura creada: ${factura.numero_factura} — Total: ${factura.total}`,
+        entidadTipo: 'factura',
+        entidadId: factura.id,
+        metadata: { numero_factura: factura.numero_factura, total: factura.total, moneda: moneda ?? 'VES', estado: estado ?? 'emitida' },
+    });
     return NextResponse.json({ success: true, factura });
 }

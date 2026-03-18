@@ -113,6 +113,14 @@ export const adminNavGroups = [
         { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: Users },
     ],
     subGroups: []
+  },
+  {
+    title: "Sistema",
+    icon: Activity,
+    items: [
+        { href: "/actividad", label: "Registro de Actividad", icon: Activity },
+    ],
+    subGroups: []
   }
 ];
 
