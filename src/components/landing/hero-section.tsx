@@ -73,7 +73,7 @@ export function HeroSection() {
                                 </Link>
                             </Button>
                             <Button variant="outline" asChild size="lg" className="h-13 px-8 text-[10px] font-black uppercase tracking-widest rounded-xl border-border bg-card/50 text-foreground w-full sm:w-auto hover:bg-primary/5 transition-all">
-                                <Link href="/login">{t('cta_secondary')}</Link>
+                                <Link href="/manual-usuario">{t('cta_secondary')}</Link>
                             </Button>
                         </div>
 

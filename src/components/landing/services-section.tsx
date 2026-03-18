@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Calculator, Users, Smartphone, Recycle, Gavel, ShoppingCart, BarChart3, Cpu, Megaphone, User, Signal, Building2 } from "lucide-react";
-import { Link } from "@/navigation";
+import { Calculator, Users, Smartphone, Recycle, Gavel, ShoppingCart, BarChart3, Cpu, Megaphone, User, Signal, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const categories = [
@@ -11,10 +10,10 @@ const categories = [
         color: "text-primary",
         accent: "bg-primary/10 border-primary/20",
         modules: [
-            { icon: Calculator, title: "Contabilidad", desc: "VEN-NIF, libros, tributos y ajuste por inflación", href: "/login-empresa" },
-            { icon: ShoppingCart, title: "Facturación", desc: "Facturas SENIAT con tasa BCV y módulo de ventas", href: "/login-ventas" },
-            { icon: Users, title: "Recursos Humanos", desc: "Nómina, prestaciones, LOPCYMAT y selección", href: "/login-rrhh" },
-            { icon: Gavel, title: "Asesoría Legal", desc: "Contratos, permisos, Conatel y Gaceta Oficial IA", href: "/login-escritorio-juridico" },
+            { icon: Calculator, title: "Contabilidad", desc: "VEN-NIF, libros, tributos y ajuste por inflación" },
+            { icon: ShoppingCart, title: "Facturación", desc: "Facturas SENIAT con tasa BCV y módulo de ventas" },
+            { icon: Users, title: "Recursos Humanos", desc: "Nómina, prestaciones, LOPCYMAT y selección" },
+            { icon: Gavel, title: "Asesoría Legal", desc: "Contratos, permisos, Conatel y Gaceta Oficial IA" },
         ],
     },
     {
@@ -22,10 +21,10 @@ const categories = [
         color: "text-blue-400",
         accent: "bg-blue-400/10 border-blue-400/20",
         modules: [
-            { icon: Signal, title: "Administración de Red", desc: "Radiobases, infraestructura y provisión masiva", href: "/login-telecom" },
-            { icon: Smartphone, title: "Mis Líneas", desc: "Portal unificado personal + flota empresarial 5G", href: "/login-linea" },
-            { icon: Cpu, title: "Ingeniería & IT", desc: "Planos técnicos, presupuestos y servidores", href: "/login-informatica" },
-            { icon: Megaphone, title: "Marketing IA", desc: "Alertas de inversión y análisis de mercado con IA", href: "/login-marketing" },
+            { icon: Signal, title: "Administración de Red", desc: "Radiobases, infraestructura y provisión masiva" },
+            { icon: Smartphone, title: "Mis Líneas", desc: "Portal unificado personal + flota empresarial 5G" },
+            { icon: Cpu, title: "Ingeniería & IT", desc: "Planos técnicos, presupuestos y servidores" },
+            { icon: Megaphone, title: "Marketing IA", desc: "Alertas de inversión y análisis de mercado con IA" },
         ],
     },
     {
@@ -33,10 +32,10 @@ const categories = [
         color: "text-emerald-400",
         accent: "bg-emerald-400/10 border-emerald-400/20",
         modules: [
-            { icon: User, title: "Cuenta Personal", desc: "ID digital, documentos civiles y trámites de salud", href: "/login-personal" },
-            { icon: Recycle, title: "Ameru Eco-Créditos", desc: "Reciclaje inteligente y mercado de eco-créditos", href: "/login-sostenibilidad" },
-            { icon: Building2, title: "Socios & Directivos", desc: "Supervisión estratégica de holdings y beneficios", href: "/login-socios" },
-            { icon: BarChart3, title: "Analítica General", desc: "KPIs, proyecciones y dashboard ejecutivo unificado", href: "/login-empresa" },
+            { icon: User, title: "Cuenta Personal", desc: "ID digital, documentos civiles y trámites de salud" },
+            { icon: Recycle, title: "Ameru Eco-Créditos", desc: "Reciclaje inteligente y mercado de eco-créditos" },
+            { icon: Building2, title: "Socios & Directivos", desc: "Supervisión estratégica de holdings y beneficios" },
+            { icon: BarChart3, title: "Analítica General", desc: "KPIs, proyecciones y dashboard ejecutivo unificado" },
         ],
     },
 ];
@@ -88,7 +87,7 @@ export function ServicesSection() {
                             <div className="h-px flex-1 bg-border/40" />
                         </motion.div>
 
-                        {/* Module cards */}
+                        {/* Module cards — informational only */}
                         <motion.div
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
                             variants={containerVariants}
@@ -98,24 +97,19 @@ export function ServicesSection() {
                         >
                             {cat.modules.map((mod) => (
                                 <motion.div key={mod.title} variants={itemVariants}>
-                                    <Link href={mod.href as any} className="block group h-full">
-                                        <div className="h-full flex flex-col gap-4 p-6 rounded-[1.75rem] bg-card border border-border/50 hover:border-primary/25 transition-all duration-300 hover:shadow-lg hover:bg-card/80 min-h-[160px]">
-                                            <div className="flex items-start justify-between">
-                                                <div className={cn("p-2.5 rounded-xl border border-white/5", cat.accent)}>
-                                                    <mod.icon className={cn("h-5 w-5", cat.color)} />
-                                                </div>
-                                                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                                            </div>
-                                            <div className="space-y-1.5 mt-auto">
-                                                <h3 className="text-[11px] font-black uppercase tracking-tight text-foreground group-hover:text-primary transition-colors">
-                                                    {mod.title}
-                                                </h3>
-                                                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide leading-relaxed">
-                                                    {mod.desc}
-                                                </p>
-                                            </div>
+                                    <div className="h-full flex flex-col gap-4 p-6 rounded-[1.75rem] bg-card border border-border/50 transition-all duration-300 min-h-[160px]">
+                                        <div className={cn("p-2.5 rounded-xl border border-white/5 w-fit", cat.accent)}>
+                                            <mod.icon className={cn("h-5 w-5", cat.color)} />
                                         </div>
-                                    </Link>
+                                        <div className="space-y-1.5 mt-auto">
+                                            <h3 className="text-[11px] font-black uppercase tracking-tight text-foreground">
+                                                {mod.title}
+                                            </h3>
+                                            <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide leading-relaxed">
+                                                {mod.desc}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -123,7 +117,7 @@ export function ServicesSection() {
                 ))}
             </div>
 
-            {/* Bottom link */}
+            {/* Bottom note */}
             <motion.div
                 className="mt-14 text-center"
                 initial={{ opacity: 0 }}
@@ -131,9 +125,9 @@ export function ServicesSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
             >
-                <Link href="/login" className="inline-flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.4em] text-primary hover:text-foreground transition-colors group">
-                    Ver todos los portales de acceso <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/50">
+                    Accede a cualquier módulo desde el botón <span className="text-primary">ACCESO</span> en el menú principal
+                </p>
             </motion.div>
         </section>
     );
