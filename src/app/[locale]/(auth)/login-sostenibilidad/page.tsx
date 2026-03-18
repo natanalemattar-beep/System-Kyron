@@ -12,8 +12,6 @@ export default function LoginSostenibilidadPage() {
             redirectPath="/sostenibilidad"
             icon={Recycle}
             accentColor="emerald-800"
-            demoUsername="eco.operador"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="flex flex-col gap-12 p-12 opacity-10">
                     <Leaf className="h-20 w-20 ml-20" />

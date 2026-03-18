@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import {
   User, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
-  MapPin, Phone, Mail, Calendar, Shield,
+  MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
@@ -64,6 +64,8 @@ export default function RegisterNaturalPage() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -280,14 +282,20 @@ export default function RegisterNaturalPage() {
                 <Field id="password" label="Contraseña" error={errors.password?.message}>
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="password" type="password" className="pl-9 bg-background border-input" {...register('password')} />
+                    <Input id="password" type={showPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
                   </div>
                   <p className="text-xs text-muted-foreground">Mínimo 8 caracteres, una mayúscula y un número.</p>
                 </Field>
                 <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="confirmPassword" type="password" className="pl-9 bg-background border-input" {...register('confirmPassword')} />
+                    <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
+                    <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
                   </div>
                 </Field>
                 <div className="p-3 bg-muted/50 rounded-lg text-xs text-muted-foreground border border-border">

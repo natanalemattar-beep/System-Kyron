@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/select';
 import {
   Building, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
-  CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield,
+  CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
   BookOpen, BarChart2, Users, Landmark, ShieldCheck, Wallet, FileText, Package,
   Scale, Cpu, Handshake, Megaphone, Globe, TrendingUp, Smartphone, Signal,
   Recycle, Gavel, ShoppingCart, Briefcase,
@@ -165,6 +165,8 @@ export default function RegisterJuridicoPage() {
   const [registeredRazon, setRegisteredRazon] = useState('');
   const [fileRifName, setFileRifName] = useState<string | null>(null);
   const [fileActaName, setFileActaName] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -454,13 +456,19 @@ export default function RegisterJuridicoPage() {
                     <Field id="password" label="Contraseña" error={errors.password?.message}>
                       <div className="relative">
                         <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input id="password" type="password" className="pl-9 bg-background border-input" {...register('password')} />
+                        <Input id="password" type={showPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
+                        <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
                       </div>
                     </Field>
                     <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                       <div className="relative">
                         <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input id="confirmPassword" type="password" className="pl-9 bg-background border-input" {...register('confirmPassword')} />
+                        <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
+                        <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
                       </div>
                     </Field>
                   </div>

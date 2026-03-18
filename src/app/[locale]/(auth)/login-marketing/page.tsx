@@ -12,8 +12,6 @@ export default function LoginMarketingPage() {
             redirectPath="/marketing"
             icon={Megaphone}
             accentColor="primary"
-            demoUsername="marketing@kyron.com"
-            demoPassword="password123"
             bgPattern={
                 <div className="flex flex-col gap-16 p-16 opacity-15">
                     <Megaphone className="h-20 w-20" />

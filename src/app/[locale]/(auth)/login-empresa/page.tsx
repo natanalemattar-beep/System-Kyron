@@ -12,8 +12,6 @@ export default function LoginEmpresaPage() {
             redirectPath="/resumen-negocio"
             icon={Calculator}
             accentColor="primary"
-            demoUsername="admin.fiscal"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="grid grid-cols-4 gap-10 p-10 opacity-20">
                     <Banknote className="h-20 w-20" />

@@ -12,8 +12,6 @@ export default function LoginEscritorioJuridicoPage() {
             redirectPath="/escritorio-juridico"
             icon={Gavel}
             accentColor="slate-800"
-            demoUsername="abogado.master"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="grid grid-cols-3 gap-12 p-12 opacity-10">
                     <Scale className="h-24 w-24" />

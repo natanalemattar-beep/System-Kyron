@@ -12,8 +12,6 @@ export default function LoginTelecomPage() {
             redirectPath="/dashboard-telecom"
             icon={Signal}
             accentColor="amber-600"
-            demoUsername="noc.admin"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="grid grid-cols-2 gap-8 p-12 opacity-10">
                     <Radio className="h-24 w-24 animate-pulse" />

@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader as Loader2, TriangleAlert as AlertTriangle, ChevronLeft, CircleCheck as CheckCircle2, ShieldCheck, ArrowRight, UserPlus } from 'lucide-react';
+import { Loader as Loader2, TriangleAlert as AlertTriangle, ChevronLeft, CircleCheck as CheckCircle2, ShieldCheck, ArrowRight, UserPlus, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Link } from "@/navigation";
@@ -43,6 +43,7 @@ export function SpecializedLoginCard({
 }: SpecializedLoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
 
@@ -170,14 +171,26 @@ export function SpecializedLoginCard({
                                         <Link href="/recover-legal">¿Olvidaste tu clave?</Link>
                                     </Button>
                                 </div>
-                                <Input
-                                    name="password"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    required
-                                    autoComplete="current-password"
-                                    className="h-12 bg-background border-input rounded-xl focus-visible:ring-primary text-foreground"
-                                />
+                                <div className="relative">
+                                    <Input
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="••••••••"
+                                        required
+                                        autoComplete="current-password"
+                                        autoCapitalize="none"
+                                        autoCorrect="off"
+                                        className="h-12 bg-background border-input rounded-xl focus-visible:ring-primary text-foreground pr-12"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(v => !v)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                        tabIndex={-1}
+                                    >
+                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
 

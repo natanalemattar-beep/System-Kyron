@@ -12,8 +12,6 @@ export default function LoginInformaticaPage() {
             redirectPath="/dashboard-informatica"
             icon={Cpu}
             accentColor="blue-900"
-            demoUsername="it.ingeniero"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="grid grid-cols-4 gap-4 p-8 opacity-10">
                     {Array.from({ length: 12 }).map((_, i) => (

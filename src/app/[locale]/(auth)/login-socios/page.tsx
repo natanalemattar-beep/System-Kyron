@@ -12,8 +12,6 @@ export default function LoginSociosPage() {
             redirectPath="/dashboard-socios"
             icon={Users}
             accentColor="indigo-950"
-            demoUsername="socio.maestro"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="grid grid-cols-3 gap-16 p-16 opacity-5">
                     <BarChart3 className="h-32 w-32" />

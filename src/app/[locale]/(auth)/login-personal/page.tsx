@@ -6,18 +6,20 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader as Loader2, TriangleAlert as AlertTriangle, User, ChevronLeft, Fingerprint, ShieldCheck, KeyRound, UserPlus, Sparkles } from 'lucide-react';
+import { Loader as Loader2, TriangleAlert as AlertTriangle, User, ChevronLeft, Fingerprint, ShieldCheck, KeyRound, UserPlus, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Link } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
+import { CircleCheck as CheckCircle2 } from 'lucide-react';
 
 export default function LoginPersonalPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isScanning, setIsScanning] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
 
@@ -28,20 +30,33 @@ export default function LoginPersonalPage() {
 
         const formData = new FormData(event.currentTarget);
         const email = (formData.get('email') as string || "").trim().toLowerCase();
-        const password = (formData.get('password') as string || "").trim();
+        const password = formData.get('password') as string;
 
-        const DEMO_EMAIL = "usuario@kyron.com";
-        const DEMO_PASS = "password123";
-        
-        setTimeout(() => {
-            if (email === DEMO_EMAIL && password === DEMO_PASS) {
-                toast({ title: "ACCESO CONCEDIDO", description: "Bienvenido a su terminal personal, Carlos." });
-                router.push('/dashboard');
-            } else {
-                setError("Correo o contraseña incorrectos. Utilice las credenciales del panel.");
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const json = await res.json();
+
+            if (!res.ok) {
+                setError(json.error || 'Correo o contraseña incorrectos.');
                 setIsLoading(false);
+                return;
             }
-        }, 800);
+
+            toast({
+                title: "ACCESO CONCEDIDO",
+                description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
+                action: <CheckCircle2 className="text-emerald-500 h-4 w-4" />
+            });
+            router.push('/dashboard');
+        } catch {
+            setError('Error de conexión. Por favor intenta de nuevo.');
+            setIsLoading(false);
+        }
     };
 
     const handleBiometric = () => {
@@ -103,14 +118,6 @@ export default function LoginPersonalPage() {
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Acceso Común Ciudadano</p>
                     </div>
 
-                    <div className="p-5 rounded-[1.5rem] bg-primary/5 border border-primary/10 mb-8">
-                        <p className="text-[8px] font-black text-primary uppercase tracking-[0.3em] mb-3 italic">Credenciales Registradas:</p>
-                        <div className="flex flex-col gap-1.5">
-                            <p className="text-[9px] font-bold text-muted-foreground uppercase">Email: <span className="text-foreground font-black">usuario@kyron.com</span></p>
-                            <p className="text-[9px] font-bold text-muted-foreground uppercase">Clave: <span className="text-foreground font-black">password123</span></p>
-                        </div>
-                    </div>
-
                     <form onSubmit={handleLogin} className="space-y-6">
                         {error && (
                             <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600">
@@ -122,7 +129,7 @@ export default function LoginPersonalPage() {
                         
                         <div className="space-y-2">
                             <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 ml-1">Correo Electrónico</Label>
-                            <Input name="email" type="email" placeholder="usuario@kyron.com" required className="h-12 bg-white/5 border-border rounded-xl font-bold uppercase text-xs" />
+                            <Input name="email" type="email" placeholder="tu@correo.com" required className="h-12 bg-white/5 border-border rounded-xl font-bold text-xs" />
                         </div>
                         
                         <div className="space-y-2">
@@ -132,7 +139,26 @@ export default function LoginPersonalPage() {
                                     <Link href="#">¿Olvidó su clave?</Link>
                                 </Button>
                             </div>
-                            <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-white/5 border-border rounded-xl font-bold" />
+                            <div className="relative">
+                                <Input
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    required
+                                    autoComplete="current-password"
+                                    autoCapitalize="none"
+                                    autoCorrect="off"
+                                    className="h-12 bg-white/5 border-border rounded-xl font-bold pr-12"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(v => !v)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                    tabIndex={-1}
+                                >
+                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                            </div>
                         </div>
 
                         <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl" disabled={isLoading || isScanning}>

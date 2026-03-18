@@ -12,8 +12,6 @@ export default function LoginRrhhPage() {
             redirectPath="/dashboard-rrhh"
             icon={Users}
             accentColor="secondary"
-            demoUsername="rrhh.maestro"
-            demoPassword="kyron2026"
             bgPattern={
                 <div className="flex flex-wrap gap-16 p-16 opacity-15">
                     <Heart className="h-20 w-20" />
