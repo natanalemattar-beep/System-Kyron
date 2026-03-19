@@ -1,4 +1,7 @@
 
+"use client";
+
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,47 +9,86 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { mockInvoices } from "@/lib/data";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Loader2 } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
+
+interface Factura {
+  id: number;
+  numero_factura: string;
+  cliente_nombre: string | null;
+  fecha_emision: string;
+  total: string;
+  estado: string;
+}
 
 export function RecentInvoices() {
-  const recentInvoices = mockInvoices.slice(0, 5);
+  const [facturas, setFacturas] = useState<Factura[]>([]);
+  const [pendientes, setPendientes] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/facturas?limit=5')
+      .then(r => r.ok ? r.json() : { facturas: [] })
+      .then(data => {
+        const list: Factura[] = data.facturas ?? [];
+        setFacturas(list);
+        setPendientes(list.filter(f => f.estado === 'emitida' || f.estado === 'pendiente').length);
+      })
+      .catch(() => setFacturas([]))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <Card className="bg-card/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Facturas Recientes</CardTitle>
         <CardDescription>
-          Tienes {mockInvoices.filter((i) => i.status === "Enviada" || i.status === "Vencida").length} facturas pendientes.
+          {loading ? 'Cargando...' : `Tienes ${pendientes} facturas pendientes.`}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        {recentInvoices.map((invoice) => (
-          <div key={invoice.id} className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarFallback>{invoice.customer.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {invoice.customer}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {formatDate(invoice.date)}
-              </p>
+        {loading ? (
+          Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-4">
+              <Skeleton className="h-9 w-9 rounded-full" />
+              <div className="space-y-1 flex-1">
+                <Skeleton className="h-3 w-32" />
+                <Skeleton className="h-3 w-20" />
+              </div>
+              <Skeleton className="h-4 w-20" />
             </div>
-            <div className="ml-auto font-medium">
-              {formatCurrency(invoice.amount, 'Bs.')}
+          ))
+        ) : facturas.length === 0 ? (
+          <p className="text-sm text-muted-foreground text-center py-4">No hay facturas registradas aún.</p>
+        ) : (
+          facturas.map((f) => (
+            <div key={f.id} className="flex items-center">
+              <Avatar className="h-9 w-9">
+                <AvatarFallback>{(f.cliente_nombre ?? f.numero_factura).charAt(0).toUpperCase()}</AvatarFallback>
+              </Avatar>
+              <div className="ml-4 space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  {f.cliente_nombre ?? f.numero_factura}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {formatDate(f.fecha_emision)}
+                </p>
+              </div>
+              <div className="ml-auto font-medium">
+                {formatCurrency(parseFloat(f.total), 'Bs.')}
+              </div>
             </div>
-          </div>
-        ))}
-         <Button asChild className="w-full">
-            <Link href="/invoices">
-              Ver Todas las Facturas <ArrowUpRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          ))
+        )}
+        <Button asChild className="w-full">
+          <Link href="/invoices">
+            Ver Todas las Facturas <ArrowUpRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
       </CardContent>
     </Card>
   );
