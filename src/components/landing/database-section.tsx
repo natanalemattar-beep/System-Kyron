@@ -54,7 +54,9 @@ const QUERIES = [
     `INSERT INTO transacciones (monto, divisa, tipo, fecha)\nVALUES (14250.00, 'USD', 'FACTURA', NOW())\nRETURNING id, created_at;`,
     `UPDATE inventario SET stock = stock - 3\nWHERE producto_id = 'PRD-8821'\nAND almacen = 'CCS-NORTE'\nRETURNING sku, stock;`,
     `SELECT COUNT(*) AS total_facturas,\n       SUM(monto_bs) AS monto_total\nFROM facturas\nWHERE EXTRACT(MONTH FROM fecha) = EXTRACT(MONTH FROM NOW())\nAND estado = 'PAGADA';`,
-    `CREATE INDEX CONCURRENTLY idx_emp_dept\nON empleados (dept_id, activo)\nWHERE activo = TRUE;`,
+    `SELECT nif, razon_social, impuesto_total\nFROM contribuyentes\nWHERE fecha_declaracion >= NOW() - INTERVAL '30 days'\nORDER BY impuesto_total DESC;`,
+    `INSERT INTO auditoria_fiscal (nif, operacion, monto, resultado)\nVALUES ('12345678', 'VALIDACION-SENIAT', 45000.00, TRUE)\nRETURNING id, timestamp;`,
+    `SELECT COUNT(*) AS transacciones_hoy\nFROM transacciones_log\nWHERE DATE(fecha) = CURRENT_DATE\nAND estado = 'COMPLETADA';`,
 ];
 
 function LiveQueryBox() {
@@ -202,6 +204,28 @@ const SCHEMA: SchemaTable[] = [
             { name: "fecha", type: "TIMESTAMPTZ" },
         ],
     },
+    {
+        name: "contribuyentes",
+        rows: 18560,
+        color: "cyan",
+        fields: [
+            { name: "nif", type: "VARCHAR(20)", pk: true },
+            { name: "razon_social", type: "VARCHAR(255)" },
+            { name: "impuesto_total", type: "NUMERIC(14,2)" },
+            { name: "fecha_declaracion", type: "DATE" },
+        ],
+    },
+    {
+        name: "auditoria_fiscal",
+        rows: 2340000,
+        color: "rose",
+        fields: [
+            { name: "id", type: "BIGSERIAL", pk: true },
+            { name: "nif", type: "VARCHAR(20)", fk: true },
+            { name: "operacion", type: "VARCHAR(50)" },
+            { name: "resultado", type: "BOOLEAN" },
+        ],
+    },
 ];
 
 const colorMap: Record<string, string> = {
@@ -209,6 +233,8 @@ const colorMap: Record<string, string> = {
     blue: "text-blue-400 border-blue-500/20 bg-blue-500/10",
     emerald: "text-emerald-400 border-emerald-500/20 bg-emerald-500/10",
     amber: "text-amber-400 border-amber-500/20 bg-amber-500/10",
+    cyan: "text-cyan-400 border-cyan-500/20 bg-cyan-500/10",
+    rose: "text-rose-400 border-rose-500/20 bg-rose-500/10",
 };
 
 function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
@@ -406,13 +432,13 @@ export function DatabaseSection() {
                     {/* Schema cards */}
                     <motion.div
                         style={{ y: y2 }}
-                        className="space-y-4"
+                        className="space-y-4 lg:col-span-2"
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <Layers className="h-3.5 w-3.5 text-blue-400" />
-                            <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Esquema relacional principal</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest text-blue-400">Esquema relacional completo</span>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {SCHEMA.map((t, i) => (
                                 <SchemaCard key={t.name} table={t} delay={i * 0.1} />
                             ))}
@@ -484,6 +510,115 @@ export function DatabaseSection() {
                                 />
                                 Streaming WAL activo
                             </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* ── INTEGRATED MODULES SECTION ── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-16 space-y-6"
+                >
+                    <div className="text-center space-y-3">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400">
+                            <Network className="h-3 w-3" />
+                            Integración Multi-Módulo
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                            Conectividad<span className="text-emerald-400"> Centralizada</span>
+                        </h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {[
+                            { module: "CONTABILIDAD FISCAL", tables: ["contribuyentes", "facturas", "auditoria_fiscal"], icon: "📋" },
+                            { module: "NÓMINA & RRHH", tables: ["empleados", "transacciones", "inventario"], icon: "👥" },
+                            { module: "TELECOM 5G", tables: ["líneas_activas", "consumo_datos", "facturación_telecom"], icon: "📡" },
+                            { module: "IA LEGAL", tables: ["contratos", "documentos", "análisis_ia"], icon: "⚖️" },
+                            { module: "ECO-CRÉDITOS", tables: ["reciclaje_log", "créditos_otorgados", "transacciones_eco"], icon: "♻️" },
+                            { module: "ANALÍTICA EJECUTIVA", tables: ["kpis_temps", "reportes", "dashboards"], icon: "📊" },
+                        ].map((item, i) => (
+                            <motion.div
+                                key={item.module}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.08, duration: 0.5 }}
+                                className="p-5 rounded-2xl border border-border/40 bg-card/20 backdrop-blur-sm hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 group cursor-default"
+                            >
+                                <div className="flex items-start justify-between mb-3">
+                                    <span className="text-2xl">{item.icon}</span>
+                                    <span className="text-[7px] px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-black uppercase">CONECTADO</span>
+                                </div>
+                                <h4 className="text-xs font-black uppercase tracking-tight text-foreground/90 mb-2">{item.module}</h4>
+                                <p className="text-[9px] text-muted-foreground/60 space-y-1">
+                                    {item.tables.map((t) => (
+                                        <div key={t} className="flex items-center gap-1.5">
+                                            <span className="h-1 w-1 rounded-full bg-emerald-400/60" />
+                                            <code className="text-emerald-400/70">{t}</code>
+                                        </div>
+                                    ))}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* ── COMPLIANCE SECTION ── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                    className="mb-16 space-y-6"
+                >
+                    <div className="text-center space-y-3 mb-8">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-rose-400">
+                            <Shield className="h-3 w-3" />
+                            Cumplimiento Normativo
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                            Regulaciones<span className="text-rose-400"> Venezolanas</span>
+                        </h3>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="p-7 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent space-y-4">
+                            <h4 className="text-sm font-black uppercase tracking-tight text-cyan-400">SENIAT & Fiscalidad</h4>
+                            <ul className="space-y-2.5">
+                                {[
+                                    "Validación RIF/NIF en tiempo real",
+                                    "IVA + IGTF + Impuesto sobre la Renta",
+                                    "Auditoría automática de facturas",
+                                    "Reportes CFI compatibles",
+                                    "Sincronización portal BCV",
+                                    "Retención IAE precisa al centavo",
+                                ].map((item) => (
+                                    <li key={item} className="flex items-center gap-2.5 text-[10px] font-semibold text-foreground/70">
+                                        <CheckCircle2 className="h-3 w-3 text-cyan-400 shrink-0" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="p-7 rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-transparent to-transparent space-y-4">
+                            <h4 className="text-sm font-black uppercase tracking-tight text-violet-400">LOTTT & Laboral</h4>
+                            <ul className="space-y-2.5">
+                                {[
+                                    "Cálculo automático utilidades (LOTTT)",
+                                    "Domingos y días feriados 2x",
+                                    "Fondos de garantía previsionales",
+                                    "IVSS + Seguros Sociales",
+                                    "Prestaciones 15 días de salario",
+                                    "Nómina dual USD/BsS certificada",
+                                ].map((item) => (
+                                    <li key={item} className="flex items-center gap-2.5 text-[10px] font-semibold text-foreground/70">
+                                        <CheckCircle2 className="h-3 w-3 text-violet-400 shrink-0" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </motion.div>
