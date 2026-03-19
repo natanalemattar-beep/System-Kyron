@@ -648,15 +648,15 @@ export default function ModeloZeduPage() {
                     <div className="mt-20 pt-10 border-t-2 border-slate-200">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                             {[
-                                { name: "Miguel Uzcategui", role: "Líder del Proyecto" },
-                                { name: "Miguel Angel Goites", role: "Desarrollo Técnico" },
-                                { name: "Joaquin de Barros", role: "Análisis y Comunicación" },
+                                { name: "Carlos Mattar", role: "Líder del Proyecto" },
+                                { name: "Sebastian Garrido", role: "Desarrollo Técnico" },
+                                { name: "Marcos Sousa", role: "Análisis y Comunicación" },
                             ].map((member) => (
                                 <div key={member.name} className="space-y-3">
                                     <div className="h-px w-48 bg-slate-300 mx-auto mt-16" />
                                     <p className="font-black uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{member.role}</p>
-                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Colegio Santa Rosa de Lima</p>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">U.E.P Gabriela Mistral</p>
                                 </div>
                             ))}
                         </div>
