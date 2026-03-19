@@ -843,6 +843,27 @@ async function createConfiguracionTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_leida   ON notificaciones(user_id, leida)`);
 
   await query(`
+    CREATE TABLE IF NOT EXISTS demo_requests (
+      id           SERIAL PRIMARY KEY,
+      name         TEXT NOT NULL,
+      role         TEXT,
+      email        TEXT NOT NULL,
+      phone        TEXT,
+      company      TEXT,
+      company_size TEXT,
+      sector       TEXT,
+      urgency      TEXT,
+      module       TEXT,
+      message      TEXT,
+      status       TEXT NOT NULL DEFAULT 'new'
+                   CHECK (status IN ('new','contacted','converted','discarded')),
+      notas_internas TEXT,
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
     CREATE TABLE IF NOT EXISTS configuracion_usuario (
       id                 SERIAL PRIMARY KEY,
       user_id            INT NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
