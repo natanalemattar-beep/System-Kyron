@@ -153,7 +153,7 @@ export function FeaturesSection() {
                                     </span>
                                 </div>
                             )}
-                            <div className={cn("p-3 rounded-2xl w-fit border border-white/5 group-hover:scale-110 transition-transform shadow-inner", f.bg)}>
+                            <div className={cn("p-3 rounded-2xl w-fit border border-border/20 dark:border-white/5 group-hover:scale-110 transition-transform shadow-inner", f.bg)}>
                                 <f.icon className={cn("h-5 w-5", f.color)} />
                             </div>
                             <div className="space-y-2 flex-1">
@@ -183,7 +183,7 @@ export function FeaturesSection() {
                         { val: "Bilingüe", detail: "Español & English" },
                         { val: "Gemini 2.0", detail: "IA de última generación" },
                     ].map((r, i) => (
-                        <div key={i} className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-white/[0.02] border border-white/8 hover:border-white/15 transition-colors">
+                        <div key={i} className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/40 dark:border-white/8 hover:border-border/60 dark:hover:border-white/15 transition-colors">
                             <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
                             <p className="text-[8px] font-semibold text-muted-foreground/40 uppercase tracking-widest">{r.detail}</p>
                         </div>

@@ -84,12 +84,12 @@ export function ServicesSection() {
                         viewport={{ once: true, amount: 0.05 }}
                         transition={{ duration: 0.6, delay: ci * 0.1 }}
                         className={cn(
-                            "group rounded-[2rem] border border-white/8 bg-gradient-to-br overflow-hidden transition-all duration-500 hover:border-white/15",
+                            "group rounded-[2rem] border border-border/40 dark:border-white/8 bg-gradient-to-br overflow-hidden transition-all duration-500 hover:border-border/60 dark:hover:border-white/15",
                             cat.gradient, cat.glow
                         )}
                     >
                         {/* Category header */}
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-7 py-5 border-b border-white/8">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-7 py-5 border-b border-border/40 dark:border-white/8">
                             <div className="space-y-1">
                                 <span className={cn("text-[9px] font-black uppercase tracking-[0.4em]", cat.color)}>{cat.label}</span>
                                 <p className="text-xs text-muted-foreground/60 font-medium">{cat.description}</p>
@@ -100,7 +100,7 @@ export function ServicesSection() {
                         </div>
 
                         {/* Module cards */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.04]">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/20 dark:bg-white/[0.04]">
                             {cat.modules.map((mod, mi) => (
                                 <motion.div
                                     key={mod.title}
@@ -108,9 +108,9 @@ export function ServicesSection() {
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.1 + mi * 0.06 }}
-                                    className="flex flex-col gap-4 p-6 md:p-7 bg-card/30 hover:bg-card/50 backdrop-blur-sm transition-all duration-300 group/card"
+                                    className="flex flex-col gap-4 p-6 md:p-7 bg-card/60 dark:bg-card/30 hover:bg-card/80 dark:hover:bg-card/50 backdrop-blur-sm transition-all duration-300 group/card"
                                 >
-                                    <div className={cn("p-2.5 rounded-xl w-fit border border-white/5 group-hover/card:scale-110 transition-transform shadow-inner", mod.bg)}>
+                                    <div className={cn("p-2.5 rounded-xl w-fit border border-border/20 dark:border-white/5 group-hover/card:scale-110 transition-transform shadow-inner", mod.bg)}>
                                         <mod.icon className={cn("h-5 w-5", mod.color)} />
                                     </div>
                                     <div className="space-y-1.5 mt-auto">

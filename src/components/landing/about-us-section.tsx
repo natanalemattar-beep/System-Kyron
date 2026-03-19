@@ -94,14 +94,14 @@ export function AboutUsSection() {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group shadow-2xl">
+                            <Card className="glass-card border border-border/30 dark:border-none p-8 rounded-3xl bg-card/60 dark:bg-white/[0.02] hover:bg-card/80 dark:hover:bg-white/[0.05] transition-all group shadow-2xl">
                                 <div className="p-3 bg-primary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-primary/10">
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase italic tracking-tight text-foreground mb-2 leading-none">Misión</h3>
                                 <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.</p>
                             </Card>
-                            <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group shadow-2xl">
+                            <Card className="glass-card border border-border/30 dark:border-none p-8 rounded-3xl bg-card/60 dark:bg-white/[0.02] hover:bg-card/80 dark:hover:bg-white/[0.05] transition-all group shadow-2xl">
                                 <div className="p-3 bg-secondary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-secondary/10">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
@@ -110,7 +110,7 @@ export function AboutUsSection() {
                             </Card>
                         </div>
 
-                        <Card className="glass-card border-none p-2 rounded-[2.5rem] bg-white/[0.01] overflow-hidden group shadow-2xl">
+                        <Card className="glass-card border border-border/30 dark:border-none p-2 rounded-[2.5rem] bg-card/40 dark:bg-white/[0.01] overflow-hidden group shadow-2xl">
                             <div className="aspect-video relative rounded-[2rem] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
                                 {economyImage && (
                                     <Image src={economyImage.imageUrl} alt={economyImage.description} fill className="object-cover contrast-[1.1]" />
@@ -133,7 +133,7 @@ export function AboutUsSection() {
                                 { val: stats.cumplimiento, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
                                 { val: stats.erroresFiscales, label: "ERRORES FISCALES", suffix: "%", icon: Zap, color: "text-rose-400" }
                             ].map((stat, i) => (
-                                <Card key={i} className="glass-card border-none p-8 text-center rounded-[2rem] bg-white/[0.02] relative overflow-hidden group shadow-2xl border border-white/5">
+                                <Card key={i} className="glass-card p-8 text-center rounded-[2rem] bg-card/60 dark:bg-white/[0.02] relative overflow-hidden group shadow-2xl border border-border/30 dark:border-white/5">
                                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all"><stat.icon className="h-16 w-16" /></div>
                                     <p className={cn("text-4xl font-black italic tracking-tighter mb-2", stat.color)}>
                                         <Counter from={0} to={stat.val} />{stat.suffix}
@@ -147,14 +147,14 @@ export function AboutUsSection() {
                             {testimonials.map((testimonial) => {
                                 const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
                                 return (
-                                    <Card key={testimonial.name} className="glass-card border-none p-10 relative group overflow-hidden rounded-[2.5rem] bg-white/[0.01] hover:bg-white/[0.03] transition-all shadow-2xl border border-white/5">
+                                    <Card key={testimonial.name} className="glass-card p-10 relative group overflow-hidden rounded-[2.5rem] bg-card/60 dark:bg-white/[0.01] hover:bg-card/80 dark:hover:bg-white/[0.03] transition-all shadow-2xl border border-border/30 dark:border-white/5">
                                         <CardContent className="p-0 space-y-8">
                                             <div className="flex items-center gap-4">
                                                 <div className="p-2 bg-primary/10 rounded-lg shadow-inner"><testimonial.icon className="h-4 w-4 text-primary"/></div>
                                                 <span className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">{testimonial.module}</span>
                                             </div>
                                             <p className="text-xl md:text-2xl font-bold italic text-foreground/80 leading-relaxed">"{testimonial.text}"</p>
-                                            <footer className="flex flex-col sm:flex-row items-center gap-6 pt-8 border-t border-white/5">
+                                            <footer className="flex flex-col sm:flex-row items-center gap-6 pt-8 border-t border-border/30 dark:border-white/5">
                                                 {avatar && (
                                                     <Avatar className="h-14 w-14 border-2 border-primary/20 shadow-2xl">
                                                         <AvatarImage src={avatar.imageUrl} alt={testimonial.name} />

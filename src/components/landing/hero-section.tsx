@@ -10,18 +10,18 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 const modules = [
-    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",   border: "border-cyan-500/20" },
-    { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/20" },
-    { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/20" },
-    { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-400",  bg: "from-amber-500/20 to-amber-500/5",  border: "border-amber-500/20" },
-    { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-400",bg: "from-emerald-500/20 to-emerald-500/5",border:"border-emerald-500/20" },
-    { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-400",   bg: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/20" },
+    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-600 dark:text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",   border: "border-cyan-500/25" },
+    { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-600 dark:text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/25" },
+    { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-600 dark:text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/25" },
+    { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-600 dark:text-amber-400",  bg: "from-amber-500/20 to-amber-500/5",  border: "border-amber-500/25" },
+    { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-600 dark:text-emerald-400",bg: "from-emerald-500/20 to-emerald-500/5",border:"border-emerald-500/25" },
+    { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-600 dark:text-rose-400",   bg: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/25" },
 ];
 
 const kpis = [
-    { label: "Ingresos / Mes", value: "Bs. 0", delta: "+0%", icon: TrendingUp, color: "text-emerald-400" },
-    { label: "Facturas Activas", value: "0", delta: "SENIAT", icon: DollarSign, color: "text-cyan-400" },
-    { label: "Empleados", value: "0", delta: "LOTTT", icon: Users, color: "text-violet-400" },
+    { label: "Ingresos / Mes", value: "Bs. 0", delta: "+0%", icon: TrendingUp, color: "text-emerald-600 dark:text-emerald-400" },
+    { label: "Facturas Activas", value: "0", delta: "SENIAT", icon: DollarSign, color: "text-cyan-600 dark:text-cyan-400" },
+    { label: "Empleados", value: "0", delta: "LOTTT", icon: Users, color: "text-violet-600 dark:text-violet-400" },
 ];
 
 const Counter = ({ from, to, suffix = "" }: { from: number; to: number; suffix?: string }) => {
@@ -141,43 +141,43 @@ export function HeroSection() {
                         className="lg:col-span-6 space-y-3"
                     >
                         {/* Dashboard card */}
-                        <div className="rounded-[2rem] border border-white/10 bg-card/40 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-white/5">
+                        <div className="rounded-[2rem] border border-border/40 dark:border-white/10 bg-card/60 dark:bg-card/40 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
                             {/* Card topbar */}
-                            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/8 bg-white/[0.02]">
+                            <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/40 dark:border-white/8 bg-muted/30 dark:bg-white/[0.02]">
                                 <div className="flex items-center gap-3">
                                     <div className="flex gap-1.5">
                                         <div className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
                                         <div className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
                                         <div className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
                                     </div>
-                                    <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">Panel de Control — System Kyron</span>
+                                    <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Panel de Control — System Kyron</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                    <span className="text-[7px] font-black uppercase tracking-widest text-emerald-400/80">Live</span>
+                                    <span className="text-[7px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400/80">Live</span>
                                 </div>
                             </div>
 
                             {/* KPI row */}
-                            <div className="grid grid-cols-3 divide-x divide-white/8 p-0">
+                            <div className="grid grid-cols-3 divide-x divide-border/40 dark:divide-white/8 p-0">
                                 {kpis.map((kpi, i) => (
                                     <motion.div
                                         key={kpi.label}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4 + i * 0.1 }}
-                                        className="p-4 md:p-5 space-y-1.5 hover:bg-white/[0.02] transition-colors"
+                                        className="p-4 md:p-5 space-y-1.5 hover:bg-muted/20 dark:hover:bg-white/[0.02] transition-colors"
                                     >
                                         <kpi.icon className={cn("h-3.5 w-3.5 mb-2", kpi.color)} />
                                         <p className="text-xs md:text-sm font-black text-foreground/90 leading-none">{kpi.value}</p>
-                                        <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/40">{kpi.label}</p>
+                                        <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/50">{kpi.label}</p>
                                         <span className={cn("text-[7px] font-black uppercase", kpi.color)}>{kpi.delta}</span>
                                     </motion.div>
                                 ))}
                             </div>
 
                             {/* Module grid */}
-                            <div className="p-4 border-t border-white/8">
+                            <div className="p-4 border-t border-border/40 dark:border-white/8">
                                 <div className="grid grid-cols-3 gap-2">
                                     {modules.map((mod, i) => (
                                         <motion.div
@@ -190,7 +190,7 @@ export function HeroSection() {
                                                 mod.bg, mod.border
                                             )}
                                         >
-                                            <div className={cn("p-1.5 rounded-lg bg-black/20 w-fit", mod.color)}>
+                                            <div className={cn("p-1.5 rounded-lg bg-black/10 dark:bg-black/20 w-fit", mod.color)}>
                                                 <mod.icon className="h-3.5 w-3.5" />
                                             </div>
                                             <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors">
@@ -208,7 +208,7 @@ export function HeroSection() {
                                         <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                                         <div>
                                             <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary leading-none">Activar Portal</p>
-                                            <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
+                                            <p className="text-[7px] font-bold text-muted-foreground/60 uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
                                         </div>
                                     </div>
                                     <ArrowRight className="h-3.5 w-3.5 text-primary group-hover:translate-x-1 transition-transform" />
@@ -219,22 +219,22 @@ export function HeroSection() {
                         {/* Bottom metrics row */}
                         <div className="grid grid-cols-3 gap-3">
                             {[
-                                { val: "32", suffix: " tablas", label: "Base de datos", icon: Cpu,       color: "text-cyan-400" },
-                                { val: "12", suffix: " portales", label: "Módulos activos", icon: Building2,  color: "text-violet-400" },
-                                { val: "100", suffix: "%", label: "Cumplimiento fiscal", icon: ShieldCheck, color: "text-emerald-400" },
+                                { val: "32", suffix: " tablas", label: "Base de datos", icon: Cpu,       color: "text-cyan-600 dark:text-cyan-400" },
+                                { val: "12", suffix: " portales", label: "Módulos activos", icon: Building2,  color: "text-violet-600 dark:text-violet-400" },
+                                { val: "100", suffix: "%", label: "Cumplimiento fiscal", icon: ShieldCheck, color: "text-emerald-600 dark:text-emerald-400" },
                             ].map((m, i) => (
                                 <motion.div
                                     key={m.label}
                                     initial={{ opacity: 0, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.6 + i * 0.08 }}
-                                    className="flex flex-col gap-1.5 p-3.5 rounded-2xl border border-white/8 bg-card/30 backdrop-blur-sm hover:border-white/15 transition-colors text-center"
+                                    className="flex flex-col gap-1.5 p-3.5 rounded-2xl border border-border/40 dark:border-white/8 bg-card/50 dark:bg-card/30 backdrop-blur-sm hover:border-border/60 dark:hover:border-white/15 transition-colors text-center"
                                 >
                                     <m.icon className={cn("h-3.5 w-3.5 mx-auto", m.color)} />
                                     <p className={cn("text-base font-black leading-none", m.color)}>
                                         <Counter from={0} to={parseInt(m.val)} />{m.suffix}
                                     </p>
-                                    <p className="text-[7px] font-bold text-muted-foreground/40 uppercase tracking-widest leading-tight">{m.label}</p>
+                                    <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-widest leading-tight">{m.label}</p>
                                 </motion.div>
                             ))}
                         </div>

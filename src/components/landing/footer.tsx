@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
     <a href={href} target="_blank" rel="noopener noreferrer"
-        className="h-9 w-9 rounded-xl border border-white/8 bg-white/[0.02] flex items-center justify-center text-muted-foreground/40 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300">
+        className="h-9 w-9 rounded-xl border border-border/40 dark:border-white/8 bg-muted/30 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/50 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300">
         {children}
     </a>
 );
@@ -34,7 +34,7 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-white/8 bg-transparent">
+        <footer id="footer" className="relative overflow-hidden border-t border-border/40 dark:border-white/8 bg-transparent">
 
             {/* Background */}
             <div className="absolute inset-0 pointer-events-none -z-10">
@@ -42,7 +42,7 @@ export function Footer() {
             </div>
 
             {/* Module ticker */}
-            <div className="border-b border-white/8 py-3 overflow-hidden">
+            <div className="border-b border-border/40 dark:border-white/8 py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
                         <span key={i} className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/25 shrink-0">
@@ -110,13 +110,13 @@ export function Footer() {
                         <div className="space-y-4">
                             <a href="mailto:infosystemkyron@gmail.com"
                                 className="flex items-center gap-3 group text-muted-foreground/50 hover:text-foreground/80 transition-colors">
-                                <div className="h-8 w-8 rounded-xl border border-white/8 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
+                                <div className="h-8 w-8 rounded-xl border border-border/40 dark:border-white/8 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
                                     <Mail className="h-3.5 w-3.5 text-primary" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
                             </a>
                             <div className="flex items-center gap-3 text-muted-foreground/50">
-                                <div className="h-8 w-8 rounded-xl border border-white/8 bg-white/[0.02] flex items-center justify-center shrink-0">
+                                <div className="h-8 w-8 rounded-xl border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] flex items-center justify-center shrink-0">
                                     <MapPin className="h-3.5 w-3.5 text-primary" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">Caracas, Venezuela · Distrito Capital</span>
@@ -124,7 +124,7 @@ export function Footer() {
                         </div>
 
                         {/* Version badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/8 bg-white/[0.02] mt-2">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
                             <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                             <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">v2.6.5 — Estable</span>
                         </div>
@@ -132,7 +132,7 @@ export function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                <div className="mt-12 pt-8 border-t border-border/40 dark:border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/25">
                         &copy; {currentYear || '2026'} System Kyron · Inteligencia Corporativa · MK-2.6
                     </p>
