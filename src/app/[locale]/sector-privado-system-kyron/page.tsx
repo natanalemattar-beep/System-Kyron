@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -11,11 +10,6 @@ import Link from "next/link";
 
 export default function ModeloZeduPage() {
     const { toast } = useToast();
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     const handleDownloadWord = async () => {
         const contentElement = document.getElementById('zedu-document-content');
@@ -71,6 +65,9 @@ export default function ModeloZeduPage() {
 
         const footer = "</body></html>";
 
+        const cloned = contentElement.cloneNode(true) as HTMLElement;
+        cloned.querySelectorAll('svg').forEach(svg => svg.remove());
+
         const wordHtml = `
             <div class="cover">
                 <table class="cover-table" style="border: none !important;">
@@ -79,11 +76,12 @@ export default function ModeloZeduPage() {
                         <td style="border: none !important; vertical-align: middle; padding-left: 25pt;">
                             <div class="cover-title">MODELO ZEDU</div>
                             <div class="cover-title" style="color: #64748b; font-size: 22pt;">SYSTEM KYRON</div>
+                            <p style="font-size:10pt; color:#475569; margin-top:6pt; text-transform:uppercase; letter-spacing:2pt;">U.E.P. Gabriela Mistral · Caracas, Venezuela</p>
                         </td>
                     </tr>
                 </table>
             </div>
-            ${contentElement.innerHTML}
+            ${cloned.innerHTML}
         `;
 
         const sourceHTML = header + wordHtml + footer;
@@ -103,14 +101,12 @@ export default function ModeloZeduPage() {
         });
     };
 
-    if (!isMounted) return null;
-
-    const tableHeaderClass = "bg-[#0A2472] text-white font-black uppercase p-5 text-[12px] border border-black tracking-[0.2em] text-center";
+    const tableHeaderClass = "header-cell bg-[#0A2472] text-white font-black uppercase p-5 text-[12px] border border-black tracking-[0.2em] text-center";
     const tableCellClass = "p-5 text-[13px] border border-black text-slate-900 bg-white leading-relaxed font-medium text-justify";
-    const tableLabelClass = "bg-slate-50 p-5 text-[10px] font-black uppercase border border-black text-slate-500 w-1/3 border-r-2";
+    const tableLabelClass = "label-cell bg-slate-50 p-5 text-[10px] font-black uppercase border border-black text-slate-500 w-1/3 border-r-2";
 
     return (
-        <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100">
+        <div className="min-h-screen bg-slate-100 dark:bg-slate-100 py-12 px-4 selection:bg-blue-100" style={{ colorScheme: 'light' }}>
             <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
                 <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
                     <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>
@@ -135,7 +131,7 @@ export default function ModeloZeduPage() {
                     <div className="pt-2 space-y-2">
                         <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
                         <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">SYSTEM KYRON</h2>
-                        <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">U.E. Gabriela Mistral · Caracas, Venezuela</p>
+                        <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">U.E.P. Gabriela Mistral · Caracas, Venezuela</p>
                     </div>
                 </div>
 
@@ -160,7 +156,7 @@ export default function ModeloZeduPage() {
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Institución Educativa</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>U.E. Gabriela Mistral</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>U.E.P. Gabriela Mistral</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>País / Ciudad</td></tr>
                                 <tr>
@@ -686,7 +682,7 @@ export default function ModeloZeduPage() {
                                     <div className="h-px w-48 bg-slate-300 mx-auto mt-16" />
                                     <p className="font-black uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{member.role}</p>
-                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Gabriela Mistral</p>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">U.E.P. Gabriela Mistral</p>
                                 </div>
                             ))}
                         </div>
