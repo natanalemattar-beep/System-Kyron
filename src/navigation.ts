@@ -132,6 +132,8 @@ export const pathnames = {
   '/login-linea': '/login-linea',
   '/login-marketing': '/login-marketing',
   '/marketing': '/marketing',
+  '/terms': '/terms',
+  '/politica-privacidad': '/politica-privacidad',
   '/marketing/inversion': '/marketing/inversion',
   '/marketing/campanas': '/marketing/campanas',
 

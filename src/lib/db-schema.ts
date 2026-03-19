@@ -825,6 +825,78 @@ async function createAnalyticsTables() {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_page_events_evento    ON page_events(evento)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_page_events_creado_en ON page_events(creado_en DESC)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS page_visits (
+      id          SERIAL PRIMARY KEY,
+      page        TEXT NOT NULL DEFAULT '/',
+      visitor_id  TEXT,
+      ip          TEXT,
+      user_agent  TEXT,
+      referrer    TEXT,
+      country     TEXT,
+      device_type TEXT CHECK (device_type IN ('desktop','mobile','tablet','unknown')) DEFAULT 'unknown',
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_page       ON page_visits(page)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_created_at ON page_visits(created_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_visitor_id ON page_visits(visitor_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS site_metrics (
+      id           SERIAL PRIMARY KEY,
+      metric_key   TEXT NOT NULL UNIQUE,
+      metric_value BIGINT NOT NULL DEFAULT 0,
+      updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`
+    INSERT INTO site_metrics (metric_key, metric_value)
+    VALUES ('total_visits', 0), ('unique_visitors', 0), ('active_sessions', 0)
+    ON CONFLICT (metric_key) DO NOTHING
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id          SERIAL PRIMARY KEY,
+      nombre      TEXT NOT NULL,
+      email       TEXT NOT NULL,
+      telefono    TEXT,
+      empresa     TEXT,
+      asunto      TEXT NOT NULL,
+      mensaje     TEXT NOT NULL,
+      leido       BOOLEAN NOT NULL DEFAULT false,
+      respondido  BOOLEAN NOT NULL DEFAULT false,
+      respuesta   TEXT,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_contact_messages_leido ON contact_messages(leido)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+      id          SERIAL PRIMARY KEY,
+      email       TEXT NOT NULL UNIQUE,
+      nombre      TEXT,
+      activo      BOOLEAN NOT NULL DEFAULT true,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS feedback_items (
+      id          SERIAL PRIMARY KEY,
+      user_id     INT REFERENCES users(id) ON DELETE SET NULL,
+      tipo        TEXT NOT NULL CHECK (tipo IN ('bug','mejora','idea','queja','felicitacion','otro')),
+      titulo      TEXT NOT NULL,
+      descripcion TEXT NOT NULL,
+      prioridad   TEXT NOT NULL DEFAULT 'normal' CHECK (prioridad IN ('baja','normal','alta','critica')),
+      estado      TEXT NOT NULL DEFAULT 'nuevo' CHECK (estado IN ('nuevo','en_revision','en_progreso','resuelto','cerrado')),
+      modulo      TEXT,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

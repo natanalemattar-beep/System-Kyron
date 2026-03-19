@@ -1,16 +1,66 @@
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { Providers } from "@/components/providers";
 
-/**
- * @fileOverview Root Layout principal.
- * Configura las fuentes Geist y los proveedores globales.
- */
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://systemkyron.replit.app';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "System Kyron — Inteligencia Corporativa Venezuela",
+    template: "%s — System Kyron",
+  },
+  description:
+    "Ecosistema corporativo de misión crítica para Venezuela. Contabilidad VEN-NIF, RRHH, Telecom 5G, IA Legal, Eco-Créditos y cumplimiento SENIAT en tiempo real.",
+  keywords: [
+    "contabilidad venezuela", "VEN-NIF", "SENIAT", "ISLR", "IVA Venezuela",
+    "nómina Venezuela", "LOTTT", "telecom 5G", "eSIM Venezuela",
+    "software empresarial Venezuela", "ERP Venezuela", "System Kyron",
+    "Ameru eco-creditos", "inteligencia corporativa", "gestión empresarial"
+  ],
+  authors: [{ name: "System Kyron", url: BASE_URL }],
+  creator: "System Kyron",
+  publisher: "System Kyron",
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: {
+    type: "website",
+    locale: "es_VE",
+    url: BASE_URL,
+    siteName: "System Kyron",
+    title: "System Kyron — Inteligencia Corporativa Venezuela",
+    description: "Ecosistema corporativo de misión crítica. Contabilidad VEN-NIF, RRHH, Telecom 5G, IA Legal y cumplimiento SENIAT.",
+    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "System Kyron" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "System Kyron — Inteligencia Corporativa Venezuela",
+    description: "Ecosistema corporativo de misión crítica para Venezuela.",
+    images: [`${BASE_URL}/og-image.png`],
+  },
+  manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+      </head>
       <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
         <Providers>
           {children}

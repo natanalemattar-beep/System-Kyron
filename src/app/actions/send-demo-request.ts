@@ -20,8 +20,7 @@ export async function sendDemoRequestAction(data: {
   try {
     await query(
       `INSERT INTO demo_requests (name, role, email, phone, company, company_size, sector, urgency, module, message, status)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'new')
-       ON CONFLICT DO NOTHING`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'new')`,
       [data.name, data.role, data.email, data.phone, data.company, data.companySize, data.sector, data.urgency, data.module, data.message ?? '']
     ).catch(() => null);
 
