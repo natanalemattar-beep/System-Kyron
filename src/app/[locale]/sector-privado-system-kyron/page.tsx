@@ -324,9 +324,13 @@ export default function ModeloZeduPage() {
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Calculator className="h-4 w-4 shrink-0" /> Módulo 2: Contabilidad VEN-NIF</div>
+                                        <div className="flex items-center gap-2"><Smartphone className="h-4 w-4 shrink-0" /> Módulo 2: Telefonía Personal y Línea Infantil CONATEL</div>
                                     </td>
-                                    <td className={tableCellClass}>Libros contables digitales bajo normas VEN-NIF con ajuste por inflación (RIPF). Declaraciones automáticas de IVA 16%, ISLR 34% e IGTF 3% con sellado en el portal DECLARASENIAT. Integración en tiempo real con la tasa oficial BCV. Generación de estados financieros, libro de compras/ventas, libro diario y mayor en formato auditado. Conciliación bancaria automática y cierre de período contable.</td>
+                                    <td className={tableCellClass}>
+                                        <p><strong>Servicio de Telefonía Personal:</strong> Comercialización de líneas telefónicas personales bajo concesión CONATEL, con planes de voz, datos y mensajería en redes 4G/5G. Portabilidad numérica, activación digital inmediata, recarga electrónica y atención al cliente integrada en la plataforma System Kyron.</p>
+                                        <p><strong>Línea Infantil acordada por CONATEL:</strong> Servicio de telefonía especializado para menores de 0 a 17 años según los acuerdos de protección infantil de CONATEL y la LOPNNA. Control parental biométrico, restricción de contenido no apto, límites de gasto configurable por representantes, GPS de ubicación familiar y reportes de uso mensual enviados al tutor legal. Plan con tarifa social regulada por la Comisión Nacional de Telecomunicaciones.</p>
+                                        <p><strong>Proyecciones de Ingresos:</strong> Con una base inicial de 200 líneas personales a $8/mes y 50 líneas infantiles a $5/mes, el módulo proyecta ingresos de $1.850/mes en el primer trimestre. A 12 meses, con 1.000 líneas activas, se proyectan $9.500/mes de ingresos recurrentes de telecomunicaciones, con una tasa de crecimiento mensual del 15%.</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
@@ -505,9 +509,54 @@ export default function ModeloZeduPage() {
                                     <td className={cn(tableCellClass, "text-right font-black")}>$ 91,00</td>
                                     <td className={tableCellClass}>Transporte urbano / Imprentas, Caracas</td>
                                 </tr>
+                                <tr><td className={tableHeaderClass} colSpan={4}>Gastos Operativos del Local y Permisología</td></tr>
+                                <tr>
+                                    <td className={tableCellClass}>Alquiler mensual de local comercial (sede operativa System Kyron / punto de venta de telefonía) — incluye servicios básicos</td>
+                                    <td className={cn(tableCellClass, "text-center")}>12 meses</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 4.800,00</td>
+                                    <td className={tableCellClass}>Local comercial, Área Metropolitana de Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Permisología operativa: inscripción SENIAT (RIF empresarial), habilitación municipal, permiso CONATEL concesión telefonía personal, certificado de solvencia laboral INPSASEL y bomberos</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1 conjunto</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 850,00</td>
+                                    <td className={tableCellClass}>SENIAT / Alcaldía / CONATEL / INPSASEL</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Acondicionamiento inmobiliario del local: adecuación eléctrica, rótulo corporativo, mobiliario de atención al cliente (escritorios, sillas, counter, estantes de exhibición de equipos)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.200,00</td>
+                                    <td className={tableCellClass}>Proveedores locales, Caracas</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={4}>Bienes Muebles — Flota de Despacho y Logística</td></tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>Motocicleta Bera Carguera DT-200</strong> — para logística de distribución de SIM Cards, papeleras Ameru y equipos de telefonía. Capacidad de carga 200 kg, motor 200cc, incluye caja de carga metálica lateral y central.</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1 unidad</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.800,00</td>
+                                    <td className={tableCellClass}>Distribuidora Bera Venezuela / Casa Bera, Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>Motocicleta de Despacho</strong> — para entregas urgentes, activación de líneas a domicilio y traslado de documentación entre puntos operativos. Motor 150cc, ágil para entorno urbano.</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1 unidad</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.650,00</td>
+                                    <td className={tableCellClass}>Distribuidora de motos, Caracas</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={4}>Compra Inicial de Inventario</td></tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>Papeleras Inteligentes Ameru.AI</strong> — unidades con sensores de inducción magnética para clasificación de residuos, generación de eco-créditos y conectividad IoT. Destino: puntos de venta aliados y sede operativa.</td>
+                                    <td className={cn(tableCellClass, "text-center")}>10 unidades</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 683,00</td>
+                                    <td className={tableCellClass}>Ameru.AI Venezuela</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>Inventario inicial de teléfonos</strong> — lote mixto de smartphones para comercialización en el punto de venta: gama económica (Xiaomi Redmi, Samsung Galaxy A-series), gama media (Samsung Galaxy M-series, Huawei Nova) y accesorios (fundas, protectores, cargadores).</td>
+                                    <td className={cn(tableCellClass, "text-center")}>30 equipos</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td>
+                                    <td className={tableCellClass}>Mayoristas de electrónica, Caracas / La Guaira</td>
+                                </tr>
                                 <tr className="bg-slate-50">
                                     <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")} colSpan={2}>INVERSIÓN TOTAL DEL PROYECTO</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 2.500,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 18.574,00</td>
                                     <td className={tableCellClass}></td>
                                 </tr>
                             </tbody>
@@ -560,6 +609,119 @@ export default function ModeloZeduPage() {
 
                     <div className="page-break" />
 
+                    {/* SECCIÓN 6B — COMPETENCIA Y FABRICANTES DE TELEFONÍA */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Globe className="h-7 w-7" /> 6B. COMPETENCIA Y FABRICANTES DE TELEFONÍA
+                        </h2>
+
+                        {/* Operadores competidores */}
+                        <div className="mb-10">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                                <Activity className="h-6 w-6" /> Operadores de Telefonía — Competencia Directa en Venezuela
+                            </h3>
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '22%' }}>Operador</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '15%' }}>Teléfono</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '23%' }}>Correo Electrónico</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '40%' }}>Análisis Competitivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Movistar Venezuela (Telefónica)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-500-1111</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>atencionclientes@movistar.com.ve</td>
+                                        <td className={tableCellClass}>Operador líder con mayor cobertura nacional 4G/5G. Fortaleza: red consolidada y reconocimiento de marca. Debilidad: tarifas elevadas, sin servicio diferenciado para menores. System Kyron ofrece línea infantil regulada CONATEL que Movistar no tiene.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Digitel (C.A. Corporación Digitel)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-200-0212</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>contacto@digitel.com.ve</td>
+                                        <td className={tableCellClass}>Segundo operador en participación de mercado. Cobertura 4G en zonas urbanas. Fortaleza: atención corporativa. Debilidad: sin módulos de control parental ni línea infantil certificada. Oportunidad para System Kyron en segmento familia.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Movilnet (CANTV — Estado)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono")}>0800-666-4638</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>servicioalcliente@movilnet.com.ve</td>
+                                        <td className={tableCellClass}>Operador estatal con las tarifas más bajas del mercado. Amplia cobertura en zonas rurales. Fortaleza: precio. Debilidad: calidad de red limitada, servicio al cliente deficiente. System Kyron compite en calidad de servicio y valor agregado tecnológico.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Inter (Intercable)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-256-0000</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>clientes@inter.com.ve</td>
+                                        <td className={tableCellClass}>Operador convergente (internet + telefonía fija). Fortaleza: bundle residencial. Debilidad: sin oferta de telefonía móvil personal robusta. System Kyron se diferencia con telefonía móvil 5G personal y línea infantil regulada.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>NetUno</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-202-2000</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>atencion@netuno.com.ve</td>
+                                        <td className={tableCellClass}>Proveedor de internet y telefonía IP fija para empresas. Sin oferta móvil personal. Fortaleza: empresas medianas y grandes en Caracas. Oportunidad de alianza con System Kyron para ofrecer complementariedad de servicios al segmento corporativo.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Fabricantes de telefonía */}
+                        <div>
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                                <Smartphone className="h-6 w-6" /> Fabricantes de Telefonía — Proveedores de Inventario y Aliados Tecnológicos
+                            </h3>
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '20%' }}>Fabricante</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '18%' }}>Contacto Venezuela</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '25%' }}>Correo / Web</th>
+                                        <th className={cn(tableHeaderClass)} style={{ width: '37%' }}>Relevancia para System Kyron</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Samsung Electronics Venezuela</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0800-726-7864</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>samsung.ve@samsung.com / samsung.com/ve</td>
+                                        <td className={tableCellClass}>Proveedor principal del inventario inicial. Galaxy A-series y M-series para gama media. Soporte técnico oficial, garantía de 1 año y homologación CONATEL vigente. Condiciones de distribuidor disponibles para volumen mínimo de 20 equipos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Huawei Venezuela</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-953-3333</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>venezuela@huawei.com / huawei.com/ve</td>
+                                        <td className={tableCellClass}>Equipos con soporte de eSIM y conectividad 5G. Línea Nova para gama media. Infraestructura de red 5G y radiobases compatibles con el módulo Telecom de System Kyron. Aliado estratégico potencial para despliegue de red en Venezuela.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Xiaomi / Redmi Venezuela</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-763-4500</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>ventas@xiaomi-ve.com / xiaomi.com/ve</td>
+                                        <td className={tableCellClass}>Gama económica con mejor relación precio-rendimiento del mercado. Redmi series para el segmento popular. Ideal para el plan de línea infantil CONATEL por precio accesible ($80–$150). Alta disponibilidad en el mercado venezolano.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Nokia Venezuela (HMD Global)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-285-7100</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>venezuela@nokia.com / nokia.com/phones</td>
+                                        <td className={tableCellClass}>Equipos robustos con Android One puro, ideal para línea infantil por seguridad del sistema operativo no modificado. Actualización de seguridad garantizada por 3 años. Precio accesible en gama básica ($60–$120). Homologados CONATEL.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>TCL / Alcatel Venezuela</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-793-2255</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>ventas@tcl-venezuela.com / tcl.com</td>
+                                        <td className={tableCellClass}>Marca de volumen para gama básica. Alcatel 1-series y 3-series para segmento popular y línea infantil. Precios desde $45. Amplia disponibilidad a través de distribuidores nacionales. Condiciones comerciales favorables para nuevos distribuidores con bajo MOQ.</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={cn(tableCellClass, "font-black uppercase")}>Motorola Venezuela (Lenovo)</td>
+                                        <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-906-5000</td>
+                                        <td className={cn(tableCellClass, "text-xs")}>venezuela@motorola.com / motorola.com/ve</td>
+                                        <td className={tableCellClass}>Moto E-series para gama económica, Moto G-series para gama media. Reconocimiento de marca sólido en Venezuela. Baterías de larga duración adecuadas para usuarios que no tienen acceso frecuente a carga. Compatible con planes de telefonía personal System Kyron.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div className="page-break" />
+
                     {/* SECCIÓN 7 — PLAN DE ACCIÓN */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
@@ -590,7 +752,7 @@ export default function ModeloZeduPage() {
                                     <td className={cn(tableCellClass, "text-center")}>Semana 4 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>4.</strong> Desarrollo del Módulo de Contabilidad VEN-NIF: implementación de libros digitales, ajuste por inflación RIPF, integración con tasa BCV en tiempo real y generación de declaraciones IVA/ISLR.</td>
+                                    <td className={tableCellClass}><strong>4.</strong> Desarrollo del Módulo de Telefonía Personal y Línea Infantil CONATEL: implementación de activación de líneas, control parental biométrico, integración con CONATEL para homologación de IMEI, sistema de recarga y gestión de planes infantiles con tarifa regulada.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 1–4 (Noviembre 2025)</td>
                                 </tr>

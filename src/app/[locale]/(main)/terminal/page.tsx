@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, Terminal as TerminalIcon
+  Sparkles, Activity, Terminal as TerminalIcon, Smartphone
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
@@ -15,24 +15,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 
 const budgetData = [
-  { item: "Infraestructura Telecom (5G/Contrato Mayorista)", cost: 5000 },
+  { item: "Infraestructura Telecom (5G/Contrato Mayorista CONATEL)", cost: 5000 },
+  { item: "Módulo Telefonía Personal y Línea Infantil CONATEL", cost: 3200 },
   { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
   { item: "Gestión eSIM y Centro de Datos", cost: 2500 },
   { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
   { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
-  { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },
+  { item: "Alquiler Local Comercial (12 meses)", cost: 4800 },
+  { item: "Permisología (SENIAT / CONATEL / Municipal / Bomberos)", cost: 850 },
+  { item: "Acondicionamiento Inmobiliario del Local", cost: 2200 },
   { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800 },
+  { item: "Motocicleta de Despacho (Entrega a Domicilio)", cost: 1650 },
+  { item: "Inventario Inicial de Teléfonos (30 equipos)", cost: 4500 },
+  { item: "Hardware Papeleras Inteligentes Ameru.AI (10 uds)", cost: 683 },
   { item: "Equipos Fiscales Homologados SENIAT", cost: 1350 },
   { item: "Despliegue Operativo La Guaira", cost: 3250 },
 ];
 
 const zeduModules = [
     { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
-    { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
+    { id: "M2", title: "TELEFONÍA PERSONAL", desc: "Línea personal y línea infantil CONATEL certificada.", icon: Smartphone, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Activo" },
     { id: "M3", title: "CONECTIVIDAD 5G", desc: "Centro redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
-    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
+    { id: "M4", title: "MAG-SENSOR", desc: "Papeleras inteligentes con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
     { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
-    { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
+    { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" },
+    { id: "M7", title: "LÍNEA INFANTIL", desc: "Control parental CONATEL — menores 0 a 17 años.", icon: Activity, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "CONATEL" },
 ];
 
 export default function TerminalVaultPage() {
