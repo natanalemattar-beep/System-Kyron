@@ -51,12 +51,6 @@ export const loginOptions = [
         description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." 
     },
     { 
-        href: "/login-telecom", 
-        label: "Administración de Red", 
-        icon: Signal, 
-        description: "Gestión técnica de infraestructura, radiobases y provisión masiva." 
-    },
-    { 
         href: "/login-informatica", 
         label: "Ingeniería e IT", 
         icon: Cpu, 

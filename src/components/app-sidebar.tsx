@@ -37,7 +37,7 @@ export function AppSidebar() {
     if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) return legalNavGroups;
     if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas')) return rrhhNavGroups;
     if (pathname.includes('/dashboard-socios') || pathname.includes('/poderes-representacion')) return sociosNavGroups;
-    if (pathname.includes('/dashboard-telecom') || pathname.includes('/venta-linea')) return telecomNavGroups;
+    if (pathname.includes('/venta-linea')) return telecomNavGroups;
     
     // Default para Dashboard General o rutas no mapeadas
     return adminNavGroups;

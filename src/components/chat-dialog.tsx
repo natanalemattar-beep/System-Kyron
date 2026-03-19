@@ -47,7 +47,7 @@ const getAIIdentity = (pathname: string) => {
       icon: Gavel
     };
   }
-  if (pathname.includes('/dashboard-telecom') || pathname.includes('/venta-linea') || pathname.includes('/dashboard-informatica')) {
+  if (pathname.includes('/venta-linea') || pathname.includes('/dashboard-informatica')) {
     return {
       role: "Ingeniero de Operaciones",
       expertise: "Soporte técnico para redes 5G, aprovisionamiento eSIM y arquitectura de infraestructura de misión crítica.",
