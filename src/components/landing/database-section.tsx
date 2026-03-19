@@ -1,24 +1,40 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Database, Zap, Shield, Activity, Table2, GitBranch, Lock, RefreshCw, HardDrive, Layers, Network, BarChart2, CheckCircle2, ArrowRight, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* ─── Animated Counter ─── */
+/* ─── Simple Counter (SSR-safe) ─── */
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
-    const ref = useRef<HTMLSpanElement>(null);
+    const [displayed, setDisplayed] = useState(0);
+    
     useEffect(() => {
-        const controls = animate(0, to, {
-            duration: 2.2,
-            ease: "easeOut",
-            onUpdate(v) {
-                if (ref.current) ref.current.textContent = prefix + Math.round(v).toLocaleString() + suffix;
-            },
-        });
-        return controls.stop;
-    }, [to, prefix, suffix]);
-    return <span ref={ref}>{prefix}0{suffix}</span>;
+        let isMounted = true;
+        let current = 0;
+        const target = to;
+        const duration = 2200;
+        const startTime = Date.now();
+        
+        const animate = () => {
+            if (!isMounted) return;
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Easing: easeOut
+            const eased = 1 - Math.pow(1 - progress, 3);
+            current = Math.round(target * eased);
+            setDisplayed(current);
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        requestAnimationFrame(animate);
+        return () => { isMounted = false; };
+    }, [to]);
+    
+    return <span>{prefix}{displayed.toLocaleString()}{suffix}</span>;
 }
 
 /* ─── Blinking cursor ─── */
