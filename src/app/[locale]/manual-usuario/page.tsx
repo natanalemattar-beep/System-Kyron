@@ -361,7 +361,7 @@ export default function ManualUsuarioPage() {
         </div>
 
         <div class="footer">
-          <p>System Kyron • Telecom, Reciclaje y Control Total • Caracas, Venezuela</p>
+          <p>System Kyron • Inteligencia Corporativa · Riesgo Cero • Caracas, Venezuela</p>
           <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad Central.</p>
         </div>
       </body>
