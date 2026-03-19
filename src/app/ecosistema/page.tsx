@@ -70,7 +70,7 @@ export default function EcosistemaKyron() {
             >
               <div className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-8 border-primary pl-10 py-4">
                 <div>
-                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic italic-shadow leading-none">Centro de Mando</h2>
+                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic italic-shadow leading-none">Portal Integral de Control Corporativo</h2>
                     <p className="text-sm font-black text-primary uppercase tracking-[0.6em] mt-4">Terminal de Operaciones Globales • 2026</p>
                 </div>
                 <div className="flex gap-4">

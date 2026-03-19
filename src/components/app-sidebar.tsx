@@ -82,7 +82,7 @@ export function AppSidebar() {
         <Logo className="h-10 w-10 drop-shadow-glow" /> 
         <div className="text-center">
             <span className="text-[10px] font-black tracking-[0.4em] text-foreground uppercase italic leading-none">System Kyron</span>
-            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Centro de Mando</p>
+            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Control Corporativo</p>
         </div>
       </div>
       

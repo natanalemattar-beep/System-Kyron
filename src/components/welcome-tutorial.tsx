@@ -60,7 +60,7 @@ const steps = [
   },
   {
     title: "Panel Empresarial",
-    description: "Gestiona tu empresa desde el Centro de Mando: contabilidad VEN-NIF, nómina con SSO, facturación SENIAT con tasa BCV, cuentas por pagar y cobrar, y mucho más.",
+    description: "Gestiona tu empresa desde el Portal Integral de Control Corporativo: contabilidad VEN-NIF, nómina con SSO, facturación SENIAT con tasa BCV, cuentas por pagar y cobrar, y mucho más.",
     icon: Building2,
     color: "text-blue-400",
     bg: "bg-blue-400/15",

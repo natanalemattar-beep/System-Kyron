@@ -143,7 +143,7 @@ export default function DashboardEmpresaPage() {
                         <Calculator className="h-3 w-3" /> CENTRO OPERATIVO CENTRAL
                     </div>
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-foreground italic-shadow">
-                        CENTRO DE <span className="text-primary italic">MANDO</span>
+                        PORTAL INTEGRAL DE CONTROL <span className="text-primary italic">CORPORATIVO</span>
                     </h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
                         {user?.nombre ? `${user.nombre} • ` : ''}Portal Empresarial • Gestión Consolidada 2026
