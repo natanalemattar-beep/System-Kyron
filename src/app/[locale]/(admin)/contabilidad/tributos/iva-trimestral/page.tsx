@@ -39,7 +39,7 @@ export default function IvaTrimestralPage() {
                                     <ul className="space-y-3">
                                         {["Constancia de Actividad Exenta", "RIF Corporativo", "Copia de Gaceta de Exoneración", "Registro de Compras Sin IVA"].map((doc, i) => (
                                             <li key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-foreground/60">
-                                                <CheckCircle className="h-4 w-4 text-primary" /> {item}
+                                                <CheckCircle className="h-4 w-4 text-primary" /> {doc}
                                             </li>
                                         ))}
                                     </ul>

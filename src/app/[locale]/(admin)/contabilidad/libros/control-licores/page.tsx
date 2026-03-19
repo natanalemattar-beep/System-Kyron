@@ -2,7 +2,8 @@
 
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Landmark, CirclePlus as PlusCircle, ArrowLeft, Download, Search, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";

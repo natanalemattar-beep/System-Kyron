@@ -46,7 +46,7 @@ function footer(s: pptxgen.Slide, num: number, dur: string, tag: string, tagColo
   s.addText(`${num} / ${TOTAL}  ·  SYSTEM KYRON — PITCH DECK  ·  CONFIDENCIAL`, {
     x: 0.3, y: H - 0.41, w: 8.5, h: 0.32, fontSize: 7, color: C.gray, fontFace: 'Arial',
   });
-  s.addShape('rect', { x: 9.8, y: H - 0.43, w: 3.3, h: 0.36, fill: { color: tagColor + '22' }, line: { color: tagColor, pt: 0.75 }, rounding: true });
+  s.addShape('rect', { x: 9.8, y: H - 0.43, w: 3.3, h: 0.36, fill: { color: tagColor + '22' }, line: { color: tagColor, pt: 0.75 } });
   s.addText(`⏱ ${dur}  ·  ${tag}`, {
     x: 9.8, y: H - 0.43, w: 3.3, h: 0.36, fontSize: 7.5, bold: true, color: tagColor, fontFace: 'Arial', align: 'center', valign: 'middle',
   });
@@ -72,7 +72,7 @@ function kpiRow(s: pptxgen.Slide, items: { val: string; desc: string }[], y = 5.
   items.forEach((item, i) => {
     const x = 0.3 + i * w;
     const col = colors[i % colors.length];
-    s.addShape('rect', { x, y, w: w - 0.1, h: 0.8, fill: { color: col + '18' }, line: { color: col, pt: 1 }, rounding: true });
+    s.addShape('rect', { x, y, w: w - 0.1, h: 0.8, fill: { color: col + '18' }, line: { color: col, pt: 1 } });
     s.addText(item.val, {
       x: x + 0.1, y: y + 0.03, w: w - 0.3, h: 0.42,
       fontSize: 16, bold: true, italic: true, color: col, fontFace: 'Arial', align: 'center',
@@ -84,8 +84,8 @@ function kpiRow(s: pptxgen.Slide, items: { val: string; desc: string }[], y = 5.
   });
 }
 
-function rect(s: pptxgen.Slide, x: number, y: number, w: number, h: number, fill: string, line?: string, rounding = false) {
-  s.addShape('rect', { x, y, w, h, fill: { color: fill }, line: { color: line ?? fill }, rounding });
+function rect(s: pptxgen.Slide, x: number, y: number, w: number, h: number, fill: string, line?: string) {
+  s.addShape('rect', { x, y, w, h, fill: { color: fill }, line: { color: line ?? fill } });
 }
 
 // ── route ────────────────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@ export async function POST() {
       s.addText('Ronda Seed · $500.000 USD', { x: 5.1, y: 4.48, w: 7.9, h: 0.42, fontSize: 14, bold: true, color: C.green, fontFace: 'Arial' });
       s.addText('Sector Privado Venezolano  ·  Q1 2026  ·  12 diapositivas', { x: 5.1, y: 5.0, w: 7.9, h: 0.35, fontSize: 10, color: C.gray, fontFace: 'Arial' });
 
-      rect(s, 5.1, 5.65, 4.0, 0.78, C.blue, C.blue, true);
+      rect(s, 5.1, 5.65, 4.0, 0.78, C.blue, C.blue);
       s.addText('⏱  PITCH DE 27 MINUTOS', { x: 5.1, y: 5.65, w: 4.0, h: 0.78, fontSize: 13, bold: true, color: C.white, fontFace: 'Arial', align: 'center', valign: 'middle' });
 
       s.addNotes('PORTADA\n\n[Entrar en escena. Contacto visual. Silencio breve.]\n\n"Buenos días / buenas tardes. Soy [Nombre], fundador de System Kyron. Gracias por este espacio."\n\n[Avanzar de inmediato a la siguiente diapositiva.]');
@@ -145,7 +145,7 @@ export async function POST() {
         x: 0.4, y: 4.15, w: 12.55, h: 0.55,
         fontSize: 14, color: C.offWhite, fontFace: 'Arial', align: 'center', italic: true,
       });
-      rect(s, 2.5, 4.85, 8.3, 0.72, C.blue, C.blue, true);
+      rect(s, 2.5, 4.85, 8.3, 0.72, C.blue, C.blue);
       s.addText('System Kyron. El sistema operativo del empresario venezolano del siglo XXI.', {
         x: 2.5, y: 4.85, w: 8.3, h: 0.72, fontSize: 13, bold: true, color: C.white, fontFace: 'Arial', align: 'center', valign: 'middle',
       });
@@ -209,7 +209,7 @@ export async function POST() {
       mods.forEach((m, i) => {
         const col = i % 2, row = Math.floor(i / 2);
         const x = 0.3 + col * 6.5, y = 2.1 + row * 1.82;
-        s.addShape('rect', { x, y, w: 6.35, h: 1.7, fill: { color: C.navyCard }, line: { color: m.col, pt: 1 }, rounding: true });
+        s.addShape('rect', { x, y, w: 6.35, h: 1.7, fill: { color: C.navyCard }, line: { color: m.col, pt: 1 } });
         rect(s, x, y, 6.35, 0.08, m.col, m.col);
         s.addText(`${m.icon}  ${m.t}`, { x: x + 0.18, y: y + 0.18, w: 6.0, h: 0.42, fontSize: 11, bold: true, color: C.white, fontFace: 'Arial' });
         s.addText(m.d, { x: x + 0.18, y: y + 0.65, w: 6.0, h: 0.9, fontSize: 9.5, color: C.gray, fontFace: 'Arial', lineSpacingMultiple: 1.3 });
@@ -270,7 +270,7 @@ export async function POST() {
       ];
       planes.forEach((p, i) => {
         const y = 2.0 + i * 1.35;
-        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.22, fill: { color: C.navyCard }, line: { color: p.col, pt: 1 }, rounding: true });
+        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.22, fill: { color: C.navyCard }, line: { color: p.col, pt: 1 } });
         rect(s, 0.3, y, 12.75, 0.08, p.col, p.col);
         s.addText(`${p.icon}  ${p.t}`, { x: 0.5, y: y + 0.18, w: 12.3, h: 0.42, fontSize: 13, bold: true, color: C.white, fontFace: 'Arial' });
         s.addText(p.d, { x: 0.5, y: y + 0.64, w: 12.3, h: 0.45, fontSize: 10, color: C.gray, fontFace: 'Arial' });
@@ -303,12 +303,12 @@ export async function POST() {
       ];
       difs.forEach((d, i) => {
         const y = 2.05 + i * 1.1;
-        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 0.98, fill: { color: C.navyCard }, line: { color: d.col + '80', pt: 1 }, rounding: true });
+        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 0.98, fill: { color: C.navyCard }, line: { color: d.col + '80', pt: 1 } });
         s.addText(d.icon, { x: 0.42, y: y + 0.18, w: 0.68, h: 0.55, fontSize: 22, align: 'center' });
         s.addText(d.t, { x: 1.22, y: y + 0.1, w: 11.55, h: 0.4, fontSize: 11.5, bold: true, color: C.white, fontFace: 'Arial' });
         s.addText(d.d, { x: 1.22, y: y + 0.52, w: 11.55, h: 0.38, fontSize: 9.5, color: C.gray, fontFace: 'Arial' });
       });
-      rect(s, 0.3, 6.5, 12.75, 0.38, C.cyan + '18', C.cyan, true);
+      rect(s, 0.3, 6.5, 12.75, 0.38, C.cyan + '18', C.cyan);
       s.addText('SAP, QuickBooks, Aspel — no tienen ni la mitad de estas capacidades adaptadas a Venezuela. Y cuestan 10 veces más.', {
         x: 0.3, y: 6.5, w: 12.75, h: 0.38, fontSize: 9.5, italic: true, bold: true, color: C.cyan, fontFace: 'Arial', align: 'center', valign: 'middle',
       });
@@ -336,7 +336,7 @@ export async function POST() {
       ];
       logros.forEach((l, i) => {
         const y = 2.05 + i * 1.25;
-        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.12, fill: { color: C.navyCard }, line: { color: l.col, pt: 1 }, rounding: true });
+        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.12, fill: { color: C.navyCard }, line: { color: l.col, pt: 1 } });
         rect(s, 0.3, y, 12.75, 0.08, l.col, l.col);
         s.addText(l.icon + '  ' + l.t, { x: 0.5, y: y + 0.18, w: 12.3, h: 0.4, fontSize: 12, bold: true, color: C.white, fontFace: 'Arial' });
         s.addText(l.d, { x: 0.5, y: y + 0.62, w: 12.3, h: 0.42, fontSize: 10, color: C.gray, fontFace: 'Arial' });
@@ -375,7 +375,7 @@ export async function POST() {
       ];
       rows.forEach((r, i) => {
         const y = 2.52 + i * 1.3;
-        s.addShape('rect', { x: 0.22, y: y - 0.05, w: 12.95, h: 1.18, fill: { color: i === 2 ? C.navyCard : C.navy }, line: { color: i === 2 ? r.col : C.grayDark, pt: i === 2 ? 1.5 : 0.5 }, rounding: true });
+        s.addShape('rect', { x: 0.22, y: y - 0.05, w: 12.95, h: 1.18, fill: { color: i === 2 ? C.navyCard : C.navy }, line: { color: i === 2 ? r.col : C.grayDark, pt: i === 2 ? 1.5 : 0.5 } });
         if (i === 2) rect(s, 0.22, y - 0.05, 0.12, 1.18, r.col);
         s.addText(r.emoji + ' ' + r.year, { x: cx[0], y: y + 0.18, w: cw[0], h: 0.6, fontSize: 20, bold: true, italic: true, color: r.col, fontFace: 'Arial' });
         r.vals.forEach((v, vi) => {
@@ -413,13 +413,13 @@ export async function POST() {
       ];
       mbs.forEach((m, i) => {
         const y = 2.05 + i * 1.22;
-        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.1, fill: { color: C.navyCard }, line: { color: m.col, pt: 1 }, rounding: true });
+        s.addShape('rect', { x: 0.3, y, w: 12.75, h: 1.1, fill: { color: C.navyCard }, line: { color: m.col, pt: 1 } });
         s.addShape('ellipse', { x: 0.42, y: y + 0.2, w: 0.72, h: 0.72, fill: { color: m.col + '28' }, line: { color: m.col, pt: 1.5 } });
         s.addText('👤', { x: 0.42, y: y + 0.2, w: 0.72, h: 0.72, fontSize: 18, align: 'center', valign: 'middle' });
         s.addText(m.rol, { x: 1.3, y: y + 0.1, w: 11.5, h: 0.35, fontSize: 9, bold: true, color: m.col, fontFace: 'Arial', charSpacing: 1 });
         s.addText(m.d,   { x: 1.3, y: y + 0.48, w: 11.5, h: 0.52, fontSize: 10, color: C.gray, fontFace: 'Arial' });
       });
-      rect(s, 0.3, 5.75, 12.75, 0.42, C.navyCard, C.grayDark, true);
+      rect(s, 0.3, 5.75, 12.75, 0.42, C.navyCard, C.grayDark);
       s.addText('Advisory Board: Abogados mercantiles · Contadores Públicos certificados · Especialistas fintech latinoamericano', {
         x: 0.3, y: 5.75, w: 12.75, h: 0.42, fontSize: 10, italic: true, color: C.gray, fontFace: 'Arial', align: 'center', valign: 'middle',
       });
@@ -448,11 +448,11 @@ export async function POST() {
       ];
       usos.forEach((u, i) => {
         const y = 2.05 + i * 1.2;
-        s.addShape('rect', { x: 0.3, y, w: 1.55, h: 1.05, fill: { color: u.col + '1E' }, line: { color: u.col, pt: 1.5 }, rounding: true });
+        s.addShape('rect', { x: 0.3, y, w: 1.55, h: 1.05, fill: { color: u.col + '1E' }, line: { color: u.col, pt: 1.5 } });
         s.addText(u.pct, { x: 0.3, y, w: 1.55, h: 1.05, fontSize: 24, bold: true, italic: true, color: u.col, fontFace: 'Arial', align: 'center', valign: 'middle' });
         s.addText(u.t, { x: 2.05, y: y + 0.05, w: 11.0, h: 0.4, fontSize: 12, bold: true, color: C.white, fontFace: 'Arial' });
-        rect(s, 2.05, y + 0.52, u.bw, 0.14, u.col, u.col, true);
-        rect(s, 2.05 + u.bw, y + 0.52, 11.0 - u.bw, 0.14, u.col + '25', u.col + '25', true);
+        rect(s, 2.05, y + 0.52, u.bw, 0.14, u.col, u.col);
+        rect(s, 2.05 + u.bw, y + 0.52, 11.0 - u.bw, 0.14, u.col + '25', u.col + '25');
         s.addText(u.d, { x: 2.05, y: y + 0.72, w: 11.0, h: 0.35, fontSize: 9.5, color: C.gray, fontFace: 'Arial' });
       });
 
@@ -479,7 +479,7 @@ export async function POST() {
         x: 1.5, y: 2.25, w: W - 3, h: 1.3, fontSize: 15, italic: true, color: C.offWhite, fontFace: 'Arial', align: 'center', lineSpacingMultiple: 1.4,
       });
 
-      rect(s, 3.4, 3.78, 6.53, 0.85, C.blue, C.blue, true);
+      rect(s, 3.4, 3.78, 6.53, 0.85, C.blue, C.blue);
       s.addText('CONVERSEMOS HOY → SEED $500.000 USD', { x: 3.4, y: 3.78, w: 6.53, h: 0.85, fontSize: 17, bold: true, color: C.white, fontFace: 'Arial', align: 'center', valign: 'middle' });
 
       [
@@ -508,7 +508,7 @@ export async function POST() {
         JSON.stringify({ slides: TOTAL, duracion: '27 min', layout: 'WIDE', version: '4.0', notas: 'incluidas' })]
     ).catch(() => {});
 
-    return new NextResponse(buffer, {
+    return new NextResponse(new Uint8Array(buffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',

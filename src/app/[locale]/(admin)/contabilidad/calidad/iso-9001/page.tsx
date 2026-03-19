@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, FileText, CircleCheck as CheckCircle, Activity, Terminal, Download, Eye, Layers, Scale, ClipboardCheck, Search, Wand as Wand2, Settings } from "lucide-react";
+import { ShieldCheck, FileText, CircleCheck as CheckCircle, Activity, Terminal, Download, Eye, Layers, Scale, ClipboardCheck, Search, Wand as Wand2, Settings, Lock } from "lucide-react";
+import type { ElementType } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
@@ -92,20 +93,23 @@ export default function IsoManualsPage() {
             </header>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {[
-                    { label: "Cumplimiento Normativo", val: "100%", color: "text-emerald-500", icon: CheckCircle },
-                    { label: "Documentos Sellados", val: "1,245", color: "text-primary", icon: Lock },
-                    { label: "No Conformidades", val: "0", color: "text-emerald-500", icon: ShieldCheck },
-                    { label: "Última Auditoría", val: "EXITOSA", color: "text-primary", icon: Activity },
-                ].map((stat, i) => (
+                {([ 
+                    { label: "Cumplimiento Normativo", val: "100%", color: "text-emerald-500", icon: CheckCircle as ElementType },
+                    { label: "Documentos Sellados", val: "1,245", color: "text-primary", icon: Lock as ElementType },
+                    { label: "No Conformidades", val: "0", color: "text-emerald-500", icon: ShieldCheck as ElementType },
+                    { label: "Última Auditoría", val: "EXITOSA", color: "text-primary", icon: Activity as ElementType },
+                ] as { label: string; val: string; color: string; icon: ElementType }[]).map((stat, i) => {
+                    const StatIcon = stat.icon;
+                    return (
                     <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
                         <div className="flex justify-between items-center mb-4">
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
-                            <stat.icon className={cn("h-4 w-4", stat.color)} />
+                            <StatIcon className={cn("h-4 w-4", stat.color)} />
                         </div>
                         <p className={cn("text-2xl font-black italic tracking-tighter leading-none", stat.color)}>{stat.val}</p>
                     </Card>
-                ))}
+                    );
+                })}
             </div>
 
             <div className="mb-10">

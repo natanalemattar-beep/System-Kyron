@@ -102,31 +102,6 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ success: true, documento: doc });
 }
 
-export async function DELETE(req: NextRequest) {
-  const session = await getSession();
-  if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
-
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id');
-  if (!id) return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
-
-  await query(
-    `DELETE FROM documentos_juridicos WHERE id = $1 AND user_id = $2`,
-    [parseInt(id), session.userId]
-  );
-
-  await logActivity({
-    userId: session.userId,
-    evento: 'DOCUMENTO_JURIDICO_ELIMINADO',
-    categoria: 'legal',
-    descripcion: `Documento jurídico #${id} eliminado`,
-    entidadTipo: 'documento_juridico',
-    entidadId: parseInt(id),
-  });
-
-  return NextResponse.json({ success: true });
-}
-
 export async function PATCH(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });

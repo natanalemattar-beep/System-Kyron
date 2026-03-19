@@ -137,6 +137,27 @@ export const pathnames = {
   '/marketing/inversion': '/marketing/inversion',
   '/marketing/campanas': '/marketing/campanas',
 
+  // VENTAS
+  '/estrategias-ventas': '/estrategias-ventas',
+
+  // ANÁLISIS
+  '/analisis': '/analisis',
+  '/analisis/todos': '/analisis/todos',
+
+  // CONTABILIDAD EXTRAS
+  '/contabilidad/conciliacion-bancaria': '/contabilidad/conciliacion-bancaria',
+
+  // HERRAMIENTAS Y UTILIDADES
+  '/generador-documentos': '/generador-documentos',
+  '/manual-usuario': '/manual-usuario',
+  '/permisos': '/permisos',
+  '/sector-privado-system-kyron': '/sector-privado-system-kyron',
+  '/tarjeta-digital': '/tarjeta-digital',
+  '/venta-linea': '/venta-linea',
+  '/invoices': '/invoices',
+  '/recover-legal': '/recover-legal',
+  '/cuentas': '/cuentas',
+
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/facturacion': '/ventas/facturacion',

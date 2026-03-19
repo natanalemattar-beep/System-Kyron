@@ -45,8 +45,8 @@ const generateSalesStrategiesFlow = ai.defineFlow(
         prompt: `You are a world-class sales and marketing strategist for a Venezuelan company selling office supplies, tech, and furniture.
   
         Analyze the following sales data:
-        - Top Selling Products: {{{json topProducts}}}
-        - Bottom Selling Products: {{{json bottomProducts}}}
+        - Top Selling Products: ${JSON.stringify(input.topProducts)}
+        - Bottom Selling Products: ${JSON.stringify(input.bottomProducts)}
 
         Based on this data, you must generate exactly 3 creative, actionable, and impactful sales strategies. For each strategy, provide a title, a description, an estimated impact, and an appropriate icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty programs).
         
@@ -62,7 +62,6 @@ const generateSalesStrategiesFlow = ai.defineFlow(
         
         Focus on strategies like bundling (combos), cross-selling (promociones), and loyalty programs. Be specific and tailor the strategies to the provided products.
         `,
-        input,
         output: { schema: SalesStrategyOutputSchema },
         config: {
           safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],

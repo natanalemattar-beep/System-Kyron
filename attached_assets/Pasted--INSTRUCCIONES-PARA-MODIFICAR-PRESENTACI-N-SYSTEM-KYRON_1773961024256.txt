@@ -1,0 +1,42 @@
+## INSTRUCCIONES PARA MODIFICAR PRESENTACIÓN SYSTEM KYRON
+
+Recibirás un archivo PPTX llamado "System Kyron - Demo Day Kurios x EY.pptx". Debes MODIFICARLO aplicando EXACTAMENTE estos cambios:
+
+### 1. MÓDULOS: REDUCIR DE 10 A 9
+- Eliminar "Admin Red" de TODAS las diapositivas
+- Cambiar título a "System Kyron: Ecosistema de 9 módulos"
+- Redistribuir el grid a 3x3 (9 casillas)
+
+### 2. MÓDULO 3: CONTABILIDAD + TODOS LOS PERMISOS (PARAFISCALES, MINISTERIALES, CONATEL)
+- Cambiar nombre de "Contabilidad IA" a **"Contabilidad + todos los permisos (parafiscales, ministeriales, CONATEL)"**
+- En su descripción detallada, incluir:
+  - 📚 Libros fiscales homologados SENIAT
+  - 🤖 IA predictiva con pre-alertas de impuestos
+  - 📡 **Permisos CONATEL:** homologación IMEI, verificación de equipos
+  - 🏛️ **Permisos parafiscales y ministeriales:** IVSS, FAOV, INCES, Paro Forzoso, LOPCYMAT, y otros organismos oficiales
+  - 💰 Conciliación bancaria automática
+- Eliminar cualquier mención a monitoreo 5G, QoS o alertas de fallas
+
+### 3. ALIANZAS: CORREGIR NOMBRE Y BADGES
+- Cambiar "[THE FACTORY HKA]" por "[HKA FACTORY]"
+- Agregar badge **"EN DESARROLLO"** en TODOS los logos de aliados
+
+### 4. ECO‑CRÉDITOS: AGREGAR BADGE
+- En diapositiva de Sostenibilidad, agregar badge **"EN DESARROLLO"** junto a "Eco‑Créditos" o "canje de puntos"
+
+### 5. MULTI‑LENGUAJE (INGLÉS)
+- Módulo 1: agregar "🌐 Multi‑lenguaje: español e inglés"
+- Roadmap 2026: agregar "Plataforma bilingüe (ES/EN)"
+
+### 6. CALL TO ACTION: AGREGAR ESPACIO PARA QR
+- En última diapositiva, lado derecho: recuadro punteado con ícono QR y texto **"[ESCANEA PARA VER PROPUESTA]"**
+- Mantener logo Kyron a la izquierda
+
+### 7. CONSERVAR TODO LO DEMÁS IGUAL
+- Portada, datos relevantes, problema, modelo de negocio, Kyron Shield, desafíos, perfil de José, mercado, equipo, "¿Por qué nosotros?" deben quedar IDÉNTICOS
+
+### REGLAS VISUALES
+- Mantener colores: fondo **#0A2472**, acentos **#00FF00**
+- Mantener glassmorphism y tipografía 'Inter'/'Poppins'
+- Conservar placeholders existentes: [FOTO CARLOS], [FOTO SEBASTIÁN], [FOTO MARCOS], [FOTO DE JOSÉ]
+- NO usar imágenes reales, solo placeholders

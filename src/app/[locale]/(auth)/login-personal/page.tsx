@@ -135,8 +135,8 @@ export default function LoginPersonalPage() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center px-1">
                                 <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Contraseña</Label>
-                                <Button variant="link" asChild className="p-0 h-auto text-[8px] font-black text-primary uppercase hover:no-underline">
-                                    <Link href="#">¿Olvidó su clave?</Link>
+                                <Button variant="link" className="p-0 h-auto text-[8px] font-black text-primary uppercase hover:no-underline">
+                                    ¿Olvidó su clave?
                                 </Button>
                             </div>
                             <div className="relative">

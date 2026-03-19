@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Percent, Download, ShieldCheck, Activity, Landmark, FileText, ShieldAlert, Terminal, Zap, Filter, CirclePlus as PlusCircle, ArrowRight, Ban, Coins, CreditCard, History, CircleCheck as CheckCircle } from "lucide-react";
+import { Percent, Download, ShieldCheck, Activity, Landmark, FileText, ShieldAlert, Terminal, Zap, Filter, CirclePlus as PlusCircle, ArrowRight, Ban, Coins, CreditCard, History, CircleCheck as CheckCircle, Banknote } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";

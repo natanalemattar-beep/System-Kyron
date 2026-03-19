@@ -275,7 +275,7 @@ function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
 }
 
 /* ─── Metric pill ─── */
-function MetricPill({ icon: Icon, label, value, suffix, color }: { icon: React.ElementType; label: string; value: number; suffix?: string; color: string }) {
+function MetricPill({ icon: Icon, label, value, suffix, color }: { icon: React.ElementType; label: string; value: number; suffix?: string; color: string; delay?: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.85 }}

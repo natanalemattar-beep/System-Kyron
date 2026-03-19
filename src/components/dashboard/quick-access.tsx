@@ -39,7 +39,7 @@ export function QuickAccess({ navGroups }: QuickAccessProps) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {groupsToShow.map((group) => (
-          (group.items.length > 0 || group.subGroups.length > 0) && (
+          (group.items.length > 0 || (group.subGroups?.length ?? 0) > 0) && (
             <div key={group.title} className="w-full">
                 <Card className="glass-card border-none h-full flex flex-col group overflow-hidden rounded-[1.5rem]">
                     <CardHeader className="p-4 md:p-6 border-b border-white/5 bg-white/[0.01]">

@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, TrendingUp, DollarSign, Users, Calculator, Smartphone, Recycle, Gavel, BarChart3 } from "lucide-react";
-import { Link } from "@/navigation";
+import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 
 const kpis = [
@@ -86,7 +86,7 @@ export function PanelControlHero() {
           <div className="p-5 border-t border-white/8">
             <div className="grid grid-cols-3 gap-2.5">
               {modules.map((mod, i) => (
-                <Link
+                <NextLink
                   key={mod.label}
                   href={mod.href}
                   className={cn(
@@ -100,13 +100,13 @@ export function PanelControlHero() {
                   <p className="text-[9px] font-black uppercase tracking-tight text-white/60 leading-tight">
                     {mod.label}
                   </p>
-                </Link>
+                </NextLink>
               ))}
             </div>
           </div>
 
           {/* Footer CTA */}
-          <Link href="/register" className="block group">
+          <NextLink href="/register" className="block group">
             <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-primary/15 to-transparent border-t border-primary/15 hover:from-primary/25 transition-all">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-4 w-4 text-primary" />
@@ -117,7 +117,7 @@ export function PanelControlHero() {
               </div>
               <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
             </div>
-          </Link>
+          </NextLink>
         </div>
 
         {/* Tagline below panel */}

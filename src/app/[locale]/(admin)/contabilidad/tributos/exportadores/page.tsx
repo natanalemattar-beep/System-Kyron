@@ -39,7 +39,7 @@ export default function ExportadoresPage() {
                                     <ul className="space-y-3">
                                         {["Certificado de Origen", "RIF de Exportador", "Permiso de Exportación de Minerales", "Contrato de Regalías Vigente"].map((doc, i) => (
                                             <li key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-foreground/60">
-                                                <CheckCircle className="h-4 w-4 text-primary" /> {item}
+                                                <CheckCircle className="h-4 w-4 text-primary" /> {doc}
                                             </li>
                                         ))}
                                     </ul>

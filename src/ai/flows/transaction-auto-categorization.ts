@@ -49,12 +49,11 @@ const categorizeTransactionFlow = ai.defineFlow(
       model: 'googleai/gemini-1.5-pro-latest',
       prompt: `You are a financial expert. Categorize the given transaction based on its description and amount.
 
-      Transaction Description: {{{transactionDescription}}}
-      Transaction Amount: {{{transactionAmount}}}
+      Transaction Description: ${input.transactionDescription}
+      Transaction Amount: ${input.transactionAmount}
       
       Respond with the category of the transaction and your confidence level in the categorization.
       Ensure that the "confidence" is between 0 and 1.`,
-      input,
       output: { schema: CategorizeTransactionOutputSchema },
       config: {
         safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],

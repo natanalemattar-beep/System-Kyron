@@ -90,7 +90,7 @@ export default function LibroInventarioPage() {
                   <TableCell className="text-xs font-medium text-slate-500">{item.cat}</TableCell>
                   <TableCell className={cn("text-center font-black text-sm", item.stock < item.min ? "text-rose-500" : "text-slate-700")}>{item.stock}</TableCell>
                   <TableCell className="text-center font-medium text-xs text-slate-400">{item.min}</TableCell>
-                  <TableCell className="text-right font-mono text-xs font-bold">{formatCurrency(item.price, 'Bs.')}</TableCell>
+                  <TableCell className="text-right font-mono text-xs font-bold">{formatCurrency(item.precio, 'Bs.')}</TableCell>
                   <TableCell className="text-right pr-8">
                     {item.stock < item.min ? (
                       <Badge variant="destructive" className="text-[8px] font-black uppercase tracking-tighter flex items-center gap-1">

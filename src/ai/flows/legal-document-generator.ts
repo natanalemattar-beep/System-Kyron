@@ -23,13 +23,13 @@ export async function generateLegalDocument(input: LegalDocumentInput): Promise<
     model: 'googleai/gemini-1.5-pro-latest',
     prompt: `Eres un experto abogado venezolano senior con amplia experiencia en derecho civil y mercantil.
     
-    Tu tarea es redactar un borrador profesional de un documento legal de tipo: {{{documentType}}}.
+    Tu tarea es redactar un borrador profesional de un documento legal de tipo: ${input.documentType}.
     
     LAS PARTES:
-    {{{parties}}}
+    ${input.parties}
     
     REQUISITOS ADICIONALES:
-    {{{specificClauses}}}
+    ${input.specificClauses ?? ''}
     
     INSTRUCCIONES TÉCNICAS:
     1. Usa un lenguaje jurídico formal, preciso y elegante.
@@ -38,7 +38,6 @@ export async function generateLegalDocument(input: LegalDocumentInput): Promise<
     4. El documento debe estar listo para revisión legal final.
     
     Escribe el documento completo con formato profesional.`,
-    input,
   });
   return text;
 }

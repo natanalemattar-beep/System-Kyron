@@ -8,6 +8,7 @@ import { Landmark, ArrowLeft, Activity, Terminal, ShieldCheck } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 /**

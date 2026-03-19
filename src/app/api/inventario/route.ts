@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     await logActivity({
         userId: session.userId,
         evento: 'NUEVO_PRODUCTO_INVENTARIO',
-        categoria: 'inventario',
+        categoria: 'sistema',
         descripcion: `Producto registrado: ${nombre} — SKU: ${sku || 'N/A'}`,
         entidadTipo: 'inventario',
         entidadId: (item as { id: number }).id,

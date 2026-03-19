@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Calculator, CircleCheck as CheckCircle, Download, Printer, Activity, ShieldCheck, Terminal, Scale, History, FileText, Zap, TrendingUp } from "lucide-react";
+import { Calculator, CircleCheck as CheckCircle, Download, Printer, Activity, ShieldCheck, Terminal, Scale, History, FileText, Zap, TrendingUp, Loader as Loader2 } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";

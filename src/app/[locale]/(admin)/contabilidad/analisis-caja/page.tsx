@@ -6,6 +6,8 @@ import { CashPosition } from "@/components/finanzas/cash-position";
 import { CollectionForecast } from "@/components/finanzas/collection-forecast";
 import { Activity, Wallet, TrendingUp, Download, Terminal, ArrowLeft, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";

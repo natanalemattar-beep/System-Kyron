@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Recycle, Leaf, TrendingUp, MapPin, Coins, ArrowUpRight, ArrowDownRight, RefreshCw, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Clock, ChartBar as BarChart3, ArrowRight } from "lucide-react";
+import { Recycle, Leaf, TrendingUp, MapPin, Coins, ArrowUpRight, ArrowDownRight, RefreshCw, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Clock, ChartBar as BarChart3, ArrowRight, Terminal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import Image from "next/image";
-import { PlaceHolderImages } from "@/app/lib/placeholder-images.json";
+import placeholderImagesData from "@/app/lib/placeholder-images.json";
+const PlaceHolderImages = placeholderImagesData.placeholderImages;
 
 const recyclingHistory = [
     { id: 1, fecha: "15/03/2026", tipo: "Papel", peso: "2.5 kg", ecr: "+50", bin: "Ameru IA - Sede A" },

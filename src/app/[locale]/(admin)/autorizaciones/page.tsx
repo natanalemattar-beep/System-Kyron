@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Clock, QrCode, Activity, Terminal, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

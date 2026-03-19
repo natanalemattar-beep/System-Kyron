@@ -56,9 +56,8 @@ const consultGaceta6952Flow = ai.defineFlow(
         * **Tono:** Mantén un lenguaje formal, preciso y jurídico.
 
         **Consulta del Usuario:**
-        {{{query}}}
+        ${input.query}
       `,
-      input,
       config: {
         temperature: 0.1, // Obliga al modelo a ser literal y evitar "alucinaciones".
       }

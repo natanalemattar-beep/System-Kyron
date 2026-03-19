@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Cpu, CloudUpload as UploadCloud, Download, Save, Ruler, Calculator, Loader as Loader2, Plus, Trash2, ShieldCheck, Terminal } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";

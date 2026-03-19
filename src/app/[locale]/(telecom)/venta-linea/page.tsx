@@ -139,7 +139,7 @@ export default function VentaLineaPage() {
                                         >
                                             <div className="flex-1">
                                                 <p className="font-black text-[10px] uppercase tracking-tight text-white/90">{plan.nombre}</p>
-                                                <p className="text-[8px] text-muted-foreground font-bold uppercase opacity-40">{plan.description}</p>
+                                                <p className="text-[8px] text-muted-foreground font-bold uppercase opacity-40">{plan.descripcion}</p>
                                             </div>
                                             <p className="font-black text-primary italic text-xs">{formatCurrency(plan.precio, 'USD')}</p>
                                         </div>

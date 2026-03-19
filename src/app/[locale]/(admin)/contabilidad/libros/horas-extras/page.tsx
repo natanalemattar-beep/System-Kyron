@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Clock, CirclePlus as PlusCircle, ArrowLeft, Timer, FileSpreadsheet } from "lucide-react";
+import { Clock, CirclePlus as PlusCircle, ArrowLeft, Timer, FileSpreadsheet, CircleCheck as CheckCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 

@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, RefreshCw, Star, Activity } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import { Link } from "@/navigation";

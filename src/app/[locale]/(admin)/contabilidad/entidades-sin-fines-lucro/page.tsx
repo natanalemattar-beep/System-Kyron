@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Handshake, Heart, Church, Building, Coins, FileText, ShieldCheck, Activity, Terminal, Download, Printer, Users, ClipboardList, TrendingUp, Zap, CircleCheck as CheckCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

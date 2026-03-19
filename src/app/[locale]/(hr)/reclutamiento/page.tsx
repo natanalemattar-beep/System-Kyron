@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserPlus, CirclePlus as PlusCircle, Search, Eye, Signature as FileSignature, GraduationCap, ShieldCheck, Activity, Terminal, CircleCheck as CheckCircle, Users, Briefcase, Zap, Scale } from "lucide-react";
+import { UserPlus, CirclePlus as PlusCircle, Search, Eye, Signature as FileSignature, GraduationCap, ShieldCheck, Activity, Terminal, CircleCheck as CheckCircle, Users, Briefcase, Zap, Scale, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";

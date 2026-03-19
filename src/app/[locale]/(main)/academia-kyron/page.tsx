@@ -4,6 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { School, CirclePlay as PlayCircle, BookOpen, Award, CircleCheck as CheckCircle, Clock, Star, Zap, BrainCircuit } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import Image from "next/image";
