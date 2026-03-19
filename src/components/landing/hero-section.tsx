@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useScroll, useSpring } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Activity, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, TrendingUp, DollarSign, Building2, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
@@ -46,16 +46,62 @@ export function HeroSection() {
     return (
         <section id="inicio" className="relative pt-28 pb-16 md:pt-40 md:pb-32 overflow-hidden min-h-[96vh] flex items-center">
 
-            {/* ── Background Orbs ── */}
+            {/* ── Background Orbs (animated) ── */}
             <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]" />
-                <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-500/8 blur-[120px]" />
-                <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-500/8 blur-[100px]" />
+                <motion.div
+                    animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]"
+                />
+                <motion.div
+                    animate={{ x: [0, -25, 0], y: [0, 30, 0], scale: [1, 1.05, 1] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-500/8 blur-[120px]"
+                />
+                <motion.div
+                    animate={{ x: [0, 20, 0], y: [0, -15, 0], scale: [1, 1.1, 1] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+                    className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-500/8 blur-[100px]"
+                />
+                {/* Floating particles */}
+                {[...Array(8)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        animate={{
+                            y: [0, -30 - i * 8, 0],
+                            opacity: [0, 0.6, 0],
+                            x: [0, (i % 2 === 0 ? 1 : -1) * (10 + i * 5), 0],
+                        }}
+                        transition={{
+                            duration: 4 + i * 0.8,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.7,
+                        }}
+                        className="absolute rounded-full bg-primary/20"
+                        style={{
+                            width: 3 + (i % 3),
+                            height: 3 + (i % 3),
+                            left: `${10 + i * 11}%`,
+                            bottom: `${15 + (i % 4) * 15}%`,
+                        }}
+                    />
+                ))}
                 {/* HUD grid */}
                 <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 {/* Corner brackets */}
-                <div className="absolute top-24 left-8 md:left-12 w-8 h-8 border-t-2 border-l-2 border-primary/30" />
-                <div className="absolute top-24 right-8 md:right-12 w-8 h-8 border-t-2 border-r-2 border-primary/30" />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                    className="absolute top-24 left-8 md:left-12 w-8 h-8 border-t-2 border-l-2 border-primary/30"
+                />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                    className="absolute top-24 right-8 md:right-12 w-8 h-8 border-t-2 border-r-2 border-primary/30"
+                />
                 <div className="absolute bottom-12 left-8 w-5 h-5 border-b-2 border-l-2 border-primary/20" />
                 <div className="absolute bottom-12 right-8 w-5 h-5 border-b-2 border-r-2 border-primary/20" />
             </div>

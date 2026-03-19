@@ -200,7 +200,7 @@ export const sociosNavGroups = [
         title: "Supervisión", 
         icon: Briefcase, 
         items: [
-            { href: "/poderes-representacion", label: "Empresas Holding", icon: Gavel },
+            { href: "/contabilidad/tributos/poderes-representacion", label: "Empresas Holding", icon: Gavel },
         ], 
     },
 ];
