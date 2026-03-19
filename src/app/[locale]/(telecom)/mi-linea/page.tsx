@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Activity, Wallet, History, CreditCard, Signal, Loader as Loader2, Wifi, ChevronDown, Lock, CircleCheck as CheckCircle, Zap, Cpu, Network, ShieldCheck, Globe, Download } from "lucide-react";
+import { Activity, Wallet, History, CreditCard, Signal, Loader as Loader2, Wifi, ChevronDown, Lock, CircleCheck as CheckCircle, Zap, Cpu, Network, ShieldCheck, Globe, Download, Smartphone, MapPin, BellRing, PhoneOff, Users, Shield, Printer, Recycle, ExternalLink } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
@@ -309,6 +309,166 @@ export default function MiLineaPage() {
                     </Card>
                 </div>
             </div>
+
+            {/* ===== LÍNEA JOVEN (0-17 años) ===== */}
+            <Card className="glass-card border-none bg-card/40 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <CardHeader className="p-8 md:p-10 border-b border-border bg-gradient-to-r from-primary/5 to-transparent">
+                    <div className="flex flex-col md:flex-row md:items-center gap-5">
+                        <div className="flex items-center gap-5">
+                            <div className="relative p-4 rounded-2xl bg-primary/10 border border-primary/20">
+                                <Users className="h-8 w-8 text-primary" />
+                                <div className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-400 flex items-center justify-center text-[8px] font-black text-white">0-17</div>
+                            </div>
+                            <div>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">
+                                    Línea Joven (0–17 años)
+                                </CardTitle>
+                                <CardDescription className="text-[9px] font-bold uppercase opacity-40 tracking-widest mt-1">
+                                    Planes especiales con control parental
+                                </CardDescription>
+                            </div>
+                        </div>
+                        <div className="md:ml-auto">
+                            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest text-emerald-500">
+                                <ShieldCheck className="h-3.5 w-3.5" /> Control Parental Activo
+                            </span>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-8 md:p-10">
+                    <p className="text-sm font-medium text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                        Planes especiales con control parental, límites de consumo y protección anti-phishing adaptada para niños y adolescentes.
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                        {[
+                            { text: "Activación solo con autorización del representante legal", icon: Shield },
+                            { text: "Geolocalización opcional del equipo", icon: MapPin },
+                            { text: "Bloqueo automático de números no autorizados", icon: PhoneOff },
+                            { text: "Alertas a los padres por WhatsApp", icon: BellRing },
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-muted/20 border border-border group hover:border-primary/30 hover:bg-primary/5 transition-all">
+                                <item.icon className="h-4 w-4 text-primary shrink-0 mt-0.5 opacity-80" />
+                                <p className="text-[10px] font-bold uppercase tracking-tight text-foreground/80">{item.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <Button
+                        className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest btn-3d-primary shadow-xl transition-all"
+                        onClick={() => alert("Funcionalidad en desarrollo")}
+                    >
+                        <Users className="mr-3 h-4 w-4" />
+                        Configurar Línea Joven
+                    </Button>
+                </CardContent>
+            </Card>
+
+            {/* ===== ALIADOS ESTRATÉGICOS ===== */}
+            <section className="space-y-10 pb-4">
+                <div className="text-center space-y-3 pt-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-2">
+                        <ExternalLink className="h-3 w-3" /> Aliados Estratégicos
+                    </div>
+                    <h2 className="text-3xl font-black uppercase italic tracking-tighter text-foreground">
+                        Trabajamos con los <span className="text-primary">mejores fabricantes</span>
+                    </h2>
+                    <p className="text-muted-foreground text-sm font-medium max-w-md mx-auto">
+                        Equipos homologados, soporte garantizado y precios corporativos.
+                    </p>
+                </div>
+
+                {/* Teléfonos y Tablets */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Smartphone className="h-4 w-4 text-primary" />
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Teléfonos y Tablets</h3>
+                        <div className="flex-1 h-px bg-border" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {["Samsung", "Xiaomi", "Motorola", "Huawei", "Apple"].map((brand) => (
+                            <div
+                                key={brand}
+                                title="Equipo homologado – Consultar disponibilidad"
+                                className="group flex flex-col items-center gap-3 p-5 rounded-2xl glass-card border-border hover:border-primary/30 hover:scale-[1.02] transition-all cursor-pointer"
+                            >
+                                <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                    <Smartphone className="h-5 w-5 text-primary opacity-60" />
+                                </div>
+                                <p className="text-[9px] font-black uppercase tracking-widest text-foreground">{brand}</p>
+                                <span className="text-[7px] font-black uppercase px-2 py-1 rounded-md border tracking-wider text-emerald-500 bg-emerald-500/10 border-emerald-500/20">
+                                    ✅ Homologado CONATEL
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Máquinas Fiscales */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Printer className="h-4 w-4 text-amber-500" />
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Máquinas Fiscales e Impresoras</h3>
+                        <div className="flex-1 h-px bg-border" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        {["The Factory HKA", "Epson", "Hasar", "Bixolon"].map((brand) => (
+                            <div
+                                key={brand}
+                                title="Equipo homologado – Consultar disponibilidad"
+                                className="group flex flex-col items-center gap-3 p-5 rounded-2xl glass-card border-border hover:border-amber-400/30 hover:scale-[1.02] transition-all cursor-pointer"
+                            >
+                                <div className="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                                    <Printer className="h-5 w-5 text-amber-500 opacity-70" />
+                                </div>
+                                <p className="text-[9px] font-black uppercase tracking-widest text-foreground text-center leading-tight">{brand}</p>
+                                <span className="text-[7px] font-black uppercase px-2 py-1 rounded-md border tracking-wider text-amber-600 bg-amber-500/10 border-amber-400/20">
+                                    ✅ Compatible SENIAT
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Papeleras Inteligentes */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Recycle className="h-4 w-4 text-emerald-500" />
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Papeleras Inteligentes</h3>
+                        <div className="flex-1 h-px bg-border" />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div
+                            title="Equipo homologado – Consultar disponibilidad"
+                            className="group flex items-center gap-6 p-7 rounded-2xl glass-card border-emerald-500/20 hover:border-emerald-500/40 hover:scale-[1.01] transition-all cursor-pointer"
+                        >
+                            <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+                                <Recycle className="h-6 w-6 text-emerald-500" />
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <p className="text-xs font-black uppercase tracking-widest text-foreground">Ameru.AI</p>
+                                    <span className="text-[7px] font-black uppercase px-2 py-0.5 rounded-md text-emerald-500 bg-emerald-500/10 border border-emerald-500/20">
+                                        🤝 Alianza en Desarrollo
+                                    </span>
+                                </div>
+                                <p className="text-[10px] font-medium text-muted-foreground leading-relaxed">
+                                    Tecnología de inducción magnética y visión artificial, 99% precisión.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex justify-center pt-4">
+                    <Button
+                        variant="outline"
+                        className="h-12 px-10 rounded-2xl font-black uppercase text-[10px] tracking-widest border-border hover:border-primary/40 hover:bg-primary/5 transition-all shadow-xl"
+                        onClick={() => alert("Funcionalidad en desarrollo")}
+                    >
+                        <ExternalLink className="mr-3 h-4 w-4" />
+                        Ver Catálogo Completo de Equipos
+                    </Button>
+                </div>
+            </section>
 
             <footer className="mt-16 pt-8 border-t border-border flex flex-col items-center gap-4 opacity-40 text-center">
                 <Logo className="h-10 w-10 grayscale" />

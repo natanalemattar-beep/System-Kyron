@@ -1,0 +1,61 @@
+ERES UN EXPERTO EN DESARROLLO WEB (HTML, CSS, JavaScript) Y DISEÑO DE INTERFACES.
+
+Necesito que MODIFIQUES la página actual de System Kyron en Replit para agregar las siguientes funcionalidades, respetando la identidad visual existente (colores #0A2472 azul oscuro, #00FF00 verde fosforecente, glassmorphism en tarjetas, tipografía 'Inter').
+
+## 1. HOMOLOGACIÓN POR IMEI (EN EL MÓDULO "MI LÍNEA EMPRESA")
+Dentro de la tarjeta o sección correspondiente a "MI LÍNEA EMPRESA", agregar un nuevo bloque o tarjeta con:
+
+- Título: "📋 GESTIÓN DE HOMOLOGACIÓN POR IMEI"
+- Descripción: "Antes de activar cualquier línea corporativa, verificamos el IMEI de cada equipo contra la base de CONATEL. Garantizamos que todos los teléfonos de tu flota estén homologados, evitando bloqueos masivos."
+- Lista de beneficios:
+  * ✅ Verificación automática de IMEI.
+  * ✅ Reporte mensual de equipos homologados por empleado.
+  * ✅ Gestión centralizada: altas, bajas y cambios de equipo sin perder la línea.
+- Incluir un icono de teléfono con escudo y un sello "IMEI HOMOLOGADO ✅" en verde fosforescente.
+- Botón "Verificar flota" (simulado) que al hacer clic muestre una alerta: "Módulo en desarrollo".
+
+## 2. TELEFONÍA PARA MENORES DE EDAD (EN EL MÓDULO "MI LÍNEA PERSONAL")
+Dentro de "MI LÍNEA PERSONAL", agregar una nueva subsección llamada "📱 LÍNEA JOVEN (0-17 años)" con:
+
+- Descripción: "Planes especiales con control parental, límites de consumo y protección anti‑phishing adaptada para niños y adolescentes."
+- Características en viñetas:
+  * Activación solo con autorización del representante legal.
+  * Geolocalización opcional del equipo.
+  * Bloqueo automático de números no autorizados.
+  * Alertas a los padres por WhatsApp.
+- Botón "Configurar línea joven" (simulado, alerta "En construcción").
+
+## 3. NUEVA SECCIÓN GLOBAL: "ALIADOS ESTRATÉGICOS"
+Crear una nueva sección debajo de todos los módulos existentes (o antes del footer) llamada "ALIADOS ESTRATÉGICOS". Debe tener:
+
+- Título: "Trabajamos con los mejores fabricantes"
+- Subtítulo: "Equipos homologados, soporte garantizado y precios corporativos."
+
+Diseñar una cuadrícula (3 o 4 columnas) con tarjetas para cada fabricante, organizadas por categorías:
+
+### 📱 Teléfonos y tablets
+- Samsung, Xiaomi, Motorola, Huawei, Apple.
+- Cada tarjeta debe incluir el logo (puede ser un placeholder con el nombre) y un badge "✅ Homologado CONATEL".
+
+### 🖨️ Máquinas fiscales e impresoras
+- The Factory HKA, Epson, Hasar, (otros nombres que quieras).
+- Badge "✅ Compatible SENIAT".
+
+### ♻️ Papeleras inteligentes
+- Ameru.AI (destacar con badge "🤝 Alianza en desarrollo").
+- Descripción breve: "Tecnología de inducción magnética y visión artificial, 99% precisión."
+
+Al pasar el mouse sobre cada tarjeta, mostrar un tooltip con el texto "Equipo homologado – Consultar disponibilidad".
+
+Al final de la sección, un botón "Ver catálogo completo de equipos" (simulado, alerta "Próximamente").
+
+## REQUISITOS TÉCNICOS Y VISUALES
+- Mantener el estilo glassmorphism: tarjetas semitransparentes con blur, bordes redondeados, sombras suaves.
+- Usar verde fosforescente (#00FF00) para los badges, botones y elementos destacados.
+- Fondo general azul oscuro (#0A2472) o degradado.
+- Tipografía 'Inter'.
+- Todo debe ser responsive (verse bien en móvil).
+- Los botones simulados deben tener un `onclick` que ejecute `alert("Funcionalidad en desarrollo")`.
+
+## ENTREGABLE
+El código completo (HTML, CSS y JavaScript) con las nuevas secciones integradas en la página actual, listo para pegar en Replit. Incluye comentarios indicando dónde se añade cada parte.

@@ -4,7 +4,7 @@
 import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, MoveHorizontal as MoreHorizontal, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, Clock, ShieldCheck, ChartBar as BarChart3 } from "lucide-react";
+import { Signal, Users, Activity, DollarSign, TriangleAlert as AlertTriangle, ArrowLeft, Download, Search, MoveHorizontal as MoreHorizontal, CircleCheck as CheckCircle, CirclePlus as PlusCircle, FileText, Zap, Clock, ShieldCheck, ChartBar as BarChart3, Terminal, Smartphone, Shield, Printer, Recycle, ExternalLink } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -229,6 +229,169 @@ export default function FlotaEmpresarialPage() {
                     </div>
                 </CardFooter>
             </Card>
+
+            {/* ===== GESTIÓN DE HOMOLOGACIÓN POR IMEI ===== */}
+            <Card className="border-none shadow-sm rounded-[3rem] bg-white overflow-hidden">
+                <CardHeader className="p-10 border-b border-slate-50 bg-gradient-to-r from-[#0A2472]/5 to-transparent">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6">
+                        <div className="flex items-center gap-5">
+                            <div className="relative p-4 rounded-2xl bg-[#0A2472]">
+                                <Smartphone className="h-8 w-8 text-white" />
+                                <div className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-[#00FF00] flex items-center justify-center">
+                                    <CheckCircle className="h-3 w-3 text-[#0A2472]" />
+                                </div>
+                            </div>
+                            <div>
+                                <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-[#0A2472]">
+                                    Gestión de Homologación por IMEI
+                                </CardTitle>
+                                <CardDescription className="text-[10px] font-bold uppercase text-slate-400 mt-1 tracking-widest">
+                                    Verificación CONATEL · Flota Corporativa
+                                </CardDescription>
+                            </div>
+                        </div>
+                        <div className="md:ml-auto">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00FF00]/10 border border-[#00FF00]/30 text-[10px] font-black uppercase tracking-widest text-emerald-700">
+                                <Shield className="h-3.5 w-3.5 text-[#00FF00]" />
+                                IMEI HOMOLOGADO ✅
+                            </span>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-10">
+                    <p className="text-sm font-medium text-slate-600 leading-relaxed mb-8 max-w-3xl">
+                        Antes de activar cualquier línea corporativa, verificamos el IMEI de cada equipo contra la base de CONATEL.
+                        Garantizamos que todos los teléfonos de tu flota estén homologados, evitando bloqueos masivos.
+                    </p>
+                    <div className="grid md:grid-cols-3 gap-6 mb-10">
+                        {[
+                            { text: "Verificación automática de IMEI", icon: CheckCircle },
+                            { text: "Reporte mensual de equipos homologados por empleado", icon: FileText },
+                            { text: "Gestión centralizada: altas, bajas y cambios de equipo sin perder la línea", icon: ShieldCheck },
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 group hover:border-[#00FF00]/30 hover:bg-[#00FF00]/5 transition-all">
+                                <item.icon className="h-5 w-5 text-[#00FF00] shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 6px #00FF00)" }} />
+                                <p className="text-xs font-bold text-slate-700 uppercase tracking-tight">{item.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <Button
+                        className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest bg-[#0A2472] text-white hover:bg-blue-950 shadow-xl transition-all"
+                        onClick={() => alert("Funcionalidad en desarrollo")}
+                    >
+                        <Shield className="mr-3 h-4 w-4" />
+                        Verificar Flota
+                    </Button>
+                </CardContent>
+            </Card>
+
+            {/* ===== ALIADOS ESTRATÉGICOS ===== */}
+            <section className="space-y-10">
+                <div className="text-center space-y-3 pt-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] mb-2">
+                        <ExternalLink className="h-3 w-3" /> Aliados Estratégicos
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-[#0A2472]">
+                        Trabajamos con los <span className="text-[#00A86B]">mejores fabricantes</span>
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium max-w-xl mx-auto">
+                        Equipos homologados, soporte garantizado y precios corporativos.
+                    </p>
+                </div>
+
+                {/* Teléfonos y Tablets */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Smartphone className="h-5 w-5 text-[#0A2472]" />
+                        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472]">Teléfonos y Tablets</h3>
+                        <div className="flex-1 h-px bg-slate-200" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {["Samsung", "Xiaomi", "Motorola", "Huawei", "Apple"].map((brand) => (
+                            <div
+                                key={brand}
+                                title="Equipo homologado – Consultar disponibilidad"
+                                className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-[#00FF00]/30 hover:scale-[1.02] transition-all cursor-pointer"
+                            >
+                                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#0A2472]/10 to-[#0A2472]/5 flex items-center justify-center">
+                                    <Smartphone className="h-6 w-6 text-[#0A2472] opacity-60" />
+                                </div>
+                                <p className="text-xs font-black uppercase tracking-widest text-slate-700">{brand}</p>
+                                <span className="text-[8px] font-black uppercase px-2 py-1 rounded-md border tracking-wider"
+                                    style={{ color: "#059669", background: "rgba(0,255,0,0.08)", borderColor: "rgba(0,255,0,0.25)" }}>
+                                    ✅ Homologado CONATEL
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Máquinas Fiscales */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Printer className="h-5 w-5 text-[#0A2472]" />
+                        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472]">Máquinas Fiscales e Impresoras</h3>
+                        <div className="flex-1 h-px bg-slate-200" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        {["The Factory HKA", "Epson", "Hasar", "Bixolon"].map((brand) => (
+                            <div
+                                key={brand}
+                                title="Equipo homologado – Consultar disponibilidad"
+                                className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-amber-300/50 hover:scale-[1.02] transition-all cursor-pointer"
+                            >
+                                <div className="h-12 w-12 rounded-xl bg-amber-50 flex items-center justify-center">
+                                    <Printer className="h-6 w-6 text-amber-600 opacity-70" />
+                                </div>
+                                <p className="text-xs font-black uppercase tracking-widest text-slate-700 text-center leading-tight">{brand}</p>
+                                <span className="text-[8px] font-black uppercase px-2 py-1 rounded-md border tracking-wider text-amber-700 bg-amber-50 border-amber-200">
+                                    ✅ Compatible SENIAT
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Papeleras Inteligentes */}
+                <div className="space-y-5">
+                    <div className="flex items-center gap-3">
+                        <Recycle className="h-5 w-5 text-emerald-600" />
+                        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472]">Papeleras Inteligentes</h3>
+                        <div className="flex-1 h-px bg-slate-200" />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div
+                            title="Equipo homologado – Consultar disponibilidad"
+                            className="group flex flex-col gap-4 p-8 rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all cursor-pointer col-span-1 sm:col-span-2 lg:col-span-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center">
+                                    <Recycle className="h-6 w-6 text-emerald-600" />
+                                </div>
+                                <span className="text-[8px] font-black uppercase px-3 py-1.5 rounded-md border tracking-wider text-emerald-700 bg-emerald-50 border-emerald-200">
+                                    🤝 Alianza en Desarrollo
+                                </span>
+                            </div>
+                            <div>
+                                <p className="text-sm font-black uppercase tracking-widest text-slate-800">Ameru.AI</p>
+                                <p className="text-xs font-medium text-slate-500 mt-2 leading-relaxed">
+                                    Tecnología de inducción magnética y visión artificial, 99% precisión.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex justify-center pt-4">
+                    <Button
+                        className="h-14 px-12 rounded-2xl font-black uppercase text-xs tracking-widest bg-[#0A2472] text-white hover:bg-blue-950 shadow-2xl transition-all"
+                        onClick={() => alert("Funcionalidad en desarrollo")}
+                    >
+                        <ExternalLink className="mr-3 h-4 w-4" />
+                        Ver Catálogo Completo de Equipos
+                    </Button>
+                </div>
+            </section>
 
             <footer className="text-center pt-10 border-t border-slate-200/50">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-300 italic">SYSTEM KYRON • CORPORATE FLEET CONTROL • 2026</p>
