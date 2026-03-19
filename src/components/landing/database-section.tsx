@@ -553,14 +553,14 @@ export function DatabaseSection() {
                                     <span className="text-[7px] px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-black uppercase">CONECTADO</span>
                                 </div>
                                 <h4 className="text-xs font-black uppercase tracking-tight text-foreground/90 mb-2">{item.module}</h4>
-                                <p className="text-[9px] text-muted-foreground/60 space-y-1">
+                                <div className="text-[9px] text-muted-foreground/60 space-y-1">
                                     {item.tables.map((t) => (
                                         <div key={t} className="flex items-center gap-1.5">
                                             <span className="h-1 w-1 rounded-full bg-emerald-400/60" />
                                             <code className="text-emerald-400/70">{t}</code>
                                         </div>
                                     ))}
-                                </p>
+                                </div>
                             </motion.div>
                         ))}
                     </div>
