@@ -374,6 +374,28 @@ async function createContabilidadTables() {
       updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS proveedores (
+      id               SERIAL PRIMARY KEY,
+      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      razon_social     TEXT NOT NULL,
+      rif              TEXT,
+      nombre_contacto  TEXT,
+      cargo_contacto   TEXT,
+      telefono         TEXT,
+      email            TEXT,
+      direccion        TEXT,
+      estado           TEXT,
+      municipio        TEXT,
+      categoria        TEXT,
+      condiciones_pago TEXT,
+      calificacion     SMALLINT CHECK (calificacion BETWEEN 1 AND 5),
+      activo           BOOLEAN NOT NULL DEFAULT true,
+      notas            TEXT,
+      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -763,27 +785,6 @@ async function createSectorTables() {
     )
   `);
 
-  await query(`
-    CREATE TABLE IF NOT EXISTS proveedores (
-      id               SERIAL PRIMARY KEY,
-      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      razon_social     TEXT NOT NULL,
-      rif              TEXT,
-      nombre_contacto  TEXT,
-      cargo_contacto   TEXT,
-      telefono         TEXT,
-      email            TEXT,
-      direccion        TEXT,
-      estado           TEXT,
-      municipio        TEXT,
-      categoria        TEXT,
-      condiciones_pago TEXT,
-      calificacion     SMALLINT CHECK (calificacion BETWEEN 1 AND 5),
-      activo           BOOLEAN NOT NULL DEFAULT true,
-      notas            TEXT,
-      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -937,11 +938,7 @@ async function createContabilidadExtendedTables() {
       fecha_vencimiento DATE,
       estado           TEXT NOT NULL DEFAULT 'pendiente'
                        CHECK (estado IN ('pendiente','parcial','cobrada','vencida','incobrable','anulada')),
-      dias_vencimiento INT GENERATED ALWAYS AS (
-                         CASE WHEN fecha_vencimiento IS NOT NULL
-                              THEN CURRENT_DATE - fecha_vencimiento
-                              ELSE 0 END
-                       ) STORED,
+      dias_vencimiento INT,
       notas            TEXT,
       created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
