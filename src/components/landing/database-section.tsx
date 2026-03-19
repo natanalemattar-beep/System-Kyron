@@ -328,10 +328,10 @@ export function DatabaseSection() {
                         <Database className="h-3 w-3" />
                         Infraestructura de Datos
                     </div>
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-none">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase leading-[1.1] break-words overflow-hidden">
                         Base de Datos
                         <br />
-                        <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent italic">
+                        <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent italic break-words">
                             Empresarial Total
                         </span>
                     </h2>

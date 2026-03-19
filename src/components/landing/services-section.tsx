@@ -66,8 +66,8 @@ export function ServicesSection() {
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     12 Módulos Integrados
                 </div>
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-tight">
-                    Ecosistema <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic">Modular</span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground uppercase leading-[1.2] break-words overflow-hidden">
+                    Ecosistema <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic break-words">Modular</span>
                 </h2>
                 <p className="text-muted-foreground/70 max-w-lg mx-auto font-semibold text-sm leading-relaxed">
                     Selecciona el área que tu empresa necesita. Cada módulo funciona de forma independiente o como parte del ecosistema completo.

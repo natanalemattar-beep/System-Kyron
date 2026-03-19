@@ -123,9 +123,9 @@ export function FeaturesSection() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> Capacidades del Sistema
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-tight">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground uppercase leading-[1.2] break-words overflow-hidden">
                         Todo lo que tu <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">empresa necesita</span>
+                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words">empresa necesita</span>
                     </h2>
                     <p className="text-muted-foreground/70 max-w-xl mx-auto font-semibold text-sm leading-relaxed">
                         9 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.

@@ -50,7 +50,7 @@ export function FaqSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase italic italic-shadow">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground uppercase italic italic-shadow leading-[1.2] break-words overflow-hidden">
                         Preguntas <span className="text-primary not-italic">Frecuentes</span>
                     </h2>
                     <p className="text-sm md:text-base text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">

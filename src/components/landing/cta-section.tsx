@@ -84,8 +84,8 @@ export function CtaSection() {
                         <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full font-black text-[8px] md:text-[10px] uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0">
                            <Ticket className="h-3 w-3"/> Acceso Prioritario
                         </div>
-                        <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-tight text-foreground uppercase italic">
-                            Inyecta Inteligencia <br/> <span className="text-primary not-italic">a tu Operación</span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.2] text-foreground uppercase italic overflow-hidden break-words">
+                            Inyecta Inteligencia <br className="hidden sm:block"/> <span className="text-primary not-italic">a tu Operación</span>
                         </h2>
                         <p className="text-sm md:text-lg text-muted-foreground max-w-xl mx-auto lg:ml-0 leading-relaxed font-bold uppercase tracking-tight italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">
                             Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría técnica.

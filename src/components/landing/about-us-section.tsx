@@ -89,7 +89,7 @@ export function AboutUsSection() {
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0 shadow-glow-sm">
                                 <Sparkles className="h-3 w-3" /> Equipo Profesional
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-none">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-[1.1] break-words overflow-hidden">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
                             <p className="text-base md:text-xl text-muted-foreground font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos ingeniería de software diseñada para la excelencia operativa.</p>
                         </div>
 

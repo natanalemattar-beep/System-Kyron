@@ -132,9 +132,9 @@ export function HeroSection() {
 
                         {/* Headline */}
                         <div className="space-y-4">
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.88] italic-shadow">
-                                <span className="block text-foreground/90">{t('title').split(' ').slice(0, 2).join(' ')}</span>
-                                <span className="block bg-gradient-to-r from-primary via-cyan-400 to-secondary bg-clip-text text-transparent italic">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black tracking-tighter uppercase leading-[1.1] lg:leading-[1.0] italic-shadow overflow-hidden break-words">
+                                <span className="block text-foreground/90 break-words">{t('title').split(' ').slice(0, 2).join(' ')}</span>
+                                <span className="block bg-gradient-to-r from-primary via-cyan-400 to-secondary bg-clip-text text-transparent italic break-words">
                                     {t('title').split(' ').slice(2).join(' ')}
                                 </span>
                             </h1>
@@ -215,8 +215,8 @@ export function HeroSection() {
                                         className="p-4 md:p-5 space-y-1.5 hover:bg-muted/20 dark:hover:bg-white/[0.02] transition-colors"
                                     >
                                         <kpi.icon className={cn("h-3.5 w-3.5 mb-2", kpi.color)} />
-                                        <p className="text-xs md:text-sm font-black text-foreground/90 leading-none">{kpi.value}</p>
-                                        <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/50">{kpi.label}</p>
+                                        <p className="text-xs md:text-sm font-black text-foreground/90 leading-none break-words">{kpi.value}</p>
+                                        <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/50 break-words line-clamp-1">{kpi.label}</p>
                                         <span className={cn("text-[7px] font-black uppercase", kpi.color)}>{kpi.delta}</span>
                                     </motion.div>
                                 ))}
@@ -242,7 +242,7 @@ export function HeroSection() {
                                                 <div className={cn("p-1.5 rounded-lg bg-black/10 dark:bg-black/20 w-fit", mod.color)}>
                                                     <mod.icon className="h-3.5 w-3.5" />
                                                 </div>
-                                                <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors">
+                                                <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors break-words overflow-hidden line-clamp-2">
                                                     {mod.label}
                                                 </p>
                                             </Link>
@@ -281,10 +281,10 @@ export function HeroSection() {
                                     className="flex flex-col gap-1.5 p-3.5 rounded-2xl border border-border/40 dark:border-white/8 bg-card/50 dark:bg-card/30 backdrop-blur-sm hover:border-border/60 dark:hover:border-white/15 transition-colors text-center"
                                 >
                                     <m.icon className={cn("h-3.5 w-3.5 mx-auto", m.color)} />
-                                    <p className={cn("text-base font-black leading-none", m.color)}>
+                                    <p className={cn("text-base font-black leading-none break-words", m.color)}>
                                         <Counter from={0} to={parseInt(m.val)} />{m.suffix}
                                     </p>
-                                    <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-widest leading-tight">{m.label}</p>
+                                    <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-widest leading-tight break-words line-clamp-1">{m.label}</p>
                                 </motion.div>
                             ))}
                         </div>
