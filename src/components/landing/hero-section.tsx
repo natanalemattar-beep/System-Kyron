@@ -1,139 +1,243 @@
 'use client';
 
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Zap, Activity, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3 } from "lucide-react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { ArrowRight, ShieldCheck, Zap, Activity, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, TrendingUp, DollarSign, Building2, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 
 const modules = [
-    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-primary", bg: "bg-primary/10" },
-    { label: "RRHH & Nómina", icon: Users, color: "text-secondary", bg: "bg-secondary/10" },
-    { label: "Telecom 5G / eSIM", icon: Smartphone, color: "text-blue-400", bg: "bg-blue-400/10" },
-    { label: "IA Legal & Permisos", icon: Gavel, color: "text-amber-400", bg: "bg-amber-400/10" },
-    { label: "Eco-Créditos Ameru", icon: Recycle, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-    { label: "Analítica Avanzada", icon: BarChart3, color: "text-rose-400", bg: "bg-rose-400/10" },
+    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",   border: "border-cyan-500/20" },
+    { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/20" },
+    { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/20" },
+    { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-400",  bg: "from-amber-500/20 to-amber-500/5",  border: "border-amber-500/20" },
+    { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-400",bg: "from-emerald-500/20 to-emerald-500/5",border:"border-emerald-500/20" },
+    { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-400",   bg: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/20" },
 ];
 
-const trustStats = [
-    { val: "IVA 16%", label: "Automatizado", icon: ShieldCheck },
-    { val: "IGTF 3%", label: "Integrado", icon: Zap },
-    { val: "BCV", label: "Tasa en Tiempo Real", icon: Activity },
-    { val: "VEN-NIF", label: "Cumplimiento Total", icon: ShieldCheck },
+const kpis = [
+    { label: "Ingresos / Mes", value: "Bs. 0", delta: "+0%", icon: TrendingUp, color: "text-emerald-400" },
+    { label: "Facturas Activas", value: "0", delta: "SENIAT", icon: DollarSign, color: "text-cyan-400" },
+    { label: "Empleados", value: "0", delta: "LOTTT", icon: Users, color: "text-violet-400" },
 ];
+
+const Counter = ({ from, to, suffix = "" }: { from: number; to: number; suffix?: string }) => {
+    const [display, setDisplay] = useState(from);
+    const count  = useMotionValue(from);
+    const rounded = useTransform(count, (v) => Math.round(v));
+    const ref    = useRef(null);
+    const inView = useInView(ref, { once: true });
+
+    useEffect(() => {
+        if (inView) animate(count, to, { duration: 1.8, ease: "easeOut" });
+    }, [count, inView, to]);
+
+    useEffect(() => rounded.on("change", setDisplay), [rounded]);
+
+    return <motion.span ref={ref}>{display}{suffix}</motion.span>;
+};
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
 
     return (
-        <section id="inicio" className="relative pt-28 pb-16 md:pt-40 md:pb-32 overflow-hidden min-h-[95vh] flex items-center bg-transparent">
+        <section id="inicio" className="relative pt-28 pb-16 md:pt-40 md:pb-32 overflow-hidden min-h-[96vh] flex items-center">
 
-            {/* HUD Lines */}
-            <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-20">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/50 via-primary/10 to-transparent" />
-                <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-                <div className="absolute top-24 left-6 md:left-10 w-6 md:w-8 h-6 md:h-8 border-t-2 border-l-2 border-primary/40" />
-                <div className="absolute top-24 right-6 md:right-10 w-6 md:w-8 h-6 md:h-8 border-t-2 border-r-2 border-primary/40" />
-                <div className="absolute bottom-10 left-6 w-4 h-4 border-b-2 border-l-2 border-primary/20" />
-                <div className="absolute bottom-10 right-6 w-4 h-4 border-b-2 border-r-2 border-primary/20" />
+            {/* ── Background Orbs ── */}
+            <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]" />
+                <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-500/8 blur-[120px]" />
+                <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-500/8 blur-[100px]" />
+                {/* HUD grid */}
+                <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+                {/* Corner brackets */}
+                <div className="absolute top-24 left-8 md:left-12 w-8 h-8 border-t-2 border-l-2 border-primary/30" />
+                <div className="absolute top-24 right-8 md:right-12 w-8 h-8 border-t-2 border-r-2 border-primary/30" />
+                <div className="absolute bottom-12 left-8 w-5 h-5 border-b-2 border-l-2 border-primary/20" />
+                <div className="absolute bottom-12 right-8 w-5 h-5 border-b-2 border-r-2 border-primary/20" />
             </div>
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-                    {/* LEFT — Copy */}
+                    {/* ─── LEFT: Copy ─── */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="lg:col-span-6 space-y-8 text-center lg:text-left"
                     >
-                        <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-primary/5 text-[9px] font-black uppercase tracking-[0.4em] text-primary border border-primary/15 mx-auto lg:ml-0 shadow-glow-sm">
-                            <Activity className="h-3 w-3 animate-pulse" /> Sistema Operativo Activo
+                        {/* Live badge */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm mx-auto lg:ml-0"
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                            </span>
+                            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Sistema Operativo • v2.6.5</span>
+                        </motion.div>
+
+                        {/* Headline */}
+                        <div className="space-y-4">
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.88] italic-shadow">
+                                <span className="block text-foreground/90">{t('title').split(' ').slice(0, 2).join(' ')}</span>
+                                <span className="block bg-gradient-to-r from-primary via-cyan-400 to-secondary bg-clip-text text-transparent italic">
+                                    {t('title').split(' ').slice(2).join(' ')}
+                                </span>
+                            </h1>
+                            <div className="flex items-center gap-3 justify-center lg:justify-start">
+                                <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-primary/50" />
+                                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-primary/80">{t('slogan')}</p>
+                                <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-primary/50" />
+                            </div>
                         </div>
 
-                        <div className="space-y-5">
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-foreground uppercase italic leading-[0.9] italic-shadow">
-                                {t('title')}
-                            </h1>
-                            <p className="text-primary font-black uppercase tracking-[0.35em] text-[10px] md:text-xs opacity-80">
-                                {t('slogan')}
-                            </p>
-                            <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto lg:ml-0 font-bold uppercase tracking-tight italic leading-relaxed border-l-0 lg:border-l-4 border-primary/25 lg:pl-6">
-                                {t('subtitle')}
-                            </p>
-                        </div>
+                        {/* Description */}
+                        <p className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto lg:ml-0 font-semibold leading-relaxed border-l-0 lg:border-l-[3px] border-primary/40 lg:pl-5">
+                            {t('subtitle')}
+                        </p>
 
                         {/* CTAs */}
                         <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
-                            <Button asChild size="lg" className="btn-3d-primary h-13 px-8 text-[10px] font-black uppercase tracking-widest rounded-xl w-full sm:w-auto shadow-2xl">
+                            <Button asChild size="lg" className="relative h-13 px-8 text-[10px] font-black uppercase tracking-widest rounded-xl shadow-2xl overflow-hidden group bg-primary hover:bg-primary/90">
                                 <Link href="/register" className="flex items-center gap-3 justify-center">
-                                    {t('cta_main')} <ArrowRight className="h-4 w-4" />
+                                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                    {t('cta_main')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-13 px-8 text-[10px] font-black uppercase tracking-widest rounded-xl border-border bg-card/50 text-foreground w-full sm:w-auto hover:bg-primary/5 transition-all">
+                            <Button variant="outline" asChild size="lg" className="h-13 px-8 text-[10px] font-black uppercase tracking-widest rounded-xl border-border/60 bg-card/30 backdrop-blur-sm text-foreground/80 hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all">
                                 <Link href="/manual-usuario">{t('cta_secondary')}</Link>
                             </Button>
                         </div>
 
-                        {/* Trust bar — normas venezolanas */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-border/50">
-                            {trustStats.map((s, i) => (
-                                <div key={i} className="flex flex-col items-center lg:items-start gap-1">
-                                    <p className="text-sm font-black text-foreground">{s.val}</p>
-                                    <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">{s.label}</p>
+                        {/* Compliance strip */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 border-t border-border/30">
+                            {[
+                                { val: "IVA 16%", label: "Automático" },
+                                { val: "IGTF 3%", label: "Integrado" },
+                                { val: "BCV",     label: "Tiempo Real" },
+                                { val: "VEN-NIF", label: "Cumplimiento" },
+                            ].map((s, i) => (
+                                <div key={i} className="flex flex-col items-center lg:items-start gap-0.5">
+                                    <p className="text-sm font-black text-foreground/90 leading-none">{s.val}</p>
+                                    <p className="text-[8px] font-bold text-muted-foreground/50 uppercase tracking-widest">{s.label}</p>
                                 </div>
                             ))}
                         </div>
                     </motion.div>
 
-                    {/* RIGHT — Modules Grid */}
+                    {/* ─── RIGHT: Dashboard Panel ─── */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.9, delay: 0.15 }}
-                        className="lg:col-span-6 space-y-4"
+                        initial={{ opacity: 0, x: 40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-6 space-y-3"
                     >
-                        {/* Top status banner */}
-                        <div className="flex items-center justify-between px-6 py-3 rounded-2xl bg-card border border-border/50 shadow-sm">
-                            <div className="flex items-center gap-3">
-                                <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_theme(colors.emerald.400)]" />
-                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">Infraestructura Digital</span>
+                        {/* Dashboard card */}
+                        <div className="rounded-[2rem] border border-white/10 bg-card/40 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-white/5">
+                            {/* Card topbar */}
+                            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/8 bg-white/[0.02]">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex gap-1.5">
+                                        <div className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+                                        <div className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+                                        <div className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+                                    </div>
+                                    <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">Panel de Control — System Kyron</span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                    <span className="text-[7px] font-black uppercase tracking-widest text-emerald-400/80">Live</span>
+                                </div>
                             </div>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Estado: Óptimo</span>
+
+                            {/* KPI row */}
+                            <div className="grid grid-cols-3 divide-x divide-white/8 p-0">
+                                {kpis.map((kpi, i) => (
+                                    <motion.div
+                                        key={kpi.label}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.4 + i * 0.1 }}
+                                        className="p-4 md:p-5 space-y-1.5 hover:bg-white/[0.02] transition-colors"
+                                    >
+                                        <kpi.icon className={cn("h-3.5 w-3.5 mb-2", kpi.color)} />
+                                        <p className="text-xs md:text-sm font-black text-foreground/90 leading-none">{kpi.value}</p>
+                                        <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/40">{kpi.label}</p>
+                                        <span className={cn("text-[7px] font-black uppercase", kpi.color)}>{kpi.delta}</span>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Module grid */}
+                            <div className="p-4 border-t border-white/8">
+                                <div className="grid grid-cols-3 gap-2">
+                                    {modules.map((mod, i) => (
+                                        <motion.div
+                                            key={mod.label}
+                                            initial={{ opacity: 0, scale: 0.92 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
+                                            className={cn(
+                                                "group flex flex-col gap-2.5 p-3.5 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.03] cursor-default",
+                                                mod.bg, mod.border
+                                            )}
+                                        >
+                                            <div className={cn("p-1.5 rounded-lg bg-black/20 w-fit", mod.color)}>
+                                                <mod.icon className="h-3.5 w-3.5" />
+                                            </div>
+                                            <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors">
+                                                {mod.label}
+                                            </p>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Footer strip */}
+                            <Link href="/register" className="block group">
+                                <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-primary/10 to-transparent border-t border-primary/15 hover:from-primary/20 transition-all">
+                                    <div className="flex items-center gap-3">
+                                        <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+                                        <div>
+                                            <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary leading-none">Activar Portal</p>
+                                            <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
+                                        </div>
+                                    </div>
+                                    <ArrowRight className="h-3.5 w-3.5 text-primary group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
                         </div>
 
-                        {/* 6 module cards */}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            {modules.map((mod, i) => (
+                        {/* Bottom metrics row */}
+                        <div className="grid grid-cols-3 gap-3">
+                            {[
+                                { val: "32", suffix: " tablas", label: "Base de datos", icon: Cpu,       color: "text-cyan-400" },
+                                { val: "12", suffix: " portales", label: "Módulos activos", icon: Building2,  color: "text-violet-400" },
+                                { val: "100", suffix: "%", label: "Cumplimiento fiscal", icon: ShieldCheck, color: "text-emerald-400" },
+                            ].map((m, i) => (
                                 <motion.div
-                                    key={mod.label}
-                                    initial={{ opacity: 0, y: 16 }}
+                                    key={m.label}
+                                    initial={{ opacity: 0, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 + i * 0.07, duration: 0.5 }}
-                                    className="group bg-card border border-border/50 hover:border-primary/30 rounded-[1.5rem] p-5 flex flex-col gap-3 transition-all duration-300 hover:shadow-lg cursor-default"
+                                    transition={{ delay: 0.6 + i * 0.08 }}
+                                    className="flex flex-col gap-1.5 p-3.5 rounded-2xl border border-white/8 bg-card/30 backdrop-blur-sm hover:border-white/15 transition-colors text-center"
                                 >
-                                    <div className={cn("p-2.5 rounded-xl w-fit", mod.bg)}>
-                                        <mod.icon className={cn("h-5 w-5", mod.color)} />
-                                    </div>
-                                    <p className="text-[9px] font-black uppercase tracking-tight text-foreground/80 leading-snug group-hover:text-foreground transition-colors">
-                                        {mod.label}
+                                    <m.icon className={cn("h-3.5 w-3.5 mx-auto", m.color)} />
+                                    <p className={cn("text-base font-black leading-none", m.color)}>
+                                        <Counter from={0} to={parseInt(m.val)} />{m.suffix}
                                     </p>
+                                    <p className="text-[7px] font-bold text-muted-foreground/40 uppercase tracking-widest leading-tight">{m.label}</p>
                                 </motion.div>
                             ))}
                         </div>
-
-                        {/* Bottom CTA strip */}
-                        <Link href="/register" className="block">
-                            <div className="flex items-center justify-between px-6 py-4 rounded-2xl bg-primary/5 border border-primary/15 hover:bg-primary/10 hover:border-primary/30 transition-all group cursor-pointer">
-                                <div className="space-y-0.5">
-                                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Comienza Gratis</p>
-                                    <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Registro en menos de 2 minutos</p>
-                                </div>
-                                <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </Link>
                     </motion.div>
 
                 </div>

@@ -2,97 +2,145 @@
 
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
-import { Mail, MapPin, Linkedin, Twitter, FileText, Shield, Gavel } from "lucide-react";
-import { useHoliday } from "@/hooks/use-holiday";
+import { Mail, MapPin, Linkedin, Twitter, FileText, Shield, Gavel, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground/40 hover:text-primary transition-all duration-300 hover:scale-110">
+    <a href={href} target="_blank" rel="noopener noreferrer"
+        className="h-9 w-9 rounded-xl border border-white/8 bg-white/[0.02] flex items-center justify-center text-muted-foreground/40 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300">
         {children}
     </a>
 );
 
+const modules = [
+    "Contabilidad VEN-NIF", "RRHH & Nómina", "Telecom 5G / eSIM",
+    "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
+    "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
+];
+
 export function Footer() {
-    const { isHolidayActive } = useHoliday();
     const t = useTranslations('HeroSection');
     const [currentYear, setCurrentYear] = useState<number | null>(null);
 
-    useEffect(() => {
-        setCurrentYear(new Date().getFullYear());
-    }, []);
+    useEffect(() => { setCurrentYear(new Date().getFullYear()); }, []);
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
             e.preventDefault();
-            const element = document.querySelector(href);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
+            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     return (
-        <footer id="footer" className="py-20 border-t border-border bg-transparent relative overflow-hidden">
-            <div className="absolute inset-0 bg-primary/[0.02] pointer-events-none -z-10" />
-            
-            <div className="container mx-auto px-6 grid md:grid-cols-12 gap-16 md:gap-8">
-                <div className="md:col-span-5 space-y-8">
-                    <div className="flex items-center gap-4">
-                        <Logo className="h-12 w-12 drop-shadow-glow" />
-                        <div className="flex flex-col">
-                            <span className="text-2xl font-black uppercase italic tracking-tighter text-foreground leading-none">System Kyron</span>
-                            <span className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-2 opacity-60 italic">Telecom, Reciclaje y Control Total</span>
-                        </div>
-                    </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 leading-relaxed max-w-sm">
-                        Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y las telecomunicaciones.
-                    </p>
-                    <div className="flex gap-6">
-                        <SocialIcon href="#"><Linkedin className="h-5 w-5" /></SocialIcon>
-                        <SocialIcon href="#"><Twitter className="h-5 w-5" /></SocialIcon>
-                    </div>
-                </div>
+        <footer id="footer" className="relative overflow-hidden border-t border-white/8 bg-transparent">
 
-                <div className="md:col-span-3 space-y-8">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Navegación</h4>
-                    <nav className="flex flex-col gap-4 text-[10px] font-black uppercase tracking-widest">
-                        <a href="#inicio" onClick={(e) => handleAnchorClick(e, '#inicio')} className="text-muted-foreground/60 hover:text-foreground transition-colors">Inicio</a>
-                        <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-muted-foreground/60 hover:text-foreground transition-colors">Ecosistema</a>
-                        <a href="#nosotros" onClick={(e) => handleAnchorClick(e, '#nosotros')} className="text-muted-foreground/60 hover:text-foreground transition-colors">Nosotros</a>
-                        <a href="#faq" onClick={(e) => handleAnchorClick(e, '#faq')} className="text-muted-foreground/60 hover:text-foreground transition-colors">Preguntas Frecuentes</a>
-                        <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="text-muted-foreground/60 hover:text-foreground transition-colors">Contacto Oficial</a>
-                    </nav>
-                </div>
+            {/* Background */}
+            <div className="absolute inset-0 pointer-events-none -z-10">
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/5 blur-[100px]" />
+            </div>
 
-                <div className="md:col-span-4 space-y-8">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Centro de Contacto</h4>
-                    <div className="space-y-6 text-[10px] font-black uppercase tracking-widest">
-                        <div className="flex items-center gap-4 text-muted-foreground/60 group">
-                            <div className="p-2 bg-muted/30 rounded-lg border border-border group-hover:border-primary/40 transition-colors">
-                                <Mail className="h-4 w-4 text-primary" />
-                            </div>
-                            <a href="mailto:infosystemkyron@gmail.com" className="hover:text-foreground transition-colors">infosystemkyron@gmail.com</a>
-                        </div>
-                        <div className="flex items-center gap-4 text-muted-foreground/60">
-                            <div className="p-2 bg-muted/30 rounded-lg border border-border">
-                                <MapPin className="h-4 w-4 text-primary" />
-                            </div>
-                            <span>Caracas, Venezuela • Distrito Capital</span>
-                        </div>
-                    </div>
+            {/* Module ticker */}
+            <div className="border-b border-white/8 py-3 overflow-hidden">
+                <div className="flex gap-8 animate-marquee whitespace-nowrap">
+                    {[...modules, ...modules].map((m, i) => (
+                        <span key={i} className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/25 shrink-0">
+                            {m} <span className="text-primary/30 mx-2">·</span>
+                        </span>
+                    ))}
                 </div>
             </div>
 
-            <div className="container mx-auto px-6 mt-24 pt-10 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-8">
-                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/30 italic">
-                    &copy; {currentYear || '2026'} System Kyron • Inteligencia Corporativa • MK-2.6
-                </p>
-                <div className="flex flex-wrap justify-center gap-10 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">
-                    <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-2"><FileText className="h-3 w-3"/> Manual de Usuario</Link>
-                    <Link href="/terms" className="hover:text-primary transition-all flex items-center gap-2"><Gavel className="h-3 w-3"/> Términos</Link>
-                    <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-2"><Shield className="h-3 w-3"/> Privacidad</Link>
+            <div className="container mx-auto px-6 pt-16 pb-10">
+                <div className="grid md:grid-cols-12 gap-12 md:gap-8">
+
+                    {/* Brand */}
+                    <div className="md:col-span-4 space-y-6">
+                        <div className="flex items-center gap-3">
+                            <Logo className="h-10 w-10 drop-shadow-glow" />
+                            <div className="flex flex-col">
+                                <span className="text-lg font-black uppercase tracking-tight text-foreground leading-none">System Kyron</span>
+                                <span className="text-[8px] font-bold text-primary/60 uppercase tracking-[0.35em] mt-1">{t('slogan')}</span>
+                            </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground/50 font-medium leading-relaxed max-w-sm">
+                            Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.
+                        </p>
+                        <div className="flex gap-2">
+                            <SocialIcon href="#"><Linkedin className="h-3.5 w-3.5" /></SocialIcon>
+                            <SocialIcon href="#"><Twitter className="h-3.5 w-3.5" /></SocialIcon>
+                        </div>
+                    </div>
+
+                    {/* Nav */}
+                    <div className="md:col-span-2 space-y-5">
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Plataforma</h4>
+                        <nav className="flex flex-col gap-3">
+                            {[
+                                { label: "Inicio",      href: "#inicio" },
+                                { label: "Ecosistema",  href: "#servicios" },
+                                { label: "Nosotros",    href: "#nosotros" },
+                                { label: "FAQ",         href: "#faq" },
+                                { label: "Contacto",    href: "#contacto" },
+                            ].map(item => (
+                                <a key={item.label} href={item.href} onClick={(e) => handleAnchorClick(e, item.href)}
+                                    className="text-[10px] font-semibold text-muted-foreground/50 hover:text-foreground/80 transition-colors uppercase tracking-widest">
+                                    {item.label}
+                                </a>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* Modules */}
+                    <div className="md:col-span-3 space-y-5">
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Módulos</h4>
+                        <nav className="flex flex-col gap-3">
+                            {modules.slice(0, 5).map(m => (
+                                <Link key={m} href="/login" className="text-[10px] font-semibold text-muted-foreground/50 hover:text-foreground/80 transition-colors uppercase tracking-widest flex items-center gap-1 group">
+                                    {m} <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* Contact */}
+                    <div className="md:col-span-3 space-y-5">
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Contacto</h4>
+                        <div className="space-y-4">
+                            <a href="mailto:infosystemkyron@gmail.com"
+                                className="flex items-center gap-3 group text-muted-foreground/50 hover:text-foreground/80 transition-colors">
+                                <div className="h-8 w-8 rounded-xl border border-white/8 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
+                                    <Mail className="h-3.5 w-3.5 text-primary" />
+                                </div>
+                                <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
+                            </a>
+                            <div className="flex items-center gap-3 text-muted-foreground/50">
+                                <div className="h-8 w-8 rounded-xl border border-white/8 bg-white/[0.02] flex items-center justify-center shrink-0">
+                                    <MapPin className="h-3.5 w-3.5 text-primary" />
+                                </div>
+                                <span className="text-[10px] font-semibold uppercase tracking-wide">Caracas, Venezuela · Distrito Capital</span>
+                            </div>
+                        </div>
+
+                        {/* Version badge */}
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/8 bg-white/[0.02] mt-2">
+                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">v2.6.5 — Estable</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom bar */}
+                <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/25">
+                        &copy; {currentYear || '2026'} System Kyron · Inteligencia Corporativa · MK-2.6
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-8 text-[9px] font-black uppercase tracking-widest text-muted-foreground/35">
+                        <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> Manual de Usuario</Link>
+                        <Link href="/terms"                className="hover:text-primary transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> Términos</Link>
+                        <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> Privacidad</Link>
+                    </div>
                 </div>
             </div>
         </footer>
