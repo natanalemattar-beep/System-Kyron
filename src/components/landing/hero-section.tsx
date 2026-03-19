@@ -10,12 +10,12 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 const modules = [
-    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-600 dark:text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",   border: "border-cyan-500/25" },
-    { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-600 dark:text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/25" },
-    { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-600 dark:text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/25" },
-    { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-600 dark:text-amber-400",  bg: "from-amber-500/20 to-amber-500/5",  border: "border-amber-500/25" },
-    { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-600 dark:text-emerald-400",bg: "from-emerald-500/20 to-emerald-500/5",border:"border-emerald-500/25" },
-    { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-600 dark:text-rose-400",   bg: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/25" },
+    { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-600 dark:text-cyan-400",   bg: "from-cyan-500/20 to-cyan-500/5",   border: "border-cyan-500/25", href: "/login-empresa" },
+    { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-600 dark:text-violet-400", bg: "from-violet-500/20 to-violet-500/5", border: "border-violet-500/25", href: "/login-rrhh" },
+    { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-600 dark:text-blue-400",   bg: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/25", href: "/login-linea" },
+    { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-600 dark:text-amber-400",  bg: "from-amber-500/20 to-amber-500/5",  border: "border-amber-500/25", href: "/login-escritorio-juridico" },
+    { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-600 dark:text-emerald-400",bg: "from-emerald-500/20 to-emerald-500/5",border:"border-emerald-500/25", href: "/login-sostenibilidad" },
+    { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-600 dark:text-rose-400",   bg: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/25", href: "/login-empresa" },
 ];
 
 const kpis = [
@@ -185,17 +185,21 @@ export function HeroSection() {
                                             initial={{ opacity: 0, scale: 0.92 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
-                                            className={cn(
-                                                "group flex flex-col gap-2.5 p-3.5 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.03] cursor-default",
-                                                mod.bg, mod.border
-                                            )}
                                         >
-                                            <div className={cn("p-1.5 rounded-lg bg-black/10 dark:bg-black/20 w-fit", mod.color)}>
-                                                <mod.icon className="h-3.5 w-3.5" />
-                                            </div>
-                                            <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors">
-                                                {mod.label}
-                                            </p>
+                                            <Link
+                                                href={mod.href as any}
+                                                className={cn(
+                                                    "group flex flex-col gap-2.5 p-3.5 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.03] cursor-pointer",
+                                                    mod.bg, mod.border
+                                                )}
+                                            >
+                                                <div className={cn("p-1.5 rounded-lg bg-black/10 dark:bg-black/20 w-fit", mod.color)}>
+                                                    <mod.icon className="h-3.5 w-3.5" />
+                                                </div>
+                                                <p className="text-[7px] font-black uppercase tracking-tight text-foreground/70 leading-tight group-hover:text-foreground/90 transition-colors">
+                                                    {mod.label}
+                                                </p>
+                                            </Link>
                                         </motion.div>
                                     ))}
                                 </div>

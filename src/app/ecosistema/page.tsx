@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { ChartBar as BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, ChevronRight, Zap, ShieldAlert, LayoutDashboard, Calendar, Network, Cpu, Box, Activity, Search, Bell, Info, ArrowUpRight } from 'lucide-react';
+import { ChartBar as BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint, ChevronRight, Zap, ShieldAlert, LayoutDashboard, Calendar, Network, Cpu, Box, Activity, Search, Bell, Info, ArrowUpRight, RefreshCw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, BarChart, Bar
@@ -16,7 +17,17 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function EcosistemaKyron() {
   const { toast } = useToast();
+  const router = useRouter();
+  const [isSyncing, setIsSyncing] = useState(false);
   const user = { name: "OPERADOR CENTRAL", email: "noc@kyron.com", fallback: "OC" };
+
+  const handleSyncTotal = async () => {
+    setIsSyncing(true);
+    toast({ title: "SINCRONIZACIÓN INICIADA", description: "Conectando con todos los módulos del ecosistema..." });
+    await new Promise(r => setTimeout(r, 2500));
+    setIsSyncing(false);
+    toast({ title: "SINCRONIZACIÓN COMPLETADA", description: "Todos los módulos están al día. Latencia: 14ms." });
+  };
 
   const [sustainabilityData, setSustainabilityData] = useState({
     today: 245,
@@ -70,12 +81,15 @@ export default function EcosistemaKyron() {
             >
               <div className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-8 border-primary pl-10 py-4">
                 <div>
-                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic italic-shadow leading-none">Portal Integral de Control Corporativo</h2>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow leading-none">El ecosistema que unifica telecomunicaciones, fiscalidad y sostenibilidad</h2>
                     <p className="text-sm font-black text-primary uppercase tracking-[0.6em] mt-4">Terminal de Operaciones Globales • 2026</p>
                 </div>
                 <div className="flex gap-4">
-                    <Button variant="outline" className="h-16 px-10 rounded-lg text-[11px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 transition-all">Sincronización Total</Button>
-                    <Button className="btn-3d-primary h-16 px-10">Acceso Nivel 5</Button>
+                    <Button onClick={handleSyncTotal} disabled={isSyncing} variant="outline" className="h-16 px-10 rounded-lg text-[11px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 transition-all">
+                        <RefreshCw className={`mr-2 h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
+                        {isSyncing ? 'Sincronizando...' : 'Sincronización Total'}
+                    </Button>
+                    <Button onClick={() => router.push('/login-empresa')} className="btn-3d-primary h-16 px-10">Acceso Nivel 5</Button>
                 </div>
               </div>
 
@@ -155,7 +169,7 @@ export default function EcosistemaKyron() {
                             </div>
                         </CardContent>
                         <CardFooter className="p-8 pt-0 relative z-10">
-                            <Button variant="secondary" className="w-full btn-3d-secondary h-16 text-xs">AUTENTICACIÓN BIOMÉTRICA</Button>
+                            <Button variant="secondary" onClick={() => { toast({ title: "BIOMETRÍA ACTIVA", description: "Validación de identidad completada. Acceso nivel 5 concedido." }) }} className="w-full btn-3d-secondary h-16 text-xs">AUTENTICACIÓN BIOMÉTRICA</Button>
                         </CardFooter>
                     </Card>
                 </div>
