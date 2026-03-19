@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
@@ -57,7 +57,7 @@ const tramites = [
     { label: "Habilitación Corporativa", icon: Shield, desc: "Permiso de telecomunicaciones para red privada corporativa.", plazo: "20-30 días hábiles" },
 ];
 
-export default function ConatelLicensesPage() {
+export default function ConatelPage() {
     const { toast } = useToast();
 
     return (
@@ -86,7 +86,6 @@ export default function ConatelLicensesPage() {
                 </Button>
             </motion.header>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
                 {[
                     { label: "Licencias Vigentes", value: licencias.filter(l => l.estado === "Vigente").length, color: "text-emerald-400" },
@@ -102,7 +101,6 @@ export default function ConatelLicensesPage() {
                 ))}
             </div>
 
-            {/* Licenses */}
             <div className="space-y-4">
                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-2">Licencias Activas</h3>
                 {licencias.map((lic, i) => (
@@ -160,7 +158,6 @@ export default function ConatelLicensesPage() {
                 ))}
             </div>
 
-            {/* New Tramites */}
             <div className="space-y-4">
                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-2">Nuevos Trámites Disponibles</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
