@@ -28,9 +28,10 @@ Todas las rutas de la app están bajo `src/app/[locale]/` para soportar i18n.
 - `[locale]/(telecom)/` — Telecomunicaciones
 - `[locale]/(ventas)/` — Facturación y Ventas
 
-## Base de Datos — Schema Completo (32 tablas)
+## Base de Datos — Schema Completo (60+ tablas)
 PostgreSQL integrada de Replit. Esquema centralizado en `src/lib/db-schema.ts`.
 Inicializado automáticamente en `src/instrumentation.ts` al arrancar el servidor.
+Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 
 ### 1. Auth & Core
 - `users` — Usuarios (naturales y jurídicos) con todos los campos VEN + representante legal
