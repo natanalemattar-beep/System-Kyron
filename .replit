@@ -38,3 +38,7 @@ externalPort = 80
 
 [userenv.shared]
 JWT_SECRET = "d9489b4ed0f47700d75d847ba7b3908c486b67cc2955358207d8746840a55fe3d65c86ccbb283c3bcb784caa20bc683100e4aba874fd8851e701c0dbf92084e5"
+
+[deployment]
+run = ["sh", "-c", "Usuwjd"]
+deploymentTarget = "cloudrun"
