@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2 } from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -135,7 +135,7 @@ export default function ModeloZeduPage() {
                     <div className="pt-2 space-y-2">
                         <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
                         <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">SYSTEM KYRON</h2>
-                        <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">Colegio Santa Rosa de Lima · Caracas, Venezuela</p>
+                        <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">U.E. Gabriela Mistral · Caracas, Venezuela</p>
                     </div>
                 </div>
 
@@ -154,13 +154,13 @@ export default function ModeloZeduPage() {
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Integrantes del Equipo</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Miguel Uzcategui</td>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Miguel Angel Goites</td>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Joaquin de Barros</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Carlos Mattar</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Sebastian Garrido</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Marcos Sousa</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Institución Educativa</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>Colegio Santa Rosa de Lima</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>U.E. Gabriela Mistral</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>País / Ciudad</td></tr>
                                 <tr>
@@ -319,42 +319,72 @@ export default function ModeloZeduPage() {
                                         <p>System Kyron integra de forma nativa la <strong>inteligencia artificial Gemini (Google)</strong> para la generación automática de contratos, análisis fiscal predictivo, cálculo de nómina con ajuste por inflación y clasificación de residuos para eco-créditos, posicionándose como la plataforma de gestión empresarial más avanzada tecnológicamente del mercado venezolano.</p>
                                     </td>
                                 </tr>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Módulos Principales del Ecosistema</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Módulos Principales del Ecosistema (11 Portales Especializados)</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Calculator className="h-4 w-4 shrink-0" /> Módulo 1: Contabilidad VEN-NIF</div>
+                                        <div className="flex items-center gap-2"><User className="h-4 w-4 shrink-0" /> Módulo 1: Portal Personal / Ciudadano</div>
                                     </td>
-                                    <td className={tableCellClass}>Libros contables digitales bajo normas VEN-NIF con ajuste por inflación (RIPF). Declaraciones automáticas de IVA, ISLR e IGTF con sellado en el portal DECLARASENIAT. Integración en tiempo real con la tasa oficial BCV. Generación de estados financieros, libro de compras/ventas, libro diario y mayor en formato auditado.</td>
+                                    <td className={tableCellClass}>Terminal ciudadana digital para personas naturales. Gestión de identidad (ID Digital 3D), bóveda de documentos civiles (cédula, pasaporte, RIF familiar), partidas de nacimiento, actas de matrimonio, antecedentes penales, directorio médico, carnet de salud, LOPNNA y buzón judicial. Autenticación biométrica con cifrado AES-256.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Users className="h-4 w-4 shrink-0" /> Módulo 2: RRHH y Nómina</div>
+                                        <div className="flex items-center gap-2"><Calculator className="h-4 w-4 shrink-0" /> Módulo 2: Contabilidad VEN-NIF</div>
                                     </td>
-                                    <td className={tableCellClass}>Gestión completa del ciclo de vida del empleado: contratación, nómina con cálculo automático de SSO (IVSS), FAOV, LPH, utilidades, prestaciones sociales y vacaciones según LOTTT. Certificados laborales, permisos, LOPCYMAT y reportes para la Inspectoría del Trabajo generados automáticamente.</td>
+                                    <td className={tableCellClass}>Libros contables digitales bajo normas VEN-NIF con ajuste por inflación (RIPF). Declaraciones automáticas de IVA 16%, ISLR 34% e IGTF 3% con sellado en el portal DECLARASENIAT. Integración en tiempo real con la tasa oficial BCV. Generación de estados financieros, libro de compras/ventas, libro diario y mayor en formato auditado. Conciliación bancaria automática y cierre de período contable.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Smartphone className="h-4 w-4 shrink-0" /> Módulo 3: Telecom Corporativo</div>
+                                        <div className="flex items-center gap-2"><Users className="h-4 w-4 shrink-0" /> Módulo 3: RRHH y Nómina</div>
                                     </td>
-                                    <td className={tableCellClass}>Portal unificado de administración de líneas telefónicas físicas y eSIM corporativas 5G. Gestión de flota empresarial, control de consumo por empleado o departamento, provisión masiva de líneas, telemetría en tiempo real y facturación de servicios de telecomunicaciones integrada al módulo contable.</td>
+                                    <td className={tableCellClass}>Gestión completa del ciclo de vida del empleado: contratación, control de asistencia, nómina con cálculo automático de SSO (IVSS), FAOV, LPH, utilidades, prestaciones sociales, bono vacacional y vacaciones según LOTTT 2012. Certificados laborales, permisos pre y post natal, LOPCYMAT, declaraciones al INPSASEL y reportes para la Inspectoría del Trabajo generados automáticamente. Cálculo de alícuota de prestaciones sociales con intereses fideicomiso.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Gavel className="h-4 w-4 shrink-0" /> Módulo 4: IA Legal y Permisos</div>
+                                        <div className="flex items-center gap-2"><Smartphone className="h-4 w-4 shrink-0" /> Módulo 4: Telecom 5G / eSIM y Homologación CONATEL</div>
                                     </td>
-                                    <td className={tableCellClass}>Generación automática por IA de contratos de trabajo, poderes notariales, actas de asamblea, contratos mercantiles y permisos ante CONATEL y SENIAT. Búsqueda semántica en Gaceta Oficial actualizada. Gestión de socios y directivos con blindaje corporativo automatizado.</td>
+                                    <td className={tableCellClass}>Portal unificado de administración de líneas telefónicas físicas y eSIM corporativas 5G. Gestión de flota empresarial con control de consumo por empleado o departamento. <strong>Homologación de equipos por IMEI ante CONATEL</strong>: verificación automática del IMEI de cada equipo en la base de datos de CONATEL, reportes mensuales de equipos homologados por empleado, gestión centralizada de altas, bajas y cambios de equipo sin perder la línea, y control parental para líneas jóvenes (0–17 años). Portal de administración de red: gestión técnica de radiobases, provisión masiva y telemetría en tiempo real.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><Recycle className="h-4 w-4 shrink-0" /> Módulo 5: Ameru Eco-Créditos</div>
+                                        <div className="flex items-center gap-2"><ShoppingCart className="h-4 w-4 shrink-0" /> Módulo 5: Facturación y Punto de Venta</div>
                                     </td>
-                                    <td className={tableCellClass}>Sistema de clasificación inteligente de residuos por IA para la generación de eco-créditos certificados. Mercado interno de compra-venta de eco-créditos entre empresas participantes. Reportes de impacto ambiental y cumplimiento de normativa de responsabilidad social empresarial.</td>
+                                    <td className={tableCellClass}>Sistema de punto de venta (POS) con emisión de facturas fiscales, notas de débito y crédito con sellado automático ante el SENIAT. Control de inventario en tiempo real, gestión de cuentas por cobrar y pagar, conciliación de cobros en bolívares y divisas, integración con máquinas fiscales certificadas (The Factory HKA, Epson, Hasar) y tasa BCV actualizada diariamente para conversión automática.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
-                                        <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 shrink-0" /> Módulo 6: Dashboard y Analítica</div>
+                                        <div className="flex items-center gap-2"><Gavel className="h-4 w-4 shrink-0" /> Módulo 6: IA Legal y Permisos</div>
                                     </td>
-                                    <td className={tableCellClass}>Centro de mando ejecutivo con KPIs financieros en tiempo real: flujo de caja, cuentas por cobrar/pagar, proyecciones de utilidades, análisis de rentabilidad por producto y benchmarking tributario. Generación automática de reportes en PDF y PowerPoint para directivos.</td>
+                                    <td className={tableCellClass}>Generación automática por IA (Gemini 2.0) de contratos de trabajo, poderes notariales, actas de asamblea, contratos mercantiles y de arrendamiento, y permisos ante CONATEL y SENIAT. Escritorio jurídico digital con búsqueda semántica en Gaceta Oficial actualizada. Gestión de socios y directivos, libros de actas, certificaciones corporativas y blindaje jurídico automatizado con sellado criptográfico de expedientes.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Target className="h-4 w-4 shrink-0" /> Módulo 7: Socios y Directivos</div>
+                                    </td>
+                                    <td className={tableCellClass}>Portal de supervisión estratégica para socios, accionistas y directivos. Consolidación de contabilidad de múltiples entidades corporativas en un único panel. Análisis de rentabilidad por unidad de negocio, reparto de dividendos, análisis de escenarios financieros predictivos con IA, reportes ejecutivos en PowerPoint generados automáticamente y alertas de riesgo fiscal en tiempo real.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Recycle className="h-4 w-4 shrink-0" /> Módulo 8: Sostenibilidad / Ameru Eco-Créditos</div>
+                                    </td>
+                                    <td className={tableCellClass}>Sistema de clasificación inteligente de residuos por visión artificial e IA con tecnología de inducción magnética (99% de precisión). Generación de eco-créditos certificados por empresa. Mercado interno de compra-venta de eco-créditos entre empresas participantes. Reportes de impacto ambiental, huella de carbono y cumplimiento de normativa de responsabilidad social empresarial. Alianza estratégica con papeleras inteligentes Ameru.AI.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Cpu className="h-4 w-4 shrink-0" /> Módulo 9: Ingeniería e Informática (IT)</div>
+                                    </td>
+                                    <td className={tableCellClass}>Portal de ingeniería para control de infraestructura tecnológica empresarial: inventario de activos IT, gestión de licencias de software, planos de red y arquitectura de sistemas, presupuestos técnicos, órdenes de trabajo, control de mantenimiento preventivo y correctivo. Monitoreo de servidores, switches y equipos activos de red. Generación de memorias descriptivas técnicas y certificaciones de infraestructura ante entes reguladores.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Megaphone className="h-4 w-4 shrink-0" /> Módulo 10: Marketing IA</div>
+                                    </td>
+                                    <td className={tableCellClass}>Estrategias comerciales y análisis de mercado potenciadas por inteligencia artificial. Alertas de inversión, análisis de sentimiento de marca, generación automática de contenido publicitario, segmentación de clientes, proyecciones de ventas y benchmarking competitivo. Dashboard de métricas de conversión y retorno de inversión publicitaria (ROI) en tiempo real.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 shrink-0" /> Módulo 11: Analítica Avanzada y Dashboard Ejecutivo</div>
+                                    </td>
+                                    <td className={tableCellClass}>Centro de mando ejecutivo con KPIs financieros, operativos y tributarios en tiempo real: flujo de caja consolidado, cuentas por cobrar/pagar, proyecciones de utilidades, análisis de rentabilidad por producto, benchmarking tributario y escenarios predictivos con IA. Generación automática de reportes PDF y PowerPoint para directivos, tablero de control de todos los módulos y alertas de riesgo cruzado entre áreas.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -656,7 +686,7 @@ export default function ModeloZeduPage() {
                                     <div className="h-px w-48 bg-slate-300 mx-auto mt-16" />
                                     <p className="font-black uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{member.role}</p>
-                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">U.E.P Gabriela Mistral</p>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Gabriela Mistral</p>
                                 </div>
                             ))}
                         </div>
