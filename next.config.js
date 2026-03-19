@@ -8,7 +8,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev'],
+  allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },
