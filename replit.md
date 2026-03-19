@@ -28,36 +28,75 @@ Todas las rutas de la app están bajo `src/app/[locale]/` para soportar i18n.
 - `[locale]/(telecom)/` — Telecomunicaciones
 - `[locale]/(ventas)/` — Facturación y Ventas
 
-## Base de Datos — Schema Completo (18 tablas)
-PostgreSQL integrada de Replit. Schema general creado y gestionado centralmente.
+## Base de Datos — Schema Completo (32 tablas)
+PostgreSQL integrada de Replit. Esquema centralizado en `src/lib/db-schema.ts`.
+Inicializado automáticamente en `src/instrumentation.ts` al arrancar el servidor.
 
-### Auth & Core
+### 1. Auth & Core
 - `users` — Usuarios (naturales y jurídicos) con todos los campos VEN + representante legal
 - `user_modules` — Módulos habilitados por usuario
-- `activity_log` — Auditoría completa del sistema (auth, contabilidad, rrhh, banco, ia, telecom, eco, legal, nomina)
+- `user_sessions` — Sesiones activas multi-dispositivo
+- `activity_log` — Auditoría completa (auth, contabilidad, rrhh, banco, ia, telecom, eco, legal, nomina)
 
-### Contabilidad & Facturación
-- `facturas` — Facturas de venta/compra con IVA 16%, IGTF 3%, tasa BCV, total USD
-- `factura_items` — Líneas de detalle de facturas
-- `clientes` — Clientes (personas naturales y jurídicas)
-- `proveedores` — Proveedores
+### 2. Contabilidad & Finanzas (VEN-NIF / SENIAT)
+- `facturas` — Facturas venta/compra con IVA 16%, IGTF 3%, tasa BCV, total USD
+- `factura_items` — Líneas de detalle
+- `clientes` — Clientes (naturales y jurídicos)
+- `proveedores` — Directorio de proveedores con calificación
 - `transacciones_pagos` — Pagos: pago móvil, Zelle, Binance, POS, transferencia
+- `cuentas_bancarias` — Cuentas bancarias con saldo y disponible
+- `movimientos_bancarios` — Libro diario: créditos y débitos
+- `tasas_bcv` — Histórico de tipos de cambio BCV (USD, EUR, COP, USDT)
+- `declaraciones_iva` — Declaraciones de IVA ante SENIAT
+- `declaraciones_islr` — Declaraciones de ISLR
+- `retenciones` — Retenciones IVA e ISLR a proveedores
+- `arqueos_caja` — Arqueos de caja por turno
+- `plan_cuentas` — Plan de cuentas contable VEN-NIF
+- `inventario` — Inventario de productos y servicios
 
-### Banca & Flujo de Caja
-- `cuentas_bancarias` — Cuentas bancarias con saldo actual y disponible
-- `movimientos_bancarios` — Libro mayor: créditos y débitos por cuenta
+### 3. RRHH & Nómina
+- `empleados` — Empleados con datos laborales venezolanos (LOTTT)
+- `nominas` — Nóminas por período (quincenal, mensual, utilidades, vacaciones)
+- `nomina_items` — Detalle por empleado (SSO, FAOV, LPH, RPE, ISLR)
+- `permisos_laborales` — Permisos y vacaciones
+- `certificados_laborales` — Certificados de trabajo, ingresos, referencias
 
-### RRHH
-- `empleados` — Empleados con datos laborales venezolanos
-- `nomina` — Nómina por período con SSO, FAOV, LPH y neto a pagar
+### 4. Legal / Escritorio Jurídico
+- `documentos_juridicos` — Contratos, escrituras, demandas, poderes, actas
+- `actas_asamblea` — Actas de asamblea ordinaria y extraordinaria
+- `socios` — Registro de socios y accionistas con % participación
+- `poderes_notariales` — Poderes notariales con facultades
 
-### Módulos Especializados
-- `documentos_legales` — Documentos legales (permisos, contratos, poderes, etc.)
-- `sector_solicitudes` — Solicitudes sector público/privado
-- `alianzas_petroleras` — Solicitudes de alianzas sector petrolero y energético
-- `telecom_lineas` — Líneas telefónicas corporativas (física, eSIM, 5G)
-- `eco_creditos` — Eco-créditos de sostenibilidad (clasificación IA de residuos)
-- `pitch_analytics` — Analítica de presentaciones de pitch
+### 5. Telecomunicaciones
+- `lineas_telecom` — Líneas corporativas (Movistar, Digitel, Movilnet, CANTV)
+- `facturas_telecom` — Facturación mensual de servicios telecom
+
+### 6. Sostenibilidad / Ameru IA
+- `eco_creditos` — Balance de eco-créditos por usuario (bronce→platino)
+- `eco_transacciones` — Reciclaje verificado con cálculo automático de ECR
+
+### 7. Documentos Personales (Bóveda Digital)
+- `documentos_personales` — Documentos personales cifrados (cédula, RIF, título, etc.)
+- `solicitudes_documentos_civiles` — Solicitudes partidas, pasaportes, certificados
+- `documentos_generados_ia` — Historial de documentos generados por IA
+
+### 8. Sector Privado
+- `sector_solicitudes` — Solicitudes sectoriales empresariales
+- `alianzas_petroleras` — Solicitudes de alianzas sector petrolero
+
+### 9. Analítica
+- `pitch_sessions` — Sesiones del Pitch IA
+- `document_records` — Documentos generados (PPTX, PDF)
+- `page_events` — Eventos de páginas (analítica frontend)
+
+### 10. Configuración
+- `notificaciones` — Notificaciones del sistema (fiscal, vencimientos, pagos)
+- `configuracion_usuario` — Preferencias y configuración por usuario
+
+## Inicialización DB
+- **Auto-init**: `src/instrumentation.ts` → ejecuta al arrancar Next.js (NODE_ENV: nodejs)
+- **Schema central**: `src/lib/db-schema.ts` → `initializeDatabase()` con todas las tablas
+- **API manual**: `GET/POST /api/db-init` → verificación y re-inicialización en caliente
 
 ## API Routes
 ### Auth
@@ -74,6 +113,20 @@ PostgreSQL integrada de Replit. Schema general creado y gestionado centralmente.
 - `GET/POST /api/clientes` — CRUD clientes
 - `GET/POST /api/empleados` — CRUD empleados
 - `GET/POST /api/transacciones` — CRUD transacciones de pago
+- `GET/POST/PATCH /api/nomina` — Gestión de nóminas + ítems por empleado
+- `GET/POST /api/declaraciones` — Declaraciones IVA e ISLR (?impuesto=iva|islr)
+- `GET/POST /api/retenciones` — Retenciones IVA e ISLR
+- `GET/POST /api/tasas-bcv` — Histórico de tasas BCV (con upsert por fecha)
+- `GET/POST/DELETE /api/documentos-personales` — Bóveda digital de documentos
+- `GET/POST/PATCH /api/solicitudes-civiles` — Solicitudes de documentos civiles
+- `GET/POST /api/eco-creditos` — Balance y transacciones de reciclaje Ameru IA
+- `GET/POST /api/telecom` — Líneas telecom + facturas de servicios
+- `GET/POST/PATCH /api/notificaciones` — Notificaciones del sistema
+- `GET/POST/PATCH /api/proveedores` — Directorio de proveedores
+- `GET/POST/PATCH /api/documentos-juridicos` — Documentos del escritorio jurídico
+- `GET/PATCH /api/configuracion` — Configuración y preferencias del usuario
+- `GET/POST /api/sector-solicitudes` — Solicitudes sectoriales
+- `GET/POST /api/alianzas-petroleras` — Alianzas sector petrolero
 
 ## Autenticación
 - `src/lib/db.ts` — Pool de conexión PostgreSQL
