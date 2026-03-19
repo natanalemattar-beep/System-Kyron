@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, School, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen } from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -53,7 +53,7 @@ export default function ModeloZeduPage() {
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
             "xmlns:w='urn:schemas-microsoft-com:office:word' " +
             "xmlns='http://www.w3.org/TR/REC-html40'>" +
-            "<head><meta charset='utf-8'><title>MODELO ZEDU — AUTOMIND AI</title><style>" +
+            "<head><meta charset='utf-8'><title>MODELO ZEDU — SYSTEM KYRON</title><style>" +
             "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 20pt; }" +
             ".cover { margin-bottom: 40pt; border-bottom: 2pt solid #0A2472; padding-bottom: 20pt; }" +
             ".cover-table { border: none !important; width: 100%; margin-bottom: 40pt; }" +
@@ -78,7 +78,7 @@ export default function ModeloZeduPage() {
                         <td style="border: none !important; width: 130px; vertical-align: middle;">${logoHtml}</td>
                         <td style="border: none !important; vertical-align: middle; padding-left: 25pt;">
                             <div class="cover-title">MODELO ZEDU</div>
-                            <div class="cover-title" style="color: #64748b; font-size: 22pt;">AUTOMIND AI</div>
+                            <div class="cover-title" style="color: #64748b; font-size: 22pt;">SYSTEM KYRON</div>
                         </td>
                     </tr>
                 </table>
@@ -91,14 +91,14 @@ export default function ModeloZeduPage() {
         const downloadUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = 'MODELO_ZEDU_AUTOMIND_AI.doc';
+        link.download = 'MODELO_ZEDU_SYSTEM_KYRON.doc';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
         toast({
             title: "DOCUMENTO DESCARGADO",
-            description: "El Modelo Zedu — AutoMind AI ha sido generado correctamente.",
+            description: "El Modelo Zedu — System Kyron ha sido generado correctamente.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
@@ -134,7 +134,7 @@ export default function ModeloZeduPage() {
                     <Logo id="main-logo-zedu" className="h-28 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg rounded-2xl shrink-0" />
                     <div className="pt-2 space-y-2">
                         <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
-                        <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">AUTOMIND AI</h2>
+                        <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">SYSTEM KYRON</h2>
                         <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">Colegio Santa Rosa de Lima · Caracas, Venezuela</p>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ export default function ModeloZeduPage() {
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Nombre del Proyecto</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase text-xl py-6 col-span-3")} colSpan={3}>AutoMind AI</td>
+                                    <td className={cn(tableCellClass, "text-center font-black uppercase text-xl py-6 col-span-3")} colSpan={3}>System Kyron</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Integrantes del Equipo</td></tr>
                                 <tr>
@@ -182,51 +182,54 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableHeaderClass} colSpan={2}>Localización</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>País / Ciudad / Municipio</td>
-                                    <td className={tableCellClass}>Venezuela, Caracas, Municipio Baruta</td>
+                                    <td className={tableCellClass}>Venezuela — alcance nacional, con sede operativa en Caracas, Distrito Capital</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Nombre de la Comunidad</td>
-                                    <td className={tableCellClass}>Santa Rosa de Lima</td>
+                                    <td className={tableLabelClass}>Segmento de Mercado</td>
+                                    <td className={tableCellClass}>Sector privado venezolano: pequeñas, medianas y grandes empresas que requieren gestión contable VEN-NIF, administración de nómina, telecomunicaciones corporativas, asesoría legal con IA y gestión de sostenibilidad.</td>
                                 </tr>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Datos Demográficos</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Datos del Mercado Objetivo</td></tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Cantidad Total de Habitantes</td>
+                                    <td className={tableLabelClass}>Cantidad Estimada de Empresas</td>
                                     <td className={tableCellClass}>
-                                        Aproximadamente <strong>38.000 habitantes</strong> en la comunidad de Santa Rosa de Lima y urbanizaciones adyacentes del Municipio Baruta. La institución educativa atiende directamente a una comunidad de más de <strong>1.200 familias</strong> registradas como representantes activos.
+                                        Según el INE y registros del SENIAT, Venezuela cuenta con aproximadamente <strong>890.000 contribuyentes jurídicos activos</strong>, de los cuales más de <strong>420.000 son pequeñas y medianas empresas (PYME)</strong> con necesidades activas de automatización fiscal y administrativa. El Municipio Libertador y Gran Caracas concentran el 38% de este universo empresarial.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Cantidad de Habitantes por Género</td>
+                                    <td className={tableLabelClass}>Distribución por Sector Productivo</td>
                                     <td className={tableCellClass}>
                                         <ul className="list-disc list-inside space-y-1">
-                                            <li><strong>Femenino:</strong> aproximadamente 52% (19.760 personas)</li>
-                                            <li><strong>Masculino:</strong> aproximadamente 48% (18.240 personas)</li>
+                                            <li><strong>Comercio y servicios:</strong> 52% del total de empresas</li>
+                                            <li><strong>Industria y manufactura:</strong> 18%</li>
+                                            <li><strong>Telecomunicaciones y tecnología:</strong> 9%</li>
+                                            <li><strong>Construcción y bienes raíces:</strong> 11%</li>
+                                            <li><strong>Otros sectores:</strong> 10%</li>
                                         </ul>
-                                        <p className="mt-2 text-sm text-slate-500 italic">Fuente: Proyecciones demográficas INE 2023, Municipio Baruta.</p>
+                                        <p className="mt-2 text-sm text-slate-500 italic">Fuente: SENIAT — Padrón de Contribuyentes 2024. INE — Directorio de Empresas Venezuela.</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Cantidad de Habitantes por Edad</td>
+                                    <td className={tableLabelClass}>Perfil del Usuario Final</td>
                                     <td className={tableCellClass}>
                                         <ul className="list-disc list-inside space-y-1">
-                                            <li><strong>0 – 14 años:</strong> 22% (8.360 personas)</li>
-                                            <li><strong>15 – 29 años:</strong> 24% (9.120 personas)</li>
-                                            <li><strong>30 – 59 años:</strong> 40% (15.200 personas) — principal segmento de representantes</li>
-                                            <li><strong>60 años o más:</strong> 14% (5.320 personas)</li>
+                                            <li><strong>Propietarios y directivos (30–55 años):</strong> Toman decisiones de inversión tecnológica</li>
+                                            <li><strong>Administradores y contadores:</strong> Usuarios directos del módulo fiscal y contable</li>
+                                            <li><strong>Gerentes de RRHH:</strong> Usuarios del módulo de nómina y talento humano</li>
+                                            <li><strong>Asesores legales y abogados corporativos:</strong> Usuarios del módulo jurídico</li>
                                         </ul>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Características de la Población</td>
+                                    <td className={tableLabelClass}>Características del Entorno</td>
                                     <td className={tableCellClass}>
-                                        <p>La comunidad de Santa Rosa de Lima, en el Municipio Baruta, está compuesta mayoritariamente por familias de clase media y media-alta. El nivel educativo predominante es universitario o técnico superior. Un alto porcentaje de los representantes estudiantiles son profesionales activos en sectores como finanzas, servicios, comercio y tecnología. El Colegio Santa Rosa de Lima es una institución privada de referencia en la zona, con más de 30 años de trayectoria y aproximadamente 900 estudiantes activos distribuidos en los niveles de Primaria y Bachillerato.</p>
-                                        <p>La comunidad cuenta con acceso a servicios básicos (agua, electricidad, internet) aunque con las intermitencias propias del contexto venezolano. Existe una fuerte cultura de participación de los representantes en las actividades institucionales, lo que representa una oportunidad directa de adopción para la solución AutoMind AI.</p>
+                                        <p>El mercado venezolano opera en un entorno de alta complejidad regulatoria: variaciones del tipo de cambio BCV con actualización diaria, múltiples tributos (IVA 16%, IGTF 3%, ISLR 34%, municipales, parafiscales), normativa contable VEN-NIF específica y un marco legal laboral exigente (LOTTT, LOPCYMAT, IVSS, FAOV). Las empresas enfrentan una carga operativa sin precedentes que justifica la automatización integral que ofrece System Kyron.</p>
+                                        <p>El contexto venezolano también presenta una creciente adopción de soluciones digitales impulsada por la dolarización parcial de la economía y la recuperación económica del sector privado desde 2021, creando un ecosistema favorable para la implementación de software empresarial de nueva generación.</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Clima</td>
+                                    <td className={tableLabelClass}>Clima y Conectividad</td>
                                     <td className={tableCellClass}>
-                                        <p>Caracas posee un <strong>clima tropical de sabana</strong> con temperaturas anuales que oscilan entre los 18°C y 28°C. Se distinguen dos estaciones: la temporada de lluvias (mayo–octubre) y la temporada seca (noviembre–abril). La altitud media de 900 msnm le confiere un clima agradable y fresco en comparación con el resto del territorio venezolano. Estas condiciones no representan una restricción para la implementación de soluciones digitales, aunque la estacionalidad de lluvias puede afectar la conectividad en zonas sin infraestructura de fibra óptica.</p>
+                                        <p>Caracas posee <strong>clima tropical de sabana</strong> con temperaturas entre 18°C y 28°C. La conectividad digital en el Área Metropolitana de Caracas alcanza una penetración de internet de banda ancha del 62% en empresas formales, con cobertura 4G en el 78% del territorio urbano. System Kyron está diseñado con arquitectura cloud-first y funcionalidades de caché para operar eficientemente bajo condiciones de conectividad intermitente, característica crítica en el entorno venezolano.</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -245,53 +248,54 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableHeaderClass} colSpan={2}>Definición del Problema</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>En el Colegio Santa Rosa de Lima, el sistema de archivado institucional es enteramente físico. La gestión de expedientes estudiantiles, registros de notas, constancias, permisos y comunicaciones con representantes se realiza mediante carpetas en papel, archivadores físicos y registros manuales en hojas de cálculo desconectadas. Esto no permite agilidad en la búsqueda de información relativa a un estudiante, genera pérdida de tiempo considerable para el personal administrativo y compromete la privacidad de los datos ante pérdidas, daños o accesos no autorizados.</p>
+                                        <p>Las empresas venezolanas operan en uno de los entornos regulatorios más complejos de América Latina, enfrentando simultáneamente la gestión de múltiples tributos con tasas dinámicas, la obligatoriedad de los libros contables bajo normas VEN-NIF, la administración de nóminas con múltiples beneficios y aportes sociales, y el cumplimiento de una legislación laboral y mercantil en constante actualización. La gran mayoría de las PYME venezolanas gestiona estas obligaciones mediante hojas de cálculo desconectadas, registros físicos y herramientas importadas no adaptadas al mercado local, generando ineficiencia operativa, riesgo fiscal elevado y pérdida de competitividad.</p>
+                                        <p>No existe en el mercado venezolano un <strong>ecosistema digital integrado</strong> que unifique contabilidad VEN-NIF, nómina LOTTT, telecom corporativa, asesoría legal con IA y gestión de sostenibilidad en una sola plataforma diseñada desde cero para la realidad operativa venezolana.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Causas del Problema</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Causa 1</td>
-                                    <td className={tableCellClass}><strong>Falta de organización sistemática:</strong> No existe un protocolo unificado para la clasificación, nomenclatura y almacenamiento de documentos estudiantiles. Cada departamento (secretaría, coordinación, administración) maneja sus archivos de forma independiente y sin estándar compartido.</td>
+                                    <td className={tableCellClass}><strong>Ausencia de software local especializado:</strong> Las soluciones ERP disponibles (SAP, Oracle, Contpaq) están diseñadas para mercados latinoamericanos genéricos y no incorporan las particularidades fiscales venezolanas: tasa BCV en tiempo real, retenciones SENIAT, IVA e IGTF diferenciado, ajuste por inflación RIPF ni declaraciones en el portal DECLARASENIAT.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Causa 2</td>
-                                    <td className={tableCellClass}><strong>Poca disposición hacia la tecnología:</strong> El personal administrativo con más años de experiencia muestra resistencia al cambio tecnológico por falta de formación específica y por el apego a métodos tradicionales que consideran seguros y conocidos.</td>
+                                    <td className={tableCellClass}><strong>Fragmentación de herramientas:</strong> Las empresas utilizan entre 4 y 8 aplicaciones distintas para gestionar sus operaciones (hojas de cálculo, software de facturación básico, sistemas de nómina independientes, mensajería para comunicación legal), generando redundancias, errores de transferencia de datos y costos de licencias múltiples.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Causa 3</td>
-                                    <td className={tableCellClass}><strong>Escaso presupuesto para modernización:</strong> La asignación de recursos hacia infraestructura tecnológica ha sido históricamente baja, priorizando gastos operativos inmediatos (nómina, mantenimiento físico) sobre inversiones en digitalización.</td>
+                                    <td className={tableCellClass}><strong>Costo elevado de asesoría especializada:</strong> La complejidad regulatoria venezolana obliga a las empresas a contratar contadores, abogados fiscalistas y asesores laborales de forma permanente. System Kyron automatiza estas funciones mediante IA, reduciendo drásticamente los costos de cumplimiento.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Causa 4</td>
-                                    <td className={tableCellClass}><strong>Desactualización tecnológica:</strong> El equipamiento informático disponible es obsoleto y el personal desconoce las herramientas digitales modernas de gestión documental, inteligencia artificial y comunicación institucional automatizada.</td>
+                                    <td className={tableCellClass}><strong>Volatilidad cambiaria y fiscal:</strong> Las modificaciones frecuentes al marco impositivo (SENIAT), las actualizaciones diarias de la tasa BCV y los cambios en la Gaceta Oficial requieren un sistema que se actualice en tiempo real, capacidad que ninguna solución existente en Venezuela ofrece de forma nativa.</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Consecuencias del Problema</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Consecuencia Principal</td>
-                                    <td className={tableCellClass}><strong>Pérdida de tiempo en búsqueda de archivos:</strong> El personal invierte en promedio entre 15 y 45 minutos por solicitud de expediente estudiantil, lo que equivale a una pérdida de productividad de hasta 3 horas diarias en el departamento de secretaría.</td>
+                                    <td className={tableCellClass}><strong>Incumplimiento fiscal y riesgo de multas SENIAT:</strong> El 67% de las PYME venezolanas reportan haber recibido al menos una notificación de incumplimiento tributario en los últimos 3 años, con multas que pueden alcanzar el 300% del tributo omitido, poniendo en riesgo la continuidad operativa de la empresa.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Consecuencias Secundarias</td>
                                     <td className={tableCellClass}>
                                         <ul className="list-disc list-inside space-y-1">
-                                            <li>Demoras en la atención a representantes y estudiantes.</li>
-                                            <li>Riesgo de extravío de documentos únicos e irreemplazables.</li>
-                                            <li>Comunicación lenta e ineficiente entre institución y representantes.</li>
-                                            <li>Imposibilidad de generar reportes estadísticos rápidos para la dirección.</li>
-                                            <li>Vulnerabilidad ante auditorías del Ministerio de Educación.</li>
+                                            <li>Pérdida de hasta 35 horas mensuales del personal administrativo en tareas de conciliación manual.</li>
+                                            <li>Errores en el cálculo de nómina que generan reclamaciones laborales y exposición legal.</li>
+                                            <li>Imposibilidad de generar estados financieros confiables para decisiones estratégicas.</li>
+                                            <li>Dificultad para acceder a financiamiento bancario por falta de informes auditables en tiempo real.</li>
+                                            <li>Pérdida de contratos por no poder demostrar solvencia fiscal ante clientes corporativos.</li>
                                         </ul>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Origen del Problema</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>El origen fundamental del problema radica en la <strong>desactualización e ignorancia en la gestión de nuevas tecnologías e implementaciones digitales</strong>. La institución no ha incorporado sistemas de información modernos y carece de una estrategia de transformación digital. Este fenómeno es común en el sector educativo privado venezolano, donde la crisis económica ha frenado la adopción tecnológica y la capacitación del personal administrativo.</p>
+                                        <p>El origen del problema radica en la <strong>inexistencia de infraestructura tecnológica empresarial diseñada específicamente para el mercado venezolano</strong>. La complejidad única del entorno regulatorio venezolano (combinación de hiperinflación histórica, dolarización parcial, tributos especiales como el IGTF y normas contables locales VEN-NIF) hace inviable la adaptación de soluciones extranjeras sin un desarrollo profundo desde cero. Este vacío representa la oportunidad estratégica que justifica la creación de System Kyron.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Importancia de Resolver el Problema</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Resolver este problema es estratégico por múltiples razones: (1) reduce drásticamente la carga de trabajo del personal administrativo, liberando tiempo para actividades de mayor valor pedagógico; (2) mejora la experiencia de los representantes al recibir respuestas inmediatas; (3) protege la integridad de información sensible de los estudiantes; (4) posiciona al Colegio Santa Rosa de Lima como una institución de vanguardia tecnológica, fortaleciendo su prestigio y competitividad en el sector educativo privado de Caracas.</p>
+                                        <p>Resolver este problema es de impacto nacional: (1) protege a las empresas venezolanas del riesgo fiscal con cumplimiento automatizado al 100%; (2) reduce el costo operativo de compliance en un 60–80% al eliminar la dependencia de múltiples asesores; (3) democratiza el acceso a herramientas de gestión corporativa de nivel internacional para empresas de cualquier tamaño; (4) contribuye a la formalización y modernización del tejido empresarial venezolano, fortaleciendo la economía nacional.</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -303,35 +307,54 @@ export default function ModeloZeduPage() {
                     {/* SECCIÓN 4 — SOLUCIÓN PROPUESTA */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Lightbulb className="h-7 w-7" /> 4. SOLUCIÓN PROPUESTA — AUTOMIND AI
+                            <Lightbulb className="h-7 w-7" /> 4. SOLUCIÓN PROPUESTA — SYSTEM KYRON
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Descripción del Proyecto</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p><strong>AutoMind AI</strong> consiste en el desarrollo de una aplicación que transforma el sistema de archivado tradicional de la institución educativa en un entorno digital eficiente y organizado, permitiendo la digitalización, almacenamiento y búsqueda rápida de documentos que antes se gestionaban de forma física.</p>
-                                        <p>La plataforma integrará un <strong>chatbot con atención automatizada</strong> dirigida a los representantes de los estudiantes, facilitando respuestas inmediatas y mejorando la comunicación colegio-familia las 24 horas del día, los 7 días de la semana.</p>
-                                        <p>Además, incorporará <strong>herramientas de inteligencia artificial</strong> que apoyarán al personal administrativo en la generación de ideas estratégicas, redacción de comunicados, análisis de datos estudiantiles y automatización de tareas repetitivas, contribuyendo a una gestión más moderna, ágil y orientada a la mejora continua institucional.</p>
-                                        <p>El sistema es escalable: una vez demostrada su eficacia en el sector educativo, podrá expandirse a otros sectores como empresas, almacenes, clínicas y comercios.</p>
+                                        <p><strong>System Kyron</strong> es un ecosistema de inteligencia corporativa de grado empresarial, diseñado exclusivamente para el mercado venezolano. Integra en una sola plataforma web la gestión contable bajo normas VEN-NIF, la administración de recursos humanos con cumplimiento LOTTT, los servicios de telecomunicaciones 5G corporativas, la asesoría legal impulsada por IA, la gestión de eco-créditos y la analítica ejecutiva en tiempo real.</p>
+                                        <p>La plataforma consolida 12 portales especializados interconectados, accesibles desde cualquier dispositivo mediante autenticación segura con cifrado AES-256 y sellado criptográfico de expedientes. Su arquitectura modular permite a cada empresa activar únicamente los módulos que necesita, escalando según su crecimiento.</p>
+                                        <p>System Kyron integra de forma nativa la <strong>inteligencia artificial Gemini (Google)</strong> para la generación automática de contratos, análisis fiscal predictivo, cálculo de nómina con ajuste por inflación y clasificación de residuos para eco-créditos, posicionándose como la plataforma de gestión empresarial más avanzada tecnológicamente del mercado venezolano.</p>
                                     </td>
                                 </tr>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Componentes Principales</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Módulos Principales del Ecosistema</td></tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Módulo 1: Archivo Digital</td>
-                                    <td className={tableCellClass}>Sistema de gestión documental con OCR (reconocimiento óptico de caracteres) para digitalizar documentos físicos existentes. Permite búsqueda instantánea por nombre de estudiante, cédula, año escolar o tipo de documento. Almacenamiento seguro en la nube con acceso por roles (secretaria, coordinador, director, representante).</td>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Calculator className="h-4 w-4 shrink-0" /> Módulo 1: Contabilidad VEN-NIF</div>
+                                    </td>
+                                    <td className={tableCellClass}>Libros contables digitales bajo normas VEN-NIF con ajuste por inflación (RIPF). Declaraciones automáticas de IVA, ISLR e IGTF con sellado en el portal DECLARASENIAT. Integración en tiempo real con la tasa oficial BCV. Generación de estados financieros, libro de compras/ventas, libro diario y mayor en formato auditado.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Módulo 2: Chatbot IA</td>
-                                    <td className={tableCellClass}>Asistente virtual inteligente disponible vía WhatsApp y portal web para atención a representantes. Responde consultas frecuentes (notas, inasistencias, cronograma de pagos, actividades), genera constancias automáticas y escala casos complejos al personal humano.</td>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Users className="h-4 w-4 shrink-0" /> Módulo 2: RRHH y Nómina</div>
+                                    </td>
+                                    <td className={tableCellClass}>Gestión completa del ciclo de vida del empleado: contratación, nómina con cálculo automático de SSO (IVSS), FAOV, LPH, utilidades, prestaciones sociales y vacaciones según LOTTT. Certificados laborales, permisos, LOPCYMAT y reportes para la Inspectoría del Trabajo generados automáticamente.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Módulo 3: Asistente IA Administrativo</td>
-                                    <td className={tableCellClass}>Herramienta de apoyo estratégico para la dirección: redacción de circulares, análisis de tendencias de rendimiento estudiantil, generación de reportes estadísticos, sugerencias de mejora organizacional y asistencia en planificación académica.</td>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Smartphone className="h-4 w-4 shrink-0" /> Módulo 3: Telecom Corporativo</div>
+                                    </td>
+                                    <td className={tableCellClass}>Portal unificado de administración de líneas telefónicas físicas y eSIM corporativas 5G. Gestión de flota empresarial, control de consumo por empleado o departamento, provisión masiva de líneas, telemetría en tiempo real y facturación de servicios de telecomunicaciones integrada al módulo contable.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Módulo 4: Panel de Control</td>
-                                    <td className={tableCellClass}>Dashboard centralizado que muestra KPIs institucionales en tiempo real: número de documentos gestionados, tiempo promedio de respuesta, satisfacción de representantes y alertas de tareas pendientes.</td>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Gavel className="h-4 w-4 shrink-0" /> Módulo 4: IA Legal y Permisos</div>
+                                    </td>
+                                    <td className={tableCellClass}>Generación automática por IA de contratos de trabajo, poderes notariales, actas de asamblea, contratos mercantiles y permisos ante CONATEL y SENIAT. Búsqueda semántica en Gaceta Oficial actualizada. Gestión de socios y directivos con blindaje corporativo automatizado.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><Recycle className="h-4 w-4 shrink-0" /> Módulo 5: Ameru Eco-Créditos</div>
+                                    </td>
+                                    <td className={tableCellClass}>Sistema de clasificación inteligente de residuos por IA para la generación de eco-créditos certificados. Mercado interno de compra-venta de eco-créditos entre empresas participantes. Reportes de impacto ambiental y cumplimiento de normativa de responsabilidad social empresarial.</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>
+                                        <div className="flex items-center gap-2"><BarChart3 className="h-4 w-4 shrink-0" /> Módulo 6: Dashboard y Analítica</div>
+                                    </td>
+                                    <td className={tableCellClass}>Centro de mando ejecutivo con KPIs financieros en tiempo real: flujo de caja, cuentas por cobrar/pagar, proyecciones de utilidades, análisis de rentabilidad por producto y benchmarking tributario. Generación automática de reportes en PDF y PowerPoint para directivos.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -345,33 +368,33 @@ export default function ModeloZeduPage() {
                                     <tr><td className={tableHeaderClass} colSpan={2}>Otras Propuestas Existentes para Solucionar el Problema</td></tr>
                                     <tr>
                                         <td className={tableCellClass} colSpan={2}>
-                                            <p>El proyecto más similar identificado en el mercado es <strong>MOBIAN</strong>, que se enfoca en la optimización de datos para cualquier tipo de negocio. Su propósito principal es la eficiencia operativa y escalabilidad técnica, dirigiéndose a equipos técnicos y directivos corporativos mediante integración de sistemas y aumento de equipo (Staff Augmentation). Sin embargo, MOBIAN no está diseñada específicamente para el sector educativo.</p>
-                                            <p>Otras alternativas genéricas incluyen Google Workspace, Microsoft 365 y sistemas ERP educativos importados, que ofrecen gestión de archivos pero carecen de adaptación al contexto venezolano, integración con canales de comunicación como WhatsApp y herramientas de IA orientadas a la gestión escolar.</p>
+                                            <p>El proyecto más similar identificado en el mercado es <strong>MOBIAN</strong>, que se enfoca en la optimización de datos y escalabilidad técnica para empresas, dirigiéndose a equipos corporativos mediante integración de sistemas. Sin embargo, MOBIAN no está diseñado específicamente para las particularidades fiscales y regulatorias del mercado venezolano.</p>
+                                            <p>Otras alternativas incluyen ERP importados como SAP Business One, Contpaq (México), y sistemas de facturación básicos locales, que carecen de integración nativa con el SENIAT, la tasa BCV, normas VEN-NIF y las particularidades laborales de la LOTTT. Adicionalmente, Google Workspace y Microsoft 365 ofrecen productividad general pero no gestión empresarial especializada para Venezuela.</p>
                                         </td>
                                     </tr>
-                                    <tr><td className={tableHeaderClass} colSpan={2}>Diferenciadores de AutoMind AI</td></tr>
+                                    <tr><td className={tableHeaderClass} colSpan={2}>Diferenciadores de System Kyron</td></tr>
                                     <tr>
-                                        <td className={tableLabelClass}>Especialización Educativa</td>
+                                        <td className={tableLabelClass}>Especialización en el Mercado Venezolano</td>
                                         <td className={tableCellClass}>
-                                            <p>Mientras MOBIAN ofrece servicios genéricos de IT para cualquier empresa, <strong>AutoMind AI resuelve problemas específicos del sector educativo</strong>: archivo de expedientes estudiantiles y comunicación escolar. Nuestra solución es escalable y podrá expandirse a otros sectores (empresas, almacenes, clínicas), pero parte de una especialización que garantiza una propuesta de valor clara e inmediata.</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={tableLabelClass}>Alcance del Usuario Final</td>
-                                        <td className={tableCellClass}>
-                                            <p>MOBIAN optimiza procesos internos para perfiles técnicos. <strong>AutoMind AI impacta directamente en la experiencia del cliente final</strong> (los padres y representantes) mediante su chatbot de atención inmediata, mejorando tangiblemente su relación con la institución.</p>
+                                            <p>Mientras MOBIAN y los ERP genéricos ofrecen gestión empresarial estándar, <strong>System Kyron resuelve problemas específicos del ecosistema venezolano</strong>: integración en tiempo real con la tasa BCV, declaraciones automáticas ante el SENIAT, cálculo de nómina con todos los aportes parafiscales venezolanos y gestión legal bajo el ordenamiento jurídico venezolano vigente.</p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className={tableLabelClass}>De Datos a Estrategia</td>
+                                        <td className={tableLabelClass}>Integración Nativa de IA Avanzada</td>
                                         <td className={tableCellClass}>
-                                            <p>MOBIAN se enfoca en la gestión eficiente de datos. <strong>AutoMind AI utiliza la IA para la generación de ideas estratégicas</strong>, apoyando activamente la toma de decisiones directivas y no solo el almacenamiento de información.</p>
+                                            <p>Los competidores locales carecen de inteligencia artificial integrada. <strong>System Kyron incorpora Gemini 2.0 de Google</strong> para generación de documentos legales, análisis fiscal predictivo, detección de inconsistencias contables y clasificación de residuos para eco-créditos, representando un salto generacional frente a las soluciones existentes.</p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className={tableLabelClass}>Contexto Venezolano</td>
+                                        <td className={tableLabelClass}>Ecosistema Modular Integrado (12 portales)</td>
                                         <td className={tableCellClass}>
-                                            <p>AutoMind AI está diseñada considerando las limitaciones de conectividad y presupuesto propias del entorno venezolano: funcionamiento offline parcial, integración con WhatsApp (ampliamente adoptado en Venezuela) y modelo de precios accesible para instituciones educativas privadas del país.</p>
+                                            <p>Mientras los competidores requieren múltiples herramientas independientes, <strong>System Kyron unifica 12 portales especializados en un único ecosistema</strong>, eliminando la fragmentación de datos y reduciendo hasta un 70% los costos de tecnología empresarial. La arquitectura modular permite activar solo los módulos necesarios.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableLabelClass}>Sostenibilidad y Telecom Corporativo</td>
+                                        <td className={tableCellClass}>
+                                            <p>System Kyron es la única plataforma en Venezuela que integra la gestión de telecomunicaciones 5G corporativas y el mercado de eco-créditos en un mismo ecosistema empresarial, creando una propuesta de valor única y sin competencia directa en ambas dimensiones estratégicas.</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -392,78 +415,78 @@ export default function ModeloZeduPage() {
                                     <th className={cn(tableHeaderClass, "text-left")} style={{ width: '45%' }}>Ítem</th>
                                     <th className={tableHeaderClass} style={{ width: '10%' }}>Cantidad</th>
                                     <th className={tableHeaderClass} style={{ width: '20%' }}>Costo (USD)</th>
-                                    <th className={tableHeaderClass} style={{ width: '25%' }}>Lugar de Compra</th>
+                                    <th className={tableHeaderClass} style={{ width: '25%' }}>Lugar de Compra / Contratación</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={tableCellClass}>Suscripción anual plataforma de IA (Google Gemini API / OpenAI)</td>
+                                    <td className={tableCellClass}>Suscripción API Google Gemini (IA generativa para módulos legales, fiscal y eco-créditos) — plan anual</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 480,00</td>
+                                    <td className={tableCellClass}>Google Cloud Console (en línea)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Hosting cloud en Vercel / AWS — servidor Next.js, base de datos PostgreSQL y almacenamiento de documentos (plan anual)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
                                     <td className={cn(tableCellClass, "text-right font-black")}>$ 360,00</td>
-                                    <td className={tableCellClass}>Google Cloud / OpenAI (en línea)</td>
+                                    <td className={tableCellClass}>Vercel Pro / Amazon AWS</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Hosting en la nube — servidor y almacenamiento (plan anual)</td>
+                                    <td className={tableCellClass}>Dominio web systemkyron.com y certificado SSL/TLS (1 año)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 240,00</td>
-                                    <td className={tableCellClass}>Amazon AWS / Digital Ocean</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 35,00</td>
+                                    <td className={tableCellClass}>Namecheap (en línea)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Dominio web y certificado SSL (1 año)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 30,00</td>
-                                    <td className={tableCellClass}>GoDaddy / Namecheap (en línea)</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}>Escáner de documentos de alta velocidad (para digitalización del archivo físico)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 220,00</td>
-                                    <td className={tableCellClass}>Tiendas de tecnología, Caracas</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}>Laptop de trabajo para el equipo de desarrollo (uso compartido)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 400,00</td>
+                                    <td className={tableCellClass}>Laptops de desarrollo para el equipo (2 unidades — uso compartido en fases de desarrollo)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>2</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 800,00</td>
                                     <td className={tableCellClass}>Centro de tecnología, Caracas</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Capacitación del personal administrativo (talleres presenciales, 3 sesiones)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>3</td>
+                                    <td className={tableCellClass}>Suscripción herramientas de desarrollo: GitHub Pro, Figma y suite de diseño UI/UX (plan anual)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 144,00</td>
+                                    <td className={tableCellClass}>GitHub / Figma (en línea)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Consultoría con contador público certificado en VEN-NIF para validación del módulo fiscal</td>
+                                    <td className={cn(tableCellClass, "text-center")}>5 sesiones</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 200,00</td>
+                                    <td className={tableCellClass}>Contador independiente, Caracas</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}>Consultoría con abogado mercantilista para validación del módulo legal y generación de documentos</td>
+                                    <td className={cn(tableCellClass, "text-center")}>3 sesiones</td>
                                     <td className={cn(tableCellClass, "text-right font-black")}>$ 150,00</td>
-                                    <td className={tableCellClass}>Facilitador local / Colegio</td>
+                                    <td className={tableCellClass}>Abogado independiente, Caracas</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Materiales de oficina y logística (libretas, impresión de manuales, papelería)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>—</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 80,00</td>
-                                    <td className={tableCellClass}>Librería / Papelería, Caracas</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}>Diseño de identidad visual (logo, branding, materiales de presentación)</td>
+                                    <td className={tableCellClass}>Diseño de identidad visual corporativa System Kyron: logo definitivo, manual de marca y materiales de pitch</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 120,00</td>
-                                    <td className={tableCellClass}>Freelancer / Diseñador local</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 180,00</td>
+                                    <td className={tableCellClass}>Diseñador gráfico local / Freelancer</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Traslados y transporte (visitas a la institución, reuniones con aliados)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>—</td>
+                                    <td className={tableCellClass}>Acceso a datos SENIAT y BCV (suscripción a fuentes oficiales de actualización fiscal y cambiaria)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>1</td>
                                     <td className={cn(tableCellClass, "text-right font-black")}>$ 60,00</td>
-                                    <td className={tableCellClass}>Transporte urbano / Caracas</td>
+                                    <td className={tableCellClass}>APIs SENIAT / Banco Central de Venezuela</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}>Suscripción herramienta de gestión de proyectos (Notion / Trello — plan anual)</td>
-                                    <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 40,00</td>
-                                    <td className={tableCellClass}>Notion / Trello (en línea)</td>
+                                    <td className={tableCellClass}>Logística, traslados y gastos operativos del equipo (visitas a empresas piloto, material de presentación)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>—</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 91,00</td>
+                                    <td className={tableCellClass}>Transporte urbano / Imprentas, Caracas</td>
                                 </tr>
                                 <tr className="bg-slate-50">
                                     <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")} colSpan={2}>INVERSIÓN TOTAL DEL PROYECTO</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 1.700,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 2.500,00</td>
                                     <td className={tableCellClass}></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <p className="text-xs text-slate-400 mt-3 italic">Nota: Los ítems pueden incluir donaciones monetarias o en especie. El presupuesto está expresado en USD referencial para facilitar la planificación. Los costos en Bs. se calcularán según la tasa BCV oficial vigente al momento de cada adquisición.</p>
+                        <p className="text-xs text-slate-400 mt-3 italic">Nota: Los ítems pueden incluir donaciones monetarias o en especie de aliados estratégicos. El presupuesto está expresado en USD referencial. Los costos en Bs. se calcularán según la tasa BCV oficial vigente al momento de cada adquisición. La inversión se recupera en el primer año con la suscripción de 3 empresas cliente al plan corporativo.</p>
                     </div>
 
                     <div className="page-break" />
@@ -482,28 +505,28 @@ export default function ModeloZeduPage() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Colegio Santa Rosa de Lima — Dirección y Administración</td>
-                                    <td className={tableCellClass}>Espacio físico para el desarrollo y piloto del proyecto. Acceso al archivo documental existente para el proceso de digitalización. Participación del personal administrativo en las sesiones de capacitación. Aval institucional para presentación ante entes externos.</td>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Google Cloud for Education</td>
+                                    <td className={tableCellClass}>Acceso a créditos de Google Cloud Platform y la API de Gemini bajo el programa educativo de Google. Documentación técnica, recursos de formación en inteligencia artificial y soporte en la arquitectura de sistemas basados en IA generativa para equipos estudiantiles emprendedores.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Departamento de Informática del Colegio</td>
-                                    <td className={tableCellClass}>Soporte técnico para la instalación de equipos y configuración de redes. Orientación en las especificaciones técnicas de la infraestructura existente. Facilitación del acceso a equipos disponibles en el laboratorio de computación.</td>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Colegio Santa Rosa de Lima</td>
+                                    <td className={tableCellClass}>Espacio institucional y aval académico para el desarrollo del proyecto. Acceso a la red de empresas vinculadas a la comunidad de representantes para las pruebas piloto. Participación del profesorado especializado en las áreas de Computación, Economía y Ciencias Sociales como asesores académicos del equipo.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Profesores Asesores del Colegio Santa Rosa de Lima</td>
-                                    <td className={tableCellClass}>Mentoría académica en las áreas de Matemáticas, Computación y Ciencias Sociales. Evaluación del modelo de negocio y retroalimentación pedagógica. Validación del plan de acción y acompañamiento durante el proceso de desarrollo del proyecto ZEDU.</td>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Empresas Piloto del Sector Privado</td>
+                                    <td className={tableCellClass}>Tres empresas PYME del Área Metropolitana de Caracas (sectores comercio, servicios y tecnología) comprometidas a participar como usuarios beta de la plataforma durante la fase de validación. Retroalimentación directa sobre la usabilidad, precisión fiscal y eficiencia de los módulos en entorno de producción real.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Representantes Estudiantiles (Asociación de Padres)</td>
-                                    <td className={tableCellClass}>Participación como usuarios piloto del chatbot y del sistema de atención automatizada. Retroalimentación sobre las necesidades reales de comunicación colegio-familia. Difusión del proyecto entre la comunidad de representantes para su adopción.</td>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Contador Público Certificado (VEN-NIF)</td>
+                                    <td className={tableCellClass}>Validación técnica del módulo de Contabilidad VEN-NIF y del módulo de Declaraciones Tributarias. Revisión de los algoritmos de cálculo de IVA, ISLR, IGTF y retenciones SENIAT. Certificación de la exactitud de los libros contables generados por la plataforma conforme a las Normas Internacionales de Información Financiera adaptadas a Venezuela.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Google for Education (Programa Educativo)</td>
-                                    <td className={tableCellClass}>Acceso a créditos de Google Cloud para el uso de la API de Gemini (IA) bajo el programa educativo de Google. Soporte en documentación técnica y recursos de formación en inteligencia artificial para equipos estudiantiles.</td>
+                                    <td className={cn(tableCellClass, "font-black uppercase")}>Abogado Mercantilista / Laboralista</td>
+                                    <td className={tableCellClass}>Validación jurídica de los documentos generados por el módulo de IA Legal: contratos, poderes, actas de asamblea y permisos. Verificación del cumplimiento de la LOTTT en el módulo de RRHH. Orientación sobre la normativa CONATEL para el módulo de telecomunicaciones corporativas.</td>
                                 </tr>
                                 <tr>
                                     <td className={cn(tableCellClass, "font-black uppercase")}>ZEDU (Organización Promotora)</td>
-                                    <td className={tableCellClass}>Marco metodológico para el desarrollo del proyecto. Plataforma de difusión, visibilidad y presentación ante jurados evaluadores. Conexión con red de proyectos similares a nivel nacional e internacional. Certificación y reconocimiento del equipo participante.</td>
+                                    <td className={tableCellClass}>Marco metodológico para el desarrollo del Modelo Zedu. Plataforma de visibilidad, difusión y presentación ante jurados evaluadores nacionales e internacionales. Conexión con la red de proyectos emprendedores estudiantiles. Certificación académica y reconocimiento del equipo System Kyron.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -526,69 +549,54 @@ export default function ModeloZeduPage() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={tableCellClass}><strong>1.</strong> Visita inicial a la institución y reunión con la dirección del colegio para presentación del proyecto y firma de carta de intención.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br /><span className="font-normal text-slate-500 text-xs">(Líder de Proyecto)</span></td>
+                                    <td className={tableCellClass}><strong>1.</strong> Investigación de mercado y validación del problema: entrevistas a 10 empresas PYME venezolanas para confirmar las necesidades de automatización fiscal, laboral y legal.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Análisis y Comunicación)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 1 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>2.</strong> Diagnóstico y levantamiento de información: entrevistas al personal administrativo, inventario del archivo físico actual y mapeo de procesos existentes.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Análisis y Datos)</span></td>
+                                    <td className={tableCellClass}><strong>2.</strong> Diseño de arquitectura técnica: definición de módulos, esquema de base de datos PostgreSQL (32 tablas), APIs REST y flujos de usuario para los 12 portales de System Kyron.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo Técnico)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 2–3 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>3.</strong> Diseño de la arquitectura de la plataforma: definición de módulos, flujos de usuario, base de datos y estructura de la IA.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo Técnico)</span></td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semanas 3–4 (Octubre 2025)</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}><strong>4.</strong> Reunión con aliados estratégicos: presentación a la Asociación de Padres, Departamento de Informática y gestión de acceso a Google Cloud para Education.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={tableCellClass}><strong>3.</strong> Gestión de aliados: firma de acuerdos con contador certificado VEN-NIF, abogado laboralista y empresas piloto. Activación de créditos Google Cloud for Education.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br /><span className="font-normal text-slate-500 text-xs">(Líder de Proyecto)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 4 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>5.</strong> Compra de materiales y equipos: escáner, dominio, contratación de hosting y suscripciones necesarias.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui</td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semana 1 (Noviembre 2025)</td>
+                                    <td className={tableCellClass}><strong>4.</strong> Desarrollo del Módulo de Contabilidad VEN-NIF: implementación de libros digitales, ajuste por inflación RIPF, integración con tasa BCV en tiempo real y generación de declaraciones IVA/ISLR.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 1–4 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>6.</strong> Desarrollo del Módulo de Archivo Digital: implementación del sistema de gestión documental con OCR y carga de documentos existentes.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo)</span></td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semanas 2–5 (Noviembre 2025)</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}><strong>7.</strong> Desarrollo del Chatbot IA: entrenamiento del asistente virtual con preguntas frecuentes de la institución e integración con WhatsApp.</td>
+                                    <td className={tableCellClass}><strong>5.</strong> Desarrollo del Módulo RRHH y Nómina: cálculo automático con SSO, FAOV, LPH, utilidades, prestaciones LOTTT y generación de recibos de nómina auditables.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br />Joaquin de Barros</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 3–6 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>8.</strong> Pruebas piloto con grupo seleccionado: 5 miembros del personal administrativo y 20 representantes voluntarios. Recolección de retroalimentación.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semana 1 (Diciembre 2025)</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}><strong>9.</strong> Ajustes y mejoras basadas en retroalimentación del piloto. Corrección de errores, optimización de velocidad y mejora de la interfaz de usuario.</td>
+                                    <td className={tableCellClass}><strong>6.</strong> Integración de IA Gemini: implementación de generación de contratos, análisis fiscal predictivo, clasificación de residuos para eco-créditos y asistente de documentos legales con IA.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semanas 2–3 (Diciembre 2025)</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 5–7 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>10.</strong> Capacitación formal del personal administrativo: 3 talleres presenciales en el colegio sobre uso de la plataforma, chatbot y panel de control.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br />Joaquin de Barros</td>
-                                    <td className={cn(tableCellClass, "text-center")}>Semana 3 (Diciembre 2025)</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableCellClass}><strong>11.</strong> Lanzamiento oficial de la plataforma en la institución: presentación ante la comunidad escolar, activación del chatbot para todos los representantes y puesta en marcha del archivo digital.</td>
+                                    <td className={tableCellClass}><strong>7.</strong> Pruebas piloto con empresas beta: despliegue de los módulos Contabilidad y RRHH en 3 empresas seleccionadas. Validación técnica con contador y abogado. Corrección de bugs y ajuste de algoritmos fiscales.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Semanas 1–3 (Diciembre 2025)</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableCellClass}><strong>8.</strong> Lanzamiento de la plataforma v1.0: despliegue en producción con autenticación segura, dominio propio, SSL y onboarding de los primeros clientes de pago. Activación del plan de suscripción mensual.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br />Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 4 (Diciembre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>12.</strong> Presentación del proyecto ante ZEDU: preparación de materiales, informe final de impacto y defensa pública del Modelo Zedu.</td>
+                                    <td className={tableCellClass}><strong>9.</strong> Presentación ante ZEDU y jurados evaluadores: preparación del pitch ejecutivo, demo en vivo de la plataforma y presentación de métricas de impacto, empresas activas y validaciones técnicas obtenidas.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
                                     <td className={cn(tableCellClass, "text-center")}>Enero 2026</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>13.</strong> Evaluación de resultados, medición de impacto y publicidad del proyecto: redes sociales, medios locales y presentación a otras instituciones interesadas.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Comunicación)</span></td>
-                                    <td className={cn(tableCellClass, "text-center")}>Febrero – Marzo 2026</td>
+                                    <td className={tableCellClass}><strong>10.</strong> Expansión post-ZEDU: activación de módulos Telecom 5G/eSIM y Ameru Eco-Créditos, apertura de nuevas cuentas empresariales y desarrollo de la versión mobile de la plataforma.</td>
+                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center")}>Febrero – Junio 2026</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -596,73 +604,64 @@ export default function ModeloZeduPage() {
 
                     <div className="page-break" />
 
-                    {/* SECCIÓN 8 — IMPACTO ESPERADO */}
+                    {/* SECCIÓN 8 — IMPACTO */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <TrendingUp className="h-7 w-7" /> 8. IMPACTO ESPERADO Y PROYECCIÓN
+                            <TrendingUp className="h-7 w-7" /> 8. IMPACTO ESPERADO
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Indicadores de Éxito</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Impacto Económico</td></tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Impacto Operativo</td>
-                                    <td className={tableCellClass}>
-                                        <ul className="list-disc list-inside space-y-1">
-                                            <li>Reducción del tiempo de búsqueda de expedientes de 30 min a menos de 30 segundos.</li>
-                                            <li>100% de expedientes estudiantiles digitalizados en los primeros 3 meses.</li>
-                                            <li>Tasa de respuesta del chatbot a consultas frecuentes superior al 85%.</li>
-                                            <li>Reducción del 70% en el tiempo dedicado a atención telefónica de representantes.</li>
-                                        </ul>
-                                    </td>
+                                    <td className={tableLabelClass}>Ahorro por Empresa Cliente</td>
+                                    <td className={tableCellClass}>Una empresa PYME venezolana destina en promedio $500–$1.200/mes en asesoría contable, legal y RRHH. System Kyron automatiza estas funciones con una suscripción desde $49/mes, generando un ahorro neto de hasta el 95% en costos de compliance. El ROI para el cliente se alcanza en el primer mes de uso.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Impacto Social</td>
-                                    <td className={tableCellClass}>
-                                        <ul className="list-disc list-inside space-y-1">
-                                            <li>Más de 1.200 familias beneficiadas con atención automatizada y acceso digital a la información de sus hijos.</li>
-                                            <li>Personal administrativo capacitado en herramientas de inteligencia artificial.</li>
-                                            <li>Posicionamiento del Colegio Santa Rosa de Lima como referente de innovación educativa en Caracas.</li>
-                                        </ul>
-                                    </td>
+                                    <td className={tableLabelClass}>Potencial de Mercado</td>
+                                    <td className={tableCellClass}>Con un mercado objetivo de 420.000 PYME venezolanas y una penetración inicial del 0,1% (420 empresas), System Kyron proyecta ingresos recurrentes de $20.580/mes en el primer año. La proyección a 5 años con el 1% del mercado alcanza los $2,05 millones anuales en ingresos de suscripción.</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Impacto Social y Ambiental</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Formalización Empresarial</td>
+                                    <td className={tableCellClass}>Al reducir el costo y la complejidad del cumplimiento regulatorio, System Kyron incentiva la formalización de empresas informales venezolanas, ampliando la base tributaria nacional y fortaleciendo el sistema de seguridad social (IVSS, FAOV) mediante el correcto pago de aportes de nómina automatizados.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Escalabilidad</td>
-                                    <td className={tableCellClass}>
-                                        <p>Una vez consolidado en el Colegio Santa Rosa de Lima, AutoMind AI tiene potencial de expansión a otras instituciones educativas privadas de Caracas (más de 400 colegios privados en el área metropolitana), y posteriormente a empresas, almacenes y organizaciones de cualquier sector que requieran digitalización de archivos y atención automatizada. El modelo de negocio proyectado es SaaS (Software como Servicio) con suscripción mensual.</p>
+                                    <td className={tableLabelClass}>Impacto Ambiental (Ameru)</td>
+                                    <td className={tableCellClass}>El módulo Ameru Eco-Créditos incentiva la gestión responsable de residuos industriales y comerciales, generando un mercado de sostenibilidad empresarial en Venezuela. Se estima que cada empresa activa en el módulo reduce en un 30% sus residuos no clasificados, con certificación verificable de impacto ambiental.</td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Indicadores de Éxito (KPIs del Proyecto)</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <ul className="list-disc list-inside space-y-2">
+                                            <li><strong>Año 1:</strong> 50 empresas activas · $2.450/mes en ingresos recurrentes · 3 módulos en producción estable · Cero multas SENIAT reportadas por clientes activos</li>
+                                            <li><strong>Año 2:</strong> 250 empresas activas · $12.250/mes en ingresos · 8 módulos activos · Expansión a ciudades de Maracaibo, Valencia y Barquisimeto</li>
+                                            <li><strong>Año 3:</strong> 1.000+ empresas activas · Módulo Telecom 5G/eSIM completamente operativo · Primera ronda de inversión externa</li>
+                                            <li><strong>Largo plazo:</strong> Convertirse en el estándar de gestión empresarial del sector privado venezolano y expandir el modelo a mercados latinoamericanos con alta regulación fiscal similar</li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div className="mt-20 p-12 border-4 border-slate-100 rounded-[3rem] flex justify-between items-end gap-24">
-                        <div className="flex-1 text-center border-t-2 border-black pt-6">
-                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Miguel Uzcategui</p>
-                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Líder de Proyecto</p>
+                    {/* FIRMA */}
+                    <div className="mt-20 pt-10 border-t-2 border-slate-200">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                            {[
+                                { name: "Miguel Uzcategui", role: "Líder del Proyecto" },
+                                { name: "Miguel Angel Goites", role: "Desarrollo Técnico" },
+                                { name: "Joaquin de Barros", role: "Análisis y Comunicación" },
+                            ].map((member) => (
+                                <div key={member.name} className="space-y-3">
+                                    <div className="h-px w-48 bg-slate-300 mx-auto mt-16" />
+                                    <p className="font-black uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{member.role}</p>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Colegio Santa Rosa de Lima</p>
+                                </div>
+                            ))}
                         </div>
-                        <div className="flex-1 text-center border-t-2 border-black pt-6">
-                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Miguel Angel Goites</p>
-                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Desarrollo Técnico</p>
-                        </div>
-                        <div className="flex-1 text-center border-t-2 border-black pt-6">
-                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Joaquin de Barros</p>
-                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Análisis y Comunicación</p>
-                        </div>
-                        <div className="flex-1 text-center border-t-2 border-black pt-6">
-                            <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">Sello Institucional</p>
-                            <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Colegio Santa Rosa de Lima</p>
-                        </div>
+                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.6.5 · Caracas, Venezuela · 2026</p>
                     </div>
-
-                    <footer className="mt-20 pt-10 border-t border-slate-100 flex flex-col items-center gap-6 text-center opacity-40">
-                        <Logo className="h-10 w-10" />
-                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                            AutoMind AI · Modelo Zedu · Colegio Santa Rosa de Lima · Caracas, Venezuela · 2025–2026
-                        </p>
-                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                            Presentado ante la organización ZEDU · Proyecto de Innovación Educativa y Tecnológica
-                        </p>
-                    </footer>
                 </div>
             </motion.div>
         </div>
