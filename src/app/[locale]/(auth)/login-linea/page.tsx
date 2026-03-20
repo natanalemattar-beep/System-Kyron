@@ -289,7 +289,7 @@ export default function LoginLineaUnifiedPage() {
                                 asChild
                                 className="w-full h-12 rounded-xl border-border bg-background text-sm font-semibold hover:bg-primary/5 hover:text-primary transition-all"
                             >
-                                <Link href="/register" className="flex items-center gap-2">
+                                <Link href={selected === 'personal' ? '/register/natural' : '/register/telecom'} className="flex items-center gap-2">
                                     <UserPlus className="h-4 w-4" /> Registrarse
                                 </Link>
                             </Button>

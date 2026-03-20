@@ -183,7 +183,7 @@ export default function LoginPersonalPage() {
                         
                         <p className="text-[10px] text-muted-foreground/40 uppercase font-bold tracking-widest">¿No posee cuenta personal?</p>
                         <Button variant="outline" asChild className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-primary/5 hover:text-primary transition-all">
-                            <Link href="/register" className="flex items-center gap-2">
+                            <Link href="/register/natural" className="flex items-center gap-2">
                                 <UserPlus className="h-3.5 w-3.5" /> REGISTRARSE AHORA
                             </Link>
                         </Button>
