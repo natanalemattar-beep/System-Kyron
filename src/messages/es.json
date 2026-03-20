@@ -5,8 +5,14 @@
         "technology": "Tecnología",
         "about": "Nosotros",
         "faq": "FAQ",
+        "contact": "Contacto",
         "login": "Acceder",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "access": "Acceso",
+        "control_center": "Centro de Control",
+        "security_protocol": "Protocolo de Seguridad Nivel 5",
+        "see_all_services": "Ver Todos los Servicios",
+        "mobile_portal": "Portal Kyron"
     },
     "HeroSection": {
         "title": "El ecosistema que unifica telecomunicaciones, fiscalidad y sostenibilidad",
@@ -83,5 +89,11 @@
         "corporate_tag": "CORPORATIVO",
         "access": "Acceder",
         "back": "Volver al Portal"
+    },
+    "LanguageSwitcher": {
+        "label": "Idioma",
+        "select": "Seleccionar idioma",
+        "current": "Idioma actual",
+        "available": "Idiomas disponibles"
     }
 }

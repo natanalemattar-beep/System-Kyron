@@ -5,8 +5,14 @@
         "technology": "Technology",
         "about": "About Us",
         "faq": "FAQ",
+        "contact": "Contact",
         "login": "Login",
-        "register": "Sign Up"
+        "register": "Sign Up",
+        "access": "Access",
+        "control_center": "Control Center",
+        "security_protocol": "Security Protocol Level 5",
+        "see_all_services": "See All Services",
+        "mobile_portal": "Kyron Portal"
     },
     "HeroSection": {
         "title": "Your Business Command Center",
@@ -83,5 +89,11 @@
         "corporate_tag": "CORPORATE",
         "access": "Access",
         "back": "Back to Portal"
+    },
+    "LanguageSwitcher": {
+        "label": "Language",
+        "select": "Select language",
+        "current": "Current language",
+        "available": "Available languages"
     }
 }

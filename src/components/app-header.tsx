@@ -28,6 +28,7 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { AppSidebar } from "./app-sidebar";
+import { LanguageSwitcher } from "./language-switcher";
 
 interface AppHeaderProps {
   user: any;
@@ -134,6 +135,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
 
           <div className="flex items-center justify-end gap-3 min-w-fit">
             <div className="hidden sm:flex items-center gap-2">
+                <LanguageSwitcher variant="default" align="end" />
                 <ThemeToggle />
                 <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-lg bg-white/5 border border-border group">
                     <Link href="/notificaciones">
