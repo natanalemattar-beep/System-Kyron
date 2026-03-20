@@ -328,6 +328,8 @@ export default function RegisterJuridicoPage() {
       setRegisteredEmail(data.repEmail);
       setRegisteredRazon(data.razonSocial);
       setStep(TOTAL_STEPS);
+      const module = sessionStorage.getItem('kyron-register-module') || 'contabilidad';
+      sessionStorage.setItem('kyron-register-module-done', module);
     } catch {
       toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
     } finally {
@@ -745,9 +747,18 @@ export default function RegisterJuridicoPage() {
                 </div>
                 <Button className="mt-6 w-full" onClick={() => {
                   localStorage.setItem('kyron-just-registered', 'true');
-                  router.push('/');
+                  const module = sessionStorage.getItem('kyron-register-module-done') || 'contabilidad';
+                  const moduleRoutes: Record<string, string> = {
+                    contabilidad: '/contabilidad',
+                    rrhh: '/rrhh',
+                    telecom: '/mi-linea',
+                    legal: '/legal',
+                    sostenibilidad: '/sostenibilidad',
+                  };
+                  const route = moduleRoutes[module] || '/';
+                  router.push(route);
                 }}>
-                  Explorar la Plataforma <ArrowRight className="ml-2 h-4 w-4" />
+                  Ir al Módulo <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             )}
