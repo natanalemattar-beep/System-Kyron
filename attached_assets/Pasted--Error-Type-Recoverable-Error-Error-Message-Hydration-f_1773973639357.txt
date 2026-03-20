@@ -1,0 +1,68 @@
+## Error Type
+Recoverable Error
+
+## Error Message
+Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <div className="space-y-24...">
+      <div>
+      <div>
+      <DatabaseSection>
+        <section ref={{current:null}} id="base-de-datos" className="relative w..." style={{...}}>
+          <FloatOrb>
+          <FloatOrb>
+          <FloatOrb>
+          <div>
+          <div className="relative z...">
+            <motion.div>
+            <div>
+            <div className="grid grid-...">
+              <motion.div>
+              <motion.div style={{...}} className="space-y-4 ...">
+                <div className="space-y-4 ..." style={{...}} ref={function}>
+                  <div>
+                  <div className="grid grid-...">
+                    <SchemaCard table={{name:"empl...", ...}} delay={0}>
+                      <motion.div initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true, ...}} ...>
+                        <div className="rounded-2x..." style={{opacity:0, ...}} ref={function}>
+                          <div className="flex items...">
+                            <div>
+                            <span className="text-[8px]...">
++                             3840
+-                             3,840
+                              ...
+                          ...
+                    ...
+            ...
+      ...
+
+
+
+    at span (<anonymous>:null:null)
+    at SchemaCard (src/components/landing/database-section.tsx:256:17)
+    at eval (src/components/landing/database-section.tsx:443:33)
+    at Array.map (<anonymous>:null:null)
+    at DatabaseSection (src/components/landing/database-section.tsx:442:37)
+    at LandingPage (src/app/[locale]/page.tsx:52:11)
+
+## Code Frame
+  254 |                     </span>
+  255 |                 </div>
+> 256 |                 <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-widest">
+      |                 ^
+  257 |                     {table.rows.toLocaleString()} filas
+  258 |                 </span>
+  259 |             </div>
+
+Next.js version: 15.5.14 (Webpack)

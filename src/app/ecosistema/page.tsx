@@ -53,7 +53,7 @@ export default function EcosistemaKyron() {
       points: prev.points + points,
       history: [{
         id: Date.now(),
-        date: new Date().toLocaleString(),
+        date: new Date().toLocaleString('es-VE'),
         type,
         weight,
         points
@@ -97,7 +97,7 @@ export default function EcosistemaKyron() {
                 <StatCard title="Liquidez Consolidada" value="Bs. 12.4M" trend="+8.2%" icon={Wallet} />
                 <StatCard title="Telemetría Crudo" value="85.4k BPD" trend="+1.5%" icon={Droplets} />
                 <StatCard title="Riesgo Fiscal" value="0.000%" icon={ShieldCheck} variant="accent" />
-                <StatCard title="Eco-Créditos" value={sustainabilityData.points.toLocaleString()} icon={Recycle} variant="accent" />
+                <StatCard title="Eco-Créditos" value={sustainabilityData.points.toLocaleString('en-US')} icon={Recycle} variant="accent" />
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

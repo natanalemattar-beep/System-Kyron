@@ -243,7 +243,7 @@ export function LiveStatsPanel() {
             </span>
           </div>
           <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
-            {stats.activosAhora > 0 ? stats.activosAhora.toLocaleString() : '—'}
+            {stats.activosAhora > 0 ? stats.activosAhora.toLocaleString('en-US') : '—'}
           </span>
         </motion.div>
 

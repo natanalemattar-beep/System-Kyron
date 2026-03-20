@@ -134,7 +134,7 @@ export default function WhatsappEmpresarialPage() {
                       <p className="text-[10px] font-black uppercase text-foreground/80 italic">{r.trigger}</p>
                     </div>
                     <p className="text-[9px] font-bold text-muted-foreground leading-relaxed border-l-2 border-green-500/30 pl-3">{r.respuesta}</p>
-                    <p className="text-[8px] font-black uppercase text-muted-foreground/40">{r.usos.toLocaleString()} usos este mes</p>
+                    <p className="text-[8px] font-black uppercase text-muted-foreground/40">{r.usos.toLocaleString('en-US')} usos este mes</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <div className={cn("w-2 h-2 rounded-full", r.activa ? "bg-emerald-500" : "bg-muted")} />

@@ -45,7 +45,7 @@ export default function MercadoEcocreditosPage() {
                         <CardTitle className="text-[10px] font-black uppercase tracking-widest text-secondary/60">Mi Saldo Inmutable</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <p className="text-5xl font-black italic text-white tracking-tighter">{balance.toLocaleString()} <span className="text-lg uppercase font-bold text-secondary tracking-normal">E-CR</span></p>
+                        <p className="text-5xl font-black italic text-white tracking-tighter">{balance.toLocaleString('en-US')} <span className="text-lg uppercase font-bold text-secondary tracking-normal">E-CR</span></p>
                         <p className="text-[9px] font-bold text-white/20 uppercase mt-4 tracking-widest flex items-center gap-2">
                             <ShieldCheck className="h-3 w-3" /> Certificado Carbono Neutral v2.6
                         </p>
@@ -106,7 +106,7 @@ export default function MercadoEcocreditosPage() {
                                         <p className="text-xs font-black text-white/80 uppercase">{offer.company}</p>
                                         <p className="text-[8px] font-mono text-white/20 uppercase">{offer.id}</p>
                                     </TableCell>
-                                    <TableCell className="font-black text-white italic">{offer.credits.toLocaleString()} ECR</TableCell>
+                                    <TableCell className="font-black text-white italic">{offer.credits.toLocaleString('en-US')} ECR</TableCell>
                                     <TableCell className="text-right font-mono font-bold text-secondary">{formatCurrency(offer.price, 'USD')}</TableCell>
                                     <TableCell className="text-center">
                                         <Badge variant={offer.type === 'Sell' ? 'destructive' : 'default'} className="text-[8px] font-black uppercase tracking-widest rounded-lg">

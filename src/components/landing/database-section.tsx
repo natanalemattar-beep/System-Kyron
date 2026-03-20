@@ -34,7 +34,7 @@ function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string
         return () => { isMounted = false; };
     }, [to]);
     
-    return <span>{prefix}{displayed.toLocaleString()}{suffix}</span>;
+    return <span>{prefix}{displayed.toLocaleString('en-US')}{suffix}</span>;
 }
 
 /* ─── Blinking cursor ─── */
@@ -254,7 +254,7 @@ function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
                     </span>
                 </div>
                 <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-widest">
-                    {table.rows.toLocaleString()} filas
+                    {table.rows.toLocaleString('en-US')} filas
                 </span>
             </div>
             <div className="p-3 space-y-1.5">

@@ -280,7 +280,7 @@ export const IntelligentPortfolioManager = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold">
-                      ${client.currentDebt.toLocaleString()}
+                      ${client.currentDebt.toLocaleString('en-US')}
                     </div>
                     <div className="text-sm text-muted-foreground">Deuda actual</div>
                   </div>

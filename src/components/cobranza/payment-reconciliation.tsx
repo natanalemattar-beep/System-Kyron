@@ -186,7 +186,7 @@ export const PaymentReconciliation = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold">${payment.amount.toLocaleString()}</div>
+                    <div className="text-lg font-bold">${payment.amount.toLocaleString('en-US')}</div>
                     <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(payment.status)}`}>
                       {payment.status}
                     </span>
@@ -230,9 +230,9 @@ export const PaymentReconciliation = () => {
                 </div>
 
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between"><span className="text-muted-foreground">Monto Total:</span><span className="font-medium">${method.amount.toLocaleString()}</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">Comisiones:</span><span className="font-medium text-red-400">-${method.fee.toLocaleString()}</span></div>
-                  <div className="flex justify-between border-t border-border pt-2"><span className="text-muted-foreground font-medium">Neto:</span><span className="font-bold text-green-400">${method.netAmount.toLocaleString()}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Monto Total:</span><span className="font-medium">${method.amount.toLocaleString('en-US')}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Comisiones:</span><span className="font-medium text-red-400">-${method.fee.toLocaleString('en-US')}</span></div>
+                  <div className="flex justify-between border-t border-border pt-2"><span className="text-muted-foreground font-medium">Neto:</span><span className="font-bold text-green-400">${method.netAmount.toLocaleString('en-US')}</span></div>
                 </div>
               </div>
             ))}

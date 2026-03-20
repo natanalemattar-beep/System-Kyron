@@ -99,7 +99,7 @@ export default function SostenibilidadPage() {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 {[
-                    { label: "Saldo Eco-Créditos", val: `${balance.toLocaleString()} ECR`, icon: Coins, color: "text-secondary", desc: "Listos para canje" },
+                    { label: "Saldo Eco-Créditos", val: `${balance.toLocaleString('en-US')} ECR`, icon: Coins, color: "text-secondary", desc: "Listos para canje" },
                     { label: "CO₂ Mitigado", val: "340 KG", icon: Recycle, color: "text-blue-400", desc: "Impacto certificado" },
                     { label: "Nodos Ameru IA", val: "12 ACTIVOS", icon: MapPin, color: "text-emerald-500", desc: "Red La Guaira" },
                     { label: "Eficiencia Clasif.", val: "98.4%", icon: ShieldCheck, color: "text-primary", desc: "Score de precisión" }

@@ -79,7 +79,7 @@ export const ContinuousAudit = () => {
           <p className="text-muted-foreground">Monitoreo y corrección automática de transacciones</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-blue-400">{totalTransactions.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-blue-400">{totalTransactions.toLocaleString('en-US')}</div>
           <div className="text-sm text-muted-foreground">Transacciones Verificadas</div>
         </div>
       </div>
