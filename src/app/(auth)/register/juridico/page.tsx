@@ -16,17 +16,17 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  Building, Loader as Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
+  Building, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
   BookOpen, BarChart2, Users, Landmark, ShieldCheck, Wallet, FileText, Package,
   Scale, Cpu, Handshake, Megaphone, Globe, TrendingUp, Smartphone, Signal,
-  Recycle, Gavel, ShoppingCart, Briefcase,
+  Recycle, Gavel, ShoppingCart, Briefcase, MessageSquare, RefreshCw,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7;
 
 const ESTADOS_VE = [
   'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
@@ -167,10 +167,17 @@ export default function RegisterJuridicoPage() {
   const [fileActaName, setFileActaName] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
+  const [verifSent, setVerifSent] = useState(false);
+  const [verifCode, setVerifCode] = useState('');
+  const [verifLoading, setVerifLoading] = useState(false);
+  const [verifVerified, setVerifVerified] = useState(false);
+  const [verifDestino, setVerifDestino] = useState('');
+  const [countdown, setCountdown] = useState(0);
   const { toast } = useToast();
   const router = useRouter();
 
-  const { register, handleSubmit, control, setValue, formState: { errors }, trigger } =
+  const { register, handleSubmit, control, setValue, getValues, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
@@ -182,6 +189,69 @@ export default function RegisterJuridicoPage() {
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
+  };
+
+  const startCountdown = () => {
+    setCountdown(60);
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) { clearInterval(timer); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const sendVerificationCode = async () => {
+    setVerifLoading(true);
+    const email = getValues('repEmail');
+    const telefono = getValues('telefono');
+    const destino = verifMethod === 'email' ? email : telefono;
+    setVerifDestino(destino);
+    try {
+      const res = await fetch('/api/auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destino, tipo: verifMethod }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        toast({ title: 'Error al enviar código', description: json.error, variant: 'destructive' });
+        return;
+      }
+      setVerifSent(true);
+      startCountdown();
+      toast({ title: 'Código enviado', description: verifMethod === 'email' ? `Revisa ${email}` : `Enviado al ${telefono}` });
+    } catch {
+      toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
+    } finally {
+      setVerifLoading(false);
+    }
+  };
+
+  const verifyCode = async () => {
+    if (verifCode.length !== 6) {
+      toast({ title: 'Código inválido', description: 'El código debe tener 6 dígitos.', variant: 'destructive' });
+      return;
+    }
+    setVerifLoading(true);
+    try {
+      const res = await fetch('/api/auth/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destino: verifDestino, codigo: verifCode }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
+        return;
+      }
+      setVerifVerified(true);
+      toast({ title: '¡Verificado!', description: 'Identidad confirmada.' });
+    } catch {
+      toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
+    } finally {
+      setVerifLoading(false);
+    }
   };
 
   const nextStep = async () => {
@@ -199,9 +269,20 @@ export default function RegisterJuridicoPage() {
     }
   };
 
-  const prevStep = () => setStep(s => s - 1);
+  const prevStep = () => {
+    if (step === 6) {
+      setVerifSent(false);
+      setVerifCode('');
+      setVerifVerified(false);
+    }
+    setStep(s => s - 1);
+  };
 
   const onSubmit = async (data: FormData) => {
+    if (!verifVerified) {
+      toast({ title: 'Verificación requerida', description: 'Debes verificar tu identidad antes de completar el registro.', variant: 'destructive' });
+      return;
+    }
     setIsLoading(true);
     const selectedModuleList = moduleGroups.flatMap(g =>
       g.modules.filter(m => selectedModules.has(m.id)).map(m => ({ id: m.id, label: m.label }))
@@ -233,6 +314,8 @@ export default function RegisterJuridicoPage() {
           repEmail: data.repEmail,
           password: data.password,
           modules: selectedModuleList,
+          email_verificado: verifMethod === 'email',
+          telefono_verificado: verifMethod === 'sms',
         }),
       });
 
@@ -259,6 +342,7 @@ export default function RegisterJuridicoPage() {
     'Representante Legal',
     'Documentos',
     'Módulos del Sistema',
+    'Verificación de Identidad',
     'Registro Completado',
   ];
 
@@ -553,6 +637,96 @@ export default function RegisterJuridicoPage() {
               </>
             )}
 
+            {step === 6 && (
+              <div className="space-y-5">
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  <ShieldCheck className="h-4 w-4 text-primary" /> Verificación de Identidad
+                </div>
+                {verifVerified ? (
+                  <div className="text-center py-6">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+                      <CheckCircle className="h-9 w-9 text-green-500" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
+                    <p className="text-muted-foreground text-sm mt-1">
+                      Tu {verifMethod === 'email' ? 'correo electrónico' : 'número de teléfono'} ha sido confirmado.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-sm text-muted-foreground">
+                      Para garantizar la seguridad del registro empresarial, verifica la identidad del representante legal.
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => { setVerifMethod('email'); setVerifSent(false); setVerifCode(''); }}
+                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'email' ? 'border-primary bg-primary/5' : 'border-border bg-background hover:border-primary/50'}`}
+                      >
+                        <Mail className={`h-5 w-5 mb-2 ${verifMethod === 'email' ? 'text-primary' : 'text-muted-foreground'}`} />
+                        <p className={`text-sm font-semibold ${verifMethod === 'email' ? 'text-primary' : 'text-foreground'}`}>Por Correo</p>
+                        <p className="text-xs text-muted-foreground truncate">{getValues('repEmail')}</p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setVerifMethod('sms'); setVerifSent(false); setVerifCode(''); }}
+                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'sms' ? 'border-primary bg-primary/5' : 'border-border bg-background hover:border-primary/50'}`}
+                      >
+                        <MessageSquare className={`h-5 w-5 mb-2 ${verifMethod === 'sms' ? 'text-primary' : 'text-muted-foreground'}`} />
+                        <p className={`text-sm font-semibold ${verifMethod === 'sms' ? 'text-primary' : 'text-foreground'}`}>Por SMS</p>
+                        <p className="text-xs text-muted-foreground truncate">{getValues('telefono')}</p>
+                      </button>
+                    </div>
+                    {!verifSent ? (
+                      <button
+                        type="button"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
+                        onClick={sendVerificationCode}
+                        disabled={verifLoading}
+                      >
+                        {verifLoading ? <><Loader2 className="h-4 w-4 animate-spin" /> Enviando...</> : <>{verifMethod === 'email' ? <Mail className="h-4 w-4" /> : <MessageSquare className="h-4 w-4" />} Enviar Código de Verificación</>}
+                      </button>
+                    ) : (
+                      <div className="space-y-3">
+                        <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm text-center">
+                          Código enviado a <strong className="text-primary">{verifDestino}</strong>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground block">Ingresa el código de 6 dígitos</label>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            maxLength={6}
+                            placeholder="_ _ _ _ _ _"
+                            value={verifCode}
+                            onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                            className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-center text-2xl tracking-[0.5em] font-mono text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
+                          onClick={verifyCode}
+                          disabled={verifLoading || verifCode.length !== 6}
+                        >
+                          {verifLoading ? <><Loader2 className="h-4 w-4 animate-spin" /> Verificando...</> : <><ShieldCheck className="h-4 w-4" /> Verificar Código</>}
+                        </button>
+                        <div className="text-center">
+                          {countdown > 0 ? (
+                            <p className="text-xs text-muted-foreground">Nuevo código disponible en <strong>{countdown}s</strong></p>
+                          ) : (
+                            <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
+                              <RefreshCw className="h-3 w-3" /> Reenviar código
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+
             {step === TOTAL_STEPS && (
               <div className="text-center py-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
@@ -584,15 +758,23 @@ export default function RegisterJuridicoPage() {
               <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
               </Button>
-              {step < 5
-                ? <Button type="button" onClick={nextStep}>Siguiente <ArrowRight className="ml-2 h-4 w-4" /></Button>
-                : (
-                  <Button type="submit" disabled={isLoading}>
-                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Finalizar Registro
-                  </Button>
-                )
-              }
+              {step < 5 && (
+                <Button type="button" onClick={nextStep}>Siguiente <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              )}
+              {step === 5 && (
+                <Button type="button" onClick={nextStep}>
+                  Continuar a Verificación <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              )}
+              {step === 6 && (
+                <Button type="submit" disabled={isLoading || !verifVerified}>
+                  {isLoading ? (
+                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Registrando...</>
+                  ) : (
+                    <>Finalizar Registro <ArrowRight className="ml-2 h-4 w-4" /></>
+                  )}
+                </Button>
+              )}
             </CardFooter>
           )}
         </form>

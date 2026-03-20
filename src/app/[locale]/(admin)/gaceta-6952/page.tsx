@@ -89,10 +89,10 @@ export default function Gaceta6952Page() {
         setMessages(prev => [...prev, { role: "user", content: userMsg }]);
         setLoading(true);
         try {
-            const res = await fetch('/api/pitch-ia', {
+            const res = await fetch('/api/ai/fiscal-chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: `Eres un experto fiscal venezolano. El usuario pregunta sobre normativa tributaria (SENIAT, Gaceta 6952, COT): "${userMsg}". Responde en español de forma clara y concisa para una empresa venezolana.`, mode: 'fiscal' }),
+                body: JSON.stringify({ prompt: userMsg }),
             });
             const json = await res.json();
             setMessages(prev => [...prev, { role: "assistant", content: json.content ?? json.text ?? "No pude procesar la consulta en este momento. Intenta de nuevo." }]);

@@ -120,6 +120,8 @@ async function createCoreAuthTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id)`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verificado BOOLEAN NOT NULL DEFAULT false`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -788,31 +790,23 @@ async function createSectorTables() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 9. ANALÍTICA / PITCH IA
+// 9. ANALÍTICA Y VERIFICACIÓN
 // ─────────────────────────────────────────────────────────────────────────────
 async function createAnalyticsTables() {
   await query(`
-    CREATE TABLE IF NOT EXISTS pitch_sessions (
+    CREATE TABLE IF NOT EXISTS verification_codes (
       id         SERIAL PRIMARY KEY,
-      tipo       TEXT NOT NULL DEFAULT 'pitch_ia',
-      titulo     TEXT,
-      contenido  TEXT,
-      usuario_ip TEXT,
-      creado_en  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      destino    TEXT NOT NULL,
+      tipo       TEXT NOT NULL CHECK (tipo IN ('email', 'sms')),
+      codigo     TEXT NOT NULL,
+      usado      BOOLEAN NOT NULL DEFAULT false,
+      intentos   INT NOT NULL DEFAULT 0,
+      expires_at TIMESTAMPTZ NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
-
-  await query(`
-    CREATE TABLE IF NOT EXISTS document_records (
-      id             SERIAL PRIMARY KEY,
-      tipo_documento TEXT NOT NULL,
-      descripcion    TEXT,
-      generado_por   TEXT DEFAULT 'IA Gemini',
-      usuario_ip     TEXT,
-      metadata       JSONB,
-      creado_en      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_created_at ON verification_codes(created_at DESC)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS page_events (

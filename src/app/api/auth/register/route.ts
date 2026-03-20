@@ -45,14 +45,17 @@ async function registerNatural(body: Record<string, unknown>) {
     }
 
     const password_hash = await bcrypt.hash(password, 12);
+    const email_verificado = !!(body as Record<string, unknown>).email_verificado;
+    const telefono_verificado = !!(body as Record<string, unknown>).telefono_verificado;
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
             fecha_nacimiento, genero, estado_civil,
-            estado_residencia, municipio, ciudad, direccion, tipo
+            estado_residencia, municipio, ciudad, direccion, tipo,
+            email_verificado, telefono_verificado, verificado
          )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural')
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17)
          RETURNING id, email`,
         [
             email, password_hash,
@@ -60,6 +63,8 @@ async function registerNatural(body: Record<string, unknown>) {
             telefono ?? '', telefono_alt ?? '',
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
+            email_verificado, telefono_verificado,
+            email_verificado || telefono_verificado,
         ]
     );
 
