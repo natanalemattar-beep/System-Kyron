@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
+import { PageTracker } from "@/components/page-tracker";
 
 export default function HRLayout({
   children,
@@ -14,6 +15,7 @@ export default function HRLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
+          <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-full h-[800px] bg-secondary/[0.05] rounded-full blur-[200px] opacity-40 animate-pulse" />
             <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-secondary/[0.02] rounded-full blur-[180px] opacity-30" />

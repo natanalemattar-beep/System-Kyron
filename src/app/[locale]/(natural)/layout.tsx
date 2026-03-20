@@ -6,6 +6,7 @@ import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
+import { PageTracker } from "@/components/page-tracker";
 
 /**
  * @fileOverview Layout del Portal Natural (Ciudadano).
@@ -29,6 +30,7 @@ export default function NaturalLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
+          <PageTracker userId={authUser?.id} />
           {/* Fondo HUD Ciudadano - Menos agresivo, más elegante */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

@@ -831,6 +831,8 @@ async function createAnalyticsTables() {
       id          SERIAL PRIMARY KEY,
       page        TEXT NOT NULL DEFAULT '/',
       visitor_id  TEXT,
+      user_id     INT REFERENCES users(id) ON DELETE SET NULL,
+      module      TEXT DEFAULT 'other',
       ip          TEXT,
       user_agent  TEXT,
       referrer    TEXT,
@@ -839,9 +841,12 @@ async function createAnalyticsTables() {
       created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await query(`ALTER TABLE page_visits ADD COLUMN IF NOT EXISTS user_id INT REFERENCES users(id) ON DELETE SET NULL`);
+  await query(`ALTER TABLE page_visits ADD COLUMN IF NOT EXISTS module TEXT DEFAULT 'other'`);
   await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_page       ON page_visits(page)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_created_at ON page_visits(created_at DESC)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_visitor_id ON page_visits(visitor_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_page_visits_module     ON page_visits(module)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS site_metrics (

@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { legalNavGroups } from "@/components/app-sidebar-nav-items";
+import { PageTracker } from "@/components/page-tracker";
 
 export default function LegalLayout({
   children,
@@ -14,6 +15,7 @@ export default function LegalLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden hud-grid">
+          <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,hsl(var(--primary))_12%,transparent_12.5%,transparent_87%,hsl(var(--primary))_87.5%,hsl(var(--primary)))] [background-size:80px_140px]" />
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.05] rounded-full blur-[250px]" />

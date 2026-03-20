@@ -15,6 +15,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { DemoBanner } from "@/components/demo-banner";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { PageTracker } from "@/components/page-tracker";
 import { use } from 'react';
 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -25,6 +26,7 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
 
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
+      <PageTracker />
       <WelcomeTutorial />
 
       <DemoBanner />

@@ -6,6 +6,7 @@ import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
+import { PageTracker } from "@/components/page-tracker";
 
 /**
  * @fileOverview Layout Administrativo Consolidado.
@@ -30,6 +31,7 @@ export default function AdminLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
+          <PageTracker userId={user?.id} />
           {/* Fondo HUD Dinámico */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.04] hud-grid" />

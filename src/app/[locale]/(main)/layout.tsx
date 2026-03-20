@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { PageTracker } from "@/components/page-tracker";
 
 export default function MainLayout({
   children,
@@ -13,6 +14,7 @@ export default function MainLayout({
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
+          <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/[0.05] rounded-full blur-[250px] opacity-40 animate-pulse" />
             <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-secondary/5 rounded-full blur-[200px] opacity-30" />

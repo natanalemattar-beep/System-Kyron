@@ -22,17 +22,19 @@ export async function POST(req: NextRequest) {
     const ua = headersList.get('user-agent') || '';
     const referrer = headersList.get('referer') || '';
 
-    let body: { page?: string; visitor_id?: string } = {};
+    let body: { page?: string; visitor_id?: string; user_id?: number | null; module?: string } = {};
     try { body = await req.json(); } catch {}
 
     const page = body.page || '/';
     const visitor_id = body.visitor_id || null;
+    const user_id = body.user_id || null;
+    const module = body.module || 'other';
     const device_type = detectDevice(ua);
 
     await query(
-      `INSERT INTO page_visits (page, visitor_id, ip, user_agent, referrer, device_type)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [page, visitor_id, ip, ua.slice(0, 512), referrer.slice(0, 256), device_type]
+      `INSERT INTO page_visits (page, visitor_id, user_id, module, ip, user_agent, referrer, device_type)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [page, visitor_id, user_id, module, ip, ua.slice(0, 512), referrer.slice(0, 256), device_type]
     );
 
     await query(`
