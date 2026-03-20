@@ -15,11 +15,164 @@
         "mobile_portal": "Kyron Portal"
     },
     "HeroSection": {
-        "title": "Your Business Command Center",
+        "title": "The ecosystem that unifies telecommunications, taxation and sustainability",
         "slogan": "Corporate Intelligence · Zero Risk",
-        "subtitle": "Tax automation, smart accounting, and regulatory compliance on a single platform designed for the peace of mind of the Venezuelan entrepreneur.",
+        "subtitle": "Tax automation, magnetic technology, telecom sales and regulatory compliance on a single corporate-grade platform.",
         "cta_main": "Get Started Now",
         "cta_secondary": "User Guide"
+    },
+    "FeaturesSection": {
+        "badge": "System Capabilities",
+        "title_highlight": "everything your",
+        "title_rest": "business needs",
+        "subtitle": "9 integrated modules under a single digital ecosystem designed for the Venezuelan market.",
+        "ai_native_badge": "Native AI",
+        "features": [
+            { "title": "VEN-NIF Accounting", "description": "Digital books, RIPF, automated IVA, ISLR and IGTF declarations sealed with the SENIAT stamp." },
+            { "title": "HR & Payroll", "description": "Payroll calculation with SSO, FAOV, LPH, bonuses, severance and LOPCYMAT. Full LOTTT compliance." },
+            { "title": "Telecom 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage control and real-time telemetry." },
+            { "title": "Artificial Intelligence", "description": "Gemini 2.0 Flash integrated. Contract generation, tax analysis, AI pitch, waste classification and more." },
+            { "title": "Legal AI & Permits", "description": "Contracts, notarial powers, CONATEL, SENIAT permits and Official Gazette updated automatically." },
+            { "title": "Ameru — Eco-Credits", "description": "AI-powered waste classification, certified eco-credit generation and sustainability marketplace." },
+            { "title": "Dashboard & Analytics", "description": "Real-time KPIs, cash flow analysis, financial projections and PDF/PowerPoint reports." },
+            { "title": "Tax Management", "description": "IVA, ISLR, IGTF, parafiscal, municipal, withholdings and automated tax calendar." },
+            { "title": "Advanced Security", "description": "Cryptographic sealing, immutable audit log and AES-256 encryption across the entire corporate platform." }
+        ],
+        "stats": [
+            { "val": "48h", "detail": "Migration Time" },
+            { "val": "Multi-Company", "detail": "Holdings & Condominiums" },
+            { "val": "Bilingual", "detail": "Spanish & English" },
+            { "val": "Gemini 2.0", "detail": "Latest Generation AI" }
+        ]
+    },
+    "ServicesSection": {
+        "badge": "12 Integrated Modules",
+        "title_highlight": "Modular",
+        "title_rest": "Ecosystem",
+        "subtitle": "Select the area your company needs. Each module works independently or as part of the complete ecosystem.",
+        "view_modules": "View modules",
+        "access_hint": "Access via the button",
+        "access_btn": "ACCESS THE ECOSYSTEM",
+        "categories": [
+            {
+                "label": "Enterprise",
+                "description": "Complete corporate suite for financial, legal and human talent management.",
+                "modules": [
+                    { "title": "Accounting", "desc": "VEN-NIF, books, taxes and inflation adjustment" },
+                    { "title": "Invoicing", "desc": "SENIAT invoices with BCV rate and sales module" },
+                    { "title": "Human Resources", "desc": "Payroll, severance, LOPCYMAT and recruitment" },
+                    { "title": "Legal Advisory", "desc": "Contracts, permits, Conatel and Official Gazette AI" }
+                ]
+            },
+            {
+                "label": "Telecom & IT",
+                "description": "Telecommunications infrastructure and mission-critical technology management.",
+                "modules": [
+                    { "title": "Network Management", "desc": "Radio bases, infrastructure and mass provisioning" },
+                    { "title": "My Lines", "desc": "Unified personal + corporate 5G fleet portal" },
+                    { "title": "Engineering & IT", "desc": "Technical plans, budgets and servers" },
+                    { "title": "AI Marketing", "desc": "Investment alerts and AI-powered market analysis" }
+                ]
+            },
+            {
+                "label": "Personal & Sustainability",
+                "description": "Citizen portal with digital vault, eco-credits and green asset management.",
+                "modules": [
+                    { "title": "Personal Account", "desc": "Digital ID, civil documents and health procedures" },
+                    { "title": "Ameru Eco-Credits", "desc": "Smart recycling and eco-credit marketplace" },
+                    { "title": "Partners & Directors", "desc": "Strategic oversight of holdings and benefits" },
+                    { "title": "General Analytics", "desc": "KPIs, projections and unified executive dashboard" }
+                ]
+            }
+        ]
+    },
+    "AboutUsSection": {
+        "badge": "Professional Team",
+        "title_highlight": "About",
+        "title_rest": "Us",
+        "subtitle": "We develop software engineering designed for operational excellence.",
+        "mission_title": "Mission",
+        "mission_text": "To guarantee business management through secure, transparent and immutable records.",
+        "vision_title": "Vision",
+        "vision_text": "To consolidate ourselves as the global standard of efficiency for cutting-edge companies and institutions.",
+        "stat_companies": "COMPANIES",
+        "stat_compliance": "COMPLIANCE",
+        "stat_errors": "FISCAL ERRORS",
+        "testimonials": [
+            {
+                "text": "Our platform has eliminated the risk of document loss. Secure record-keeping is the guarantee the private sector needed.",
+                "module": "Management Area"
+            },
+            {
+                "text": "Process automation allows us to manage large-scale projects with professional efficiency never before seen in the region.",
+                "module": "Human Resources"
+            }
+        ]
+    },
+    "FaqSection": {
+        "title_highlight": "Frequently",
+        "title_rest": "Asked Questions",
+        "subtitle": "We address the most common questions about the platform so you can make decisions with confidence.",
+        "items": [
+            {
+                "question": "How do you guarantee Venezuelan tax compliance?",
+                "answer": "System Kyron monitors the Official Gazette daily with AI. All IVA 16%, IGTF 3% and ISLR 34% declarations are calculated automatically according to current VEN-NIF regulations. Legal updates are deployed without user intervention."
+            },
+            {
+                "question": "Can I manage multiple companies or a holding?",
+                "answer": "Yes. The Partners and Directors portal allows consolidating the accounting of multiple entities in a single Command Center. Each company maintains its own data independence with group-level reports available in real time."
+            },
+            {
+                "question": "How does the BCV rate work in invoices and payments?",
+                "answer": "The Bank of Venezuela rate is automatically updated on the platform. Each invoice and transaction in bolivars automatically generates its USD equivalent applying the current BCV rate, facilitating IGTF 3% compliance."
+            },
+            {
+                "question": "Is it difficult to migrate my data from another system?",
+                "answer": "No. Our team guides the bulk import of historical data. For most standard systems (Excel, Profit, Mónica), migration is completed in less than 48 hours at no additional cost."
+            },
+            {
+                "question": "Does the Telecom module work with Venezuelan operators?",
+                "answer": "Yes. The Telecommunications portal manages Movilnet, Digitel and Movistar lines, including eSIM activation, 5G provisioning and corporate fleet management by department with configurable usage limits."
+            },
+            {
+                "question": "What are Ameru AI Eco-Credits?",
+                "answer": "Ameru is our sustainability module. It allows waste classification using artificial intelligence, generates certified eco-credits for each kilogram recycled, and lets you participate in the Kyron eco-credit marketplace to monetize environmental impact."
+            },
+            {
+                "question": "What is the security level of the platform?",
+                "answer": "All information is encrypted with AES-256. Authentication uses JWT with HTTP-only cookies and 7-day sessions. The audit log is immutable and every action is recorded with timestamp, IP and responsible user."
+            },
+            {
+                "question": "How does registration for individuals vs. companies work?",
+                "answer": "Registration differentiates between natural persons (ID, personal data) and legal persons (RIF, company name, legal representative). Each type unlocks the corresponding modules: civil documents for individuals, accounting and payroll for companies."
+            }
+        ]
+    },
+    "CtaSection": {
+        "badge": "Priority Access",
+        "title_highlight": "Inject Intelligence",
+        "title_rest": "into Your Operation",
+        "subtitle": "Personalized ecosystem deployment. Complete the technical brief to prioritize your technical audit.",
+        "form_title": "Demo Brief",
+        "form_subtitle": "Technical audit v2.6.5",
+        "field_name": "Full Name",
+        "field_name_placeholder": "Your name",
+        "field_role": "Position",
+        "field_role_placeholder": "Role...",
+        "field_email": "Email Address",
+        "field_email_placeholder": "you@email.com",
+        "field_phone": "Phone",
+        "field_phone_placeholder": "Phone number...",
+        "field_module": "Module of Interest",
+        "field_module_placeholder": "Select...",
+        "btn_submit": "REQUEST AUDIT",
+        "btn_submitting": "TRANSMITTING...",
+        "footer_text": "AES-256 Encrypted · 2026",
+        "toast_success_title": "SUBMISSION COMPLETE",
+        "toast_success_desc": "Brief submitted for review. An account officer will initiate contact.",
+        "toast_error_title": "PROTOCOL FAILURE",
+        "toast_error_desc": "Could not transmit the request.",
+        "roles": ["CEO / Owner", "General Manager", "Administrator", "Other"]
     },
     "Auth": {
         "login": "Sign In",

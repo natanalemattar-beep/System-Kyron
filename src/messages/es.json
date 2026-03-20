@@ -21,6 +21,159 @@
         "cta_main": "Comienza Ahora",
         "cta_secondary": "Guía de Usuario"
     },
+    "FeaturesSection": {
+        "badge": "Capacidades del Sistema",
+        "title_highlight": "todo lo que tu",
+        "title_rest": "empresa necesita",
+        "subtitle": "9 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.",
+        "ai_native_badge": "IA Nativa",
+        "features": [
+            { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
+            { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
+            { "title": "Telecom 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
+            { "title": "Inteligencia Artificial", "description": "Gemini 2.0 Flash integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
+            { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
+            { "title": "Ameru — Eco-Créditos", "description": "Clasificación de residuos por IA, generación de eco-créditos certificados y mercado de sostenibilidad." },
+            { "title": "Dashboard & Analítica", "description": "KPIs en tiempo real, análisis de flujo de caja, proyecciones financieras y reportes PDF/PowerPoint." },
+            { "title": "Gestión de Tributos", "description": "IVA, ISLR, IGTF, parafiscales, municipales, retenciones y calendario fiscal automatizado." },
+            { "title": "Seguridad Avanzada", "description": "Sellado criptográfico, log de auditoría inmutable y cifrado AES-256 en toda la plataforma corporativa." }
+        ],
+        "stats": [
+            { "val": "48h", "detail": "Tiempo de migración" },
+            { "val": "Multi-empresa", "detail": "Holdings y condominios" },
+            { "val": "Bilingüe", "detail": "Español & English" },
+            { "val": "Gemini 2.0", "detail": "IA de última generación" }
+        ]
+    },
+    "ServicesSection": {
+        "badge": "12 Módulos Integrados",
+        "title_highlight": "Modular",
+        "title_rest": "Ecosistema",
+        "subtitle": "Selecciona el área que tu empresa necesita. Cada módulo funciona de forma independiente o como parte del ecosistema completo.",
+        "view_modules": "Ver módulos",
+        "access_hint": "Accede desde el botón",
+        "access_btn": "ACCESO AL ECOSISTEMA",
+        "categories": [
+            {
+                "label": "Empresa",
+                "description": "Suite corporativa completa para gestión financiera, legal y de talento humano.",
+                "modules": [
+                    { "title": "Contabilidad", "desc": "VEN-NIF, libros, tributos y ajuste por inflación" },
+                    { "title": "Facturación", "desc": "Facturas SENIAT con tasa BCV y módulo de ventas" },
+                    { "title": "Recursos Humanos", "desc": "Nómina, prestaciones, LOPCYMAT y selección" },
+                    { "title": "Asesoría Legal", "desc": "Contratos, permisos, Conatel y Gaceta Oficial IA" }
+                ]
+            },
+            {
+                "label": "Telecom & IT",
+                "description": "Gestión de infraestructura de telecomunicaciones y tecnología de misión crítica.",
+                "modules": [
+                    { "title": "Administración de Red", "desc": "Radiobases, infraestructura y provisión masiva" },
+                    { "title": "Mis Líneas", "desc": "Portal unificado personal + flota empresarial 5G" },
+                    { "title": "Ingeniería & IT", "desc": "Planos técnicos, presupuestos y servidores" },
+                    { "title": "Marketing IA", "desc": "Alertas de inversión y análisis de mercado con IA" }
+                ]
+            },
+            {
+                "label": "Personal & Sostenibilidad",
+                "description": "Portal ciudadano con bóveda digital, eco-créditos y gestión de activos verdes.",
+                "modules": [
+                    { "title": "Cuenta Personal", "desc": "ID digital, documentos civiles y trámites de salud" },
+                    { "title": "Ameru Eco-Créditos", "desc": "Reciclaje inteligente y mercado de eco-créditos" },
+                    { "title": "Socios & Directivos", "desc": "Supervisión estratégica de holdings y beneficios" },
+                    { "title": "Analítica General", "desc": "KPIs, proyecciones y dashboard ejecutivo unificado" }
+                ]
+            }
+        ]
+    },
+    "AboutUsSection": {
+        "badge": "Equipo Profesional",
+        "title_highlight": "Sobre",
+        "title_rest": "Nosotros",
+        "subtitle": "Desarrollamos ingeniería de software diseñada para la excelencia operativa.",
+        "mission_title": "Misión",
+        "mission_text": "Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.",
+        "vision_title": "Visión",
+        "vision_text": "Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.",
+        "stat_companies": "EMPRESAS",
+        "stat_compliance": "CUMPLIMIENTO",
+        "stat_errors": "ERRORES FISCALES",
+        "testimonials": [
+            {
+                "text": "Nuestra plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que el sector privado necesitaba.",
+                "module": "Área de Gestión"
+            },
+            {
+                "text": "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista en la región.",
+                "module": "Recursos Humanos"
+            }
+        ]
+    },
+    "FaqSection": {
+        "title_highlight": "Preguntas",
+        "title_rest": "Frecuentes",
+        "subtitle": "Resolvemos las dudas más comunes sobre la plataforma para que puedas tomar decisiones con confianza.",
+        "items": [
+            {
+                "question": "¿Cómo garantizan el cumplimiento fiscal venezolano?",
+                "answer": "System Kyron monitorea la Gaceta Oficial diariamente con IA. Todas las declaraciones de IVA 16%, IGTF 3% e ISLR 34% se calculan automáticamente según la normativa VEN-NIF vigente. Las actualizaciones legales se despliegan sin intervención del usuario."
+            },
+            {
+                "question": "¿Puedo gestionar múltiples empresas o un holding?",
+                "answer": "Sí. El portal de Socios y Directivos permite consolidar la contabilidad de varias entidades en un único Centro de Mando. Cada empresa mantiene su propia independencia de datos con reportes a nivel de grupo disponibles en tiempo real."
+            },
+            {
+                "question": "¿Cómo funciona la tasa BCV en facturas y pagos?",
+                "answer": "La tasa del Banco Central de Venezuela se actualiza automáticamente en la plataforma. Cada factura y transacción en bolívares genera automáticamente su equivalente en USD aplicando la tasa BCV del momento, facilitando el cumplimiento del IGTF 3%."
+            },
+            {
+                "question": "¿Es difícil migrar mis datos desde otro sistema?",
+                "answer": "No. Nuestro equipo guía la importación masiva de datos históricos. Para la mayoría de sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
+            },
+            {
+                "question": "¿El módulo Telecom funciona con operadoras venezolanas?",
+                "answer": "Sí. El portal de Telecomunicaciones gestiona líneas de Movilnet, Digitel y Movistar, incluyendo activación de eSIM, provisión 5G y gestión de flota corporativa por departamento con límites de consumo configurables."
+            },
+            {
+                "question": "¿Qué son los Eco-Créditos de Ameru IA?",
+                "answer": "Ameru es nuestro módulo de sostenibilidad. Permite clasificar residuos mediante inteligencia artificial, generar eco-créditos certificados por cada kilogramo reciclado y participar en el mercado de eco-créditos Kyron para monetizar el impacto ambiental."
+            },
+            {
+                "question": "¿Cuál es el nivel de seguridad de la plataforma?",
+                "answer": "Toda la información se cifra con AES-256. La autenticación usa JWT con cookies HTTP-only y sesiones de 7 días. El registro de auditoría es inmutable y cada acción queda registrada con timestamp, IP y usuario responsable."
+            },
+            {
+                "question": "¿Cómo funciona el registro de persona natural vs. jurídica?",
+                "answer": "El registro diferencia entre personas naturales (cédula, datos personales) y personas jurídicas (RIF, razón social, representante legal). Cada tipo desbloquea los módulos correspondientes: documentos civiles para naturales, contabilidad y nómina para jurídicas."
+            }
+        ]
+    },
+    "CtaSection": {
+        "badge": "Acceso Prioritario",
+        "title_highlight": "Inyecta Inteligencia",
+        "title_rest": "a tu Operación",
+        "subtitle": "Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría técnica.",
+        "form_title": "Expediente de Demo",
+        "form_subtitle": "Auditoría técnica v2.6.5",
+        "field_name": "Nombre Maestro",
+        "field_name_placeholder": "Tu nombre",
+        "field_role": "Cargo",
+        "field_role_placeholder": "Rol...",
+        "field_email": "Correo Electrónico",
+        "field_email_placeholder": "tu@correo.com",
+        "field_phone": "Teléfono",
+        "field_phone_placeholder": "0412...",
+        "field_module": "Módulo de Interés",
+        "field_module_placeholder": "Seleccionar...",
+        "btn_submit": "SOLICITAR AUDITORÍA",
+        "btn_submitting": "TRANSMITIENDO...",
+        "footer_text": "Cifrado AES-256 · 2026",
+        "toast_success_title": "TRANSMISIÓN COMPLETADA",
+        "toast_success_desc": "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
+        "toast_error_title": "FALLA DE PROTOCOLO",
+        "toast_error_desc": "No se pudo transmitir la solicitud.",
+        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"]
+    },
     "Auth": {
         "login": "Iniciar Sesión",
         "logout": "Cerrar Sesión",
