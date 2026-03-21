@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Calculator, TrendingUp, TrendingDown, Activity, CircleCheck as CheckCircle, Zap, ArrowRight, BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2, ShieldAlert, ChartBar as BarChart3, RefreshCw, Calendar, Lock, Search, FileText } from "lucide-react";
+import { Calculator, TrendingUp, TrendingDown, Activity, CircleCheck as CheckCircle, Zap, ArrowRight, BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2, ShieldAlert, ChartBar as BarChart3, RefreshCw, Calendar, Lock, Search, FileText, BrainCircuit, Sparkles } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -85,6 +85,10 @@ export default function DashboardEmpresaPage() {
     const [auditLogs, setAuditLogs]         = useState<ActivityLog[]>([]);
     const [auditLoading, setAuditLoading]   = useState(false);
     const [auditSearch, setAuditSearch]     = useState("");
+
+    const [showAI, setShowAI]           = useState(false);
+    const [aiAnalysis, setAiAnalysis]   = useState<string | null>(null);
+    const [aiLoading, setAiLoading]     = useState(false);
 
     const fetchDashboard = useCallback(async (silent = false) => {
         if (!silent) setLoading(true);
@@ -173,6 +177,49 @@ export default function DashboardEmpresaPage() {
         l.categoria.toLowerCase().includes(auditSearch.toLowerCase())
     );
 
+    const handleAIAnalysis = async () => {
+        setShowAI(true);
+        if (!data) {
+            toast({ title: 'Sin datos', description: 'Carga el dashboard antes de analizar.', variant: 'destructive' });
+            return;
+        }
+        setAiLoading(true);
+        setAiAnalysis(null);
+        try {
+            const res = await fetch('/api/ai/analyze-dashboard', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    module: 'Dashboard Empresarial',
+                    data: {
+                        ingresos: data.ingresos,
+                        gastos: data.gastos,
+                        utilidadNeta: data.utilidadNeta,
+                        liquidezTotal: data.liquidezTotal,
+                        cuentasCobrar: data.cuentasCobrar,
+                        cuentasPagar: data.cuentasPagar,
+                        facturas: data.facturas,
+                        empleados: data.empleados,
+                        movimientosRecientes: data.movimientosRecientes?.slice(0, 5),
+                    },
+                    context: `Empresa: ${user?.nombre ?? 'N/A'}. Fecha: ${new Date().toLocaleDateString('es-VE')}`,
+                }),
+            });
+            const json = await res.json();
+            if (res.ok) {
+                setAiAnalysis(json.analysis);
+            } else {
+                toast({ title: 'Error', description: json.error, variant: 'destructive' });
+                setShowAI(false);
+            }
+        } catch {
+            toast({ title: 'Error de conexión', variant: 'destructive' });
+            setShowAI(false);
+        } finally {
+            setAiLoading(false);
+        }
+    };
+
     const kpiStats = [
         {
             label: "INGRESOS DEL MES",
@@ -221,12 +268,15 @@ export default function DashboardEmpresaPage() {
                         {user?.nombre ? `${user.nombre} • ` : ''}Portal Empresarial • Gestión Consolidada 2026
                     </p>
                 </div>
-                <div className="flex w-full md:w-auto gap-3 no-print">
+                <div className="flex w-full md:w-auto gap-3 no-print flex-wrap">
                     <Button variant="outline" className="flex-none h-11 md:h-12 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60" onClick={() => fetchDashboard(true)} disabled={refreshing}>
                         <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
                     </Button>
                     <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60" onClick={handleAuditoria}>
                         <History className="mr-2 h-4 w-4" /> AUDITORÍA
+                    </Button>
+                    <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-primary/30 bg-primary/5 text-primary hover:bg-primary/10" onClick={handleAIAnalysis} disabled={aiLoading || loading}>
+                        <BrainCircuit className="mr-2 h-4 w-4" /> ANALIZAR CON IA
                     </Button>
                     <Button className="flex-1 md:flex-none btn-3d-primary h-11 md:h-12 px-6 md:px-10 rounded-xl font-black text-[9px] uppercase tracking-widest" onClick={() => { setClosingData(null); setShowCierre(true); }}>
                         <Lock className="mr-2 h-4 w-4" /> CERRAR PERIODO
@@ -460,6 +510,56 @@ export default function DashboardEmpresaPage() {
                     <DialogFooter className="mt-4">
                         <p className="text-[9px] text-muted-foreground uppercase font-bold mr-auto">{filteredLogs.length} eventos encontrados</p>
                         <Button variant="outline" onClick={() => setShowAuditoria(false)} className="rounded-xl text-xs">Cerrar</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* ─── DIALOG: ANÁLISIS IA ─── */}
+            <Dialog open={showAI} onOpenChange={setShowAI}>
+                <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col">
+                    <DialogHeader>
+                        <DialogTitle className="text-[10px] font-black uppercase tracking-[0.4em] flex items-center gap-3">
+                            <BrainCircuit className="h-4 w-4 text-primary" /> Análisis Inteligente del Dashboard
+                        </DialogTitle>
+                    </DialogHeader>
+                    <div className="flex-1 overflow-y-auto py-4">
+                        {aiLoading ? (
+                            <div className="space-y-4 py-8">
+                                <div className="flex flex-col items-center gap-4">
+                                    <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
+                                        <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+                                    </div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Analizando datos con IA...</p>
+                                </div>
+                                <div className="space-y-3">
+                                    {[1,2,3,4].map(n => <div key={n} className={`h-4 bg-muted/40 rounded animate-pulse`} style={{ width: `${[90,75,85,60][n-1]}%` }} />)}
+                                </div>
+                            </div>
+                        ) : aiAnalysis ? (
+                            <div className="space-y-4">
+                                <div className="p-4 bg-primary/5 rounded-2xl border border-primary/20">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <Sparkles className="h-4 w-4 text-primary" />
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-primary">Análisis Generado por OpenAI</span>
+                                    </div>
+                                    <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap font-medium">
+                                        {aiAnalysis}
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 text-[9px] text-muted-foreground/50 font-bold uppercase">
+                                    <CheckCircle className="h-3 w-3" />
+                                    Basado en datos en tiempo real del dashboard • {new Date().toLocaleDateString('es-VE')}
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                    <DialogFooter>
+                        {aiAnalysis && (
+                            <Button variant="outline" onClick={handleAIAnalysis} disabled={aiLoading} className="rounded-xl text-xs mr-auto">
+                                <RefreshCw className="mr-2 h-3 w-3" /> Regenerar
+                            </Button>
+                        )}
+                        <Button variant="outline" onClick={() => setShowAI(false)} className="rounded-xl text-xs">Cerrar</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

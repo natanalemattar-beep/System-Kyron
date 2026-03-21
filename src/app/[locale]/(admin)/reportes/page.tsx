@@ -3,10 +3,12 @@
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChartBar as BarChart3, Download, Printer, Activity, Terminal, ShieldCheck, ChartPie as PieChart, TrendingUp, Search } from "lucide-react";
+import { ChartBar as BarChart3, Download, Printer, Activity, Terminal, ShieldCheck, ChartPie as PieChart, TrendingUp, Search, Sheet, CircleCheck as CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const reportGroups = [
     { title: "Gestión Financiera", items: ["Balance General Consolidado", "Estado de Ganancias y Pérdidas", "Flujo de Caja Real vs Proyectado", "Análisis de Ratios de Liquidez"], icon: TrendingUp },
@@ -15,6 +17,42 @@ const reportGroups = [
 ];
 
 export default function ReportesGlobalPage() {
+  const { toast } = useToast();
+  const [exportingExcel, setExportingExcel] = useState(false);
+
+  const handleExportDossier = async () => {
+    setExportingExcel(true);
+    try {
+      const allItems = reportGroups.flatMap(g => g.items.map(item => ({ grupo: g.title, reporte: item })));
+      const res = await fetch('/api/export-excel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: 'DOSSIER DE REPORTES - SYSTEM KYRON 2026',
+          filename: 'dossier_reportes_2026',
+          sheets: [{
+            name: 'Reportes',
+            headers: ['Grupo', 'Nombre del Reporte'],
+            keys: ['grupo', 'reporte'],
+            rows: allItems,
+          }],
+        }),
+      });
+      if (!res.ok) throw new Error();
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'dossier_reportes_2026.xlsx';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+      toast({ title: '✔ EXCEL GENERADO', description: 'Dossier de reportes descargado.', action: <CheckCircle className="text-primary h-4 w-4" /> });
+    } catch {
+      toast({ title: 'Error', description: 'No se pudo generar el archivo Excel.', variant: 'destructive' });
+    } finally {
+      setExportingExcel(false);
+    }
+  };
+
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">

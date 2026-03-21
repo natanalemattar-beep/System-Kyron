@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link } from "@/navigation";
 import {
   Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap,
@@ -12,11 +12,13 @@ import {
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { Sparkles } from "lucide-react";
 
 const kpiData = [
   { label: "LIQUIDEZ CERTIFICADA", val: "Bs. 2.847.320,00", trend: "+8.4% vs mes anterior", color: "text-emerald-600", icon: Wallet },
@@ -154,6 +156,42 @@ const alianzas = [
 export default function ContabilidadPage() {
   const { toast } = useToast();
   const [isAuditing, setIsAuditing] = useState(false);
+  const [showAI, setShowAI] = useState(false);
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleAIAnalysis = useCallback(async () => {
+    setShowAI(true);
+    setAiLoading(true);
+    setAiAnalysis(null);
+    try {
+      const res = await fetch('/api/ai/analyze-dashboard', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          module: 'Contabilidad VEN-NIF',
+          data: {
+            liquidez: 'Bs. 2.847.320,00',
+            cuentasCobrar: 'Bs. 934.150,00 (18 facturas activas)',
+            cuentasPagar: 'Bs. 412.800,00 (9 compromisos)',
+            exposicionFiscal: '0.00% - BLINDAJE TOTAL',
+            iva: '16%',
+            igtf: '3%',
+            islr: '34%',
+          },
+          context: 'Dashboard contable empresarial Venezuela. Normas VEN-NIF. Fecha: ' + new Date().toLocaleDateString('es-VE'),
+        }),
+      });
+      const json = await res.json();
+      if (res.ok) setAiAnalysis(json.analysis);
+      else { toast({ title: 'Error', description: json.error, variant: 'destructive' }); setShowAI(false); }
+    } catch {
+      toast({ title: 'Error de conexión', variant: 'destructive' });
+      setShowAI(false);
+    } finally {
+      setAiLoading(false);
+    }
+  }, [toast]);
 
   const runForensicAudit = () => {
     setIsAuditing(true);

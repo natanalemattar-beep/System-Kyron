@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, CirclePlus as PlusCircle, FileDown, ArrowLeft, Landmark, CircleCheck as CheckCircle, Activity, ShieldCheck, Terminal, Filter, Info, TriangleAlert as AlertTriangle, Globe, Zap, Scale, Layers, History, FileSearch, BookOpen, Users, ShoppingCart, ArrowRight, ShieldAlert, Gavel } from "lucide-react";
+import { FileText, CirclePlus as PlusCircle, FileDown, ArrowLeft, Landmark, CircleCheck as CheckCircle, Activity, ShieldCheck, Terminal, Filter, Info, TriangleAlert as AlertTriangle, Globe, Zap, Scale, Layers, History, FileSearch, BookOpen, Users, ShoppingCart, ArrowRight, ShieldAlert, Gavel, Sheet } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -21,6 +21,7 @@ const mockVentas = [
 export default function LibroCompraVentaPage() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("ventas");
+  const [exportingExcel, setExportingExcel] = useState(false);
 
   const handleExport = (format: string) => {
     toast({
@@ -28,6 +29,49 @@ export default function LibroCompraVentaPage() {
         description: `Libro de ${activeTab.toUpperCase()} procesado para el periodo actual.`,
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
+  };
+
+  const handleExportExcel = async () => {
+    setExportingExcel(true);
+    try {
+      const isVentas = activeTab === 'ventas';
+      const rows = isVentas ? mockVentas : mockVentas.map(v => ({
+        ...v, cliente: 'Proveedor Ejemplo', factura: `C-00${mockVentas.indexOf(v) + 1}`
+      }));
+
+      const res = await fetch('/api/export-excel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: `LIBRO DE ${activeTab.toUpperCase()} - PERÍODO MARZO 2026`,
+          filename: `libro_${activeTab}_marzo_2026`,
+          sheets: [{
+            name: isVentas ? 'Ventas' : 'Compras',
+            headers: ['Fecha', isVentas ? 'N° Factura' : 'N° Compra', isVentas ? 'Cliente' : 'Proveedor', 'RIF', 'Base Imponible', 'IVA (16%)', 'Retención IVA', 'Total Neto', 'Estatus'],
+            keys: ['fecha', 'factura', 'cliente', 'rif', 'base', 'iva', 'ret', 'total', 'status'],
+            rows,
+          }],
+        }),
+      });
+
+      if (!res.ok) throw new Error('Error al generar Excel');
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `libro_${activeTab}_marzo_2026.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast({ title: '✔ EXCEL GENERADO', description: `Libro de ${activeTab.toUpperCase()} descargado correctamente.`, action: <CheckCircle className="text-primary h-4 w-4" /> });
+    } catch {
+      toast({ title: 'Error', description: 'No se pudo generar el archivo Excel.', variant: 'destructive' });
+    } finally {
+      setExportingExcel(false);
+    }
   };
 
   return (
@@ -40,9 +84,13 @@ export default function LibroCompraVentaPage() {
           <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic leading-none italic-shadow text-white">Libros <span className="text-primary">Fiscales</span></h1>
           <p className="text-muted-foreground font-bold text-[10px] uppercase tracking-[0.6em] opacity-40 mt-2 italic">Control de Compra y Venta • Sincronización SENIAT 2026</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <Button variant="outline" className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={() => handleExport("TXT")}>
             <FileDown className="mr-3 h-4 w-4" /> EXPORTAR TXT
+          </Button>
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-emerald-500/30 bg-emerald-500/5 text-emerald-400 hover:bg-emerald-500/10" onClick={handleExportExcel} disabled={exportingExcel}>
+            {exportingExcel ? <FileDown className="mr-3 h-4 w-4 animate-pulse" /> : <Sheet className="mr-3 h-4 w-4" />}
+            EXPORTAR EXCEL
           </Button>
           <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
             <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR FACTURA
