@@ -8,10 +8,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview Kyron Voice IA: Interfaz de Comunicación Neuronal.
- * Consola de chat interactiva con soporte para comandos de voz y texto.
+ * Consola de chat interactiva con soporte para comandos de voz real y texto.
  */
 
 type Message = {
@@ -19,19 +20,43 @@ type Message = {
     text: string;
 };
 
+declare global {
+    interface Window {
+        SpeechRecognition: typeof SpeechRecognition;
+        webkitSpeechRecognition: typeof SpeechRecognition;
+    }
+}
+
 export function VoiceAssistant() {
     const [isOpen, setIsOpen] = useState(false);
     const [isListening, setIsListening] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
+    const [speechSupported, setSpeechSupported] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const recognitionRef = useRef<SpeechRecognition | null>(null);
+    const { toast } = useToast();
+
+    useEffect(() => {
+        const supported = typeof window !== 'undefined' && 
+            ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
+        setSpeechSupported(supported);
+    }, []);
 
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages, isProcessing]);
+
+    useEffect(() => {
+        return () => {
+            if (recognitionRef.current) {
+                recognitionRef.current.abort();
+            }
+        };
+    }, []);
 
     const handleSendMessage = async (textOverride?: string) => {
         const query = textOverride || input;
@@ -57,17 +82,72 @@ export function VoiceAssistant() {
     };
 
     const toggleListening = () => {
+        if (!speechSupported) {
+            toast({
+                title: "Voz no disponible",
+                description: "Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.",
+                variant: "destructive",
+            });
+            return;
+        }
+
         if (isListening) {
+            recognitionRef.current?.stop();
             setIsListening(false);
-        } else {
+            return;
+        }
+
+        const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognitionAPI();
+        recognition.lang = 'es-VE';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => {
             setIsListening(true);
-            // Simulación de reconocimiento de voz para el remake
-            setTimeout(() => {
-                setIsListening(false);
-                if (!isProcessing) {
-                    handleSendMessage("Explicación del protocolo Zero Risk.");
-                }
-            }, 3000);
+        };
+
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
+            const transcript = event.results[0][0].transcript;
+            setIsListening(false);
+            if (transcript.trim()) {
+                handleSendMessage(transcript);
+            }
+        };
+
+        recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+            setIsListening(false);
+            if (event.error === 'not-allowed') {
+                toast({
+                    title: "Micrófono bloqueado",
+                    description: "Permite el acceso al micrófono en tu navegador para usar comandos de voz.",
+                    variant: "destructive",
+                });
+            } else if (event.error !== 'no-speech' && event.error !== 'aborted') {
+                toast({
+                    title: "Error de voz",
+                    description: "No se pudo procesar el audio. Intenta de nuevo.",
+                    variant: "destructive",
+                });
+            }
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+
+        recognitionRef.current = recognition;
+
+        try {
+            recognition.start();
+        } catch {
+            setIsListening(false);
+            toast({
+                title: "Error al iniciar",
+                description: "No se pudo activar el micrófono.",
+                variant: "destructive",
+            });
         }
     };
 
@@ -86,7 +166,12 @@ export function VoiceAssistant() {
                                 <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
                                     <Bot className="h-4 w-4 text-primary" />
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice IA</span>
+                                <div>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice IA</span>
+                                    {isListening && (
+                                        <p className="text-[8px] text-red-400 font-bold uppercase tracking-widest animate-pulse">● Escuchando...</p>
+                                    )}
+                                </div>
                             </div>
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-white/10" onClick={() => setIsOpen(false)}>
                                 <X className="h-4 w-4 text-white/40" />
@@ -102,6 +187,11 @@ export function VoiceAssistant() {
                                             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-center px-4 leading-relaxed">
                                                 Enlace neuronal activo. <br/> Inicie comandos de voz o texto.
                                             </p>
+                                            {speechSupported && (
+                                                <p className="text-[9px] text-primary/60 font-bold uppercase tracking-widest">
+                                                    Micrófono disponible
+                                                </p>
+                                            )}
                                         </div>
                                     )}
                                     {messages.map((msg, i) => (
@@ -158,6 +248,7 @@ export function VoiceAssistant() {
                                     )}
                                     onClick={toggleListening}
                                     disabled={isProcessing}
+                                    title={speechSupported ? (isListening ? "Detener escucha" : "Activar voz") : "Voz no soportada"}
                                 >
                                     {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
                                 </Button>

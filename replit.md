@@ -1,4 +1,4 @@
-# System Kyron v2.8.0 - Ecosistema Corporativo
+# System Kyron v2.8.1 - Ecosistema Corporativo
 
 ## Descripción
 Ecosistema tecnológico integral para gestión corporativa: contabilidad, RRHH, legal, ventas, telecomunicaciones e IT. Diseñado para el mercado venezolano con cumplimiento VEN-NIF/SENIAT, IVA 16%, IGTF 3%, ISLR 34%.
