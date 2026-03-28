@@ -96,10 +96,11 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `sector_solicitudes` — Solicitudes sectoriales empresariales
 - `alianzas_petroleras` — Solicitudes de alianzas sector petrolero
 
-### 9. Analítica
+### 9. Analítica & Comunidad
 - `pitch_sessions` — Sesiones del Pitch IA
 - `document_records` — Documentos generados (PPTX, PDF)
 - `page_events` — Eventos de páginas (analítica frontend)
+- `comentarios_publicos` — Comentarios verificados de usuarios reales (calificación 1-5, aprobación)
 
 ### 10. Configuración
 - `notificaciones` — Notificaciones del sistema (fiscal, vencimientos, pagos)
@@ -134,6 +135,8 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `GET/POST /api/eco-creditos` — Balance y transacciones de reciclaje Ameru IA
 - `GET/POST /api/telecom` — Líneas telecom + facturas de servicios
 - `GET/POST /api/rrhh/libros` — 13 libros laborales digitalizados (LOTTT) con alertas inteligentes
+- `GET/POST /api/comentarios` — Comentarios públicos verificados de usuarios reales
+- `GET /api/auth/check-document` — Verificación de documento existente (cédula/RIF)
 - `GET/POST/PATCH /api/notificaciones` — Notificaciones del sistema
 - `GET/POST/PATCH /api/proveedores` — Directorio de proveedores
 - `GET/POST/PATCH /api/documentos-juridicos` — Documentos del escritorio jurídico

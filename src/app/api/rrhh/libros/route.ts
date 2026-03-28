@@ -7,12 +7,12 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     const session = await getSession();
-    if (!session?.id) {
+    if (!session?.userId) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }
     const { searchParams } = new URL(req.url);
     const libro = searchParams.get('libro');
-    const userId = session.id;
+    const userId = session.userId;
 
     switch (libro) {
       case 'empleados': {
@@ -149,12 +149,12 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession();
-    if (!session?.id) {
+    if (!session?.userId) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }
     const body = await req.json();
     const { action, ...data } = body;
-    const userId = session.id;
+    const userId = session.userId;
 
     switch (action) {
       case 'add_horas_extra': {

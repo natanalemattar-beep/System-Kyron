@@ -1,9 +1,8 @@
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Target, Eye, BookOpen, Briefcase, Sparkles, ShieldCheck, Zap } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Target, Eye, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -36,24 +35,6 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
     return <motion.span ref={ref}>{displayValue}</motion.span>;
 }
 
-const testimonials = [
-  {
-    name: "Carlos Mattar",
-    company: "Ingeniero Maestro, System Kyron",
-    avatarId: "testimonial-avatar-1",
-    module: "Área de Gestión",
-    icon: BookOpen,
-    text: "Nuestra plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que el sector privado necesitaba.",
-  },
-  {
-    name: "Ana Pérez",
-    company: "Directora Administrativa, Holding Kyron",
-    avatarId: "testimonial-avatar-2",
-    module: "Recursos Humanos",
-    icon: Briefcase,
-    text: "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista en la región.",
-  },
-];
 
 export function AboutUsSection() {
     const economyImage = PlaceHolderImages.find(img => img.id === "digital-economy");
@@ -143,34 +124,6 @@ export function AboutUsSection() {
                             ))}
                         </div>
 
-                        <div className="space-y-8">
-                            {testimonials.map((testimonial) => {
-                                const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
-                                return (
-                                    <Card key={testimonial.name} className="glass-card p-10 relative group overflow-hidden rounded-[2.5rem] bg-card/60 dark:bg-white/[0.015] hover:bg-card/80 dark:hover:bg-white/[0.03] transition-all duration-500 shadow-xl border border-border/30 dark:border-white/[0.06]">
-                                        <CardContent className="p-0 space-y-8">
-                                            <div className="flex items-center gap-4">
-                                                <div className="p-2 bg-primary/10 rounded-lg shadow-inner"><testimonial.icon className="h-4 w-4 text-primary"/></div>
-                                                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">{testimonial.module}</span>
-                                            </div>
-                                            <p className="text-xl md:text-2xl font-bold italic text-foreground/80 leading-relaxed">"{testimonial.text}"</p>
-                                            <footer className="flex flex-col sm:flex-row items-center gap-6 pt-8 border-t border-border/30 dark:border-white/5">
-                                                {avatar && (
-                                                    <Avatar className="h-14 w-14 border-2 border-primary/20 shadow-2xl">
-                                                        <AvatarImage src={avatar.imageUrl} alt={testimonial.name} />
-                                                        <AvatarFallback className="font-black bg-black text-white">{testimonial.name.charAt(0)}</AvatarFallback>
-                                                    </Avatar>
-                                                )}
-                                                <div className="text-center sm:text-left space-y-1">
-                                                    <p className="font-black text-sm uppercase tracking-widest text-foreground leading-none">{testimonial.name}</p>
-                                                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{testimonial.company}</p>
-                                                </div>
-                                            </footer>
-                                        </CardContent>
-                                    </Card>
-                                );
-                            })}
-                        </div>
                     </motion.div>
                 </div>
             </div>

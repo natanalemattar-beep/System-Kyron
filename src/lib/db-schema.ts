@@ -896,6 +896,21 @@ async function createAnalyticsTables() {
       created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS comentarios_publicos (
+      id          SERIAL PRIMARY KEY,
+      user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      texto       TEXT NOT NULL,
+      calificacion INT NOT NULL DEFAULT 5 CHECK (calificacion BETWEEN 1 AND 5),
+      modulo      TEXT,
+      aprobado    BOOLEAN NOT NULL DEFAULT false,
+      visible     BOOLEAN NOT NULL DEFAULT true,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_comentarios_publicos_aprobado ON comentarios_publicos(aprobado, visible)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_comentarios_publicos_user ON comentarios_publicos(user_id)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

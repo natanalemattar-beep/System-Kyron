@@ -4,6 +4,7 @@ export * from './features-section';
 export * from './database-section';
 export * from './services-section';
 export * from './about-us-section';
+export * from './comments-section';
 export * from './faq-section';
 export * from './cta-section';
 export * from './footer';

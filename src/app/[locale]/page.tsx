@@ -5,6 +5,7 @@ import {
   ServicesSection,
   FeaturesSection,
   AboutUsSection,
+  CommentsSection,
   FaqSection,
   CtaSection,
   Footer,
@@ -51,6 +52,8 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
           </div>
 
           <AboutUsSection />
+
+          <CommentsSection />
 
           <div className="container mx-auto px-4 md:px-10 max-w-7xl">
             <FaqSection />
