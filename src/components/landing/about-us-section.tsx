@@ -2,7 +2,7 @@
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Card } from "@/components/ui/card";
-import { Target, Eye, Sparkles, ShieldCheck, Zap } from "lucide-react";
+import { Target, Eye, Sparkles, ShieldCheck, Zap, Globe, Lock, Cpu } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -110,9 +110,9 @@ export function AboutUsSection() {
                     >
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             {[
-                                { val: stats.totalEmpresas, label: "EMPRESAS", icon: ShieldCheck, color: "text-primary" },
+                                { val: stats.totalUsuarios, label: "USUARIOS", icon: ShieldCheck, color: "text-primary" },
                                 { val: stats.cumplimiento, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
-                                { val: stats.erroresFiscales, label: "ERRORES FISCALES", suffix: "%", icon: Zap, color: "text-rose-400" }
+                                { val: stats.totalEmpresas, label: "EMPRESAS", icon: ShieldCheck, color: "text-emerald-400" }
                             ].map((stat, i) => (
                                 <Card key={i} className="glass-card p-8 text-center rounded-[2rem] bg-card/60 dark:bg-white/[0.02] relative overflow-hidden group shadow-xl border border-border/30 dark:border-white/[0.06] hover:scale-[1.02] transition-all duration-300 cursor-default">
                                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all"><stat.icon className="h-16 w-16" /></div>
@@ -123,6 +123,27 @@ export function AboutUsSection() {
                                 </Card>
                             ))}
                         </div>
+
+                        <Card className="glass-card border border-border/30 dark:border-white/[0.06] p-6 rounded-3xl bg-card/60 dark:bg-white/[0.02] shadow-xl">
+                            <h3 className="text-sm font-black uppercase italic tracking-tight text-foreground mb-5 leading-none">Nuestros Pilares</h3>
+                            <div className="space-y-4">
+                                {[
+                                    { icon: Lock, label: "Seguridad AES-256", desc: "Cifrado de grado militar en cada transacción y registro del ecosistema.", color: "text-blue-500" },
+                                    { icon: Globe, label: "Cumplimiento VEN-NIF", desc: "Alineados con normativas SENIAT, LOTTT y BCV para operaciones sin riesgo fiscal.", color: "text-emerald-500" },
+                                    { icon: Cpu, label: "IA Generativa", desc: "Gemini 2.0 Flash integrado para análisis predictivo y automatización inteligente.", color: "text-violet-500" },
+                                ].map((v, i) => (
+                                    <div key={i} className="flex items-start gap-3 group">
+                                        <div className={cn("p-2 rounded-xl bg-muted/50 dark:bg-white/[0.03] border border-border/20 dark:border-white/[0.06] group-hover:scale-110 transition-transform duration-300 shrink-0")}>
+                                            <v.icon className={cn("h-4 w-4", v.color)} />
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-black uppercase tracking-tight text-foreground leading-none mb-1">{v.label}</p>
+                                            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">{v.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
 
                     </motion.div>
                 </div>

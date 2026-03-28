@@ -41,7 +41,7 @@ function StarRating({ value, onChange, readonly = false }: { value: number; onCh
                         "h-4 w-4 transition-colors",
                         star <= value
                             ? "fill-amber-400 text-amber-400"
-                            : "text-border/40"
+                            : "text-muted-foreground/30"
                     )} />
                 </button>
             ))}
@@ -135,7 +135,7 @@ export function CommentsSection() {
 
                 {loading ? (
                     <div className="flex items-center justify-center py-16">
-                        <Loader2 className="h-6 w-6 animate-spin text-primary/40" />
+                        <Loader2 className="h-6 w-6 animate-spin text-primary/60" />
                         <span className="ml-3 text-sm text-muted-foreground font-bold uppercase tracking-widest">Cargando...</span>
                     </div>
                 ) : comentarios.length === 0 ? (
@@ -190,7 +190,7 @@ export function CommentsSection() {
                                                 <span className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-wider">
                                                     {c.tipo === 'juridico' ? 'Empresa' : 'Persona'}
                                                 </span>
-                                                <span className="text-muted-foreground/40">·</span>
+                                                <span className="text-muted-foreground/60">·</span>
                                                 <Clock className="h-2.5 w-2.5 text-muted-foreground/60" />
                                                 <span className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-wider">
                                                     {timeAgo(c.created_at)}
