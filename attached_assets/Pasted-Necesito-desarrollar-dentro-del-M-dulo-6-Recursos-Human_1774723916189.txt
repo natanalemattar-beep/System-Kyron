@@ -1,0 +1,106 @@
+Necesito desarrollar, dentro del Módulo 6: Recursos Humanos (RRHH) de System Kyron, un sistema de libros digitalizados que cumplan con los requisitos del Ministerio del Trabajo (MPPST) y la Ley Orgánica del Trabajo (LOTTT). Además, debe incluir un libro de control de empleados que cancelaron su registro ante el SENIAT. Todo debe estar integrado en una interfaz web con diseño glassmorphism, colores azul #0A2472 y verde #00FF00, tipografía Inter.
+
+### 1. LIBROS DIGITALIZADOS EXIGIDOS POR EL MINISTERIO DEL TRABAJO (MPPST)
+
+Estos libros deben poder exportarse en PDF y Excel, con formato apto para presentar ante fiscalizaciones:
+
+#### a) Libro de Registro de Empleados (Artículo 58 LOTTT)
+- Datos obligatorios por empleado:
+  - Nombres y apellidos
+  - Cédula de identidad
+  - Fecha de ingreso
+  - Cargo
+  - Salario mensual
+  - Tipo de contrato (indefinido, temporal, obra determinada)
+  - Jornada laboral (diurna, mixta, nocturna)
+  - Número de seguro social (IVSS)
+  - Número de RIF
+- Vista cronológica, búsqueda por empleado, rango de fechas.
+
+#### b) Libro de Horas Extras y Nocturnas
+- Registro diario de horas trabajadas fuera de la jornada ordinaria.
+- Cálculo automático de recargos:
+  - Hora extra diurna: +50%
+  - Hora extra nocturna: +50% + 30%
+  - Hora nocturna ordinaria: +30%
+- Total de horas extras por empleado y período.
+
+#### c) Libro de Vacaciones
+- Registro de períodos vacacionales.
+- Alerta automática con 15 días de anticipación al inicio.
+- Cálculo del bono vacacional (mínimo 15 días + 1 adicional por año hasta 30).
+- Control de días disfrutados y pendientes.
+
+#### d) Libro de Utilidades (Artículo 131 LOTTT)
+- Registro de utilidades pagadas (mínimo 15 días, máximo 4 meses).
+- Cálculo automático según días trabajados en el año.
+- Fecha de pago y comprobante asociado.
+
+#### e) Libro de Prestaciones Sociales (Fideicomiso / Fondo de Ahorro)
+- Registro mensual de antigüedad (5 días por mes).
+- Cálculo de intereses sobre prestaciones.
+- Corte quincenal o mensual según normativa.
+- Registro de anticipos o retiros parciales.
+
+#### f) Libro de Aportes Parafiscales
+- Registro mensual de aportes al:
+  - IVSS (4% patronal, 0.5% empleado)
+  - FAOV (1% patronal, 1% empleado)
+  - INCES (2% patronal)
+  - LOPCYMAT (1-2% según riesgo)
+- Generación de planillas de pago y comprobantes.
+
+#### g) Libro de Reposos Médicos
+- Registro de reposos médicos (enfermedad común, accidente laboral, maternidad).
+- Control de días otorgados, consumidos y pendientes.
+- Alertas de vencimiento y necesidad de prórroga.
+- Validación contra IVSS o médicos autorizados.
+
+#### h) Libro de Ingreso y Egreso de Empleados
+- Registro histórico de contrataciones y desvinculaciones.
+- Causa de egreso (renuncia, despido justificado/injustificado, jubilación, fallecimiento).
+- Cálculo automático de liquidación al egreso:
+  - Prestaciones sociales acumuladas
+  - Vacaciones fraccionadas
+  - Utilidades fraccionadas
+  - Indemnización por despido injustificado (si aplica)
+
+---
+
+### 2. LIBRO DE EMPLEADOS QUE CANCELARON SU REGISTRO ANTE EL SENIAT
+
+Este libro es un control interno para gestionar empleados que:
+- Se dieron de baja en el RIF (personas naturales o jurídicas)
+- Suspendieron actividades
+- Cambiaron su estatus fiscal
+
+#### Campos obligatorios:
+- Nombre del empleado
+- Cédula de identidad
+- RIF (el que tenía)
+- Fecha de cancelación / suspensión
+- Causa (cierre del negocio, cambio a trabajador independiente, jubilación, etc.)
+- Fecha de notificación a la empresa
+- Comprobante de cancelación SENIAT (PDF adjunto simulado)
+- Observaciones
+
+#### Funcionalidades:
+- Alerta automática si un empleado activo registra cancelación de RIF.
+- Bloqueo para evitar declaraciones ISLR con RIF inactivo.
+- Exportación para presentar ante fiscalizaciones del SENIAT o MPPST.
+
+---
+
+### 3. REQUERIMIENTOS TÉCNICOS
+- Todos los libros deben poder exportarse en **PDF y Excel**.
+- Cada libro debe tener filtros por **fecha, empleado, período**.
+- Alertas automáticas con **15 días de anticipación** para:
+  - Inicio de vacaciones
+  - Vencimiento de solvencias laborales
+  - Vencimiento de reposos médicos
+  - Fechas de pago de aportes parafiscales
+- Interfaz con pestañas o secciones colapsables para navegar entre libros.
+- Datos de ejemplo precargados para demostrar funcionalidad.
+- Cumplimiento estricto con la **LOTTT, LOPCYMAT, IVSS y SENIAT**.
+
+Genera el código frontend (HTML/CSS/JS) para este sistema de libros integrados. No se requiere backend real, solo la interfaz con funcionalidad demostrativa.
