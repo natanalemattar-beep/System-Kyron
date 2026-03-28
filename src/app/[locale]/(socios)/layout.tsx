@@ -2,7 +2,7 @@
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
-import { motion } from "framer-motion";
+import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function SociosLayout({
@@ -26,14 +26,11 @@ export default function SociosLayout({
                 dashboardHref="/dashboard-socios" 
                 navGroups={sociosNavGroups}
               />
-              <motion.main 
-                className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
-                initial={false}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                  {children}
-              </motion.main>
+              <main className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10">
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
+              </main>
               <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron v2.6 • Strategy Node • 2026

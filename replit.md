@@ -9,7 +9,9 @@ System Kyron is an integrated technological ecosystem designed for comprehensive
 - API endpoints for `inventario`, `clientes`, `declaraciones_iva`, `declaraciones_islr`, and `retenciones` must align with the corrected schema fields.
 - Financial routes must include `try/catch` blocks for error handling and use `NaN-safe parseFloat/parseInt`.
 - **Never use hardcoded `text-white`** on page headings — use `text-foreground` for theme compatibility. Only use `text-white` inside truly dark/colored containers (buttons, colored cards, active tab triggers).
-- All 6 admin layouts must use `initial={false}` (not `initial={{ opacity: 0 }}`) with framer-motion to avoid blank-page SSR bug.
+- All 6 layouts use `PageTransition` from `src/components/ui/motion.tsx` for SSR-safe page entrance animations (mount-gated, respects `prefers-reduced-motion`).
+- Use `MotionContainer` for scroll-triggered reveals, `StaggerContainer`/`StaggerItem` for staggered card grids, `CountUp` for animated numbers, `FloatingElement` for ambient motion.
+- CSS utility classes: `hover-lift`, `hover-glow`, `hover-scale`, `btn-press`, `icon-hover` for micro-interactions. Stagger delays: `.stagger-1` through `.stagger-8`.
 - The system should support both `{destino, tipo}` and `{method, email, phone}` formats for `/api/auth/send-code`.
 - The system should support both `{destino, codigo}` and `{method, email, phone, code}` formats for `/api/auth/verify-code`.
 

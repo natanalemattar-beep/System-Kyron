@@ -3,7 +3,7 @@
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
-import { motion } from "framer-motion";
+import { PageTransition } from "@/components/ui/motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { PageTracker } from "@/components/page-tracker";
@@ -46,16 +46,11 @@ export default function AdminLayout({
                 navGroups={adminNavGroups}
               />
               
-              <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10"
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              >
-                  <div className="max-w-[1400px] mx-auto w-full">
+              <main className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10">
+                  <PageTransition className="max-w-[1400px] mx-auto w-full">
                     {children}
-                  </div>
-              </motion.main>
+                  </PageTransition>
+              </main>
               
               <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">

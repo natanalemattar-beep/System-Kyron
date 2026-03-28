@@ -2,7 +2,7 @@
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
-import { motion } from "framer-motion";
+import { PageTransition } from "@/components/ui/motion";
 import { PageTracker } from "@/components/page-tracker";
 
 export default function MainLayout({
@@ -24,14 +24,11 @@ export default function MainLayout({
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader user={{...user, color: "bg-primary shadow-glow"}} dashboardHref="/resumen-negocio" />
               
-              <motion.main 
-                className="flex-1 w-full pt-20 relative z-10"
-                initial={false}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              >
-                  {children}
-              </motion.main>
+              <main className="flex-1 w-full pt-20 relative z-10">
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
+              </main>
               
               <footer className="p-8 border-t border-border bg-card/80 text-center backdrop-blur-3xl relative z-20">
                 <p className="text-[9px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
