@@ -1,10 +1,12 @@
 import { ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
-import { VoiceAssistant } from "@/components/voice-assistant";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
+
+const VoiceAssistant = dynamic(() => import("@/components/voice-assistant").then(m => ({ default: m.VoiceAssistant })), { ssr: false });
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -15,10 +17,6 @@ interface LocaleLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
-/**
- * @fileOverview Layout i18n para rutas localizadas.
- * Actúa como un wrapper de contexto dentro del RootLayout principal.
- */
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 

@@ -1,22 +1,21 @@
-
 'use client';
 
-import {
-  ServicesSection,
-  AboutUsSection,
-  CommentsSection,
-  FaqSection,
-  CtaSection,
-  Footer,
-  HeroSection
-} from "@/components/landing";
+import dynamic from 'next/dynamic';
+import { HeroSection } from "@/components/landing/hero-section";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { DemoBanner } from "@/components/demo-banner";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { PageTracker } from "@/components/page-tracker";
-import { use } from 'react';
+import { use, Suspense } from 'react';
+
+const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });
+const AboutUsSection = dynamic(() => import("@/components/landing/about-us-section").then(m => ({ default: m.AboutUsSection })), { ssr: false });
+const CommentsSection = dynamic(() => import("@/components/landing/comments-section").then(m => ({ default: m.CommentsSection })), { ssr: false });
+const FaqSection = dynamic(() => import("@/components/landing/faq-section").then(m => ({ default: m.FaqSection })), { ssr: false });
+const CtaSection = dynamic(() => import("@/components/landing/cta-section").then(m => ({ default: m.CtaSection })), { ssr: false });
+const Footer = dynamic(() => import("@/components/landing/footer").then(m => ({ default: m.Footer })), { ssr: false });
 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
@@ -38,28 +37,33 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
 
       <LandingHeader />
 
-      <main className="relative flex-1 w-full">
+      <main className="flex-1 w-full">
         <HeroSection />
 
-        <div className="space-y-0 pb-0">
-          <div className="container mx-auto px-4 md:px-10 max-w-7xl">
-            <ServicesSection />
-          </div>
+        <Suspense fallback={null}>
+          <ServicesSection />
+        </Suspense>
 
+        <Suspense fallback={null}>
           <AboutUsSection />
+        </Suspense>
 
+        <Suspense fallback={null}>
           <CommentsSection />
+        </Suspense>
 
-          <div className="container mx-auto px-4 md:px-10 max-w-7xl">
-            <FaqSection />
-            <CtaSection />
-          </div>
+        <Suspense fallback={null}>
+          <FaqSection />
+        </Suspense>
 
-          <Footer />
-        </div>
+        <Suspense fallback={null}>
+          <CtaSection />
+        </Suspense>
       </main>
 
-      <div className="fixed inset-0 pointer-events-none -z-10 opacity-[0.03] dark:opacity-[0.05] hud-grid" />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
 
       <WhatsAppButton />
     </div>
