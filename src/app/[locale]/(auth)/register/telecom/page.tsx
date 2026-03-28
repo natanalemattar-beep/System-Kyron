@@ -10,11 +10,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone } from 'lucide-react';
+import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const TOTAL_STEPS = 5;
 
@@ -27,29 +28,58 @@ const ESTADOS_VE = [
 
 const TIPOS_PLAN = ['Plan Básico 4G','Plan Estándar 4G/LTE','Plan Pro 5G','Plan Empresarial 5G','Plan Flota Corporativa','Plan Datos Solo','Plan Voz y Datos','Plan Internacional'];
 const TECNOLOGIAS = ['4G LTE','5G NSA','5G SA','Banda Dual (4G/5G)','Fibra Óptica'];
-const TIPOS_CLIENTE = ['Personal — Persona Natural','Empresarial — Personas Jurídica'];
-const TIPOS_DOCUMENTO = ['Cédula de Identidad (V)','Cédula de Identidad (E)','Pasaporte','RIF'];
+const TIPOS_EMPRESA_TELECOM = ['Compañía Anónima (C.A.)','S.A.','S.R.L.','Cooperativa','Persona Natural con Actividad Económica','Otro'];
+const MOTIVOS_LINEA = ['Línea nueva (no tengo número)','Portar mi número actual','Segunda línea','Línea para empresa','Línea de datos (solo internet)'];
 
-const schemaPersonal = z.object({
-    tipo_cliente: z.string().min(1, 'Seleccione el tipo de cliente'),
+const baseSchema = z.object({
+    tipo_cliente: z.enum(['personal','empresarial'], { required_error: 'Seleccione el tipo de cliente' }),
+
     nombre: z.string().min(2, 'Ingrese el nombre'),
     apellido: z.string().min(2, 'Ingrese el apellido'),
-    tipo_documento: z.string().min(1, 'Seleccione el tipo de documento'),
     cedula: z.string().min(6, 'Documento inválido'),
-    telefono_contacto: z.string().min(7, 'Teléfono inválido'),
+
+    tiene_telefono: z.boolean().default(false),
+    telefono_contacto: z.string().optional(),
+    motivo_linea: z.string().min(1, 'Seleccione el motivo'),
+    numero_portar: z.string().optional(),
+
+    razon_social: z.string().optional(),
+    rif: z.string().optional(),
+    tipo_empresa: z.string().optional(),
+    cargo: z.string().optional(),
+    nro_lineas: z.string().optional(),
+
     tipo_plan: z.string().min(1, 'Seleccione el plan'),
     tecnologia: z.string().min(1, 'Seleccione la tecnología'),
     numero_portar: z.string().optional(),
     iccid_esim: z.string().optional(),
+
     estado_servicio: z.string().min(1, 'Seleccione el estado'),
     municipio_servicio: z.string().min(2, 'Ingrese el municipio'),
     direccion_servicio: z.string().min(5, 'Ingrese la dirección de servicio'),
+
     email: z.string().email('Correo inválido'),
     password: z.string().min(8,'Mínimo 8 caracteres').regex(/[A-Z]/,'Una mayúscula').regex(/[0-9]/,'Un número'),
     confirmPassword: z.string(),
-}).refine(d => d.password === d.confirmPassword, { message:'Las contraseñas no coinciden', path:['confirmPassword'] });
+}).refine(d => d.password === d.confirmPassword, { message:'Las contraseñas no coinciden', path:['confirmPassword'] })
+  .refine(d => {
+      if (d.tiene_telefono && (!d.telefono_contacto || d.telefono_contacto.length < 7)) return false;
+      return true;
+  }, { message: 'Ingrese su número de teléfono', path: ['telefono_contacto'] })
+  .refine(d => {
+      if (d.tipo_cliente === 'empresarial' && (!d.razon_social || d.razon_social.length < 3)) return false;
+      return true;
+  }, { message: 'Ingrese la razón social', path: ['razon_social'] })
+  .refine(d => {
+      if (d.tipo_cliente === 'empresarial' && (!d.rif || !/^[JGVEPF]-\d{8}-\d$/.test(d.rif))) return false;
+      return true;
+  }, { message: 'Formato RIF: J-12345678-9', path: ['rif'] })
+  .refine(d => {
+      if (d.motivo_linea === 'Portar mi número actual' && (!d.numero_portar || d.numero_portar.length < 7)) return false;
+      return true;
+  }, { message: 'Ingrese el número que desea portar', path: ['numero_portar'] });
 
-type FormData = z.infer<typeof schemaPersonal>;
+type FormData = z.infer<typeof baseSchema>;
 
 const MODULES_TELECOM = [
     { id: 'linea-personal', label: 'Mi Línea Personal' },
@@ -71,22 +101,31 @@ export default function RegisterTelecomPage() {
     const router = useRouter();
     const { toast } = useToast();
 
-    const { register, handleSubmit, control, getValues, trigger, watch, formState: { errors } } = useForm<FormData>({
-        resolver: zodResolver(schemaPersonal), mode: 'onChange',
+    const { register, handleSubmit, control, getValues, setValue, trigger, watch, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(baseSchema), mode: 'onChange',
+        defaultValues: { tipo_cliente: 'personal', tiene_telefono: false },
     });
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
     const tipoCliente = watch('tipo_cliente');
+    const tieneTelefono = watch('tiene_telefono');
+    const motivoLinea = watch('motivo_linea');
 
     const stepFields: Record<number, (keyof FormData)[]> = {
-        1: ['tipo_cliente','nombre','apellido','tipo_documento','cedula','telefono_contacto'],
-        2: ['tipo_plan','tecnologia'],
+        1: tipoCliente === 'empresarial'
+            ? ['tipo_cliente','nombre','apellido','cedula','razon_social','rif']
+            : ['tipo_cliente','nombre','apellido','cedula'],
+        2: ['motivo_linea','tipo_plan','tecnologia'],
         3: ['estado_servicio','municipio_servicio','direccion_servicio','email','password','confirmPassword'],
     };
 
     const nextStep = async () => {
         const fields = stepFields[step];
         if (fields) { const v = await trigger(fields); if (!v) return; }
+        if (step === 1 && tieneTelefono) {
+            const phoneValid = await trigger('telefono_contacto');
+            if (!phoneValid) return;
+        }
         setStep(s => s + 1);
     };
 
@@ -100,7 +139,7 @@ export default function RegisterTelecomPage() {
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto') }),
+                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto') || '' }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifSent(true); startCountdown();
@@ -114,7 +153,7 @@ export default function RegisterTelecomPage() {
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto'), code: verifCode }),
+                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto') || '', code: verifCode }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifVerified(true);
@@ -126,34 +165,45 @@ export default function RegisterTelecomPage() {
     const onSubmit = async (data: FormData) => {
         if (!verifVerified) { toast({ title:'Verificación pendiente', variant:'destructive' }); return; }
         setIsLoading(true);
-        const esEmpresa = data.tipo_cliente?.includes('Empresarial');
+        const esEmpresa = data.tipo_cliente === 'empresarial';
         try {
+            const telecomMeta = {
+                motivo_linea: data.motivo_linea,
+                tipo_plan: data.tipo_plan,
+                tecnologia: data.tecnologia,
+                numero_portar: data.numero_portar || '',
+                iccid_esim: data.iccid_esim || '',
+                tiene_telefono: data.tiene_telefono,
+            };
+
             const body = esEmpresa ? {
                 tipo: 'juridico',
-                razonSocial: `${data.nombre} ${data.apellido}`,
-                rif: data.cedula,
-                tipo_empresa: 'Telecom Empresarial',
+                razonSocial: data.razon_social,
+                rif: data.rif,
+                tipo_empresa: data.tipo_empresa || 'Telecom Empresarial',
                 actividad_economica: `Servicio de telecomunicaciones — ${data.tipo_plan}`,
-                telefono: data.telefono_contacto,
+                telefono: data.telefono_contacto || '',
                 estado_empresa: data.estado_servicio,
                 municipio_empresa: data.municipio_servicio,
                 direccion: data.direccion_servicio,
                 repNombre: data.nombre,
                 repApellido: data.apellido,
                 repCedula: data.cedula,
-                rep_cargo: 'Titular',
-                rep_telefono: data.telefono_contacto,
+                rep_cargo: data.cargo || 'Titular',
+                rep_telefono: data.telefono_contacto || '',
                 repEmail: data.email,
                 password: data.password,
                 email_verificado: verifMethod === 'email',
                 telefono_verificado: verifMethod === 'sms',
-                modules: MODULES_TELECOM,
+                nro_lineas: data.nro_lineas || '1',
+                modules: [...MODULES_TELECOM, { id: 'flota-empresarial', label: 'Flota Empresarial' }],
+                ...telecomMeta,
             } : {
                 tipo: 'natural',
                 nombre: data.nombre,
                 apellido: data.apellido,
                 cedula: data.cedula,
-                telefono: data.telefono_contacto,
+                telefono: data.telefono_contacto || '',
                 estado_residencia: data.estado_servicio,
                 municipio: data.municipio_servicio,
                 ciudad: data.municipio_servicio,
@@ -162,6 +212,7 @@ export default function RegisterTelecomPage() {
                 password: data.password,
                 email_verificado: verifMethod === 'email',
                 telefono_verificado: verifMethod === 'sms',
+                ...telecomMeta,
             };
 
             const res = await fetch('/api/auth/register', {
@@ -196,45 +247,113 @@ export default function RegisterTelecomPage() {
                     <CardContent className="p-8 space-y-5">
 
                         {step === 1 && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Tipo de Cliente *</Label>
+                            <div className="space-y-5">
+                                <div className="space-y-2">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest">¿Tipo de cuenta? *</Label>
                                     <Controller name="tipo_cliente" control={control} render={({ field }) => (
-                                        <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className={cn(errors.tipo_cliente && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                            <SelectContent>{TIPOS_CLIENTE.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                        </Select>
-                                    )} />
-                                    {errors.tipo_cliente && <p className="text-[10px] text-destructive">{errors.tipo_cliente.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente?.includes('Empresa') ? 'Nombre Rep. Legal *' : 'Nombre *'}</Label>
-                                    <Input {...register('nombre')} className={cn(errors.nombre && 'border-destructive')} />
-                                    {errors.nombre && <p className="text-[10px] text-destructive">{errors.nombre.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente?.includes('Empresa') ? 'Apellido Rep. Legal *' : 'Apellido *'}</Label>
-                                    <Input {...register('apellido')} className={cn(errors.apellido && 'border-destructive')} />
-                                    {errors.apellido && <p className="text-[10px] text-destructive">{errors.apellido.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Tipo de Documento *</Label>
-                                    <Controller name="tipo_documento" control={control} render={({ field }) => (
-                                        <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className={cn(errors.tipo_documento && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                            <SelectContent>{TIPOS_DOCUMENTO.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                        </Select>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <button type="button" onClick={() => field.onChange('personal')}
+                                                className={cn("p-4 rounded-xl border text-left transition-all", field.value === 'personal' ? "border-blue-500 bg-blue-500/5" : "border-border")}>
+                                                <User className={cn("h-5 w-5 mb-2", field.value === 'personal' ? "text-blue-500" : "text-muted-foreground/40")} />
+                                                <p className="text-[10px] font-black uppercase tracking-widest">Personal</p>
+                                                <p className="text-[8px] text-muted-foreground mt-1">Persona natural · Cédula</p>
+                                            </button>
+                                            <button type="button" onClick={() => field.onChange('empresarial')}
+                                                className={cn("p-4 rounded-xl border text-left transition-all", field.value === 'empresarial' ? "border-blue-500 bg-blue-500/5" : "border-border")}>
+                                                <Building className={cn("h-5 w-5 mb-2", field.value === 'empresarial' ? "text-blue-500" : "text-muted-foreground/40")} />
+                                                <p className="text-[10px] font-black uppercase tracking-widest">Empresarial</p>
+                                                <p className="text-[8px] text-muted-foreground mt-1">Persona jurídica · RIF</p>
+                                            </button>
+                                        </div>
                                     )} />
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Número de Documento *</Label>
-                                    <Input placeholder="12345678 / J-12345678-9" {...register('cedula')} className={cn(errors.cedula && 'border-destructive')} />
-                                    {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
+
+                                {tipoCliente === 'empresarial' && (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5">
+                                        <div className="sm:col-span-2">
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3 flex items-center gap-2">
+                                                <Building className="h-3.5 w-3.5" /> Datos de la Empresa
+                                            </p>
+                                        </div>
+                                        <div className="sm:col-span-2 space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">Razón Social *</Label>
+                                            <Input placeholder="Mi Empresa C.A." {...register('razon_social')} className={cn(errors.razon_social && 'border-destructive')} />
+                                            {errors.razon_social && <p className="text-[10px] text-destructive">{errors.razon_social.message}</p>}
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
+                                            <Input placeholder="J-12345678-9" {...register('rif')} className={cn(errors.rif && 'border-destructive')} />
+                                            {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">Tipo de Empresa</Label>
+                                            <Controller name="tipo_empresa" control={control} render={({ field }) => (
+                                                <Select onValueChange={field.onChange} value={field.value}>
+                                                    <SelectTrigger><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                    <SelectContent>{TIPOS_EMPRESA_TELECOM.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                                </Select>
+                                            )} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">Cargo del Solicitante</Label>
+                                            <Input placeholder="Gerente, Director..." {...register('cargo')} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">N° de Líneas Requeridas</Label>
+                                            <Input type="number" placeholder="1" {...register('nro_lineas')} />
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Nombre del Representante *' : 'Nombre *'}</Label>
+                                        <Input {...register('nombre')} className={cn(errors.nombre && 'border-destructive')} />
+                                        {errors.nombre && <p className="text-[10px] text-destructive">{errors.nombre.message}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Apellido del Representante *' : 'Apellido *'}</Label>
+                                        <Input {...register('apellido')} className={cn(errors.apellido && 'border-destructive')} />
+                                        {errors.apellido && <p className="text-[10px] text-destructive">{errors.apellido.message}</p>}
+                                    </div>
+                                    <div className="sm:col-span-2 space-y-2">
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Cédula del Representante *' : 'Cédula de Identidad *'}</Label>
+                                        <Input placeholder={tipoCliente === 'empresarial' ? 'V-12345678' : 'V-12345678 / E-12345678'} {...register('cedula')} className={cn(errors.cedula && 'border-destructive')} />
+                                        {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
+                                    </div>
                                 </div>
-                                <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Teléfono de Contacto *</Label>
-                                    <Input type="tel" placeholder="0412-XXXXXXX" {...register('telefono_contacto')} className={cn(errors.telefono_contacto && 'border-destructive')} />
-                                    {errors.telefono_contacto && <p className="text-[10px] text-destructive">{errors.telefono_contacto.message}</p>}
+
+                                <div className="space-y-3 p-4 rounded-xl border border-border bg-muted/5">
+                                    <div className="flex items-center gap-3">
+                                        <Controller name="tiene_telefono" control={control} render={({ field }) => (
+                                            <Checkbox
+                                                id="tiene_telefono"
+                                                checked={field.value}
+                                                onCheckedChange={(checked) => {
+                                                    field.onChange(checked);
+                                                    if (!checked) {
+                                                        setValue('telefono_contacto', '');
+                                                        setVerifMethod('email');
+                                                    }
+                                                }}
+                                            />
+                                        )} />
+                                        <Label htmlFor="tiene_telefono" className="text-[10px] font-black uppercase tracking-widest cursor-pointer">
+                                            Ya poseo un número de teléfono
+                                        </Label>
+                                    </div>
+                                    {tieneTelefono && (
+                                        <div className="space-y-2 mt-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Número Actual</Label>
+                                            <Input type="tel" placeholder="0412-XXXXXXX" {...register('telefono_contacto')} className={cn(errors.telefono_contacto && 'border-destructive')} />
+                                            {errors.telefono_contacto && <p className="text-[10px] text-destructive">{errors.telefono_contacto.message}</p>}
+                                        </div>
+                                    )}
+                                    {!tieneTelefono && (
+                                        <p className="text-[9px] text-muted-foreground italic">
+                                            No te preocupes — al activar tu línea recibirás un nuevo número de Mi Línea 5G. La verificación de identidad se hará por correo electrónico.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         )}
@@ -245,9 +364,19 @@ export default function RegisterTelecomPage() {
                                     <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2">
                                         <Smartphone className="h-3.5 w-3.5" /> Configuración de Línea
                                     </p>
-                                    <p className="text-[9px] text-muted-foreground">Configura tu línea Mi Línea 5G. Si tienes un número a portar, ingrésalo aquí.</p>
+                                    <p className="text-[9px] text-muted-foreground">Selecciona tu plan y tecnología. Si deseas portar un número, ingrésalo abajo.</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="sm:col-span-2 space-y-2">
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">¿Qué necesitas? *</Label>
+                                        <Controller name="motivo_linea" control={control} render={({ field }) => (
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <SelectTrigger className={cn(errors.motivo_linea && 'border-destructive')}><SelectValue placeholder="Seleccionar motivo..." /></SelectTrigger>
+                                                <SelectContent>{MOTIVOS_LINEA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                            </Select>
+                                        )} />
+                                        {errors.motivo_linea && <p className="text-[10px] text-destructive">{errors.motivo_linea.message}</p>}
+                                    </div>
                                     <div className="space-y-2">
                                         <Label className="text-[10px] font-black uppercase tracking-widest">Plan Seleccionado *</Label>
                                         <Controller name="tipo_plan" control={control} render={({ field }) => (
@@ -268,15 +397,18 @@ export default function RegisterTelecomPage() {
                                         )} />
                                         {errors.tecnologia && <p className="text-[10px] text-destructive">{errors.tecnologia.message}</p>}
                                     </div>
+                                    {(motivoLinea === 'Portar mi número actual') && (
+                                        <div className="space-y-2">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest">Número a Portar *</Label>
+                                            <Input placeholder="04XX-XXXXXXX" {...register('numero_portar')} className={cn(errors.numero_portar && 'border-destructive')} />
+                                            {errors.numero_portar && <p className="text-[10px] text-destructive">{errors.numero_portar.message}</p>}
+                                            <p className="text-[8px] text-muted-foreground">Ingresa el número que deseas trasladar a Mi Línea 5G</p>
+                                        </div>
+                                    )}
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Número a Portar (si aplica)</Label>
-                                        <Input placeholder="04XX-XXXXXXX" {...register('numero_portar')} />
-                                        <p className="text-[8px] text-muted-foreground">Opcional — Solo si deseas portar un número existente</p>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">ICCID eSIM (si aplica)</Label>
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">ICCID eSIM (opcional)</Label>
                                         <Input placeholder="89580..." {...register('iccid_esim')} />
-                                        <p className="text-[8px] text-muted-foreground">Opcional — Para provisión de eSIM remota</p>
+                                        <p className="text-[8px] text-muted-foreground">Solo si tienes un chip eSIM físico</p>
                                     </div>
                                 </div>
                             </div>
@@ -329,16 +461,25 @@ export default function RegisterTelecomPage() {
 
                         {step === 4 && (
                             <div className="space-y-6">
+                                {!tieneTelefono && (
+                                    <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl mb-2">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-amber-600">La verificación se realizará por correo electrónico ya que no posees un número de teléfono actualmente.</p>
+                                    </div>
+                                )}
                                 {!verifSent ? (
                                     <div className="space-y-4">
                                         <p className="text-sm text-muted-foreground">Elige cómo verificar tu identidad:</p>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {(['email','sms'] as const).map(m => (
-                                                <button key={m} type="button" onClick={() => setVerifMethod(m)}
-                                                    className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === m ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border text-muted-foreground")}>
-                                                    {m === 'email' ? '📧 Correo' : '📱 SMS'}
+                                        <div className={cn("grid gap-3", tieneTelefono ? "grid-cols-2" : "grid-cols-1")}>
+                                            <button type="button" onClick={() => setVerifMethod('email')}
+                                                className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === 'email' ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border text-muted-foreground")}>
+                                                Correo Electrónico
+                                            </button>
+                                            {tieneTelefono && (
+                                                <button type="button" onClick={() => setVerifMethod('sms')}
+                                                    className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === 'sms' ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border text-muted-foreground")}>
+                                                    SMS al Teléfono
                                                 </button>
-                                            ))}
+                                            )}
                                         </div>
                                         <Button type="button" className="w-full" onClick={sendVerificationCode} disabled={verifLoading}>
                                             {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Enviando...</> : 'Enviar Código de Activación'}
@@ -349,7 +490,7 @@ export default function RegisterTelecomPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30">
                                             <CheckCircle className="h-10 w-10 text-green-500" />
                                         </div>
-                                        <p className="font-black text-green-600 uppercase tracking-widest text-xs">Línea Verificada</p>
+                                        <p className="font-black text-green-600 uppercase tracking-widest text-xs">Identidad Verificada</p>
                                     </div>
                                 ) : (
                                     <div className="space-y-4">
@@ -375,10 +516,11 @@ export default function RegisterTelecomPage() {
                                     <CheckCircle className="h-12 w-12 text-blue-500" />
                                 </div>
                                 <h2 className="text-2xl font-black uppercase italic tracking-tight">¡Línea Activada!</h2>
-                                <p className="text-muted-foreground text-sm">Tu cuenta <strong className="text-blue-500">Mi Línea 5G</strong> fue registrada exitosamente.</p>
+                                <p className="text-muted-foreground text-sm">Tu cuenta <strong className="text-blue-500">{tipoCliente === 'empresarial' ? 'Flota Empresarial 5G' : 'Mi Línea 5G'}</strong> fue registrada exitosamente.</p>
                                 <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-left text-xs space-y-2">
                                     <p className="font-black text-blue-600 uppercase tracking-widest">Servicios habilitados:</p>
                                     {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
+                                    {tipoCliente === 'empresarial' && <p className="text-muted-foreground">✓ Flota Empresarial</p>}
                                 </div>
                                 <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { localStorage.setItem('kyron-just-registered','true'); router.push('/'); }}>
                                     Ir a Mis Líneas<ArrowRight className="ml-2 h-4 w-4"/>
