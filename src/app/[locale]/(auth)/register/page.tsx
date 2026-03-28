@@ -171,6 +171,8 @@ export default function RegisterSelectionPage() {
     const [rifLookup, setRifLookup] = useState<RifLookupResult | null>(null);
     const [rifSearching, setRifSearching] = useState(false);
     const [rifSearched, setRifSearched] = useState(false);
+    const [cedulaLookup, setCedulaLookup] = useState<{ nombre: string; apellido: string; estado?: string; municipio?: string } | null>(null);
+    const [cedulaSearching, setCedulaSearching] = useState(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const fullDocument = `${prefix}-${docNumber}`;
@@ -187,7 +189,38 @@ export default function RegisterSelectionPage() {
         setExistsResult(null);
         setRifLookup(null);
         setRifSearched(false);
+        setCedulaLookup(null);
     }, [prefix, docNumber]);
+
+    useEffect(() => {
+        if (!detected.valid || detected.type !== "natural") {
+            setCedulaLookup(null);
+            return;
+        }
+        const doc = `${prefix}-${docNumber}`;
+        setCedulaSearching(true);
+        const controller = new AbortController();
+        const timeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/cedula/consulta?cedula=${encodeURIComponent(doc)}`, { signal: controller.signal });
+                const data = await res.json();
+                if (data.found && data.data) {
+                    setCedulaLookup(data.data);
+                } else {
+                    setCedulaLookup(null);
+                }
+            } catch {
+                setCedulaLookup(null);
+            } finally {
+                setCedulaSearching(false);
+            }
+        }, 400);
+        return () => {
+            clearTimeout(timeout);
+            controller.abort();
+            setCedulaSearching(false);
+        };
+    }, [detected.valid, detected.type, prefix, docNumber]);
 
     const handleNumberChange = (val: string) => {
         const cleaned = val.replace(/[^0-9-]/g, "");
@@ -240,8 +273,12 @@ export default function RegisterSelectionPage() {
         if (rifLookup?.estado) params.set('estado', rifLookup.estado);
         if (rifLookup?.municipio) params.set('municipio', rifLookup.municipio);
         if (rifLookup?.telefono) params.set('tel', rifLookup.telefono);
+        if (cedulaLookup?.nombre) params.set('nombre', cedulaLookup.nombre);
+        if (cedulaLookup?.apellido) params.set('apellido', cedulaLookup.apellido);
+        if (cedulaLookup?.estado) params.set('estado', cedulaLookup.estado);
+        if (cedulaLookup?.municipio) params.set('municipio', cedulaLookup.municipio);
         router.push(`/register/${moduleRoute}?${params.toString()}` as any);
-    }, [fullDocument, router, rifLookup]);
+    }, [fullDocument, router, rifLookup, cedulaLookup]);
 
     const isValidDoc = detected.type !== null && detected.valid;
     const isNatural = detected.type === "natural";
@@ -412,6 +449,32 @@ export default function RegisterSelectionPage() {
                                 </div>
                             )}
 
+                            {isNatural && detected.valid && cedulaSearching && (
+                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-blue-500/5 border-blue-500/15 mb-4 animate-in fade-in duration-300">
+                                    <Loader2 className="h-4 w-4 text-blue-500 animate-spin shrink-0" />
+                                    <p className="text-xs font-bold text-blue-500">
+                                        Consultando registro civil...
+                                    </p>
+                                </div>
+                            )}
+
+                            {isNatural && detected.valid && cedulaLookup && !cedulaSearching && (
+                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-blue-500/5 border-blue-500/20 mb-4 animate-in slide-in-from-top-2 duration-300">
+                                    <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-black text-foreground truncate">
+                                            {cedulaLookup.nombre} {cedulaLookup.apellido}
+                                        </p>
+                                        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
+                                            {fullDocument}
+                                            {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
+                                            {cedulaLookup.municipio && ` · ${cedulaLookup.municipio}`}
+                                        </p>
+                                    </div>
+                                    <User className="h-5 w-5 text-blue-500/60 shrink-0" />
+                                </div>
+                            )}
+
                             {existsResult?.exists && (
                                 <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-amber-500/5 border-amber-500/15 text-amber-600 mb-4">
                                     <AlertCircle className="h-4 w-4 shrink-0" />
@@ -460,8 +523,17 @@ export default function RegisterSelectionPage() {
                                 "bg-emerald-500/10 border-emerald-500/20 text-emerald-600"
                             )}>
                                 <Fingerprint className="h-4 w-4" />
-                                <span>{fullDocument}</span>
-                                <span className="text-[10px] font-bold opacity-60 uppercase">— {detected.label}</span>
+                                <div className="flex flex-col items-start">
+                                    <div className="flex items-center gap-2">
+                                        <span>{fullDocument}</span>
+                                        <span className="text-[10px] font-bold opacity-60 uppercase">— {detected.label}</span>
+                                    </div>
+                                    {cedulaLookup && (
+                                        <span className="text-xs font-bold opacity-80">
+                                            {cedulaLookup.nombre} {cedulaLookup.apellido}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         </div>
 
