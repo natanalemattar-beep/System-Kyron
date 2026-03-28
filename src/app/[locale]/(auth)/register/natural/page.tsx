@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
 } from '@/components/ui/card';
@@ -63,6 +63,9 @@ const step2Fields = ['telefono', 'estado_residencia', 'municipio', 'ciudad', 'di
 const step3Fields = ['email', 'password', 'confirmPassword'] as const;
 
 export default function RegisterNaturalPage() {
+  const searchParams = useSearchParams();
+  const prefilledDoc = searchParams.get('doc') || '';
+
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
@@ -84,6 +87,9 @@ export default function RegisterNaturalPage() {
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
+      defaultValues: {
+        cedula: prefilledDoc || undefined,
+      },
     });
 
   const startCountdown = () => {

@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
 } from '@/components/ui/card';
@@ -159,6 +159,9 @@ const step2Fields = ['telefono', 'estado_empresa', 'municipio_empresa', 'direcci
 const step3Fields = ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'] as const;
 
 export default function RegisterJuridicoPage() {
+  const searchParams = useSearchParams();
+  const prefilledDoc = searchParams.get('doc') || '';
+
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
@@ -182,6 +185,9 @@ export default function RegisterJuridicoPage() {
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
+      defaultValues: {
+        rif: prefilledDoc || undefined,
+      },
     });
 
   const toggleModule = (id: string) => {
