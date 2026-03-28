@@ -92,7 +92,7 @@ export default function RegisterTelecomPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [verifMethod, setVerifMethod] = useState<'email'|'sms'>('email');
+    const verifMethod = 'email' as const;
     const [verifCode, setVerifCode] = useState('');
     const [verifSent, setVerifSent] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
@@ -139,7 +139,7 @@ export default function RegisterTelecomPage() {
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto') || '' }),
+                body: JSON.stringify({ method: 'email', email: getValues('email') }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifSent(true); startCountdown();
@@ -153,7 +153,7 @@ export default function RegisterTelecomPage() {
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('email'), phone: getValues('telefono_contacto') || '', code: verifCode }),
+                body: JSON.stringify({ method: 'email', email: getValues('email'), code: verifCode }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifVerified(true);
@@ -193,8 +193,8 @@ export default function RegisterTelecomPage() {
                 rep_telefono: data.telefono_contacto || '',
                 repEmail: data.email,
                 password: data.password,
-                email_verificado: verifMethod === 'email',
-                telefono_verificado: verifMethod === 'sms',
+                email_verificado: true,
+                telefono_verificado: false,
                 nro_lineas: data.nro_lineas || '1',
                 modules: [...MODULES_TELECOM, { id: 'flota-empresarial', label: 'Flota Empresarial' }],
                 ...telecomMeta,
@@ -210,8 +210,8 @@ export default function RegisterTelecomPage() {
                 direccion: data.direccion_servicio,
                 email: data.email,
                 password: data.password,
-                email_verificado: verifMethod === 'email',
-                telefono_verificado: verifMethod === 'sms',
+                email_verificado: true,
+                telefono_verificado: false,
                 ...telecomMeta,
             };
 
@@ -337,7 +337,6 @@ export default function RegisterTelecomPage() {
                                                     field.onChange(checked);
                                                     if (!checked) {
                                                         setValue('telefono_contacto', '');
-                                                        setVerifMethod('email');
                                                     }
                                                 }}
                                             />
@@ -355,7 +354,7 @@ export default function RegisterTelecomPage() {
                                     )}
                                     {!tieneTelefono && (
                                         <p className="text-[9px] text-muted-foreground italic">
-                                            No te preocupes — al activar tu línea recibirás un nuevo número de Mi Línea 5G. La verificación de identidad se hará por correo electrónico.
+                                            No te preocupes — al activar tu línea recibirás un nuevo número de Mi Línea 5G.
                                         </p>
                                     )}
                                 </div>
@@ -465,28 +464,14 @@ export default function RegisterTelecomPage() {
 
                         {step === 4 && (
                             <div className="space-y-6">
-                                {!tieneTelefono && (
-                                    <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl mb-2">
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-amber-600">La verificación se realizará por correo electrónico ya que no posees un número de teléfono actualmente.</p>
-                                    </div>
-                                )}
+                                <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1">Verificación por Correo Electrónico</p>
+                                    <p className="text-[9px] text-muted-foreground">Enviaremos un código de 6 dígitos a <strong className="text-foreground">{getValues('email')}</strong> para verificar tu identidad.</p>
+                                </div>
                                 {!verifSent ? (
                                     <div className="space-y-4">
-                                        <p className="text-sm text-muted-foreground">Elige cómo verificar tu identidad:</p>
-                                        <div className={cn("grid gap-3", tieneTelefono ? "grid-cols-2" : "grid-cols-1")}>
-                                            <button type="button" onClick={() => setVerifMethod('email')}
-                                                className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === 'email' ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border text-muted-foreground")}>
-                                                Correo Electrónico
-                                            </button>
-                                            {tieneTelefono && (
-                                                <button type="button" onClick={() => setVerifMethod('sms')}
-                                                    className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === 'sms' ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border text-muted-foreground")}>
-                                                    SMS al Teléfono
-                                                </button>
-                                            )}
-                                        </div>
                                         <Button type="button" className="w-full" onClick={sendVerificationCode} disabled={verifLoading}>
-                                            {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Enviando...</> : 'Enviar Código de Activación'}
+                                            {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Enviando...</> : 'Enviar Código de Verificación'}
                                         </Button>
                                     </div>
                                 ) : verifVerified ? (
