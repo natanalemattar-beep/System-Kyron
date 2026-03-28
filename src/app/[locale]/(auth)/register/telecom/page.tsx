@@ -135,11 +135,12 @@ export default function RegisterTelecomPage() {
     };
 
     const sendVerificationCode = async () => {
+        const destino = getValues('email');
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: 'email', email: getValues('email') }),
+                body: JSON.stringify({ destino, tipo: 'email' }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifSent(true); startCountdown();
@@ -149,11 +150,12 @@ export default function RegisterTelecomPage() {
     };
 
     const verifyCode = async () => {
+        const destino = getValues('email');
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: 'email', email: getValues('email'), code: verifCode }),
+                body: JSON.stringify({ destino, codigo: verifCode }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifVerified(true);

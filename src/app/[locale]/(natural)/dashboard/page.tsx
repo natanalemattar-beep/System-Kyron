@@ -194,8 +194,31 @@ export default function DashboardPersonalPage() {
                 </div>
             </div>
 
+            {/* Accesos Rápidos */}
+            <section>
+                <h3 className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 ml-4 mb-6">Accesos Rápidos</h3>
+                <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+                    {[
+                        { title: "Carnet Personal", icon: User, href: "/carnet-personal", desc: "Identificación digital", color: "text-blue-500", bg: "bg-blue-500/10" },
+                        { title: "Tarjeta Reciclaje", icon: History, href: "/tarjeta-reciclaje", desc: "Eco-créditos activos", color: "text-green-500", bg: "bg-green-500/10" },
+                        { title: "Registro RIF", icon: FileText, href: "/registro-rif", desc: "Actualización RIF", color: "text-amber-500", bg: "bg-amber-500/10" },
+                        { title: "Seguridad", icon: Lock, href: "/seguridad", desc: "Contraseña y 2FA", color: "text-purple-500", bg: "bg-purple-500/10" },
+                    ].map((item, i) => (
+                        <Link key={i} href={item.href as any} className="group">
+                            <Card className="border-none shadow-sm bg-card/40 hover:bg-muted/10 transition-all rounded-2xl p-5 text-center h-full">
+                                <div className={cn("p-3 rounded-xl mx-auto w-fit mb-3 group-hover:scale-110 transition-transform", item.bg)}>
+                                    <item.icon className={cn("h-5 w-5", item.color)} />
+                                </div>
+                                <p className="text-[9px] font-black uppercase tracking-widest text-foreground/70 group-hover:text-primary transition-colors">{item.title}</p>
+                                <p className="text-[8px] text-muted-foreground uppercase mt-1">{item.desc}</p>
+                            </Card>
+                        </Link>
+                    ))}
+                </div>
+            </section>
+
             {/* Módulos Especializados */}
-            <section className="pt-4">
+            <section className="pt-2">
                 <h3 className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 ml-4 mb-6">Módulos Especializados</h3>
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
                     {[
@@ -222,6 +245,22 @@ export default function DashboardPersonalPage() {
                     ))}
                 </div>
             </section>
+
+            {/* Info Footer */}
+            <div className="rounded-2xl border border-border/30 bg-card/30 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-xl"><CheckCircle className="h-4 w-4 text-primary" /></div>
+                    <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-foreground/70">Cuenta Verificada</p>
+                        <p className="text-[9px] text-muted-foreground">Acceso completo al ecosistema ciudadano</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3 text-muted-foreground/40">
+                    {["VEN-NIF", "SAIME", "SENIAT"].map((b, i) => (
+                        <span key={i} className="text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-border/20">{b}</span>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Calculator, TrendingUp, TrendingDown, Activity, CircleCheck as CheckCircle, Zap, ArrowRight, BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2, ShieldAlert, ChartBar as BarChart3, RefreshCw, Calendar, Lock, Search, FileText, BrainCircuit, Sparkles } from "lucide-react";
+import { Calculator, TrendingUp, TrendingDown, Activity, CircleCheck as CheckCircle, Zap, ArrowRight, BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2, ShieldAlert, ChartBar as BarChart3, RefreshCw, Calendar, Lock, Search, FileText, BrainCircuit, Sparkles, Shield, Scale, Briefcase, Phone, Leaf, Globe, AlertTriangle, Wifi, HeartPulse, Target, PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -304,6 +304,88 @@ export default function DashboardEmpresaPage() {
                         </Card>
                     </motion.div>
                 ))}
+            </div>
+
+            {/* Fiscal Compliance Bar */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+                <Card className="glass-card border-none bg-card/40 rounded-2xl p-6 md:p-8">
+                    <div className="flex items-center gap-3 mb-5">
+                        <div className="p-2 bg-emerald-500/10 rounded-xl"><Shield className="h-5 w-5 text-emerald-500" /></div>
+                        <div>
+                            <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-foreground/60">Cumplimiento Fiscal</h3>
+                            <p className="text-[9px] text-muted-foreground uppercase tracking-widest">VEN-NIF · SENIAT · LOTTT</p>
+                        </div>
+                        <Badge className="ml-auto bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[8px] font-black uppercase">Activo</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                        {[
+                            { label: "IVA 16%", status: "Al día", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                            { label: "IGTF 3%", status: "Configurado", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                            { label: "ISLR 34%", status: "Retenciones OK", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                            { label: "SENIAT", status: "Sincronizado", color: "text-blue-500", bg: "bg-blue-500/10" },
+                        ].map((item, i) => (
+                            <div key={i} className={cn("flex items-center gap-2 p-2.5 rounded-xl", item.bg)}>
+                                <CheckCircle className={cn("h-3.5 w-3.5 shrink-0", item.color)} />
+                                <div className="min-w-0">
+                                    <p className="text-[9px] font-black uppercase tracking-widest">{item.label}</p>
+                                    <p className={cn("text-[8px] uppercase font-bold", item.color)}>{item.status}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </Card>
+
+                <Card className="glass-card border-none bg-card/40 rounded-2xl p-6 md:p-8">
+                    <div className="flex items-center gap-3 mb-5">
+                        <div className="p-2 bg-amber-500/10 rounded-xl"><AlertTriangle className="h-5 w-5 text-amber-500" /></div>
+                        <div>
+                            <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-foreground/60">Alertas del Sistema</h3>
+                            <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Seguimiento operativo</p>
+                        </div>
+                    </div>
+                    <div className="space-y-2.5">
+                        {[
+                            { text: "Declaración IVA — próximo vencimiento", date: `15/${String(new Date().getMonth() + 2).padStart(2, '0')}/${new Date().getFullYear()}`, urgency: "text-amber-500", icon: PercentCircle },
+                            { text: "Retención ISLR por aplicar", date: data?.facturas.vencidas ? `${data.facturas.vencidas} pendiente(s)` : "Sin pendientes", urgency: data?.facturas.vencidas ? "text-rose-500" : "text-emerald-500", icon: Banknote },
+                            { text: "Conciliación bancaria mensual", date: "Revisar antes del cierre", urgency: "text-blue-500", icon: CreditCard },
+                        ].map((alert, i) => (
+                            <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/20 hover:bg-muted/40 transition-all">
+                                <alert.icon className={cn("h-4 w-4 shrink-0", alert.urgency)} />
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-[10px] font-bold uppercase truncate">{alert.text}</p>
+                                    <p className={cn("text-[9px] font-bold uppercase", alert.urgency)}>{alert.date}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </Card>
+            </div>
+
+            {/* Módulos Operativos */}
+            <div className="space-y-5">
+                <div className="flex items-center gap-4 ml-2">
+                    <div className="p-2 bg-primary/10 rounded-xl"><Globe className="h-5 w-5 text-primary" /></div>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Módulos del Ecosistema</h3>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                    {[
+                        { label: "Contabilidad", href: "/contabilidad", icon: Calculator, color: "text-blue-500", bg: "bg-blue-500/10" },
+                        { label: "RRHH", href: "/rrhh", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                        { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/10" },
+                        { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/10" },
+                        { label: "Telecom", href: "/telecom-dashboard", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/10" },
+                        { label: "Sostenibilidad", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/10" },
+                    ].map((mod, i) => (
+                        <Link key={i} href={mod.href as never}>
+                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/10 transition-all rounded-2xl p-5 text-center group shadow-sm hover:shadow-md cursor-pointer h-full">
+                                <div className={cn("p-3 rounded-xl mx-auto w-fit mb-3 group-hover:scale-110 transition-transform", mod.bg)}>
+                                    <mod.icon className={cn("h-5 w-5", mod.color)} />
+                                </div>
+                                <p className="text-[9px] font-black uppercase tracking-widest text-foreground/70 group-hover:text-primary transition-colors">{mod.label}</p>
+                            </Card>
+                        </Link>
+                    ))}
+                </div>
             </div>
 
             {/* Quick Books */}

@@ -131,12 +131,13 @@ export default function RegisterContabilidadPage() {
     const sendVerificationCode = async () => {
         const email = getValues('repEmail');
         const phone = getValues('rep_telefono');
+        const destino = verifMethod === 'email' ? email : phone;
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email, phone }),
+                body: JSON.stringify({ destino, tipo: verifMethod }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
@@ -153,12 +154,13 @@ export default function RegisterContabilidadPage() {
     const verifyCode = async () => {
         const email = getValues('repEmail');
         const phone = getValues('rep_telefono');
+        const destino = verifMethod === 'email' ? email : phone;
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email, phone, code: verifCode }),
+                body: JSON.stringify({ destino, codigo: verifCode }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);

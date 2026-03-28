@@ -105,11 +105,12 @@ export default function RegisterRRHHPage() {
     };
 
     const sendVerificationCode = async () => {
+        const destino = verifMethod === 'email' ? getValues('repEmail') : getValues('rep_telefono');
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('repEmail'), phone: getValues('rep_telefono') }),
+                body: JSON.stringify({ destino, tipo: verifMethod }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifSent(true); startCountdown();
@@ -120,11 +121,12 @@ export default function RegisterRRHHPage() {
     };
 
     const verifyCode = async () => {
+        const destino = verifMethod === 'email' ? getValues('repEmail') : getValues('rep_telefono');
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ method: verifMethod, email: getValues('repEmail'), phone: getValues('rep_telefono'), code: verifCode }),
+                body: JSON.stringify({ destino, codigo: verifCode }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifVerified(true);
