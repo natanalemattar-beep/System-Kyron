@@ -58,12 +58,18 @@ export function CtaSection() {
                     action: <ShieldCheck className="text-primary h-4 w-4" />
                 });
                 form.reset();
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "ERROR EN REGISTRO",
+                    description: result.error || "No se pudo procesar la solicitud. Intente nuevamente.",
+                });
             }
         } catch (error) {
             toast({
                 variant: "destructive",
                 title: "FALLA DE PROTOCOLO",
-                description: "No se pudo transmitir la solicitud.",
+                description: "No se pudo transmitir la solicitud. Verifique su conexión.",
             });
         } finally {
             setIsSubmitting(false);

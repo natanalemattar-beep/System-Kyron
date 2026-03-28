@@ -156,37 +156,42 @@ export function LandingHeader() {
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-background border-l-border">
-                                <SheetHeader className="p-10 border-b border-border flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
-                                        <Logo className="h-8 w-8" />
-                                        <SheetTitle className="text-xl font-black tracking-tight text-foreground uppercase italic">{t('mobile_portal')}</SheetTitle>
+                            <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r-border flex flex-col">
+                                <SheetHeader className="p-6 border-b border-border bg-muted/5 flex flex-row items-center gap-4 shrink-0">
+                                    <Logo className="h-8 w-8 shrink-0" />
+                                    <div className="flex flex-col">
+                                        <SheetTitle className="text-sm font-black tracking-tight text-foreground uppercase italic leading-none">{t('mobile_portal')}</SheetTitle>
+                                        <span className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-80">
+                                            {tHero('slogan')}
+                                        </span>
                                     </div>
                                 </SheetHeader>
-                                <nav className="p-10 flex flex-col gap-2">
+                                <nav className="flex-1 overflow-y-auto p-6 flex flex-col gap-1.5">
                                     {navItems.map((item) => (
                                         <SheetClose key={item.labelKey} asChild>
                                             <Link 
                                                 href={item.href as any} 
                                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                                className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-border text-muted-foreground hover:text-primary transition-all"
+                                                className="text-sm font-black uppercase tracking-[0.2em] py-4 px-4 rounded-xl border border-transparent text-muted-foreground hover:text-primary hover:bg-primary/5 hover:border-primary/20 transition-all flex items-center justify-between"
                                             >
                                                 {t(item.labelKey)}
+                                                <ChevronDown className="h-3 w-3 -rotate-90 opacity-20" />
                                             </Link>
                                         </SheetClose>
                                     ))}
-                                    <div className="pt-6 flex flex-col gap-3">
-                                        <div className="flex items-center justify-between py-3 border-b border-border">
-                                            <LanguageSwitcher variant="default" align="end" />
-                                        </div>
-                                        <Button asChild className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase tracking-widest text-[10px] mt-4">
-                                            <Link href="/login">{t('access')}</Link>
-                                        </Button>
-                                        <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-black uppercase tracking-widest text-[10px] border-border hover:border-primary/40 hover:text-primary">
-                                            <Link href="/register">{t('register')}</Link>
-                                        </Button>
-                                    </div>
                                 </nav>
+                                <div className="p-6 border-t border-border space-y-3 bg-muted/5 shrink-0">
+                                    <div className="flex items-center gap-2 pb-3 border-b border-border/50">
+                                        <LanguageSwitcher variant="default" align="start" />
+                                        <ThemeToggle />
+                                    </div>
+                                    <Button asChild className="w-full h-12 rounded-xl btn-3d-primary font-black uppercase tracking-widest text-[10px]">
+                                        <Link href="/login"><ShieldCheck className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
+                                    </Button>
+                                    <Button asChild variant="outline" className="w-full h-11 rounded-xl font-black uppercase tracking-widest text-[10px] border-border hover:border-primary/40 hover:text-primary">
+                                        <Link href="/register">{t('register')}</Link>
+                                    </Button>
+                                </div>
                             </SheetContent>
                         </Sheet>
                     </div>

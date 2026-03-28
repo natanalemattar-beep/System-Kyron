@@ -146,12 +146,27 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 
 ## Botones y Acciones
 - Todos los botones de la aplicación tienen handlers funcionales (onClick)
+- **Formulario de contacto/demo** — `sendDemoRequestAction` guarda en tablas `demo_requests` + `contact_messages` (DB directo, sin Resend)
 - **Bóveda Digital** (`/documentos`) — CRUD completo con API `/api/documentos-personales`: upload dialog, búsqueda, vista previa, descarga, eliminación
 - **Archivo de Contratos** (`/contratos`) — CRUD completo con API `/api/documentos-juridicos`: crear contrato, stats en vivo, búsqueda, PDF, eliminación
 - **Generador de Documentos** (`/generador-documentos`) — Download exporta archivo .txt, "Guardar en Bóveda" guarda en documentos jurídicos vía API
 - **Exportar/Descargar** — Botones de exportación usan `window.print()` o toast de confirmación
 - **Trámites/Asesorías** — Botones muestran toast de confirmación (solicitud registrada)
 - Cero llamadas a `alert()` en toda la aplicación — todas reemplazadas con toast notifications
+
+## Métodos de Pago Integrados
+- **PayPal** — Cobros internacionales, USD/EUR/GBP
+- **Zinli** — Billetera digital VE, USD sin comisiones internas
+- **Zelle** — Transferencias bancarias desde EE.UU., 0% comisión
+- **Pago Móvil / C2P** — Todos los bancos VE conectados, verificación en 3s
+- **Transferencia Bancaria VE** — BdV, Banesco, Mercantil, Provincial, BNC, BOD, Bancaribe, Exterior, Plaza, Caroní, Bancrecer, BanFANB
+- **Binance Pay / Cripto** — USDT, USDC, BTC con conversión automática
+- **Tarjeta Débito/Crédito** — Visa, MasterCard, AMEX (POS físico y virtual)
+- **Kyron Digital Wallet** — Transferencias internas del ecosistema
+
+## Barra Lateral Móvil
+- **Landing**: Sheet desde la izquierda, nav items con smooth scroll, botones de acceso/registro, theme toggle + language switcher
+- **App**: Sheet controlada desde la izquierda (85vw, max 340px), perfil de usuario, dashboard link, nav groups contextuales con indicador activo, cierre automático al navegar, acciones rápidas (idioma, tema, notificaciones, ajustes, logout)
 
 ## Configuración de Desarrollo
 - Puerto: 5000 (requerido por Replit)

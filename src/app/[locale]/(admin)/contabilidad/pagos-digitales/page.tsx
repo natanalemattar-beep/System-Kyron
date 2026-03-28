@@ -11,46 +11,59 @@ import { useToast } from "@/hooks/use-toast";
 
 const mediosPago = [
   {
-    tipo: "Tarjeta de Crédito",
-    icon: CreditCard,
+    tipo: "PayPal",
+    icon: DollarSign,
+    color: "text-blue-600",
+    bg: "bg-blue-600/10",
+    border: "border-blue-600/20",
+    transacciones: 94,
+    monto: "$12.850 USD",
+    usd: "Bs. 648.272,50 (BCV)",
+    comision: "3.49% + $0.49",
+    redes: ["PayPal Business", "PayPal.Me", "Checkout SDK"],
+    estado: "ACTIVO",
+  },
+  {
+    tipo: "Zinli",
+    icon: Wallet,
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
+    transacciones: 156,
+    monto: "$8.340 USD",
+    usd: "Bs. 420.753,00 (BCV)",
+    comision: "0% interno",
+    redes: ["Zinli Wallet", "Zinli P2P", "Zinli Business"],
+    estado: "ACTIVO",
+  },
+  {
+    tipo: "Zelle",
+    icon: DollarSign,
     color: "text-violet-500",
     bg: "bg-violet-500/10",
     border: "border-violet-500/20",
-    transacciones: 312,
-    monto: "Bs. 1.248.430,00",
-    usd: "≈ $24.750 USD",
-    comision: "2.5% + IGTF",
-    redes: ["Visa", "Mastercard", "American Express", "Diners Club"],
+    transacciones: 218,
+    monto: "$34.620 USD",
+    usd: "Bs. 1.746.579,00 (BCV)",
+    comision: "0% comisión",
+    redes: ["Wells Fargo", "Bank of America", "Chase", "Citi"],
     estado: "ACTIVO",
   },
   {
-    tipo: "Tarjeta de Débito",
+    tipo: "Tarjeta Crédito/Débito",
     icon: CreditCard,
-    color: "text-blue-500",
-    bg: "bg-blue-500/10",
-    border: "border-blue-500/20",
-    transacciones: 548,
-    monto: "Bs. 892.100,00",
-    usd: "≈ $17.692 USD",
-    comision: "1.0% + IVA",
-    redes: ["Visa Débito", "Maestro Electron", "MasterCard Débito"],
+    color: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
+    transacciones: 860,
+    monto: "Bs. 2.140.530,00",
+    usd: "≈ $42.442 USD",
+    comision: "2.5% + IGTF",
+    redes: ["Visa", "Mastercard", "AMEX", "Maestro", "Diners Club"],
     estado: "ACTIVO",
   },
   {
-    tipo: "Billeteras Virtuales",
-    icon: Wallet,
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
-    border: "border-amber-500/20",
-    transacciones: 187,
-    monto: "$18.420 USD",
-    usd: "Bs. 928.289,00 (BCV)",
-    comision: "0.5% promedio",
-    redes: ["Zelle", "Reserve", "Binance Pay", "PayPal", "USDT TRC-20"],
-    estado: "ACTIVO",
-  },
-  {
-    tipo: "Pago Móvil Verificado",
+    tipo: "Pago Móvil / C2P",
     icon: Smartphone,
     color: "text-primary",
     bg: "bg-primary/10",
@@ -60,6 +73,19 @@ const mediosPago = [
     usd: "≈ $42.435 USD",
     comision: "0% comisión",
     redes: ["BdV 0102", "Banesco 0134", "Mercantil 0105", "BBVA 0108", "BNC 0191", "BOD 0116", "Bancaribe 0128"],
+    estado: "ACTIVO",
+  },
+  {
+    tipo: "Binance Pay / Cripto",
+    icon: Zap,
+    color: "text-amber-500",
+    bg: "bg-amber-500/10",
+    border: "border-amber-500/20",
+    transacciones: 67,
+    monto: "$5.430 USDT",
+    usd: "Bs. 273.943,50 (BCV)",
+    comision: "0.5% conversión",
+    redes: ["USDT TRC-20", "USDC", "BTC", "Binance Pay"],
     estado: "ACTIVO",
   },
 ];
@@ -97,7 +123,7 @@ export default function PagosDigitalesPage() {
             PAGOS <span className="text-primary italic">DIGITALES</span> Y MÓVILES
           </h1>
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
-            Tarjetas · Zelle · Reserve · Binance · Pago Móvil Verificado en 3 seg · Todos los Bancos VE
+            PayPal · Zinli · Zelle · Tarjetas · Binance · Pago Móvil Verificado en 3 seg · Todos los Bancos VE
           </p>
         </div>
         <div className="flex gap-3">
@@ -141,7 +167,7 @@ export default function PagosDigitalesPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {mediosPago.map((m, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
             <Card className={cn("glass-card border bg-card/40 rounded-2xl p-6 space-y-5 hover:shadow-xl transition-all", m.border)}>

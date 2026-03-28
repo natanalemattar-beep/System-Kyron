@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
@@ -23,11 +23,14 @@ import {
     Settings,
     User,
     Activity,
-    LayoutGrid
+    LayoutGrid,
+    ChevronRight,
+    ShieldCheck,
+    X,
+    Home
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
-import { AppSidebar } from "./app-sidebar";
 import { LanguageSwitcher } from "./language-switcher";
 
 interface AppHeaderProps {
@@ -46,11 +49,16 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   if (!mounted) return (
     <header className="fixed top-0 left-0 right-0 z-[150] bg-background/50 h-16 w-full" />
@@ -64,21 +72,109 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
         <div className="flex items-center justify-between w-full gap-4">
           
           <div className="flex items-center gap-4">
-            <Sheet>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 rounded-lg bg-white/5 border border-border">
                         <Menu className="h-4 w-4 text-primary" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5 flex flex-col">
-                    <SheetHeader className="p-6 border-b border-white/5">
-                        <SheetTitle className="sr-only">Navegación Kyron</SheetTitle>
+                <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r-white/5 flex flex-col overflow-hidden">
+                    <SheetHeader className="p-5 border-b border-white/5 bg-muted/5 flex flex-row items-center justify-between shrink-0">
                         <div className="flex items-center gap-3">
                             <Logo className="h-7 w-7" />
-                            <span className="text-[10px] font-black uppercase tracking-widest italic">System Kyron</span>
+                            <div className="flex flex-col">
+                                <SheetTitle className="text-[10px] font-black uppercase tracking-widest italic leading-none">System Kyron</SheetTitle>
+                                <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-0.5 opacity-60">Control Corporativo</p>
+                            </div>
                         </div>
                     </SheetHeader>
-                    <AppSidebar />
+
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5 bg-primary/5 shrink-0">
+                        <Avatar className="h-9 w-9 rounded-xl">
+                            <AvatarFallback className="rounded-xl font-black text-[10px] text-white bg-primary">
+                                {user?.fallback || "AD"}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col min-w-0 flex-1">
+                            <p className="text-[10px] font-black uppercase tracking-widest text-foreground truncate">Operador</p>
+                            <p className="text-[8px] text-muted-foreground font-mono truncate opacity-60">{user?.email || "admin@kyron.com"}</p>
+                        </div>
+                    </div>
+
+                    <div className="px-4 py-3 shrink-0">
+                        <SheetClose asChild>
+                            <Link href={dashboardHref as any} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 border border-primary/20 text-primary">
+                                <Home className="h-4 w-4" />
+                                <span className="text-[10px] font-black uppercase tracking-widest">Dashboard Principal</span>
+                            </Link>
+                        </SheetClose>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-6 custom-scrollbar">
+                        {navGroups?.map((group) => (
+                            <section key={group.title} className="space-y-1.5">
+                                <div className="px-3 pt-2 pb-1 text-[8px] font-black uppercase text-primary/50 tracking-[0.4em] flex items-center gap-2">
+                                    <group.icon className="h-3 w-3 opacity-40" />
+                                    {group.title}
+                                </div>
+                                <div className="space-y-0.5">
+                                    {group.items.filter(item => 
+                                        item.href !== dashboardHref && 
+                                        !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
+                                    ).map((item) => {
+                                        const isActive = pathname.includes(item.href) && item.href !== '/';
+                                        return (
+                                            <SheetClose key={item.label} asChild>
+                                                <Link
+                                                    href={item.href as any}
+                                                    className={cn(
+                                                        "flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm",
+                                                        isActive 
+                                                            ? "bg-primary/10 text-primary border border-primary/20" 
+                                                            : "text-muted-foreground/70 hover:bg-muted/30 hover:text-foreground border border-transparent"
+                                                    )}
+                                                >
+                                                    <item.icon className={cn("h-4 w-4 shrink-0", isActive ? "text-primary" : "opacity-50")} />
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.15em] truncate">{item.label}</span>
+                                                    {isActive && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
+                                                </Link>
+                                            </SheetClose>
+                                        );
+                                    })}
+                                </div>
+                            </section>
+                        ))}
+                    </div>
+
+                    <div className="p-4 border-t border-white/5 bg-muted/5 space-y-2 shrink-0">
+                        <div className="flex items-center gap-2">
+                            <LanguageSwitcher variant="default" align="start" />
+                            <ThemeToggle />
+                            <SheetClose asChild>
+                                <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-lg bg-white/5 border border-border">
+                                    <Link href="/notificaciones">
+                                        <Bell className="h-4 w-4 text-muted-foreground/60" />
+                                    </Link>
+                                </Button>
+                            </SheetClose>
+                        </div>
+                        <div className="flex gap-2">
+                            <SheetClose asChild>
+                                <Button variant="outline" size="sm" asChild className="flex-1 h-9 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                                    <Link href="/configuracion"><Settings className="mr-2 h-3 w-3" /> Ajustes</Link>
+                                </Button>
+                            </SheetClose>
+                            <SheetClose asChild>
+                                <Button variant="outline" size="sm" asChild className="h-9 rounded-lg text-[9px] font-black uppercase tracking-widest text-rose-500 border-rose-500/20 hover:bg-rose-500/10">
+                                    <Link href="/login"><LogOut className="h-3 w-3" /></Link>
+                                </Button>
+                            </SheetClose>
+                        </div>
+                        <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/5 border border-primary/10">
+                            <Activity className="h-3 w-3 text-emerald-500 animate-pulse shrink-0" />
+                            <span className="text-[7px] font-black text-foreground/50 uppercase tracking-widest">Protocolo Activo · Sync T+0</span>
+                        </div>
+                    </div>
                 </SheetContent>
             </Sheet>
 
