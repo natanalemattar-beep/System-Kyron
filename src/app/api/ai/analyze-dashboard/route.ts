@@ -3,10 +3,12 @@ import OpenAI from 'openai';
 
 export const dynamic = 'force-dynamic';
 
-const openai = new OpenAI({
-  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
-  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
-});
+function getOpenAIClient() {
+  return new OpenAI({
+    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,8 +39,9 @@ ${JSON.stringify(data, null, 2)}
 
 Por favor analiza estos datos y proporciona insights accionables.`;
 
+    const openai = getOpenAIClient();
     const response = await openai.chat.completions.create({
-      model: 'gpt-5.1',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userMessage },

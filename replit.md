@@ -161,6 +161,26 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `RESEND_API_KEY` — (Opcional) Para envío real de emails de verificación. Sin ella, códigos se guardan en DB y el flujo funciona sin envío de correo real
 - `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER` — (Opcional) Para SMS
 
+## Integraciones de Email (Cascada: Outlook → Gmail → Resend)
+- **Microsoft Outlook** — Conector Replit (conn_outlook), SDK @microsoft/microsoft-graph-client. Permisos: Mail.Send, Mail.ReadWrite, Calendars.ReadWrite
+- **Gmail** — Conector Replit (ccfg_google-mail), API REST directa. Pendiente autorización OAuth
+- **Resend** — Fallback transaccional con RESEND_API_KEY
+- Servicio unificado: `src/lib/email-service.ts` — cascada automática con logging a tabla `email_log`
+- Cliente Outlook: `src/lib/outlook-client.ts` — patrón getUncachableOutlookClient()
+- API de envío: `POST /api/email/send` — envío por módulo (RRHH, Legal, Contabilidad, Telecom, Eco)
+- Códigos de verificación: `POST /api/auth/send-code` — usa el servicio unificado
+
+## Integraciones IA
+- **Gemini 2.0 Flash** — Chat fiscal (`/api/ai/fiscal-chat`), Genkit (`src/ai/genkit.ts`), chat general (`src/ai/flows/chat.ts`). Keys: AI_INTEGRATIONS_GEMINI_API_KEY || GEMINI_API_KEY || GOOGLE_API_KEY
+- **OpenAI GPT-4o** — Análisis dashboard (`/api/ai/analyze-dashboard`). Key: AI_INTEGRATIONS_OPENAI_API_KEY
+
+## Auto-fetch Tasas BCV
+- `GET /api/tasas-bcv/auto-fetch` — Obtiene tasa USD/VES del día de fuentes públicas (PyDolar BCV, ExchangeRate API). Inserta/actualiza en tabla tasas_bcv automáticamente
+
+## Optimización DB (20+ índices compuestos)
+- Tabla `email_log` para auditoría de correos enviados
+- Índices compuestos en: facturas, empleados, nóminas, asientos contables, telecom, eco-créditos, legal, visitas, users
+
 ## Verificación de Código (Auth)
 - API `/api/auth/send-code` acepta ambos formatos: `{destino, tipo}` y `{method, email, phone}`
 - API `/api/auth/verify-code` acepta ambos formatos: `{destino, codigo}` y `{method, email, phone, code}`

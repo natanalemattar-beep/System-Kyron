@@ -1694,3 +1694,43 @@ async function createConfiguracionTables() {
     )
   `);
 }
+
+async function createPerformanceOptimizations(): Promise<void> {
+  await query(`CREATE TABLE IF NOT EXISTS email_log (
+    id           SERIAL PRIMARY KEY,
+    destinatario TEXT NOT NULL,
+    asunto       TEXT NOT NULL,
+    modulo       TEXT NOT NULL DEFAULT 'sistema',
+    proveedor    TEXT NOT NULL,
+    estado       TEXT NOT NULL CHECK (estado IN ('enviado','fallido')),
+    error_msg    TEXT,
+    created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_email_log_created ON email_log(created_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_email_log_modulo ON email_log(modulo, created_at DESC)`);
+
+  const safeIndex = async (sql: string) => {
+    try { await query(sql); } catch { /* table/column may not exist yet */ }
+  };
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_user_estado ON facturas(user_id, estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_created ON facturas(created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_fecha ON facturas(fecha_emision DESC)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_activo ON empleados(user_id, activo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_cedula ON empleados(cedula)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nominas_periodo ON nominas(user_id, fecha_inicio, fecha_fin)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nominas_estado ON nominas(estado)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_lineas_user ON lineas_telecom(user_id, estado)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_user ON eco_creditos(user_id)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_created ON page_visits(created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_tipo ON users(tipo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_documento ON users(tipo_documento, numero_documento)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_tasas_bcv_fecha ON tasas_bcv(fecha DESC)`);
+}
