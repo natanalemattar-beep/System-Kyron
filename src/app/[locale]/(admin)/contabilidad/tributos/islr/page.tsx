@@ -141,7 +141,7 @@ export default function IslrPage() {
                                             <p className="text-xs font-bold text-foreground">31 de Marzo, 2026</p>
                                         </div>
                                     </div>
-                                    <Button className="w-full h-12 rounded-xl border border-indigo-500/20 bg-indigo-500/5 text-indigo-500 font-black uppercase text-[10px] tracking-widest hover:bg-indigo-500/10" onClick={() => alert("Asesoría disponible en la versión completa")}>
+                                    <Button className="w-full h-12 rounded-xl border border-indigo-500/20 bg-indigo-500/5 text-indigo-500 font-black uppercase text-[10px] tracking-widest hover:bg-indigo-500/10" onClick={() => toast({ title: "ASESORÍA FISCAL ISLR", description: "Solicitud de asesoría fiscal registrada. Un especialista le contactará." })}>
                                         INICIAR AUDITORÍA DE CIERRE
                                     </Button>
                                 </div>

@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Calendar as CalendarIcon, ArrowLeft, Bell, Clock, TriangleAlert as AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const calendarEvents = [
   { id: 1, title: "Declaración Mensual IVA", date: "15/04/2026", urgency: "high", desc: "Para RIF terminados en 0, 1, 2 y 3." },
@@ -16,7 +17,8 @@ const calendarEvents = [
 ];
 
 export default function CalendarioFiscalPage() {
-  const handleAction = (msg: string) => alert(msg);
+  const { toast } = useToast();
+  const handleAction = (msg: string) => toast({ title: "CALENDARIO FISCAL", description: msg });
 
   return (
     <div className="p-6 md:p-12 bg-[#f5f7fa] min-h-screen space-y-8">

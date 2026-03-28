@@ -55,7 +55,7 @@ export default function RetencionesIslrPage() {
                                 <p className="text-[8px] font-bold text-muted-foreground uppercase">Base: {c.base}</p>
                             </div>
                         </div>
-                        <Button variant="ghost" className="w-full mt-6 h-9 rounded-lg text-[8px] font-black uppercase tracking-widest border border-border group-hover:bg-primary group-hover:text-white" onClick={() => alert("Simulador de Retención en construcción")}>
+                        <Button variant="ghost" className="w-full mt-6 h-9 rounded-lg text-[8px] font-black uppercase tracking-widest border border-border group-hover:bg-primary group-hover:text-white" onClick={() => toast({ title: "SIMULADOR ISLR", description: "Cálculo de retención basado en tarifas vigentes del SENIAT." })}>
                             VER EJEMPLO
                         </Button>
                     </Card>

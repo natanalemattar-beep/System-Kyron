@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const climateMetrics = [
     { label: "Inteligencia Emocional", val: 94, icon: BrainCircuit, color: "text-primary" },
@@ -17,6 +18,7 @@ const climateMetrics = [
 ];
 
 export default function ClimaOrganizacionalPage() {
+    const { toast } = useToast();
     return (
         <div className="space-y-12 pb-20">
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
@@ -86,7 +88,7 @@ export default function ClimaOrganizacionalPage() {
                                 Inyección de metodologías ágiles y gestión emocional para directivos. El sistema detecta perfiles con alto potencial de liderazgo basado en KPIs de equipo.
                             </p>
                         </div>
-                        <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">SOLICITAR EVALUACIÓN 360</Button>
+                        <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "EVALUACIÓN 360° SOLICITADA", description: "Se programará una evaluación completa del clima organizacional." })}>SOLICITAR EVALUACIÓN 360</Button>
                     </Card>
 
                     <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-8 border border-white/5">

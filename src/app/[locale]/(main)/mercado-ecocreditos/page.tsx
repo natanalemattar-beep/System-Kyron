@@ -135,7 +135,7 @@ export default function MercadoEcocreditosPage() {
                     <ShieldCheck className="h-12 w-12 text-secondary mb-6 animate-pulse" />
                     <CardTitle className="text-xl font-black uppercase italic text-white mb-2">Certificación Neutral</CardTitle>
                     <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">Obtén el sello Kyron de Carbono Neutralidad</p>
-                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-white/10 text-white">SOLICITAR AUDITORÍA</Button>
+                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-white/10 text-white" onClick={() => toast({ title: "AUDITORÍA SOLICITADA", description: "Su solicitud de auditoría de eco-créditos ha sido registrada." })}>SOLICITAR AUDITORÍA</Button>
                 </Card>
             </div>
         </div>

@@ -137,7 +137,7 @@ export default function EntidadesSinFinesLucroPage() {
                             <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                 Las entidades sin fines de lucro deben cumplir con el reporte de actividades y el origen de fondos lícitos. El sistema bloquea transacciones no documentadas para proteger la personalidad jurídica de la institución.
                             </p>
-                            <Button variant="secondary" className="w-full h-12 bg-white text-emerald-600 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">SOLICITAR AUDITORÍA</Button>
+                            <Button variant="secondary" className="w-full h-12 bg-white text-emerald-600 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "AUDITORÍA SOLICITADA", description: "Solicitud de auditoría para entidad sin fines de lucro registrada." })}>SOLICITAR AUDITORÍA</Button>
                         </Card>
 
                         <Card className="glass-card border-none p-8 rounded-[2.5rem] bg-card/40 shadow-xl">

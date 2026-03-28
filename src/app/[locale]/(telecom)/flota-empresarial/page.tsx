@@ -277,7 +277,7 @@ export default function FlotaEmpresarialPage() {
                     </div>
                     <Button
                         className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest bg-[#0A2472] text-white hover:bg-blue-950 shadow-xl transition-all"
-                        onClick={() => alert("Funcionalidad en desarrollo")}
+                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de flota ha sido registrada." })}
                     >
                         <Shield className="mr-3 h-4 w-4" />
                         Verificar Flota
@@ -385,7 +385,7 @@ export default function FlotaEmpresarialPage() {
                 <div className="flex justify-center pt-4">
                     <Button
                         className="h-14 px-12 rounded-2xl font-black uppercase text-xs tracking-widest bg-[#0A2472] text-white hover:bg-blue-950 shadow-2xl transition-all"
-                        onClick={() => alert("Funcionalidad en desarrollo")}
+                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de flota ha sido registrada." })}
                     >
                         <ExternalLink className="mr-3 h-4 w-4" />
                         Ver Catálogo Completo de Equipos

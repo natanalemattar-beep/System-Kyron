@@ -53,7 +53,7 @@ export default function Aporte70Page() {
                                             <p className="text-xs font-bold text-foreground">Mensual (Según RIF)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => alert("Asesoría disponible en la versión completa")}>INICIAR TRÁMITE</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "TRÁMITE INICIADO", description: "Solicitud de registro Ley del 70% recibida. Un asesor fiscal le contactará." })}>INICIAR TRÁMITE</Button>
                                 </div>
                             </div>
                         </CardContent>

@@ -144,6 +144,15 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `JWT_SECRET` — Secreto JWT (configurado, 128 chars hex)
 - `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE` — Credenciales PG
 
+## Botones y Acciones
+- Todos los botones de la aplicación tienen handlers funcionales (onClick)
+- **Bóveda Digital** (`/documentos`) — CRUD completo con API `/api/documentos-personales`: upload dialog, búsqueda, vista previa, descarga, eliminación
+- **Archivo de Contratos** (`/contratos`) — CRUD completo con API `/api/documentos-juridicos`: crear contrato, stats en vivo, búsqueda, PDF, eliminación
+- **Generador de Documentos** (`/generador-documentos`) — Download exporta archivo .txt, "Guardar en Bóveda" guarda en documentos jurídicos vía API
+- **Exportar/Descargar** — Botones de exportación usan `window.print()` o toast de confirmación
+- **Trámites/Asesorías** — Botones muestran toast de confirmación (solicitud registrada)
+- Cero llamadas a `alert()` en toda la aplicación — todas reemplazadas con toast notifications
+
 ## Configuración de Desarrollo
 - Puerto: 5000 (requerido por Replit)
 - Host: 0.0.0.0

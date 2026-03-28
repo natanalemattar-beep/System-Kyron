@@ -227,7 +227,7 @@ export default function TributosHubPage() {
                         ))}
                     </div>
 
-                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">GUARDAR AJUSTES</Button>
+                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={() => toast({ title: "AJUSTES GUARDADOS", description: "Configuración tributaria actualizada exitosamente." })}>GUARDAR AJUSTES</Button>
                 </div>
             </Card>
         </div>

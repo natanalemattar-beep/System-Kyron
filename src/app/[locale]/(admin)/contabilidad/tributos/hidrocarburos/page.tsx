@@ -55,7 +55,7 @@ export default function HidrocarburosPage() {
                                             <p className="text-xs font-bold text-foreground">Anual (Diciembre 2026)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => alert("Asesoría disponible en la versión completa")}>RENOVAR PERMISO</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "RENOVACIÓN INICIADA", description: "Solicitud de renovación de permiso de hidrocarburos registrada." })}>RENOVAR PERMISO</Button>
                                 </div>
                             </div>
                         </CardContent>

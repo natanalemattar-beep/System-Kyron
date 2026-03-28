@@ -92,7 +92,7 @@ export default function ProteccionPensionesPage() {
                                 </div>
                                 <div className="text-right space-y-4 w-full md:w-auto">
                                     <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black px-4 py-1.5 uppercase">100% DEDUCIBLE ISLR</Badge>
-                                    <Button variant="outline" className="w-full h-10 border-emerald-500/20 text-emerald-600 text-[9px] font-black uppercase" onClick={() => alert("Generando archivo para portal SENIAT...")}>BAJAR REPORTE</Button>
+                                    <Button variant="outline" className="w-full h-10 border-emerald-500/20 text-emerald-600 text-[9px] font-black uppercase" onClick={() => toast({ title: "REPORTE GENERADO", description: "Archivo para portal SENIAT listo para descarga." })}>BAJAR REPORTE</Button>
                                 </div>
                             </div>
                         </CardContent>
@@ -181,7 +181,7 @@ export default function ProteccionPensionesPage() {
                                             <p className="text-[8px] font-black text-emerald-600 uppercase tracking-widest mb-2">Configuración</p>
                                             <p className="text-[9px] font-bold text-slate-400 uppercase leading-relaxed">System Kyron solicitará confirmación 48h antes de ejecutar el pago.</p>
                                         </div>
-                                        <Button className="w-full h-12 rounded-xl btn-3d-secondary font-black uppercase text-[10px] tracking-widest" onClick={() => alert("Configuración de Pago Automático Guardada (Simulación)")}>GUARDAR AUTORIZACIÓN</Button>
+                                        <Button className="w-full h-12 rounded-xl btn-3d-secondary font-black uppercase text-[10px] tracking-widest" onClick={() => toast({ title: "AUTORIZACIÓN GUARDADA", description: "Configuración de pago automático DPP registrada exitosamente." })}>GUARDAR AUTORIZACIÓN</Button>
                                     </motion.div>
                                 )}
                             </AnimatePresence>

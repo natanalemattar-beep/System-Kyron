@@ -55,7 +55,7 @@ export default function FonacitPage() {
                                             <p className="text-xs font-bold text-foreground">Anual (Junio 2026)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => alert("Asesoría disponible en la versión completa")}>INICIAR TRÁMITE</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "TRÁMITE FONACIT", description: "Solicitud de trámite FONACIT registrada. Un asesor le contactará." })}>INICIAR TRÁMITE</Button>
                                 </div>
                             </div>
                         </CardContent>

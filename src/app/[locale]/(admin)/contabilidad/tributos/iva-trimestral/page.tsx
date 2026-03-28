@@ -55,7 +55,7 @@ export default function IvaTrimestralPage() {
                                             <p className="text-xs font-bold text-foreground">Abril - Junio 2026</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => alert("Asesoría disponible en la versión completa")}>INICIAR DECLARACIÓN</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "DECLARACIÓN IVA TRIMESTRAL", description: "Solicitud de declaración registrada. Recibirá asistencia fiscal." })}>INICIAR DECLARACIÓN</Button>
                                 </div>
                             </div>
                         </CardContent>

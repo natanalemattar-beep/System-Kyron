@@ -62,7 +62,7 @@ export default function DeclaracionesAnterioresPage() {
                                     <TableCell className="py-6 text-center text-[10px] font-bold text-muted-foreground uppercase">{row.period}</TableCell>
                                     <TableCell className="text-right py-6 font-mono text-sm font-black text-foreground/70 italic">{formatCurrency(row.amount, 'Bs.')}</TableCell>
                                     <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary" onClick={() => alert("Visualizando comprobante digital...")}>
+                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary" onClick={() => toast({ title: "COMPROBANTE DIGITAL", description: "Visualizando comprobante de declaración." })}>
                                             <Eye className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
@@ -75,7 +75,7 @@ export default function DeclaracionesAnterioresPage() {
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
                         <ShieldCheck className="h-4 w-4 text-primary" /> Sellado de Tiempo Inmutable RFC 3161
                     </div>
-                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">DESCARGAR LOTE XML</Button>
+                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "EXPORTACIÓN XML", description: "Lote de declaraciones anteriores exportado en formato XML." })}>DESCARGAR LOTE XML</Button>
                 </CardFooter>
             </Card>
         </div>

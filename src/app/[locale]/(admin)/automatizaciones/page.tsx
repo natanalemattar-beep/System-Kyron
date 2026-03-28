@@ -45,7 +45,7 @@ export default function AutomatizacionesPage() {
             <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                 <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row justify-between items-center">
                     <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Reglas de Negocio Activas</CardTitle>
-                    <Button variant="ghost" className="text-[10px] font-black uppercase border border-border" onClick={() => alert("En construcción")}>HISTORIAL</Button>
+                    <Button variant="ghost" className="text-[10px] font-black uppercase border border-border" onClick={() => toast({ title: "HISTORIAL DE EJECUCIONES", description: "Sin ejecuciones registradas aún." })}>HISTORIAL</Button>
                 </CardHeader>
                 <div className="p-10 space-y-6">
                     {automatedTasks.map(task => (
@@ -68,7 +68,7 @@ export default function AutomatizacionesPage() {
                     ))}
                 </div>
                 <CardFooter className="p-10 bg-primary/5 flex justify-center">
-                    <Button className="btn-3d-primary h-14 px-12 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl">
+                    <Button className="btn-3d-primary h-14 px-12 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl" onClick={() => toast({ title: "NUEVO FLUJO", description: "Configure su automatización desde el panel de configuración." })}>
                         <PlusCircle className="mr-3 h-5 w-5" /> CREAR NUEVO FLUJO
                     </Button>
                 </CardFooter>
@@ -82,7 +82,7 @@ export default function AutomatizacionesPage() {
                     <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Integridad Maestra</h3>
                     <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">Nuestras automatizaciones están auditadas para garantizar el 100% de cumplimiento legal ante fiscalizaciones.</p>
                 </div>
-                <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">SOLICITAR AUDITORÍA</Button>
+                <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "SOLICITUD ENVIADA", description: "Su solicitud de auditoría de automatizaciones ha sido registrada." })}>SOLICITAR AUDITORÍA</Button>
             </Card>
         </div>
       </div>

@@ -108,7 +108,16 @@ export default function GeneradorDocumentosPage() {
                                 <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Vista Previa del Instrumento</CardTitle>
                                 <div className="flex gap-2">
                                     <Button variant="outline" size="icon" className="rounded-xl" onClick={() => window.print()}><Printer className="h-4 w-4"/></Button>
-                                    <Button variant="outline" size="icon" className="rounded-xl"><Download className="h-4 w-4"/></Button>
+                                    <Button variant="outline" size="icon" className="rounded-xl" onClick={() => {
+                                        const blob = new Blob([result ?? ""], { type: "text/plain;charset=utf-8" });
+                                        const url = URL.createObjectURL(blob);
+                                        const a = document.createElement("a");
+                                        a.href = url;
+                                        a.download = `${documentType.replace(/\s+/g, "_")}_borrador.txt`;
+                                        a.click();
+                                        URL.revokeObjectURL(url);
+                                        toast({ title: "DESCARGA INICIADA", description: "Borrador exportado como archivo de texto." });
+                                    }}><Download className="h-4 w-4"/></Button>
                                 </div>
                             </CardHeader>
                             <CardContent className="p-10 flex-grow overflow-y-auto custom-scrollbar">
@@ -120,7 +129,28 @@ export default function GeneradorDocumentosPage() {
                                 <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-widest text-primary">
                                     <ShieldCheck className="h-4 w-4" /> Validado por Protocolo Legal IA
                                 </div>
-                                <Button className="rounded-xl h-10 px-8 text-[9px] font-black uppercase tracking-widest">GUARDAR EN BÓVEDA</Button>
+                                <Button className="rounded-xl h-10 px-8 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
+                                    try {
+                                        const res = await fetch("/api/documentos-juridicos", {
+                                            method: "POST",
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify({
+                                                tipo: "contrato",
+                                                titulo: documentType || "Borrador Legal IA",
+                                                descripcion: result?.substring(0, 500) ?? "",
+                                                partes: parties ? parties.split(",").map((p: string) => p.trim()) : null,
+                                                estado: "borrador",
+                                            }),
+                                        });
+                                        if (res.ok) {
+                                            toast({ title: "GUARDADO EN BÓVEDA", description: "Documento almacenado en el archivo jurídico." });
+                                        } else {
+                                            toast({ variant: "destructive", title: "Error", description: "No se pudo guardar. Inicie sesión primero." });
+                                        }
+                                    } catch {
+                                        toast({ variant: "destructive", title: "Error", description: "Error de conexión." });
+                                    }
+                                }}>GUARDAR EN BÓVEDA</Button>
                             </CardFooter>
                         </Card>
                     ) : (

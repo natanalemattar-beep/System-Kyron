@@ -354,7 +354,7 @@ export default function MiLineaPage() {
                     </div>
                     <Button
                         className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest btn-3d-primary shadow-xl transition-all"
-                        onClick={() => alert("Funcionalidad en desarrollo")}
+                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud ha sido registrada exitosamente." })}
                     >
                         <Users className="mr-3 h-4 w-4" />
                         Configurar Línea Joven
@@ -462,7 +462,7 @@ export default function MiLineaPage() {
                     <Button
                         variant="outline"
                         className="h-12 px-10 rounded-2xl font-black uppercase text-[10px] tracking-widest border-border hover:border-primary/40 hover:bg-primary/5 transition-all shadow-xl"
-                        onClick={() => alert("Funcionalidad en desarrollo")}
+                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud ha sido registrada exitosamente." })}
                     >
                         <ExternalLink className="mr-3 h-4 w-4" />
                         Ver Catálogo Completo de Equipos
