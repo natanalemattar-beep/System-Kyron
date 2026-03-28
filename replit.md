@@ -59,11 +59,19 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Next.js config:** Compression enabled, `optimizePackageImports` for lucide-react/framer-motion/recharts, AVIF/WebP image formats, static asset cache headers.
 - **DB pool:** `statement_timeout` configured, `transaction()` helper available in `src/lib/db.ts`.
 
-### Registration Page Redesign
+### Registration Page Deep Redesign (Telecom-Inspired)
 - **File:** `src/app/[locale]/(auth)/register/natural/page.tsx`
-- **Gradient header:** Blue-to-emerald gradient banner (`from-blue-600 via-primary to-emerald-500`) with white text, user icon, and step progress circles with icons.
-- **Step indicators:** 4 icon circles (User, Phone, Shield, ShieldCheck) connected by progress lines inside the gradient header. Active step scales up with ring, completed steps show checkmark.
-- **Section headers:** Each step has a colored icon badge (blue/emerald/amber/violet) with bold label instead of plain uppercase text.
-- **Footer buttons:** Gradient-styled per step (blue for steps 1-2, amber for step 3, violet for step 4).
-- **Success screen:** Green gradient circle with checkmark, colored bullet points for next steps, gradient CTA button.
-- **Accessibility:** Password toggle buttons have `aria-label` for screen readers.
+- **Inspiration:** Digitel.com.ve (clean minimalism, warm elegance) + Movistar.com.ve (bold typography, pill tabs, icon-forward), combined into something original.
+- **Layout:** No traditional Card wrapper — uses `rounded-3xl bg-card shadow-2xl` container with decorative gradient orbs (blur-3xl) in background.
+- **Header:** "System Kyron" brand label + gradient dash, "Crear tu Cuenta" heading, step counter pill (1/4).
+- **Step navigation:** Pill-shaped tab buttons (like Movistar's category tabs) with icons (User, Phone, Lock, Fingerprint). Active tab: primary color + shadow. Completed: primary/10 tint, clickable. Future: muted.
+- **Progress bar:** Gradient bar (primary → blue-500 → emerald-500), smooth 700ms transition.
+- **Section banners:** Rounded-2xl cards with gradient icon boxes (blue, emerald, orange, violet) + title + subtitle.
+- **Inputs:** `rounded-xl bg-muted/30 border-border/50 h-11` — soft, rounded, telecom-style. Focus transitions to `bg-background`.
+- **Labels:** Uppercase, tracking-wider, 13px, semibold — clean corporate style.
+- **Footer buttons:** `rounded-2xl h-12` with step-specific gradients (primary→blue, amber→orange, emerald→teal). Shadow effects.
+- **Step 3 password:** Visual strength meter (4-bar indicator: red→amber→blue→emerald).
+- **Step 4 verification:** Gradient icon cards for email/SMS selection, rounded-2xl code input, violet gradient buttons.
+- **Success screen:** Separate layout with gradient orbs, emerald gradient checkmark, gradient text "System Kyron!", icon cards for next steps, full-width gradient CTA.
+- **Accessibility:** `aria-label` on step tabs, password toggles. Step tab text uses `aria-hidden` so screen readers use the aria-label.
+- **Constants:** `FORM_STEPS = TOTAL_STEPS - 1` to avoid hardcoded step counts.

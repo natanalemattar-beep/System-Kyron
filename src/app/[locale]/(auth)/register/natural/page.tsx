@@ -5,9 +5,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  Card, CardContent, CardFooter,
-} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,7 +14,8 @@ import {
 import {
   User, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   MapPin, Phone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
-  MessageSquare, RefreshCw, ShieldCheck, ChevronDown,
+  MessageSquare, RefreshCw, ShieldCheck, ChevronDown, Sparkles, Globe,
+  Lock, Fingerprint,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { DocumentInput } from '@/components/document-input';
@@ -28,6 +26,7 @@ import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 const TOTAL_STEPS = 5;
+const FORM_STEPS = TOTAL_STEPS - 1;
 
 const ESTADOS_VE = [
   'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
@@ -211,98 +210,169 @@ export default function RegisterNaturalPage() {
     }
   };
 
-  const stepLabels = ['Datos Personales', 'Residencia y Contacto', 'Acceso a la Cuenta', 'Verificación de Identidad', 'Completado'];
+  const stepLabels = ['Datos Personales', 'Contacto y Dirección', 'Acceso', 'Verificación'];
+  const stepIcons = [User, Phone, Lock, Fingerprint];
 
   const Field = ({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) => (
-    <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-medium text-foreground">{label}</Label>
+    <div className="space-y-1.5">
+      <Label htmlFor={id} className="text-[13px] font-semibold text-foreground/80 uppercase tracking-wider">{label}</Label>
       {children}
       {error && <p className="text-destructive text-xs font-medium">{error}</p>}
     </div>
   );
 
-  const stepIcons = [User, Phone, Shield, ShieldCheck, CheckCircle];
-  const stepColors = ['text-blue-500', 'text-emerald-500', 'text-amber-500', 'text-violet-500', 'text-green-500'];
-  const stepBgs = ['bg-blue-500/10', 'bg-emerald-500/10', 'bg-amber-500/10', 'bg-violet-500/10', 'bg-green-500/10'];
+  if (step === TOTAL_STEPS) {
+    return (
+      <div className="w-full max-w-lg mx-auto">
+        <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5" />
+          <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-emerald-400/10 to-transparent rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
+
+          <div className="relative px-8 py-12 text-center">
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-teal-500 mb-8 shadow-xl shadow-emerald-500/20">
+              <CheckCircle className="h-12 w-12 text-white" />
+            </div>
+
+            <div className="space-y-2 mb-8">
+              <p className="text-sm font-bold text-emerald-500 uppercase tracking-widest">Registro Exitoso</p>
+              <h2 className="text-3xl font-black text-foreground leading-tight">
+                ¡Bienvenido a<br />
+                <span className="bg-gradient-to-r from-primary via-blue-500 to-emerald-500 bg-clip-text text-transparent">
+                  System Kyron!
+                </span>
+              </h2>
+              <p className="text-muted-foreground text-sm max-w-xs mx-auto mt-3">
+                Tu cuenta ha sido verificada con
+                <span className="font-bold text-primary block mt-1">{registeredEmail}</span>
+              </p>
+            </div>
+
+            <div className="space-y-3 mb-8">
+              {[
+                { icon: Mail, text: 'Inicia sesión con tu correo y contraseña', color: 'from-blue-500 to-cyan-500' },
+                { icon: Globe, text: 'Accede a documentos y servicios personales', color: 'from-emerald-500 to-teal-500' },
+                { icon: Sparkles, text: 'Completa tu perfil para todos los módulos', color: 'from-amber-500 to-orange-500' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-2xl bg-muted/30 border border-border/50 text-left">
+                  <div className={cn("w-9 h-9 rounded-xl bg-gradient-to-br flex items-center justify-center shrink-0", item.color)}>
+                    <item.icon className="h-4 w-4 text-white" />
+                  </div>
+                  <p className="text-sm text-foreground/80 font-medium">{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-emerald-500 hover:opacity-90 text-white font-bold text-base shadow-lg shadow-primary/20 transition-all"
+              onClick={() => {
+                localStorage.setItem('kyron-just-registered', 'true');
+                router.push('/');
+              }}
+            >
+              Explorar la Plataforma
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full max-w-xl mx-auto">
-      <Card className="bg-card border-border shadow-lg overflow-hidden">
-        <div className="relative bg-gradient-to-r from-blue-600 via-primary to-emerald-500 px-6 py-6">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L3N2Zz4=')] opacity-50" />
-          <div className="relative flex items-center gap-4">
-            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-              <User className="h-7 w-7 text-white" />
-            </div>
+    <div className="w-full max-w-2xl mx-auto">
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/8 via-blue-500/5 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-tr from-emerald-500/6 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
+
+        <div className="relative px-8 pt-8 pb-4">
+          <div className="flex items-start justify-between mb-6">
             <div>
-              <h1 className="text-xl font-black text-white tracking-tight">
-                Registro de Persona Natural
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-1 rounded-full bg-gradient-to-r from-primary to-blue-500" />
+                <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">System Kyron</span>
+              </div>
+              <h1 className="text-2xl font-black text-foreground leading-tight">
+                Crear tu Cuenta
               </h1>
-              <p className="text-white/80 text-sm font-medium mt-0.5">
-                {step < TOTAL_STEPS
-                  ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
-                  : stepLabels[TOTAL_STEPS - 1]}
+              <p className="text-muted-foreground text-sm mt-1">
+                Registro de persona natural
               </p>
+            </div>
+            <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-3 py-1.5 border border-border/50">
+              <span className="text-xs font-bold text-primary">{step}</span>
+              <span className="text-xs text-muted-foreground">/</span>
+              <span className="text-xs text-muted-foreground">{FORM_STEPS}</span>
             </div>
           </div>
 
-          {step < TOTAL_STEPS && (
-            <div className="relative mt-5 flex items-center gap-2">
-              {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => {
-                const StepIcon = stepIcons[i];
-                const isActive = i + 1 === step;
-                const isDone = i + 1 < step;
-                return (
-                  <div key={i} className="flex items-center flex-1 gap-2">
-                    <div className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300",
-                      isDone ? "bg-white text-primary" :
-                      isActive ? "bg-white/90 text-primary ring-2 ring-white/50 scale-110" :
-                      "bg-white/20 text-white/60"
-                    )}>
-                      {isDone ? (
-                        <CheckCircle className="h-4 w-4" />
-                      ) : (
-                        <StepIcon className="h-4 w-4" />
-                      )}
-                    </div>
-                    {i < TOTAL_STEPS - 2 && (
-                      <div className={cn(
-                        "h-0.5 flex-1 rounded-full transition-all duration-500",
-                        isDone ? "bg-white" : "bg-white/20"
-                      )} />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <div className="flex gap-1.5 mb-2">
+            {stepLabels.map((label, i) => {
+              const StepIcon = stepIcons[i];
+              const isActive = i + 1 === step;
+              const isDone = i + 1 < step;
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    if (isDone) setStep(i + 1);
+                  }}
+                  aria-label={`Paso ${i + 1}: ${label}`}
+                  className={cn(
+                    "flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-300 border",
+                    isActive
+                      ? "bg-primary text-white border-primary shadow-md shadow-primary/25"
+                      : isDone
+                        ? "bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 cursor-pointer"
+                        : "bg-muted/30 text-muted-foreground border-transparent cursor-default"
+                  )}
+                >
+                  <StepIcon className="h-3.5 w-3.5 shrink-0" />
+                  <span className="hidden sm:inline truncate" aria-hidden="true">{label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="h-1 rounded-full bg-muted/50 overflow-hidden mt-3 mb-1">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-primary via-blue-500 to-emerald-500 transition-all duration-700 ease-out"
+              style={{ width: `${(step / FORM_STEPS) * 100}%` }}
+            />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-5 pt-6">
+          <div className="relative px-8 py-6 space-y-5">
 
             {step === 1 && (
               <>
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className={cn("p-1.5 rounded-lg", stepBgs[0])}>
-                    <User className={cn("h-4 w-4", stepColors[0])} />
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-blue-500/5 border border-blue-500/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-md shadow-blue-500/20">
+                    <User className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-sm font-bold text-foreground tracking-wide">Información Personal</span>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">Información Personal</p>
+                    <p className="text-xs text-muted-foreground">Tus datos de identidad</p>
+                  </div>
                 </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="nombre" label="Nombre(s)" error={errors.nombre?.message}>
-                    <Input id="nombre" placeholder="Juan Carlos" className="bg-background border-input" {...register('nombre')} />
+                    <Input id="nombre" placeholder="Juan Carlos" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('nombre')} />
                   </Field>
                   <Field id="apellido" label="Apellido(s)" error={errors.apellido?.message}>
-                    <Input id="apellido" placeholder="González Pérez" className="bg-background border-input" {...register('apellido')} />
+                    <Input id="apellido" placeholder="González Pérez" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('apellido')} />
                   </Field>
                 </div>
+
                 <Field id="cedula" label="Cédula de Identidad" error={errors.cedula?.message}>
                   <Controller name="cedula" control={control} render={({ field }) => (
                     <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
                   )} />
                 </Field>
+
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
                   <Controller
                     name="fecha_nacimiento"
@@ -319,7 +389,7 @@ export default function RegisterNaturalPage() {
                               variant="outline"
                               id="fecha_nacimiento"
                               className={cn(
-                                "w-full justify-start text-left font-normal bg-background border-input h-10",
+                                "w-full justify-start text-left font-normal rounded-xl bg-muted/30 border-border/50 h-11 hover:bg-muted/50",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -337,9 +407,7 @@ export default function RegisterNaturalPage() {
                               mode="single"
                               selected={isValidDate ? dateValue : undefined}
                               onSelect={(date) => {
-                                if (date) {
-                                  field.onChange(format(date, 'yyyy-MM-dd'));
-                                }
+                                if (date) field.onChange(format(date, 'yyyy-MM-dd'));
                               }}
                               defaultMonth={isValidDate ? dateValue : new Date(1990, 0)}
                               captionLayout="dropdown-buttons"
@@ -355,6 +423,7 @@ export default function RegisterNaturalPage() {
                     }}
                   />
                 </Field>
+
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="genero" label="Género" error={errors.genero?.message}>
                     <Controller
@@ -362,7 +431,7 @@ export default function RegisterNaturalPage() {
                       control={control}
                       render={({ field }) => (
                         <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="genero" className="bg-background border-input">
+                          <SelectTrigger id="genero" className="rounded-xl bg-muted/30 border-border/50 h-11">
                             <SelectValue placeholder="Seleccionar" />
                           </SelectTrigger>
                           <SelectContent>
@@ -381,7 +450,7 @@ export default function RegisterNaturalPage() {
                       control={control}
                       render={({ field }) => (
                         <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="estado_civil" className="bg-background border-input">
+                          <SelectTrigger id="estado_civil" className="rounded-xl bg-muted/30 border-border/50 h-11">
                             <SelectValue placeholder="Seleccionar" />
                           </SelectTrigger>
                           <SelectContent>
@@ -401,39 +470,50 @@ export default function RegisterNaturalPage() {
 
             {step === 2 && (
               <>
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className={cn("p-1.5 rounded-lg", stepBgs[1])}>
-                    <Phone className={cn("h-4 w-4", stepColors[1])} />
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-md shadow-emerald-500/20">
+                    <Phone className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-sm font-bold text-foreground tracking-wide">Datos de Contacto</span>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">Contacto y Dirección</p>
+                    <p className="text-xs text-muted-foreground">Cómo te ubicamos</p>
+                  </div>
                 </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="telefono" label="Teléfono Principal" error={errors.telefono?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input id="telefono" placeholder="0412-1234567" className="pl-9 bg-background border-input" {...register('telefono')} />
+                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="telefono" placeholder="0412-1234567" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('telefono')} />
                     </div>
                   </Field>
                   <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9 bg-background border-input" {...register('telefono_alt')} />
+                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('telefono_alt')} />
                     </div>
                   </Field>
                 </div>
-                <div className="flex items-center gap-2.5 mt-5 mb-2">
-                  <div className="p-1.5 rounded-lg bg-orange-500/10">
-                    <MapPin className="h-4 w-4 text-orange-500" />
+
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-1" />
+
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-orange-500/5 border border-orange-500/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20">
+                    <MapPin className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-sm font-bold text-foreground tracking-wide">Dirección de Residencia</span>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">Dirección de Residencia</p>
+                    <p className="text-xs text-muted-foreground">Tu ubicación en Venezuela</p>
+                  </div>
                 </div>
+
                 <Field id="estado_residencia" label="Estado / Entidad Federal" error={errors.estado_residencia?.message}>
                   <Controller
                     name="estado_residencia"
                     control={control}
                     render={({ field }) => (
                       <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger id="estado_residencia" className="bg-background border-input">
+                        <SelectTrigger id="estado_residencia" className="rounded-xl bg-muted/30 border-border/50 h-11">
                           <SelectValue placeholder="Selecciona el estado" />
                         </SelectTrigger>
                         <SelectContent>
@@ -443,21 +523,23 @@ export default function RegisterNaturalPage() {
                     )}
                   />
                 </Field>
+
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="municipio" label="Municipio" error={errors.municipio?.message}>
-                    <Input id="municipio" placeholder="Ej: Sucre" className="bg-background border-input" {...register('municipio')} />
+                    <Input id="municipio" placeholder="Ej: Sucre" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('municipio')} />
                   </Field>
                   <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
-                    <Input id="ciudad" placeholder="Ej: Petare" className="bg-background border-input" {...register('ciudad')} />
+                    <Input id="ciudad" placeholder="Ej: Petare" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('ciudad')} />
                   </Field>
                 </div>
+
                 <Field id="direccion" label="Dirección Completa" error={errors.direccion?.message}>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <MapPin className="absolute left-3.5 top-3 h-4 w-4 text-muted-foreground" />
                     <textarea
                       id="direccion"
                       placeholder="Av. Principal, Residencias X, Piso 2, Apto 2-B..."
-                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex min-h-[80px] w-full rounded-xl border border-border/50 bg-muted/30 px-3 py-2.5 pl-10 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:bg-background transition-colors"
                       {...register('direccion')}
                     />
                   </div>
@@ -467,61 +549,87 @@ export default function RegisterNaturalPage() {
 
             {step === 3 && (
               <>
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className={cn("p-1.5 rounded-lg", stepBgs[2])}>
-                    <Shield className={cn("h-4 w-4", stepColors[2])} />
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-amber-500/5 border border-amber-500/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md shadow-amber-500/20">
+                    <Lock className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-sm font-bold text-foreground tracking-wide">Credenciales de Acceso</span>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">Credenciales de Acceso</p>
+                    <p className="text-xs text-muted-foreground">Tu correo y contraseña</p>
+                  </div>
                 </div>
+
                 <Field id="email" label="Correo Electrónico" error={errors.email?.message}>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="email" type="email" placeholder="tu@correo.com" className="pl-9 bg-background border-input" {...register('email')} />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="email" type="email" placeholder="tu@correo.com" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('email')} />
                   </div>
                 </Field>
+
                 <Field id="password" label="Contraseña" error={errors.password?.message}>
                   <div className="relative">
-                    <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="password" type={showPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
+                    <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="password" type={showPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('password')} />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
-                  <p className="text-xs text-muted-foreground">Mínimo 8 caracteres, una mayúscula y un número.</p>
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <div className="flex gap-1 flex-1">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className={cn(
+                          "h-1 flex-1 rounded-full transition-colors",
+                          (() => {
+                            const pw = getValues('password') || '';
+                            const strength = (pw.length >= 8 ? 1 : 0) + (/[A-Z]/.test(pw) ? 1 : 0) + (/[0-9]/.test(pw) ? 1 : 0) + (/[^A-Za-z0-9]/.test(pw) ? 1 : 0);
+                            return i <= strength
+                              ? strength <= 1 ? 'bg-red-400' : strength <= 2 ? 'bg-amber-400' : strength <= 3 ? 'bg-blue-400' : 'bg-emerald-400'
+                              : 'bg-muted';
+                          })()
+                        )} />
+                      ))}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">Min. 8, 1 mayúscula, 1 número</span>
+                  </div>
                 </Field>
+
                 <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                   <div className="relative">
-                    <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
-                    <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
+                    <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-10 pr-11 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('confirmPassword')} />
+                    <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </Field>
-                <div className="p-3 bg-muted/50 rounded-lg text-xs text-muted-foreground border border-border">
+
+                <div className="p-3.5 rounded-2xl bg-muted/30 border border-border/50 text-xs text-muted-foreground">
                   Al crear tu cuenta aceptas nuestros{' '}
-                  <a href="/terms" className="text-primary underline">Términos de Servicio</a>{' '}
+                  <a href="/terms" className="text-primary font-semibold hover:underline">Términos de Servicio</a>{' '}
                   y nuestra{' '}
-                  <a href="/politica-privacidad" className="text-primary underline">Política de Privacidad</a>.
+                  <a href="/politica-privacidad" className="text-primary font-semibold hover:underline">Política de Privacidad</a>.
                 </div>
               </>
             )}
 
             {step === 4 && (
               <div className="space-y-5">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className={cn("p-1.5 rounded-lg", stepBgs[3])}>
-                    <ShieldCheck className={cn("h-4 w-4", stepColors[3])} />
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-violet-500/5 border border-violet-500/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center shadow-md shadow-violet-500/20">
+                    <Fingerprint className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-sm font-bold text-foreground tracking-wide">Verificación de Identidad</span>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">Verificación de Identidad</p>
+                    <p className="text-xs text-muted-foreground">Confirma que eres tú</p>
+                  </div>
                 </div>
 
                 {verifVerified ? (
                   <div className="text-center py-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
-                      <CheckCircle className="h-9 w-9 text-green-500" />
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 mb-5 shadow-lg shadow-emerald-500/20">
+                      <CheckCircle className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
+                    <h3 className="text-lg font-black text-foreground">¡Identidad Verificada!</h3>
                     <p className="text-muted-foreground text-sm mt-1">
                       Tu {verifMethod === 'email' ? 'correo electrónico' : 'número de teléfono'} ha sido confirmado.
                     </p>
@@ -529,38 +637,58 @@ export default function RegisterNaturalPage() {
                 ) : (
                   <>
                     <p className="text-sm text-muted-foreground">
-                      Para proteger tu cuenta, necesitamos verificar tu identidad. Elige cómo quieres recibir tu código de 6 dígitos.
+                      Para proteger tu cuenta, necesitamos verificar tu identidad. Elige cómo recibir tu código de 6 dígitos.
                     </p>
 
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         type="button"
                         onClick={() => { setVerifMethod('email'); setVerifSent(false); setVerifCode(''); }}
-                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'email'
-                          ? 'border-primary bg-primary/5'
-                          : 'border-border bg-background hover:border-primary/50'}`}
+                        className={cn(
+                          "p-4 rounded-2xl border-2 transition-all text-left group",
+                          verifMethod === 'email'
+                            ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
+                            : 'border-border/50 bg-muted/20 hover:border-primary/30 hover:bg-muted/40'
+                        )}
                       >
-                        <Mail className={`h-5 w-5 mb-2 ${verifMethod === 'email' ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <p className={`text-sm font-semibold ${verifMethod === 'email' ? 'text-primary' : 'text-foreground'}`}>Por Correo</p>
-                        <p className="text-xs text-muted-foreground truncate">{getValues('email')}</p>
+                        <div className={cn(
+                          "w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all",
+                          verifMethod === 'email'
+                            ? 'bg-gradient-to-br from-primary to-blue-500 shadow-md shadow-primary/20'
+                            : 'bg-muted/50'
+                        )}>
+                          <Mail className={cn("h-5 w-5", verifMethod === 'email' ? 'text-white' : 'text-muted-foreground')} />
+                        </div>
+                        <p className={cn("text-sm font-bold", verifMethod === 'email' ? 'text-primary' : 'text-foreground')}>Por Correo</p>
+                        <p className="text-xs text-muted-foreground truncate mt-0.5">{getValues('email')}</p>
                       </button>
                       <button
                         type="button"
                         onClick={() => { setVerifMethod('sms'); setVerifSent(false); setVerifCode(''); }}
-                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'sms'
-                          ? 'border-primary bg-primary/5'
-                          : 'border-border bg-background hover:border-primary/50'}`}
+                        className={cn(
+                          "p-4 rounded-2xl border-2 transition-all text-left group",
+                          verifMethod === 'sms'
+                            ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
+                            : 'border-border/50 bg-muted/20 hover:border-primary/30 hover:bg-muted/40'
+                        )}
                       >
-                        <MessageSquare className={`h-5 w-5 mb-2 ${verifMethod === 'sms' ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <p className={`text-sm font-semibold ${verifMethod === 'sms' ? 'text-primary' : 'text-foreground'}`}>Por SMS</p>
-                        <p className="text-xs text-muted-foreground truncate">{getValues('telefono')}</p>
+                        <div className={cn(
+                          "w-10 h-10 rounded-xl flex items-center justify-center mb-3 transition-all",
+                          verifMethod === 'sms'
+                            ? 'bg-gradient-to-br from-primary to-blue-500 shadow-md shadow-primary/20'
+                            : 'bg-muted/50'
+                        )}>
+                          <MessageSquare className={cn("h-5 w-5", verifMethod === 'sms' ? 'text-white' : 'text-muted-foreground')} />
+                        </div>
+                        <p className={cn("text-sm font-bold", verifMethod === 'sms' ? 'text-primary' : 'text-foreground')}>Por SMS</p>
+                        <p className="text-xs text-muted-foreground truncate mt-0.5">{getValues('telefono')}</p>
                       </button>
                     </div>
 
                     {!verifSent ? (
                       <Button
                         type="button"
-                        className="w-full"
+                        className="w-full h-12 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-500 hover:opacity-90 text-white font-bold shadow-md shadow-violet-500/20"
                         onClick={sendVerificationCode}
                         disabled={verifLoading}
                       >
@@ -572,26 +700,26 @@ export default function RegisterNaturalPage() {
                         )}
                       </Button>
                     ) : (
-                      <div className="space-y-3">
-                        <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm text-center">
+                      <div className="space-y-4">
+                        <div className="p-3.5 bg-primary/5 border border-primary/15 rounded-2xl text-sm text-center">
                           Código enviado a <strong className="text-primary">{verifDestino}</strong>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="verif-code" className="text-sm font-medium">Ingresa el código de 6 dígitos</Label>
+                          <Label htmlFor="verif-code" className="text-sm font-semibold">Ingresa el código de 6 dígitos</Label>
                           <Input
                             id="verif-code"
                             type="text"
                             inputMode="numeric"
                             maxLength={6}
-                            placeholder="_ _ _ _ _ _"
+                            placeholder="000000"
                             value={verifCode}
                             onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="text-center text-2xl tracking-[0.5em] font-mono bg-background border-input"
+                            className="text-center text-2xl tracking-[0.5em] font-mono rounded-2xl bg-muted/30 border-border/50 h-14"
                           />
                         </div>
                         <Button
                           type="button"
-                          className="w-full"
+                          className="w-full h-12 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-500 hover:opacity-90 text-white font-bold shadow-md"
                           onClick={verifyCode}
                           disabled={verifLoading || verifCode.length !== 6}
                         >
@@ -611,7 +739,7 @@ export default function RegisterNaturalPage() {
                               type="button"
                               onClick={sendVerificationCode}
                               disabled={verifLoading}
-                              className="text-xs text-primary underline inline-flex items-center gap-1 hover:opacity-80"
+                              className="text-xs text-primary font-semibold inline-flex items-center gap-1 hover:opacity-80"
                             >
                               <RefreshCw className="h-3 w-3" /> Reenviar código
                             </button>
@@ -623,76 +751,55 @@ export default function RegisterNaturalPage() {
                 )}
               </div>
             )}
-
-            {step === TOTAL_STEPS && (
-              <div className="text-center py-8">
-                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-lg shadow-green-500/25">
-                  <CheckCircle className="h-10 w-10 text-white" />
-                </div>
-                <h2 className="text-2xl font-black text-foreground">
-                  ¡Bienvenido a System Kyron!
-                </h2>
-                <p className="text-muted-foreground mt-2 text-sm">
-                  Tu cuenta personal ha sido registrada y verificada exitosamente con el correo:{' '}
-                  <span className="font-bold text-primary">{registeredEmail}</span>
-                </p>
-                <div className="mt-6 p-4 bg-gradient-to-br from-primary/5 to-emerald-500/5 border border-primary/15 rounded-xl text-left text-sm space-y-2">
-                  <p className="font-bold text-primary flex items-center gap-2">
-                    <ArrowRight className="h-4 w-4" /> Próximos pasos
-                  </p>
-                  <div className="space-y-1.5 ml-6">
-                    <p className="text-muted-foreground flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
-                      Inicia sesión con tu correo y contraseña
-                    </p>
-                    <p className="text-muted-foreground flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                      Accede a tus documentos y servicios personales
-                    </p>
-                    <p className="text-muted-foreground flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
-                      Completa tu perfil para acceder a todos los módulos
-                    </p>
-                  </div>
-                </div>
-                <Button className="mt-6 w-full bg-gradient-to-r from-primary to-emerald-500 hover:from-primary/90 hover:to-emerald-500/90 text-white font-bold shadow-md" onClick={() => {
-                  localStorage.setItem('kyron-just-registered', 'true');
-                  router.push('/');
-                }}>
-                  Explorar la Plataforma <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </CardContent>
+          </div>
 
           {step < TOTAL_STEPS && (
-            <CardFooter className="flex justify-between pt-4 pb-6">
-              <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} className="gap-2">
+            <div className="px-8 pb-8 pt-2 flex justify-between items-center gap-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={prevStep}
+                disabled={step === 1}
+                className="rounded-2xl h-12 px-6 border-border/50 gap-2"
+              >
                 <ArrowLeft className="h-4 w-4" /> Anterior
               </Button>
+
               {step < 3 && (
-                <Button type="button" onClick={nextStep} className="gap-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white font-bold shadow-md">
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className="rounded-2xl h-12 px-8 bg-gradient-to-r from-primary to-blue-500 hover:opacity-90 text-white font-bold shadow-lg shadow-primary/20 gap-2 flex-1 max-w-[220px]"
+                >
                   Siguiente <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
               {step === 3 && (
-                <Button type="button" onClick={nextStep} className="gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-500/90 hover:to-orange-500/90 text-white font-bold shadow-md">
-                  Continuar a Verificación <ArrowRight className="h-4 w-4" />
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className="rounded-2xl h-12 px-6 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white font-bold shadow-lg shadow-amber-500/20 gap-2"
+                >
+                  Verificar Identidad <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
               {step === 4 && (
-                <Button type="submit" disabled={isLoading || !verifVerified} className="gap-2 bg-gradient-to-r from-violet-500 to-primary hover:from-violet-500/90 hover:to-primary/90 text-white font-bold shadow-md">
+                <Button
+                  type="submit"
+                  disabled={isLoading || !verifVerified}
+                  className="rounded-2xl h-12 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-white font-bold shadow-lg shadow-emerald-500/20 gap-2"
+                >
                   {isLoading ? (
-                    <><Loader2 className="h-4 w-4 animate-spin" /> Creando cuenta...</>
+                    <><Loader2 className="h-4 w-4 animate-spin" /> Creando...</>
                   ) : (
                     <>Crear Cuenta <ArrowRight className="h-4 w-4" /></>
                   )}
                 </Button>
               )}
-            </CardFooter>
+            </div>
           )}
         </form>
-      </Card>
+      </div>
     </div>
   );
 }
