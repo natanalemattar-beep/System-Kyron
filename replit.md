@@ -18,7 +18,7 @@ Todas las rutas de la app están bajo `src/app/[locale]/` para soportar i18n.
 - Las páginas de registro (`(auth)/register/`) están en la raíz porque son importadas por `[locale]/(auth)/register/`
 
 ### Estructura de Grupos
-- `[locale]/(auth)/` — Login y registro
+- `[locale]/(auth)/` — Login, registro y recuperación de cuenta
 - `[locale]/(admin)/` — Módulos de administración y contabilidad
 - `[locale]/(hr)/` — Recursos Humanos
 - `[locale]/(legal)/` — Asesoría Legal

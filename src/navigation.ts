@@ -163,6 +163,7 @@ export const pathnames = {
   '/venta-linea': '/venta-linea',
   '/invoices': '/invoices',
   '/recover-legal': '/recover-legal',
+  '/recuperar-cuenta': '/recuperar-cuenta',
   '/cuentas': '/cuentas',
 
   // LEGACY ROUTES COMPATIBILITY
