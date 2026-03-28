@@ -187,46 +187,51 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-4xl mx-auto overflow-hidden">
-            {navGroups?.map((group) => (
+          <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1 mx-auto overflow-hidden">
+            {navGroups?.map((group) => {
+                const filteredItems = group.items.filter(item => 
+                    item.href !== dashboardHref && 
+                    !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
+                );
+                const useWideLayout = filteredItems.length > 6;
+                return (
                 <DropdownMenu key={group.title}>
                     <DropdownMenuTrigger asChild>
                         <Button 
                             variant="ghost" 
-                            className="h-9 px-3 rounded-lg text-[9px] font-black uppercase tracking-[0.1em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary"
+                            className="h-9 px-2.5 rounded-lg text-[8px] font-black uppercase tracking-[0.08em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-1.5 group data-[state=open]:text-primary"
                         >
                             <group.icon className="h-3 w-3 opacity-40 group-data-[state=open]:opacity-100" />
                             {group.title}
                             <ChevronDown className="h-2.5 w-2.5 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="w-[440px] p-3 rounded-[2rem] border-border bg-card/98 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                    <DropdownMenuContent align="center" className={cn("p-3 rounded-[2rem] border-border bg-card/98 backdrop-blur-3xl shadow-2xl overflow-hidden", useWideLayout ? "w-[560px]" : "w-[400px]")}>
                         <DropdownMenuLabel className="p-3 mb-3 bg-primary/5 rounded-2xl border border-primary/10">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-primary/10 rounded-xl">
                                     <group.icon className="h-4 w-4 text-primary" />
                                 </div>
                                 <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">{group.title}</span>
+                                <span className="text-[8px] font-bold text-muted-foreground ml-auto">{filteredItems.length} módulos</span>
                             </div>
                         </DropdownMenuLabel>
-                        <div className="grid grid-cols-2 gap-1.5">
-                            {group.items.filter(item => 
-                                item.href !== dashboardHref && 
-                                !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
-                            ).map((item) => (
-                                <DropdownMenuItem key={item.href} asChild className="rounded-xl h-11 focus:bg-primary/5 group/item cursor-pointer">
-                                    <Link href={item.href as any} className="flex items-center px-3 text-[9px] font-black uppercase tracking-widest gap-3">
-                                        <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 transition-colors">
-                                            <item.icon className="h-3.5 w-3.5 text-muted-foreground group-hover/item:text-primary" />
+                        <div className="grid gap-1.5 grid-cols-2">
+                            {filteredItems.map((item) => (
+                                <DropdownMenuItem key={item.href} asChild className="rounded-xl h-10 focus:bg-primary/5 group/item cursor-pointer">
+                                    <Link href={item.href as any} className="flex items-center px-3 text-[8px] font-black uppercase tracking-widest gap-2.5">
+                                        <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 transition-colors shrink-0">
+                                            <item.icon className="h-3 w-3 text-muted-foreground group-hover/item:text-primary" />
                                         </div>
-                                        <span className="group-hover/item:text-foreground transition-colors">{item.label}</span>
+                                        <span className="group-hover/item:text-foreground transition-colors truncate">{item.label}</span>
                                     </Link>
                                 </DropdownMenuItem>
                             ))}
                         </div>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            ))}
+                );
+            })}
           </nav>
 
           <div className="flex items-center justify-end gap-3 min-w-fit">

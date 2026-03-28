@@ -51,69 +51,58 @@ export const naturalNavGroups = [
 
 export const adminNavGroups = [
   {
-    title: "Estrategia",
-    icon: Hammer,
-    items: [
-        { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
-        { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
-    ]
-  },
-  {
-    title: "Calidad",
-    icon: ShieldCheck,
-    items: [
-        { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText },
-    ]
-  },
-  {
-    title: "Proyectos",
-    icon: ClipboardList,
-    items: [
-        { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
-        { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
-    ]
-  },
-  {
     title: "Contabilidad",
     icon: Calculator,
     items: [
         { href: "/contabilidad", label: "Centro Contable", icon: BrainCircuit },
         { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
-        { href: "/contabilidad/entidades-sin-fines-lucro", label: "ESFL y Condominios", icon: Handshake },
         { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart },
+        { href: "/contabilidad/entidades-sin-fines-lucro", label: "ESFL y Condominios", icon: Handshake },
+        { href: "/contabilidad/certificaciones/contables", label: "Cert. Contables", icon: FileSignature },
+        { href: "/contabilidad/certificaciones/financiera", label: "Dictamen Financiero", icon: Calculator },
+        { href: "/contabilidad/certificaciones/empresa", label: "Dossier Empresa", icon: Building2 },
     ],
-    subGroups: []
   },
   {
-    title: "Tributos",
+    title: "Fiscal",
     icon: Landmark,
     items: [
         { href: "/contabilidad/tributos", label: "Centro Tributario", icon: Landmark },
         { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
-        { href: "/contabilidad/tributos/comunicaciones", label: "Centro Comunicaciones", icon: MailOpen },
-        { href: "/contabilidad/conatel", label: "Permiso Conatel", icon: Signal },
-        { href: "/contabilidad/tributos/aportes-parafiscales", label: "Parafiscales", icon: Landmark },
-        { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protecc. Pensiones", icon: ShieldCheck },
         { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent },
         { href: "/contabilidad/tributos/retenciones-islr", label: "Retenciones ISLR", icon: Banknote },
         { href: "/contabilidad/tributos/igtf", label: "IGTF 3%", icon: CreditCard },
+        { href: "/contabilidad/tributos/aportes-parafiscales", label: "Parafiscales", icon: Landmark },
         { href: "/contabilidad/tributos/municipales", label: "Municipales", icon: Landmark },
-        { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario", icon: Calendar },
-        { href: "/contabilidad/tributos/multas", label: "Multas", icon: Gavel },
+        { href: "/contabilidad/tributos/calendario-fiscal", label: "Calendario Fiscal", icon: Calendar },
+        { href: "/contabilidad/tributos/multas", label: "Multas y Sanciones", icon: Gavel },
+        { href: "/contabilidad/tributos/comunicaciones", label: "Comunicaciones", icon: MailOpen },
     ],
-    subGroups: []
   },
   {
-    title: "Certificaciones",
-    icon: ShieldCheck,
+    title: "Permisos",
+    icon: Shield,
     items: [
-        { href: "/contabilidad/certificaciones/empresa", label: "Dossier Empresa", icon: Building2 },
-        { href: "/contabilidad/certificaciones/contables", label: "Cert. Contables", icon: FileSignature },
-        { href: "/contabilidad/certificaciones/financiera", label: "Dictamen Financiero", icon: Calculator },
+        { href: "/permisos", label: "Licencias Vigentes", icon: ShieldCheck },
+        { href: "/autorizaciones", label: "Autorizaciones", icon: UserCheck },
+        { href: "/contabilidad/conatel", label: "Permiso CONATEL", icon: Signal },
+        { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protección Pensiones", icon: ShieldCheck },
+        { href: "/contabilidad/tributos/permisos", label: "Permisos Tributarios", icon: File },
+        { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileEdit },
+    ],
+  },
+  {
+    title: "Planificación",
+    icon: Target,
+    items: [
+        { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
+        { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
+        { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText },
+        { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
+        { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
         { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: Users },
     ],
-    subGroups: []
   },
   {
     title: "Sistema",
@@ -121,7 +110,6 @@ export const adminNavGroups = [
     items: [
         { href: "/actividad", label: "Registro de Actividad", icon: Activity },
     ],
-    subGroups: []
   }
 ];
 

@@ -31,45 +31,61 @@ export default function PermisosPage() {
   }, {} as Record<string, typeof initialPermisos>);
 
   return (
-    <div className="space-y-12 pb-20">
-      <header className="border-l-4 border-slate-500 pl-8 py-2 mt-10">
+    <div className="space-y-10 pb-20">
+      <header className="border-l-4 border-primary pl-8 py-2 mt-6 md:mt-10">
         <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 shadow-glow mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
                 <Gavel className="h-3 w-3" /> NODO DE CUMPLIMIENTO
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Trámites y <span className="text-slate-400 italic">Permisos</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Monitor de Licencias v2.6 • Registro Centralizado</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Trámites y <span className="text-primary italic">Permisos</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">Monitor de Licencias v2.6 · Registro Centralizado</p>
         </div>
       </header>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden shadow-2xl">
-            <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
-                <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-slate-400">Directorio de Habilitaciones</CardTitle>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+        {[
+            { label: "Total Permisos", value: String(permisos.length), color: "text-primary", bg: "bg-primary/10", icon: ShieldCheck },
+            { label: "Vigentes", value: String(permisos.filter(p => p.estado === 'Vigente').length), color: "text-emerald-500", bg: "bg-emerald-500/10", icon: Activity },
+            { label: "Por Vencer", value: String(permisos.filter(p => p.estado === 'Por Vencer' || p.estado === 'Vencido').length), color: "text-amber-500", bg: "bg-amber-500/10", icon: ShieldCheck },
+        ].map((kpi, i) => (
+            <Card key={i} className="glass-card border-none bg-card/40 rounded-2xl p-5 md:p-6">
+                <div className="flex items-center justify-between mb-3">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</span>
+                    <div className={cn("p-2 rounded-xl", kpi.bg)}><kpi.icon className={cn("h-4 w-4", kpi.color)} /></div>
+                </div>
+                <p className={cn("text-2xl font-black italic tracking-tighter", kpi.color)}>{kpi.value}</p>
+            </Card>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-12">
+        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-md">
+            <CardHeader className="p-6 md:p-8 border-b border-border/30">
+                <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Directorio de Habilitaciones</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
                 <Accordion type="single" collapsible className="w-full">
                     {Object.entries(groupedPermisos).map(([emisor, lista]) => (
-                        <AccordionItem value={emisor} key={emisor} className="border-white/5">
-                            <AccordionTrigger className="px-10 py-6 hover:bg-white/[0.02] transition-all">
-                                <div className="flex justify-between items-center w-full pr-10">
-                                    <span className="font-black uppercase italic tracking-tighter text-white/80">{emisor}</span>
-                                    <Badge className="bg-white/5 border-white/10 text-[8px] font-black uppercase px-3">{lista.length} ITEMS</Badge>
+                        <AccordionItem value={emisor} key={emisor} className="border-border/30">
+                            <AccordionTrigger className="px-6 md:px-8 py-5 hover:bg-muted/30 transition-all">
+                                <div className="flex justify-between items-center w-full pr-6">
+                                    <span className="font-black uppercase italic tracking-tighter text-foreground/80">{emisor}</span>
+                                    <Badge className="bg-muted border-border text-[8px] font-black uppercase px-3">{lista.length} ITEMS</Badge>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="p-0">
                                 <Table>
                                     <TableBody>
                                         {lista.map(p => (
-                                            <TableRow key={p.id} className="border-none hover:bg-white/[0.01]">
-                                                <TableCell className="pl-14 py-5 text-[10px] font-black text-primary italic uppercase">{p.id}</TableCell>
-                                                <TableCell className="py-5 font-bold text-white/60 text-xs uppercase">{p.tipo}</TableCell>
-                                                <TableCell className="py-5">
+                                            <TableRow key={p.id} className="border-none hover:bg-muted/20">
+                                                <TableCell className="pl-8 md:pl-12 py-4 text-[10px] font-black text-primary italic uppercase">{p.id}</TableCell>
+                                                <TableCell className="py-4 font-bold text-foreground/60 text-xs uppercase">{p.tipo}</TableCell>
+                                                <TableCell className="py-4">
                                                     <Badge variant={statusVariant[p.estado]} className="text-[8px] font-black uppercase tracking-widest">{p.estado}</Badge>
                                                 </TableCell>
-                                                <TableCell className="text-right pr-10 py-5">
-                                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-white/5">
-                                                        <Eye className="h-4 w-4 text-white/20" />
+                                                <TableCell className="text-right pr-6 md:pr-8 py-4">
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-muted/40">
+                                                        <Eye className="h-4 w-4 text-muted-foreground/40" />
                                                     </Button>
                                                 </TableCell>
                                             </TableRow>
@@ -83,23 +99,35 @@ export default function PermisosPage() {
             </CardContent>
         </Card>
 
-        <div className="lg:col-span-4 space-y-10">
-            <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden shadow-glow border-none group">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Activity className="h-32 w-32" /></div>
-                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Nueva Solicitud</h3>
-                <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Inicie el protocolo de gestión ante nuevos entes emisores.</p>
-                <Button className="w-full h-12 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-2xl">
+        <div className="lg:col-span-4 space-y-6">
+            <Card className="bg-primary text-primary-foreground rounded-2xl p-8 relative overflow-hidden shadow-lg border-none group">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Activity className="h-24 w-24" /></div>
+                <h3 className="text-xl font-black uppercase italic tracking-tighter mb-3">Nueva Solicitud</h3>
+                <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-6">Inicie el protocolo de gestión ante nuevos entes emisores.</p>
+                <Button className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-lg">
                     <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR TRÁMITE
                 </Button>
             </Card>
 
-            <Card className="glass-card border-none bg-amber-500/5 rounded-[2.5rem] p-8 border border-amber-500/10">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 mb-6 flex items-center gap-3 italic">
+            <Card className="glass-card border-none bg-amber-500/5 rounded-2xl p-6 border border-amber-500/10">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 mb-4 flex items-center gap-3 italic">
                     <ShieldCheck className="h-4 w-4" /> Alerta de Vencimiento
                 </h4>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 leading-relaxed text-justify">
-                    El sistema ha detectado 2 permisos en ventana de renovación. Verifique el módulo de tareas para evitar la extinción de derechos.
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-relaxed">
+                    El sistema ha detectado {permisos.filter(p => p.estado === 'Por Vencer').length} permisos en ventana de renovación. Verifique el módulo de tareas para evitar la extinción de derechos.
                 </p>
+            </Card>
+
+            <Card className="glass-card border-none bg-card/40 rounded-2xl p-6">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/60 mb-4">Entes Emisores</h4>
+                <div className="space-y-2">
+                    {Object.entries(groupedPermisos).map(([emisor, lista]) => (
+                        <div key={emisor} className="flex items-center justify-between p-2.5 rounded-xl bg-muted/30">
+                            <span className="text-[9px] font-bold uppercase tracking-widest text-foreground/70">{emisor}</span>
+                            <Badge variant="outline" className="text-[8px]">{lista.length}</Badge>
+                        </div>
+                    ))}
+                </div>
             </Card>
         </div>
       </div>

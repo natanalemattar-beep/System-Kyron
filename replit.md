@@ -22,6 +22,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - All application routes are organized under `src/app/[locale]/` for i18n support.
 - Grouped routes include `(auth)`, `(admin)`, `(hr)`, `(legal)`, `(main)`, `(natural)`, `(socios)`, `(telecom)`, and `(ventas)`.
 - A mobile sidebar is implemented with smooth scrolling for landing pages and contextual navigation for the main application, including user profile, quick actions, and automatic closure on navigation.
+- **Admin nav reorganized (v2.8.3):** Consolidated from 7 groups to 5: Contabilidad (8 items), Fiscal (10 items), Permisos (6 items — NEW), Planificación (6 items), Sistema (1 item). Dropdown widths auto-adjust for larger groups (560px vs 400px).
 
 **Technical Implementations:**
 - **Database Schema:** A comprehensive PostgreSQL schema with over 60 tables is centralized in `src/lib/db-schema.ts` and initialized automatically on server startup.
