@@ -41,7 +41,7 @@ function StarRating({ value, onChange, readonly = false }: { value: number; onCh
                         "h-4 w-4 transition-colors",
                         star <= value
                             ? "fill-amber-400 text-amber-400"
-                            : "text-muted-foreground/30"
+                            : "text-muted-foreground/60"
                     )} />
                 </button>
             ))}
@@ -143,8 +143,8 @@ export function CommentsSection() {
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted/50 border border-border/20 mb-4">
                             <Quote className="h-7 w-7 text-muted-foreground/60" />
                         </div>
-                        <h3 className="text-lg font-black uppercase tracking-tight text-foreground/80 mb-2">Sin comentarios aún</h3>
-                        <p className="text-xs text-muted-foreground/70 font-bold uppercase tracking-wider max-w-sm mx-auto">
+                        <h3 className="text-lg font-black uppercase tracking-tight text-foreground mb-2">Sin comentarios aún</h3>
+                        <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider max-w-sm mx-auto">
                             Sé el primero en compartir tu experiencia con System Kyron.
                         </p>
                     </div>
@@ -187,12 +187,12 @@ export function CommentsSection() {
                                                 ) : (
                                                     <User className="h-2.5 w-2.5 text-blue-500/60" />
                                                 )}
-                                                <span className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-wider">
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                     {c.tipo === 'juridico' ? 'Empresa' : 'Persona'}
                                                 </span>
-                                                <span className="text-muted-foreground/60">·</span>
-                                                <Clock className="h-2.5 w-2.5 text-muted-foreground/60" />
-                                                <span className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-wider">
+                                                <span className="text-muted-foreground">·</span>
+                                                <Clock className="h-2.5 w-2.5 text-muted-foreground" />
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                     {timeAgo(c.created_at)}
                                                 </span>
                                             </div>
@@ -235,7 +235,7 @@ export function CommentsSection() {
                                 />
 
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[9px] font-bold text-muted-foreground/70 uppercase tracking-wider">
+                                    <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">
                                         {texto.length}/500
                                     </span>
                                     <div className="flex gap-2">
@@ -262,7 +262,7 @@ export function CommentsSection() {
                                     </div>
                                 </div>
 
-                                <p className="text-[8px] font-bold text-muted-foreground/60 uppercase tracking-[0.2em] text-center">
+                                <p className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-[0.2em] text-center">
                                     Debes tener sesión iniciada para comentar
                                 </p>
                             </CardContent>

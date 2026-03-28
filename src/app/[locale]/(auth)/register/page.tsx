@@ -200,7 +200,7 @@ export default function RegisterSelectionPage() {
                                 <h2 className="text-base font-black uppercase tracking-tight">
                                     Identificación
                                 </h2>
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                                     Cédula de identidad o RIF
                                 </p>
                             </div>
@@ -337,7 +337,7 @@ export default function RegisterSelectionPage() {
                     </div>
                 </section>
 
-                <p className="text-center text-xs text-muted-foreground/70 mt-8 font-bold">
+                <p className="text-center text-xs text-muted-foreground mt-8 font-bold">
                     ¿Ya tienes una cuenta?{' '}
                     <Link href="/login" className="text-primary font-black hover:underline uppercase tracking-wide">
                         Iniciar Sesión

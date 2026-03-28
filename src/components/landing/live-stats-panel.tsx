@@ -153,14 +153,14 @@ export function LiveStatsPanel() {
         </div>
 
         <div className="px-4 pb-4 border-t border-border/20 dark:border-white/[0.05] pt-3">
-          <p className="text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 mb-2.5">
+          <p className="text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground mb-2.5">
             {t("frameworks")}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {compliance.map((c) => (
               <span
                 key={c}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/8 border border-primary/12 text-[7px] font-black uppercase tracking-widest text-primary/70 hover:bg-primary/12 hover:border-primary/20 transition-all duration-300"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/8 border border-primary/12 text-[7px] font-black uppercase tracking-widest text-primary hover:bg-primary/12 hover:border-primary/20 transition-all duration-300"
               >
                 <CheckCircle2 className="h-2.5 w-2.5" />
                 {c}
@@ -200,7 +200,7 @@ export function LiveStatsPanel() {
             className="flex flex-col gap-1 p-3 rounded-2xl border border-border/30 dark:border-white/[0.06] bg-card/40 dark:bg-card/20 backdrop-blur-xl text-center hover:border-primary/25 transition-all duration-300 cursor-default"
           >
             <p className="text-sm font-black text-primary leading-none">{cap.value}</p>
-            <p className="text-[7px] font-bold text-muted-foreground/70 uppercase tracking-wide leading-tight line-clamp-2">
+            <p className="text-[7px] font-bold text-muted-foreground uppercase tracking-wide leading-tight line-clamp-2">
               {cap.label}
             </p>
           </motion.div>

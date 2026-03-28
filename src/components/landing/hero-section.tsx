@@ -122,7 +122,7 @@ export function HeroSection() {
                                     className="flex flex-col items-center lg:items-start gap-0.5"
                                 >
                                     <p className="text-sm font-black text-foreground/90 leading-none">{s.val}</p>
-                                    <p className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-widest">{s.label}</p>
+                                    <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">{s.label}</p>
                                 </motion.div>
                             ))}
                         </div>

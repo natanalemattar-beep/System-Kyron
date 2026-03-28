@@ -44,17 +44,17 @@ export function PanelControlHero() {
         className="relative z-10 w-full max-w-2xl mx-auto"
       >
         {/* Panel card */}
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] backdrop-blur-2xl overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.6)] ring-1 ring-white/5">
+        <div className="rounded-[2rem] border border-border/30 dark:border-white/10 bg-card/60 dark:bg-white/[0.03] backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
 
           {/* Topbar */}
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/8 bg-white/[0.02]">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02]">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
                 <div className="h-3 w-3 rounded-full bg-rose-500/80" />
                 <div className="h-3 w-3 rounded-full bg-amber-500/80" />
                 <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
               </div>
-              <span className="text-[9px] font-black uppercase tracking-[0.35em] text-white/40">
+              <span className="text-[9px] font-black uppercase tracking-[0.35em] text-muted-foreground">
                 Panel de Control — System Kyron
               </span>
             </div>
@@ -63,27 +63,27 @@ export function PanelControlHero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span className="text-[8px] font-black uppercase tracking-widest text-emerald-400/90">Live</span>
+              <span className="text-[8px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400/90">Live</span>
             </div>
           </div>
 
           {/* KPI row */}
-          <div className="grid grid-cols-3 divide-x divide-white/8">
+          <div className="grid grid-cols-3 divide-x divide-border/30 dark:divide-white/8">
             {kpis.map((kpi, i) => (
               <div
                 key={kpi.label}
                 className="p-5 space-y-1 hover:bg-white/[0.02] transition-colors"
               >
                 <kpi.icon className={cn("h-4 w-4 mb-2", kpi.color)} />
-                <p className="text-lg font-black text-white/90 leading-none">{kpi.value}</p>
-                <p className="text-[8px] font-black uppercase tracking-widest text-white/30">{kpi.label}</p>
+                <p className="text-lg font-black text-foreground leading-none">{kpi.value}</p>
+                <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">{kpi.label}</p>
                 <span className={cn("text-[8px] font-black uppercase tracking-wide", kpi.color)}>{kpi.delta}</span>
               </div>
             ))}
           </div>
 
           {/* Module grid */}
-          <div className="p-5 border-t border-white/8">
+          <div className="p-5 border-t border-border/30 dark:border-white/8">
             <div className="grid grid-cols-3 gap-2.5">
               {modules.map((mod, i) => (
                 <NextLink
@@ -94,10 +94,10 @@ export function PanelControlHero() {
                     mod.bg, mod.border
                   )}
                 >
-                  <div className={cn("p-2 rounded-xl bg-black/30 w-fit", mod.color)}>
+                  <div className={cn("p-2 rounded-xl bg-muted/50 dark:bg-black/30 w-fit", mod.color)}>
                     <mod.icon className="h-4 w-4" />
                   </div>
-                  <p className="text-[9px] font-black uppercase tracking-tight text-white/60 leading-tight">
+                  <p className="text-[9px] font-black uppercase tracking-tight text-muted-foreground leading-tight">
                     {mod.label}
                   </p>
                 </NextLink>
@@ -112,7 +112,7 @@ export function PanelControlHero() {
                 <ShieldCheck className="h-4 w-4 text-primary" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary leading-none">Activar Portal</p>
-                  <p className="text-[8px] font-bold text-white/30 uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
+                  <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
                 </div>
               </div>
               <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
@@ -125,9 +125,9 @@ export function PanelControlHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
-          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-white/20 mt-6"
+          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
         >
-          Ecosistema Corporativo Venezuela • v2.8.0
+          Ecosistema Corporativo Venezuela • v2.8.2
         </motion.p>
       </motion.div>
     </section>

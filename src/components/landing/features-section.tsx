@@ -127,7 +127,7 @@ export function FeaturesSection() {
                         Todo lo que tu <br className="hidden sm:block" />
                         <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>empresa necesita</span>
                     </h2>
-                    <p className="text-muted-foreground/70 max-w-xl mx-auto font-semibold text-sm leading-relaxed">
+                    <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
                         9 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.
                     </p>
                 </motion.div>
@@ -201,7 +201,7 @@ export function FeaturesSection() {
                             className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default"
                         >
                             <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
-                            <p className="text-[8px] font-semibold text-muted-foreground/70 uppercase tracking-widest">{r.detail}</p>
+                            <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
                         </motion.div>
                     ))}
                 </motion.div>

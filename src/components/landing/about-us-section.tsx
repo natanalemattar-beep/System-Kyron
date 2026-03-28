@@ -102,24 +102,24 @@ export function AboutUsSection() {
                     </motion.div>
 
                     <motion.div 
-                        className="lg:col-span-6 space-y-10"
+                        className="lg:col-span-6 space-y-8"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                             {[
                                 { val: stats.totalUsuarios, label: "USUARIOS", icon: ShieldCheck, color: "text-primary" },
                                 { val: stats.cumplimiento, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
-                                { val: stats.totalEmpresas, label: "EMPRESAS", icon: ShieldCheck, color: "text-emerald-400" }
+                                { val: stats.totalEmpresas, label: "EMPRESAS", icon: ShieldCheck, color: "text-emerald-500" }
                             ].map((stat, i) => (
-                                <Card key={i} className="glass-card p-8 text-center rounded-[2rem] bg-card/60 dark:bg-white/[0.02] relative overflow-hidden group shadow-xl border border-border/30 dark:border-white/[0.06] hover:scale-[1.02] transition-all duration-300 cursor-default">
+                                <Card key={i} className="glass-card p-6 text-center rounded-[2rem] bg-card/60 dark:bg-white/[0.02] relative overflow-hidden group shadow-xl border border-border/30 dark:border-white/[0.06] hover:scale-[1.02] transition-all duration-300 cursor-default">
                                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all"><stat.icon className="h-16 w-16" /></div>
-                                    <p className={cn("text-4xl font-black italic tracking-tighter mb-2", stat.color)}>
+                                    <p className={cn("text-3xl font-black italic tracking-tighter mb-2", stat.color)}>
                                         <Counter from={0} to={stat.val} />{stat.suffix}
                                     </p>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/70">{stat.label}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">{stat.label}</p>
                                 </Card>
                             ))}
                         </div>
@@ -140,6 +140,23 @@ export function AboutUsSection() {
                                             <p className="text-xs font-black uppercase tracking-tight text-foreground leading-none mb-1">{v.label}</p>
                                             <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">{v.desc}</p>
                                         </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
+
+                        <Card className="glass-card border border-border/30 dark:border-white/[0.06] p-6 rounded-3xl bg-card/60 dark:bg-white/[0.02] shadow-xl">
+                            <h3 className="text-sm font-black uppercase italic tracking-tight text-foreground mb-4 leading-none">Tecnología y Arquitectura</h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { label: "Next.js 15", desc: "App Router + RSC" },
+                                    { label: "PostgreSQL", desc: "Base de datos" },
+                                    { label: "Gemini 2.0", desc: "IA Generativa" },
+                                    { label: "AES-256", desc: "Cifrado E2E" },
+                                ].map((tech, i) => (
+                                    <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl border border-border/20 dark:border-white/[0.06] bg-muted/30 dark:bg-white/[0.02] hover:border-primary/20 transition-all duration-300">
+                                        <p className="text-xs font-black uppercase tracking-tight text-foreground leading-none">{tech.label}</p>
+                                        <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest">{tech.desc}</p>
                                     </div>
                                 ))}
                             </div>
