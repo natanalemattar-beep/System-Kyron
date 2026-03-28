@@ -50,6 +50,7 @@ interface AppHeaderProps {
 export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
 
   useEffect(() => {
     setMobileOpen(false);
+    setOpenMenu(null);
   }, [pathname]);
 
   if (!mounted) return (
@@ -195,7 +197,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 );
                 const useWideLayout = filteredItems.length > 6;
                 return (
-                <DropdownMenu key={group.title}>
+                <DropdownMenu key={group.title} open={openMenu === group.title} onOpenChange={(isOpen) => setOpenMenu(isOpen ? group.title : null)}>
                     <DropdownMenuTrigger asChild>
                         <Button 
                             variant="ghost" 
