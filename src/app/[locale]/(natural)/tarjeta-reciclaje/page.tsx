@@ -31,7 +31,7 @@ export default function TarjetaReciclajePage() {
                 >
                     <Recycle className="h-16 w-16 animate-spin-slow" />
                 </motion.div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow text-white">Tarjeta de Reciclaje</h1>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow">Tarjeta de Reciclaje</h1>
                 <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed uppercase tracking-wide">
                     Nuestra iniciativa ambiental impulsada por la <strong>Fundación Kyron</strong>. Transformamos residuos en activos digitales inmutables.
                 </p>

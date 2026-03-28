@@ -20,7 +20,7 @@ export default function PerfilPersonalPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
             <User className="h-3 w-3" /> MI IDENTIDAD
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Gestión de <span className="text-primary italic">Perfil Ciudadano</span></h1>
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión de <span className="text-primary italic">Perfil Ciudadano</span></h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Credenciales Personales • Acceso Seguro 2026</p>
       </header>
 

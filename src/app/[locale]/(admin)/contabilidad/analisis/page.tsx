@@ -133,7 +133,7 @@ export default function AnalisisPage() {
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
               <Badge className="bg-primary text-white border-none text-[10px] font-black px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">ESTUDIO DE <br/> FACTIBILIDAD</h3>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">ESTUDIO DE <br/> FACTIBILIDAD</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el nodo central.</p>
               <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
                 VER ESTUDIO MAESTRO <ArrowRight className="ml-4 h-5 w-5" />

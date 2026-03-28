@@ -28,7 +28,7 @@ export default function SociosLayout({
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
-                initial={{ opacity: 0, scale: 1.02 }}
+                initial={false}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
               >

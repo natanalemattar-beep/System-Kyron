@@ -48,7 +48,7 @@ export default function PrestacionesSocialesPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
                         <Scale className="h-3 w-3" /> NODO DE LIQUIDACIÓN
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Prestaciones <span className="text-secondary italic">Sociales</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Prestaciones <span className="text-secondary italic">Sociales</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Fondo de Garantía • Art. 142 LOTTT • 2026</p>
                 </div>
                 <div className="flex gap-2">

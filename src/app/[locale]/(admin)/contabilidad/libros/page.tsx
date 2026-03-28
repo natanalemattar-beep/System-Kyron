@@ -69,7 +69,7 @@ export default function TodosLosLibrosPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
             <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none italic-shadow text-white">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none italic-shadow">
             <Book className="h-10 w-10 text-primary" />
             Bóveda de <span className="text-primary">Registros</span>
           </h1>
@@ -81,7 +81,7 @@ export default function TodosLosLibrosPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 h-5 w-5" />
         <Input 
             placeholder="Buscar libro por nombre o categoría..." 
-            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300 text-white"
+            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300 text-foreground"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
         />
@@ -112,7 +112,7 @@ export default function TodosLosLibrosPage() {
                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                       </div>
                       <div>
-                        <p className="text-xs font-black uppercase tracking-tight text-white/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
+                        <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
                         <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
                       </div>
                     </div>

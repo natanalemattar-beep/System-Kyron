@@ -126,7 +126,7 @@ export default function CuentasPage() {
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
               <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Legajo Maestro</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">REPOSITORIO <br/> DE CUENTAS</h3>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">REPOSITORIO <br/> DE CUENTAS</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Acceda a la biblioteca completa de módulos bancarios, anticipos y flujos de efectivo auditados.</p>
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30 pointer-events-none">
                 EXPLORAR TODO EL NODO <ArrowRight className="ml-4 h-5 w-5" />

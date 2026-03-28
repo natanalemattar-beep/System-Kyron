@@ -26,7 +26,7 @@ export default function MainLayout({
               
               <motion.main 
                 className="flex-1 w-full pt-20 relative z-10"
-                initial={{ opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >

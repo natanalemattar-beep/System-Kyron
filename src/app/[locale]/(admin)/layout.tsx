@@ -48,7 +48,7 @@ export default function AdminLayout({
               
               <motion.main 
                 className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-32 relative z-10"
-                initial={{ opacity: 0, y: 10 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >

@@ -34,7 +34,7 @@ export default function SostenibilidadPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
                         <Leaf className="h-3 w-3" /> ÁREA SUSTENTABLE
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Impacto <span className="text-secondary italic">Ambiental</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Impacto <span className="text-secondary italic">Ambiental</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
                 </div>
                 <div className="flex gap-2">

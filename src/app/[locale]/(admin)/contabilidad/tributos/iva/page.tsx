@@ -30,7 +30,7 @@ export default function IvaPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <FileText className="h-3 w-3" /> NODO IVA
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Impuesto al <span className="text-primary italic">Valor Agregado</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Impuesto al <span className="text-primary italic">Valor Agregado</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Prov. 049 (2015) & Decreto 054 (Agosto 2025)</p>
                 </div>
                 <div className="flex gap-2">

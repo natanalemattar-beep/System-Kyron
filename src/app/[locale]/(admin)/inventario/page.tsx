@@ -152,7 +152,7 @@ export default function InventarioPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Archive className="h-3 w-3" /> NODO DE EXISTENCIAS
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Kardex <span className="text-primary italic">de Inventario</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Kardex <span className="text-primary italic">de Inventario</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Riesgo • Liquidación Preventiva 2026</p>
                 </div>
                 <div className="flex gap-2">
