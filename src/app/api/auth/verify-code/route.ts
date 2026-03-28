@@ -6,7 +6,20 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { destino, codigo } = body as { destino: string; codigo: string };
+
+    let destino: string;
+    let codigo: string;
+
+    if (body.destino && body.codigo) {
+      destino = body.destino;
+      codigo = body.codigo;
+    } else if (body.code) {
+      codigo = body.code;
+      const method = body.method || 'email';
+      destino = method === 'sms' ? (body.phone || '') : (body.email || '');
+    } else {
+      return NextResponse.json({ error: 'Destino y código son requeridos' }, { status: 400 });
+    }
 
     if (!destino || !codigo) {
       return NextResponse.json({ error: 'Destino y código son requeridos' }, { status: 400 });
@@ -20,12 +33,18 @@ export async function POST(req: NextRequest) {
     );
 
     if (!record) {
-      await query(
-        `UPDATE verification_codes SET intentos = intentos + 1
+      const latestCode = await queryOne<{ id: number }>(
+        `SELECT id FROM verification_codes
          WHERE destino = $1 AND usado = false AND expires_at > NOW()
          ORDER BY created_at DESC LIMIT 1`,
         [destino]
       );
+      if (latestCode) {
+        await query(
+          `UPDATE verification_codes SET intentos = intentos + 1 WHERE id = $1`,
+          [latestCode.id]
+        );
+      }
       return NextResponse.json({ error: 'Código incorrecto. Verifica e intenta de nuevo.' }, { status: 400 });
     }
 

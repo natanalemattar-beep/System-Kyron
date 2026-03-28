@@ -143,6 +143,16 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `DATABASE_URL` — PostgreSQL (auto-configurada por Replit)
 - `JWT_SECRET` — Secreto JWT (configurado, 128 chars hex)
 - `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE` — Credenciales PG
+- `RESEND_API_KEY` — (Opcional) Para envío real de emails de verificación. Sin ella, códigos se guardan en DB y el flujo funciona sin envío de correo real
+- `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER` — (Opcional) Para SMS
+
+## Verificación de Código (Auth)
+- API `/api/auth/send-code` acepta ambos formatos: `{destino, tipo}` y `{method, email, phone}`
+- API `/api/auth/verify-code` acepta ambos formatos: `{destino, codigo}` y `{method, email, phone, code}`
+- OTP generado con `crypto.randomInt` (CSPRNG)
+- Sin RESEND_API_KEY: código se guarda en DB, retorna success, no envía email (modo desarrollo)
+- Con RESEND_API_KEY: envía email con template HTML branded
+- 6 formularios de registro usan este flujo: natural, juridico, contabilidad, rrhh, telecom, sostenibilidad
 
 ## Botones y Acciones
 - Todos los botones de la aplicación tienen handlers funcionales (onClick)
