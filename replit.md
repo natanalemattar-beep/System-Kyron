@@ -1,5 +1,16 @@
 # System Kyron v2.8.3 - Ecosistema Corporativo
 
+### Landing Page Redesign (v2.8.3)
+The landing page was redesigned to be less text-heavy and more visual/scannable:
+- **Hero**: Simplified headline ("Todo tu negocio en un solo lugar"), short subtitle, fiscal badges (IVA/IGTF/BCV/VEN-NIF). i18n keys: `title_line1/2/3`, `badge`, `subtitle`, `slogan`, `cta_main`, `cta_secondary`.
+- **Services (Ecosistema)**: Compact 4-column icon grid (12 modules), each card shows icon + title + tag. No long descriptions. Rounded-3xl cards with gradient icon boxes.
+- **About (Nosotros)**: Stats counters (Usuarios/Cumplimiento/Empresas) + 3 pillar cards (AES-256/VEN-NIF/Gemini 2.0). Removed mission/vision paragraphs, tech stack section, and image.
+- **FAQ**: Reduced from 7 to 5 questions with shorter answers.
+- **CTA**: Simplified heading ("¿Listo para empezar?") with shorter description.
+- **Translation files**: `src/messages/es.json` and `src/messages/en.json` (NOT root `messages/`).
+- **Google Calendar**: Connected via connector `ccfg_google-calendar_DDDBAC03DE404369B74F32E78D`. Client helper: `getUncachableGoogleCalendarClient()`.
+
+
 ### Overview
 System Kyron is an integrated technological ecosystem designed for comprehensive corporate management, specifically tailored for the Venezuelan market. It covers accounting, HR, legal, sales, telecommunications, and IT, ensuring compliance with local regulations such as VEN-NIF/SENIAT, IVA 16%, IGTF 3%, and ISLR 34%. The project aims to provide a unified platform for businesses to manage their operations efficiently and compliantly within Venezuela.
 

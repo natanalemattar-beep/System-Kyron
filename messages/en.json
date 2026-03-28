@@ -9,9 +9,12 @@
         "register": "Get Started"
     },
     "HeroSection": {
-        "title": "Your Business Command Center",
-        "subtitle": "Tax automation, smart accounting, and regulatory compliance on a single platform designed for the Venezuelan entrepreneur.",
-        "cta_main": "Get Started",
-        "cta_secondary": "Explore Services"
+        "title_line1": "Your entire",
+        "title_line2": "business in",
+        "title_line3": "one place",
+        "subtitle": "Accounting, invoicing, payroll and connectivity. 100% adapted to Venezuelan regulations.",
+        "badge": "Intelligent Business Platform",
+        "cta_main": "Start Free",
+        "cta_secondary": "User Guide"
     }
 }

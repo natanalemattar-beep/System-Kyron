@@ -15,10 +15,13 @@
         "mobile_portal": "Portal Kyron"
     },
     "HeroSection": {
-        "title": "El ecosistema que unifica conectividad, fiscalidad y sostenibilidad",
+        "title_line1": "Todo tu",
+        "title_line2": "negocio en",
+        "title_line3": "un solo lugar",
         "slogan": "Inteligencia Corporativa · Riesgo Cero",
-        "subtitle": "Automatización fiscal, tecnología magnética, venta de telefonía y cumplimiento normativo en una única plataforma de grado corporativo.",
-        "cta_main": "Comienza Ahora",
+        "subtitle": "Contabilidad, facturación, nómina y conectividad. 100% adaptado a la normativa venezolana.",
+        "badge": "Plataforma Empresarial Inteligente",
+        "cta_main": "Comienza Gratis",
         "cta_secondary": "Guía de Usuario"
     },
     "FeaturesSection": {

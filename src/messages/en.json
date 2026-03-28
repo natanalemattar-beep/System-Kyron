@@ -15,10 +15,13 @@
         "mobile_portal": "Kyron Portal"
     },
     "HeroSection": {
-        "title": "The ecosystem that unifies telecommunications, taxation, and sustainability",
+        "title_line1": "Your entire",
+        "title_line2": "business in",
+        "title_line3": "one place",
         "slogan": "Corporate Intelligence · Zero Risk",
-        "subtitle": "Tax automation, smart accounting, telecom fleet management, and full regulatory compliance — all on one enterprise-grade platform.",
-        "cta_main": "Get Started",
+        "subtitle": "Accounting, invoicing, payroll and connectivity. 100% adapted to Venezuelan regulations.",
+        "badge": "Intelligent Business Platform",
+        "cta_main": "Start Free",
         "cta_secondary": "User Guide"
     },
     "FeaturesSection": {

@@ -9,9 +9,12 @@
         "register": "Registrarse"
     },
     "HeroSection": {
-        "title": "Portal Integral de Control Corporativo",
-        "subtitle": "Automatización fiscal, contabilidad inteligente y cumplimiento normativo en una única plataforma diseñada para la tranquilidad del empresario venezolano.",
-        "cta_main": "Comienza Ahora",
-        "cta_secondary": "Explorar Servicios"
+        "title_line1": "Todo tu",
+        "title_line2": "negocio en",
+        "title_line3": "un solo lugar",
+        "subtitle": "Contabilidad, facturación, nómina y conectividad. 100% adaptado a la normativa venezolana.",
+        "badge": "Plataforma Empresarial Inteligente",
+        "cta_main": "Comienza Gratis",
+        "cta_secondary": "Guía de Usuario"
     }
 }
