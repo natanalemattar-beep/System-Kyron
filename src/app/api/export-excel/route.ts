@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,49 +21,49 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Se requiere al menos una hoja de datos' }, { status: 400 });
     }
 
-    const wb = XLSX.utils.book_new();
+    const wb = new ExcelJS.Workbook();
 
     for (const sheet of sheets) {
-      const wsData: unknown[][] = [];
+      const ws = wb.addWorksheet(sheet.name.substring(0, 31));
 
       if (title) {
-        wsData.push([title]);
-        wsData.push([]);
+        const titleRow = ws.addRow([title]);
+        titleRow.font = { bold: true, size: 14 };
+        if (sheet.headers.length > 1) {
+          ws.mergeCells(1, 1, 1, sheet.headers.length);
+        }
+        ws.addRow([]);
       }
 
-      wsData.push(sheet.headers);
+      const headerRow = ws.addRow(sheet.headers);
+      headerRow.font = { bold: true };
+      headerRow.eachCell((cell) => {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE0E0E0' } };
+        cell.border = { bottom: { style: 'thin' } };
+      });
 
       for (const row of sheet.rows) {
-        wsData.push(sheet.keys.map(k => row[k] ?? ''));
+        ws.addRow(sheet.keys.map(k => row[k] ?? ''));
       }
 
-      const ws = XLSX.utils.aoa_to_sheet(wsData);
-
-      const colWidths = sheet.headers.map((h, i) => {
+      sheet.headers.forEach((h, i) => {
         const maxLen = Math.max(
           h.length,
           ...sheet.rows.map(r => String(r[sheet.keys[i]] ?? '').length)
         );
-        return { wch: Math.min(Math.max(maxLen, 10), 40) };
+        ws.getColumn(i + 1).width = Math.min(Math.max(maxLen, 10), 40);
       });
-      ws['!cols'] = colWidths;
-
-      if (title) {
-        ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: sheet.headers.length - 1 } }];
-      }
-
-      XLSX.utils.book_append_sheet(wb, ws, sheet.name.substring(0, 31));
     }
 
-    const buf = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+    const buffer = await wb.xlsx.writeBuffer();
     const safeFilename = (filename || 'exportacion').replace(/[^a-z0-9_\-]/gi, '_');
 
-    return new NextResponse(buf, {
+    return new NextResponse(buffer as Buffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'Content-Disposition': `attachment; filename="${safeFilename}.xlsx"`,
-        'Content-Length': buf.length.toString(),
+        'Content-Length': (buffer as Buffer).length.toString(),
       },
     });
   } catch (err) {
