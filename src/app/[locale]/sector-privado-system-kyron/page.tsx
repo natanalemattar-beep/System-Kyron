@@ -57,6 +57,7 @@ export default function ModeloZeduPage() {
             ".header-cell { background-color: #0A2472 !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; text-align: center; font-size: 10pt; letter-spacing: 1.5pt; }" +
             ".label-cell { background-color: #f8fafc !important; font-weight: bold; color: #475569 !important; width: 35%; text-transform: uppercase; font-size: 8.5pt; border-right: 1.5pt solid #000000; }" +
             "h2 { color: #0A2472; text-transform: uppercase; border-bottom: 2pt solid #0A2472; padding-bottom: 8pt; margin-top: 40pt; font-size: 16pt; letter-spacing: -0.5pt; font-weight: 900; }" +
+            "h3 { color: #0A2472; text-transform: uppercase; border-bottom: 1pt solid #0A2472; padding-bottom: 6pt; margin-top: 30pt; font-size: 13pt; letter-spacing: -0.3pt; font-weight: 900; }" +
             "p { margin-bottom: 14pt; line-height: 1.7; text-align: justify; color: #334155; }" +
             "li { margin-bottom: 8pt; line-height: 1.6; color: #334155; }" +
             ".page-break { page-break-after: always; }" +
@@ -832,6 +833,163 @@ export default function ModeloZeduPage() {
                         </table>
                     </div>
 
+                    <div className="page-break" />
+
+                    {/* SECCIÓN 9 — PUBLICIDAD WEB */}
+                    <div className="mb-20">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Megaphone className="h-7 w-7" /> 9. ESTRATEGIA PUBLICITARIA — PLATAFORMA WEB
+                        </h2>
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Presencia Digital y Posicionamiento Web</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>La plataforma web <strong>systemkyron.com</strong> constituye el canal principal de captación, conversión y retención de clientes empresariales. La estrategia publicitaria digital de System Kyron se estructura en tres ejes: <strong>posicionamiento orgánico (SEO)</strong>, <strong>publicidad paga (SEM)</strong> y <strong>marketing de contenidos</strong>, orientados al mercado venezolano del sector privado con énfasis en PYME que requieren automatización fiscal, contable, laboral y legal.</p>
+                                        <p>El sitio web funciona simultáneamente como portal informativo, plataforma de demostración en vivo y sistema de onboarding digital, eliminando la necesidad de agentes comerciales presenciales para la captación inicial de clientes.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Canales Publicitarios y Estrategia de Captación</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Google Ads (SEM)</td>
+                                    <td className={tableCellClass}>
+                                        <p>Campañas de búsqueda segmentadas por palabras clave de alta intención comercial en Venezuela: <em>&quot;software contable Venezuela&quot;</em>, <em>&quot;sistema de nómina LOTTT&quot;</em>, <em>&quot;facturación electrónica SENIAT&quot;</em>, <em>&quot;ERP venezolano&quot;</em>, <em>&quot;gestión empresarial Caracas&quot;</em>. Presupuesto mensual estimado: $150–$300 USD con CPC promedio de $0,15–$0,40 en el mercado venezolano.</p>
+                                        <p><strong>Campañas de remarketing:</strong> Anuncios display dirigidos a visitantes que exploraron la plataforma pero no completaron el registro, con banners dinámicos mostrando los módulos que visitaron.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Redes Sociales</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li><strong>Instagram (@systemkyron):</strong> Contenido visual sobre módulos, tutoriales en Reels, testimonios de empresas piloto y novedades fiscales venezolanas. Publicación diaria. Meta: 5.000 seguidores en 6 meses.</li>
+                                            <li><strong>LinkedIn (System Kyron):</strong> Artículos sobre tendencias fiscales VEN-NIF, actualizaciones del BCV, análisis legal LOTTT y casos de éxito empresariales. Publicación 3 veces por semana. Enfoque B2B para directivos y contadores.</li>
+                                            <li><strong>TikTok (@systemkyron):</strong> Contenido educativo corto sobre obligaciones tributarias venezolanas, tips de nómina y funcionalidades de IA. Meta: viralización de contenido fiscal simplificado para emprendedores jóvenes.</li>
+                                            <li><strong>WhatsApp Business:</strong> Canal de atención directa, catálogo de planes y envío de actualizaciones fiscales automatizadas a la base de clientes registrados.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>SEO y Marketing de Contenidos</td>
+                                    <td className={tableCellClass}>
+                                        <p>Blog integrado en la plataforma con artículos optimizados para búsqueda orgánica sobre: cálculo de ISLR en Venezuela, guía de retenciones SENIAT, cómo calcular prestaciones sociales LOTTT, requisitos de CONATEL para telefonía, y normativa VEN-NIF actualizada. Meta: posicionar System Kyron como referencia digital #1 en gestión empresarial venezolana.</p>
+                                        <p><strong>Estrategia de palabras clave:</strong> 50+ artículos orientados a long-tail keywords del ecosistema fiscal y laboral venezolano, con CTAs integrados hacia el registro en la plataforma.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Email Marketing</td>
+                                    <td className={tableCellClass}>
+                                        <p>Secuencia automatizada de emails para leads captados desde la web: (1) Bienvenida + demo del módulo contable, (2) Caso de éxito de empresa piloto, (3) Comparativa System Kyron vs herramientas fragmentadas, (4) Oferta de prueba gratuita 30 días, (5) Onboarding personalizado con soporte técnico. Tasa de apertura objetivo: 35%. Herramienta: Resend integrado en la plataforma.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Elementos Publicitarios de la Página Web</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Landing Page Principal</td>
+                                    <td className={tableCellClass}>
+                                        <p>Diseño HUD Titanium con liquid glass y gradientes corporativos (#0A2472 azul institucional + #00A86B verde Ameru). Hero section con propuesta de valor directa: <em>&quot;El ecosistema inteligente del sector privado venezolano&quot;</em>. CTA principal: registro empresarial gratuito. Sección de módulos con iconografía interactiva, tasa BCV en tiempo real, testimonios de empresas piloto y calculadora de ahorro en línea.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Sección de Demostración en Vivo</td>
+                                    <td className={tableCellClass}>
+                                        <p>Tour interactivo de los 12 portales directamente desde la página web, sin necesidad de crear una cuenta. El visitante puede explorar la interfaz del módulo contable VEN-NIF, ver un ejemplo de nómina LOTTT calculada en tiempo real, probar el generador de contratos con IA Gemini y consultar la tasa BCV actualizada. Conversión estimada: 15% de visitantes que completan el tour se registran como usuarios.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Prueba Social y Credibilidad</td>
+                                    <td className={tableCellClass}>
+                                        <ul className="list-disc list-inside space-y-1">
+                                            <li>Contador en vivo de empresas activas en la plataforma</li>
+                                            <li>Logos de aliados estratégicos: Google Cloud, ZEDU, U.E.P. Gabriela Mistral</li>
+                                            <li>Certificaciones de seguridad: cifrado AES-256, sellado criptográfico</li>
+                                            <li>Testimonios verificados de empresas piloto con nombre, RIF y sector</li>
+                                            <li>Sección de prensa y menciones en medios digitales venezolanos</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Presupuesto Publicitario Digital (Primer Año)</td></tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Google Ads (SEM)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.400,00 / año</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Publicidad en Redes Sociales (Instagram + LinkedIn + TikTok Ads)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.800,00 / año</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Creación de Contenido (diseño gráfico, videos, redacción SEO)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.200,00 / año</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Email Marketing (Resend Pro + automatización)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 240,00 / año</td>
+                                </tr>
+                                <tr>
+                                    <td className={tableLabelClass}>Herramientas SEO y Analítica (Google Analytics, Search Console, Ahrefs)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 360,00 / año</td>
+                                </tr>
+                                <tr className="bg-slate-50">
+                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")}>INVERSIÓN PUBLICITARIA TOTAL (AÑO 1)</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-2xl text-[#0A2472] italic")}>$ 6.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p className="text-xs text-slate-400 mt-3 italic">Nota: El presupuesto publicitario se autofinancia a partir del mes 4 con los ingresos de suscripción de las primeras 15 empresas cliente. El ROI publicitario proyectado es de 340% anual, considerando un costo de adquisición de cliente (CAC) de $40 y un valor de vida del cliente (LTV) de $588.</p>
+
+                        <div className="mt-12">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                                <Target className="h-6 w-6" /> Métricas de Rendimiento Web (KPIs Publicitarios)
+                            </h3>
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th className={cn(tableHeaderClass, "text-left")} style={{ width: '35%' }}>Métrica</th>
+                                        <th className={tableHeaderClass} style={{ width: '25%' }}>Meta Mes 3</th>
+                                        <th className={tableHeaderClass} style={{ width: '20%' }}>Meta Mes 6</th>
+                                        <th className={tableHeaderClass} style={{ width: '20%' }}>Meta Mes 12</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className={tableCellClass}>Visitantes únicos mensuales (web)</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>2.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>8.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>25.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableCellClass}>Tasa de conversión (visitante → registro)</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>3%</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>5%</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableCellClass}>Registros empresariales acumulados</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>60</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>400</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>2.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableCellClass}>Suscripciones activas de pago</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>15</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>80</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>420</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableCellClass}>Posición promedio Google (keywords principales)</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 20</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 10</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td className={tableCellClass}>Seguidores redes sociales (total combinado)</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>1.500</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>5.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-black")}>15.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                     {/* FIRMA */}
                     <div className="mt-20 pt-10 border-t-2 border-slate-200">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
@@ -848,7 +1006,7 @@ export default function ModeloZeduPage() {
                                 </div>
                             ))}
                         </div>
-                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.6.5 · Caracas, Venezuela · 2026</p>
+                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.8.2 · Caracas, Venezuela · 2026</p>
                     </div>
                 </div>
             </motion.div>
