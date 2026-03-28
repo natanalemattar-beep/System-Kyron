@@ -248,5 +248,24 @@
         "select": "Seleccionar idioma",
         "current": "Idioma actual",
         "available": "Idiomas disponibles"
+    },
+    "LiveStats": {
+        "topbar": "Impacto en Tiempo Real — System Kyron",
+        "live": "En Vivo",
+        "individuals": "Personas Registradas",
+        "companies": "Empresas Registradas",
+        "frameworks": "Marcos Legales Integrados",
+        "join": "Únete al Ecosistema",
+        "join_sub": "Registro gratuito · 2 minutos",
+        "modules": "Módulos Integrados",
+        "tables": "Tablas de Datos",
+        "compliance": "Cumplimiento Fiscal",
+        "bcv": "Tasa BCV en Vivo",
+        "ven_nif": "VEN-NIF Certificado",
+        "seniat": "Compatible SENIAT",
+        "igtf": "IGTF 3% Integrado",
+        "lottt": "LOTTT Automatizado",
+        "lopcymat": "LOPCYMAT Incluido",
+        "gazette": "Gaceta Oficial IA"
     }
 }

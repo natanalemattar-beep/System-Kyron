@@ -155,9 +155,9 @@ export function VoiceAssistant() {
             <AnimatePresence>
                 {isOpen ? (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 1, scale: 1, y: 0 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 10 }}
                         className="mb-4 w-[350px] h-[550px] flex flex-col rounded-[2.5rem] border border-primary/20 shadow-2xl overflow-hidden bg-black/95 backdrop-blur-3xl"
                     >
                         {/* Header */}

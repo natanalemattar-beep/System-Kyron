@@ -8,10 +8,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatCurrency(amount: number, currency: "Bs." | "USD" | "EUR" = "Bs.") {
   const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : "Bs.";
+  const safe = Number.isFinite(amount) ? amount : 0;
   const formattedAmount = new Intl.NumberFormat("es-VE", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(amount);
+  }).format(safe);
 
   return `${symbol} ${formattedAmount}`;
 }

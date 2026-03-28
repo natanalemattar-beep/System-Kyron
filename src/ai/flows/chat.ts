@@ -17,7 +17,7 @@ export async function chat(input: ChatInput): Promise<ChatOutput> {
   const { ai } = await import('@/ai/genkit');
 
   const { text } = await ai.generate({
-    model: 'googleai/gemini-1.5-pro-latest',
+    model: 'googleai/gemini-2.0-flash',
     prompt: `Eres la Inteligencia Maestra de "System Kyron", un ecosistema tecnológico integral. 
 Tu identidad y conocimientos deben adaptarse estrictamente al área de acceso actual del usuario.
 
