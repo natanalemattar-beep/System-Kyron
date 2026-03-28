@@ -16,7 +16,7 @@ const libraryCategories = [
     icon: Book,
     items: [
       { label: "Libro Diario", href: "/contabilidad/libros/diario", kpi: "Asientos: Ok", icon: FileText, color: "text-primary" },
-      { label: "Libro Mayor", href: "#", kpi: "Saldos síncronos", icon: BookOpen, color: "text-primary" },
+      { label: "Libro Mayor", href: "/contabilidad/libros/mayor", kpi: "Saldos síncronos", icon: BookOpen, color: "text-primary" },
       { label: "Inventario de Bienes", href: "/contabilidad/libros/inventario", kpi: "Stock auditado", icon: Box, color: "text-amber-600" },
     ]
   },
