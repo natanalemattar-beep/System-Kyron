@@ -58,3 +58,12 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Loading skeletons:** `loading.tsx` files for `dashboard-empresa` and `contabilidad` routes provide instant skeleton UI during navigation.
 - **Next.js config:** Compression enabled, `optimizePackageImports` for lucide-react/framer-motion/recharts, AVIF/WebP image formats, static asset cache headers.
 - **DB pool:** `statement_timeout` configured, `transaction()` helper available in `src/lib/db.ts`.
+
+### Registration Page Redesign
+- **File:** `src/app/[locale]/(auth)/register/natural/page.tsx`
+- **Gradient header:** Blue-to-emerald gradient banner (`from-blue-600 via-primary to-emerald-500`) with white text, user icon, and step progress circles with icons.
+- **Step indicators:** 4 icon circles (User, Phone, Shield, ShieldCheck) connected by progress lines inside the gradient header. Active step scales up with ring, completed steps show checkmark.
+- **Section headers:** Each step has a colored icon badge (blue/emerald/amber/violet) with bold label instead of plain uppercase text.
+- **Footer buttons:** Gradient-styled per step (blue for steps 1-2, amber for step 3, violet for step 4).
+- **Success screen:** Green gradient circle with checkmark, colored bullet points for next steps, gradient CTA button.
+- **Accessibility:** Password toggle buttons have `aria-label` for screen readers.

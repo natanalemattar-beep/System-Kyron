@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
-  Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
+  Card, CardContent, CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,7 +20,6 @@ import {
   MessageSquare, RefreshCw, ShieldCheck, ChevronDown,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Progress } from '@/components/ui/progress';
 import { DocumentInput } from '@/components/document-input';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -212,7 +211,6 @@ export default function RegisterNaturalPage() {
     }
   };
 
-  const progressValue = (step / TOTAL_STEPS) * 100;
   const stepLabels = ['Datos Personales', 'Residencia y Contacto', 'Acceso a la Cuenta', 'Verificación de Identidad', 'Completado'];
 
   const Field = ({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) => (
@@ -223,36 +221,74 @@ export default function RegisterNaturalPage() {
     </div>
   );
 
+  const stepIcons = [User, Phone, Shield, ShieldCheck, CheckCircle];
+  const stepColors = ['text-blue-500', 'text-emerald-500', 'text-amber-500', 'text-violet-500', 'text-green-500'];
+  const stepBgs = ['bg-blue-500/10', 'bg-emerald-500/10', 'bg-amber-500/10', 'bg-violet-500/10', 'bg-green-500/10'];
+
   return (
     <div className="w-full max-w-xl mx-auto">
-      <Card className="bg-card border-border shadow-lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-xl text-foreground">
-            <div className="p-2 bg-primary/10 rounded-lg"><User className="h-5 w-5 text-primary" /></div>
-            Registro de Persona Natural
-          </CardTitle>
-          <CardDescription className="text-muted-foreground">
-            {step < TOTAL_STEPS
-              ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
-              : stepLabels[TOTAL_STEPS - 1]}
-          </CardDescription>
-          <Progress value={progressValue} className="mt-3" />
+      <Card className="bg-card border-border shadow-lg overflow-hidden">
+        <div className="relative bg-gradient-to-r from-blue-600 via-primary to-emerald-500 px-6 py-6">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L3N2Zz4=')] opacity-50" />
+          <div className="relative flex items-center gap-4">
+            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
+              <User className="h-7 w-7 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-black text-white tracking-tight">
+                Registro de Persona Natural
+              </h1>
+              <p className="text-white/80 text-sm font-medium mt-0.5">
+                {step < TOTAL_STEPS
+                  ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
+                  : stepLabels[TOTAL_STEPS - 1]}
+              </p>
+            </div>
+          </div>
+
           {step < TOTAL_STEPS && (
-            <div className="flex gap-1 mt-2">
-              {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i < step ? 'bg-primary' : 'bg-border'}`} />
-              ))}
+            <div className="relative mt-5 flex items-center gap-2">
+              {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => {
+                const StepIcon = stepIcons[i];
+                const isActive = i + 1 === step;
+                const isDone = i + 1 < step;
+                return (
+                  <div key={i} className="flex items-center flex-1 gap-2">
+                    <div className={cn(
+                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300",
+                      isDone ? "bg-white text-primary" :
+                      isActive ? "bg-white/90 text-primary ring-2 ring-white/50 scale-110" :
+                      "bg-white/20 text-white/60"
+                    )}>
+                      {isDone ? (
+                        <CheckCircle className="h-4 w-4" />
+                      ) : (
+                        <StepIcon className="h-4 w-4" />
+                      )}
+                    </div>
+                    {i < TOTAL_STEPS - 2 && (
+                      <div className={cn(
+                        "h-0.5 flex-1 rounded-full transition-all duration-500",
+                        isDone ? "bg-white" : "bg-white/20"
+                      )} />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
-        </CardHeader>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-5">
+          <CardContent className="space-y-5 pt-6">
 
             {step === 1 && (
               <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <User className="h-4 w-4" /> Información Personal
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className={cn("p-1.5 rounded-lg", stepBgs[0])}>
+                    <User className={cn("h-4 w-4", stepColors[0])} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground tracking-wide">Información Personal</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="nombre" label="Nombre(s)" error={errors.nombre?.message}>
@@ -365,8 +401,11 @@ export default function RegisterNaturalPage() {
 
             {step === 2 && (
               <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <Phone className="h-4 w-4" /> Datos de Contacto
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className={cn("p-1.5 rounded-lg", stepBgs[1])}>
+                    <Phone className={cn("h-4 w-4", stepColors[1])} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground tracking-wide">Datos de Contacto</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="telefono" label="Teléfono Principal" error={errors.telefono?.message}>
@@ -382,8 +421,11 @@ export default function RegisterNaturalPage() {
                     </div>
                   </Field>
                 </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mt-4 mb-1">
-                  <MapPin className="h-4 w-4" /> Dirección de Residencia
+                <div className="flex items-center gap-2.5 mt-5 mb-2">
+                  <div className="p-1.5 rounded-lg bg-orange-500/10">
+                    <MapPin className="h-4 w-4 text-orange-500" />
+                  </div>
+                  <span className="text-sm font-bold text-foreground tracking-wide">Dirección de Residencia</span>
                 </div>
                 <Field id="estado_residencia" label="Estado / Entidad Federal" error={errors.estado_residencia?.message}>
                   <Controller
@@ -425,8 +467,11 @@ export default function RegisterNaturalPage() {
 
             {step === 3 && (
               <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <Shield className="h-4 w-4" /> Credenciales de Acceso
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className={cn("p-1.5 rounded-lg", stepBgs[2])}>
+                    <Shield className={cn("h-4 w-4", stepColors[2])} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground tracking-wide">Credenciales de Acceso</span>
                 </div>
                 <Field id="email" label="Correo Electrónico" error={errors.email?.message}>
                   <div className="relative">
@@ -438,7 +483,7 @@ export default function RegisterNaturalPage() {
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input id="password" type={showPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -448,7 +493,7 @@ export default function RegisterNaturalPage() {
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
-                    <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                    <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -464,8 +509,11 @@ export default function RegisterNaturalPage() {
 
             {step === 4 && (
               <div className="space-y-5">
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <ShieldCheck className="h-4 w-4 text-primary" /> Verificación de Identidad
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className={cn("p-1.5 rounded-lg", stepBgs[3])}>
+                    <ShieldCheck className={cn("h-4 w-4", stepColors[3])} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground tracking-wide">Verificación de Identidad</span>
                 </div>
 
                 {verifVerified ? (
@@ -578,21 +626,36 @@ export default function RegisterNaturalPage() {
 
             {step === TOTAL_STEPS && (
               <div className="text-center py-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
-                  <CheckCircle className="h-12 w-12 text-green-500" />
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mb-6 shadow-lg shadow-green-500/25">
+                  <CheckCircle className="h-10 w-10 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground">¡Cuenta Creada!</h2>
+                <h2 className="text-2xl font-black text-foreground">
+                  ¡Bienvenido a System Kyron!
+                </h2>
                 <p className="text-muted-foreground mt-2 text-sm">
                   Tu cuenta personal ha sido registrada y verificada exitosamente con el correo:{' '}
-                  <span className="font-semibold text-primary">{registeredEmail}</span>
+                  <span className="font-bold text-primary">{registeredEmail}</span>
                 </p>
-                <div className="mt-6 p-4 bg-primary/5 border border-primary/10 rounded-lg text-left text-sm space-y-1">
-                  <p className="font-semibold text-primary">Próximos pasos:</p>
-                  <p className="text-muted-foreground">• Inicia sesión con tu correo y contraseña</p>
-                  <p className="text-muted-foreground">• Accede a tus documentos y servicios personales</p>
-                  <p className="text-muted-foreground">• Completa tu perfil para acceder a todos los módulos</p>
+                <div className="mt-6 p-4 bg-gradient-to-br from-primary/5 to-emerald-500/5 border border-primary/15 rounded-xl text-left text-sm space-y-2">
+                  <p className="font-bold text-primary flex items-center gap-2">
+                    <ArrowRight className="h-4 w-4" /> Próximos pasos
+                  </p>
+                  <div className="space-y-1.5 ml-6">
+                    <p className="text-muted-foreground flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                      Inicia sesión con tu correo y contraseña
+                    </p>
+                    <p className="text-muted-foreground flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                      Accede a tus documentos y servicios personales
+                    </p>
+                    <p className="text-muted-foreground flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                      Completa tu perfil para acceder a todos los módulos
+                    </p>
+                  </div>
                 </div>
-                <Button className="mt-6 w-full" onClick={() => {
+                <Button className="mt-6 w-full bg-gradient-to-r from-primary to-emerald-500 hover:from-primary/90 hover:to-emerald-500/90 text-white font-bold shadow-md" onClick={() => {
                   localStorage.setItem('kyron-just-registered', 'true');
                   router.push('/');
                 }}>
@@ -603,24 +666,26 @@ export default function RegisterNaturalPage() {
           </CardContent>
 
           {step < TOTAL_STEPS && (
-            <CardFooter className="flex justify-between pt-2">
-              <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+            <CardFooter className="flex justify-between pt-4 pb-6">
+              <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} className="gap-2">
+                <ArrowLeft className="h-4 w-4" /> Anterior
               </Button>
               {step < 3 && (
-                <Button type="button" onClick={nextStep}>Siguiente <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                <Button type="button" onClick={nextStep} className="gap-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white font-bold shadow-md">
+                  Siguiente <ArrowRight className="h-4 w-4" />
+                </Button>
               )}
               {step === 3 && (
-                <Button type="button" onClick={nextStep}>
-                  Continuar a Verificación <ArrowRight className="ml-2 h-4 w-4" />
+                <Button type="button" onClick={nextStep} className="gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-500/90 hover:to-orange-500/90 text-white font-bold shadow-md">
+                  Continuar a Verificación <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
               {step === 4 && (
-                <Button type="submit" disabled={isLoading || !verifVerified}>
+                <Button type="submit" disabled={isLoading || !verifVerified} className="gap-2 bg-gradient-to-r from-violet-500 to-primary hover:from-violet-500/90 hover:to-primary/90 text-white font-bold shadow-md">
                   {isLoading ? (
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creando cuenta...</>
+                    <><Loader2 className="h-4 w-4 animate-spin" /> Creando cuenta...</>
                   ) : (
-                    <>Crear Cuenta <ArrowRight className="ml-2 h-4 w-4" /></>
+                    <>Crear Cuenta <ArrowRight className="h-4 w-4" /></>
                   )}
                 </Button>
               )}
