@@ -32,17 +32,17 @@ interface Factura {
 }
 
 const SAMPLE_VENTAS: Factura[] = [
-  { id: 1, factura: "0000456", fecha: "2026-03-28", cliente: "Inversiones Epsilon, C.A.", rif: "J-12345678-9", tipo: "venta", subtotal: "45800.00", iva: "7328.00", igtf: "0.00", total: "53128.00", estado: "cobrada", nroControl: "00-00456" },
-  { id: 2, factura: "0000455", fecha: "2026-03-25", cliente: "Global Services S.A.", rif: "J-11223344-5", tipo: "venta", subtotal: "125000.00", iva: "20000.00", igtf: "3750.00", total: "148750.00", estado: "pendiente", nroControl: "00-00455" },
-  { id: 3, factura: "0000454", fecha: "2026-03-22", cliente: "Distribuidora Master, C.A.", rif: "J-98765432-1", tipo: "venta", subtotal: "38200.00", iva: "6112.00", igtf: "0.00", total: "44312.00", estado: "cobrada", nroControl: "00-00454" },
-  { id: 4, factura: "0000453", fecha: "2026-03-20", cliente: "Tech Solutions Venezuela", rif: "J-40567890-3", tipo: "venta", subtotal: "92500.00", iva: "14800.00", igtf: "2775.00", total: "110075.00", estado: "vencida", nroControl: "00-00453" },
-  { id: 5, factura: "0000452", fecha: "2026-03-18", cliente: "Comercial Delta", rif: "J-30987654-2", tipo: "venta", subtotal: "15700.00", iva: "2512.00", igtf: "0.00", total: "18212.00", estado: "cobrada", nroControl: "00-00452" },
+  { id: 1, factura: "0000456", fecha: "2026-03-28", cliente: "Inversiones Epsilon, C.A.", rif: "J-29876543-1", tipo: "venta", subtotal: "45800.00", iva: "7328.00", igtf: "0.00", total: "53128.00", estado: "cobrada", nroControl: "00-00456" },
+  { id: 2, factura: "0000455", fecha: "2026-03-25", cliente: "Global Services, C.A.", rif: "J-31245890-5", tipo: "venta", subtotal: "125000.00", iva: "20000.00", igtf: "3750.00", total: "148750.00", estado: "pendiente", nroControl: "00-00455" },
+  { id: 3, factura: "0000454", fecha: "2026-03-22", cliente: "Distribuidora Master, C.A.", rif: "J-40567823-2", tipo: "venta", subtotal: "38200.00", iva: "6112.00", igtf: "0.00", total: "44312.00", estado: "cobrada", nroControl: "00-00454" },
+  { id: 4, factura: "0000453", fecha: "2026-03-20", cliente: "Tech Solutions Venezuela, C.A.", rif: "J-41234507-8", tipo: "venta", subtotal: "92500.00", iva: "14800.00", igtf: "2775.00", total: "110075.00", estado: "vencida", nroControl: "00-00453" },
+  { id: 5, factura: "0000452", fecha: "2026-03-18", cliente: "Comercial Delta, C.A.", rif: "J-30987654-2", tipo: "venta", subtotal: "15700.00", iva: "2512.00", igtf: "0.00", total: "18212.00", estado: "cobrada", nroControl: "00-00452" },
 ];
 
 const SAMPLE_COMPRAS: Factura[] = [
-  { id: 101, factura: "A-0890", fecha: "2026-03-26", cliente: "Suministros Nacionales, C.A.", rif: "J-22334455-6", tipo: "compra", subtotal: "1850.00", iva: "296.00", igtf: "0.00", total: "2146.00", estado: "pagada", nroControl: "—" },
-  { id: 102, factura: "B-4521", fecha: "2026-03-20", cliente: "Importadora General, C.A.", rif: "J-55667788-0", tipo: "compra", subtotal: "45200.00", iva: "7232.00", igtf: "1356.00", total: "53788.00", estado: "pendiente", nroControl: "—" },
-  { id: 103, factura: "C-1234", fecha: "2026-03-15", cliente: "Materiales y Equipos VE", rif: "J-44556677-8", tipo: "compra", subtotal: "28900.00", iva: "4624.00", igtf: "0.00", total: "33524.00", estado: "pagada", nroControl: "—" },
+  { id: 101, factura: "A-0890", fecha: "2026-03-26", cliente: "Suministros Nacionales, C.A.", rif: "J-09876543-6", tipo: "compra", subtotal: "1850.00", iva: "296.00", igtf: "0.00", total: "2146.00", estado: "pagada", nroControl: "—" },
+  { id: 102, factura: "B-4521", fecha: "2026-03-20", cliente: "Importadora General, C.A.", rif: "J-31098765-0", tipo: "compra", subtotal: "45200.00", iva: "7232.00", igtf: "1356.00", total: "53788.00", estado: "pendiente", nroControl: "—" },
+  { id: 103, factura: "C-1234", fecha: "2026-03-15", cliente: "Materiales y Equipos VE, C.A.", rif: "J-29543210-8", tipo: "compra", subtotal: "28900.00", iva: "4624.00", igtf: "0.00", total: "33524.00", estado: "pagada", nroControl: "—" },
   { id: 104, factura: "D-0067", fecha: "2026-03-10", cliente: "CORPOELEC", rif: "G-20000091-0", tipo: "compra", subtotal: "3200.00", iva: "512.00", igtf: "0.00", total: "3712.00", estado: "pagada", nroControl: "—" },
 ];
 

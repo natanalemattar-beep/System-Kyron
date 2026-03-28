@@ -16,9 +16,9 @@ import { Logo } from "@/components/logo";
 import Image from "next/image";
 
 const mockEmployees = [
-  { id: "EMP-001", name: "Ana Pérez", ci: "V-12.345.678", cargo: "Gerente de Finanzas y Control", ingreso: "2020-01-15", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
-  { id: "EMP-002", name: "Luis Gómez", ci: "V-18.765.432", cargo: "Analista Senior de Datos", ingreso: "2021-02-10", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
-  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe de Arquitectura", ingreso: "2024-01-01", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-12345678-9", tlf: "0212-1112233" },
+  { id: "EMP-001", name: "Ana Patricia Velásquez", ci: "V-16.892.437", cargo: "Gerente de Finanzas y Control", ingreso: "2020-01-15", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
+  { id: "EMP-002", name: "Luis Eduardo Ramírez", ci: "V-19.456.283", cargo: "Analista Senior de Datos", ingreso: "2021-02-10", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
+  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe de Arquitectura", ingreso: "2024-01-01", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
 ];
 
 const mockHistory = [
@@ -38,11 +38,11 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         nombre: "",
         cedula: "",
         empresa: "System Kyron, C.A.",
-        rif: "J-12345678-9",
+        rif: "J-50328471-6",
         cargo: "",
         salario: 0,
         ingreso: new Date().toISOString().substring(0, 10),
-        tlf: "0212-1234567",
+        tlf: "0212-267-8490",
         profesion: "",
         actividad: "",
         fuente: "Honorarios Profesionales",
@@ -256,7 +256,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                     ? `se encuentra en condición de JUBILADO / PENSIONADO ante la institución ${formData.ente || 'IVSS'}, portador de la credencial Nro. ${formData.numCarnet || 'N/A'}, desde la fecha ${formatDate(formData.ingreso)}` 
                                     : type === 'independiente'
                                     ? `ejerce de forma libre e independiente la profesión de ${formData.profesion || 'PROFESIONAL'} en el área de ${formData.actividad || 'SERVICIOS'}, realizando estas labores de forma ininterrumpida desde el ${formatDate(formData.ingreso)}, operando bajo su propia estructura de ingresos`
-                                    : `presta sus servicios profesionales en la organización ${formData.empresa || 'SYSTEM KYRON'} (RIF: ${formData.rif || 'J-12345678-9'}), desempeñando el cargo de ${formData.cargo || 'ESPECIALISTA'} desde la fecha de ingreso ${formatDate(formData.ingreso)}`
+                                    : `presta sus servicios profesionales en la organización ${formData.empresa || 'SYSTEM KYRON'} (RIF: ${formData.rif || 'J-50328471-6'}), desempeñando el cargo de ${formData.cargo || 'ESPECIALISTA'} desde la fecha de ingreso ${formatDate(formData.ingreso)}`
                                 }.
                             </p>
                             

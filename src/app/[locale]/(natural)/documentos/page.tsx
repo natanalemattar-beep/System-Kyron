@@ -161,7 +161,7 @@ export default function MisDocumentosPage() {
             <div className="space-y-4 py-4">
               <div className="space-y-2">
                 <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Nombre del Documento *</Label>
-                <Input placeholder="Ej: Cédula V-12345678" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                <Input placeholder="Ej: Cédula V-18745632" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
               </div>
               <div className="space-y-2">
                 <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Categoría *</Label>

@@ -22,7 +22,7 @@ Presente.-
 
 Asunto: Solicitud de Permisología de Carga
 
-Yo, [Nombre del Representante], en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-12345678-9, me dirijo a ustedes para solicitar la emisión de los permisos de transporte de carga para nuestras unidades operativas.
+Yo, [Nombre del Representante], en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-50328471-6, me dirijo a ustedes para solicitar la emisión de los permisos de transporte de carga para nuestras unidades operativas.
 
 Nuestra flota está destinada al traslado de equipos tecnológicos y suministros industriales, cumpliendo con todas las normas de seguridad vial y revisión técnica exigidas.
 
@@ -92,7 +92,7 @@ System Kyron, C.A.
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
                                 <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-12345678-9</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>
                         <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">

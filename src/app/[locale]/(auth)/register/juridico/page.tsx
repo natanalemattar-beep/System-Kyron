@@ -122,7 +122,7 @@ const moduleGroups = [
 
 const fullSchema = z.object({
   razonSocial: z.string().min(3, 'La razón social es requerida.'),
-  rif: z.string().min(9).regex(/^[JGCVEP][-]\d{8}[-]\d$/, 'Formato: J-12345678-9'),
+  rif: z.string().min(9).regex(/^[JGCVEP][-]\d{8}[-]\d$/, 'Formato: J-50328471-6'),
   tipo_empresa: z.string().min(1, 'Selecciona el tipo de empresa.'),
   actividad_economica: z.string().min(5, 'Describe la actividad económica.'),
   codigo_ciiu: z.string().optional(),
@@ -136,7 +136,7 @@ const fullSchema = z.object({
   direccion: z.string().min(10, 'La dirección fiscal es requerida.'),
   repNombre: z.string().min(2, 'El nombre es requerido.'),
   repApellido: z.string().min(2, 'El apellido es requerido.'),
-  repCedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-12345678'),
+  repCedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-18745632'),
   rep_cargo: z.string().min(2, 'El cargo es requerido.'),
   rep_telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Inválido.'),
   repEmail: z.string().email('Correo electrónico inválido.'),

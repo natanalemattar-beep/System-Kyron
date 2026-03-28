@@ -107,7 +107,7 @@ const TECNOLOGIAS_CLASIFICACION = [
 const schema = z
     .object({
         razonSocial: z.string().min(3, "Ingrese la razón social"),
-        rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, "Formato: J-12345678-9"),
+        rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, "Formato: J-50328471-6"),
         telefono: z.string().min(7, "Teléfono inválido"),
         estado_empresa: z.string().min(1, "Seleccione el estado"),
         municipio_empresa: z.string().min(2, "Ingrese el municipio"),

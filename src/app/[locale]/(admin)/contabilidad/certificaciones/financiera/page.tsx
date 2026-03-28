@@ -19,7 +19,7 @@ export default function CertificacionFinancieraPage() {
     const [step, setStep] = useState<'form' | 'preview'>('form');
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
-        rif: "J-12345678-9",
+        rif: "J-50328471-6",
         liquidez: 2.45,
         patrimonio: 950000,
         solvencia: "ÓPTIMA",

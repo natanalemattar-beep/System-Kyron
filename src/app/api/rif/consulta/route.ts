@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   
   if (!rif || !/^[JGCVEPF]-\d{8}-\d$/.test(rif)) {
     return NextResponse.json(
-      { error: 'Formato de RIF inválido. Formato esperado: J-12345678-9' },
+      { error: 'Formato de RIF inválido. Formato esperado: J-50328471-6' },
       { status: 400 }
     );
   }

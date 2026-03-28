@@ -22,7 +22,7 @@ Presente.-
 
 Asunto: Solicitud de Inscripción / Actualización RTN
 
-Yo, [Nombre del Representante], Representante Legal de System Kyron, C.A. (RIF J-12345678-9), me dirijo a ustedes para solicitar formalmente la actualización de nuestro Registro Turístico Nacional.
+Yo, [Nombre del Representante], Representante Legal de System Kyron, C.A. (RIF J-50328471-6), me dirijo a ustedes para solicitar formalmente la actualización de nuestro Registro Turístico Nacional.
 
 Nuestra organización provee soluciones tecnológicas para el sector servicios y turismo, cumpliendo con la contribución del 1% INATUR y los estándares de calidad del sector.
 
@@ -97,7 +97,7 @@ System Kyron, C.A.
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
                                 <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-12345678-9</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>
                         <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">

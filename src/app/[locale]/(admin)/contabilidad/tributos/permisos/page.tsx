@@ -45,7 +45,7 @@ Presente.-
 
 Asunto: Solicitud de trámite para ${p.tipo}
 
-Yo, [Nombre del Representante], titular de la Cédula de Identidad N° [Cédula], actuando en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-12345678-9, me dirijo a ustedes con el debido respeto para solicitar formalmente el procesamiento del trámite referente a: "${p.tipo}".
+Yo, [Nombre del Representante], titular de la Cédula de Identidad N° [Cédula], actuando en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-50328471-6, me dirijo a ustedes con el debido respeto para solicitar formalmente el procesamiento del trámite referente a: "${p.tipo}".
 
 Adjuntamos a esta comunicación los recaudos exigidos por su institución para la validación técnica correspondiente.
 
@@ -128,7 +128,7 @@ System Kyron, C.A.
                                                                 <Logo className="h-12 w-12" />
                                                                 <div className="text-right">
                                                                     <p className="font-black text-xs uppercase italic">System Kyron, C.A.</p>
-                                                                    <p className="text-[8px] font-bold uppercase">RIF: J-12345678-9</p>
+                                                                    <p className="text-[8px] font-bold uppercase">RIF: J-50328471-6</p>
                                                                 </div>
                                                             </header>
                                                             <div className="whitespace-pre-wrap text-sm leading-relaxed relative z-10 text-justify">

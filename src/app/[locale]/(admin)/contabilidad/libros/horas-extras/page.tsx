@@ -36,11 +36,11 @@ interface HoraExtra {
 }
 
 const SAMPLE_HORAS: HoraExtra[] = [
-  { empleadoId: 1, nombre: "Carlos Mendoza", cedula: "V-18.456.789", cargo: "Técnico de Redes", diurnas: 8, nocturnas: 4, feriadas: 0, salarioHora: 45.50 },
-  { empleadoId: 2, nombre: "María González", cedula: "V-20.123.456", cargo: "Analista Contable", diurnas: 6, nocturnas: 0, feriadas: 8, salarioHora: 52.30 },
-  { empleadoId: 3, nombre: "José Rodríguez", cedula: "V-19.876.543", cargo: "Supervisor de Operaciones", diurnas: 12, nocturnas: 6, feriadas: 4, salarioHora: 65.00 },
-  { empleadoId: 4, nombre: "Ana Martínez", cedula: "V-21.234.567", cargo: "Ejecutiva Comercial", diurnas: 4, nocturnas: 0, feriadas: 0, salarioHora: 48.75 },
-  { empleadoId: 5, nombre: "Pedro Hernández", cedula: "V-17.654.321", cargo: "Ingeniero de Sistemas", diurnas: 10, nocturnas: 8, feriadas: 0, salarioHora: 72.00 },
+  { empleadoId: 1, nombre: "Carlos Alejandro Mendoza", cedula: "V-18.456.712", cargo: "Técnico de Redes", diurnas: 8, nocturnas: 4, feriadas: 0, salarioHora: 45.50 },
+  { empleadoId: 2, nombre: "María Gabriela González", cedula: "V-20.187.493", cargo: "Analista Contable", diurnas: 6, nocturnas: 0, feriadas: 8, salarioHora: 52.30 },
+  { empleadoId: 3, nombre: "José Alberto Rodríguez", cedula: "V-15.234.871", cargo: "Supervisor de Operaciones", diurnas: 12, nocturnas: 6, feriadas: 4, salarioHora: 65.00 },
+  { empleadoId: 4, nombre: "Ana Isabel Martínez", cedula: "V-21.345.672", cargo: "Ejecutiva Comercial", diurnas: 4, nocturnas: 0, feriadas: 0, salarioHora: 48.75 },
+  { empleadoId: 5, nombre: "Pedro Luis Hernández", cedula: "V-17.654.328", cargo: "Ingeniero de Sistemas", diurnas: 10, nocturnas: 8, feriadas: 0, salarioHora: 72.00 },
 ];
 
 export default function HorasExtrasPage() {

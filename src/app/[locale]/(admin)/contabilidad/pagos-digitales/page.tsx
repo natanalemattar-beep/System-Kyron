@@ -91,12 +91,12 @@ const mediosPago = [
 ];
 
 const pagoMovilRecientes = [
-  { cedula: "V-12.345.678", nombre: "María Alejandra García", banco: "Banesco (0134)", monto: "Bs. 48.500,00", ref: "202603180001", hora: "08:12 AM", estado: "VERIFICADO", segundos: 2 },
+  { cedula: "V-16.847.293", nombre: "María Alejandra García", banco: "Banesco (0134)", monto: "Bs. 48.500,00", ref: "202603180001", hora: "08:12 AM", estado: "VERIFICADO", segundos: 2 },
   { cedula: "J-30.456.789-1", nombre: "Dist. El Sol C.A.", banco: "BdV (0102)", monto: "Bs. 148.300,00", ref: "202603180002", hora: "09:34 AM", estado: "VERIFICADO", segundos: 3 },
-  { cedula: "V-18.234.567", nombre: "Carlos Eduardo Pérez", banco: "Mercantil (0105)", monto: "Bs. 22.750,00", ref: "202603180003", hora: "10:18 AM", estado: "VERIFICADO", segundos: 2 },
-  { cedula: "V-24.891.234", nombre: "Ana Isabel Rojas", banco: "BNC (0191)", monto: "Bs. 9.840,00", ref: "202603180004", hora: "11:02 AM", estado: "VERIFICADO", segundos: 4 },
+  { cedula: "V-18.234.561", nombre: "Carlos Eduardo Pérez", banco: "Mercantil (0105)", monto: "Bs. 22.750,00", ref: "202603180003", hora: "10:18 AM", estado: "VERIFICADO", segundos: 2 },
+  { cedula: "V-24.891.237", nombre: "Ana Isabel Rojas", banco: "BNC (0191)", monto: "Bs. 9.840,00", ref: "202603180004", hora: "11:02 AM", estado: "VERIFICADO", segundos: 4 },
   { cedula: "J-29.112.345-9", nombre: "Tech Solutions S.A.", banco: "BBVA (0108)", monto: "Bs. 312.000,00", ref: "202603180005", hora: "11:47 AM", estado: "VERIFICADO", segundos: 3 },
-  { cedula: "V-30.111.222", nombre: "Pedro Andrés Gómez", banco: "BOD (0116)", monto: "Bs. 65.400,00", ref: "202603180006", hora: "12:30 PM", estado: "PENDIENTE", segundos: null },
+  { cedula: "V-20.113.428", nombre: "Pedro Andrés Gómez", banco: "BOD (0116)", monto: "Bs. 65.400,00", ref: "202603180006", hora: "12:30 PM", estado: "PENDIENTE", segundos: null },
 ];
 
 export default function PagosDigitalesPage() {

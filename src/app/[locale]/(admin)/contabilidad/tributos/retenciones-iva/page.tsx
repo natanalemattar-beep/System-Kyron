@@ -15,8 +15,8 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const retencionesPracticadas = [
-    { id: "RET-2026-001", fecha: "15/03/2026", proveedor: "Kyron Logistics, C.A.", rif: "J-31245678-9", base: 5000, iva: 800, ret: 600, pct: "75%", status: "Sincronizado" },
-    { id: "RET-2026-002", fecha: "14/03/2026", proveedor: "Suministros Costa", rif: "J-40123456-7", base: 1200, iva: 192, ret: 192, pct: "100%", status: "Riesgo Mitigado" },
+    { id: "RET-2026-001", fecha: "15/03/2026", proveedor: "Kyron Logistics, C.A.", rif: "J-50328472-4", base: 5000, iva: 800, ret: 600, pct: "75%", status: "Sincronizado" },
+    { id: "RET-2026-002", fecha: "14/03/2026", proveedor: "Suministros Costa, C.A.", rif: "J-40159263-7", base: 1200, iva: 192, ret: 192, pct: "100%", status: "Riesgo Mitigado" },
 ];
 
 export default function RetencionesIvaPage() {

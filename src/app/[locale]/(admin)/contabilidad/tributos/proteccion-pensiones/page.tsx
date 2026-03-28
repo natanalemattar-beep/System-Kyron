@@ -144,8 +144,8 @@ export default function ProteccionPensionesPage() {
                                 <div className="space-y-2">
                                     <p className="text-[8px] font-black uppercase tracking-[0.3em] opacity-40">Nro. de Cuenta</p>
                                     <div className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10">
-                                        <span className="text-xs font-mono font-bold">0102-0001-22-0000123456</span>
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-white/10" onClick={() => copyToClipboard("0102-0001-22-0000123456", "Cuenta")}><Copy className="h-3 w-3" /></Button>
+                                        <span className="text-xs font-mono font-bold">0102-0345-67-8901234567</span>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-white/10" onClick={() => copyToClipboard("0102-0345-67-8901234567", "Cuenta")}><Copy className="h-3 w-3" /></Button>
                                     </div>
                                 </div>
                                 <div className="space-y-2">

@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 
 const arcData = [
-    { id: 1, empleado: "Ana Pérez", ci: "V-12.345.678", acumulado: 120000, retenciones: 1200, status: "Generado" },
-    { id: 2, empleado: "Luis Gómez", ci: "V-18.765.432", acumulado: 105000, retenciones: 1050, status: "Pendiente" },
+    { id: 1, empleado: "Ana Patricia Velásquez", ci: "V-16.892.437", acumulado: 120000, retenciones: 1200, status: "Generado" },
+    { id: 2, empleado: "Luis Eduardo Ramírez", ci: "V-19.456.283", acumulado: 105000, retenciones: 1050, status: "Pendiente" },
     { id: 3, empleado: "Carlos Mattar", ci: "V-32.855.496", acumulado: 150000, retenciones: 1500, status: "Generado" },
 ];
 

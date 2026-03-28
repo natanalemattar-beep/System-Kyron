@@ -35,7 +35,7 @@ const ESTADOS_VE = [
 const fullSchema = z.object({
   nombre: z.string().min(2, 'El nombre es requerido.'),
   apellido: z.string().min(2, 'El apellido es requerido.'),
-  cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-12345678 o E-12345678'),
+  cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-18745632 o E-12345678'),
   fecha_nacimiento: z.string().min(1, 'La fecha de nacimiento es requerida.'),
   genero: z.string().min(1, 'Selecciona el género.'),
   estado_civil: z.string().min(1, 'Selecciona el estado civil.'),

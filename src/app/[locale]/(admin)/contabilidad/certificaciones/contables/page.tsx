@@ -57,7 +57,7 @@ export default function CertificacionesContablesPage() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [formData, setFormData] = useState({
         titular: "SYSTEM KYRON, C.A.",
-        rif: "J-12345678-9",
+        rif: "J-50328471-6",
         monto: 125000,
         motivo: "SOLICITUD DE CRÉDITO CORPORATIVO",
         fecha: new Date().toISOString().substring(0, 10),

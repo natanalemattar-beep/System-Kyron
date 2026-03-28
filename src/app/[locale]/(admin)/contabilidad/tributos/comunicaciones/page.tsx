@@ -38,7 +38,7 @@ export default function ComunicacionesPage() {
     const [isSigned, setIsSigned] = useState(false);
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
-        rif: "J-12345678-9",
+        rif: "J-50328471-6",
         representante: "Carlos Mattar",
         cedula: "V-32.855.496",
         periodo: "Marzo 2026",

@@ -22,7 +22,7 @@ Presente.-
 
 Asunto: Solicitud de Registro / Renovación Industrial
 
-Yo, [Nombre del Representante], en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-12345678-9, acudo ante su autoridad para formalizar el registro de nuestra unidad productiva de acuerdo a las normativas de desarrollo industrial vigentes.
+Yo, [Nombre del Representante], en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-50328471-6, acudo ante su autoridad para formalizar el registro de nuestra unidad productiva de acuerdo a las normativas de desarrollo industrial vigentes.
 
 Anexamos a la presente el dossier técnico descriptivo de nuestros procesos y capacidades instaladas.
 
@@ -116,7 +116,7 @@ System Kyron, C.A.
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
                                 <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-12345678-9</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>
                         <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">

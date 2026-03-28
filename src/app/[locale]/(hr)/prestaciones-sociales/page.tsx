@@ -16,8 +16,8 @@ import { Logo } from "@/components/logo";
 import Image from "next/image";
 
 const empleados = [
-    { id: 1, nombre: "Ana Pérez", ci: "V-12.345.678", ingreso: "2020-01-15", salario: 12000, fondo: 45000 },
-    { id: 2, nombre: "Luis Gómez", ci: "V-18.765.432", ingreso: "2021-02-10", salario: 10500, fondo: 32000 },
+    { id: 1, nombre: "Ana Patricia Velásquez", ci: "V-16.892.437", ingreso: "2020-01-15", salario: 12000, fondo: 45000 },
+    { id: 2, nombre: "Luis Eduardo Ramírez", ci: "V-19.456.283", ingreso: "2021-02-10", salario: 10500, fondo: 32000 },
     { id: 3, nombre: "Carlos Mattar", ci: "V-32.855.496", ingreso: "2024-01-01", salario: 15000, fondo: 5000 },
 ];
 

@@ -294,7 +294,7 @@ export default function RecursosHumanosPage() {
                         </div>
                         <div className="space-y-2">
                             <Label className="text-[9px] font-black uppercase tracking-widest">Cédula de Identidad *</Label>
-                            <Input placeholder="V-12.345.678" value={form.cedula} onChange={e => setForm(f => ({ ...f, cedula: e.target.value }))} className="h-12 rounded-xl bg-muted/30 border-border font-mono" />
+                            <Input placeholder="V-18.745.632" value={form.cedula} onChange={e => setForm(f => ({ ...f, cedula: e.target.value }))} className="h-12 rounded-xl bg-muted/30 border-border font-mono" />
                         </div>
                         <div className="space-y-2">
                             <Label className="text-[9px] font-black uppercase tracking-widest">Cargo / Posición</Label>

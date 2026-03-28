@@ -29,7 +29,7 @@ Su Despacho.-
 
 Asunto: Solicitud de Copia Certificada / Inscripción de Poder
 
-Yo, [Nombre del Otorgante], titular de la Cédula de Identidad N° [Cédula], actuando en nombre de System Kyron, C.A. (RIF J-12345678-9), me dirijo a usted para solicitar formalmente la copia certificada/inscripción del instrumento legal referente a la representación de nuestra entidad.
+Yo, [Nombre del Otorgante], titular de la Cédula de Identidad N° [Cédula], actuando en nombre de System Kyron, C.A. (RIF J-50328471-6), me dirijo a usted para solicitar formalmente la copia certificada/inscripción del instrumento legal referente a la representación de nuestra entidad.
 
 Dicho documento fue registrado originalmente bajo el Nro. [Número], Tomo [Tomo], de fecha [Fecha Original].
 
@@ -99,7 +99,7 @@ System Kyron, C.A.
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
                                 <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-12345678-9</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>
                         <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">

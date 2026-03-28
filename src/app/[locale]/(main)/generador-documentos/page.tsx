@@ -75,7 +75,7 @@ export default function GeneradorDocumentosPage() {
                                 <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Partes Involucradas (Nombres, C.I., RIF)</Label>
                                 <Textarea 
                                     className="bg-white/5 border-white/10 rounded-xl font-medium min-h-[100px]" 
-                                    placeholder="Ej: Inversiones Kyron (RIF: J-12345678-9) y Juan Pérez (V-12345678)"
+                                    placeholder="Ej: Inversiones Kyron (RIF: J-50328471-6) y Juan Pérez (V-18745632)"
                                     onChange={(e) => setParties(e.target.value)}
                                 />
                             </div>

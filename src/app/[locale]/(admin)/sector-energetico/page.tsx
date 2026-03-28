@@ -435,7 +435,7 @@ export default function SectorEnergeticoPage() {
                                         <Input
                                             value={alianzaForm.rif_solicitante}
                                             onChange={e => setAlianzaForm(f => ({ ...f, rif_solicitante: e.target.value }))}
-                                            placeholder="J-12345678-9"
+                                            placeholder="J-50328471-6"
                                             className="rounded-xl h-12"
                                         />
                                     </div>

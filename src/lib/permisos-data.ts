@@ -23,10 +23,14 @@ export const initialPermisos = [
 ];
 
 export const companyData = {
+  denominacion: "System Kyron, C.A.",
+  rif: "J-50328471-6",
+  direccion: "Torre Kyron, Piso 8, Av. Francisco de Miranda, Urb. El Rosal, Chacao, Estado Miranda",
+  telefono: "0212-267-8490",
   socios: [
-    { nombre: "ING. CARLOS MATTAR", cedula: "V-32.855.496", rif: "V-32856496-4", cargo: "Director General de Tecnología" },
-    { nombre: "LIC. BEATRIZ MARTÍNEZ", cedula: "V-13.374.121", rif: "V-13374121-2", cargo: "Directora de Gestión de Talento" },
-    { nombre: "ABOG. MARÍA TERESA HERNÁNDEZ", cedula: "V-12.459.024", rif: "V-12459024-4", cargo: "Consultora Jurídica Senior" },
+    { nombre: "ING. CARLOS MATTAR", cedula: "V-32.855.496", rif: "V-32855496-4", cargo: "Director General de Tecnología" },
+    { nombre: "LIC. BEATRIZ ELENA MARTÍNEZ DE LÓPEZ", cedula: "V-14.589.031", rif: "V-14589031-7", cargo: "Directora de Gestión de Talento" },
+    { nombre: "ABOG. MARÍA TERESA HERNÁNDEZ URDANETA", cedula: "V-10.347.825", rif: "V-10347825-3", cargo: "Consultora Jurídica Senior" },
   ],
   objetoSocial: "Comercialización y distribución a escala corporativa de terminales inteligentes con tecnología de inducción magnética síncrona, mobiliario ergonómico de oficina y sistemas fiscales homologados. Provisión de servicios de telecomunicaciones convergentes, incluyendo la gestión de perfiles eSIM y conectividad 5G. Desarrollo, mantenimiento y consultoría de arquitectura de software bajo el ecosistema de inteligencia de negocios System Kyron. Gestión integral de holdings empresariales y optimización de activos estratégicos.",
 };

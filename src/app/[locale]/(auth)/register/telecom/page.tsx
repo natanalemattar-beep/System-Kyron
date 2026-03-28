@@ -73,7 +73,7 @@ const baseSchema = z.object({
   .refine(d => {
       if (d.tipo_cliente === 'empresarial' && (!d.rif || !/^[JGCVEPF]-\d{8}-\d$/.test(d.rif))) return false;
       return true;
-  }, { message: 'Formato RIF: J-12345678-9', path: ['rif'] })
+  }, { message: 'Formato RIF: J-50328471-6', path: ['rif'] })
   .refine(d => {
       if (d.motivo_linea === 'Portar mi número actual' && (!d.numero_portar || d.numero_portar.length < 7)) return false;
       return true;

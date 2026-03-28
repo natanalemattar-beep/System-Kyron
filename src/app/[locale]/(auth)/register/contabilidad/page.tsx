@@ -45,7 +45,7 @@ const PERIODOS_CONTABLES = ['Enero-Diciembre', 'Octubre-Septiembre', 'Julio-Juni
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-12345678-9'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
     tipo_empresa: z.string().min(1, 'Seleccione el tipo de empresa'),
     actividad_economica: z.string().min(5, 'Describa la actividad económica'),
     codigo_ciiu: z.string().optional(),
