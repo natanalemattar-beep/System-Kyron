@@ -15,6 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import { DocumentInput } from '@/components/document-input';
 
 const TOTAL_STEPS = 5;
 
@@ -32,7 +33,7 @@ const TECNOLOGIAS_CLASIFICACION = ['Manual','Automatizada (Cintas)','IA/Sensores
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGVEPF]-\d{8}-\d$/, 'Formato: J-12345678-9'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-12345678-9'),
     telefono: z.string().min(7, 'Teléfono inválido'),
     estado_empresa: z.string().min(1, 'Seleccione el estado'),
     municipio_empresa: z.string().min(2, 'Ingrese el municipio'),
@@ -181,7 +182,9 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
-                                    <Input placeholder="J-12345678-9" {...register('rif')} className={cn(errors.rif && 'border-destructive')} />
+                                    <Controller name="rif" control={control} render={({ field }) => (
+                                        <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                                    )} />
                                     {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
                                 </div>
                                 <div className="space-y-2">
@@ -272,7 +275,6 @@ export default function RegisterSostenibilidadPage() {
                                 {[
                                     { id: 'repNombre', label: 'Nombre *' },
                                     { id: 'repApellido', label: 'Apellido *' },
-                                    { id: 'repCedula', label: 'Cédula *', placeholder: 'V-12345678' },
                                     { id: 'rep_cargo', label: 'Cargo *', placeholder: 'Ej: Director Ambiental, Gerente...' },
                                     { id: 'rep_telefono', label: 'Teléfono *' },
                                     { id: 'repEmail', label: 'Correo *', type: 'email' },
@@ -283,6 +285,13 @@ export default function RegisterSostenibilidadPage() {
                                         {(errors as any)[f.id] && <p className="text-[10px] text-destructive">{(errors as any)[f.id].message}</p>}
                                     </div>
                                 ))}
+                                <div className="space-y-2">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest">Cédula *</Label>
+                                    <Controller name="repCedula" control={control} render={({ field }) => (
+                                        <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.repCedula} />
+                                    )} />
+                                    {errors.repCedula && <p className="text-[10px] text-destructive">{errors.repCedula.message}</p>}
+                                </div>
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">Contraseña *</Label>
                                     <div className="relative">

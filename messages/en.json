@@ -5,13 +5,13 @@
         "technology": "Technology",
         "about": "About Us",
         "faq": "FAQ",
-        "login": "Login",
-        "register": "Sign Up"
+        "login": "Sign In",
+        "register": "Get Started"
     },
     "HeroSection": {
         "title": "Your Business Command Center",
-        "subtitle": "Tax automation, smart accounting, and regulatory compliance on a single platform designed for the peace of mind of the Venezuelan entrepreneur.",
-        "cta_main": "Get Started Now",
+        "subtitle": "Tax automation, smart accounting, and regulatory compliance on a single platform designed for the Venezuelan entrepreneur.",
+        "cta_main": "Get Started",
         "cta_secondary": "Explore Services"
     }
 }

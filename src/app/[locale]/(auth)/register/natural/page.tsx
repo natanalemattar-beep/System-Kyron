@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
+import { DocumentInput } from '@/components/document-input';
 
 const TOTAL_STEPS = 5;
 
@@ -251,7 +252,9 @@ export default function RegisterNaturalPage() {
                   </Field>
                 </div>
                 <Field id="cedula" label="Cédula de Identidad" error={errors.cedula?.message}>
-                  <Input id="cedula" placeholder="V-12345678" className="bg-background border-input" {...register('cedula')} />
+                  <Controller name="cedula" control={control} render={({ field }) => (
+                    <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
+                  )} />
                 </Field>
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
                   <div className="relative">

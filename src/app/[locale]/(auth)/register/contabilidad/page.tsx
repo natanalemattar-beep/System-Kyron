@@ -22,6 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
+import { DocumentInput } from '@/components/document-input';
 
 const TOTAL_STEPS = 5;
 
@@ -44,7 +45,7 @@ const PERIODOS_CONTABLES = ['Enero-Diciembre', 'Octubre-Septiembre', 'Julio-Juni
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGVEPF]-\d{8}-\d$/, 'Formato: J-12345678-9'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-12345678-9'),
     tipo_empresa: z.string().min(1, 'Seleccione el tipo de empresa'),
     actividad_economica: z.string().min(5, 'Describa la actividad económica'),
     codigo_ciiu: z.string().optional(),
@@ -262,8 +263,10 @@ export default function RegisterContabilidadPage() {
                                         {errors.razonSocial && <p className="text-[10px] text-destructive">{errors.razonSocial.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="rif" className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
-                                        <Input id="rif" placeholder="J-12345678-9" {...register('rif')} className={cn(errors.rif && 'border-destructive')} />
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
+                                        <Controller name="rif" control={control} render={({ field }) => (
+                                            <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                                        )} />
                                         {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
                                     </div>
                                     <div className="space-y-2">
@@ -385,8 +388,10 @@ export default function RegisterContabilidadPage() {
                                         {errors.repApellido && <p className="text-[10px] text-destructive">{errors.repApellido.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="repCedula" className="text-[10px] font-black uppercase tracking-widest">Cédula *</Label>
-                                        <Input id="repCedula" placeholder="V-12345678" {...register('repCedula')} className={cn(errors.repCedula && 'border-destructive')} />
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">Cédula *</Label>
+                                        <Controller name="repCedula" control={control} render={({ field }) => (
+                                            <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.repCedula} />
+                                        )} />
                                         {errors.repCedula && <p className="text-[10px] text-destructive">{errors.repCedula.message}</p>}
                                     </div>
                                     <div className="space-y-2">

@@ -16,6 +16,7 @@ import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
+import { DocumentInput } from '@/components/document-input';
 
 const TOTAL_STEPS = 5;
 
@@ -51,7 +52,6 @@ const baseSchema = z.object({
 
     tipo_plan: z.string().min(1, 'Seleccione el plan'),
     tecnologia: z.string().min(1, 'Seleccione la tecnología'),
-    numero_portar: z.string().optional(),
     iccid_esim: z.string().optional(),
 
     estado_servicio: z.string().min(1, 'Seleccione el estado'),
@@ -71,7 +71,7 @@ const baseSchema = z.object({
       return true;
   }, { message: 'Ingrese la razón social', path: ['razon_social'] })
   .refine(d => {
-      if (d.tipo_cliente === 'empresarial' && (!d.rif || !/^[JGVEPF]-\d{8}-\d$/.test(d.rif))) return false;
+      if (d.tipo_cliente === 'empresarial' && (!d.rif || !/^[JGCVEPF]-\d{8}-\d$/.test(d.rif))) return false;
       return true;
   }, { message: 'Formato RIF: J-12345678-9', path: ['rif'] })
   .refine(d => {
@@ -282,7 +282,9 @@ export default function RegisterTelecomPage() {
                                         </div>
                                         <div className="space-y-2">
                                             <Label className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
-                                            <Input placeholder="J-12345678-9" {...register('rif')} className={cn(errors.rif && 'border-destructive')} />
+                                            <Controller name="rif" control={control} render={({ field }) => (
+                                                <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                                            )} />
                                             {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
                                         </div>
                                         <div className="space-y-2">
@@ -318,7 +320,9 @@ export default function RegisterTelecomPage() {
                                     </div>
                                     <div className="sm:col-span-2 space-y-2">
                                         <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Cédula del Representante *' : 'Cédula de Identidad *'}</Label>
-                                        <Input placeholder={tipoCliente === 'empresarial' ? 'V-12345678' : 'V-12345678 / E-12345678'} {...register('cedula')} className={cn(errors.cedula && 'border-destructive')} />
+                                        <Controller name="cedula" control={control} render={({ field }) => (
+                                            <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
+                                        )} />
                                         {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
                                     </div>
                                 </div>

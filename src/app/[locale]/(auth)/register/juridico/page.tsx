@@ -25,6 +25,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
+import { DocumentInput } from '@/components/document-input';
 
 const TOTAL_STEPS = 7;
 
@@ -395,7 +396,9 @@ export default function RegisterJuridicoPage() {
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="rif" label="RIF" error={errors.rif?.message}>
-                    <Input id="rif" placeholder="J-12345678-9" className="bg-background border-input" {...register('rif')} />
+                    <Controller name="rif" control={control} render={({ field }) => (
+                      <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                    )} />
                   </Field>
                   <Field id="tipo_empresa" label="Tipo de Empresa" error={errors.tipo_empresa?.message}>
                     <Controller
@@ -514,7 +517,9 @@ export default function RegisterJuridicoPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="repCedula" label="Cédula de Identidad" error={errors.repCedula?.message}>
-                    <Input id="repCedula" placeholder="V-12345678" className="bg-background border-input" {...register('repCedula')} />
+                    <Controller name="repCedula" control={control} render={({ field }) => (
+                      <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.repCedula} />
+                    )} />
                   </Field>
                   <Field id="rep_cargo" label="Cargo en la Empresa" error={errors.rep_cargo?.message}>
                     <Input id="rep_cargo" placeholder="Director Gerente / Presidente" className="bg-background border-input" {...register('rep_cargo')} />
