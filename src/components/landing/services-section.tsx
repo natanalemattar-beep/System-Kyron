@@ -21,8 +21,8 @@ const categories = [
         ],
     },
     {
-        label: "Telecom & IT",
-        description: "Gestión de infraestructura de telecomunicaciones y tecnología de misión crítica.",
+        label: "Mi Línea & IT",
+        description: "Gestión de infraestructura de conectividad y tecnología de misión crítica.",
         color: "text-blue-400",
         gradient: "from-blue-500/12 via-blue-500/4 to-transparent",
         borderHover: "hover:border-blue-500/30",

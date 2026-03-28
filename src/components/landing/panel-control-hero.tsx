@@ -15,7 +15,7 @@ const kpis = [
 const modules = [
   { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-400",    bg: "from-cyan-500/20 to-cyan-500/5",      border: "border-cyan-500/25",    href: "/login-empresa" },
   { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-400",  bg: "from-violet-500/20 to-violet-500/5",  border: "border-violet-500/25",  href: "/login-rrhh" },
-  { label: "Telecom 5G / eSIM",    icon: Smartphone, color: "text-blue-400",    bg: "from-blue-500/20 to-blue-500/5",      border: "border-blue-500/25",    href: "/login-linea" },
+  { label: "Mi Línea 5G / eSIM",    icon: Smartphone, color: "text-blue-400",    bg: "from-blue-500/20 to-blue-500/5",      border: "border-blue-500/25",    href: "/login-linea" },
   { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-400",   bg: "from-amber-500/20 to-amber-500/5",    border: "border-amber-500/25",   href: "/login-escritorio-juridico" },
   { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5",border: "border-emerald-500/25", href: "/login-sostenibilidad" },
   { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-400",    bg: "from-rose-500/20 to-rose-500/5",      border: "border-rose-500/25",    href: "/login-empresa" },

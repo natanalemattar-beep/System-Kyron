@@ -73,7 +73,7 @@ export default function MiLineaPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-6 py-2 mt-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Signal className="h-3 w-3" /> ÁREA DE TELECOMUNICACIONES
+                        <Signal className="h-3 w-3" /> MI LÍNEA
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-4">

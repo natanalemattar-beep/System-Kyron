@@ -27,7 +27,7 @@ const features = [
     },
     {
         icon: Smartphone,
-        title: "Telecom 5G / eSIM",
+        title: "Mi Línea 5G / eSIM",
         description: "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real.",
         color: "text-blue-400",
         bg: "bg-blue-500/10",

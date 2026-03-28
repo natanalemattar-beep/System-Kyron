@@ -373,7 +373,7 @@ export default function DashboardEmpresaPage() {
                         { label: "RRHH", href: "/rrhh", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500/10" },
                         { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/10" },
                         { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/10" },
-                        { label: "Telecom", href: "/telecom-dashboard", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/10" },
+                        { label: "Mi Línea", href: "/telecom-dashboard", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/10" },
                         { label: "Sostenibilidad", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/10" },
                     ].map((mod, i) => (
                         <Link key={i} href={mod.href as never}>

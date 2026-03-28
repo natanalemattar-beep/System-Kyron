@@ -25,7 +25,7 @@ interface Empleado {
 }
 
 const SAMPLE_EMPLEADOS: (Empleado & { diasTrabajados: number })[] = [
-  { id: 1, nombre: "Carlos", apellido: "Mendoza", cedula: "V-18.456.712", cargo: "Técnico de Redes", departamento: "Telecomunicaciones", salario: "10920.00", activo: true, diasTrabajados: 22 },
+  { id: 1, nombre: "Carlos", apellido: "Mendoza", cedula: "V-18.456.712", cargo: "Técnico de Redes", departamento: "Mi Línea", salario: "10920.00", activo: true, diasTrabajados: 22 },
   { id: 2, nombre: "María", apellido: "González", cedula: "V-20.187.493", cargo: "Analista Contable", departamento: "Contabilidad", salario: "12552.00", activo: true, diasTrabajados: 20 },
   { id: 3, nombre: "José", apellido: "Rodríguez", cedula: "V-15.234.871", cargo: "Supervisor", departamento: "Operaciones", salario: "15600.00", activo: true, diasTrabajados: 22 },
   { id: 4, nombre: "Ana", apellido: "Martínez", cedula: "V-21.345.672", cargo: "Ejecutiva Comercial", departamento: "Ventas", salario: "11700.00", activo: true, diasTrabajados: 18 },

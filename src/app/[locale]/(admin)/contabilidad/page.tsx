@@ -405,7 +405,7 @@ export default function ContabilidadPage() {
         <MotionContainer variant="fade-left" className="flex items-center gap-4">
           <div className="p-2 bg-cyan-500/10 rounded-xl"><Globe className="h-5 w-5 text-cyan-500" /></div>
           <div>
-            <h2 className="text-sm font-black uppercase tracking-[0.4em] text-foreground italic">Telecomunicaciones Corporativas</h2>
+            <h2 className="text-sm font-black uppercase tracking-[0.4em] text-foreground italic">Mi Línea Corporativa</h2>
             <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Facturación Electrónica · Internet Ilimitado · Telefonía · WhatsApp IA</p>
           </div>
           <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />

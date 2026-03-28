@@ -196,7 +196,7 @@ export const sociosNavGroups = [
 
 export const telecomNavGroups = [
   { 
-    title: "Servicios Telecom", 
+    title: "Mi Línea", 
     icon: Smartphone, 
     items: [ 
       { href: "/venta-linea", label: "Nueva Línea", icon: Phone },

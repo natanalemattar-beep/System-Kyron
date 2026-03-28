@@ -15,7 +15,7 @@
         "mobile_portal": "Portal Kyron"
     },
     "HeroSection": {
-        "title": "El ecosistema que unifica telecomunicaciones, fiscalidad y sostenibilidad",
+        "title": "El ecosistema que unifica conectividad, fiscalidad y sostenibilidad",
         "slogan": "Inteligencia Corporativa · Riesgo Cero",
         "subtitle": "Automatización fiscal, tecnología magnética, venta de telefonía y cumplimiento normativo en una única plataforma de grado corporativo.",
         "cta_main": "Comienza Ahora",
@@ -30,7 +30,7 @@
         "features": [
             { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
             { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
-            { "title": "Telecom 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
+            { "title": "Mi Línea 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
             { "title": "Inteligencia Artificial", "description": "Gemini 2.0 Flash integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
             { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
             { "title": "Ameru — Eco-Créditos", "description": "Clasificación de residuos por IA, generación de eco-créditos certificados y mercado de sostenibilidad." },
@@ -65,8 +65,8 @@
                 ]
             },
             {
-                "label": "Telecom & IT",
-                "description": "Gestión de infraestructura de telecomunicaciones y tecnología de misión crítica.",
+                "label": "Mi Línea & IT",
+                "description": "Gestión de infraestructura de conectividad y tecnología de misión crítica.",
                 "modules": [
                     { "title": "Administración de Red", "desc": "Radiobases, infraestructura y provisión masiva" },
                     { "title": "Mis Líneas", "desc": "Portal unificado personal + flota empresarial 5G" },

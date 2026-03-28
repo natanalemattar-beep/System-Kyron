@@ -96,7 +96,7 @@ const MODULES: ModuleOption[] = [
         id: "telecom",
         route: "telecom",
         icon: Signal,
-        title: "Telecomunicaciones",
+        title: "Mi Línea",
         description: "Planes de telefonía, datos móviles y servicios de conectividad",
         color: "text-cyan-500",
         bgColor: "bg-cyan-500/10 hover:bg-cyan-500/15",

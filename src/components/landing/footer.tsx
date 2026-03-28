@@ -14,7 +14,7 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 );
 
 const modules = [
-    "Contabilidad VEN-NIF", "RRHH & Nómina", "Telecom 5G / eSIM",
+    "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
     "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
     "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
 ];

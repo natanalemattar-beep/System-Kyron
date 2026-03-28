@@ -22,8 +22,8 @@ const faqItems = [
         answer: "No. Nuestro equipo guía la importación masiva de datos históricos. Para la mayoría de sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
     },
     {
-        question: "¿El módulo Telecom funciona con operadoras venezolanas?",
-        answer: "Sí. El portal de Telecomunicaciones gestiona líneas de Movilnet, Digitel y Movistar, incluyendo activación de eSIM, provisión 5G y gestión de flota corporativa por departamento con límites de consumo configurables."
+        question: "¿El módulo Mi Línea funciona con operadoras venezolanas?",
+        answer: "Sí. El portal Mi Línea gestiona líneas de Movilnet, Digitel y Movistar, incluyendo activación de eSIM, provisión 5G y gestión de flota corporativa por departamento con límites de consumo configurables."
     },
     {
         question: "¿Qué son los Eco-Créditos de Ameru IA?",

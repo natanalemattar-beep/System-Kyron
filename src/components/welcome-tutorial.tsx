@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 const steps = [
   {
     title: "Bienvenido a System Kyron",
-    description: "La plataforma de gestión empresarial más completa de Venezuela. Contabilidad, nómina, facturación, legal, telecomunicaciones e IA — todo en un solo ecosistema.",
+    description: "La plataforma de gestión empresarial más completa de Venezuela. Contabilidad, nómina, facturación, legal, Mi Línea e IA — todo en un solo ecosistema.",
     icon: Sparkles,
     color: "text-yellow-400",
     bg: "bg-yellow-400/15",
@@ -60,7 +60,7 @@ const steps = [
   },
   {
     title: "Panel Empresarial",
-    description: "Gestiona tu empresa desde el ecosistema que unifica telecomunicaciones, fiscalidad y sostenibilidad: contabilidad VEN-NIF, nómina con SSO, facturación SENIAT con tasa BCV, cuentas por pagar y cobrar, y mucho más.",
+    description: "Gestiona tu empresa desde el ecosistema que unifica conectividad, fiscalidad y sostenibilidad: contabilidad VEN-NIF, nómina con SSO, facturación SENIAT con tasa BCV, cuentas por pagar y cobrar, y mucho más.",
     icon: Building2,
     color: "text-blue-400",
     bg: "bg-blue-400/15",

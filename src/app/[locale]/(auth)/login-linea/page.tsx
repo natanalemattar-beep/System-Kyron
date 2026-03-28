@@ -142,7 +142,7 @@ export default function LoginLineaUnifiedPage() {
           <div className="md:col-span-3 p-8 md:p-10 flex flex-col justify-center bg-card">
             <div className="mb-8">
               <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-              <p className="text-sm text-muted-foreground mt-1">Accede a tu portal de telecomunicaciones</p>
+              <p className="text-sm text-muted-foreground mt-1">Accede a tu portal Mi Línea</p>
             </div>
 
             <form onSubmit={handleAuth} className="space-y-5">

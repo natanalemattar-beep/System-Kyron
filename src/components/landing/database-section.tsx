@@ -535,7 +535,7 @@ export function DatabaseSection() {
                         {[
                             { module: "CONTABILIDAD FISCAL", tables: ["contribuyentes", "facturas", "auditoria_fiscal"], icon: "📋" },
                             { module: "NÓMINA & RRHH", tables: ["empleados", "transacciones", "inventario"], icon: "👥" },
-                            { module: "TELECOM 5G", tables: ["líneas_activas", "consumo_datos", "facturación_telecom"], icon: "📡" },
+                            { module: "MI LÍNEA 5G", tables: ["líneas_activas", "consumo_datos", "facturación_telecom"], icon: "📡" },
                             { module: "IA LEGAL", tables: ["contratos", "documentos", "análisis_ia"], icon: "⚖️" },
                             { module: "ECO-CRÉDITOS", tables: ["reciclaje_log", "créditos_otorgados", "transacciones_eco"], icon: "♻️" },
                             { module: "ANALÍTICA EJECUTIVA", tables: ["kpis_temps", "reportes", "dashboards"], icon: "📊" },
