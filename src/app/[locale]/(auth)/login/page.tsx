@@ -58,7 +58,7 @@ export default function LoginSelectionPage() {
                     <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{option.label}</p>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{option.description}</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-colors shrink-0" />
+                  <ArrowRight className="h-4 w-4 text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0" />
                 </div>
               </Link>
             ))}
@@ -84,7 +84,7 @@ export default function LoginSelectionPage() {
                     <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{option.label}</p>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-snug line-clamp-1">{option.description}</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-colors shrink-0" />
+                  <ArrowRight className="h-4 w-4 text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0" />
                 </div>
               </Link>
             ))}
@@ -101,7 +101,7 @@ export default function LoginSelectionPage() {
               <User className="h-3.5 w-3.5" /> Crear cuenta nueva
             </Link>
           </div>
-          <p className="text-[9px] text-muted-foreground/30 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Acceso Seguro</p>
+          <p className="text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Acceso Seguro</p>
         </div>
       </div>
     </div>

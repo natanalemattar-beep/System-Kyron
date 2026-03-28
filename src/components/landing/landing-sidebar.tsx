@@ -53,7 +53,7 @@ export function LandingSidebar() {
             </div>
 
             <nav className="flex-grow py-8 px-4 space-y-1.5 overflow-y-auto custom-scrollbar">
-                <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-6 px-4 italic">Navegación Maestro</p>
+                <p className="text-[9px] font-black uppercase text-muted-foreground/70 tracking-[0.3em] mb-6 px-4 italic">Navegación Maestro</p>
                 {navLinks.map((link) => (
                     <Link 
                         key={link.label} 
@@ -68,7 +68,7 @@ export function LandingSidebar() {
                 ))}
                 
                 <div className="pt-8 px-4 space-y-4">
-                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-4 italic">Comercialización</p>
+                    <p className="text-[9px] font-black uppercase text-muted-foreground/70 tracking-[0.3em] mb-4 italic">Comercialización</p>
                     <Link href="/venta-linea" className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground hover:text-primary transition-colors">
                         <div className="p-1.5 bg-secondary/10 rounded-lg"><Magnet className="h-3.5 w-3.5 text-secondary" /></div>
                         Smart Bins (Magnet)

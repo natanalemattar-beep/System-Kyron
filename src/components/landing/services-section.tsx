@@ -96,7 +96,7 @@ export function ServicesSection() {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-7 py-5 border-b border-border/30 dark:border-white/[0.06]">
                             <div className="space-y-1">
                                 <span className={cn("text-[9px] font-black uppercase tracking-[0.4em]", cat.color)}>{cat.label}</span>
-                                <p className="text-xs text-muted-foreground/60 font-medium">{cat.description}</p>
+                                <p className="text-xs text-muted-foreground font-medium">{cat.description}</p>
                             </div>
                             <div className={cn("text-[8px] font-black uppercase tracking-widest flex items-center gap-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300", cat.color)}>
                                 Ver módulos <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform duration-300" />
@@ -120,7 +120,7 @@ export function ServicesSection() {
                                         <h3 className={cn("text-[11px] font-black uppercase tracking-tight transition-colors", mod.color)}>
                                             {mod.title}
                                         </h3>
-                                        <p className="text-[9px] text-muted-foreground/60 font-semibold leading-relaxed">
+                                        <p className="text-[9px] text-muted-foreground font-semibold leading-relaxed">
                                             {mod.desc}
                                         </p>
                                     </div>
@@ -138,7 +138,7 @@ export function ServicesSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
             >
-                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
+                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/70">
                     Accede desde el botón
                 </p>
                 <Link href="/register" className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/15 bg-primary/5 text-[9px] font-black uppercase tracking-widest text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300">

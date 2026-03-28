@@ -174,7 +174,7 @@ export function FeaturesSection() {
                                     {f.title}
                                     <ArrowUpRight className={cn("h-3 w-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300", f.color)} />
                                 </h3>
-                                <p className="text-[10px] text-muted-foreground/60 font-semibold leading-relaxed">
+                                <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">
                                     {f.description}
                                 </p>
                             </div>
@@ -201,7 +201,7 @@ export function FeaturesSection() {
                             className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default"
                         >
                             <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
-                            <p className="text-[8px] font-semibold text-muted-foreground/40 uppercase tracking-widest">{r.detail}</p>
+                            <p className="text-[8px] font-semibold text-muted-foreground/70 uppercase tracking-widest">{r.detail}</p>
                         </motion.div>
                     ))}
                 </motion.div>

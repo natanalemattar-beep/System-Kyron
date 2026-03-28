@@ -93,14 +93,14 @@ function OptionCard({ option }: { option: typeof registerOptions[0] }) {
                 <h3 className="text-sm font-black uppercase tracking-tight text-foreground mb-1.5 group-hover:text-primary transition-colors">
                     {option.label}
                 </h3>
-                <p className="text-[11px] text-muted-foreground/70 leading-relaxed font-medium flex-grow">
+                <p className="text-[11px] text-muted-foreground leading-relaxed font-medium flex-grow">
                     {option.description}
                 </p>
                 <div className="flex items-center gap-1.5 mt-4 pt-3 border-t border-border/20">
-                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary/50 group-hover:text-primary transition-colors">
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary/70 group-hover:text-primary transition-colors">
                         Iniciar Registro
                     </span>
-                    <ArrowRight className="h-3 w-3 text-primary/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="h-3 w-3 text-primary/70 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </div>
             </div>
         </Link>
@@ -185,7 +185,7 @@ export default function RegisterSelectionPage() {
                         <span className="text-foreground">Únete al </span>
                         <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
                     </h1>
-                    <p className="text-xs md:text-sm text-muted-foreground/60 max-w-lg mx-auto font-bold uppercase tracking-wide">
+                    <p className="text-xs md:text-sm text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
                         Ingresa tu cédula o RIF para comenzar
                     </p>
                 </header>
@@ -215,7 +215,7 @@ export default function RegisterSelectionPage() {
                                 <h2 className="text-base font-black uppercase tracking-tight">
                                     Identificación
                                 </h2>
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
                                     Cédula de identidad o RIF
                                 </p>
                             </div>
@@ -296,9 +296,9 @@ export default function RegisterSelectionPage() {
                             disabled={!isValidDoc || checking}
                             className={cn(
                                 "w-full h-12 rounded-xl text-sm font-black uppercase tracking-widest transition-all duration-300",
-                                isNatural ? "bg-blue-600 hover:bg-blue-700" :
-                                isJuridico ? "bg-emerald-600 hover:bg-emerald-700" :
-                                ""
+                                isNatural ? "bg-blue-600 hover:bg-blue-700 text-white" :
+                                isJuridico ? "bg-emerald-600 hover:bg-emerald-700 text-white" :
+                                "bg-primary hover:bg-primary/90"
                             )}
                         >
                             {checking ? (
@@ -311,13 +311,13 @@ export default function RegisterSelectionPage() {
                         <div className="flex items-center justify-center gap-6 mt-5 pt-4 border-t border-border/10">
                             <div className="flex items-center gap-2">
                                 <div className="h-2 w-2 rounded-full bg-blue-500/60" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">
                                     V/E = Persona
                                 </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="h-2 w-2 rounded-full bg-emerald-500/60" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">
                                     J/G/C/F = Empresa
                                 </span>
                             </div>
@@ -327,7 +327,7 @@ export default function RegisterSelectionPage() {
 
                 <div className="flex items-center gap-4 mb-8">
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border/20 to-transparent" />
-                    <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/30">
+                    <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">
                         O selecciona un módulo específico
                     </span>
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border/20 to-transparent" />
@@ -371,10 +371,10 @@ export default function RegisterSelectionPage() {
                         <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary">Detección Automática</span>
                         <Sparkles className="h-4 w-4 text-primary" />
                     </div>
-                    <p className="text-xs text-muted-foreground/60 font-medium mb-4 max-w-md mx-auto">
+                    <p className="text-xs text-muted-foreground font-medium mb-4 max-w-md mx-auto">
                         El sistema identifica automáticamente si eres persona natural o empresa según tu documento.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-4 text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                    <div className="flex flex-wrap justify-center gap-4 text-[8px] font-bold uppercase tracking-widest text-muted-foreground/70">
                         <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-primary/40" /> VEN-NIF</span>
                         <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-primary/40" /> SENIAT</span>
                         <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-primary/40" /> LOTTT</span>
@@ -382,7 +382,7 @@ export default function RegisterSelectionPage() {
                     </div>
                 </div>
 
-                <p className="text-center text-xs text-muted-foreground/50 mt-8 font-bold">
+                <p className="text-center text-xs text-muted-foreground/70 mt-8 font-bold">
                     ¿Ya tienes una cuenta?{' '}
                     <Link href="/login" className="text-primary font-black hover:underline uppercase tracking-wide">
                         Iniciar Sesión

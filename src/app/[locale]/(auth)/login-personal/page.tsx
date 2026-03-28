@@ -180,7 +180,7 @@ export default function LoginPersonalPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-[9px] text-muted-foreground/30 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Ciudadanía Digital</p>
+      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Ciudadanía Digital</p>
     </div>
   );
 }

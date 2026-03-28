@@ -57,10 +57,10 @@ export function AboutUsSection() {
             <div className="absolute inset-0 bg-primary/5 blur-[150px] pointer-events-none -z-10" />
             
             <div className="container mx-auto px-6 max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-12 gap-16 md:gap-24 items-start">
+                <div className="grid lg:grid-cols-12 gap-16 md:gap-20 items-start">
                     
                     <motion.div 
-                        className="lg:col-span-5 space-y-12 text-center lg:text-left"
+                        className="lg:col-span-6 space-y-12 text-center lg:text-left"
                         initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -102,7 +102,7 @@ export function AboutUsSection() {
                     </motion.div>
 
                     <motion.div 
-                        className="lg:col-span-7 space-y-16"
+                        className="lg:col-span-6 space-y-10"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -119,7 +119,7 @@ export function AboutUsSection() {
                                     <p className={cn("text-4xl font-black italic tracking-tighter mb-2", stat.color)}>
                                         <Counter from={0} to={stat.val} />{stat.suffix}
                                     </p>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">{stat.label}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/70">{stat.label}</p>
                                 </Card>
                             ))}
                         </div>

@@ -253,7 +253,7 @@ function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
                         {table.name}
                     </span>
                 </div>
-                <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-widest">
+                <span className="text-[8px] font-black text-muted-foreground/70 uppercase tracking-widest">
                     {table.rows.toLocaleString('en-US')} filas
                 </span>
             </div>
@@ -266,7 +266,7 @@ function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
                             {!f.pk && !f.fk && <span className="w-5" />}
                             <span className="text-[10px] font-mono text-foreground/70">{f.name}</span>
                         </div>
-                        <span className="text-[9px] font-mono text-muted-foreground/40">{f.type}</span>
+                        <span className="text-[9px] font-mono text-muted-foreground/70">{f.type}</span>
                     </div>
                 ))}
             </div>
@@ -423,7 +423,7 @@ export function DatabaseSection() {
                             ].map((s) => (
                                 <div key={s.label} className="flex flex-col items-center gap-1 p-3 rounded-xl border border-border/20 bg-card/10">
                                     <span className="text-sm font-black text-foreground/80">{s.val}</span>
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/40">{s.label}</span>
+                                    <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/70">{s.label}</span>
                                 </div>
                             ))}
                         </div>
@@ -502,7 +502,7 @@ export function DatabaseSection() {
                                 />
                                 <div className="h-0.5 flex-1 bg-gradient-to-r from-blue-400/60 via-violet-400/60 to-violet-500/0" />
                             </div>
-                            <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">
+                            <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/70">
                                 <motion.span
                                     className="h-1.5 w-1.5 rounded-full bg-emerald-400"
                                     animate={{ opacity: [0.4, 1, 0.4] }}
