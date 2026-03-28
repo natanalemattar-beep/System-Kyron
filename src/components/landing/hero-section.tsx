@@ -11,7 +11,7 @@ export function HeroSection() {
     const t = useTranslations('HeroSection');
 
     return (
-        <section id="inicio" className="relative pt-24 pb-12 md:pt-36 md:pb-28 overflow-hidden min-h-[92vh] flex items-center">
+        <section id="inicio" className="relative pt-24 pb-12 md:pt-32 md:pb-20 overflow-hidden min-h-[85vh] flex items-center">
 
             <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
                 <motion.div

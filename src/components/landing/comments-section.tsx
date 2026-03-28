@@ -113,14 +113,14 @@ export function CommentsSection() {
     };
 
     return (
-        <section className="py-20 md:py-32 bg-transparent relative overflow-hidden w-full">
+        <section className="py-12 md:py-20 bg-transparent relative overflow-hidden w-full">
             <div className="absolute inset-0 pointer-events-none -z-10">
                 <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full bg-violet-500/5 blur-[120px]" />
                 <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/5 blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
-                <div className="text-center mb-12 md:mb-16">
+                <div className="text-center mb-8 md:mb-12">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-violet-500/10 text-violet-600 text-[9px] font-black uppercase tracking-[0.4em] border border-violet-500/20 mb-5">
                         <MessageSquare className="h-3 w-3" /> Comentarios Reales
                     </div>

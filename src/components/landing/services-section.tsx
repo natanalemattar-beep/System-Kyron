@@ -52,10 +52,10 @@ const categories = [
 
 export function ServicesSection() {
     return (
-        <section id="servicios" className="py-16 md:py-32 bg-transparent relative z-10">
+        <section id="servicios" className="py-12 md:py-20 bg-transparent relative z-10">
 
             <motion.div
-                className="mb-16 md:mb-24 text-center space-y-5"
+                className="mb-10 md:mb-14 text-center space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -132,15 +132,36 @@ export function ServicesSection() {
             </div>
 
             <motion.div
-                className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
+                className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+            >
+                {[
+                    { val: "48h", detail: "Tiempo de migración" },
+                    { val: "Multi-empresa", detail: "Holdings y condominios" },
+                    { val: "Bilingüe", detail: "Español & English" },
+                    { val: "Gemini 2.0", detail: "IA de última generación" },
+                ].map((r, i) => (
+                    <motion.div
+                        key={i}
+                        whileHover={{ y: -2, transition: { type: "spring", stiffness: 400, damping: 17 } }}
+                        className="flex flex-col items-center text-center gap-1.5 p-4 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default"
+                    >
+                        <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
+                        <p className="text-[8px] font-semibold text-muted-foreground/70 uppercase tracking-widest">{r.detail}</p>
+                    </motion.div>
+                ))}
+            </motion.div>
+
+            <motion.div
+                className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
             >
-                <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/70">
-                    Accede desde el botón
-                </p>
                 <Link href="/register" className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/15 bg-primary/5 text-[9px] font-black uppercase tracking-widest text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300">
                     <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform duration-300" /> ACCESO AL ECOSISTEMA
                 </Link>

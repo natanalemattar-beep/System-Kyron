@@ -3,7 +3,6 @@
 
 import {
   ServicesSection,
-  FeaturesSection,
   AboutUsSection,
   CommentsSection,
   FaqSection,
@@ -42,13 +41,9 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
       <main className="relative flex-1 w-full">
         <HeroSection />
 
-        <div className="space-y-24 md:space-y-48 pb-32">
+        <div className="space-y-0 pb-0">
           <div className="container mx-auto px-4 md:px-10 max-w-7xl">
             <ServicesSection />
-          </div>
-
-          <div className="container mx-auto px-4 md:px-10 max-w-7xl">
-            <FeaturesSection />
           </div>
 
           <AboutUsSection />

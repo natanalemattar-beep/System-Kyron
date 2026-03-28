@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { LayoutGrid, Cpu, Users, CircleHelp as HelpCircle, Smartphone, Zap, Magnet, Phone, ShoppingCart, ShieldCheck, Contact, Package, ChevronDown, CircleUser as UserCircle2 } from "lucide-react";
+import { LayoutGrid, Users, CircleHelp as HelpCircle, Smartphone, Zap, Magnet, Phone, ShoppingCart, ShieldCheck, Contact, Package, ChevronDown, CircleUser as UserCircle2 } from "lucide-react";
 import {
     Collapsible,
     CollapsibleContent,
@@ -31,9 +31,9 @@ export function LandingSidebar() {
     const navLinks = [
       { href: "#inicio", label: "Inicio", icon: LayoutGrid },
       { href: "#servicios", label: "Ecosistema", icon: Zap },
-      { href: "#caracteristicas", label: "Tecnología", icon: Cpu },
       { href: "#nosotros", label: "Nosotros", icon: Users },
       { href: "#faq", label: "FAQ", icon: HelpCircle },
+      { href: "#contacto", label: "Contacto", icon: Phone },
     ];
 
     return (

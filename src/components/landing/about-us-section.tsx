@@ -53,14 +53,14 @@ export function AboutUsSection() {
     }, []);
 
     return (
-        <section id="nosotros" className="py-20 md:py-32 bg-transparent relative overflow-hidden w-full">
+        <section id="nosotros" className="py-12 md:py-20 bg-transparent relative overflow-hidden w-full">
             <div className="absolute inset-0 bg-primary/5 blur-[150px] pointer-events-none -z-10" />
             
             <div className="container mx-auto px-6 max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-12 gap-16 md:gap-20 items-start">
+                <div className="grid lg:grid-cols-12 gap-10 md:gap-14 items-start">
                     
                     <motion.div 
-                        className="lg:col-span-6 space-y-12 text-center lg:text-left"
+                        className="lg:col-span-6 space-y-8 text-center lg:text-left"
                         initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

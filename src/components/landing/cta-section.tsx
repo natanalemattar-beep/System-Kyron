@@ -13,7 +13,7 @@ const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.C
 
 export function CtaSection() {
     return (
-        <section id="contacto" className="py-16 md:py-32 bg-transparent relative overflow-hidden">
+        <section id="contacto" className="py-12 md:py-20 bg-transparent relative overflow-hidden">
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <motion.div 

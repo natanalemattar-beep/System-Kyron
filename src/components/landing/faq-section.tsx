@@ -33,18 +33,14 @@ const faqItems = [
         question: "¿Cuál es el nivel de seguridad de la plataforma?",
         answer: "Toda la información se cifra con AES-256. La autenticación usa JWT con cookies HTTP-only y sesiones de 7 días. El registro de auditoría es inmutable y cada acción queda registrada con timestamp, IP y usuario responsable."
     },
-    {
-        question: "¿Cómo funciona el registro de persona natural vs. jurídica?",
-        answer: "El registro diferencia entre personas naturales (cédula, datos personales) y personas jurídicas (RIF, razón social, representante legal). Cada tipo desbloquea los módulos correspondientes: documentos civiles para naturales, contabilidad y nómina para jurídicas."
-    },
 ];
 
 export function FaqSection() {
     return (
-        <section id="faq" className="py-16 md:py-28">
+        <section id="faq" className="py-12 md:py-20">
             <div className="container mx-auto px-4 md:px-10 max-w-5xl">
                 <motion.div
-                    className="text-center mb-12 md:mb-16 space-y-4"
+                    className="text-center mb-8 md:mb-12 space-y-4"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
