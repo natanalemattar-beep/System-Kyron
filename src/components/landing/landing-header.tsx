@@ -62,7 +62,7 @@ export function LandingHeader() {
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
-             isScrolled ? "bg-background/80 backdrop-blur-3xl py-3 border-b border-border shadow-2xl" : "bg-transparent py-8"
+             isScrolled ? "bg-background/70 backdrop-blur-2xl py-3 border-b border-border/40 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)]" : "bg-transparent py-8"
         )}>
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
@@ -111,7 +111,7 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[480px] p-0 rounded-[2rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                                <DropdownMenuContent align="end" className="w-[480px] p-0 rounded-[2rem] border-border/50 bg-card/90 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
                                     <div className="p-8 border-b border-border bg-muted/30">
                                         <DropdownMenuLabel className="p-0 flex items-center gap-4">
                                             <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">

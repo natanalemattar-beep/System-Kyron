@@ -82,10 +82,10 @@ export function CtaSection() {
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <motion.div 
                         className="space-y-8 text-center lg:text-left"
-                        initial={{ opacity: 0, x: -40 }}
+                        initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
                         <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full font-black text-[8px] md:text-[10px] uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0">
                            <Ticket className="h-3 w-3"/> Acceso Prioritario
@@ -99,14 +99,14 @@ export function CtaSection() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                         className="w-full"
                     >
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-6 md:p-10 border border-border/50 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden bg-card/40 backdrop-blur-3xl">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="glass-liquid space-y-4 p-6 md:p-10 rounded-[2.5rem] md:rounded-[3rem] shadow-xl relative">
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
                                     <Building2 className="h-24 w-24 md:h-32 md:w-32 rotate-12 text-primary/20" />
                                 </div>

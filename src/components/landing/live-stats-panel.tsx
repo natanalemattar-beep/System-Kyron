@@ -52,19 +52,18 @@ function StatCard({
 
   return (
     <motion.div
-      initial={{ opacity: 1, y: 0 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -3, transition: { type: "spring", stiffness: 400, damping: 17 } }}
       className={cn(
-        "relative flex flex-col gap-2 p-5 rounded-2xl border bg-gradient-to-br overflow-hidden",
-        "hover:scale-[1.02] transition-transform duration-300 cursor-default",
+        "relative flex flex-col gap-2 p-5 rounded-2xl border bg-gradient-to-br overflow-hidden cursor-default group",
         bg, border
       )}
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       <div className={cn("p-1.5 rounded-lg bg-black/10 dark:bg-black/20 w-fit", color)}>
         <Icon className="h-4 w-4" />
       </div>
       <div>
-        <p className={cn("text-3xl font-black leading-none tracking-tight", color)}>
+        <p className={cn("text-3xl font-black leading-none tracking-tight tabular-nums", color)}>
           {animated.toLocaleString()}
         </p>
         <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 mt-1.5 leading-tight">
@@ -112,17 +111,14 @@ export function LiveStatsPanel() {
 
   return (
     <div className="space-y-3">
-      <motion.div
-        initial={{ opacity: 1, x: 0 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="rounded-[2rem] border border-border/40 dark:border-white/10 bg-card/60 dark:bg-card/40 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5"
-      >
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/40 dark:border-white/8 bg-muted/30 dark:bg-white/[0.02]">
+      <div className="glass-liquid rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
+
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 dark:border-white/[0.06] bg-muted/20 dark:bg-white/[0.02]">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
-              <div className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
-              <div className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+              <motion.div animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }} className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+              <motion.div animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity, delay: 0.3 }} className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+              <motion.div animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity, delay: 0.6 }} className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
             </div>
             <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">
               {t("topbar")}
@@ -156,7 +152,7 @@ export function LiveStatsPanel() {
           />
         </div>
 
-        <div className="px-4 pb-4 border-t border-border/30 dark:border-white/8 pt-3">
+        <div className="px-4 pb-4 border-t border-border/20 dark:border-white/[0.05] pt-3">
           <p className="text-[7px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-2.5">
             {t("frameworks")}
           </p>
@@ -164,7 +160,7 @@ export function LiveStatsPanel() {
             {compliance.map((c) => (
               <span
                 key={c}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/8 border border-primary/15 text-[7px] font-black uppercase tracking-widest text-primary/70"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/8 border border-primary/12 text-[7px] font-black uppercase tracking-widest text-primary/70 hover:bg-primary/12 hover:border-primary/20 transition-all duration-300"
               >
                 <CheckCircle2 className="h-2.5 w-2.5" />
                 {c}
@@ -174,7 +170,7 @@ export function LiveStatsPanel() {
         </div>
 
         <Link href="/register" className="block group">
-          <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-primary/10 to-transparent border-t border-primary/15 hover:from-primary/20 transition-all">
+          <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-primary/8 to-transparent border-t border-primary/10 hover:from-primary/15 transition-all duration-300">
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-3.5 w-3.5 text-primary" />
               <div>
@@ -186,10 +182,10 @@ export function LiveStatsPanel() {
                 </p>
               </div>
             </div>
-            <ArrowRight className="h-3.5 w-3.5 text-primary group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-3.5 w-3.5 text-primary group-hover:translate-x-1.5 transition-transform duration-300" />
           </div>
         </Link>
-      </motion.div>
+      </div>
 
       <div className="grid grid-cols-4 gap-2">
         {[
@@ -197,12 +193,11 @@ export function LiveStatsPanel() {
           { label: t("tables"), value: "42+" },
           { label: t("compliance"), value: "100%" },
           { label: t("bcv"), value: "✓" },
-        ].map((cap) => (
+        ].map((cap, i) => (
           <motion.div
             key={cap.label}
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col gap-1 p-3 rounded-2xl border border-border/40 dark:border-white/8 bg-card/50 dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/30 transition-colors"
+            whileHover={{ y: -2, transition: { type: "spring", stiffness: 400, damping: 17 } }}
+            className="flex flex-col gap-1 p-3 rounded-2xl border border-border/30 dark:border-white/[0.06] bg-card/40 dark:bg-card/20 backdrop-blur-xl text-center hover:border-primary/25 transition-all duration-300 cursor-default"
           >
             <p className="text-sm font-black text-primary leading-none">{cap.value}</p>
             <p className="text-[7px] font-bold text-muted-foreground/50 uppercase tracking-wide leading-tight line-clamp-2">
