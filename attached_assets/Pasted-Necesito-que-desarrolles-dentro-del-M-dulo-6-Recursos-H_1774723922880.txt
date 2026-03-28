@@ -1,0 +1,66 @@
+Necesito que desarrolles, dentro del Módulo 6: Recursos Humanos (RRHH) de System Kyron, los siguientes libros y funcionalidades laborales y fiscales. Todo debe estar integrado en la misma interfaz web, con diseño glassmorphism, colores azul #0A2472 y verde #00FF00, tipografía Inter.
+
+### 1. LIBRO DE HORAS EXTRAS Y NOCTURNAS
+- Registro automático de horas trabajadas fuera del horario ordinario.
+- Cálculo automático del recargo legal:
+  - Hora extra diurna: 50% sobre salario base
+  - Hora extra nocturna: 50% + 30% (sobre salario base)
+  - Hora nocturna ordinaria: 30% de recargo
+- Vista mensual y anual, exportable a PDF/Excel.
+
+### 2. LIBRO DE VACACIONES
+- Registro de períodos de vacaciones por empleado.
+- Alerta automática con 15 días de anticipación al inicio del período vacacional.
+- Cálculo del bono vacacional (según LOTTT: mínimo 15 días + 1 día adicional por año hasta 30).
+- Registro de días disfrutados y días pendientes.
+
+### 3. LIBRO DE SOLVENCIAS
+- Generación automática de solvencias laborales:
+  - Solvencia de pago de prestaciones sociales
+  - Solvencia de aportes parafiscales (IVSS, FAOV, INCES, LOPCYMAT)
+  - Solvencia de cumplimiento LOTTT
+- Alerta de vencimiento con 15 días de anticipación para renovar solvencias.
+
+### 4. LIBRO DE INGRESO Y EGRESO DE EMPLEADOS
+- Registro histórico de contrataciones (ingreso) y desvinculaciones (egreso).
+- Para cada empleado:
+  - Fecha de ingreso
+  - Fecha de egreso (si aplica)
+  - Causa de egreso (renuncia, despido, jubilación, fallecimiento)
+  - Cálculo automático de liquidación al egreso (prestaciones, vacaciones fraccionadas, utilidades)
+
+### 5. LIBRO DE DECLARACIÓN DE IMPUESTO SOBRE LA RENTA (ISLR)
+- Cálculo automático del ISLR retenido por empleado.
+- Generación de planilla de retención para el SENIAT.
+- Resumen anual por empleado para presentación de declaración jurada.
+- Alerta de fechas de vencimiento de declaraciones patronales y de empleados.
+
+### 6. LIBRO DE POST PARTO (LACTANCIA Y REPOSO MATERNIDAD)
+- Registro de empleadas en período de reposo pre y post parto.
+- Cálculo de los días de reposo legal (LOTTT: 6 semanas pre y 20 semanas post parto).
+- Registro del período de lactancia (1 hora diaria durante el primer año).
+- Alertas de inicio y fin del reposo, y recordatorio de reintegro laboral.
+
+### 7. LIBRO DE EMPLEADO INCAPACITADO (INCAPACIDAD PARCIAL O PERMANENTE)
+- Registro de empleados con incapacidad parcial o permanente (por accidente laboral o enfermedad).
+- Cálculo de indemnizaciones según LOTTT:
+  - Incapacidad parcial: 1 año de salario + 50% (artículo 130)
+  - Incapacidad permanente: hasta 5 años de salario
+- Seguimiento de evaluaciones médicas y posibles reubicaciones laborales.
+
+### 8. LIBRO DE REPOSOS MÉDICOS
+- Registro de todos los reposos médicos presentados por empleados.
+- Control de días de reposo:
+  - Días otorgados
+  - Días consumidos
+  - Días pendientes
+- Alertas de vencimiento de reposos y necesidad de prórroga.
+- Validación contra reposos emitidos por IVSS o médicos autorizados.
+
+### FUNCIONALIDADES INTEGRADAS
+- Todas las alertas deben ser automáticas: 15 días antes de vacaciones, vencimiento de solvencias, inicio/fin de reposos, vencimiento de reposos, etc.
+- Cada libro debe poder exportarse en PDF y Excel.
+- La información debe estar vinculada al perfil de cada empleado.
+- Cumplimiento estricto con la LOTTT, LOPCYMAT, IVSS y SENIAT.
+
+Genera el código frontend (HTML/CSS/JS) para estos libros integrados en una sola vista de panel, con pestañas o secciones colapsables. No se requieren backend real, solo la interfaz con datos de ejemplo para demostrar funcionalidad.

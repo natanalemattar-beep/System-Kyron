@@ -61,6 +61,17 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `nomina_items` — Detalle por empleado (SSO, FAOV, LPH, RPE, ISLR)
 - `permisos_laborales` — Permisos y vacaciones
 - `certificados_laborales` — Certificados de trabajo, ingresos, referencias
+- `horas_extras` — Registro de horas extras y nocturnas (LOTTT Art. 178)
+- `vacaciones_control` — Control de vacaciones con cálculo de bono vacacional
+- `utilidades_libro` — Utilidades Art. 131 LOTTT
+- `aportes_parafiscales` — IVSS, FAOV, INCES, LOPCYMAT
+- `solvencias_laborales` — Solvencias laborales con vencimiento
+- `ingreso_egreso_empleados` — Libro de ingreso/egreso
+- `islr_retenciones` — Retenciones ISLR sobre sueldos
+- `maternidad_lactancia` — Pre/postnatal, lactancia (LOTTT Art. 335-345)
+- `incapacidades` — Incapacidades temporales/permanentes
+- `reposos_medicos` — Reposos médicos con seguimiento
+- `cancelacion_rif_seniat` — Cancelación RIF ante SENIAT
 
 ### 4. Legal / Escritorio Jurídico
 - `documentos_juridicos` — Contratos, escrituras, demandas, poderes, actas
@@ -122,6 +133,7 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - `GET/POST/PATCH /api/solicitudes-civiles` — Solicitudes de documentos civiles
 - `GET/POST /api/eco-creditos` — Balance y transacciones de reciclaje Ameru IA
 - `GET/POST /api/telecom` — Líneas telecom + facturas de servicios
+- `GET/POST /api/rrhh/libros` — 13 libros laborales digitalizados (LOTTT) con alertas inteligentes
 - `GET/POST/PATCH /api/notificaciones` — Notificaciones del sistema
 - `GET/POST/PATCH /api/proveedores` — Directorio de proveedores
 - `GET/POST/PATCH /api/documentos-juridicos` — Documentos del escritorio jurídico

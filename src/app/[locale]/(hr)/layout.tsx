@@ -2,7 +2,7 @@
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
-import { motion } from "framer-motion";
+
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
 
@@ -28,14 +28,11 @@ export default function HRLayout({
                 dashboardHref="/dashboard-rrhh" 
                 navGroups={rrhhNavGroups}
               />
-              <motion.main 
+              <main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
               >
                   {children}
-              </motion.main>
+              </main>
               <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron v2.6 • Culture Node • 2026

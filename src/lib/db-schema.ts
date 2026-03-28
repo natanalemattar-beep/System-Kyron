@@ -1163,6 +1163,232 @@ async function createRRHHExtendedTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_clima_user_id ON clima_organizacional(user_id)`);
+
+  await createRRHHLibrosLaboralesTables();
+}
+
+async function createRRHHLibrosLaboralesTables() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS horas_extras (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      fecha           DATE NOT NULL,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('extra_diurna','extra_nocturna','nocturna_ordinaria')),
+      horas           NUMERIC(5,2) NOT NULL DEFAULT 0,
+      salario_hora    NUMERIC(18,2) NOT NULL DEFAULT 0,
+      recargo_pct     NUMERIC(5,2) NOT NULL DEFAULT 0,
+      monto_total     NUMERIC(18,2) NOT NULL DEFAULT 0,
+      aprobado        BOOLEAN NOT NULL DEFAULT false,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_horas_extras_emp ON horas_extras(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS vacaciones_control (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      periodo         TEXT NOT NULL,
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin       DATE NOT NULL,
+      dias_correspondientes INT NOT NULL DEFAULT 15,
+      dias_disfrutados      INT NOT NULL DEFAULT 0,
+      dias_pendientes       INT NOT NULL DEFAULT 15,
+      bono_vacacional       NUMERIC(18,2) NOT NULL DEFAULT 0,
+      dias_bono             INT NOT NULL DEFAULT 15,
+      estado          TEXT NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','en_curso','disfrutado','vencido')),
+      alerta_enviada  BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_vacaciones_ctrl_emp ON vacaciones_control(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS utilidades_libro (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      anio            INT NOT NULL,
+      dias_trabajados INT NOT NULL DEFAULT 360,
+      dias_utilidades INT NOT NULL DEFAULT 15,
+      salario_diario  NUMERIC(18,2) NOT NULL DEFAULT 0,
+      monto_utilidades NUMERIC(18,2) NOT NULL DEFAULT 0,
+      fecha_pago      DATE,
+      pagado          BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_utilidades_emp ON utilidades_libro(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS aportes_parafiscales (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      periodo         TEXT NOT NULL,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('ivss','faov','inces','lopcymat')),
+      base_calculo    NUMERIC(18,2) NOT NULL DEFAULT 0,
+      pct_patronal    NUMERIC(5,2) NOT NULL DEFAULT 0,
+      pct_empleado    NUMERIC(5,2) NOT NULL DEFAULT 0,
+      monto_patronal  NUMERIC(18,2) NOT NULL DEFAULT 0,
+      monto_empleado  NUMERIC(18,2) NOT NULL DEFAULT 0,
+      pagado          BOOLEAN NOT NULL DEFAULT false,
+      fecha_pago      DATE,
+      referencia      TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_parafiscales_emp ON aportes_parafiscales(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS solvencias_laborales (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('prestaciones','parafiscales','lottt','general')),
+      fecha_emision   DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_vencimiento DATE NOT NULL,
+      numero_solvencia TEXT,
+      organismo       TEXT,
+      estado          TEXT NOT NULL DEFAULT 'vigente' CHECK (estado IN ('vigente','por_vencer','vencida','renovada')),
+      alerta_enviada  BOOLEAN NOT NULL DEFAULT false,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_solvencias_user ON solvencias_laborales(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS ingreso_egreso_empleados (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('ingreso','egreso')),
+      fecha           DATE NOT NULL,
+      causa_egreso    TEXT CHECK (causa_egreso IN ('renuncia','despido_justificado','despido_injustificado','jubilacion','fallecimiento','mutuo_acuerdo','fin_contrato',NULL)),
+      salario_al_momento NUMERIC(18,2),
+      liquidacion_prestaciones NUMERIC(18,2) DEFAULT 0,
+      liquidacion_vacaciones   NUMERIC(18,2) DEFAULT 0,
+      liquidacion_utilidades   NUMERIC(18,2) DEFAULT 0,
+      indemnizacion            NUMERIC(18,2) DEFAULT 0,
+      total_liquidacion        NUMERIC(18,2) DEFAULT 0,
+      observaciones   TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_ingreso_egreso_emp ON ingreso_egreso_empleados(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS islr_retenciones (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      periodo         TEXT NOT NULL,
+      ingreso_gravable NUMERIC(18,2) NOT NULL DEFAULT 0,
+      desgravamen     NUMERIC(18,2) NOT NULL DEFAULT 0,
+      base_imponible  NUMERIC(18,2) NOT NULL DEFAULT 0,
+      tarifa_pct      NUMERIC(5,2) NOT NULL DEFAULT 0,
+      impuesto_causado NUMERIC(18,2) NOT NULL DEFAULT 0,
+      retenido_acumulado NUMERIC(18,2) NOT NULL DEFAULT 0,
+      saldo_retencion  NUMERIC(18,2) NOT NULL DEFAULT 0,
+      planilla_generada BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_islr_ret_emp ON islr_retenciones(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS maternidad_lactancia (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      fecha_parto_estimada DATE,
+      fecha_parto_real     DATE,
+      inicio_prenatal      DATE NOT NULL,
+      fin_prenatal         DATE,
+      inicio_postnatal     DATE,
+      fin_postnatal        DATE,
+      semanas_pre          INT NOT NULL DEFAULT 6,
+      semanas_post         INT NOT NULL DEFAULT 20,
+      lactancia_inicio     DATE,
+      lactancia_fin        DATE,
+      horas_lactancia_diaria NUMERIC(3,1) NOT NULL DEFAULT 1.0,
+      estado          TEXT NOT NULL DEFAULT 'prenatal' CHECK (estado IN ('prenatal','postnatal','lactancia','reintegrada','finalizado')),
+      fecha_reintegro DATE,
+      alerta_enviada  BOOLEAN NOT NULL DEFAULT false,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_maternidad_emp ON maternidad_lactancia(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS incapacidades (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('parcial','permanente','temporal')),
+      causa           TEXT NOT NULL CHECK (causa IN ('accidente_laboral','enfermedad_ocupacional','accidente_comun','enfermedad_comun')),
+      fecha_inicio    DATE NOT NULL,
+      fecha_evaluacion DATE,
+      porcentaje_incapacidad NUMERIC(5,2) DEFAULT 0,
+      salario_referencia NUMERIC(18,2) NOT NULL DEFAULT 0,
+      indemnizacion_calculada NUMERIC(18,2) NOT NULL DEFAULT 0,
+      anios_indemnizacion     NUMERIC(5,2) NOT NULL DEFAULT 1,
+      reubicacion_propuesta   TEXT,
+      evaluaciones_medicas    TEXT,
+      estado          TEXT NOT NULL DEFAULT 'activa' CHECK (estado IN ('activa','en_evaluacion','reubicado','pensionado','cerrada')),
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_incapacidades_emp ON incapacidades(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS reposos_medicos (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      tipo            TEXT NOT NULL CHECK (tipo IN ('enfermedad_comun','accidente_laboral','maternidad','enfermedad_ocupacional')),
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin       DATE NOT NULL,
+      dias_otorgados  INT NOT NULL DEFAULT 0,
+      dias_consumidos INT NOT NULL DEFAULT 0,
+      dias_pendientes INT NOT NULL DEFAULT 0,
+      medico_tratante TEXT,
+      centro_medico   TEXT,
+      validado_ivss   BOOLEAN NOT NULL DEFAULT false,
+      numero_reposo   TEXT,
+      requiere_prorroga BOOLEAN NOT NULL DEFAULT false,
+      estado          TEXT NOT NULL DEFAULT 'activo' CHECK (estado IN ('activo','finalizado','prorrogado','vencido')),
+      alerta_enviada  BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_reposos_emp ON reposos_medicos(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS cancelacion_rif_seniat (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT REFERENCES empleados(id) ON DELETE SET NULL,
+      nombre_empleado TEXT NOT NULL,
+      cedula          TEXT NOT NULL,
+      rif_anterior    TEXT NOT NULL,
+      fecha_cancelacion DATE NOT NULL,
+      causa           TEXT NOT NULL CHECK (causa IN ('cierre_negocio','independiente','jubilacion','fallecimiento','cambio_regimen','suspension','otro')),
+      fecha_notificacion DATE,
+      comprobante_url TEXT,
+      bloqueo_islr    BOOLEAN NOT NULL DEFAULT true,
+      observaciones   TEXT,
+      estado          TEXT NOT NULL DEFAULT 'cancelado' CHECK (estado IN ('cancelado','suspendido','reactivado')),
+      alerta_enviada  BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_cancelacion_rif_user ON cancelacion_rif_seniat(user_id)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

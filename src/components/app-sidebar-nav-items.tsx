@@ -180,6 +180,7 @@ export const rrhhNavGroups = [
             { href: "/nominas", label: "Pago de Nómina", icon: Calculator },
             { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
             { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale },
+            { href: "/libros-laborales", label: "Libros Laborales", icon: BookOpen },
         ],
         subGroups: []
     },
