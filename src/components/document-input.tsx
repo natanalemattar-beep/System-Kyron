@@ -5,18 +5,18 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 const CEDULA_PREFIXES = [
-    { value: 'V', label: 'V — Venezolano' },
-    { value: 'E', label: 'E — Extranjero' },
+    { value: 'V', label: 'V — Venezolano', short: 'V' },
+    { value: 'E', label: 'E — Extranjero', short: 'E' },
 ];
 
 const RIF_PREFIXES = [
-    { value: 'J', label: 'J — Jurídico' },
-    { value: 'G', label: 'G — Gobierno' },
-    { value: 'V', label: 'V — Natural' },
-    { value: 'E', label: 'E — Extranjero' },
-    { value: 'P', label: 'P — Pasaporte' },
-    { value: 'C', label: 'C — Comunal' },
-    { value: 'F', label: 'F — Firma' },
+    { value: 'J', label: 'J — Jurídico', short: 'J' },
+    { value: 'G', label: 'G — Gobierno', short: 'G' },
+    { value: 'V', label: 'V — Natural', short: 'V' },
+    { value: 'E', label: 'E — Extranjero', short: 'E' },
+    { value: 'P', label: 'P — Pasaporte', short: 'P' },
+    { value: 'C', label: 'C — Comunal', short: 'C' },
+    { value: 'F', label: 'F — Firma', short: 'F' },
 ];
 
 interface DocumentInputProps {
@@ -46,10 +46,13 @@ export function DocumentInput({ type, value, onChange, error, className, default
     };
 
     return (
-        <div className={cn("flex gap-2", className)}>
+        <div className={cn("flex gap-2 items-center", className)}>
             <Select value={currentPrefix} onValueChange={handlePrefixChange}>
-                <SelectTrigger className={cn("w-[130px] shrink-0", error && 'border-destructive')}>
-                    <SelectValue />
+                <SelectTrigger className={cn(
+                    "w-[64px] shrink-0 font-bold text-base bg-muted/50 border-input",
+                    error && 'border-destructive'
+                )}>
+                    <span className="text-foreground font-bold">{currentPrefix}</span>
                 </SelectTrigger>
                 <SelectContent>
                     {prefixes.map(p => (
@@ -57,11 +60,12 @@ export function DocumentInput({ type, value, onChange, error, className, default
                     ))}
                 </SelectContent>
             </Select>
+            <div className="text-muted-foreground font-bold text-lg select-none">–</div>
             <Input
                 value={currentNumber}
                 onChange={e => handleNumberChange(e.target.value)}
-                placeholder={type === 'cedula' ? '12345678' : '12345678-9'}
-                className={cn("flex-1", error && 'border-destructive')}
+                placeholder={type === 'cedula' ? '18745632' : '12345678-9'}
+                className={cn("flex-1 bg-background border-input", error && 'border-destructive')}
             />
         </div>
     );
