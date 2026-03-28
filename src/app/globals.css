@@ -139,11 +139,11 @@
   }
 
   .glass-card:hover {
-    @apply border-primary/20 dark:border-primary/15;
-    transform: translateY(-2px);
+    @apply border-primary/15 dark:border-primary/10;
+    transform: translateY(-1px);
     box-shadow:
-      0 8px 32px -8px rgba(0, 0, 0, 0.1),
-      0 2px 6px rgba(0, 0, 0, 0.04),
+      0 6px 24px -6px rgba(0, 0, 0, 0.08),
+      0 2px 6px rgba(0, 0, 0, 0.03),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
@@ -338,43 +338,43 @@
 }
 
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes reveal-scale {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.97); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-24px); }
+  from { opacity: 0; transform: translateX(-14px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(24px); }
+  from { opacity: 0; transform: translateX(14px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes blur-reveal {
-  from { opacity: 0; filter: blur(6px); }
+  from { opacity: 0; filter: blur(3px); }
   to { opacity: 1; filter: blur(0); }
 }
 
 @keyframes bounce-subtle {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  50% { transform: translateY(-2px); }
 }
 
 @keyframes icon-spin-in {
-  from { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+  from { opacity: 0; transform: rotate(-45deg) scale(0.7); }
   to { opacity: 1; transform: rotate(0) scale(1); }
 }
 
 @keyframes glow-breathe {
-  0%, 100% { box-shadow: 0 0 12px -4px hsla(var(--primary), 0.15); }
-  50% { box-shadow: 0 0 24px -4px hsla(var(--primary), 0.35); }
+  0%, 100% { box-shadow: 0 0 8px -4px hsla(var(--primary), 0.1); }
+  50% { box-shadow: 0 0 16px -4px hsla(var(--primary), 0.2); }
 }
 
 @keyframes progress-stripe {
@@ -444,45 +444,45 @@
 
 @layer utilities {
   .hover-lift {
-    @apply transition-all duration-300;
+    @apply transition-all duration-300 ease-out;
   }
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.08);
   }
   .hover-lift:active {
-    transform: translateY(-1px);
+    transform: translateY(0);
   }
 
   .hover-glow {
-    @apply transition-all duration-500;
+    @apply transition-all duration-500 ease-out;
   }
   .hover-glow:hover {
-    box-shadow: 0 0 20px -4px hsla(var(--primary), 0.25),
-                0 8px 24px -8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 16px -4px hsla(var(--primary), 0.18),
+                0 4px 16px -6px rgba(0, 0, 0, 0.06);
   }
 
   .hover-scale {
-    @apply transition-transform duration-300;
+    @apply transition-transform duration-300 ease-out;
   }
   .hover-scale:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
   .hover-scale:active {
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 
   .btn-press {
-    @apply transition-all duration-150;
+    @apply transition-all duration-150 ease-out;
   }
   .btn-press:active {
-    transform: scale(0.96) translateY(1px);
+    transform: scale(0.97);
   }
 
   .icon-hover {
-    @apply transition-all duration-300;
+    @apply transition-all duration-300 ease-out;
   }
   .icon-hover:hover {
-    transform: rotate(8deg) scale(1.15);
+    transform: rotate(4deg) scale(1.08);
   }
 }

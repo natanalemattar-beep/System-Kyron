@@ -4,8 +4,7 @@ import { motion, useInView, useReducedMotion, type Variants } from 'framer-motio
 import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const easeOut = [0.16, 1, 0.3, 1] as const;
-const easeSpring = { type: "spring", stiffness: 100, damping: 20, mass: 0.8 } as const;
+const easeOut = [0.22, 1, 0.36, 1] as const;
 
 function useHasMounted() {
   const [mounted, setMounted] = useState(false);
@@ -14,37 +13,37 @@ function useHasMounted() {
 }
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0 },
 };
 
 const fadeDown: Variants = {
-  hidden: { opacity: 0, y: -20 },
+  hidden: { opacity: 0, y: -12 },
   visible: { opacity: 1, y: 0 },
 };
 
 const fadeLeft: Variants = {
-  hidden: { opacity: 0, x: -30 },
+  hidden: { opacity: 0, x: -16 },
   visible: { opacity: 1, x: 0 },
 };
 
 const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 30 },
+  hidden: { opacity: 0, x: 16 },
   visible: { opacity: 1, x: 0 },
 };
 
 const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
+  hidden: { opacity: 0, scale: 0.96 },
   visible: { opacity: 1, scale: 1 },
 };
 
 const blurIn: Variants = {
-  hidden: { opacity: 0, filter: 'blur(8px)' },
+  hidden: { opacity: 0, filter: 'blur(4px)' },
   visible: { opacity: 1, filter: 'blur(0px)' },
 };
 
 const slideUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -76,7 +75,7 @@ export function MotionContainer({
   className,
   variant = 'fade-up',
   delay = 0,
-  duration = 0.6,
+  duration = 0.5,
   once = true,
   amount = 0.2,
   as = 'div',
@@ -118,7 +117,7 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className,
-  staggerDelay = 0.08,
+  staggerDelay = 0.06,
   once = true,
   amount = 0.15,
 }: StaggerContainerProps) {
@@ -142,7 +141,7 @@ export function StaggerContainer({
         visible: {
           transition: {
             staggerChildren: staggerDelay,
-            delayChildren: 0.1,
+            delayChildren: 0.05,
           },
         },
       }}
@@ -163,7 +162,7 @@ export function StaggerItem({
   children,
   className,
   variant = 'fade-up',
-  duration = 0.5,
+  duration = 0.4,
 }: StaggerItemProps) {
   return (
     <motion.div
@@ -197,9 +196,9 @@ export function PageTransition({ children, className }: PageTransitionProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: easeOut }}
+      transition={{ duration: 0.35, ease: easeOut }}
     >
       {children}
     </motion.div>
@@ -217,7 +216,7 @@ interface CountUpProps {
 
 export function CountUp({
   target,
-  duration = 1.8,
+  duration = 1.5,
   prefix = '',
   suffix = '',
   className,
@@ -263,8 +262,8 @@ interface FloatingElementProps {
 export function FloatingElement({
   children,
   className,
-  amplitude = 8,
-  duration = 4,
+  amplitude = 5,
+  duration = 5,
   delay = 0,
 }: FloatingElementProps) {
   const mounted = useHasMounted();
@@ -302,11 +301,11 @@ export function GlowPulse({ className, color = 'primary' }: GlowPulseProps) {
     <motion.div
       className={cn('absolute rounded-full pointer-events-none', className)}
       animate={{
-        scale: [1, 1.2, 1],
-        opacity: [0.15, 0.3, 0.15],
+        scale: [1, 1.1, 1],
+        opacity: [0.1, 0.2, 0.1],
       }}
       transition={{
-        duration: 3,
+        duration: 4,
         repeat: Infinity,
         ease: 'easeInOut',
       }}
@@ -319,9 +318,9 @@ export function ShimmerText({ children, className }: { children: React.ReactNode
     <span className={cn('relative inline-block overflow-hidden', className)}>
       {children}
       <motion.span
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none"
         animate={{ x: ['-100%', '100%'] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
       />
     </span>
   );
