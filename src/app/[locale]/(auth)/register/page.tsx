@@ -16,6 +16,16 @@ import { cn } from "@/lib/utils";
 
 type DetectedType = null | "natural" | "juridico";
 
+interface RifLookupResult {
+    razonSocial: string;
+    tipoEmpresa?: string;
+    actividadEconomica?: string;
+    estado?: string;
+    municipio?: string;
+    direccion?: string;
+    telefono?: string;
+}
+
 const ALL_PREFIXES = [
     { value: "V", label: "V", desc: "Venezolano" },
     { value: "E", label: "E", desc: "Extranjero" },
@@ -114,6 +124,9 @@ export default function RegisterSelectionPage() {
     const [detected, setDetected] = useState<{ type: DetectedType; format: "cedula" | "rif" | null; label: string; valid: boolean }>({ type: null, format: null, label: "", valid: false });
     const [checking, setChecking] = useState(false);
     const [existsResult, setExistsResult] = useState<null | { exists: boolean }>(null);
+    const [rifLookup, setRifLookup] = useState<RifLookupResult | null>(null);
+    const [rifSearching, setRifSearching] = useState(false);
+    const [rifSearched, setRifSearched] = useState(false);
 
     const fullDocument = `${prefix}-${docNumber}`;
 
@@ -121,12 +134,32 @@ export default function RegisterSelectionPage() {
         const result = detectDocumentType(prefix, docNumber);
         setDetected(result);
         setExistsResult(null);
+        setRifLookup(null);
+        setRifSearched(false);
     }, [prefix, docNumber]);
 
     const handleNumberChange = (val: string) => {
         const cleaned = val.replace(/[^0-9-]/g, "");
         setDocNumber(cleaned);
     };
+
+    const handleRifSearch = useCallback(async () => {
+        if (!detected.valid || detected.type !== "juridico") return;
+        setRifSearching(true);
+        setRifLookup(null);
+        try {
+            const res = await fetch(`/api/rif/consulta?rif=${encodeURIComponent(fullDocument)}`);
+            const data = await res.json();
+            if (data.found && data.data) {
+                setRifLookup(data.data);
+            }
+            setRifSearched(true);
+        } catch {
+            setRifSearched(true);
+        } finally {
+            setRifSearching(false);
+        }
+    }, [detected, fullDocument]);
 
     const locale = useLocale();
 
@@ -149,8 +182,15 @@ export default function RegisterSelectionPage() {
         setChecking(false);
 
         const target = detected.type === "natural" ? "natural" : "juridico";
-        router.push(`/${locale}/register/${target}?doc=${encodeURIComponent(fullDocument)}` as any);
-    }, [detected, prefix, fullDocument, router, locale]);
+        const params = new URLSearchParams({ doc: fullDocument });
+        if (rifLookup?.razonSocial) params.set('razon', rifLookup.razonSocial);
+        if (rifLookup?.tipoEmpresa) params.set('tipo', rifLookup.tipoEmpresa);
+        if (rifLookup?.actividadEconomica) params.set('actividad', rifLookup.actividadEconomica);
+        if (rifLookup?.estado) params.set('estado', rifLookup.estado);
+        if (rifLookup?.municipio) params.set('municipio', rifLookup.municipio);
+        if (rifLookup?.telefono) params.set('tel', rifLookup.telefono);
+        router.push(`/${locale}/register/${target}?${params.toString()}` as any);
+    }, [detected, prefix, fullDocument, router, locale, rifLookup]);
 
     const personalOptions = registerOptions.filter(o =>
         ["/register/natural", "/register/telecom"].includes(o.href)
@@ -242,7 +282,48 @@ export default function RegisterSelectionPage() {
                                 className="flex-1 h-12 text-lg font-bold rounded-xl border-border/40 tracking-wider"
                                 autoFocus
                             />
+                            {isJuridico && detected.valid && (
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={handleRifSearch}
+                                    disabled={rifSearching}
+                                    className={cn(
+                                        "h-12 px-4 rounded-xl font-black text-xs uppercase tracking-wider shrink-0 transition-all duration-300",
+                                        rifLookup ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5" : "border-border/40"
+                                    )}
+                                >
+                                    {rifSearching ? (
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        <><Search className="h-4 w-4 mr-1.5" /> Buscar</>
+                                    )}
+                                </Button>
+                            )}
                         </div>
+
+                        {rifLookup && (
+                            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-emerald-500/5 border-emerald-500/15 mb-4 transition-all duration-300">
+                                <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-black text-foreground truncate">{rifLookup.razonSocial}</p>
+                                    <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
+                                        {rifLookup.tipoEmpresa || 'Empresa registrada'} 
+                                        {rifLookup.estado && ` · ${rifLookup.estado}`}
+                                    </p>
+                                </div>
+                                <Building2 className="h-5 w-5 text-emerald-500/60 shrink-0" />
+                            </div>
+                        )}
+
+                        {rifSearched && !rifLookup && !rifSearching && (
+                            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-amber-500/5 border-amber-500/15 mb-4 transition-all duration-300">
+                                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                                <p className="text-xs font-bold text-amber-600">
+                                    RIF no encontrado en el sistema. Podrás ingresar los datos manualmente.
+                                </p>
+                            </div>
+                        )}
 
                         {detected.type && (
                             <div className={cn(
@@ -308,20 +389,6 @@ export default function RegisterSelectionPage() {
                             )}
                         </Button>
 
-                        <div className="flex items-center justify-center gap-6 mt-5 pt-4 border-t border-border/10">
-                            <div className="flex items-center gap-2">
-                                <div className="h-2 w-2 rounded-full bg-blue-500/60" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">
-                                    V/E = Persona
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div className="h-2 w-2 rounded-full bg-emerald-500/60" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/70">
-                                    J/G/C/F = Empresa
-                                </span>
-                            </div>
-                        </div>
                     </div>
                 </section>
 

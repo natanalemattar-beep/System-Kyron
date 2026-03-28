@@ -181,12 +181,25 @@ export default function RegisterJuridicoPage() {
   const { toast } = useToast();
   const router = useRouter();
 
+  const prefilledRazon = searchParams.get('razon') || '';
+  const prefilledTipo = searchParams.get('tipo') || '';
+  const prefilledActividad = searchParams.get('actividad') || '';
+  const prefilledEstado = searchParams.get('estado') || '';
+  const prefilledMunicipio = searchParams.get('municipio') || '';
+  const prefilledTel = searchParams.get('tel') || '';
+
   const { register, handleSubmit, control, setValue, getValues, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
       defaultValues: {
         rif: prefilledDoc || undefined,
+        razonSocial: prefilledRazon || undefined,
+        tipo_empresa: prefilledTipo || undefined,
+        actividad_economica: prefilledActividad || undefined,
+        estado_empresa: prefilledEstado || undefined,
+        municipio_empresa: prefilledMunicipio || undefined,
+        telefono: prefilledTel || undefined,
       },
     });
 
