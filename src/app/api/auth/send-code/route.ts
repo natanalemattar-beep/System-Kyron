@@ -82,7 +82,11 @@ export async function POST(req: NextRequest) {
       });
 
       if (!result.success) {
-        console.warn(`[send-code] Email failed via all providers. Code saved in DB.`);
+        console.error(`[send-code] Email failed via all providers:`, result.error);
+        return NextResponse.json(
+          { error: 'No se pudo enviar el correo. Verifica tu dirección e intenta de nuevo.' },
+          { status: 502 }
+        );
       }
     } else {
       const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -99,10 +103,18 @@ export async function POST(req: NextRequest) {
             to: destino,
           });
         } catch (smsErr) {
-          console.warn('[send-code] SMS sending failed, code saved in DB:', smsErr);
+          console.error('[send-code] SMS sending failed:', smsErr);
+          return NextResponse.json(
+            { error: 'No se pudo enviar el SMS. Verifica el número e intenta de nuevo.' },
+            { status: 502 }
+          );
         }
       } else {
-        console.log(`[send-code] Twilio not configured. Code saved to DB for verification.`);
+        console.error(`[send-code] Twilio not configured. Cannot send SMS.`);
+        return NextResponse.json(
+          { error: 'El envío por SMS no está disponible. Usa verificación por correo electrónico.' },
+          { status: 503 }
+        );
       }
     }
 
