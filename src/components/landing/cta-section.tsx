@@ -130,7 +130,7 @@ export function CtaSection() {
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5 text-left">
                                                 <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Cargo</FormLabel>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <Select onValueChange={field.onChange} value={field.value || undefined}>
                                                     <FormControl>
                                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                                             <SelectValue placeholder="Rol..." />
@@ -177,13 +177,98 @@ export function CtaSection() {
                                     />
                                 </div>
 
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <FormField
+                                        control={form.control}
+                                        name="company"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5 text-left">
+                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Empresa</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Nombre de la empresa" {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
+                                                </FormControl>
+                                                <FormMessage className="text-[8px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="companySize"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5 text-left">
+                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Tamaño</FormLabel>
+                                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
+                                                            <SelectValue placeholder="Empleados..." />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="rounded-xl">
+                                                        {["1-5", "6-20", "21-50", "51-200", "200+"].map(s => (
+                                                            <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage className="text-[8px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <FormField
+                                        control={form.control}
+                                        name="sector"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5 text-left">
+                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Sector</FormLabel>
+                                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
+                                                            <SelectValue placeholder="Sector..." />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="rounded-xl">
+                                                        {["Comercio", "Servicios", "Manufactura", "Tecnología", "Construcción", "Salud", "Educación", "Transporte", "Agricultura", "Otro"].map(s => (
+                                                            <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage className="text-[8px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="urgency"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5 text-left">
+                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Urgencia</FormLabel>
+                                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
+                                                            <SelectValue placeholder="Prioridad..." />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="rounded-xl">
+                                                        {["Inmediata", "Esta semana", "Este mes", "Explorando opciones"].map(u => (
+                                                            <SelectItem key={u} value={u} className="text-xs uppercase font-bold">{u}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage className="text-[8px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
                                 <FormField
                                     control={form.control}
                                     name="module"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1.5 text-left">
                                             <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Módulo de Interés</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <Select onValueChange={field.onChange} value={field.value || undefined}>
                                                 <FormControl>
                                                     <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                                         <SelectValue placeholder="Seleccionar..." />

@@ -129,6 +129,13 @@ export const pathnames = {
   '/mi-linea': '/mi-linea',
 
   // MARKETING & NUEVA LÍNEA
+  '/register/natural': '/register/natural',
+  '/register/telecom': '/register/telecom',
+  '/register/contabilidad': '/register/contabilidad',
+  '/register/rrhh': '/register/rrhh',
+  '/register/sostenibilidad': '/register/sostenibilidad',
+  '/register/juridico': '/register/juridico',
+  '/register/legal': '/register/legal',
   '/login-linea': '/login-linea',
   '/login-marketing': '/login-marketing',
   '/marketing': '/marketing',

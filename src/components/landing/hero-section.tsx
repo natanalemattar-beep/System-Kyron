@@ -58,15 +58,13 @@ export function HeroSection() {
                 <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 {/* Corner brackets */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
+                    initial={{ opacity: 1, scale: 1 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
                     className="absolute top-24 left-8 md:left-12 w-8 h-8 border-t-2 border-l-2 border-primary/30"
                 />
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
+                    initial={{ opacity: 1, scale: 1 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
                     className="absolute top-24 right-8 md:right-12 w-8 h-8 border-t-2 border-r-2 border-primary/30"
                 />
                 <div className="absolute bottom-12 left-8 w-5 h-5 border-b-2 border-l-2 border-primary/20" />
@@ -78,16 +76,14 @@ export function HeroSection() {
 
                     {/* ─── LEFT: Copy ─── */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 1, y: 0 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="lg:col-span-6 space-y-7 text-center lg:text-left"
                     >
                         {/* Live badge */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            initial={{ opacity: 1, scale: 1 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 }}
                             className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm mx-auto lg:ml-0"
                         >
                             <span className="relative flex h-2 w-2">

@@ -53,9 +53,8 @@ function StatCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         "relative flex flex-col gap-2 p-5 rounded-2xl border bg-gradient-to-br overflow-hidden",
         "hover:scale-[1.02] transition-transform duration-300 cursor-default",
@@ -114,9 +113,8 @@ export function LiveStatsPanel() {
   return (
     <div className="space-y-3">
       <motion.div
-        initial={{ opacity: 0, x: 40 }}
+        initial={{ opacity: 1, x: 0 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         className="rounded-[2rem] border border-border/40 dark:border-white/10 bg-card/60 dark:bg-card/40 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5"
       >
         {/* Topbar */}
@@ -209,9 +207,8 @@ export function LiveStatsPanel() {
         ].map((cap, i) => (
           <motion.div
             key={cap.label}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 + i * 0.07 }}
             className="flex flex-col gap-1 p-3 rounded-2xl border border-border/40 dark:border-white/8 bg-card/50 dark:bg-card/30 backdrop-blur-sm text-center hover:border-primary/30 transition-colors"
           >
             <p className="text-sm font-black text-primary leading-none">{cap.value}</p>
