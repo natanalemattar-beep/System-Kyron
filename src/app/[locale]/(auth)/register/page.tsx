@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "@/navigation";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     User, Building2, ArrowRight, ChevronLeft, ShieldCheck,
     Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
-    Calculator, Users, Signal, Scale, Recycle, Gavel, ArrowLeft,
+    Calculator, Users, Signal, Recycle, Gavel, ArrowLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +172,14 @@ export default function RegisterSelectionPage() {
     const [rifSearching, setRifSearching] = useState(false);
     const [rifSearched, setRifSearched] = useState(false);
 
+    const inputRef = useRef<HTMLInputElement>(null);
     const fullDocument = `${prefix}-${docNumber}`;
+
+    useEffect(() => {
+        if (step === "identify" && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [step]);
 
     useEffect(() => {
         const result = detectDocumentType(prefix, docNumber);
@@ -312,25 +318,26 @@ export default function RegisterSelectionPage() {
                             </div>
 
                             <div className="flex gap-2 mb-4">
-                                <Select value={prefix} onValueChange={setPrefix}>
-                                    <SelectTrigger className="w-[90px] shrink-0 h-12 text-base font-black rounded-xl border-border/40">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
+                                <div className="relative shrink-0 w-[72px]">
+                                    <select
+                                        value={prefix}
+                                        onChange={e => setPrefix(e.target.value)}
+                                        className="w-full h-12 px-3 text-base font-black rounded-xl border border-border/40 bg-background text-foreground appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 8px center' }}
+                                    >
                                         {ALL_PREFIXES.map(p => (
-                                            <SelectItem key={p.value} value={p.value}>
-                                                <span className="font-black">{p.label}</span>
-                                                <span className="text-muted-foreground/50 ml-1 text-xs">— {p.desc}</span>
-                                            </SelectItem>
+                                            <option key={p.value} value={p.value}>
+                                                {p.label}
+                                            </option>
                                         ))}
-                                    </SelectContent>
-                                </Select>
+                                    </select>
+                                </div>
                                 <Input
                                     value={docNumber}
                                     onChange={e => handleNumberChange(e.target.value)}
-                                    placeholder={["J", "G", "C", "F"].includes(prefix) ? "12345678-9" : "12345678"}
+                                    placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
+                                    ref={inputRef}
                                     className="flex-1 h-12 text-lg font-bold rounded-xl border-border/40 tracking-wider"
-                                    autoFocus
                                 />
                                 {isJuridico && detected.valid && (
                                     <Button
@@ -426,10 +433,12 @@ export default function RegisterSelectionPage() {
                                 onClick={handleContinueToModules}
                                 disabled={!isValidDoc || checking}
                                 className={cn(
-                                    "w-full h-12 rounded-xl text-sm font-black uppercase tracking-widest transition-all duration-300",
-                                    isNatural ? "bg-blue-600 hover:bg-blue-700 text-white" :
-                                    isJuridico ? "bg-emerald-600 hover:bg-emerald-700 text-white" :
-                                    "bg-primary hover:bg-primary/90"
+                                    "w-full h-14 rounded-2xl text-sm font-black uppercase tracking-widest transition-all duration-300 shadow-lg",
+                                    !isValidDoc && !checking
+                                        ? "bg-muted text-muted-foreground/50 border border-border/30 shadow-none cursor-not-allowed"
+                                        : isNatural ? "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/25 hover:shadow-blue-600/40" :
+                                          isJuridico ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/25 hover:shadow-emerald-600/40" :
+                                          "bg-primary hover:bg-primary/90 text-primary-foreground"
                                 )}
                             >
                                 {checking ? (
