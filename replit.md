@@ -181,6 +181,14 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - Tabla `email_log` para auditoría de correos enviados
 - Índices compuestos en: facturas, empleados, nóminas, asientos contables, telecom, eco-créditos, legal, visitas, users
 
+## Schema-Route Alignment (Bug Fixes Applied)
+- `inventario` API: uses `codigo` (not `sku`), `precio_costo` (not `costo_unitario`), `stock_actual` (not `cantidad`)
+- `clientes` join: uses `nombre_contacto` (not `nombre`) — `razon_social` is primary
+- `declaraciones_iva` API: uses `iva_debito`/`iva_credito`/`iva_neto` (not `credito_fiscal`/`debito_fiscal`)
+- `declaraciones_islr` API: uses `impuesto_causado` (not `impuesto_determinado`), `anticipo_pagado`, `impuesto_a_pagar`
+- `retenciones` API: uses `fecha_retencion` (not `fecha`), `proveedor_rif`/`proveedor_nombre` (not `rif_proveedor`/`proveedor`), `numero_comprobante` (not `comprobante`), tipo values lowercase (`'iva'`/`'islr'`)
+- All financial routes have try/catch with 500 error responses and NaN-safe parseFloat/parseInt
+
 ## Seguridad Implementada
 - **Headers de seguridad** en middleware y next.config: X-Content-Type-Options, X-Frame-Options (SAMEORIGIN), X-XSS-Protection, Referrer-Policy, Permissions-Policy, HSTS, X-DNS-Prefetch-Control
 - **Rate limiting** en memoria para todos los endpoints críticos:

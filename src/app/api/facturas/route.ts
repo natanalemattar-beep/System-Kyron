@@ -68,7 +68,8 @@ export async function POST(req: NextRequest) {
         const piva  = parseFloat(porcentaje_iva ?? '16');
         const pigtf = 3.00;
         const iva   = sub * (piva / 100);
-        const igtf  = sub * (pigtf / 100);
+        const monedaVal = (moneda ?? 'VES').toUpperCase();
+        const igtf  = monedaVal !== 'VES' ? sub * (pigtf / 100) : 0;
         const total = sub + iva + igtf;
         const bcv   = parseFloat(tasa_bcv ?? '0');
         const totalUsd = !isNaN(bcv) && bcv > 0 ? total / bcv : null;

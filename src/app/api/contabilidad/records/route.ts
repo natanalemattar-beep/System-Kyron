@@ -6,25 +6,29 @@ export const dynamic = 'force-dynamic';
 
 const QUERIES: Record<string, { sql: string; countSql?: string }> = {
     retenciones: {
-        sql: `SELECT id, fecha::text, proveedor, rif_proveedor AS rif, tipo, base_imponible::text AS base, porcentaje::text AS pct, monto_retenido::text AS monto, comprobante
-              FROM retenciones WHERE user_id = $1 ORDER BY fecha DESC LIMIT 50`,
+        sql: `SELECT id, fecha_retencion::text AS fecha, proveedor_nombre AS proveedor, proveedor_rif AS rif, tipo, base_imponible::text AS base, porcentaje::text AS pct, monto_retenido::text AS monto, numero_comprobante AS comprobante
+              FROM retenciones WHERE user_id = $1 ORDER BY fecha_retencion DESC LIMIT 50`,
         countSql: `SELECT
-            COALESCE(SUM(monto_retenido) FILTER (WHERE tipo = 'IVA'), 0)::text AS total_iva,
-            COALESCE(SUM(monto_retenido) FILTER (WHERE tipo = 'ISLR'), 0)::text AS total_islr
-            FROM retenciones WHERE user_id = $1 AND date_trunc('month', fecha) = date_trunc('month', CURRENT_DATE)`,
+            COALESCE(SUM(monto_retenido) FILTER (WHERE tipo = 'iva'), 0)::text AS total_iva,
+            COALESCE(SUM(monto_retenido) FILTER (WHERE tipo = 'islr'), 0)::text AS total_islr
+            FROM retenciones WHERE user_id = $1 AND date_trunc('month', fecha_retencion) = date_trunc('month', CURRENT_DATE)`,
     },
     facturas: {
-        sql: `SELECT id, numero_factura AS factura, fecha_emision::text AS fecha, 
-              COALESCE(c.nombre, 'Cliente General') AS cliente, tipo, subtotal::text, iva::text, total::text, estado
+        sql: `SELECT f.id, f.numero_factura AS factura, f.fecha_emision::text AS fecha, 
+              COALESCE(c.razon_social, c.nombre_contacto, 'Cliente General') AS cliente, 
+              COALESCE(c.rif, '') AS rif,
+              f.tipo, f.subtotal::text, f.monto_iva::text AS iva, 
+              f.monto_igtf::text AS igtf, f.total::text, f.estado,
+              f.numero_factura AS "nroControl"
               FROM facturas f LEFT JOIN clientes c ON c.id = f.cliente_id 
-              WHERE f.user_id = $1 ORDER BY fecha_emision DESC LIMIT 50`,
+              WHERE f.user_id = $1 ORDER BY f.fecha_emision DESC LIMIT 50`,
     },
     inventario: {
-        sql: `SELECT id, codigo, nombre, categoria, cantidad::text, precio_unitario::text AS precio, unidad
+        sql: `SELECT id, codigo, nombre, categoria, stock_actual::text AS cantidad, precio_venta::text AS precio, unidad_medida AS unidad
               FROM inventario WHERE user_id = $1 ORDER BY nombre LIMIT 50`,
     },
     nominas: {
-        sql: `SELECT n.id, n.periodo, n.fecha_pago::text AS fecha, n.total_bruto::text AS bruto, n.total_deducciones::text AS deducciones, n.total_neto::text AS neto, n.estado
+        sql: `SELECT n.id, n.periodo, n.fecha_pago::text AS fecha, n.total_asignaciones::text AS bruto, n.total_deducciones::text AS deducciones, n.total_neto::text AS neto, n.estado
               FROM nominas n WHERE n.user_id = $1 ORDER BY n.fecha_pago DESC LIMIT 50`,
     },
     movimientos: {
@@ -36,11 +40,11 @@ const QUERIES: Record<string, { sql: string; countSql?: string }> = {
               FROM empleados WHERE user_id = $1 ORDER BY nombre LIMIT 50`,
     },
     declaraciones_iva: {
-        sql: `SELECT id, periodo, fecha_declaracion::text AS fecha, base_imponible::text AS base, monto_iva::text AS iva, credito_fiscal::text AS credito, debito_fiscal::text AS debito, estado
+        sql: `SELECT id, periodo, fecha_declaracion::text AS fecha, base_imponible::text AS base, iva_neto::text AS iva, iva_credito::text AS credito, iva_debito::text AS debito, estado
               FROM declaraciones_iva WHERE user_id = $1 ORDER BY fecha_declaracion DESC LIMIT 50`,
     },
     declaraciones_islr: {
-        sql: `SELECT id, ejercicio_fiscal AS periodo, fecha_declaracion::text AS fecha, ingresos_brutos::text AS ingresos, enriquecimiento_neto::text AS enriquecimiento, impuesto_determinado::text AS impuesto, estado
+        sql: `SELECT id, ejercicio_fiscal AS periodo, fecha_declaracion::text AS fecha, enriquecimiento_neto::text AS enriquecimiento, impuesto_causado::text AS impuesto, anticipo_pagado::text AS anticipo, impuesto_a_pagar::text AS a_pagar, estado
               FROM declaraciones_islr WHERE user_id = $1 ORDER BY fecha_declaracion DESC LIMIT 50`,
     },
 };

@@ -1,6 +1,10 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const { initializeDatabase } = await import('@/lib/db-schema');
-    await initializeDatabase();
+    try {
+      const { initializeDatabase } = await import('@/lib/db-schema');
+      await initializeDatabase();
+    } catch (err) {
+      console.error('[instrumentation] Database initialization failed — app will continue without DB:', err);
+    }
   }
 }
