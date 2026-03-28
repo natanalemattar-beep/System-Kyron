@@ -16,12 +16,17 @@ import {
 } from '@/components/ui/select';
 import {
   User, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
-  MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
-  MessageSquare, RefreshCw, ShieldCheck,
+  MapPin, Phone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
+  MessageSquare, RefreshCw, ShieldCheck, ChevronDown,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { DocumentInput } from '@/components/document-input';
+import { cn } from '@/lib/utils';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format, parse } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 const TOTAL_STEPS = 5;
 
@@ -263,10 +268,56 @@ export default function RegisterNaturalPage() {
                   )} />
                 </Field>
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input id="fecha_nacimiento" type="date" className="pl-9 bg-background border-input" {...register('fecha_nacimiento')} />
-                  </div>
+                  <Controller
+                    name="fecha_nacimiento"
+                    control={control}
+                    render={({ field }) => {
+                      const dateValue = field.value
+                        ? parse(field.value, 'yyyy-MM-dd', new Date())
+                        : undefined;
+                      const isValidDate = dateValue && !isNaN(dateValue.getTime());
+                      return (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              id="fecha_nacimiento"
+                              className={cn(
+                                "w-full justify-start text-left font-normal bg-background border-input h-10",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground shrink-0" />
+                              <span className="flex-1">
+                                {isValidDate
+                                  ? format(dateValue!, "d 'de' MMMM, yyyy", { locale: es })
+                                  : "Seleccionar fecha"}
+                              </span>
+                              <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={isValidDate ? dateValue : undefined}
+                              onSelect={(date) => {
+                                if (date) {
+                                  field.onChange(format(date, 'yyyy-MM-dd'));
+                                }
+                              }}
+                              defaultMonth={isValidDate ? dateValue : new Date(1990, 0)}
+                              captionLayout="dropdown-buttons"
+                              fromYear={1930}
+                              toYear={new Date().getFullYear()}
+                              locale={es}
+                              disabled={(date) => date > new Date() || date < new Date(1920, 0, 1)}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      );
+                    }}
+                  />
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="genero" label="Género" error={errors.genero?.message}>
