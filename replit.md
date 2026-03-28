@@ -75,3 +75,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Success screen:** Separate layout with gradient orbs, emerald gradient checkmark, gradient text "System Kyron!", icon cards for next steps, full-width gradient CTA.
 - **Accessibility:** `aria-label` on step tabs, password toggles. Step tab text uses `aria-hidden` so screen readers use the aria-label.
 - **Constants:** `FORM_STEPS = TOTAL_STEPS - 1` to avoid hardcoded step counts.
+
+### Plan Selection Cards (Registration)
+- **Telecom** (`register/telecom/page.tsx`): Step 2 replaced dropdown with 6 rich plan cards (Básico 4G, Estándar LTE, Pro 5G, Empresarial 5G, Solo Datos, Internacional). Each card shows: name badge, price, description, feature checklist, and selection indicator. "Popular" badge on Estándar LTE.
+- **Contabilidad** (`register/contabilidad/page.tsx`): New step 1 added (TOTAL_STEPS 5→6) with 4 plan cards (Básico, Profesional, Empresarial, Premium). Schema extended with `plan_contable` field. "Recomendado" badge on Profesional. Plan sent in onSubmit payload.
+- **Card UI:** `rounded-xl border` with selection state (`border-primary/blue-500 ring-1 shadow-lg`), radio-style circle indicator, checkmark feature lists, `aria-label` on each card button.

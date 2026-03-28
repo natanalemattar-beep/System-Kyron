@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User } from 'lucide-react';
+import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
@@ -27,7 +27,57 @@ const ESTADOS_VE = [
     'Sucre','Táchira','Trujillo','La Guaira','Yaracuy','Zulia',
 ];
 
-const TIPOS_PLAN = ['Plan Básico 4G','Plan Estándar 4G/LTE','Plan Pro 5G','Plan Empresarial 5G','Plan Flota Corporativa','Plan Datos Solo','Plan Voz y Datos','Plan Internacional'];
+const PLANES_TELECOM = [
+    {
+        id: 'Plan Básico 4G',
+        nombre: 'Básico 4G',
+        precio: 'Bs. 45/mes',
+        descripcion: 'Ideal para quienes usan poco el teléfono',
+        color: 'from-slate-500 to-gray-600',
+        features: ['3 GB de datos 4G', '100 minutos nacionales', '50 SMS incluidos', 'Redes sociales básicas', 'Buzón de voz'],
+    },
+    {
+        id: 'Plan Estándar 4G/LTE',
+        nombre: 'Estándar LTE',
+        precio: 'Bs. 85/mes',
+        descripcion: 'El más popular para uso diario',
+        popular: true,
+        color: 'from-blue-500 to-cyan-500',
+        features: ['10 GB de datos 4G/LTE', 'Llamadas ilimitadas nacionales', 'SMS ilimitados', 'Redes sociales ilimitadas', 'Roaming nacional incluido', 'Hotspot compartido'],
+    },
+    {
+        id: 'Plan Pro 5G',
+        nombre: 'Pro 5G',
+        precio: 'Bs. 150/mes',
+        descripcion: 'Velocidad premium con tecnología 5G',
+        color: 'from-violet-500 to-purple-600',
+        features: ['30 GB de datos 5G', 'Llamadas y SMS ilimitados', 'Streaming HD sin consumo', 'Prioridad de red 5G', 'Cloud storage 50 GB', 'Soporte prioritario 24/7'],
+    },
+    {
+        id: 'Plan Empresarial 5G',
+        nombre: 'Empresarial 5G',
+        precio: 'Bs. 250/mes',
+        descripcion: 'Para empresas con múltiples líneas',
+        color: 'from-emerald-500 to-teal-600',
+        features: ['50 GB de datos 5G por línea', 'Llamadas corporativas ilimitadas', 'Gestión de flota incluida', 'Panel admin multi-línea', 'VPN empresarial integrada', 'Facturación centralizada', 'SLA 99.9% uptime'],
+    },
+    {
+        id: 'Plan Datos Solo',
+        nombre: 'Solo Datos',
+        precio: 'Bs. 60/mes',
+        descripcion: 'Solo internet, sin voz ni SMS',
+        color: 'from-amber-500 to-orange-500',
+        features: ['15 GB de datos 4G/LTE', 'Sin línea de voz', 'Ideal para tablets/módems', 'Hotspot ilimitado', 'Alertas de consumo'],
+    },
+    {
+        id: 'Plan Internacional',
+        nombre: 'Internacional',
+        precio: 'Bs. 200/mes',
+        descripcion: 'Roaming y llamadas internacionales',
+        color: 'from-rose-500 to-pink-600',
+        features: ['20 GB datos nacionales + 5 GB roaming', 'Llamadas internacionales 300 min', 'Roaming en 50+ países', 'WhatsApp internacional ilimitado', 'Traducción de llamadas con IA', 'eSIM compatible'],
+    },
+];
 const TECNOLOGIAS = ['4G LTE','5G NSA','5G SA','Banda Dual (4G/5G)','Fibra Óptica'];
 const TIPOS_EMPRESA_TELECOM = ['Compañía Anónima (C.A.)','S.A.','S.R.L.','Cooperativa','Persona Natural con Actividad Económica','Otro'];
 const MOTIVOS_LINEA = ['Línea nueva (no tengo número)','Portar mi número actual','Segunda línea','Línea para empresa','Línea de datos (solo internet)'];
@@ -404,34 +454,79 @@ export default function RegisterTelecomPage() {
                         )}
 
                         {step === 2 && (
-                            <div className="space-y-4">
-                                <div className="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 mb-2">
+                            <div className="space-y-5">
+                                <div className="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 mb-1">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2">
-                                        <Smartphone className="h-3.5 w-3.5" /> Configuración de Línea
+                                        <Smartphone className="h-3.5 w-3.5" /> Selecciona tu Plan
                                     </p>
-                                    <p className="text-[9px] text-muted-foreground">Selecciona tu plan y tecnología. Si deseas portar un número, ingrésalo abajo.</p>
+                                    <p className="text-[9px] text-muted-foreground">Elige el plan que mejor se adapte a tus necesidades. Podrás cambiarlo después.</p>
                                 </div>
+
+                                <div className="space-y-2">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest">¿Qué necesitas? *</Label>
+                                    <Controller name="motivo_linea" control={control} render={({ field }) => (
+                                        <Select onValueChange={field.onChange} value={field.value}>
+                                            <SelectTrigger className={cn(errors.motivo_linea && 'border-destructive')}><SelectValue placeholder="Seleccionar motivo..." /></SelectTrigger>
+                                            <SelectContent>{MOTIVOS_LINEA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                        </Select>
+                                    )} />
+                                    {errors.motivo_linea && <p className="text-[10px] text-destructive">{errors.motivo_linea.message}</p>}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest">Plan Seleccionado *</Label>
+                                    {errors.tipo_plan && <p className="text-[10px] text-destructive mb-1">{errors.tipo_plan.message}</p>}
+                                    <Controller name="tipo_plan" control={control} render={({ field }) => (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            {PLANES_TELECOM.map(plan => {
+                                                const selected = field.value === plan.id;
+                                                return (
+                                                    <button
+                                                        key={plan.id}
+                                                        type="button"
+                                                        onClick={() => field.onChange(plan.id)}
+                                                        aria-label={`Seleccionar ${plan.nombre}`}
+                                                        className={cn(
+                                                            "relative p-4 rounded-xl border text-left transition-all duration-200 group",
+                                                            selected
+                                                                ? "border-blue-500 bg-blue-500/5 ring-1 ring-blue-500/30 shadow-lg shadow-blue-500/10"
+                                                                : "border-border/50 bg-muted/10 hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
+                                                        )}
+                                                    >
+                                                        {'popular' in plan && plan.popular && (
+                                                            <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-[8px] font-black uppercase tracking-widest flex items-center gap-1">
+                                                                <Crown className="h-2.5 w-2.5" /> Popular
+                                                            </span>
+                                                        )}
+                                                        <div className="flex items-start justify-between mb-2">
+                                                            <div>
+                                                                <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest mb-1.5", selected ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-muted/30 text-muted-foreground")}>
+                                                                    <Zap className="h-2.5 w-2.5" />
+                                                                    {plan.nombre}
+                                                                </div>
+                                                                <p className="text-sm font-black text-foreground">{plan.precio}</p>
+                                                            </div>
+                                                            <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-blue-500 bg-blue-500" : "border-muted-foreground/30")}>
+                                                                {selected && <Check className="h-3 w-3 text-white" />}
+                                                            </div>
+                                                        </div>
+                                                        <p className="text-[10px] text-muted-foreground mb-2.5">{plan.descripcion}</p>
+                                                        <div className="space-y-1">
+                                                            {plan.features.map((f, i) => (
+                                                                <div key={i} className="flex items-center gap-1.5">
+                                                                    <Check className={cn("h-3 w-3 shrink-0", selected ? "text-blue-500" : "text-muted-foreground/40")} />
+                                                                    <span className="text-[9px] text-muted-foreground">{f}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    )} />
+                                </div>
+
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">¿Qué necesitas? *</Label>
-                                        <Controller name="motivo_linea" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.motivo_linea && 'border-destructive')}><SelectValue placeholder="Seleccionar motivo..." /></SelectTrigger>
-                                                <SelectContent>{MOTIVOS_LINEA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.motivo_linea && <p className="text-[10px] text-destructive">{errors.motivo_linea.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Plan Seleccionado *</Label>
-                                        <Controller name="tipo_plan" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.tipo_plan && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>{TIPOS_PLAN.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.tipo_plan && <p className="text-[10px] text-destructive">{errors.tipo_plan.message}</p>}
-                                    </div>
                                     <div className="space-y-2">
                                         <Label className="text-[10px] font-black uppercase tracking-widest">Tecnología de Red *</Label>
                                         <Controller name="tecnologia" control={control} render={({ field }) => (
@@ -548,6 +643,15 @@ export default function RegisterTelecomPage() {
                                 </div>
                                 <h2 className="text-2xl font-black uppercase italic tracking-tight">¡Línea Activada!</h2>
                                 <p className="text-muted-foreground text-sm">Tu cuenta <strong className="text-blue-500">{tipoCliente === 'empresarial' ? 'Flota Empresarial 5G' : 'Mi Línea 5G'}</strong> fue registrada exitosamente.</p>
+                                {getValues('tipo_plan') && (() => {
+                                    const planSel = PLANES_TELECOM.find(p => p.id === getValues('tipo_plan'));
+                                    return planSel ? (
+                                        <div className="p-3 bg-blue-500/5 border border-blue-500/10 rounded-xl text-xs">
+                                            <p className="font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">Plan seleccionado:</p>
+                                            <p className="text-muted-foreground">{planSel.nombre} — {planSel.precio}</p>
+                                        </div>
+                                    ) : null;
+                                })()}
                                 <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-left text-xs space-y-2">
                                     <p className="font-black text-blue-600 uppercase tracking-widest">Servicios habilitados:</p>
                                     {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}

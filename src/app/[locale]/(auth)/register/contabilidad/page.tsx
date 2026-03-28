@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Building, BookOpen, ShieldCheck, RefreshCw, Scale, Calculator,
+    Building, BookOpen, ShieldCheck, RefreshCw, Scale, Calculator, Check, Crown, Star,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
@@ -24,7 +24,7 @@ import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
 const ESTADOS_VE = [
     'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
@@ -43,7 +43,44 @@ const TIPOS_EMPRESA = [
 const REGIMENES_IVA = ['General', 'Especial', 'Simplificado', 'Exento'];
 const PERIODOS_CONTABLES = ['Enero-Diciembre', 'Octubre-Septiembre', 'Julio-Junio', 'Abril-Marzo'];
 
+const PLANES_CONTABILIDAD = [
+    {
+        id: 'basico',
+        nombre: 'Básico',
+        precio: 'Bs. 120/mes',
+        descripcion: 'Contabilidad simple para emprendedores y microempresas',
+        color: 'from-slate-500 to-gray-600',
+        features: ['Libro diario y mayor', 'Balance general básico', 'Estado de resultados', 'Hasta 200 asientos/mes', 'Exportar a PDF/Excel'],
+    },
+    {
+        id: 'profesional',
+        nombre: 'Profesional',
+        precio: 'Bs. 280/mes',
+        descripcion: 'Facturación electrónica y cumplimiento fiscal completo',
+        popular: true,
+        color: 'from-primary to-blue-600',
+        features: ['Todo del plan Básico', 'Facturación electrónica SENIAT', 'Declaración IVA automática', 'Control de cuentas por cobrar/pagar', 'Conciliación bancaria', 'Hasta 1.000 asientos/mes', 'Reportes fiscales VEN-NIF'],
+    },
+    {
+        id: 'empresarial',
+        nombre: 'Empresarial',
+        precio: 'Bs. 520/mes',
+        descripcion: 'Multi-usuario con retenciones y libros de compra/venta',
+        color: 'from-emerald-500 to-teal-600',
+        features: ['Todo del plan Profesional', 'Retenciones IVA e ISLR automáticas', 'Libros de compra y venta', 'Multi-usuario (hasta 5)', 'Control de inventario básico', 'Asientos ilimitados', 'Soporte prioritario', 'Auditoría de transacciones'],
+    },
+    {
+        id: 'premium',
+        nombre: 'Premium',
+        precio: 'Bs. 950/mes',
+        descripcion: 'Solución completa con IA y asesoría contable',
+        color: 'from-violet-500 to-purple-600',
+        features: ['Todo del plan Empresarial', 'IA asistente contable (Kyron AI)', 'Asesoría fiscal personalizada', 'Multi-empresa ilimitado', 'Usuarios ilimitados', 'API de integración', 'Dashboard ejecutivo en tiempo real', 'Reportes personalizados SENIAT', 'Backup y recuperación avanzada', 'SLA 99.9% disponibilidad'],
+    },
+];
+
 const schema = z.object({
+    plan_contable: z.string().min(1, 'Seleccione un plan contable'),
     razonSocial: z.string().min(3, 'Ingrese la razón social'),
     rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
     tipo_empresa: z.string().min(1, 'Seleccione el tipo de empresa'),
@@ -105,9 +142,10 @@ export default function RegisterContabilidadPage() {
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
 
     const stepFields: Record<number, (keyof FormData)[]> = {
-        1: ['razonSocial', 'rif', 'tipo_empresa', 'actividad_economica'],
-        2: ['regimen_iva', 'agente_retencion_iva', 'agente_retencion_islr', 'periodo_contable', 'estado_empresa', 'municipio_empresa', 'direccion', 'telefono'],
-        3: ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'],
+        1: ['plan_contable'],
+        2: ['razonSocial', 'rif', 'tipo_empresa', 'actividad_economica'],
+        3: ['regimen_iva', 'agente_retencion_iva', 'agente_retencion_islr', 'periodo_contable', 'estado_empresa', 'municipio_empresa', 'direccion', 'telefono'],
+        4: ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'],
     };
 
     const nextStep = async () => {
@@ -185,6 +223,7 @@ export default function RegisterContabilidadPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     tipo: 'juridico',
+                    plan_contable: data.plan_contable,
                     razonSocial: data.razonSocial,
                     rif: data.rif,
                     tipo_empresa: data.tipo_empresa,
@@ -218,6 +257,7 @@ export default function RegisterContabilidadPage() {
     };
 
     const stepTitles = [
+        { title: 'Selección de Plan', desc: 'Elige tu plan contable', icon: Star },
         { title: 'Identificación Empresarial', desc: 'Datos fiscales de la organización', icon: Building },
         { title: 'Configuración Contable', desc: 'Régimen IVA, retenciones y períodos', icon: Calculator },
         { title: 'Representante Legal', desc: 'Responsable de la cuenta', icon: ShieldCheck },
@@ -257,6 +297,67 @@ export default function RegisterContabilidadPage() {
                     <CardContent className="p-8 space-y-6">
 
                         {step === 1 && (
+                            <div className="space-y-4">
+                                <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-1">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1 flex items-center gap-2">
+                                        <Star className="h-3.5 w-3.5" /> Elige tu Plan Contable
+                                    </p>
+                                    <p className="text-[9px] text-muted-foreground">Selecciona el plan que mejor se adapte a tu empresa. Podrás cambiarlo después.</p>
+                                </div>
+
+                                {errors.plan_contable && <p className="text-[10px] text-destructive">{errors.plan_contable.message}</p>}
+                                <Controller name="plan_contable" control={control} render={({ field }) => (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {PLANES_CONTABILIDAD.map(plan => {
+                                            const selected = field.value === plan.id;
+                                            return (
+                                                <button
+                                                    key={plan.id}
+                                                    type="button"
+                                                    onClick={() => field.onChange(plan.id)}
+                                                    aria-label={`Seleccionar plan ${plan.nombre}`}
+                                                    className={cn(
+                                                        "relative p-4 rounded-xl border text-left transition-all duration-200 group",
+                                                        selected
+                                                            ? "border-primary bg-primary/5 ring-1 ring-primary/30 shadow-lg shadow-primary/10"
+                                                            : "border-border/50 bg-muted/10 hover:border-primary/30 hover:bg-primary/[0.02]"
+                                                    )}
+                                                >
+                                                    {'popular' in plan && plan.popular && (
+                                                        <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-primary to-blue-600 text-white text-[8px] font-black uppercase tracking-widest flex items-center gap-1">
+                                                            <Crown className="h-2.5 w-2.5" /> Recomendado
+                                                        </span>
+                                                    )}
+                                                    <div className="flex items-start justify-between mb-2">
+                                                        <div>
+                                                            <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest mb-1.5", selected ? "bg-primary/10 text-primary" : "bg-muted/30 text-muted-foreground")}>
+                                                                <BookOpen className="h-2.5 w-2.5" />
+                                                                {plan.nombre}
+                                                            </div>
+                                                            <p className="text-sm font-black text-foreground">{plan.precio}</p>
+                                                        </div>
+                                                        <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-primary bg-primary" : "border-muted-foreground/30")}>
+                                                            {selected && <Check className="h-3 w-3 text-white" />}
+                                                        </div>
+                                                    </div>
+                                                    <p className="text-[10px] text-muted-foreground mb-2.5">{plan.descripcion}</p>
+                                                    <div className="space-y-1">
+                                                        {plan.features.map((f, i) => (
+                                                            <div key={i} className="flex items-center gap-1.5">
+                                                                <Check className={cn("h-3 w-3 shrink-0", selected ? "text-primary" : "text-muted-foreground/40")} />
+                                                                <span className="text-[9px] text-muted-foreground">{f}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                )} />
+                            </div>
+                        )}
+
+                        {step === 2 && (
                             <div className="space-y-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="sm:col-span-2 space-y-2">
@@ -294,7 +395,7 @@ export default function RegisterContabilidadPage() {
                             </div>
                         )}
 
-                        {step === 2 && (
+                        {step === 3 && (
                             <div className="space-y-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -376,7 +477,7 @@ export default function RegisterContabilidadPage() {
                             </div>
                         )}
 
-                        {step === 3 && (
+                        {step === 4 && (
                             <div className="space-y-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -430,7 +531,7 @@ export default function RegisterContabilidadPage() {
                             </div>
                         )}
 
-                        {step === 4 && (
+                        {step === 5 && (
                             <div className="space-y-6">
                                 {!verifSent ? (
                                     <div className="space-y-4">
@@ -487,6 +588,12 @@ export default function RegisterContabilidadPage() {
                                 </div>
                                 <h2 className="text-2xl font-black uppercase italic tracking-tight">¡Módulo Activado!</h2>
                                 <p className="text-muted-foreground text-sm">Tu empresa fue registrada en el módulo de <strong className="text-primary">Contabilidad VEN-NIF</strong>.</p>
+                                {getValues('plan_contable') && (
+                                    <div className="p-3 bg-primary/5 border border-primary/10 rounded-xl text-xs">
+                                        <p className="font-black text-primary uppercase tracking-widest mb-1">Plan seleccionado:</p>
+                                        <p className="text-muted-foreground">{PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.nombre} — {PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precio}</p>
+                                    </div>
+                                )}
                                 <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl text-left text-xs space-y-2">
                                     <p className="font-black text-primary uppercase tracking-widest">Módulos habilitados:</p>
                                     {MODULES_CONTABILIDAD.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
@@ -503,9 +610,9 @@ export default function RegisterContabilidadPage() {
                             <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
                                 <ArrowLeft className="mr-2 h-4 w-4" />Anterior
                             </Button>
-                            {step < 3 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4" /></Button>}
-                            {step === 3 && <Button type="button" onClick={nextStep}>Continuar a Verificación<ArrowRight className="ml-2 h-4 w-4" /></Button>}
-                            {step === 4 && (
+                            {step < 4 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4" /></Button>}
+                            {step === 4 && <Button type="button" onClick={nextStep}>Continuar a Verificación<ArrowRight className="ml-2 h-4 w-4" /></Button>}
+                            {step === 5 && (
                                 <Button type="submit" disabled={isLoading || !verifVerified}>
                                     {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Registrando...</> : <>Registrar Empresa<ArrowRight className="ml-2 h-4 w-4" /></>}
                                 </Button>
