@@ -1,7 +1,7 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { ChatDialog } from "@/components/chat-dialog";
+import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
@@ -39,7 +39,7 @@ export default function HRLayout({
                 </p>
               </footer>
           </div>
-          <ChatDialog />
+          <LazyChatDialog />
       </div>
     );
 }

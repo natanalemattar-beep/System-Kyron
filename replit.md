@@ -1,4 +1,4 @@
-# System Kyron v2.8.2 - Ecosistema Corporativo
+# System Kyron v2.8.3 - Ecosistema Corporativo
 
 ### Overview
 System Kyron is an integrated technological ecosystem designed for comprehensive corporate management, specifically tailored for the Venezuelan market. It covers accounting, HR, legal, sales, telecommunications, and IT, ensuring compliance with local regulations such as VEN-NIF/SENIAT, IVA 16%, IGTF 3%, and ISLR 34%. The project aims to provide a unified platform for businesses to manage their operations efficiently and compliantly within Venezuela.
@@ -49,3 +49,12 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
     - OpenAI GPT-4o (for dashboard analysis, using `AI_INTEGRATIONS_OPENAI_API_KEY`)
 - **SMS:** Twilio (`TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER`) - optional
 - **BCV Rate Auto-fetch:** Public sources like PyDolar BCV and ExchangeRate API.
+- **Excel Export:** `exceljs` (replaced `xlsx` for security)
+
+### Performance Optimizations (v2.8.3)
+- **Lazy ChatDialog:** All 7 layouts use `LazyChatDialog` (`src/components/chat-dialog-lazy.tsx`) with `next/dynamic` + `ssr: false` to defer loading until client-side.
+- **Lazy VoiceAssistant:** Locale layout uses `LazyVoiceAssistant` (`src/components/voice-assistant-lazy.tsx`) with same pattern.
+- **Landing lazy sections:** Dynamic imports for heavy landing sections (features, FAQ, etc.) in the landing page.
+- **Loading skeletons:** `loading.tsx` files for `dashboard-empresa` and `contabilidad` routes provide instant skeleton UI during navigation.
+- **Next.js config:** Compression enabled, `optimizePackageImports` for lucide-react/framer-motion/recharts, AVIF/WebP image formats, static asset cache headers.
+- **DB pool:** `statement_timeout` configured, `transaction()` helper available in `src/lib/db.ts`.

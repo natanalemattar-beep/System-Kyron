@@ -1,12 +1,10 @@
 import { ReactNode } from "react";
-import dynamic from "next/dynamic";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import { LazyVoiceAssistant } from "@/components/voice-assistant-lazy";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
-
-const VoiceAssistant = dynamic(() => import("@/components/voice-assistant").then(m => ({ default: m.VoiceAssistant })), { ssr: false });
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -31,7 +29,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <DynamicBackground />
       <div className="relative flex min-h-screen flex-col">
         {children}
-        <VoiceAssistant />
+        <LazyVoiceAssistant />
       </div>
     </NextIntlClientProvider>
   );

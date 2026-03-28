@@ -69,6 +69,7 @@
 @layer base {
   html {
     scroll-behavior: smooth !important;
+    -webkit-text-size-adjust: 100%;
   }
   * { @apply border-border; }
   body {

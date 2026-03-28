@@ -2,7 +2,7 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { ChatDialog } from "@/components/chat-dialog";
+import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
@@ -57,7 +57,7 @@ export default function NaturalLayout({
                 </p>
               </footer>
           </div>
-          <ChatDialog />
+          <LazyChatDialog />
       </div>
     );
 }

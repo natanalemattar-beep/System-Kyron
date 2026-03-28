@@ -1,13 +1,11 @@
 'use client';
 
-import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { PageTransition } from "@/components/ui/motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { PageTracker } from "@/components/page-tracker";
-
-const ChatDialog = dynamic(() => import("@/components/chat-dialog").then(m => ({ default: m.ChatDialog })), { ssr: false });
+import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 
 export default function AdminLayout({
   children,
@@ -52,7 +50,7 @@ export default function AdminLayout({
                 </p>
               </footer>
           </div>
-          <ChatDialog />
+          <LazyChatDialog />
       </div>
     );
 }
