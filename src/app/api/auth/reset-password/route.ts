@@ -1,27 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
+import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeEmail, isValidEmail, isStrongPassword } from '@/lib/input-sanitizer';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req);
+    const rl = rateLimit(`reset-pwd:${ip}`, 5, 15 * 60 * 1000);
+    if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
+
     const { action, email, code, newPassword } = await req.json();
 
     if (action === 'find-account') {
       if (!email) {
         return NextResponse.json({ error: 'Ingresa tu correo electrónico' }, { status: 400 });
       }
-      const normalizedEmail = email.trim().toLowerCase();
-      const user = await queryOne<{ id: number; email: string; nombre: string; tipo: string }>(
-        `SELECT id, email, nombre, tipo FROM users WHERE email = $1`,
-        [normalizedEmail]
-      );
+      const normalizedEmail = sanitizeEmail(email);
+      if (!isValidEmail(normalizedEmail)) {
+        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+      }
+
+      await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
+
       return NextResponse.json({
         success: true,
         found: true,
-        nombre: user ? user.nombre : 'Usuario',
-        tipo: user ? user.tipo : 'natural',
         maskedEmail: maskEmail(normalizedEmail),
       });
     }
@@ -30,11 +36,13 @@ export async function POST(req: NextRequest) {
       if (!email || !code || !newPassword) {
         return NextResponse.json({ error: 'Faltan datos requeridos' }, { status: 400 });
       }
-      if (newPassword.length < 8) {
-        return NextResponse.json({ error: 'La contraseña debe tener al menos 8 caracteres' }, { status: 400 });
+
+      const pwCheck = isStrongPassword(newPassword);
+      if (!pwCheck.valid) {
+        return NextResponse.json({ error: pwCheck.reason }, { status: 400 });
       }
 
-      const normalizedEmail = email.trim().toLowerCase();
+      const normalizedEmail = sanitizeEmail(email);
 
       const recentFailures = await queryOne<{ count: string }>(
         `SELECT COUNT(*) as count FROM verification_codes

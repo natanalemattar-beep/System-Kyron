@@ -181,6 +181,24 @@ Conexión: DATABASE_URL (Replit built-in PostgreSQL, auto-provisionada).
 - Tabla `email_log` para auditoría de correos enviados
 - Índices compuestos en: facturas, empleados, nóminas, asientos contables, telecom, eco-créditos, legal, visitas, users
 
+## Seguridad Implementada
+- **Headers de seguridad** en middleware y next.config: X-Content-Type-Options, X-Frame-Options (SAMEORIGIN), X-XSS-Protection, Referrer-Policy, Permissions-Policy, HSTS, X-DNS-Prefetch-Control
+- **Rate limiting** en memoria para todos los endpoints críticos:
+  - Login: 10 intentos/IP/15min + 5 intentos/email/15min
+  - Registro: 5 intentos/IP/15min
+  - Send-code: 5 intentos/IP/min + 3 códigos/min en DB
+  - Reset-password: 5 intentos/IP/15min
+  - Check-document: 15 intentos/IP/min
+  - AI endpoints: 20-30 req/usuario/min
+- **Validación de entrada**: email format, contraseñas fuertes (8+ chars, mayúscula, minúscula, número), sanitización de strings, límites de tamaño de payload (50KB en AI)
+- **Anti-enumeración**: timing uniforme en login/check-document/reset-password, no revela si cuenta existe en reset
+- **JWT**: fallback secret solo en dev, falla hard en producción sin JWT_SECRET
+- **Login bruteforce**: rate limit + logging de intentos fallidos en activity_log
+- **Autenticación obligatoria**: AI routes, analytics, email/send, BCV auto-fetch (todos protegidos con getSession)
+- **SQL injection**: 100% queries parametrizadas, check-document usa whitelist de columnas
+- **XSS**: React escaping + sanitización de inputs + security headers
+- **Archivos**: `src/lib/rate-limiter.ts`, `src/lib/security-headers.ts`, `src/lib/input-sanitizer.ts`
+
 ## Verificación de Código (Auth)
 - API `/api/auth/send-code` acepta ambos formatos: `{destino, tipo}` y `{method, email, phone}`
 - API `/api/auth/verify-code` acepta ambos formatos: `{destino, codigo}` y `{method, email, phone, code}`

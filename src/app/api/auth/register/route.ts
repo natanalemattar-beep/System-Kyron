@@ -3,9 +3,15 @@ import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
+import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeEmail, isValidEmail, isStrongPassword } from '@/lib/input-sanitizer';
 
 export async function POST(req: NextRequest) {
     try {
+        const ip = getClientIP(req);
+        const rl = rateLimit(`register:${ip}`, 5, 15 * 60 * 1000);
+        if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
+
         const body = await req.json();
         const { tipo } = body;
 
@@ -34,7 +40,17 @@ async function registerNatural(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
     }
 
-    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [email]);
+    if (!isValidEmail(email)) {
+        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+    }
+
+    const pwCheck = isStrongPassword(password);
+    if (!pwCheck.valid) {
+        return NextResponse.json({ error: pwCheck.reason }, { status: 400 });
+    }
+
+    const normalizedEmail = sanitizeEmail(email);
+    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
@@ -58,7 +74,7 @@ async function registerNatural(body: Record<string, unknown>) {
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17)
          RETURNING id, email`,
         [
-            email, password_hash,
+            normalizedEmail, password_hash,
             nombre, apellido, cedula,
             telefono ?? '', telefono_alt ?? '',
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
@@ -107,7 +123,17 @@ async function registerJuridico(body: Record<string, unknown>) {
     }
 
     const email = repEmail as string;
-    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [email]);
+    if (!isValidEmail(email)) {
+        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+    }
+
+    const pwCheck = isStrongPassword(password as string);
+    if (!pwCheck.valid) {
+        return NextResponse.json({ error: pwCheck.reason }, { status: 400 });
+    }
+
+    const normalizedEmail = sanitizeEmail(email);
+    const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
@@ -134,7 +160,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                  $17, $18, $19, $20, $21)
          RETURNING id, email`,
         [
-            email, password_hash,
+            normalizedEmail, password_hash,
             razonSocial as string,
             razonSocial as string,
             rif as string,

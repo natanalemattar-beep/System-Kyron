@@ -1,8 +1,12 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
+const jwtSecret = process.env.JWT_SECRET;
+if (!jwtSecret && process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET is required in production');
+}
 const SECRET = new TextEncoder().encode(
-    process.env.JWT_SECRET ?? 'system-kyron-secret-key-change-in-production'
+    jwtSecret ?? 'system-kyron-dev-secret-key-not-for-production'
 );
 const COOKIE_NAME = 'sk_session';
 const EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days in seconds

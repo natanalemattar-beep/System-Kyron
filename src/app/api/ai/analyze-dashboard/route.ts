@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { getSession } from '@/lib/auth';
+import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,12 +13,25 @@ function getOpenAIClient() {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`ai:dashboard:${session.userId}`, 20, 60 * 1000);
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
+
   try {
     const body = await req.json();
     const { module, data, context } = body;
 
     if (!data) {
       return NextResponse.json({ error: 'Datos requeridos para el análisis' }, { status: 400 });
+    }
+
+    const dataStr = JSON.stringify(data);
+    if (dataStr.length > 50000) {
+      return NextResponse.json({ error: 'Datos demasiado grandes para análisis' }, { status: 400 });
     }
 
     const systemPrompt = `Eres un analista financiero y de negocios experto para empresas venezolanas.
@@ -35,7 +50,7 @@ Considera el contexto económico venezolano (inflación, tipo de cambio BCV, nor
 ${context ? `Contexto adicional: ${context}` : ''}
 
 Datos del dashboard:
-${JSON.stringify(data, null, 2)}
+${dataStr}
 
 Por favor analiza estos datos y proporciona insights accionables.`;
 

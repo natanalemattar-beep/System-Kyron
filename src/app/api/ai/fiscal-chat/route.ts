@@ -1,14 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
+import { getSession } from '@/lib/auth';
+import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeString } from '@/lib/input-sanitizer';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+  }
+
+  const rl = rateLimit(`ai:fiscal:${session.userId}`, 30, 60 * 1000);
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
+
   try {
     const { prompt } = await req.json();
     if (!prompt) {
       return NextResponse.json({ error: 'El mensaje es requerido' }, { status: 400 });
     }
+
+    const sanitizedPrompt = sanitizeString(prompt, 4000);
 
     const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
     if (!apiKey) {
@@ -33,7 +46,7 @@ No inventes normativas ni cifras que no sean reales.`;
     const response = await ai.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: [
-        { role: 'user', parts: [{ text: `${systemContext}\n\nConsulta del usuario: ${prompt}` }] },
+        { role: 'user', parts: [{ text: `${systemContext}\n\nConsulta del usuario: ${sanitizedPrompt}` }] },
       ],
       config: { maxOutputTokens: 1024 },
     });

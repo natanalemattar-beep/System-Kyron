@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
+import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,6 +13,10 @@ function generateOTP(): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req);
+    const rl = rateLimit(`send-code:${ip}`, 5, 60 * 1000);
+    if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
+
     const body = await req.json();
 
     let destino: string;
@@ -31,6 +37,13 @@ export async function POST(req: NextRequest) {
     }
     if (!['email', 'sms'].includes(tipo)) {
       return NextResponse.json({ error: 'Tipo debe ser "email" o "sms"' }, { status: 400 });
+    }
+
+    if (tipo === 'email') {
+      destino = sanitizeEmail(destino);
+      if (!isValidEmail(destino)) {
+        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+      }
     }
 
     const recentCheck = await query<{ count: string }>(
