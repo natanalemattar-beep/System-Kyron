@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -98,13 +98,40 @@ export default function RegisterTelecomPage() {
     const [verifVerified, setVerifVerified] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
+    const [docFromParams, setDocFromParams] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { toast } = useToast();
 
     const { register, handleSubmit, control, getValues, setValue, trigger, watch, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(baseSchema), mode: 'onChange',
         defaultValues: { tipo_cliente: 'personal', tiene_telefono: false },
     });
+
+    useEffect(() => {
+        const doc = searchParams.get('doc');
+        if (doc) {
+            setValue('cedula', doc);
+            setDocFromParams(true);
+            if (doc.startsWith('J-') || doc.startsWith('G-')) {
+                setValue('tipo_cliente', 'empresarial');
+                setValue('rif', doc);
+            }
+            const razon = searchParams.get('razon');
+            if (razon) setValue('razon_social', razon);
+            const tipo = searchParams.get('tipo');
+            if (tipo) setValue('tipo_empresa', tipo);
+            const tel = searchParams.get('tel');
+            if (tel) {
+                setValue('tiene_telefono', true);
+                setValue('telefono_contacto', tel);
+            }
+            const estado = searchParams.get('estado');
+            if (estado) setValue('estado_servicio', estado);
+            const municipio = searchParams.get('municipio');
+            if (municipio) setValue('municipio_servicio', municipio);
+        }
+    }, [searchParams, setValue]);
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
     const tipoCliente = watch('tipo_cliente');
@@ -322,9 +349,22 @@ export default function RegisterTelecomPage() {
                                     </div>
                                     <div className="sm:col-span-2 space-y-2">
                                         <Label className="text-[10px] font-black uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Cédula del Representante *' : 'Cédula de Identidad *'}</Label>
-                                        <Controller name="cedula" control={control} render={({ field }) => (
-                                            <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
-                                        )} />
+                                        {docFromParams ? (
+                                            <div className="flex items-center gap-3 p-3 rounded-xl border border-green-500/30 bg-green-500/5">
+                                                <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-mono font-bold text-foreground">{watch('cedula')}</p>
+                                                    <p className="text-[9px] text-green-600 dark:text-green-400 font-bold uppercase tracking-widest">Detectada automáticamente</p>
+                                                </div>
+                                                <Button type="button" variant="ghost" size="sm" className="h-7 text-[9px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground" onClick={() => { setDocFromParams(false); setValue('cedula', ''); }}>
+                                                    Cambiar
+                                                </Button>
+                                            </div>
+                                        ) : (
+                                            <Controller name="cedula" control={control} render={({ field }) => (
+                                                <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
+                                            )} />
+                                        )}
                                         {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
                                     </div>
                                 </div>
