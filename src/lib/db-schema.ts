@@ -1,5 +1,5 @@
 /**
- * Sistema Kyron v2.6.5 — Esquema Central de Base de Datos
+ * Sistema Kyron v2.8.2 — Esquema Central de Base de Datos
  * Inicialización completa de todas las tablas del sistema.
  * Llamado automáticamente al iniciar el servidor.
  */
@@ -23,6 +23,7 @@ export async function initializeDatabase(): Promise<void> {
     await createConfiguracionTables();
     await createVentasTables();
     await createProyectosTables();
+    await createPerformanceOptimizations();
     console.log('[db-schema] Base de datos inicializada correctamente.');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
