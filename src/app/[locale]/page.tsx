@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { HeroSection } from "@/components/landing/hero-section";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { use, Suspense, useState, useCallback } from 'react';
+import { use, Suspense, useState, useCallback, useEffect } from 'react';
 import { LoadingScreen } from "@/components/landing/loading-screen";
 
 const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
@@ -23,6 +23,11 @@ const Footer = dynamic(() => import("@/components/landing/footer").then(m => ({ 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
   const [isLoading, setIsLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
@@ -32,13 +37,16 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 50, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent" suppressHydrationWarning>
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-      <PageTracker />
-      <WelcomeTutorial />
-
-      <DemoBanner />
+      {mounted && (
+        <>
+          <PageTracker />
+          <WelcomeTutorial />
+          <DemoBanner />
+        </>
+      )}
 
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-primary/60 shadow-glow origin-left z-[200]"
@@ -79,7 +87,7 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
         <Footer />
       </Suspense>
 
-      <WhatsAppButton />
+      {mounted && <WhatsAppButton />}
     </div>
   );
 }
