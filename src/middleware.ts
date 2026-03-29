@@ -53,6 +53,7 @@ const PUBLIC_SEGMENTS = new Set([
   'manual-usuario',
   'identidad-marca',
   'ecosistema',
+  'faq',
 ]);
 
 // Public API path prefixes — these routes handle their own logic

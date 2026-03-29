@@ -47,6 +47,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations defined in `globals.css`.
+- **FAQ System:** Landing page shows 6 most important questions with "Ver más preguntas frecuentes" link to `/faq`. Dedicated FAQ page (`src/app/[locale]/faq/page.tsx`) has 26 questions in 9 categories (General, Seguridad, IA, Fiscal, RRHH, Telecom, Sostenibilidad, Pagos, Soporte) with search and category filters. Public route.
 - **Route Protection:** Authentication required for sensitive pages, excluded from public sitemap and `robots.txt`.
 
 ## External Dependencies
