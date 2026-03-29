@@ -20,8 +20,8 @@ const topFaqItems = [
         answer: "System Kyron utiliza Kyron AI, potenciado por Claude de Anthropic — uno de los modelos de IA más avanzados del mundo. Claude se encarga de la generación de documentos legales, análisis fiscal predictivo, asistente contable, clasificación de residuos para eco-créditos y el chat inteligente disponible en toda la plataforma."
     },
     {
-        question: "¿Es difícil migrar mis datos?",
-        answer: "No. Para sistemas estándar (Excel, Profit, Mónica, Galac), la migración se completa en menos de 48 horas sin costo adicional. Nuestro equipo de ingeniería le asiste durante todo el proceso para garantizar continuidad operativa."
+        question: "¿Qué módulos incluye la plataforma?",
+        answer: "System Kyron incluye Contabilidad VEN-NIF, Nómina y RRHH, Facturación SENIAT, Asesoría Legal con IA, Telecomunicaciones 5G/eSIM, Billetera Digital, Eco-Créditos Ameru, Analítica Avanzada y un Dashboard Ejecutivo — todo integrado en un solo ecosistema."
     },
     {
         question: "¿Puedo gestionar varias empresas?",
