@@ -74,7 +74,7 @@ const highlights: Highlight[] = [
 ];
 
 const powerStats = [
-    { value: "12+", label: "Módulos", icon: Cpu, color: "from-cyan-400 to-blue-500" },
+    { value: "7", label: "Módulos", icon: Cpu, color: "from-cyan-400 to-blue-500" },
     { value: "100%", label: "Cumplimiento", icon: TrendingUp, color: "from-emerald-400 to-green-500" },
     { value: "AES", label: "256 bits", icon: Lock, color: "from-violet-400 to-purple-500" },
     { value: "VEN", label: "Hecho aquí", icon: Globe, color: "from-orange-400 to-rose-500" },

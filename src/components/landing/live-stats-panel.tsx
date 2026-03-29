@@ -189,7 +189,7 @@ export function LiveStatsPanel() {
 
       <div className="grid grid-cols-4 gap-2">
         {[
-          { label: t("modules"), value: "12+" },
+          { label: t("modules"), value: "7" },
           { label: t("tables"), value: "42+" },
           { label: t("compliance"), value: "100%" },
           { label: t("bcv"), value: "✓" },
