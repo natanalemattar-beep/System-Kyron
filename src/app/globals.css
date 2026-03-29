@@ -355,6 +355,23 @@
     animation: signal-trace 4s ease-in-out infinite;
   }
 
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-foreground/10 rounded-full;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-foreground/20;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 4px;
   }
@@ -364,7 +381,16 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-foreground/15 rounded-full hover:bg-foreground/25 transition-colors;
+    @apply bg-foreground/15 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-foreground/25;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--foreground) / 0.1) transparent;
   }
 }
 
