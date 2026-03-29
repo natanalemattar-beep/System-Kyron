@@ -108,7 +108,7 @@ export default function CuentasPorPagarPage() {
                 </CardContent>
                 <CardFooter className="p-10 border-t border-border bg-primary/5 flex justify-between items-center">
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                        <Terminal className="h-4 w-4" /> Auditado por System Kyron v2.6
+                        <Terminal className="h-4 w-4" /> Auditado por System Kyron v2.8.5
                     </div>
                     <div className="flex gap-3">
                         <Button variant="outline" className="h-10 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-white/5">EXCEL</Button>

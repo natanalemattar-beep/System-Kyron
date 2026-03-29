@@ -299,7 +299,7 @@ export default function RecuperarCuentaPage() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground/70 mt-8 uppercase tracking-widest font-bold">
-          System Kyron v2.8.2 · Recuperación Segura
+          System Kyron v2.8.5 · Recuperación Segura
         </p>
       </div>
     </div>

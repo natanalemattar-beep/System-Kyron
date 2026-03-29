@@ -218,7 +218,7 @@ export default function ContabilidadPage() {
             CENTRO DE <span className="text-primary italic">CONTABILIDAD</span>
           </h1>
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
-            System Kyron v2.6.5 · Normas VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
+            System Kyron v2.8.5 · Normas VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
           </p>
         </div>
         <div className="flex gap-3 no-print">

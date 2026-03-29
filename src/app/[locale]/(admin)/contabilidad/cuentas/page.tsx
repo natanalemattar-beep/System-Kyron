@@ -108,7 +108,7 @@ export default function CuentasPage() {
                 </div>
                 <div className="space-y-1">
                     <h3 className="text-xl font-black uppercase italic tracking-tighter text-white">Blindaje de Cuentas</h3>
-                    <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Certificado Kyron v2.6</p>
+                    <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Certificado Kyron v2.8.5</p>
                 </div>
             </div>
             <p className="text-sm font-medium italic text-white/60 leading-relaxed uppercase">

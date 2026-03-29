@@ -47,7 +47,7 @@ export default function MercadoEcocreditosPage() {
                     <CardContent className="p-0">
                         <p className="text-5xl font-black italic text-white tracking-tighter">{balance.toLocaleString('en-US')} <span className="text-lg uppercase font-bold text-secondary tracking-normal">E-CR</span></p>
                         <p className="text-[9px] font-bold text-white/20 uppercase mt-4 tracking-widest flex items-center gap-2">
-                            <ShieldCheck className="h-3 w-3" /> Certificado Carbono Neutral v2.6
+                            <ShieldCheck className="h-3 w-3" /> Certificado Carbono Neutral v2.8.5
                         </p>
                     </CardContent>
                 </Card>

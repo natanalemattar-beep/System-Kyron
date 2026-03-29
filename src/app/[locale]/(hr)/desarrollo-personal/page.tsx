@@ -78,7 +78,7 @@ export default function DesarrolloPersonalPage() {
                             </div>
                             <div className="p-8 rounded-[2rem] bg-primary/5 border border-primary/10 flex flex-col justify-center items-center text-center">
                                 <Award className="h-12 w-12 text-primary mb-4" />
-                                <p className="text-xs font-black uppercase italic text-foreground leading-tight">Certificación Operador Maestro v2.6</p>
+                                <p className="text-xs font-black uppercase italic text-foreground leading-tight">Certificación Operador Maestro v2.8.5</p>
                                 <p className="text-[8px] font-bold text-muted-foreground uppercase mt-2">Sello Inmutable Blockchain</p>
                             </div>
                         </div>

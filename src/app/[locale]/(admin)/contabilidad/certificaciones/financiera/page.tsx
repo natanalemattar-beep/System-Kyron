@@ -142,7 +142,7 @@ export default function CertificacionFinancieraPage() {
                                 </div>
                                 <div className="w-full h-px bg-slate-900 mb-2" />
                                 <p className="font-black text-xs uppercase tracking-tight">División de Auditoría</p>
-                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.6.5</p>
+                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.8.5</p>
                             </div>
                             <div className="flex flex-col items-end">
                                 <div className="p-4 border-2 border-slate-900 rounded-2xl bg-white">

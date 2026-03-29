@@ -121,7 +121,7 @@ export default function EntidadesSinFinesLucroPage() {
                                     </CardContent>
                                     <CardFooter className="p-10 bg-emerald-500/5 border-t border-border flex justify-between items-center">
                                         <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                                            <Terminal className="h-4 w-4 text-emerald-600" /> Transparencia Certificada v2.6
+                                            <Terminal className="h-4 w-4 text-emerald-600" /> Transparencia Certificada v2.8.5
                                         </div>
                                         <Button variant="ghost" className="text-emerald-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('conciliación')}>Conciliar Fondos</Button>
                                     </CardFooter>

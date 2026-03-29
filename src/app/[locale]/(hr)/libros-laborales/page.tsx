@@ -676,7 +676,7 @@ export default function LibrosLaboralesPage() {
 
       <footer className="text-center pt-4">
         <p className="text-[9px] text-muted-foreground/30 uppercase tracking-widest font-bold">
-          System Kyron v2.8.2 · Libros Laborales · LOTTT Art. 58, 131 · LOPCYMAT · IVSS · SENIAT
+          System Kyron v2.8.5 · Libros Laborales · LOTTT Art. 58, 131 · LOPCYMAT · IVSS · SENIAT
         </p>
       </footer>
     </div>

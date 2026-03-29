@@ -283,7 +283,7 @@ export default function PuntoDeVentaPage() {
                     <DialogHeader className="text-center mb-8">
                         <DialogTitle className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</DialogTitle>
                         <DialogDescription className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto mt-4">
-                            <Lock className="h-3 w-3 mr-2 inline" /> Sellado en Ledger Digital v2.6
+                            <Lock className="h-3 w-3 mr-2 inline" /> Sellado en Ledger Digital v2.8.5
                         </DialogDescription>
                     </DialogHeader>
                     <div className="text-center space-y-8">

@@ -38,7 +38,7 @@ export default function PermisosPage() {
                 <Gavel className="h-3 w-3" /> NODO DE CUMPLIMIENTO
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Trámites y <span className="text-primary italic">Permisos</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">Monitor de Licencias v2.6 · Registro Centralizado</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">Monitor de Licencias v2.8.5 · Registro Centralizado</p>
         </div>
       </header>
 

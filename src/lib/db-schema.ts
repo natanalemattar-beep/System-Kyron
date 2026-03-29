@@ -1,5 +1,5 @@
 /**
- * Sistema Kyron v2.8.2 — Esquema Central de Base de Datos
+ * Sistema Kyron v2.8.5 — Esquema Central de Base de Datos
  * Inicialización completa de todas las tablas del sistema.
  * Llamado automáticamente al iniciar el servidor.
  */

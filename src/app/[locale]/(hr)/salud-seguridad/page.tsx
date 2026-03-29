@@ -39,7 +39,7 @@ export default function SaludSeguridadPage() {
                     <div className="relative z-10 space-y-10">
                         <div className="space-y-2">
                             <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase tracking-[0.4em] px-4">Cumplimiento Auditoría</Badge>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Programa SSL v2.6</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Programa SSL v2.8.5</h3>
                         </div>
                         <div className="space-y-6">
                             <div className="space-y-2">

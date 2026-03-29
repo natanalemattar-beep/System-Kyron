@@ -224,7 +224,7 @@ export default function NominasPage() {
                         </CardContent>
                         <CardFooter className="p-10 bg-secondary/5 border-t border-border flex justify-between items-center">
                             <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                                <Terminal className="h-4 w-4 text-secondary" /> {empleados.length} trabajadores • LOTTT v2.6.5
+                                <Terminal className="h-4 w-4 text-secondary" /> {empleados.length} trabajadores • LOTTT v2.8.5
                             </div>
                             <Button variant="ghost" className="text-secondary text-[9px] font-black uppercase tracking-widest" onClick={() => setShowDialog(true)}>
                                 <PlusCircle className="mr-2 h-3 w-3" /> Añadir Empleado

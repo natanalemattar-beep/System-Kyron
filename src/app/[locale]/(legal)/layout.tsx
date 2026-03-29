@@ -35,7 +35,7 @@ export default function LegalLayout({
               </main>
               <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
-                  System Kyron v2.6 • Legal Guard • 2026
+                  System Kyron v2.8.5 • Legal Guard • 2026
                 </p>
               </footer>
           </div>

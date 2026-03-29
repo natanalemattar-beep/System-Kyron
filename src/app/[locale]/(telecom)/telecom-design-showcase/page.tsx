@@ -13,7 +13,7 @@ export default function TelecomDesignShowcasePage() {
                     <Terminal className="h-3 w-3" /> ÁREA DESIGN
                 </div>
                 <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground uppercase leading-none italic">Telecom <span className="text-amber-500">Design Lab</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Muestrario de Componentes UHD • Protocolo de Interfaz v2.6</p>
+                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Muestrario de Componentes UHD • Protocolo de Interfaz v2.8.5</p>
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -46,7 +46,7 @@ export default function TelecomDesignShowcasePage() {
                     <CardTitle className="text-3xl font-black uppercase italic tracking-tighter leading-none">ÁREA <br/> MAESTRA</CardTitle>
                     <div className="flex items-center gap-4 pt-10">
                         <Cpu className="h-8 w-8 opacity-40" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Auth v2.6.5</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest">Auth v2.8.5</span>
                     </div>
                 </Card>
             </div>

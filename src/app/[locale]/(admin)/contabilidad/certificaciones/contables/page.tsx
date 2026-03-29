@@ -222,7 +222,7 @@ export default function CertificacionesContablesPage() {
                                     </div>
                                     <div className="w-full h-px bg-slate-900 mb-2" />
                                     <p className="font-black text-xs uppercase tracking-tight">División de Fe Pública</p>
-                                    <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.6.5</p>
+                                    <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.8.5</p>
                                 </div>
                                 <div className="flex flex-col items-end">
                                     <div className="p-4 border-2 border-slate-900 rounded-2xl bg-white">
@@ -256,7 +256,7 @@ export default function CertificacionesContablesPage() {
                     </div>
                     <div className="p-10 rounded-[3rem] bg-black/40 border border-white/5 shadow-inner relative z-10">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3 italic">
-                            <Terminal className="h-4 w-4" /> Protocolo de Certificación v2.6
+                            <Terminal className="h-4 w-4" /> Protocolo de Certificación v2.8.5
                         </h4>
                         <div className="space-y-6">
                             <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-white/40">

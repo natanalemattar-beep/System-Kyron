@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * @fileOverview Logo Institucional de System Kyron v2.6.5.
+ * @fileOverview Logo Institucional de System Kyron v2.8.5.
  * Diseño HUD de precisión: Hexágono negro, glifo de inducción neón y nodo de inteligencia central.
  */
 

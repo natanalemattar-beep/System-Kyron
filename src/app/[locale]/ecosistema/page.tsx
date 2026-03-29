@@ -185,7 +185,7 @@ export default function EcosistemaKyron() {
             </div>
           </div>
           <p className="text-[7px] md:text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.4em] md:tracking-[0.8em] text-right italic">
-            Kyron Master OS v2.6.5
+            Kyron Master OS v2.8.5
           </p>
         </footer>
       </div>

@@ -1030,7 +1030,7 @@ export default function ModeloZeduPage() {
                                 </div>
                             ))}
                         </div>
-                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.8.2 · Caracas, Venezuela · 2026</p>
+                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.8.5 · Caracas, Venezuela · 2026</p>
                     </div>
                 </div>
             </motion.div>

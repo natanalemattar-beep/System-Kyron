@@ -127,7 +127,7 @@ export function PanelControlHero() {
           transition={{ delay: 0.9 }}
           className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
         >
-          Ecosistema Corporativo Venezuela • v2.8.2
+          Ecosistema Corporativo Venezuela • v2.8.5
         </motion.p>
       </motion.div>
     </section>

@@ -197,7 +197,7 @@ export default function LoginLineaUnifiedPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Mi Línea 5G</p>
+      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.5 · Mi Línea 5G</p>
     </div>
   );
 }

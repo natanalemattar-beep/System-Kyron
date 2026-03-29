@@ -92,7 +92,7 @@ export default function ProyectoMaestroPage() {
                     </div>
                     <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 shadow-inner relative z-10">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3 italic">
-                            <Terminal className="h-4 w-4" /> Telemetría de Obra v2.6.5
+                            <Terminal className="h-4 w-4" /> Telemetría de Obra v2.8.5
                         </h4>
                         <div className="space-y-6">
                             <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-white/40">

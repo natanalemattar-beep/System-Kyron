@@ -99,7 +99,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
     };
 
     const handleAction = (action: string) => {
-        alert(`${action}: Función en construcción para el prototipo v2.6.5`);
+        alert(`${action}: Función en construcción para el prototipo v2.8.5`);
     };
 
     return (
@@ -276,7 +276,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                 </div>
                                 <div className="w-full h-px bg-slate-900 mb-2" />
                                 <p className="font-black text-xs uppercase tracking-tight">Firma del Certificador</p>
-                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.6.5</p>
+                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.8.5</p>
                             </div>
                             <div className="flex flex-col items-end">
                                 <div className="p-4 border-2 border-slate-900 rounded-2xl bg-white shadow-inner">

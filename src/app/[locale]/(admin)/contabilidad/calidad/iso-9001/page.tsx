@@ -202,7 +202,7 @@ export default function IsoManualsPage() {
                     </div>
                     <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 shadow-inner">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-emerald-500 mb-10 flex items-center gap-3 italic">
-                            <Activity className="h-4 w-4" /> Telemetría de Calidad v2.6.5
+                            <Activity className="h-4 w-4" /> Telemetría de Calidad v2.8.5
                         </h4>
                         <div className="space-y-6">
                             {[

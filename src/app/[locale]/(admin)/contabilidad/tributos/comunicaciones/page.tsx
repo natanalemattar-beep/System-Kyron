@@ -103,7 +103,7 @@ export default function ComunicacionesPage() {
                 <MailOpen className="h-3 w-3" /> NODO DE CORRESPONDENCIA
             </div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro de <span className="text-primary italic">Comunicaciones</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Estratégicas • Despacho v2.6</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Estratégicas • Despacho v2.8.5</p>
         </div>
         <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-primary">
             <Link href="/contabilidad/tributos"><ArrowLeft className="mr-2 h-4 w-4" /> VOLVER</Link>

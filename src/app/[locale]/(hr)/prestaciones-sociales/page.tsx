@@ -120,7 +120,7 @@ export default function PrestacionesSocialesPage() {
                         </CardContent>
                         <CardFooter className="p-10 bg-secondary/5 border-t border-border flex justify-between items-center">
                             <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                                <Terminal className="h-4 w-4 text-secondary" /> Auditado por System Kyron v2.6.5
+                                <Terminal className="h-4 w-4 text-secondary" /> Auditado por System Kyron v2.8.5
                             </div>
                             <Badge variant="outline" className="border-secondary/20 text-secondary text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow-sm uppercase tracking-widest">Protocolo Activo</Badge>
                         </CardFooter>
