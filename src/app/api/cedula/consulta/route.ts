@@ -99,6 +99,13 @@ export async function GET(req: NextRequest) {
       const nombreCompleto = [s.primer_nombre, s.segundo_nombre].filter(Boolean).join(' ');
       const apellidoCompleto = [s.primer_apellido, s.segundo_apellido].filter(Boolean).join(' ');
 
+      const civilMap: Record<string, string> = {
+        'Soltero': 'Soltero/a', 'Soltera': 'Soltero/a',
+        'Casado': 'Casado/a', 'Casada': 'Casado/a',
+        'Divorciado': 'Divorciado/a', 'Divorciada': 'Divorciado/a',
+        'Viudo': 'Viudo/a', 'Viuda': 'Viudo/a',
+      };
+
       return NextResponse.json({
         found: true,
         source: 'saime',
@@ -111,7 +118,7 @@ export async function GET(req: NextRequest) {
           segundoApellido: s.segundo_apellido || null,
           fechaNacimiento: s.fecha_nacimiento,
           sexo: s.sexo === 'M' ? 'Masculino' : s.sexo === 'F' ? 'Femenino' : null,
-          estadoCivil: s.estado_civil,
+          estadoCivil: civilMap[s.estado_civil] || s.estado_civil,
           estado: s.estado,
           municipio: s.municipio,
           parroquia: s.parroquia,

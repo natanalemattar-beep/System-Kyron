@@ -350,7 +350,7 @@ export default function RegisterSelectionPage() {
         if (cedulaLookup?.apellido) params.set('apellido', cedulaLookup.apellido);
         if (cedulaLookup?.estado) params.set('estado', cedulaLookup.estado);
         if (cedulaLookup?.municipio) params.set('municipio', cedulaLookup.municipio);
-        if (cedulaLookup?.fechaNacimiento) params.set('fechaNac', cedulaLookup.fechaNacimiento);
+        if (cedulaLookup?.fechaNacimiento) params.set('fechaNac', cedulaLookup.fechaNacimiento.split('T')[0]);
         if (cedulaLookup?.sexo) params.set('sexo', cedulaLookup.sexo);
         if (cedulaLookup?.estadoCivil) params.set('civil', cedulaLookup.estadoCivil);
         if (cedulaLookup?.parroquia) params.set('parroquia', cedulaLookup.parroquia);

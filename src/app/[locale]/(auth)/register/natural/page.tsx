@@ -95,6 +95,8 @@ export default function RegisterNaturalPage() {
   const prefilledCivil = searchParams.get('civil') || '';
   const prefilledParroquia = searchParams.get('parroquia') || '';
 
+  const hasSaimeData = !!(prefilledNombre && prefilledApellido);
+
   const { register, handleSubmit, control, getValues, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
@@ -370,22 +372,31 @@ export default function RegisterNaturalPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-foreground">Información Personal</p>
-                    <p className="text-xs text-muted-foreground">Tus datos de identidad</p>
+                    <p className="text-xs text-muted-foreground">{hasSaimeData ? 'Datos verificados por SAIME' : 'Tus datos de identidad'}</p>
                   </div>
                 </div>
 
+                {hasSaimeData && (
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                    <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
+                      Datos obtenidos del SAIME — los campos verificados no se pueden editar
+                    </p>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="nombre" label="Nombre(s)" error={errors.nombre?.message}>
-                    <Input id="nombre" placeholder="Juan Carlos" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('nombre')} />
+                    <Input id="nombre" placeholder="Juan Carlos" readOnly={!!prefilledNombre} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledNombre && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('nombre')} />
                   </Field>
                   <Field id="apellido" label="Apellido(s)" error={errors.apellido?.message}>
-                    <Input id="apellido" placeholder="González Pérez" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('apellido')} />
+                    <Input id="apellido" placeholder="González Pérez" readOnly={!!prefilledApellido} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledApellido && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('apellido')} />
                   </Field>
                 </div>
 
                 <Field id="cedula" label="Cédula de Identidad" error={errors.cedula?.message}>
                   <Controller name="cedula" control={control} render={({ field }) => (
-                    <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
+                    <DocumentInput type="cedula" value={field.value || ''} onChange={prefilledDoc ? () => {} : field.onChange} error={!!errors.cedula} />
                   )} />
                 </Field>
 
@@ -398,6 +409,14 @@ export default function RegisterNaturalPage() {
                         ? parse(field.value, 'yyyy-MM-dd', new Date())
                         : undefined;
                       const isValidDate = dateValue && !isNaN(dateValue.getTime());
+                      if (prefilledFechaNac && isValidDate) {
+                        return (
+                          <div className="flex items-center gap-2 h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
+                            <CalendarIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+                            <span className="text-sm text-foreground/80">{format(dateValue!, "d 'de' MMMM, yyyy", { locale: es })}</span>
+                          </div>
+                        );
+                      }
                       return (
                         <Popover>
                           <PopoverTrigger asChild>
@@ -445,39 +464,57 @@ export default function RegisterNaturalPage() {
                     <Controller
                       name="genero"
                       control={control}
-                      render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="genero" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                            <SelectValue placeholder="Seleccionar" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Masculino">Masculino</SelectItem>
-                            <SelectItem value="Femenino">Femenino</SelectItem>
-                            <SelectItem value="No binario">No binario</SelectItem>
-                            <SelectItem value="Prefiero no decir">Prefiero no decir</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
+                      render={({ field }) => {
+                        if (prefilledSexo) {
+                          return (
+                            <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
+                              <span className="text-sm text-foreground/80">{field.value}</span>
+                            </div>
+                          );
+                        }
+                        return (
+                          <Select value={field.value} onValueChange={field.onChange}>
+                            <SelectTrigger id="genero" className="rounded-xl bg-muted/30 border-border/50 h-11">
+                              <SelectValue placeholder="Seleccionar" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Masculino">Masculino</SelectItem>
+                              <SelectItem value="Femenino">Femenino</SelectItem>
+                              <SelectItem value="No binario">No binario</SelectItem>
+                              <SelectItem value="Prefiero no decir">Prefiero no decir</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        );
+                      }}
                     />
                   </Field>
                   <Field id="estado_civil" label="Estado Civil" error={errors.estado_civil?.message}>
                     <Controller
                       name="estado_civil"
                       control={control}
-                      render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="estado_civil" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                            <SelectValue placeholder="Seleccionar" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Soltero/a">Soltero/a</SelectItem>
-                            <SelectItem value="Casado/a">Casado/a</SelectItem>
-                            <SelectItem value="Divorciado/a">Divorciado/a</SelectItem>
-                            <SelectItem value="Viudo/a">Viudo/a</SelectItem>
-                            <SelectItem value="Unión Estable de Hecho">Unión Estable de Hecho</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
+                      render={({ field }) => {
+                        if (prefilledCivil) {
+                          return (
+                            <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
+                              <span className="text-sm text-foreground/80">{field.value}</span>
+                            </div>
+                          );
+                        }
+                        return (
+                          <Select value={field.value} onValueChange={field.onChange}>
+                            <SelectTrigger id="estado_civil" className="rounded-xl bg-muted/30 border-border/50 h-11">
+                              <SelectValue placeholder="Seleccionar" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Soltero/a">Soltero/a</SelectItem>
+                              <SelectItem value="Casado/a">Casado/a</SelectItem>
+                              <SelectItem value="Divorciado/a">Divorciado/a</SelectItem>
+                              <SelectItem value="Viudo/a">Viudo/a</SelectItem>
+                              <SelectItem value="Unión Estable de Hecho">Unión Estable de Hecho</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        );
+                      }}
                     />
                   </Field>
                 </div>
@@ -527,25 +564,34 @@ export default function RegisterNaturalPage() {
                   <Controller
                     name="estado_residencia"
                     control={control}
-                    render={({ field }) => (
-                      <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger id="estado_residencia" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                          <SelectValue placeholder="Selecciona el estado" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    )}
+                    render={({ field }) => {
+                      if (prefilledEstado) {
+                        return (
+                          <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
+                            <span className="text-sm text-foreground/80">{field.value}</span>
+                          </div>
+                        );
+                      }
+                      return (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger id="estado_residencia" className="rounded-xl bg-muted/30 border-border/50 h-11">
+                            <SelectValue placeholder="Selecciona el estado" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
+                          </SelectContent>
+                        </Select>
+                      );
+                    }}
                   />
                 </Field>
 
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="municipio" label="Municipio" error={errors.municipio?.message}>
-                    <Input id="municipio" placeholder="Ej: Sucre" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('municipio')} />
+                    <Input id="municipio" placeholder="Ej: Sucre" readOnly={!!prefilledMunicipio} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledMunicipio && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('municipio')} />
                   </Field>
                   <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
-                    <Input id="ciudad" placeholder="Ej: Petare" className="rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('ciudad')} />
+                    <Input id="ciudad" placeholder="Ej: Petare" readOnly={!!prefilledParroquia} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledParroquia && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('ciudad')} />
                   </Field>
                 </div>
 
