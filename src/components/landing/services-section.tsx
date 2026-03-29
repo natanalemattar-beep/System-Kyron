@@ -111,9 +111,9 @@ export function ServicesSection() {
                                     </div>
                                 </div>
                                 <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
-                                    <div className={cn("absolute -inset-6 rounded-[2rem] blur-3xl opacity-30", `bg-gradient-to-br ${feat.color}`)} />
+                                    <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${feat.color}`)} />
                                     <motion.div
-                                        whileHover={{ y: -6, scale: 1.02 }}
+                                        whileHover={{ y: -4 }}
                                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                         className="relative rounded-[1.5rem] overflow-hidden border border-border/20 shadow-2xl bg-card/30"
                                     >

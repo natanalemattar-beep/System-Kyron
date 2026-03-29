@@ -11,6 +11,14 @@ The landing page was redesigned to be less text-heavy and more visual/scannable:
 - **Google Calendar**: Connected via connector `ccfg_google-calendar_DDDBAC03DE404369B74F32E78D`. Client helper: `getUncachableGoogleCalendarClient()`.
 
 
+### Background Optimization (v2.8.5)
+- **DynamicBackground:** Removed Framer Motion (rotating logo, animated glow). Now pure CSS with static radial gradients and reduced-opacity HUD grid.
+- **Hero Section:** Removed JS-animated blur blobs (500px/400px, blur-120px/100px). Replaced with static CSS divs (400px/350px, blur-100px/80px). Unified bg color to `#020810` for seamless transition to scroll section. Added entrance animations (opacity/y) on hero content.
+- **ScrollCinematicSection:** 60 Framer Motion particles → 18 CSS-animated particles (`animate-float-particle`). Removed CentralOrb (dynamic blur 60-100px) → AmbientGlow (static gradient, no blur filter). Removed ScanLine (boxShadow glow). Removed duplicate HUD grid (already in DynamicBackground). Removed per-card blur/scale/rotateX transforms (simplified to opacity+y). Added `will-change` hints on scroll-animated elements. Scroll-hint dot uses CSS animation instead of Framer Motion.
+- **ServicesSection:** Reduced blur-3xl → blur-xl on image glows, reduced inset from -6 to -4, removed scale on hover.
+- **CSS additions:** `@keyframes float-particle` and `@keyframes scroll-dot` in globals.css.
+- **Result:** Unified #020810 color palette across hero→scroll→services transitions. Drastically reduced GPU compositing layers and JS animation overhead.
+
 ### Overview
 System Kyron is an integrated technological ecosystem designed for comprehensive corporate management, specifically tailored for the Venezuelan market. It covers accounting, HR, legal, sales, telecommunications, and IT, ensuring compliance with local regulations such as VEN-NIF/SENIAT, IVA 16%, IGTF 3%, and ISLR 34%. The project aims to provide a unified platform for businesses to manage their operations efficiently and compliantly within Venezuela.
 

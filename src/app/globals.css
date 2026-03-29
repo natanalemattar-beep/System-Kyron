@@ -321,6 +321,24 @@
   animation: border-glow 3s ease-in-out infinite;
 }
 
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: var(--tw-opacity, 0.1); }
+  50% { transform: translateY(-30px) translateX(10px); opacity: calc(var(--tw-opacity, 0.1) * 2); }
+}
+
+.animate-float-particle {
+  animation: float-particle 15s ease-in-out infinite;
+}
+
+@keyframes scroll-dot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 1.5s ease-in-out infinite;
+}
+
 .perspective-2000 {
   perspective: 2000px;
 }

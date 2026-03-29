@@ -80,42 +80,33 @@ const powerStats = [
     { value: "VEN", label: "Hecho aquí", icon: Globe, color: "from-orange-400 to-rose-500" },
 ];
 
-function Particles() {
+function CSSParticles() {
     const particles = useMemo(() => {
-        return Array.from({ length: 60 }, (_, i) => ({
+        return Array.from({ length: 18 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
-            size: Math.random() * 2.5 + 0.5,
-            duration: Math.random() * 20 + 15,
-            delay: Math.random() * 10,
-            opacity: Math.random() * 0.35 + 0.05,
+            size: Math.random() * 2 + 0.5,
+            duration: Math.random() * 15 + 12,
+            delay: Math.random() * 8,
+            opacity: Math.random() * 0.25 + 0.05,
         }));
     }, []);
 
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {particles.map((p) => (
-                <motion.div
+                <div
                     key={p.id}
-                    className="absolute rounded-full bg-cyan-400"
+                    className="absolute rounded-full bg-cyan-400 animate-float-particle"
                     style={{
                         width: p.size,
                         height: p.size,
                         left: `${p.x}%`,
                         top: `${p.y}%`,
                         opacity: p.opacity,
-                    }}
-                    animate={{
-                        y: [0, -40, 0],
-                        x: [0, Math.sin(p.id) * 20, 0],
-                        opacity: [p.opacity, p.opacity * 2, p.opacity],
-                    }}
-                    transition={{
-                        duration: p.duration,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: p.delay,
+                        animationDuration: `${p.duration}s`,
+                        animationDelay: `${p.delay}s`,
                     }}
                 />
             ))}
@@ -124,7 +115,7 @@ function Particles() {
 }
 
 function ConcentricRings({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
-    const ringOpacity = useTransform(smoothProgress, [0.02, 0.08, 0.22, 0.28], [0, 0.6, 0.6, 0]);
+    const ringOpacity = useTransform(smoothProgress, [0.02, 0.08, 0.22, 0.28], [0, 0.5, 0.5, 0]);
     const ringScale1 = useTransform(smoothProgress, [0.02, 0.25], [0.3, 2.5]);
     const ringScale2 = useTransform(smoothProgress, [0.04, 0.25], [0.2, 2.2]);
     const ringScale3 = useTransform(smoothProgress, [0.06, 0.25], [0.1, 2.0]);
@@ -132,18 +123,18 @@ function ConcentricRings({ smoothProgress }: { smoothProgress: MotionValue<numbe
 
     return (
         <motion.div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-[opacity,transform]"
             style={{ opacity: ringOpacity, rotate: ringRotate }}
         >
             {[ringScale1, ringScale2, ringScale3].map((scale, i) => (
                 <motion.div
                     key={i}
-                    className="absolute rounded-full border"
+                    className="absolute rounded-full border will-change-transform"
                     style={{
                         scale,
                         width: "40vmin",
                         height: "40vmin",
-                        borderColor: i === 0 ? "rgba(6,182,212,0.15)" : i === 1 ? "rgba(59,130,246,0.12)" : "rgba(16,185,129,0.08)",
+                        borderColor: i === 0 ? "rgba(6,182,212,0.12)" : i === 1 ? "rgba(59,130,246,0.08)" : "rgba(16,185,129,0.06)",
                     }}
                 />
             ))}
@@ -151,41 +142,18 @@ function ConcentricRings({ smoothProgress }: { smoothProgress: MotionValue<numbe
     );
 }
 
-function CentralOrb({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
-    const orbScale = useTransform(smoothProgress, [0, 0.05, 0.18, 0.26], [0, 1, 1.4, 0]);
-    const orbOpacity = useTransform(smoothProgress, [0, 0.05, 0.20, 0.26], [0, 0.8, 0.6, 0]);
-    const orbBlur = useTransform(smoothProgress, [0, 0.18], [60, 100]);
-    const orbFilter = useTransform(orbBlur, (v) => `blur(${v}px)`);
+function AmbientGlow({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
+    const glowOpacity = useTransform(smoothProgress, [0, 0.05, 0.20, 0.28], [0, 0.6, 0.4, 0]);
 
     return (
         <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none will-change-[opacity]"
             style={{
-                scale: orbScale,
-                opacity: orbOpacity,
-                filter: orbFilter,
-                width: "50vmin",
-                height: "50vmin",
-                background: "radial-gradient(circle, rgba(6,182,212,0.5) 0%, rgba(59,130,246,0.3) 40%, rgba(16,185,129,0.15) 70%, transparent 100%)",
+                opacity: glowOpacity,
+                width: "60vmin",
+                height: "60vmin",
+                background: "radial-gradient(circle, rgba(6,182,212,0.2) 0%, rgba(59,130,246,0.1) 40%, transparent 70%)",
                 borderRadius: "50%",
-            }}
-        />
-    );
-}
-
-function ScanLine({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
-    const scanY = useTransform(smoothProgress, [0.03, 0.22], ["-10%", "110%"]);
-    const scanOpacity = useTransform(smoothProgress, [0.03, 0.06, 0.18, 0.22], [0, 1, 1, 0]);
-
-    return (
-        <motion.div
-            className="absolute left-0 right-0 pointer-events-none"
-            style={{
-                top: scanY,
-                opacity: scanOpacity,
-                height: "2px",
-                background: "linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.6) 20%, rgba(6,182,212,0.8) 50%, rgba(6,182,212,0.6) 80%, transparent 100%)",
-                boxShadow: "0 0 20px 4px rgba(6,182,212,0.3), 0 0 60px 10px rgba(6,182,212,0.15)",
             }}
         />
     );
@@ -207,7 +175,7 @@ function PowerStatCard({ stat, index, smoothProgress }: {
     return (
         <motion.div
             style={{ opacity, scale, y }}
-            className="text-center group"
+            className="text-center group will-change-[opacity,transform]"
         >
             <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}
                 style={{ boxShadow: `0 8px 32px -8px rgba(6,182,212,0.4)` }}
@@ -230,36 +198,28 @@ function HighlightCard({ h, index, smoothProgress }: {
     const Icon = h.icon;
 
     const cardOpacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
-    const cardScale = useTransform(smoothProgress, [cardStart, cardEnd], [0.85, 1]);
-    const cardY = useTransform(smoothProgress, [cardStart, cardEnd], [50, 0]);
-    const cardRotateX = useTransform(smoothProgress, [cardStart, cardEnd], [15, 0]);
-    const cardBlur = useTransform(smoothProgress, [cardStart, cardEnd], [10, 0]);
-    const filterVal = useTransform(cardBlur, (v) => `blur(${v}px)`);
+    const cardY = useTransform(smoothProgress, [cardStart, cardEnd], [40, 0]);
 
     return (
         <motion.div
             style={{
                 opacity: cardOpacity,
-                scale: cardScale,
                 y: cardY,
-                rotateX: cardRotateX,
-                filter: filterVal,
-                transformPerspective: 1200,
             }}
-            className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-md p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/20 transition-all duration-500 hover:-translate-y-1"
+            className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/15 transition-colors duration-300 will-change-[opacity,transform]"
         >
             <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-xl sm:rounded-2xl"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl"
                 style={{
-                    background: `radial-gradient(ellipse 100% 100% at 50% 100%, ${h.glow.replace("0.5", "0.10")} 0%, transparent 70%)`,
+                    background: `radial-gradient(ellipse 100% 100% at 50% 100%, ${h.glow.replace("0.5", "0.08")} 0%, transparent 70%)`,
                 }}
             />
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             <div className="flex items-start justify-between mb-2 sm:mb-3 relative">
                 <div
-                    className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0 group-hover:shadow-xl transition-shadow duration-500`}
-                    style={{ boxShadow: `0 4px 20px -4px ${h.glow}` }}
+                    className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0`}
+                    style={{ boxShadow: `0 4px 16px -4px ${h.glow}` }}
                 >
                     <Icon className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-white" />
                 </div>
@@ -290,22 +250,22 @@ export function ScrollCinematicSection() {
     const taglineY = useTransform(smoothProgress, [0.01, 0.05], [30, 0]);
 
     const line1Opacity = useTransform(smoothProgress, [0.04, 0.10], [0, 1]);
-    const line1BlurRaw = useTransform(smoothProgress, [0.04, 0.10], [18, 0]);
+    const line1BlurRaw = useTransform(smoothProgress, [0.04, 0.10], [12, 0]);
     const line1Blur = useTransform(line1BlurRaw, (v) => `blur(${v}px)`);
-    const line1Y = useTransform(smoothProgress, [0.04, 0.10], [60, 0]);
-    const line1Scale = useTransform(smoothProgress, [0.04, 0.10], [0.85, 1]);
+    const line1Y = useTransform(smoothProgress, [0.04, 0.10], [50, 0]);
+    const line1Scale = useTransform(smoothProgress, [0.04, 0.10], [0.9, 1]);
 
     const line2Opacity = useTransform(smoothProgress, [0.08, 0.14], [0, 1]);
-    const line2BlurRaw = useTransform(smoothProgress, [0.08, 0.14], [18, 0]);
+    const line2BlurRaw = useTransform(smoothProgress, [0.08, 0.14], [12, 0]);
     const line2Blur = useTransform(line2BlurRaw, (v) => `blur(${v}px)`);
-    const line2Y = useTransform(smoothProgress, [0.08, 0.14], [60, 0]);
-    const line2Scale = useTransform(smoothProgress, [0.08, 0.14], [0.85, 1]);
+    const line2Y = useTransform(smoothProgress, [0.08, 0.14], [50, 0]);
+    const line2Scale = useTransform(smoothProgress, [0.08, 0.14], [0.9, 1]);
 
     const line3Opacity = useTransform(smoothProgress, [0.12, 0.18], [0, 1]);
-    const line3BlurRaw = useTransform(smoothProgress, [0.12, 0.18], [18, 0]);
+    const line3BlurRaw = useTransform(smoothProgress, [0.12, 0.18], [12, 0]);
     const line3Blur = useTransform(line3BlurRaw, (v) => `blur(${v}px)`);
-    const line3Y = useTransform(smoothProgress, [0.12, 0.18], [60, 0]);
-    const line3Scale = useTransform(smoothProgress, [0.12, 0.18], [0.85, 1]);
+    const line3Y = useTransform(smoothProgress, [0.12, 0.18], [50, 0]);
+    const line3Scale = useTransform(smoothProgress, [0.12, 0.18], [0.9, 1]);
 
     const subtitleOpacity = useTransform(smoothProgress, [0.16, 0.21], [0, 1]);
     const subtitleY = useTransform(smoothProgress, [0.16, 0.21], [24, 0]);
@@ -325,10 +285,8 @@ export function ScrollCinematicSection() {
     const statsExitY = useTransform(smoothProgress, [0.70, 0.78], [0, -50]);
 
     const dashboardOpacity = useTransform(smoothProgress, [0.76, 0.84], [0, 1]);
-    const dashboardScale = useTransform(smoothProgress, [0.76, 0.84], [0.6, 1]);
-    const dashboardY = useTransform(smoothProgress, [0.76, 0.84], [100, 0]);
-    const dashboardBlurRaw = useTransform(smoothProgress, [0.76, 0.84], [20, 0]);
-    const dashboardBlur = useTransform(dashboardBlurRaw, (v) => `blur(${v}px)`);
+    const dashboardScale = useTransform(smoothProgress, [0.76, 0.84], [0.7, 1]);
+    const dashboardY = useTransform(smoothProgress, [0.76, 0.84], [80, 0]);
 
     const scrollHintOpacity = useTransform(smoothProgress, [0, 0.015, 0.07], [0, 1, 0]);
 
@@ -363,17 +321,14 @@ export function ScrollCinematicSection() {
                 <div className="absolute inset-0 bg-[#020810]" />
 
                 <motion.div style={{ opacity: particlesOpacity }} className="absolute inset-0">
-                    <Particles />
+                    <CSSParticles />
                 </motion.div>
 
-                <CentralOrb smoothProgress={smoothProgress} />
+                <AmbientGlow smoothProgress={smoothProgress} />
                 <ConcentricRings smoothProgress={smoothProgress} />
-                <ScanLine smoothProgress={smoothProgress} />
-
-                <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 will-change-[opacity,transform]"
                     style={{ opacity: exitOpacity, y: exitY, scale: exitScale }}
                 >
                     <div className="text-center max-w-5xl mx-auto w-full">
@@ -390,7 +345,7 @@ export function ScrollCinematicSection() {
 
                         <h2 className="font-black tracking-tighter leading-[0.95] uppercase">
                             <motion.span
-                                className="block text-white"
+                                className="block text-white will-change-[opacity,transform,filter]"
                                 style={{
                                     opacity: line1Opacity,
                                     filter: line1Blur,
@@ -402,7 +357,7 @@ export function ScrollCinematicSection() {
                                 Tu empresa.
                             </motion.span>
                             <motion.span
-                                className="block text-white"
+                                className="block text-white will-change-[opacity,transform,filter]"
                                 style={{
                                     opacity: line2Opacity,
                                     filter: line2Blur,
@@ -414,7 +369,7 @@ export function ScrollCinematicSection() {
                                 Toda.
                             </motion.span>
                             <motion.span
-                                className="block italic"
+                                className="block italic will-change-[opacity,transform,filter]"
                                 style={{
                                     opacity: line3Opacity,
                                     filter: line3Blur,
@@ -443,7 +398,7 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-3 sm:px-4 md:px-10"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-3 sm:px-4 md:px-10 will-change-[opacity,transform]"
                     style={{
                         opacity: highlightsOpacity,
                         y: highlightsY,
@@ -463,7 +418,7 @@ export function ScrollCinematicSection() {
                             <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mx-auto mt-3 sm:mt-4" />
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-4" style={{ perspective: "1200px" }}>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
                             {highlights.map((h, i) => (
                                 <HighlightCard
                                     key={i}
@@ -477,7 +432,7 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 will-change-[opacity,transform]"
                     style={{
                         opacity: statsOpacity,
                         y: statsY,
@@ -508,8 +463,8 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 md:px-10"
-                    style={{ opacity: dashboardOpacity, scale: dashboardScale, y: dashboardY, filter: dashboardBlur }}
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 md:px-10 will-change-[opacity,transform]"
+                    style={{ opacity: dashboardOpacity, scale: dashboardScale, y: dashboardY }}
                 >
                     <div className="w-full max-w-4xl mx-auto text-center">
                         <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-2 sm:mb-3">
@@ -522,8 +477,8 @@ export function ScrollCinematicSection() {
                             Un dashboard. Todo el control.
                         </h3>
                         <div className="relative mx-auto max-w-3xl">
-                            <div className="absolute -inset-6 bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-emerald-500/15 rounded-[2.5rem] blur-3xl" />
-                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+                            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-emerald-500/10 rounded-[2rem] blur-2xl" />
+                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)]">
                                 <Image
                                     src="/images/landing/hero-dashboard.png"
                                     alt="System Kyron Dashboard"
@@ -531,7 +486,7 @@ export function ScrollCinematicSection() {
                                     height={506}
                                     className="w-full h-auto"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#020810]/50 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#020810]/40 via-transparent to-transparent" />
                             </div>
                         </div>
                     </div>
@@ -545,16 +500,12 @@ export function ScrollCinematicSection() {
                         Desplázate para explorar
                     </span>
                     <div className="w-5 h-9 rounded-full border border-white/10 flex items-start justify-center pt-2">
-                        <motion.div
-                            animate={{ y: [0, 12, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                            className="w-1 h-1.5 rounded-full bg-cyan-400/50"
-                        />
+                        <div className="w-1 h-1.5 rounded-full bg-cyan-400/50 animate-scroll-dot" />
                     </div>
                 </motion.div>
 
-                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-20" />
-                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-20" />
+                <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#020810] to-transparent pointer-events-none z-20" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#020810] to-transparent pointer-events-none z-20" />
             </div>
         </div>
     );
