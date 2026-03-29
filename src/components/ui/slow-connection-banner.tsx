@@ -77,7 +77,8 @@ export function SlowConnectionBanner() {
     const handleOnline = () => {
       if (mountedRef.current) {
         setState('good');
-        setTimeout(checkConnection, 2000);
+        setDismissed(false);
+        setTimeout(checkConnection, 5000);
       }
     };
     const handleOffline = () => {
