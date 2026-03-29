@@ -82,7 +82,9 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
     }
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+    const fromAddr = opts.from ?? 'System Kyron <noreplysystemkyron@gmail.com>';
     const rawEmail = [
+      `From: ${fromAddr}`,
       `To: ${recipients.join(', ')}`,
       `Subject: =?utf-8?B?${Buffer.from(opts.subject).toString('base64')}?=`,
       'MIME-Version: 1.0',
@@ -126,7 +128,7 @@ async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
 
     await resend.emails.send({
-      from: opts.from ?? 'System Kyron <onboarding@resend.dev>',
+      from: opts.from ?? 'System Kyron <noreplysystemkyron@gmail.com>',
       to: recipients,
       subject: opts.subject,
       html: opts.html,
