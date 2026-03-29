@@ -40,7 +40,7 @@ const chapters = [
     details: [
       "Registro de RIF, Razón Social y datos de contacto oficiales.",
       "Activación bajo demanda de las 10+ secciones principales.",
-      "Guía asistida por Kyron AI para la carga inicial de datos.",
+      "Guía asistida por Kyron AI (potenciado por Claude de Anthropic) para la carga inicial de datos.",
       "Soporte bilingüe completo (Español e Inglés)."
     ]
   },
@@ -124,10 +124,10 @@ const chapters = [
   },
   {
     id: "legal",
-    title: "Asesoría Legal con Kyron AI",
+    title: "Asesoría Legal con Kyron AI (Claude)",
     icon: Gavel,
     color: "from-indigo-500 to-violet-500",
-    content: `El módulo jurídico actúa como un Oficial de Cumplimiento virtual. Kyron AI está entrenado en legislación venezolana para redactar borradores de contratos, acuerdos de confidencialidad y actas de asamblea. Además, monitorea registros ante el SAREN y el SAPI, emitiendo alertas sobre vencimiento de poderes o necesidad de renovar marcas comerciales.`,
+    content: `El módulo jurídico actúa como un Oficial de Cumplimiento virtual. Kyron AI — potenciado por Claude de Anthropic — está entrenado en legislación venezolana para redactar borradores de contratos, acuerdos de confidencialidad y actas de asamblea. Además, monitorea registros ante el SAREN y el SAPI, emitiendo alertas sobre vencimiento de poderes o necesidad de renovar marcas comerciales.`,
     details: [
       "Generación automática de documentos legales por Kyron AI.",
       "Avisos preventivos antes de la caducidad de poderes.",
@@ -270,9 +270,9 @@ const chapters = [
     title: "Soporte Técnico",
     icon: MessageSquare,
     color: "from-sky-500 to-cyan-500",
-    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Kyron AI, chat en vivo y conexión directa con el equipo de ingeniería. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata ante cualquier desafío operativo.`,
+    content: `El soporte técnico de System Kyron es de grado corporativo. Incluye asistencia multicanal mediante Kyron AI (potenciado por Claude de Anthropic), chat en vivo y conexión directa con el equipo de ingeniería. Estamos comprometidos con una experiencia de misión crítica: sin caídas, sin errores y con respuesta técnica inmediata ante cualquier desafío operativo.`,
     details: [
-      "Resolución de dudas 24/7 mediante Kyron AI.",
+      "Resolución de dudas 24/7 mediante Kyron AI (Claude, Anthropic).",
       "Seguimiento transparente de tickets de servicio.",
       "Actualizaciones de sistema sin interrupciones.",
       "Foro de la comunidad Kyron para mejores prácticas."
@@ -283,7 +283,7 @@ const chapters = [
     title: "Modelo ZEDU — AutoMind AI",
     icon: BrainCircuit,
     color: "from-violet-500 to-fuchsia-500",
-    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind AI, desarrollado por Miguel Uzcategui, Miguel Angel Goites y Joaquin de Barros en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, chatbot de atención automatizada para representantes y herramientas de Kyron AI de apoyo administrativo. El documento completo está disponible en la sección Sector Privado del portal.`,
+    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind AI, desarrollado por Miguel Uzcategui, Miguel Angel Goites y Joaquin de Barros en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, chatbot de atención automatizada para representantes y herramientas de Kyron AI (potenciado por Claude de Anthropic) de apoyo administrativo. El documento completo está disponible en la sección Sector Privado del portal.`,
     details: [
       "Equipo: Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros.",
       "Digitalización y búsqueda instantánea de expedientes con OCR.",
@@ -601,8 +601,9 @@ export default function ManualUsuarioPage() {
                 <span className="text-xl font-black text-foreground">2.8.5</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">IA</span>
-                <span className="text-xl font-black text-primary">Kyron AI</span>
+                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">Motor IA</span>
+                <span className="text-xl font-black text-primary">Claude</span>
+                <span className="text-[8px] font-bold text-muted-foreground/60 block">by Anthropic</span>
               </div>
             </div>
           </div>

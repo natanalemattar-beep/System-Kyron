@@ -44,7 +44,7 @@
             { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
             { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
             { "title": "Mi Línea 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
-            { "title": "Inteligencia Artificial", "description": "Kyron AI integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
+            { "title": "Inteligencia Artificial", "description": "Kyron AI integrado (potenciado por Claude de Anthropic). Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
             { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
             { "title": "Ameru — Eco-Créditos", "description": "Clasificación de residuos por IA, generación de eco-créditos certificados y mercado de sostenibilidad." },
             { "title": "Dashboard & Analítica", "description": "KPIs en tiempo real, análisis de flujo de caja, proyecciones financieras y reportes PDF/PowerPoint." },
@@ -55,7 +55,7 @@
             { "val": "48h", "detail": "Tiempo de migración" },
             { "val": "Multi-empresa", "detail": "Holdings y condominios" },
             { "val": "Bilingüe", "detail": "Español & English" },
-            { "val": "Kyron AI", "detail": "IA de última generación" }
+            { "val": "Kyron AI", "detail": "Potenciado por Claude (Anthropic)" }
         ]
     },
     "ServicesSection": {
@@ -81,9 +81,9 @@
             },
             {
                 "title": "Inteligencia Artificial",
-                "subtitle": "Kyron AI · Inteligencia Nativa",
-                "description": "IA fiscal que monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
-                "badges": ["Kyron AI", "IA Nativa", "Chat IA", "Reportes"]
+                "subtitle": "Kyron AI · Claude (Anthropic)",
+                "description": "IA fiscal potenciada por Claude de Anthropic. Monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
+                "badges": ["Kyron AI", "Claude", "Chat IA", "Reportes"]
             }
         ],
         "modules": [
@@ -220,7 +220,7 @@
         "highlights": [
             { "label": "Contabilidad & Fiscal", "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", "stat": "100%", "statLabel": "Cumplimiento fiscal" },
             { "label": "Mi Línea 5G", "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", "stat": "5G", "statLabel": "Velocidad de red" },
-            { "label": "IA Integrada", "desc": "Asistente Kyron AI de última generación. Automatiza reportes, documentos y análisis.", "stat": "IA", "statLabel": "Kyron AI" },
+            { "label": "IA Integrada", "desc": "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.", "stat": "IA", "statLabel": "Claude · Anthropic" },
             { "label": "Seguridad AES-256", "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", "stat": "256", "statLabel": "Bits de cifrado" },
             { "label": "RR.HH & Nómina", "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", "stat": "LOTTT", "statLabel": "Marco legal" },
             { "label": "Facturación Fiscal", "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", "stat": "3%", "statLabel": "IGTF automático" }

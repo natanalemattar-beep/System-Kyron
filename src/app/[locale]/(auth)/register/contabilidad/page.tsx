@@ -69,7 +69,7 @@ const PLANES_CONTABILIDAD = [
         precioUsd: 95,
         descripcion: 'Solución completa con IA y asesoría contable',
         color: 'from-violet-500 to-purple-600',
-        features: ['Todo del plan Empresarial', 'IA asistente contable (Kyron AI)', 'Asesoría fiscal personalizada', 'Multi-empresa ilimitado', 'Usuarios ilimitados', 'API de integración', 'Dashboard ejecutivo en tiempo real', 'Reportes personalizados SENIAT', 'Backup y recuperación avanzada', 'SLA 99.9% disponibilidad'],
+        features: ['Todo del plan Empresarial', 'IA asistente contable (Kyron AI · Claude)', 'Asesoría fiscal personalizada', 'Multi-empresa ilimitado', 'Usuarios ilimitados', 'API de integración', 'Dashboard ejecutivo en tiempo real', 'Reportes personalizados SENIAT', 'Backup y recuperación avanzada', 'SLA 99.9% disponibilidad'],
     },
 ];
 

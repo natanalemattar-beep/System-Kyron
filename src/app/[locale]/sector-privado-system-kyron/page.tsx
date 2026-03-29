@@ -337,7 +337,7 @@ export default function ModeloZeduPage() {
                                     <td className={tableCellClass} colSpan={2}>
                                         <p><strong>System Kyron</strong> es un ecosistema de inteligencia corporativa de grado empresarial, diseñado exclusivamente para el mercado venezolano. Integra en una sola plataforma web la gestión contable bajo normas VEN-NIF, la administración de recursos humanos con cumplimiento LOTTT, los servicios de telecomunicaciones 5G corporativas, la asesoría legal impulsada por IA, la gestión de eco-créditos y la analítica ejecutiva en tiempo real.</p>
                                         <p>La plataforma consolida 12 portales especializados interconectados, accesibles desde cualquier dispositivo mediante autenticación segura con cifrado AES-256 y sellado criptográfico de expedientes. Su arquitectura modular permite a cada empresa activar únicamente los módulos que necesita, escalando según su crecimiento.</p>
-                                        <p>System Kyron integra de forma nativa la <strong>inteligencia artificial Kyron AI</strong> para la generación automática de contratos, análisis fiscal predictivo, cálculo de nómina con ajuste por inflación y clasificación de residuos para eco-créditos, posicionándose como la plataforma de gestión empresarial más avanzada tecnológicamente del mercado venezolano.</p>
+                                        <p>System Kyron integra de forma nativa la <strong>inteligencia artificial Kyron AI, potenciada por Claude de Anthropic,</strong> para la generación automática de contratos, análisis fiscal predictivo, cálculo de nómina con ajuste por inflación y clasificación de residuos para eco-créditos, posicionándose como la plataforma de gestión empresarial más avanzada tecnológicamente del mercado venezolano.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Módulos Principales del Ecosistema (11 Portales Especializados)</td></tr>
@@ -379,7 +379,7 @@ export default function ModeloZeduPage() {
                                     <td className={tableLabelClass}>
                                         <div className="flex items-center gap-2"><Gavel className="h-4 w-4 shrink-0" /> Módulo 6: IA Legal y Permisos</div>
                                     </td>
-                                    <td className={tableCellClass}>Generación automática por Kyron AI de contratos de trabajo, poderes notariales, actas de asamblea, contratos mercantiles y de arrendamiento, y permisos ante CONATEL y SENIAT. Escritorio jurídico digital con búsqueda semántica en Gaceta Oficial actualizada. Gestión de socios y directivos, libros de actas, certificaciones corporativas y blindaje jurídico automatizado con sellado criptográfico de expedientes.</td>
+                                    <td className={tableCellClass}>Generación automática por Kyron AI (potenciado por Claude de Anthropic) de contratos de trabajo, poderes notariales, actas de asamblea, contratos mercantiles y de arrendamiento, y permisos ante CONATEL y SENIAT. Escritorio jurídico digital con búsqueda semántica en Gaceta Oficial actualizada. Gestión de socios y directivos, libros de actas, certificaciones corporativas y blindaje jurídico automatizado con sellado criptográfico de expedientes.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>
@@ -437,7 +437,7 @@ export default function ModeloZeduPage() {
                                     <tr>
                                         <td className={tableLabelClass}>Integración Nativa de IA Avanzada</td>
                                         <td className={tableCellClass}>
-                                            <p>Los competidores locales carecen de inteligencia artificial integrada. <strong>System Kyron incorpora Kyron AI</strong> para generación de documentos legales, análisis fiscal predictivo, detección de inconsistencias contables y clasificación de residuos para eco-créditos, representando un salto generacional frente a las soluciones existentes.</p>
+                                            <p>Los competidores locales carecen de inteligencia artificial integrada. <strong>System Kyron incorpora Kyron AI, potenciado por Claude de Anthropic,</strong> para generación de documentos legales, análisis fiscal predictivo, detección de inconsistencias contables y clasificación de residuos para eco-créditos, representando un salto generacional frente a las soluciones existentes.</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -475,10 +475,10 @@ export default function ModeloZeduPage() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={tableCellClass}>Suscripción Kyron AI (IA generativa para módulos legales, fiscal y eco-créditos) — plan anual</td>
+                                    <td className={tableCellClass}>Suscripción Kyron AI — Claude de Anthropic (IA generativa para módulos legales, fiscal y eco-créditos) — plan anual</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
                                     <td className={cn(tableCellClass, "text-right font-black")}>$ 480,00</td>
-                                    <td className={tableCellClass}>Kyron AI Cloud (en línea)</td>
+                                    <td className={tableCellClass}>Kyron AI Cloud — Claude (Anthropic) en línea</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Hosting cloud en Vercel / AWS — servidor Next.js, base de datos PostgreSQL y almacenamiento de documentos (plan anual)</td>
@@ -606,7 +606,7 @@ export default function ModeloZeduPage() {
                             <tbody>
                                 <tr>
                                     <td className={cn(tableCellClass, "font-black uppercase")}>Google Cloud for Education</td>
-                                    <td className={tableCellClass}>Acceso a créditos de IA y la API de Kyron AI bajo el programa educativo. Documentación técnica, recursos de formación en inteligencia artificial y soporte en la arquitectura de sistemas basados en IA generativa para equipos estudiantiles emprendedores.</td>
+                                    <td className={tableCellClass}>Acceso a créditos de IA y la API de Kyron AI (Claude de Anthropic) bajo el programa educativo. Documentación técnica, recursos de formación en inteligencia artificial y soporte en la arquitectura de sistemas basados en IA generativa para equipos estudiantiles emprendedores.</td>
                                 </tr>
                                 <tr>
                                     <td className={cn(tableCellClass, "font-black uppercase")}>Colegio Santa Rosa de Lima</td>
@@ -787,7 +787,7 @@ export default function ModeloZeduPage() {
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 3–6 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableCellClass}><strong>6.</strong> Integración de Kyron AI: implementación de generación de contratos, análisis fiscal predictivo, clasificación de residuos para eco-créditos y asistente de documentos legales con IA.</td>
+                                    <td className={tableCellClass}><strong>6.</strong> Integración de Kyron AI (Claude de Anthropic): implementación de generación de contratos, análisis fiscal predictivo, clasificación de residuos para eco-créditos y asistente de documentos legales con IA.</td>
                                     <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 5–7 (Noviembre 2025)</td>
                                 </tr>
@@ -915,7 +915,7 @@ export default function ModeloZeduPage() {
                                 <tr>
                                     <td className={tableLabelClass}>Sección de Demostración en Vivo</td>
                                     <td className={tableCellClass}>
-                                        <p>Tour interactivo de los 12 portales directamente desde la página web, sin necesidad de crear una cuenta. El visitante puede explorar la interfaz del módulo contable VEN-NIF, ver un ejemplo de nómina LOTTT calculada en tiempo real, probar el generador de contratos con Kyron AI y consultar la tasa BCV actualizada. Conversión estimada: 15% de visitantes que completan el tour se registran como usuarios.</p>
+                                        <p>Tour interactivo de los 12 portales directamente desde la página web, sin necesidad de crear una cuenta. El visitante puede explorar la interfaz del módulo contable VEN-NIF, ver un ejemplo de nómina LOTTT calculada en tiempo real, probar el generador de contratos con Kyron AI (Claude de Anthropic) y consultar la tasa BCV actualizada. Conversión estimada: 15% de visitantes que completan el tour se registran como usuarios.</p>
                                     </td>
                                 </tr>
                                 <tr>

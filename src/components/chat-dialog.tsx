@@ -28,7 +28,7 @@ const getAIIdentity = (pathname: string) => {
   if (pathname.includes('/sector-privado-system-kyron')) {
     return {
       role: "Modelo Zedu — System Kyron",
-      expertise: "Inteligencia Maestra del ecosistema completo System Kyron. Conoce todos los modulos: Contabilidad VEN-NIF (IVA, IGTF, ISLR, RIPF, tasa BCV), RRHH y Nomina LOTTT, Telecom 5G y eSIM, Sostenibilidad Ameru y Eco-Creditos, Asesoria Legal IA (contratos, poderes, SAREN/SAPI), Portal Ciudadano e integracion Kyron AI. Responde sobre cualquier area del ecosistema con autoridad tecnica y vision estrategica.",
+      expertise: "Inteligencia Maestra del ecosistema completo System Kyron, potenciado por Claude de Anthropic. Conoce todos los modulos: Contabilidad VEN-NIF (IVA, IGTF, ISLR, RIPF, tasa BCV), RRHH y Nomina LOTTT, Telecom 5G y eSIM, Sostenibilidad Ameru y Eco-Creditos, Asesoria Legal IA (contratos, poderes, SAREN/SAPI), Portal Ciudadano e integracion Kyron AI. Responde sobre cualquier area del ecosistema con autoridad tecnica y vision estrategica.",
       icon: Sparkles
     };
   }

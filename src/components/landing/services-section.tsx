@@ -27,12 +27,12 @@ const features = [
     },
     {
         title: "Inteligencia Artificial",
-        subtitle: "Kyron AI · Inteligencia Nativa",
-        description: "IA fiscal que monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
+        subtitle: "Kyron AI · Claude (Anthropic)",
+        description: "IA fiscal potenciada por Claude de Anthropic. Monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
         image: "/images/landing/ai-brain.png",
         icon: Brain,
         color: "from-violet-500 to-purple-600",
-        badges: ["Kyron AI", "IA Nativa", "Chat IA", "Reportes"],
+        badges: ["Kyron AI", "Claude", "Chat IA", "Reportes"],
     },
 ];
 

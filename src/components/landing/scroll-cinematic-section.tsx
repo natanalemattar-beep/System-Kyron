@@ -36,9 +36,9 @@ const highlights: Highlight[] = [
         icon: Brain,
         color: "from-violet-500 to-purple-600",
         label: "IA Integrada",
-        desc: "Asistente Kyron AI de última generación. Automatiza reportes, documentos y análisis.",
+        desc: "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.",
         stat: "IA",
-        statLabel: "Kyron AI",
+        statLabel: "Claude · Anthropic",
     },
     {
         icon: Shield,
