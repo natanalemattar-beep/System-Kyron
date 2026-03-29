@@ -11,12 +11,71 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`
 
 const EXPANDED_DURATION = 17000;
 
+function WaterRipple({ delay, duration }: { delay: number; duration: number }) {
+  return (
+    <motion.span
+      className="absolute inset-0 rounded-full border-2 border-[#25D366]/60 pointer-events-none"
+      initial={{ scale: 1, opacity: 0.7 }}
+      animate={{ scale: 3.5, opacity: 0 }}
+      transition={{ delay, duration, ease: 'easeOut' }}
+    />
+  );
+}
+
+function WaterDroplets() {
+  const droplets = [
+    { x: -18, y: -22, size: 5, delay: 0.05 },
+    { x: 22, y: -16, size: 4, delay: 0.1 },
+    { x: -24, y: 8, size: 3, delay: 0.15 },
+    { x: 16, y: 20, size: 5, delay: 0.08 },
+    { x: -8, y: -26, size: 3, delay: 0.12 },
+    { x: 28, y: 4, size: 4, delay: 0.06 },
+    { x: -14, y: 22, size: 3, delay: 0.18 },
+    { x: 6, y: -20, size: 4, delay: 0.14 },
+  ];
+
+  return (
+    <>
+      {droplets.map((d, i) => (
+        <motion.span
+          key={i}
+          className="absolute rounded-full bg-[#25D366]/50 pointer-events-none"
+          style={{
+            width: d.size,
+            height: d.size,
+            left: '50%',
+            top: '50%',
+            marginLeft: -d.size / 2,
+            marginTop: -d.size / 2,
+          }}
+          initial={{ x: 0, y: 0, opacity: 0.8, scale: 1 }}
+          animate={{
+            x: d.x,
+            y: d.y,
+            opacity: 0,
+            scale: 0.3,
+          }}
+          transition={{
+            delay: d.delay,
+            duration: 0.6,
+            ease: 'easeOut',
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 export function WhatsAppButton() {
   const [expanded, setExpanded] = useState(true);
+  const [showWaterEffect, setShowWaterEffect] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      setShowWaterEffect(true);
       setExpanded(false);
+      const cleanup = setTimeout(() => setShowWaterEffect(false), 1800);
+      return () => clearTimeout(cleanup);
     }, EXPANDED_DURATION);
     return () => clearTimeout(timer);
   }, []);
@@ -59,6 +118,25 @@ export function WhatsAppButton() {
             >
               Escríbenos
             </motion.span>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {showWaterEffect && (
+            <>
+              <WaterRipple delay={0} duration={0.8} />
+              <WaterRipple delay={0.15} duration={0.9} />
+              <WaterRipple delay={0.3} duration={1.0} />
+
+              <motion.span
+                className="absolute inset-0 rounded-full bg-white/20 pointer-events-none"
+                initial={{ opacity: 0.5, scale: 1 }}
+                animate={{ opacity: 0, scale: 1.2 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+              />
+
+              <WaterDroplets />
+            </>
           )}
         </AnimatePresence>
 
