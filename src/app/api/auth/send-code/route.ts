@@ -6,55 +6,6 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 
 export const dynamic = 'force-dynamic';
 
-async function getTwilioCredentials(): Promise<{ accountSid: string; apiKeySecret: string; phoneNumber: string }> {
-  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
-    return {
-      accountSid: process.env.TWILIO_ACCOUNT_SID,
-      apiKeySecret: process.env.TWILIO_AUTH_TOKEN,
-      phoneNumber: process.env.TWILIO_PHONE_NUMBER,
-    };
-  }
-
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-  const xReplitToken = process.env.REPL_IDENTITY
-    ? 'repl ' + process.env.REPL_IDENTITY
-    : process.env.WEB_REPL_RENEWAL
-    ? 'depl ' + process.env.WEB_REPL_RENEWAL
-    : null;
-
-  if (!hostname || !xReplitToken) {
-    throw new Error('Twilio not configured: no connector env vars');
-  }
-
-  const res = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=twilio',
-    { headers: { 'Accept': 'application/json', 'X-Replit-Token': xReplitToken } }
-  );
-
-  if (!res.ok) {
-    throw new Error(`Twilio not connected: connector returned ${res.status}`);
-  }
-
-  const data = await res.json();
-  const conn = data.items?.[0];
-  const settings = conn?.settings;
-
-  if (!settings?.account_sid || !settings?.phone_number) {
-    throw new Error('Twilio not configured: missing credentials in connector');
-  }
-
-  const authSecret = settings.auth_token || settings.api_key || settings.api_key_secret;
-  if (!authSecret) {
-    throw new Error('Twilio not configured: no auth credentials in connector');
-  }
-
-  return {
-    accountSid: settings.account_sid,
-    apiKeySecret: authSecret,
-    phoneNumber: settings.phone_number,
-  };
-}
-
 function generateOTP(): string {
   const crypto = require('crypto');
   return crypto.randomInt(100000, 1000000).toString();
@@ -139,14 +90,14 @@ export async function POST(req: NextRequest) {
       }
     } else {
       try {
-        const twilioCredentials = await getTwilioCredentials();
-        const twilio = (await import('twilio')).default;
-        const client = twilio(twilioCredentials.accountSid, twilioCredentials.apiKeySecret);
-        await client.messages.create({
-          body: `System Kyron: Tu código de verificación es ${codigo}. Válido por 10 minutos.`,
-          from: twilioCredentials.phoneNumber,
-          to: destino,
-        });
+        const { sendSms } = await import('@/lib/twilio-client');
+        const result = await sendSms(
+          destino,
+          `System Kyron: Tu código de verificación es ${codigo}. Válido por 10 minutos.`
+        );
+        if (!result.success) {
+          throw new Error(result.error || 'SMS send failed');
+        }
       } catch (smsErr) {
         console.error('[send-code] SMS sending failed:', smsErr);
         const errorMsg = String(smsErr);
