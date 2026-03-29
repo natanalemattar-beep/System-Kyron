@@ -37,13 +37,13 @@ const features = [
 ];
 
 const modules = [
-    { icon: User,        title: "Cuenta Personal",   color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
-    { icon: Signal,      title: "Mis Líneas",        color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
-    { icon: Calculator,  title: "Asesoría Contable", color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
-    { icon: Gavel,       title: "Asesoría Legal",    color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
-    { icon: ShoppingCart, title: "Facturación",      color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
-    { icon: Building2,   title: "Socios",            color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
-    { icon: Recycle,     title: "Sostenibilidad",    color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    { icon: User,        title: "Cuenta Personal",   desc: "Gestiona tu perfil, documentos y configuración desde un solo lugar.", color: "text-sky-400", gradient: "from-sky-500/20 via-sky-500/5 to-transparent", border: "border-sky-500/15 hover:border-sky-400/40", glow: "group-hover:shadow-sky-500/10", span: "col-span-1 row-span-1" },
+    { icon: Signal,      title: "Mis Líneas",        desc: "Líneas móviles 5G, eSIM y gestión de flota empresarial integrada.", color: "text-blue-400", gradient: "from-blue-500/20 via-blue-500/5 to-transparent", border: "border-blue-500/15 hover:border-blue-400/40", glow: "group-hover:shadow-blue-500/10", span: "col-span-1 row-span-1 sm:col-span-2 lg:col-span-1" },
+    { icon: Calculator,  title: "Asesoría Contable", desc: "VEN-NIF, IVA, ISLR, IGTF, tasa BCV diaria y cumplimiento fiscal automatizado.", color: "text-primary", gradient: "from-primary/20 via-primary/5 to-transparent", border: "border-primary/15 hover:border-primary/40", glow: "group-hover:shadow-primary/10", span: "col-span-1 row-span-1 lg:col-span-2" },
+    { icon: Gavel,       title: "Asesoría Legal",    desc: "Contratos inteligentes, registros mercantiles, SAREN y propiedad intelectual.", color: "text-violet-400", gradient: "from-violet-500/20 via-violet-500/5 to-transparent", border: "border-violet-500/15 hover:border-violet-400/40", glow: "group-hover:shadow-violet-500/10", span: "col-span-1 row-span-1" },
+    { icon: ShoppingCart, title: "Facturación",      desc: "Notas de crédito/débito, control de inventario y gestión de cuentas.", color: "text-amber-400", gradient: "from-amber-500/20 via-amber-500/5 to-transparent", border: "border-amber-500/15 hover:border-amber-400/40", glow: "group-hover:shadow-amber-500/10", span: "col-span-1 row-span-1" },
+    { icon: Building2,   title: "Socios",            desc: "Portal de socios con métricas compartidas y colaboración en tiempo real.", color: "text-emerald-400", gradient: "from-emerald-500/20 via-emerald-500/5 to-transparent", border: "border-emerald-500/15 hover:border-emerald-400/40", glow: "group-hover:shadow-emerald-500/10", span: "col-span-1 row-span-1 lg:col-span-2" },
+    { icon: Recycle,     title: "Sostenibilidad",    desc: "Eco-Créditos, reciclaje tecnológico y economía circular certificada.", color: "text-teal-400", gradient: "from-teal-500/20 via-teal-500/5 to-transparent", border: "border-teal-500/15 hover:border-teal-400/40", glow: "group-hover:shadow-teal-500/10", span: "col-span-1 row-span-1" },
 ];
 
 export function ServicesSection() {
@@ -137,23 +137,38 @@ export function ServicesSection() {
                         </h3>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {modules.map((mod, i) => (
                             <motion.div
                                 key={mod.title}
-                                initial={{ opacity: 0, y: 12 }}
+                                initial={{ opacity: 0, y: 16 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.04, duration: 0.4 }}
+                                transition={{ delay: i * 0.06, duration: 0.5 }}
                                 className={cn(
-                                    "group flex flex-col items-center text-center gap-3 p-5 rounded-3xl border bg-card/50 dark:bg-white/[0.02] transition-all duration-300 cursor-default hover:shadow-xl hover:-translate-y-1",
-                                    mod.border
+                                    "group relative overflow-hidden rounded-2xl border bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 cursor-default hover:shadow-2xl hover:-translate-y-1",
+                                    mod.border,
+                                    mod.glow,
+                                    mod.span
                                 )}
                             >
-                                <div className={cn("p-3 rounded-xl border shadow-inner group-hover:scale-110 transition-transform duration-300 bg-gradient-to-br", mod.bg, mod.border)}>
-                                    <mod.icon className={cn("h-5 w-5", mod.color)} />
+                                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-60 group-hover:opacity-100 transition-opacity duration-500", mod.gradient)} />
+                                <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
+                                    <mod.icon className="w-full h-full" />
                                 </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-tight text-foreground">{mod.title}</h4>
+                                <div className="relative p-5 sm:p-6 flex flex-col gap-3">
+                                    <div className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl border bg-background/50 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3", mod.border)}>
+                                        <mod.icon className={cn("h-5 w-5 transition-colors duration-300", mod.color)} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xs font-black uppercase tracking-tight text-foreground mb-1.5">{mod.title}</h4>
+                                        <p className="text-[11px] font-medium text-muted-foreground/70 leading-relaxed">{mod.desc}</p>
+                                    </div>
+                                    <div className={cn("mt-auto pt-2 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300", mod.color)}>
+                                        <span>Explorar</span>
+                                        <ArrowRight className="h-3 w-3" />
+                                    </div>
+                                </div>
                             </motion.div>
                         ))}
                     </div>
