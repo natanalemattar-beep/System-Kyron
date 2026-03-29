@@ -6,6 +6,10 @@
 
 import { query } from '@/lib/db';
 
+async function safeQuery(sql: string): Promise<void> {
+  try { await query(sql); } catch { /* column/table may not exist yet */ }
+}
+
 export async function initializeDatabase(): Promise<void> {
   try {
     await createCoreAuthTables();
@@ -13,6 +17,7 @@ export async function initializeDatabase(): Promise<void> {
     await createContabilidadExtendedTables();
     await createRRHHTables();
     await createRRHHExtendedTables();
+    await createRRHHLibrosLaboralesTables();
     await createLegalTables();
     await createTelecomTables();
     await createTelecomExtendedTables();
@@ -180,7 +185,7 @@ async function createContabilidadTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_facturas_user_id ON facturas(user_id)`);
-  await query(`CREATE INDEX IF NOT EXISTS idx_facturas_estado  ON facturas(estado)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_facturas_estado  ON facturas(estado)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS factura_items (
@@ -1033,7 +1038,7 @@ async function createContabilidadExtendedTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_cxc_user_id ON cuentas_por_cobrar(user_id)`);
-  await query(`CREATE INDEX IF NOT EXISTS idx_cxc_estado  ON cuentas_por_cobrar(user_id, estado)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_cxc_estado  ON cuentas_por_cobrar(user_id, estado)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS cuentas_por_pagar (
@@ -1180,8 +1185,6 @@ async function createRRHHExtendedTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_clima_user_id ON clima_organizacional(user_id)`);
-
-  await createRRHHLibrosLaboralesTables();
 }
 
 async function createRRHHLibrosLaboralesTables() {
@@ -1932,7 +1935,7 @@ async function createAdvancedSystemTables() {
       updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
-  await query(`CREATE INDEX IF NOT EXISTS idx_presupuestos_user ON presupuestos(user_id, estado)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_presupuestos_user ON presupuestos(user_id, estado)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS metas_kpi (
@@ -1956,7 +1959,7 @@ async function createAdvancedSystemTables() {
       updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
-  await query(`CREATE INDEX IF NOT EXISTS idx_metas_user ON metas_kpi(user_id, estado)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_metas_user ON metas_kpi(user_id, estado)`);
 }
 
 async function createPerformanceOptimizations(): Promise<void> {
@@ -1987,14 +1990,14 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nominas_periodo ON nominas(user_id, fecha_inicio, fecha_fin)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nominas_estado ON nominas(estado)`);
 
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_lineas_user ON lineas_telecom(user_id, estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_lineas_user ON lineas_telecom(user_id, activa)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_user ON eco_creditos(user_id)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_created ON page_visits(created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino, created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_tipo ON users(tipo)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_documento ON users(tipo_documento, numero_documento)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_cedula ON users(cedula)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_tasas_bcv_fecha ON tasas_bcv(fecha DESC)`);
 }
