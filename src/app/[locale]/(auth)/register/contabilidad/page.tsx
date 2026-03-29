@@ -598,7 +598,7 @@ export default function RegisterContabilidadPage() {
                                     <p className="font-black text-primary uppercase tracking-widest">Módulos habilitados:</p>
                                     {MODULES_CONTABILIDAD.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
                                 </div>
-                                <Button className="w-full mt-4" onClick={() => { localStorage.setItem('kyron-just-registered', 'true'); router.push('/'); }}>
+                                <Button className="w-full mt-4" onClick={() => { router.push('/'); }}>
                                     Ir al Portal <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                             </div>

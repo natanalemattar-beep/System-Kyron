@@ -946,10 +946,6 @@ export default function RegisterSostenibilidadPage() {
                                 <Button
                                     className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700"
                                     onClick={() => {
-                                        localStorage.setItem(
-                                            "kyron-just-registered",
-                                            "true",
-                                        );
                                         router.push("/");
                                     }}
                                 >

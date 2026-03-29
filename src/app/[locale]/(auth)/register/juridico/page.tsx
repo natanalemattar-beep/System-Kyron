@@ -770,7 +770,6 @@ export default function RegisterJuridicoPage() {
                   <p className="text-muted-foreground">• Importa tus datos contables y de nómina</p>
                 </div>
                 <Button className="mt-6 w-full" onClick={() => {
-                  localStorage.setItem('kyron-just-registered', 'true');
                   const module = sessionStorage.getItem('kyron-register-module-done') || 'contabilidad';
                   const moduleRoutes: Record<string, string> = {
                     contabilidad: '/contabilidad',

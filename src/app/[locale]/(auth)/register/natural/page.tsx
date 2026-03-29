@@ -266,7 +266,6 @@ export default function RegisterNaturalPage() {
             <Button
               className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-emerald-500 hover:opacity-90 text-white font-bold text-base shadow-lg shadow-primary/20 transition-all"
               onClick={() => {
-                localStorage.setItem('kyron-just-registered', 'true');
                 router.push('/');
               }}
             >

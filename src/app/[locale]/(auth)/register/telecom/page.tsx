@@ -657,7 +657,7 @@ export default function RegisterTelecomPage() {
                                     {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
                                     {tipoCliente === 'empresarial' && <p className="text-muted-foreground">✓ Flota Empresarial</p>}
                                 </div>
-                                <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { localStorage.setItem('kyron-just-registered','true'); router.push('/'); }}>
+                                <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { router.push('/'); }}>
                                     Ir a Mis Líneas<ArrowRight className="ml-2 h-4 w-4"/>
                                 </Button>
                             </div>

@@ -34,7 +34,7 @@ export async function GET() {
     }
 
     const modules = await query<DbModule>(
-        `SELECT module_id FROM user_modules WHERE user_id = $1 AND enabled = true`,
+        `SELECT module_id FROM user_modules WHERE user_id = $1 AND activo = true`,
         [user.id]
     );
 
