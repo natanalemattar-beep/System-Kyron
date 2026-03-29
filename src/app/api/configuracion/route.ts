@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic';
 async function getOrCreateConfig(userId: number) {
   let config = await queryOne(
     `SELECT id, idioma, moneda_preferida, zona_horaria,
-            notif_email, notif_vencimientos, notif_pagos,
+            notif_email, notif_whatsapp, telefono_whatsapp,
+            notif_vencimientos, notif_pagos,
             iva_pct::text, igtf_pct::text, islr_pct::text,
             rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at
      FROM configuracion_usuario WHERE user_id = $1`,
@@ -19,7 +20,8 @@ async function getOrCreateConfig(userId: number) {
       `INSERT INTO configuracion_usuario (user_id)
        VALUES ($1)
        RETURNING id, idioma, moneda_preferida, zona_horaria,
-                 notif_email, notif_vencimientos, notif_pagos,
+                 notif_email, notif_whatsapp, telefono_whatsapp,
+                 notif_vencimientos, notif_pagos,
                  iva_pct::text, igtf_pct::text, islr_pct::text,
                  rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at`,
       [userId]
@@ -45,7 +47,8 @@ export async function PATCH(req: NextRequest) {
   const body = await req.json();
   const {
     idioma, moneda_preferida, zona_horaria,
-    notif_email, notif_vencimientos, notif_pagos,
+    notif_email, notif_whatsapp, telefono_whatsapp,
+    notif_vencimientos, notif_pagos,
     iva_pct, igtf_pct, islr_pct,
     rif_empresa, nombre_comercial, logo_url, pie_factura
   } = body;
@@ -58,23 +61,28 @@ export async function PATCH(req: NextRequest) {
          moneda_preferida   = COALESCE($2,  moneda_preferida),
          zona_horaria       = COALESCE($3,  zona_horaria),
          notif_email        = COALESCE($4,  notif_email),
-         notif_vencimientos = COALESCE($5,  notif_vencimientos),
-         notif_pagos        = COALESCE($6,  notif_pagos),
-         iva_pct            = COALESCE($7,  iva_pct),
-         igtf_pct           = COALESCE($8,  igtf_pct),
-         islr_pct           = COALESCE($9,  islr_pct),
-         rif_empresa        = COALESCE($10, rif_empresa),
-         nombre_comercial   = COALESCE($11, nombre_comercial),
-         logo_url           = COALESCE($12, logo_url),
-         pie_factura        = COALESCE($13, pie_factura),
+         notif_whatsapp     = COALESCE($5,  notif_whatsapp),
+         telefono_whatsapp  = COALESCE($6,  telefono_whatsapp),
+         notif_vencimientos = COALESCE($7,  notif_vencimientos),
+         notif_pagos        = COALESCE($8,  notif_pagos),
+         iva_pct            = COALESCE($9,  iva_pct),
+         igtf_pct           = COALESCE($10, igtf_pct),
+         islr_pct           = COALESCE($11, islr_pct),
+         rif_empresa        = COALESCE($12, rif_empresa),
+         nombre_comercial   = COALESCE($13, nombre_comercial),
+         logo_url           = COALESCE($14, logo_url),
+         pie_factura        = COALESCE($15, pie_factura),
          updated_at         = NOW()
-     WHERE user_id = $14
-     RETURNING id, idioma, moneda_preferida, iva_pct::text, igtf_pct::text, updated_at`,
+     WHERE user_id = $16
+     RETURNING id, idioma, moneda_preferida, notif_whatsapp, telefono_whatsapp,
+               iva_pct::text, igtf_pct::text, updated_at`,
     [
       idioma ?? null,
       moneda_preferida ?? null,
       zona_horaria ?? null,
       notif_email !== undefined ? notif_email : null,
+      notif_whatsapp !== undefined ? notif_whatsapp : null,
+      telefono_whatsapp ?? null,
       notif_vencimientos !== undefined ? notif_vencimientos : null,
       notif_pagos !== undefined ? notif_pagos : null,
       iva_pct ? parseFloat(iva_pct) : null,

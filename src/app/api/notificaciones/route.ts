@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
 import { sendNotificationEmail } from '@/lib/alert-email-service';
+import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -98,6 +99,7 @@ export async function POST(req: NextRequest) {
   );
 
   sendNotificationEmail(session.userId, { tipo, titulo, mensaje, accion_url }).catch(() => {});
+  sendWhatsAppNotification(session.userId, { tipo, titulo, mensaje }).catch(() => {});
 
   return NextResponse.json({ success: true, notificacion: notif });
 }

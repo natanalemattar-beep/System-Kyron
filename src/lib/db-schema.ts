@@ -1682,6 +1682,8 @@ async function createConfiguracionTables() {
       moneda_preferida   TEXT NOT NULL DEFAULT 'VES',
       zona_horaria       TEXT NOT NULL DEFAULT 'America/Caracas',
       notif_email        BOOLEAN NOT NULL DEFAULT true,
+      notif_whatsapp     BOOLEAN NOT NULL DEFAULT false,
+      telefono_whatsapp  TEXT,
       notif_vencimientos BOOLEAN NOT NULL DEFAULT true,
       notif_pagos        BOOLEAN NOT NULL DEFAULT true,
       iva_pct            NUMERIC(5,2) NOT NULL DEFAULT 16.00,
