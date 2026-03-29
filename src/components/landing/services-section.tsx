@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Receipt, Smartphone, Leaf, Scale, CreditCard, Wifi, CircleUserRound, Handshake, TrendingUp, ArrowRight, Lock, Sparkles, Zap } from "lucide-react";
+import { Receipt, ArrowRight, Lock, Sparkles, Zap, ShieldCheck, BarChart3, Clock, Globe, FileCheck, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
@@ -36,14 +36,13 @@ const features = [
     },
 ];
 
-const modules = [
-    { icon: CircleUserRound, title: "Cuenta Personal", desc: "Gestiona tu perfil, documentos y configuración desde un solo lugar.", color: "text-sky-400", gradient: "from-sky-500/20 via-sky-500/5 to-transparent", border: "border-sky-500/15 hover:border-sky-400/40", glow: "group-hover:shadow-sky-500/10", span: "col-span-1 row-span-1" },
-    { icon: Smartphone,  title: "Mis Líneas",        desc: "Líneas móviles 5G, eSIM y gestión de flota empresarial integrada.", color: "text-blue-400", gradient: "from-blue-500/20 via-blue-500/5 to-transparent", border: "border-blue-500/15 hover:border-blue-400/40", glow: "group-hover:shadow-blue-500/10", span: "col-span-1 row-span-1 sm:col-span-2 lg:col-span-1" },
-    { icon: TrendingUp,  title: "Asesoría Contable", desc: "VEN-NIF, IVA, ISLR, IGTF, tasa BCV diaria y cumplimiento fiscal automatizado.", color: "text-primary", gradient: "from-primary/20 via-primary/5 to-transparent", border: "border-primary/15 hover:border-primary/40", glow: "group-hover:shadow-primary/10", span: "col-span-1 row-span-1 lg:col-span-2" },
-    { icon: Scale,       title: "Asesoría Legal",    desc: "Contratos inteligentes, registros mercantiles, SAREN y propiedad intelectual.", color: "text-violet-400", gradient: "from-violet-500/20 via-violet-500/5 to-transparent", border: "border-violet-500/15 hover:border-violet-400/40", glow: "group-hover:shadow-violet-500/10", span: "col-span-1 row-span-1" },
-    { icon: CreditCard,  title: "Facturación",       desc: "Notas de crédito/débito, control de inventario y gestión de cuentas.", color: "text-amber-400", gradient: "from-amber-500/20 via-amber-500/5 to-transparent", border: "border-amber-500/15 hover:border-amber-400/40", glow: "group-hover:shadow-amber-500/10", span: "col-span-1 row-span-1" },
-    { icon: Handshake,   title: "Socios",            desc: "Portal de socios con métricas compartidas y colaboración en tiempo real.", color: "text-emerald-400", gradient: "from-emerald-500/20 via-emerald-500/5 to-transparent", border: "border-emerald-500/15 hover:border-emerald-400/40", glow: "group-hover:shadow-emerald-500/10", span: "col-span-1 row-span-1 lg:col-span-2" },
-    { icon: Leaf,        title: "Sostenibilidad",    desc: "Eco-Créditos, reciclaje tecnológico y economía circular certificada.", color: "text-teal-400", gradient: "from-teal-500/20 via-teal-500/5 to-transparent", border: "border-teal-500/15 hover:border-teal-400/40", glow: "group-hover:shadow-teal-500/10", span: "col-span-1 row-span-1" },
+const platformStats = [
+    { value: "7+", label: "Módulos Integrados", icon: BarChart3, color: "text-primary", bg: "from-primary/15 to-primary/5" },
+    { value: "99.9%", label: "Disponibilidad", icon: Clock, color: "text-emerald-400", bg: "from-emerald-500/15 to-emerald-500/5" },
+    { value: "AES-256", label: "Cifrado Militar", icon: ShieldCheck, color: "text-cyan-400", bg: "from-cyan-500/15 to-cyan-500/5" },
+    { value: "100%", label: "Cumplimiento SENIAT", icon: FileCheck, color: "text-violet-400", bg: "from-violet-500/15 to-violet-500/5" },
+    { value: "24/7", label: "Soporte IA Activo", icon: Sparkles, color: "text-amber-400", bg: "from-amber-500/15 to-amber-500/5" },
+    { value: "2,500+", label: "Empresas Confían", icon: Users, color: "text-rose-400", bg: "from-rose-500/15 to-rose-500/5" },
 ];
 
 export function ServicesSection() {
@@ -131,51 +130,48 @@ export function ServicesSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-10">
+                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-5">
+                            <Globe className="h-3.5 w-3.5" />
+                            Plataforma en Cifras
+                        </div>
                         <h3 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase text-foreground mb-3">
-                            Todo Integrado, <span className="kyron-gradient-text italic">Un Ecosistema</span>
+                            Resultados que <span className="kyron-gradient-text italic">hablan solos</span>
                         </h3>
+                        <p className="text-sm text-muted-foreground max-w-xl mx-auto font-medium">
+                            La infraestructura más robusta de Venezuela para gestión corporativa integral.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {modules.map((mod, i) => (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                        {platformStats.map((stat, i) => (
                             <motion.div
-                                key={mod.title}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                key={stat.label}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.06, duration: 0.5 }}
-                                className={cn(
-                                    "group relative overflow-hidden rounded-2xl border bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 cursor-default hover:shadow-2xl hover:-translate-y-1",
-                                    mod.border,
-                                    mod.glow,
-                                    mod.span
-                                )}
+                                transition={{ delay: i * 0.07, duration: 0.5 }}
+                                className="group relative overflow-hidden rounded-2xl border border-border/30 hover:border-border/60 bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
                             >
-                                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-60 group-hover:opacity-100 transition-opacity duration-500", mod.gradient)} />
-                                <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500">
-                                    <mod.icon className="w-full h-full" />
-                                </div>
-                                <div className="relative p-5 sm:p-6 flex flex-col gap-3">
-                                    <div className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl border bg-background/50 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3", mod.border)}>
-                                        <mod.icon className={cn("h-5 w-5 transition-colors duration-300", mod.color)} />
+                                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.bg)} />
+                                <div className="relative p-5 flex flex-col items-center text-center gap-2.5">
+                                    <div className={cn("flex items-center justify-center w-10 h-10 rounded-xl border border-border/30 bg-background/50 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300")}>
+                                        <stat.icon className={cn("h-4.5 w-4.5", stat.color)} />
                                     </div>
-                                    <div>
-                                        <h4 className="text-xs font-black uppercase tracking-tight text-foreground mb-1.5">{mod.title}</h4>
-                                        <p className="text-[11px] font-medium text-muted-foreground/70 leading-relaxed">{mod.desc}</p>
+                                    <div className={cn("text-xl sm:text-2xl font-black tracking-tight", stat.color)}>
+                                        {stat.value}
                                     </div>
-                                    <div className={cn("mt-auto pt-2 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300", mod.color)}>
-                                        <span>Explorar</span>
-                                        <ArrowRight className="h-3 w-3" />
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 leading-tight">
+                                        {stat.label}
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
 
-                    <div className="mt-10 flex justify-center">
+                    <div className="mt-12 flex justify-center">
                         <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-black uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-500">
-                            Explorar Ecosistema <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                            Comenzar Ahora <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </motion.div>
