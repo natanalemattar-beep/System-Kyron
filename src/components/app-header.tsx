@@ -67,7 +67,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-2xl h-16 flex items-center w-full shadow-sm overflow-hidden">
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-2xl h-16 flex items-center w-full shadow-sm">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       
       <div className="w-full px-4 md:px-8">
@@ -80,8 +80,8 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                         <Menu className="h-4 w-4 text-primary" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r-white/5 flex flex-col overflow-hidden">
-                    <SheetHeader className="p-5 border-b border-white/5 bg-muted/5 flex flex-row items-center justify-between shrink-0">
+                <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r border-white/5 flex flex-col">
+                    <SheetHeader className="p-5 border-b border-white/5 bg-muted/5 flex flex-row items-center justify-between shrink-0 space-y-0">
                         <div className="flex items-center gap-3">
                             <Logo className="h-7 w-7" />
                             <div className="flex flex-col">

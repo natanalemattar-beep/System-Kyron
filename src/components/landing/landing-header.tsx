@@ -110,7 +110,7 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[480px] p-0 rounded-[2rem] border-border/50 bg-card/90 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
+                                <DropdownMenuContent align="end" className="w-[min(480px,calc(100vw-2rem))] p-0 rounded-[2rem] border-border/50 bg-card/90 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
                                     <div className="p-8 border-b border-border bg-muted/30">
                                         <DropdownMenuLabel className="p-0 flex items-center gap-4">
                                             <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">
@@ -155,8 +155,8 @@ export function LandingHeader() {
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r-border flex flex-col">
-                                <SheetHeader className="p-6 border-b border-border bg-muted/5 flex flex-row items-center gap-4 shrink-0">
+                            <SheetContent side="left" className="w-[85vw] max-w-[340px] p-0 bg-background border-r border-border flex flex-col">
+                                <SheetHeader className="p-6 border-b border-border bg-muted/5 flex flex-row items-center gap-4 shrink-0 space-y-0">
                                     <Logo className="h-8 w-8 shrink-0" />
                                     <div className="flex flex-col">
                                         <SheetTitle className="text-sm font-black tracking-tight text-foreground uppercase italic leading-none">{t('mobile_portal')}</SheetTitle>
