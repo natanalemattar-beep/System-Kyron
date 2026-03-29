@@ -13,7 +13,7 @@ export const registerOptions = [
         href: "/register/telecom",
         label: "Mis Líneas",
         icon: Signal,
-        description: "Registro para gestionar tu línea personal y la flota corporativa de empresa.",
+        description: "Registro para gestionar tus líneas telefónicas personales y flota empresarial.",
         badge: "Telecom",
     },
     {

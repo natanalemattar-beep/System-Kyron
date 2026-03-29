@@ -12,7 +12,7 @@ export const loginOptions = [
         href: "/login-linea", 
         label: "Mis Líneas", 
         icon: Signal, 
-        description: "Portal unificado para gestionar tu línea personal y la flota corporativa de empresa." 
+        description: "Gestión de líneas telefónicas personales y flota empresarial por separado." 
     },
     { 
         href: "/login-empresa", 

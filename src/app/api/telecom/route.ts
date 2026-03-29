@@ -94,3 +94,113 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({ success: true, linea });
 }
+
+export async function PATCH(req: NextRequest) {
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+
+  const body = await req.json();
+  const { id, ...updates } = body;
+  if (!id) return NextResponse.json({ error: 'ID de línea requerido' }, { status: 400 });
+
+  const owned = await queryOne(
+    `SELECT id FROM lineas_telecom WHERE id = $1 AND user_id = $2`,
+    [id, session.userId]
+  );
+  if (!owned) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
+
+  const fields: string[] = [];
+  const vals: unknown[] = [];
+  let idx = 1;
+
+  const allowed = [
+    'numero', 'operadora', 'tipo_linea', 'titular', 'cedula_titular',
+    'plan_contratado', 'monto_plan', 'moneda_plan',
+    'fecha_activacion', 'fecha_vencimiento', 'activa',
+    'uso_datos_gb', 'limite_datos_gb', 'notas'
+  ];
+
+  const numericFields = ['monto_plan', 'uso_datos_gb', 'limite_datos_gb'];
+  const dateFields = ['fecha_activacion', 'fecha_vencimiento'];
+  const nullableStrings = ['titular', 'cedula_titular', 'plan_contratado', 'notas'];
+  const enumFields: Record<string, string[]> = {
+    operadora: ['movistar','digitel','movilnet','inter','cantv','simple','otro'],
+    tipo_linea: ['prepago','postpago','datos','wan'],
+    moneda_plan: ['USD','VES'],
+  };
+
+  for (const key of allowed) {
+    if (updates[key] === undefined) continue;
+    let val: unknown = updates[key];
+
+    if (numericFields.includes(key)) {
+      if (val === '' || val === null) { val = key === 'monto_plan' ? 0 : null; }
+      else { const n = parseFloat(String(val)); if (!Number.isFinite(n)) continue; val = n; }
+    } else if (dateFields.includes(key)) {
+      val = (val === '' || val === null) ? null : val;
+    } else if (nullableStrings.includes(key)) {
+      val = (val === '' || val === null) ? null : String(val).trim();
+    } else if (enumFields[key]) {
+      if (!enumFields[key].includes(String(val))) continue;
+    }
+
+    fields.push(`${key} = $${idx}`);
+    vals.push(val);
+    idx++;
+  }
+
+  if (fields.length === 0) return NextResponse.json({ error: 'Nada que actualizar' }, { status: 400 });
+
+  fields.push(`updated_at = NOW()`);
+  vals.push(id, session.userId);
+
+  const result = await query(
+    `UPDATE lineas_telecom SET ${fields.join(', ')} WHERE id = $${idx} AND user_id = $${idx + 1}
+     RETURNING id, numero, operadora, tipo_linea, activa`,
+    vals
+  );
+
+  await logActivity({
+    userId: session.userId,
+    evento: 'LINEA_TELECOM_ACTUALIZADA',
+    categoria: 'telecom',
+    descripcion: `Línea actualizada: ID ${id}`,
+    entidadTipo: 'linea_telecom',
+    entidadId: id,
+    metadata: updates,
+  });
+
+  return NextResponse.json({ success: true, linea: result[0] });
+}
+
+export async function DELETE(req: NextRequest) {
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+
+  const { searchParams } = new URL(req.url);
+  const idStr = searchParams.get('id');
+  const idNum = idStr ? parseInt(idStr, 10) : NaN;
+  if (!Number.isInteger(idNum) || idNum <= 0) {
+    return NextResponse.json({ error: 'ID requerido y debe ser un número válido' }, { status: 400 });
+  }
+
+  const linea = await queryOne(
+    `SELECT id, numero, operadora FROM lineas_telecom WHERE id = $1 AND user_id = $2`,
+    [idNum, session.userId]
+  );
+  if (!linea) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
+
+  await query(`DELETE FROM lineas_telecom WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
+
+  await logActivity({
+    userId: session.userId,
+    evento: 'LINEA_TELECOM_ELIMINADA',
+    categoria: 'telecom',
+    descripcion: `Línea eliminada: ${(linea as { numero: string }).numero}`,
+    entidadTipo: 'linea_telecom',
+    entidadId: idNum,
+    metadata: linea as Record<string, unknown>,
+  });
+
+  return NextResponse.json({ success: true });
+}

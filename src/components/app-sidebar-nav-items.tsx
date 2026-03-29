@@ -195,8 +195,15 @@ export const telecomNavGroups = [
     title: "Mi Línea", 
     icon: Smartphone, 
     items: [ 
-      { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
-      { href: "/flota-empresarial", label: "Flota Empresarial", icon: Building },
+      { href: "/mi-linea", label: "Mis Líneas", icon: Phone },
+      { href: "/venta-linea", label: "Nueva Línea", icon: Smartphone },
     ], 
+  },
+  {
+    title: "Mi Línea Empresa",
+    icon: Building,
+    items: [
+      { href: "/flota-empresarial", label: "Flota Empresarial", icon: Building },
+    ],
   },
 ];

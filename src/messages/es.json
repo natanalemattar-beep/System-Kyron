@@ -254,7 +254,7 @@
         "footer": "System Kyron v2.8.5 · Infraestructura Segura · Venezuela",
         "options": {
             "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
-            "lines": { "label": "Mis Líneas", "description": "Portal unificado para gestionar tu línea personal y la flota corporativa de empresa." },
+            "lines": { "label": "Mis Líneas", "description": "Gestión de líneas telefónicas personales y flota empresarial por separado." },
             "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." },
             "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
             "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },
@@ -265,7 +265,7 @@
     "RegisterPage": {
         "options": {
             "personal": { "label": "Cuenta Personal", "description": "Registro individual para ciudadanos. Accede al portal personal con tu cédula de identidad.", "badge": "Ciudadano" },
-            "telecom": { "label": "Mis Líneas", "description": "Registro para gestionar tu línea personal y la flota corporativa de empresa.", "badge": "Telecom" },
+            "telecom": { "label": "Mis Líneas", "description": "Registro para gestionar tus líneas telefónicas personales y flota empresarial.", "badge": "Telecom" },
             "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.", "badge": "Empresa" },
             "legal": { "label": "Asesoría Legal", "description": "Registro para control de contratos, documentos legales y trámites ante registros.", "badge": "Legal" },
             "invoicing": { "label": "Facturación", "description": "Acceso al punto de venta para cobros rápidos, control de inventario y ventas.", "badge": "Ventas" },
