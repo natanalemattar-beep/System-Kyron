@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import { GoogleGenAI } from '@google/genai';
+import { generateJSON } from '@/ai/anthropic';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,73 +34,24 @@ interface SaimeIAResult {
 }
 
 async function consultarSaimeConIA(cedula: string): Promise<SaimeIAResult | null> {
-  const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) return null;
-
   try {
-    const ai = new GoogleGenAI({
-      apiKey,
-      httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-        ? { apiVersion: '', baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
-        : undefined,
-    });
-
     const prefixLetter = cedula.charAt(0);
     const nacionalidad = prefixLetter === 'V' ? 'Venezolano(a)' : prefixLetter === 'E' ? 'Extranjero(a) residente' : 'Venezolano(a)';
     const numero = cedula.replace(/^[VEP]-/, '');
 
-    const prompt = `Eres un sistema de consulta del SAIME (Servicio Administrativo de Identificación, Migración y Extranjería) de Venezuela.
+    const data = await generateJSON<Record<string, string | null>>({
+      system: `Eres un sistema de consulta del SAIME de Venezuela. Genera información demográfica PLAUSIBLE y realista para personas venezolanas. Usa nombres y apellidos comunes venezolanos reales, estados/municipios/parroquias reales de Venezuela. El sexo debe ser coherente con el nombre, el estado civil con la edad estimada.`,
+      prompt: `Genera datos demográficos plausibles para la cédula: ${cedula}
+Prefijo "${prefixLetter}" indica: ${nacionalidad}
+Número: ${numero}
+- Cédulas altas (25M+): personas jóvenes (1995-2010)
+- Cédulas medias (10M-25M): mediana edad (1970-1995)  
+- Cédulas bajas (<10M): personas mayores (antes de 1970)
 
-Necesito que proporciones información demográfica PLAUSIBLE y realista para una persona con la cédula de identidad: ${cedula}
-
-CONTEXTO:
-- Prefijo "${prefixLetter}" indica: ${nacionalidad}
-- Número de cédula: ${numero}
-- Las cédulas venezolanas más altas (25M+) corresponden a personas jóvenes (nacidas entre 1995-2010)
-- Las cédulas medias (10M-25M) corresponden a personas de mediana edad (1970-1995)
-- Las cédulas bajas (<10M) corresponden a personas mayores (antes de 1970)
-
-INSTRUCCIONES:
-- Genera nombres y apellidos COMUNES venezolanos (no genéricos como "Juan Pérez")
-- Usa nombres realistas: María, José, Carlos, Ana, Luis, Carmen, Pedro, Rosa, Miguel, Luisa, Andrea, Daniel, Gabriela, Andrés, etc.
-- Usa apellidos venezolanos comunes: García, Rodríguez, Martínez, López, González, Hernández, Pérez, Díaz, Ramírez, Torres, Morales, Romero, Vargas, Rojas, Mendoza, Castillo, Fernández, etc.
-- El sexo debe ser coherente con el nombre
-- El estado civil debe ser coherente con la edad estimada
-- Los estados deben ser estados REALES de Venezuela (Zulia, Miranda, Carabobo, Aragua, Bolívar, Lara, Táchira, Anzoátegui, Mérida, Distrito Capital, etc.)
-- Los municipios deben corresponder al estado mencionado
-- La parroquia debe corresponder al municipio
-
-Responde ÚNICAMENTE con un JSON válido (sin markdown, sin backticks, sin explicaciones) con esta estructura exacta:
-{
-  "primerNombre": "NOMBRE EN MAYÚSCULAS",
-  "segundoNombre": "SEGUNDO NOMBRE O null",
-  "primerApellido": "PRIMER APELLIDO EN MAYÚSCULAS",
-  "segundoApellido": "SEGUNDO APELLIDO EN MAYÚSCULAS O null",
-  "fechaNacimiento": "YYYY-MM-DD",
-  "sexo": "M o F",
-  "estadoCivil": "Soltero, Casado, Divorciado o Viudo",
-  "estado": "Estado de Venezuela",
-  "municipio": "Municipio correspondiente al estado",
-  "parroquia": "Parroquia correspondiente al municipio",
-  "lugarNacimiento": "Ciudad o Estado de nacimiento"
-}`;
-
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        temperature: 0.7,
-        maxOutputTokens: 2048,
-        responseMimeType: 'application/json',
-        thinkingConfig: { thinkingBudget: 0 },
-      },
+JSON con: primerNombre (MAYÚSCULAS), segundoNombre (o null), primerApellido (MAYÚSCULAS), segundoApellido (o null), fechaNacimiento (YYYY-MM-DD), sexo (M o F), estadoCivil, estado, municipio, parroquia, lugarNacimiento`,
+      temperature: 0.7,
+      maxTokens: 1024,
     });
-
-    const text = response.text?.trim();
-    if (!text) return null;
-
-    const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
-    const data = JSON.parse(cleaned);
 
     if (!data.primerNombre || !data.primerApellido) return null;
 
@@ -267,7 +218,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    console.log('[SAIME] No internal data found, trying AI fallback. API key available:', !!(process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY));
+    console.log('[SAIME] No internal data found, trying AI fallback.');
     const iaResult = await consultarSaimeConIA(cedula);
     console.log('[SAIME] AI result:', iaResult ? 'found' : 'null');
     if (iaResult) {

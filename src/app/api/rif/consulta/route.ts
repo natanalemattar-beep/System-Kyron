@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import { GoogleGenAI } from '@google/genai';
+import { generateJSON } from '@/ai/anthropic';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,17 +15,7 @@ async function consultarSeniatConIA(rif: string): Promise<{
   statusFiscal?: string;
   fechaRegistro?: string;
 } | null> {
-  const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) return null;
-
   try {
-    const ai = new GoogleGenAI({
-      apiKey,
-      httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-        ? { apiVersion: '', baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
-        : undefined,
-    });
-
     const prefixMap: Record<string, string> = {
       'J': 'Sociedad Mercantil / Persona Jurídica',
       'G': 'Organismo Gubernamental / Institución del Estado',
@@ -38,53 +28,15 @@ async function consultarSeniatConIA(rif: string): Promise<{
     const prefixLetter = rif.charAt(0);
     const tipoEntidad = prefixMap[prefixLetter] || 'Entidad desconocida';
 
-    const prompt = `Eres un sistema de consulta del SENIAT (Servicio Nacional Integrado de Administración Aduanera y Tributaria) de Venezuela. 
+    const data = await generateJSON<Record<string, string>>({
+      system: `Eres un sistema de consulta del SENIAT de Venezuela. Genera datos plausibles y realistas para entidades venezolanas. Usa nombres de empresas, organismos o firmas realistas según el tipo de entidad. Estados, municipios y direcciones deben ser reales de Venezuela.`,
+      prompt: `RIF: ${rif}
+Tipo de entidad (prefijo ${prefixLetter}): ${tipoEntidad}
 
-Necesito que investigues y proporciones información REAL y verificable sobre la empresa o entidad con el siguiente RIF (Registro de Información Fiscal): ${rif}
-
-El tipo de entidad según su prefijo (${prefixLetter}) es: ${tipoEntidad}
-
-INSTRUCCIONES IMPORTANTES:
-- Investiga exhaustivamente en tu conocimiento sobre empresas venezolanas registradas en el SENIAT
-- Si conoces la empresa, proporciona datos REALES y verificados
-- Si NO conoces la empresa específica, genera datos PLAUSIBLES y realistas basados en el tipo de entidad y el formato del RIF
-- Para empresas con prefijo J, genera nombres de empresa realistas venezolanos (ej: "Inversiones", "Distribuidora", "Constructora", "Servicios", etc.)
-- Para prefijo G, genera nombres de organismos gubernamentales venezolanos realistas
-- Para prefijo C, genera nombres de consejos comunales realistas
-- Para prefijo F, genera nombres de firmas personales realistas
-- Los estados deben ser estados REALES de Venezuela (Zulia, Miranda, Carabobo, Aragua, Bolívar, Lara, etc.)
-- Los municipios deben corresponder al estado mencionado
-- Las actividades económicas deben usar códigos CIIU o descripción SENIAT
-
-Responde ÚNICAMENTE con un JSON válido (sin markdown, sin backticks, sin explicaciones) con esta estructura exacta:
-{
-  "razonSocial": "NOMBRE COMPLETO DE LA EMPRESA EN MAYÚSCULAS",
-  "tipoEmpresa": "Tipo según SENIAT (ej: COMPAÑÍA ANÓNIMA, SOCIEDAD DE RESPONSABILIDAD LIMITADA, FIRMA PERSONAL, etc.)",
-  "actividadEconomica": "Descripción de la actividad económica principal",
-  "estado": "Estado de Venezuela donde está registrada",
-  "municipio": "Municipio correspondiente",
-  "direccion": "Dirección fiscal aproximada",
-  "telefono": "Número de teléfono con formato venezolano (0xxx-xxxxxxx)",
-  "statusFiscal": "ACTIVO o INACTIVO",
-  "fechaRegistro": "Fecha aproximada de registro en formato YYYY-MM-DD"
-}`;
-
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        temperature: 0.3,
-        maxOutputTokens: 2048,
-        responseMimeType: 'application/json',
-        thinkingConfig: { thinkingBudget: 0 },
-      },
+JSON con: razonSocial (MAYÚSCULAS), tipoEmpresa (COMPAÑÍA ANÓNIMA, SRL, FIRMA PERSONAL, etc.), actividadEconomica, estado, municipio, direccion, telefono (0xxx-xxxxxxx), statusFiscal (ACTIVO/INACTIVO), fechaRegistro (YYYY-MM-DD)`,
+      temperature: 0.3,
+      maxTokens: 1024,
     });
-
-    const text = response.text?.trim();
-    if (!text) return null;
-
-    const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
-    const data = JSON.parse(cleaned);
 
     if (!data.razonSocial) return null;
 

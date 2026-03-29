@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 import { getSession } from '@/lib/auth';
-import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
+import { generateText } from '@/ai/anthropic';
 
 export const dynamic = 'force-dynamic';
-
-function getOpenAIClient() {
-  return new OpenAI({
-    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
-    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
-  });
-}
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -34,7 +27,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Datos demasiado grandes para análisis' }, { status: 400 });
     }
 
-    const systemPrompt = `Eres un analista financiero y de negocios experto para empresas venezolanas.
+    const analysis = await generateText({
+      system: `Eres un analista financiero y de negocios experto para empresas venezolanas.
 Analiza los datos del dashboard y proporciona:
 1. Un resumen ejecutivo en 2-3 líneas
 2. Los 3 puntos más críticos o destacados
@@ -42,30 +36,19 @@ Analiza los datos del dashboard y proporciona:
 4. Alertas o riesgos importantes
 
 Responde siempre en español, de forma concisa y profesional.
-Usa emojis estratégicamente para resaltar puntos importantes.
 Cita cifras específicas cuando estén disponibles.
-Considera el contexto económico venezolano (inflación, tipo de cambio BCV, normativa SENIAT).`;
-
-    const userMessage = `Módulo: ${module || 'Dashboard General'}
+Considera el contexto económico venezolano (inflación, tipo de cambio BCV, normativa SENIAT).`,
+      prompt: `Módulo: ${module || 'Dashboard General'}
 ${context ? `Contexto adicional: ${context}` : ''}
 
 Datos del dashboard:
 ${dataStr}
 
-Por favor analiza estos datos y proporciona insights accionables.`;
-
-    const openai = getOpenAIClient();
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userMessage },
-      ],
-      max_completion_tokens: 1024,
+Por favor analiza estos datos y proporciona insights accionables.`,
+      maxTokens: 1024,
     });
 
-    const analysis = response.choices[0]?.message?.content ?? 'No se pudo generar el análisis.';
-    return NextResponse.json({ analysis, module: module || 'Dashboard General' });
+    return NextResponse.json({ analysis: analysis || 'No se pudo generar el análisis.', module: module || 'Dashboard General' });
   } catch (err) {
     console.error('[analyze-dashboard] error:', err);
     return NextResponse.json({ error: 'Error al procesar el análisis con IA' }, { status: 500 });

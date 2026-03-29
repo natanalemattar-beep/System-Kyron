@@ -27,12 +27,12 @@ const features = [
     },
     {
         title: "Inteligencia Artificial",
-        subtitle: "Gemini 2.0 Flash · GPT-4o",
+        subtitle: "Claude Sonnet · Anthropic",
         description: "IA fiscal que monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
         image: "/images/landing/ai-brain.png",
         icon: Brain,
         color: "from-violet-500 to-purple-600",
-        badges: ["Gemini 2.0", "GPT-4o", "Chat IA", "Reportes"],
+        badges: ["Claude", "Anthropic", "Chat IA", "Reportes"],
     },
 ];
 

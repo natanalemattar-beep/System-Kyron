@@ -1,64 +1,27 @@
 'use server';
-/**
- * @fileOverview An AI agent that categorizes financial transactions based on their description.
- *
- * - categorizeTransaction - A function that categorizes a transaction.
- * - CategorizeTransactionInput - The input type for the categorizeTransaction function.
- * - CategorizeTransactionOutput - The return type for the categorizeTransaction function.
- */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { generateJSON } from '@/ai/anthropic';
 
-const CategorizeTransactionInputSchema = z.object({
-  transactionDescription: z
-    .string()
-    .describe('The description of the transaction to categorize.'),
-  transactionAmount: z.number().describe('The amount of the transaction.'),
-});
-export type CategorizeTransactionInput = z.infer<typeof CategorizeTransactionInputSchema>;
+export type CategorizeTransactionInput = {
+  transactionDescription: string;
+  transactionAmount: number;
+};
 
-const CategorizeTransactionOutputSchema = z.object({
-  category: z
-    .string()
-    .describe(
-      'The category of the transaction, e.g., "Food", "Transportation", "Utilities", "Income", etc.'
-    ),
-  confidence: z
-    .number()
-    .describe(
-      'A number between 0 and 1 indicating the confidence level of the categorization.'
-    ),
-});
-export type CategorizeTransactionOutput = z.infer<typeof CategorizeTransactionOutputSchema>;
+export type CategorizeTransactionOutput = {
+  category: string;
+  confidence: number;
+};
 
 export async function categorizeTransaction(
   input: CategorizeTransactionInput
 ): Promise<CategorizeTransactionOutput> {
-  return categorizeTransactionFlow(input);
+  const result = await generateJSON<CategorizeTransactionOutput>({
+    system: `You are a financial expert. Categorize transactions based on their description and amount. Respond with a JSON object containing "category" (string like "Food", "Transportation", "Utilities", "Income", etc.) and "confidence" (number between 0 and 1).`,
+    prompt: `Transaction Description: ${input.transactionDescription}\nTransaction Amount: ${input.transactionAmount}`,
+  });
+
+  return {
+    category: result.category || 'Otros',
+    confidence: typeof result.confidence === 'number' ? Math.min(1, Math.max(0, result.confidence)) : 0.5,
+  };
 }
-
-const categorizeTransactionFlow = ai.defineFlow(
-  {
-    name: 'categorizeTransactionFlow',
-    inputSchema: CategorizeTransactionInputSchema,
-    outputSchema: CategorizeTransactionOutputSchema,
-  },
-  async input => {
-    const {output} = await ai.generate({
-      model: 'googleai/gemini-1.5-pro-latest',
-      prompt: `You are a financial expert. Categorize the given transaction based on its description and amount.
-
-      Transaction Description: ${input.transactionDescription}
-      Transaction Amount: ${input.transactionAmount}
-      
-      Respond with the category of the transaction and your confidence level in the categorization.
-      Ensure that the "confidence" is between 0 and 1.`,
-      output: { schema: CategorizeTransactionOutputSchema },
-      config: {
-        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
-      }
-    });
-    return output!;
-  }
-);

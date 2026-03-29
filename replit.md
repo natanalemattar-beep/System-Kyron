@@ -54,7 +54,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
 - **Email Services:** Gmail, Outlook, Resend for verification, alerts, and general emails, with a fallback chain.
-- **AI Integrations:** Gemini 2.5 Flash for SAIME/SENIAT lookups and fiscal chat, Anthropic Claude Sonnet for Kyron Chat.
+- **AI Integrations:** Anthropic Claude Sonnet (`claude-sonnet-4-20250514`) is the sole AI provider. Used for Kyron Chat, fiscal chat, dashboard analysis, SAIME/SENIAT lookups, transaction categorization, sentiment analysis, sales strategy generation, legal document generation, Gaceta 6952 consultation, and automated data entry from images. Helper module at `src/ai/anthropic.ts`.
 - **Alert Email Notifications:** Asynchronous email sending via `src/lib/alert-email-service.ts` for user notifications.
 - **Permisología Module:** Data in `src/lib/permisologia-data.ts`, APIs in `src/app/api/permisologia/`. Covers SENIAT, various ministries, municipalities, and autonomous entities.
 - **Carnets & Tarjetas Module:** Uses `api.qrserver.com` for QR generation on business, employee ID, accounting service, and insurance cards.

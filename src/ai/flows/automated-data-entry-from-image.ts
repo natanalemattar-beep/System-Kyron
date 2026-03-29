@@ -1,79 +1,100 @@
 'use server';
-/**
- * @fileOverview An automated data entry AI agent.
- *
- * - automatedDataEntry - A function that handles the data extraction process from images.
- * - AutomatedDataEntryInput - The input type for the automatedDataEntry function.
- * - AutomatedDataEntryOutput - The return type for the automatedDataEntry function.
- */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { getAnthropicClient, CLAUDE_MODEL } from '@/ai/anthropic';
 
-const AutomatedDataEntryInputSchema = z.object({
-  photoDataUri: z
-    .string()
-    .describe(
-      "A photo of a receipt or invoice, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
-  description: z.string().optional().describe('Additional description of the document.'),
-});
-export type AutomatedDataEntryInput = z.infer<typeof AutomatedDataEntryInputSchema>;
+export type AutomatedDataEntryInput = {
+  photoDataUri: string;
+  description?: string;
+};
 
-const AutomatedDataEntryOutputSchema = z.object({
-  vendorName: z.string().describe('The name of the vendor.'),
-  date: z.string().describe('The date on the receipt or invoice (YYYY-MM-DD).'),
-  totalAmount: z.number().describe('The total amount due on the receipt or invoice.'),
-  items: z.array(
-    z.object({
-      description: z.string().describe('Description of the item.'),
-      quantity: z.number().optional().describe('Quantity of the item.'),
-      unitPrice: z.number().describe('Unit price of the item.'),
-    })
-  ).describe('A list of items on the receipt or invoice.'),
-  paymentMethod: z.string().optional().describe('The method of payment used.'),
-});
-export type AutomatedDataEntryOutput = z.infer<typeof AutomatedDataEntryOutputSchema>;
+export type AutomatedDataEntryOutput = {
+  vendorName: string;
+  date: string;
+  totalAmount: number;
+  items: {
+    description: string;
+    quantity?: number;
+    unitPrice: number;
+  }[];
+  paymentMethod?: string;
+};
+
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'] as const;
+type AllowedMimeType = typeof ALLOWED_MIME_TYPES[number];
 
 export async function automatedDataEntry(input: AutomatedDataEntryInput): Promise<AutomatedDataEntryOutput> {
-  return automatedDataEntryFlow(input);
-}
+  const client = getAnthropicClient();
 
-const automatedDataEntryFlow = ai.defineFlow(
-  {
-    name: 'automatedDataEntryFlow',
-    inputSchema: AutomatedDataEntryInputSchema,
-    outputSchema: AutomatedDataEntryOutputSchema,
-  },
-  async input => {
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-pro-latest',
-      messages: [
-        {
-          role: 'user',
-          content: [
-            {
-              text: `You are an expert financial data extraction specialist.
+  const match = input.photoDataUri.match(/^data:([^;]+);base64,(.+)$/);
+  if (!match) throw new Error('Invalid data URI format');
 
-      You will extract data from the given receipt or invoice image and description, and output in JSON format. You must always populate all the fields with the extracted information. If some information is not available, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type. Do not guess or invent data if it's not present in the document.)
+  const [, rawMediaType, base64Data] = match;
 
-      The date MUST be in YYYY-MM-DD format.
-
-      Description: ${input.description ?? ''}
-
-      Make sure you return a valid JSON. If a field is not present, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type).
-      Make sure the totalAmount reflects the total amount shown in the image.
-      Make sure you populate the items array with all the items in the image, listing its description, quantity and unitPrice. If there are not line items, populate with an empty array.`
-            },
-            { media: { url: input.photoDataUri } },
-          ],
-        },
-      ],
-      output: { schema: AutomatedDataEntryOutputSchema },
-      config: {
-        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
-      }
-    });
-    return output!;
+  if (!ALLOWED_MIME_TYPES.includes(rawMediaType as AllowedMimeType)) {
+    throw new Error(`Unsupported image type: ${rawMediaType}. Supported: ${ALLOWED_MIME_TYPES.join(', ')}`);
   }
-);
+
+  const mediaType = rawMediaType as AllowedMimeType;
+
+  const response = await client.messages.create({
+    model: CLAUDE_MODEL,
+    max_tokens: 2048,
+    system: `You are an expert financial data extraction specialist. Extract data from receipt/invoice images and return valid JSON only, no markdown or backticks.
+The JSON must have: vendorName (string), date (YYYY-MM-DD), totalAmount (number), items (array of {description, quantity?, unitPrice}), paymentMethod (string or null).
+If information is not available, use defaults (empty string, 0, null).`,
+    messages: [
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'image',
+            source: {
+              type: 'base64',
+              media_type: mediaType,
+              data: base64Data,
+            },
+          },
+          {
+            type: 'text',
+            text: `Extract all data from this receipt/invoice image.${input.description ? ` Additional context: ${input.description}` : ''}
+Return ONLY valid JSON.`,
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!response.content.length) {
+    throw new Error('AI returned no content for image extraction');
+  }
+
+  const block = response.content[0];
+  if (block.type !== 'text') {
+    throw new Error('AI returned non-text response for image extraction');
+  }
+
+  const cleaned = block.text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+
+  let data: Record<string, unknown>;
+  try {
+    data = JSON.parse(cleaned);
+  } catch {
+    throw new Error(`AI returned invalid JSON for image extraction: ${cleaned.substring(0, 200)}`);
+  }
+
+  const items = Array.isArray(data.items)
+    ? data.items.map((item: Record<string, unknown>) => ({
+        description: typeof item.description === 'string' ? item.description : '',
+        quantity: typeof item.quantity === 'number' ? item.quantity : undefined,
+        unitPrice: typeof item.unitPrice === 'number' ? item.unitPrice : 0,
+      }))
+    : [];
+
+  return {
+    vendorName: typeof data.vendorName === 'string' ? data.vendorName : '',
+    date: typeof data.date === 'string' ? data.date : new Date().toISOString().split('T')[0],
+    totalAmount: typeof data.totalAmount === 'number' ? data.totalAmount : 0,
+    items,
+    paymentMethod: typeof data.paymentMethod === 'string' ? data.paymentMethod : undefined,
+  };
+}

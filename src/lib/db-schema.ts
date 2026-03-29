@@ -767,7 +767,7 @@ async function createDocumentosTables() {
       titulo         TEXT,
       prompt_usado   TEXT,
       contenido      TEXT,
-      modelo_ia      TEXT DEFAULT 'gemini-2.0-flash',
+      modelo_ia      TEXT DEFAULT 'claude-sonnet',
       tokens_usados  INT,
       created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )

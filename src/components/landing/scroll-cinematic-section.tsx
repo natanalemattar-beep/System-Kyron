@@ -36,9 +36,9 @@ const highlights: Highlight[] = [
         icon: Brain,
         color: "from-violet-500 to-purple-600",
         label: "IA Integrada",
-        desc: "Asistente Kyron con Gemini 2.0 y GPT-4o. Automatiza reportes, documentos y análisis.",
-        stat: "2.0",
-        statLabel: "Gemini Flash",
+        desc: "Asistente Kyron con Claude Sonnet de Anthropic. Automatiza reportes, documentos y análisis.",
+        stat: "IA",
+        statLabel: "Claude Sonnet",
     },
     {
         icon: Shield,
