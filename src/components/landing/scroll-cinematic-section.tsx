@@ -9,7 +9,6 @@ import Image from "next/image";
 interface Highlight {
     icon: LucideIcon;
     color: string;
-    glow: string;
     label: string;
     desc: string;
     stat: string;
@@ -20,7 +19,6 @@ const highlights: Highlight[] = [
     {
         icon: Calculator,
         color: "from-blue-500 to-primary",
-        glow: "rgba(59,130,246,0.5)",
         label: "Contabilidad & Fiscal",
         desc: "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.",
         stat: "100%",
@@ -29,7 +27,6 @@ const highlights: Highlight[] = [
     {
         icon: Signal,
         color: "from-cyan-400 to-blue-500",
-        glow: "rgba(34,211,238,0.5)",
         label: "Mi Línea 5G",
         desc: "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.",
         stat: "5G",
@@ -38,7 +35,6 @@ const highlights: Highlight[] = [
     {
         icon: Brain,
         color: "from-violet-500 to-purple-600",
-        glow: "rgba(139,92,246,0.5)",
         label: "IA Integrada",
         desc: "Asistente Kyron con Gemini 2.0 y GPT-4o. Automatiza reportes, documentos y análisis.",
         stat: "2.0",
@@ -47,7 +43,6 @@ const highlights: Highlight[] = [
     {
         icon: Shield,
         color: "from-emerald-500 to-cyan-600",
-        glow: "rgba(16,185,129,0.5)",
         label: "Seguridad AES-256",
         desc: "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.",
         stat: "256",
@@ -56,7 +51,6 @@ const highlights: Highlight[] = [
     {
         icon: Users,
         color: "from-orange-400 to-rose-500",
-        glow: "rgba(251,146,60,0.5)",
         label: "RR.HH & Nómina",
         desc: "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.",
         stat: "LOTTT",
@@ -65,7 +59,6 @@ const highlights: Highlight[] = [
     {
         icon: Zap,
         color: "from-yellow-400 to-orange-500",
-        glow: "rgba(250,204,21,0.45)",
         label: "Facturación Fiscal",
         desc: "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.",
         stat: "3%",
@@ -89,7 +82,7 @@ function CSSParticles() {
             size: Math.random() * 2 + 0.5,
             duration: Math.random() * 15 + 12,
             delay: Math.random() * 8,
-            opacity: Math.random() * 0.2 + 0.05,
+            opacity: Math.random() * 0.15 + 0.03,
         }));
     }, []);
 
@@ -119,12 +112,12 @@ function PowerStatCard({ stat, index, smoothProgress }: {
     index: number;
     smoothProgress: MotionValue<number>;
 }) {
-    const cardStart = 0.56 + index * 0.03;
+    const cardStart = 0.60 + index * 0.025;
     const cardEnd = cardStart + 0.04;
     const Icon = stat.icon;
 
     const opacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
-    const y = useTransform(smoothProgress, [cardStart, cardEnd], [40, 0]);
+    const y = useTransform(smoothProgress, [cardStart, cardEnd], [30, 0]);
 
     return (
         <motion.div
@@ -145,12 +138,12 @@ function HighlightCard({ h, index, smoothProgress }: {
     index: number;
     smoothProgress: MotionValue<number>;
 }) {
-    const cardStart = 0.30 + index * 0.03;
+    const cardStart = 0.36 + index * 0.025;
     const cardEnd = cardStart + 0.04;
     const Icon = h.icon;
 
     const cardOpacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
-    const cardY = useTransform(smoothProgress, [cardStart, cardEnd], [40, 0]);
+    const cardY = useTransform(smoothProgress, [cardStart, cardEnd], [30, 0]);
 
     return (
         <motion.div
@@ -184,56 +177,64 @@ export function ScrollCinematicSection() {
         offset: ["start start", "end end"],
     });
 
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 150, damping: 25, restDelta: 0.001 });
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-    const taglineOpacity = useTransform(smoothProgress, [0.01, 0.05], [0, 1]);
-    const taglineY = useTransform(smoothProgress, [0.01, 0.05], [30, 0]);
+    const taglineOpacity = useTransform(smoothProgress, [0.04, 0.09], [0, 1]);
+    const taglineY = useTransform(smoothProgress, [0.04, 0.09], [20, 0]);
 
-    const line1Opacity = useTransform(smoothProgress, [0.03, 0.09], [0, 1]);
-    const line1Y = useTransform(smoothProgress, [0.03, 0.09], [50, 0]);
+    const line1Opacity = useTransform(smoothProgress, [0.07, 0.13], [0, 1]);
+    const line1Y = useTransform(smoothProgress, [0.07, 0.13], [40, 0]);
 
-    const line2Opacity = useTransform(smoothProgress, [0.07, 0.13], [0, 1]);
-    const line2Y = useTransform(smoothProgress, [0.07, 0.13], [50, 0]);
+    const line2Opacity = useTransform(smoothProgress, [0.12, 0.18], [0, 1]);
+    const line2Y = useTransform(smoothProgress, [0.12, 0.18], [40, 0]);
 
-    const line3Opacity = useTransform(smoothProgress, [0.11, 0.17], [0, 1]);
-    const line3Y = useTransform(smoothProgress, [0.11, 0.17], [50, 0]);
+    const line3Opacity = useTransform(smoothProgress, [0.17, 0.23], [0, 1]);
+    const line3Y = useTransform(smoothProgress, [0.17, 0.23], [40, 0]);
 
-    const subtitleOpacity = useTransform(smoothProgress, [0.15, 0.20], [0, 1]);
-    const subtitleY = useTransform(smoothProgress, [0.15, 0.20], [24, 0]);
+    const subtitleOpacity = useTransform(smoothProgress, [0.22, 0.27], [0, 1]);
+    const subtitleY = useTransform(smoothProgress, [0.22, 0.27], [20, 0]);
 
-    const exitOpacity = useTransform(smoothProgress, [0.24, 0.30], [1, 0]);
-    const exitY = useTransform(smoothProgress, [0.24, 0.30], [0, -80]);
+    const exitOpacity = useTransform(smoothProgress, [0.29, 0.34], [1, 0]);
+    const exitY = useTransform(smoothProgress, [0.29, 0.34], [0, -60]);
 
     const highlightsOpacity = useTransform(smoothProgress, (v: number) => {
-        const enterOp = Math.min(1, Math.max(0, (v - 0.28) / 0.06));
-        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.50) / 0.05));
-        return Math.min(enterOp, exitOp);
+        if (v < 0.33) return 0;
+        if (v < 0.38) return (v - 0.33) / 0.05;
+        if (v < 0.52) return 1;
+        if (v < 0.56) return 1 - (v - 0.52) / 0.04;
+        return 0;
     });
     const highlightsY = useTransform(smoothProgress, (v: number) => {
-        if (v < 0.34) return 60 * (1 - Math.min(1, (v - 0.28) / 0.06));
-        if (v > 0.50) return -60 * Math.min(1, (v - 0.50) / 0.05);
-        return 0;
+        if (v < 0.33) return 50;
+        if (v < 0.38) return 50 * (1 - (v - 0.33) / 0.05);
+        if (v < 0.52) return 0;
+        if (v < 0.56) return -40 * ((v - 0.52) / 0.04);
+        return -40;
     });
 
     const statsOpacity = useTransform(smoothProgress, (v: number) => {
-        const enterOp = Math.min(1, Math.max(0, (v - 0.53) / 0.05));
-        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.73) / 0.05));
-        return Math.min(enterOp, exitOp);
-    });
-    const statsY = useTransform(smoothProgress, (v: number) => {
-        if (v < 0.58) return 50 * (1 - Math.min(1, (v - 0.53) / 0.05));
-        if (v > 0.73) return -50 * Math.min(1, (v - 0.73) / 0.05);
+        if (v < 0.55) return 0;
+        if (v < 0.60) return (v - 0.55) / 0.05;
+        if (v < 0.74) return 1;
+        if (v < 0.78) return 1 - (v - 0.74) / 0.04;
         return 0;
     });
+    const statsY = useTransform(smoothProgress, (v: number) => {
+        if (v < 0.55) return 40;
+        if (v < 0.60) return 40 * (1 - (v - 0.55) / 0.05);
+        if (v < 0.74) return 0;
+        if (v < 0.78) return -40 * ((v - 0.74) / 0.04);
+        return -40;
+    });
 
-    const dashboardOpacity = useTransform(smoothProgress, [0.76, 0.82], [0, 1]);
-    const dashboardScale = useTransform(smoothProgress, [0.76, 0.82], [0.7, 1]);
-    const dashboardY = useTransform(smoothProgress, [0.76, 0.82], [80, 0]);
+    const dashboardOpacity = useTransform(smoothProgress, [0.78, 0.86], [0, 1]);
+    const dashboardScale = useTransform(smoothProgress, [0.78, 0.86], [0.85, 1]);
+    const dashboardY = useTransform(smoothProgress, [0.78, 0.86], [50, 0]);
 
-    const scrollHintOpacity = useTransform(smoothProgress, [0, 0.02, 0.06], [0, 1, 0]);
+    const scrollHintOpacity = useTransform(smoothProgress, [0.0, 0.02, 0.07], [0, 1, 0]);
 
     return (
-        <div ref={containerRef} className="relative" style={{ height: "350vh" }}>
+        <div ref={containerRef} className="relative" style={{ height: "400vh" }}>
             <div className="sticky top-0 h-screen overflow-hidden">
 
                 <div className="absolute inset-0 bg-[#020810]" />
@@ -241,11 +242,11 @@ export function ScrollCinematicSection() {
                 <CSSParticles />
 
                 <div
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40"
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-30"
                     style={{
                         width: "60vmin",
                         height: "60vmin",
-                        background: "radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(59,130,246,0.08) 40%, transparent 70%)",
+                        background: "radial-gradient(circle, rgba(6,182,212,0.12) 0%, rgba(59,130,246,0.06) 40%, transparent 70%)",
                         borderRadius: "50%",
                     }}
                 />
