@@ -103,13 +103,13 @@ export function ChatDialog() {
 
     try {
       const context = `El usuario está en el portal gestionado por el ${identity.role}. Su experiencia es: ${identity.expertise}. Responde siempre con autoridad en esta área específica. No uses la palabra nodo.`;
-      const res = await fetch('/api/ai/kyron-voice', {
+      const res = await fetch('/api/ai/kyron-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: currentInput, context }),
       });
       const data = await res.json();
-      const botMessage: Message = { role: 'bot', text: res.ok ? data.reply : (data.error || 'Error de conexión.') };
+      const botMessage: Message = { role: 'bot', text: res.ok ? (data.reply || 'Sin respuesta.') : (data.error || 'Error de conexión.') };
       setMessages(prev => [...prev, botMessage]);
     } catch {
       const errorMessage: Message = { role: 'bot', text: "Error de enlace con el núcleo de inteligencia. Inténtalo de nuevo." };
