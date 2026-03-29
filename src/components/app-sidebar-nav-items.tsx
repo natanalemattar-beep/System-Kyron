@@ -49,7 +49,7 @@ export const naturalNavGroups = [
     }
 ];
 
-export const adminNavGroups = [
+export const asesoriaContableNavGroups = [
   {
     title: "Contabilidad",
     icon: Calculator,
@@ -81,6 +81,20 @@ export const adminNavGroups = [
     ],
   },
   {
+    title: "RRHH",
+    icon: Users,
+    items: [
+        { href: "/nominas", label: "Pago de Nómina", icon: Calculator },
+        { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
+        { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale },
+        { href: "/libros-laborales", label: "Libros Laborales", icon: BookOpen },
+        { href: "/reclutamiento", label: "Selección e Inducción", icon: UserPlus },
+        { href: "/salud-seguridad", label: "Salud / LOPCYMAT", icon: Stethoscope },
+        { href: "/clima-organizacional", label: "Clima y Liderazgo", icon: BrainCircuit },
+        { href: "/desarrollo-personal", label: "Carrera y Formación", icon: School },
+    ],
+  },
+  {
     title: "Permisos",
     icon: Shield,
     items: [
@@ -101,7 +115,8 @@ export const adminNavGroups = [
         { href: "/contabilidad/calidad/iso-9001", label: "Manuales ISO 9001", icon: FileText },
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
-        { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: Users },
+        { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu },
+        { href: "/marketing", label: "Marketing IA", icon: Megaphone },
     ],
   },
   {
@@ -112,6 +127,8 @@ export const adminNavGroups = [
     ],
   }
 ];
+
+export const adminNavGroups = asesoriaContableNavGroups;
 
 export const ventasNavGroups = [
   { 
@@ -160,29 +177,7 @@ export const legalNavGroups = [
   },
 ];
 
-export const rrhhNavGroups = [
-    { 
-        title: "Operaciones Maestro", 
-        icon: Users, 
-        items: [
-            { href: "/nominas", label: "Pago de Nómina", icon: Calculator },
-            { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature },
-            { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale },
-            { href: "/libros-laborales", label: "Libros Laborales", icon: BookOpen },
-        ],
-        subGroups: []
-    },
-    {
-        title: "Gestión Humana",
-        icon: Heart,
-        items: [
-            { href: "/reclutamiento", label: "Selección e Inducción", icon: UserPlus },
-            { href: "/salud-seguridad", label: "Salud / LOPCYMAT", icon: Stethoscope },
-            { href: "/clima-organizacional", label: "Clima y Liderazgo", icon: BrainCircuit },
-            { href: "/desarrollo-personal", label: "Carrera y Formación", icon: School },
-        ]
-    }
-];
+export const rrhhNavGroups = asesoriaContableNavGroups;
 
 export const sociosNavGroups = [
     { 

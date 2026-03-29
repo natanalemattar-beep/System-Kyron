@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s — System Kyron",
   },
   description:
-    "Ecosistema corporativo de misión crítica para Venezuela. Contabilidad VEN-NIF, RRHH, Mi Línea 5G, IA Legal, Eco-Créditos y cumplimiento SENIAT en tiempo real.",
+    "Ecosistema corporativo de misión crítica para Venezuela. Asesoría Contable, Mi Línea 5G, IA Legal, Eco-Créditos y cumplimiento SENIAT en tiempo real.",
   keywords: [
     "contabilidad venezuela", "VEN-NIF", "SENIAT", "ISLR", "IVA Venezuela",
     "nómina Venezuela", "LOTTT", "Mi Línea 5G", "eSIM Venezuela",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     siteName: "System Kyron",
     title: "System Kyron — Inteligencia Corporativa Venezuela",
-    description: "Ecosistema corporativo de misión crítica. Contabilidad VEN-NIF, RRHH, Mi Línea 5G, IA Legal y cumplimiento SENIAT.",
+    description: "Ecosistema corporativo de misión crítica. Asesoría Contable, Mi Línea 5G, IA Legal y cumplimiento SENIAT.",
     images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "System Kyron" }],
   },
   twitter: {

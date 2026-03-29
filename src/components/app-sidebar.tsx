@@ -12,9 +12,8 @@ import {
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
 import { 
-    adminNavGroups, 
+    asesoriaContableNavGroups, 
     legalNavGroups, 
-    rrhhNavGroups, 
     sociosNavGroups, 
     telecomNavGroups,
     ventasNavGroups,
@@ -31,16 +30,14 @@ export function AppSidebar() {
 
   // Lógica de selección de grupo basada en contexto de ruta
   const getContextualGroups = () => {
-    if (pathname.includes('/contabilidad')) return adminNavGroups;
+    if (pathname.includes('/contabilidad') || pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas') || pathname.includes('/libros-laborales') || pathname.includes('/prestaciones-sociales') || pathname.includes('/reclutamiento') || pathname.includes('/clima-organizacional') || pathname.includes('/desarrollo-personal') || pathname.includes('/salud-seguridad') || pathname.includes('/ingenieria-ia') || pathname.includes('/marketing')) return asesoriaContableNavGroups;
     if (pathname.includes('/ventas') || pathname.includes('/punto-de-venta') || pathname.includes('/proformas')) return ventasNavGroups;
     if (pathname.includes('/sostenibilidad') || pathname.includes('/mercado-ecocreditos')) return sostenibilidadNavGroups;
     if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) return legalNavGroups;
-    if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas') || pathname.includes('/libros-laborales')) return rrhhNavGroups;
     if (pathname.includes('/dashboard-socios') || pathname.includes('/poderes-representacion')) return sociosNavGroups;
     if (pathname.includes('/venta-linea')) return telecomNavGroups;
     
-    // Default para Dashboard General o rutas no mapeadas
-    return adminNavGroups;
+    return asesoriaContableNavGroups;
   };
 
   const currentGroups = getContextualGroups();

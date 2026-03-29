@@ -1,5 +1,5 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Recycle, Megaphone } from "lucide-react";
+import { User, Gavel, ShoppingCart, Users, Banknote, Signal, Recycle } from "lucide-react";
 
 export const registerOptions = [
     {
@@ -18,9 +18,9 @@ export const registerOptions = [
     },
     {
         href: "/register/contabilidad",
-        label: "Contabilidad",
+        label: "Asesoría Contable",
         icon: Banknote,
-        description: "Registro empresarial con acceso a gestión financiera, impuestos y balances.",
+        description: "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.",
         badge: "Empresa",
     },
     {
@@ -38,13 +38,6 @@ export const registerOptions = [
         badge: "Ventas",
     },
     {
-        href: "/register/rrhh",
-        label: "Recursos Humanos",
-        icon: Briefcase,
-        description: "Administración de nóminas, beneficios y expedientes de personal.",
-        badge: "RRHH",
-    },
-    {
         href: "/register/juridico",
         label: "Socios y Directivos",
         icon: Users,
@@ -57,19 +50,5 @@ export const registerOptions = [
         icon: Recycle,
         description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.",
         badge: "Ambiental",
-    },
-    {
-        href: "/register/juridico",
-        label: "Ingeniería e IT",
-        icon: Cpu,
-        description: "Control de infraestructura tecnológica, planos y presupuestos técnicos.",
-        badge: "IT",
-    },
-    {
-        href: "/register/juridico",
-        label: "Marketing IA",
-        icon: Megaphone,
-        description: "Estrategias comerciales, alertas de inversión y análisis de mercado potenciados por IA.",
-        badge: "Marketing",
     },
 ];

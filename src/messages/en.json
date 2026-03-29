@@ -31,8 +31,7 @@
         "subtitle": "Nine integrated modules within a single digital ecosystem built for the Venezuelan market.",
         "ai_native_badge": "AI-Powered",
         "features": [
-            { "title": "VEN-NIF Accounting", "description": "Digital ledgers, RIPF, and automated IVA, ISLR, and IGTF filings — all sealed with the SENIAT stamp." },
-            { "title": "HR & Payroll", "description": "Payroll processing with SSO, FAOV, LPH, bonuses, severance, and LOPCYMAT compliance. Fully aligned with LOTTT." },
+            { "title": "Accounting Advisory", "description": "VEN-NIF accounting, LOTTT payroll, HR, engineering, and marketing — all unified in a single module." },
             { "title": "Telecom 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time network telemetry." },
             { "title": "Artificial Intelligence", "description": "Gemini 2.0 Flash built in. Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
             { "title": "Legal AI & Permits", "description": "Automated contract generation, notarial powers, CONATEL and SENIAT permits, and Official Gazette tracking." },
@@ -49,7 +48,7 @@
         ]
     },
     "ServicesSection": {
-        "badge": "12 Integrated Modules",
+        "badge": "9 Integrated Modules",
         "title_highlight": "Modular",
         "title_rest": "Ecosystem",
         "subtitle": "Choose the areas your company needs. Each module works on its own or as part of the complete ecosystem.",
@@ -61,9 +60,8 @@
                 "label": "Enterprise",
                 "description": "A complete corporate suite for financial, legal, and human-talent management.",
                 "modules": [
-                    { "title": "Accounting", "desc": "VEN-NIF ledgers, taxes, and inflation adjustment" },
+                    { "title": "Accounting Advisory", "desc": "Accounting, payroll, HR, engineering, and marketing" },
                     { "title": "Invoicing", "desc": "SENIAT-compliant invoices with live BCV rate" },
-                    { "title": "Human Resources", "desc": "Payroll, severance, LOPCYMAT, and recruiting" },
                     { "title": "Legal Advisory", "desc": "Contracts, permits, CONATEL, and Official Gazette AI" }
                 ]
             },
@@ -71,10 +69,8 @@
                 "label": "Telecom & IT",
                 "description": "Telecommunications infrastructure and mission-critical technology management.",
                 "modules": [
-                    { "title": "Network Management", "desc": "Radio bases, infrastructure, and mass provisioning" },
                     { "title": "My Lines", "desc": "Unified personal and corporate 5G fleet portal" },
-                    { "title": "Engineering & IT", "desc": "Technical plans, budgets, and server management" },
-                    { "title": "AI Marketing", "desc": "Investment alerts and AI-powered market analysis" }
+                    { "title": "Network Management", "desc": "Radio bases, infrastructure, and mass provisioning" }
                 ]
             },
             {
@@ -176,6 +172,44 @@
         "toast_error_title": "SUBMISSION FAILED",
         "toast_error_desc": "We could not process your request. Please try again.",
         "roles": ["CEO / Owner", "General Manager", "Administrator", "Other"]
+    },
+    "LoginPage": {
+        "back": "Home",
+        "badge": "Secure Access · AES-256",
+        "title": "Select your",
+        "title_highlight": "Portal",
+        "subtitle": "Choose the module you want to access to manage your operations.",
+        "e2e": "E2E Encryption",
+        "biometrics": "Biometrics",
+        "two_fa": "2FA Active",
+        "uptime": "99.9% Uptime",
+        "citizen_portal": "Citizen Portal",
+        "corporate_portals": "Corporate Portals",
+        "full_ecosystem": "Complete Ecosystem",
+        "ecosystem_desc": "9+ integrated modules · VEN-NIF tax compliance",
+        "recover_account": "Recover account",
+        "create_account": "Create account",
+        "footer": "System Kyron v2.8.5 · Secure Infrastructure · Venezuela",
+        "options": {
+            "personal": { "label": "Personal Account", "description": "Access your identity documents, civil procedures, and health services." },
+            "lines": { "label": "My Lines", "description": "Unified portal to manage your personal line and corporate fleet." },
+            "accounting": { "label": "Accounting Advisory", "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module." },
+            "legal": { "label": "Legal Advisory", "description": "Contract management, legal documents, and registry procedures." },
+            "invoicing": { "label": "Invoicing", "description": "Point of sale for quick payments, inventory control, and sales." },
+            "partners": { "label": "Partners & Directors", "description": "Strategic oversight, profit sharing, and profitability analysis." },
+            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology." }
+        }
+    },
+    "RegisterPage": {
+        "options": {
+            "personal": { "label": "Personal Account", "description": "Individual registration for citizens. Access the personal portal with your national ID.", "badge": "Citizen" },
+            "telecom": { "label": "My Lines", "description": "Register to manage your personal line and corporate fleet.", "badge": "Telecom" },
+            "accounting": { "label": "Accounting Advisory", "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module.", "badge": "Enterprise" },
+            "legal": { "label": "Legal Advisory", "description": "Register for contract management, legal documents, and registry procedures.", "badge": "Legal" },
+            "invoicing": { "label": "Invoicing", "description": "Access the point of sale for quick payments, inventory control, and sales.", "badge": "Sales" },
+            "partners": { "label": "Partners & Directors", "description": "Strategic oversight, profit sharing, and profitability analysis.", "badge": "Directors" },
+            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology.", "badge": "Green" }
+        }
     },
     "Auth": {
         "login": "Sign In",

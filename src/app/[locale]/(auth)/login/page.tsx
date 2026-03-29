@@ -2,16 +2,31 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { loginOptions } from '@/lib/login-options';
-import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Lock, Fingerprint, Globe, Server, Zap, Shield } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Lock, Fingerprint, Globe, Server, Zap, Shield, Signal, Banknote, Gavel, ShoppingCart, Users, Recycle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+
+const optionKeys = [
+  { key: 'personal', href: '/login-personal', icon: User, category: 'citizen' },
+  { key: 'lines', href: '/login-linea', icon: Signal, category: 'citizen' },
+  { key: 'accounting', href: '/login-empresa', icon: Banknote, category: 'corporate' },
+  { key: 'legal', href: '/login-escritorio-juridico', icon: Gavel, category: 'corporate' },
+  { key: 'invoicing', href: '/login-ventas', icon: ShoppingCart, category: 'corporate' },
+  { key: 'partners', href: '/login-socios', icon: Users, category: 'corporate' },
+  { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate' },
+];
 
 export default function LoginSelectionPage() {
-  const personalOptions = loginOptions.filter(o =>
-    ['/login-personal', '/login-linea'].includes(o.href)
-  );
-  const enterpriseOptions = loginOptions.filter(o =>
-    !['/login-personal', '/login-linea'].includes(o.href)
-  );
+  const t = useTranslations('LoginPage');
+
+  const personalOptions = optionKeys.filter(o => o.category === 'citizen');
+  const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
+
+  const securityBadges = [
+    { icon: Lock, textKey: 'e2e' as const },
+    { icon: Fingerprint, textKey: 'biometrics' as const },
+    { icon: Shield, textKey: 'two_fa' as const },
+    { icon: Server, textKey: 'uptime' as const },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col items-center p-4 md:p-8 w-full relative overflow-hidden">
@@ -24,32 +39,27 @@ export default function LoginSelectionPage() {
       <div className="w-full max-w-5xl">
         <div className="mb-6">
           <Button variant="ghost" asChild className="rounded-xl h-9 px-3 text-xs text-muted-foreground hover:text-foreground">
-            <Link href="/" className="flex items-center"><ChevronLeft className="mr-1.5 h-4 w-4" /> Inicio</Link>
+            <Link href="/" className="flex items-center"><ChevronLeft className="mr-1.5 h-4 w-4" /> {t('back')}</Link>
           </Button>
         </div>
 
         <header className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold mb-5">
-            <ShieldCheck className="h-3.5 w-3.5" /> Acceso Seguro · AES-256
+            <ShieldCheck className="h-3.5 w-3.5" /> {t('badge')}
           </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-3 text-foreground">
-            Selecciona tu <span className="text-primary italic">Portal</span>
+            {t('title')} <span className="text-primary italic">{t('title_highlight')}</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-lg mx-auto">
-            Elige el módulo al que deseas acceder para gestionar tus operaciones.
+            {t('subtitle')}
           </p>
         </header>
 
         <div className="flex items-center justify-center gap-4 sm:gap-8 mb-10 flex-wrap">
-          {[
-            { icon: Lock, text: "Cifrado E2E" },
-            { icon: Fingerprint, text: "Biometría" },
-            { icon: Shield, text: "2FA Activo" },
-            { icon: Server, text: "99.9% Uptime" },
-          ].map((item, i) => (
+          {securityBadges.map((item, i) => (
             <div key={i} className="flex items-center gap-1.5 text-muted-foreground/50">
               <item.icon className="h-3 w-3" />
-              <span className="text-[9px] font-bold uppercase tracking-widest">{item.text}</span>
+              <span className="text-[9px] font-bold uppercase tracking-widest">{t(item.textKey)}</span>
             </div>
           ))}
         </div>
@@ -58,7 +68,7 @@ export default function LoginSelectionPage() {
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px flex-1 bg-border/50" />
             <h2 className="text-xs font-bold text-muted-foreground flex items-center gap-2">
-              <User className="h-3.5 w-3.5" /> Portal Ciudadano
+              <User className="h-3.5 w-3.5" /> {t('citizen_portal')}
             </h2>
             <div className="h-px flex-1 bg-border/50" />
           </div>
@@ -70,8 +80,8 @@ export default function LoginSelectionPage() {
                     <option.icon className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{option.label}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{option.description}</p>
+                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{t(`options.${option.key}.label`)}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{t(`options.${option.key}.description`)}</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0" />
                 </div>
@@ -84,7 +94,7 @@ export default function LoginSelectionPage() {
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px flex-1 bg-border/50" />
             <h2 className="text-xs font-bold text-muted-foreground flex items-center gap-2">
-              <Building2 className="h-3.5 w-3.5" /> Portales Corporativos
+              <Building2 className="h-3.5 w-3.5" /> {t('corporate_portals')}
             </h2>
             <div className="h-px flex-1 bg-border/50" />
           </div>
@@ -96,8 +106,8 @@ export default function LoginSelectionPage() {
                     <option.icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{option.label}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5 leading-snug line-clamp-1">{option.description}</p>
+                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{t(`options.${option.key}.label`)}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-snug line-clamp-1">{t(`options.${option.key}.description`)}</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground/60 group-hover:text-primary transition-colors shrink-0" />
                 </div>
@@ -113,17 +123,17 @@ export default function LoginSelectionPage() {
                 <Zap className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-foreground/70">Ecosistema Completo</p>
-                <p className="text-[9px] text-muted-foreground">12+ módulos integrados · Cumplimiento fiscal VEN-NIF</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-foreground/70">{t('full_ecosystem')}</p>
+                <p className="text-[9px] text-muted-foreground">{t('ecosystem_desc')}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/recuperar-cuenta" className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5">
-                <KeyRound className="h-3.5 w-3.5" /> Recuperar cuenta
+                <KeyRound className="h-3.5 w-3.5" /> {t('recover_account')}
               </Link>
               <Link href="/register">
                 <Button size="sm" className="rounded-xl text-[9px] font-black uppercase tracking-widest px-5">
-                  <User className="mr-2 h-3.5 w-3.5" /> Crear cuenta
+                  <User className="mr-2 h-3.5 w-3.5" /> {t('create_account')}
                 </Button>
               </Link>
             </div>
@@ -132,7 +142,7 @@ export default function LoginSelectionPage() {
 
         <div className="text-center space-y-2 pb-4">
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            {["VEN-NIF Certificado", "Compatible SENIAT", "IGTF 3%", "LOTTT"].map((badge, i) => (
+            {["VEN-NIF", "SENIAT", "IGTF 3%", "LOTTT"].map((badge, i) => (
               <span key={i} className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40 px-2 py-0.5 rounded-full border border-border/20">
                 {badge}
               </span>
@@ -140,7 +150,7 @@ export default function LoginSelectionPage() {
           </div>
           <p className="text-[9px] text-muted-foreground/40 uppercase tracking-widest font-bold">
             <Globe className="h-3 w-3 inline mr-1" />
-            System Kyron v2.8.2 · Infraestructura Segura · Venezuela
+            {t('footer')}
           </p>
         </div>
       </div>

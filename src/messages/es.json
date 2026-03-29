@@ -28,11 +28,10 @@
         "badge": "Capacidades del Sistema",
         "title_highlight": "todo lo que tu",
         "title_rest": "empresa necesita",
-        "subtitle": "9 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.",
+        "subtitle": "Módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.",
         "ai_native_badge": "IA Nativa",
         "features": [
-            { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
-            { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
+            { "title": "Asesoría Contable", "description": "Contabilidad VEN-NIF, nómina LOTTT, RRHH, ingeniería y marketing integrados en un módulo unificado." },
             { "title": "Mi Línea 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
             { "title": "Inteligencia Artificial", "description": "Gemini 2.0 Flash integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
             { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
@@ -49,7 +48,7 @@
         ]
     },
     "ServicesSection": {
-        "badge": "12 Módulos Integrados",
+        "badge": "9 Módulos Integrados",
         "title_highlight": "Modular",
         "title_rest": "Ecosistema",
         "subtitle": "Selecciona el área que tu empresa necesita. Cada módulo funciona de forma independiente o como parte del ecosistema completo.",
@@ -61,9 +60,8 @@
                 "label": "Empresa",
                 "description": "Suite corporativa completa para gestión financiera, legal y de talento humano.",
                 "modules": [
-                    { "title": "Contabilidad", "desc": "VEN-NIF, libros, tributos y ajuste por inflación" },
+                    { "title": "Asesoría Contable", "desc": "Contabilidad, nómina, RRHH, ingeniería y marketing" },
                     { "title": "Facturación", "desc": "Facturas SENIAT con tasa BCV y módulo de ventas" },
-                    { "title": "Recursos Humanos", "desc": "Nómina, prestaciones, LOPCYMAT y selección" },
                     { "title": "Asesoría Legal", "desc": "Contratos, permisos, Conatel y Gaceta Oficial IA" }
                 ]
             },
@@ -71,10 +69,8 @@
                 "label": "Mi Línea & IT",
                 "description": "Gestión de infraestructura de conectividad y tecnología de misión crítica.",
                 "modules": [
-                    { "title": "Administración de Red", "desc": "Radiobases, infraestructura y provisión masiva" },
                     { "title": "Mis Líneas", "desc": "Portal unificado personal + flota empresarial 5G" },
-                    { "title": "Ingeniería & IT", "desc": "Planos técnicos, presupuestos y servidores" },
-                    { "title": "Marketing IA", "desc": "Alertas de inversión y análisis de mercado con IA" }
+                    { "title": "Administración de Red", "desc": "Radiobases, infraestructura y provisión masiva" }
                 ]
             },
             {
@@ -176,6 +172,44 @@
         "toast_error_title": "FALLA DE PROTOCOLO",
         "toast_error_desc": "No se pudo transmitir la solicitud.",
         "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"]
+    },
+    "LoginPage": {
+        "back": "Inicio",
+        "badge": "Acceso Seguro · AES-256",
+        "title": "Selecciona tu",
+        "title_highlight": "Portal",
+        "subtitle": "Elige el módulo al que deseas acceder para gestionar tus operaciones.",
+        "e2e": "Cifrado E2E",
+        "biometrics": "Biometría",
+        "two_fa": "2FA Activo",
+        "uptime": "99.9% Uptime",
+        "citizen_portal": "Portal Ciudadano",
+        "corporate_portals": "Portales Corporativos",
+        "full_ecosystem": "Ecosistema Completo",
+        "ecosystem_desc": "9+ módulos integrados · Cumplimiento fiscal VEN-NIF",
+        "recover_account": "Recuperar cuenta",
+        "create_account": "Crear cuenta",
+        "footer": "System Kyron v2.8.5 · Infraestructura Segura · Venezuela",
+        "options": {
+            "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
+            "lines": { "label": "Mis Líneas", "description": "Portal unificado para gestionar tu línea personal y la flota corporativa de empresa." },
+            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." },
+            "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
+            "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },
+            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." },
+            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." }
+        }
+    },
+    "RegisterPage": {
+        "options": {
+            "personal": { "label": "Cuenta Personal", "description": "Registro individual para ciudadanos. Accede al portal personal con tu cédula de identidad.", "badge": "Ciudadano" },
+            "telecom": { "label": "Mis Líneas", "description": "Registro para gestionar tu línea personal y la flota corporativa de empresa.", "badge": "Telecom" },
+            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.", "badge": "Empresa" },
+            "legal": { "label": "Asesoría Legal", "description": "Registro para control de contratos, documentos legales y trámites ante registros.", "badge": "Legal" },
+            "invoicing": { "label": "Facturación", "description": "Acceso al punto de venta para cobros rápidos, control de inventario y ventas.", "badge": "Ventas" },
+            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad.", "badge": "Directivos" },
+            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.", "badge": "Ambiental" }
+        }
     },
     "Auth": {
         "login": "Iniciar Sesión",

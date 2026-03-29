@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Calculator, Users, Smartphone, Recycle, Gavel, ShoppingCart, Cpu, Signal, User, Building2, BarChart3, Megaphone, ArrowRight, Shield, Brain, Zap } from "lucide-react";
+import { Calculator, Smartphone, Recycle, Gavel, ShoppingCart, Signal, User, Building2, BarChart3, ArrowRight, Shield, Brain, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
@@ -37,14 +37,11 @@ const features = [
 ];
 
 const modules = [
-    { icon: Calculator,  title: "Contabilidad",    color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
+    { icon: Calculator,  title: "Asesoría Contable", color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
     { icon: ShoppingCart, title: "Facturación",     color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
-    { icon: Users,       title: "Nómina & RRHH",   color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
     { icon: Gavel,       title: "Asesoría Legal",   color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
     { icon: Signal,      title: "Mi Línea 5G",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
     { icon: Smartphone,  title: "Flota Móvil",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
-    { icon: Cpu,         title: "IT & Ingeniería",   color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
-    { icon: Megaphone,   title: "Marketing IA",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
     { icon: User,        title: "Portal Personal",   color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
     { icon: Recycle,     title: "Eco-Créditos",      color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
     { icon: Building2,   title: "Socios",            color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
@@ -73,7 +70,7 @@ export function ServicesSection() {
                         </span>
                     </h2>
                     <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
-                        12 módulos interconectados que cubren contabilidad, nómina, facturación, legal, telecomunicaciones e inteligencia artificial.
+                        9 módulos interconectados que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.
                     </p>
                 </motion.div>
 
