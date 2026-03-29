@@ -85,7 +85,7 @@ const steps = [
   },
   {
     title: "¡Todo Listo!",
-    description: "Navega libremente por la plataforma. Estás en versión demo — todos los datos comienzan en cero al registrarte. Descubre todo lo que System Kyron tiene para ti.",
+    description: "Tu cuenta está lista. Todos los módulos están disponibles para ti. Comienza a registrar tus datos reales y aprovecha al máximo System Kyron.",
     icon: Rocket,
     color: "text-rose-400",
     bg: "bg-rose-400/15",

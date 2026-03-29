@@ -81,8 +81,8 @@ export function CtaForm() {
                 </div>
                 
                 <div className="space-y-1 mb-6 relative z-10 text-center sm:text-left">
-                    <h3 className="text-lg md:text-2xl font-black tracking-tight uppercase italic text-foreground">Expediente de Demo</h3>
-                    <p className="text-[8px] md:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Auditoría técnica v2.8.2</p>
+                    <h3 className="text-lg md:text-2xl font-black tracking-tight uppercase italic text-foreground">Solicitar Acceso</h3>
+                    <p className="text-[8px] md:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Registro de interés · System Kyron v2.8.5</p>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
