@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { sendNotificationEmail } from '@/lib/alert-email-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -95,6 +96,8 @@ export async function POST(req: NextRequest) {
       metadata ? JSON.stringify(metadata) : null,
     ]
   );
+
+  sendNotificationEmail(session.userId, { tipo, titulo, mensaje, accion_url }).catch(() => {});
 
   return NextResponse.json({ success: true, notificacion: notif });
 }

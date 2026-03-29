@@ -1,6 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getSession } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
+
+const RATE_LIMIT_MAP = new Map<number, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 20;
+const RATE_LIMIT_WINDOW = 60_000;
+
+function checkRateLimit(userId: number): boolean {
+  const now = Date.now();
+  const entry = RATE_LIMIT_MAP.get(userId);
+  if (!entry || now > entry.resetAt) {
+    RATE_LIMIT_MAP.set(userId, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  if (entry.count >= RATE_LIMIT_MAX) return false;
+  entry.count++;
+  return true;
+}
 
 const SYSTEM_PROMPT = `Eres "Kyron Voice", la inteligencia artificial central del ecosistema System Kyron — una plataforma corporativa integral diseñada para el mercado venezolano.
 
@@ -21,6 +38,13 @@ REGLAS:
 - Si la pregunta no corresponde al ecosistema, redirige amablemente`;
 
 type ModelProvider = 'gemini' | 'openai' | 'anthropic';
+
+interface ModelResponse {
+  model: ModelProvider;
+  modelLabel: string;
+  reply: string | null;
+  error: string | null;
+}
 
 async function callGemini(userMessage: string, context: string): Promise<string> {
   const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -82,26 +106,34 @@ async function callAnthropic(userMessage: string, context: string): Promise<stri
   return block.type === 'text' ? block.text : 'Sin respuesta del modelo.';
 }
 
-const providers: Record<ModelProvider, (msg: string, ctx: string) => Promise<string>> = {
-  gemini: callGemini,
-  openai: callOpenAI,
-  anthropic: callAnthropic,
-};
-
 const MODEL_LABELS: Record<ModelProvider, string> = {
   gemini: 'Gemini 2.0 Flash',
   openai: 'GPT-4o Mini',
   anthropic: 'Claude Sonnet',
 };
 
-const FALLBACK_ORDER: ModelProvider[] = ['gemini', 'openai', 'anthropic'];
+const providers: Record<ModelProvider, (msg: string, ctx: string) => Promise<string>> = {
+  gemini: callGemini,
+  openai: callOpenAI,
+  anthropic: callAnthropic,
+};
+
+const ALL_MODELS: ModelProvider[] = ['gemini', 'openai', 'anthropic'];
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+    }
+
+    if (!checkRateLimit(session.userId)) {
+      return NextResponse.json({ error: 'Demasiadas solicitudes. Espera un momento.' }, { status: 429 });
+    }
+
     const body = await req.json();
-    const { message, model, context } = body as {
+    const { message, context } = body as {
       message: string;
-      model?: ModelProvider;
       context?: string;
     };
 
@@ -114,31 +146,40 @@ export async function POST(req: NextRequest) {
     }
 
     const ctx = context || 'Asistente general del ecosistema Kyron';
-    const preferred = model && providers[model] ? model : null;
+    const trimmed = message.trim();
 
-    const order: ModelProvider[] = preferred
-      ? [preferred, ...FALLBACK_ORDER.filter(m => m !== preferred)]
-      : FALLBACK_ORDER;
+    const results = await Promise.allSettled(
+      ALL_MODELS.map(async (model): Promise<ModelResponse> => {
+        try {
+          const reply = await providers[model](trimmed, ctx);
+          return { model, modelLabel: MODEL_LABELS[model], reply, error: null };
+        } catch (err) {
+          return {
+            model,
+            modelLabel: MODEL_LABELS[model],
+            reply: null,
+            error: err instanceof Error ? err.message : String(err),
+          };
+        }
+      })
+    );
 
-    let lastError = '';
-    for (const provider of order) {
-      try {
-        const reply = await providers[provider](message.trim(), ctx);
-        return NextResponse.json({
-          reply,
-          model: provider,
-          modelLabel: MODEL_LABELS[provider],
-        });
-      } catch (err: unknown) {
-        lastError = err instanceof Error ? err.message : String(err);
-        continue;
-      }
+    const responses: ModelResponse[] = results.map((r) =>
+      r.status === 'fulfilled'
+        ? r.value
+        : { model: 'gemini' as ModelProvider, modelLabel: '', reply: null, error: 'Error inesperado' }
+    );
+
+    const anySuccess = responses.some((r) => r.reply !== null);
+
+    if (!anySuccess) {
+      return NextResponse.json(
+        { error: 'Ningún modelo IA disponible.', responses },
+        { status: 503 }
+      );
     }
 
-    return NextResponse.json(
-      { error: `Ningún modelo IA disponible. Último error: ${lastError}` },
-      { status: 503 }
-    );
+    return NextResponse.json({ responses });
   } catch (err) {
     console.error('[kyron-voice] error:', err);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });

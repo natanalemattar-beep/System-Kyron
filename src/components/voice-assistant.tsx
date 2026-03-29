@@ -15,24 +15,30 @@ import {
   Loader2,
   User,
   Sparkles,
-  ChevronDown,
   BrainCircuit,
+  AlertCircle,
 } from 'lucide-react';
 
 type ModelProvider = 'gemini' | 'openai' | 'anthropic';
 
-type Message = {
-  role: 'user' | 'assistant';
-  text: string;
-  model?: ModelProvider;
-  modelLabel?: string;
+type ModelResponse = {
+  model: ModelProvider;
+  modelLabel: string;
+  reply: string | null;
+  error: string | null;
 };
 
-const MODEL_OPTIONS: { value: ModelProvider; label: string; short: string; color: string }[] = [
-  { value: 'gemini', label: 'Gemini Flash', short: 'GEM', color: 'text-blue-400' },
-  { value: 'openai', label: 'GPT-4o Mini', short: 'GPT', color: 'text-emerald-400' },
-  { value: 'anthropic', label: 'Claude Sonnet', short: 'CLA', color: 'text-orange-400' },
-];
+type Message = {
+  role: 'user' | 'assistant';
+  text?: string;
+  responses?: ModelResponse[];
+};
+
+const MODEL_COLORS: Record<ModelProvider, { bg: string; border: string; text: string; label: string; dot: string }> = {
+  gemini: { bg: 'bg-blue-500/8', border: 'border-blue-500/20', text: 'text-blue-400', label: 'GEM', dot: 'bg-blue-400' },
+  openai: { bg: 'bg-emerald-500/8', border: 'border-emerald-500/20', text: 'text-emerald-400', label: 'GPT', dot: 'bg-emerald-400' },
+  anthropic: { bg: 'bg-orange-500/8', border: 'border-orange-500/20', text: 'text-orange-400', label: 'CLA', dot: 'bg-orange-400' },
+};
 
 interface SpeechRecognitionLike extends EventTarget {
   lang: string;
@@ -87,8 +93,6 @@ export function VoiceAssistant() {
   const [processing, setProcessing] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [tts, setTts] = useState(true);
-  const [model, setModel] = useState<ModelProvider>('gemini');
-  const [modelMenuOpen, setModelMenuOpen] = useState(false);
   const [input, setInput] = useState('');
   const [interim, setInterim] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -116,10 +120,10 @@ export function VoiceAssistant() {
 
   const sendMessage = useCallback(
     async (textOverride?: string) => {
-      const query = (textOverride || input).trim();
-      if (!query || processing) return;
+      const queryText = (textOverride || input).trim();
+      if (!queryText || processing) return;
 
-      setMessages((prev) => [...prev, { role: 'user', text: query }]);
+      setMessages((prev) => [...prev, { role: 'user', text: queryText }]);
       setInput('');
       setInterim('');
       setProcessing(true);
@@ -128,7 +132,7 @@ export function VoiceAssistant() {
         const res = await fetch('/api/ai/kyron-voice', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: query, model }),
+          body: JSON.stringify({ message: queryText }),
         });
 
         const data = await res.json();
@@ -143,15 +147,16 @@ export function VoiceAssistant() {
 
         const botMsg: Message = {
           role: 'assistant',
-          text: data.reply,
-          model: data.model,
-          modelLabel: data.modelLabel,
+          responses: data.responses,
         };
         setMessages((prev) => [...prev, botMsg]);
 
         if (tts && canSpeak()) {
-          setSpeaking(true);
-          speak(data.reply, () => setSpeaking(false));
+          const firstSuccess = data.responses?.find((r: ModelResponse) => r.reply);
+          if (firstSuccess?.reply) {
+            setSpeaking(true);
+            speak(firstSuccess.reply, () => setSpeaking(false));
+          }
         }
       } catch {
         setMessages((prev) => [
@@ -162,7 +167,7 @@ export function VoiceAssistant() {
         setProcessing(false);
       }
     },
-    [input, processing, model, tts],
+    [input, processing, tts],
   );
 
   const toggleMic = useCallback(() => {
@@ -237,15 +242,12 @@ export function VoiceAssistant() {
     setSpeaking(false);
     setOpen(false);
     setInterim('');
-    setModelMenuOpen(false);
   }, []);
-
-  const currentModel = MODEL_OPTIONS.find((m) => m.value === model)!;
 
   const statusText = listening
     ? 'Escuchando...'
     : processing
-      ? 'Procesando...'
+      ? 'Consultando 3 modelos...'
       : speaking
         ? 'Hablando...'
         : voiceSupported
@@ -273,7 +275,7 @@ export function VoiceAssistant() {
           </div>
           <div className="flex flex-col items-start leading-none">
             <span className="text-[11px] font-black tracking-wider text-white uppercase">Kyron Voice</span>
-            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Multi-Modelo IA</span>
+            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Triple IA</span>
           </div>
         </button>
       </div>
@@ -282,7 +284,7 @@ export function VoiceAssistant() {
 
   return (
     <div className="fixed bottom-6 left-6 z-[200]">
-      <div className="mb-4 w-[370px] h-[540px] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
+      <div className="mb-4 w-[420px] h-[600px] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
         <header className="px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
@@ -301,6 +303,11 @@ export function VoiceAssistant() {
             </div>
           </div>
           <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5 mr-2">
+              {(['gemini', 'openai', 'anthropic'] as ModelProvider[]).map((m) => (
+                <span key={m} className={cn('w-1.5 h-1.5 rounded-full', MODEL_COLORS[m].dot)} />
+              ))}
+            </div>
             {canSpeak() && (
               <Button
                 variant="ghost"
@@ -328,44 +335,6 @@ export function VoiceAssistant() {
           </div>
         </header>
 
-        <div className="px-4 py-2 border-b border-white/5">
-          <div className="relative">
-            <button
-              onClick={() => setModelMenuOpen(!modelMenuOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/8 border border-white/8 transition-colors w-full"
-            >
-              <span className={cn('text-[9px] font-black uppercase tracking-wider', currentModel.color)}>
-                {currentModel.short}
-              </span>
-              <span className="text-[10px] font-semibold text-white/60 flex-1 text-left">{currentModel.label}</span>
-              <ChevronDown className={cn('h-3 w-3 text-white/30 transition-transform', modelMenuOpen && 'rotate-180')} />
-            </button>
-            {modelMenuOpen && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-zinc-900 border border-white/10 rounded-lg overflow-hidden shadow-xl z-10">
-                {MODEL_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => {
-                      setModel(opt.value);
-                      setModelMenuOpen(false);
-                    }}
-                    className={cn(
-                      'flex items-center gap-2 px-3 py-2 w-full hover:bg-white/5 transition-colors',
-                      model === opt.value && 'bg-white/5',
-                    )}
-                  >
-                    <span className={cn('text-[9px] font-black uppercase tracking-wider w-7', opt.color)}>
-                      {opt.short}
-                    </span>
-                    <span className="text-[10px] font-semibold text-white/70">{opt.label}</span>
-                    {model === opt.value && <span className="ml-auto text-[8px] text-primary font-bold">ACTIVO</span>}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
         <div className="flex-1 overflow-hidden px-4 py-3">
           <div className="h-full overflow-y-auto pr-1 custom-scrollbar" ref={scrollRef}>
             <div className="space-y-3">
@@ -373,46 +342,66 @@ export function VoiceAssistant() {
                 <div className="py-14 text-center space-y-3 opacity-30">
                   <Sparkles className="h-8 w-8 mx-auto text-primary" />
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] px-6 leading-relaxed text-white/80">
-                    Asistente Kyron listo.
+                    Asistente Kyron Triple IA listo.
                     {voiceSupported ? ' Escribe o usa tu voz.' : ' Escribe un mensaje.'}
+                  </p>
+                  <p className="text-[8px] uppercase tracking-wider text-white/40 px-4">
+                    Gemini · GPT-4o · Claude responden simultáneamente
                   </p>
                 </div>
               )}
 
               {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={cn('flex items-start gap-2.5', msg.role === 'user' ? 'flex-row-reverse' : 'flex-row')}
-                >
-                  <div
-                    className={cn(
-                      'p-1.5 rounded-lg border shrink-0 mt-0.5',
-                      msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10',
-                    )}
-                  >
-                    {msg.role === 'user' ? (
-                      <User className="h-3 w-3 text-primary" />
-                    ) : (
-                      <BrainCircuit className="h-3 w-3 text-cyan-400" />
-                    )}
-                  </div>
-                  <div className="max-w-[80%]">
-                    <div
-                      className={cn(
-                        'px-3.5 py-2.5 rounded-2xl text-[11px] font-medium leading-relaxed whitespace-pre-wrap',
-                        msg.role === 'user'
-                          ? 'bg-primary text-white rounded-br-md'
-                          : 'bg-white/5 text-white/80 rounded-bl-md',
-                      )}
-                    >
-                      {msg.text}
+                <div key={i}>
+                  {msg.role === 'user' ? (
+                    <div className="flex items-start gap-2.5 flex-row-reverse">
+                      <div className="p-1.5 rounded-lg border shrink-0 mt-0.5 bg-primary/10 border-primary/20">
+                        <User className="h-3 w-3 text-primary" />
+                      </div>
+                      <div className="max-w-[85%]">
+                        <div className="px-3.5 py-2.5 rounded-2xl rounded-br-md bg-primary text-white text-[11px] font-medium leading-relaxed whitespace-pre-wrap">
+                          {msg.text}
+                        </div>
+                      </div>
                     </div>
-                    {msg.role === 'assistant' && msg.modelLabel && (
-                      <p className="text-[7px] font-bold uppercase tracking-wider text-white/20 mt-1 ml-1">
-                        vía {msg.modelLabel}
-                      </p>
-                    )}
-                  </div>
+                  ) : msg.text ? (
+                    <div className="flex items-start gap-2.5">
+                      <div className="p-1.5 rounded-lg border shrink-0 mt-0.5 bg-white/5 border-white/10">
+                        <AlertCircle className="h-3 w-3 text-red-400" />
+                      </div>
+                      <div className="max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-red-500/10 text-red-300 text-[11px] font-medium leading-relaxed">
+                        {msg.text}
+                      </div>
+                    </div>
+                  ) : msg.responses ? (
+                    <div className="space-y-2">
+                      {msg.responses.map((resp) => {
+                        const colors = MODEL_COLORS[resp.model];
+                        return (
+                          <div key={resp.model} className={cn('rounded-xl border p-3', colors.bg, colors.border)}>
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className={cn('w-1.5 h-1.5 rounded-full', colors.dot)} />
+                              <span className={cn('text-[8px] font-black uppercase tracking-wider', colors.text)}>
+                                {colors.label}
+                              </span>
+                              <span className="text-[8px] font-semibold text-white/30 uppercase tracking-wide">
+                                {resp.modelLabel}
+                              </span>
+                            </div>
+                            {resp.reply ? (
+                              <p className="text-[11px] font-medium leading-relaxed text-white/80 whitespace-pre-wrap">
+                                {resp.reply}
+                              </p>
+                            ) : (
+                              <p className="text-[10px] font-medium text-white/30 italic">
+                                No disponible{resp.error ? `: ${resp.error}` : ''}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : null}
                 </div>
               ))}
 
@@ -428,15 +417,21 @@ export function VoiceAssistant() {
               )}
 
               {processing && (
-                <div className="flex items-center gap-2.5">
-                  <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
-                    <Loader2 className="h-3 w-3 text-primary animate-spin" />
-                  </div>
-                  <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+                <div className="space-y-2">
+                  {(['gemini', 'openai', 'anthropic'] as ModelProvider[]).map((m) => {
+                    const colors = MODEL_COLORS[m];
+                    return (
+                      <div key={m} className={cn('rounded-xl border p-3 animate-pulse', colors.bg, colors.border)}>
+                        <div className="flex items-center gap-2">
+                          <Loader2 className={cn('h-3 w-3 animate-spin', colors.text)} />
+                          <span className={cn('text-[8px] font-black uppercase tracking-wider', colors.text)}>
+                            {colors.label}
+                          </span>
+                          <span className="text-[8px] text-white/20">Procesando...</span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
