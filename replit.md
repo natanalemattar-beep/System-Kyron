@@ -46,7 +46,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
-- **Email Services:** Microsoft Outlook (Replit connector), Gmail (Replit connector & REST API), Resend (transactional fallback).
+- **Email Services:** Microsoft Outlook (Replit connector), Gmail (Replit connector & REST API), Resend (transactional fallback). Email templates use the hexagonal Kyron logo (`public/logo-kyron-email.png`) served via hosted URL, with "SYSTEM KYRON / Inteligencia Corporativa" text fallback for clients that block images.
 - **AI Integrations:** Gemini 2.0 Flash (for fiscal chat and general chat), OpenAI GPT-4o (for dashboard analysis).
 - **SMS:** Twilio (optional)
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API.

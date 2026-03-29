@@ -160,16 +160,18 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
 }
 
 export function buildKyronEmailTemplate(content: { title: string; body: string; code?: string; footer?: string }) {
+    const baseUrl = process.env.REPLIT_DEV_DOMAIN
+      ? `https://${process.env.REPLIT_DEV_DOMAIN}`
+      : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
   return `
     <div style="font-family: 'Helvetica Neue', sans-serif; max-width: 520px; margin: 0 auto; background: #060D1F; border-radius: 16px; overflow: hidden;">
       <div style="background: linear-gradient(135deg, #0EA5E9, #22C55E); padding: 2px;">
         <div style="background: #060D1F; border-radius: 14px; padding: 40px 36px;">
           <div style="text-align: center; margin-bottom: 32px;">
-            <div style="display: inline-block; background: #0EA5E918; border: 2px solid #0EA5E9; border-radius: 12px; padding: 14px 20px;">
-              <span style="font-size: 28px; font-weight: 900; color: #0EA5E9; letter-spacing: 4px;">SK</span>
+            <img src="${baseUrl}/logo-kyron-email.png" alt="System Kyron" width="72" height="72" style="display: block; margin: 0 auto 12px auto;" />
+              <p style="color: #F1F5F9; font-size: 15px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin: 0;">SYSTEM KYRON</p>
+              <p style="color: #64748B; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 4px 0 0 0;">Inteligencia Corporativa</p>
             </div>
-            <p style="color: #94A3B8; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin: 10px 0 0 0;">CORPORATE INTELLIGENCE · ZERO RISK</p>
-          </div>
           <h1 style="color: #F1F5F9; font-size: 20px; font-weight: 700; text-align: center; margin: 0 0 8px 0;">
             ${content.title}
           </h1>
