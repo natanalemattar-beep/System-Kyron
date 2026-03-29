@@ -8,6 +8,7 @@ async function getOrCreateConfig(userId: number) {
   let config = await queryOne(
     `SELECT id, idioma, moneda_preferida, zona_horaria,
             notif_email, notif_whatsapp, telefono_whatsapp,
+            notif_sms, telefono_sms,
             notif_vencimientos, notif_pagos,
             iva_pct::text, igtf_pct::text, islr_pct::text,
             rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at
@@ -21,6 +22,7 @@ async function getOrCreateConfig(userId: number) {
        VALUES ($1)
        RETURNING id, idioma, moneda_preferida, zona_horaria,
                  notif_email, notif_whatsapp, telefono_whatsapp,
+                 notif_sms, telefono_sms,
                  notif_vencimientos, notif_pagos,
                  iva_pct::text, igtf_pct::text, islr_pct::text,
                  rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at`,
@@ -48,6 +50,7 @@ export async function PATCH(req: NextRequest) {
   const {
     idioma, moneda_preferida, zona_horaria,
     notif_email, notif_whatsapp, telefono_whatsapp,
+    notif_sms, telefono_sms,
     notif_vencimientos, notif_pagos,
     iva_pct, igtf_pct, islr_pct,
     rif_empresa, nombre_comercial, logo_url, pie_factura
@@ -63,19 +66,21 @@ export async function PATCH(req: NextRequest) {
          notif_email        = COALESCE($4,  notif_email),
          notif_whatsapp     = COALESCE($5,  notif_whatsapp),
          telefono_whatsapp  = COALESCE($6,  telefono_whatsapp),
-         notif_vencimientos = COALESCE($7,  notif_vencimientos),
-         notif_pagos        = COALESCE($8,  notif_pagos),
-         iva_pct            = COALESCE($9,  iva_pct),
-         igtf_pct           = COALESCE($10, igtf_pct),
-         islr_pct           = COALESCE($11, islr_pct),
-         rif_empresa        = COALESCE($12, rif_empresa),
-         nombre_comercial   = COALESCE($13, nombre_comercial),
-         logo_url           = COALESCE($14, logo_url),
-         pie_factura        = COALESCE($15, pie_factura),
+         notif_sms          = COALESCE($7,  notif_sms),
+         telefono_sms       = COALESCE($8,  telefono_sms),
+         notif_vencimientos = COALESCE($9,  notif_vencimientos),
+         notif_pagos        = COALESCE($10, notif_pagos),
+         iva_pct            = COALESCE($11, iva_pct),
+         igtf_pct           = COALESCE($12, igtf_pct),
+         islr_pct           = COALESCE($13, islr_pct),
+         rif_empresa        = COALESCE($14, rif_empresa),
+         nombre_comercial   = COALESCE($15, nombre_comercial),
+         logo_url           = COALESCE($16, logo_url),
+         pie_factura        = COALESCE($17, pie_factura),
          updated_at         = NOW()
-     WHERE user_id = $16
+     WHERE user_id = $18
      RETURNING id, idioma, moneda_preferida, notif_whatsapp, telefono_whatsapp,
-               iva_pct::text, igtf_pct::text, updated_at`,
+               notif_sms, telefono_sms, iva_pct::text, igtf_pct::text, updated_at`,
     [
       idioma ?? null,
       moneda_preferida ?? null,
@@ -83,6 +88,8 @@ export async function PATCH(req: NextRequest) {
       notif_email !== undefined ? notif_email : null,
       notif_whatsapp !== undefined ? notif_whatsapp : null,
       telefono_whatsapp ?? null,
+      notif_sms !== undefined ? notif_sms : null,
+      telefono_sms ?? null,
       notif_vencimientos !== undefined ? notif_vencimientos : null,
       notif_pagos !== undefined ? notif_pagos : null,
       iva_pct ? parseFloat(iva_pct) : null,

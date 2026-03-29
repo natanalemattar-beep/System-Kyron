@@ -1712,6 +1712,8 @@ async function createConfiguracionTables() {
       notif_email        BOOLEAN NOT NULL DEFAULT true,
       notif_whatsapp     BOOLEAN NOT NULL DEFAULT false,
       telefono_whatsapp  TEXT,
+      notif_sms          BOOLEAN NOT NULL DEFAULT false,
+      telefono_sms       TEXT,
       notif_vencimientos BOOLEAN NOT NULL DEFAULT true,
       notif_pagos        BOOLEAN NOT NULL DEFAULT true,
       iva_pct            NUMERIC(5,2) NOT NULL DEFAULT 16.00,
@@ -1724,6 +1726,9 @@ async function createConfiguracionTables() {
       updated_at         TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+  await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS notif_sms BOOLEAN NOT NULL DEFAULT false`);
+  await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS telefono_sms TEXT`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
