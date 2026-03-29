@@ -211,7 +211,7 @@ const faqCategories = [
             },
             {
                 question: "¿Tienen garantía de disponibilidad?",
-                answer: "Sí. Garantizamos un 99.9% de uptime. Nuestra infraestructura cuenta con redundancia, backups automáticos diarios y monitoreo 24/7. En caso de incidentes, nuestro equipo de ingeniería interviene de forma inmediata para restaurar el servicio."
+                answer: "Nuestra infraestructura está diseñada para alta disponibilidad, con redundancia, backups automáticos diarios y monitoreo 24/7. En caso de incidentes, nuestro equipo de ingeniería interviene de forma inmediata para restaurar el servicio."
             },
         ]
     },

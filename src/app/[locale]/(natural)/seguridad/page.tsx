@@ -18,7 +18,7 @@ export default function SeguridadPage() {
                     <ShieldCheck className="h-10 w-10 text-primary" />
                     Seguridad de Nodo
                 </h1>
-                <p className="text-muted-foreground mt-2 font-bold text-[10px] uppercase tracking-[0.6em] opacity-40">Protección de Identidad • Encryption AES-512</p>
+                <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-40">Protección de Identidad • Encryption AES-256</p>
             </header>
 
             <div className="grid gap-8 lg:grid-cols-12">

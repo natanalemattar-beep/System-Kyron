@@ -262,7 +262,7 @@ export default function PasarelasDePagoPage() {
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Seguridad de Grado Militar</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
-                            Todas las transacciones procesadas a través del Ecosistema Kyron están protegidas por cifrado AES-512 y selladas en el Ledger inmutable. Garantizamos 0% de fraude en transacciones certificadas.
+                            Todas las transacciones procesadas a través del Ecosistema Kyron están protegidas por cifrado AES-256 y selladas en el Ledger inmutable con controles antifraude avanzados.
                         </p>
                         <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
                             <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> PCI DSS COMPLIANT</span>

@@ -79,7 +79,7 @@ function HexGrid() {
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
-    const cumplimiento = useCountUp(100, 2.5, 1.5);
+    const modulesCount = useCountUp(7, 2.5, 1.5);
     const heroFeatures = t.raw('features') as string[];
     const heroStats = t.raw('stats') as { val: string; label: string }[];
 
@@ -118,7 +118,7 @@ export function HeroSection() {
                             className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
                         >
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/80">{t('badge')}</span>
+                            <span className="text-xs font-semibold uppercase tracking-widest text-white/80">{t('badge')}</span>
                         </motion.div>
 
                         <motion.h1
@@ -149,13 +149,13 @@ export function HeroSection() {
                             transition={{ duration: 0.5, delay: 0.45 }}
                             className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
                         >
-                            <Button asChild size="lg" className="relative h-14 px-10 text-xs font-black uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
+                            <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
                                 <Link href="/register" className="flex items-center gap-3 justify-center">
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                     {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/15 bg-white/5 text-white/80 hover:border-[#0ea5e9]/30 hover:bg-white/10 hover:text-white transition-all duration-500 backdrop-blur-sm">
+                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl border-white/15 bg-white/5 text-white/80 hover:border-[#0ea5e9]/30 hover:bg-white/10 hover:text-white transition-all duration-500 backdrop-blur-sm">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}
@@ -172,7 +172,7 @@ export function HeroSection() {
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
                                     <CheckCircle2 className="h-3.5 w-3.5 text-[#22c55e]" />
-                                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/45">{feat}</span>
+                                    <span className="text-xs font-medium uppercase tracking-wider text-white/45">{feat}</span>
                                 </div>
                             ))}
                         </motion.div>
@@ -207,8 +207,8 @@ export function HeroSection() {
                                         <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">{t('compliance')}</p>
-                                        <p className="text-base sm:text-lg font-black text-[#22c55e] tabular-nums">{cumplimiento}%</p>
+                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-white/50">{t('modules_label')}</p>
+                                        <p className="text-base sm:text-lg font-bold text-[#22c55e] tabular-nums">{modulesCount}+</p>
                                     </div>
                                 </div>
                             </div>
@@ -219,8 +219,8 @@ export function HeroSection() {
                                         <Hexagon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">{t('modules_label')}</p>
-                                        <p className="text-base sm:text-lg font-black text-[#0ea5e9]">{t('modules_value')}</p>
+                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-white/50">{t('modules_label')}</p>
+                                        <p className="text-base sm:text-lg font-bold text-[#0ea5e9]">{t('modules_value')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -251,8 +251,8 @@ export function HeroSection() {
                                     transition={{ delay: 0.7 + i * 0.1 }}
                                     className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-white/5 backdrop-blur-sm`}
                                 >
-                                    <p className={`text-sm font-black leading-none ${g.text}`}>{s.val}</p>
-                                    <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">{s.label}</p>
+                                    <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
+                                    <p className="text-xs font-medium text-white/40 uppercase tracking-widest">{s.label}</p>
                                 </motion.div>
                             );
                         })}

@@ -53,7 +53,7 @@ const PLANES_TELECOM = [
         precioUsd: 30,
         descripcion: 'Para empresas con múltiples líneas',
         color: 'from-emerald-500 to-teal-600',
-        features: ['50 GB de datos 5G por línea', 'Llamadas corporativas ilimitadas', 'Gestión de flota incluida', 'Panel admin multi-línea', 'VPN empresarial integrada', 'Facturación centralizada', 'SLA 99.9% uptime'],
+        features: ['50 GB de datos 5G por línea', 'Llamadas corporativas ilimitadas', 'Gestión de flota incluida', 'Panel admin multi-línea', 'VPN empresarial integrada', 'Facturación centralizada', 'SLA de alta disponibilidad'],
     },
     {
         id: 'Plan Datos Solo',

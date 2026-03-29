@@ -88,12 +88,12 @@ export default function ActaAsambleaPage() {
                     De conformidad con el Código de Comercio, cada acta registrada en System Kyron genera una huella digital inmutable que certifica la fecha y hora de la asamblea ante auditorías del SAREN.
                 </p>
                 <div className="p-6 rounded-2xl bg-white/5 border border-border shadow-inner">
-                    <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-primary mb-2">
+                    <div className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-primary mb-2">
                         <span>Integridad de Bóveda</span>
-                        <span>99.9%</span>
+                        <span>Verificada</span>
                     </div>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-primary shadow-glow" style={{ width: '99.9%' }} />
+                        <div className="h-full bg-primary shadow-glow" style={{ width: '100%' }} />
                     </div>
                 </div>
             </Card>

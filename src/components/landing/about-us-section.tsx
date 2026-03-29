@@ -1,7 +1,7 @@
 'use client';
 
 import { Card } from "@/components/ui/card";
-import { ShieldCheck, TrendingUp, Building2, Users, Zap, Globe, ArrowRight } from "lucide-react";
+import { ShieldCheck, Building2, Users, Zap, Globe, ArrowRight } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -11,8 +11,6 @@ import { Link } from "@/navigation";
 interface SiteStats {
     totalUsuarios: number;
     totalEmpresas: number;
-    cumplimiento: number;
-    erroresFiscales: number;
 }
 
 const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
@@ -39,8 +37,6 @@ export function AboutUsSection() {
     const [stats, setStats] = useState<SiteStats>({
         totalUsuarios: 0,
         totalEmpresas: 0,
-        cumplimiento: 100,
-        erroresFiscales: 0,
     });
 
     useEffect(() => {
@@ -77,7 +73,7 @@ export function AboutUsSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-white/80 mx-auto">
+                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-xs font-semibold uppercase tracking-widest text-white/80 mx-auto">
                             <Globe className="h-3.5 w-3.5 text-emerald-400" />
                             Hecho en Venezuela
                         </div>
@@ -93,7 +89,7 @@ export function AboutUsSection() {
                     </motion.div>
 
                     <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12"
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -101,7 +97,6 @@ export function AboutUsSection() {
                     >
                         {[
                             { val: stats.totalUsuarios, label: "Usuarios Registrados", icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-400" },
-                            { val: stats.cumplimiento, label: "Cumplimiento Fiscal", suffix: "%", icon: TrendingUp, color: "from-emerald-500 to-green-600", text: "text-emerald-400" },
                             { val: stats.totalEmpresas, label: "Empresas Activas", icon: Building2, color: "from-violet-500 to-purple-600", text: "text-violet-400" }
                         ].map((stat, i) => (
                             <div key={i} className="hover:-translate-y-1 transition-transform duration-300">
@@ -112,9 +107,9 @@ export function AboutUsSection() {
                                     </div>
                                     <div className="relative">
                                         <p className={cn("text-5xl font-black italic tracking-tighter mb-2", stat.text)}>
-                                            <Counter from={0} to={stat.val} />{stat.suffix}
+                                            <Counter from={0} to={stat.val} />
                                         </p>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">{stat.label}</p>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-white/40">{stat.label}</p>
                                     </div>
                                 </Card>
                             </div>
@@ -138,7 +133,7 @@ export function AboutUsSection() {
                                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/15 flex items-center justify-center shrink-0">
                                     <item.icon className="h-4 w-4 text-primary" />
                                 </div>
-                                <p className="text-[10px] font-black uppercase tracking-wider text-white/60">{item.label}</p>
+                                <p className="text-xs font-semibold uppercase tracking-wider text-white/60">{item.label}</p>
                             </div>
                         ))}
                     </motion.div>
@@ -150,7 +145,7 @@ export function AboutUsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.4 }}
                     >
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-white/15 bg-white/5 text-white text-xs font-black uppercase tracking-widest hover:bg-white/10 hover:border-white/25 transition-all duration-500">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-white/15 bg-white/5 text-white text-xs font-bold uppercase tracking-widest hover:bg-white/10 hover:border-white/25 transition-all duration-500">
                             Únete al Ecosistema <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>

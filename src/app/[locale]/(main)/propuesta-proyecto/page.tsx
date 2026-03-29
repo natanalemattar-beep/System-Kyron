@@ -131,7 +131,7 @@ export default function PropuestaProyectoPage() {
                             <div className="absolute top-0 right-0 p-10 opacity-10"><Zap className="h-40 w-40" /></div>
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja de Ecosistema</h3>
                             <ul className="space-y-6 relative z-10">
-                                {["Centralización Total: Un único nodo para telecom, finanzas y leyes.", "Cumplimiento Predictivo: IA auditando cada factura contra la ley vigente.", "Monetización Sostenible: Transformación de residuos en activos digitales.", "Seguridad de Grado Militar: Cifrado AES-512 y Blockchain Ledger."].map((b, i) => (
+                                {["Centralización Total: Un único nodo para telecom, finanzas y leyes.", "Cumplimiento Predictivo: IA auditando cada factura contra la ley vigente.", "Monetización Sostenible: Transformación de residuos en activos digitales.", "Seguridad de Grado Militar: Cifrado AES-256 y Blockchain Ledger."].map((b, i) => (
                                     <li key={i} className="flex items-center gap-4 text-lg font-bold italic"><ChevronRight className="h-5 w-5 text-muted-foreground/60" /> {b}</li>
                                 ))}
                             </ul>

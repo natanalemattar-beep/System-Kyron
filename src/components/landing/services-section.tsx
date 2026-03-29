@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Receipt, ArrowRight, Lock, Sparkles, Zap, ShieldCheck, BarChart3, Clock, Globe, FileCheck, Users } from "lucide-react";
+import { Receipt, ArrowRight, Lock, Sparkles, Zap, ShieldCheck, BarChart3, Globe, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
@@ -38,11 +38,9 @@ const features = [
 
 const platformStats = [
     { value: "7+", label: "Módulos Integrados", icon: BarChart3, color: "text-primary", bg: "from-primary/15 to-primary/5" },
-    { value: "99.9%", label: "Disponibilidad", icon: Clock, color: "text-emerald-400", bg: "from-emerald-500/15 to-emerald-500/5" },
-    { value: "AES-256", label: "Cifrado Militar", icon: ShieldCheck, color: "text-cyan-400", bg: "from-cyan-500/15 to-cyan-500/5" },
-    { value: "100%", label: "Cumplimiento SENIAT", icon: FileCheck, color: "text-violet-400", bg: "from-violet-500/15 to-violet-500/5" },
+    { value: "AES-256", label: "Cifrado Empresarial", icon: ShieldCheck, color: "text-cyan-400", bg: "from-cyan-500/15 to-cyan-500/5" },
+    { value: "VEN-NIF", label: "Cumplimiento Fiscal", icon: FileCheck, color: "text-violet-400", bg: "from-violet-500/15 to-violet-500/5" },
     { value: "24/7", label: "Soporte IA Activo", icon: Sparkles, color: "text-amber-400", bg: "from-amber-500/15 to-amber-500/5" },
-    { value: "2,500+", label: "Empresas Confían", icon: Users, color: "text-rose-400", bg: "from-rose-500/15 to-rose-500/5" },
 ];
 
 export function ServicesSection() {
@@ -56,7 +54,7 @@ export function ServicesSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-6">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
                         Ecosistema Completo
                     </div>
@@ -86,7 +84,7 @@ export function ServicesSection() {
                                 idx % 2 === 1 && "lg:flex-row-reverse"
                             )}>
                                 <div className={cn("space-y-6", idx % 2 === 1 && "lg:order-2")}>
-                                    <div className={cn("inline-flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white border border-white/10", `bg-gradient-to-r ${feat.color}`)}>
+                                    <div className={cn("inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-white border border-white/10", `bg-gradient-to-r ${feat.color}`)}>
                                         <feat.icon className="h-3.5 w-3.5" />
                                         {feat.subtitle}
                                     </div>
@@ -98,7 +96,7 @@ export function ServicesSection() {
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {feat.badges.map((b) => (
-                                            <span key={b} className="px-3 py-1.5 rounded-full border border-border/40 bg-muted/30 text-[9px] font-black uppercase tracking-widest text-muted-foreground">
+                                            <span key={b} className="px-3 py-1.5 rounded-full border border-border/40 bg-muted/30 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                                 {b}
                                             </span>
                                         ))}
@@ -131,7 +129,7 @@ export function ServicesSection() {
                     transition={{ duration: 0.6 }}
                 >
                     <div className="text-center mb-10">
-                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-5">
+                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-5">
                             <Globe className="h-3.5 w-3.5" />
                             Plataforma en Cifras
                         </div>
@@ -143,7 +141,7 @@ export function ServicesSection() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                         {platformStats.map((stat, i) => (
                             <motion.div
                                 key={stat.label}
@@ -161,7 +159,7 @@ export function ServicesSection() {
                                     <div className={cn("text-xl sm:text-2xl font-black tracking-tight", stat.color)}>
                                         {stat.value}
                                     </div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 leading-tight">
+                                    <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground/70 leading-tight">
                                         {stat.label}
                                     </div>
                                 </div>
@@ -170,7 +168,7 @@ export function ServicesSection() {
                     </div>
 
                     <div className="mt-12 flex justify-center">
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-black uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-500">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-500">
                             Comenzar Ahora <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>

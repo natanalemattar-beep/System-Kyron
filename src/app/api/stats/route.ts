@@ -48,8 +48,6 @@ export async function GET() {
                 usd_ves: parseFloat(tasaResult.tasa_usd_ves),
                 fecha: tasaResult.fecha,
             } : null,
-            cumplimiento: 100,
-            erroresFiscales: 0,
         });
     } catch {
         return NextResponse.json({
@@ -61,8 +59,6 @@ export async function GET() {
             facturasDelMes: 0,
             empleadosActivos: 0,
             tasaBCV: null,
-            cumplimiento: 100,
-            erroresFiscales: 0,
         });
     }
 }

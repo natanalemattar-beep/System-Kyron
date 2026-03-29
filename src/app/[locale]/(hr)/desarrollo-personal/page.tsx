@@ -66,7 +66,7 @@ export default function DesarrolloPersonalPage() {
                             <div className="space-y-6">
                                 {[
                                     "Introducción al Ecosistema Kyron",
-                                    "Seguridad de Datos y Cifrado AES-512",
+                                    "Seguridad de Datos y Cifrado AES-256",
                                     "Uso del TPV Multimoneda",
                                     "Gestión de Bóveda Jurídica"
                                 ].map((step, i) => (

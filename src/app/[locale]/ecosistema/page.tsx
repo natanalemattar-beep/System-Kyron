@@ -181,7 +181,7 @@ export default function EcosistemaKyron() {
             <div className="h-6 w-px bg-border" />
             <div className="flex flex-col">
                 <span className="text-[7px] md:text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] md:tracking-[0.4em]">Cifrado</span>
-                <span className="text-[8px] md:text-[10px] font-mono font-bold text-primary italic leading-none">AES-512</span>
+                <span className="text-[8px] md:text-[10px] font-mono font-bold text-primary italic leading-none">AES-256</span>
             </div>
           </div>
           <p className="text-[7px] md:text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.4em] md:tracking-[0.8em] text-right italic">

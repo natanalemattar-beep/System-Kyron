@@ -10,7 +10,7 @@
         "register": "Get Started",
         "access": "Access",
         "control_center": "Command Center",
-        "security_protocol": "Security Protocol Level 5",
+        "security_protocol": "AES-256 Encryption",
         "see_all_services": "View All Services",
         "mobile_portal": "Kyron Portal"
     },
@@ -218,7 +218,7 @@
         "dashboard_subtitle": "Intuitive interface",
         "dashboard_title": "One dashboard. Total control.",
         "highlights": [
-            { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "100%", "statLabel": "Tax compliance" },
+            { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "VEN-NIF", "statLabel": "Tax compliance" },
             { "label": "My Line 5G", "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.", "stat": "5G", "statLabel": "Network speed" },
             { "label": "Integrated AI", "desc": "Kyron AI powered by Claude from Anthropic. Automates reports, documents and analysis.", "stat": "AI", "statLabel": "Claude · Anthropic" },
             { "label": "AES-256 Security", "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.", "stat": "256", "statLabel": "Encryption bits" },
@@ -244,7 +244,7 @@
         "e2e": "E2E Encryption",
         "biometrics": "Biometrics",
         "two_fa": "2FA Active",
-        "uptime": "99.9% Uptime",
+        "uptime": "High Availability",
         "citizen_portal": "Citizen Portal",
         "corporate_portals": "Corporate Portals",
         "full_ecosystem": "Complete Ecosystem",

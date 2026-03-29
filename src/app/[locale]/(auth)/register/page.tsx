@@ -408,11 +408,11 @@ export default function RegisterSelectionPage() {
                 <div className="container mx-auto px-4 pt-6 pb-2 max-w-7xl">
                     <div className="mb-4 lg:mb-0">
                         {step === "identify" ? (
-                            <Button variant="ghost" asChild className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
+                            <Button variant="ghost" asChild className="group rounded-xl h-9 px-4 text-xs font-bold uppercase tracking-widest hover:bg-secondary/50">
                                 <Link href="/"><ChevronLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Volver</Link>
                             </Button>
                         ) : (
-                            <Button variant="ghost" onClick={() => setStep("identify")} className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
+                            <Button variant="ghost" onClick={() => setStep("identify")} className="group rounded-xl h-9 px-4 text-xs font-bold uppercase tracking-widest hover:bg-secondary/50">
                                 <ArrowLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Cambiar Documento
                             </Button>
                         )}
@@ -422,7 +422,7 @@ export default function RegisterSelectionPage() {
                 <div className="flex-1 container mx-auto px-4 max-w-7xl flex flex-col lg:flex-row lg:items-center lg:gap-8 xl:gap-16 py-4 lg:py-0">
 
                     <div className="hidden lg:flex flex-col justify-center flex-1 min-w-0 max-w-xl lg:pr-4 xl:pr-8">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-6 w-fit">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-semibold uppercase tracking-widest mb-6 w-fit">
                             <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                         </div>
                         <h1 className="text-3xl md:text-4xl xl:text-5xl font-black tracking-tighter leading-[0.95] mb-5">
@@ -446,33 +446,20 @@ export default function RegisterSelectionPage() {
                                             <FIcon className="h-4 w-4 text-primary/70" />
                                         </div>
                                         <div className="min-w-0 overflow-hidden">
-                                            <p className="text-[11px] font-black uppercase tracking-wide text-foreground mb-0.5 break-words">{f.title}</p>
-                                            <p className="text-[10px] text-muted-foreground leading-relaxed break-words">{f.desc}</p>
+                                            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-0.5 break-words">{f.title}</p>
+                                            <p className="text-xs text-muted-foreground leading-relaxed break-words">{f.desc}</p>
                                         </div>
                                     </div>
                                 );
                             })}
                         </div>
 
-                        <div className="mt-8 flex items-center gap-3">
-                            <div className="flex -space-x-2">
-                                {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-gradient-to-br from-primary/20 to-cyan-500/20 flex items-center justify-center">
-                                        <User className="h-3.5 w-3.5 text-primary/50" />
-                                    </div>
-                                ))}
-                            </div>
-                            <div>
-                                <p className="text-xs font-black text-foreground">+2,500 empresas</p>
-                                <p className="text-[10px] text-muted-foreground font-bold">Ya confían en System Kyron</p>
-                            </div>
-                        </div>
                     </div>
 
                     <div className="flex-1 lg:max-w-lg xl:max-w-xl w-full">
 
                         <header className="text-center mb-8 lg:hidden">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-5">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-semibold uppercase tracking-widest mb-5">
                                 <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                             </div>
                             <p aria-hidden="true" className="text-3xl sm:text-4xl font-black tracking-tighter leading-none mb-4">
@@ -513,7 +500,7 @@ export default function RegisterSelectionPage() {
                                     <h2 className="text-base font-black uppercase tracking-tight">
                                         Paso 1 — Identificación
                                     </h2>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                         Cédula de identidad o RIF
                                     </p>
                                 </div>
@@ -578,8 +565,8 @@ export default function RegisterSelectionPage() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2">
-                                                                    <span className={cn("text-sm font-black", isActive ? p.color : "text-foreground")}>{p.value}</span>
-                                                                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{p.desc}</span>
+                                                                    <span className={cn("text-sm font-bold", isActive ? p.color : "text-foreground")}>{p.value}</span>
+                                                                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{p.desc}</span>
                                                                 </div>
                                                             </div>
                                                             {isActive && <CheckCircle2 className={cn("h-4 w-4 shrink-0", p.color)} />}
@@ -588,7 +575,7 @@ export default function RegisterSelectionPage() {
                                                 })}
                                             </div>
                                             <div className="px-4 py-2 border-t border-border/20">
-                                                <p className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">Selecciona tipo de documento</p>
+                                                <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-wider">Selecciona tipo de documento</p>
                                             </div>
                                         </div>
                                     )}
@@ -603,7 +590,7 @@ export default function RegisterSelectionPage() {
                                     />
                                     {docNumber && (
                                         <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                                            <span className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider">
+                                            <span className="text-xs font-bold text-muted-foreground/50 uppercase tracking-wider">
                                                 {["J", "G", "C", "F"].includes(prefix) ? "RIF" : "Cédula"}
                                             </span>
                                         </div>
@@ -616,7 +603,7 @@ export default function RegisterSelectionPage() {
                                         onClick={handleRifSearch}
                                         disabled={rifSearching}
                                         className={cn(
-                                            "h-12 px-5 rounded-xl font-black text-xs uppercase tracking-wider shrink-0 transition-all duration-300 border-2",
+                                            "h-12 px-5 rounded-xl font-bold text-xs uppercase tracking-wider shrink-0 transition-all duration-300 border-2",
                                             rifLookup
                                                 ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5 hover:bg-emerald-500/10"
                                                 : "border-border/40 hover:border-primary/30 hover:bg-primary/5"
@@ -636,8 +623,8 @@ export default function RegisterSelectionPage() {
                                     <div className="flex items-center gap-3 px-4 py-3">
                                         <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-black text-foreground truncate">{rifLookup.razonSocial}</p>
-                                            <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
+                                            <p className="text-sm font-bold text-foreground truncate">{rifLookup.razonSocial}</p>
+                                            <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
                                                 {rifLookup.tipoEmpresa || 'Empresa registrada'} 
                                                 {rifLookup.estado && ` · ${rifLookup.estado}`}
                                                 {rifLookup.municipio && ` · ${rifLookup.municipio}`}
@@ -645,7 +632,7 @@ export default function RegisterSelectionPage() {
                                         </div>
                                         {rifLookup.statusFiscal && (
                                             <span className={cn(
-                                                "text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border shrink-0",
+                                                "text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-lg border shrink-0",
                                                 rifLookup.statusFiscal === 'ACTIVO'
                                                     ? "text-emerald-600 bg-emerald-500/10 border-emerald-500/20"
                                                     : "text-amber-600 bg-amber-500/10 border-amber-500/20"
@@ -658,21 +645,21 @@ export default function RegisterSelectionPage() {
                                     {(rifLookup.actividadEconomica || rifLookup.direccion || rifLookup.telefono) && (
                                         <div className="px-4 pb-3 pt-0 grid grid-cols-1 gap-1.5">
                                             {rifLookup.actividadEconomica && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Actividad:</span>{' '}
-                                                    <span className="font-bold">{rifLookup.actividadEconomica}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-emerald-600/80">Actividad:</span>{' '}
+                                                    <span className="font-medium">{rifLookup.actividadEconomica}</span>
                                                 </p>
                                             )}
                                             {rifLookup.direccion && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Dirección:</span>{' '}
-                                                    <span className="font-bold">{rifLookup.direccion}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-emerald-600/80">Dirección:</span>{' '}
+                                                    <span className="font-medium">{rifLookup.direccion}</span>
                                                 </p>
                                             )}
                                             {rifLookup.telefono && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Teléfono:</span>{' '}
-                                                    <span className="font-bold">{rifLookup.telefono}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-emerald-600/80">Teléfono:</span>{' '}
+                                                    <span className="font-medium">{rifLookup.telefono}</span>
                                                 </p>
                                             )}
                                         </div>
@@ -701,10 +688,10 @@ export default function RegisterSelectionPage() {
                                         <AlertCircle className="h-4 w-4 shrink-0 opacity-50" />
                                     )}
                                     <div className="flex-1">
-                                        <p className="text-xs font-black uppercase tracking-wide">
+                                        <p className="text-xs font-bold uppercase tracking-wide">
                                             {detected.label}
                                         </p>
-                                        <p className="text-[10px] font-bold opacity-60 uppercase tracking-wider">
+                                        <p className="text-xs font-medium opacity-60 uppercase tracking-wider">
                                             {!detected.valid
                                                 ? (isJuridico ? "Formato requerido: 12345678-9" : "Formato requerido: 5 a 10 dígitos")
                                                 : "Documento válido — continúa para elegir módulo"
@@ -733,10 +720,10 @@ export default function RegisterSelectionPage() {
                                     <div className="flex items-center gap-3 px-4 py-3">
                                         <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-black text-foreground truncate">
+                                            <p className="text-sm font-bold text-foreground truncate">
                                                 {cedulaLookup.nombre} {cedulaLookup.apellido}
                                             </p>
-                                            <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
+                                            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">
                                                 {fullDocument}
                                                 {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
                                                 {cedulaLookup.municipio && ` · ${cedulaLookup.municipio}`}
@@ -744,7 +731,7 @@ export default function RegisterSelectionPage() {
                                         </div>
                                         {cedulaLookup.estatus && (
                                             <span className={cn(
-                                                "text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border shrink-0",
+                                                "text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-lg border shrink-0",
                                                 cedulaLookup.estatus === 'VIGENTE'
                                                     ? "text-emerald-600 bg-emerald-500/10 border-emerald-500/20"
                                                     : "text-amber-600 bg-amber-500/10 border-amber-500/20"
@@ -757,39 +744,39 @@ export default function RegisterSelectionPage() {
                                     {(cedulaLookup.fechaNacimiento || cedulaLookup.sexo || cedulaLookup.nacionalidad || cedulaLookup.parroquia) && (
                                         <div className="px-4 pb-3 pt-0 grid grid-cols-2 gap-x-4 gap-y-1.5">
                                             {cedulaLookup.nacionalidad && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Nac:</span>{' '}
-                                                    <span className="font-bold">{cedulaLookup.nacionalidad}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">Nac:</span>{' '}
+                                                    <span className="font-medium">{cedulaLookup.nacionalidad}</span>
                                                 </p>
                                             )}
                                             {cedulaLookup.fechaNacimiento && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">F. Nac:</span>{' '}
-                                                    <span className="font-bold">{new Date(cedulaLookup.fechaNacimiento).toLocaleDateString('es-VE')}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">F. Nac:</span>{' '}
+                                                    <span className="font-medium">{new Date(cedulaLookup.fechaNacimiento).toLocaleDateString('es-VE')}</span>
                                                 </p>
                                             )}
                                             {cedulaLookup.sexo && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Sexo:</span>{' '}
-                                                    <span className="font-bold">{cedulaLookup.sexo}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">Sexo:</span>{' '}
+                                                    <span className="font-medium">{cedulaLookup.sexo}</span>
                                                 </p>
                                             )}
                                             {cedulaLookup.estadoCivil && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">E. Civil:</span>{' '}
-                                                    <span className="font-bold">{cedulaLookup.estadoCivil}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">E. Civil:</span>{' '}
+                                                    <span className="font-medium">{cedulaLookup.estadoCivil}</span>
                                                 </p>
                                             )}
                                             {cedulaLookup.parroquia && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Parroquia:</span>{' '}
-                                                    <span className="font-bold">{cedulaLookup.parroquia}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">Parroquia:</span>{' '}
+                                                    <span className="font-medium">{cedulaLookup.parroquia}</span>
                                                 </p>
                                             )}
                                             {cedulaLookup.fechaEmision && (
-                                                <p className="text-[10px] text-muted-foreground">
-                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Emisión:</span>{' '}
-                                                    <span className="font-bold">{new Date(cedulaLookup.fechaEmision).toLocaleDateString('es-VE')}</span>
+                                                <p className="text-xs text-muted-foreground">
+                                                    <span className="font-semibold uppercase tracking-wider text-blue-600/80">Emisión:</span>{' '}
+                                                    <span className="font-medium">{new Date(cedulaLookup.fechaEmision).toLocaleDateString('es-VE')}</span>
                                                 </p>
                                             )}
                                         </div>
@@ -801,14 +788,14 @@ export default function RegisterSelectionPage() {
                                 <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-amber-500/5 border-amber-500/15 text-amber-600 mb-4">
                                     <AlertCircle className="h-4 w-4 shrink-0" />
                                     <div className="flex-1">
-                                        <p className="text-xs font-black uppercase tracking-wide">
+                                        <p className="text-xs font-bold uppercase tracking-wide">
                                             Documento ya registrado
                                         </p>
-                                        <p className="text-[10px] font-bold opacity-60">
+                                        <p className="text-xs font-medium opacity-60">
                                             Ya existe una cuenta con este documento. ¿Deseas iniciar sesión?
                                         </p>
                                     </div>
-                                    <Button size="sm" variant="outline" asChild className="shrink-0 rounded-xl text-[10px] font-black uppercase tracking-wider border-amber-500/30 hover:bg-amber-500/10">
+                                    <Button size="sm" variant="outline" asChild className="shrink-0 rounded-xl text-xs font-bold uppercase tracking-wider border-amber-500/30 hover:bg-amber-500/10">
                                         <Link href="/login">Ir al Login</Link>
                                     </Button>
                                 </div>
@@ -818,7 +805,7 @@ export default function RegisterSelectionPage() {
                                 onClick={handleContinueToModules}
                                 disabled={!isValidDoc || checking}
                                 className={cn(
-                                    "w-full h-14 rounded-2xl text-sm font-black uppercase tracking-widest transition-all duration-300 shadow-lg",
+                                    "w-full h-14 rounded-2xl text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-lg",
                                     !isValidDoc && !checking
                                         ? "bg-muted text-muted-foreground/50 border border-border/30 shadow-none cursor-not-allowed"
                                         : isNatural ? "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/25 hover:shadow-blue-600/40" :
@@ -848,7 +835,7 @@ export default function RegisterSelectionPage() {
                                 <div className="flex flex-col items-start">
                                     <div className="flex items-center gap-2">
                                         <span>{fullDocument}</span>
-                                        <span className="text-[10px] font-bold opacity-60 uppercase">— {detected.label}</span>
+                                        <span className="text-xs font-medium opacity-60 uppercase">— {detected.label}</span>
                                     </div>
                                     {cedulaLookup && (
                                         <span className="text-xs font-bold opacity-80">
@@ -883,14 +870,14 @@ export default function RegisterSelectionPage() {
                                                 <Icon className={cn("h-5 w-5", mod.color)} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="text-sm font-black uppercase tracking-tight text-foreground mb-1">
+                                                <h3 className="text-sm font-bold uppercase tracking-tight text-foreground mb-1">
                                                     {mod.title}
                                                 </h3>
-                                                <p className="text-[11px] font-bold text-muted-foreground leading-relaxed">
+                                                <p className="text-xs font-medium text-muted-foreground leading-relaxed">
                                                     {mod.description}
                                                 </p>
                                                 <div className={cn(
-                                                    "mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all duration-300",
+                                                    "mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300",
                                                     mod.bgColor, mod.color
                                                 )}>
                                                     Registrarse <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
@@ -906,7 +893,7 @@ export default function RegisterSelectionPage() {
 
                 <p className="text-center lg:text-left text-xs text-muted-foreground mt-4 mb-8 font-bold">
                     ¿Ya tienes una cuenta?{' '}
-                    <Link href="/login" className="text-primary font-black hover:underline uppercase tracking-wide">
+                    <Link href="/login" className="text-primary font-bold hover:underline uppercase tracking-wide">
                         Iniciar Sesión
                     </Link>
                 </p>
