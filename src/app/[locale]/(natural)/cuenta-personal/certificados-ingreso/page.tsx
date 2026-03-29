@@ -14,7 +14,7 @@ export default function CertificadosIngresoPersonalPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
             <User className="h-3 w-3" /> MI BÓVEDA CIVIL
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Mis <span className="text-primary italic">Certificados de Ingreso</span></h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Mis <span className="text-primary italic">Certificados de Ingreso</span></h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Atestiguamiento de Ingresos • Firma Digital Certificada 2026</p>
       </header>
 

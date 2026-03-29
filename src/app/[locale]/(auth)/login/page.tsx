@@ -49,7 +49,7 @@ export default function LoginSelectionPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold mb-5">
             <ShieldCheck className="h-3.5 w-3.5" /> {t('badge')}
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-3 text-foreground">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight mb-3 text-foreground">
             {t('title')} <span className="text-primary italic">{t('title_highlight')}</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-lg mx-auto">

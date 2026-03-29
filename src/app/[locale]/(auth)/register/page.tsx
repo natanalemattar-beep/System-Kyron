@@ -402,7 +402,7 @@ export default function RegisterSelectionPage() {
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-6 w-fit">
                             <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                         </div>
-                        <h1 className="text-5xl xl:text-6xl font-black tracking-tighter leading-[0.95] mb-5">
+                        <h1 className="text-3xl md:text-4xl xl:text-5xl font-black tracking-tighter leading-[0.95] mb-5">
                             <span className="text-foreground">Tu empresa,</span>
                             <br />
                             <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">otro nivel</span>
