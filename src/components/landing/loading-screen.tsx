@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const loadingSteps = [
-    { label: "Inicializando núcleo", module: "CORE v2.6" },
+    { label: "Inicializando núcleo", module: "CORE v2.8.5" },
     { label: "Cargando módulos fiscales", module: "VEN-NIF · SENIAT" },
     { label: "Conectando inteligencia artificial", module: "GEMINI 2.0 · GPT-4o" },
     { label: "Verificando seguridad", module: "AES-256 · JWT" },
@@ -15,21 +15,22 @@ const loadingSteps = [
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const [progress, setProgress] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
-    const [exiting, setExiting] = useState(false);
+    const [visible, setVisible] = useState(true);
     const prefersReducedMotion = useReducedMotion();
-    const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+    const onCompleteRef = useRef(onComplete);
+    const hasCompletedRef = useRef(false);
 
-    const handleComplete = useCallback(() => {
-        setExiting(true);
-        const t = setTimeout(onComplete, prefersReducedMotion ? 0 : 800);
-        timeoutsRef.current.push(t);
-    }, [onComplete, prefersReducedMotion]);
+    onCompleteRef.current = onComplete;
 
     useEffect(() => {
+        if (hasCompletedRef.current) return;
+
         if (prefersReducedMotion) {
+            hasCompletedRef.current = true;
             setProgress(100);
             setCurrentStep(loadingSteps.length - 1);
-            handleComplete();
+            setVisible(false);
+            onCompleteRef.current();
             return;
         }
 
@@ -45,29 +46,30 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
             if (step >= totalSteps) {
                 clearInterval(interval);
-                const t = setTimeout(handleComplete, 500);
-                timeoutsRef.current.push(t);
+                setTimeout(() => {
+                    if (hasCompletedRef.current) return;
+                    hasCompletedRef.current = true;
+                    setVisible(false);
+                    setTimeout(() => {
+                        onCompleteRef.current();
+                    }, 700);
+                }, 400);
             }
         }, stepDuration);
 
         return () => {
             clearInterval(interval);
-            timeoutsRef.current.forEach(clearTimeout);
-            timeoutsRef.current = [];
         };
-    }, [handleComplete, prefersReducedMotion]);
-
-    const motionProps = prefersReducedMotion
-        ? { initial: { opacity: 1 }, animate: { opacity: 1 }, transition: { duration: 0 } }
-        : {};
+    }, [prefersReducedMotion]);
 
     return (
         <AnimatePresence>
-            {!exiting ? (
+            {visible && (
                 <motion.div
                     key="loader"
-                    exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 1.05 }}
-                    transition={{ duration: prefersReducedMotion ? 0.1 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020810]"
                 >
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -85,9 +87,9 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
                     <div className="relative flex flex-col items-center gap-8 px-6 w-full max-w-md">
                         <motion.div
-                            initial={prefersReducedMotion ? undefined : { scale: 0.6, opacity: 0 }}
+                            initial={{ scale: 0.6, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             className="relative"
                         >
                             <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-emerald-500/20 blur-2xl animate-pulse-soft" />
@@ -104,16 +106,16 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                                         fill="none"
                                         initial={{ pathLength: 0 }}
                                         animate={{ pathLength: 1 }}
-                                        transition={{ duration: prefersReducedMotion ? 0 : 1.5, ease: "easeInOut" }}
+                                        transition={{ duration: 1.5, ease: "easeInOut" }}
                                     />
                                 </svg>
                             </div>
                         </motion.div>
 
                         <motion.div
-                            initial={prefersReducedMotion ? undefined : { opacity: 0, y: 10 }}
+                            initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: prefersReducedMotion ? 0 : 0.3, duration: prefersReducedMotion ? 0 : 0.5 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
                             className="text-center"
                         >
                             <h1 className="text-lg font-black uppercase tracking-[0.4em] text-white/90 mb-1">
@@ -125,9 +127,9 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                         </motion.div>
 
                         <motion.div
-                            initial={prefersReducedMotion ? undefined : { opacity: 0 }}
+                            initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: prefersReducedMotion ? 0 : 0.5, duration: prefersReducedMotion ? 0 : 0.4 }}
+                            transition={{ delay: 0.5, duration: 0.4 }}
                             className="w-full space-y-4"
                         >
                             <div className="w-full h-1 bg-white/[0.06] rounded-full overflow-hidden">
@@ -145,7 +147,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2 min-h-[24px]">
                                     <motion.div
-                                        animate={prefersReducedMotion ? undefined : { rotate: 360 }}
+                                        animate={{ rotate: 360 }}
                                         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                                         className="w-3 h-3 rounded-full border border-cyan-400/40 border-t-cyan-400"
                                     />
@@ -187,22 +189,14 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                     </div>
 
                     <motion.p
-                        initial={prefersReducedMotion ? undefined : { opacity: 0 }}
+                        initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: prefersReducedMotion ? 0 : 0.8, duration: prefersReducedMotion ? 0 : 0.4 }}
+                        transition={{ delay: 0.8, duration: 0.4 }}
                         className="absolute bottom-8 text-[7px] font-bold uppercase tracking-[0.5em] text-white/15"
                     >
-                        v2.6.5 — Cero Riesgo
+                        v2.8.5 — Cero Riesgo
                     </motion.p>
                 </motion.div>
-            ) : (
-                <motion.div
-                    key="exit"
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 0, scale: prefersReducedMotion ? 1 : 1.1 }}
-                    transition={{ duration: prefersReducedMotion ? 0.1 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-                    className="fixed inset-0 z-[9999] bg-[#020810] pointer-events-none"
-                />
             )}
         </AnimatePresence>
     );

@@ -53,7 +53,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-            const data = await res.json();
+            const text = await res.text();
+            let data;
+            try { data = JSON.parse(text); } catch { data = { error: 'Respuesta inválida del servidor' }; }
             if (res.ok) {
                 setUser(data.user);
                 return { success: true };

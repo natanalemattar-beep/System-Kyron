@@ -74,6 +74,7 @@ export function CommentsSection() {
     const fetchComentarios = useCallback(async () => {
         try {
             const res = await fetch('/api/comentarios');
+            if (!res.ok) throw new Error('comentarios fetch failed');
             const data = await res.json();
             setComentarios(data.data || []);
         } catch {

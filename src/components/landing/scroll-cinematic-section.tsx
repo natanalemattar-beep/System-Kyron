@@ -334,6 +334,28 @@ export function ScrollCinematicSection() {
 
     const particlesOpacity = useTransform(smoothProgress, [0, 0.03, 0.90, 0.98], [0, 1, 1, 0]);
 
+    const highlightsOpacity = useTransform(smoothProgress, (v: number) => {
+        const enterOp = Math.min(1, Math.max(0, (v - 0.28) / 0.07));
+        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.46) / 0.06));
+        return Math.min(enterOp, exitOp);
+    });
+    const highlightsY = useTransform(smoothProgress, (v: number) => {
+        if (v < 0.35) return 60 * (1 - Math.min(1, (v - 0.28) / 0.07));
+        if (v > 0.46) return -60 * Math.min(1, (v - 0.46) / 0.06);
+        return 0;
+    });
+
+    const statsOpacity = useTransform(smoothProgress, (v: number) => {
+        const enterOp = Math.min(1, Math.max(0, (v - 0.50) / 0.06));
+        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.70) / 0.08));
+        return Math.min(enterOp, exitOp);
+    });
+    const statsY = useTransform(smoothProgress, (v: number) => {
+        if (v < 0.56) return 50 * (1 - Math.min(1, (v - 0.50) / 0.06));
+        if (v > 0.70) return -50 * Math.min(1, (v - 0.70) / 0.08);
+        return 0;
+    });
+
     return (
         <div ref={containerRef} className="relative" style={{ height: "800vh" }}>
             <div className="sticky top-0 h-screen overflow-hidden">
@@ -423,16 +445,8 @@ export function ScrollCinematicSection() {
                 <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center px-4 md:px-10"
                     style={{
-                        opacity: useTransform(smoothProgress, (v) => {
-                            const enterOp = Math.min(1, Math.max(0, (v - 0.28) / 0.07));
-                            const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.46) / 0.06));
-                            return Math.min(enterOp, exitOp);
-                        }),
-                        y: useTransform(smoothProgress, (v) => {
-                            if (v < 0.35) return 60 * (1 - Math.min(1, (v - 0.28) / 0.07));
-                            if (v > 0.46) return -60 * Math.min(1, (v - 0.46) / 0.06);
-                            return 0;
-                        }),
+                        opacity: highlightsOpacity,
+                        y: highlightsY,
                     }}
                 >
                     <div className="w-full max-w-6xl mx-auto">
@@ -465,16 +479,8 @@ export function ScrollCinematicSection() {
                 <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center px-6"
                     style={{
-                        opacity: useTransform(smoothProgress, (v) => {
-                            const enterOp = Math.min(1, Math.max(0, (v - 0.50) / 0.06));
-                            const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.70) / 0.08));
-                            return Math.min(enterOp, exitOp);
-                        }),
-                        y: useTransform(smoothProgress, (v) => {
-                            if (v < 0.56) return 50 * (1 - Math.min(1, (v - 0.50) / 0.06));
-                            if (v > 0.70) return -50 * Math.min(1, (v - 0.70) / 0.08);
-                            return 0;
-                        }),
+                        opacity: statsOpacity,
+                        y: statsY,
                     }}
                 >
                     <div className="w-full max-w-4xl mx-auto text-center">

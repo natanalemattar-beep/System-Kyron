@@ -66,6 +66,12 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **BCV Rate Auto-fetch:** Public sources like PyDolar BCV and ExchangeRate API.
 - **Excel Export:** `exceljs` (replaced `xlsx` for security)
 
+### Bug Fixes (v2.8.5)
+- **Invalid hook call fix:** Moved 4 inline `useTransform()` calls from JSX in `scroll-cinematic-section.tsx` to the top level of `ScrollCinematicSection` component. Calling hooks inside JSX violates React's Rules of Hooks and caused "Invalid hook call" + hydration mismatch errors.
+- **Safe JSON parsing:** Added `res.ok` guards before `.json()` calls in `about-us-section.tsx`, `comments-section.tsx`, and `auth/context.tsx` to prevent `SyntaxError: Unexpected end of JSON input` during initial compilation.
+- **Loading screen stability:** Rewrote `loading-screen.tsx` to use `useRef` for `onComplete` callback, preventing double-firing.
+- **DB health endpoint:** Restricted `/api/db-health` to admin-only access.
+
 ### Performance Optimizations (v2.8.3)
 - **Lazy ChatDialog:** All 7 layouts use `LazyChatDialog` (`src/components/chat-dialog-lazy.tsx`) with `next/dynamic` + `ssr: false` to defer loading until client-side.
 - **Lazy VoiceAssistant:** Locale layout uses `LazyVoiceAssistant` (`src/components/voice-assistant-lazy.tsx`) with same pattern.
