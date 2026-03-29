@@ -142,8 +142,8 @@ async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
 
 export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
   const providers: Array<() => Promise<EmailResult>> = [
-    sendViaOutlook,
     sendViaGmail,
+    sendViaOutlook,
     sendViaResend,
   ].map(fn => () => fn(opts));
 
