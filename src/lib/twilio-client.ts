@@ -1,11 +1,8 @@
-let cachedSettings: { account_sid: string; api_key: string; api_key_secret: string; phone_number: string } | null = null;
-
 async function getCredentials() {
   if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
     return {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
-      apiKey: process.env.TWILIO_AUTH_TOKEN,
-      apiKeySecret: process.env.TWILIO_AUTH_TOKEN,
+      authToken: process.env.TWILIO_AUTH_TOKEN,
       phoneNumber: process.env.TWILIO_PHONE_NUMBER,
     };
   }
@@ -18,7 +15,7 @@ async function getCredentials() {
     : null;
 
   if (!xReplitToken) {
-    throw new Error('X-Replit-Token not found for repl/depl');
+    throw new Error('Twilio not connected: X-Replit-Token not found');
   }
 
   const connData = await fetch(
@@ -35,25 +32,27 @@ async function getCredentials() {
     throw new Error('Twilio not connected');
   }
 
-  cachedSettings = connData.settings;
-
   const s = connData.settings;
-  if (!s.account_sid || !s.api_key || !s.api_key_secret) {
-    throw new Error('Twilio not connected: missing credentials');
+  if (!s.account_sid) {
+    throw new Error('Twilio not connected: missing account_sid');
+  }
+
+  const authToken = s.api_key_secret || s.auth_token || s.api_key;
+  if (!authToken) {
+    throw new Error('Twilio not connected: missing auth credentials');
   }
 
   return {
     accountSid: s.account_sid,
-    apiKey: s.api_key,
-    apiKeySecret: s.api_key_secret,
+    authToken,
     phoneNumber: s.phone_number || '',
   };
 }
 
 export async function getTwilioClient() {
-  const { accountSid, apiKey, apiKeySecret } = await getCredentials();
+  const { accountSid, authToken } = await getCredentials();
   const twilio = (await import('twilio')).default;
-  return twilio(apiKey, apiKeySecret, { accountSid });
+  return twilio(accountSid, authToken);
 }
 
 export async function getTwilioFromPhoneNumber() {
