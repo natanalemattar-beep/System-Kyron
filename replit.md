@@ -32,6 +32,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 **Technical Implementations:**
 - **Database Schema:** A comprehensive PostgreSQL schema with 70+ tables is managed in `src/lib/db-schema.ts`.
 - **Database Layer (`src/lib/db.ts`):** Includes helpers for batch operations, upserts, existence checks, pagination, and health checks.
+- **Demo Requests:** Landing page CTA form (`src/components/landing/cta-form.tsx`) submits via server action (`src/app/actions/send-demo-request.ts`). Data is saved to `demo_requests` and `contact_messages` tables, and a branded notification email is sent to `infosystemkyron@gmail.com` with full request details using the multi-provider email service (Gmail → Outlook → Resend fallback).
 - **Demo Seed Data (`src/lib/db-seed.ts`):** Realistic Venezuelan business data.
 - **Health Check (`GET /api/db-health`):** Provides database metrics.
 - **Enhanced Audit Trail:** `logAudit()` records detailed field-level changes.

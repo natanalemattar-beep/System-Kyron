@@ -409,7 +409,7 @@ export default function NotificacionesPage() {
                   <p className="text-xs text-muted-foreground leading-relaxed">{noti.mensaje}</p>
                   {noti.accion_url && (
                     <Link
-                      href={noti.accion_url as any}
+                      href={noti.accion_url}
                       className="inline-flex items-center gap-1 text-[10px] font-bold text-primary hover:underline mt-1"
                       onClick={(e) => e.stopPropagation()}
                     >

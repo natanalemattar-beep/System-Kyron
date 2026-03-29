@@ -396,9 +396,9 @@ export default function RegisterSelectionPage() {
                     </div>
                 </div>
 
-                <div className="flex-1 container mx-auto px-4 max-w-7xl flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24 py-4 lg:py-0">
+                <div className="flex-1 container mx-auto px-4 max-w-7xl flex flex-col lg:flex-row lg:items-center lg:gap-8 xl:gap-16 py-4 lg:py-0">
 
-                    <div className="hidden lg:flex flex-col justify-center flex-1 max-w-xl pr-8">
+                    <div className="hidden lg:flex flex-col justify-center flex-1 min-w-0 max-w-xl lg:pr-4 xl:pr-8">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-6 w-fit">
                             <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                         </div>
@@ -418,13 +418,13 @@ export default function RegisterSelectionPage() {
                             {FEATURES.map((f, i) => {
                                 const FIcon = f.icon;
                                 return (
-                                    <div key={i} className="flex items-start gap-3 p-4 rounded-2xl border border-border/20 bg-card/40 backdrop-blur-sm">
+                                    <div key={i} className="flex items-start gap-3 p-4 rounded-2xl border border-border/20 bg-card/40 backdrop-blur-sm overflow-hidden">
                                         <div className="shrink-0 p-2 rounded-xl bg-primary/5 border border-primary/10">
                                             <FIcon className="h-4 w-4 text-primary/70" />
                                         </div>
-                                        <div>
-                                            <p className="text-[11px] font-black uppercase tracking-wide text-foreground mb-0.5">{f.title}</p>
-                                            <p className="text-[10px] text-muted-foreground leading-relaxed">{f.desc}</p>
+                                        <div className="min-w-0 overflow-hidden">
+                                            <p className="text-[11px] font-black uppercase tracking-wide text-foreground mb-0.5 break-words">{f.title}</p>
+                                            <p className="text-[10px] text-muted-foreground leading-relaxed break-words">{f.desc}</p>
                                         </div>
                                     </div>
                                 );

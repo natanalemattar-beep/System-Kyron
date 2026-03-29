@@ -188,9 +188,9 @@ export function buildKyronEmailTemplate(content: { title: string; body: string; 
           <h1 style="color: #F1F5F9; font-size: 20px; font-weight: 700; text-align: center; margin: 0 0 8px 0;">
             ${content.title}
           </h1>
-          <p style="color: #94A3B8; font-size: 14px; text-align: center; margin: 0 0 36px 0;">
+          <div style="color: #94A3B8; font-size: 14px; text-align: center; margin: 0 0 36px 0;">
             ${content.body}
-          </p>
+          </div>
           ${content.code ? `
           <div style="background: #0A1530; border: 2px solid #0EA5E9; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 28px;">
             <p style="color: #94A3B8; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px 0;">Tu código de verificación</p>
