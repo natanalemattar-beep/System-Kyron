@@ -42,10 +42,14 @@ async function getCredentials() {
     throw new Error('Twilio not connected: missing auth credentials');
   }
 
+  if (!s.phone_number) {
+    throw new Error('Twilio not configured: missing phone_number. Set TWILIO_PHONE_NUMBER or configure it in the Twilio connector.');
+  }
+
   return {
     accountSid: s.account_sid,
     authToken,
-    phoneNumber: s.phone_number || '',
+    phoneNumber: s.phone_number,
   };
 }
 

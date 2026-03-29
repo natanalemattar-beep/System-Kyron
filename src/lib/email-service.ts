@@ -1,7 +1,7 @@
 import { query } from '@/lib/db';
 
 export type EmailProvider = 'gmail' | 'outlook' | 'resend';
-export type EmailPurpose = 'verification' | 'alert' | 'general';
+export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
 export interface EmailOptions {
   to: string | string[];

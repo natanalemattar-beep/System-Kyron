@@ -833,10 +833,12 @@ async function createAnalyticsTables() {
       codigo     TEXT NOT NULL,
       usado      BOOLEAN NOT NULL DEFAULT false,
       intentos   INT NOT NULL DEFAULT 0,
+      proposito  TEXT NOT NULL DEFAULT 'verification',
       expires_at TIMESTAMPTZ NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await query(`ALTER TABLE verification_codes ADD COLUMN IF NOT EXISTS proposito TEXT NOT NULL DEFAULT 'verification'`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_created_at ON verification_codes(created_at DESC)`);
 

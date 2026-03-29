@@ -3,8 +3,15 @@ import bcrypt from 'bcryptjs';
 import { query, queryOne } from '@/lib/db';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword } from '@/lib/input-sanitizer';
+import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 
 export const dynamic = 'force-dynamic';
+
+function generateResetCode(): string {
+  const array = new Uint8Array(6);
+  crypto.getRandomValues(array);
+  return Array.from(array, b => (b % 10).toString()).join('');
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,7 +30,41 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
       }
 
-      await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
+      const user = await queryOne<{ id: number; nombre: string }>(
+        `SELECT id, nombre FROM users WHERE email = $1`,
+        [normalizedEmail]
+      );
+
+      await new Promise(r => setTimeout(r, 150 + Math.random() * 200));
+
+      if (!user) {
+        return NextResponse.json({
+          success: true,
+          found: true,
+          maskedEmail: maskEmail(normalizedEmail),
+        });
+      }
+
+      const codigo = generateResetCode();
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+      await query(
+        `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, 'email', $2, $3, 'password-reset')`,
+        [normalizedEmail, codigo, expiresAt]
+      );
+
+      await sendEmail({
+        to: normalizedEmail,
+        subject: `${codigo} — Recuperar contraseña · System Kyron`,
+        html: buildKyronEmailTemplate({
+          title: 'Recuperación de Contraseña',
+          body: `Hola <strong>${user.nombre}</strong>, recibimos una solicitud para restablecer tu contraseña. Usa el siguiente código para continuar.`,
+          code: codigo,
+          footer: 'Si no solicitaste este cambio, ignora este correo. Tu contraseña permanecerá igual.',
+        }),
+        module: 'auth',
+        purpose: 'password-reset',
+      }).catch(err => console.error('[reset-password] Email failed:', err));
 
       return NextResponse.json({
         success: true,
@@ -56,6 +97,7 @@ export async function POST(req: NextRequest) {
       const codeRow = await queryOne<{ id: number; codigo: string; intentos: number }>(
         `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
          WHERE destino = $1 AND tipo = 'email' AND usado = false AND expires_at > NOW()
+         AND COALESCE(proposito, 'password-reset') = 'password-reset'
          ORDER BY created_at DESC LIMIT 1`,
         [normalizedEmail]
       );

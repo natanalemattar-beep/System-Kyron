@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     if (body.email && body.code) {
       const normalizedEmail = sanitizeEmail(body.email);
-      const result = verifyCode(normalizedEmail, body.code.trim());
+      const result = await verifyCode(normalizedEmail, body.code.trim());
 
       if (!result.valid) {
         return NextResponse.json({ error: result.error }, { status: 401 });

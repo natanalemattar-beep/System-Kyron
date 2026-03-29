@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         }
 
         const code = generateCode();
-        storeCode(normalizedEmail, code, user.id);
+        await storeCode(normalizedEmail, code, user.id);
 
         const displayName = user.tipo === 'juridico'
             ? (user.razon_social ?? user.nombre)
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
             (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
         );
 
-        sendEmail({
+        const emailResult = await sendEmail({
             to: normalizedEmail,
             subject: `${code} — Código de verificación · System Kyron`,
             html: buildKyronEmailTemplate({
@@ -89,7 +89,14 @@ export async function POST(req: NextRequest) {
             }),
             module: 'auth',
             purpose: 'verification',
-        }).catch(err => console.error('[login] Error sending verification email:', err));
+        }).catch(err => {
+            console.error('[login] Error sending verification email:', err);
+            return { success: false, error: String(err) };
+        });
+
+        if (emailResult && !emailResult.success) {
+            console.error('[login] Verification email failed:', emailResult.error);
+        }
 
         return NextResponse.json({
             requiresVerification: true,
