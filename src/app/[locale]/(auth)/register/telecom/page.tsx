@@ -31,7 +31,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Básico 4G',
         nombre: 'Básico 4G',
-        precio: 'Bs. 45/mes',
+        precioUsd: 5,
         descripcion: 'Ideal para quienes usan poco el teléfono',
         color: 'from-slate-500 to-gray-600',
         features: ['3 GB de datos 4G', '100 minutos nacionales', '50 SMS incluidos', 'Redes sociales básicas', 'Buzón de voz'],
@@ -39,7 +39,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Estándar 4G/LTE',
         nombre: 'Estándar LTE',
-        precio: 'Bs. 85/mes',
+        precioUsd: 10,
         descripcion: 'El más popular para uso diario',
         popular: true,
         color: 'from-blue-500 to-cyan-500',
@@ -48,7 +48,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Pro 5G',
         nombre: 'Pro 5G',
-        precio: 'Bs. 150/mes',
+        precioUsd: 18,
         descripcion: 'Velocidad premium con tecnología 5G',
         color: 'from-violet-500 to-purple-600',
         features: ['30 GB de datos 5G', 'Llamadas y SMS ilimitados', 'Streaming HD sin consumo', 'Prioridad de red 5G', 'Cloud storage 50 GB', 'Soporte prioritario 24/7'],
@@ -56,7 +56,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Empresarial 5G',
         nombre: 'Empresarial 5G',
-        precio: 'Bs. 250/mes',
+        precioUsd: 30,
         descripcion: 'Para empresas con múltiples líneas',
         color: 'from-emerald-500 to-teal-600',
         features: ['50 GB de datos 5G por línea', 'Llamadas corporativas ilimitadas', 'Gestión de flota incluida', 'Panel admin multi-línea', 'VPN empresarial integrada', 'Facturación centralizada', 'SLA 99.9% uptime'],
@@ -64,7 +64,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Datos Solo',
         nombre: 'Solo Datos',
-        precio: 'Bs. 60/mes',
+        precioUsd: 7,
         descripcion: 'Solo internet, sin voz ni SMS',
         color: 'from-amber-500 to-orange-500',
         features: ['15 GB de datos 4G/LTE', 'Sin línea de voz', 'Ideal para tablets/módems', 'Hotspot ilimitado', 'Alertas de consumo'],
@@ -72,7 +72,7 @@ const PLANES_TELECOM = [
     {
         id: 'Plan Internacional',
         nombre: 'Internacional',
-        precio: 'Bs. 200/mes',
+        precioUsd: 25,
         descripcion: 'Roaming y llamadas internacionales',
         color: 'from-rose-500 to-pink-600',
         features: ['20 GB datos nacionales + 5 GB roaming', 'Llamadas internacionales 300 min', 'Roaming en 50+ países', 'WhatsApp internacional ilimitado', 'Traducción de llamadas con IA', 'eSIM compatible'],
@@ -149,9 +149,20 @@ export default function RegisterTelecomPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [docFromParams, setDocFromParams] = useState(false);
+    const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
+
+    useEffect(() => {
+        fetch('/api/tasas-bcv?limit=1')
+            .then(r => r.json())
+            .then(d => {
+                const rate = parseFloat(d.ultima?.tasa_usd_ves);
+                if (!isNaN(rate) && rate > 0) setTasaBcv(rate);
+            })
+            .catch(() => {});
+    }, []);
 
     const { register, handleSubmit, control, getValues, setValue, trigger, watch, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(baseSchema), mode: 'onChange',
@@ -475,6 +486,7 @@ export default function RegisterTelecomPage() {
 
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">Plan Seleccionado *</Label>
+                                    {tasaBcv && <p className="text-[8px] text-muted-foreground/60 mb-1">Tasa BCV del día: 1 USD = Bs. {tasaBcv.toFixed(2)}</p>}
                                     {errors.tipo_plan && <p className="text-[10px] text-destructive mb-1">{errors.tipo_plan.message}</p>}
                                     <Controller name="tipo_plan" control={control} render={({ field }) => (
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -504,7 +516,8 @@ export default function RegisterTelecomPage() {
                                                                     <Zap className="h-2.5 w-2.5" />
                                                                     {plan.nombre}
                                                                 </div>
-                                                                <p className="text-sm font-black text-foreground">{plan.precio}</p>
+                                                                <p className="text-sm font-black text-foreground">${plan.precioUsd}/mes</p>
+                                                                {tasaBcv && <p className="text-[9px] text-muted-foreground/70">Bs. {(plan.precioUsd * tasaBcv).toFixed(2)}</p>}
                                                             </div>
                                                             <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-blue-500 bg-blue-500" : "border-muted-foreground/30")}>
                                                                 {selected && <Check className="h-3 w-3 text-white" />}
@@ -648,7 +661,7 @@ export default function RegisterTelecomPage() {
                                     return planSel ? (
                                         <div className="p-3 bg-blue-500/5 border border-blue-500/10 rounded-xl text-xs">
                                             <p className="font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">Plan seleccionado:</p>
-                                            <p className="text-muted-foreground">{planSel.nombre} — {planSel.precio}</p>
+                                            <p className="text-muted-foreground">{planSel.nombre} — ${planSel.precioUsd}/mes{tasaBcv ? ` (Bs. ${(planSel.precioUsd * tasaBcv).toFixed(2)})` : ''}</p>
                                         </div>
                                     ) : null;
                                 })()}

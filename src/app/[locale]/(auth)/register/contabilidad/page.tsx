@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -47,7 +47,7 @@ const PLANES_CONTABILIDAD = [
     {
         id: 'basico',
         nombre: 'Básico',
-        precio: 'Bs. 120/mes',
+        precioUsd: 12,
         descripcion: 'Contabilidad simple para emprendedores y microempresas',
         color: 'from-slate-500 to-gray-600',
         features: ['Libro diario y mayor', 'Balance general básico', 'Estado de resultados', 'Hasta 200 asientos/mes', 'Exportar a PDF/Excel'],
@@ -55,7 +55,7 @@ const PLANES_CONTABILIDAD = [
     {
         id: 'profesional',
         nombre: 'Profesional',
-        precio: 'Bs. 280/mes',
+        precioUsd: 28,
         descripcion: 'Facturación electrónica y cumplimiento fiscal completo',
         popular: true,
         color: 'from-primary to-blue-600',
@@ -64,7 +64,7 @@ const PLANES_CONTABILIDAD = [
     {
         id: 'empresarial',
         nombre: 'Empresarial',
-        precio: 'Bs. 520/mes',
+        precioUsd: 52,
         descripcion: 'Multi-usuario con retenciones y libros de compra/venta',
         color: 'from-emerald-500 to-teal-600',
         features: ['Todo del plan Profesional', 'Retenciones IVA e ISLR automáticas', 'Libros de compra y venta', 'Multi-usuario (hasta 5)', 'Control de inventario básico', 'Asientos ilimitados', 'Soporte prioritario', 'Auditoría de transacciones'],
@@ -72,7 +72,7 @@ const PLANES_CONTABILIDAD = [
     {
         id: 'premium',
         nombre: 'Premium',
-        precio: 'Bs. 950/mes',
+        precioUsd: 95,
         descripcion: 'Solución completa con IA y asesoría contable',
         color: 'from-violet-500 to-purple-600',
         features: ['Todo del plan Empresarial', 'IA asistente contable (Kyron AI)', 'Asesoría fiscal personalizada', 'Multi-empresa ilimitado', 'Usuarios ilimitados', 'API de integración', 'Dashboard ejecutivo en tiempo real', 'Reportes personalizados SENIAT', 'Backup y recuperación avanzada', 'SLA 99.9% disponibilidad'],
@@ -131,8 +131,19 @@ export default function RegisterContabilidadPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [registeredEmail, setRegisteredEmail] = useState('');
+    const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
     const { toast } = useToast();
+
+    useEffect(() => {
+        fetch('/api/tasas-bcv?limit=1')
+            .then(r => r.json())
+            .then(d => {
+                const rate = parseFloat(d.ultima?.tasa_usd_ves);
+                if (!isNaN(rate) && rate > 0) setTasaBcv(rate);
+            })
+            .catch(() => {});
+    }, []);
 
     const { register, handleSubmit, control, getValues, trigger, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -303,6 +314,7 @@ export default function RegisterContabilidadPage() {
                                         <Star className="h-3.5 w-3.5" /> Elige tu Plan Contable
                                     </p>
                                     <p className="text-[9px] text-muted-foreground">Selecciona el plan que mejor se adapte a tu empresa. Podrás cambiarlo después.</p>
+                                    {tasaBcv && <p className="text-[8px] text-muted-foreground/60 mt-1">Tasa BCV del día: 1 USD = Bs. {tasaBcv.toFixed(2)}</p>}
                                 </div>
 
                                 {errors.plan_contable && <p className="text-[10px] text-destructive">{errors.plan_contable.message}</p>}
@@ -334,7 +346,8 @@ export default function RegisterContabilidadPage() {
                                                                 <BookOpen className="h-2.5 w-2.5" />
                                                                 {plan.nombre}
                                                             </div>
-                                                            <p className="text-sm font-black text-foreground">{plan.precio}</p>
+                                                            <p className="text-sm font-black text-foreground">${plan.precioUsd}/mes</p>
+                                                            {tasaBcv && <p className="text-[9px] text-muted-foreground/70">Bs. {(plan.precioUsd * tasaBcv).toFixed(2)}</p>}
                                                         </div>
                                                         <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-primary bg-primary" : "border-muted-foreground/30")}>
                                                             {selected && <Check className="h-3 w-3 text-white" />}
@@ -591,7 +604,7 @@ export default function RegisterContabilidadPage() {
                                 {getValues('plan_contable') && (
                                     <div className="p-3 bg-primary/5 border border-primary/10 rounded-xl text-xs">
                                         <p className="font-black text-primary uppercase tracking-widest mb-1">Plan seleccionado:</p>
-                                        <p className="text-muted-foreground">{PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.nombre} — {PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precio}</p>
+                                        <p className="text-muted-foreground">{PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.nombre} — ${PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precioUsd}/mes{tasaBcv ? ` (Bs. ${((PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precioUsd ?? 0) * tasaBcv).toFixed(2)})` : ''}</p>
                                     </div>
                                 )}
                                 <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl text-left text-xs space-y-2">

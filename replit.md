@@ -26,7 +26,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **SAIME Integration:** `saime_registros` DB table (50 citizen records) serves as simulated SAIME registry. API at `GET /api/cedula/consulta?cedula=V-XXXXXXXX` queries: users → empleados → saime_registros. Returns enriched data: full name, date of birth, sex, civil status, state, municipality, parroquia, nationality, document status, emission/expiry dates. Registration page auto-queries on cédula input and displays a detailed card with VIGENTE badge. Data flows via URL params to the natural registration form for auto-fill.
 - Background animations are optimized, replacing Framer Motion with pure CSS for static radial gradients and reduced-opacity HUD grids, minimizing GPU overhead.
 - Registration pages feature a deep redesign inspired by telecom UIs, with custom step navigation, progress bars, rounded input fields, and visual password strength meters.
-- Plan selection cards are implemented for both Telecom and Contabilidad registration flows, offering rich UI for choosing service plans.
+- Plan selection cards are implemented for both Telecom and Contabilidad registration flows, offering rich UI for choosing service plans. **All plan prices are in USD** with live Bs. equivalent calculated from the BCV daily rate (`/api/tasas-bcv`). Telecom plans: $5, $10, $18, $30, $7, $25/mes. Contabilidad plans: $12, $28, $52, $95/mes. Each plan card shows the Bs. conversion and a BCV rate reference line.
 
 **Technical Implementations:**
 - **Database Schema:** A comprehensive PostgreSQL schema with 70+ tables is managed in `src/lib/db-schema.ts`, initialized on server startup, and includes tables for auditing, caching, reports, and integrations.
