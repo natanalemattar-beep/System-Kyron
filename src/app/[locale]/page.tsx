@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { HeroSection } from "@/components/landing/hero-section";
 import { LandingHeader } from "@/components/landing/landing-header";
-import { use, Suspense, useState, useCallback, useEffect, useRef } from 'react';
+import { Suspense, useState, useCallback, useEffect, useRef } from 'react';
 import { LoadingScreen } from "@/components/landing/loading-screen";
 
 const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
@@ -19,8 +19,7 @@ const FaqSection = dynamic(() => import("@/components/landing/faq-section").then
 const CtaSection = dynamic(() => import("@/components/landing/cta-section").then(m => ({ default: m.CtaSection })), { ssr: false });
 const Footer = dynamic(() => import("@/components/landing/footer").then(m => ({ default: m.Footer })), { ssr: false });
 
-export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = use(params);
+export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
@@ -34,6 +33,7 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
 
   const progressRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (CSS.supports?.('animation-timeline', 'scroll()')) return;
     const el = progressRef.current;
     if (!el) return;

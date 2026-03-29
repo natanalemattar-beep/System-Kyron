@@ -7,7 +7,8 @@ import {
     Menu, 
     ChevronDown,
     Sparkles,
-    ShieldCheck
+    ShieldCheck,
+    Hexagon
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
@@ -63,23 +64,24 @@ export function LandingHeader() {
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
              isScrolled ? "bg-background/80 backdrop-blur-2xl py-3 border-b border-border/40 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)]" : "bg-transparent py-8 landing-hero-header"
         )}>
+            {isScrolled && (
+                <div className="absolute bottom-0 left-0 right-0 kyron-accent-line opacity-40" />
+            )}
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
                     
-                    {/* LOGO (LEFT) */}
                     <div className="flex items-center justify-start shrink-0">
                         <Link href="/" className="flex items-center gap-2 sm:gap-4 group shrink-0">
                             <Logo className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow shrink-0" /> 
                             <div className="flex flex-col -mt-1">
                                 <span className={cn("text-xs sm:text-sm font-black tracking-[0.3em] sm:tracking-[0.4em] uppercase italic italic-shadow leading-none transition-colors duration-500", isScrolled ? "text-foreground" : "text-white")}>System Kyron</span>
-                                <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-80">
+                                <span className="hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.4em] mt-1 opacity-80 kyron-gradient-text">
                                     {tHero('slogan')}
                                 </span>
                             </div>
                         </Link>
                     </div>
 
-                    {/* NAV (CENTER) */}
                     <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 flex-1">
                         {navItems.map((item) => (
                             <Link 
@@ -89,12 +91,11 @@ export function LandingHeader() {
                                 className={cn("text-[9px] font-black uppercase tracking-[0.4em] hover:text-primary transition-all relative group", isScrolled ? "text-muted-foreground" : "text-white/70 hover:text-white")}
                             >
                                 {t(item.labelKey)}
-                                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] transition-all group-hover:w-full" style={{ background: 'linear-gradient(90deg, hsl(192 91% 48%), hsl(217 91% 60%), hsl(152 76% 42%))' }} />
                             </Link>
                         ))}
                     </nav>
 
-                    {/* ACTIONS (RIGHT) */}
                     <div className="flex items-center justify-end gap-3 sm:gap-4 shrink-0">
                         <div className="hidden sm:flex items-center gap-2">
                             <LanguageSwitcher variant="default" align="end" />
@@ -104,17 +105,18 @@ export function LandingHeader() {
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-[0.2em] btn-3d-primary shadow-glow">
-                                        <ShieldCheck className="h-3.5 w-3.5 mr-2.5" /> 
+                                    <Button className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-[0.2em] kyron-gradient-bg text-white border-0 shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-300">
+                                        <Hexagon className="h-3.5 w-3.5 mr-2.5" /> 
                                         {t('access')}
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[min(480px,calc(100vw-2rem))] p-0 rounded-[2rem] border-border/50 bg-card/90 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
+                                <DropdownMenuContent align="end" className="w-[min(480px,calc(100vw-2rem))] p-0 rounded-[2rem] border-border/50 bg-card/95 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
+                                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/30 to-transparent" />
                                     <div className="p-8 border-b border-border bg-muted/30">
                                         <DropdownMenuLabel className="p-0 flex items-center gap-4">
-                                            <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">
-                                                <Sparkles className="h-5 w-5 text-primary" />
+                                            <div className="p-3 rounded-2xl border border-primary/20 kyron-gradient-bg">
+                                                <Sparkles className="h-5 w-5 text-white" />
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-xs font-black uppercase tracking-[0.3em] text-foreground">{t('control_center')}</span>
@@ -160,7 +162,7 @@ export function LandingHeader() {
                                     <Logo className="h-8 w-8 shrink-0" />
                                     <div className="flex flex-col">
                                         <SheetTitle className="text-sm font-black tracking-tight text-foreground uppercase italic leading-none">{t('mobile_portal')}</SheetTitle>
-                                        <span className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-80">
+                                        <span className="text-[7px] font-bold uppercase tracking-[0.3em] mt-1 opacity-80 kyron-gradient-text">
                                             {tHero('slogan')}
                                         </span>
                                     </div>
@@ -184,8 +186,8 @@ export function LandingHeader() {
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild className="w-full h-12 rounded-xl btn-3d-primary font-black uppercase tracking-widest text-[10px]">
-                                        <Link href="/login"><ShieldCheck className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
+                                    <Button asChild className="w-full h-12 rounded-xl kyron-gradient-bg text-white font-black uppercase tracking-widest text-[10px] border-0 shadow-kyron">
+                                        <Link href="/login"><Hexagon className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
                                     </Button>
                                     <Button asChild variant="outline" className="w-full h-11 rounded-xl font-black uppercase tracking-widest text-[10px] border-border hover:border-primary/40 hover:text-primary">
                                         <Link href="/register">{t('register')}</Link>

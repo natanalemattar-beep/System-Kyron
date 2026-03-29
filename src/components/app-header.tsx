@@ -23,7 +23,7 @@ import {
     Settings,
     User,
     Activity,
-    LayoutGrid,
+    Hexagon,
     ChevronRight,
     ShieldCheck,
     X,
@@ -67,8 +67,8 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-2xl h-16 flex items-center w-full shadow-sm">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border/30 dark:border-white/5 bg-background/70 backdrop-blur-2xl h-16 flex items-center w-full shadow-sm">
+      <div className="absolute bottom-0 left-0 right-0 kyron-accent-line opacity-30" />
       
       <div className="w-full px-4 md:px-8">
         <div className="flex items-center justify-between w-full gap-4">
@@ -86,14 +86,14 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                             <Logo className="h-7 w-7" />
                             <div className="flex flex-col">
                                 <SheetTitle className="text-[10px] font-black uppercase tracking-widest italic leading-none">System Kyron</SheetTitle>
-                                <p className="text-[7px] font-bold text-primary uppercase tracking-[0.2em] mt-0.5 opacity-60">Control Corporativo</p>
+                                <p className="text-[7px] font-bold uppercase tracking-[0.2em] mt-0.5 kyron-gradient-text">Control Corporativo</p>
                             </div>
                         </div>
                     </SheetHeader>
 
                     <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5 bg-primary/5 shrink-0">
                         <Avatar className="h-9 w-9 rounded-xl">
-                            <AvatarFallback className="rounded-xl font-black text-[10px] text-white bg-primary">
+                            <AvatarFallback className="rounded-xl font-black text-[10px] text-white kyron-gradient-bg">
                                 {user?.fallback || "AD"}
                             </AvatarFallback>
                         </Avatar>
@@ -138,7 +138,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                                                 >
                                                     <item.icon className={cn("h-4 w-4 shrink-0", isActive ? "text-primary" : "opacity-50")} />
                                                     <span className="text-[10px] font-black uppercase tracking-[0.15em] truncate">{item.label}</span>
-                                                    {isActive && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
+                                                    {isActive && <div className="ml-auto h-1.5 w-1.5 rounded-full kyron-dot shrink-0" />}
                                                 </Link>
                                             </SheetClose>
                                         );
@@ -173,7 +173,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                             </SheetClose>
                         </div>
                         <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/5 border border-primary/10">
-                            <Activity className="h-3 w-3 text-emerald-500 animate-pulse shrink-0" />
+                            <span className="kyron-dot animate-pulse shrink-0" />
                             <span className="text-[7px] font-black text-foreground/50 uppercase tracking-widest">Protocolo Activo · Sync T+0</span>
                         </div>
                     </div>
@@ -184,7 +184,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 <Logo className="h-8 w-8 transition-transform group-hover:scale-105" /> 
                 <div className="flex flex-col -mt-0.5 hidden sm:flex">
                     <span className="text-[10px] font-black tracking-[0.2em] uppercase text-foreground italic leading-none">System Kyron</span>
-                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-50">Portal Corporativo</p>
+                    <p className="text-[6px] font-bold uppercase tracking-[0.2em] mt-1 kyron-gradient-text">Portal Corporativo</p>
                 </div>
             </Link>
           </div>
@@ -209,12 +209,13 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="center" className={cn("p-3 rounded-[2rem] border-border bg-card/98 backdrop-blur-3xl shadow-2xl overflow-hidden", useWideLayout ? "w-[560px]" : "w-[400px]")}>
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/25 to-transparent" />
                         <DropdownMenuLabel className="p-3 mb-3 bg-primary/5 rounded-2xl border border-primary/10">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-primary/10 rounded-xl">
-                                    <group.icon className="h-4 w-4 text-primary" />
+                                <div className="p-2 rounded-xl kyron-gradient-bg">
+                                    <group.icon className="h-4 w-4 text-white" />
                                 </div>
-                                <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em]">{group.title}</span>
+                                <span className="text-[9px] font-black text-foreground uppercase tracking-[0.3em]">{group.title}</span>
                                 <span className="text-[8px] font-bold text-muted-foreground ml-auto">{filteredItems.length} módulos</span>
                             </div>
                         </DropdownMenuLabel>
@@ -222,7 +223,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                             {filteredItems.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-xl h-10 focus:bg-primary/5 group/item cursor-pointer">
                                     <Link href={item.href as any} className="flex items-center px-3 text-[8px] font-black uppercase tracking-widest gap-2.5">
-                                        <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 transition-colors shrink-0">
+                                        <div className="p-1.5 bg-muted rounded-lg border border-border group-hover/item:bg-primary/10 group-hover/item:border-primary/20 transition-colors shrink-0">
                                             <item.icon className="h-3 w-3 text-muted-foreground group-hover/item:text-primary" />
                                         </div>
                                         <span className="group-hover/item:text-foreground transition-colors truncate">{item.label}</span>
@@ -243,7 +244,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-lg bg-white/5 border border-border group">
                     <Link href="/notificaciones">
                         <Bell className={cn("h-4 w-4 transition-colors", pathname.includes('/notificaciones') ? "text-primary" : "text-muted-foreground/60 group-hover:text-primary")} />
-                        <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-rose-500 shadow-glow-sm" />
+                        <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full kyron-dot" />
                     </Link>
                 </Button>
             </div>
@@ -252,13 +253,14 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-9 w-9 rounded-lg border border-border p-0 overflow-hidden bg-muted group">
                     <Avatar className="h-full w-full rounded-none">
-                    <AvatarFallback className="rounded-none font-black text-[10px] text-white bg-primary shadow-glow">
+                    <AvatarFallback className="rounded-none font-black text-[10px] text-white kyron-gradient-bg shadow-kyron">
                         {user?.fallback || "AD"}
                     </AvatarFallback>
                     </Avatar>
                 </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 p-2 rounded-[1.5rem] border-border bg-card/98 backdrop-blur-3xl shadow-xl">
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/20 to-transparent" />
                     <DropdownMenuLabel className="p-4 bg-muted/30 rounded-xl mb-2">
                         <div className="flex flex-col gap-0.5">
                             <p className="text-[9px] font-black uppercase tracking-widest text-foreground italic leading-none">Operador</p>

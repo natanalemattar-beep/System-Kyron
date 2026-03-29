@@ -1,22 +1,25 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "../logo";
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const [progress, setProgress] = useState(0);
     const [visible, setVisible] = useState(true);
-    const prefersReducedMotion = useReducedMotion();
     const onCompleteRef = useRef(onComplete);
     const hasCompletedRef = useRef(false);
+    const completionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     onCompleteRef.current = onComplete;
 
     useEffect(() => {
         if (hasCompletedRef.current) return;
 
-        if (prefersReducedMotion) {
+        const prefersReduced = typeof window !== 'undefined' &&
+            window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReduced) {
             hasCompletedRef.current = true;
             setProgress(100);
             setVisible(false);
@@ -24,35 +27,35 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             return;
         }
 
-        const duration = 1600;
-        const fps = 60;
-        const increment = 100 / (duration / (1000 / fps));
+        const steps = 40;
+        const intervalMs = 40;
         let current = 0;
-        let timerId: ReturnType<typeof setTimeout> | null = null;
 
-        const frame = () => {
-            current = Math.min(current + increment, 100);
-            setProgress(current);
-
-            if (current < 100) {
-                rafId = requestAnimationFrame(frame);
-            } else {
-                if (hasCompletedRef.current) return;
-                hasCompletedRef.current = true;
-                setVisible(false);
-                timerId = setTimeout(() => {
-                    onCompleteRef.current();
-                }, 400);
+        const intervalId = setInterval(() => {
+            current += 100 / steps;
+            if (current >= 100) {
+                current = 100;
+                clearInterval(intervalId);
+                setProgress(100);
+                if (!hasCompletedRef.current) {
+                    hasCompletedRef.current = true;
+                    setVisible(false);
+                    completionTimerRef.current = setTimeout(() => {
+                        onCompleteRef.current();
+                    }, 400);
+                }
+                return;
             }
-        };
-
-        let rafId = requestAnimationFrame(frame);
+            setProgress(current);
+        }, intervalMs);
 
         return () => {
-            cancelAnimationFrame(rafId);
-            if (timerId) clearTimeout(timerId);
+            clearInterval(intervalId);
+            if (completionTimerRef.current) {
+                clearTimeout(completionTimerRef.current);
+            }
         };
-    }, [prefersReducedMotion]);
+    }, []);
 
     return (
         <AnimatePresence>
@@ -110,14 +113,13 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                             className="w-full space-y-3"
                         >
                             <div className="w-full h-[2px] bg-white/[0.04] rounded-full overflow-hidden">
-                                <motion.div
-                                    className="h-full rounded-full"
+                                <div
+                                    className="h-full rounded-full transition-all duration-100 ease-linear"
                                     style={{
                                         width: `${progress}%`,
                                         background: "linear-gradient(90deg, #0ea5e9, #3b82f6, #22c55e)",
                                         boxShadow: "0 0 8px rgba(6,182,212,0.3)",
                                     }}
-                                    transition={{ duration: 0.05, ease: "linear" }}
                                 />
                             </div>
                             <div className="flex items-center justify-center">
