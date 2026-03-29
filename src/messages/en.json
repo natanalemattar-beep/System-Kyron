@@ -44,7 +44,7 @@
             { "title": "VEN-NIF Accounting", "description": "Digital ledgers, RIPF, automated IVA, ISLR & IGTF filings stamped with SENIAT seal." },
             { "title": "HR & Payroll", "description": "Payroll with SSO, FAOV, LPH, bonuses, benefits and LOPCYMAT. Full LOTTT compliance." },
             { "title": "My Line 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry." },
-            { "title": "Artificial Intelligence", "description": "Claude Sonnet built in. Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
+            { "title": "Artificial Intelligence", "description": "Kyron AI built in. Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
             { "title": "Legal AI & Permits", "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette." },
             { "title": "Ameru — Eco-Credits", "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace." },
             { "title": "Dashboard & Analytics", "description": "Live KPIs, cash-flow analysis, financial projections, and exportable PDF and PowerPoint reports." },
@@ -55,7 +55,7 @@
             { "val": "48h", "detail": "Migration Time" },
             { "val": "Multi-Entity", "detail": "Holdings & Condos" },
             { "val": "Bilingual", "detail": "Spanish & English" },
-            { "val": "Claude", "detail": "Next-Gen AI" }
+            { "val": "Kyron AI", "detail": "Next-Gen AI" }
         ]
     },
     "ServicesSection": {
@@ -81,9 +81,9 @@
             },
             {
                 "title": "Artificial Intelligence",
-                "subtitle": "Claude Sonnet · Anthropic",
+                "subtitle": "Kyron AI · Native Intelligence",
                 "description": "Tax AI monitoring the Official Gazette, smart accounting assistant, predictive cash-flow analysis, and automatic executive report generation.",
-                "badges": ["Claude", "Anthropic", "AI Chat", "Reports"]
+                "badges": ["Kyron AI", "Native AI", "AI Chat", "Reports"]
             }
         ],
         "modules": [
@@ -220,7 +220,7 @@
         "highlights": [
             { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "100%", "statLabel": "Tax compliance" },
             { "label": "My Line 5G", "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.", "stat": "5G", "statLabel": "Network speed" },
-            { "label": "Integrated AI", "desc": "Kyron assistant with Claude Sonnet by Anthropic. Automates reports, documents and analysis.", "stat": "AI", "statLabel": "Claude Sonnet" },
+            { "label": "Integrated AI", "desc": "Kyron AI next-generation assistant. Automates reports, documents and analysis.", "stat": "AI", "statLabel": "Kyron AI" },
             { "label": "AES-256 Security", "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.", "stat": "256", "statLabel": "Encryption bits" },
             { "label": "HR & Payroll", "desc": "Full LOTTT management: payroll, benefits, vacations and severance in one click.", "stat": "LOTTT", "statLabel": "Legal framework" },
             { "label": "Fiscal Invoicing", "desc": "Invoices and credit/debit notes with IGTF validation and automatic BCV rate.", "stat": "3%", "statLabel": "Automatic IGTF" }

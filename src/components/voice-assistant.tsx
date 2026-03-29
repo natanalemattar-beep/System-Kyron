@@ -101,7 +101,7 @@ export function VoiceAssistant() {
           </div>
           <div className="flex flex-col items-start leading-none">
             <span className="text-[11px] font-black tracking-wider text-white uppercase">Kyron Chat</span>
-            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Claude IA</span>
+            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Kyron AI</span>
           </div>
         </button>
       </div>
@@ -122,7 +122,7 @@ export function VoiceAssistant() {
                 'text-[8px] font-bold uppercase tracking-widest transition-colors',
                 processing ? 'text-amber-400' : 'text-emerald-500/60'
               )}>
-                {processing ? 'Procesando...' : 'Claude IA · Listo'}
+                {processing ? 'Procesando...' : 'Kyron AI · Listo'}
               </p>
             </div>
           </div>
