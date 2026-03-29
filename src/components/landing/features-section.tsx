@@ -3,99 +3,18 @@
 import { BrainCircuit, Lock, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, Landmark, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 
-const features = [
-    {
-        icon: Calculator,
-        title: "Contabilidad VEN-NIF",
-        description: "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT.",
-        color: "text-primary",
-        bg: "bg-primary/10",
-        border: "border-primary/15",
-        glowColor: "rgba(30, 64, 175, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: Users,
-        title: "RRHH & Nómina",
-        description: "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT.",
-        color: "text-violet-400",
-        bg: "bg-violet-500/10",
-        border: "border-violet-500/15",
-        glowColor: "rgba(139, 92, 246, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: Smartphone,
-        title: "Mi Línea 5G / eSIM",
-        description: "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real.",
-        color: "text-blue-400",
-        bg: "bg-blue-500/10",
-        border: "border-blue-500/15",
-        glowColor: "rgba(59, 130, 246, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: BrainCircuit,
-        title: "Inteligencia Artificial",
-        description: "Gemini 2.0 Flash integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más.",
-        color: "text-rose-400",
-        bg: "bg-rose-500/10",
-        border: "border-rose-500/15",
-        glowColor: "rgba(244, 63, 94, 0.15)",
-        span: "col-span-1 sm:col-span-2 lg:col-span-1",
-        featured: true,
-    },
-    {
-        icon: Gavel,
-        title: "IA Legal & Permisos",
-        description: "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente.",
-        color: "text-amber-400",
-        bg: "bg-amber-500/10",
-        border: "border-amber-500/15",
-        glowColor: "rgba(245, 158, 11, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: Recycle,
-        title: "Ameru — Eco-Créditos",
-        description: "Clasificación de residuos por IA, generación de eco-créditos certificados y mercado de sostenibilidad.",
-        color: "text-emerald-400",
-        bg: "bg-emerald-500/10",
-        border: "border-emerald-500/15",
-        glowColor: "rgba(16, 185, 129, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: BarChart3,
-        title: "Dashboard & Analítica",
-        description: "KPIs en tiempo real, análisis de flujo de caja, proyecciones financieras y reportes PDF/PowerPoint.",
-        color: "text-cyan-400",
-        bg: "bg-cyan-500/10",
-        border: "border-cyan-500/15",
-        glowColor: "rgba(6, 182, 212, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: Landmark,
-        title: "Gestión de Tributos",
-        description: "IVA, ISLR, IGTF, parafiscales, municipales, retenciones y calendario fiscal automatizado.",
-        color: "text-indigo-400",
-        bg: "bg-indigo-500/10",
-        border: "border-indigo-500/15",
-        glowColor: "rgba(99, 102, 241, 0.15)",
-        span: "col-span-1",
-    },
-    {
-        icon: Lock,
-        title: "Seguridad Avanzada",
-        description: "Sellado criptográfico, log de auditoría inmutable y cifrado AES-256 en toda la plataforma corporativa.",
-        color: "text-orange-400",
-        bg: "bg-orange-500/10",
-        border: "border-orange-500/15",
-        glowColor: "rgba(249, 115, 22, 0.15)",
-        span: "col-span-1",
-    },
+const featuresMeta = [
+    { icon: Calculator, color: "text-primary", bg: "bg-primary/10", border: "border-primary/15", glowColor: "rgba(30, 64, 175, 0.15)", span: "col-span-1" },
+    { icon: Users, color: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/15", glowColor: "rgba(139, 92, 246, 0.15)", span: "col-span-1" },
+    { icon: Smartphone, color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/15", glowColor: "rgba(59, 130, 246, 0.15)", span: "col-span-1" },
+    { icon: BrainCircuit, color: "text-rose-400", bg: "bg-rose-500/10", border: "border-rose-500/15", glowColor: "rgba(244, 63, 94, 0.15)", span: "col-span-1 sm:col-span-2 lg:col-span-1", featured: true },
+    { icon: Gavel, color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/15", glowColor: "rgba(245, 158, 11, 0.15)", span: "col-span-1" },
+    { icon: Recycle, color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/15", glowColor: "rgba(16, 185, 129, 0.15)", span: "col-span-1" },
+    { icon: BarChart3, color: "text-cyan-400", bg: "bg-cyan-500/10", border: "border-cyan-500/15", glowColor: "rgba(6, 182, 212, 0.15)", span: "col-span-1" },
+    { icon: Landmark, color: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-500/15", glowColor: "rgba(99, 102, 241, 0.15)", span: "col-span-1" },
+    { icon: Lock, color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/15", glowColor: "rgba(249, 115, 22, 0.15)", span: "col-span-1" },
 ];
 
 const containerVariants = {
@@ -109,6 +28,10 @@ const itemVariants = {
 };
 
 export function FeaturesSection() {
+    const t = useTranslations('FeaturesSection');
+    const features = t.raw('features') as { title: string; description: string }[];
+    const stats = t.raw('stats') as { val: string; detail: string }[];
+
     return (
         <section id="caracteristicas" className="py-16 md:py-32 relative">
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
@@ -121,14 +44,14 @@ export function FeaturesSection() {
                     transition={{ duration: 0.7 }}
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
-                        <Sparkles className="h-3 w-3" /> Capacidades del Sistema
+                        <Sparkles className="h-3 w-3" /> {t('badge')}
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground uppercase leading-[1.2] break-words overflow-hidden">
-                        Todo lo que tu <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words">empresa necesita</span>
+                        {t('title_highlight')} <br className="hidden sm:block" />
+                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words">{t('title_rest')}</span>
                     </h2>
                     <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
-                        7 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.
+                        {t('subtitle')}
                     </p>
                 </motion.div>
 
@@ -139,46 +62,49 @@ export function FeaturesSection() {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.05 }}
                 >
-                    {features.map((f) => (
-                        <motion.div
-                            key={f.title}
-                            variants={itemVariants}
-                            className={cn(
-                                "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
-                                "bg-card/30 dark:bg-card/15",
-                                f.border, f.span
-                            )}
-                            style={{ '--glow-color': f.glowColor } as React.CSSProperties}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px -8px ${f.glowColor}`;
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLElement).style.boxShadow = '';
-                            }}
-                        >
-                            <div className="absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    {features.map((f, idx) => {
+                        const meta = featuresMeta[idx] || featuresMeta[0];
+                        return (
+                            <motion.div
+                                key={f.title}
+                                variants={itemVariants}
+                                className={cn(
+                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
+                                    "bg-card/30 dark:bg-card/15",
+                                    meta.border, meta.span
+                                )}
+                                style={{ '--glow-color': meta.glowColor } as React.CSSProperties}
+                                onMouseEnter={(e) => {
+                                    (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px -8px ${meta.glowColor}`;
+                                }}
+                                onMouseLeave={(e) => {
+                                    (e.currentTarget as HTMLElement).style.boxShadow = '';
+                                }}
+                            >
+                                <div className="absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                            {f.featured && (
-                                <div className="absolute top-4 right-4">
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-black uppercase tracking-widest text-rose-400">
-                                        <Sparkles className="h-2 w-2" /> IA Nativa
-                                    </span>
+                                {meta.featured && (
+                                    <div className="absolute top-4 right-4">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-black uppercase tracking-widest text-rose-400">
+                                            <Sparkles className="h-2 w-2" /> {t('ai_native_badge')}
+                                        </span>
+                                    </div>
+                                )}
+                                <div className={cn("p-3 rounded-2xl w-fit border border-border/20 dark:border-white/5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-inner", meta.bg)}>
+                                    <meta.icon className={cn("h-5 w-5", meta.color)} />
                                 </div>
-                            )}
-                            <div className={cn("p-3 rounded-2xl w-fit border border-border/20 dark:border-white/5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-inner", f.bg)}>
-                                <f.icon className={cn("h-5 w-5", f.color)} />
-                            </div>
-                            <div className="space-y-2 flex-1">
-                                <h3 className={cn("text-sm font-black uppercase tracking-tight flex items-center gap-2", f.color)}>
-                                    {f.title}
-                                    <ArrowUpRight className={cn("h-3 w-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300", f.color)} />
-                                </h3>
-                                <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">
-                                    {f.description}
-                                </p>
-                            </div>
-                        </motion.div>
-                    ))}
+                                <div className="space-y-2 flex-1">
+                                    <h3 className={cn("text-sm font-black uppercase tracking-tight flex items-center gap-2", meta.color)}>
+                                        {f.title}
+                                        <ArrowUpRight className={cn("h-3 w-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300", meta.color)} />
+                                    </h3>
+                                    <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">
+                                        {f.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </motion.div>
 
                 <motion.div
@@ -188,12 +114,7 @@ export function FeaturesSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    {[
-                        { val: "48h", detail: "Tiempo de migración" },
-                        { val: "Multi-empresa", detail: "Holdings y condominios" },
-                        { val: "Bilingüe", detail: "Español & English" },
-                        { val: "Gemini 2.0", detail: "IA de última generación" },
-                    ].map((r, i) => (
+                    {stats.map((r, i) => (
                         <div
                             key={i}
                             className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"

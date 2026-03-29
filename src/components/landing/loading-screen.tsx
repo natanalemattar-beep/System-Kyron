@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Logo } from "../logo";
+import { useTranslations } from 'next-intl';
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+    const t = useTranslations('LoadingScreen');
     const [progress, setProgress] = useState(0);
     const [visible, setVisible] = useState(true);
     const [exiting, setExiting] = useState(false);
@@ -94,7 +96,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                         System Kyron
                     </h1>
                     <p className="text-[7px] font-bold uppercase tracking-[0.6em] text-cyan-400/40">
-                        Inteligencia Corporativa
+                        {t('subtitle')}
                     </p>
                 </div>
 

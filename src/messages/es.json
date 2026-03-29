@@ -22,16 +22,27 @@
         "subtitle": "Contabilidad, facturación, nómina y conectividad. 100% adaptado a la normativa venezolana.",
         "badge": "Plataforma Empresarial Inteligente",
         "cta_main": "Comienza Gratis",
-        "cta_secondary": "Guía de Usuario"
+        "cta_secondary": "Guía de Usuario",
+        "features": ["VEN-NIF Certificado", "IVA & IGTF Auto", "BCV Tiempo Real", "IA Integrada"],
+        "compliance": "Cumplimiento",
+        "modules_label": "Módulos",
+        "modules_value": "7 Integrados",
+        "stats": [
+            { "val": "IVA 16%", "label": "Automático" },
+            { "val": "IGTF 3%", "label": "Integrado" },
+            { "val": "BCV", "label": "Tiempo Real" },
+            { "val": "VEN-NIF", "label": "Certificado" }
+        ]
     },
     "FeaturesSection": {
         "badge": "Capacidades del Sistema",
-        "title_highlight": "todo lo que tu",
+        "title_highlight": "Todo lo que tu",
         "title_rest": "empresa necesita",
         "subtitle": "Módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.",
         "ai_native_badge": "IA Nativa",
         "features": [
-            { "title": "Asesoría Contable", "description": "Contabilidad VEN-NIF, nómina LOTTT, RRHH, ingeniería y marketing integrados en un módulo unificado." },
+            { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
+            { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
             { "title": "Mi Línea 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
             { "title": "Inteligencia Artificial", "description": "Gemini 2.0 Flash integrado. Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
             { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
@@ -48,102 +59,81 @@
         ]
     },
     "ServicesSection": {
-        "badge": "9 Módulos Integrados",
-        "title_highlight": "Modular",
-        "title_rest": "Ecosistema",
-        "subtitle": "Selecciona el área que tu empresa necesita. Cada módulo funciona de forma independiente o como parte del ecosistema completo.",
-        "view_modules": "Ver módulos",
-        "access_hint": "Accede desde el botón",
-        "access_btn": "ACCESO AL ECOSISTEMA",
-        "categories": [
+        "badge": "Ecosistema Completo",
+        "title_highlight": "Todo lo que necesitas,",
+        "title_rest": "integrado",
+        "subtitle": "7 módulos interconectados que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.",
+        "modules_title": "7 Módulos,",
+        "modules_highlight": "Un Ecosistema",
+        "explore": "Explorar Ecosistema",
+        "features": [
             {
-                "label": "Empresa",
-                "description": "Suite corporativa completa para gestión financiera, legal y de talento humano.",
-                "modules": [
-                    { "title": "Asesoría Contable", "desc": "Contabilidad, nómina, RRHH, ingeniería y marketing" },
-                    { "title": "Facturación", "desc": "Facturas SENIAT con tasa BCV y módulo de ventas" },
-                    { "title": "Asesoría Legal", "desc": "Contratos, permisos, Conatel y Gaceta Oficial IA" }
-                ]
+                "title": "Contabilidad & Fiscal",
+                "subtitle": "VEN-NIF · SENIAT · ISLR",
+                "description": "Sistema contable completo con libros legales, plan de cuentas venezolano, cálculo automático de IVA 16%, IGTF 3% e ISLR. Compatible con Gaceta Oficial vigente.",
+                "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
             },
             {
-                "label": "Mi Línea & IT",
-                "description": "Gestión de infraestructura de conectividad y tecnología de misión crítica.",
-                "modules": [
-                    { "title": "Mis Líneas", "desc": "Portal unificado personal + flota empresarial 5G" },
-                    { "title": "Administración de Red", "desc": "Radiobases, infraestructura y provisión masiva" }
-                ]
+                "title": "Seguridad AES-256",
+                "subtitle": "Cifrado Militar · JWT · Auditoría",
+                "description": "Infraestructura de seguridad de grado bancario. Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro inmutable de cada acción.",
+                "badges": ["AES-256", "JWT", "HTTPS", "Auditoría"]
             },
             {
-                "label": "Personal & Sostenibilidad",
-                "description": "Portal ciudadano con bóveda digital, eco-créditos y gestión de activos verdes.",
-                "modules": [
-                    { "title": "Cuenta Personal", "desc": "ID digital, documentos civiles y trámites de salud" },
-                    { "title": "Ameru Eco-Créditos", "desc": "Reciclaje inteligente y mercado de eco-créditos" },
-                    { "title": "Socios & Directivos", "desc": "Supervisión estratégica de holdings y beneficios" },
-                    { "title": "Analítica General", "desc": "KPIs, proyecciones y dashboard ejecutivo unificado" }
-                ]
+                "title": "Inteligencia Artificial",
+                "subtitle": "Gemini 2.0 Flash · GPT-4o",
+                "description": "IA fiscal que monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
+                "badges": ["Gemini 2.0", "GPT-4o", "Chat IA", "Reportes"]
             }
+        ],
+        "modules": [
+            "Cuenta Personal",
+            "Mis Líneas",
+            "Asesoría Contable",
+            "Asesoría Legal",
+            "Facturación",
+            "Socios",
+            "Sostenibilidad"
         ]
     },
     "AboutUsSection": {
-        "badge": "Equipo Profesional",
-        "title_highlight": "Sobre",
-        "title_rest": "Nosotros",
-        "subtitle": "Desarrollamos ingeniería de software diseñada para la excelencia operativa.",
-        "mission_title": "Misión",
-        "mission_text": "Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.",
-        "vision_title": "Visión",
-        "vision_text": "Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.",
-        "stat_companies": "EMPRESAS",
-        "stat_compliance": "CUMPLIMIENTO",
-        "stat_errors": "ERRORES FISCALES",
-        "testimonials": [
-            {
-                "text": "Nuestra plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que el sector privado necesitaba.",
-                "module": "Área de Gestión"
-            },
-            {
-                "text": "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista en la región.",
-                "module": "Recursos Humanos"
-            }
-        ]
+        "badge": "Hecho en Venezuela",
+        "title_highlight": "Construido para",
+        "title_rest": "Venezuela",
+        "subtitle": "Ingeniería de software diseñada para la excelencia operativa y el cumplimiento normativo total.",
+        "stat_users": "Usuarios Registrados",
+        "stat_compliance": "Cumplimiento Fiscal",
+        "stat_companies": "Empresas Activas",
+        "feat_migration": "Migración en 48h",
+        "feat_bilingual": "Soporte Bilingüe",
+        "feat_multi": "Multi-empresa",
+        "feat_audit": "Auditoría Inmutable",
+        "join_cta": "Únete al Ecosistema"
     },
     "FaqSection": {
+        "badge": "Soporte",
         "title_highlight": "Preguntas",
         "title_rest": "Frecuentes",
-        "subtitle": "Resolvemos las dudas más comunes sobre la plataforma para que puedas tomar decisiones con confianza.",
         "items": [
             {
-                "question": "¿Cómo garantizan el cumplimiento fiscal venezolano?",
-                "answer": "System Kyron monitorea la Gaceta Oficial diariamente con IA. Todas las declaraciones de IVA 16%, IGTF 3% e ISLR 34% se calculan automáticamente según la normativa VEN-NIF vigente. Las actualizaciones legales se despliegan sin intervención del usuario."
+                "question": "¿Cómo garantizan el cumplimiento fiscal?",
+                "answer": "Monitoreamos la Gaceta Oficial con IA. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente."
             },
             {
-                "question": "¿Puedo gestionar múltiples empresas o un holding?",
-                "answer": "Sí. El portal de Socios y Directivos permite consolidar la contabilidad de varias entidades en un único Centro de Mando. Cada empresa mantiene su propia independencia de datos con reportes a nivel de grupo disponibles en tiempo real."
+                "question": "¿Puedo gestionar varias empresas?",
+                "answer": "Sí. El portal de Socios permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado."
             },
             {
-                "question": "¿Cómo funciona la tasa BCV en facturas y pagos?",
-                "answer": "La tasa del Banco Central de Venezuela se actualiza automáticamente en la plataforma. Cada factura y transacción en bolívares genera automáticamente su equivalente en USD aplicando la tasa BCV del momento, facilitando el cumplimiento del IGTF 3%."
+                "question": "¿Cómo funciona la tasa BCV?",
+                "answer": "Se actualiza automáticamente. Cada factura genera su equivalente en USD con la tasa BCV del momento."
             },
             {
-                "question": "¿Es difícil migrar mis datos desde otro sistema?",
-                "answer": "No. Nuestro equipo guía la importación masiva de datos históricos. Para la mayoría de sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
+                "question": "¿Es difícil migrar mis datos?",
+                "answer": "No. Para sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
             },
             {
-                "question": "¿El módulo Telecom funciona con operadoras venezolanas?",
-                "answer": "Sí. El portal de Telecomunicaciones gestiona líneas de Movilnet, Digitel y Movistar, incluyendo activación de eSIM, provisión 5G y gestión de flota corporativa por departamento con límites de consumo configurables."
-            },
-            {
-                "question": "¿Qué son los Eco-Créditos de Ameru IA?",
-                "answer": "Ameru es nuestro módulo de sostenibilidad. Permite clasificar residuos mediante inteligencia artificial, generar eco-créditos certificados por cada kilogramo reciclado y participar en el mercado de eco-créditos Kyron para monetizar el impacto ambiental."
-            },
-            {
-                "question": "¿Cuál es el nivel de seguridad de la plataforma?",
-                "answer": "Toda la información se cifra con AES-256. La autenticación usa JWT con cookies HTTP-only y sesiones de 7 días. El registro de auditoría es inmutable y cada acción queda registrada con timestamp, IP y usuario responsable."
-            },
-            {
-                "question": "¿Cómo funciona el registro de persona natural vs. jurídica?",
-                "answer": "El registro diferencia entre personas naturales (cédula, datos personales) y personas jurídicas (RIF, razón social, representante legal). Cada tipo desbloquea los módulos correspondientes: documentos civiles para naturales, contabilidad y nómina para jurídicas."
+                "question": "¿Qué nivel de seguridad tienen?",
+                "answer": "Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro de auditoría inmutable para cada acción."
             }
         ]
     },
@@ -153,7 +143,7 @@
         "title_rest": "a tu Operación",
         "subtitle": "Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría técnica.",
         "form_title": "Expediente de Demo",
-        "form_subtitle": "Auditoría técnica v2.6.5",
+        "form_subtitle": "Auditoría técnica v2.8.2",
         "field_name": "Nombre Maestro",
         "field_name_placeholder": "Tu nombre",
         "field_role": "Cargo",
@@ -162,6 +152,14 @@
         "field_email_placeholder": "tu@correo.com",
         "field_phone": "Teléfono",
         "field_phone_placeholder": "0412...",
+        "field_company": "Empresa",
+        "field_company_placeholder": "Nombre de la empresa",
+        "field_size": "Tamaño",
+        "field_size_placeholder": "Empleados...",
+        "field_sector": "Sector",
+        "field_sector_placeholder": "Sector...",
+        "field_urgency": "Urgencia",
+        "field_urgency_placeholder": "Prioridad...",
         "field_module": "Módulo de Interés",
         "field_module_placeholder": "Seleccionar...",
         "btn_submit": "SOLICITAR AUDITORÍA",
@@ -171,7 +169,71 @@
         "toast_success_desc": "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
         "toast_error_title": "FALLA DE PROTOCOLO",
         "toast_error_desc": "No se pudo transmitir la solicitud.",
-        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"]
+        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"],
+        "sectors": ["Comercio", "Servicios", "Manufactura", "Tecnología", "Construcción", "Salud", "Educación", "Transporte", "Agricultura", "Otro"],
+        "urgencies": ["Inmediata", "Esta semana", "Este mes", "Explorando opciones"],
+        "validation": {
+            "name_short": "El nombre es muy corto",
+            "role_required": "Especifica tu cargo",
+            "email_invalid": "Correo electrónico inválido",
+            "phone_invalid": "Número de teléfono inválido",
+            "company_short": "El nombre de la empresa es muy corto",
+            "size_required": "Selecciona el tamaño",
+            "sector_required": "Selecciona el sector",
+            "urgency_required": "Selecciona la urgencia",
+            "module_required": "Selecciona un módulo"
+        }
+    },
+    "Footer": {
+        "description": "Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.",
+        "platform": "Plataforma",
+        "modules": "Módulos",
+        "contact": "Contacto",
+        "nav_home": "Inicio",
+        "nav_ecosystem": "Ecosistema",
+        "nav_about": "Nosotros",
+        "nav_faq": "FAQ",
+        "nav_contact": "Contacto",
+        "module_list": [
+            "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
+            "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
+            "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
+        ],
+        "version_stable": "v2.8.5 — Estable",
+        "copyright": "System Kyron · Inteligencia Corporativa · v2.8.5",
+        "user_manual": "Manual de Usuario",
+        "terms": "Términos",
+        "privacy": "Privacidad"
+    },
+    "ScrollCinematic": {
+        "tagline": "System Kyron — Inteligencia Corporativa",
+        "line1": "Tu empresa.",
+        "line2": "Toda.",
+        "line3": "En un solo lugar.",
+        "subtitle": "Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela, con IA integrada y cumplimiento fiscal automatizado.",
+        "highlights_subtitle": "Todo lo que tu empresa necesita",
+        "highlights_title": "7 módulos integrados.",
+        "power_subtitle": "Poder sin precedentes",
+        "power_title": "Cifras que hablan por sí solas.",
+        "dashboard_subtitle": "Interfaz intuitiva",
+        "dashboard_title": "Un dashboard. Todo el control.",
+        "highlights": [
+            { "label": "Contabilidad & Fiscal", "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", "stat": "100%", "statLabel": "Cumplimiento fiscal" },
+            { "label": "Mi Línea 5G", "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", "stat": "5G", "statLabel": "Velocidad de red" },
+            { "label": "IA Integrada", "desc": "Asistente Kyron con Gemini 2.0 y GPT-4o. Automatiza reportes, documentos y análisis.", "stat": "2.0", "statLabel": "Gemini Flash" },
+            { "label": "Seguridad AES-256", "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", "stat": "256", "statLabel": "Bits de cifrado" },
+            { "label": "RR.HH & Nómina", "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", "stat": "LOTTT", "statLabel": "Marco legal" },
+            { "label": "Facturación Fiscal", "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", "stat": "3%", "statLabel": "IGTF automático" }
+        ],
+        "power_stats": [
+            { "value": "7", "label": "Módulos" },
+            { "value": "100%", "label": "Cumplimiento" },
+            { "value": "AES", "label": "256 bits" },
+            { "value": "VEN", "label": "Hecho aquí" }
+        ]
+    },
+    "LoadingScreen": {
+        "subtitle": "Inteligencia Corporativa"
     },
     "LoginPage": {
         "back": "Inicio",

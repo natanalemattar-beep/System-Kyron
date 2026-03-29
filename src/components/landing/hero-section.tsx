@@ -80,6 +80,8 @@ function HexGrid() {
 export function HeroSection() {
     const t = useTranslations('HeroSection');
     const cumplimiento = useCountUp(100, 2.5, 1.5);
+    const heroFeatures = t.raw('features') as string[];
+    const heroStats = t.raw('stats') as { val: string; label: string }[];
 
     return (
         <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
@@ -167,7 +169,7 @@ export function HeroSection() {
                             transition={{ duration: 0.5, delay: 0.55 }}
                             className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
                         >
-                            {["VEN-NIF Certificado", "IVA & IGTF Auto", "BCV Tiempo Real", "IA Integrada"].map((feat, i) => (
+                            {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
                                     <CheckCircle2 className="h-3.5 w-3.5 text-[#22c55e]" />
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-white/45">{feat}</span>
@@ -205,7 +207,7 @@ export function HeroSection() {
                                         <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Cumplimiento</p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">{t('compliance')}</p>
                                         <p className="text-base sm:text-lg font-black text-[#22c55e] tabular-nums">{cumplimiento}%</p>
                                     </div>
                                 </div>
@@ -217,8 +219,8 @@ export function HeroSection() {
                                         <Hexagon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Módulos</p>
-                                        <p className="text-base sm:text-lg font-black text-[#0ea5e9]">7 Integrados</p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">{t('modules_label')}</p>
+                                        <p className="text-base sm:text-lg font-black text-[#0ea5e9]">{t('modules_value')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -233,23 +235,27 @@ export function HeroSection() {
             <div className="absolute bottom-6 left-0 right-0 z-10">
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {[
-                            { val: "IVA 16%", label: "Automático", gradient: "from-[#0ea5e9]/20 to-[#0ea5e9]/5", text: "text-[#0ea5e9]" },
-                            { val: "IGTF 3%", label: "Integrado", gradient: "from-[#3b82f6]/20 to-[#3b82f6]/5", text: "text-[#3b82f6]" },
-                            { val: "BCV", label: "Tiempo Real", gradient: "from-[#06b6d4]/20 to-[#06b6d4]/5", text: "text-[#06b6d4]" },
-                            { val: "VEN-NIF", label: "Certificado", gradient: "from-[#22c55e]/20 to-[#22c55e]/5", text: "text-[#22c55e]" },
-                        ].map((s, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7 + i * 0.1 }}
-                                className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${s.gradient} border border-white/5 backdrop-blur-sm`}
-                            >
-                                <p className={`text-sm font-black leading-none ${s.text}`}>{s.val}</p>
-                                <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">{s.label}</p>
-                            </motion.div>
-                        ))}
+                        {heroStats.map((s, i) => {
+                            const gradients = [
+                                { gradient: "from-[#0ea5e9]/20 to-[#0ea5e9]/5", text: "text-[#0ea5e9]" },
+                                { gradient: "from-[#3b82f6]/20 to-[#3b82f6]/5", text: "text-[#3b82f6]" },
+                                { gradient: "from-[#06b6d4]/20 to-[#06b6d4]/5", text: "text-[#06b6d4]" },
+                                { gradient: "from-[#22c55e]/20 to-[#22c55e]/5", text: "text-[#22c55e]" },
+                            ];
+                            const g = gradients[i % gradients.length];
+                            return (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.7 + i * 0.1 }}
+                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-white/5 backdrop-blur-sm`}
+                                >
+                                    <p className={`text-sm font-black leading-none ${g.text}`}>{s.val}</p>
+                                    <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">{s.label}</p>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

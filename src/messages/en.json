@@ -22,7 +22,17 @@
         "subtitle": "Accounting, invoicing, payroll and connectivity. 100% adapted to Venezuelan regulations.",
         "badge": "Intelligent Business Platform",
         "cta_main": "Start Free",
-        "cta_secondary": "User Guide"
+        "cta_secondary": "User Guide",
+        "features": ["VEN-NIF Certified", "IVA & IGTF Auto", "BCV Real-Time", "AI Integrated"],
+        "compliance": "Compliance",
+        "modules_label": "Modules",
+        "modules_value": "7 Integrated",
+        "stats": [
+            { "val": "IVA 16%", "label": "Automatic" },
+            { "val": "IGTF 3%", "label": "Integrated" },
+            { "val": "BCV", "label": "Real-Time" },
+            { "val": "VEN-NIF", "label": "Certified" }
+        ]
     },
     "FeaturesSection": {
         "badge": "Platform Capabilities",
@@ -31,119 +41,99 @@
         "subtitle": "Nine integrated modules within a single digital ecosystem built for the Venezuelan market.",
         "ai_native_badge": "AI-Powered",
         "features": [
-            { "title": "Accounting Advisory", "description": "VEN-NIF accounting, LOTTT payroll, HR, engineering, and marketing — all unified in a single module." },
-            { "title": "Telecom 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time network telemetry." },
+            { "title": "VEN-NIF Accounting", "description": "Digital ledgers, RIPF, automated IVA, ISLR & IGTF filings stamped with SENIAT seal." },
+            { "title": "HR & Payroll", "description": "Payroll with SSO, FAOV, LPH, bonuses, benefits and LOPCYMAT. Full LOTTT compliance." },
+            { "title": "My Line 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry." },
             { "title": "Artificial Intelligence", "description": "Gemini 2.0 Flash built in. Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
-            { "title": "Legal AI & Permits", "description": "Automated contract generation, notarial powers, CONATEL and SENIAT permits, and Official Gazette tracking." },
+            { "title": "Legal AI & Permits", "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette." },
             { "title": "Ameru — Eco-Credits", "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace." },
             { "title": "Dashboard & Analytics", "description": "Live KPIs, cash-flow analysis, financial projections, and exportable PDF and PowerPoint reports." },
             { "title": "Tax Management", "description": "IVA, ISLR, IGTF, parafiscal contributions, municipal taxes, withholdings, and an automated tax calendar." },
             { "title": "Enterprise Security", "description": "Cryptographic sealing, an immutable audit trail, and AES-256 encryption across the entire platform." }
         ],
         "stats": [
-            { "val": "48 h", "detail": "Migration Time" },
-            { "val": "Multi-Entity", "detail": "Holdings & Condominiums" },
+            { "val": "48h", "detail": "Migration Time" },
+            { "val": "Multi-Entity", "detail": "Holdings & Condos" },
             { "val": "Bilingual", "detail": "Spanish & English" },
             { "val": "Gemini 2.0", "detail": "Next-Gen AI" }
         ]
     },
     "ServicesSection": {
-        "badge": "9 Integrated Modules",
-        "title_highlight": "Modular",
-        "title_rest": "Ecosystem",
-        "subtitle": "Choose the areas your company needs. Each module works on its own or as part of the complete ecosystem.",
-        "view_modules": "View Modules",
-        "access_hint": "Access via the button",
-        "access_btn": "ENTER THE ECOSYSTEM",
-        "categories": [
+        "badge": "Complete Ecosystem",
+        "title_highlight": "Everything you need,",
+        "title_rest": "integrated",
+        "subtitle": "7 interconnected modules covering accounting, invoicing, legal, telecommunications and artificial intelligence.",
+        "modules_title": "7 Modules,",
+        "modules_highlight": "One Ecosystem",
+        "explore": "Explore Ecosystem",
+        "features": [
             {
-                "label": "Enterprise",
-                "description": "A complete corporate suite for financial, legal, and human-talent management.",
-                "modules": [
-                    { "title": "Accounting Advisory", "desc": "Accounting, payroll, HR, engineering, and marketing" },
-                    { "title": "Invoicing", "desc": "SENIAT-compliant invoices with live BCV rate" },
-                    { "title": "Legal Advisory", "desc": "Contracts, permits, CONATEL, and Official Gazette AI" }
-                ]
+                "title": "Accounting & Tax",
+                "subtitle": "VEN-NIF · SENIAT · ISLR",
+                "description": "Complete accounting system with legal books, Venezuelan chart of accounts, automatic IVA 16%, IGTF 3% and ISLR calculation. Compliant with the current Official Gazette.",
+                "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
             },
             {
-                "label": "Telecom & IT",
-                "description": "Telecommunications infrastructure and mission-critical technology management.",
-                "modules": [
-                    { "title": "My Lines", "desc": "Unified personal and corporate 5G fleet portal" },
-                    { "title": "Network Management", "desc": "Radio bases, infrastructure, and mass provisioning" }
-                ]
+                "title": "AES-256 Security",
+                "subtitle": "Military Encryption · JWT · Audit",
+                "description": "Bank-grade security infrastructure. AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable log of every action.",
+                "badges": ["AES-256", "JWT", "HTTPS", "Audit"]
             },
             {
-                "label": "Personal & Sustainability",
-                "description": "Citizen portal featuring a digital vault, eco-credits, and green asset management.",
-                "modules": [
-                    { "title": "Personal Account", "desc": "Digital ID, civil documents, and health procedures" },
-                    { "title": "Ameru Eco-Credits", "desc": "Smart recycling and eco-credit marketplace" },
-                    { "title": "Partners & Directors", "desc": "Strategic oversight for holdings and stakeholders" },
-                    { "title": "Analytics", "desc": "KPIs, projections, and a unified executive dashboard" }
-                ]
+                "title": "Artificial Intelligence",
+                "subtitle": "Gemini 2.0 Flash · GPT-4o",
+                "description": "Tax AI monitoring the Official Gazette, smart accounting assistant, predictive cash-flow analysis, and automatic executive report generation.",
+                "badges": ["Gemini 2.0", "GPT-4o", "AI Chat", "Reports"]
             }
+        ],
+        "modules": [
+            "Personal Account",
+            "My Lines",
+            "Accounting Advisory",
+            "Legal Advisory",
+            "Invoicing",
+            "Partners",
+            "Sustainability"
         ]
     },
     "AboutUsSection": {
-        "badge": "Professional Team",
-        "title_highlight": "About",
-        "title_rest": "Us",
-        "subtitle": "We build software engineering solutions designed for operational excellence.",
-        "mission_title": "Mission",
-        "mission_text": "To ensure reliable business management through secure, transparent, and immutable records.",
-        "vision_title": "Vision",
-        "vision_text": "To become the global benchmark for efficiency in forward-thinking companies and institutions.",
-        "stat_companies": "COMPANIES",
-        "stat_compliance": "COMPLIANCE",
-        "stat_errors": "FISCAL ERRORS",
-        "testimonials": [
-            {
-                "text": "This platform eliminated the risk of document loss. Secure record-keeping is exactly the guarantee the private sector needed.",
-                "module": "Management"
-            },
-            {
-                "text": "Process automation lets us run large-scale projects with a level of efficiency we had never seen in the region.",
-                "module": "Human Resources"
-            }
-        ]
+        "badge": "Made in Venezuela",
+        "title_highlight": "Built for",
+        "title_rest": "Venezuela",
+        "subtitle": "Software engineering designed for operational excellence and full regulatory compliance.",
+        "stat_users": "Registered Users",
+        "stat_compliance": "Tax Compliance",
+        "stat_companies": "Active Companies",
+        "feat_migration": "48h Migration",
+        "feat_bilingual": "Bilingual Support",
+        "feat_multi": "Multi-Entity",
+        "feat_audit": "Immutable Audit",
+        "join_cta": "Join the Ecosystem"
     },
     "FaqSection": {
-        "title_highlight": "Frequently Asked",
-        "title_rest": "Questions",
-        "subtitle": "Answers to the most common questions about the platform, so you can decide with confidence.",
+        "badge": "Support",
+        "title_highlight": "Frequently",
+        "title_rest": "Asked Questions",
         "items": [
             {
-                "question": "How do you guarantee Venezuelan tax compliance?",
-                "answer": "System Kyron monitors the Official Gazette daily with AI. All IVA (16 %), IGTF (3 %), and ISLR (34 %) filings are calculated automatically under current VEN-NIF rules. Regulatory updates deploy without any action on your part."
+                "question": "How do you guarantee tax compliance?",
+                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations."
             },
             {
-                "question": "Can I manage multiple companies or a holding?",
-                "answer": "Absolutely. The Partners & Directors portal consolidates the accounting of several entities into a single Command Center. Each company keeps its own data while group-level reports are available in real time."
+                "question": "Can I manage multiple companies?",
+                "answer": "Yes. The Partners portal lets you consolidate the accounting of multiple entities into a unified Command Center."
             },
             {
-                "question": "How does the BCV exchange rate work in invoices and payments?",
-                "answer": "The Central Bank of Venezuela (BCV) rate is updated automatically on the platform. Every invoice and bolivar transaction generates its USD equivalent at the current BCV rate, simplifying IGTF (3 %) compliance."
+                "question": "How does the BCV rate work?",
+                "answer": "It updates automatically. Every invoice generates its USD equivalent with the current BCV rate."
             },
             {
-                "question": "Is migrating my data from another system difficult?",
-                "answer": "Not at all. Our team guides a bulk import of your historical data. For most standard tools (Excel, Profit, Mónica), migration is completed in under 48 hours at no extra cost."
+                "question": "Is it hard to migrate my data?",
+                "answer": "No. For standard systems (Excel, Profit, Monica), migration is completed in less than 48 hours at no extra cost."
             },
             {
-                "question": "Does the Telecom module work with Venezuelan carriers?",
-                "answer": "Yes. The Telecom portal supports Movilnet, Digitel, and Movistar lines — including eSIM activation, 5G provisioning, and corporate fleet management by department with configurable usage caps."
-            },
-            {
-                "question": "What are Ameru AI Eco-Credits?",
-                "answer": "Ameru is our sustainability module. It classifies waste using AI, issues certified eco-credits for every kilogram recycled, and connects you to the Kyron eco-credit marketplace to monetize your environmental impact."
-            },
-            {
-                "question": "How secure is the platform?",
-                "answer": "All data is encrypted with AES-256. Authentication uses JWT with HTTP-only cookies and 7-day sessions. The audit log is immutable — every action is recorded with a timestamp, IP address, and the responsible user."
-            },
-            {
-                "question": "How does registration differ for individuals vs. companies?",
-                "answer": "Individuals register with their national ID and personal information, unlocking civil-document modules. Companies register with their RIF and legal-representative details, unlocking accounting, payroll, and enterprise modules."
+                "question": "What level of security do you have?",
+                "answer": "AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable audit log for every action."
             }
         ]
     },
@@ -152,26 +142,98 @@
         "title_highlight": "Bring Intelligence",
         "title_rest": "to Your Operations",
         "subtitle": "Tailored ecosystem deployment. Fill out the brief below to schedule your technical audit.",
-        "form_title": "Request a Demo",
+        "form_title": "Demo Request",
         "form_subtitle": "Technical audit v2.8.2",
         "field_name": "Full Name",
         "field_name_placeholder": "Your full name",
         "field_role": "Position",
-        "field_role_placeholder": "Your role…",
+        "field_role_placeholder": "Role...",
         "field_email": "Email Address",
         "field_email_placeholder": "you@company.com",
         "field_phone": "Phone",
-        "field_phone_placeholder": "Phone number…",
+        "field_phone_placeholder": "Phone number...",
+        "field_company": "Company",
+        "field_company_placeholder": "Company name",
+        "field_size": "Size",
+        "field_size_placeholder": "Employees...",
+        "field_sector": "Industry",
+        "field_sector_placeholder": "Sector...",
+        "field_urgency": "Urgency",
+        "field_urgency_placeholder": "Priority...",
         "field_module": "Module of Interest",
-        "field_module_placeholder": "Select…",
-        "btn_submit": "REQUEST DEMO",
-        "btn_submitting": "SENDING…",
+        "field_module_placeholder": "Select...",
+        "btn_submit": "REQUEST AUDIT",
+        "btn_submitting": "TRANSMITTING...",
         "footer_text": "AES-256 Encrypted · 2026",
-        "toast_success_title": "REQUEST RECEIVED",
-        "toast_success_desc": "Your brief has been submitted. An account manager will be in touch shortly.",
-        "toast_error_title": "SUBMISSION FAILED",
-        "toast_error_desc": "We could not process your request. Please try again.",
-        "roles": ["CEO / Owner", "General Manager", "Administrator", "Other"]
+        "toast_success_title": "TRANSMISSION COMPLETE",
+        "toast_success_desc": "Dossier submitted for review. An account officer will reach out.",
+        "toast_error_title": "PROTOCOL FAILURE",
+        "toast_error_desc": "Could not transmit the request. Check your connection.",
+        "roles": ["CEO / Owner", "General Manager", "Administrator", "Other"],
+        "sectors": ["Commerce", "Services", "Manufacturing", "Technology", "Construction", "Healthcare", "Education", "Transportation", "Agriculture", "Other"],
+        "urgencies": ["Immediate", "This week", "This month", "Exploring options"],
+        "validation": {
+            "name_short": "Name is too short",
+            "role_required": "Specify your role",
+            "email_invalid": "Invalid email address",
+            "phone_invalid": "Invalid phone number",
+            "company_short": "Company name is too short",
+            "size_required": "Select a size",
+            "sector_required": "Select an industry",
+            "urgency_required": "Select urgency",
+            "module_required": "Select a module"
+        }
+    },
+    "Footer": {
+        "description": "Corporate-grade software engineering. Mission-critical solutions for the future of Venezuelan finance and telecommunications.",
+        "platform": "Platform",
+        "modules": "Modules",
+        "contact": "Contact",
+        "nav_home": "Home",
+        "nav_ecosystem": "Ecosystem",
+        "nav_about": "About Us",
+        "nav_faq": "FAQ",
+        "nav_contact": "Contact",
+        "module_list": [
+            "VEN-NIF Accounting", "HR & Payroll", "My Line 5G / eSIM",
+            "Legal AI & Permits", "Ameru Eco-Credits", "Advanced Analytics",
+            "SENIAT Invoicing", "Taxes & Withholdings", "Executive Dashboard"
+        ],
+        "version_stable": "v2.8.5 — Stable",
+        "copyright": "System Kyron · Corporate Intelligence · v2.8.5",
+        "user_manual": "User Manual",
+        "terms": "Terms",
+        "privacy": "Privacy"
+    },
+    "ScrollCinematic": {
+        "tagline": "System Kyron — Corporate Intelligence",
+        "line1": "Your business.",
+        "line2": "All of it.",
+        "line3": "In one place.",
+        "subtitle": "Accounting, payroll, invoicing, 5G and much more — built for Venezuela, with integrated AI and automated tax compliance.",
+        "highlights_subtitle": "Everything your business needs",
+        "highlights_title": "7 integrated modules.",
+        "power_subtitle": "Unprecedented power",
+        "power_title": "Numbers that speak for themselves.",
+        "dashboard_subtitle": "Intuitive interface",
+        "dashboard_title": "One dashboard. Total control.",
+        "highlights": [
+            { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "100%", "statLabel": "Tax compliance" },
+            { "label": "My Line 5G", "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.", "stat": "5G", "statLabel": "Network speed" },
+            { "label": "Integrated AI", "desc": "Kyron assistant with Gemini 2.0 and GPT-4o. Automates reports, documents and analysis.", "stat": "2.0", "statLabel": "Gemini Flash" },
+            { "label": "AES-256 Security", "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.", "stat": "256", "statLabel": "Encryption bits" },
+            { "label": "HR & Payroll", "desc": "Full LOTTT management: payroll, benefits, vacations and severance in one click.", "stat": "LOTTT", "statLabel": "Legal framework" },
+            { "label": "Fiscal Invoicing", "desc": "Invoices and credit/debit notes with IGTF validation and automatic BCV rate.", "stat": "3%", "statLabel": "Automatic IGTF" }
+        ],
+        "power_stats": [
+            { "value": "7", "label": "Modules" },
+            { "value": "100%", "label": "Compliance" },
+            { "value": "AES", "label": "256 bits" },
+            { "value": "VEN", "label": "Made here" }
+        ]
+    },
+    "LoadingScreen": {
+        "subtitle": "Corporate Intelligence"
     },
     "LoginPage": {
         "back": "Home",
