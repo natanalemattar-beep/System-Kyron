@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,8 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import {
   Signal, Loader2, Phone, Plus, Pencil, Trash2, Power, PowerOff,
-  FileText, Calendar, DollarSign, Wifi, Activity, CircleCheck as CheckCircle
+  FileText, DollarSign, Wifi, Activity, CircleCheck as CheckCircle, MoreVertical
 } from "lucide-react";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -70,10 +73,10 @@ const TIPOS_LINEA = [
 ];
 
 const ESTADO_COLORS: Record<string, string> = {
-  pendiente: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
-  pagada: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
-  vencida: 'bg-rose-500/10 text-rose-600 border-rose-500/20',
-  en_disputa: 'bg-orange-500/10 text-orange-600 border-orange-500/20',
+  pendiente: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
+  pagada: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+  vencida: 'bg-rose-500/10 text-rose-500 border-rose-500/20',
+  en_disputa: 'bg-orange-500/10 text-orange-500 border-orange-500/20',
 };
 
 const emptyForm = {
@@ -114,7 +117,6 @@ export default function MiLineaPage() {
       toast({ variant: 'destructive', title: 'Campos requeridos', description: 'Número y operadora son obligatorios.' });
       return;
     }
-
     setSaving(true);
     try {
       const method = editId ? 'PATCH' : 'POST';
@@ -126,10 +128,9 @@ export default function MiLineaPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al guardar');
-
       toast({
-        title: editId ? 'LÍNEA ACTUALIZADA' : 'LÍNEA REGISTRADA',
-        description: `Línea ${form.numero} (${OPERADORAS.find(o => o.value === form.operadora)?.label}) procesada exitosamente.`,
+        title: editId ? 'Línea actualizada' : 'Línea registrada',
+        description: `${form.numero} (${OPERADORAS.find(o => o.value === form.operadora)?.label}) procesada correctamente.`,
         action: <CheckCircle className="h-4 w-4 text-emerald-500" />
       });
       setShowForm(false);
@@ -152,7 +153,7 @@ export default function MiLineaPage() {
       });
       if (!res.ok) throw new Error('Error al actualizar estado');
       toast({
-        title: linea.activa ? 'LÍNEA DESACTIVADA' : 'LÍNEA ACTIVADA',
+        title: linea.activa ? 'Línea desactivada' : 'Línea activada',
         description: `${linea.numero} ${linea.activa ? 'desactivada' : 'activada'} correctamente.`,
       });
       await fetchData();
@@ -165,7 +166,7 @@ export default function MiLineaPage() {
     try {
       const res = await fetch(`/api/telecom?id=${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error al eliminar');
-      toast({ title: 'LÍNEA ELIMINADA', description: 'La línea fue eliminada del sistema.' });
+      toast({ title: 'Línea eliminada', description: 'La línea fue eliminada del sistema.' });
       setDeleteConfirm(null);
       await fetchData();
     } catch {
@@ -205,64 +206,63 @@ export default function MiLineaPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center space-y-4">
-          <Loader2 className="h-12 w-12 text-primary animate-spin mx-auto" />
-          <p className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground animate-pulse">
-            Cargando líneas telefónicas...
-          </p>
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-3">
+          <Loader2 className="h-8 w-8 text-primary animate-spin mx-auto" />
+          <p className="text-xs text-muted-foreground">Cargando líneas telefónicas...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 pb-20 px-4 md:px-10 lg:px-12 animate-in fade-in duration-1000">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-6 py-2 mt-10">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-            <Signal className="h-3 w-3" /> MI LÍNEA
+    <div className="space-y-5 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 pb-2">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Signal className="h-4 w-4 text-primary" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Mi Línea</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
-            Mis Líneas <span className="text-primary italic">Telefónicas</span>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+            Mis Líneas Telefónicas
           </h1>
-          <p className="text-muted-foreground text-[9px] font-bold uppercase tracking-[0.5em] opacity-40 mt-2 italic">
+          <p className="text-xs text-muted-foreground mt-0.5">
             Gestión de líneas reales · Operadoras venezolanas
           </p>
         </div>
-        <Button onClick={openNew} className="h-10 px-6 rounded-xl font-black uppercase text-[10px] tracking-widest btn-3d-primary shadow-xl">
-          <Plus className="mr-2 h-4 w-4" /> Registrar Línea
+        <Button onClick={openNew} size="sm" className="h-9 px-4 rounded-lg text-xs font-semibold shadow-sm">
+          <Plus className="mr-1.5 h-3.5 w-3.5" /> Registrar Línea
         </Button>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: "Líneas Activas", val: `${totalActivas} / ${lineas.length}`, icon: Phone, color: "text-emerald-500" },
           { label: "Datos Usados", val: `${totalDatosUsados.toFixed(1)} GB`, icon: Wifi, color: "text-blue-500" },
           { label: "Gasto Mensual", val: formatCurrency(totalGasto, 'USD'), icon: DollarSign, color: "text-primary" },
           { label: "Facturas Pendientes", val: `${facturasPendientes}`, icon: FileText, color: facturasPendientes > 0 ? "text-yellow-500" : "text-emerald-500" },
         ].map((stat, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-            <Card className="glass-card border-none rounded-2xl p-6 shadow-2xl group hover:shadow-xl transition-all">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">{stat.label}</span>
-                <stat.icon className={cn("h-4 w-4 opacity-30 group-hover:opacity-100 transition-all", stat.color)} />
+          <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+            <Card className="bg-card/60 border border-border/50 rounded-xl p-4 hover:border-border transition-colors">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{stat.label}</span>
+                <stat.icon className={cn("h-3.5 w-3.5 opacity-40", stat.color)} />
               </div>
-              <p className={cn("text-2xl font-black italic tracking-tighter", stat.color)}>{stat.val}</p>
+              <p className={cn("text-lg font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </Card>
           </motion.div>
         ))}
       </div>
 
-      <Card className="glass-card border-none rounded-[2.5rem] overflow-hidden shadow-2xl">
-        <CardHeader className="p-8 border-b border-border bg-muted/10 flex flex-row items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
-              <Activity className="h-6 w-6 text-primary" />
+      <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
+        <CardHeader className="px-5 py-4 border-b border-border/50 flex flex-row items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Activity className="h-4 w-4 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Listado de Líneas</CardTitle>
-              <CardDescription className="text-[9px] font-bold uppercase opacity-40 tracking-widest italic">
+              <CardTitle className="text-sm font-semibold text-foreground">Listado de Líneas</CardTitle>
+              <CardDescription className="text-[10px] text-muted-foreground">
                 {lineas.length === 0 ? 'Sin líneas registradas' : `${lineas.length} línea${lineas.length !== 1 ? 's' : ''} registrada${lineas.length !== 1 ? 's' : ''}`}
               </CardDescription>
             </div>
@@ -270,32 +270,34 @@ export default function MiLineaPage() {
         </CardHeader>
         <CardContent className="p-0">
           {lineas.length === 0 ? (
-            <div className="p-16 text-center space-y-4">
-              <Phone className="h-16 w-16 text-muted-foreground/20 mx-auto" />
-              <p className="text-sm font-bold text-muted-foreground/40 uppercase tracking-widest">
-                No tienes líneas registradas
-              </p>
-              <p className="text-xs text-muted-foreground/30">
-                Registra tu primera línea telefónica venezolana para comenzar a gestionar tus servicios.
-              </p>
-              <Button onClick={openNew} variant="outline" className="rounded-xl font-black uppercase text-[10px] tracking-widest mt-4">
-                <Plus className="mr-2 h-4 w-4" /> Registrar Mi Primera Línea
+            <div className="py-12 px-6 text-center space-y-3">
+              <div className="mx-auto w-12 h-12 rounded-xl bg-muted/30 flex items-center justify-center">
+                <Phone className="h-5 w-5 text-muted-foreground/30" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground/60">No tienes líneas registradas</p>
+                <p className="text-xs text-muted-foreground/40 mt-1">
+                  Registra tu primera línea telefónica para comenzar.
+                </p>
+              </div>
+              <Button onClick={openNew} variant="outline" size="sm" className="rounded-lg text-xs mt-2">
+                <Plus className="mr-1.5 h-3.5 w-3.5" /> Registrar Línea
               </Button>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-muted/20 border-border">
-                    <TableHead className="pl-8 py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Número</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Operadora</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Tipo</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Titular</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Plan</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-right">Monto</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-center">Datos</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-center">Estado</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-right pr-8">Acciones</TableHead>
+                  <TableRow className="bg-muted/10 border-border/30 hover:bg-muted/10">
+                    <TableHead className="pl-5 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Número</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Operadora</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hidden md:table-cell">Tipo</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Titular</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hidden md:table-cell">Plan</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-right">Monto</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-center hidden lg:table-cell">Datos</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-center">Estado</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-right pr-5 w-12"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -307,105 +309,82 @@ export default function MiLineaPage() {
                     const tipoLabel = TIPOS_LINEA.find(t => t.value === linea.tipo_linea)?.label || linea.tipo_linea;
 
                     return (
-                      <TableRow key={linea.id} className="border-border hover:bg-muted/10 transition-all group">
-                        <TableCell className="pl-8 py-5">
-                          <p className="font-black text-xs text-foreground italic group-hover:text-primary transition-colors">
+                      <TableRow key={linea.id} className="border-border/30 hover:bg-muted/5 transition-colors group">
+                        <TableCell className="pl-5 py-3">
+                          <p className="text-[13px] font-semibold text-foreground tabular-nums">
                             {linea.numero}
                           </p>
                           {linea.cedula_titular && (
-                            <p className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest mt-0.5">
+                            <p className="text-[10px] text-muted-foreground/50 mt-0.5">
                               CI: {linea.cedula_titular}
                             </p>
                           )}
                         </TableCell>
                         <TableCell>
-                          <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest px-3">
+                          <Badge variant="outline" className="text-[10px] font-medium px-2 py-0.5 rounded-md border-border/50">
                             {operadoraLabel}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-[9px] font-bold uppercase text-muted-foreground/60 tracking-widest">
+                        <TableCell className="text-xs text-muted-foreground hidden md:table-cell">
                           {tipoLabel}
                         </TableCell>
-                        <TableCell className="text-[10px] font-bold text-foreground/80">
+                        <TableCell className="text-xs text-foreground/70 hidden lg:table-cell">
                           {linea.titular || '—'}
                         </TableCell>
-                        <TableCell className="text-[9px] font-bold uppercase text-muted-foreground/60">
+                        <TableCell className="text-xs text-muted-foreground hidden md:table-cell">
                           {linea.plan_contratado || '—'}
                         </TableCell>
                         <TableCell className="text-right">
-                          <span className="font-black text-xs italic text-primary">
+                          <span className="text-[13px] font-semibold text-foreground tabular-nums">
                             {formatCurrency(parseFloat(linea.monto_plan || '0'), linea.moneda_plan || 'USD')}
                           </span>
-                          <span className="text-[8px] text-muted-foreground/40 ml-1">/{linea.moneda_plan === 'VES' ? 'Bs' : 'USD'}</span>
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center hidden lg:table-cell">
                           {limiteGB ? (
-                            <div className="space-y-1">
-                              <p className={cn("font-black text-[10px] italic", pctUso > 90 ? "text-rose-500" : "text-emerald-600")}>
-                                {usoGB.toFixed(1)} / {limiteGB} GB
+                            <div className="space-y-1 max-w-[100px] mx-auto">
+                              <p className={cn("text-[11px] font-medium tabular-nums", pctUso > 90 ? "text-rose-500" : "text-foreground/70")}>
+                                {usoGB.toFixed(1)}/{limiteGB} GB
                               </p>
-                              <div className="h-1 w-full bg-muted rounded-full overflow-hidden max-w-20 mx-auto">
-                                <div className={cn("h-full rounded-full", pctUso > 90 ? "bg-rose-500" : "bg-primary")} style={{ width: `${Math.min(pctUso, 100)}%` }} />
+                              <div className="h-1 w-full bg-muted/50 rounded-full overflow-hidden">
+                                <div className={cn("h-full rounded-full transition-all", pctUso > 90 ? "bg-rose-500" : "bg-primary")} style={{ width: `${Math.min(pctUso, 100)}%` }} />
                               </div>
                             </div>
                           ) : (
-                            <span className="text-[9px] text-muted-foreground/40">—</span>
+                            <span className="text-xs text-muted-foreground/30">—</span>
                           )}
                         </TableCell>
                         <TableCell className="text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <div className={cn("h-2 w-2 rounded-full shadow-glow-sm", linea.activa ? "bg-emerald-500 animate-pulse" : "bg-rose-500")} />
-                            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
+                          <div className="inline-flex items-center gap-1.5">
+                            <div className={cn("h-1.5 w-1.5 rounded-full", linea.activa ? "bg-emerald-500" : "bg-rose-500")} />
+                            <span className="text-[11px] font-medium text-muted-foreground">
                               {linea.activa ? 'Activa' : 'Inactiva'}
                             </span>
                           </div>
                         </TableCell>
-                        <TableCell className="text-right pr-8">
-                          <div className="flex items-center justify-end gap-1">
-                            <Button
-                              variant="ghost" size="icon"
-                              className="h-8 w-8 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary"
-                              onClick={() => openEdit(linea)}
-                              title="Editar"
-                            >
-                              <Pencil className="h-3.5 w-3.5" />
-                            </Button>
-                            <Button
-                              variant="ghost" size="icon"
-                              className={cn("h-8 w-8 rounded-lg", linea.activa ? "hover:bg-rose-500/10 hover:text-rose-500" : "hover:bg-emerald-500/10 hover:text-emerald-500")}
-                              onClick={() => handleToggleActive(linea)}
-                              title={linea.activa ? 'Desactivar' : 'Activar'}
-                            >
-                              {linea.activa ? <PowerOff className="h-3.5 w-3.5" /> : <Power className="h-3.5 w-3.5" />}
-                            </Button>
-                            <Dialog open={deleteConfirm === linea.id} onOpenChange={(o) => !o && setDeleteConfirm(null)}>
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="ghost" size="icon"
-                                  className="h-8 w-8 rounded-lg hover:bg-rose-500/10 text-muted-foreground hover:text-rose-500"
-                                  onClick={() => setDeleteConfirm(linea.id)}
-                                  title="Eliminar"
-                                >
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="bg-card border-border rounded-2xl">
-                                <DialogHeader>
-                                  <DialogTitle className="font-black uppercase text-foreground">Confirmar Eliminación</DialogTitle>
-                                  <DialogDescription>
-                                    ¿Estás seguro de eliminar la línea <strong>{linea.numero}</strong> ({operadoraLabel})?
-                                    Esta acción no se puede deshacer.
-                                  </DialogDescription>
-                                </DialogHeader>
-                                <DialogFooter className="gap-2">
-                                  <Button variant="outline" onClick={() => setDeleteConfirm(null)} className="rounded-xl">Cancelar</Button>
-                                  <Button variant="destructive" onClick={() => handleDelete(linea.id)} className="rounded-xl font-black uppercase text-[10px] tracking-widest">
-                                    <Trash2 className="mr-2 h-4 w-4" /> Eliminar
-                                  </Button>
-                                </DialogFooter>
-                              </DialogContent>
-                            </Dialog>
-                          </div>
+                        <TableCell className="text-right pr-5">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md text-muted-foreground hover:text-foreground">
+                                <MoreVertical className="h-3.5 w-3.5" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-44 rounded-lg bg-card border-border">
+                              <DropdownMenuItem onClick={() => openEdit(linea)} className="text-xs gap-2">
+                                <Pencil className="h-3 w-3" /> Editar línea
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleToggleActive(linea)} className="text-xs gap-2">
+                                {linea.activa ? <PowerOff className="h-3 w-3" /> : <Power className="h-3 w-3" />}
+                                {linea.activa ? 'Desactivar' : 'Activar'}
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem
+                                onClick={() => setDeleteConfirm(linea.id)}
+                                className="text-xs gap-2 text-rose-500 focus:text-rose-500"
+                              >
+                                <Trash2 className="h-3 w-3" /> Eliminar
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </TableCell>
                       </TableRow>
                     );
@@ -418,15 +397,15 @@ export default function MiLineaPage() {
       </Card>
 
       {facturas.length > 0 && (
-        <Card className="glass-card border-none rounded-[2.5rem] overflow-hidden shadow-2xl">
-          <CardHeader className="p-8 border-b border-border bg-muted/10">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
-                <FileText className="h-6 w-6 text-primary" />
+        <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
+          <CardHeader className="px-5 py-4 border-b border-border/50">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <FileText className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Facturas Recientes</CardTitle>
-                <CardDescription className="text-[9px] font-bold uppercase opacity-40 tracking-widest italic">
+                <CardTitle className="text-sm font-semibold text-foreground">Facturas</CardTitle>
+                <CardDescription className="text-[10px] text-muted-foreground">
                   Últimas {facturas.length} factura{facturas.length !== 1 ? 's' : ''}
                 </CardDescription>
               </div>
@@ -436,35 +415,35 @@ export default function MiLineaPage() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-muted/20 border-border">
-                    <TableHead className="pl-8 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Nro. Factura</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Línea</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Período</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50">Emisión</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-right">Monto</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 text-center pr-8">Estado</TableHead>
+                  <TableRow className="bg-muted/10 border-border/30 hover:bg-muted/10">
+                    <TableHead className="pl-5 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Nro. Factura</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Línea</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hidden md:table-cell">Período</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hidden md:table-cell">Emisión</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-right">Monto</TableHead>
+                    <TableHead className="py-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-center pr-5">Estado</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {facturas.map((f) => (
-                    <TableRow key={f.id} className="border-border hover:bg-muted/10">
-                      <TableCell className="pl-8 text-[10px] font-bold text-foreground/80">
+                    <TableRow key={f.id} className="border-border/30 hover:bg-muted/5">
+                      <TableCell className="pl-5 py-3 text-xs font-medium text-foreground/80">
                         {f.numero_factura || `FAC-${f.id}`}
                       </TableCell>
                       <TableCell>
-                        <p className="text-[10px] font-bold text-foreground/70">{f.linea_numero || '—'}</p>
-                        {f.operadora && <p className="text-[8px] text-muted-foreground/40 uppercase">{f.operadora}</p>}
+                        <p className="text-xs font-medium text-foreground/70">{f.linea_numero || '—'}</p>
+                        {f.operadora && <p className="text-[10px] text-muted-foreground/40 capitalize">{f.operadora}</p>}
                       </TableCell>
-                      <TableCell className="text-[10px] font-bold text-muted-foreground/60">{f.periodo}</TableCell>
-                      <TableCell className="text-[10px] font-bold text-muted-foreground/60">
+                      <TableCell className="text-xs text-muted-foreground hidden md:table-cell">{f.periodo}</TableCell>
+                      <TableCell className="text-xs text-muted-foreground hidden md:table-cell">
                         {new Date(f.fecha_emision).toLocaleDateString('es-VE')}
                       </TableCell>
-                      <TableCell className="text-right font-black text-xs italic text-primary">
+                      <TableCell className="text-right text-[13px] font-semibold text-foreground tabular-nums">
                         {formatCurrency(parseFloat(f.monto), f.moneda || 'USD')}
                       </TableCell>
-                      <TableCell className="text-center pr-8">
-                        <Badge variant="outline" className={cn("text-[8px] font-black uppercase tracking-widest px-3", ESTADO_COLORS[f.estado] || '')}>
-                          {f.estado.toUpperCase().replace('_', ' ')}
+                      <TableCell className="text-center pr-5">
+                        <Badge variant="outline" className={cn("text-[10px] font-medium px-2 py-0.5 rounded-md", ESTADO_COLORS[f.estado] || '')}>
+                          {f.estado === 'en_disputa' ? 'En disputa' : f.estado.charAt(0).toUpperCase() + f.estado.slice(1)}
                         </Badge>
                       </TableCell>
                     </TableRow>
@@ -476,33 +455,55 @@ export default function MiLineaPage() {
         </Card>
       )}
 
+      {lineas.map((linea) => {
+        const operadoraLabel = OPERADORAS.find(o => o.value === linea.operadora)?.label || linea.operadora;
+        return (
+          <Dialog key={`del-${linea.id}`} open={deleteConfirm === linea.id} onOpenChange={(o) => !o && setDeleteConfirm(null)}>
+            <DialogContent className="bg-card border-border rounded-xl max-w-sm">
+              <DialogHeader>
+                <DialogTitle className="text-base font-semibold text-foreground">Eliminar línea</DialogTitle>
+                <DialogDescription className="text-sm">
+                  ¿Eliminar la línea <strong>{linea.numero}</strong> ({operadoraLabel})? Esta acción es irreversible.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter className="gap-2 pt-2">
+                <Button variant="outline" size="sm" onClick={() => setDeleteConfirm(null)} className="rounded-lg">Cancelar</Button>
+                <Button variant="destructive" size="sm" onClick={() => handleDelete(linea.id)} className="rounded-lg text-xs font-semibold">
+                  <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Eliminar
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      })}
+
       <Dialog open={showForm} onOpenChange={(o) => { if (!o) { setShowForm(false); setEditId(null); setForm(emptyForm); } }}>
-        <DialogContent className="bg-card border-border rounded-2xl max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-card border-border rounded-xl max-w-xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase tracking-tighter text-foreground">
-              {editId ? 'Editar Línea Telefónica' : 'Registrar Nueva Línea'}
+            <DialogTitle className="text-base font-semibold text-foreground">
+              {editId ? 'Editar Línea' : 'Registrar Nueva Línea'}
             </DialogTitle>
-            <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
-              {editId ? 'Modifica los datos de tu línea' : 'Registra una línea telefónica venezolana real'}
+            <DialogDescription className="text-xs text-muted-foreground">
+              {editId ? 'Modifica los datos de la línea' : 'Agrega una línea telefónica venezolana'}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid gap-5 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Número *</Label>
+          <div className="grid gap-4 py-2">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Número *</Label>
                 <Input
                   placeholder="0414-1234567"
                   value={form.numero}
                   onChange={(e) => setForm(f => ({ ...f, numero: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Operadora *</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Operadora *</Label>
                 <Select value={form.operadora} onValueChange={(v) => setForm(f => ({ ...f, operadora: v }))}>
-                  <SelectTrigger className="h-11 rounded-xl bg-muted/20 border-border text-xs">
-                    <SelectValue placeholder="Seleccionar..." />
+                  <SelectTrigger className="h-9 rounded-lg bg-muted/20 border-border text-sm">
+                    <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
                     {OPERADORAS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
@@ -511,11 +512,11 @@ export default function MiLineaPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Tipo de Línea</Label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Tipo de Línea</Label>
                 <Select value={form.tipo_linea} onValueChange={(v) => setForm(f => ({ ...f, tipo_linea: v }))}>
-                  <SelectTrigger className="h-11 rounded-xl bg-muted/20 border-border text-xs">
+                  <SelectTrigger className="h-9 rounded-lg bg-muted/20 border-border text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -523,10 +524,10 @@ export default function MiLineaPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Moneda Plan</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Moneda</Label>
                 <Select value={form.moneda_plan} onValueChange={(v) => setForm(f => ({ ...f, moneda_plan: v }))}>
-                  <SelectTrigger className="h-11 rounded-xl bg-muted/20 border-border text-xs">
+                  <SelectTrigger className="h-9 rounded-lg bg-muted/20 border-border text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -537,97 +538,97 @@ export default function MiLineaPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Titular</Label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Titular</Label>
                 <Input
                   placeholder="Nombre del titular"
                   value={form.titular}
                   onChange={(e) => setForm(f => ({ ...f, titular: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Cédula Titular</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Cédula</Label>
                 <Input
                   placeholder="V-12345678"
                   value={form.cedula_titular}
                   onChange={(e) => setForm(f => ({ ...f, cedula_titular: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Plan Contratado</Label>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Plan Contratado</Label>
                 <Input
-                  placeholder="Ej: Plan Plus 30GB"
+                  placeholder="Plan Plus 30GB"
                   value={form.plan_contratado}
                   onChange={(e) => setForm(f => ({ ...f, plan_contratado: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Monto Mensual</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Monto Mensual</Label>
                 <Input
                   type="number" step="0.01" min="0"
                   placeholder="0.00"
                   value={form.monto_plan}
                   onChange={(e) => setForm(f => ({ ...f, monto_plan: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Fecha Activación</Label>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Activación</Label>
                 <Input
                   type="date"
                   value={form.fecha_activacion}
                   onChange={(e) => setForm(f => ({ ...f, fecha_activacion: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Vencimiento</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Vencimiento</Label>
                 <Input
                   type="date"
                   value={form.fecha_vencimiento}
                   onChange={(e) => setForm(f => ({ ...f, fecha_vencimiento: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Límite Datos (GB)</Label>
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Límite (GB)</Label>
                 <Input
                   type="number" step="0.1" min="0"
-                  placeholder="Ej: 30"
+                  placeholder="30"
                   value={form.limite_datos_gb}
                   onChange={(e) => setForm(f => ({ ...f, limite_datos_gb: e.target.value }))}
-                  className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">Notas</Label>
+            <div className="space-y-1.5">
+              <Label className="text-[11px] font-medium text-muted-foreground">Notas</Label>
               <Input
-                placeholder="Notas adicionales sobre esta línea..."
+                placeholder="Notas adicionales..."
                 value={form.notas}
                 onChange={(e) => setForm(f => ({ ...f, notas: e.target.value }))}
-                className="h-11 rounded-xl bg-muted/20 border-border text-xs"
+                className="h-9 rounded-lg bg-muted/20 border-border text-sm"
               />
             </div>
           </div>
 
-          <DialogFooter className="gap-2">
-            <Button variant="outline" onClick={() => { setShowForm(false); setEditId(null); setForm(emptyForm); }} className="rounded-xl" disabled={saving}>
+          <DialogFooter className="gap-2 pt-1">
+            <Button variant="outline" size="sm" onClick={() => { setShowForm(false); setEditId(null); setForm(emptyForm); }} className="rounded-lg" disabled={saving}>
               Cancelar
             </Button>
-            <Button onClick={handleSave} disabled={saving} className="rounded-xl font-black uppercase text-[10px] tracking-widest btn-3d-primary">
-              {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle className="mr-2 h-4 w-4" />}
+            <Button onClick={handleSave} disabled={saving} size="sm" className="rounded-lg text-xs font-semibold">
+              {saving && <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />}
               {editId ? 'Guardar Cambios' : 'Registrar Línea'}
             </Button>
           </DialogFooter>
