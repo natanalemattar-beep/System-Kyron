@@ -51,11 +51,27 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [unreadCount, setUnreadCount] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    const fetchCount = async () => {
+      try {
+        const res = await fetch('/api/notificaciones?no_leidas=true&limit=1');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (active) setUnreadCount(data.total_no_leidas ?? 0);
+      } catch {}
+    };
+    fetchCount();
+    const interval = setInterval(fetchCount, 60000);
+    return () => { active = false; clearInterval(interval); };
+  }, [pathname]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -153,9 +169,14 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                             <LanguageSwitcher variant="default" align="start" />
                             <ThemeToggle />
                             <SheetClose asChild>
-                                <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-lg bg-white/5 border border-border">
+                                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-lg bg-white/5 border border-border">
                                     <Link href="/notificaciones">
                                         <Bell className="h-4 w-4 text-muted-foreground/60" />
+                                        {unreadCount > 0 && (
+                                          <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center px-0.5">
+                                            {unreadCount > 99 ? '99+' : unreadCount}
+                                          </span>
+                                        )}
                                     </Link>
                                 </Button>
                             </SheetClose>
@@ -244,7 +265,11 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                 <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 rounded-lg bg-white/5 border border-border group">
                     <Link href="/notificaciones">
                         <Bell className={cn("h-4 w-4 transition-colors", pathname.includes('/notificaciones') ? "text-primary" : "text-muted-foreground/60 group-hover:text-primary")} />
-                        <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full kyron-dot" />
+                        {unreadCount > 0 && (
+                          <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-red-500 text-white text-[10px] font-black flex items-center justify-center px-1 shadow-lg shadow-red-500/30 animate-in zoom-in">
+                            {unreadCount > 99 ? '99+' : unreadCount}
+                          </span>
+                        )}
                     </Link>
                 </Button>
             </div>
