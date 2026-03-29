@@ -172,6 +172,10 @@ export default function RegisterTelecomPage() {
                 setValue('tipo_cliente', 'empresarial');
                 setValue('rif', doc);
             }
+            const nombre = searchParams.get('nombre');
+            if (nombre) setValue('nombre', nombre);
+            const apellido = searchParams.get('apellido');
+            if (apellido) setValue('apellido', apellido);
             const razon = searchParams.get('razon');
             if (razon) setValue('razon_social', razon);
             const tipo = searchParams.get('tipo');

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -73,10 +73,31 @@ export default function RegisterRRHHPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { toast } = useToast();
+
+    const prefilledDoc = searchParams.get('doc') || '';
+    const prefilledRazon = searchParams.get('razon') || '';
+    const prefilledTipo = searchParams.get('tipo') || '';
+    const prefilledEstado = searchParams.get('estado') || '';
+    const prefilledMunicipio = searchParams.get('municipio') || '';
+    const prefilledTel = searchParams.get('tel') || '';
+    const prefilledNombre = searchParams.get('nombre') || '';
+    const prefilledApellido = searchParams.get('apellido') || '';
 
     const { register, handleSubmit, control, getValues, trigger, watch, setValue, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema), mode: 'onChange',
+        defaultValues: {
+            rif: prefilledDoc || undefined,
+            razonSocial: prefilledRazon || undefined,
+            tipo_empresa: prefilledTipo || undefined,
+            estado_empresa: prefilledEstado || undefined,
+            municipio_empresa: prefilledMunicipio || undefined,
+            telefono: prefilledTel || undefined,
+            repNombre: prefilledNombre || undefined,
+            repApellido: prefilledApellido || undefined,
+            repCedula: prefilledDoc && !prefilledDoc.startsWith('J-') && !prefilledDoc.startsWith('G-') ? prefilledDoc : undefined,
+        },
     });
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;

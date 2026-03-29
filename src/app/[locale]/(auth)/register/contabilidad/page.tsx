@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
     Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
 } from '@/components/ui/card';
@@ -127,7 +127,18 @@ export default function RegisterContabilidadPage() {
     const [registeredEmail, setRegisteredEmail] = useState('');
     const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { toast } = useToast();
+
+    const prefilledDoc = searchParams.get('doc') || '';
+    const prefilledRazon = searchParams.get('razon') || '';
+    const prefilledTipo = searchParams.get('tipo') || '';
+    const prefilledActividad = searchParams.get('actividad') || '';
+    const prefilledEstado = searchParams.get('estado') || '';
+    const prefilledMunicipio = searchParams.get('municipio') || '';
+    const prefilledTel = searchParams.get('tel') || '';
+    const prefilledNombre = searchParams.get('nombre') || '';
+    const prefilledApellido = searchParams.get('apellido') || '';
 
     useEffect(() => {
         fetch('/api/tasas-bcv?limit=1')
@@ -142,6 +153,18 @@ export default function RegisterContabilidadPage() {
     const { register, handleSubmit, control, getValues, trigger, watch, setValue, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange',
+        defaultValues: {
+            rif: prefilledDoc || undefined,
+            razonSocial: prefilledRazon || undefined,
+            tipo_empresa: prefilledTipo || undefined,
+            actividad_economica: prefilledActividad || undefined,
+            estado_empresa: prefilledEstado || undefined,
+            municipio_empresa: prefilledMunicipio || undefined,
+            telefono: prefilledTel || undefined,
+            repNombre: prefilledNombre || undefined,
+            repApellido: prefilledApellido || undefined,
+            repCedula: prefilledDoc && !prefilledDoc.startsWith('J-') && !prefilledDoc.startsWith('G-') ? prefilledDoc : undefined,
+        },
     });
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
