@@ -10,6 +10,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { PageTracker } from "@/components/page-tracker";
 import { use, Suspense } from 'react';
 
+const ScrollCinematicSection = dynamic(() => import("@/components/landing/scroll-cinematic-section").then(m => ({ default: m.ScrollCinematicSection })), { ssr: false });
 const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });
 const AboutUsSection = dynamic(() => import("@/components/landing/about-us-section").then(m => ({ default: m.AboutUsSection })), { ssr: false });
 const CommentsSection = dynamic(() => import("@/components/landing/comments-section").then(m => ({ default: m.CommentsSection })), { ssr: false });
@@ -39,6 +40,10 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
 
       <main className="flex-1 w-full">
         <HeroSection />
+
+        <Suspense fallback={null}>
+          <ScrollCinematicSection />
+        </Suspense>
 
         <Suspense fallback={null}>
           <ServicesSection />

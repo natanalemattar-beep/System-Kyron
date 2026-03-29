@@ -1,0 +1,167 @@
+{
+  "colorScheme": "dark",
+  "fonts": [
+    {
+      "family": "Arial",
+      "role": "body"
+    },
+    {
+      "family": "SF Pro Icons",
+      "role": "unknown"
+    },
+    {
+      "family": "Helvetica Neue",
+      "role": "body"
+    },
+    {
+      "family": "Helvetica",
+      "role": "body"
+    },
+    {
+      "family": "SF Pro Text",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#0066CC",
+    "accent": "#0066CC",
+    "background": "#000000",
+    "textPrimary": "#999999",
+    "link": "#2997FF"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Arial",
+      "heading": "Arial"
+    },
+    "fontStacks": {
+      "heading": [
+        "SF Pro Text",
+        "SF Pro Icons",
+        "Helvetica Neue",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "body": [
+        "SF Pro Text",
+        "SF Pro Icons",
+        "Helvetica Neue",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "SF Pro Text",
+        "SF Pro Icons",
+        "Helvetica Neue",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "34px",
+      "h2": "12px",
+      "body": "14px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "10px"
+  },
+  "components": {
+    "input": {
+      "background": "transparent",
+      "textColor": "#E8E8ED",
+      "borderColor": null,
+      "borderRadius": "0px",
+      "borderRadiusCorners": {
+        "topLeft": "0px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "0px"
+      },
+      "shadow": "none"
+    },
+    "buttonPrimary": {
+      "background": "#0066CC",
+      "textColor": "#FFFFFF",
+      "borderRadius": "980px",
+      "borderRadiusCorners": {
+        "topLeft": "980px",
+        "topRight": "980px",
+        "bottomRight": "980px",
+        "bottomLeft": "980px"
+      },
+      "shadow": "none"
+    },
+    "buttonSecondary": {
+      "background": "transparent",
+      "textColor": "#F5F5F7",
+      "borderRadius": "170px",
+      "borderRadiusCorners": {
+        "topLeft": "170px",
+        "topRight": "170px",
+        "bottomRight": "170px",
+        "bottomLeft": "170px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": null,
+    "ogImage": "https://www.apple.com/v/iphone-17-pro/e/images/meta/iphone-17-pro_overview__eumhhclcpuaa_og.png?202602261755",
+    "logoHref": "/la/"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is located in the header, is visible, and matches the brand 'Apple' inferred from the URL and page title.",
+    "confidence": 0.9,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Comprar",
+      "reasoning": "Button #3 has a vibrant blue background (#0066CC), which is a strong indicator of a primary CTA. The text 'Comprar' is action-oriented, aligning with typical primary CTA functions."
+    },
+    "secondary": {
+      "index": 1,
+      "text": "Funcionalidades compartidas",
+      "reasoning": "Button #6 has a transparent background, making it a suitable secondary button. It contrasts with the primary button's vibrant color, fulfilling the requirement for different color groups."
+    },
+    "confidence": 0.95
+  },
+  "personality": {
+    "tone": "modern",
+    "energy": "high",
+    "targetAudience": "tech-savvy consumers"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.95,
+    "colors": 0.9,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is located in the header, is visible, and matches the brand 'Apple' inferred from the URL and page title.",
+        "confidence": 0.9
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}
