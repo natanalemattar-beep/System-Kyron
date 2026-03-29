@@ -41,6 +41,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
 - **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and an enhanced user manual with interactive TOC sidebar, search, reading progress bar, scroll-to-top, and Word export.
+- **Dashboard Redesign (v2.8.5):** All three dashboards (Dashboard Empresa, Dashboard RRHH, Dashboard Personal) were completely redesigned with a fresh, compact UI. Dashboard Empresa uses ALL real API data from `/api/dashboard` including variaciones (month-over-month), tasaBCV, cuentasCobrar/cuentasPagar as objects, facturasEsteMes, clientesActivos, inventarioBajoStock, notificacionesNoLeidas, and a real 12-month `chartMensual` from the database (replacing the old hardcoded `historicalFinancialData`). Pie chart for invoices, inline accounts panel, fiscal compliance, and IA scenarios. Dashboard RRHH includes searchable employee directory, colored bar chart, average salary KPI. Dashboard Personal has clean KPI cards and modular quick-access layout.
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, and CSS-based animations replacing Framer Motion where possible.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.

@@ -21,6 +21,7 @@ export async function GET() {
             ingresosAnterior, gastosAnterior,
             clientesActivos, facturasEsteMes,
             inventarioBajoStock, notifNoLeidas,
+            chartMensual,
         ] = await Promise.all([
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(monto), 0)::text AS total
@@ -120,6 +121,23 @@ export async function GET() {
                  WHERE user_id = $1 AND leida = false`,
                 [uid]
             ).catch(() => ({ total: '0' })),
+            query<{ mes: string; ingresos: string; gastos: string }>(
+                `SELECT
+                    TO_CHAR(gs.mes, 'Mon ''YY') AS mes,
+                    COALESCE(SUM(CASE WHEN m.tipo = 'credito' THEN m.monto END), 0)::text AS ingresos,
+                    COALESCE(SUM(CASE WHEN m.tipo = 'debito' THEN m.monto END), 0)::text AS gastos
+                 FROM generate_series(
+                    date_trunc('month', CURRENT_DATE) - INTERVAL '11 months',
+                    date_trunc('month', CURRENT_DATE),
+                    '1 month'
+                 ) AS gs(mes)
+                 LEFT JOIN movimientos_bancarios m
+                    ON m.user_id = $1
+                    AND date_trunc('month', m.fecha_operacion) = gs.mes
+                 GROUP BY gs.mes
+                 ORDER BY gs.mes ASC`,
+                [uid]
+            ).catch(() => []),
         ]);
 
         const ingresosNum = parseFloat(ingresos?.total ?? '0');
@@ -171,6 +189,11 @@ export async function GET() {
                 fecha: tasaBCV.fecha,
             } : null,
             movimientosRecientes: movRecientes,
+            chartMensual: (chartMensual ?? []).map(r => ({
+                mes: r.mes,
+                ingresos: parseFloat(r.ingresos),
+                gastos: parseFloat(r.gastos),
+            })),
         });
     } catch (err) {
         console.error('[dashboard] GET error:', err);
