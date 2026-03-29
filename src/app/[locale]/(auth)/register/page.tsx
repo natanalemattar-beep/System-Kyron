@@ -391,14 +391,14 @@ export default function RegisterSelectionPage() {
                             <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                         </div>
                         <h1 className="text-5xl xl:text-6xl font-black tracking-tighter leading-[0.95] mb-5">
-                            <span className="text-foreground">Únete al </span>
+                            <span className="text-foreground">Tu empresa,</span>
                             <br />
-                            <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
+                            <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">otro nivel</span>
                         </h1>
                         <p className="text-sm text-muted-foreground font-bold uppercase tracking-wide mb-10 max-w-md">
                             {step === "identify"
-                                ? "Ingresa tu cédula o RIF para comenzar tu registro en la plataforma corporativa más completa de Venezuela"
-                                : "Selecciona el módulo donde deseas registrarte y accede a herramientas especializadas"
+                                ? "Regístrate con tu cédula o RIF y accede a la plataforma corporativa más avanzada de Venezuela"
+                                : "Elige tu módulo y desbloquea herramientas diseñadas para tu tipo de negocio"
                             }
                         </p>
 
@@ -441,13 +441,13 @@ export default function RegisterSelectionPage() {
                                 <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
                             </div>
                             <h1 className="text-3xl sm:text-4xl font-black tracking-tighter leading-none mb-4">
-                                <span className="text-foreground">Únete al </span>
-                                <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
+                                <span className="text-foreground">Tu empresa, </span>
+                                <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">otro nivel</span>
                             </h1>
                             <p className="text-xs text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
                                 {step === "identify"
-                                    ? "Ingresa tu cédula o RIF para comenzar"
-                                    : "Selecciona el módulo donde deseas registrarte"
+                                    ? "Regístrate con tu cédula o RIF para comenzar"
+                                    : "Elige tu módulo y desbloquea herramientas"
                                 }
                             </p>
                         </header>
