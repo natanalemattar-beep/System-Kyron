@@ -1,8 +1,12 @@
-
 "use client";
 
-import { FestiveEffect } from "./confetti-effect";
+import dynamic from 'next/dynamic';
 import { useHoliday } from "@/hooks/use-holiday";
+
+const FestiveEffect = dynamic(
+  () => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })),
+  { ssr: false }
+);
 
 export function DynamicBackground() {
   const { activeHoliday, isHolidayActive } = useHoliday();
