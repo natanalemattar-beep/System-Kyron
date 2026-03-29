@@ -178,7 +178,13 @@ export default function RegisterSelectionPage() {
     const [rifLookup, setRifLookup] = useState<RifLookupResult | null>(null);
     const [rifSearching, setRifSearching] = useState(false);
     const [rifSearched, setRifSearched] = useState(false);
-    const [cedulaLookup, setCedulaLookup] = useState<{ nombre: string; apellido: string; estado?: string; municipio?: string } | null>(null);
+    const [cedulaLookup, setCedulaLookup] = useState<{
+        nombre: string; apellido: string; estado?: string; municipio?: string;
+        primerNombre?: string; segundoNombre?: string; primerApellido?: string; segundoApellido?: string;
+        fechaNacimiento?: string; sexo?: string; estadoCivil?: string; parroquia?: string;
+        lugarNacimiento?: string; nacionalidad?: string; estatus?: string;
+        fechaEmision?: string; fechaVencimiento?: string;
+    } | null>(null);
     const [cedulaSearching, setCedulaSearching] = useState(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -344,6 +350,12 @@ export default function RegisterSelectionPage() {
         if (cedulaLookup?.apellido) params.set('apellido', cedulaLookup.apellido);
         if (cedulaLookup?.estado) params.set('estado', cedulaLookup.estado);
         if (cedulaLookup?.municipio) params.set('municipio', cedulaLookup.municipio);
+        if (cedulaLookup?.fechaNacimiento) params.set('fechaNac', cedulaLookup.fechaNacimiento);
+        if (cedulaLookup?.sexo) params.set('sexo', cedulaLookup.sexo);
+        if (cedulaLookup?.estadoCivil) params.set('civil', cedulaLookup.estadoCivil);
+        if (cedulaLookup?.parroquia) params.set('parroquia', cedulaLookup.parroquia);
+        if (cedulaLookup?.lugarNacimiento) params.set('lugarNac', cedulaLookup.lugarNacimiento);
+        if (cedulaLookup?.nacionalidad) params.set('nacionalidad', cedulaLookup.nacionalidad);
         router.push(`/register/${moduleRoute}?${params.toString()}` as any);
     }, [fullDocument, router, rifLookup, cedulaLookup]);
 
@@ -688,25 +700,77 @@ export default function RegisterSelectionPage() {
                                 <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-blue-500/5 border-blue-500/15 mb-4 animate-in fade-in duration-300">
                                     <Loader2 className="h-4 w-4 text-blue-500 animate-spin shrink-0" />
                                     <p className="text-xs font-bold text-blue-500">
-                                        Consultando registro civil...
+                                        Consultando SAIME...
                                     </p>
                                 </div>
                             )}
 
                             {isNatural && detected.valid && cedulaLookup && !cedulaSearching && (
-                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-blue-500/5 border-blue-500/20 mb-4 animate-in slide-in-from-top-2 duration-300">
-                                    <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-black text-foreground truncate">
-                                            {cedulaLookup.nombre} {cedulaLookup.apellido}
-                                        </p>
-                                        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
-                                            {fullDocument}
-                                            {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
-                                            {cedulaLookup.municipio && ` · ${cedulaLookup.municipio}`}
-                                        </p>
+                                <div className="rounded-2xl border bg-blue-500/5 border-blue-500/20 mb-4 animate-in slide-in-from-top-2 duration-300 overflow-hidden">
+                                    <div className="flex items-center gap-3 px-4 py-3">
+                                        <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-black text-foreground truncate">
+                                                {cedulaLookup.nombre} {cedulaLookup.apellido}
+                                            </p>
+                                            <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
+                                                {fullDocument}
+                                                {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
+                                                {cedulaLookup.municipio && ` · ${cedulaLookup.municipio}`}
+                                            </p>
+                                        </div>
+                                        {cedulaLookup.estatus && (
+                                            <span className={cn(
+                                                "text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border shrink-0",
+                                                cedulaLookup.estatus === 'VIGENTE'
+                                                    ? "text-emerald-600 bg-emerald-500/10 border-emerald-500/20"
+                                                    : "text-amber-600 bg-amber-500/10 border-amber-500/20"
+                                            )}>
+                                                {cedulaLookup.estatus}
+                                            </span>
+                                        )}
+                                        <User className="h-5 w-5 text-blue-500/60 shrink-0" />
                                     </div>
-                                    <User className="h-5 w-5 text-blue-500/60 shrink-0" />
+                                    {(cedulaLookup.fechaNacimiento || cedulaLookup.sexo || cedulaLookup.nacionalidad || cedulaLookup.parroquia) && (
+                                        <div className="px-4 pb-3 pt-0 grid grid-cols-2 gap-x-4 gap-y-1.5">
+                                            {cedulaLookup.nacionalidad && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Nac:</span>{' '}
+                                                    <span className="font-bold">{cedulaLookup.nacionalidad}</span>
+                                                </p>
+                                            )}
+                                            {cedulaLookup.fechaNacimiento && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">F. Nac:</span>{' '}
+                                                    <span className="font-bold">{new Date(cedulaLookup.fechaNacimiento).toLocaleDateString('es-VE')}</span>
+                                                </p>
+                                            )}
+                                            {cedulaLookup.sexo && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Sexo:</span>{' '}
+                                                    <span className="font-bold">{cedulaLookup.sexo}</span>
+                                                </p>
+                                            )}
+                                            {cedulaLookup.estadoCivil && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">E. Civil:</span>{' '}
+                                                    <span className="font-bold">{cedulaLookup.estadoCivil}</span>
+                                                </p>
+                                            )}
+                                            {cedulaLookup.parroquia && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Parroquia:</span>{' '}
+                                                    <span className="font-bold">{cedulaLookup.parroquia}</span>
+                                                </p>
+                                            )}
+                                            {cedulaLookup.fechaEmision && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-blue-600/80">Emisión:</span>{' '}
+                                                    <span className="font-bold">{new Date(cedulaLookup.fechaEmision).toLocaleDateString('es-VE')}</span>
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             )}
 

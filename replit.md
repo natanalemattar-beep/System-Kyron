@@ -22,7 +22,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Application routes are organized under `src/app/[locale]/` with grouped routes like `(auth)`, `(admin)`, `(main)`.
 - A mobile sidebar provides smooth scrolling for landing pages and contextual navigation for the main application.
 - The landing page is designed to be visual and scannable, featuring simplified sections for Hero, Services, About, and FAQ, with reduced text and increased visual elements.
-- Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, and rich result panels.
+- Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels.
+- **SAIME Integration:** `saime_registros` DB table (50 citizen records) serves as simulated SAIME registry. API at `GET /api/cedula/consulta?cedula=V-XXXXXXXX` queries: users → empleados → saime_registros. Returns enriched data: full name, date of birth, sex, civil status, state, municipality, parroquia, nationality, document status, emission/expiry dates. Registration page auto-queries on cédula input and displays a detailed card with VIGENTE badge. Data flows via URL params to the natural registration form for auto-fill.
 - Background animations are optimized, replacing Framer Motion with pure CSS for static radial gradients and reduced-opacity HUD grids, minimizing GPU overhead.
 - Registration pages feature a deep redesign inspired by telecom UIs, with custom step navigation, progress bars, rounded input fields, and visual password strength meters.
 - Plan selection cards are implemented for both Telecom and Contabilidad registration flows, offering rich UI for choosing service plans.

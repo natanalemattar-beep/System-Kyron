@@ -86,12 +86,29 @@ export default function RegisterNaturalPage() {
   const { toast } = useToast();
   const router = useRouter();
 
+  const prefilledNombre = searchParams.get('nombre') || '';
+  const prefilledApellido = searchParams.get('apellido') || '';
+  const prefilledEstado = searchParams.get('estado') || '';
+  const prefilledMunicipio = searchParams.get('municipio') || '';
+  const prefilledFechaNac = searchParams.get('fechaNac') || '';
+  const prefilledSexo = searchParams.get('sexo') || '';
+  const prefilledCivil = searchParams.get('civil') || '';
+  const prefilledParroquia = searchParams.get('parroquia') || '';
+
   const { register, handleSubmit, control, getValues, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
       defaultValues: {
         cedula: prefilledDoc || undefined,
+        nombre: prefilledNombre || undefined,
+        apellido: prefilledApellido || undefined,
+        estado_residencia: prefilledEstado || undefined,
+        municipio: prefilledMunicipio || undefined,
+        ciudad: prefilledParroquia || undefined,
+        fecha_nacimiento: prefilledFechaNac || undefined,
+        genero: prefilledSexo || undefined,
+        estado_civil: prefilledCivil || undefined,
       },
     });
 

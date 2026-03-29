@@ -16,21 +16,6 @@ function checkRateLimit(ip: string): boolean {
   return entry.count <= RATE_LIMIT;
 }
 
-const KNOWN_CEDULAS: Record<string, { nombre: string; apellido: string; estado?: string; municipio?: string }> = {
-  'V-32855496': { nombre: 'Carlos Eduardo', apellido: 'Mattar Rodríguez', estado: 'Distrito Capital', municipio: 'Libertador' },
-  'V-16892437': { nombre: 'Ana Patricia', apellido: 'Velásquez Torres', estado: 'Miranda', municipio: 'Chacao' },
-  'V-19456283': { nombre: 'Luis Eduardo', apellido: 'Ramírez Pérez', estado: 'Carabobo', municipio: 'Valencia' },
-  'V-14589031': { nombre: 'Beatriz del Carmen', apellido: 'Martínez López', estado: 'Zulia', municipio: 'Maracaibo' },
-  'V-10347825': { nombre: 'María Teresa', apellido: 'Hernández de Guzmán', estado: 'Aragua', municipio: 'Girardot' },
-  'V-18745632': { nombre: 'Andrés Felipe', apellido: 'Carrero Villamizar', estado: 'Táchira', municipio: 'San Cristóbal' },
-  'V-25183947': { nombre: 'Gabriela María', apellido: 'Sánchez Ruiz', estado: 'Lara', municipio: 'Iribarren' },
-  'V-21567304': { nombre: 'Diego Alejandro', apellido: 'Mendoza Castillo', estado: 'Bolívar', municipio: 'Caroní' },
-  'V-12483965': { nombre: 'Rosa Elena', apellido: 'Paredes de Moreno', estado: 'Mérida', municipio: 'Libertador' },
-  'V-20891456': { nombre: 'Javier Antonio', apellido: 'Briceño Contreras', estado: 'Barinas', municipio: 'Barinas' },
-  'E-84291035': { nombre: 'João Pedro', apellido: 'Oliveira da Silva', estado: 'Distrito Capital', municipio: 'Chacao' },
-  'E-81567234': { nombre: 'María del Pilar', apellido: 'González Romero', estado: 'Miranda', municipio: 'Baruta' },
-};
-
 export async function GET(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   if (!checkRateLimit(ip)) {
@@ -99,12 +84,43 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    const known = KNOWN_CEDULAS[cedula];
-    if (known) {
+    const saimeResult = await query(
+      `SELECT primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,
+              fecha_nacimiento, sexo, estado_civil, estado, municipio, parroquia,
+              lugar_nacimiento, estatus, fecha_emision, fecha_vencimiento, nacionalidad
+       FROM saime_registros
+       WHERE cedula = $1 AND estatus = 'VIGENTE'
+       LIMIT 1`,
+      [cedula]
+    );
+
+    if (saimeResult.length > 0) {
+      const s = saimeResult[0] as Record<string, string>;
+      const nombreCompleto = [s.primer_nombre, s.segundo_nombre].filter(Boolean).join(' ');
+      const apellidoCompleto = [s.primer_apellido, s.segundo_apellido].filter(Boolean).join(' ');
+
       return NextResponse.json({
         found: true,
-        source: 'registro_civil',
-        data: known,
+        source: 'saime',
+        data: {
+          nombre: nombreCompleto,
+          apellido: apellidoCompleto,
+          primerNombre: s.primer_nombre,
+          segundoNombre: s.segundo_nombre || null,
+          primerApellido: s.primer_apellido,
+          segundoApellido: s.segundo_apellido || null,
+          fechaNacimiento: s.fecha_nacimiento,
+          sexo: s.sexo === 'M' ? 'Masculino' : s.sexo === 'F' ? 'Femenino' : null,
+          estadoCivil: s.estado_civil,
+          estado: s.estado,
+          municipio: s.municipio,
+          parroquia: s.parroquia,
+          lugarNacimiento: s.lugar_nacimiento,
+          nacionalidad: s.nacionalidad === 'V' ? 'Venezolano(a)' : 'Extranjero(a)',
+          estatus: s.estatus,
+          fechaEmision: s.fecha_emision,
+          fechaVencimiento: s.fecha_vencimiento,
+        },
       });
     }
 
