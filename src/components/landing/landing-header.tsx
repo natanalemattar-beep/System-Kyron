@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { 
@@ -26,20 +26,19 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const tHero = useTranslations('HeroSection');
     const t = useTranslations('LandingHeader');
 
-    const handleScroll = useCallback(() => {
-        const scrolled = window.scrollY > 20;
-        if (scrolled !== isScrolled) {
-            setIsScrolled(scrolled);
-        }
-    }, [isScrolled]);
-
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+        setMounted(true);
+        const onScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     const navItems = [
         { labelKey: 'home' as const, href: '#inicio' },
@@ -62,7 +61,7 @@ export function LandingHeader() {
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
-             isScrolled ? "bg-background/70 backdrop-blur-2xl py-3 border-b border-border/40 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)]" : "bg-transparent py-8"
+             isScrolled ? "bg-background/80 backdrop-blur-2xl py-3 border-b border-border/40 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)]" : "bg-transparent py-8 landing-hero-header"
         )}>
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
@@ -72,7 +71,7 @@ export function LandingHeader() {
                         <Link href="/" className="flex items-center gap-2 sm:gap-4 group shrink-0">
                             <Logo className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow shrink-0" /> 
                             <div className="flex flex-col -mt-1">
-                                <span className="text-xs sm:text-sm font-black tracking-[0.3em] sm:tracking-[0.4em] text-foreground uppercase italic italic-shadow leading-none">System Kyron</span>
+                                <span className={cn("text-xs sm:text-sm font-black tracking-[0.3em] sm:tracking-[0.4em] uppercase italic italic-shadow leading-none transition-colors duration-500", isScrolled ? "text-foreground" : "text-white")}>System Kyron</span>
                                 <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-80">
                                     {tHero('slogan')}
                                 </span>
@@ -87,7 +86,7 @@ export function LandingHeader() {
                                 key={item.labelKey}
                                 href={item.href as any} 
                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground hover:text-primary transition-all relative group"
+                                className={cn("text-[9px] font-black uppercase tracking-[0.4em] hover:text-primary transition-all relative group", isScrolled ? "text-muted-foreground" : "text-white/70 hover:text-white")}
                             >
                                 {t(item.labelKey)}
                                 <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
@@ -100,7 +99,7 @@ export function LandingHeader() {
                         <div className="hidden sm:flex items-center gap-2">
                             <LanguageSwitcher variant="default" align="end" />
                             <ThemeToggle />
-                            <Button variant="ghost" asChild className="rounded-xl h-10 px-5 text-[9px] font-black uppercase tracking-[0.2em] border border-border hover:border-primary/40 hover:text-primary transition-all">
+                            <Button variant="ghost" asChild className={cn("rounded-xl h-10 px-5 text-[9px] font-black uppercase tracking-[0.2em] border transition-all", isScrolled ? "border-border hover:border-primary/40 hover:text-primary" : "border-white/20 text-white/80 hover:bg-white/10 hover:border-white/40")}>
                                 <Link href="/register">{t('register')}</Link>
                             </Button>
                             <DropdownMenu>

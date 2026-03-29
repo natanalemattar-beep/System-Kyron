@@ -1,127 +1,179 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Calculator, Users, Smartphone, Recycle, Gavel, ShoppingCart, Cpu, Signal, User, Building2, BarChart3, Megaphone, ArrowRight } from "lucide-react";
+import { Calculator, Users, Smartphone, Recycle, Gavel, ShoppingCart, Cpu, Signal, User, Building2, BarChart3, Megaphone, ArrowRight, Shield, Brain, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
+import Image from 'next/image';
 
-const modules = [
-    { icon: Calculator,  title: "Contabilidad",  tag: "VEN-NIF",    color: "text-primary",      bg: "bg-gradient-to-br from-primary/20 to-primary/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(30,64,175,0.25)]",  border: "border-primary/15", hoverBorder: "hover:border-primary/50" },
-    { icon: ShoppingCart, title: "Facturación",   tag: "SENIAT",     color: "text-primary",      bg: "bg-gradient-to-br from-primary/20 to-primary/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(30,64,175,0.25)]",  border: "border-primary/15", hoverBorder: "hover:border-primary/50" },
-    { icon: Users,       title: "Nómina & RRHH", tag: "LOTTT",      color: "text-primary",      bg: "bg-gradient-to-br from-primary/20 to-primary/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(30,64,175,0.25)]",  border: "border-primary/15", hoverBorder: "hover:border-primary/50" },
-    { icon: Gavel,       title: "Asesoría Legal", tag: "Gaceta IA",  color: "text-primary",      bg: "bg-gradient-to-br from-primary/20 to-primary/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(30,64,175,0.25)]",  border: "border-primary/15", hoverBorder: "hover:border-primary/50" },
-    { icon: Signal,      title: "Mi Línea 5G",   tag: "eSIM",       color: "text-blue-500 dark:text-blue-400",     bg: "bg-gradient-to-br from-blue-500/20 to-blue-500/5",     glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(59,130,246,0.25)]",   border: "border-blue-500/15",     hoverBorder: "hover:border-blue-500/50" },
-    { icon: Smartphone,  title: "Flota Móvil",   tag: "Corporativa", color: "text-blue-500 dark:text-blue-400",     bg: "bg-gradient-to-br from-blue-500/20 to-blue-500/5",     glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(59,130,246,0.25)]",   border: "border-blue-500/15",     hoverBorder: "hover:border-blue-500/50" },
-    { icon: Cpu,         title: "IT & Ingeniería", tag: "Servidores", color: "text-blue-500 dark:text-blue-400",     bg: "bg-gradient-to-br from-blue-500/20 to-blue-500/5",     glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(59,130,246,0.25)]",   border: "border-blue-500/15",     hoverBorder: "hover:border-blue-500/50" },
-    { icon: Megaphone,   title: "Marketing IA",  tag: "Gemini 2.0",  color: "text-blue-500 dark:text-blue-400",     bg: "bg-gradient-to-br from-blue-500/20 to-blue-500/5",     glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(59,130,246,0.25)]",   border: "border-blue-500/15",     hoverBorder: "hover:border-blue-500/50" },
-    { icon: User,        title: "Portal Personal", tag: "ID Digital", color: "text-emerald-600 dark:text-emerald-400",  bg: "bg-gradient-to-br from-emerald-500/20 to-emerald-500/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(16,185,129,0.25)]",  border: "border-emerald-500/15",  hoverBorder: "hover:border-emerald-500/50" },
-    { icon: Recycle,     title: "Eco-Créditos",  tag: "Ameru IA",    color: "text-emerald-600 dark:text-emerald-400",  bg: "bg-gradient-to-br from-emerald-500/20 to-emerald-500/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(16,185,129,0.25)]",  border: "border-emerald-500/15",  hoverBorder: "hover:border-emerald-500/50" },
-    { icon: Building2,   title: "Socios",        tag: "Holdings",    color: "text-emerald-600 dark:text-emerald-400",  bg: "bg-gradient-to-br from-emerald-500/20 to-emerald-500/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(16,185,129,0.25)]",  border: "border-emerald-500/15",  hoverBorder: "hover:border-emerald-500/50" },
-    { icon: BarChart3,   title: "Analítica",     tag: "Dashboard",   color: "text-emerald-600 dark:text-emerald-400",  bg: "bg-gradient-to-br from-emerald-500/20 to-emerald-500/5",  glow: "group-hover:shadow-[0_8px_30px_-8px_rgba(16,185,129,0.25)]",  border: "border-emerald-500/15",  hoverBorder: "hover:border-emerald-500/50" },
+const features = [
+    {
+        title: "Contabilidad & Fiscal",
+        subtitle: "VEN-NIF · SENIAT · ISLR",
+        description: "Sistema contable completo con libros legales, plan de cuentas venezolano, cálculo automático de IVA 16%, IGTF 3% e ISLR. Compatible con Gaceta Oficial vigente.",
+        image: "/images/landing/devices-mockup.png",
+        icon: Calculator,
+        color: "from-primary to-blue-600",
+        badges: ["VEN-NIF", "SENIAT", "LOTTT", "BCV"],
+    },
+    {
+        title: "Seguridad AES-256",
+        subtitle: "Cifrado Militar · JWT · Auditoría",
+        description: "Infraestructura de seguridad de grado bancario. Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro inmutable de cada acción.",
+        image: "/images/landing/security-shield.png",
+        icon: Shield,
+        color: "from-emerald-500 to-cyan-600",
+        badges: ["AES-256", "JWT", "HTTPS", "Auditoría"],
+    },
+    {
+        title: "Inteligencia Artificial",
+        subtitle: "Gemini 2.0 Flash · GPT-4o",
+        description: "IA fiscal que monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
+        image: "/images/landing/ai-brain.png",
+        icon: Brain,
+        color: "from-violet-500 to-purple-600",
+        badges: ["Gemini 2.0", "GPT-4o", "Chat IA", "Reportes"],
+    },
 ];
 
-const highlights = [
-    { val: "48h", detail: "Migración", icon: "⚡" },
-    { val: "Bilingüe", detail: "ES & EN", icon: "🌍" },
-    { val: "Multi-empresa", detail: "Holdings", icon: "🏢" },
-    { val: "Gemini 2.0", detail: "IA Integrada", icon: "🧠" },
+const modules = [
+    { icon: Calculator,  title: "Contabilidad",    color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
+    { icon: ShoppingCart, title: "Facturación",     color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
+    { icon: Users,       title: "Nómina & RRHH",   color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
+    { icon: Gavel,       title: "Asesoría Legal",   color: "text-primary",      bg: "from-primary/20 to-primary/5", border: "border-primary/20" },
+    { icon: Signal,      title: "Mi Línea 5G",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
+    { icon: Smartphone,  title: "Flota Móvil",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
+    { icon: Cpu,         title: "IT & Ingeniería",   color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
+    { icon: Megaphone,   title: "Marketing IA",      color: "text-blue-500 dark:text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
+    { icon: User,        title: "Portal Personal",   color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    { icon: Recycle,     title: "Eco-Créditos",      color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    { icon: Building2,   title: "Socios",            color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    { icon: BarChart3,   title: "Analítica",         color: "text-emerald-600 dark:text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
 ];
 
 export function ServicesSection() {
     return (
-        <section id="servicios" className="py-16 md:py-24 bg-transparent relative z-10 overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none -z-10">
+        <section id="servicios" className="relative z-10 overflow-hidden">
+            <div className="py-20 md:py-28">
                 <motion.div
-                    animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/8 blur-[120px]"
-                />
-                <motion.div
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-                    className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-emerald-500/8 blur-[100px]"
-                />
-                <motion.div
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-blue-500/6 blur-[100px]"
-                />
-            </div>
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-6">
+                        <Zap className="h-3.5 w-3.5" />
+                        Ecosistema Completo
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-foreground uppercase leading-[1.05] mb-4">
+                        Todo lo que necesitas,{' '}
+                        <span className="bg-gradient-to-r from-primary via-cyan-400 to-emerald-400 bg-clip-text text-transparent italic animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>
+                            integrado
+                        </span>
+                    </h2>
+                    <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
+                        12 módulos interconectados que cubren contabilidad, nómina, facturación, legal, telecomunicaciones e inteligencia artificial.
+                    </p>
+                </motion.div>
 
-            <motion.div
-                className="mb-12 md:mb-16 text-center space-y-4"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-            >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[9px] font-black uppercase tracking-[0.35em] text-primary mx-auto shadow-[0_0_15px_rgba(var(--primary-rgb,30,64,175),0.08)]">
-                    <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                    12 Módulos Integrados
+                <div className="space-y-20 md:space-y-28">
+                    {features.map((feat, idx) => (
+                        <motion.div
+                            key={feat.title}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.7 }}
+                            className="container mx-auto px-4 md:px-10 max-w-7xl"
+                        >
+                            <div className={cn(
+                                "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
+                                idx % 2 === 1 && "lg:flex-row-reverse"
+                            )}>
+                                <div className={cn("space-y-6", idx % 2 === 1 && "lg:order-2")}>
+                                    <div className={cn("inline-flex items-center gap-2 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white border border-white/10", `bg-gradient-to-r ${feat.color}`)}>
+                                        <feat.icon className="h-3.5 w-3.5" />
+                                        {feat.subtitle}
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter uppercase text-foreground leading-[1.1]">
+                                        {feat.title}
+                                    </h3>
+                                    <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed max-w-lg">
+                                        {feat.description}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {feat.badges.map((b) => (
+                                            <span key={b} className="px-3 py-1.5 rounded-full border border-border/40 bg-muted/30 text-[9px] font-black uppercase tracking-widest text-muted-foreground">
+                                                {b}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
+                                    <div className={cn("absolute -inset-6 rounded-[2rem] blur-3xl opacity-30", `bg-gradient-to-br ${feat.color}`)} />
+                                    <motion.div
+                                        whileHover={{ y: -6, scale: 1.02 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        className="relative rounded-[1.5rem] overflow-hidden border border-border/20 shadow-2xl bg-card/30"
+                                    >
+                                        <Image
+                                            src={feat.image}
+                                            alt={feat.title}
+                                            width={idx === 0 ? 800 : 600}
+                                            height={idx === 0 ? 450 : 600}
+                                            className="w-full h-auto"
+                                            
+                                        />
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-foreground uppercase leading-[1.1]">
-                    Un ecosistema, <br className="sm:hidden" /><span className="bg-gradient-to-r from-primary via-cyan-400 to-emerald-400 bg-clip-text text-transparent italic animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>cero límites</span>
-                </h2>
-            </motion.div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-                {modules.map((mod, i) => (
-                    <motion.div
-                        key={mod.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.04, duration: 0.5 }}
-                        whileHover={{ y: -6, transition: { type: "spring", stiffness: 400, damping: 17 } }}
-                        className={cn(
-                            "group relative flex flex-col items-center text-center gap-3 p-5 md:p-6 rounded-3xl border bg-card/50 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 cursor-default overflow-hidden",
-                            mod.border, mod.hoverBorder, mod.glow
-                        )}
-                    >
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-b from-transparent via-transparent to-primary/[0.03]" />
-                        <div className={cn("relative p-3 rounded-xl border shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500", mod.bg, mod.border)}>
-                            <mod.icon className={cn("h-5 w-5", mod.color)} />
-                        </div>
-                        <div className="relative space-y-1">
-                            <h3 className="text-[11px] font-black uppercase tracking-tight text-foreground group-hover:text-foreground transition-colors">{mod.title}</h3>
-                            <span className={cn("text-[8px] font-bold uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity", mod.color)}>{mod.tag}</span>
-                        </div>
-                    </motion.div>
-                ))}
+                <motion.div
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="text-center mb-12">
+                        <h3 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase text-foreground mb-3">
+                            12 Módulos, <span className="text-primary italic">Un Ecosistema</span>
+                        </h3>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                        {modules.map((mod, i) => (
+                            <motion.div
+                                key={mod.title}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.04, duration: 0.4 }}
+                                whileHover={{ y: -5, scale: 1.03 }}
+                                className={cn(
+                                    "group flex flex-col items-center text-center gap-3 p-5 rounded-3xl border bg-card/50 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 cursor-default hover:shadow-xl",
+                                    mod.border
+                                )}
+                            >
+                                <div className={cn("p-3 rounded-xl border shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 bg-gradient-to-br", mod.bg, mod.border)}>
+                                    <mod.icon className={cn("h-5 w-5", mod.color)} />
+                                </div>
+                                <h4 className="text-[10px] font-black uppercase tracking-tight text-foreground">{mod.title}</h4>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="mt-10 flex justify-center">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-primary/80 text-white text-xs font-black uppercase tracking-widest shadow-[0_8px_30px_rgba(var(--primary-rgb,30,64,175),0.3)] hover:shadow-[0_12px_40px_rgba(var(--primary-rgb,30,64,175),0.4)] transition-all duration-500">
+                            Explorar Ecosistema <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </div>
+                </motion.div>
             </div>
-
-            <motion.div
-                className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-            >
-                {highlights.map((r, i) => (
-                    <motion.div
-                        key={i}
-                        whileHover={{ y: -3, scale: 1.03 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                        className="flex flex-col items-center text-center gap-1.5 p-4 rounded-3xl bg-gradient-to-b from-muted/40 to-muted/20 dark:from-white/[0.03] dark:to-white/[0.01] border border-border/30 dark:border-white/[0.06] hover:border-primary/25 transition-all duration-300 cursor-default"
-                    >
-                        <span className="text-base">{r.icon}</span>
-                        <p className="text-xs font-black text-foreground/85 uppercase tracking-tight">{r.val}</p>
-                        <p className="text-[8px] font-semibold text-muted-foreground/70 uppercase tracking-widest">{r.detail}</p>
-                    </motion.div>
-                ))}
-            </motion.div>
-
-            <motion.div
-                className="mt-8 flex justify-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-            >
-                <Link href="/register" className="group inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[9px] font-black uppercase tracking-widest text-primary hover:border-primary/40 hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(var(--primary-rgb,30,64,175),0.1)] transition-all duration-500">
-                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-300" /> Acceso al Ecosistema
-                </Link>
-            </motion.div>
         </section>
     );
 }
