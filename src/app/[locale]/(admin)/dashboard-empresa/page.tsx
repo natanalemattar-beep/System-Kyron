@@ -143,7 +143,7 @@ export default function DashboardEmpresaPage() {
             if (res.ok) {
                 setClosingData(json.cierre);
                 toast({
-                    title: "✔ PERÍODO FISCAL CERRADO",
+                    title: "PERÍODO FISCAL CERRADO",
                     description: `${closingForm.periodo} — Utilidad: Bs. ${fmtBs(json.cierre?.utilidad ?? 0)}`,
                 });
                 setShowCierre(false);
@@ -225,79 +225,93 @@ export default function DashboardEmpresaPage() {
             label: "INGRESOS DEL MES",
             value: data ? `Bs. ${fmtBs(data.ingresos)}` : "—",
             trend: data?.ingresos === 0 ? "Sin movimientos" : `Acumulado ${new Date().toLocaleDateString('es-VE', { month: 'long', year: 'numeric' })}`,
-            icon: TrendingUp, color: "text-emerald-600",
+            icon: TrendingUp, color: "text-emerald-500", bg: "bg-gradient-to-br from-emerald-500/10 to-green-500/5", border: "border-emerald-500/10",
         },
         {
             label: "GASTOS DEL MES",
             value: data ? `Bs. ${fmtBs(data.gastos)}` : "—",
             trend: data?.gastos === 0 ? "Sin movimientos" : "Egresos acumulados",
-            icon: TrendingDown, color: "text-rose-600",
+            icon: TrendingDown, color: "text-rose-500", bg: "bg-gradient-to-br from-rose-500/10 to-pink-500/5", border: "border-rose-500/10",
         },
         {
             label: "UTILIDAD NETA",
             value: data ? `Bs. ${fmtBs(data.utilidadNeta)}` : "—",
             trend: data ? (data.utilidadNeta >= 0 ? "Positiva" : "Negativa") : "Sin datos",
-            icon: Zap, color: data?.utilidadNeta != null ? (data.utilidadNeta >= 0 ? "text-primary" : "text-rose-600") : "text-primary",
+            icon: Zap, color: data?.utilidadNeta != null ? (data.utilidadNeta >= 0 ? "text-amber-500" : "text-rose-500") : "text-amber-500",
+            bg: "bg-gradient-to-br from-amber-500/10 to-yellow-500/5", border: "border-amber-500/10",
         },
         {
             label: "LIQUIDEZ TOTAL",
             value: data ? `Bs. ${fmtBs(data.liquidezTotal)}` : "—",
             trend: data?.liquidezTotal === 0 ? "Sin cuentas" : `${data?.facturas?.emitidas ?? 0} fact. emitidas`,
-            icon: Activity, color: "text-blue-500",
+            icon: Activity, color: "text-blue-500", bg: "bg-gradient-to-br from-blue-500/10 to-cyan-500/5", border: "border-blue-500/10",
         },
     ];
 
     const quickBooks = [
-        { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: Receipt, kpi: data ? `Bs. ${fmtBs(data.cuentasCobrar)}` : "—", color: "text-blue-600" },
-        { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: data ? `${data.empleados} empleado${data.empleados !== 1 ? 's' : ''}` : "—", color: "text-emerald-600" },
-        { label: "Facturas Vencidas", href: "/facturacion", icon: Box, kpi: data ? `${data.facturas.vencidas} vencida${data.facturas.vencidas !== 1 ? 's' : ''}` : "—", color: "text-amber-600" },
-        { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: Landmark, kpi: data ? `Bs. ${fmtBs(data.cuentasPagar)}` : "—", color: "text-rose-600" },
+        { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: Receipt, kpi: data ? `Bs. ${fmtBs(data.cuentasCobrar)}` : "—", color: "text-blue-500", gradient: "from-blue-500/5 to-cyan-500/3" },
+        { label: "Nómina Mensual", href: "/contabilidad/libros/nomina", icon: Users, kpi: data ? `${data.empleados} empleado${data.empleados !== 1 ? 's' : ''}` : "—", color: "text-emerald-500", gradient: "from-emerald-500/5 to-teal-500/3" },
+        { label: "Facturas Vencidas", href: "/facturacion", icon: Box, kpi: data ? `${data.facturas.vencidas} vencida${data.facturas.vencidas !== 1 ? 's' : ''}` : "—", color: "text-amber-500", gradient: "from-amber-500/5 to-orange-500/3" },
+        { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: Landmark, kpi: data ? `Bs. ${fmtBs(data.cuentasPagar)}` : "—", color: "text-rose-500", gradient: "from-rose-500/5 to-pink-500/3" },
     ];
 
     return (
         <div className="space-y-8 md:space-y-10 pb-20">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-6 py-2 mt-6 md:mt-10">
-                <div className="space-y-1">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-2 md:mb-3">
-                        <Calculator className="h-3 w-3" /> CENTRO OPERATIVO CENTRAL
-                    </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-foreground italic-shadow">
-                        PORTAL INTEGRAL DE CONTROL <span className="text-primary italic">CORPORATIVO</span>
-                    </h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-1 md:mt-2 italic">
-                        {user?.nombre ? `${user.nombre} • ` : ''}Portal Empresarial • Gestión Consolidada 2026
-                    </p>
+            <header className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-900 via-slate-800 to-zinc-900 p-8 md:p-10 text-white mt-6 md:mt-10">
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-amber-500/10 blur-[80px] animate-pulse" style={{ animationDuration: '5s' }} />
+                    <div className="absolute bottom-0 left-1/4 w-60 h-60 rounded-full bg-primary/8 blur-[70px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+                    <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-amber-400/30 animate-ping" style={{ animationDuration: '3s' }} />
+                    <div className="absolute top-2/3 left-1/3 w-1.5 h-1.5 rounded-full bg-white/15 animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                    <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+                        <defs><pattern id="eGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/></pattern></defs>
+                        <rect width="100%" height="100%" fill="url(#eGrid)"/>
+                    </svg>
                 </div>
-                <div className="flex w-full md:w-auto gap-3 no-print flex-wrap">
-                    <Button variant="outline" className="flex-none h-11 md:h-12 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-                        <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
-                    </Button>
-                    <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60" onClick={handleAuditoria}>
-                        <History className="mr-2 h-4 w-4" /> AUDITORÍA
-                    </Button>
-                    <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-primary/30 bg-primary/5 text-primary hover:bg-primary/10" onClick={handleAIAnalysis} disabled={aiLoading || loading}>
-                        <BrainCircuit className="mr-2 h-4 w-4" /> ANALIZAR CON IA
-                    </Button>
-                    <Button className="flex-1 md:flex-none btn-3d-primary h-11 md:h-12 px-6 md:px-10 rounded-xl font-black text-[9px] uppercase tracking-widest" onClick={() => { setClosingData(null); setShowCierre(true); }}>
-                        <Lock className="mr-2 h-4 w-4" /> CERRAR PERIODO
-                    </Button>
+
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div className="space-y-2">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-400 backdrop-blur-sm">
+                            <Building2 className="h-3 w-3" /> Centro Operativo Central
+                        </div>
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none drop-shadow-md">
+                            Portal de Control <span className="text-amber-400 italic">Corporativo</span>
+                        </h1>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-50">
+                            {user?.nombre ? `${user.nombre} · ` : ''}Gestión Consolidada 2026
+                            <span className="ml-3 inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Operativo</span>
+                        </p>
+                    </div>
+                    <div className="flex w-full md:w-auto gap-3 no-print flex-wrap">
+                        <Button variant="outline" className="flex-none h-11 md:h-12 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                            <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                        </Button>
+                        <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white" onClick={handleAuditoria}>
+                            <History className="mr-2 h-4 w-4" /> AUDITORÍA
+                        </Button>
+                        <Button variant="outline" className="flex-1 md:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-amber-500/20 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20" onClick={handleAIAnalysis} disabled={aiLoading || loading}>
+                            <BrainCircuit className="mr-2 h-4 w-4" /> ANALIZAR CON IA
+                        </Button>
+                        <Button className="flex-1 md:flex-none h-11 md:h-12 px-6 md:px-10 rounded-xl font-black text-[9px] uppercase tracking-widest bg-amber-500 text-slate-900 hover:bg-amber-400 shadow-lg shadow-amber-500/20" onClick={() => { setClosingData(null); setShowCierre(true); }}>
+                            <Lock className="mr-2 h-4 w-4" /> CERRAR PERIODO
+                        </Button>
+                    </div>
                 </div>
             </header>
 
-            {/* KPI Cards */}
             <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {kpiStats.map((kpi, i) => (
                     <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-                        <Card className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-sm hover:shadow-md transition-all group h-full">
+                        <Card className={cn("border rounded-2xl p-2 shadow-sm hover:shadow-md transition-all group h-full", kpi.bg, kpi.border)}>
                             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4 md:p-6">
                                 <CardTitle className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</CardTitle>
-                                <div className="p-2 rounded-xl bg-muted border border-border group-hover:scale-110 transition-transform shadow-inner">
-                                    <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                                <div className={cn("p-2 rounded-xl bg-background/50 border border-border/50 group-hover:scale-110 transition-transform", kpi.color)}>
+                                    <kpi.icon className="h-4 w-4" />
                                 </div>
                             </CardHeader>
                             <CardContent className="p-4 md:p-6 pt-0">
                                 {loading ? <div className="h-8 w-32 bg-muted rounded animate-pulse" /> : (
-                                    <div className="text-xl md:text-2xl font-black italic tracking-tighter text-foreground break-words">{kpi.value}</div>
+                                    <div className="text-xl md:text-2xl font-black tracking-tighter text-foreground break-words">{kpi.value}</div>
                                 )}
                                 <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend}</p>
                             </CardContent>
@@ -306,11 +320,10 @@ export default function DashboardEmpresaPage() {
                 ))}
             </div>
 
-            {/* Fiscal Compliance Bar */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-                <Card className="glass-card border-none bg-card/40 rounded-2xl p-6 md:p-8">
+                <Card className="border border-emerald-500/10 bg-gradient-to-br from-emerald-500/5 to-green-500/3 rounded-2xl p-6 md:p-8">
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="p-2 bg-emerald-500/10 rounded-xl"><Shield className="h-5 w-5 text-emerald-500" /></div>
+                        <div className="p-2 bg-emerald-500/10 rounded-xl border border-emerald-500/10"><Shield className="h-5 w-5 text-emerald-500" /></div>
                         <div>
                             <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-foreground/60">Cumplimiento Fiscal</h3>
                             <p className="text-[9px] text-muted-foreground uppercase tracking-widest">VEN-NIF · SENIAT · LOTTT</p>
@@ -335,9 +348,9 @@ export default function DashboardEmpresaPage() {
                     </div>
                 </Card>
 
-                <Card className="glass-card border-none bg-card/40 rounded-2xl p-6 md:p-8">
+                <Card className="border border-amber-500/10 bg-gradient-to-br from-amber-500/5 to-orange-500/3 rounded-2xl p-6 md:p-8">
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="p-2 bg-amber-500/10 rounded-xl"><AlertTriangle className="h-5 w-5 text-amber-500" /></div>
+                        <div className="p-2 bg-amber-500/10 rounded-xl border border-amber-500/10"><AlertTriangle className="h-5 w-5 text-amber-500" /></div>
                         <div>
                             <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-foreground/60">Alertas del Sistema</h3>
                             <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Seguimiento operativo</p>
@@ -349,7 +362,7 @@ export default function DashboardEmpresaPage() {
                             { text: "Retención ISLR por aplicar", date: data?.facturas.vencidas ? `${data.facturas.vencidas} pendiente(s)` : "Sin pendientes", urgency: data?.facturas.vencidas ? "text-rose-500" : "text-emerald-500", icon: Banknote },
                             { text: "Conciliación bancaria mensual", date: "Revisar antes del cierre", urgency: "text-blue-500", icon: CreditCard },
                         ].map((alert, i) => (
-                            <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/20 hover:bg-muted/40 transition-all">
+                            <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-background/50 border border-border/20 hover:bg-muted/20 transition-all">
                                 <alert.icon className={cn("h-4 w-4 shrink-0", alert.urgency)} />
                                 <div className="flex-1 min-w-0">
                                     <p className="text-[10px] font-bold uppercase truncate">{alert.text}</p>
@@ -361,23 +374,22 @@ export default function DashboardEmpresaPage() {
                 </Card>
             </div>
 
-            {/* Módulos Operativos */}
             <div className="space-y-5">
                 <div className="flex items-center gap-4 ml-2">
-                    <div className="p-2 bg-primary/10 rounded-xl"><Globe className="h-5 w-5 text-primary" /></div>
+                    <div className="p-2 bg-amber-500/10 rounded-xl border border-amber-500/10"><Globe className="h-5 w-5 text-amber-500" /></div>
                     <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Módulos del Ecosistema</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
                     {[
-                        { label: "Contabilidad", href: "/contabilidad", icon: Calculator, color: "text-blue-500", bg: "bg-blue-500/10" },
-                        { label: "RRHH", href: "/rrhh", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-                        { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/10" },
-                        { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/10" },
-                        { label: "Mi Línea", href: "/telecom-dashboard", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/10" },
-                        { label: "Sostenibilidad", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/10" },
+                        { label: "Contabilidad", href: "/contabilidad", icon: Calculator, color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/10" },
+                        { label: "RRHH", href: "/rrhh", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/10" },
+                        { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/10" },
+                        { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/10" },
+                        { label: "Mi Línea", href: "/telecom-dashboard", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/10", border: "border-teal-500/10" },
+                        { label: "Sostenibilidad", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/10" },
                     ].map((mod, i) => (
                         <Link key={i} href={mod.href as never}>
-                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/10 transition-all rounded-2xl p-5 text-center group shadow-sm hover:shadow-md cursor-pointer h-full">
+                            <Card className={cn("border hover:shadow-md transition-all rounded-2xl p-5 text-center group shadow-sm cursor-pointer h-full bg-card", mod.border)}>
                                 <div className={cn("p-3 rounded-xl mx-auto w-fit mb-3 group-hover:scale-110 transition-transform", mod.bg)}>
                                     <mod.icon className={cn("h-5 w-5", mod.color)} />
                                 </div>
@@ -388,11 +400,10 @@ export default function DashboardEmpresaPage() {
                 </div>
             </div>
 
-            {/* Quick Books */}
             <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between ml-2 gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="p-2 bg-primary/10 rounded-xl"><BookOpen className="h-5 w-5 text-primary" /></div>
+                        <div className="p-2 bg-blue-500/10 rounded-xl border border-blue-500/10"><BookOpen className="h-5 w-5 text-blue-500" /></div>
                         <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Resumen Financiero</h3>
                     </div>
                     <Button asChild variant="link" className="text-primary font-black uppercase text-[10px] tracking-widest p-0 h-auto self-start sm:self-auto">
@@ -402,30 +413,29 @@ export default function DashboardEmpresaPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     {quickBooks.map((item, i) => (
                         <Link key={i} href={item.href as never}>
-                            <Card className="glass-card border-none bg-card/40 hover:bg-muted/5 transition-all rounded-2xl p-6 md:p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                            <Card className={cn("border border-border/30 hover:shadow-lg transition-all rounded-2xl p-6 md:p-8 flex flex-col justify-between group shadow-sm min-h-[140px] bg-gradient-to-br", item.gradient)}>
                                 <div className="flex items-center gap-5">
-                                    <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
+                                    <div className="p-4 bg-background/50 rounded-2xl group-hover:bg-primary/10 transition-colors border border-border/50 group-hover:border-primary/20">
                                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                                     </div>
                                     <div>
-                                        <p className="text-sm font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors italic">{item.label}</p>
+                                        <p className="text-sm font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors">{item.label}</p>
                                         <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1", loading ? "text-muted-foreground" : item.color)}>
                                             {loading ? "Cargando..." : item.kpi}
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex justify-end mt-4"><ArrowRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary transition-all" /></div>
+                                <div className="flex justify-end mt-4"><ArrowRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all" /></div>
                             </Card>
                         </Link>
                     ))}
                 </div>
             </div>
 
-            {/* Chart + Movimientos + IA */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div className="lg:col-span-7 w-full overflow-hidden"><OverviewChart /></div>
                 <div className="lg:col-span-5 space-y-4">
-                    <Card className="glass-card border-none bg-card/40 rounded-2xl p-6">
+                    <Card className="border border-border/30 bg-card rounded-2xl p-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">Últimos Movimientos</h3>
                             <Link href="/contabilidad/conciliacion-bancaria"><span className="text-[9px] font-black uppercase tracking-widest text-primary cursor-pointer">Ver todos</span></Link>
@@ -456,11 +466,14 @@ export default function DashboardEmpresaPage() {
                         )}
                     </Card>
 
-                    <Card className="glass-card border-none bg-[#050505] p-8 text-white relative overflow-hidden group shadow-2xl">
-                        <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><BarChart3 className="h-32 w-32" /></div>
+                    <Card className="border border-slate-700/50 bg-gradient-to-br from-slate-900 via-slate-800 to-zinc-900 p-8 text-white relative overflow-hidden group shadow-2xl rounded-2xl">
+                        <div className="absolute inset-0 overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-amber-500/10 blur-[40px]" />
+                            <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><BarChart3 className="h-32 w-32" /></div>
+                        </div>
                         <div className="relative z-10 space-y-6">
                             <div>
-                                <h3 className="text-xl font-black uppercase italic tracking-tighter text-[#00A86B]">Escenarios IA</h3>
+                                <h3 className="text-xl font-black uppercase italic tracking-tighter text-amber-400">Escenarios IA</h3>
                                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-60">Modelado Predictivo</p>
                             </div>
                             <div className="grid grid-cols-1 gap-3">
@@ -470,10 +483,10 @@ export default function DashboardEmpresaPage() {
                                         toast({ title: "SIMULACIÓN: AUMENTO VENTAS 20%", description: `Proyección de ingresos: Bs. ${fmtBs(aum)} — Utilidad estimada: Bs. ${fmtBs(aum - (data?.gastos ?? 0))}` });
                                     }}
                                     variant="outline"
-                                    className="justify-start h-12 rounded-2xl border-white/10 bg-white/5 hover:bg-[#00A86B] hover:border-[#00A86B] group/btn text-white"
+                                    className="justify-start h-12 rounded-2xl border-white/10 bg-white/5 hover:bg-amber-500 hover:border-amber-500 group/btn text-white"
                                 >
-                                    <TrendingUp className="mr-4 h-4 w-4 text-[#00A86B] group-hover/btn:text-white transition-all" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest">Aumento Ventas 20%</span>
+                                    <TrendingUp className="mr-4 h-4 w-4 text-amber-400 group-hover/btn:text-slate-900 transition-all" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest group-hover/btn:text-slate-900">Aumento Ventas 20%</span>
                                 </Button>
                                 <Button
                                     onClick={() => {
@@ -492,22 +505,21 @@ export default function DashboardEmpresaPage() {
                 </div>
             </div>
 
-            {/* ─── DIALOG: CERRAR PERÍODO ─── */}
             <Dialog open={showCierre} onOpenChange={setShowCierre}>
                 <DialogContent className="max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="text-[10px] font-black uppercase tracking-[0.4em] flex items-center gap-3">
-                            <Lock className="h-4 w-4 text-primary" /> Cierre de Período Fiscal
+                            <Lock className="h-4 w-4 text-amber-500" /> Cierre de Período Fiscal
                         </DialogTitle>
                     </DialogHeader>
                     {closingData ? (
                         <div className="space-y-6 py-4">
-                            <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20 space-y-4">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-primary">Resumen del Período: {closingData.periodo}</p>
+                            <div className="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-4">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-amber-600">Resumen del Período: {closingData.periodo}</p>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div><p className="text-[9px] text-muted-foreground uppercase font-bold">Ingresos</p><p className="text-lg font-black text-emerald-500">Bs. {fmtBs(closingData.ingresos)}</p></div>
                                     <div><p className="text-[9px] text-muted-foreground uppercase font-bold">Gastos</p><p className="text-lg font-black text-rose-500">Bs. {fmtBs(closingData.gastos)}</p></div>
-                                    <div><p className="text-[9px] text-muted-foreground uppercase font-bold">Utilidad Neta</p><p className={cn("text-xl font-black", closingData.utilidad >= 0 ? "text-primary" : "text-rose-500")}>Bs. {fmtBs(closingData.utilidad)}</p></div>
+                                    <div><p className="text-[9px] text-muted-foreground uppercase font-bold">Utilidad Neta</p><p className={cn("text-xl font-black", closingData.utilidad >= 0 ? "text-amber-500" : "text-rose-500")}>Bs. {fmtBs(closingData.utilidad)}</p></div>
                                     <div><p className="text-[9px] text-muted-foreground uppercase font-bold">Facturas</p><p className="text-lg font-black">{closingData.facturas_emitidas} emitidas / {closingData.facturas_cobradas} cobradas</p></div>
                                 </div>
                             </div>
@@ -538,12 +550,12 @@ export default function DashboardEmpresaPage() {
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setShowCierre(false)} className="rounded-xl text-xs">Cancelar</Button>
                         {closingData ? (
-                            <Button onClick={handleConfirmCierre} disabled={isClosing} className="rounded-xl font-black text-[9px] uppercase tracking-widest bg-primary">
+                            <Button onClick={handleConfirmCierre} disabled={isClosing} className="rounded-xl font-black text-[9px] uppercase tracking-widest bg-amber-500 text-slate-900 hover:bg-amber-400">
                                 {isClosing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle className="mr-2 h-4 w-4" />}
                                 {isClosing ? "PROCESANDO..." : "CONFIRMAR CIERRE"}
                             </Button>
                         ) : (
-                            <Button onClick={handlePreviewCierre} disabled={isClosing} className="rounded-xl font-black text-[9px] uppercase tracking-widest">
+                            <Button onClick={handlePreviewCierre} disabled={isClosing} className="rounded-xl font-black text-[9px] uppercase tracking-widest bg-amber-500 text-slate-900 hover:bg-amber-400">
                                 {isClosing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Calendar className="mr-2 h-4 w-4" />}
                                 {isClosing ? "CALCULANDO..." : "CALCULAR PERÍODO"}
                             </Button>
@@ -552,12 +564,11 @@ export default function DashboardEmpresaPage() {
                 </DialogContent>
             </Dialog>
 
-            {/* ─── DIALOG: AUDITORÍA ─── */}
             <Dialog open={showAuditoria} onOpenChange={setShowAuditoria}>
                 <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col">
                     <DialogHeader>
                         <DialogTitle className="text-[10px] font-black uppercase tracking-[0.4em] flex items-center gap-3">
-                            <History className="h-4 w-4 text-primary" /> Registro de Auditoría del Sistema
+                            <History className="h-4 w-4 text-amber-500" /> Registro de Auditoría del Sistema
                         </DialogTitle>
                     </DialogHeader>
                     <div className="relative mb-4">
@@ -596,20 +607,19 @@ export default function DashboardEmpresaPage() {
                 </DialogContent>
             </Dialog>
 
-            {/* ─── DIALOG: ANÁLISIS IA ─── */}
             <Dialog open={showAI} onOpenChange={setShowAI}>
                 <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col">
                     <DialogHeader>
                         <DialogTitle className="text-[10px] font-black uppercase tracking-[0.4em] flex items-center gap-3">
-                            <BrainCircuit className="h-4 w-4 text-primary" /> Análisis Inteligente del Dashboard
+                            <BrainCircuit className="h-4 w-4 text-amber-500" /> Análisis Inteligente del Dashboard
                         </DialogTitle>
                     </DialogHeader>
                     <div className="flex-1 overflow-y-auto py-4">
                         {aiLoading ? (
                             <div className="space-y-4 py-8">
                                 <div className="flex flex-col items-center gap-4">
-                                    <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-                                        <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+                                    <div className="p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20">
+                                        <Sparkles className="h-8 w-8 text-amber-500 animate-pulse" />
                                     </div>
                                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Analizando datos con IA...</p>
                                 </div>
@@ -619,10 +629,10 @@ export default function DashboardEmpresaPage() {
                             </div>
                         ) : aiAnalysis ? (
                             <div className="space-y-4">
-                                <div className="p-4 bg-primary/5 rounded-2xl border border-primary/20">
+                                <div className="p-4 bg-amber-500/5 rounded-2xl border border-amber-500/20">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <Sparkles className="h-4 w-4 text-primary" />
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-primary">Análisis Generado por OpenAI</span>
+                                        <Sparkles className="h-4 w-4 text-amber-500" />
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-amber-600">Análisis Generado por IA</span>
                                     </div>
                                     <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap font-medium">
                                         {aiAnalysis}
@@ -630,7 +640,7 @@ export default function DashboardEmpresaPage() {
                                 </div>
                                 <div className="flex items-center gap-2 text-[9px] text-muted-foreground/50 font-bold uppercase">
                                     <CheckCircle className="h-3 w-3" />
-                                    Basado en datos en tiempo real del dashboard • {new Date().toLocaleDateString('es-VE')}
+                                    Basado en datos en tiempo real del dashboard · {new Date().toLocaleDateString('es-VE')}
                                 </div>
                             </div>
                         ) : null}
