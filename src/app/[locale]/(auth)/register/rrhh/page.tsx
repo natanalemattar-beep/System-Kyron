@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -16,15 +16,9 @@ import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
+import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 5;
-
-const ESTADOS_VE = [
-    'Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo',
-    'Cojedes','Delta Amacuro','Dependencias Federales','Distrito Capital','Falcón',
-    'Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
-    'Sucre','Táchira','Trujillo','La Guaira','Yaracuy','Zulia',
-];
 
 const TIPOS_EMPRESA = [
     'Compañía Anónima (C.A.)','Compañía de Responsabilidad Limitada (C.R.L.)',
@@ -81,11 +75,14 @@ export default function RegisterRRHHPage() {
     const router = useRouter();
     const { toast } = useToast();
 
-    const { register, handleSubmit, control, getValues, trigger, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, control, getValues, trigger, watch, setValue, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema), mode: 'onChange',
     });
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
+
+    const estadoEmpresa = watch('estado_empresa');
+    useEffect(() => { setValue('municipio_empresa', ''); }, [estadoEmpresa]);
 
     const stepFields: Record<number, (keyof FormData)[]> = {
         1: ['razonSocial','rif','tipo_empresa','sector_economico','telefono','estado_empresa','municipio_empresa','direccion'],
@@ -228,7 +225,14 @@ export default function RegisterRRHHPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">Municipio *</Label>
-                                    <Input {...register('municipio_empresa')} className={cn(errors.municipio_empresa && 'border-destructive')} />
+                                    <Controller name="municipio_empresa" control={control} render={({ field }) => (
+                                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
+                                            <SelectTrigger className={cn(errors.municipio_empresa && 'border-destructive')}>
+                                                <SelectValue placeholder={estadoEmpresa ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
+                                            </SelectTrigger>
+                                            <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
+                                        </Select>
+                                    )} />
                                 </div>
                                 <div className="sm:col-span-2 space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">Dirección Sede *</Label>

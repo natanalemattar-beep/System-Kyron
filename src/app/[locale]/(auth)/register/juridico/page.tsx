@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -26,15 +26,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 import { DocumentInput } from '@/components/document-input';
+import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 7;
-
-const ESTADOS_VE = [
-  'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
-  'Cojedes', 'Delta Amacuro', 'Dependencias Federales', 'Distrito Capital', 'Falcón',
-  'Guárico', 'Lara', 'Mérida', 'Miranda', 'Monagas', 'Nueva Esparta', 'Portuguesa',
-  'Sucre', 'Táchira', 'Trujillo', 'La Guaira', 'Yaracuy', 'Zulia',
-];
 
 const TIPOS_EMPRESA = [
   'Compañía Anónima (C.A.)',
@@ -188,7 +182,7 @@ export default function RegisterJuridicoPage() {
   const prefilledMunicipio = searchParams.get('municipio') || '';
   const prefilledTel = searchParams.get('tel') || '';
 
-  const { register, handleSubmit, control, setValue, getValues, formState: { errors }, trigger } =
+  const { register, handleSubmit, control, setValue, getValues, watch, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
@@ -210,6 +204,9 @@ export default function RegisterJuridicoPage() {
       return next;
     });
   };
+
+  const estadoEmpresa = watch('estado_empresa');
+  useEffect(() => { setValue('municipio_empresa', ''); }, [estadoEmpresa]);
 
   const startCountdown = () => {
     setCountdown(60);
@@ -505,7 +502,20 @@ export default function RegisterJuridicoPage() {
                   />
                 </Field>
                 <Field id="municipio_empresa" label="Municipio" error={errors.municipio_empresa?.message}>
-                  <Input id="municipio_empresa" placeholder="Ej: Chacao" className="bg-background border-input" {...register('municipio_empresa')} />
+                  <Controller
+                    name="municipio_empresa"
+                    control={control}
+                    render={({ field }) => (
+                      <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
+                        <SelectTrigger id="municipio_empresa" className="bg-background border-input">
+                          <SelectValue placeholder={estadoEmpresa ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                 </Field>
                 <Field id="direccion" label="Dirección Fiscal Completa" error={errors.direccion?.message}>
                   <div className="relative">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -24,16 +24,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 5;
 const FORM_STEPS = TOTAL_STEPS - 1;
-
-const ESTADOS_VE = [
-  'Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo',
-  'Cojedes', 'Delta Amacuro', 'Dependencias Federales', 'Distrito Capital', 'Falcón',
-  'Guárico', 'Lara', 'Mérida', 'Miranda', 'Monagas', 'Nueva Esparta', 'Portuguesa',
-  'Sucre', 'Táchira', 'Trujillo', 'La Guaira', 'Yaracuy', 'Zulia',
-];
 
 const fullSchema = z.object({
   nombre: z.string().min(2, 'El nombre es requerido.'),
@@ -97,7 +91,7 @@ export default function RegisterNaturalPage() {
 
   const hasSaimeData = !!(prefilledNombre && prefilledApellido);
 
-  const { register, handleSubmit, control, getValues, formState: { errors }, trigger } =
+  const { register, handleSubmit, control, getValues, watch, setValue, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
@@ -123,6 +117,9 @@ export default function RegisterNaturalPage() {
       });
     }, 1000);
   };
+
+  const estadoResidencia = watch('estado_residencia');
+  useEffect(() => { if (!prefilledMunicipio) setValue('municipio', ''); }, [estadoResidencia]);
 
   const nextStep = async () => {
     const fields = step === 1 ? step1Fields : step === 2 ? step2Fields : step3Fields;
@@ -588,7 +585,20 @@ export default function RegisterNaturalPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="municipio" label="Municipio" error={errors.municipio?.message}>
-                    <Input id="municipio" placeholder="Ej: Sucre" readOnly={!!prefilledMunicipio} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledMunicipio && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('municipio')} />
+                    <Controller
+                      name="municipio"
+                      control={control}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoResidencia || !!prefilledMunicipio}>
+                          <SelectTrigger id="municipio" className={cn("rounded-xl bg-muted/30 border-border/50 h-11", prefilledMunicipio && "bg-muted/60 text-foreground/80 cursor-not-allowed")}>
+                            <SelectValue placeholder={estadoResidencia ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {getMunicipios(estadoResidencia || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </Field>
                   <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
                     <Input id="ciudad" placeholder="Ej: Petare" readOnly={!!prefilledParroquia} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledParroquia && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('ciudad')} />

@@ -17,15 +17,9 @@ import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DocumentInput } from '@/components/document-input';
+import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 5;
-
-const ESTADOS_VE = [
-    'Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo',
-    'Cojedes','Delta Amacuro','Dependencias Federales','Distrito Capital','Falcón',
-    'Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
-    'Sucre','Táchira','Trujillo','La Guaira','Yaracuy','Zulia',
-];
 
 const PLANES_TELECOM = [
     {
@@ -198,6 +192,8 @@ export default function RegisterTelecomPage() {
     const tipoCliente = watch('tipo_cliente');
     const tieneTelefono = watch('tiene_telefono');
     const motivoLinea = watch('motivo_linea');
+    const estadoServicio = watch('estado_servicio');
+    useEffect(() => { setValue('municipio_servicio', ''); }, [estadoServicio]);
 
     const stepFields: Record<number, (keyof FormData)[]> = {
         1: tipoCliente === 'empresarial'
@@ -581,7 +577,14 @@ export default function RegisterTelecomPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="text-[10px] font-black uppercase tracking-widest">Municipio *</Label>
-                                    <Input {...register('municipio_servicio')} className={cn(errors.municipio_servicio && 'border-destructive')} />
+                                    <Controller name="municipio_servicio" control={control} render={({ field }) => (
+                                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoServicio}>
+                                            <SelectTrigger className={cn(errors.municipio_servicio && 'border-destructive')}>
+                                                <SelectValue placeholder={estadoServicio ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
+                                            </SelectTrigger>
+                                            <SelectContent>{getMunicipios(estadoServicio || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
+                                        </Select>
+                                    )} />
                                     {errors.municipio_servicio && <p className="text-[10px] text-destructive">{errors.municipio_servicio.message}</p>}
                                 </div>
                                 <div className="sm:col-span-2 space-y-2">
