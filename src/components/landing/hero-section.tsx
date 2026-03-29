@@ -171,7 +171,7 @@ export function HeroSection() {
                             >
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                                        <span className="text-white text-[10px] sm:text-xs font-black">12+</span>
+                                        <span className="text-white text-[10px] sm:text-xs font-black">7</span>
                                     </div>
                                     <div>
                                         <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Módulos</p>
