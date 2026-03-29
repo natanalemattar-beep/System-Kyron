@@ -24,10 +24,11 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             return;
         }
 
-        const duration = 1800;
+        const duration = 1600;
         const fps = 60;
         const increment = 100 / (duration / (1000 / fps));
         let current = 0;
+        let timerId: ReturnType<typeof setTimeout> | null = null;
 
         const frame = () => {
             current = Math.min(current + increment, 100);
@@ -36,14 +37,12 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             if (current < 100) {
                 rafId = requestAnimationFrame(frame);
             } else {
-                setTimeout(() => {
-                    if (hasCompletedRef.current) return;
-                    hasCompletedRef.current = true;
-                    setVisible(false);
-                    setTimeout(() => {
-                        onCompleteRef.current();
-                    }, 500);
-                }, 200);
+                if (hasCompletedRef.current) return;
+                hasCompletedRef.current = true;
+                setVisible(false);
+                timerId = setTimeout(() => {
+                    onCompleteRef.current();
+                }, 400);
             }
         };
 
@@ -51,6 +50,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
         return () => {
             cancelAnimationFrame(rafId);
+            if (timerId) clearTimeout(timerId);
         };
     }, [prefersReducedMotion]);
 

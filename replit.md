@@ -38,7 +38,9 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Security:** Implemented security headers, in-memory rate limiting, input validation, anti-enumeration, parameterized SQL queries, and XSS protection.
 - **Payment Methods:** Integrated PayPal, Zinli, Zelle, Pago Móvil / C2P, Venezuelan Bank Transfers, Binance Pay / Crypto, Debit/Credit Cards, and Kyron Digital Wallet.
 - **Special Pages:** Dedicated pages for the Zedu Model: AutoMind AI project and a comprehensive user manual.
-- **Performance Optimizations:** Lazy loading for `ChatDialog` and `VoiceAssistant`, dynamic imports for heavy landing sections, loading skeletons, and Next.js configuration for compression and image optimization.
+- **Performance Optimizations:** Lazy loading for `ChatDialog` and `VoiceAssistant`, dynamic imports for heavy landing sections, loading skeletons, and Next.js configuration for compression and image optimization. Scroll cinematic section optimized (500vh, stiffness 120). Loading screen uses Logo component with ~2s total duration (RAF-based progress). Page scroll progress bar spring tightened (stiffness 200, damping 50).
+- **Tutorial/Onboarding:** `WelcomeTutorial` component triggers on first visit (localStorage `kyron-tutorial-seen`), not after registration. Shows 7-step walkthrough of the platform.
+- **Loading Screen:** `src/components/landing/loading-screen.tsx` — polished splash with Kyron Logo, gradient progress bar, ~1.6s progress + 0.4s exit fade. Uses `requestAnimationFrame` for smooth progress.
 
 ## External Dependencies
 - **Database:** PostgreSQL (Replit integrated)

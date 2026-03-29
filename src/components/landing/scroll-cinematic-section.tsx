@@ -244,7 +244,7 @@ export function ScrollCinematicSection() {
         offset: ["start start", "end end"],
     });
 
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
     const taglineOpacity = useTransform(smoothProgress, [0.01, 0.05], [0, 1]);
     const taglineY = useTransform(smoothProgress, [0.01, 0.05], [30, 0]);
@@ -315,7 +315,7 @@ export function ScrollCinematicSection() {
     });
 
     return (
-        <div ref={containerRef} className="relative" style={{ height: "800vh" }}>
+        <div ref={containerRef} className="relative" style={{ height: "500vh" }}>
             <div className="sticky top-0 h-screen overflow-hidden">
 
                 <div className="absolute inset-0 bg-[#020810]" />
