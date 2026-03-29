@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import {
   Signal, Loader2, Phone, Plus, Pencil, Trash2, Power, PowerOff,
-  FileText, DollarSign, Wifi, Activity, CircleCheck as CheckCircle, MoreVertical
+  FileText, DollarSign, Wifi, Activity, CircleCheck as CheckCircle, MoreVertical,
+  RefreshCw, User, Building
 } from "lucide-react";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator
@@ -82,7 +83,8 @@ const ESTADO_COLORS: Record<string, string> = {
 const emptyForm = {
   numero: '', operadora: '', tipo_linea: 'postpago', titular: '', cedula_titular: '',
   plan_contratado: '', monto_plan: '0', moneda_plan: 'USD',
-  fecha_activacion: '', fecha_vencimiento: '', limite_datos_gb: '', notas: ''
+  fecha_activacion: '', fecha_vencimiento: '', limite_datos_gb: '', notas: '',
+  tipo_registro: 'personal' as 'personal' | 'empresarial',
 };
 
 export default function MiLineaPage() {
@@ -95,6 +97,25 @@ export default function MiLineaPage() {
   const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const [generatingNumber, setGeneratingNumber] = useState(false);
+
+  const generateNumber = useCallback(async (tipo: 'personal' | 'empresarial') => {
+    setGeneratingNumber(true);
+    try {
+      const res = await fetch('/api/telecom/generate-number', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setForm(f => ({ ...f, numero: data.numero }));
+    } catch {
+      toast({ variant: 'destructive', title: 'Error', description: 'No se pudo generar el número. Intente de nuevo.' });
+    } finally {
+      setGeneratingNumber(false);
+    }
+  }, [toast]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -197,6 +218,7 @@ export default function MiLineaPage() {
     setEditId(null);
     setForm(emptyForm);
     setShowForm(true);
+    generateNumber('personal');
   };
 
   const totalActivas = lineas.filter(l => l.activa).length;
@@ -489,15 +511,94 @@ export default function MiLineaPage() {
           </DialogHeader>
 
           <div className="grid gap-4 py-2">
+            {!editId && (
+              <div className="space-y-1.5">
+                <Label className="text-[11px] font-medium text-muted-foreground">Tipo de Línea</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForm(f => ({ ...f, tipo_registro: 'personal' }));
+                      generateNumber('personal');
+                    }}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all flex items-center gap-3",
+                      form.tipo_registro === 'personal'
+                        ? "border-blue-500 bg-blue-500/5"
+                        : "border-border hover:border-border/80"
+                    )}
+                  >
+                    <div className={cn("p-2 rounded-lg", form.tipo_registro === 'personal' ? "bg-blue-500/10" : "bg-muted/30")}>
+                      <User className={cn("h-4 w-4", form.tipo_registro === 'personal' ? "text-blue-500" : "text-muted-foreground")} />
+                    </div>
+                    <div>
+                      <p className={cn("text-xs font-semibold", form.tipo_registro === 'personal' ? "text-blue-400" : "text-foreground/70")}>Personal</p>
+                      <p className="text-[10px] text-muted-foreground">04XX-XXXXXXX</p>
+                    </div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForm(f => ({ ...f, tipo_registro: 'empresarial' }));
+                      generateNumber('empresarial');
+                    }}
+                    className={cn(
+                      "p-3 rounded-xl border text-left transition-all flex items-center gap-3",
+                      form.tipo_registro === 'empresarial'
+                        ? "border-emerald-500 bg-emerald-500/5"
+                        : "border-border hover:border-border/80"
+                    )}
+                  >
+                    <div className={cn("p-2 rounded-lg", form.tipo_registro === 'empresarial' ? "bg-emerald-500/10" : "bg-muted/30")}>
+                      <Building className={cn("h-4 w-4", form.tipo_registro === 'empresarial' ? "text-emerald-500" : "text-muted-foreground")} />
+                    </div>
+                    <div>
+                      <p className={cn("text-xs font-semibold", form.tipo_registro === 'empresarial' ? "text-emerald-400" : "text-foreground/70")}>Empresarial</p>
+                      <p className="text-[10px] text-muted-foreground">KYR-EMP-XXXXXX</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-[11px] font-medium text-muted-foreground">Número *</Label>
-                <Input
-                  placeholder="0414-1234567"
-                  value={form.numero}
-                  onChange={(e) => setForm(f => ({ ...f, numero: e.target.value }))}
-                  className="h-9 rounded-lg bg-muted/20 border-border text-sm"
-                />
+                <Label className="text-[11px] font-medium text-muted-foreground">
+                  {!editId ? 'Número Asignado' : 'Número *'}
+                </Label>
+                {!editId ? (
+                  <div className="flex items-center gap-2">
+                    <div className={cn(
+                      "flex-1 h-9 rounded-lg border px-3 flex items-center text-sm font-mono font-semibold tracking-wide",
+                      form.tipo_registro === 'empresarial'
+                        ? "bg-emerald-500/5 border-emerald-500/30 text-emerald-400"
+                        : "bg-blue-500/5 border-blue-500/30 text-blue-400"
+                    )}>
+                      {generatingNumber ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
+                      ) : (
+                        form.numero || '—'
+                      )}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="h-9 w-9 rounded-lg shrink-0"
+                      onClick={() => generateNumber(form.tipo_registro)}
+                      disabled={generatingNumber}
+                    >
+                      <RefreshCw className={cn("h-3.5 w-3.5", generatingNumber && "animate-spin")} />
+                    </Button>
+                  </div>
+                ) : (
+                  <Input
+                    placeholder="0414-1234567"
+                    value={form.numero}
+                    onChange={(e) => setForm(f => ({ ...f, numero: e.target.value }))}
+                    className="h-9 rounded-lg bg-muted/20 border-border text-sm"
+                  />
+                )}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-[11px] font-medium text-muted-foreground">Operadora *</Label>

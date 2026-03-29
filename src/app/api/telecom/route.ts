@@ -51,11 +51,19 @@ export async function POST(req: NextRequest) {
   }
 
   const existing = await queryOne(
-    `SELECT id FROM lineas_telecom WHERE user_id = $1 AND numero = $2`,
-    [session.userId, numero]
+    `SELECT id FROM lineas_telecom WHERE numero = $1`,
+    [numero]
   );
   if (existing) {
-    return NextResponse.json({ error: 'Ya existe una línea con ese número' }, { status: 409 });
+    return NextResponse.json({ error: 'Ya existe una línea con ese número. Genere uno nuevo.' }, { status: 409 });
+  }
+
+  const existsInAsignados = await queryOne(
+    `SELECT id FROM telecom_numeros_asignados WHERE numero = $1`,
+    [numero]
+  );
+  if (existsInAsignados) {
+    return NextResponse.json({ error: 'Este número ya fue asignado anteriormente. Genere uno nuevo.' }, { status: 409 });
   }
 
   const [linea] = await query(
@@ -80,6 +88,12 @@ export async function POST(req: NextRequest) {
       limite_datos_gb ? parseFloat(limite_datos_gb) : null,
       notas ?? null,
     ]
+  );
+
+  const tipoNumero = numero.startsWith('KYR-EMP-') ? 'empresarial' : 'personal';
+  await query(
+    `INSERT INTO telecom_numeros_asignados (numero, tipo, user_id) VALUES ($1, $2, $3) ON CONFLICT (numero) DO NOTHING`,
+    [numero, tipoNumero, session.userId]
   );
 
   await logActivity({
@@ -108,6 +122,20 @@ export async function PATCH(req: NextRequest) {
     [id, session.userId]
   );
   if (!owned) return NextResponse.json({ error: 'Línea no encontrada' }, { status: 404 });
+
+  if (updates.numero) {
+    const numDup = await queryOne(
+      `SELECT id FROM lineas_telecom WHERE numero = $1 AND id != $2`,
+      [updates.numero, id]
+    );
+    if (numDup) return NextResponse.json({ error: 'Ese número ya está en uso por otra línea.' }, { status: 409 });
+
+    const numAsignado = await queryOne(
+      `SELECT id FROM telecom_numeros_asignados WHERE numero = $1`,
+      [updates.numero]
+    );
+    if (numAsignado) return NextResponse.json({ error: 'Ese número ya fue asignado anteriormente.' }, { status: 409 });
+  }
 
   const fields: string[] = [];
   const vals: unknown[] = [];

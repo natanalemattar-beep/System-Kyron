@@ -661,6 +661,17 @@ async function createTelecomTables() {
   `);
 
   await query(`
+    CREATE TABLE IF NOT EXISTS telecom_numeros_asignados (
+      id                SERIAL PRIMARY KEY,
+      numero            TEXT NOT NULL UNIQUE,
+      tipo              TEXT NOT NULL DEFAULT 'personal'
+                        CHECK (tipo IN ('personal','empresarial')),
+      user_id           INT REFERENCES users(id) ON DELETE SET NULL,
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
     CREATE TABLE IF NOT EXISTS facturas_telecom (
       id                SERIAL PRIMARY KEY,
       user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -2023,6 +2034,8 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nominas_estado ON nominas(estado)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_lineas_user ON lineas_telecom(user_id, activa)`);
+  await safeIndex(`CREATE UNIQUE INDEX IF NOT EXISTS idx_lineas_numero_unique ON lineas_telecom(numero)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_numeros_asignados_tipo ON telecom_numeros_asignados(tipo)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_user ON eco_creditos(user_id)`);
 
