@@ -1,4 +1,3 @@
-
 import { User, Gavel, ShoppingCart, Users, Banknote, Signal, Recycle } from "lucide-react";
 
 export const loginOptions = [
@@ -6,42 +5,63 @@ export const loginOptions = [
         href: "/login-personal", 
         label: "Cuenta Personal", 
         icon: User, 
-        description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." 
+        description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud.",
+        gradient: "from-blue-500 to-indigo-600",
+        color: "text-blue-500",
+        bg: "bg-blue-500/10",
     },
     { 
         href: "/login-linea", 
         label: "Mis Líneas", 
         icon: Signal, 
-        description: "Gestión de líneas telefónicas personales y flota empresarial por separado." 
+        description: "Gestión de líneas telefónicas personales y flota empresarial por separado.",
+        gradient: "from-cyan-500 to-blue-600",
+        color: "text-cyan-500",
+        bg: "bg-cyan-500/10",
     },
     { 
         href: "/login-empresa", 
         label: "Asesoría Contable", 
         icon: Banknote, 
-        description: "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." 
+        description: "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.",
+        gradient: "from-emerald-500 to-teal-600",
+        color: "text-emerald-500",
+        bg: "bg-emerald-500/10",
     },
     { 
         href: "/login-escritorio-juridico", 
         label: "Asesoría Legal", 
         icon: Gavel, 
-        description: "Control de contratos, documentos legales y trámites ante registros." 
+        description: "Control de contratos, documentos legales y trámites ante registros.",
+        gradient: "from-violet-500 to-purple-600",
+        color: "text-violet-500",
+        bg: "bg-violet-500/10",
     },
     { 
         href: "/login-ventas", 
         label: "Facturación", 
         icon: ShoppingCart, 
-        description: "Punto de venta para cobros rápidos, control de inventario y ventas." 
+        description: "Punto de venta para cobros rápidos, control de inventario y ventas.",
+        gradient: "from-amber-500 to-orange-600",
+        color: "text-amber-500",
+        bg: "bg-amber-500/10",
     },
     { 
         href: "/login-socios", 
         label: "Socios y Directivos", 
         icon: Users, 
-        description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." 
+        description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad.",
+        gradient: "from-slate-400 to-zinc-500",
+        color: "text-slate-400",
+        bg: "bg-slate-400/10",
     },
     { 
         href: "/login-sostenibilidad", 
         label: "Sostenibilidad", 
         icon: Recycle, 
-        description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." 
+        description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.",
+        gradient: "from-green-500 to-emerald-600",
+        color: "text-green-500",
+        bg: "bg-green-500/10",
     },
 ];

@@ -8,7 +8,10 @@ import {
     ChevronDown,
     Sparkles,
     ShieldCheck,
-    Hexagon
+    Hexagon,
+    ArrowRight,
+    ChevronRight,
+    KeyRound
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
@@ -111,36 +114,44 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[min(480px,calc(100vw-2rem))] p-0 rounded-[2rem] border-border/50 bg-card/95 backdrop-blur-2xl shadow-[0_16px_48px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
-                                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/30 to-transparent" />
-                                    <div className="p-8 border-b border-border bg-muted/30">
-                                        <DropdownMenuLabel className="p-0 flex items-center gap-4">
-                                            <div className="p-3 rounded-2xl border border-primary/20 kyron-gradient-bg">
-                                                <Sparkles className="h-5 w-5 text-white" />
+                                <DropdownMenuContent align="end" className="w-[min(520px,calc(100vw-2rem))] p-0 rounded-2xl border-border/30 bg-card/98 backdrop-blur-2xl shadow-2xl shadow-black/[0.12] overflow-hidden">
+                                    <div className="p-5 pb-4 border-b border-border/20">
+                                        <DropdownMenuLabel className="p-0 flex items-center gap-3">
+                                            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-cyan-500 flex items-center justify-center shadow-lg shadow-primary/20">
+                                                <Sparkles className="h-4.5 w-4.5 text-white" />
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-xs font-black uppercase tracking-[0.3em] text-foreground">{t('control_center')}</span>
-                                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-1 italic">{t('security_protocol')}</span>
+                                                <span className="text-sm font-bold text-foreground tracking-tight">{t('control_center')}</span>
+                                                <span className="text-[10px] text-muted-foreground/50 font-medium">{t('security_protocol')}</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
-                                    <div className="p-6 grid grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                                        {loginOptions.map((option) => (
-                                            <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/10 border border-border bg-muted/10 hover:border-primary/30 transition-all">
-                                                <Link href={option.href as any} className="flex items-start gap-4">
-                                                    <div className="p-2 bg-primary/5 rounded-lg">
-                                                        <option.icon className="h-4 w-4 text-primary" />
-                                                    </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <span className="font-black text-[10px] uppercase italic text-foreground/90">{option.label}</span>
-                                                        <p className="text-[8px] text-muted-foreground line-clamp-1 font-medium">{option.description}</p>
-                                                    </div>
-                                                </Link>
-                                            </DropdownMenuItem>
-                                        ))}
+
+                                    <div className="p-3 max-h-[65vh] overflow-y-auto custom-scrollbar">
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {loginOptions.map((option) => (
+                                                <DropdownMenuItem key={option.href} asChild className="rounded-xl p-0 cursor-pointer focus:bg-transparent data-[highlighted]:bg-transparent">
+                                                    <Link href={option.href as any} className="flex items-center gap-3 p-3 rounded-xl border border-border/25 bg-card/50 hover:bg-card hover:border-border/50 hover:shadow-md hover:shadow-black/[0.03] hover:-translate-y-0.5 transition-all duration-200 group">
+                                                        <div className={cn("h-9 w-9 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-md group-hover:scale-110 transition-transform duration-200", option.gradient)}>
+                                                            <option.icon className="h-4 w-4" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <span className="text-[12px] font-bold text-foreground/85 group-hover:text-foreground transition-colors block">{option.label}</span>
+                                                            <p className="text-[10px] text-muted-foreground/50 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
+                                                        </div>
+                                                        <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/15 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="p-4 bg-muted/20 border-t border-border text-center">
-                                        <Link href="/login" className="text-[8px] font-black uppercase tracking-[0.4em] text-primary hover:text-foreground transition-colors">{t('see_all_services')}</Link>
+
+                                    <div className="p-3 pt-2 border-t border-border/15">
+                                        <Link href="/login" className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary/[0.04] hover:bg-primary/[0.08] border border-primary/10 hover:border-primary/20 transition-all group">
+                                            <KeyRound className="h-3.5 w-3.5 text-primary/60 group-hover:text-primary transition-colors" />
+                                            <span className="text-[11px] font-semibold text-primary/70 group-hover:text-primary transition-colors">{t('see_all_services')}</span>
+                                            <ArrowRight className="h-3 w-3 text-primary/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                                        </Link>
                                     </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -161,35 +172,55 @@ export function LandingHeader() {
                                 <SheetHeader className="p-6 border-b border-border bg-muted/5 flex flex-row items-center gap-4 shrink-0 space-y-0">
                                     <Logo className="h-8 w-8 shrink-0" />
                                     <div className="flex flex-col">
-                                        <SheetTitle className="text-sm font-black tracking-tight text-foreground uppercase italic leading-none">{t('mobile_portal')}</SheetTitle>
-                                        <span className="text-[7px] font-bold uppercase tracking-[0.3em] mt-1 opacity-80 kyron-gradient-text">
+                                        <SheetTitle className="text-sm font-bold tracking-tight text-foreground leading-none">{t('mobile_portal')}</SheetTitle>
+                                        <span className="text-[8px] font-semibold uppercase tracking-[0.2em] mt-1 text-muted-foreground/50">
                                             {tHero('slogan')}
                                         </span>
                                     </div>
                                 </SheetHeader>
-                                <nav className="flex-1 overflow-y-auto p-6 flex flex-col gap-1.5">
+                                <nav className="flex-1 overflow-y-auto p-5 flex flex-col gap-1">
                                     {navItems.map((item) => (
                                         <SheetClose key={item.labelKey} asChild>
                                             <Link 
                                                 href={item.href as any} 
                                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                                className="text-sm font-black uppercase tracking-[0.2em] py-4 px-4 rounded-xl border border-transparent text-muted-foreground hover:text-primary hover:bg-primary/5 hover:border-primary/20 transition-all flex items-center justify-between"
+                                                className="text-sm font-semibold py-3.5 px-4 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-all flex items-center justify-between"
                                             >
                                                 {t(item.labelKey)}
-                                                <ChevronDown className="h-3 w-3 -rotate-90 opacity-20" />
+                                                <ChevronRight className="h-3.5 w-3.5 opacity-20" />
                                             </Link>
                                         </SheetClose>
                                     ))}
+
+                                    <div className="mt-3 pt-3 border-t border-border/30">
+                                        <p className="text-[10px] font-semibold text-muted-foreground/40 px-4 mb-2">Portales</p>
+                                        {loginOptions.map((option) => (
+                                            <SheetClose key={option.href} asChild>
+                                                <Link 
+                                                    href={option.href as any}
+                                                    className="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-muted/30 transition-all"
+                                                >
+                                                    <div className={cn("h-8 w-8 rounded-lg bg-gradient-to-br flex items-center justify-center text-white shrink-0", option.gradient)}>
+                                                        <option.icon className="h-3.5 w-3.5" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <span className="text-[12px] font-semibold text-foreground/80">{option.label}</span>
+                                                        <p className="text-[9px] text-muted-foreground/40 line-clamp-1">{option.description}</p>
+                                                    </div>
+                                                </Link>
+                                            </SheetClose>
+                                        ))}
+                                    </div>
                                 </nav>
-                                <div className="p-6 border-t border-border space-y-3 bg-muted/5 shrink-0">
+                                <div className="p-5 border-t border-border space-y-3 bg-muted/5 shrink-0">
                                     <div className="flex items-center gap-2 pb-3 border-b border-border/50">
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild className="w-full h-12 rounded-xl kyron-gradient-bg text-white font-black uppercase tracking-widest text-[10px] border-0 shadow-kyron">
+                                    <Button asChild className="w-full h-11 rounded-xl bg-gradient-to-r from-primary to-cyan-500 text-white font-bold text-xs border-0 shadow-lg">
                                         <Link href="/login"><Hexagon className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
                                     </Button>
-                                    <Button asChild variant="outline" className="w-full h-11 rounded-xl font-black uppercase tracking-widest text-[10px] border-border hover:border-primary/40 hover:text-primary">
+                                    <Button asChild variant="outline" className="w-full h-10 rounded-xl font-semibold text-xs border-border/40 hover:border-primary/30 hover:text-primary">
                                         <Link href="/register">{t('register')}</Link>
                                     </Button>
                                 </div>
