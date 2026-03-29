@@ -12,7 +12,6 @@ const nextConfig = {
     scrollRestoration: true,
     optimizePackageImports: [
       'lucide-react',
-      'framer-motion',
       'recharts',
       'date-fns',
       '@radix-ui/react-dialog',
@@ -29,7 +28,7 @@ const nextConfig = {
       'jose',
     ],
   },
-  allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev'],
+  allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },

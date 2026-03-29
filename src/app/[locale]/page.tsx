@@ -1,16 +1,15 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { HeroSection } from "@/components/landing/hero-section";
-import { LandingHeader } from "@/components/landing/landing-header";
 import { Suspense, useState, useCallback, useEffect, useRef } from 'react';
-import { LoadingScreen } from "@/components/landing/loading-screen";
 
+const LoadingScreen = dynamic(() => import("@/components/landing/loading-screen").then(m => ({ default: m.LoadingScreen })), { ssr: false });
+const HeroSection = dynamic(() => import("@/components/landing/hero-section").then(m => ({ default: m.HeroSection })), { ssr: false });
+const LandingHeader = dynamic(() => import("@/components/landing/landing-header").then(m => ({ default: m.LandingHeader })), { ssr: false });
 const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 const DemoBanner = dynamic(() => import("@/components/demo-banner").then(m => ({ default: m.DemoBanner })), { ssr: false });
 const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(m => ({ default: m.WhatsAppButton })), { ssr: false });
 const PageTracker = dynamic(() => import("@/components/page-tracker").then(m => ({ default: m.PageTracker })), { ssr: false });
-
 const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });
 const AboutUsSection = dynamic(() => import("@/components/landing/about-us-section").then(m => ({ default: m.AboutUsSection })), { ssr: false });
 const CommentsSection = dynamic(() => import("@/components/landing/comments-section").then(m => ({ default: m.CommentsSection })), { ssr: false });
@@ -18,7 +17,7 @@ const FaqSection = dynamic(() => import("@/components/landing/faq-section").then
 const CtaSection = dynamic(() => import("@/components/landing/cta-section").then(m => ({ default: m.CtaSection })), { ssr: false });
 const Footer = dynamic(() => import("@/components/landing/footer").then(m => ({ default: m.Footer })), { ssr: false });
 
-export default function LandingPage() {
+function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
@@ -47,7 +46,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent" suppressHydrationWarning>
+    <>
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       {mounted && (
@@ -91,6 +90,19 @@ export default function LandingPage() {
       </Suspense>
 
       {mounted && <WhatsAppButton />}
+    </>
+  );
+}
+
+const DynamicLandingContent = dynamic(
+  () => Promise.resolve({ default: LandingContent }),
+  { ssr: false }
+);
+
+export default function LandingPage() {
+  return (
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
+      <DynamicLandingContent />
     </div>
   );
 }
