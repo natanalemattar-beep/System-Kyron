@@ -11,7 +11,6 @@ const DemoBanner = dynamic(() => import("@/components/demo-banner").then(m => ({
 const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(m => ({ default: m.WhatsAppButton })), { ssr: false });
 const PageTracker = dynamic(() => import("@/components/page-tracker").then(m => ({ default: m.PageTracker })), { ssr: false });
 
-const ScrollCinematicSection = dynamic(() => import("@/components/landing/scroll-cinematic-section").then(m => ({ default: m.ScrollCinematicSection })), { ssr: false });
 const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });
 const AboutUsSection = dynamic(() => import("@/components/landing/about-us-section").then(m => ({ default: m.AboutUsSection })), { ssr: false });
 const CommentsSection = dynamic(() => import("@/components/landing/comments-section").then(m => ({ default: m.CommentsSection })), { ssr: false });
@@ -65,10 +64,6 @@ export default function LandingPage() {
 
       <main className="flex-1 w-full">
         <HeroSection />
-
-        <Suspense fallback={null}>
-          <ScrollCinematicSection />
-        </Suspense>
 
         <Suspense fallback={null}>
           <ServicesSection />
