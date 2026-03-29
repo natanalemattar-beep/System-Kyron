@@ -9,6 +9,11 @@ const FestiveEffect = dynamic(
   { ssr: false }
 );
 
+const SlowConnectionBanner = dynamic(
+  () => import("./slow-connection-banner").then(m => ({ default: m.SlowConnectionBanner })),
+  { ssr: false }
+);
+
 export function DynamicBackground() {
   const [isSnow, setIsSnow] = useState(false);
 
@@ -42,6 +47,7 @@ export function DynamicBackground() {
             background: "radial-gradient(circle, rgb(6,182,212) 0%, transparent 70%)",
           }}
         />
+        <SlowConnectionBanner />
     </div>
   );
 }

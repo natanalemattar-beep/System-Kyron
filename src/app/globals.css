@@ -362,6 +362,11 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes scb-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
 @keyframes liquid-shimmer {
   0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
   33% { transform: translate(5%, 3%) rotate(1deg); opacity: 0.8; }
