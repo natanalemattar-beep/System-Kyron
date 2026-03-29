@@ -34,7 +34,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Health Check (`GET /api/db-health`):** Provides database latency, pool stats, and query metrics.
 - **Enhanced Audit Trail:** `logAudit()` records detailed field-level changes with risk levels and session tracking.
 - **API Routes:** Over 60 API routes cover authentication, real-time KPIs, and CRUD operations across banking, invoicing, clients, employees, payroll, declarations, and more.
-- **Authentication:** JWT utilities (`createToken`, `verifyToken`, `getSession`) are in `src/lib/auth/index.ts` with an `AuthProvider` React context.
+- **Authentication:** JWT utilities (`createToken`, `verifyToken`, `getSession`) are in `src/lib/auth/index.ts` with an `AuthProvider` React context. Login now requires 2FA verification code sent via email (Outlook/Gmail/Resend fallback chain).
+- **2FA Verification:** On successful password check, a 6-digit code is generated (`src/lib/verification-codes.ts`, in-memory Map with 10min expiry, max 5 attempts), emailed via `sendEmail()`, and verified at `/api/auth/verify-code`. Both `specialized-login-card.tsx` and `login-personal/page.tsx` implement the two-step UI (credentials → code input). Code auto-submits when 6 digits entered; supports paste.
 - **Security:** Implemented security headers, in-memory rate limiting, input validation, anti-enumeration, parameterized SQL queries, and XSS protection.
 - **Payment Methods:** Integrated PayPal, Zinli, Zelle, Pago Móvil / C2P, Venezuelan Bank Transfers, Binance Pay / Crypto, Debit/Credit Cards, and Kyron Digital Wallet.
 - **Special Pages:** Dedicated pages for the Zedu Model: AutoMind AI project and a comprehensive user manual.

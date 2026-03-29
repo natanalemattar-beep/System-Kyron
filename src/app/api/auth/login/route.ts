@@ -5,6 +5,8 @@ import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
+import { generateCode, storeCode } from '@/lib/verification-codes';
+import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 
 interface DbUser {
     id: number;
@@ -64,42 +66,35 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
         }
 
+        const code = generateCode();
+        storeCode(normalizedEmail, code, user.id);
+
         const displayName = user.tipo === 'juridico'
             ? (user.razon_social ?? user.nombre)
             : user.nombre;
 
-        const token = await createToken({
-            userId: user.id,
-            email: user.email,
-            tipo: user.tipo,
+        const maskedEmail = normalizedEmail.replace(
+            /^(.{2})(.*)(@.*)$/,
+            (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
+        );
+
+        sendEmail({
+            to: normalizedEmail,
+            subject: `${code} — Código de verificación · System Kyron`,
+            html: buildKyronEmailTemplate({
+                title: 'Verificación de identidad',
+                body: `Hola <strong>${displayName}</strong>, alguien está intentando acceder a tu cuenta. Ingresa el siguiente código para confirmar que eres tú.`,
+                code,
+                footer: 'Si no solicitaste este código, ignora este mensaje. Nunca compartas tu código con nadie.',
+            }),
+            module: 'auth',
+        }).catch(err => console.error('[login] Error sending verification email:', err));
+
+        return NextResponse.json({
+            requiresVerification: true,
+            maskedEmail,
             nombre: displayName,
         });
-
-        const cookie = setSessionCookie(token);
-        const res = NextResponse.json({
-            success: true,
-            user: {
-                id: user.id,
-                email: user.email,
-                tipo: user.tipo,
-                nombre: displayName,
-                apellido: user.apellido,
-                cedula: user.cedula,
-                razon_social: user.razon_social,
-                rif: user.rif,
-            },
-        });
-        res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
-        await logActivity({
-            userId: user.id,
-            evento: 'LOGIN',
-            categoria: 'auth',
-            descripcion: `Inicio de sesión: ${displayName} (${user.email})`,
-            entidadTipo: 'usuario',
-            entidadId: user.id,
-            metadata: { email: user.email, tipo: user.tipo },
-        });
-        return res;
     } catch (err) {
         console.error('Login error:', err);
         return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });

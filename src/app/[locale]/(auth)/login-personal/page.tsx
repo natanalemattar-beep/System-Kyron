@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus,
-  Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock
+  Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
+  KeyRound, RotateCcw
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
@@ -18,8 +19,26 @@ export default function LoginPersonalPage() {
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [step, setStep] = useState<'credentials' | 'verification'>('credentials');
+  const [verificationEmail, setVerificationEmail] = useState('');
+  const [maskedEmail, setMaskedEmail] = useState('');
+  const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
+  const [countdown, setCountdown] = useState(0);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (countdown <= 0) return;
+    const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [countdown]);
+
+  useEffect(() => {
+    if (step === 'verification') {
+      setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    }
+  }, [step]);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,11 +56,28 @@ export default function LoginPersonalPage() {
         body: JSON.stringify({ email, password }),
       });
       const json = await res.json();
+
       if (!res.ok) {
         setError(json.error || 'Correo o contraseña incorrectos.');
         setIsLoading(false);
         return;
       }
+
+      if (json.requiresVerification) {
+        setVerificationEmail(email);
+        setMaskedEmail(json.maskedEmail || email);
+        setStep('verification');
+        setCountdown(600);
+        setCodeDigits(['', '', '', '', '', '']);
+        setIsLoading(false);
+        toast({
+          title: 'Código enviado',
+          description: `Revisa tu correo ${json.maskedEmail || email}`,
+          action: <Mail className="text-cyan-500 h-4 w-4" />,
+        });
+        return;
+      }
+
       toast({
         title: 'Acceso concedido',
         description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
@@ -53,6 +89,59 @@ export default function LoginPersonalPage() {
       setIsLoading(false);
     }
   };
+
+  const handleCodeChange = (index: number, value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    const newDigits = [...codeDigits];
+    if (value.length > 1) {
+      const chars = value.slice(0, 6).split('');
+      chars.forEach((char, i) => { if (index + i < 6) newDigits[index + i] = char; });
+      setCodeDigits(newDigits);
+      inputRefs.current[Math.min(index + chars.length, 5)]?.focus();
+      if (newDigits.every(d => d !== '')) submitCode(newDigits.join(''));
+      return;
+    }
+    newDigits[index] = value;
+    setCodeDigits(newDigits);
+    if (value && index < 5) inputRefs.current[index + 1]?.focus();
+    if (newDigits.every(d => d !== '')) submitCode(newDigits.join(''));
+  };
+
+  const handleCodeKeyDown = (index: number, e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace' && !codeDigits[index] && index > 0) inputRefs.current[index - 1]?.focus();
+  };
+
+  const submitCode = async (code: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/auth/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: verificationEmail, code }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error || 'Código incorrecto.');
+        setCodeDigits(['', '', '', '', '', '']);
+        setIsLoading(false);
+        setTimeout(() => inputRefs.current[0]?.focus(), 100);
+        return;
+      }
+      toast({
+        title: 'Identidad verificada',
+        description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
+        action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
+      });
+      router.push('/dashboard');
+    } catch {
+      setError('Error de conexión. Intenta de nuevo.');
+      setCodeDigits(['', '', '', '', '', '']);
+      setIsLoading(false);
+    }
+  };
+
+  const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
   const handleBiometric = () => {
     setIsScanning(true);
@@ -96,91 +185,170 @@ export default function LoginPersonalPage() {
             <ul className="space-y-2.5">
               <li className="flex items-center gap-2.5 text-xs font-semibold opacity-90"><ShieldCheck className="h-3.5 w-3.5 text-emerald-300 shrink-0" /> Identidad Digital Unificada</li>
               <li className="flex items-center gap-2.5 text-xs font-semibold opacity-90"><ShieldCheck className="h-3.5 w-3.5 text-emerald-300 shrink-0" /> Resguardo Inmutable</li>
-              <li className="flex items-center gap-2.5 text-xs font-semibold opacity-90"><ShieldCheck className="h-3.5 w-3.5 text-emerald-300 shrink-0" /> Acceso Biométrico</li>
+              <li className="flex items-center gap-2.5 text-xs font-semibold opacity-90"><ShieldCheck className="h-3.5 w-3.5 text-emerald-300 shrink-0" /> Verificación por Código</li>
             </ul>
           </div>
         </div>
 
         <div className="md:col-span-3 p-8 md:p-10 flex flex-col justify-center bg-card">
-          <div className="mb-8">
-            <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-            <p className="text-sm text-muted-foreground mt-1">Accede a tu cuenta personal</p>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-5">
-            {error && (
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20">
-                <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                <p className="text-sm text-destructive">{error}</p>
+          {step === 'credentials' ? (
+            <>
+              <div className="mb-8">
+                <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+                <p className="text-sm text-muted-foreground mt-1">Accede a tu cuenta personal</p>
               </div>
-            )}
 
-            <div className="space-y-2">
-              <Label className="text-sm font-semibold">Correo Electrónico</Label>
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/60" />
-              </div>
-            </div>
+              <form onSubmit={handleLogin} className="space-y-5">
+                {error && (
+                  <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20">
+                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )}
 
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <Label className="text-sm font-semibold">Contraseña</Label>
-                <Link href="/recuperar-cuenta" className="text-xs font-medium text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
-              </div>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-12 pl-10 pr-10 rounded-xl border-border/60" />
-                <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold">Correo Electrónico</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+                    <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/60" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <Label className="text-sm font-semibold">Contraseña</Label>
+                    <Link href="/recuperar-cuenta" className="text-xs font-medium text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
+                  </div>
+                  <div className="relative">
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-12 pl-10 pr-10 rounded-xl border-border/60" />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg" disabled={isLoading || isScanning}>
+                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Entrar <ArrowRight className="ml-2 h-4 w-4" /></>}
+                </Button>
+              </form>
+
+              <div className="mt-6 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-px flex-1 bg-border/50" />
+                  <span className="text-xs text-muted-foreground">o</span>
+                  <div className="h-px flex-1 bg-border/50" />
+                </div>
+
+                <button
+                  onClick={handleBiometric}
+                  disabled={isScanning || isLoading}
+                  className={cn(
+                    'flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-300 w-full justify-center',
+                    isScanning
+                      ? 'border-emerald-500 bg-emerald-500/10'
+                      : 'border-border hover:border-primary/30 hover:bg-primary/5'
+                  )}
+                >
+                  {isScanning ? <Loader2 className="h-4 w-4 animate-spin text-emerald-500" /> : <Fingerprint className="h-4 w-4 text-primary" />}
+                  <span className="text-sm font-semibold">{isScanning ? 'Verificando...' : 'Acceder con Biometría'}</span>
                 </button>
               </div>
-            </div>
 
-            <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg" disabled={isLoading || isScanning}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Entrar <ArrowRight className="ml-2 h-4 w-4" /></>}
-            </Button>
-          </form>
+              <div className="mt-8 pt-6 border-t border-border/50 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-px flex-1 bg-border/50" />
+                  <span className="text-xs text-muted-foreground">¿No tienes cuenta?</span>
+                  <div className="h-px flex-1 bg-border/50" />
+                </div>
+                <Button variant="outline" asChild className="w-full h-11 rounded-xl text-sm font-semibold hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all">
+                  <Link href="/register/natural" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Registrarse</Link>
+                </Button>
+                <div className="text-center">
+                  <Link href="/recuperar-cuenta" className="text-xs text-muted-foreground hover:text-primary transition-colors">¿Problemas para acceder? Recuperar cuenta</Link>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mb-8 text-center">
+                <div className="mx-auto w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-5">
+                  <KeyRound className="h-8 w-8 text-primary" />
+                </div>
+                <h2 className="text-xl font-black tracking-tight text-foreground">Verificación de identidad</h2>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Enviamos un código de 6 dígitos a <strong className="text-foreground">{maskedEmail}</strong>
+                </p>
+                {countdown > 0 && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    El código expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
+                  </p>
+                )}
+              </div>
 
-          <div className="mt-6 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-border/50" />
-              <span className="text-xs text-muted-foreground">o</span>
-              <div className="h-px flex-1 bg-border/50" />
-            </div>
-
-            <button
-              onClick={handleBiometric}
-              disabled={isScanning || isLoading}
-              className={cn(
-                'flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-300 w-full justify-center',
-                isScanning
-                  ? 'border-emerald-500 bg-emerald-500/10'
-                  : 'border-border hover:border-primary/30 hover:bg-primary/5'
+              {error && (
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 mb-5">
+                  <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive">{error}</p>
+                </div>
               )}
-            >
-              {isScanning ? <Loader2 className="h-4 w-4 animate-spin text-emerald-500" /> : <Fingerprint className="h-4 w-4 text-primary" />}
-              <span className="text-sm font-semibold">{isScanning ? 'Verificando...' : 'Acceder con Biometría'}</span>
-            </button>
-          </div>
 
-          <div className="mt-8 pt-6 border-t border-border/50 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-border/50" />
-              <span className="text-xs text-muted-foreground">¿No tienes cuenta?</span>
-              <div className="h-px flex-1 bg-border/50" />
-            </div>
-            <Button variant="outline" asChild className="w-full h-11 rounded-xl text-sm font-semibold hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all">
-              <Link href="/register/natural" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Registrarse</Link>
-            </Button>
-            <div className="text-center">
-              <Link href="/recuperar-cuenta" className="text-xs text-muted-foreground hover:text-primary transition-colors">¿Problemas para acceder? Recuperar cuenta</Link>
-            </div>
-          </div>
+              <div className="flex justify-center gap-2 sm:gap-3 mb-6">
+                {codeDigits.map((digit, i) => (
+                  <Input
+                    key={i}
+                    ref={el => { inputRefs.current[i] = el; }}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={6}
+                    value={digit}
+                    onChange={e => handleCodeChange(i, e.target.value)}
+                    onKeyDown={e => handleCodeKeyDown(i, e)}
+                    onPaste={e => {
+                      e.preventDefault();
+                      const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+                      if (pasted) handleCodeChange(0, pasted);
+                    }}
+                    className={cn(
+                      "w-11 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200",
+                      digit ? "border-primary bg-primary/5 text-primary" : "border-border/60 focus:border-primary"
+                    )}
+                    disabled={isLoading}
+                    autoComplete="one-time-code"
+                  />
+                ))}
+              </div>
+
+              {isLoading && (
+                <div className="flex items-center justify-center gap-2 mb-5">
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                  <span className="text-sm text-muted-foreground">Verificando...</span>
+                </div>
+              )}
+
+              <div className="space-y-3 mt-4">
+                <Button
+                  variant="outline"
+                  onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); }}
+                  className="w-full h-11 rounded-xl text-sm font-semibold"
+                  disabled={isLoading}
+                >
+                  <RotateCcw className="mr-2 h-4 w-4" />
+                  Volver a iniciar sesión
+                </Button>
+                <p className="text-center text-xs text-muted-foreground">
+                  ¿No recibiste el código? Revisa spam o{' '}
+                  <button onClick={() => { setStep('credentials'); setError(null); }} className="text-primary hover:underline font-medium">
+                    solicita uno nuevo
+                  </button>
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.2 · Ciudadanía Digital</p>
+      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.5 · Ciudadanía Digital</p>
     </div>
   );
 }
