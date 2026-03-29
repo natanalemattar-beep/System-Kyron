@@ -129,6 +129,31 @@ async function createCoreAuthTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id)`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verificado BOOLEAN NOT NULL DEFAULT false`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS saime_registros (
+      id                SERIAL PRIMARY KEY,
+      cedula            TEXT NOT NULL UNIQUE,
+      primer_nombre     TEXT NOT NULL,
+      segundo_nombre    TEXT,
+      primer_apellido   TEXT NOT NULL,
+      segundo_apellido  TEXT,
+      fecha_nacimiento  DATE,
+      sexo              TEXT CHECK (sexo IN ('M', 'F')),
+      estado_civil      TEXT,
+      nacionalidad      TEXT DEFAULT 'V' CHECK (nacionalidad IN ('V', 'E')),
+      estado            TEXT,
+      municipio         TEXT,
+      parroquia         TEXT,
+      lugar_nacimiento  TEXT,
+      estatus           TEXT NOT NULL DEFAULT 'VIGENTE',
+      fecha_emision     DATE,
+      fecha_vencimiento DATE,
+      source            TEXT NOT NULL DEFAULT 'manual',
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_saime_registros_cedula ON saime_registros(cedula)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
