@@ -115,11 +115,11 @@ function CSSParticles() {
 }
 
 function ConcentricRings({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
-    const ringOpacity = useTransform(smoothProgress, [0.02, 0.10, 0.28, 0.36], [0, 0.5, 0.5, 0]);
-    const ringScale1 = useTransform(smoothProgress, [0.02, 0.32], [0.3, 2.5]);
-    const ringScale2 = useTransform(smoothProgress, [0.04, 0.32], [0.2, 2.2]);
-    const ringScale3 = useTransform(smoothProgress, [0.06, 0.32], [0.1, 2.0]);
-    const ringRotate = useTransform(smoothProgress, [0, 0.6], [0, 90]);
+    const ringOpacity = useTransform(smoothProgress, [0.02, 0.08, 0.24, 0.30], [0, 0.5, 0.5, 0]);
+    const ringScale1 = useTransform(smoothProgress, [0.02, 0.28], [0.3, 2.5]);
+    const ringScale2 = useTransform(smoothProgress, [0.04, 0.28], [0.2, 2.2]);
+    const ringScale3 = useTransform(smoothProgress, [0.06, 0.28], [0.1, 2.0]);
+    const ringRotate = useTransform(smoothProgress, [0, 0.5], [0, 90]);
 
     return (
         <motion.div
@@ -143,7 +143,7 @@ function ConcentricRings({ smoothProgress }: { smoothProgress: MotionValue<numbe
 }
 
 function AmbientGlow({ smoothProgress }: { smoothProgress: MotionValue<number> }) {
-    const glowOpacity = useTransform(smoothProgress, [0, 0.06, 0.26, 0.36], [0, 0.6, 0.4, 0]);
+    const glowOpacity = useTransform(smoothProgress, [0, 0.05, 0.22, 0.30], [0, 0.6, 0.4, 0]);
 
     return (
         <motion.div
@@ -164,8 +164,8 @@ function PowerStatCard({ stat, index, smoothProgress }: {
     index: number;
     smoothProgress: MotionValue<number>;
 }) {
-    const cardStart = 0.64 + index * 0.03;
-    const cardEnd = cardStart + 0.05;
+    const cardStart = 0.56 + index * 0.03;
+    const cardEnd = cardStart + 0.04;
     const Icon = stat.icon;
 
     const opacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
@@ -193,8 +193,8 @@ function HighlightCard({ h, index, smoothProgress }: {
     index: number;
     smoothProgress: MotionValue<number>;
 }) {
-    const cardStart = 0.40 + index * 0.035;
-    const cardEnd = cardStart + 0.05;
+    const cardStart = 0.30 + index * 0.03;
+    const cardEnd = cardStart + 0.04;
     const Icon = h.icon;
 
     const cardOpacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
@@ -246,71 +246,75 @@ export function ScrollCinematicSection() {
 
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 150, damping: 25, restDelta: 0.001 });
 
-    const taglineOpacity = useTransform(smoothProgress, [0.01, 0.06], [0, 1]);
-    const taglineY = useTransform(smoothProgress, [0.01, 0.06], [30, 0]);
+    // Phase 1: Title "Tu empresa. Toda. En un solo lugar." (0.00 - 0.30)
+    const taglineOpacity = useTransform(smoothProgress, [0.01, 0.05], [0, 1]);
+    const taglineY = useTransform(smoothProgress, [0.01, 0.05], [30, 0]);
 
-    const line1Opacity = useTransform(smoothProgress, [0.04, 0.12], [0, 1]);
-    const line1BlurRaw = useTransform(smoothProgress, [0.04, 0.12], [12, 0]);
+    const line1Opacity = useTransform(smoothProgress, [0.03, 0.09], [0, 1]);
+    const line1BlurRaw = useTransform(smoothProgress, [0.03, 0.09], [12, 0]);
     const line1Blur = useTransform(line1BlurRaw, (v) => `blur(${v}px)`);
-    const line1Y = useTransform(smoothProgress, [0.04, 0.12], [50, 0]);
-    const line1Scale = useTransform(smoothProgress, [0.04, 0.12], [0.9, 1]);
+    const line1Y = useTransform(smoothProgress, [0.03, 0.09], [50, 0]);
+    const line1Scale = useTransform(smoothProgress, [0.03, 0.09], [0.9, 1]);
 
-    const line2Opacity = useTransform(smoothProgress, [0.09, 0.17], [0, 1]);
-    const line2BlurRaw = useTransform(smoothProgress, [0.09, 0.17], [12, 0]);
+    const line2Opacity = useTransform(smoothProgress, [0.07, 0.13], [0, 1]);
+    const line2BlurRaw = useTransform(smoothProgress, [0.07, 0.13], [12, 0]);
     const line2Blur = useTransform(line2BlurRaw, (v) => `blur(${v}px)`);
-    const line2Y = useTransform(smoothProgress, [0.09, 0.17], [50, 0]);
-    const line2Scale = useTransform(smoothProgress, [0.09, 0.17], [0.9, 1]);
+    const line2Y = useTransform(smoothProgress, [0.07, 0.13], [50, 0]);
+    const line2Scale = useTransform(smoothProgress, [0.07, 0.13], [0.9, 1]);
 
-    const line3Opacity = useTransform(smoothProgress, [0.14, 0.22], [0, 1]);
-    const line3BlurRaw = useTransform(smoothProgress, [0.14, 0.22], [12, 0]);
+    const line3Opacity = useTransform(smoothProgress, [0.11, 0.17], [0, 1]);
+    const line3BlurRaw = useTransform(smoothProgress, [0.11, 0.17], [12, 0]);
     const line3Blur = useTransform(line3BlurRaw, (v) => `blur(${v}px)`);
-    const line3Y = useTransform(smoothProgress, [0.14, 0.22], [50, 0]);
-    const line3Scale = useTransform(smoothProgress, [0.14, 0.22], [0.9, 1]);
+    const line3Y = useTransform(smoothProgress, [0.11, 0.17], [50, 0]);
+    const line3Scale = useTransform(smoothProgress, [0.11, 0.17], [0.9, 1]);
 
-    const subtitleOpacity = useTransform(smoothProgress, [0.20, 0.26], [0, 1]);
-    const subtitleY = useTransform(smoothProgress, [0.20, 0.26], [24, 0]);
+    const subtitleOpacity = useTransform(smoothProgress, [0.15, 0.20], [0, 1]);
+    const subtitleY = useTransform(smoothProgress, [0.15, 0.20], [24, 0]);
 
-    const exitOpacity = useTransform(smoothProgress, [0.28, 0.38], [1, 0]);
-    const exitY = useTransform(smoothProgress, [0.28, 0.38], [0, -80]);
-    const exitScale = useTransform(smoothProgress, [0.28, 0.38], [1, 0.9]);
+    const exitOpacity = useTransform(smoothProgress, [0.24, 0.30], [1, 0]);
+    const exitY = useTransform(smoothProgress, [0.24, 0.30], [0, -80]);
+    const exitScale = useTransform(smoothProgress, [0.24, 0.30], [1, 0.9]);
 
-    const featuresOpacity = useTransform(smoothProgress, [0.35, 0.44], [0, 1]);
-    const featuresY = useTransform(smoothProgress, [0.35, 0.44], [60, 0]);
-    const featuresExitOpacity = useTransform(smoothProgress, [0.55, 0.62], [1, 0]);
-    const featuresExitY = useTransform(smoothProgress, [0.55, 0.62], [0, -60]);
+    // Phase 2: Highlights / Feature cards (0.28 - 0.55)
+    const featuresOpacity = useTransform(smoothProgress, [0.28, 0.34], [0, 1]);
+    const featuresY = useTransform(smoothProgress, [0.28, 0.34], [60, 0]);
+    const featuresExitOpacity = useTransform(smoothProgress, [0.50, 0.55], [1, 0]);
+    const featuresExitY = useTransform(smoothProgress, [0.50, 0.55], [0, -60]);
 
-    const statsPhaseOpacity = useTransform(smoothProgress, [0.60, 0.68], [0, 1]);
-    const statsPhaseY = useTransform(smoothProgress, [0.60, 0.68], [50, 0]);
-    const statsExitOpacity = useTransform(smoothProgress, [0.78, 0.85], [1, 0]);
-    const statsExitY = useTransform(smoothProgress, [0.78, 0.85], [0, -50]);
+    // Phase 3: Stats (0.53 - 0.78)
+    const statsPhaseOpacity = useTransform(smoothProgress, [0.53, 0.58], [0, 1]);
+    const statsPhaseY = useTransform(smoothProgress, [0.53, 0.58], [50, 0]);
+    const statsExitOpacity = useTransform(smoothProgress, [0.73, 0.78], [1, 0]);
+    const statsExitY = useTransform(smoothProgress, [0.73, 0.78], [0, -50]);
 
-    const dashboardOpacity = useTransform(smoothProgress, [0.83, 0.92], [0, 1]);
-    const dashboardScale = useTransform(smoothProgress, [0.83, 0.92], [0.7, 1]);
-    const dashboardY = useTransform(smoothProgress, [0.83, 0.92], [80, 0]);
+    // Phase 4: Dashboard (0.76 - 1.0, stays visible to end)
+    const dashboardOpacity = useTransform(smoothProgress, [0.76, 0.82], [0, 1]);
+    const dashboardScale = useTransform(smoothProgress, [0.76, 0.82], [0.7, 1]);
+    const dashboardY = useTransform(smoothProgress, [0.76, 0.82], [80, 0]);
 
-    const scrollHintOpacity = useTransform(smoothProgress, [0, 0.02, 0.08], [0, 1, 0]);
+    const scrollHintOpacity = useTransform(smoothProgress, [0, 0.02, 0.06], [0, 1, 0]);
 
-    const particlesOpacity = useTransform(smoothProgress, [0, 0.03, 0.92, 0.98], [0, 1, 1, 0]);
+    const particlesOpacity = useTransform(smoothProgress, [0, 0.02, 0.95, 1.0], [0, 1, 1, 0]);
 
     const highlightsOpacity = useTransform(smoothProgress, (v: number) => {
-        const enterOp = Math.min(1, Math.max(0, (v - 0.35) / 0.09));
-        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.55) / 0.07));
+        const enterOp = Math.min(1, Math.max(0, (v - 0.28) / 0.06));
+        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.50) / 0.05));
         return Math.min(enterOp, exitOp);
     });
     const highlightsY = useTransform(smoothProgress, (v: number) => {
-        if (v < 0.44) return 60 * (1 - Math.min(1, (v - 0.35) / 0.09));
-        if (v > 0.55) return -60 * Math.min(1, (v - 0.55) / 0.07);
+        if (v < 0.34) return 60 * (1 - Math.min(1, (v - 0.28) / 0.06));
+        if (v > 0.50) return -60 * Math.min(1, (v - 0.50) / 0.05);
         return 0;
     });
 
     const statsOpacity = useTransform(smoothProgress, (v: number) => {
-        const enterOp = Math.min(1, Math.max(0, (v - 0.60) / 0.08));
-        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.78) / 0.07));
+        const enterOp = Math.min(1, Math.max(0, (v - 0.53) / 0.05));
+        const exitOp = Math.min(1, Math.max(0, 1 - (v - 0.73) / 0.05));
         return Math.min(enterOp, exitOp);
     });
     const statsY = useTransform(smoothProgress, (v: number) => {
-        if (v < 0.68) return 50 * (1 - Math.min(1, (v - 0.60) / 0.08));
-        if (v > 0.78) return -50 * Math.min(1, (v - 0.78) / 0.07);
+        if (v < 0.58) return 50 * (1 - Math.min(1, (v - 0.53) / 0.05));
+        if (v > 0.73) return -50 * Math.min(1, (v - 0.73) / 0.05);
         return 0;
     });
 
