@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -95,14 +95,14 @@ export const asesoriaContableNavGroups = [
     ],
   },
   {
-    title: "Permisos",
+    title: "Permisología",
     icon: Shield,
     items: [
-        { href: "/permisos", label: "Licencias Vigentes", icon: ShieldCheck },
+        { href: "/contabilidad/tributos/permisos", label: "Centro de Permisología", icon: ShieldCheck },
+        { href: "/permisos", label: "Licencias Vigentes", icon: FileCheck },
         { href: "/autorizaciones", label: "Autorizaciones", icon: UserCheck },
         { href: "/contabilidad/conatel", label: "Permiso CONATEL", icon: Signal },
         { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protección Pensiones", icon: ShieldCheck },
-        { href: "/contabilidad/tributos/permisos", label: "Permisos Tributarios", icon: File },
         { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileEdit },
     ],
   },

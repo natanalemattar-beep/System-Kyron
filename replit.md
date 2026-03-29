@@ -50,7 +50,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
 - **Email Services:** Microsoft Outlook (Replit connector), Gmail (Replit connector & REST API), Resend (transactional fallback). Email templates use the hexagonal Kyron logo (`public/logo-kyron-email.png`) served via hosted URL, with "SYSTEM KYRON / Inteligencia Corporativa" text fallback for clients that block images.
-- **AI Integrations:** Gemini 2.0 Flash (for fiscal chat and general chat), OpenAI GPT-4o (for dashboard analysis).
+- **AI Integrations:** Gemini 2.0 Flash (for fiscal chat and general chat), OpenAI GPT-4o (for dashboard analysis), Anthropic Claude (via Replit AI Integrations — `AI_INTEGRATIONS_ANTHROPIC_API_KEY`/`AI_INTEGRATIONS_ANTHROPIC_BASE_URL`).
+- **Permisología Module:** Comprehensive permit management at `/contabilidad/tributos/permisos` — covers SENIAT (RIF, IVA, ISLR, IGTF, solvencia, facturación, aduanas, retenciones), 13+ Ministerios, 10 Alcaldías, 10 Gobernaciones, and Entes Autónomos (CONATEL, SUNDDE, INPSASEL, IVSS, INCES, BANAVIH, SAREN, SAPI). Features: catálogo de permisos con requisitos de inscripción y renovación, generador de cartas oficiales de solicitud/renovación, sistema de alertas por vencimiento (30/60/90 días), registro de permisos propios, filtros por organismo y sector económico. Data in `src/lib/permisologia-data.ts`, APIs in `src/app/api/permisologia/`.
 - **SMS:** Twilio (optional)
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API.
 - **Excel Export:** `exceljs`.
