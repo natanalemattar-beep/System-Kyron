@@ -55,7 +55,7 @@ const paymentGateways = [
     },
     {
         name: "Transferencia Bancaria VE",
-        description: "Transferencias entre cuentas nacionales. BdV, Banesco, Mercantil, Provincial, BNC, BOD.",
+        description: "Transferencias entre cuentas nacionales. 29 bancos conectados vía ACH y LBTR.",
         fees: "0% (Sin comisión)",
         status: "Activo",
         icon: Landmark,
@@ -66,18 +66,18 @@ const paymentGateways = [
     },
     {
         name: "Binance Pay / Cripto",
-        description: "Pagos en criptomonedas: USDT, USDC, BTC. Conversión automática a VES o USD.",
+        description: "Pagos en criptomonedas: USDT, USDC, BTC, ETH. Conversión automática a VES o USD.",
         fees: "0.5% conversión cripto",
         status: "Configurado",
         icon: Zap,
         color: "text-amber-500",
         bg: "bg-amber-500/10",
         borderColor: "border-amber-500/20",
-        currencies: ["USDT", "USDC", "BTC"],
+        currencies: ["USDT", "USDC", "BTC", "ETH"],
     },
     {
         name: "Tarjeta Débito/Crédito",
-        description: "Visa, MasterCard, AMEX en bolívares o divisas. POS físico y virtual integrado.",
+        description: "Visa, MasterCard, AMEX, Maestro en bolívares o divisas. POS físico y virtual integrado.",
         fees: "2.5% + IVA (nacional)",
         status: "Activo",
         icon: CreditCard,
@@ -97,6 +97,50 @@ const paymentGateways = [
         borderColor: "border-primary/20",
         currencies: ["VES", "USD", "EUR"],
     },
+    {
+        name: "Reserve / USDC Wallet",
+        description: "Billetera de stablecoins USDC para Venezuela. Envío y recepción sin intermediarios.",
+        fees: "0.1% por conversión",
+        status: "Activo",
+        icon: Wallet,
+        color: "text-sky-500",
+        bg: "bg-sky-500/10",
+        borderColor: "border-sky-500/20",
+        currencies: ["USDC", "USD"],
+    },
+    {
+        name: "Tether (TRC-20 / ERC-20)",
+        description: "Recepción directa de USDT en redes Tron y Ethereum. Liquidación automática en VES.",
+        fees: "0.3% red + gas fee",
+        status: "Activo",
+        icon: Zap,
+        color: "text-green-500",
+        bg: "bg-green-500/10",
+        borderColor: "border-green-500/20",
+        currencies: ["USDT"],
+    },
+    {
+        name: "Efectivo USD / EUR",
+        description: "Registro manual de pagos en efectivo en divisas. Generación automática de recibos.",
+        fees: "0% (Sin comisión)",
+        status: "Activo",
+        icon: Banknote,
+        color: "text-lime-500",
+        bg: "bg-lime-500/10",
+        borderColor: "border-lime-500/20",
+        currencies: ["USD", "EUR"],
+    },
+    {
+        name: "Stripe Connect",
+        description: "Procesador de pagos internacional. Visa, MasterCard, Apple Pay y Google Pay.",
+        fees: "2.9% + $0.30 por transacción",
+        status: "Pendiente",
+        icon: CreditCard,
+        color: "text-indigo-500",
+        bg: "bg-indigo-500/10",
+        borderColor: "border-indigo-500/20",
+        currencies: ["USD", "EUR", "GBP"],
+    },
 ];
 
 const bancosVenezuela = [
@@ -106,12 +150,29 @@ const bancosVenezuela = [
     { nombre: "BBVA Provincial", codigo: "0108", tipo: "Universal" },
     { nombre: "BNC", codigo: "0191", tipo: "Comercial" },
     { nombre: "BOD", codigo: "0116", tipo: "Universal" },
-    { nombre: "Bancaribe", codigo: "0128", tipo: "Universal" },
+    { nombre: "Bancaribe", codigo: "0114", tipo: "Universal" },
     { nombre: "Banco Exterior", codigo: "0115", tipo: "Universal" },
     { nombre: "Banco Plaza", codigo: "0138", tipo: "Comercial" },
     { nombre: "Banco Caroní", codigo: "0128", tipo: "Microfinanzas" },
     { nombre: "Bancrecer", codigo: "0168", tipo: "Microfinanzas" },
     { nombre: "BanFANB", codigo: "0177", tipo: "Especial" },
+    { nombre: "Banco del Tesoro", codigo: "0163", tipo: "Universal" },
+    { nombre: "Banco Bicentenario", codigo: "0175", tipo: "Universal" },
+    { nombre: "Banco Sofitasa", codigo: "0137", tipo: "Universal" },
+    { nombre: "100% Banco", codigo: "0156", tipo: "Comercial" },
+    { nombre: "Banco Activo", codigo: "0171", tipo: "Comercial" },
+    { nombre: "Bancamiga", codigo: "0172", tipo: "Universal" },
+    { nombre: "Banplus", codigo: "0174", tipo: "Comercial" },
+    { nombre: "Banco Fondo Común (BFC)", codigo: "0151", tipo: "Universal" },
+    { nombre: "Mi Banco", codigo: "0169", tipo: "Microfinanzas" },
+    { nombre: "Banco Venezolano de Crédito", codigo: "0104", tipo: "Universal" },
+    { nombre: "Banco Nacional de Crédito (BNC)", codigo: "0192", tipo: "Comercial" },
+    { nombre: "Banco de la Gente Emprendedora (Bangente)", codigo: "0166", tipo: "Microfinanzas" },
+    { nombre: "Banco Agrícola de Venezuela", codigo: "0176", tipo: "Especial" },
+    { nombre: "Instituto Municipal de Crédito Popular", codigo: "0601", tipo: "Especial" },
+    { nombre: "Del Sur Banco Universal", codigo: "0157", tipo: "Universal" },
+    { nombre: "Banco Internacional de Desarrollo", codigo: "0173", tipo: "Comercial" },
+    { nombre: "N58 Banco Digital", codigo: "0178", tipo: "Digital" },
 ];
 
 export default function PasarelasDePagoPage() {
@@ -124,7 +185,7 @@ export default function PasarelasDePagoPage() {
                     <CreditCard className="h-3 w-3" /> NODO DE LIQUIDACIÓN
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Pasarelas <span className="text-primary italic">de Pago</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Omnicanalidad Financiera • PayPal · Zinli · Zelle · Pago Móvil · Bancos VE · Cripto</p>
+                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Omnicanalidad Financiera • PayPal · Zinli · Zelle · Pago Móvil · Cripto · Stripe · 29 Bancos VE</p>
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -216,7 +277,7 @@ export default function PasarelasDePagoPage() {
                             <li className="flex gap-6"><span className="text-primary">[1]</span> Captura de fondos multimoneda: VES, USD, EUR, USDT.</li>
                             <li className="flex gap-6"><span className="text-primary">[2]</span> Validación automática de IGTF (3%) en operaciones en divisas.</li>
                             <li className="flex gap-6"><span className="text-primary">[3]</span> Conciliación bancaria automática en T+0.</li>
-                            <li className="flex gap-6"><span className="text-primary">[4]</span> PayPal / Zinli / Zelle acreditados con tasa BCV del día.</li>
+                            <li className="flex gap-6"><span className="text-primary">[4]</span> PayPal / Zinli / Zelle / Reserve / Cripto acreditados con tasa BCV del día.</li>
                         </ul>
                     </div>
                 </div>
