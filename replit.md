@@ -1,4 +1,4 @@
-# System Kyron v2.8.3 - Ecosistema Corporativo
+# System Kyron v2.8.5 - Ecosistema Corporativo
 
 ### Landing Page Redesign (v2.8.3)
 The landing page was redesigned to be less text-heavy and more visual/scannable:
@@ -36,8 +36,12 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Admin nav reorganized (v2.8.3):** Consolidated from 7 groups to 5: Contabilidad (8 items), Fiscal (10 items), Permisos (6 items — NEW), Planificación (6 items), Sistema (1 item). Dropdown widths auto-adjust for larger groups (560px vs 400px).
 
 **Technical Implementations:**
-- **Database Schema:** A comprehensive PostgreSQL schema with over 60 tables is centralized in `src/lib/db-schema.ts` and initialized automatically on server startup.
-- **API Routes:** A robust set of API routes is provided for authentication, real-time KPIs, CRUD operations across various modules (banking, invoicing, clients, employees, payroll, declarations, retentions, BCV rates, personal documents, civil requests, eco-credits, telecom, legal documents, and notifications).
+- **Database Schema:** A comprehensive PostgreSQL schema with 70+ tables is centralized in `src/lib/db-schema.ts` and initialized automatically on server startup. v2.8.5 added: `migration_versions`, `system_health_log`, `auditoria_detallada`, `dashboard_cache`, `reportes_generados`, `alertas_programadas`, `api_request_log`, `backup_log`, `webhooks`, `integraciones_externas`, `plantillas_documento`, `presupuestos`, `metas_kpi`.
+- **Database Layer (`src/lib/db.ts`):** Enhanced with `batchInsert`, `upsert`, `exists`, `count`, `paginate`, `healthCheck`, `getQueryMetrics`, `queryWithCount` helpers. Includes slow query detection (>500ms), pool metrics, and connection health monitoring.
+- **Demo Seed Data (`src/lib/db-seed.ts`):** Realistic Venezuelan business data for clients, providers, bank accounts, inventory, invoices, employees, BCV rates, chart of accounts, bank movements, and notifications. Triggered via `POST /api/db-seed`.
+- **Health Check (`GET /api/db-health`):** Returns DB latency, pool stats, PostgreSQL version, uptime, query metrics, and per-table record counts.
+- **Enhanced Audit Trail:** `logAudit()` in `activity-logger.ts` records detailed field-level changes with risk levels, previous/new data in JSONB, and session tracking.
+- **API Routes:** A robust set of 60+ API routes for authentication, real-time KPIs, CRUD operations across various modules (banking, invoicing, clients, employees, payroll, declarations, retentions, BCV rates, personal documents, civil requests, eco-credits, telecom, legal documents, notifications, health checks, and seeding).
 - **Authentication:** JWT utilities (`createToken`, `verifyToken`, `getSession`) are located in `src/lib/auth/index.ts`, with an `AuthProvider` React context. Session cookies (`sk_session`) are httpOnly and secure.
 - **Security:** Implemented security headers (X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, HSTS, X-DNS-Prefetch-Control), in-memory rate limiting for critical endpoints, input validation (email, strong passwords, sanitization, payload size limits), anti-enumeration techniques, parameterized SQL queries, and XSS protection.
 - **Payment Methods:** Integrated various payment methods including PayPal, Zinli, Zelle, Pago Móvil / C2P, Venezuelan Bank Transfers, Binance Pay / Crypto, Debit/Credit Cards, and a proprietary Kyron Digital Wallet.

@@ -23,8 +23,9 @@ export async function initializeDatabase(): Promise<void> {
     await createConfiguracionTables();
     await createVentasTables();
     await createProyectosTables();
+    await createAdvancedSystemTables();
     await createPerformanceOptimizations();
-    console.log('[db-schema] Base de datos inicializada correctamente.');
+    console.log('[db-schema] Base de datos inicializada correctamente — v2.8.5');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -1693,6 +1694,267 @@ async function createConfiguracionTables() {
       updated_at         TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 13. SISTEMA AVANZADO — SALUD, AUDITORÍA, CACHÉ, REPORTES, ALERTAS, MIGRACIONES
+// ─────────────────────────────────────────────────────────────────────────────
+async function createAdvancedSystemTables() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS migration_versions (
+      id           SERIAL PRIMARY KEY,
+      version      TEXT NOT NULL UNIQUE,
+      description  TEXT NOT NULL,
+      applied_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      checksum     TEXT,
+      execution_ms INT
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS system_health_log (
+      id                SERIAL PRIMARY KEY,
+      metric_type       TEXT NOT NULL
+                        CHECK (metric_type IN ('db_latency','api_response','error_rate','pool_usage','memory','cpu','disk','query_count','active_connections','cache_hit_rate')),
+      value             NUMERIC(18,4) NOT NULL,
+      unit              TEXT NOT NULL DEFAULT 'ms',
+      context           JSONB,
+      recorded_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_health_log_type ON system_health_log(metric_type, recorded_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_health_log_time ON system_health_log(recorded_at DESC)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS auditoria_detallada (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT REFERENCES users(id) ON DELETE SET NULL,
+      tabla_afectada  TEXT NOT NULL,
+      registro_id     INT,
+      operacion       TEXT NOT NULL CHECK (operacion IN ('INSERT','UPDATE','DELETE','SELECT','EXPORT','IMPORT','LOGIN','LOGOUT')),
+      datos_anteriores JSONB,
+      datos_nuevos    JSONB,
+      campos_modificados TEXT[],
+      ip_address      TEXT,
+      user_agent      TEXT,
+      session_id      TEXT,
+      risk_level      TEXT NOT NULL DEFAULT 'low' CHECK (risk_level IN ('low','medium','high','critical')),
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_auditoria_user ON auditoria_detallada(user_id, created_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_auditoria_tabla ON auditoria_detallada(tabla_afectada, created_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_auditoria_risk ON auditoria_detallada(risk_level) WHERE risk_level IN ('high','critical')`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS dashboard_cache (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      cache_key       TEXT NOT NULL,
+      cache_data      JSONB NOT NULL,
+      ttl_seconds     INT NOT NULL DEFAULT 300,
+      generated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      expires_at      TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '5 minutes',
+      hit_count       INT NOT NULL DEFAULT 0,
+      UNIQUE(user_id, cache_key)
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_dashboard_cache_expires ON dashboard_cache(expires_at)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS reportes_generados (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo_reporte    TEXT NOT NULL
+                      CHECK (tipo_reporte IN ('balance_general','estado_resultados','libro_diario','libro_mayor','flujo_caja',
+                                              'nomina_resumen','prestaciones','iva_mensual','islr_anual','retenciones',
+                                              'inventario_valorizado','cxc_antigüedad','cxp_antigüedad','ventas_periodo',
+                                              'auditoria','analytics','personalizado')),
+      titulo          TEXT NOT NULL,
+      periodo_inicio  DATE,
+      periodo_fin     DATE,
+      parametros      JSONB,
+      formato         TEXT NOT NULL DEFAULT 'pdf' CHECK (formato IN ('pdf','xlsx','csv','json')),
+      archivo_url     TEXT,
+      tamano_bytes    BIGINT,
+      estado          TEXT NOT NULL DEFAULT 'generando'
+                      CHECK (estado IN ('generando','completado','error','expirado')),
+      error_message   TEXT,
+      generado_en_ms  INT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_reportes_user ON reportes_generados(user_id, created_at DESC)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS alertas_programadas (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo_alerta     TEXT NOT NULL
+                      CHECK (tipo_alerta IN ('vencimiento_factura','vencimiento_permiso','vencimiento_poliza',
+                                             'stock_bajo','saldo_minimo','nomina_pendiente','declaracion_fiscal',
+                                             'contrato_por_vencer','reposo_por_vencer','solvencia_por_vencer',
+                                             'tasa_bcv','meta_ventas','personalizada')),
+      titulo          TEXT NOT NULL,
+      mensaje         TEXT NOT NULL,
+      entidad_tipo    TEXT,
+      entidad_id      INT,
+      condicion       JSONB,
+      dias_anticipacion INT NOT NULL DEFAULT 7,
+      frecuencia      TEXT NOT NULL DEFAULT 'una_vez'
+                      CHECK (frecuencia IN ('una_vez','diaria','semanal','mensual')),
+      canal           TEXT NOT NULL DEFAULT 'sistema'
+                      CHECK (canal IN ('sistema','email','sms','push','whatsapp')),
+      activa          BOOLEAN NOT NULL DEFAULT true,
+      ultima_ejecucion TIMESTAMPTZ,
+      proxima_ejecucion TIMESTAMPTZ,
+      total_enviadas  INT NOT NULL DEFAULT 0,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_alertas_user ON alertas_programadas(user_id, activa)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_alertas_proxima ON alertas_programadas(proxima_ejecucion) WHERE activa = true`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS api_request_log (
+      id              SERIAL PRIMARY KEY,
+      method          TEXT NOT NULL,
+      path            TEXT NOT NULL,
+      status_code     INT NOT NULL,
+      user_id         INT,
+      ip_address      TEXT,
+      duration_ms     INT NOT NULL,
+      request_size    INT,
+      response_size   INT,
+      error_message   TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_api_log_path ON api_request_log(path, created_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_api_log_status ON api_request_log(status_code) WHERE status_code >= 400`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_api_log_time ON api_request_log(created_at DESC)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS backup_log (
+      id              SERIAL PRIMARY KEY,
+      tipo_backup     TEXT NOT NULL CHECK (tipo_backup IN ('full','incremental','schema','datos','tabla')),
+      tablas          TEXT[],
+      tamano_bytes    BIGINT,
+      archivo_url     TEXT,
+      duracion_ms     INT,
+      registros_total BIGINT,
+      estado          TEXT NOT NULL DEFAULT 'en_progreso'
+                      CHECK (estado IN ('en_progreso','completado','error')),
+      error_message   TEXT,
+      iniciado_por    INT REFERENCES users(id) ON DELETE SET NULL,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS webhooks (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre          TEXT NOT NULL,
+      url             TEXT NOT NULL,
+      eventos         TEXT[] NOT NULL,
+      headers         JSONB,
+      secreto         TEXT,
+      activo          BOOLEAN NOT NULL DEFAULT true,
+      ultimo_envio    TIMESTAMPTZ,
+      ultimo_estado   INT,
+      total_envios    INT NOT NULL DEFAULT 0,
+      total_errores   INT NOT NULL DEFAULT 0,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_webhooks_user ON webhooks(user_id, activo)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS integraciones_externas (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      proveedor       TEXT NOT NULL
+                      CHECK (proveedor IN ('seniat','bcv','ivss','faov','inces','banavih','conatel','inpsasel','sunagro',
+                                           'mercadolibre','whatsapp','google','outlook','twilio','stripe','paypal')),
+      tipo            TEXT NOT NULL DEFAULT 'api' CHECK (tipo IN ('api','oauth','webhook','scraping','manual')),
+      nombre_conexion TEXT NOT NULL,
+      configuracion   JSONB,
+      estado          TEXT NOT NULL DEFAULT 'activa'
+                      CHECK (estado IN ('activa','inactiva','error','pendiente','expirada')),
+      ultimo_sync     TIMESTAMPTZ,
+      sync_frecuencia TEXT DEFAULT 'manual',
+      errores_consecutivos INT NOT NULL DEFAULT 0,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_integraciones_user ON integraciones_externas(user_id, proveedor)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS plantillas_documento (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT REFERENCES users(id) ON DELETE CASCADE,
+      tipo            TEXT NOT NULL
+                      CHECK (tipo IN ('factura','cotizacion','recibo','carta','contrato','nomina','certificado','reporte','nota_credito','nota_debito')),
+      nombre          TEXT NOT NULL,
+      contenido_html  TEXT NOT NULL,
+      variables       TEXT[],
+      es_default      BOOLEAN NOT NULL DEFAULT false,
+      activa          BOOLEAN NOT NULL DEFAULT true,
+      version         INT NOT NULL DEFAULT 1,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_plantillas_user ON plantillas_documento(user_id, tipo)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS presupuestos (
+      id                SERIAL PRIMARY KEY,
+      user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre            TEXT NOT NULL,
+      categoria         TEXT NOT NULL
+                        CHECK (categoria IN ('operativo','capital','marketing','rrhh','tecnologia','legal','general')),
+      periodo_inicio    DATE NOT NULL,
+      periodo_fin       DATE NOT NULL,
+      monto_presupuestado NUMERIC(18,2) NOT NULL DEFAULT 0,
+      monto_ejecutado   NUMERIC(18,2) NOT NULL DEFAULT 0,
+      monto_comprometido NUMERIC(18,2) NOT NULL DEFAULT 0,
+      moneda            TEXT NOT NULL DEFAULT 'USD',
+      estado            TEXT NOT NULL DEFAULT 'activo'
+                        CHECK (estado IN ('borrador','activo','cerrado','excedido')),
+      notas             TEXT,
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_presupuestos_user ON presupuestos(user_id, estado)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS metas_kpi (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre          TEXT NOT NULL,
+      categoria       TEXT NOT NULL
+                      CHECK (categoria IN ('ventas','finanzas','rrhh','operaciones','clientes','calidad','crecimiento')),
+      indicador       TEXT NOT NULL,
+      meta_valor      NUMERIC(18,4) NOT NULL,
+      valor_actual    NUMERIC(18,4) NOT NULL DEFAULT 0,
+      unidad          TEXT NOT NULL DEFAULT 'unidades',
+      periodo         TEXT NOT NULL,
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin       DATE NOT NULL,
+      estado          TEXT NOT NULL DEFAULT 'en_progreso'
+                      CHECK (estado IN ('en_progreso','alcanzada','no_alcanzada','cancelada')),
+      responsable     TEXT,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_metas_user ON metas_kpi(user_id, estado)`);
 }
 
 async function createPerformanceOptimizations(): Promise<void> {
