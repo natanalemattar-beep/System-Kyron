@@ -9,6 +9,7 @@ import {
     User, Building2, ArrowRight, ChevronLeft, ShieldCheck,
     Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
     Calculator, Users, Signal, Recycle, Gavel, ArrowLeft,
+    ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,13 +26,13 @@ interface RifLookupResult {
 }
 
 const ALL_PREFIXES = [
-    { value: "V", label: "V", desc: "Venezolano" },
-    { value: "E", label: "E", desc: "Extranjero" },
-    { value: "J", label: "J", desc: "Jurídico" },
-    { value: "G", label: "G", desc: "Gobierno" },
-    { value: "P", label: "P", desc: "Pasaporte" },
-    { value: "C", label: "C", desc: "Comunal" },
-    { value: "F", label: "F", desc: "Firma" },
+    { value: "V", label: "V", desc: "Venezolano", icon: UserCircle, color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20", ring: "ring-blue-500/30" },
+    { value: "E", label: "E", desc: "Extranjero", icon: Globe, color: "text-cyan-500", bg: "bg-cyan-500/10", border: "border-cyan-500/20", ring: "ring-cyan-500/30" },
+    { value: "J", label: "J", desc: "Jurídico", icon: Building2, color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20", ring: "ring-emerald-500/30" },
+    { value: "G", label: "G", desc: "Gobierno", icon: Landmark, color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20", ring: "ring-amber-500/30" },
+    { value: "P", label: "P", desc: "Pasaporte", icon: Globe, color: "text-violet-500", bg: "bg-violet-500/10", border: "border-violet-500/20", ring: "ring-violet-500/30" },
+    { value: "C", label: "C", desc: "Comunal", icon: Building, color: "text-orange-500", bg: "bg-orange-500/10", border: "border-orange-500/20", ring: "ring-orange-500/30" },
+    { value: "F", label: "F", desc: "Firma Personal", icon: FileSignature, color: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/20", ring: "ring-rose-500/30" },
 ];
 
 interface ModuleOption {
@@ -164,6 +165,10 @@ export default function RegisterSelectionPage() {
     const router = useRouter();
     const [step, setStep] = useState<"identify" | "modules">("identify");
     const [prefix, setPrefix] = useState("V");
+    const [prefixOpen, setPrefixOpen] = useState(false);
+    const [prefixFocusIdx, setPrefixFocusIdx] = useState(-1);
+    const prefixRef = useRef<HTMLDivElement>(null);
+    const prefixTriggerRef = useRef<HTMLButtonElement>(null);
     const [docNumber, setDocNumber] = useState("");
     const [detected, setDetected] = useState<{ type: DetectedType; format: "cedula" | "rif" | null; label: string; valid: boolean }>({ type: null, format: null, label: "", valid: false });
     const [checking, setChecking] = useState(false);
@@ -221,6 +226,55 @@ export default function RegisterSelectionPage() {
             setCedulaSearching(false);
         };
     }, [detected.valid, detected.type, prefix, docNumber]);
+
+    useEffect(() => {
+        if (!prefixOpen) return;
+        setPrefixFocusIdx(ALL_PREFIXES.findIndex(p => p.value === prefix));
+        function handleClickOutside(e: MouseEvent) {
+            if (prefixRef.current && !prefixRef.current.contains(e.target as Node)) {
+                setPrefixOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [prefixOpen, prefix]);
+
+    const handlePrefixKeyDown = useCallback((e: React.KeyboardEvent) => {
+        if (!prefixOpen) {
+            if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setPrefixOpen(true);
+            }
+            return;
+        }
+        switch (e.key) {
+            case "ArrowDown":
+                e.preventDefault();
+                setPrefixFocusIdx(i => (i + 1) % ALL_PREFIXES.length);
+                break;
+            case "ArrowUp":
+                e.preventDefault();
+                setPrefixFocusIdx(i => (i - 1 + ALL_PREFIXES.length) % ALL_PREFIXES.length);
+                break;
+            case "Enter":
+            case " ":
+                e.preventDefault();
+                if (prefixFocusIdx >= 0 && prefixFocusIdx < ALL_PREFIXES.length) {
+                    setPrefix(ALL_PREFIXES[prefixFocusIdx].value);
+                    setPrefixOpen(false);
+                    inputRef.current?.focus();
+                }
+                break;
+            case "Escape":
+                e.preventDefault();
+                setPrefixOpen(false);
+                prefixTriggerRef.current?.focus();
+                break;
+            case "Tab":
+                setPrefixOpen(false);
+                break;
+        }
+    }, [prefixOpen, prefixFocusIdx]);
 
     const handleNumberChange = (val: string) => {
         const cleaned = val.replace(/[^0-9-]/g, "");
@@ -285,6 +339,8 @@ export default function RegisterSelectionPage() {
     const isJuridico = detected.type === "juridico";
 
     const availableModules = MODULES.filter(m => detected.type && m.forTypes.includes(detected.type));
+    const currentPrefix = ALL_PREFIXES.find(p => p.value === prefix) ?? ALL_PREFIXES[0];
+    const CurrentPrefixIcon = currentPrefix.icon;
 
     const FEATURES = [
         { icon: ShieldCheck, title: "Cifrado AES-256", desc: "Tus datos protegidos con encriptación de grado militar" },
@@ -416,27 +472,95 @@ export default function RegisterSelectionPage() {
                             </div>
 
                             <div className="flex gap-2 mb-4">
-                                <div className="relative shrink-0 w-[72px]">
-                                    <select
-                                        value={prefix}
-                                        onChange={e => setPrefix(e.target.value)}
-                                        className="w-full h-12 px-3 text-base font-black rounded-xl border border-border/40 bg-background text-foreground appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 8px center' }}
+                                <div ref={prefixRef} className="relative shrink-0" onKeyDown={handlePrefixKeyDown}>
+                                    <button
+                                        ref={prefixTriggerRef}
+                                        type="button"
+                                        role="combobox"
+                                        aria-expanded={prefixOpen}
+                                        aria-haspopup="listbox"
+                                        aria-controls="prefix-listbox"
+                                        aria-label={`Tipo de documento: ${currentPrefix.value} — ${currentPrefix.desc}`}
+                                        onClick={() => setPrefixOpen(o => !o)}
+                                        className={cn(
+                                            "flex items-center gap-2 h-12 pl-3 pr-2 rounded-xl border-2 transition-all duration-200 cursor-pointer",
+                                            "bg-background hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                                            prefixOpen
+                                                ? `${currentPrefix.border} ${currentPrefix.ring} ring-2`
+                                                : "border-border/40 hover:border-border/60"
+                                        )}
                                     >
-                                        {ALL_PREFIXES.map(p => (
-                                            <option key={p.value} value={p.value}>
-                                                {p.label}
-                                            </option>
-                                        ))}
-                                    </select>
+                                        <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg", currentPrefix.bg, currentPrefix.border, "border")}>
+                                            <CurrentPrefixIcon className={cn("h-3.5 w-3.5", currentPrefix.color)} />
+                                        </div>
+                                        <span className="text-base font-black text-foreground w-5 text-center">{currentPrefix.value}</span>
+                                        <ChevronDown className={cn("h-3.5 w-3.5 text-muted-foreground transition-transform duration-200", prefixOpen && "rotate-180")} />
+                                    </button>
+
+                                    {prefixOpen && (
+                                        <div
+                                            id="prefix-listbox"
+                                            role="listbox"
+                                            aria-label="Tipo de documento"
+                                            className="absolute top-full left-0 mt-2 z-50 w-[220px] rounded-2xl border border-border/40 bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+                                        >
+                                            <div className="p-1.5">
+                                                {ALL_PREFIXES.map((p, idx) => {
+                                                    const OptionIcon = p.icon;
+                                                    const isActive = prefix === p.value;
+                                                    const isFocused = prefixFocusIdx === idx;
+                                                    return (
+                                                        <div
+                                                            key={p.value}
+                                                            role="option"
+                                                            aria-selected={isActive}
+                                                            aria-label={`${p.value} — ${p.desc}`}
+                                                            onClick={() => { setPrefix(p.value); setPrefixOpen(false); inputRef.current?.focus(); }}
+                                                            className={cn(
+                                                                "flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-left transition-all duration-150 cursor-pointer",
+                                                                isActive
+                                                                    ? `${p.bg} ${p.border} border`
+                                                                    : isFocused
+                                                                        ? "border border-primary/40 bg-accent/40"
+                                                                        : "border border-transparent hover:bg-accent/60"
+                                                            )}
+                                                        >
+                                                            <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg border", p.bg, p.border)}>
+                                                                <OptionIcon className={cn("h-4 w-4", p.color)} />
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className={cn("text-sm font-black", isActive ? p.color : "text-foreground")}>{p.value}</span>
+                                                                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{p.desc}</span>
+                                                                </div>
+                                                            </div>
+                                                            {isActive && <CheckCircle2 className={cn("h-4 w-4 shrink-0", p.color)} />}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                            <div className="px-4 py-2 border-t border-border/20">
+                                                <p className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">Selecciona tipo de documento</p>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                                <Input
-                                    value={docNumber}
-                                    onChange={e => handleNumberChange(e.target.value)}
-                                    placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
-                                    ref={inputRef}
-                                    className="flex-1 h-12 text-lg font-bold rounded-xl border-border/40 tracking-wider"
-                                />
+                                <div className="flex-1 relative">
+                                    <Input
+                                        value={docNumber}
+                                        onChange={e => handleNumberChange(e.target.value)}
+                                        placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
+                                        ref={inputRef}
+                                        className="h-12 text-lg font-bold rounded-xl border-2 border-border/40 tracking-wider focus:border-primary/40 transition-colors pl-4"
+                                    />
+                                    {docNumber && (
+                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <span className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider">
+                                                {["J", "G", "C", "F"].includes(prefix) ? "RIF" : "Cédula"}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
                                 {isJuridico && detected.valid && (
                                     <Button
                                         type="button"
@@ -444,14 +568,16 @@ export default function RegisterSelectionPage() {
                                         onClick={handleRifSearch}
                                         disabled={rifSearching}
                                         className={cn(
-                                            "h-12 px-4 rounded-xl font-black text-xs uppercase tracking-wider shrink-0 transition-all duration-300",
-                                            rifLookup ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5" : "border-border/40"
+                                            "h-12 px-5 rounded-xl font-black text-xs uppercase tracking-wider shrink-0 transition-all duration-300 border-2",
+                                            rifLookup
+                                                ? "border-emerald-500/30 text-emerald-600 bg-emerald-500/5 hover:bg-emerald-500/10"
+                                                : "border-border/40 hover:border-primary/30 hover:bg-primary/5"
                                         )}
                                     >
                                         {rifSearching ? (
                                             <Loader2 className="h-4 w-4 animate-spin" />
                                         ) : (
-                                            <><Search className="h-4 w-4 mr-1.5" /> Buscar</>
+                                            <><Search className="h-4 w-4 mr-1.5" /> Consultar</>
                                         )}
                                     </Button>
                                 )}
@@ -598,7 +724,7 @@ export default function RegisterSelectionPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {availableModules.map((mod, index) => {
                                 const Icon = mod.icon;
                                 return (
@@ -606,16 +732,17 @@ export default function RegisterSelectionPage() {
                                         key={mod.id}
                                         onClick={() => handleSelectModule(mod.route)}
                                         className={cn(
-                                            "group relative rounded-2xl border-2 p-5 text-left transition-all duration-300 cursor-pointer",
+                                            "group relative rounded-2xl border-2 p-5 text-left transition-all duration-300 cursor-pointer overflow-hidden",
                                             "hover:shadow-xl hover:-translate-y-1",
                                             mod.bgColor,
                                             mod.borderColor
                                         )}
                                         style={{ animationDelay: `${index * 80}ms` }}
                                     >
-                                        <div className="flex items-start gap-4">
+                                        <div className={cn("absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-1/2 translate-x-1/2 opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40", mod.bgColor)} />
+                                        <div className="relative flex items-start gap-4">
                                             <div className={cn(
-                                                "inline-flex p-3 rounded-xl border shrink-0 transition-all duration-300",
+                                                "inline-flex p-3 rounded-xl border shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg",
                                                 mod.bgColor, mod.borderColor
                                             )}>
                                                 <Icon className={cn("h-5 w-5", mod.color)} />
@@ -628,8 +755,8 @@ export default function RegisterSelectionPage() {
                                                     {mod.description}
                                                 </p>
                                                 <div className={cn(
-                                                    "mt-3 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300",
-                                                    mod.color
+                                                    "mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all duration-300",
+                                                    mod.bgColor, mod.color
                                                 )}>
                                                     Registrarse <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                                                 </div>
