@@ -330,7 +330,7 @@ export function ScrollCinematicSection() {
                                 className="font-black tracking-tighter text-white uppercase"
                                 style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
                             >
-                                7 módulos integrados.
+                                Un ecosistema completo.
                             </h3>
                             <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mx-auto mt-3 sm:mt-4" />
                         </div>

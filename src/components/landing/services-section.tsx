@@ -68,7 +68,7 @@ export function ServicesSection() {
                         </span>
                     </h2>
                     <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
-                        7 módulos interconectados que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.
+                        Soluciones interconectadas que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.
                     </p>
                 </motion.div>
 
@@ -133,7 +133,7 @@ export function ServicesSection() {
                 >
                     <div className="text-center mb-12">
                         <h3 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase text-foreground mb-3">
-                            7 Módulos, <span className="kyron-gradient-text italic">Un Ecosistema</span>
+                            Todo Integrado, <span className="kyron-gradient-text italic">Un Ecosistema</span>
                         </h3>
                     </div>
 
