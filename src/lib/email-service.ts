@@ -1,6 +1,6 @@
 import { query } from '@/lib/db';
 
-export type EmailProvider = 'gmail' | 'outlook' | 'resend';
+export type EmailProvider = 'gmail' | 'outlook' | 'resend' | 'whatsapp' | 'sms';
 export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
 export interface EmailOptions {
@@ -142,14 +142,51 @@ async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
   }
 }
 
+async function sendViaSms(opts: EmailOptions): Promise<EmailResult> {
+  try {
+    const { sendSms } = await import('@/lib/twilio-client');
+    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+    const plainText = opts.subject + (opts.html ? '' : '');
+
+    for (const recipient of recipients) {
+      const result = await sendSms(recipient, `SYSTEM KYRON: ${plainText}`);
+      if (!result.success) {
+        return { success: false, provider: 'sms', error: result.error };
+      }
+    }
+    return { success: true, provider: 'sms' };
+  } catch (err) {
+    return { success: false, provider: 'sms', error: String(err) };
+  }
+}
+
+async function sendViaWhatsApp(opts: EmailOptions): Promise<EmailResult> {
+  try {
+    const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
+    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+    const plainText = `*SYSTEM KYRON*\n\n*${opts.subject}*`;
+
+    for (const recipient of recipients) {
+      const result = await sendWhatsAppMessage(recipient, plainText);
+      if (!result.success) {
+        return { success: false, provider: 'whatsapp', error: result.error };
+      }
+    }
+    return { success: true, provider: 'whatsapp' };
+  } catch (err) {
+    return { success: false, provider: 'whatsapp', error: String(err) };
+  }
+}
+
 function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => Promise<EmailResult>> {
   switch (purpose) {
     case 'verification':
-      return [sendViaGmail, sendViaOutlook, sendViaResend];
+    case 'password-reset':
+      return [sendViaGmail, sendViaWhatsApp, sendViaSms];
     case 'alert':
-      return [sendViaOutlook, sendViaGmail, sendViaResend];
+      return [sendViaOutlook, sendViaWhatsApp, sendViaSms];
     default:
-      return [sendViaGmail, sendViaOutlook, sendViaResend];
+      return [sendViaGmail, sendViaOutlook, sendViaWhatsApp, sendViaSms];
   }
 }
 
@@ -167,7 +204,7 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
     console.warn(`[email-service] ${result.provider} failed (${purpose}): ${result.error}`);
   }
 
-  const fallback: EmailResult = { success: false, provider: 'none', error: 'All email providers failed' };
+  const fallback: EmailResult = { success: false, provider: 'none', error: 'All providers failed' };
   await logEmail(opts, fallback);
   return fallback;
 }
