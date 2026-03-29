@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency: "Bs." | "USD" | "EUR" = "Bs.") {
+export function formatCurrency(amount: number, currency: string = "Bs.") {
   const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : "Bs.";
   const safe = Number.isFinite(amount) ? amount : 0;
   const formattedAmount = new Intl.NumberFormat("es-VE", {

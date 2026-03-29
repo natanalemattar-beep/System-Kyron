@@ -17,7 +17,7 @@ type NavGroup = {
     title: string;
     icon: React.ElementType;
     items: NavItem[];
-    subGroups: {
+    subGroups?: {
         title: string;
         icon: React.ElementType;
         items: NavItem[];
@@ -29,7 +29,7 @@ interface QuickAccessProps {
 }
 
 export function QuickAccess({ navGroups }: QuickAccessProps) {
-    const groupsToShow = navGroups || adminNavGroups.filter(g => 
+    const groupsToShow = navGroups || (adminNavGroups as NavGroup[]).filter(g => 
         g.title === "Ventas y Facturación" ||
         g.title === "Finanzas y Contabilidad" || 
         g.title === "Impuestos y Cumplimiento" ||

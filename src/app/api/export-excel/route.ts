@@ -64,12 +64,13 @@ export async function POST(req: NextRequest) {
     const buffer = await wb.xlsx.writeBuffer();
     const safeFilename = (filename || 'exportacion').replace(/[^a-z0-9_\-]/gi, '_');
 
-    return new NextResponse(buffer as Buffer, {
+    const uint8 = new Uint8Array(buffer as ArrayBuffer);
+    return new NextResponse(uint8, {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'Content-Disposition': `attachment; filename="${safeFilename}.xlsx"`,
-        'Content-Length': (buffer as Buffer).length.toString(),
+        'Content-Length': uint8.byteLength.toString(),
       },
     });
   } catch (err) {

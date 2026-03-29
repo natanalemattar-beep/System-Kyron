@@ -10,19 +10,15 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const [visible, setVisible] = useState(true);
     const [exiting, setExiting] = useState(false);
     const onCompleteRef = useRef(onComplete);
-    const hasCompletedRef = useRef(false);
     const completionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     onCompleteRef.current = onComplete;
 
     useEffect(() => {
-        if (hasCompletedRef.current) return;
-
         const prefersReduced = typeof window !== 'undefined' &&
             window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
         if (prefersReduced) {
-            hasCompletedRef.current = true;
             setProgress(100);
             setVisible(false);
             onCompleteRef.current();
@@ -32,6 +28,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         const steps = 40;
         const intervalMs = 40;
         let current = 0;
+        let cancelled = false;
 
         const intervalId = setInterval(() => {
             current += 100 / steps;
@@ -39,12 +36,13 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                 current = 100;
                 clearInterval(intervalId);
                 setProgress(100);
-                if (!hasCompletedRef.current) {
-                    hasCompletedRef.current = true;
+                if (!cancelled) {
                     setExiting(true);
                     completionTimerRef.current = setTimeout(() => {
-                        setVisible(false);
-                        onCompleteRef.current();
+                        if (!cancelled) {
+                            setVisible(false);
+                            onCompleteRef.current();
+                        }
                     }, 500);
                 }
                 return;
@@ -53,6 +51,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         }, intervalMs);
 
         return () => {
+            cancelled = true;
             clearInterval(intervalId);
             if (completionTimerRef.current) {
                 clearTimeout(completionTimerRef.current);
