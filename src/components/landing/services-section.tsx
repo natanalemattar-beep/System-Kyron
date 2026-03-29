@@ -57,13 +57,13 @@ export function ServicesSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-6">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
                         Ecosistema Completo
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-foreground uppercase leading-[1.05] mb-4">
                         Todo lo que necesitas,{' '}
-                        <span className="bg-gradient-to-r from-primary via-cyan-400 to-emerald-400 bg-clip-text text-transparent italic animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>
+                        <span className="bg-gradient-to-r from-primary via-cyan-400 to-emerald-400 bg-clip-text text-transparent italic">
                             integrado
                         </span>
                     </h2>
@@ -107,11 +107,7 @@ export function ServicesSection() {
                                 </div>
                                 <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                     <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${feat.color}`)} />
-                                    <motion.div
-                                        whileHover={{ y: -4 }}
-                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                        className="relative rounded-[1.5rem] overflow-hidden border border-border/20 shadow-2xl bg-card/30"
-                                    >
+                                    <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 shadow-2xl bg-card/30 hover:-translate-y-1 transition-transform duration-300">
                                         <Image
                                             src={feat.image}
                                             alt={feat.title}
@@ -121,7 +117,7 @@ export function ServicesSection() {
                                             loading="lazy"
                                             sizes="(max-width: 1024px) 100vw, 50vw"
                                         />
-                                    </motion.div>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -149,13 +145,12 @@ export function ServicesSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.04, duration: 0.4 }}
-                                whileHover={{ y: -5, scale: 1.03 }}
                                 className={cn(
-                                    "group flex flex-col items-center text-center gap-3 p-5 rounded-3xl border bg-card/50 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 cursor-default hover:shadow-xl",
+                                    "group flex flex-col items-center text-center gap-3 p-5 rounded-3xl border bg-card/50 dark:bg-white/[0.02] transition-all duration-300 cursor-default hover:shadow-xl hover:-translate-y-1",
                                     mod.border
                                 )}
                             >
-                                <div className={cn("p-3 rounded-xl border shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 bg-gradient-to-br", mod.bg, mod.border)}>
+                                <div className={cn("p-3 rounded-xl border shadow-inner group-hover:scale-110 transition-transform duration-300 bg-gradient-to-br", mod.bg, mod.border)}>
                                     <mod.icon className={cn("h-5 w-5", mod.color)} />
                                 </div>
                                 <h4 className="text-[10px] font-black uppercase tracking-tight text-foreground">{mod.title}</h4>
@@ -164,7 +159,7 @@ export function ServicesSection() {
                     </div>
 
                     <div className="mt-10 flex justify-center">
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-primary/80 text-white text-xs font-black uppercase tracking-widest shadow-[0_8px_30px_rgba(var(--primary-rgb,30,64,175),0.3)] hover:shadow-[0_12px_40px_rgba(var(--primary-rgb,30,64,175),0.4)] transition-all duration-500">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-primary/80 text-white text-xs font-black uppercase tracking-widest shadow-lg hover:shadow-xl transition-all duration-500">
                             Explorar Ecosistema <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>

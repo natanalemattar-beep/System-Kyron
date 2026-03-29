@@ -359,6 +359,36 @@
   animation: marquee 28s linear infinite;
 }
 
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes float-slow-reverse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+.animate-float-slow-reverse {
+  animation: float-slow-reverse 5s ease-in-out infinite;
+}
+
+.scroll-progress-bar {
+  transform: scaleX(var(--scroll-progress, 0));
+  will-change: transform;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-bar {
+    animation: scroll-progress linear;
+    animation-timeline: scroll();
+  }
+  @keyframes scroll-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
 .rotate-y-180 {
   transform: rotateY(180deg);
 }

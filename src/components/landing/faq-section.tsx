@@ -38,13 +38,13 @@ export function FaqSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
                         Soporte
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-[1.1]">
                         Preguntas{' '}
-                        <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>
+                        <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic">
                             Frecuentes
                         </span>
                     </h2>

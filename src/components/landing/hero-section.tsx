@@ -64,7 +64,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mx-auto lg:ml-0"
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 mx-auto lg:ml-0"
                         >
                             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                             <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/80">{t('badge')}</span>
@@ -78,7 +78,7 @@ export function HeroSection() {
                         >
                             <span className="block text-white">{t('title_line1')}</span>
                             <span className="block text-white">{t('title_line2')}</span>
-                            <span className="block bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>
+                            <span className="block bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                 {t('title_line3')}
                             </span>
                         </motion.h1>
@@ -104,7 +104,7 @@ export function HeroSection() {
                                     {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/15 bg-white/5 backdrop-blur-sm text-white/80 hover:border-white/30 hover:bg-white/10 transition-all duration-500">
+                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/15 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10 transition-all duration-500">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}
@@ -148,11 +148,7 @@ export function HeroSection() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#020810]/40 via-transparent to-transparent" />
                             </div>
 
-                            <motion.div
-                                animate={{ y: [0, -8, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
-                            >
+                            <div className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 bg-[#0A1628]/90 border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow">
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
                                         <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -162,13 +158,9 @@ export function HeroSection() {
                                         <p className="text-base sm:text-lg font-black text-emerald-400 tabular-nums">{cumplimiento}%</p>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
 
-                            <motion.div
-                                animate={{ y: [0, 6, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
-                            >
+                            <div className="hidden sm:block absolute -top-3 -right-3 md:-right-6 bg-[#0A1628]/90 border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow-reverse">
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                                         <span className="text-white text-[10px] sm:text-xs font-black">7</span>
@@ -178,7 +170,7 @@ export function HeroSection() {
                                         <p className="text-base sm:text-lg font-black text-cyan-400">Integrados</p>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         </div>
                     </motion.div>
 
@@ -198,7 +190,7 @@ export function HeroSection() {
                         ].map((s, i) => (
                             <div
                                 key={i}
-                                className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${s.color} border border-white/5 backdrop-blur-sm`}
+                                className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${s.color} border border-white/5`}
                             >
                                 <p className={`text-sm font-black leading-none ${s.text}`}>{s.val}</p>
                                 <p className="text-[8px] font-bold text-foreground/50 uppercase tracking-widest">{s.label}</p>

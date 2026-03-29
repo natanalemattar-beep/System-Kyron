@@ -3,8 +3,7 @@
 import dynamic from 'next/dynamic';
 import { HeroSection } from "@/components/landing/hero-section";
 import { LandingHeader } from "@/components/landing/landing-header";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { use, Suspense, useState, useCallback, useEffect } from 'react';
+import { use, Suspense, useState, useCallback, useEffect, useRef } from 'react';
 import { LoadingScreen } from "@/components/landing/loading-screen";
 
 const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
@@ -33,8 +32,20 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
     setIsLoading(false);
   }, []);
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 50, restDelta: 0.001 });
+  const progressRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (CSS.supports?.('animation-timeline', 'scroll()')) return;
+    const el = progressRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+      el.style.setProperty('--scroll-progress', String(progress));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent" suppressHydrationWarning>
@@ -48,10 +59,7 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
         </>
       )}
 
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-primary/60 shadow-glow origin-left z-[200]"
-        style={{ scaleX }}
-      />
+      <div ref={progressRef} className="fixed top-0 left-0 right-0 h-1 bg-primary/60 origin-left z-[200] scroll-progress-bar" />
 
       <LandingHeader />
 

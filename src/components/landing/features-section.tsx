@@ -125,10 +125,10 @@ export function FeaturesSection() {
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground uppercase leading-[1.2] break-words overflow-hidden">
                         Todo lo que tu <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>empresa necesita</span>
+                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic break-words">empresa necesita</span>
                     </h2>
                     <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
-                        9 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.
+                        7 módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.
                     </p>
                 </motion.div>
 
@@ -143,9 +143,8 @@ export function FeaturesSection() {
                         <motion.div
                             key={f.title}
                             variants={itemVariants}
-                            whileHover={{ y: -4, transition: { type: "spring", stiffness: 400, damping: 17 } }}
                             className={cn(
-                                "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border backdrop-blur-sm transition-all duration-500",
+                                "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
                                 "bg-card/30 dark:bg-card/15",
                                 f.border, f.span
                             )}
@@ -195,14 +194,13 @@ export function FeaturesSection() {
                         { val: "Bilingüe", detail: "Español & English" },
                         { val: "Gemini 2.0", detail: "IA de última generación" },
                     ].map((r, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            whileHover={{ y: -2, transition: { type: "spring", stiffness: 400, damping: 17 } }}
-                            className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default"
+                            className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
                         >
                             <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
                             <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
-                        </motion.div>
+                        </div>
                     ))}
                 </motion.div>
             </div>
