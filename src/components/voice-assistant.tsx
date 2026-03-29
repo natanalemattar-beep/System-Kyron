@@ -97,6 +97,7 @@ export function VoiceAssistant() {
   const [interim, setInterim] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [voiceSupported, setVoiceSupported] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const recRef = useRef<SpeechRecognitionLike | null>(null);
@@ -105,6 +106,12 @@ export function VoiceAssistant() {
   useEffect(() => {
     setVoiceSupported(getSpeechRecognition() !== null);
     if (canSpeak()) window.speechSynthesis.getVoices();
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/auth/me', { credentials: 'include' })
+      .then((r) => setIsAuthenticated(r.ok))
+      .catch(() => setIsAuthenticated(false));
   }, []);
 
   useEffect(() => {
@@ -261,6 +268,8 @@ export function VoiceAssistant() {
       : speaking
         ? 'text-cyan-400'
         : 'text-emerald-500/60';
+
+  if (!isAuthenticated) return null;
 
   if (!open) {
     return (
