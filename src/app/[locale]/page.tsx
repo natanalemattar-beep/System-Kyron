@@ -8,7 +8,8 @@ import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { DemoBanner } from "@/components/demo-banner";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { PageTracker } from "@/components/page-tracker";
-import { use, Suspense } from 'react';
+import { use, Suspense, useState } from 'react';
+import { LoadingScreen } from "@/components/landing/loading-screen";
 
 const ScrollCinematicSection = dynamic(() => import("@/components/landing/scroll-cinematic-section").then(m => ({ default: m.ScrollCinematicSection })), { ssr: false });
 const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });
@@ -20,12 +21,15 @@ const Footer = dynamic(() => import("@/components/landing/footer").then(m => ({ 
 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 40, restDelta: 0.001 });
 
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+
       <PageTracker />
       <WelcomeTutorial />
 
