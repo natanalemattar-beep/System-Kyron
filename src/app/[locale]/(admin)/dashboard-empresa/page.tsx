@@ -27,6 +27,7 @@ import {
   PieChart as RPieChart, Pie, Cell, BarChart, Bar,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { ChartErrorBoundary } from "@/components/chart-error-boundary";
 
 interface DashboardData {
   ingresos: number;
@@ -109,9 +110,9 @@ export default function DashboardEmpresaPage() {
   const [closingData, setClosingData] = useState<CierrePeriodo | null>(null);
   const [isClosing, setIsClosing] = useState(false);
   const [closingForm, setClosingForm] = useState({
-    periodo: `${new Date().toLocaleString("es-VE", { month: "long", year: "numeric" }).toUpperCase()}`,
-    fecha_inicio: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0],
-    fecha_fin: new Date().toISOString().split("T")[0],
+    periodo: "",
+    fecha_inicio: "",
+    fecha_fin: "",
     notas: "",
   });
 
@@ -123,6 +124,25 @@ export default function DashboardEmpresaPage() {
   const [showAI, setShowAI] = useState(false);
   const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
+
+  const [clientDateStr, setClientDateStr] = useState<string | null>(null);
+  const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
+  const [clientClosingForm, setClientClosingForm] = useState<{
+    periodo: string;
+    fecha_inicio: string;
+    fecha_fin: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const now = new Date();
+    setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
+    setClientDateStr(now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+    const periodoStr = now.toLocaleString("es-VE", { month: "long", year: "numeric" }).toUpperCase();
+    const fechaInicio = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
+    const fechaFin = now.toISOString().split("T")[0];
+    setClientClosingForm({ periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin });
+    setClosingForm(f => ({ ...f, periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin }));
+  }, []);
 
   const fetchDashboard = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
@@ -212,7 +232,7 @@ export default function DashboardEmpresaPage() {
             cuentasPagar: data.cuentasPagar, facturas: data.facturas,
             empleados: data.empleados, movimientosRecientes: data.movimientosRecientes?.slice(0, 5),
           },
-          context: `Empresa: ${user?.nombre ?? "N/A"}. Fecha: ${new Date().toLocaleDateString("es-VE")}`,
+          context: `Empresa: ${user?.nombre ?? "N/A"}. Fecha: ${clientDateStr ?? ""}`,
         }),
       });
       const json = await res.json();
@@ -237,10 +257,6 @@ export default function DashboardEmpresaPage() {
     { name: "Vencidas", value: data.facturas.vencidas },
   ].filter(d => d.value > 0) : [];
 
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" });
-  const dateStr = now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-
   return (
     <div className="space-y-6 pb-20">
       <header className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0c1222] via-[#131b2e] to-[#0f1729] p-6 md:p-8 text-white mt-4 md:mt-6 border border-white/[0.06]">
@@ -263,7 +279,7 @@ export default function DashboardEmpresaPage() {
                 <h1 className="text-lg md:text-xl font-bold tracking-tight">
                   Centro de Control
                 </h1>
-                <p className="text-[10px] text-white/40 font-medium capitalize">{dateStr} · {timeStr}</p>
+                <p className="text-[10px] text-white/40 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 mt-1">
@@ -390,31 +406,33 @@ export default function DashboardEmpresaPage() {
                   <p className="text-[9px]">Registra movimientos bancarios para ver el gráfico</p>
                 </div>
               ) : (
-                <ChartContainer config={chartConfig} className="w-full h-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={data!.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.25}/>
-                          <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
-                        </linearGradient>
-                        <linearGradient id="gGas" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.2}/>
-                          <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-                      <XAxis dataKey="mes" stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickMargin={10} />
-                      <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => fmtCompact(v as number)} width={45} />
-                      <ChartTooltip
-                        cursor={{ stroke: "rgba(255,255,255,0.08)", strokeWidth: 1 }}
-                        content={<ChartTooltipContent indicator="dot" formatter={(v) => `Bs. ${fmtBs(v as number)}`} />}
-                      />
-                      <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" strokeWidth={2} fillOpacity={1} fill="url(#gIng)" />
-                      <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" strokeWidth={2} fillOpacity={1} fill="url(#gGas)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+                <ChartErrorBoundary fallbackLabel="Error al cargar flujo financiero">
+                  <ChartContainer config={chartConfig} className="w-full h-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={data!.chartMensual} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="gIng" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.25}/>
+                            <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
+                          </linearGradient>
+                          <linearGradient id="gGas" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.2}/>
+                            <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                        <XAxis dataKey="mes" stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickMargin={10} />
+                        <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => fmtCompact(v as number)} width={45} />
+                        <ChartTooltip
+                          cursor={{ stroke: "rgba(255,255,255,0.08)", strokeWidth: 1 }}
+                          content={<ChartTooltipContent indicator="dot" formatter={(v) => `Bs. ${fmtBs(v as number)}`} />}
+                        />
+                        <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" strokeWidth={2} fillOpacity={1} fill="url(#gIng)" />
+                        <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" strokeWidth={2} fillOpacity={1} fill="url(#gGas)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </ChartErrorBoundary>
               )}
             </div>
           </CardContent>
@@ -434,29 +452,31 @@ export default function DashboardEmpresaPage() {
                 <p className="text-[9px] font-semibold uppercase">Sin facturas</p>
               </div>
             ) : (
-              <div className="flex items-center gap-4">
-                <div className="w-28 h-28 shrink-0">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RPieChart>
-                      <Pie data={facturasPie} innerRadius={28} outerRadius={48} dataKey="value" stroke="none" paddingAngle={3}>
-                        {facturasPie.map((_, idx) => <Cell key={idx} fill={DONUT_COLORS[idx % DONUT_COLORS.length]} />)}
-                      </Pie>
-                    </RPieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  {facturasPie.map((d, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS[idx % DONUT_COLORS.length] }} />
-                      <span className="text-[9px] font-medium text-muted-foreground truncate">{d.name}</span>
-                      <span className="text-[10px] font-bold ml-auto">{d.value}</span>
+              <ChartErrorBoundary fallbackLabel="Error al cargar facturación">
+                <div className="flex items-center gap-4">
+                  <div className="w-28 h-28 shrink-0">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RPieChart>
+                        <Pie data={facturasPie} innerRadius={28} outerRadius={48} dataKey="value" stroke="none" paddingAngle={3}>
+                          {facturasPie.map((_, idx) => <Cell key={idx} fill={DONUT_COLORS[idx % DONUT_COLORS.length]} />)}
+                        </Pie>
+                      </RPieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="space-y-1.5 flex-1 min-w-0">
+                    {facturasPie.map((d, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: DONUT_COLORS[idx % DONUT_COLORS.length] }} />
+                        <span className="text-[9px] font-medium text-muted-foreground truncate">{d.name}</span>
+                        <span className="text-[10px] font-bold ml-auto">{d.value}</span>
+                      </div>
+                    ))}
+                    <div className="pt-1 border-t border-border/20">
+                      <span className="text-[9px] text-muted-foreground/50">Total: <span className="font-bold text-foreground">{data?.facturas.total ?? 0}</span></span>
                     </div>
-                  ))}
-                  <div className="pt-1 border-t border-border/20">
-                    <span className="text-[9px] text-muted-foreground/50">Total: <span className="font-bold text-foreground">{data?.facturas.total ?? 0}</span></span>
                   </div>
                 </div>
-              </div>
+              </ChartErrorBoundary>
             )}
           </Card>
 
@@ -562,7 +582,7 @@ export default function DashboardEmpresaPage() {
           </div>
           <div className="mt-3 space-y-1.5">
             {[
-              { text: "Declaración IVA", date: `Vence ${String(new Date().getMonth() + 2).padStart(2, "0")}/${new Date().getFullYear()}`, color: "text-amber-400", icon: PercentCircle },
+              { text: "Declaración IVA", date: clientClosingForm ? `Vence ${String(new Date(clientClosingForm.fecha_fin).getMonth() + 2).padStart(2, "0")}/${new Date(clientClosingForm.fecha_fin).getFullYear()}` : "Vence próximo mes", color: "text-amber-400", icon: PercentCircle },
               { text: "Conciliación bancaria", date: "Antes de cierre", color: "text-blue-400", icon: CreditCard },
             ].map((a, i) => (
               <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-background/30 border border-border/10">
@@ -777,7 +797,7 @@ export default function DashboardEmpresaPage() {
                   </div>
                 </div>
                 <p className="text-[9px] text-muted-foreground/40 flex items-center gap-1.5">
-                  <CheckCircle className="h-3 w-3" /> Datos en tiempo real · {new Date().toLocaleDateString("es-VE")}
+                  <CheckCircle className="h-3 w-3" /> Datos en tiempo real · {clientDateStr ?? ""}
                 </p>
               </div>
             ) : null}

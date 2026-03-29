@@ -4,7 +4,7 @@ import { query, queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
-import { sanitizeEmail, isValidEmail, isStrongPassword } from '@/lib/input-sanitizer';
+import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
 
 export async function POST(req: NextRequest) {
     try {
@@ -122,6 +122,28 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
     }
 
+    if (typeof razonSocial !== 'string' || (razonSocial as string).trim().length < 3) {
+        return NextResponse.json({ error: 'La razón social debe tener al menos 3 caracteres' }, { status: 400 });
+    }
+
+    if (typeof rif !== 'string' || !/^[JGCVEP]-\d{8}-\d$/.test((rif as string).trim())) {
+        return NextResponse.json({ error: 'Formato de RIF inválido. Use el formato J-12345678-9' }, { status: 400 });
+    }
+
+    if (codigo_ciiu !== undefined && codigo_ciiu !== null && codigo_ciiu !== '') {
+        if (typeof codigo_ciiu !== 'string' || !/^\d{4,6}$/.test((codigo_ciiu as string).trim())) {
+            return NextResponse.json({ error: 'El código CIIU debe ser un número de 4 a 6 dígitos' }, { status: 400 });
+        }
+    }
+
+    if (capital_social !== undefined && capital_social !== null && capital_social !== '') {
+        const capitalStr = String(capital_social).replace(/[Bs.\s,]/g, '').replace(',', '.');
+        const capitalNum = parseFloat(capitalStr);
+        if (isNaN(capitalNum) || capitalNum < 0) {
+            return NextResponse.json({ error: 'El capital social debe ser un valor numérico válido' }, { status: 400 });
+        }
+    }
+
     const email = repEmail as string;
     if (!isValidEmail(email)) {
         return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
@@ -138,12 +160,15 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
     }
 
-    const rifExisting = await queryOne('SELECT id FROM users WHERE rif = $1', [rif]);
+    const rifExisting = await queryOne('SELECT id FROM users WHERE rif = $1', [(rif as string).trim()]);
     if (rifExisting) {
         return NextResponse.json({ error: 'Ya existe una empresa registrada con ese RIF' }, { status: 409 });
     }
 
     const password_hash = await bcrypt.hash(password as string, 12);
+    const sanitizedRazonSocial = sanitizeString(razonSocial as string, 200);
+    const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
+    const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
@@ -161,25 +186,25 @@ async function registerJuridico(body: Record<string, unknown>) {
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
-            razonSocial as string,
-            razonSocial as string,
-            rif as string,
-            (tipo_empresa ?? '') as string,
-            (actividad_economica ?? '') as string,
-            (codigo_ciiu ?? '') as string,
-            fecha_constitucion ? (fecha_constitucion as string) : null,
-            (registro_mercantil ?? '') as string,
-            (capital_social ?? '') as string,
-            (telefono ?? '') as string,
-            (telefono_alt ?? '') as string,
-            (estado_empresa ?? '') as string,
-            (municipio_empresa ?? '') as string,
-            (direccion ?? '') as string,
-            (repNombre ?? '') as string,
-            (repCedula ?? '') as string,
+            sanitizedRazonSocial,
+            sanitizedRazonSocial,
+            (rif as string).trim(),
+            sanitizeString((tipo_empresa ?? '') as string, 100),
+            sanitizeString((actividad_economica ?? '') as string, 500),
+            sanitizedCodigoCiiu,
+            fecha_constitucion ? sanitizeString(fecha_constitucion as string, 20) : null,
+            sanitizeString((registro_mercantil ?? '') as string, 100),
+            sanitizedCapitalSocial,
+            sanitizeString((telefono ?? '') as string, 20),
+            sanitizeString((telefono_alt ?? '') as string, 20),
+            sanitizeString((estado_empresa ?? '') as string, 100),
+            sanitizeString((municipio_empresa ?? '') as string, 100),
+            sanitizeString((direccion ?? '') as string, 500),
+            sanitizeString((repNombre ?? '') as string, 200),
+            sanitizeString((repCedula ?? '') as string, 20),
             email,
-            (rep_cargo ?? '') as string,
-            (rep_telefono ?? '') as string,
+            sanitizeString((rep_cargo ?? '') as string, 100),
+            sanitizeString((rep_telefono ?? '') as string, 20),
         ]
     );
 

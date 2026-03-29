@@ -60,6 +60,8 @@ export function SpecializedLoginCard({
   const [userName, setUserName] = useState('');
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
+  const [emailDeliveryFailed, setEmailDeliveryFailed] = useState(false);
+  const [savedCredentials, setSavedCredentials] = useState<{ email: string; password: string } | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -77,13 +79,10 @@ export function SpecializedLoginCard({
     }
   }, [step]);
 
-  const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const attemptLogin = async (email: string, password: string) => {
     setIsLoading(true);
     setError(null);
-    const formData = new FormData(event.currentTarget);
-    const email = (formData.get('email') as string || '').trim().toLowerCase();
-    const password = formData.get('password') as string;
+    setEmailDeliveryFailed(false);
 
     try {
       const res = await fetch('/api/auth/login', {
@@ -94,7 +93,14 @@ export function SpecializedLoginCard({
       const json = await res.json();
 
       if (!res.ok) {
-        setError(json.error || 'Credenciales incorrectas.');
+        if (json.emailDeliveryFailed) {
+          setSavedCredentials({ email, password });
+          setEmailDeliveryFailed(true);
+          setError(json.error || 'No pudimos enviar el código de verificación a tu correo. Por favor intenta de nuevo.');
+        } else {
+          setSavedCredentials(null);
+          setError(json.error || 'Credenciales incorrectas.');
+        }
         setIsLoading(false);
         return;
       }
@@ -106,6 +112,8 @@ export function SpecializedLoginCard({
         setStep('verification');
         setCountdown(600);
         setCodeDigits(['', '', '', '', '', '']);
+        setEmailDeliveryFailed(false);
+        setSavedCredentials(null);
         setIsLoading(false);
         toast({
           title: 'Código enviado',
@@ -125,6 +133,19 @@ export function SpecializedLoginCard({
       setError('Error de conexión. Intenta de nuevo.');
       setIsLoading(false);
     }
+  };
+
+  const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = (formData.get('email') as string || '').trim().toLowerCase();
+    const password = formData.get('password') as string;
+    await attemptLogin(email, password);
+  };
+
+  const handleResendEmail = async () => {
+    if (!savedCredentials) return;
+    await attemptLogin(savedCredentials.email, savedCredentials.password);
   };
 
   const handleCodeChange = (index: number, value: string) => {
@@ -262,9 +283,24 @@ export function SpecializedLoginCard({
 
               <form onSubmit={handleAuth} className="space-y-5">
                 {error && (
-                  <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 animate-in slide-in-from-top-2 duration-300">
-                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-sm text-destructive">{error}</p>
+                  <div className="flex flex-col gap-2 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 animate-in slide-in-from-top-2 duration-300">
+                    <div className="flex items-start gap-3">
+                      <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                      <p className="text-sm text-destructive">{error}</p>
+                    </div>
+                    {emailDeliveryFailed && savedCredentials && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handleResendEmail}
+                        disabled={isLoading}
+                        className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/30 text-destructive hover:bg-destructive/10"
+                      >
+                        <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                        {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                      </Button>
+                    )}
                   </div>
                 )}
 

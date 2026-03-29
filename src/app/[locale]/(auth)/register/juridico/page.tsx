@@ -152,6 +152,9 @@ const step1Fields = ['razonSocial', 'rif', 'tipo_empresa', 'actividad_economica'
 const step2Fields = ['telefono', 'estado_empresa', 'municipio_empresa', 'direccion'] as const;
 const step3Fields = ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'] as const;
 
+const ALLOWED_FILE_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+
 export default function RegisterJuridicoPage() {
   const searchParams = useSearchParams();
   const prefilledDoc = searchParams.get('doc') || '';
@@ -300,6 +303,29 @@ export default function RegisterJuridicoPage() {
       toast({ title: 'Verificación requerida', description: 'Debes verificar tu identidad antes de completar el registro.', variant: 'destructive' });
       return;
     }
+
+    if (data.fileRif instanceof File) {
+      if (!ALLOWED_FILE_TYPES.includes(data.fileRif.type)) {
+        toast({ title: 'Archivo no permitido', description: 'El RIF debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
+        return;
+      }
+      if (data.fileRif.size > MAX_FILE_SIZE_BYTES) {
+        toast({ title: 'Archivo demasiado grande', description: 'El RIF no puede superar 10 MB.', variant: 'destructive' });
+        return;
+      }
+    }
+
+    if (data.fileActa instanceof File) {
+      if (!ALLOWED_FILE_TYPES.includes(data.fileActa.type)) {
+        toast({ title: 'Archivo no permitido', description: 'El Acta Constitutiva debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
+        return;
+      }
+      if (data.fileActa.size > MAX_FILE_SIZE_BYTES) {
+        toast({ title: 'Archivo demasiado grande', description: 'El Acta Constitutiva no puede superar 10 MB.', variant: 'destructive' });
+        return;
+      }
+    }
+
     setIsLoading(true);
     const selectedModuleList = moduleGroups.flatMap(g =>
       g.modules.filter(m => selectedModules.has(m.id)).map(m => ({ id: m.id, label: m.label }))

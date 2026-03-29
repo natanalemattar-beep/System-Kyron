@@ -77,8 +77,8 @@ export default function DashboardPersonalPage() {
         {[
           {
             title: "Expediente Civil",
-            value: loading ? "..." : data ? (data.documentos > 0 ? `${data.documentos} Docs` : "Pendiente") : "Pendiente",
-            desc: loading ? "Cargando..." : data ? (data.documentos > 0 ? `${data.documentos} documentos registrados` : "Sin documentos aún") : "Sin documentos aún",
+            value: data ? (data.documentos > 0 ? `${data.documentos} Docs` : "Pendiente") : "Pendiente",
+            desc: data ? (data.documentos > 0 ? `${data.documentos} documentos registrados` : "Sin documentos aún") : "Sin documentos aún",
             icon: FileText, gradient: "from-blue-500/10 to-blue-500/[0.02]", iconBg: "bg-blue-500/15", iconColor: "text-blue-400", border: "border-blue-500/10",
           },
           {
@@ -89,14 +89,14 @@ export default function DashboardPersonalPage() {
           },
           {
             title: "Gestiones",
-            value: loading ? "..." : data ? (data.solicitudes.pendientes > 0 ? `${data.solicitudes.pendientes} Activas` : "0 Activas") : "0 Activas",
-            desc: loading ? "Cargando..." : data ? (data.solicitudes.total > 0 ? `${data.solicitudes.total} trámites totales` : "Sin trámites iniciados") : "Sin trámites iniciados",
+            value: data ? (data.solicitudes.pendientes > 0 ? `${data.solicitudes.pendientes} Activas` : "0 Activas") : "0 Activas",
+            desc: data ? (data.solicitudes.total > 0 ? `${data.solicitudes.total} trámites totales` : "Sin trámites iniciados") : "Sin trámites iniciados",
             icon: Clock, gradient: "from-amber-500/10 to-amber-500/[0.02]", iconBg: "bg-amber-500/15", iconColor: "text-amber-400", border: "border-amber-500/10",
           },
           {
             title: "Notificaciones",
-            value: loading ? "..." : data ? (data.notificaciones > 0 ? `${data.notificaciones} Nuevas` : "Sin nuevas") : "—",
-            desc: loading ? "Cargando..." : "Alertas del sistema",
+            value: data ? (data.notificaciones > 0 ? `${data.notificaciones} Nuevas` : "Sin nuevas") : "—",
+            desc: "Alertas del sistema",
             icon: Bell, gradient: "from-emerald-500/10 to-emerald-500/[0.02]", iconBg: "bg-emerald-500/15", iconColor: "text-emerald-400", border: "border-emerald-500/10",
             alert: data ? data.notificaciones > 0 : false,
           },
@@ -111,8 +111,16 @@ export default function DashboardPersonalPage() {
                     {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />}
                   </div>
                 </div>
-                <p className={cn("text-lg font-bold tracking-tight text-foreground", loading && "animate-pulse opacity-50")}>{kpi.value}</p>
-                <p className="text-[9px] font-medium text-muted-foreground/50 mt-1">{kpi.desc}</p>
+                {loading ? (
+                  <div className="h-6 w-20 bg-muted/30 rounded animate-pulse mb-1" />
+                ) : (
+                  <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
+                )}
+                {loading ? (
+                  <div className="h-3 w-28 bg-muted/20 rounded animate-pulse mt-1" />
+                ) : (
+                  <p className="text-[9px] font-medium text-muted-foreground/50 mt-1">{kpi.desc}</p>
+                )}
               </CardContent>
             </Card>
           </motion.div>
@@ -143,17 +151,27 @@ export default function DashboardPersonalPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell colSpan={3} className="py-10 text-center">
-                    <div className="flex flex-col items-center gap-2">
-                      <Folder className="h-8 w-8 text-muted-foreground/15" />
-                      <p className="text-[10px] font-medium text-muted-foreground/40">
-                        {loading ? "Cargando solicitudes..." : "Sin solicitudes registradas"}
-                      </p>
-                      <p className="text-[9px] text-muted-foreground/25">Inicia un trámite para verlo aquí</p>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                {loading ? (
+                  <>
+                    {[1, 2, 3].map(n => (
+                      <TableRow key={n}>
+                        <TableCell className="pl-4"><div className="h-3 w-24 bg-muted/30 rounded animate-pulse" /></TableCell>
+                        <TableCell><div className="h-3 w-32 bg-muted/30 rounded animate-pulse" /></TableCell>
+                        <TableCell className="text-right pr-4"><div className="h-5 w-16 bg-muted/30 rounded-full animate-pulse ml-auto" /></TableCell>
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={3} className="py-10 text-center">
+                      <div className="flex flex-col items-center gap-2">
+                        <Folder className="h-8 w-8 text-muted-foreground/15" />
+                        <p className="text-[10px] font-medium text-muted-foreground/40">Sin solicitudes registradas</p>
+                        <p className="text-[9px] text-muted-foreground/25">Inicia un trámite para verlo aquí</p>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </div>
@@ -182,12 +200,18 @@ export default function DashboardPersonalPage() {
               <AlertCircle className="h-4 w-4 text-muted-foreground/40" />
               <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">Notificaciones</span>
             </div>
-            <div className="flex flex-col items-center py-3 gap-1.5">
-              <CheckCircle className="h-6 w-6 text-muted-foreground/15" />
-              <p className="text-[9px] font-medium text-muted-foreground/30">
-                {loading ? "Verificando..." : "Sin notificaciones"}
-              </p>
-            </div>
+            {loading ? (
+              <div className="space-y-2 py-2">
+                {[1, 2].map(n => (
+                  <div key={n} className="h-8 bg-muted/20 rounded-lg animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center py-3 gap-1.5">
+                <CheckCircle className="h-6 w-6 text-muted-foreground/15" />
+                <p className="text-[9px] font-medium text-muted-foreground/30">Sin notificaciones</p>
+              </div>
+            )}
           </Card>
         </div>
       </div>

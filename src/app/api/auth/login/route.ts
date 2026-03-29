@@ -96,6 +96,11 @@ export async function POST(req: NextRequest) {
 
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
+            return NextResponse.json({
+                error: 'No pudimos enviar el código de verificación a tu correo. Por favor intenta de nuevo en unos momentos.',
+                emailDeliveryFailed: true,
+                maskedEmail,
+            }, { status: 503 });
         }
 
         return NextResponse.json({
