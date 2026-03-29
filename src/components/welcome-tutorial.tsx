@@ -130,7 +130,7 @@ export function WelcomeTutorial() {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
-      <DialogContent className="max-w-[90vw] sm:max-w-[640px] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl">
+      <DialogContent hideClose className="max-w-[90vw] sm:max-w-[640px] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>
           <DialogDescription>Tutorial de introducción a la plataforma System Kyron.</DialogDescription>
