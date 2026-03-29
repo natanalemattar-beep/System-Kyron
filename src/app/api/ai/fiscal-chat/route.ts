@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const ai = new GoogleGenAI({
       apiKey,
       httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-        ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
+        ? { apiVersion: '', baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
         : undefined,
     });
 
@@ -44,11 +44,11 @@ Cita artículos y leyes específicas cuando sea relevante.
 No inventes normativas ni cifras que no sean reales.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.5-flash',
       contents: [
         { role: 'user', parts: [{ text: `${systemContext}\n\nConsulta del usuario: ${sanitizedPrompt}` }] },
       ],
-      config: { maxOutputTokens: 1024 },
+      config: { maxOutputTokens: 2048, thinkingConfig: { thinkingBudget: 0 } },
     });
 
     const content = response.text ?? 'No pude procesar la consulta. Intenta de nuevo.';

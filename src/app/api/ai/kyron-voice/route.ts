@@ -50,16 +50,21 @@ async function callGemini(userMessage: string, context: string): Promise<string>
   const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new Error('Gemini no configurado');
 
-  const { GoogleGenerativeAI } = await import('@google/generative-ai');
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-
-  const result = await model.generateContent({
-    contents: [{ role: 'user', parts: [{ text: `${SYSTEM_PROMPT}\n\nCONTEXTO: ${context}\n\nMENSAJE: ${userMessage}` }] }],
-    generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+  const { GoogleGenAI } = await import('@google/genai');
+  const ai = new GoogleGenAI({
+    apiKey,
+    httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
+      ? { apiVersion: '', baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
+      : undefined,
   });
 
-  return result.response.text();
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: [{ role: 'user', parts: [{ text: `${SYSTEM_PROMPT}\n\nCONTEXTO: ${context}\n\nMENSAJE: ${userMessage}` }] }],
+    config: { temperature: 0.7, maxOutputTokens: 2048, thinkingConfig: { thinkingBudget: 0 } },
+  });
+
+  return result.text ?? '';
 }
 
 async function callOpenAI(userMessage: string, context: string): Promise<string> {
@@ -107,7 +112,7 @@ async function callAnthropic(userMessage: string, context: string): Promise<stri
 }
 
 const MODEL_LABELS: Record<ModelProvider, string> = {
-  gemini: 'Gemini 2.0 Flash',
+  gemini: 'Gemini 2.5 Flash',
   openai: 'GPT-4o Mini',
   anthropic: 'Claude Sonnet',
 };

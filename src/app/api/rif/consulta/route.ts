@@ -22,7 +22,7 @@ async function consultarSeniatConIA(rif: string): Promise<{
     const ai = new GoogleGenAI({
       apiKey,
       httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-        ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
+        ? { apiVersion: '', baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
         : undefined,
     });
 
@@ -74,7 +74,9 @@ Responde ÚNICAMENTE con un JSON válido (sin markdown, sin backticks, sin expli
       contents: prompt,
       config: {
         temperature: 0.3,
-        maxOutputTokens: 1024,
+        maxOutputTokens: 2048,
+        responseMimeType: 'application/json',
+        thinkingConfig: { thinkingBudget: 0 },
       },
     });
 

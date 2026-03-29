@@ -1,16 +1,14 @@
-import { query } from '@/lib/db';
+import { getTwilioClient } from '@/lib/twilio-client';
 
-const TWILIO_WHATSAPP_SANDBOX = 'whatsapp:+14155238886';
+const WHATSAPP_FROM = 'whatsapp:+584167312194';
 
-async function getTwilioCredentials() {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-  if (!accountSid || !authToken) {
-    throw new Error('Twilio not configured: TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN required');
-  }
-
-  return { accountSid, authToken };
+function normalizeVenezuelanPhone(phone: string): string {
+  let cleaned = phone.replace(/[\s\-\(\)]/g, '');
+  if (cleaned.startsWith('whatsapp:')) cleaned = cleaned.replace('whatsapp:', '');
+  if (cleaned.startsWith('+')) return cleaned;
+  if (cleaned.startsWith('0')) return `+58${cleaned.slice(1)}`;
+  if (cleaned.startsWith('58')) return `+${cleaned}`;
+  return `+${cleaned}`;
 }
 
 export async function sendWhatsAppMessage(
@@ -18,15 +16,18 @@ export async function sendWhatsAppMessage(
   body: string
 ): Promise<{ success: boolean; sid?: string; error?: string }> {
   try {
-    const { accountSid, authToken } = await getTwilioCredentials();
-    const twilio = (await import('twilio')).default;
-    const client = twilio(accountSid, authToken);
+    const client = await getTwilioClient();
 
-    const toFormatted = to.startsWith('whatsapp:') ? to : `whatsapp:${to}`;
+    const normalized = normalizeVenezuelanPhone(to);
+    if (!/^\+\d{10,15}$/.test(normalized)) {
+      console.warn(`[whatsapp] Invalid phone number format: ${to}`);
+      return { success: false, error: `Invalid phone number: ${to}` };
+    }
+    const toFormatted = `whatsapp:${normalized}`;
 
     const message = await client.messages.create({
       body,
-      from: TWILIO_WHATSAPP_SANDBOX,
+      from: WHATSAPP_FROM,
       to: toFormatted,
     });
 
@@ -55,14 +56,13 @@ export async function sendWhatsAppNotification(
   }
 ) {
   try {
-    const user = await import('@/lib/db').then(m =>
-      m.queryOne<{ telefono_whatsapp: string }>(
-        `SELECT telefono_whatsapp FROM configuracion_usuario WHERE user_id = $1`,
-        [userId]
-      )
+    const { queryOne } = await import('@/lib/db');
+    const config = await queryOne<{ notif_whatsapp: boolean; telefono_whatsapp: string }>(
+      `SELECT notif_whatsapp, telefono_whatsapp FROM configuracion_usuario WHERE user_id = $1`,
+      [userId]
     );
 
-    if (!user?.telefono_whatsapp) {
+    if (!config?.notif_whatsapp || !config?.telefono_whatsapp) {
       return;
     }
 
@@ -70,7 +70,7 @@ export async function sendWhatsAppNotification(
 
     const body = `*SYSTEM KYRON*\n${tipoLabel}\n\n*${notification.titulo}*\n${notification.mensaje}`;
 
-    const result = await sendWhatsAppMessage(user.telefono_whatsapp, body);
+    const result = await sendWhatsAppMessage(config.telefono_whatsapp, body);
 
     if (!result.success) {
       console.warn(`[whatsapp] Failed to send notification: ${result.error}`);
