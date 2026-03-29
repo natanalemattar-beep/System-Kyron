@@ -61,7 +61,7 @@ export function ServicesSection() {
                         <Zap className="h-3.5 w-3.5" />
                         Ecosistema Completo
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-foreground uppercase leading-[1.05] mb-4">
+                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter text-foreground uppercase leading-[1.05] mb-4 break-words">
                         Todo lo que necesitas,{' '}
                         <span className="kyron-gradient-text italic">
                             integrado

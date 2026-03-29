@@ -33,7 +33,7 @@ export function CtaSection() {
                             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-white/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Acceso Prioritario
                             </div>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.05] text-white uppercase">
+                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter leading-[1.05] text-white uppercase break-words">
                                 ¿Listo para{' '}
                                 <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                     empezar

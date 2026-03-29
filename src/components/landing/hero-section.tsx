@@ -125,7 +125,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[1.02]"
+                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tighter uppercase leading-[1.02]"
                         >
                             <span className="block text-white">{t('title_line1')}</span>
                             <span className="block text-white">{t('title_line2')}</span>
