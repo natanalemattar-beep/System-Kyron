@@ -40,7 +40,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **2FA Verification:** 6-digit code generation, email sending, and verification.
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
-- **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and a user manual.
+- **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and an enhanced user manual with interactive TOC sidebar, search, reading progress bar, scroll-to-top, and Word export.
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, and CSS-based animations replacing Framer Motion where possible.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
