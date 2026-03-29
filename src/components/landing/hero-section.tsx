@@ -102,15 +102,15 @@ export function HeroSection() {
                             <motion.div
                                 animate={{ y: [0, -8, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -bottom-4 -left-4 md:-left-8 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
+                                className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
                             >
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
-                                        <CheckCircle2 className="h-5 w-5 text-white" />
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black uppercase tracking-wider text-white/50">Cumplimiento</p>
-                                        <p className="text-lg font-black text-emerald-400">100%</p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Cumplimiento</p>
+                                        <p className="text-base sm:text-lg font-black text-emerald-400">100%</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -118,15 +118,15 @@ export function HeroSection() {
                             <motion.div
                                 animate={{ y: [0, 6, 0] }}
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                                className="absolute -top-3 -right-3 md:-right-6 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
+                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 bg-[#0A1628]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
                             >
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                                        <span className="text-white text-xs font-black">12+</span>
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                                        <span className="text-white text-[10px] sm:text-xs font-black">12+</span>
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black uppercase tracking-wider text-white/50">Módulos</p>
-                                        <p className="text-lg font-black text-cyan-400">Integrados</p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Módulos</p>
+                                        <p className="text-base sm:text-lg font-black text-cyan-400">Integrados</p>
                                     </div>
                                 </div>
                             </motion.div>

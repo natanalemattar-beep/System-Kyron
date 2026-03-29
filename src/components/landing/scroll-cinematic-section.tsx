@@ -209,13 +209,13 @@ function PowerStatCard({ stat, index, smoothProgress }: {
             style={{ opacity, scale, y }}
             className="text-center group"
         >
-            <div className={`mx-auto w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}
+            <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}
                 style={{ boxShadow: `0 8px 32px -8px rgba(6,182,212,0.4)` }}
             >
-                <Icon className="h-7 w-7 md:h-8 md:w-8 text-white" />
+                <Icon className="h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
             </div>
-            <p className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-1">{stat.value}</p>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/35">{stat.label}</p>
+            <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-1">{stat.value}</p>
+            <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/35">{stat.label}</p>
         </motion.div>
     );
 }
@@ -246,32 +246,32 @@ function HighlightCard({ h, index, smoothProgress }: {
                 filter: filterVal,
                 transformPerspective: 1200,
             }}
-            className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-md p-4 md:p-5 overflow-hidden hover:border-white/20 transition-all duration-500 hover:-translate-y-1"
+            className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-md p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/20 transition-all duration-500 hover:-translate-y-1"
         >
             <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-xl sm:rounded-2xl"
                 style={{
                     background: `radial-gradient(ellipse 100% 100% at 50% 100%, ${h.glow.replace("0.5", "0.10")} 0%, transparent 70%)`,
                 }}
             />
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="flex items-start justify-between mb-3 relative">
+            <div className="flex items-start justify-between mb-2 sm:mb-3 relative">
                 <div
-                    className={`h-10 w-10 rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0 group-hover:shadow-xl transition-shadow duration-500`}
+                    className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0 group-hover:shadow-xl transition-shadow duration-500`}
                     style={{ boxShadow: `0 4px 20px -4px ${h.glow}` }}
                 >
-                    <Icon className="h-4.5 w-4.5 text-white" />
+                    <Icon className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-white" />
                 </div>
                 <div className="text-right">
-                    <p className="text-lg font-black text-white/90 leading-none">{h.stat}</p>
-                    <p className="text-[7px] font-bold text-white/25 uppercase tracking-wider leading-tight mt-0.5">
+                    <p className="text-sm sm:text-lg font-black text-white/90 leading-none">{h.stat}</p>
+                    <p className="text-[6px] sm:text-[7px] font-bold text-white/25 uppercase tracking-wider leading-tight mt-0.5">
                         {h.statLabel}
                     </p>
                 </div>
             </div>
-            <p className="text-[11px] font-black uppercase tracking-wider text-white/80 mb-1.5">{h.label}</p>
-            <p className="text-[10px] text-white/30 leading-relaxed">{h.desc}</p>
+            <p className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider text-white/80 mb-1">{h.label}</p>
+            <p className="text-[8px] sm:text-[10px] text-white/30 leading-relaxed hidden sm:block">{h.desc}</p>
         </motion.div>
     );
 }
@@ -373,18 +373,18 @@ export function ScrollCinematicSection() {
                 <div className="absolute inset-0 hud-grid opacity-20 pointer-events-none" />
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6"
                     style={{ opacity: exitOpacity, y: exitY, scale: exitScale }}
                 >
                     <div className="text-center max-w-5xl mx-auto w-full">
                         <motion.div
                             style={{ opacity: taglineOpacity, y: taglineY }}
-                            className="mb-8"
+                            className="mb-6 md:mb-8"
                         >
-                            <span className="inline-flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.5em] text-cyan-400/50">
-                                <span className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400/50 inline-block" />
+                            <span className="inline-flex items-center gap-2 sm:gap-3 text-[7px] sm:text-[9px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-cyan-400/50">
+                                <span className="h-px w-6 sm:w-12 bg-gradient-to-r from-transparent to-cyan-400/50 inline-block" />
                                 System Kyron — Inteligencia Corporativa
-                                <span className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400/50 inline-block" />
+                                <span className="h-px w-6 sm:w-12 bg-gradient-to-l from-transparent to-cyan-400/50 inline-block" />
                             </span>
                         </motion.div>
 
@@ -396,7 +396,7 @@ export function ScrollCinematicSection() {
                                     filter: line1Blur,
                                     y: line1Y,
                                     scale: line1Scale,
-                                    fontSize: "clamp(3.2rem, 10vw, 8rem)",
+                                    fontSize: "clamp(2.2rem, 10vw, 8rem)",
                                 }}
                             >
                                 Tu empresa.
@@ -408,7 +408,7 @@ export function ScrollCinematicSection() {
                                     filter: line2Blur,
                                     y: line2Y,
                                     scale: line2Scale,
-                                    fontSize: "clamp(3.2rem, 10vw, 8rem)",
+                                    fontSize: "clamp(2.2rem, 10vw, 8rem)",
                                 }}
                             >
                                 Toda.
@@ -420,7 +420,7 @@ export function ScrollCinematicSection() {
                                     filter: line3Blur,
                                     y: line3Y,
                                     scale: line3Scale,
-                                    fontSize: "clamp(3.2rem, 10vw, 8rem)",
+                                    fontSize: "clamp(2.2rem, 10vw, 8rem)",
                                     background: "linear-gradient(135deg, #22d3ee 0%, #3b82f6 40%, #10b981 80%, #22d3ee 100%)",
                                     backgroundSize: "300% 300%",
                                     WebkitBackgroundClip: "text",
@@ -434,7 +434,7 @@ export function ScrollCinematicSection() {
 
                         <motion.p
                             style={{ opacity: subtitleOpacity, y: subtitleY }}
-                            className="mt-8 text-white/40 text-base md:text-xl max-w-2xl mx-auto leading-relaxed font-medium"
+                            className="mt-5 md:mt-8 text-white/40 text-sm md:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-2"
                         >
                             Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela,
                             con IA integrada y cumplimiento fiscal automatizado.
@@ -443,27 +443,27 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-4 md:px-10"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-3 sm:px-4 md:px-10"
                     style={{
                         opacity: highlightsOpacity,
                         y: highlightsY,
                     }}
                 >
                     <div className="w-full max-w-6xl mx-auto">
-                        <div className="text-center mb-6 md:mb-8">
-                            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/20 mb-3">
+                        <div className="text-center mb-4 sm:mb-6 md:mb-8">
+                            <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-2 sm:mb-3">
                                 Todo lo que tu empresa necesita
                             </p>
                             <h3
                                 className="font-black tracking-tighter text-white uppercase"
-                                style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
+                                style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
                             >
                                 12+ módulos integrados.
                             </h3>
-                            <div className="h-px w-24 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mx-auto mt-4" />
+                            <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mx-auto mt-3 sm:mt-4" />
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" style={{ perspective: "1200px" }}>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-4" style={{ perspective: "1200px" }}>
                             {highlights.map((h, i) => (
                                 <HighlightCard
                                     key={i}
@@ -477,24 +477,24 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6"
                     style={{
                         opacity: statsOpacity,
                         y: statsY,
                     }}
                 >
                     <div className="w-full max-w-4xl mx-auto text-center">
-                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/20 mb-6">
+                        <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-4 sm:mb-6">
                             Poder sin precedentes
                         </p>
                         <h3
-                            className="font-black tracking-tighter text-white uppercase mb-12 md:mb-16"
-                            style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.5rem)" }}
+                            className="font-black tracking-tighter text-white uppercase mb-8 sm:mb-12 md:mb-16"
+                            style={{ fontSize: "clamp(1.4rem, 4.5vw, 3.5rem)" }}
                         >
                             Cifras que hablan por sí solas.
                         </h3>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
                             {powerStats.map((stat, i) => (
                                 <PowerStatCard
                                     key={i}
@@ -508,16 +508,16 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-10"
+                    className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 md:px-10"
                     style={{ opacity: dashboardOpacity, scale: dashboardScale, y: dashboardY, filter: dashboardBlur }}
                 >
                     <div className="w-full max-w-4xl mx-auto text-center">
-                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/20 mb-3">
+                        <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-2 sm:mb-3">
                             Interfaz intuitiva
                         </p>
                         <h3
-                            className="font-black tracking-tighter text-white uppercase mb-8"
-                            style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
+                            className="font-black tracking-tighter text-white uppercase mb-5 sm:mb-8"
+                            style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
                         >
                             Un dashboard. Todo el control.
                         </h3>
@@ -538,10 +538,10 @@ export function ScrollCinematicSection() {
                 </motion.div>
 
                 <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                    className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 sm:gap-2"
                     style={{ opacity: scrollHintOpacity }}
                 >
-                    <span className="text-[7px] font-bold text-white/15 uppercase tracking-[0.45em]">
+                    <span className="text-[6px] sm:text-[7px] font-bold text-white/15 uppercase tracking-[0.3em] sm:tracking-[0.45em]">
                         Desplázate para explorar
                     </span>
                     <div className="w-5 h-9 rounded-full border border-white/10 flex items-start justify-center pt-2">
