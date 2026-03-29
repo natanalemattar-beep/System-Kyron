@@ -6,9 +6,36 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useEffect, useState, useRef } from 'react';
+
+function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
+    const [value, setValue] = useState(0);
+    const rafRef = useRef<number>(0);
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            let start: number | null = null;
+            const step = (ts: number) => {
+                if (!start) start = ts;
+                const progress = Math.min((ts - start) / (duration * 1000), 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                setValue(Math.round(eased * target));
+                if (progress < 1) {
+                    rafRef.current = requestAnimationFrame(step);
+                }
+            };
+            rafRef.current = requestAnimationFrame(step);
+        }, delay * 1000);
+        return () => {
+            clearTimeout(timeout);
+            cancelAnimationFrame(rafRef.current);
+        };
+    }, [target, duration, delay]);
+    return value;
+}
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
+    const cumplimiento = useCountUp(100, 2.5, 1.5);
 
     return (
         <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
@@ -132,7 +159,7 @@ export function HeroSection() {
                                     </div>
                                     <div>
                                         <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-white/50">Cumplimiento</p>
-                                        <p className="text-base sm:text-lg font-black text-emerald-400">100%</p>
+                                        <p className="text-base sm:text-lg font-black text-emerald-400 tabular-nums">{cumplimiento}%</p>
                                     </div>
                                 </div>
                             </motion.div>
