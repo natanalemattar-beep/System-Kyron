@@ -12,17 +12,18 @@ import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
-const ACCENT_THEMES: Record<string, { bg: string; gradient: string; glow: string; ring: string; text: string; inputFocus: string }> = {
-  'primary':     { bg: 'bg-primary',      gradient: 'from-blue-700 via-primary to-indigo-800',       glow: 'bg-blue-500/30',    ring: 'ring-blue-400/20',    text: 'text-blue-400',    inputFocus: 'focus-visible:ring-blue-500' },
-  'secondary':   { bg: 'bg-secondary',    gradient: 'from-emerald-700 via-secondary to-teal-800',    glow: 'bg-emerald-500/30', ring: 'ring-emerald-400/20', text: 'text-emerald-400', inputFocus: 'focus-visible:ring-emerald-500' },
-  'emerald-600': { bg: 'bg-emerald-600',  gradient: 'from-emerald-700 via-emerald-600 to-green-700', glow: 'bg-emerald-400/30', ring: 'ring-emerald-400/20', text: 'text-emerald-400', inputFocus: 'focus-visible:ring-emerald-500' },
-  'emerald-800': { bg: 'bg-emerald-800',  gradient: 'from-emerald-900 via-emerald-800 to-teal-900',  glow: 'bg-emerald-500/20', ring: 'ring-emerald-400/20', text: 'text-emerald-400', inputFocus: 'focus-visible:ring-emerald-500' },
-  'indigo-950':  { bg: 'bg-indigo-950',   gradient: 'from-indigo-950 via-purple-900 to-violet-950',  glow: 'bg-purple-500/20',  ring: 'ring-purple-400/20',  text: 'text-purple-400',  inputFocus: 'focus-visible:ring-purple-500' },
-  'slate-800':   { bg: 'bg-slate-800',    gradient: 'from-slate-800 via-slate-700 to-zinc-800',      glow: 'bg-slate-400/20',   ring: 'ring-slate-400/20',   text: 'text-slate-400',   inputFocus: 'focus-visible:ring-slate-500' },
-  'blue-900':    { bg: 'bg-blue-900',     gradient: 'from-blue-950 via-blue-900 to-cyan-900',        glow: 'bg-cyan-500/20',    ring: 'ring-cyan-400/20',    text: 'text-cyan-400',    inputFocus: 'focus-visible:ring-cyan-500' },
-  'amber-700':   { bg: 'bg-amber-700',    gradient: 'from-amber-800 via-amber-700 to-orange-800',    glow: 'bg-amber-400/30',   ring: 'ring-amber-400/20',   text: 'text-amber-400',   inputFocus: 'focus-visible:ring-amber-500' },
-  'rose-800':    { bg: 'bg-rose-800',     gradient: 'from-rose-900 via-rose-800 to-pink-900',        glow: 'bg-rose-400/20',    ring: 'ring-rose-400/20',    text: 'text-rose-400',    inputFocus: 'focus-visible:ring-rose-500' },
+const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: string; inputRing: string; codeBorder: string; btnBg: string }> = {
+  'primary':     { gradient: 'from-blue-600 via-primary to-indigo-700',     accent: 'text-blue-500',    ring: 'ring-blue-500/20',    inputRing: 'focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50', codeBorder: 'border-blue-500', btnBg: 'bg-blue-600 hover:bg-blue-500' },
+  'secondary':   { gradient: 'from-emerald-600 via-secondary to-teal-700',  accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500' },
+  'emerald-600': { gradient: 'from-emerald-600 via-emerald-500 to-green-600', accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-600 hover:bg-emerald-500' },
+  'emerald-800': { gradient: 'from-emerald-800 via-emerald-700 to-teal-800', accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-emerald-700 hover:bg-emerald-600' },
+  'indigo-950':  { gradient: 'from-indigo-900 via-purple-800 to-violet-900', accent: 'text-purple-500',  ring: 'ring-purple-500/20',  inputRing: 'focus-visible:ring-purple-500/30 focus-visible:border-purple-500/50', codeBorder: 'border-purple-500', btnBg: 'bg-purple-700 hover:bg-purple-600' },
+  'slate-800':   { gradient: 'from-slate-700 via-slate-600 to-zinc-700',     accent: 'text-slate-400',   ring: 'ring-slate-400/20',   inputRing: 'focus-visible:ring-slate-400/30 focus-visible:border-slate-400/50', codeBorder: 'border-slate-400', btnBg: 'bg-slate-700 hover:bg-slate-600' },
+  'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-500',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50', codeBorder: 'border-cyan-500', btnBg: 'bg-blue-800 hover:bg-blue-700' },
+  'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-500',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/30 focus-visible:border-amber-500/50', codeBorder: 'border-amber-500', btnBg: 'bg-amber-600 hover:bg-amber-500' },
+  'rose-800':    { gradient: 'from-rose-800 via-rose-700 to-pink-800',       accent: 'text-rose-500',    ring: 'ring-rose-500/20',    inputRing: 'focus-visible:ring-rose-500/30 focus-visible:border-rose-500/50', codeBorder: 'border-rose-500', btnBg: 'bg-rose-700 hover:bg-rose-600' },
 };
 
 interface SpecializedLoginCardProps {
@@ -74,16 +75,13 @@ export function SpecializedLoginCard({
   }, [countdown]);
 
   useEffect(() => {
-    if (step === 'verification') {
-      setTimeout(() => inputRefs.current[0]?.focus(), 100);
-    }
+    if (step === 'verification') setTimeout(() => inputRefs.current[0]?.focus(), 100);
   }, [step]);
 
   const attemptLogin = async (email: string, password: string) => {
     setIsLoading(true);
     setError(null);
     setEmailDeliveryFailed(false);
-
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -91,12 +89,11 @@ export function SpecializedLoginCard({
         body: JSON.stringify({ email, password }),
       });
       const json = await res.json();
-
       if (!res.ok) {
         if (json.emailDeliveryFailed) {
           setSavedCredentials({ email, password });
           setEmailDeliveryFailed(true);
-          setError(json.error || 'No pudimos enviar el código de verificación a tu correo. Por favor intenta de nuevo.');
+          setError(json.error || 'No pudimos enviar el código de verificación.');
         } else {
           setSavedCredentials(null);
           setError(json.error || 'Credenciales incorrectas.');
@@ -104,7 +101,6 @@ export function SpecializedLoginCard({
         setIsLoading(false);
         return;
       }
-
       if (json.requiresVerification) {
         setVerificationEmail(email);
         setMaskedEmail(json.maskedEmail || email);
@@ -115,24 +111,12 @@ export function SpecializedLoginCard({
         setEmailDeliveryFailed(false);
         setSavedCredentials(null);
         setIsLoading(false);
-        toast({
-          title: 'Código enviado',
-          description: `Revisa tu correo ${json.maskedEmail || email}`,
-          action: <Mail className="text-cyan-500 h-4 w-4" />,
-        });
+        toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
         return;
       }
-
-      toast({
-        title: 'Acceso concedido',
-        description: `Bienvenido al portal de ${portalName}, ${json.user?.nombre ?? ''}.`,
-        action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
-      });
+      toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch {
-      setError('Error de conexión. Intenta de nuevo.');
-      setIsLoading(false);
-    }
+    } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
   const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -173,90 +157,67 @@ export function SpecializedLoginCard({
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: verificationEmail, code }),
-      });
+      const res = await fetch('/api/auth/verify-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: verificationEmail, code }) });
       const json = await res.json();
-      if (!res.ok) {
-        setError(json.error || 'Código incorrecto.');
-        setCodeDigits(['', '', '', '', '', '']);
-        setIsLoading(false);
-        setTimeout(() => inputRefs.current[0]?.focus(), 100);
-        return;
-      }
-      toast({
-        title: 'Identidad verificada',
-        description: `Bienvenido al portal de ${portalName}, ${json.user?.nombre ?? ''}.`,
-        action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
-      });
+      if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
+      toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch {
-      setError('Error de conexión. Intenta de nuevo.');
-      setCodeDigits(['', '', '', '', '', '']);
-      setIsLoading(false);
-    }
+    } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 
-  const handleResendCode = () => {
-    setStep('credentials');
-    setError(null);
-    setCodeDigits(['', '', '', '', '', '']);
-  };
-
-  const formatCountdown = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  };
+  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); };
+  const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 w-full relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className={cn("absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full blur-[150px] opacity-40 animate-pulse", theme.glow)} style={{ animationDuration: '4s' }} />
-        <div className={cn("absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-[130px] opacity-30 animate-pulse", theme.glow)} style={{ animationDuration: '6s', animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/3 blur-[200px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,hsl(var(--background))_70%)]" />
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+      <div className="absolute inset-0 -z-10 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
+        <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-primary/[0.02] to-transparent" />
+        <svg className="absolute inset-0 w-full h-full opacity-[0.012]" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="lgGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#lgGrid)"/>
+        </svg>
       </div>
 
-      <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-xs text-muted-foreground hover:text-foreground transition-all">
+      <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
         <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
-          <ChevronLeft className="mr-2 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
+          <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
         </Link>
       </Button>
 
-      <div className={cn("w-full max-w-5xl grid md:grid-cols-5 gap-0 rounded-[2rem] shadow-2xl overflow-hidden border border-border/30", theme.ring)}>
-        <div className={cn('md:col-span-2 p-8 md:p-10 relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br', theme.gradient)}>
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className={cn("w-full max-w-[1000px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.08] overflow-hidden border border-border/40")}
+      >
+        <div className={cn('relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 blur-[60px] animate-pulse" style={{ animationDuration: '3s' }} />
-            <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-white/8 blur-[40px] animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
-            <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-white/30 animate-ping" style={{ animationDuration: '3s' }} />
-            <div className="absolute top-2/3 right-1/3 w-1.5 h-1.5 rounded-full bg-white/20 animate-ping" style={{ animationDuration: '4s', animationDelay: '1.5s' }} />
-            <div className="absolute top-1/4 left-1/3 w-1 h-1 rounded-full bg-white/25 animate-ping" style={{ animationDuration: '5s', animationDelay: '0.8s' }} />
-            <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-              <defs><pattern id="loginGrid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="white" strokeWidth="0.5"/></pattern></defs>
+            <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/[0.06] blur-[80px]" />
+            <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-white/[0.04] blur-[60px]" />
+            <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+              <defs><pattern id="loginGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.4"/></pattern></defs>
               <rect width="100%" height="100%" fill="url(#loginGrid)"/>
             </svg>
           </div>
 
-          <div className="relative z-10 space-y-6">
-            <div className="p-4 bg-white/10 rounded-2xl w-fit border border-white/15 backdrop-blur-sm shadow-lg shadow-black/20">
-              <Icon className="h-9 w-9 text-white drop-shadow-lg" />
+          <div className="relative z-10 space-y-8">
+            <div className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg">
+              <Icon className="h-7 w-7 text-white" />
             </div>
             <div className="space-y-3">
-              <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight drop-shadow-md">{portalName}</h1>
-              <p className="text-sm font-medium opacity-80 leading-relaxed max-w-xs">{portalDescription}</p>
+              <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">{portalName}</h1>
+              <p className="text-sm font-medium text-white/70 leading-relaxed max-w-sm">{portalDescription}</p>
             </div>
           </div>
 
           {features.length > 0 && (
-            <div className="relative z-10 space-y-3 mt-8 pt-6 border-t border-white/10">
+            <div className="relative z-10 mt-10">
+              <div className="h-px bg-white/10 mb-6" />
               <ul className="space-y-3">
                 {features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3 text-xs font-semibold opacity-90">
-                    <div className="w-5 h-5 rounded-md bg-white/10 flex items-center justify-center border border-white/10 shrink-0">
-                      <ShieldCheck className="h-3 w-3 text-emerald-300" />
+                  <li key={i} className="flex items-center gap-3 text-[13px] font-medium text-white/80">
+                    <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
                     </div>
                     {feature}
                   </li>
@@ -265,173 +226,142 @@ export function SpecializedLoginCard({
             </div>
           )}
 
-          <div className="relative z-10 mt-6 pt-4 border-t border-white/5">
-            <div className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.3em] opacity-40">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]">
+            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Sistema activo · Enlace seguro
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-3 p-8 md:p-10 flex flex-col justify-center bg-card">
+        <div className="p-8 md:p-10 flex flex-col justify-center bg-card">
           {step === 'credentials' ? (
-            <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
               <div className="mb-8">
-                <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-                <p className="text-sm text-muted-foreground mt-1">Accede con tu correo y contraseña</p>
+                <h2 className="text-2xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+                <p className="text-sm text-muted-foreground mt-1.5">Accede con tu correo y contraseña</p>
               </div>
 
               <form onSubmit={handleAuth} className="space-y-5">
                 {error && (
-                  <div className="flex flex-col gap-2 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 animate-in slide-in-from-top-2 duration-300">
+                  <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
                     <div className="flex items-start gap-3">
                       <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
                       <p className="text-sm text-destructive">{error}</p>
                     </div>
                     {emailDeliveryFailed && savedCredentials && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={handleResendEmail}
-                        disabled={isLoading}
-                        className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/30 text-destructive hover:bg-destructive/10"
-                      >
-                        <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-                        {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                      <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
+                        <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
                       </Button>
                     )}
                   </div>
                 )}
 
                 <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Correo Electrónico</Label>
+                  <Label className="text-sm font-semibold text-foreground/80">Correo Electrónico</Label>
                   <div className="relative group">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
-                    <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/60 transition-all", theme.inputFocus)} />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                    <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 transition-all", theme.inputRing)} />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <Label className="text-sm font-semibold">Contraseña</Label>
-                    <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.text)}>¿Olvidaste tu contraseña?</Link>
+                    <Label className="text-sm font-semibold text-foreground/80">Contraseña</Label>
+                    <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
                   </div>
                   <div className="relative group">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
-                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/60 transition-all", theme.inputFocus)} />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 transition-all", theme.inputRing)} />
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
 
-                <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-sm shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.bg)} disabled={isLoading}>
+                <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-sm text-white shadow-lg transition-all hover:shadow-xl", theme.btnBg)} disabled={isLoading}>
                   {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
                 </Button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-border/50 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-px flex-1 bg-border/50" />
-                  <span className="text-xs text-muted-foreground">¿No tienes cuenta?</span>
-                  <div className="h-px flex-1 bg-border/50" />
-                </div>
-                <Button variant="outline" asChild className="w-full h-11 rounded-xl text-sm font-semibold hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all">
-                  <Link href="/register" className="flex items-center gap-2">
-                    <UserPlus className="h-4 w-4" /> Crear Cuenta
-                  </Link>
+              <div className="mt-8 pt-6 border-t border-border/30 space-y-4">
+                <Button variant="outline" asChild className="w-full h-11 rounded-xl text-sm font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
+                  <Link href="/register" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Crear Cuenta</Link>
                 </Button>
-                <div className="text-center">
-                  <Link href="/recuperar-cuenta" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                    ¿Problemas para acceder? Recuperar cuenta
-                  </Link>
-                </div>
-
+                <p className="text-center text-xs text-muted-foreground/60">
+                  <Link href="/recuperar-cuenta" className="hover:text-foreground transition-colors">¿Problemas para acceder? Recuperar cuenta</Link>
+                </p>
                 {footerLinks?.secondaryLinks && (
                   <div className="text-center text-xs text-muted-foreground space-y-1 mt-2">
                     {footerLinks.secondaryLinks.title && <p className="font-medium">{footerLinks.secondaryLinks.title}</p>}
                     {footerLinks.secondaryLinks.links.map(link => (
-                      <Link key={link.href} href={link.href as any} className={cn("block font-medium hover:underline", theme.text)}>{link.text}</Link>
+                      <Link key={link.href} href={link.href as any} className={cn("block font-medium hover:underline", theme.accent)}>{link.text}</Link>
                     ))}
                   </div>
                 )}
               </div>
-            </>
+            </motion.div>
           ) : (
-            <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
               <div className="mb-8 text-center">
-                <div className={cn("mx-auto w-16 h-16 rounded-2xl border flex items-center justify-center mb-5 animate-in zoom-in duration-500", `${theme.bg}/10 border-${accentColor}/20`)}>
-                  <KeyRound className={cn("h-8 w-8", theme.text)} />
+                <div className={cn("mx-auto w-16 h-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-5")}>
+                  <KeyRound className={cn("h-7 w-7", theme.accent)} />
                 </div>
-                <h2 className="text-xl font-black tracking-tight text-foreground">Verificación de identidad</h2>
+                <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Enviamos un código de 6 dígitos a <strong className="text-foreground">{maskedEmail}</strong>
+                  Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong>
                 </p>
                 {countdown > 0 && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    El código expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
+                  <p className="text-xs text-muted-foreground mt-1.5">
+                    Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
                   </p>
                 )}
               </div>
 
               {error && (
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 mb-5 animate-in slide-in-from-top-2">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-5">
                   <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
                   <p className="text-sm text-destructive">{error}</p>
                 </div>
               )}
 
-              <div className="flex justify-center gap-2 sm:gap-3 mb-6">
+              <div className="flex justify-center gap-2.5 mb-6">
                 {codeDigits.map((digit, i) => (
                   <Input
                     key={i}
                     ref={el => { inputRefs.current[i] = el; }}
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={6}
-                    value={digit}
+                    type="text" inputMode="numeric" maxLength={6} value={digit}
                     onChange={e => handleCodeChange(i, e.target.value)}
                     onKeyDown={e => handleCodeKeyDown(i, e)}
-                    onPaste={e => {
-                      e.preventDefault();
-                      const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-                      if (pasted) handleCodeChange(0, pasted);
-                    }}
-                    className={cn(
-                      "w-11 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200",
-                      digit ? cn("border-primary bg-primary/5", theme.text) : "border-border/60 focus:border-primary"
-                    )}
-                    disabled={isLoading}
-                    autoComplete="one-time-code"
+                    onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
+                    className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
+                    disabled={isLoading} autoComplete="one-time-code"
                   />
                 ))}
               </div>
 
               {isLoading && (
                 <div className="flex items-center justify-center gap-2 mb-5">
-                  <Loader2 className={cn("h-4 w-4 animate-spin", theme.text)} />
+                  <Loader2 className={cn("h-4 w-4 animate-spin", theme.accent)} />
                   <span className="text-sm text-muted-foreground">Verificando...</span>
                 </div>
               )}
 
               <div className="space-y-3 mt-4">
-                <Button variant="outline" onClick={handleResendCode} className="w-full h-11 rounded-xl text-sm font-semibold" disabled={isLoading}>
+                <Button variant="outline" onClick={handleResendCode} className="w-full h-11 rounded-xl text-sm font-semibold border-border/40" disabled={isLoading}>
                   <RotateCcw className="mr-2 h-4 w-4" /> Volver a iniciar sesión
                 </Button>
-                <p className="text-center text-xs text-muted-foreground">
-                  ¿No recibiste el código? Revisa tu carpeta de spam o{' '}
-                  <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.text)} disabled={isLoading}>
-                    solicita uno nuevo
-                  </button>
+                <p className="text-center text-xs text-muted-foreground/60">
+                  ¿No recibiste el código?{' '}
+                  <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading}>Solicitar nuevo</button>
                 </p>
               </div>
-            </>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
-      <p className="mt-8 text-[9px] text-muted-foreground/30 uppercase tracking-widest font-bold">System Kyron v2.8.5 · Enlace Seguro</p>
+      <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
     </div>
   );
 }
