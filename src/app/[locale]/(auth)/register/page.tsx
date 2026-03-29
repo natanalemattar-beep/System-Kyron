@@ -286,6 +286,13 @@ export default function RegisterSelectionPage() {
 
     const availableModules = MODULES.filter(m => detected.type && m.forTypes.includes(detected.type));
 
+    const FEATURES = [
+        { icon: ShieldCheck, title: "Cifrado AES-256", desc: "Tus datos protegidos con encriptación de grado militar" },
+        { icon: Fingerprint, title: "Verificación Biométrica", desc: "Autenticación segura con cédula o RIF venezolano" },
+        { icon: Building2, title: "Multi-Módulo", desc: "Contabilidad, RRHH, Legal, Telecom y más en un solo lugar" },
+        { icon: Calculator, title: "Cumplimiento Fiscal", desc: "VEN-NIF, IVA 16%, IGTF 3% e ISLR 34% automatizados" },
+    ];
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-background via-background to-primary/[0.02] relative">
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -293,37 +300,91 @@ export default function RegisterSelectionPage() {
                 <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-violet-500/5 blur-[120px]" />
             </div>
 
-            <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl relative z-10">
-                <div className="mb-6">
-                    {step === "identify" ? (
-                        <Button variant="ghost" asChild className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
-                            <Link href="/"><ChevronLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Volver</Link>
-                        </Button>
-                    ) : (
-                        <Button variant="ghost" onClick={() => setStep("identify")} className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
-                            <ArrowLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Cambiar Documento
-                        </Button>
-                    )}
+            <div className="relative z-10 min-h-screen flex flex-col">
+                <div className="container mx-auto px-4 pt-6 pb-2 max-w-7xl">
+                    <div className="mb-4 lg:mb-0">
+                        {step === "identify" ? (
+                            <Button variant="ghost" asChild className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
+                                <Link href="/"><ChevronLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Volver</Link>
+                            </Button>
+                        ) : (
+                            <Button variant="ghost" onClick={() => setStep("identify")} className="group rounded-xl h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary/50">
+                                <ArrowLeft className="mr-1.5 h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" /> Cambiar Documento
+                            </Button>
+                        )}
+                    </div>
                 </div>
 
-                <header className="text-center mb-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-5">
-                        <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
+                <div className="flex-1 container mx-auto px-4 max-w-7xl flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24 py-4 lg:py-0">
+
+                    <div className="hidden lg:flex flex-col justify-center flex-1 max-w-xl pr-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-6 w-fit">
+                            <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
+                        </div>
+                        <h1 className="text-5xl xl:text-6xl font-black tracking-tighter leading-[0.95] mb-5">
+                            <span className="text-foreground">Únete al </span>
+                            <br />
+                            <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
+                        </h1>
+                        <p className="text-sm text-muted-foreground font-bold uppercase tracking-wide mb-10 max-w-md">
+                            {step === "identify"
+                                ? "Ingresa tu cédula o RIF para comenzar tu registro en la plataforma corporativa más completa de Venezuela"
+                                : "Selecciona el módulo donde deseas registrarte y accede a herramientas especializadas"
+                            }
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            {FEATURES.map((f, i) => {
+                                const FIcon = f.icon;
+                                return (
+                                    <div key={i} className="flex items-start gap-3 p-4 rounded-2xl border border-border/20 bg-card/40 backdrop-blur-sm">
+                                        <div className="shrink-0 p-2 rounded-xl bg-primary/5 border border-primary/10">
+                                            <FIcon className="h-4 w-4 text-primary/70" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[11px] font-black uppercase tracking-wide text-foreground mb-0.5">{f.title}</p>
+                                            <p className="text-[10px] text-muted-foreground leading-relaxed">{f.desc}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <div className="mt-8 flex items-center gap-3">
+                            <div className="flex -space-x-2">
+                                {[...Array(4)].map((_, i) => (
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-gradient-to-br from-primary/20 to-cyan-500/20 flex items-center justify-center">
+                                        <User className="h-3.5 w-3.5 text-primary/50" />
+                                    </div>
+                                ))}
+                            </div>
+                            <div>
+                                <p className="text-xs font-black text-foreground">+2,500 empresas</p>
+                                <p className="text-[10px] text-muted-foreground font-bold">Ya confían en System Kyron</p>
+                            </div>
+                        </div>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-none mb-4">
-                        <span className="text-foreground">Únete al </span>
-                        <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
-                    </h1>
-                    <p className="text-xs md:text-sm text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
-                        {step === "identify"
-                            ? "Ingresa tu cédula o RIF para comenzar"
-                            : "Selecciona el módulo donde deseas registrarte"
-                        }
-                    </p>
-                </header>
+
+                    <div className="flex-1 lg:max-w-lg xl:max-w-xl w-full">
+
+                        <header className="text-center mb-8 lg:hidden">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-5">
+                                <ShieldCheck className="h-3 w-3" /> Registro Cifrado AES-256
+                            </div>
+                            <h1 className="text-3xl sm:text-4xl font-black tracking-tighter leading-none mb-4">
+                                <span className="text-foreground">Únete al </span>
+                                <span className="bg-gradient-to-r from-primary via-cyan-500 to-violet-500 bg-clip-text text-transparent italic">Ecosistema</span>
+                            </h1>
+                            <p className="text-xs text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
+                                {step === "identify"
+                                    ? "Ingresa tu cédula o RIF para comenzar"
+                                    : "Selecciona el módulo donde deseas registrarte"
+                                }
+                            </p>
+                        </header>
 
                 {step === "identify" && (
-                    <section className="max-w-2xl mx-auto mb-12">
+                    <section className="w-full mb-8">
                         <div className={cn(
                             "relative rounded-3xl border-2 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl transition-all duration-500",
                             isNatural ? "border-blue-500/30 shadow-blue-500/5" :
@@ -515,8 +576,8 @@ export default function RegisterSelectionPage() {
                 )}
 
                 {step === "modules" && (
-                    <section className="max-w-4xl mx-auto mb-12">
-                        <div className="flex items-center justify-center gap-3 mb-8">
+                    <section className="w-full mb-8">
+                        <div className="flex items-center justify-center lg:justify-start gap-3 mb-8">
                             <div className={cn(
                                 "inline-flex items-center gap-2 px-4 py-2 rounded-2xl border text-sm font-black",
                                 isNatural ? "bg-blue-500/10 border-blue-500/20 text-blue-600" :
@@ -537,7 +598,7 @@ export default function RegisterSelectionPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {availableModules.map((mod, index) => {
                                 const Icon = mod.icon;
                                 return (
@@ -545,32 +606,34 @@ export default function RegisterSelectionPage() {
                                         key={mod.id}
                                         onClick={() => handleSelectModule(mod.route)}
                                         className={cn(
-                                            "group relative rounded-2xl border-2 p-6 text-left transition-all duration-300 cursor-pointer",
+                                            "group relative rounded-2xl border-2 p-5 text-left transition-all duration-300 cursor-pointer",
                                             "hover:shadow-xl hover:-translate-y-1",
                                             mod.bgColor,
                                             mod.borderColor
                                         )}
                                         style={{ animationDelay: `${index * 80}ms` }}
                                     >
-                                        <div className={cn(
-                                            "inline-flex p-3 rounded-xl border mb-4 transition-all duration-300",
-                                            mod.bgColor, mod.borderColor
-                                        )}>
-                                            <Icon className={cn("h-6 w-6", mod.color)} />
-                                        </div>
-
-                                        <h3 className="text-base font-black uppercase tracking-tight text-foreground mb-1">
-                                            {mod.title}
-                                        </h3>
-                                        <p className="text-[11px] font-bold text-muted-foreground leading-relaxed">
-                                            {mod.description}
-                                        </p>
-
-                                        <div className={cn(
-                                            "mt-4 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300",
-                                            mod.color
-                                        )}>
-                                            Registrarse <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                        <div className="flex items-start gap-4">
+                                            <div className={cn(
+                                                "inline-flex p-3 rounded-xl border shrink-0 transition-all duration-300",
+                                                mod.bgColor, mod.borderColor
+                                            )}>
+                                                <Icon className={cn("h-5 w-5", mod.color)} />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="text-sm font-black uppercase tracking-tight text-foreground mb-1">
+                                                    {mod.title}
+                                                </h3>
+                                                <p className="text-[11px] font-bold text-muted-foreground leading-relaxed">
+                                                    {mod.description}
+                                                </p>
+                                                <div className={cn(
+                                                    "mt-3 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300",
+                                                    mod.color
+                                                )}>
+                                                    Registrarse <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </button>
                                 );
@@ -579,12 +642,15 @@ export default function RegisterSelectionPage() {
                     </section>
                 )}
 
-                <p className="text-center text-xs text-muted-foreground mt-8 font-bold">
+                <p className="text-center lg:text-left text-xs text-muted-foreground mt-4 mb-8 font-bold">
                     ¿Ya tienes una cuenta?{' '}
                     <Link href="/login" className="text-primary font-black hover:underline uppercase tracking-wide">
                         Iniciar Sesión
                     </Link>
                 </p>
+
+                    </div>
+                </div>
             </div>
         </div>
     );
