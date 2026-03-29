@@ -75,9 +75,9 @@ const MODULES: ModuleOption[] = [
     },
     {
         id: "contabilidad",
-        route: "contabilidad",
+        route: "asesoria-contable",
         icon: Calculator,
-        title: "Contabilidad",
+        title: "Asesoría Contable",
         description: "Módulo contable con régimen IVA, período fiscal y libros obligatorios",
         color: "text-violet-500",
         bgColor: "bg-violet-500/10 hover:bg-violet-500/15",

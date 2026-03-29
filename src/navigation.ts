@@ -131,7 +131,7 @@ export const pathnames = {
   // MARKETING & NUEVA LÍNEA
   '/register/natural': '/register/natural',
   '/register/telecom': '/register/telecom',
-  '/register/contabilidad': '/register/contabilidad',
+  '/register/asesoria-contable': '/register/asesoria-contable',
   '/register/rrhh': '/register/rrhh',
   '/register/sostenibilidad': '/register/sostenibilidad',
   '/register/juridico': '/register/juridico',

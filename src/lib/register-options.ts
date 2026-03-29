@@ -17,7 +17,7 @@ export const registerOptions = [
         badge: "Telecom",
     },
     {
-        href: "/register/contabilidad",
+        href: "/register/asesoria-contable",
         label: "Asesoría Contable",
         icon: Banknote,
         description: "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.",
