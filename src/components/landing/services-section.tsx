@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Calculator, Smartphone, Recycle, Gavel, ShoppingCart, Signal, User, Building2, BarChart3, ArrowRight, Shield, Brain, Zap } from "lucide-react";
+import { Receipt, Smartphone, Leaf, Scale, CreditCard, Wifi, CircleUserRound, Handshake, TrendingUp, ArrowRight, Lock, Sparkles, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
@@ -12,7 +12,7 @@ const features = [
         subtitle: "VEN-NIF · SENIAT · ISLR",
         description: "Sistema contable completo con libros legales, plan de cuentas venezolano, cálculo automático de IVA 16%, IGTF 3% e ISLR. Compatible con Gaceta Oficial vigente.",
         image: "/images/landing/devices-mockup.png",
-        icon: Calculator,
+        icon: Receipt,
         color: "from-primary to-blue-600",
         badges: ["VEN-NIF", "SENIAT", "LOTTT", "BCV"],
     },
@@ -21,7 +21,7 @@ const features = [
         subtitle: "Cifrado Militar · JWT · Auditoría",
         description: "Infraestructura de seguridad de grado bancario. Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro inmutable de cada acción.",
         image: "/images/landing/security-shield.png",
-        icon: Shield,
+        icon: Lock,
         color: "from-emerald-500 to-cyan-600",
         badges: ["AES-256", "JWT", "HTTPS", "Auditoría"],
     },
@@ -30,20 +30,20 @@ const features = [
         subtitle: "Kyron AI · Claude (Anthropic)",
         description: "IA fiscal potenciada por Claude de Anthropic. Monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
         image: "/images/landing/ai-brain.png",
-        icon: Brain,
+        icon: Sparkles,
         color: "from-violet-500 to-purple-600",
         badges: ["Kyron AI", "Claude", "Chat IA", "Reportes"],
     },
 ];
 
 const modules = [
-    { icon: User,        title: "Cuenta Personal",   desc: "Gestiona tu perfil, documentos y configuración desde un solo lugar.", color: "text-sky-400", gradient: "from-sky-500/20 via-sky-500/5 to-transparent", border: "border-sky-500/15 hover:border-sky-400/40", glow: "group-hover:shadow-sky-500/10", span: "col-span-1 row-span-1" },
-    { icon: Signal,      title: "Mis Líneas",        desc: "Líneas móviles 5G, eSIM y gestión de flota empresarial integrada.", color: "text-blue-400", gradient: "from-blue-500/20 via-blue-500/5 to-transparent", border: "border-blue-500/15 hover:border-blue-400/40", glow: "group-hover:shadow-blue-500/10", span: "col-span-1 row-span-1 sm:col-span-2 lg:col-span-1" },
-    { icon: Calculator,  title: "Asesoría Contable", desc: "VEN-NIF, IVA, ISLR, IGTF, tasa BCV diaria y cumplimiento fiscal automatizado.", color: "text-primary", gradient: "from-primary/20 via-primary/5 to-transparent", border: "border-primary/15 hover:border-primary/40", glow: "group-hover:shadow-primary/10", span: "col-span-1 row-span-1 lg:col-span-2" },
-    { icon: Gavel,       title: "Asesoría Legal",    desc: "Contratos inteligentes, registros mercantiles, SAREN y propiedad intelectual.", color: "text-violet-400", gradient: "from-violet-500/20 via-violet-500/5 to-transparent", border: "border-violet-500/15 hover:border-violet-400/40", glow: "group-hover:shadow-violet-500/10", span: "col-span-1 row-span-1" },
-    { icon: ShoppingCart, title: "Facturación",      desc: "Notas de crédito/débito, control de inventario y gestión de cuentas.", color: "text-amber-400", gradient: "from-amber-500/20 via-amber-500/5 to-transparent", border: "border-amber-500/15 hover:border-amber-400/40", glow: "group-hover:shadow-amber-500/10", span: "col-span-1 row-span-1" },
-    { icon: Building2,   title: "Socios",            desc: "Portal de socios con métricas compartidas y colaboración en tiempo real.", color: "text-emerald-400", gradient: "from-emerald-500/20 via-emerald-500/5 to-transparent", border: "border-emerald-500/15 hover:border-emerald-400/40", glow: "group-hover:shadow-emerald-500/10", span: "col-span-1 row-span-1 lg:col-span-2" },
-    { icon: Recycle,     title: "Sostenibilidad",    desc: "Eco-Créditos, reciclaje tecnológico y economía circular certificada.", color: "text-teal-400", gradient: "from-teal-500/20 via-teal-500/5 to-transparent", border: "border-teal-500/15 hover:border-teal-400/40", glow: "group-hover:shadow-teal-500/10", span: "col-span-1 row-span-1" },
+    { icon: CircleUserRound, title: "Cuenta Personal", desc: "Gestiona tu perfil, documentos y configuración desde un solo lugar.", color: "text-sky-400", gradient: "from-sky-500/20 via-sky-500/5 to-transparent", border: "border-sky-500/15 hover:border-sky-400/40", glow: "group-hover:shadow-sky-500/10", span: "col-span-1 row-span-1" },
+    { icon: Smartphone,  title: "Mis Líneas",        desc: "Líneas móviles 5G, eSIM y gestión de flota empresarial integrada.", color: "text-blue-400", gradient: "from-blue-500/20 via-blue-500/5 to-transparent", border: "border-blue-500/15 hover:border-blue-400/40", glow: "group-hover:shadow-blue-500/10", span: "col-span-1 row-span-1 sm:col-span-2 lg:col-span-1" },
+    { icon: TrendingUp,  title: "Asesoría Contable", desc: "VEN-NIF, IVA, ISLR, IGTF, tasa BCV diaria y cumplimiento fiscal automatizado.", color: "text-primary", gradient: "from-primary/20 via-primary/5 to-transparent", border: "border-primary/15 hover:border-primary/40", glow: "group-hover:shadow-primary/10", span: "col-span-1 row-span-1 lg:col-span-2" },
+    { icon: Scale,       title: "Asesoría Legal",    desc: "Contratos inteligentes, registros mercantiles, SAREN y propiedad intelectual.", color: "text-violet-400", gradient: "from-violet-500/20 via-violet-500/5 to-transparent", border: "border-violet-500/15 hover:border-violet-400/40", glow: "group-hover:shadow-violet-500/10", span: "col-span-1 row-span-1" },
+    { icon: CreditCard,  title: "Facturación",       desc: "Notas de crédito/débito, control de inventario y gestión de cuentas.", color: "text-amber-400", gradient: "from-amber-500/20 via-amber-500/5 to-transparent", border: "border-amber-500/15 hover:border-amber-400/40", glow: "group-hover:shadow-amber-500/10", span: "col-span-1 row-span-1" },
+    { icon: Handshake,   title: "Socios",            desc: "Portal de socios con métricas compartidas y colaboración en tiempo real.", color: "text-emerald-400", gradient: "from-emerald-500/20 via-emerald-500/5 to-transparent", border: "border-emerald-500/15 hover:border-emerald-400/40", glow: "group-hover:shadow-emerald-500/10", span: "col-span-1 row-span-1 lg:col-span-2" },
+    { icon: Leaf,        title: "Sostenibilidad",    desc: "Eco-Créditos, reciclaje tecnológico y economía circular certificada.", color: "text-teal-400", gradient: "from-teal-500/20 via-teal-500/5 to-transparent", border: "border-teal-500/15 hover:border-teal-400/40", glow: "group-hover:shadow-teal-500/10", span: "col-span-1 row-span-1" },
 ];
 
 export function ServicesSection() {
