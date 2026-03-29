@@ -10,6 +10,7 @@ import {
     Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
     Calculator, Users, Signal, Recycle, Gavel, ArrowLeft,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
+    ShoppingCart, Briefcase,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -104,6 +105,28 @@ const MODULES: ModuleOption[] = [
         bgColor: "bg-cyan-500/10 hover:bg-cyan-500/15",
         borderColor: "border-cyan-500/20 hover:border-cyan-500/40",
         forTypes: ["natural", "juridico"],
+    },
+    {
+        id: "ventas",
+        route: "juridico",
+        icon: ShoppingCart,
+        title: "Facturación y Ventas",
+        description: "Punto de venta, cobros rápidos, control de inventario y facturación",
+        color: "text-orange-500",
+        bgColor: "bg-orange-500/10 hover:bg-orange-500/15",
+        borderColor: "border-orange-500/20 hover:border-orange-500/40",
+        forTypes: ["juridico"],
+    },
+    {
+        id: "socios",
+        route: "juridico",
+        icon: Briefcase,
+        title: "Socios y Directivos",
+        description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad",
+        color: "text-slate-400",
+        bgColor: "bg-slate-400/10 hover:bg-slate-400/15",
+        borderColor: "border-slate-400/20 hover:border-slate-400/40",
+        forTypes: ["juridico"],
     },
     {
         id: "legal",
