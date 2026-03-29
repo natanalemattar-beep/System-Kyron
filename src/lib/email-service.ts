@@ -1,6 +1,7 @@
 import { query } from '@/lib/db';
 
 export type EmailProvider = 'gmail' | 'outlook' | 'resend';
+export type EmailPurpose = 'verification' | 'alert' | 'general';
 
 export interface EmailOptions {
   to: string | string[];
@@ -9,6 +10,7 @@ export interface EmailOptions {
   from?: string;
   replyTo?: string;
   module?: string;
+  purpose?: EmailPurpose;
 }
 
 interface EmailResult {
@@ -140,12 +142,21 @@ async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
   }
 }
 
+function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => Promise<EmailResult>> {
+  switch (purpose) {
+    case 'verification':
+      return [sendViaGmail, sendViaOutlook, sendViaResend];
+    case 'alert':
+      return [sendViaOutlook, sendViaGmail, sendViaResend];
+    default:
+      return [sendViaGmail, sendViaOutlook, sendViaResend];
+  }
+}
+
 export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
-  const providers: Array<() => Promise<EmailResult>> = [
-    sendViaGmail,
-    sendViaOutlook,
-    sendViaResend,
-  ].map(fn => () => fn(opts));
+  const purpose = opts.purpose ?? 'general';
+  const providerFns = getProviderOrder(purpose);
+  const providers = providerFns.map(fn => () => fn(opts));
 
   for (const tryProvider of providers) {
     const result = await tryProvider();
@@ -153,7 +164,7 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
       await logEmail(opts, result);
       return result;
     }
-    console.warn(`[email-service] ${result.provider} failed: ${result.error}`);
+    console.warn(`[email-service] ${result.provider} failed (${purpose}): ${result.error}`);
   }
 
   const fallback: EmailResult = { success: false, provider: 'none', error: 'All email providers failed' };

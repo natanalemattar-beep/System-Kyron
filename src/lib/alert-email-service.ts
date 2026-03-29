@@ -84,6 +84,7 @@ export async function sendNotificationEmail(
       subject: `[Kyron ${tipoInfo.label}] ${notification.titulo}`,
       html,
       module: 'sistema',
+      purpose: 'alert',
     });
 
     if (!result.success) {

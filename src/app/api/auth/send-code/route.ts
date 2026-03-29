@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
         subject: `${codigo} — Código de Verificación · System Kyron`,
         html,
         module: 'auth',
+        purpose: 'verification',
       });
 
       if (!result.success) {

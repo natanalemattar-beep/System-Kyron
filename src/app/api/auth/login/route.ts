@@ -88,6 +88,7 @@ export async function POST(req: NextRequest) {
                 footer: 'Si no solicitaste este código, ignora este mensaje. Nunca compartas tu código con nadie.',
             }),
             module: 'auth',
+            purpose: 'verification',
         }).catch(err => console.error('[login] Error sending verification email:', err));
 
         return NextResponse.json({
