@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import {
   Clock, User, FileText, Stethoscope, Scale, History, ChevronRight,
   Search, Lock, LifeBuoy, Bell, CircleCheck as CheckCircle, Fingerprint,
-  Shield, Sparkles, Folder, AlertCircle, ArrowRight, Eye, Leaf
+  Shield, Sparkles, Folder, AlertCircle, ArrowRight, Eye, Leaf,
+  Sun, Moon, Sunrise, RefreshCw, MapPin, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
@@ -22,11 +23,35 @@ interface NaturalDashboardData {
   notificaciones: number;
 }
 
+function getGreeting(hour: number): { text: string; icon: typeof Sun } {
+  if (hour >= 5 && hour < 12) return { text: "Buenos días", icon: Sunrise };
+  if (hour >= 12 && hour < 18) return { text: "Buenas tardes", icon: Sun };
+  return { text: "Buenas noches", icon: Moon };
+}
+
+function getVerificationLevel(docs: number): { level: number; label: string; percent: number; color: string; next: string } {
+  if (docs >= 10) return { level: 3, label: "Platino", percent: 100, color: "text-amber-400", next: "Nivel máximo alcanzado" };
+  if (docs >= 5) return { level: 2, label: "Oro", percent: 70, color: "text-yellow-400", next: `${10 - docs} docs más para Platino` };
+  if (docs >= 1) return { level: 1, label: "Plata", percent: 40, color: "text-slate-300", next: `${5 - docs} docs más para Oro` };
+  return { level: 0, label: "Básico", percent: 10, color: "text-muted-foreground", next: "Sube un documento para subir de nivel" };
+}
+
 export default function DashboardPersonalPage() {
   const { user } = useAuth();
   const displayName = user ? `${user.nombre}${user.apellido ? " " + user.apellido : ""}` : "—";
+  const firstName = user?.nombre?.split(" ")[0] ?? "";
   const [data, setData] = useState<NaturalDashboardData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
+  const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
+  const [clientDateStr, setClientDateStr] = useState<string | null>(null);
+
+  useEffect(() => {
+    const now = new Date();
+    setGreeting(getGreeting(now.getHours()));
+    setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
+    setClientDateStr(now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+  }, []);
 
   useEffect(() => {
     fetch("/api/natural/dashboard")
@@ -34,6 +59,9 @@ export default function DashboardPersonalPage() {
       .then(d => { setData(d); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
+
+  const verif = getVerificationLevel(data?.documentos ?? 0);
+  const GreetingIcon = greeting?.icon ?? Sun;
 
   return (
     <div className="space-y-6 pb-20">
@@ -49,16 +77,25 @@ export default function DashboardPersonalPage() {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <Shield className="h-4 w-4 text-white" />
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold tracking-tight">Mi Terminal Ciudadana</h1>
-                <p className="text-[10px] text-white/40 font-medium">{displayName}</p>
+                <div className="flex items-center gap-2">
+                  {greeting && <GreetingIcon className="h-4 w-4 text-amber-300/70" />}
+                  <h1 className="text-lg md:text-xl font-bold tracking-tight">
+                    {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
+                  </h1>
+                </div>
+                <p className="text-[10px] text-white/40 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 mt-1">
-              {!loading && <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En vivo</span>}
+            <div className="flex items-center gap-2.5 mt-2">
+              <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En vivo</span>
+              <span className={cn("text-[9px] px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] font-semibold flex items-center gap-1.5", verif.color)}>
+                <Trophy className="h-3 w-3" />
+                Nivel {verif.label}
+              </span>
             </div>
           </div>
           <div className="flex gap-2">
@@ -73,6 +110,32 @@ export default function DashboardPersonalPage() {
         </div>
       </header>
 
+      {!loading && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="rounded-xl border border-border/20 bg-card/50 p-4"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <BadgeCheck className={cn("h-4 w-4", verif.color)} />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">Nivel de Verificación</span>
+            </div>
+            <span className={cn("text-xs font-bold", verif.color)}>{verif.percent}%</span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">
+            <motion.div
+              className={cn("h-full rounded-full", verif.level >= 3 ? "bg-gradient-to-r from-amber-400 to-yellow-300" : verif.level >= 2 ? "bg-gradient-to-r from-yellow-400 to-amber-300" : verif.level >= 1 ? "bg-gradient-to-r from-slate-400 to-slate-300" : "bg-muted-foreground/30")}
+              initial={{ width: 0 }}
+              animate={{ width: `${verif.percent}%` }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+          </div>
+          <p className="text-[9px] text-muted-foreground/50 mt-1.5">{verif.next}</p>
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           {
@@ -80,12 +143,14 @@ export default function DashboardPersonalPage() {
             value: data ? (data.documentos > 0 ? `${data.documentos} Docs` : "Pendiente") : "Pendiente",
             desc: data ? (data.documentos > 0 ? `${data.documentos} documentos registrados` : "Sin documentos aún") : "Sin documentos aún",
             icon: FileText, gradient: "from-blue-500/10 to-blue-500/[0.02]", iconBg: "bg-blue-500/15", iconColor: "text-blue-400", border: "border-blue-500/10",
+            href: "/documentos",
           },
           {
             title: "ID Digital 3D",
-            value: "Nivel 1",
-            desc: "Cuenta verificada",
+            value: `Nivel ${verif.level}`,
+            desc: verif.label,
             icon: Fingerprint, gradient: "from-indigo-500/10 to-indigo-500/[0.02]", iconBg: "bg-indigo-500/15", iconColor: "text-indigo-400", border: "border-indigo-500/10",
+            href: "/tarjeta-digital",
           },
           {
             title: "Gestiones",
@@ -99,30 +164,57 @@ export default function DashboardPersonalPage() {
             desc: "Alertas del sistema",
             icon: Bell, gradient: "from-emerald-500/10 to-emerald-500/[0.02]", iconBg: "bg-emerald-500/15", iconColor: "text-emerald-400", border: "border-emerald-500/10",
             alert: data ? data.notificaciones > 0 : false,
+            href: "/notificaciones",
           },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.4 }}>
-            <Card className={cn("border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg", kpi.gradient, kpi.border)}>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.title}</span>
-                  <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center relative", kpi.iconBg)}>
-                    <kpi.icon className={cn("h-3.5 w-3.5", kpi.iconColor)} />
-                    {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />}
+            {kpi.href ? (
+              <Link href={kpi.href as never}>
+                <Card className={cn("group border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg hover:-translate-y-0.5 duration-300 cursor-pointer", kpi.gradient, kpi.border)}>
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.title}</span>
+                      <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center relative group-hover:scale-110 transition-transform duration-300", kpi.iconBg)}>
+                        <kpi.icon className={cn("h-3.5 w-3.5", kpi.iconColor)} />
+                        {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />}
+                      </div>
+                    </div>
+                    {loading ? (
+                      <div className="h-6 w-20 bg-muted/30 rounded animate-pulse mb-1" />
+                    ) : (
+                      <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
+                    )}
+                    {loading ? (
+                      <div className="h-3 w-28 bg-muted/20 rounded animate-pulse mt-1" />
+                    ) : (
+                      <p className="text-[9px] font-medium text-muted-foreground/50 mt-1">{kpi.desc}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              </Link>
+            ) : (
+              <Card className={cn("group border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg hover:-translate-y-0.5 duration-300", kpi.gradient, kpi.border)}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.title}</span>
+                    <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center relative group-hover:scale-110 transition-transform duration-300", kpi.iconBg)}>
+                      <kpi.icon className={cn("h-3.5 w-3.5", kpi.iconColor)} />
+                      {kpi.alert && <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />}
+                    </div>
                   </div>
-                </div>
-                {loading ? (
-                  <div className="h-6 w-20 bg-muted/30 rounded animate-pulse mb-1" />
-                ) : (
-                  <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
-                )}
-                {loading ? (
-                  <div className="h-3 w-28 bg-muted/20 rounded animate-pulse mt-1" />
-                ) : (
-                  <p className="text-[9px] font-medium text-muted-foreground/50 mt-1">{kpi.desc}</p>
-                )}
-              </CardContent>
-            </Card>
+                  {loading ? (
+                    <div className="h-6 w-20 bg-muted/30 rounded animate-pulse mb-1" />
+                  ) : (
+                    <p className="text-lg font-bold tracking-tight text-foreground">{kpi.value}</p>
+                  )}
+                  {loading ? (
+                    <div className="h-3 w-28 bg-muted/20 rounded animate-pulse mt-1" />
+                  ) : (
+                    <p className="text-[9px] font-medium text-muted-foreground/50 mt-1">{kpi.desc}</p>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </motion.div>
         ))}
       </div>
@@ -199,12 +291,28 @@ export default function DashboardPersonalPage() {
             <div className="flex items-center gap-2 mb-3">
               <AlertCircle className="h-4 w-4 text-muted-foreground/40" />
               <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">Notificaciones</span>
+              {data && data.notificaciones > 0 && (
+                <Badge className="ml-auto bg-rose-500/10 text-rose-400 border-rose-500/20 text-[8px] font-semibold h-5">{data.notificaciones}</Badge>
+              )}
             </div>
             {loading ? (
               <div className="space-y-2 py-2">
                 {[1, 2].map(n => (
                   <div key={n} className="h-8 bg-muted/20 rounded-lg animate-pulse" />
                 ))}
+              </div>
+            ) : data && data.notificaciones > 0 ? (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-rose-500/[0.04] border border-rose-500/10">
+                  <Bell className="h-3.5 w-3.5 text-rose-400 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-semibold">{data.notificaciones} sin leer</p>
+                    <p className="text-[8px] text-muted-foreground/50">Revisa tu bandeja</p>
+                  </div>
+                  <Link href="/notificaciones">
+                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 hover:text-foreground/60 transition-colors" />
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="flex flex-col items-center py-3 gap-1.5">
@@ -226,14 +334,15 @@ export default function DashboardPersonalPage() {
             { title: "Seguridad", icon: Lock, href: "/seguridad", desc: "Contraseña y 2FA", color: "text-purple-400", bg: "bg-purple-500/10" },
           ].map((item, i) => (
             <Link key={i} href={item.href as never} className="group">
-              <div className="flex items-center gap-3 p-3 rounded-xl border border-border/20 bg-card/50 hover:bg-card hover:shadow-sm transition-all cursor-pointer">
-                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform", item.bg)}>
+              <div className="flex items-center gap-3 p-3 rounded-xl border border-border/20 bg-card/50 hover:bg-card hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
+                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300", item.bg)}>
                   <item.icon className={cn("h-4 w-4", item.color)} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-[10px] font-semibold text-foreground/70 group-hover:text-foreground transition-colors">{item.title}</p>
                   <p className="text-[8px] text-muted-foreground/40">{item.desc}</p>
                 </div>
+                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/15 group-hover:text-foreground/40 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
             </Link>
           ))}
@@ -249,9 +358,9 @@ export default function DashboardPersonalPage() {
             { title: "Bóveda Civil", icon: Lock, href: "/documentos", desc: "Resguardo de documentos", gradient: "from-amber-500/[0.06] to-transparent", border: "border-amber-500/10", color: "text-amber-400" },
           ].map((serv, i) => (
             <Link key={i} href={serv.href as never} className="group">
-              <Card className={cn("border rounded-xl p-4 bg-gradient-to-b hover:shadow-lg transition-all cursor-pointer", serv.gradient, serv.border)}>
+              <Card className={cn("border rounded-xl p-4 bg-gradient-to-b hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer", serv.gradient, serv.border)}>
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-background/50 border border-border/30 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
+                  <div className="h-9 w-9 rounded-lg bg-background/50 border border-border/30 flex items-center justify-center group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300 shrink-0">
                     <serv.icon className={cn("h-4 w-4", serv.color)} />
                   </div>
                   <div className="flex-1 min-w-0">

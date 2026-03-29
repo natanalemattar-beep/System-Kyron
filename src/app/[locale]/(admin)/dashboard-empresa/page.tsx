@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   TrendingUp, TrendingDown, Activity, Zap, ArrowRight, ArrowUpRight, ArrowDownRight,
   BookOpen, Landmark, Users, History, Box, Receipt, Loader as Loader2,
@@ -8,7 +8,7 @@ import {
   Shield, Scale, Briefcase, Leaf, Globe, AlertTriangle, Wifi,
   PercentCircle, Building2, Gavel, Wallet, CreditCard, Banknote,
   CircleCheck as CheckCircle, Calculator, Bell, Package, DollarSign,
-  BarChart3, PieChart, Eye, ChevronRight
+  BarChart3, PieChart, Eye, ChevronRight, Sun, Moon, Sunrise, Clock
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth/context";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
-  PieChart as RPieChart, Pie, Cell, BarChart, Bar,
+  PieChart as RPieChart, Pie, Cell, BarChart, Bar, Tooltip,
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
@@ -85,6 +85,27 @@ function fmtCompact(n: number): string {
   return fmtBs(n);
 }
 
+function getGreeting(hour: number): { text: string; icon: typeof Sun } {
+  if (hour >= 5 && hour < 12) return { text: "Buenos días", icon: Sunrise };
+  if (hour >= 12 && hour < 18) return { text: "Buenas tardes", icon: Sun };
+  return { text: "Buenas noches", icon: Moon };
+}
+
+function getHealthScore(data: DashboardData): { score: number; label: string; color: string } {
+  let score = 50;
+  if (data.utilidadNeta > 0) score += 15;
+  if (data.variaciones.ingresos > 0) score += 10;
+  if (data.variaciones.gastos < 0) score += 5;
+  if (data.facturas.vencidas === 0) score += 10;
+  if (data.liquidezTotal > 0) score += 5;
+  if (data.inventarioBajoStock === 0) score += 5;
+  score = Math.min(100, Math.max(0, score));
+  if (score >= 80) return { score, label: "Excelente", color: "text-emerald-400" };
+  if (score >= 60) return { score, label: "Bueno", color: "text-blue-400" };
+  if (score >= 40) return { score, label: "Regular", color: "text-amber-400" };
+  return { score, label: "Atención", color: "text-rose-400" };
+}
+
 const CAT_COLOR: Record<string, string> = {
   contabilidad: "text-blue-400", rrhh: "text-emerald-400", legal: "text-purple-400",
   banco: "text-amber-400", auth: "text-rose-400", sistema: "text-slate-400",
@@ -98,6 +119,26 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const DONUT_COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"];
+
+function MiniSparkline({ data, color }: { data: number[]; color: string }) {
+  if (data.length < 2) return null;
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || 1;
+  const h = 24;
+  const w = 60;
+  const points = data.map((v, i) => {
+    const x = (i / (data.length - 1)) * w;
+    const y = h - ((v - min) / range) * h;
+    return `${x},${y}`;
+  }).join(" ");
+
+  return (
+    <svg width={w} height={h} className="opacity-40 group-hover:opacity-70 transition-opacity">
+      <polyline points={points} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
@@ -127,6 +168,7 @@ export default function DashboardEmpresaPage() {
 
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
+  const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientClosingForm, setClientClosingForm] = useState<{
     periodo: string;
     fecha_inicio: string;
@@ -137,11 +179,20 @@ export default function DashboardEmpresaPage() {
     const now = new Date();
     setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
     setClientDateStr(now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+    setGreeting(getGreeting(now.getHours()));
     const periodoStr = now.toLocaleString("es-VE", { month: "long", year: "numeric" }).toUpperCase();
     const fechaInicio = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
     const fechaFin = now.toISOString().split("T")[0];
     setClientClosingForm({ periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin });
     setClosingForm(f => ({ ...f, periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin }));
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
+    }, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchDashboard = useCallback(async (silent = false) => {
@@ -155,6 +206,16 @@ export default function DashboardEmpresaPage() {
   }, []);
 
   useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
+
+  const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);
+
+  const sparklineData = useMemo(() => {
+    if (!data?.chartMensual?.length) return { ingresos: [], gastos: [] };
+    return {
+      ingresos: data.chartMensual.map(d => d.ingresos),
+      gastos: data.chartMensual.map(d => d.gastos),
+    };
+  }, [data]);
 
   const handlePreviewCierre = async () => {
     setIsClosing(true);
@@ -257,6 +318,8 @@ export default function DashboardEmpresaPage() {
     { name: "Vencidas", value: data.facturas.vencidas },
   ].filter(d => d.value > 0) : [];
 
+  const GreetingIcon = greeting?.icon ?? Sun;
+
   return (
     <div className="space-y-6 pb-20">
       <header className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0c1222] via-[#131b2e] to-[#0f1729] p-6 md:p-8 text-white mt-4 md:mt-6 border border-white/[0.06]">
@@ -272,22 +335,30 @@ export default function DashboardEmpresaPage() {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                <Building2 className="h-4 w-4 text-white" />
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <Building2 className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold tracking-tight">
-                  Centro de Control
-                </h1>
+                <div className="flex items-center gap-2">
+                  {greeting && <GreetingIcon className="h-4 w-4 text-amber-300/70" />}
+                  <h1 className="text-lg md:text-xl font-bold tracking-tight">
+                    {greeting?.text ?? "Hola"}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
+                  </h1>
+                </div>
                 <p className="text-[10px] text-white/40 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 mt-1">
-              {user?.nombre && <span className="text-[10px] text-white/50 font-medium">{user.nombre}</span>}
+            <div className="flex items-center gap-2.5 mt-2">
               <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En línea</span>
               {data?.tasaBCV && (
                 <span className="text-[9px] px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-white/50 font-mono">
                   USD/VES {data.tasaBCV.usd_ves.toFixed(2)}
+                </span>
+              )}
+              {healthScore && !loading && (
+                <span className={cn("text-[9px] px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] font-semibold flex items-center gap-1.5", healthScore.color)}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                  Salud: {healthScore.score}% · {healthScore.label}
                 </span>
               )}
             </div>
@@ -315,40 +386,45 @@ export default function DashboardEmpresaPage() {
             label: "Ingresos", value: data ? fmtBs(data.ingresos) : "—", prefix: "Bs.",
             variacion: data?.variaciones.ingresos, icon: TrendingUp,
             gradient: "from-emerald-500/10 to-emerald-500/[0.02]", iconBg: "bg-emerald-500/15", iconColor: "text-emerald-400",
-            borderColor: "border-emerald-500/10",
+            borderColor: "border-emerald-500/10", sparkColor: "#10b981", sparkData: sparklineData.ingresos,
           },
           {
             label: "Gastos", value: data ? fmtBs(data.gastos) : "—", prefix: "Bs.",
             variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown,
             gradient: "from-rose-500/10 to-rose-500/[0.02]", iconBg: "bg-rose-500/15", iconColor: "text-rose-400",
-            borderColor: "border-rose-500/10",
+            borderColor: "border-rose-500/10", sparkColor: "#f43f5e", sparkData: sparklineData.gastos,
           },
           {
             label: "Utilidad Neta", value: data ? fmtBs(data.utilidadNeta) : "—", prefix: "Bs.",
             variacion: data?.variaciones.utilidad, icon: Zap,
             gradient: "from-amber-500/10 to-amber-500/[0.02]", iconBg: "bg-amber-500/15", iconColor: "text-amber-400",
-            borderColor: "border-amber-500/10",
+            borderColor: "border-amber-500/10", sparkColor: "#f59e0b", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)),
           },
           {
             label: "Liquidez", value: data ? fmtBs(data.liquidezTotal) : "—", prefix: "Bs.",
             icon: Wallet,
             gradient: "from-blue-500/10 to-blue-500/[0.02]", iconBg: "bg-blue-500/15", iconColor: "text-blue-400",
-            borderColor: "border-blue-500/10",
+            borderColor: "border-blue-500/10", sparkColor: "#3b82f6", sparkData: [],
           },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.4 }}>
-            <Card className={cn("border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg", kpi.gradient, kpi.borderColor)}>
+            <Card className={cn("group border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg hover:-translate-y-0.5 duration-300", kpi.gradient, kpi.borderColor)}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
-                  <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center", kpi.iconBg)}>
+                  <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300", kpi.iconBg)}>
                     <kpi.icon className={cn("h-3.5 w-3.5", kpi.iconColor)} />
                   </div>
                 </div>
                 {loading ? (
                   <div className="h-7 w-28 bg-muted/30 rounded animate-pulse" />
                 ) : (
-                  <p className="text-lg md:text-xl font-bold tracking-tight text-foreground">{kpi.value}</p>
+                  <div className="flex items-end justify-between gap-2">
+                    <p className="text-lg md:text-xl font-bold tracking-tight text-foreground">{kpi.value}</p>
+                    {kpi.sparkData && kpi.sparkData.length > 1 && (
+                      <MiniSparkline data={kpi.sparkData} color={kpi.sparkColor || "#888"} />
+                    )}
+                  </div>
                 )}
                 {kpi.variacion !== undefined && !loading && (
                   <div className={cn("flex items-center gap-1 mt-1.5 text-[10px] font-semibold", variacionColor(kpi.variacion, kpi.invertVariacion))}>
@@ -364,22 +440,28 @@ export default function DashboardEmpresaPage() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: "Clientes Activos", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-400", bg: "bg-cyan-500/10" },
-          { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-          { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-400", bg: "bg-amber-500/10" },
-          { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-400", bg: "bg-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0 },
+          { label: "Clientes Activos", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-400", bg: "bg-cyan-500/10", href: "/fidelizacion-clientes" },
+          { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-400", bg: "bg-emerald-500/10", href: "/rrhh" },
+          { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-400", bg: "bg-amber-500/10", extra: data?.facturasEsteMes.monto ? `Bs. ${fmtCompact(data.facturasEsteMes.monto)}` : undefined, href: "/facturacion" },
+          { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-400", bg: "bg-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0, href: "/notificaciones" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.05 }}>
-            <div className="flex items-center gap-3 p-3 rounded-xl border border-border/30 bg-card/50 hover:bg-card transition-all">
-              <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center shrink-0", stat.bg)}>
-                <stat.icon className={cn("h-4 w-4", stat.color)} />
+            <Link href={stat.href as never}>
+              <div className="flex items-center gap-3 p-3 rounded-xl border border-border/30 bg-card/50 hover:bg-card hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group">
+                <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300", stat.bg)}>
+                  <stat.icon className={cn("h-4 w-4", stat.color)} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <p className="text-sm md:text-base font-bold tracking-tight">{loading ? "—" : stat.value}</p>
+                    {stat.extra && !loading && <span className="text-[8px] font-medium text-muted-foreground/40">{stat.extra}</span>}
+                  </div>
+                  <p className="text-[9px] font-medium text-muted-foreground/60 uppercase tracking-wider truncate">{stat.label}</p>
+                </div>
+                {stat.alert && <span className="ml-auto w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />}
+                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/20 group-hover:text-foreground/40 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
-              <div className="min-w-0">
-                <p className="text-sm md:text-base font-bold tracking-tight">{loading ? "—" : stat.value}</p>
-                <p className="text-[9px] font-medium text-muted-foreground/60 uppercase tracking-wider truncate">{stat.label}</p>
-              </div>
-              {stat.alert && <span className="ml-auto w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />}
-            </div>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -486,34 +568,40 @@ export default function DashboardEmpresaPage() {
               <Scale className="h-3.5 w-3.5 text-muted-foreground/30" />
             </div>
             <div className="space-y-2.5">
-              <div className="flex items-center justify-between p-2.5 rounded-lg bg-emerald-500/[0.06] border border-emerald-500/10">
-                <div className="flex items-center gap-2">
-                  <ArrowUpRight className="h-3.5 w-3.5 text-emerald-400" />
-                  <span className="text-[10px] font-medium text-foreground/70">Por Cobrar</span>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs font-bold text-emerald-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasCobrar.total ?? 0)}`}</p>
-                  <p className="text-[8px] text-muted-foreground/50">{data?.cuentasCobrar.count ?? 0} pendientes</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between p-2.5 rounded-lg bg-rose-500/[0.06] border border-rose-500/10">
-                <div className="flex items-center gap-2">
-                  <ArrowDownRight className="h-3.5 w-3.5 text-rose-400" />
-                  <span className="text-[10px] font-medium text-foreground/70">Por Pagar</span>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs font-bold text-rose-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasPagar.total ?? 0)}`}</p>
-                  <p className="text-[8px] text-muted-foreground/50">{data?.cuentasPagar.count ?? 0} pendientes</p>
-                </div>
-              </div>
-              {(data?.inventarioBajoStock ?? 0) > 0 && (
-                <div className="flex items-center justify-between p-2.5 rounded-lg bg-amber-500/[0.06] border border-amber-500/10">
+              <Link href="/cuentas-por-cobrar" className="block">
+                <div className="flex items-center justify-between p-2.5 rounded-lg bg-emerald-500/[0.06] border border-emerald-500/10 hover:bg-emerald-500/[0.1] transition-colors cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Package className="h-3.5 w-3.5 text-amber-400" />
-                    <span className="text-[10px] font-medium text-foreground/70">Stock Bajo</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-emerald-400" />
+                    <span className="text-[10px] font-medium text-foreground/70">Por Cobrar</span>
                   </div>
-                  <span className="text-xs font-bold text-amber-400">{data?.inventarioBajoStock} items</span>
+                  <div className="text-right">
+                    <p className="text-xs font-bold text-emerald-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasCobrar.total ?? 0)}`}</p>
+                    <p className="text-[8px] text-muted-foreground/50">{data?.cuentasCobrar.count ?? 0} pendientes</p>
+                  </div>
                 </div>
+              </Link>
+              <Link href="/cuentas-por-pagar" className="block">
+                <div className="flex items-center justify-between p-2.5 rounded-lg bg-rose-500/[0.06] border border-rose-500/10 hover:bg-rose-500/[0.1] transition-colors cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <ArrowDownRight className="h-3.5 w-3.5 text-rose-400" />
+                    <span className="text-[10px] font-medium text-foreground/70">Por Pagar</span>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs font-bold text-rose-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasPagar.total ?? 0)}`}</p>
+                    <p className="text-[8px] text-muted-foreground/50">{data?.cuentasPagar.count ?? 0} pendientes</p>
+                  </div>
+                </div>
+              </Link>
+              {(data?.inventarioBajoStock ?? 0) > 0 && (
+                <Link href="/inventario" className="block">
+                  <div className="flex items-center justify-between p-2.5 rounded-lg bg-amber-500/[0.06] border border-amber-500/10 hover:bg-amber-500/[0.1] transition-colors cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <Package className="h-3.5 w-3.5 text-amber-400" />
+                      <span className="text-[10px] font-medium text-foreground/70">Stock Bajo</span>
+                    </div>
+                    <span className="text-xs font-bold text-amber-400">{data?.inventarioBajoStock} items</span>
+                  </div>
+                </Link>
               )}
             </div>
           </Card>
@@ -657,8 +745,8 @@ export default function DashboardEmpresaPage() {
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-400", bg: "bg-green-500/10" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>
-              <div className="flex flex-col items-center gap-2 p-3 rounded-xl border border-border/20 bg-card/50 hover:bg-card hover:shadow-sm transition-all group cursor-pointer">
-                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform", mod.bg)}>
+              <div className="flex flex-col items-center gap-2 p-3 rounded-xl border border-border/20 bg-card/50 hover:bg-card hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer">
+                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300", mod.bg)}>
                   <mod.icon className={cn("h-4 w-4", mod.color)} />
                 </div>
                 <p className="text-[9px] font-semibold text-muted-foreground/60 group-hover:text-foreground transition-colors">{mod.label}</p>

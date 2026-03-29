@@ -15,7 +15,7 @@ export function getAnthropicClient(): Anthropic {
   return _client;
 }
 
-export const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+export const CLAUDE_MODEL = 'claude-3-5-sonnet-20241022';
 
 export async function generateText(opts: {
   system: string;
