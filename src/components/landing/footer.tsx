@@ -125,7 +125,7 @@ export function Footer() {
                         {/* Version badge */}
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
                             <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">v2.8.3 — Estable</span>
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">v2.8.5 — Estable</span>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ export function Footer() {
                 {/* Bottom bar */}
                 <div className="mt-12 pt-8 border-t border-border/40 dark:border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
-                        &copy; {currentYear || '2026'} System Kyron · Inteligencia Corporativa · v2.8.3
+                        &copy; {currentYear || '2026'} System Kyron · Inteligencia Corporativa · v2.8.5
                     </p>
                     <div className="flex flex-wrap justify-center gap-8 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
                         <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> Manual de Usuario</Link>

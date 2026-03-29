@@ -62,7 +62,8 @@ export function AboutUsSection() {
                         alt=""
                         fill
                         className="object-cover"
-                        
+                        loading="lazy"
+                        sizes="100vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
                     <div className="absolute inset-0 bg-[#030B1A]/60" />

@@ -4,12 +4,13 @@ import dynamic from 'next/dynamic';
 import { HeroSection } from "@/components/landing/hero-section";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { WelcomeTutorial } from "@/components/welcome-tutorial";
-import { DemoBanner } from "@/components/demo-banner";
-import { WhatsAppButton } from "@/components/whatsapp-button";
-import { PageTracker } from "@/components/page-tracker";
 import { use, Suspense, useState, useCallback } from 'react';
 import { LoadingScreen } from "@/components/landing/loading-screen";
+
+const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
+const DemoBanner = dynamic(() => import("@/components/demo-banner").then(m => ({ default: m.DemoBanner })), { ssr: false });
+const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(m => ({ default: m.WhatsAppButton })), { ssr: false });
+const PageTracker = dynamic(() => import("@/components/page-tracker").then(m => ({ default: m.PageTracker })), { ssr: false });
 
 const ScrollCinematicSection = dynamic(() => import("@/components/landing/scroll-cinematic-section").then(m => ({ default: m.ScrollCinematicSection })), { ssr: false });
 const ServicesSection = dynamic(() => import("@/components/landing/services-section").then(m => ({ default: m.ServicesSection })), { ssr: false });

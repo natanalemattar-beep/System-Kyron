@@ -261,7 +261,7 @@ const chapters = [
       "Módulo de Archivo Digital: Digitalización y búsqueda instantánea de expedientes estudiantiles con OCR.",
       "Chatbot IA: Atención automatizada a representantes 24/7 vía WhatsApp y portal web.",
       "Asistente Administrativo IA: Generación de reportes, circulares y análisis estratégico para la dirección.",
-      "Acceso directo: Disponible en /sector-privado-system-kyron con opción de descarga en Word."
+      "Acceso directo: Disponible dentro de la plataforma (requiere inicio de sesión) con opción de descarga en Word."
     ]
   }
 ];
@@ -475,8 +475,8 @@ export default function ManualUsuarioPage() {
                             {chapter.id === "modelo-zedu" && (
                                 <div className="mt-8 pt-6 border-t border-border">
                                     <Button asChild className="w-full btn-3d-primary rounded-xl font-black text-[10px] uppercase tracking-widest gap-2">
-                                        <Link href="/sector-privado-system-kyron">
-                                            <ExternalLink className="h-4 w-4" /> VER DOCUMENTO COMPLETO
+                                        <Link href="/login">
+                                            <ExternalLink className="h-4 w-4" /> INICIAR SESIÓN PARA VER DOCUMENTO
                                         </Link>
                                     </Button>
                                 </div>

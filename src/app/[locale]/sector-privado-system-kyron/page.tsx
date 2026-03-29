@@ -1,15 +1,39 @@
 "use client";
 
-import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone } from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ModeloZeduPage() {
     const { toast } = useToast();
+    const router = useRouter();
+    const [authChecked, setAuthChecked] = useState(false);
+
+    useEffect(() => {
+        fetch('/api/auth/me')
+            .then(res => {
+                if (!res.ok) {
+                    router.replace('/es/login');
+                } else {
+                    setAuthChecked(true);
+                }
+            })
+            .catch(() => router.replace('/es/login'));
+    }, [router]);
+
+    if (!authChecked) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-background">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
 
     const handleDownloadWord = async () => {
         const contentElement = document.getElementById('zedu-document-content');

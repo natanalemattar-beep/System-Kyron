@@ -39,6 +39,6 @@ export default function middleware(req: NextRequest) {
  
 export const config = {
   matcher: [
-    '/((?!_next|sector-privado-system-kyron|favicon.ico|.*\\..*).*)'
+    '/((?!_next|favicon.ico|.*\\..*).*)'
   ]
 };
