@@ -79,7 +79,7 @@ export default function IsoManualsPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-emerald-600 shadow-glow-secondary mb-4">
                         <ShieldCheck className="h-3 w-3" /> NODO DE CALIDAD
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Manuales <span className="text-emerald-500 italic">ISO 9001</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Manuales <span className="text-emerald-500 italic">ISO 9001</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Sistema de Gestión de Calidad • Certificación 2026</p>
                 </div>
                 <div className="flex gap-3">
@@ -194,7 +194,7 @@ export default function IsoManualsPage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4">
                             <ClipboardCheck className="h-10 w-10 text-emerald-500 animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white leading-none">Política Integrada de <br/> Calidad y Seguridad</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground leading-none">Política Integrada de <br/> Calidad y Seguridad</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-emerald-500/20 pl-10">
                             System Kyron se compromete a la excelencia operativa mediante el cumplimiento estricto del estándar ISO 9001:2015. Nuestro sistema no solo registra procesos, sino que garantiza que cada manual sea una directriz inmutable, auditada por algoritmos de IA para eliminar la variabilidad y el error humano en la gestión de servicios.

@@ -1,8 +1,11 @@
 
 "use client";
 
+
+import { ArrowLeft } from 'lucide-react';
 import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
 
+import { Link } from '@/navigation';
 const solicitudes: Solicitud[] = [
     {
         id: "EXP-2024-00123",
@@ -25,8 +28,9 @@ const solicitudes: Solicitud[] = [
 export default function DocumentosJudicialesPage() {
     return (
         <div className="space-y-8">
-            <header className="border-l-4 border-primary pl-8 py-2">
-                <h1 className="text-3xl font-black tracking-tight uppercase italic text-white italic-shadow">Expedientes Judiciales</h1>
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="border-l-4 border-primary pl-8 py-2">
+                <h1 className="text-3xl font-black tracking-tight uppercase italic text-foreground ">Expedientes Judiciales</h1>
                 <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-60">Seguimiento de Causas y Sentencias Inmutables.</p>
             </header>
             <div className="glass-card p-1 rounded-[2rem] overflow-hidden shadow-2xl bg-black/40">

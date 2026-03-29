@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet } from "lucide-react";
+import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet , ArrowLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
 
+import { Link } from '@/navigation';
 const categorias = [
   "Cédula de Identidad",
   "RIF Personal",
@@ -143,9 +144,10 @@ export default function MisDocumentosPage() {
 
   return (
     <div className="space-y-12">
-      <header className="border-l-4 border-primary pl-8 py-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="border-l-4 border-primary pl-8 py-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-white italic-shadow">Bóveda Digital</h1>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-foreground ">Bóveda Digital</h1>
           <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-40">Almacenamiento de Grado Legal • Zero-Knowledge</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

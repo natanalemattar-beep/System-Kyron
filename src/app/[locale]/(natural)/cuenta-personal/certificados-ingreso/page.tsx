@@ -22,7 +22,7 @@ export default function CertificadosIngresoPersonalPage() {
         <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform">
             <Activity className="h-20 w-20" />
         </div>
-        <p className="text-sm font-medium italic text-white/60 leading-relaxed text-justify max-w-3xl relative z-10">
+        <p className="text-sm font-medium italic text-muted-foreground leading-relaxed text-justify max-w-3xl relative z-10">
             Este módulo permite la autogeneración de constancias de ingresos con validez institucional. El documento final incluye un sellado digital inmutable y un código QR de verificación cruzada con el Ledger Central de System Kyron.
         </p>
       </div>

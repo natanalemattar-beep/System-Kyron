@@ -30,7 +30,7 @@ export default function PerfilPersonalPage() {
             <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] text-center shadow-2xl flex flex-col items-center group overflow-hidden">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:rotate-12 transition-transform"><Zap className="h-32 w-32" /></div>
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-primary/20 p-1 shadow-2xl mb-8 group-hover:scale-105 transition-transform">
-                    <AvatarFallback className="text-4xl font-black bg-primary text-white">CM</AvatarFallback>
+                    <AvatarFallback className="text-4xl font-black bg-primary text-foreground">CM</AvatarFallback>
                 </Avatar>
                 <div className="space-y-2 mb-8 relative z-10">
                     <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white">Carlos Mattar</h2>

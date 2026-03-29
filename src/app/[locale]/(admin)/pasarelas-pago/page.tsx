@@ -184,7 +184,7 @@ export default function PasarelasDePagoPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                     <CreditCard className="h-3 w-3" /> NODO DE LIQUIDACIÓN
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Pasarelas <span className="text-primary italic">de Pago</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Pasarelas <span className="text-primary italic">de Pago</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Omnicanalidad Financiera • PayPal · Zinli · Zelle · Pago Móvil · Cripto · Stripe · 29 Bancos VE</p>
             </header>
 
@@ -259,7 +259,7 @@ export default function PasarelasDePagoPage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Seguridad de Grado Militar</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Seguridad de Grado Militar</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                             Todas las transacciones procesadas a través del Ecosistema Kyron están protegidas por cifrado AES-512 y selladas en el Ledger inmutable. Garantizamos 0% de fraude en transacciones certificadas.

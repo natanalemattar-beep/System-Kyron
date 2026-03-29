@@ -60,7 +60,7 @@ export default function AnalisisPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
             <PieChart className="h-3 w-3" /> NODO ANALÍTICO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic italic-shadow leading-none">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic leading-none">
             Inteligencia <span className="text-primary">Estratégica</span>
           </h1>
           <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Business Intelligence y Control Proyectivo 2026</p>
@@ -101,7 +101,7 @@ export default function AnalisisPage() {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40 ml-2">Módulos Analíticos</h3>
+        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/60 ml-2">Módulos Analíticos</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {quickAccess.map((item, i) => (
             <Link key={i} href={item.href as any}>
@@ -111,7 +111,7 @@ export default function AnalisisPage() {
                     <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                     </div>
                     <div className="space-y-1">
-                    <h3 className="text-sm font-black uppercase italic tracking-tighter text-white group-hover:text-primary transition-colors">{item.label}</h3>
+                    <h3 className="text-sm font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
                     <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest leading-tight">{item.desc}</p>
                     </div>
                 </div>
@@ -133,8 +133,8 @@ export default function AnalisisPage() {
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
               <Badge className="bg-primary text-white border-none text-[10px] font-black px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">ESTUDIO DE <br/> FACTIBILIDAD</h3>
-              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el nodo central.</p>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">ESTUDIO DE <br/> FACTIBILIDAD</h3>
+              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-muted-foreground">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el nodo central.</p>
               <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
                 VER ESTUDIO MAESTRO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>

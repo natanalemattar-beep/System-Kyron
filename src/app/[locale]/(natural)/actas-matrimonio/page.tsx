@@ -1,8 +1,11 @@
 
 "use client";
 
+
+import { ArrowLeft } from 'lucide-react';
 import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
 
+import { Link } from '@/navigation';
 const solicitudes: Solicitud[] = [
     {
         id: "AM-2024-001",
@@ -23,8 +26,9 @@ const solicitudes: Solicitud[] = [
 export default function ActasMatrimonioPage() {
     return (
         <div className="space-y-8">
-            <header>
-                <h1 className="text-3xl font-bold tracking-tight uppercase italic text-white italic-shadow">Actas de Matrimonio</h1>
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header>
+                <h1 className="text-3xl font-bold tracking-tight uppercase italic text-foreground ">Actas de Matrimonio</h1>
                 <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-60">Consulta de registros conyugales digitalizados.</p>
             </header>
             <div className="glass-card p-1 rounded-[2rem] overflow-hidden shadow-2xl">

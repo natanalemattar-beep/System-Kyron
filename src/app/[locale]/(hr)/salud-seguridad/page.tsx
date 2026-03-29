@@ -20,7 +20,7 @@ export default function SaludSeguridadPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-emerald-600 shadow-glow-secondary mb-4">
                         <Stethoscope className="h-3 w-3" /> NODO LOPCYMAT
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Salud y <span className="text-emerald-500 italic">Seguridad Laboral</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Salud y <span className="text-emerald-500 italic">Seguridad Laboral</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Prevención de Riesgos • Bienestar del Capital Humano</p>
                 </div>
                 <div className="flex gap-2">
@@ -125,7 +125,7 @@ export default function SaludSeguridadPage() {
                 <Card className="bg-[#050505] border border-white/10 rounded-[3rem] p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border-none group">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Terminal className="h-32 w-32 text-emerald-500" /></div>
                     <div className="space-y-2">
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Alertas LOPCYMAT</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Alertas LOPCYMAT</h3>
                         <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em]">Monitor de Contingencias</p>
                     </div>
                     <div className="space-y-4 py-8">

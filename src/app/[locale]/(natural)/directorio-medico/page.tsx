@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Stethoscope, Search, Phone, MapPin, Star, Clock, Building, Heart } from "lucide-react";
+import { Stethoscope, Search, Phone, MapPin, Star, Clock, Building, Heart , ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+import { Link } from '@/navigation';
 const medicos = [
     {
         id: 1, nombre: "Dra. María González", especialidad: "Cardiología", hospital: "Clínica El Ávila",
@@ -51,6 +52,7 @@ export default function DirectorioMedicoPage() {
 
     return (
         <div className="space-y-10 pb-20 px-4 md:px-10">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
             <motion.header
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

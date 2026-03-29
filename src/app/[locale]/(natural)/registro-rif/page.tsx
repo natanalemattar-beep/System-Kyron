@@ -3,9 +3,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { File as FileEdit, UserPlus, Info, CircleCheck as CheckCircle, ArrowRight, Download, ShieldCheck } from "lucide-react";
+import { File as FileEdit, UserPlus, Info, CircleCheck as CheckCircle, ArrowRight, Download, ShieldCheck , ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+import { Link } from '@/navigation';
 const recaudos = [
     "Copia de la Cédula de Identidad del menor.",
     "Partida de Nacimiento Original.",
@@ -19,11 +20,12 @@ export default function RegistroRifPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-12">
-            <header className="text-center space-y-6">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="text-center space-y-6">
                 <div className="inline-block p-6 bg-primary/10 text-primary rounded-[2rem] border border-primary/20 shadow-glow-sm">
                     <FileEdit className="h-12 w-12" />
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Registro RIF <br/> <span className="text-primary tracking-normal">Carga Familiar</span></h1>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground ">Registro RIF <br/> <span className="text-primary tracking-normal">Carga Familiar</span></h1>
                 <p className="text-muted-foreground text-sm font-bold uppercase tracking-[0.4em] opacity-40">Protocolo de Inscripción SENIAT para Menores</p>
             </header>
 

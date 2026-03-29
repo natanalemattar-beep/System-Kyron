@@ -82,7 +82,7 @@ export default function TributosHubPage() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
             <Landmark className="h-3 w-3" /> NODO TRIBUTARIO CENTRAL
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none italic-shadow">
+        <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-foreground uppercase leading-none">
             Centro <span className="text-primary italic">Tributario</span>
         </h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-4 italic opacity-60">Dossier Fiscal Digital • Cumplimiento 2026</p>
@@ -92,7 +92,7 @@ export default function TributosHubPage() {
         <div className="lg:col-span-8 space-y-10">
             <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-2 shadow-2xl overflow-hidden">
                 <div className="p-8 border-b border-border/50 bg-muted/10 flex justify-between items-center">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white italic">Protocolos de Liquidación</h3>
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-foreground italic">Protocolos de Liquidación</h3>
                     <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Sincronizado</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
@@ -104,7 +104,7 @@ export default function TributosHubPage() {
                                         <cat.icon className="h-6 w-6" />
                                     </div>
                                     <div className="text-left">
-                                        <h3 className="text-base font-black uppercase tracking-widest text-white/90">{cat.title}</h3>
+                                        <h3 className="text-base font-black uppercase tracking-widest text-foreground/90">{cat.title}</h3>
                                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tight">{cat.desc}</p>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@ export default function TributosHubPage() {
                             </div>
                             <ArrowRight className="h-5 w-5 text-white/10 group-hover:text-primary group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Calendario Fiscal 2026</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Calendario Fiscal 2026</h3>
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-4 leading-relaxed">Vencimientos síncronos con el portal del SENIAT.</p>
                     </Card>
                 </Link>
@@ -159,7 +159,7 @@ export default function TributosHubPage() {
                             </div>
                             <ArrowRight className="h-5 w-5 text-white/10 group-hover:text-rose-500 group-hover:translate-x-2 transition-all" />
                         </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Multas y Sanciones</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Multas y Sanciones</h3>
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-4 leading-relaxed">Simulador de riesgos bajo el Código Orgánico Tributario.</p>
                     </Card>
                 </Link>
@@ -172,7 +172,7 @@ export default function TributosHubPage() {
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
                         <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">LEGAL STATUS</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus Consolidado</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Estatus Consolidado</h3>
                         <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Monitor de Vigencia Fiscal</p>
                     </div>
 
@@ -208,7 +208,7 @@ export default function TributosHubPage() {
                             <Settings2 className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-white">Alertas Globales</h3>
+                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">Alertas Globales</h3>
                             <p className="text-[9px] font-black text-primary uppercase tracking-widest">Protocolo de Pre-Aviso</p>
                         </div>
                     </div>

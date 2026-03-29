@@ -147,7 +147,7 @@ export default function EscritorioJuridicoPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 mb-4">
             <Gavel className="h-3 w-3" /> ÁREA LEGAL
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
             Centro de <span className="text-slate-400 italic">Gestión Jurídica</span>
           </h1>
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">
@@ -345,7 +345,7 @@ export default function EscritorioJuridicoPage() {
           <div className="lg:col-span-5 space-y-10">
             <div className="flex items-center gap-6">
               <Logo className="h-16 w-16 drop-shadow-glow" />
-              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none">
+              <h2 className="text-3xl md:text-5xl font-black text-foreground uppercase italic tracking-tighter leading-none">
                 Archivo <br/> <span className="text-slate-500">Legal Seguro</span>
               </h2>
             </div>

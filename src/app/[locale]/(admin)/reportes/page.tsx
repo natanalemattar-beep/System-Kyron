@@ -60,7 +60,7 @@ export default function ReportesGlobalPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                 <BarChart3 className="h-3 w-3" /> NODO ANALÍTICO
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Dossier de <span className="text-primary italic">Reportes</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Dossier de <span className="text-primary italic">Reportes</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Inteligencia de Negocios • Auditoría Consolidada 2026</p>
         </div>
         <div className="flex gap-3">
@@ -118,7 +118,7 @@ export default function ReportesGlobalPage() {
             <div className="space-y-8 relative z-10">
                 <div className="flex items-center gap-4">
                     <Activity className="h-8 w-8 text-[#00A86B] animate-pulse" />
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Visualización Ejecutiva</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Visualización Ejecutiva</h3>
                 </div>
                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                     System Kyron transforma sus datos crudos en visiones estratégicas de alta densidad. El motor IA genera resúmenes gráficos que permiten a la directiva identificar cuellos de botella financieros en menos de 3 segundos de inspección.

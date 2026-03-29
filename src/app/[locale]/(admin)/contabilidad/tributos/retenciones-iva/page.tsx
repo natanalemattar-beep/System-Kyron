@@ -38,7 +38,7 @@ export default function RetencionesIvaPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Percent className="h-3 w-3" /> AGENTE DE RETENCIÓN
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Retenciones <span className="text-primary italic">de IVA</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Retenciones <span className="text-primary italic">de IVA</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Prov. 049 (2015) & Decreto 054 (Agosto 2025) • Blindaje Fiscal</p>
                 </div>
                 <div className="flex gap-3">
@@ -196,7 +196,7 @@ export default function RetencionesIvaPage() {
                             <div className="space-y-8">
                                 <div className="flex items-center gap-4">
                                     <ShieldAlert className="h-10 w-10 text-rose-500 animate-pulse" />
-                                    <h3 className="text-3xl font-black uppercase italic tracking-tighter text-white leading-none">Recuperación de <br/> Excedentes</h3>
+                                    <h3 className="text-3xl font-black uppercase italic tracking-tighter text-foreground leading-none">Recuperación de <br/> Excedentes</h3>
                                 </div>
                                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                                     Si el monto de retenciones de IVA acumulado supera su débito fiscal del periodo, el sistema inicia automáticamente el protocolo de **Recuperación de Excedentes**. Este proceso genera el expediente digital para la compensación o devolución ante el SENIAT.
@@ -236,7 +236,7 @@ export default function RetencionesIvaPage() {
                     <div className="space-y-8 relative z-10">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Inteligencia Preventiva</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Inteligencia Preventiva</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-primary/20 pl-10">
                             El sistema audita cada factura en el momento del pago o abono en cuenta. Si se detecta un proveedor no registrado como contribuyente ordinario, el motor IA fuerza la retención al 100% para blindar a la empresa contra multas solidarias.

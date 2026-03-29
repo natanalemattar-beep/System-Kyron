@@ -34,7 +34,7 @@ export default function MercadoEcocreditosPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
                     <Recycle className="h-3 w-3" /> NODO SUSTENTABLE
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Mercado de <span className="text-secondary">Eco-Créditos</span></h1>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Mercado de <span className="text-secondary">Eco-Créditos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Exchange de Activos Verdes • System Kyron 2026</p>
             </header>
 

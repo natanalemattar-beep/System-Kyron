@@ -43,7 +43,7 @@ export default function GeneradorDocumentosPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                     <Scale className="h-3 w-3" /> NODO JURÍDICO IA
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Generador de <span className="text-primary">Contratos</span></h1>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Redacción Automatizada de Grado Legal • 2026</p>
             </header>
 

@@ -19,7 +19,7 @@ System Kyron is an integrated technological ecosystem for comprehensive corporat
 The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-intl` for internationalization (`/es/`, `/en/` prefixes). Styling is managed with Tailwind CSS and shadcn/ui. PostgreSQL serves as the database (Replit integrated), accessed directly via `node-postgres`. Authentication uses JWT with HTTP-only cookies.
 
 **UI/UX Decisions:**
-- Application routes are organized under `src/app/[locale]/` with grouped routes like `(auth)`, `(admin)`, `(main)`.
+- Application routes are organized under `src/app/[locale]/` with grouped routes: `(auth)`, `(admin)`, `(main)`, `(natural)`, `(hr)`, `(legal)`, `(ventas)`, `(socios)`, `(telecom)`. Each route group has its own layout. Routes must not be duplicated across groups (Next.js will error on parallel page conflicts).
 - A mobile sidebar provides smooth scrolling for landing pages and contextual navigation for the main application.
 - The landing page is designed to be visual and scannable, featuring simplified sections for Hero, Services, About, and FAQ, with reduced text and increased visual elements.
 - Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels.

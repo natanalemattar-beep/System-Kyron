@@ -34,7 +34,7 @@ export default function SostenibilidadPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
                         <Leaf className="h-3 w-3" /> ÁREA SUSTENTABLE
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Impacto <span className="text-secondary italic">Ambiental</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Impacto <span className="text-secondary italic">Ambiental</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
                 </div>
                 <div className="flex gap-2">
@@ -49,8 +49,8 @@ export default function SostenibilidadPage() {
                     <div className="space-y-8">
                         <div className="space-y-2">
                             <Badge className="bg-secondary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow-secondary">Hardware de Tercera Generación</Badge>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white leading-none">AMERU <span className="text-secondary">IA</span></h2>
-                            <p className="text-lg font-medium italic text-white/60 leading-relaxed uppercase">La papelera inteligente definitiva para el sector privado.</p>
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
+                            <p className="text-lg font-medium italic text-muted-foreground leading-relaxed uppercase">La papelera inteligente definitiva para el sector privado.</p>
                         </div>
                         
                         <div className="grid grid-cols-2 gap-6">
@@ -59,14 +59,14 @@ export default function SostenibilidadPage() {
                                     <Zap className="h-4 w-4" />
                                     <span className="text-[10px] font-black uppercase tracking-widest">Inducción Magnética</span>
                                 </div>
-                                <p className="text-[9px] font-bold text-white/30 uppercase leading-snug">Clasificación síncrona de metales y polímeros.</p>
+                                <p className="text-[9px] font-bold text-muted-foreground/50 uppercase leading-snug">Clasificación síncrona de metales y polímeros.</p>
                             </div>
                             <div className="space-y-2">
                                 <div className="flex items-center gap-3 text-secondary">
                                     <Cpu className="h-4 w-4" />
                                     <span className="text-[10px] font-black uppercase tracking-widest">Inferencia Edge</span>
                                 </div>
-                                <p className="text-[9px] font-bold text-white/30 uppercase leading-snug">Visión artificial para validación de pesaje en tiempo real.</p>
+                                <p className="text-[9px] font-bold text-muted-foreground/50 uppercase leading-snug">Visión artificial para validación de pesaje en tiempo real.</p>
                             </div>
                         </div>
 
@@ -88,7 +88,7 @@ export default function SostenibilidadPage() {
                         )}
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,168,107,0.1)_0,transparent_70%)]" />
                         <div className="relative z-10 text-center space-y-6">
-                            <div className="flex justify-center gap-8 text-[9px] font-black uppercase tracking-[0.5em] text-white/40 bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 shadow-glow-secondary">
+                            <div className="flex justify-center gap-8 text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/60 bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 shadow-glow-secondary">
                                 <span className="flex items-center gap-2"><Battery className="h-3 w-3 text-secondary" /> 100% SOLAR</span>
                                 <span className="flex items-center gap-2"><Wifi className="h-3 w-3 text-secondary" /> 5G NATIVE</span>
                             </div>

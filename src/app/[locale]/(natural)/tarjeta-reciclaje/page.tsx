@@ -52,7 +52,7 @@ export default function TarjetaReciclajePage() {
                                     <span className="absolute flex items-center justify-center w-10 h-10 bg-primary text-white rounded-xl -left-[3.25rem] top-0 font-black shadow-lg">
                                         {item.step}
                                     </span>
-                                    <h3 className="font-black text-lg uppercase tracking-tight mb-2 italic text-white/90">{item.title}</h3>
+                                    <h3 className="font-black text-lg uppercase tracking-tight mb-2 italic text-foreground">{item.title}</h3>
                                     <p className="text-sm text-white/40 font-medium leading-relaxed">{item.description}</p>
                                 </div>
                             ))}

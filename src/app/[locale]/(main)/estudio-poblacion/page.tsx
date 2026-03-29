@@ -34,7 +34,7 @@ export default function EstudioPoblacionPage() {
     return (
         <div className="space-y-12 w-full px-6 md:px-16">
             <header className="border-l-4 border-secondary pl-8 py-2">
-                <h1 className="text-4xl font-black tracking-tighter uppercase italic text-white">Análisis de <span className="text-secondary">Población y Demografía</span></h1>
+                <h1 className="text-4xl font-black tracking-tighter uppercase italic text-foreground">Análisis de <span className="text-secondary">Población y Demografía</span></h1>
                 <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Herramienta de Inteligencia de Mercado</p>
             </header>
 

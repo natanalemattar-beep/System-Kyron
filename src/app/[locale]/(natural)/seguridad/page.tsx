@@ -3,16 +3,18 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, KeyRound, Smartphone, Lock, Activity, Terminal } from "lucide-react";
+import { ShieldCheck, KeyRound, Smartphone, Lock, Activity, Terminal , ArrowLeft } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 
+import { Link } from '@/navigation';
 export default function SeguridadPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-12">
-            <header className="border-l-4 border-primary pl-8 py-2">
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-white italic-shadow flex items-center gap-6">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="border-l-4 border-primary pl-8 py-2">
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground  flex items-center gap-6">
                     <ShieldCheck className="h-10 w-10 text-primary" />
                     Seguridad de Nodo
                 </h1>

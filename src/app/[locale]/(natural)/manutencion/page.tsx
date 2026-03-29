@@ -3,12 +3,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download, Terminal } from "lucide-react";
+import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download, Terminal , ArrowLeft } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
+import { Link } from '@/navigation';
 const depositos = [
     { id: "DEP-001", fecha: "15/07/2024", monto: 1200, concepto: "Mensualidad Julio", estado: "Confirmado" },
     { id: "DEP-002", fecha: "15/06/2024", monto: 1200, concepto: "Mensualidad Junio", estado: "Confirmado" },
@@ -20,9 +21,10 @@ export default function ManutencionPage() {
 
     return (
         <div className="space-y-12">
-            <header className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-4 border-primary pl-8 py-2">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-4 border-primary pl-8 py-2">
                 <div className="space-y-2">
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-white italic-shadow flex items-center gap-4">
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground  flex items-center gap-4">
                         <Gavel className="h-8 w-8 text-primary" />
                         Obligación de Manutención
                     </h1>

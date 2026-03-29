@@ -12,7 +12,7 @@ export default function TelecomDesignShowcasePage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 shadow-glow mb-4">
                     <Terminal className="h-3 w-3" /> ÁREA DESIGN
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Telecom <span className="text-amber-500">Design Lab</span></h1>
+                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground uppercase leading-none italic">Telecom <span className="text-amber-500">Design Lab</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Muestrario de Componentes UHD • Protocolo de Interfaz v2.6</p>
             </header>
 
@@ -38,7 +38,7 @@ export default function TelecomDesignShowcasePage() {
 
                 <Card className="glass-card border-none bg-white/[0.01] rounded-[3rem] p-10 border border-white/5 flex flex-col justify-center items-center text-center">
                     <Activity className="h-16 w-16 text-emerald-400 mb-6 animate-pulse" />
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white mb-2">Telemetría</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground mb-2">Telemetría</h3>
                     <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Status: Operational</p>
                 </Card>
 

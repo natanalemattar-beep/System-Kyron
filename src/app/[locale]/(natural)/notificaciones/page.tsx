@@ -2,9 +2,10 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bell, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Activity } from "lucide-react";
+import { Bell, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Activity , ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+import { Link } from '@/navigation';
 const notificaciones = [
     { id: 1, titulo: "Trámite Aprobado", mensaje: "Tu Partida de Nacimiento (PN-2024-001) ha sido aprobada y está lista para descargar.", tipo: "success", fecha: "Hace 2 horas" },
     { id: 2, titulo: "Vencimiento Próximo", mensaje: "Tu RIF personal vencerá en 15 días. Te recomendamos iniciar la renovación.", tipo: "warning", fecha: "Hace 1 día" },
@@ -20,11 +21,12 @@ const iconMap = {
 export default function NotificacionesPage() {
     return (
         <div className="max-w-3xl mx-auto space-y-12">
-            <header className="text-center space-y-4 border-b border-white/5 pb-10">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+                <header className="text-center space-y-4 border-b border-white/5 pb-10">
                 <div className="inline-block p-4 bg-primary/10 rounded-2xl border border-primary/20 shadow-glow-sm">
                     <Bell className="h-10 w-10 text-primary" />
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-white italic-shadow">Buzón de Nodo</h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-foreground ">Buzón de Nodo</h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Telemetría de Alertas y Estatus en Tiempo Real</p>
             </header>
 

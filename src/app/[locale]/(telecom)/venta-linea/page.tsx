@@ -50,7 +50,7 @@ export default function VentaLineaPage() {
     return (
         <div className="space-y-8 w-full px-4 md:px-10 pb-20">
             <header className="mb-8 border-l-4 border-primary pl-6 md:pl-8 py-2">
-                <h1 className="text-2xl md:text-4xl font-black tracking-tighter flex items-center gap-3 italic text-white uppercase">
+                <h1 className="text-2xl md:text-4xl font-black tracking-tighter flex items-center gap-3 italic text-foreground uppercase">
                     <Radio className="h-8 w-8 text-primary" />
                     Activación de Líneas Kyron
                 </h1>
@@ -94,7 +94,7 @@ export default function VentaLineaPage() {
                         </Card>
 
                         <div className="space-y-4">
-                            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-white/40 pl-4 italic">Medio de Conexión</h3>
+                            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-foreground/40 pl-4 italic">Medio de Conexión</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {simTypes.map(sim => (
                                     <Card 

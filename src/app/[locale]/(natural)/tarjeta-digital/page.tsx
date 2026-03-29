@@ -119,7 +119,7 @@ export default function TarjetaDigitalPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-3">
                     <Sparkles className="h-3 w-3" /> Identidad Digital
                 </div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tighter mb-2 text-white">ID Digital Interactiva</h1>
+                <h1 className="text-3xl md:text-4xl font-black tracking-tighter mb-2 text-foreground">ID Digital Interactiva</h1>
                 <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Pulsa la tarjeta para girar</p>
             </motion.div>
 
