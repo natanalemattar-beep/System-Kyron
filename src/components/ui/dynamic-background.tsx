@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import dynamic from 'next/dynamic';
-import { useHoliday } from "@/hooks/use-holiday";
+import { holidays } from "@/lib/holidays";
 
 const FestiveEffect = dynamic(
   () => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })),
@@ -9,8 +10,19 @@ const FestiveEffect = dynamic(
 );
 
 export function DynamicBackground() {
-  const { activeHoliday, isHolidayActive } = useHoliday();
-  const isSnow = isHolidayActive && activeHoliday?.effect === 'snow';
+  const [isSnow, setIsSnow] = useState(false);
+
+  useEffect(() => {
+    const now = new Date();
+    for (const holiday of holidays) {
+      const start = new Date(now.getFullYear(), holiday.month, holiday.day);
+      const end = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration);
+      if (now >= start && now < end && holiday.effect === 'snow') {
+        setIsSnow(true);
+        break;
+      }
+    }
+  }, []);
 
   return (
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background">
