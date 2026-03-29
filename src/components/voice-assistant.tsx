@@ -369,14 +369,21 @@ export function VoiceAssistant() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="flex items-center gap-3"
                     >
                         <Button
-                            size="icon"
-                            className="h-13 w-13 rounded-full shadow-lg bg-primary hover:bg-primary/90 border border-white/10 transition-all duration-200 hover:shadow-xl hover:scale-105 active:scale-95"
+                            className="h-14 rounded-full shadow-lg bg-gradient-to-r from-primary via-blue-600 to-cyan-500 hover:from-primary/90 hover:via-blue-500 hover:to-cyan-400 border border-white/20 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-105 active:scale-95 px-5 gap-3 group"
                             onClick={() => setIsOpen(true)}
-                            title="Kyron IA — Asistente"
+                            title="Kyron Voice — Asistente IA Multi-Modelo"
                         >
-                            <Volume2 className="h-5 w-5" />
+                            <div className="relative">
+                                <Volume2 className="h-5 w-5 text-white" />
+                                <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                            </div>
+                            <div className="flex flex-col items-start leading-none">
+                                <span className="text-[11px] font-black tracking-wider text-white uppercase">Kyron Voice</span>
+                                <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Claude · GPT · Gemini</span>
+                            </div>
                         </Button>
                     </motion.div>
                 )}
