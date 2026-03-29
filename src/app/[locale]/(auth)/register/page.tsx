@@ -23,6 +23,8 @@ interface RifLookupResult {
     municipio?: string;
     direccion?: string;
     telefono?: string;
+    statusFiscal?: string;
+    fechaRegistro?: string;
 }
 
 const ALL_PREFIXES = [
@@ -278,7 +280,18 @@ export default function RegisterSelectionPage() {
 
     const handleNumberChange = (val: string) => {
         const cleaned = val.replace(/[^0-9-]/g, "");
-        setDocNumber(cleaned);
+        if (["J", "G", "C", "F"].includes(prefix)) {
+            const digitsOnly = cleaned.replace(/-/g, "");
+            if (digitsOnly.length <= 8) {
+                setDocNumber(digitsOnly);
+            } else if (digitsOnly.length === 9) {
+                setDocNumber(`${digitsOnly.slice(0, 8)}-${digitsOnly.slice(8)}`);
+            } else {
+                setDocNumber(`${digitsOnly.slice(0, 8)}-${digitsOnly.slice(8, 9)}`);
+            }
+        } else {
+            setDocNumber(cleaned);
+        }
     };
 
     const handleRifSearch = useCallback(async () => {
@@ -584,16 +597,51 @@ export default function RegisterSelectionPage() {
                             </div>
 
                             {rifLookup && (
-                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-emerald-500/5 border-emerald-500/15 mb-4 transition-all duration-300">
-                                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-black text-foreground truncate">{rifLookup.razonSocial}</p>
-                                        <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
-                                            {rifLookup.tipoEmpresa || 'Empresa registrada'} 
-                                            {rifLookup.estado && ` · ${rifLookup.estado}`}
-                                        </p>
+                                <div className="rounded-2xl border bg-emerald-500/5 border-emerald-500/20 mb-4 transition-all duration-300 overflow-hidden animate-in slide-in-from-top-2">
+                                    <div className="flex items-center gap-3 px-4 py-3">
+                                        <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-black text-foreground truncate">{rifLookup.razonSocial}</p>
+                                            <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
+                                                {rifLookup.tipoEmpresa || 'Empresa registrada'} 
+                                                {rifLookup.estado && ` · ${rifLookup.estado}`}
+                                                {rifLookup.municipio && ` · ${rifLookup.municipio}`}
+                                            </p>
+                                        </div>
+                                        {rifLookup.statusFiscal && (
+                                            <span className={cn(
+                                                "text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg border shrink-0",
+                                                rifLookup.statusFiscal === 'ACTIVO'
+                                                    ? "text-emerald-600 bg-emerald-500/10 border-emerald-500/20"
+                                                    : "text-amber-600 bg-amber-500/10 border-amber-500/20"
+                                            )}>
+                                                {rifLookup.statusFiscal}
+                                            </span>
+                                        )}
+                                        <Building2 className="h-5 w-5 text-emerald-500/60 shrink-0" />
                                     </div>
-                                    <Building2 className="h-5 w-5 text-emerald-500/60 shrink-0" />
+                                    {(rifLookup.actividadEconomica || rifLookup.direccion || rifLookup.telefono) && (
+                                        <div className="px-4 pb-3 pt-0 grid grid-cols-1 gap-1.5">
+                                            {rifLookup.actividadEconomica && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Actividad:</span>{' '}
+                                                    <span className="font-bold">{rifLookup.actividadEconomica}</span>
+                                                </p>
+                                            )}
+                                            {rifLookup.direccion && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Dirección:</span>{' '}
+                                                    <span className="font-bold">{rifLookup.direccion}</span>
+                                                </p>
+                                            )}
+                                            {rifLookup.telefono && (
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    <span className="font-black uppercase tracking-wider text-emerald-600/80">Teléfono:</span>{' '}
+                                                    <span className="font-bold">{rifLookup.telefono}</span>
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             )}
 

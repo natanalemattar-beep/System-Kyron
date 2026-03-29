@@ -19,6 +19,12 @@ The landing page was redesigned to be less text-heavy and more visual/scannable:
 - **CSS additions:** `@keyframes float-particle` and `@keyframes scroll-dot` in globals.css.
 - **Result:** Unified #020810 color palette across hero→scroll→services transitions. Drastically reduced GPU compositing layers and JS animation overhead.
 
+### Register Page Enhancements (v2.8.5)
+- **Custom Prefix Selector:** Replaced native HTML `<select>` with a custom dropdown featuring icons, colors, and descriptions for each document type (V/E/J/G/P/C/F). Full ARIA accessibility (`role="combobox"`, `role="listbox"`, `role="option"`, keyboard navigation with Arrow/Enter/Escape/Tab).
+- **Auto-Hyphen for RIF:** When typing in J/G/C/F mode, after 8 digits the hyphen is auto-inserted (e.g., typing "503284716" → "50328471-6").
+- **SENIAT AI Lookup:** The "Consultar" button on RIF search (`/api/rif/consulta`) now uses Gemini AI (`gemini-2.5-flash`) to research company data when not found in local DB. Returns: razón social, tipo empresa, actividad económica, estado, municipio, dirección, teléfono, status fiscal, fecha de registro.
+- **Rich Result Panel:** RIF lookup results now display expanded company info (actividad económica, dirección, teléfono) with status fiscal badge (ACTIVO/INACTIVO).
+
 ### Overview
 System Kyron is an integrated technological ecosystem designed for comprehensive corporate management, specifically tailored for the Venezuelan market. It covers accounting, HR, legal, sales, telecommunications, and IT, ensuring compliance with local regulations such as VEN-NIF/SENIAT, IVA 16%, IGTF 3%, and ISLR 34%. The project aims to provide a unified platform for businesses to manage their operations efficiently and compliantly within Venezuela.
 
