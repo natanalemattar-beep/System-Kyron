@@ -86,7 +86,7 @@ export default function ConatelPage() {
                 </Button>
             </motion.header>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                     { label: "Licencias Vigentes", value: licencias.filter(l => l.estado === "Vigente").length, color: "text-emerald-400" },
                     { label: "En Renovación", value: licencias.filter(l => l.estado === "En Renovación").length, color: "text-amber-400" },

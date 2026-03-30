@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ export default function HidrocarburosPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Zap className="h-3 w-3" /> NODO SECTORIAL
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Hidrocarburos <span className="text-primary italic">y Minería</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Régimen Especial Sin Regalías • Providencia 0091</p>
                 </div>

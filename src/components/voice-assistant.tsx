@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
@@ -13,6 +14,8 @@ import {
   Sparkles,
   BrainCircuit,
   Bot,
+  EyeOff,
+  MessageCircle,
 } from 'lucide-react';
 
 type Message = {
@@ -20,73 +23,165 @@ type Message = {
   text: string;
 };
 
+const HIDE_KEY = 'kyron-chat-hidden';
+
 export function VoiceAssistant() {
   const [open, setOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [hidden, setHidden] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const abortRef = useRef<AbortController | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((r) => setIsAuthenticated(r.ok))
-      .catch(() => setIsAuthenticated(false));
+    setMounted(true);
+    const stored = localStorage.getItem(HIDE_KEY);
+    if (stored === 'true') setHidden(true);
   }, []);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, processing]);
 
+  const isLanding = pathname === '/' || pathname === '/es' || pathname === '/en';
+
   const sendMessage = useCallback(
     async () => {
       const queryText = input.trim();
       if (!queryText || processing) return;
 
-      setMessages((prev) => [...prev, { role: 'user', text: queryText }]);
+      const newUserMsg: Message = { role: 'user', text: queryText };
+      setMessages((prev) => [...prev, newUserMsg]);
       setInput('');
       setProcessing(true);
 
+      const chatHistory = [...messages, newUserMsg].map(m => ({
+        role: m.role,
+        content: m.text,
+      }));
+
       try {
+        const controller = new AbortController();
+        abortRef.current = controller;
+
         const res = await fetch('/api/ai/kyron-chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: queryText }),
+          body: JSON.stringify({ messages: chatHistory }),
+          signal: controller.signal,
         });
 
-        const data = await res.json();
-
         if (!res.ok) {
-          setMessages((prev) => [
-            ...prev,
-            { role: 'assistant', text: data.error || 'Error de conexión con Kyron Chat.' },
-          ]);
+          const errorData = await res.json().catch(() => ({}));
+          const errorMsg = res.status === 401
+            ? 'Inicia sesión para usar el chat con IA.'
+            : res.status === 503
+            ? 'El chat IA no está disponible en este momento.'
+            : errorData.error || 'Error de conexión con Kyron Chat.';
+          setMessages((prev) => [...prev, { role: 'assistant', text: errorMsg }]);
           return;
         }
 
-        setMessages((prev) => [
-          ...prev,
-          { role: 'assistant', text: data.reply || 'Sin respuesta.' },
-        ]);
-      } catch {
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('text/event-stream') && res.body) {
+          let fullText = '';
+          setMessages((prev) => [...prev, { role: 'assistant', text: '' }]);
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split('\n');
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  if (data.text) {
+                    fullText += data.text;
+                    setMessages((prev) => {
+                      const updated = [...prev];
+                      updated[updated.length - 1] = { role: 'assistant', text: fullText };
+                      return updated;
+                    });
+                  }
+                  if (data.error) {
+                    setMessages((prev) => {
+                      const updated = [...prev];
+                      updated[updated.length - 1] = { role: 'assistant', text: data.error };
+                      return updated;
+                    });
+                  }
+                } catch {}
+              }
+            }
+          }
+        } else {
+          const data = await res.json();
+          setMessages((prev) => [
+            ...prev,
+            { role: 'assistant', text: data.reply || data.error || 'Sin respuesta.' },
+          ]);
+        }
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
         setMessages((prev) => [
           ...prev,
           { role: 'assistant', text: 'Error de red. Verifica tu conexión e intenta de nuevo.' },
         ]);
       } finally {
         setProcessing(false);
+        abortRef.current = null;
       }
     },
-    [input, processing],
+    [input, processing, messages],
   );
 
   const handleClose = useCallback(() => {
     setOpen(false);
+    if (abortRef.current) abortRef.current.abort();
   }, []);
 
-  if (!isAuthenticated) return null;
+  const handleHide = useCallback(() => {
+    setHidden(true);
+    setOpen(false);
+    if (abortRef.current) abortRef.current.abort();
+    localStorage.setItem(HIDE_KEY, 'true');
+    toast({
+      title: 'Chat oculto',
+      description: 'Puedes reactivarlo desde el botón en la esquina inferior izquierda.',
+    });
+  }, [toast]);
+
+  const handleShow = useCallback(() => {
+    setHidden(false);
+    localStorage.setItem(HIDE_KEY, 'false');
+  }, []);
+
+  if (!mounted) return null;
+
+  if (hidden) {
+    return (
+      <div className="fixed bottom-6 left-6 z-[200]">
+        <button
+          onClick={handleShow}
+          className="group flex items-center justify-center h-10 w-10 rounded-full bg-muted/80 border border-border/40 shadow-md transition-all duration-300 hover:bg-primary hover:border-primary hover:shadow-lg hover:scale-110 active:scale-95"
+          title="Mostrar Kyron Chat"
+        >
+          <MessageCircle className="h-4 w-4 text-muted-foreground group-hover:text-white transition-colors" />
+        </button>
+      </div>
+    );
+  }
 
   if (!open) {
     return (
@@ -101,7 +196,7 @@ export function VoiceAssistant() {
           </div>
           <div className="flex flex-col items-start leading-none">
             <span className="text-[11px] font-black tracking-wider text-white uppercase">Kyron Chat</span>
-            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">Kyron AI · Claude</span>
+            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">AI Assistant</span>
           </div>
         </button>
       </div>
@@ -110,7 +205,7 @@ export function VoiceAssistant() {
 
   return (
     <div className="fixed bottom-6 left-6 z-[200]">
-      <div className="mb-4 w-[420px] h-[600px] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
+      <div className="mb-4 w-[min(420px,calc(100vw-3rem))] h-[min(600px,calc(100vh-8rem))] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
         <header className="px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl border bg-primary/10 border-primary/20">
@@ -122,18 +217,29 @@ export function VoiceAssistant() {
                 'text-[8px] font-bold uppercase tracking-widest transition-colors',
                 processing ? 'text-amber-400' : 'text-emerald-500/60'
               )}>
-                {processing ? 'Procesando...' : 'Kyron AI · Claude · Listo'}
+                {processing ? 'Procesando...' : 'Kyron AI · Listo'}
               </p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 rounded-full hover:bg-white/10 text-white/40"
-            onClick={handleClose}
-          >
-            <X className="h-3.5 w-3.5" />
-          </Button>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 rounded-full hover:bg-white/10 text-white/40"
+              onClick={handleHide}
+              title="Ocultar chat"
+            >
+              <EyeOff className="h-3.5 w-3.5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 rounded-full hover:bg-white/10 text-white/40"
+              onClick={handleClose}
+            >
+              <X className="h-3.5 w-3.5" />
+            </Button>
+          </div>
         </header>
 
         <div className="flex-1 overflow-hidden px-4 py-3">
@@ -143,7 +249,9 @@ export function VoiceAssistant() {
                 <div className="py-14 text-center space-y-3 opacity-30">
                   <Sparkles className="h-8 w-8 mx-auto text-primary" />
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] px-6 leading-relaxed text-white/80">
-                    Kyron Chat listo. Escribe un mensaje.
+                    {isLanding
+                      ? 'Pregunta lo que quieras sobre System Kyron.'
+                      : 'Kyron Chat listo. Escribe un mensaje.'}
                   </p>
                   <p className="text-[8px] uppercase tracking-wider text-white/40 px-4">
                     Inteligencia corporativa venezolana
@@ -179,7 +287,7 @@ export function VoiceAssistant() {
                 </div>
               ))}
 
-              {processing && (
+              {processing && messages[messages.length - 1]?.role !== 'assistant' && (
                 <div className="flex items-start gap-2.5">
                   <div className="p-1.5 rounded-lg border shrink-0 mt-0.5 bg-orange-500/10 border-orange-500/20">
                     <Bot className="h-3 w-3 text-orange-400" />

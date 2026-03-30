@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -31,6 +32,7 @@ export default function IslrPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-indigo-500 shadow-glow mb-4">
                         <Banknote className="h-3 w-3" /> NODO ISLR
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Renta y <span className="text-indigo-500 italic">Retenciones</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaraciones Definitivas y Estimadas • Decreto 1.800</p>
                 </div>

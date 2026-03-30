@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -29,6 +30,7 @@ export default function IgpPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-600/10 border border-amber-600/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-600 shadow-glow mb-4">
                         <Coins className="h-3 w-3" /> NODO IGP
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Grandes <span className="text-amber-600 italic">Patrimonios</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaración Anual • Sujetos Pasivos Especiales</p>
                 </div>

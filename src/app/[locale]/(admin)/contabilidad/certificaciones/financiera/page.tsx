@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
@@ -45,6 +46,7 @@ export default function CertificacionFinancieraPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                     <ShieldCheck className="h-3 w-3" /> NODO DE SOLVENCIA
                 </div>
+                <BackButton href="/contabilidad" label="Contabilidad" />
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Certificación <span className="text-primary italic">Financiera</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Atestiguamiento de Capacidad Económica • Kyron Protocol 2026</p>
             </header>

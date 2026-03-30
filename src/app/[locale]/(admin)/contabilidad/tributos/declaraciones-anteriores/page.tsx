@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -26,6 +27,7 @@ export default function DeclaracionesAnterioresPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <FolderArchive className="h-3 w-3" /> NODO DE ARCHIVO
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Archivo de <span className="text-primary italic">Declaraciones</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Dossier Histórico Inmutable • Auditoría Kyron 2026</p>
                 </div>

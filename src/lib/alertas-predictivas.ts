@@ -99,10 +99,9 @@ export async function verificarAlertasPredictivas(): Promise<AlertaGenerada[]> {
     nombre_empresa: string;
     email: string;
   }>(
-    `SELECT u.id AS user_id, u.email, ej.rif, ej.nombre_empresa
+    `SELECT u.id AS user_id, u.email, u.rif, COALESCE(u.razon_social, u.nombre) AS nombre_empresa
      FROM users u
-     JOIN empresas_juridico ej ON u.id = ej.user_id
-     WHERE ej.rif IS NOT NULL AND ej.rif != ''`
+     WHERE u.tipo = 'juridico' AND u.rif IS NOT NULL AND u.rif != ''`
   );
 
   if (!empresas.length) return alertasGeneradas;

@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -64,6 +65,7 @@ export default function MultasFiscalesPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 shadow-sm mb-4">
                         <ShieldAlert className="h-3 w-3" /> ÁREA DE CONTINGENCIA
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Multas y <span className="text-rose-500 italic">Sanciones</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Código Orgánico Tributario (COT) • Prevención de Riesgos</p>
                 </div>

@@ -1,5 +1,6 @@
 
 "use client";
+import { BackButton } from "@/components/back-button";
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ export default function JuegosAzarPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-600/10 border border-purple-600/20 text-[9px] font-black uppercase tracking-[0.4em] text-purple-600 shadow-sm mb-4">
                         <Zap className="h-3 w-3" /> NODO AZAR
                     </div>
+                <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Actividades <span className="text-purple-600 italic">de Juegos</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Impuesto a Casinos y Bingos • Liquidación Mensual</p>
                 </div>

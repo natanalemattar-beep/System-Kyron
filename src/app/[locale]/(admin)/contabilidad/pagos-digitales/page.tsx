@@ -239,14 +239,14 @@ export default function PagosDigitalesPage() {
           <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
         </div>
         <Card className="glass-card border-none bg-card/40 rounded-2xl overflow-hidden shadow-sm">
-          <div className="divide-y divide-border">
-            <div className="grid grid-cols-7 px-6 py-3 bg-muted/30">
+          <div className="divide-y divide-border overflow-x-auto">
+            <div className="grid grid-cols-7 px-6 py-3 bg-muted/30 min-w-[700px]">
               {["Cédula/RIF", "Cliente", "Banco", "Monto Bs.", "Referencia", "Hora", "Estado"].map((h) => (
                 <p key={h} className="text-[8px] font-black uppercase text-muted-foreground/60 tracking-widest">{h}</p>
               ))}
             </div>
             {pagoMovilRecientes.map((p, i) => (
-              <div key={i} className="grid grid-cols-7 items-center px-6 py-4 hover:bg-muted/30 transition-colors">
+              <div key={i} className="grid grid-cols-7 items-center px-6 py-4 hover:bg-muted/30 transition-colors min-w-[700px]">
                 <p className="text-[9px] font-black uppercase text-foreground/80">{p.cedula}</p>
                 <p className="text-[9px] font-bold text-foreground/60 uppercase">{p.nombre}</p>
                 <p className="text-[9px] font-bold text-muted-foreground uppercase">{p.banco}</p>
