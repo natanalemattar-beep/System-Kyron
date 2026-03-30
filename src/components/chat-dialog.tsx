@@ -26,15 +26,15 @@ const getAIIdentity = (pathname: string) => {
   if (pathname.includes('/sector-privado-system-kyron')) {
     return {
       role: "Kyron Master",
-      context: "Inteligencia Maestra del ecosistema completo System Kyron. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
+      context: "El usuario está en el Panel de Sector Privado — vista ejecutiva del ecosistema completo. Dominas todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano. Puedes guiarlo a cualquier sección de la plataforma.",
       icon: Sparkles,
       greeting: "Soy Kyron Master. Tengo visión completa del ecosistema. ¿En qué módulo necesitas ayuda?",
     };
   }
-  if (pathname.includes('/contabilidad') || pathname.includes('/resumen-negocio') || pathname.includes('/facturacion')) {
+  if (pathname.includes('/contabilidad') || pathname.includes('/resumen-negocio') || pathname.includes('/facturacion') || pathname.includes('/declaracion-iva') || pathname.includes('/islr') || pathname.includes('/inventario') || pathname.includes('/cuentas-por') || pathname.includes('/libro-compra') || pathname.includes('/libro-licores') || pathname.includes('/ajuste-por-inflacion') || pathname.includes('/estructura-costos') || pathname.includes('/analisis') || pathname.includes('/arqueo-caja') || pathname.includes('/proformas') || pathname.includes('/reportes') || pathname.includes('/reports') || pathname.includes('/tramites-fiscales') || pathname.includes('/dashboard-empresa') || pathname.includes('/pasarelas-pago') || pathname.includes('/billetera-cambio')) {
     return {
       role: "Kyron Fiscal",
-      context: "El usuario está en el módulo de Contabilidad/Fiscal. Prioriza respuestas sobre IVA, ISLR, IGTF, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF.",
+      context: "El usuario está en el módulo Contable/Fiscal. Página actual: " + pathname + ". Conoces todas las sub-páginas: dashboard-empresa, resumen-negocio, contabilidad, facturación, inventario, cuentas por cobrar/pagar, declaración IVA, ISLR-ARC, libros fiscales, ajuste por inflación, análisis financiero/caja/mercado/rentabilidad/riesgo/ventas, arqueo de caja, proformas, reportes, trámites fiscales, pasarelas de pago, billetera de cambio. Prioriza respuestas sobre IVA 16%, ISLR, IGTF 3%, retenciones, SENIAT, tasa BCV, VEN-NIF.",
       icon: TrendingUp,
       greeting: "Soy Kyron Fiscal. Especialista en contabilidad VEN-NIF, impuestos y cumplimiento SENIAT. ¿Qué necesitas calcular o consultar?",
     };
@@ -42,15 +42,15 @@ const getAIIdentity = (pathname: string) => {
   if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) {
     return {
       role: "Kyron Legal",
-      context: "El usuario está en el módulo Legal. Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
+      context: "El usuario está en el Escritorio Jurídico. Página actual: " + pathname + ". Módulos disponibles: escritorio-juridico (panel principal con IA legal), contratos (gestión de contratos mercantiles), permisos (permisología ante SENIAT, ministerios, municipios, entes autónomos). Prioriza respuestas sobre SAREN, SAPI, registros mercantiles, constitución de empresas, poderes, actas de asamblea.",
       icon: Scale,
       greeting: "Soy Kyron Legal. Consultor jurídico especializado en legislación venezolana, contratos y registros. ¿En qué puedo asesorarte?",
     };
   }
-  if (pathname.includes('/venta-linea') || pathname.includes('/dashboard-informatica') || pathname.includes('/telecom')) {
+  if (pathname.includes('/venta-linea') || pathname.includes('/mi-linea') || pathname.includes('/flota-empresarial') || pathname.includes('/telecom') || pathname.includes('/dashboard-informatica')) {
     return {
       role: "Kyron Telecom",
-      context: "El usuario está en el módulo de Telecomunicaciones. Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
+      context: "El usuario está en el módulo de Telecomunicaciones. Página actual: " + pathname + ". Módulos: mi-linea (gestión personal de eSIM, recargas, consumo 5G), flota-empresarial (gestión masiva de líneas corporativas, límites por empleado), venta-linea (punto de venta de líneas y planes). Se accede desde /login-linea con opción Personal o Corporativo.",
       icon: Smartphone,
       greeting: "Soy Kyron Telecom. Gestión de líneas 5G, eSIM y flota empresarial. ¿Qué necesitas configurar?",
     };
@@ -58,24 +58,40 @@ const getAIIdentity = (pathname: string) => {
   if (pathname.includes('/sostenibilidad') || pathname.includes('/mercado-ecocreditos')) {
     return {
       role: "Kyron Verde",
-      context: "El usuario está en el módulo de Sostenibilidad. Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
+      context: "El usuario está en el módulo de Sostenibilidad. Página actual: " + pathname + ". Módulos: sostenibilidad (portal Eco-Créditos con registro de actividades de reciclaje, balance, impacto CO₂, historial de transacciones), mercado-ecocreditos (intercambio de créditos verdes). Se accede desde /login-sostenibilidad.",
       icon: Leaf,
       greeting: "Soy Kyron Verde. Gestor de sostenibilidad, Eco-Créditos y economía circular. ¿Qué quieres saber?",
     };
   }
-  if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas')) {
+  if (pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas') || pathname.includes('/prestaciones') || pathname.includes('/reclutamiento') || pathname.includes('/desarrollo-personal') || pathname.includes('/clima-organizacional') || pathname.includes('/salud-seguridad') || pathname.includes('/libros-laborales')) {
     return {
       role: "Kyron RRHH",
-      context: "El usuario está en el módulo de RRHH. Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
+      context: "El usuario está en el módulo de RRHH. Página actual: " + pathname + ". Módulos: dashboard-rrhh, nóminas (gestión LOTTT), prestaciones-sociales (cálculo Art. 142), reclutamiento, desarrollo-personal, clima-organizacional, salud-seguridad, libros-laborales. Prioriza: prestaciones trimestrales, utilidades 30-120 días, vacaciones 15 días + 1/año, cestaticket, IVSS, INCES 2%, BANAVIH 3%.",
       icon: CircleUserRound,
       greeting: "Soy Kyron RRHH. Especialista en nómina LOTTT, prestaciones y gestión de talento. ¿Qué necesitas calcular?",
     };
   }
+  if (pathname.includes('/dashboard-socios') || pathname.includes('/acta-asamblea')) {
+    return {
+      role: "Kyron Socios",
+      context: "El usuario está en el módulo de Socios. Página actual: " + pathname + ". Funcionalidades: composición accionaria con porcentajes, KPIs financieros, actas de asamblea, dividendos, gobernanza corporativa. Se accede desde /login-socios.",
+      icon: CircleUserRound,
+      greeting: "Soy Kyron. Estás en la Consola de Socios. Puedo ayudarte con composición accionaria, actas de asamblea y dividendos. ¿Qué necesitas?",
+    };
+  }
+  if (pathname.includes('/dashboard') || pathname.includes('/cuenta-personal') || pathname.includes('/perfil') || pathname.includes('/seguridad') || pathname.includes('/notificaciones') || pathname.includes('/documentos') || pathname.includes('/carnet') || pathname.includes('/tarjeta') || pathname.includes('/directorio-medico') || pathname.includes('/antecedentes') || pathname.includes('/partidas') || pathname.includes('/actas-matrimonio') || pathname.includes('/manutencion') || pathname.includes('/registro-rif')) {
+    return {
+      role: "Kyron Personal",
+      context: "El usuario está en el Portal Ciudadano Personal. Página actual: " + pathname + ". Módulos disponibles: dashboard (panel personal), cuenta-personal, perfil, seguridad, notificaciones (email/WhatsApp/SMS/in-app), documentos (bóveda digital), carnet-personal (QR), tarjeta-digital, tarjeta-reciclaje, directorio-medico, antecedentes-penales, partidas-nacimiento, actas-matrimonio, manutención, registro-rif. Se accede desde /login-personal.",
+      icon: CircleUserRound,
+      greeting: "Soy Kyron. Estoy aquí para ayudarte con tu cuenta personal, trámites y documentos. ¿Qué necesitas?",
+    };
+  }
   return {
     role: "Kyron",
-    context: "Asistente general del ecosistema Kyron. Responde sobre cualquier área: contabilidad, legal, telecom, RRHH, sostenibilidad o portal ciudadano.",
+    context: "Asistente general del ecosistema System Kyron. Página actual: " + pathname + ". Conoces todos los módulos: Contabilidad VEN-NIF (login-empresa), RRHH LOTTT (login-empresa), Legal (login-escritorio-juridico), Telecom 5G (login-linea), Sostenibilidad (login-sostenibilidad), Socios (login-socios), Portal Ciudadano (login-personal), Facturación (login-ventas). Guía al usuario al portal correcto según lo que necesite.",
     icon: Sparkles,
-    greeting: "Soy Kyron, tu asistente inteligente. Puedo ayudarte con contabilidad, legal, telecom, RRHH y más. ¿Qué necesitas?",
+    greeting: "Soy Kyron, tu asistente inteligente. Conozco cada módulo de la plataforma. ¿En qué puedo ayudarte?",
   };
 };
 
