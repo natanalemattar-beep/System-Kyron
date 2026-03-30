@@ -826,7 +826,10 @@ export default function RegisterSelectionPage() {
                                     {isNatural && detected.valid && cedulaSearching && (
                                         <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-blue-500/5 border-blue-500/15 mb-4 animate-in fade-in duration-300">
                                             <Loader2 className="h-4 w-4 text-blue-500 animate-spin shrink-0" />
-                                            <p className="text-xs font-bold text-blue-500">Consultando SAIME...</p>
+                                            <div>
+                                                <p className="text-xs font-bold text-blue-500">Consultando SAIME / IA...</p>
+                                                <p className="text-[9px] text-muted-foreground">Buscando datos reales del titular</p>
+                                            </div>
                                         </div>
                                     )}
 

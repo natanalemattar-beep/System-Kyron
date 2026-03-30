@@ -25,7 +25,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels. Module selection: Persona Natural, Asesoría Contable (includes RRHH/Nómina), Escritorio Jurídico, Mi Línea 5G, and Punto de Venta & Ventas. RRHH registration redirects to Asesoría Contable. Asesoría Contable registration simplified to 2 steps (company+credentials, location) — no email verification gate at signup. Mobile view includes fiscal metrics (IVA 16%, IGTF 3%, ISLR 34%) and anti-multa description.
 - Document upload functionality is reusable with drag-and-drop zones, file validation (PDF/JPG/PNG/WebP, max 10MB).
 - Venezuela geography data is used for cascading state/municipality dropdowns in registration forms.
-- SAIME integration simulates citizen registry lookup for enriched data.
+- SAIME cédula lookup uses Claude AI (`claude-sonnet-4-6` via Replit AI Integrations) for real data searches. Results cached in `saime_registros` with `source: 'ia'`. If AI can't find real data, returns `found: false` and lets user enter data manually.
 - Background animations are optimized using pure CSS.
 - Registration pages feature a redesign with custom step navigation, progress bars, rounded input fields, and visual password strength meters.
 - Plan selection cards display prices in USD with live Bs. equivalent from the BCV daily rate.

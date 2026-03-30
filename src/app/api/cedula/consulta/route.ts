@@ -4,92 +4,6 @@ import { validarFormatoCedula, normalizarCedula } from '@/lib/validacion-venezue
 
 export const dynamic = 'force-dynamic';
 
-const NOMBRES_M = ['Carlos', 'José', 'Luis', 'Miguel', 'Rafael', 'Juan', 'Pedro', 'Antonio', 'Andrés', 'Fernando', 'Ricardo', 'Diego', 'Alejandro', 'Gabriel', 'David', 'Simón', 'Daniel', 'Víctor', 'Eduardo', 'Ángel'];
-const NOMBRES_F = ['María', 'Ana', 'Carmen', 'Laura', 'Elena', 'Rosa', 'Isabel', 'Patricia', 'Diana', 'Gabriela', 'Valentina', 'Daniela', 'Andrea', 'Sofía', 'Carolina', 'Adriana', 'Luisa', 'Beatriz', 'Teresa', 'Victoria'];
-const APELLIDOS = ['González', 'Rodríguez', 'Pérez', 'Hernández', 'García', 'López', 'Martínez', 'Díaz', 'Fernández', 'Torres', 'Ramírez', 'Morales', 'Mendoza', 'Suárez', 'Vargas', 'Castillo', 'Rivas', 'Rojas', 'Ortega', 'Bravo', 'Guzmán', 'Blanco', 'Flores', 'Sánchez', 'Reyes'];
-const ESTADOS_VE = ['Distrito Capital', 'Miranda', 'Zulia', 'Carabobo', 'Aragua', 'Lara', 'Bolívar', 'Anzoátegui', 'Táchira', 'Mérida', 'Falcón', 'Barinas', 'Monagas', 'Sucre', 'Trujillo', 'Portuguesa', 'Yaracuy', 'Guárico', 'Vargas', 'Nueva Esparta'];
-const MUNICIPIOS_MAP: Record<string, string[]> = {
-  'Distrito Capital': ['Libertador'],
-  'Miranda': ['Sucre', 'Baruta', 'Chacao', 'El Hatillo', 'Plaza', 'Zamora', 'Guaicaipuro', 'Los Salias'],
-  'Zulia': ['Maracaibo', 'San Francisco', 'Cabimas', 'Lagunillas', 'Ciudad Ojeda'],
-  'Carabobo': ['Valencia', 'Naguanagua', 'San Diego', 'Libertador', 'Los Guayos'],
-  'Aragua': ['Girardot', 'Santiago Mariño', 'Libertador', 'Zamora', 'Sucre'],
-  'Lara': ['Iribarren', 'Palavecino', 'Cabudare', 'Jiménez'],
-  'Bolívar': ['Caroní', 'Heres', 'Piar'],
-  'Anzoátegui': ['Sotillo', 'Urbaneja', 'Bolívar', 'Simón Rodríguez'],
-  'Táchira': ['San Cristóbal', 'Cárdenas', 'Junín'],
-  'Mérida': ['Libertador', 'Santos Marquina', 'Sucre'],
-};
-const PARROQUIAS = ['Capital', 'San José', 'El Recreo', 'Catedral', 'Santa Rosalía', 'San Juan', 'La Candelaria', 'San Agustín', 'Caricuao', 'El Valle'];
-const ESTADOS_CIVILES = ['Soltero/a', 'Casado/a', 'Divorciado/a', 'Viudo/a'];
-
-function seededRandom(seed: number): () => number {
-  let s = seed;
-  return () => {
-    s = (s * 1103515245 + 12345) & 0x7fffffff;
-    return s / 0x7fffffff;
-  };
-}
-
-function generarDatosSAIME(cedula: string, nacionalidad: string) {
-  const num = parseInt(cedula.replace(/\D/g, ''), 10);
-  const rand = seededRandom(num);
-
-  const esMasculino = rand() > 0.5;
-  const nombres = esMasculino ? NOMBRES_M : NOMBRES_F;
-  const primerNombre = nombres[Math.floor(rand() * nombres.length)];
-  const segundoNombre = rand() > 0.4 ? nombres[Math.floor(rand() * nombres.length)] : null;
-  const primerApellido = APELLIDOS[Math.floor(rand() * APELLIDOS.length)];
-  const segundoApellido = APELLIDOS[Math.floor(rand() * APELLIDOS.length)];
-
-  let anoNac = 1990;
-  if (num <= 3_000_000) anoNac = 1940 + Math.floor(rand() * 15);
-  else if (num <= 6_000_000) anoNac = 1955 + Math.floor(rand() * 10);
-  else if (num <= 10_000_000) anoNac = 1965 + Math.floor(rand() * 10);
-  else if (num <= 15_000_000) anoNac = 1975 + Math.floor(rand() * 10);
-  else if (num <= 20_000_000) anoNac = 1980 + Math.floor(rand() * 10);
-  else if (num <= 25_000_000) anoNac = 1988 + Math.floor(rand() * 10);
-  else if (num <= 30_000_000) anoNac = 1994 + Math.floor(rand() * 10);
-  else if (num <= 35_000_000) anoNac = 2000 + Math.floor(rand() * 8);
-  else anoNac = 2006 + Math.floor(rand() * 6);
-
-  const mesNac = 1 + Math.floor(rand() * 12);
-  const diaNac = 1 + Math.floor(rand() * 28);
-  const fechaNac = `${anoNac}-${String(mesNac).padStart(2, '0')}-${String(diaNac).padStart(2, '0')}`;
-
-  const estado = ESTADOS_VE[Math.floor(rand() * ESTADOS_VE.length)];
-  const municipios = MUNICIPIOS_MAP[estado] || ['Capital'];
-  const municipio = municipios[Math.floor(rand() * municipios.length)];
-  const parroquia = PARROQUIAS[Math.floor(rand() * PARROQUIAS.length)];
-
-  const estadoCivil = ESTADOS_CIVILES[Math.floor(rand() * ESTADOS_CIVILES.length)];
-
-  const emisionYear = Math.max(anoNac + 18, 2010 + Math.floor(rand() * 14));
-  const fechaEmision = `${emisionYear}-${String(1 + Math.floor(rand() * 12)).padStart(2, '0')}-${String(1 + Math.floor(rand() * 28)).padStart(2, '0')}`;
-  const vencYear = emisionYear + 10;
-  const fechaVencimiento = `${vencYear}-${fechaEmision.slice(5)}`;
-
-  return {
-    nombre: [primerNombre, segundoNombre].filter(Boolean).join(' '),
-    apellido: [primerApellido, segundoApellido].join(' '),
-    primerNombre,
-    segundoNombre,
-    primerApellido,
-    segundoApellido,
-    fechaNacimiento: fechaNac,
-    sexo: esMasculino ? 'Masculino' : 'Femenino',
-    estadoCivil,
-    estado,
-    municipio,
-    parroquia,
-    lugarNacimiento: estado,
-    nacionalidad,
-    estatus: 'VIGENTE',
-    fechaEmision,
-    fechaVencimiento,
-  };
-}
-
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 60_000;
@@ -103,6 +17,82 @@ function checkRateLimit(ip: string): boolean {
   }
   entry.count++;
   return entry.count <= RATE_LIMIT;
+}
+
+interface SAIMEData {
+  nombre: string;
+  apellido: string;
+  primerNombre: string | null;
+  segundoNombre: string | null;
+  primerApellido: string | null;
+  segundoApellido: string | null;
+  fechaNacimiento: string | null;
+  sexo: string | null;
+  estadoCivil: string | null;
+  estado: string | null;
+  municipio: string | null;
+  parroquia: string | null;
+  lugarNacimiento: string | null;
+  nacionalidad: string | null;
+  estatus: string | null;
+  fechaEmision: string | null;
+  fechaVencimiento: string | null;
+}
+
+async function consultarCedulaConIA(cedula: string, nacionalidad: string): Promise<SAIMEData | null> {
+  try {
+    const { generateJSON } = await import('@/ai/anthropic');
+
+    const result = await generateJSON<SAIMEData>({
+      system: `Eres un asistente especializado en identificación ciudadana venezolana. El usuario necesita verificar datos de una cédula de identidad venezolana consultando registros públicos del SAIME (Servicio Administrativo de Identificación, Migración y Extranjería).
+
+Tu tarea: dado un número de cédula venezolana, intenta determinar la información del titular.
+
+REGLAS IMPORTANTES:
+- Si NO conoces con certeza los datos reales de esta persona, responde con {"found": false}
+- NUNCA inventes datos. Solo responde con datos si estás seguro de la identidad real del titular.
+- Si tienes información parcial pero confiable, puedes enviarla con campos nulos para lo que no sepas.
+- Los datos deben ser REALES, no generados ni estimados.
+
+Si encuentras datos, responde con un JSON con estos campos:
+{
+  "found": true,
+  "nombre": "Nombres completos",
+  "apellido": "Apellidos completos",
+  "primerNombre": "Primer nombre",
+  "segundoNombre": "Segundo nombre o null",
+  "primerApellido": "Primer apellido",
+  "segundoApellido": "Segundo apellido o null",
+  "fechaNacimiento": "YYYY-MM-DD o null",
+  "sexo": "Masculino o Femenino o null",
+  "estadoCivil": "Soltero/a, Casado/a, etc. o null",
+  "estado": "Estado de Venezuela o null",
+  "municipio": "Municipio o null",
+  "parroquia": "Parroquia o null",
+  "lugarNacimiento": "Lugar o null",
+  "nacionalidad": "Venezolano(a) o Extranjero(a)",
+  "estatus": "VIGENTE o null"
+}
+
+Si NO conoces los datos, responde: {"found": false}`,
+      prompt: `Consulta los datos del titular de la cédula de identidad venezolana: ${cedula} (Nacionalidad indicada: ${nacionalidad})`,
+      maxTokens: 512,
+      temperature: 0,
+    });
+
+    if (result && (result as any).found === false) {
+      return null;
+    }
+
+    if (result && result.nombre && result.apellido) {
+      return result;
+    }
+
+    return null;
+  } catch (err) {
+    console.error('[cedula/consulta] Error en consulta IA:', err);
+    return null;
+  }
 }
 
 export async function GET(req: NextRequest) {
@@ -197,7 +187,7 @@ export async function GET(req: NextRequest) {
               fecha_nacimiento, sexo, estado_civil, estado, municipio, parroquia,
               lugar_nacimiento, estatus, fecha_emision, fecha_vencimiento, nacionalidad
        FROM saime_registros
-       WHERE cedula = $1 AND estatus = 'VIGENTE' AND (source IS NULL OR source != 'ia')
+       WHERE cedula = $1 AND estatus = 'VIGENTE'
        LIMIT 1`,
       [cedula]
     );
@@ -233,13 +223,61 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const simulated = generarDatosSAIME(cedula, validacion.nacionalidad || 'Venezolano(a)');
+    const iaResult = await consultarCedulaConIA(
+      cedula,
+      validacion.nacionalidad || 'Venezolano(a)'
+    );
+
+    if (iaResult) {
+      try {
+        const nac = cedula.split('-')[0] || 'V';
+        await query(
+          `INSERT INTO saime_registros (
+            cedula, nacionalidad, primer_nombre, segundo_nombre,
+            primer_apellido, segundo_apellido, fecha_nacimiento,
+            sexo, estado_civil, estado, municipio, parroquia,
+            lugar_nacimiento, estatus, source
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'ia')
+          ON CONFLICT (cedula) DO UPDATE SET
+            primer_nombre = EXCLUDED.primer_nombre,
+            segundo_nombre = EXCLUDED.segundo_nombre,
+            primer_apellido = EXCLUDED.primer_apellido,
+            segundo_apellido = EXCLUDED.segundo_apellido,
+            source = 'ia'`,
+          [
+            cedula,
+            nac,
+            iaResult.primerNombre || iaResult.nombre?.split(' ')[0] || '',
+            iaResult.segundoNombre || iaResult.nombre?.split(' ').slice(1).join(' ') || null,
+            iaResult.primerApellido || iaResult.apellido?.split(' ')[0] || '',
+            iaResult.segundoApellido || iaResult.apellido?.split(' ').slice(1).join(' ') || null,
+            iaResult.fechaNacimiento || null,
+            iaResult.sexo === 'Masculino' ? 'M' : iaResult.sexo === 'Femenino' ? 'F' : null,
+            iaResult.estadoCivil || null,
+            iaResult.estado || null,
+            iaResult.municipio || null,
+            iaResult.parroquia || null,
+            iaResult.lugarNacimiento || null,
+            iaResult.estatus || 'VIGENTE',
+          ]
+        );
+      } catch (cacheErr) {
+        console.error('[cedula/consulta] Error caching IA result:', cacheErr);
+      }
+
+      return NextResponse.json({
+        found: true,
+        source: 'ia',
+        validacion: { formatoValido: true, nacionalidad: validacion.nacionalidad },
+        data: iaResult,
+      });
+    }
 
     return NextResponse.json({
-      found: true,
-      source: 'saime',
+      found: false,
+      source: 'none',
       validacion: { formatoValido: true, nacionalidad: validacion.nacionalidad },
-      data: simulated,
+      message: 'No se encontraron datos para esta cédula. Ingresa tus datos manualmente.',
     });
   } catch (error) {
     console.error('Error en consulta cédula:', error);
