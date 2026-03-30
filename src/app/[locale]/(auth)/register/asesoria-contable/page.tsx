@@ -47,7 +47,7 @@ const PLANES = [
         precio: 28,
         icon: Zap,
         color: 'emerald',
-        recomendado: true,
+        recomendado: false,
         descripcion: 'Facturación electrónica y cumplimiento fiscal completo',
         features: [
             'Todo del plan Básico',
