@@ -92,9 +92,9 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-black;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: none;
     max-width: 100%;
   }
 

@@ -407,8 +407,8 @@ export default function RegisterSelectionPage() {
                                             <FIcon className="h-4 w-4 text-primary/70" />
                                         </div>
                                         <div className="min-w-0 overflow-hidden">
-                                            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-0.5 break-words">{f.title}</p>
-                                            <p className="text-xs text-muted-foreground leading-relaxed break-words">{f.desc}</p>
+                                            <p className="text-xs font-bold uppercase tracking-wide text-foreground mb-0.5 truncate">{f.title}</p>
+                                            <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                                         </div>
                                     </div>
                                 );

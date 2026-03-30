@@ -77,7 +77,7 @@ export function AboutUsSection() {
                             <Globe className="h-3.5 w-3.5 text-emerald-400" />
                             Hecho en Venezuela
                         </div>
-                        <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground break-words">
+                        <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground">
                             Construido para{' '}
                             <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                 Venezuela

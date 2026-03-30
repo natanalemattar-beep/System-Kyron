@@ -132,7 +132,7 @@ export function CommentsSection() {
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[9px] font-black uppercase tracking-[0.35em] border border-violet-500/20 mb-5">
                         <MessageSquare className="h-3 w-3" /> Comentarios Reales
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4 break-words">
+                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4">
                         <span className="text-foreground">Lo que dicen </span>
                         <span className="bg-gradient-to-r from-violet-500 via-primary to-cyan-400 bg-clip-text text-transparent italic">nuestros usuarios</span>
                     </h2>
