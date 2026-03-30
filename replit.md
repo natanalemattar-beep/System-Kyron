@@ -48,14 +48,14 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
 - **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and an enhanced user manual.
-- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, WebP images (95% compression). Landing page content appears immediately without scroll triggers. Framer-motion removed from `demo-banner.tsx`, `welcome-tutorial.tsx`, `comments-section.tsx`, `facturacion/page.tsx`, and `sostenibilidad/page.tsx`. Below-fold sections deferred via `requestIdleCallback` until hero is interactive. Only `scroll-cinematic-section` retains Framer Motion for scroll-driven parallax.
+- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, WebP images (95% compression). Hero section uses separate background images for light mode (`hero-bg-light.webp`) and dark mode (`hero-bg-dark.webp`) with CSS class-based switching (`dark:hidden` / `hidden dark:block`). Landing page content appears immediately without scroll triggers. Framer-motion removed from `demo-banner.tsx`, `welcome-tutorial.tsx`, `comments-section.tsx`, `facturacion/page.tsx`, and `sostenibilidad/page.tsx`. Below-fold sections deferred via `requestIdleCallback` until hero is interactive. Only `scroll-cinematic-section` retains Framer Motion for scroll-driven parallax.
 - **Dashboard-Socios Page:** New page at `src/app/[locale]/(socios)/dashboard-socios/page.tsx` with shareholder composition table, KPI cards (capital social, dividends), recent agreements, corporate governance modules, and parasocial pact card.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations are defined globally.
 - **Real RIF/Cédula Validation:** Uses Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula. API endpoints perform DB-only lookups.
 - **Route Protection:** Authentication is required for sensitive pages.
-- **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences.
+- **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences. Document-ready notifications auto-trigger when document status changes to ready states (aprobado, entregado, vigente, firmado, etc.) via `notifyDocumentReady()` helper in `src/lib/document-notifications.ts`.
 - **Permisología Module:** Covers SENIAT, various ministries, municipalities, and autonomous entities.
 - **Carnets & Tarjetas Module:** Generates QR codes for various cards.
 - **Telecom Module:** Manages personal and enterprise telecommunications lines with auto-assigned unique numbers.

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
+import { notifyDocumentReady } from '@/lib/document-notifications';
 
 export const dynamic = 'force-dynamic';
 
@@ -95,6 +96,18 @@ export async function PATCH(req: NextRequest) {
   );
 
   if (!sol) return NextResponse.json({ error: 'Solicitud no encontrada' }, { status: 404 });
+
+  const updated = sol as { id: number; tipo: string; estado: string };
+  if (estado) {
+    notifyDocumentReady({
+      userId: session.userId,
+      documentType: 'solicitud_civil',
+      documentTitle: `Solicitud ${updated.tipo?.replace(/_/g, ' ') ?? 'civil'}`,
+      newStatus: updated.estado,
+      documentId: updated.id,
+      actionUrl: '/legal/documentos-civiles',
+    }).catch(() => {});
+  }
 
   return NextResponse.json({ success: true, solicitud: sol });
 }

@@ -74,10 +74,17 @@ export function HeroSection() {
         <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
             <div className="absolute inset-0 -z-10">
                 <Image
-                    src="/images/landing/hero-bg.webp"
+                    src="/images/landing/hero-bg-light.webp"
                     alt=""
                     fill
-                    className="object-cover"
+                    className="object-cover dark:hidden"
+                    priority
+                />
+                <Image
+                    src="/images/landing/hero-bg-dark.webp"
+                    alt=""
+                    fill
+                    className="object-cover hidden dark:block"
                     priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />

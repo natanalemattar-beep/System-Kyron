@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
+import { notifyDocumentReady } from '@/lib/document-notifications';
 
 export const dynamic = 'force-dynamic';
 
@@ -126,6 +127,18 @@ export async function PATCH(req: NextRequest) {
      RETURNING id, tipo, titulo, estado`,
     [estado ?? null, notas ?? null, id, session.userId]
   );
+
+  const updated = doc as { id: number; titulo: string; estado: string };
+  if (estado) {
+    notifyDocumentReady({
+      userId: session.userId,
+      documentType: 'documento_juridico',
+      documentTitle: updated.titulo,
+      newStatus: updated.estado,
+      documentId: updated.id,
+      actionUrl: '/legal/documentos',
+    }).catch(() => {});
+  }
 
   return NextResponse.json({ success: true, documento: doc });
 }

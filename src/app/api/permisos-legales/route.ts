@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
+import { notifyDocumentReady } from '@/lib/document-notifications';
 
 export const dynamic = 'force-dynamic';
 
@@ -106,6 +107,17 @@ export async function PATCH(req: NextRequest) {
     `UPDATE permisos_legales SET ${updates.join(', ')} WHERE id = $${i++} AND user_id = $${i++}`,
     params
   );
+
+  if (estado) {
+    notifyDocumentReady({
+      userId: session.userId,
+      documentType: 'permiso_legal',
+      documentTitle: `Permiso legal #${id}`,
+      newStatus: estado,
+      documentId: parseInt(id as string),
+      actionUrl: '/legal/permisos',
+    }).catch(() => {});
+  }
 
   return NextResponse.json({ success: true });
 }
