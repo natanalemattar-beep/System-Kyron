@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight,
-  UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap
+  UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
+  Smartphone, MessageSquare
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
@@ -65,6 +66,11 @@ export function SpecializedLoginCard({
   const [countdown, setCountdown] = useState(0);
   const [emailDeliveryFailed, setEmailDeliveryFailed] = useState(false);
   const [savedCredentials, setSavedCredentials] = useState<{ email: string; password: string } | null>(null);
+  const [verificationMethod, setVerificationMethod] = useState<'email' | 'sms'>('email');
+  const [hasPhone, setHasPhone] = useState(false);
+  const [maskedPhone, setMaskedPhone] = useState('');
+  const [switchingMethod, setSwitchingMethod] = useState(false);
+  const [challengeToken, setChallengeToken] = useState('');
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -115,6 +121,10 @@ export function SpecializedLoginCard({
         setVerificationEmail(email);
         setMaskedEmail(json.maskedEmail || email);
         setUserName(json.nombre || '');
+        setHasPhone(!!json.hasPhone);
+        setMaskedPhone(json.maskedPhone || '');
+        setChallengeToken(json.challengeToken || '');
+        setVerificationMethod('email');
         setStep('verification');
         setCountdown(600);
         setCodeDigits(['', '', '', '', '', '']);
@@ -176,8 +186,48 @@ export function SpecializedLoginCard({
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 
-  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); };
+  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
+
+  const handleSwitchMethod = async (method: 'email' | 'sms') => {
+    if (method === verificationMethod || switchingMethod) return;
+    setSwitchingMethod(true);
+    setError(null);
+    setCodeDigits(['', '', '', '', '', '']);
+    try {
+      const body: Record<string, string> = { method, destino: verificationEmail, tipo: method };
+      if (method === 'sms' && challengeToken) {
+        body.challengeToken = challengeToken;
+      }
+      const res = await fetch('/api/auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error || 'No se pudo enviar el código.');
+        setSwitchingMethod(false);
+        return;
+      }
+      setVerificationMethod(method);
+      setCountdown(600);
+      toast({
+        title: method === 'sms' ? 'Código enviado por SMS' : 'Código enviado por correo',
+        description: method === 'sms'
+          ? `Revisa los mensajes en ${maskedPhone}`
+          : `Revisa tu correo ${maskedEmail}`,
+        action: method === 'sms'
+          ? <Smartphone className="text-emerald-500 h-4 w-4" />
+          : <Mail className="text-cyan-500 h-4 w-4" />,
+      });
+      setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    } catch {
+      setError('Error de conexión al reenviar código.');
+    } finally {
+      setSwitchingMethod(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
@@ -438,16 +488,62 @@ export function SpecializedLoginCard({
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.3, type: "spring" }}
                   >
-                    <KeyRound className={cn("h-7 w-7", theme.accent)} />
+                    {verificationMethod === 'sms'
+                      ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
+                      : <KeyRound className={cn("h-7 w-7", theme.accent)} />
+                    }
                   </motion.div>
                   <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
                   <p className="text-[13px] text-muted-foreground mt-2">
-                    Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong>
+                    Código de 6 dígitos enviado a{' '}
+                    <strong className="text-foreground">
+                      {verificationMethod === 'sms' ? maskedPhone : maskedEmail}
+                    </strong>
                   </p>
                   {countdown > 0 && (
                     <p className="text-xs text-muted-foreground mt-1.5">
                       Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
                     </p>
+                  )}
+
+                  {hasPhone && (
+                    <div className="flex items-center justify-center gap-1.5 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleSwitchMethod('email')}
+                        disabled={switchingMethod || isLoading}
+                        className={cn(
+                          "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
+                          verificationMethod === 'email'
+                            ? cn("bg-primary/10 border border-primary/20", theme.accent)
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
+                        )}
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        Correo
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSwitchMethod('sms')}
+                        disabled={switchingMethod || isLoading}
+                        className={cn(
+                          "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
+                          verificationMethod === 'sms'
+                            ? cn("bg-primary/10 border border-primary/20", theme.accent)
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
+                        )}
+                      >
+                        <Smartphone className="h-3.5 w-3.5" />
+                        SMS
+                      </button>
+                    </div>
+                  )}
+
+                  {switchingMethod && (
+                    <div className="flex items-center justify-center gap-2 mt-3">
+                      <Loader2 className={cn("h-3.5 w-3.5 animate-spin", theme.accent)} />
+                      <span className="text-[11px] text-muted-foreground">Enviando código...</span>
+                    </div>
                   )}
                 </div>
 
@@ -502,6 +598,22 @@ export function SpecializedLoginCard({
                   <p className="text-center text-xs text-muted-foreground/60">
                     ¿No recibiste el código?{' '}
                     <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading}>Solicitar nuevo</button>
+                    {hasPhone && verificationMethod === 'email' && (
+                      <>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                          Enviar por SMS
+                        </button>
+                      </>
+                    )}
+                    {verificationMethod === 'sms' && (
+                      <>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                          Enviar por correo
+                        </button>
+                      </>
+                    )}
                   </p>
                 </div>
               </motion.div>

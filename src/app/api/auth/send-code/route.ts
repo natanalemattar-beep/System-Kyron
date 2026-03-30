@@ -3,6 +3,7 @@ import { query } from '@/lib/db';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
+import { verifyLoginChallenge } from '@/lib/login-challenge';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,6 +38,16 @@ export async function POST(req: NextRequest) {
     }
     if (!['email', 'sms'].includes(tipo)) {
       return NextResponse.json({ error: 'Tipo debe ser "email" o "sms"' }, { status: 400 });
+    }
+
+    if (tipo === 'sms' && body.challengeToken) {
+      const challenge = verifyLoginChallenge(body.challengeToken, destino);
+      if (!challenge.valid) {
+        return NextResponse.json(
+          { error: 'Sesión de verificación expirada. Inicia sesión nuevamente.' },
+          { status: 403 }
+        );
+      }
     }
 
     if (tipo === 'email') {
@@ -101,9 +112,37 @@ export async function POST(req: NextRequest) {
       }
     } else {
       try {
+        let phoneNumber = destino;
+
+        if (destino.includes('@')) {
+          const userPhone = await query<{ telefono: string | null }>(
+            `SELECT telefono FROM users WHERE email = $1`,
+            [destino]
+          );
+          if (!userPhone[0]?.telefono) {
+            return NextResponse.json(
+              { error: 'No tienes un número de teléfono registrado. Usa verificación por correo.' },
+              { status: 400 }
+            );
+          }
+          phoneNumber = userPhone[0].telefono;
+        }
+
+        let normalized = phoneNumber.replace(/[\s\-\(\)]/g, '');
+        if (normalized.startsWith('0')) normalized = `+58${normalized.slice(1)}`;
+        else if (normalized.startsWith('58')) normalized = `+${normalized}`;
+        else if (!normalized.startsWith('+')) normalized = `+${normalized}`;
+
+        if (!/^\+\d{10,15}$/.test(normalized)) {
+          return NextResponse.json(
+            { error: 'Formato de número de teléfono inválido.' },
+            { status: 400 }
+          );
+        }
+
         const { sendSms } = await import('@/lib/twilio-client');
         const result = await sendSms(
-          destino,
+          normalized,
           `System Kyron: Tu código de verificación es ${codigo}. Válido por 10 minutos.`
         );
         if (!result.success) {

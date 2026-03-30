@@ -7,6 +7,7 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
+import { createLoginChallenge } from '@/lib/login-challenge';
 
 interface DbUser {
     id: number;
@@ -19,6 +20,8 @@ interface DbUser {
     razon_social: string | null;
     rif: string | null;
     access_key_hash: string | null;
+    telefono: string | null;
+    telefono_verificado: boolean;
 }
 
 export async function POST(req: NextRequest) {
@@ -43,7 +46,7 @@ export async function POST(req: NextRequest) {
         if (!emailRl.allowed) return rateLimitResponse(emailRl.retryAfterMs);
 
         const user = await queryOne<DbUser>(
-            `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash
+            `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
              FROM users WHERE email = $1`,
             [normalizedEmail]
         );
@@ -120,6 +123,15 @@ export async function POST(req: NextRequest) {
             (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
         );
 
+        const hasPhone = !!(user.telefono && user.telefono.length >= 7 && user.telefono_verificado);
+        let maskedPhone = '';
+        if (hasPhone && user.telefono) {
+            const cleaned = user.telefono.replace(/[\s\-\(\)]/g, '');
+            maskedPhone = cleaned.length > 4
+                ? '•'.repeat(cleaned.length - 4) + cleaned.slice(-4)
+                : '•••' + cleaned.slice(-2);
+        }
+
         const emailResult = await sendEmail({
             to: normalizedEmail,
             subject: `${code} — Código de verificación · System Kyron`,
@@ -145,11 +157,16 @@ export async function POST(req: NextRequest) {
             }, { status: 503 });
         }
 
+        const challengeToken = createLoginChallenge(normalizedEmail, user.id);
+
         return NextResponse.json({
             requiresVerification: true,
             maskedEmail,
             nombre: displayName,
             hasAccessKey: !!user.access_key_hash,
+            hasPhone,
+            maskedPhone,
+            challengeToken,
         });
     } catch (err) {
         console.error('Login error:', err);

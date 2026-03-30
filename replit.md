@@ -35,7 +35,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Database Schema:** A comprehensive PostgreSQL schema with over 80 tables.
 - **Database Layer:** Includes helpers for batch operations, upserts, existence checks, pagination, and health checks.
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations.
-- **Authentication:** JWT utilities with 2FA via email and an optional "access key" for skipping 2FA.
+- **Authentication:** JWT utilities with 2FA via email or SMS (phone verification). Users with a verified phone number can choose between email or SMS for receiving OTP codes. A challenge token (HMAC-signed) binds SMS resend requests to a valid login session to prevent abuse. An optional "access key" allows skipping 2FA entirely.
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, and WebP images. Background animations are optimized using pure CSS.
