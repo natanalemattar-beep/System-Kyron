@@ -11,7 +11,8 @@ async function getOrCreateConfig(userId: number) {
             notif_sms, telefono_sms,
             notif_vencimientos, notif_pagos,
             iva_pct::text, igtf_pct::text, islr_pct::text,
-            rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at
+            rif_empresa, nombre_comercial, logo_url, pie_factura,
+            email_verificacion, email_alertas, updated_at
      FROM configuracion_usuario WHERE user_id = $1`,
     [userId]
   );
@@ -25,7 +26,8 @@ async function getOrCreateConfig(userId: number) {
                  notif_sms, telefono_sms,
                  notif_vencimientos, notif_pagos,
                  iva_pct::text, igtf_pct::text, islr_pct::text,
-                 rif_empresa, nombre_comercial, logo_url, pie_factura, updated_at`,
+                 rif_empresa, nombre_comercial, logo_url, pie_factura,
+                 email_verificacion, email_alertas, updated_at`,
       [userId]
     );
     config = row;
@@ -53,7 +55,8 @@ export async function PATCH(req: NextRequest) {
     notif_sms, telefono_sms,
     notif_vencimientos, notif_pagos,
     iva_pct, igtf_pct, islr_pct,
-    rif_empresa, nombre_comercial, logo_url, pie_factura
+    rif_empresa, nombre_comercial, logo_url, pie_factura,
+    email_verificacion, email_alertas
   } = body;
 
   await getOrCreateConfig(session.userId);
@@ -77,10 +80,13 @@ export async function PATCH(req: NextRequest) {
          nombre_comercial   = COALESCE($15, nombre_comercial),
          logo_url           = COALESCE($16, logo_url),
          pie_factura        = COALESCE($17, pie_factura),
+         email_verificacion = COALESCE($18, email_verificacion),
+         email_alertas      = COALESCE($19, email_alertas),
          updated_at         = NOW()
-     WHERE user_id = $18
+     WHERE user_id = $20
      RETURNING id, idioma, moneda_preferida, notif_whatsapp, telefono_whatsapp,
-               notif_sms, telefono_sms, iva_pct::text, igtf_pct::text, updated_at`,
+               notif_sms, telefono_sms, iva_pct::text, igtf_pct::text,
+               email_verificacion, email_alertas, updated_at`,
     [
       idioma ?? null,
       moneda_preferida ?? null,
@@ -99,6 +105,8 @@ export async function PATCH(req: NextRequest) {
       nombre_comercial ?? null,
       logo_url ?? null,
       pie_factura ?? null,
+      email_verificacion ?? null,
+      email_alertas ?? null,
       session.userId,
     ]
   );

@@ -44,6 +44,16 @@ export async function POST(req: NextRequest) {
       if (!isValidEmail(destino)) {
         return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
       }
+
+      const userConfig = await query<{ email_verificacion: string | null }>(
+        `SELECT cu.email_verificacion FROM configuracion_usuario cu
+         JOIN users u ON u.id = cu.user_id
+         WHERE u.email = $1`,
+        [destino]
+      );
+      if (userConfig[0]?.email_verificacion) {
+        destino = userConfig[0].email_verificacion;
+      }
     }
 
     const recentCheck = await query<{ count: string }>(

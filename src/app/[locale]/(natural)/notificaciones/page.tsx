@@ -36,6 +36,8 @@ interface NotifConfig {
   telefono_sms: string;
   notif_vencimientos: boolean;
   notif_pagos: boolean;
+  email_verificacion: string;
+  email_alertas: string;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -153,6 +155,8 @@ export default function NotificacionesPage() {
           telefono_sms: config.telefono_sms || null,
           notif_vencimientos: config.notif_vencimientos,
           notif_pagos: config.notif_pagos,
+          email_verificacion: config.email_verificacion || null,
+          email_alertas: config.email_alertas || null,
         }),
       });
       if (res.ok) {
@@ -245,20 +249,54 @@ export default function NotificacionesPage() {
           </CardHeader>
           <div className="p-6 pt-2 space-y-5">
             <div className="grid gap-5">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-muted/30 border border-border/50">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                    <Mail className="h-4 w-4 text-blue-400" />
+              <div className="space-y-3 p-4 rounded-xl bg-muted/30 border border-border/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                      <Mail className="h-4 w-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <Label className="text-sm font-bold">Email</Label>
+                      <p className="text-xs text-muted-foreground">Recibe alertas en tu correo electrónico</p>
+                    </div>
                   </div>
-                  <div>
-                    <Label className="text-sm font-bold">Email</Label>
-                    <p className="text-xs text-muted-foreground">Recibe alertas en tu correo electrónico</p>
-                  </div>
+                  <Switch
+                    checked={config.notif_email}
+                    onCheckedChange={(v) => setConfig({ ...config, notif_email: v })}
+                  />
                 </div>
-                <Switch
-                  checked={config.notif_email}
-                  onCheckedChange={(v) => setConfig({ ...config, notif_email: v })}
-                />
+                {config.notif_email && (
+                  <div className="space-y-3 pl-2 border-t border-border/20 pt-3">
+                    <div className="space-y-1.5">
+                      <Label className="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Mail className="h-3.5 w-3.5" />
+                        Correo Gmail (Verificaciones)
+                      </Label>
+                      <Input
+                        type="email"
+                        placeholder="tucorreo@gmail.com"
+                        value={config.email_verificacion || ''}
+                        onChange={(e) => setConfig({ ...config, email_verificacion: e.target.value })}
+                        className="h-10 rounded-lg text-sm"
+                      />
+                      <p className="text-[10px] text-muted-foreground/60">Los codigos de verificacion y 2FA se enviaran a este correo Gmail</p>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Mail className="h-3.5 w-3.5" />
+                        Correo Hotmail / Outlook (Alertas)
+                      </Label>
+                      <Input
+                        type="email"
+                        placeholder="tucorreo@hotmail.com"
+                        value={config.email_alertas || ''}
+                        onChange={(e) => setConfig({ ...config, email_alertas: e.target.value })}
+                        className="h-10 rounded-lg text-sm"
+                      />
+                      <p className="text-[10px] text-muted-foreground/60">Las alertas del sistema, vencimientos y notificaciones fiscales se enviaran a este correo Outlook/Hotmail</p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="space-y-3 p-4 rounded-xl bg-muted/30 border border-border/50">

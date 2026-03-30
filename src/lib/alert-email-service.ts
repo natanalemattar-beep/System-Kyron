@@ -38,8 +38,8 @@ export async function sendNotificationEmail(
   }
 ) {
   try {
-    const config = await queryOne<{ notif_email: boolean }>(
-      `SELECT notif_email FROM configuracion_usuario WHERE user_id = $1`,
+    const config = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
+      `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
       [userId]
     );
 
@@ -55,6 +55,8 @@ export async function sendNotificationEmail(
     if (!user?.email) {
       return;
     }
+
+    const alertEmail = config.email_alertas || user.email;
 
     const tipoInfo = TIPO_LABELS[notification.tipo] || TIPO_LABELS.info;
     const safeTitulo = escapeHtml(notification.titulo);
@@ -80,7 +82,7 @@ export async function sendNotificationEmail(
     });
 
     const result = await sendEmail({
-      to: user.email,
+      to: alertEmail,
       subject: `[Kyron ${tipoInfo.label}] ${notification.titulo}`,
       html,
       module: 'sistema',
@@ -88,7 +90,7 @@ export async function sendNotificationEmail(
     });
 
     if (!result.success) {
-      console.warn(`[alert-email] Failed to send to ${user.email}: ${result.error}`);
+      console.warn(`[alert-email] Failed to send to ${alertEmail}: ${result.error}`);
     }
   } catch (err) {
     console.error('[alert-email] Error sending notification email:', err);
