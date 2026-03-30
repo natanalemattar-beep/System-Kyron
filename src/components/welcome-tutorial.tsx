@@ -9,7 +9,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   ShieldCheck,
@@ -137,11 +136,9 @@ export function WelcomeTutorial() {
         </DialogHeader>
 
         <div className="absolute top-0 left-0 right-0 h-1 bg-muted/50 z-10">
-          <motion.div
-            className="h-full bg-primary shadow-glow-sm"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          <div
+            className="h-full bg-primary shadow-glow-sm transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
           />
         </div>
 
@@ -165,15 +162,7 @@ export function WelcomeTutorial() {
             </span>
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-8"
-            >
+          <div key={currentStep} className="space-y-8">
               <div className="flex items-center gap-6">
                 <div className={cn(
                   "relative w-20 h-20 rounded-[1.5rem] flex items-center justify-center shrink-0 border",
@@ -213,8 +202,7 @@ export function WelcomeTutorial() {
                   />
                 ))}
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </div>
         </div>
 
         <div className="px-8 sm:px-10 pb-8 flex items-center justify-between gap-4">

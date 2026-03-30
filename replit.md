@@ -48,7 +48,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
 - **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and an enhanced user manual.
-- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, and CSS-based animations. Landing page animations use `useInView` hook (`src/hooks/use-in-view.ts`) with `animate-hidden` CSS utility to gate animations until sections scroll into viewport. Only `scroll-cinematic-section` retains Framer Motion for scroll-driven parallax.
+- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, WebP images (95% compression). Landing page content appears immediately without scroll triggers. Framer-motion removed from `demo-banner.tsx`, `welcome-tutorial.tsx`, and `comments-section.tsx`. Below-fold sections deferred via `requestIdleCallback` until hero is interactive. Only `scroll-cinematic-section` retains Framer Motion for scroll-driven parallax.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations are defined globally.

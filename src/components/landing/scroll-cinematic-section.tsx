@@ -289,7 +289,7 @@ export function ScrollCinematicSection() {
                             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-emerald-500/10 rounded-[2rem] blur-2xl" />
                             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)]">
                                 <Image
-                                    src="/images/landing/hero-dashboard.png"
+                                    src="/images/landing/hero-dashboard.webp"
                                     alt="System Kyron Dashboard"
                                     width={900}
                                     height={506}

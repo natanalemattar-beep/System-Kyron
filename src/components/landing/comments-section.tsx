@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import { motion } from 'framer-motion';
 
 interface Comentario {
     id: number;
@@ -122,13 +121,7 @@ export function CommentsSection() {
             </div>
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
-                <motion.div
-                    className="text-center mb-10 md:mb-14"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
+                <div className="text-center mb-10 md:mb-14">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[9px] font-black uppercase tracking-[0.35em] border border-violet-500/20 mb-5">
                         <MessageSquare className="h-3 w-3" /> Comentarios Reales
                     </div>
@@ -139,7 +132,7 @@ export function CommentsSection() {
                     <p className="text-xs md:text-sm text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
                         Opiniones verificadas de personas y empresas registradas
                     </p>
-                </motion.div>
+                </div>
 
                 {loading ? (
                     <div className="flex items-center justify-center py-16">
@@ -147,13 +140,7 @@ export function CommentsSection() {
                         <span className="ml-3 text-sm text-muted-foreground font-bold uppercase tracking-widest">Cargando...</span>
                     </div>
                 ) : comentarios.length === 0 ? (
-                    <motion.div
-                        className="text-center py-16"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div className="text-center py-16">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/15 to-violet-500/5 border border-violet-500/15 mb-4">
                             <Quote className="h-7 w-7 text-violet-500/60" />
                         </div>
@@ -161,17 +148,11 @@ export function CommentsSection() {
                         <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider max-w-sm mx-auto">
                             Sé el primero en compartir tu experiencia con System Kyron.
                         </p>
-                    </motion.div>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                        {comentarios.map((c, i) => (
-                            <motion.div
-                                key={c.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.08, duration: 0.5 }}
-                            >
+                        {comentarios.map((c) => (
+                            <div key={c.id}>
                                 <Card className="group relative rounded-3xl border border-border/30 dark:border-white/[0.06] bg-card/60 dark:bg-white/[0.015] hover:bg-card/80 dark:hover:bg-white/[0.03] transition-all duration-500 shadow-lg hover:shadow-xl overflow-hidden h-full hover:-translate-y-1">
                                     <CardContent className="p-6 space-y-4 relative">
                                         <div className="flex items-start justify-between">
@@ -221,18 +202,12 @@ export function CommentsSection() {
                                         </div>
                                     </CardContent>
                                 </Card>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 )}
 
-                <motion.div
-                    className="max-w-xl mx-auto"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                >
+                <div className="max-w-xl mx-auto">
                     {!showForm ? (
                         <div className="text-center">
                             <Button
@@ -296,7 +271,7 @@ export function CommentsSection() {
                             </CardContent>
                         </Card>
                     )}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

@@ -74,7 +74,7 @@ export function HeroSection() {
         <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
             <div className="absolute inset-0 -z-10">
                 <Image
-                    src="/images/landing/hero-bg.png"
+                    src="/images/landing/hero-bg.webp"
                     alt=""
                     fill
                     className="object-cover"
@@ -159,7 +159,7 @@ export function HeroSection() {
                             <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
                                 <Image
-                                    src="/images/landing/hero-dashboard.png"
+                                    src="/images/landing/hero-dashboard.webp"
                                     alt="System Kyron Dashboard"
                                     width={800}
                                     height={450}

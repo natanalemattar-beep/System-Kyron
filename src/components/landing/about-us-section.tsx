@@ -67,7 +67,7 @@ export function AboutUsSection() {
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
                     <Image
-                        src="/images/landing/caracas-skyline.png"
+                        src="/images/landing/caracas-skyline.webp"
                         alt=""
                         fill
                         className="object-cover"
