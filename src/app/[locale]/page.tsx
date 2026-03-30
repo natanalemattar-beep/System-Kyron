@@ -6,8 +6,6 @@ import { LandingHeader } from '@/components/landing/landing-header';
 import {
   HeroSection,
   FeaturesSection,
-  ScrollCinematicSection,
-  DatabaseSection,
   ServicesSection,
   AboutUsSection,
   CommentsSection,
@@ -23,7 +21,7 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const { tier, isMobile } = useDevicePerformance();
+  const { tier } = useDevicePerformance();
 
   useEffect(() => {
     setMounted(true);
@@ -59,9 +57,7 @@ function LandingContent() {
           <>
             <HeroSection />
             <FeaturesSection />
-            {tier !== 'low' && <ScrollCinematicSection />}
             <ServicesSection />
-            <DatabaseSection />
             <AboutUsSection />
             <CommentsSection />
             <CtaSection />
