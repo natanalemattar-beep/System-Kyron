@@ -43,7 +43,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Health Check:** `GET /api/db-health` provides database metrics.
 - **Enhanced Audit Trail:** `logAudit()` records detailed field-level changes.
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations.
-- **Authentication:** JWT utilities with an `AuthProvider` context. Login requires 2FA via email.
+- **Authentication:** JWT utilities with an `AuthProvider` context. Login requires 2FA via email. Optional "access key" (llave de acceso) allows users to skip 2FA by providing a personal key (min 6 chars, bcrypt-hashed in `users.access_key_hash`). Access key management API at `/api/auth/access-key` (GET/POST/DELETE). All login pages support the access key toggle.
 - **2FA Verification:** 6-digit code generation, email sending, and verification.
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.

@@ -79,10 +79,13 @@ async function createCoreAuthTables() {
       verificado          BOOLEAN NOT NULL DEFAULT false,
       activo              BOOLEAN NOT NULL DEFAULT true,
       ultimo_login        TIMESTAMPTZ,
+      access_key_hash     TEXT,
       created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS access_key_hash TEXT`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS user_modules (

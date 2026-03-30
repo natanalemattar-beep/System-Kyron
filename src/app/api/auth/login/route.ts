@@ -18,6 +18,7 @@ interface DbUser {
     cedula: string | null;
     razon_social: string | null;
     rif: string | null;
+    access_key_hash: string | null;
 }
 
 export async function POST(req: NextRequest) {
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { email, password } = await req.json();
+        const { email, password, accessKey } = await req.json();
 
         if (!email || !password) {
             return NextResponse.json({ error: 'Correo y contraseña son requeridos' }, { status: 400 });
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest) {
         if (!emailRl.allowed) return rateLimitResponse(emailRl.retryAfterMs);
 
         const user = await queryOne<DbUser>(
-            `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif
+            `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash
              FROM users WHERE email = $1`,
             [normalizedEmail]
         );
@@ -66,12 +67,53 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
         }
 
-        const code = generateCode();
-        await storeCode(normalizedEmail, code, user.id);
-
         const displayName = user.tipo === 'juridico'
             ? (user.razon_social ?? user.nombre)
             : user.nombre;
+
+        if (accessKey && typeof accessKey === 'string' && accessKey.trim().length >= 6 && user.access_key_hash) {
+            const accessKeyValid = await bcrypt.compare(accessKey.trim(), user.access_key_hash);
+            if (accessKeyValid) {
+                const token = await createToken({
+                    userId: user.id,
+                    email: user.email,
+                    tipo: user.tipo,
+                    nombre: displayName,
+                });
+
+                const cookie = setSessionCookie(token);
+                const res = NextResponse.json({
+                    success: true,
+                    accessKeyUsed: true,
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        tipo: user.tipo,
+                        nombre: displayName,
+                        apellido: user.apellido,
+                        cedula: user.cedula,
+                        razon_social: user.razon_social,
+                        rif: user.rif,
+                    },
+                });
+                res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+                await logActivity({
+                    userId: user.id,
+                    evento: 'LOGIN',
+                    categoria: 'auth',
+                    descripcion: `Inicio de sesión con llave de acceso: ${displayName} (${user.email})`,
+                    entidadTipo: 'usuario',
+                    entidadId: user.id,
+                    metadata: { email: user.email, tipo: user.tipo, metodo: 'access_key' },
+                });
+
+                return res;
+            }
+        }
+
+        const code = generateCode();
+        await storeCode(normalizedEmail, code, user.id);
 
         const maskedEmail = normalizedEmail.replace(
             /^(.{2})(.*)(@.*)$/,
@@ -107,6 +149,7 @@ export async function POST(req: NextRequest) {
             requiresVerification: true,
             maskedEmail,
             nombre: displayName,
+            hasAccessKey: !!user.access_key_hash,
         });
     } catch (err) {
         console.error('Login error:', err);

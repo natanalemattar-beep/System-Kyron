@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight,
-  UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock,
+  UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound,
   Smartphone, Signal, Building
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -40,6 +40,8 @@ export default function LoginLineaUnifiedPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showAccessKey, setShowAccessKey] = useState(false);
+  const [useAccessKey, setUseAccessKey] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -54,12 +56,15 @@ export default function LoginLineaUnifiedPage() {
     const formData = new FormData(event.currentTarget);
     const email = (formData.get('email') as string || '').trim().toLowerCase();
     const password = formData.get('password') as string;
+    const accessKey = (formData.get('accessKey') as string || '').trim();
 
     try {
+      const body: Record<string, string> = { email, password };
+      if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(body),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -67,8 +72,13 @@ export default function LoginLineaUnifiedPage() {
         setIsLoading(false);
         return;
       }
+      if (json.requiresVerification) {
+        setError('Tu cuenta requiere verificación por correo. Usa tu llave de acceso para entrar directamente, o ingresa desde el portal principal.');
+        setIsLoading(false);
+        return;
+      }
       toast({
-        title: 'Acceso concedido',
+        title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido',
         description: `Bienvenido, ${json.user?.nombre ?? ''}.`,
         action: <CircleCheck className="text-emerald-500 h-4 w-4" />,
       });
@@ -173,6 +183,38 @@ export default function LoginLineaUnifiedPage() {
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => setUseAccessKey(v => !v)}
+                  className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? "text-primary" : "text-muted-foreground hover:text-foreground")}
+                >
+                  <KeyRound className="h-3.5 w-3.5" />
+                  {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
+                </button>
+                {useAccessKey && (
+                  <div className="relative group">
+                    <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                    <Input
+                      name="accessKey"
+                      type={showAccessKey ? 'text' : 'password'}
+                      placeholder="Tu llave personal"
+                      autoComplete="off"
+                      minLength={6}
+                      className="h-12 pl-10 pr-10 rounded-xl border-border/60"
+                    />
+                    <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                      {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                )}
+                {useAccessKey && (
+                  <p className="text-[10px] text-muted-foreground/60 leading-relaxed">
+                    Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
+                  </p>
+                )}
               </div>
 
               <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg" disabled={isLoading}>
