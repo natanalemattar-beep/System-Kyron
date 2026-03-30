@@ -87,6 +87,8 @@ async function createCoreAuthTables() {
   `);
 
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS access_key_hash TEXT`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS plan TEXT`);
+  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS plan_monto NUMERIC(10,2)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS user_modules (

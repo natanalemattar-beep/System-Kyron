@@ -121,11 +121,24 @@ async function registerJuridico(body: Record<string, unknown>) {
         fecha_constitucion, registro_mercantil, capital_social,
         telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
         repNombre, repCedula, rep_cargo, rep_telefono, repEmail, password,
-        modules,
+        modules, plan, plan_monto,
     } = body as Record<string, unknown>;
 
     if (!repEmail || !password || !razonSocial || !rif) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
+    }
+
+    const VALID_PLANS: Record<string, number> = {
+        basico: 12, profesional: 28, empresarial: 52, premium: 95,
+    };
+    let validatedPlan: string | null = null;
+    let validatedPlanMonto: number | null = null;
+    if (plan && typeof plan === 'string') {
+        const planKey = plan.toLowerCase().trim();
+        if (planKey in VALID_PLANS) {
+            validatedPlan = planKey;
+            validatedPlanMonto = VALID_PLANS[planKey];
+        }
     }
 
     if (typeof razonSocial !== 'string' || (razonSocial as string).trim().length < 3) {
@@ -184,13 +197,15 @@ async function registerJuridico(body: Record<string, unknown>) {
             nombre, razon_social, rif, tipo_empresa, actividad_economica, codigo_ciiu,
             fecha_constitucion, registro_mercantil, capital_social,
             telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
-            rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono
+            rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
+            plan, plan_monto
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
                  $9, $10, $11,
                  $12, $13, $14, $15, $16,
-                 $17, $18, $19, $20, $21)
+                 $17, $18, $19, $20, $21,
+                 $22, $23)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -213,6 +228,8 @@ async function registerJuridico(body: Record<string, unknown>) {
             email,
             sanitizeString((rep_cargo ?? '') as string, 100),
             sanitizeString((rep_telefono ?? '') as string, 20),
+            validatedPlan,
+            validatedPlanMonto,
         ]
     );
 

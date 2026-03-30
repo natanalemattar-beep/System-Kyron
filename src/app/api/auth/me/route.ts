@@ -11,6 +11,8 @@ interface DbUser {
     cedula: string | null;
     razon_social: string | null;
     rif: string | null;
+    plan: string | null;
+    plan_monto: number | null;
 }
 
 interface DbModule {
@@ -24,7 +26,7 @@ export async function GET() {
     }
 
     const user = await queryOne<DbUser>(
-        `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
+        `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif, plan, plan_monto
          FROM users WHERE id = $1`,
         [session.userId]
     );
