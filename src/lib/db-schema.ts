@@ -1744,6 +1744,8 @@ async function createConfiguracionTables() {
   await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS telefono_sms TEXT`);
   await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS email_verificacion TEXT`);
   await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS email_alertas TEXT`);
+  await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS reducir_animaciones BOOLEAN NOT NULL DEFAULT false`);
+  await query(`ALTER TABLE configuracion_usuario ADD COLUMN IF NOT EXISTS nav_lateral BOOLEAN NOT NULL DEFAULT false`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

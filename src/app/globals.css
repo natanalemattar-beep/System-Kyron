@@ -119,6 +119,18 @@
   .animate-hidden * {
     animation-play-state: paused !important;
   }
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reduce-motion .animate-pulse,
+  .reduce-motion .animate-spin,
+  .reduce-motion .animate-bounce {
+    animation: none !important;
+  }
   .btn-3d-primary {
     @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all duration-150;
   }

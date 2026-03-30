@@ -45,9 +45,10 @@ interface AppHeaderProps {
       icon: React.ElementType;
     }[];
   }[];
+  compact?: boolean;
 }
 
-export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -210,7 +211,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1 mx-auto overflow-hidden">
+          <nav className={cn("hidden lg:flex items-center justify-center gap-0.5 flex-1 mx-auto overflow-hidden", compact && "lg:hidden")}>
             {navGroups?.map((group) => {
                 const filteredItems = group.items.filter(item => 
                     item.href !== dashboardHref && 

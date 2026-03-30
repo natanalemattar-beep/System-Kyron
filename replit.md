@@ -62,6 +62,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **OTP Verification:** DB-primary storage with in-memory Map fallback, codes scoped by purpose, max 5 attempts per code.
 - **Kyron Chat (Global):** VoiceAssistant component is available for all users (authenticated and unauthenticated) with hide/show toggle and context-aware greetings.
 - **Back Button Component:** Reusable for consistent navigation across subpages.
+- **Settings Page (`/configuracion`):** Under `(admin)` route group. Allows users to toggle "Reducir Animaciones" (disables CSS animations/transitions globally via `.reduce-motion` class on `<html>`) and "Navegación Lateral" (switches from top-bar navigation to a fixed sidebar in admin layouts). UI preferences are managed by `PreferencesProvider` (in `src/lib/preferences-context.tsx`) with localStorage fallback and API persistence. The page also manages notification preferences, fiscal parameters (IVA/IGTF/ISLR), and company data. DB columns: `configuracion_usuario.reducir_animaciones`, `configuracion_usuario.nav_lateral`.
 
 ## External Dependencies
 - **Database:** PostgreSQL
