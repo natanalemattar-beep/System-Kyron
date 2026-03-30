@@ -123,7 +123,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             <p
                 className="absolute bottom-8 text-[7px] font-bold uppercase tracking-[0.5em] text-slate-300 dark:text-white/10 animate-[fadeIn_0.3s_0.5s_both]"
             >
-                v2.8.5
+                Inteligencia Corporativa
             </p>
         </div>
     );

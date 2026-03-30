@@ -177,7 +177,7 @@ export function WelcomeTutorial() {
                     {step.title}
                   </h2>
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-                    System Kyron v2.8.5
+                    System Kyron
                   </p>
                 </div>
               </div>

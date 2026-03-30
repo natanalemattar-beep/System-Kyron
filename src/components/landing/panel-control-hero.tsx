@@ -112,7 +112,7 @@ export function PanelControlHero() {
         <p
           className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
         >
-          Ecosistema Corporativo Venezuela • v2.8.5
+          Ecosistema Corporativo Venezuela
         </p>
       </div>
     </section>

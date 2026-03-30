@@ -53,7 +53,7 @@ export default function NaturalLayout({
               
               <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
-                  System Kyron v2.8.5 Demo • Portal Ciudadano • 2026
+                  System Kyron • Portal Ciudadano • 2026
                 </p>
               </footer>
           </div>

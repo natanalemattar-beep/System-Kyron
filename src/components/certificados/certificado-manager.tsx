@@ -99,7 +99,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
     };
 
     const handleAction = (action: string) => {
-        alert(`${action}: Función en construcción para el prototipo v2.8.5`);
+        alert(`${action}: Esta función estará disponible próximamente.`);
     };
 
     return (

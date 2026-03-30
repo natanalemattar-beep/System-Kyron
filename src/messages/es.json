@@ -157,7 +157,7 @@
         "check_2": "Sin compromisos",
         "check_3": "Soporte 24/7",
         "form_title": "Solicitar Acceso",
-        "form_subtitle": "Registro de interés · System Kyron v2.8.5",
+        "form_subtitle": "Registro de interés · Acceso corporativo",
         "field_name": "Nombre Maestro",
         "field_name_placeholder": "Tu nombre",
         "field_role": "Cargo",
@@ -213,8 +213,8 @@
             "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
             "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
         ],
-        "version_stable": "v2.8.5 — Estable",
-        "copyright": "System Kyron · Inteligencia Corporativa · v2.8.5",
+        "status_online": "Plataforma Operativa",
+        "copyright": "System Kyron · Inteligencia Corporativa",
         "user_manual": "Manual de Usuario",
         "terms": "Términos",
         "privacy": "Privacidad",
@@ -266,7 +266,7 @@
         "ecosystem_desc": "Plataforma integral · Cumplimiento fiscal VEN-NIF",
         "recover_account": "Recuperar cuenta",
         "create_account": "Crear cuenta",
-        "footer": "System Kyron v2.8.5 · Infraestructura Segura · Venezuela",
+        "footer": "System Kyron · Infraestructura Segura · Venezuela",
         "options": {
             "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
             "lines": { "label": "Mis Líneas", "description": "Gestión de líneas telefónicas personales y flota empresarial por separado." },

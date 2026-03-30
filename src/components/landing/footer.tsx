@@ -118,7 +118,7 @@ export function Footer() {
 
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('version_stable')}</span>
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('status_online')}</span>
                         </div>
                     </div>
                 </div>
