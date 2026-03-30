@@ -46,7 +46,9 @@ interface ModuleOption {
     description: string;
     gradient: string;
     iconBg: string;
-    forTypes: DetectedType[];
+    forPrefixes: string[];
+    badge?: string;
+    badgeColor?: string;
 }
 
 const MODULES: ModuleOption[] = [
@@ -58,7 +60,7 @@ const MODULES: ModuleOption[] = [
         description: "Registro personal con cédula, datos de contacto y ubicación geográfica venezolana",
         gradient: "from-sky-500/20 via-blue-500/10 to-transparent",
         iconBg: "bg-sky-500/15 text-sky-400 ring-sky-500/20",
-        forTypes: ["natural"],
+        forPrefixes: ["V", "E", "P"],
     },
     {
         id: "asesoria-contable",
@@ -68,7 +70,31 @@ const MODULES: ModuleOption[] = [
         description: "VEN-NIF, facturación SENIAT, IVA/ISLR/IGTF, nómina LOTTT, RRHH, inventario",
         gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
         iconBg: "bg-emerald-500/15 text-emerald-400 ring-emerald-500/20",
-        forTypes: ["juridico"],
+        forPrefixes: ["J", "G", "F"],
+    },
+    {
+        id: "asesoria-comunal",
+        route: "asesoria-contable",
+        icon: Building,
+        title: "Gestión Contable Comunal",
+        description: "Contabilidad comunal, rendición de cuentas, presupuesto participativo y contraloría social",
+        gradient: "from-orange-500/20 via-amber-500/10 to-transparent",
+        iconBg: "bg-orange-500/15 text-orange-400 ring-orange-500/20",
+        forPrefixes: ["C"],
+        badge: "COMUNAL",
+        badgeColor: "text-orange-400 bg-orange-500/10",
+    },
+    {
+        id: "gestion-publica",
+        route: "asesoria-contable",
+        icon: Landmark,
+        title: "Gestión Pública & Presupuesto",
+        description: "Presupuesto público, SIGECOF, rendición de cuentas CGR, ONAPRE y transparencia fiscal",
+        gradient: "from-amber-500/20 via-yellow-500/10 to-transparent",
+        iconBg: "bg-amber-500/15 text-amber-400 ring-amber-500/20",
+        forPrefixes: ["G"],
+        badge: "GOBIERNO",
+        badgeColor: "text-amber-400 bg-amber-500/10",
     },
     {
         id: "legal",
@@ -78,17 +104,17 @@ const MODULES: ModuleOption[] = [
         description: "Contratos, poderes, permisos SENIAT/SAPI, actas de asamblea y cumplimiento legal",
         gradient: "from-violet-500/20 via-purple-500/10 to-transparent",
         iconBg: "bg-violet-500/15 text-violet-400 ring-violet-500/20",
-        forTypes: ["juridico"],
+        forPrefixes: ["J", "G", "F"],
     },
     {
         id: "telecom",
         route: "telecom",
         icon: Signal,
         title: "Mi Línea 5G",
-        description: "Planes de telefonía, datos móviles 5G, eSIM, y servicios de conectividad empresarial",
+        description: "Planes de telefonía, datos móviles 5G, eSIM y servicios de conectividad",
         gradient: "from-cyan-500/20 via-sky-500/10 to-transparent",
         iconBg: "bg-cyan-500/15 text-cyan-400 ring-cyan-500/20",
-        forTypes: ["natural", "juridico"],
+        forPrefixes: ["V", "E", "J", "F"],
     },
     {
         id: "ventas",
@@ -98,7 +124,7 @@ const MODULES: ModuleOption[] = [
         description: "TPV integrado, control de inventario, estrategias de venta y fidelización de clientes",
         gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
         iconBg: "bg-rose-500/15 text-rose-400 ring-rose-500/20",
-        forTypes: ["juridico"],
+        forPrefixes: ["J", "F"],
     },
     {
         id: "sostenibilidad",
@@ -108,7 +134,7 @@ const MODULES: ModuleOption[] = [
         description: "Gestión ambiental, reciclaje, huella de carbono, reportes ESG y economía circular",
         gradient: "from-green-500/20 via-lime-500/10 to-transparent",
         iconBg: "bg-green-500/15 text-green-400 ring-green-500/20",
-        forTypes: ["natural", "juridico"],
+        forPrefixes: ["V", "E", "J", "G", "C", "F"],
     },
 ];
 
@@ -369,7 +395,7 @@ export default function RegisterSelectionPage() {
     const isValidDoc = detected.type !== null && detected.valid;
     const isNatural = detected.type === "natural";
     const isJuridico = detected.type === "juridico";
-    const availableModules = MODULES.filter(m => detected.type && m.forTypes.includes(detected.type));
+    const availableModules = MODULES.filter(m => m.forPrefixes.includes(prefix));
     const currentPrefix = ALL_PREFIXES.find(p => p.value === prefix) ?? ALL_PREFIXES[0];
     const CurrentPrefixIcon = currentPrefix.icon;
 
@@ -760,14 +786,11 @@ export default function RegisterSelectionPage() {
                         {step === "modules" && (
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                                    <div className={cn(
-                                        "w-9 h-9 rounded-lg flex items-center justify-center shrink-0",
-                                        isNatural ? "bg-sky-500/10" : "bg-emerald-500/10"
-                                    )}>
-                                        <Fingerprint className={cn("h-4 w-4", isNatural ? "text-sky-400" : "text-emerald-400")} />
+                                    <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center shrink-0", currentPrefix.bg)}>
+                                        <CurrentPrefixIcon className={cn("h-4 w-4", currentPrefix.color)} />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className={cn("text-xs font-semibold truncate", isNatural ? "text-sky-300/80" : "text-emerald-300/80")}>
+                                        <p className="text-xs font-semibold text-white/80 truncate">
                                             {fullDocument} · {detected.label}
                                         </p>
                                         {cedulaLookup && (
@@ -777,8 +800,14 @@ export default function RegisterSelectionPage() {
                                             <p className="text-[11px] text-white/30 truncate">{rifLookup.razonSocial}</p>
                                         )}
                                     </div>
-                                    <CheckCircle2 className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400/60" : "text-emerald-400/60")} />
+                                    <span className={cn("text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-md shrink-0", currentPrefix.bg, currentPrefix.color)}>
+                                        {currentPrefix.desc}
+                                    </span>
                                 </div>
+
+                                <p className="text-[11px] text-white/25 px-1">
+                                    {availableModules.length} {availableModules.length === 1 ? 'portal disponible' : 'portales disponibles'} para <span className={cn("font-semibold", currentPrefix.color)}>{currentPrefix.desc}</span>
+                                </p>
 
                                 <div className="space-y-3">
                                     {availableModules.map((mod) => {
@@ -798,7 +827,14 @@ export default function RegisterSelectionPage() {
                                                         <Icon className="h-5 w-5" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h3 className="text-sm font-semibold text-white mb-0.5">{mod.title}</h3>
+                                                        <div className="flex items-center gap-2 mb-0.5">
+                                                            <h3 className="text-sm font-semibold text-white">{mod.title}</h3>
+                                                            {mod.badge && (
+                                                                <span className={cn("text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded", mod.badgeColor)}>
+                                                                    {mod.badge}
+                                                                </span>
+                                                            )}
+                                                        </div>
                                                         <p className="text-xs text-white/30 leading-relaxed line-clamp-2">{mod.description}</p>
                                                     </div>
                                                     <div className="w-8 h-8 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0 group-hover:bg-white/[0.08] transition-colors">
