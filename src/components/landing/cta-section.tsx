@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
-
+import { useTranslations } from 'next-intl';
 
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
@@ -12,6 +12,9 @@ const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.C
 });
 
 export function CtaSection() {
+    const t = useTranslations('CtaSection');
+    const checks = [t('check_1'), t('check_2'), t('check_3')];
+
     return (
         <section id="contacto" className="relative overflow-hidden">
             <div className="relative py-20 md:py-28">
@@ -23,34 +26,30 @@ export function CtaSection() {
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <div
-                            className="space-y-7 text-center lg:text-left"
-                        >
+                        <div className="space-y-7 text-center lg:text-left">
                             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 dark:text-white/80 mx-auto lg:ml-0">
-                               <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Acceso Prioritario
+                               <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> {t('badge')}
                             </div>
                             <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight leading-[1.05] text-foreground uppercase">
-                                ¿Listo para{' '}
+                                {t('title_highlight')}{' '}
                                 <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
-                                    empezar
+                                    {t('title_rest')}
                                 </span>?
                             </h2>
                             <p className="text-base text-muted-foreground max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
-                                Complete el formulario para solicitar su auditoría técnica personalizada.
+                                {t('subtitle')}
                             </p>
                             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                                {["Registro 2 min", "Sin compromisos", "Soporte 24/7"].map((t, i) => (
+                                {checks.map((label, i) => (
                                     <div key={i} className="flex items-center gap-2">
                                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{label}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div
-                            className="w-full"
-                        >
+                        <div className="w-full">
                             <CtaForm />
                         </div>
                     </div>

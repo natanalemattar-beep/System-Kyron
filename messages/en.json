@@ -94,7 +94,16 @@
             "Invoicing",
             "Partners",
             "Sustainability"
-        ]
+        ],
+        "platform_badge": "Platform in Numbers",
+        "platform_title": "Results that",
+        "platform_highlight": "speak for themselves",
+        "platform_subtitle": "Venezuela's most robust infrastructure for comprehensive corporate management.",
+        "stat_modules": "Integrated Modules",
+        "stat_encryption": "Enterprise Encryption",
+        "stat_compliance": "Tax Compliance",
+        "stat_support": "Active AI Support",
+        "start_now": "Get Started"
     },
     "AboutUsSection": {
         "badge": "Made in Venezuela",
@@ -114,6 +123,8 @@
         "badge": "Support",
         "title_highlight": "Frequently",
         "title_rest": "Asked Questions",
+        "subtitle": "The most common questions about the System Kyron ecosystem.",
+        "view_more": "View more FAQs",
         "items": [
             {
                 "question": "How do you guarantee tax compliance?",
@@ -139,9 +150,12 @@
     },
     "CtaSection": {
         "badge": "Priority Access",
-        "title_highlight": "Bring Intelligence",
-        "title_rest": "to Your Operations",
-        "subtitle": "Tailored ecosystem deployment. Fill out the brief below to schedule your technical audit.",
+        "title_highlight": "Ready to",
+        "title_rest": "get started",
+        "subtitle": "Fill out the form to request your personalized technical audit.",
+        "check_1": "2 min Signup",
+        "check_2": "No commitments",
+        "check_3": "24/7 Support",
         "form_title": "Demo Request",
         "form_subtitle": "Technical audit v2.8.5",
         "field_name": "Full Name",
@@ -203,7 +217,8 @@
         "copyright": "System Kyron · Corporate Intelligence · v2.8.5",
         "user_manual": "User Manual",
         "terms": "Terms",
-        "privacy": "Privacy"
+        "privacy": "Privacy",
+        "location": "Caracas, Venezuela · Capital District"
     },
     "ScrollCinematic": {
         "tagline": "System Kyron — Corporate Intelligence",
@@ -366,5 +381,34 @@
         "lottt": "LOTTT Automated",
         "lopcymat": "LOPCYMAT Included",
         "gazette": "Official Gazette AI"
+    },
+    "CommentsSection": {
+        "badge": "Real Reviews",
+        "title_prefix": "What our",
+        "title_highlight": "users say",
+        "subtitle": "Verified opinions from registered individuals and companies",
+        "loading": "Loading...",
+        "empty_title": "No comments yet",
+        "empty_subtitle": "Be the first to share your experience with System Kyron.",
+        "leave_comment": "Leave a Comment",
+        "your_opinion": "Your Opinion",
+        "placeholder": "Share your experience with System Kyron... (minimum 10 characters)",
+        "cancel": "Cancel",
+        "publishing": "Publishing...",
+        "publish": "Publish",
+        "login_required": "You must be logged in to comment",
+        "empresa": "Company",
+        "persona": "Individual",
+        "time_moment": "Just now",
+        "time_min": "{count} min ago",
+        "time_hours": "{count}h ago",
+        "time_days": "{count}d ago",
+        "toast_short_title": "Comment too short",
+        "toast_short_desc": "Write at least 10 characters.",
+        "toast_success_title": "Published",
+        "toast_success_desc": "Your comment is now visible.",
+        "toast_error_title": "Error",
+        "toast_error_desc": "Connection error",
+        "toast_publish_error": "Could not publish"
     }
 }

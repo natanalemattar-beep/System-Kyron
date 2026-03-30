@@ -13,17 +13,21 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
     </a>
 );
 
-const modules = [
-    "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
-    "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
-    "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
-];
-
 export function Footer() {
-    const t = useTranslations('HeroSection');
+    const t = useTranslations('Footer');
+    const tHero = useTranslations('HeroSection');
     const [currentYear, setCurrentYear] = useState<number | null>(null);
+    const modules = t.raw('module_list') as string[];
 
     useEffect(() => { setCurrentYear(new Date().getFullYear()); }, []);
+
+    const navItems = [
+        { label: t('nav_home'), href: "#inicio" },
+        { label: t('nav_ecosystem'), href: "#servicios" },
+        { label: t('nav_about'), href: "#nosotros" },
+        { label: t('nav_faq'), href: "#faq" },
+        { label: t('nav_contact'), href: "#contacto" },
+    ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
@@ -59,11 +63,11 @@ export function Footer() {
                             <Logo className="h-10 w-10 drop-shadow-glow" />
                             <div className="flex flex-col">
                                 <span className="text-lg font-black uppercase tracking-tight text-foreground leading-none">System Kyron</span>
-                                <span className="text-[8px] font-bold uppercase tracking-[0.35em] mt-1 kyron-gradient-text">{t('slogan')}</span>
+                                <span className="text-[8px] font-bold uppercase tracking-[0.35em] mt-1 kyron-gradient-text">{tHero('slogan')}</span>
                             </div>
                         </div>
                         <p className="text-xs text-muted-foreground/70 font-medium leading-relaxed max-w-sm">
-                            Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.
+                            {t('description')}
                         </p>
                         <div className="flex gap-2">
                             <SocialIcon href="#"><Linkedin className="h-3.5 w-3.5" /></SocialIcon>
@@ -72,15 +76,9 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-2 space-y-5">
-                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">Plataforma</h4>
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">{t('platform')}</h4>
                         <nav className="flex flex-col gap-3">
-                            {[
-                                { label: "Inicio",      href: "#inicio" },
-                                { label: "Ecosistema",  href: "#servicios" },
-                                { label: "Nosotros",    href: "#nosotros" },
-                                { label: "FAQ",         href: "#faq" },
-                                { label: "Contacto",    href: "#contacto" },
-                            ].map(item => (
+                            {navItems.map(item => (
                                 <a key={item.label} href={item.href} onClick={(e) => handleAnchorClick(e, item.href)}
                                     className="text-[10px] font-semibold text-muted-foreground/70 hover:text-foreground transition-colors uppercase tracking-widest">
                                     {item.label}
@@ -90,7 +88,7 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-3 space-y-5">
-                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">Módulos</h4>
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">{t('modules')}</h4>
                         <nav className="flex flex-col gap-3">
                             {modules.slice(0, 5).map(m => (
                                 <Link key={m} href="/login" className="text-[10px] font-semibold text-muted-foreground/70 hover:text-foreground transition-colors uppercase tracking-widest flex items-center gap-1 group">
@@ -101,7 +99,7 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-3 space-y-5">
-                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">Contacto</h4>
+                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">{t('contact')}</h4>
                         <div className="space-y-4">
                             <a href="mailto:infosystemkyron@gmail.com"
                                 className="flex items-center gap-3 group text-muted-foreground/70 hover:text-foreground transition-colors">
@@ -114,13 +112,13 @@ export function Footer() {
                                 <div className="h-8 w-8 rounded-xl border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] flex items-center justify-center shrink-0">
                                     <MapPin className="h-3.5 w-3.5 text-primary" />
                                 </div>
-                                <span className="text-[10px] font-semibold uppercase tracking-wide">Caracas, Venezuela · Distrito Capital</span>
+                                <span className="text-[10px] font-semibold uppercase tracking-wide">{t('location')}</span>
                             </div>
                         </div>
 
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">v2.8.5 — Estable</span>
+                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('version_stable')}</span>
                         </div>
                     </div>
                 </div>
@@ -129,13 +127,13 @@ export function Footer() {
                     <div className="flex items-center gap-3">
                         <Hexagon className="h-3.5 w-3.5 text-primary/30" />
                         <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
-                            &copy; {currentYear || '2026'} System Kyron · Inteligencia Corporativa · v2.8.5
+                            &copy; {currentYear || '2026'} {t('copyright')}
                         </p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
-                        <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> Manual de Usuario</Link>
-                        <Link href="/terms"                className="hover:text-primary transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> Términos</Link>
-                        <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> Privacidad</Link>
+                        <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> {t('user_manual')}</Link>
+                        <Link href="/terms"                className="hover:text-primary transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> {t('terms')}</Link>
+                        <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> {t('privacy')}</Link>
                     </div>
                 </div>
             </div>

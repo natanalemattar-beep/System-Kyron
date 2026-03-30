@@ -94,7 +94,16 @@
             "Facturación",
             "Socios",
             "Sostenibilidad"
-        ]
+        ],
+        "platform_badge": "Plataforma en Cifras",
+        "platform_title": "Resultados que",
+        "platform_highlight": "hablan solos",
+        "platform_subtitle": "La infraestructura más robusta de Venezuela para gestión corporativa integral.",
+        "stat_modules": "Módulos Integrados",
+        "stat_encryption": "Cifrado Empresarial",
+        "stat_compliance": "Cumplimiento Fiscal",
+        "stat_support": "Soporte IA Activo",
+        "start_now": "Comenzar Ahora"
     },
     "AboutUsSection": {
         "badge": "Hecho en Venezuela",
@@ -114,6 +123,8 @@
         "badge": "Soporte",
         "title_highlight": "Preguntas",
         "title_rest": "Frecuentes",
+        "subtitle": "Las dudas más comunes sobre el ecosistema System Kyron.",
+        "view_more": "Ver más preguntas frecuentes",
         "items": [
             {
                 "question": "¿Cómo garantizan el cumplimiento fiscal?",
@@ -139,9 +150,12 @@
     },
     "CtaSection": {
         "badge": "Acceso Prioritario",
-        "title_highlight": "Inyecta Inteligencia",
-        "title_rest": "a tu Operación",
-        "subtitle": "Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría técnica.",
+        "title_highlight": "¿Listo para",
+        "title_rest": "empezar",
+        "subtitle": "Complete el formulario para solicitar su auditoría técnica personalizada.",
+        "check_1": "Registro 2 min",
+        "check_2": "Sin compromisos",
+        "check_3": "Soporte 24/7",
         "form_title": "Solicitar Acceso",
         "form_subtitle": "Registro de interés · System Kyron v2.8.5",
         "field_name": "Nombre Maestro",
@@ -203,7 +217,8 @@
         "copyright": "System Kyron · Inteligencia Corporativa · v2.8.5",
         "user_manual": "Manual de Usuario",
         "terms": "Términos",
-        "privacy": "Privacidad"
+        "privacy": "Privacidad",
+        "location": "Caracas, Venezuela · Distrito Capital"
     },
     "ScrollCinematic": {
         "tagline": "System Kyron — Inteligencia Corporativa",
@@ -366,5 +381,34 @@
         "lottt": "LOTTT Automatizado",
         "lopcymat": "LOPCYMAT Incluido",
         "gazette": "Gaceta Oficial IA"
+    },
+    "CommentsSection": {
+        "badge": "Comentarios Reales",
+        "title_prefix": "Lo que dicen",
+        "title_highlight": "nuestros usuarios",
+        "subtitle": "Opiniones verificadas de personas y empresas registradas",
+        "loading": "Cargando...",
+        "empty_title": "Sin comentarios aún",
+        "empty_subtitle": "Sé el primero en compartir tu experiencia con System Kyron.",
+        "leave_comment": "Dejar un Comentario",
+        "your_opinion": "Tu opinión",
+        "placeholder": "Comparte tu experiencia con System Kyron... (mínimo 10 caracteres)",
+        "cancel": "Cancelar",
+        "publishing": "Publicando...",
+        "publish": "Publicar",
+        "login_required": "Debes tener sesión iniciada para comentar",
+        "empresa": "Empresa",
+        "persona": "Persona",
+        "time_moment": "Hace un momento",
+        "time_min": "Hace {count} min",
+        "time_hours": "Hace {count}h",
+        "time_days": "Hace {count}d",
+        "toast_short_title": "Comentario muy corto",
+        "toast_short_desc": "Escribe al menos 10 caracteres.",
+        "toast_success_title": "Publicado",
+        "toast_success_desc": "Tu comentario ya es visible.",
+        "toast_error_title": "Error",
+        "toast_error_desc": "Error de conexión",
+        "toast_publish_error": "No se pudo publicar"
     }
 }
