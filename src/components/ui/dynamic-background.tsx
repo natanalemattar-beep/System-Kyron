@@ -48,6 +48,26 @@ export function DynamicBackground() {
               background: "radial-gradient(circle, rgb(6,182,212) 0%, transparent 70%)",
             }}
           />
+
+          <div className="absolute top-[30%] right-[10%] w-[350px] h-[350px] rounded-full pointer-events-none opacity-[0.025] dark:opacity-[0.015] animate-[pulse_10s_ease-in-out_infinite]"
+            style={{
+              background: "radial-gradient(circle, hsl(var(--kyron-emerald)) 0%, transparent 70%)",
+            }}
+          />
+          <div className="absolute bottom-[20%] left-[15%] w-[250px] h-[250px] rounded-full pointer-events-none opacity-[0.02] dark:opacity-[0.012] animate-[pulse_12s_ease-in-out_infinite_2s]"
+            style={{
+              background: "radial-gradient(circle, hsl(var(--kyron-cyan)) 0%, transparent 70%)",
+            }}
+          />
+
+          <div className="hidden dark:block absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+          <div className="hidden dark:block absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/8 to-transparent" />
+
+          <div className="dark:hidden absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.02) 0%, transparent 50%)",
+            }}
+          />
       </div>
       <SlowConnectionBanner />
     </>

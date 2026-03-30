@@ -85,9 +85,9 @@ export function HeroSection() {
             </div>
 
             <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/8 blur-[120px]" />
-                <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/6 blur-[100px]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/4 blur-[80px]" />
+                <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.06] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
+                <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.05] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.04] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
             </div>
 
             <HexGrid />
