@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
-import { LazyVoiceAssistant } from "@/components/voice-assistant-lazy";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 
@@ -29,7 +28,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <DynamicBackground />
       <div className="relative flex min-h-screen flex-col">
         {children}
-        <LazyVoiceAssistant />
       </div>
     </NextIntlClientProvider>
   );

@@ -60,7 +60,7 @@ export default function FlotaEmpresarialPage() {
                 </div>
                 <div className="flex gap-3 no-print">
                     <Button variant="outline" asChild className="h-12 px-6 rounded-xl border-slate-300 bg-white text-[#0A2472] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all">
-                        <Link href="/mi-linea"><ArrowLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
+                        <Link href="/login-linea"><ArrowLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                     </Button>
                     <Button className="bg-[#0A2472] text-white hover:bg-blue-950 h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
                         <Download className="mr-3 h-4 w-4" /> EXPORTAR EXCEL

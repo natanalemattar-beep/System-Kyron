@@ -32,7 +32,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Login and Dashboard pages are redesigned for a cleaner, modern aesthetic with motion animations and real API data. Specialized login cards and dashboard KPIs are dynamically rendered.
 - A slow connection banner dynamically detects network status and provides user feedback.
 - A comprehensive FAQ system with search and category filters is available.
-- Kyron Chat provides a full-page chat experience with 6 AI identities, streaming responses, and context-aware greetings. A floating chat button is also available across all authenticated layouts.
+- Kyron Chat (`LazyChatDialog`) provides context-aware AI chat in authenticated layouts with 10+ identity modes. The duplicate `VoiceAssistant` floating button has been removed — only Kyron Chat remains.
 - Consistent heading sizes (`text-3xl md:text-5xl`) are applied across all pages.
 
 **Technical Implementations:**
