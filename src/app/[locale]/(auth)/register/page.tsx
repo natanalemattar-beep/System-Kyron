@@ -12,6 +12,7 @@ import {
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
     ShoppingCart, Sparkles, Lock, Recycle,
     Calculator, Brain, Smartphone, Cpu, Shield, BarChart3, Zap,
+    Hexagon, CircuitBoard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -141,12 +142,12 @@ const MODULES: ModuleOption[] = [
 ];
 
 const BRANDING_FEATURES = [
-    { icon: Calculator, label: "Contabilidad VEN-NIF", color: "text-sky-400", bg: "bg-sky-500/10" },
-    { icon: Shield, label: "Cifrado AES-256", color: "text-emerald-400", bg: "bg-emerald-500/10" },
-    { icon: Brain, label: "Inteligencia Artificial", color: "text-violet-400", bg: "bg-violet-500/10" },
-    { icon: Smartphone, label: "Mi Línea 5G", color: "text-cyan-400", bg: "bg-cyan-500/10" },
-    { icon: BarChart3, label: "Reportes SENIAT", color: "text-amber-400", bg: "bg-amber-500/10" },
-    { icon: Zap, label: "Automatización Total", color: "text-rose-400", bg: "bg-rose-500/10" },
+    { icon: Calculator, label: "Contabilidad VEN-NIF", color: "text-sky-400", bg: "bg-sky-500/10", desc: "Cumplimiento fiscal total" },
+    { icon: Shield, label: "Cifrado AES-256", color: "text-emerald-400", bg: "bg-emerald-500/10", desc: "Seguridad bancaria" },
+    { icon: Brain, label: "Inteligencia Artificial", color: "text-violet-400", bg: "bg-violet-500/10", desc: "Automatización inteligente" },
+    { icon: Smartphone, label: "Mi Línea 5G", color: "text-cyan-400", bg: "bg-cyan-500/10", desc: "Conectividad premium" },
+    { icon: BarChart3, label: "Reportes SENIAT", color: "text-amber-400", bg: "bg-amber-500/10", desc: "Declaraciones al día" },
+    { icon: Zap, label: "Automatización", color: "text-rose-400", bg: "bg-rose-500/10", desc: "Procesos en piloto automático" },
 ];
 
 const STEP_LABELS = ["Identificación", "Portal", "Datos"];
@@ -190,95 +191,211 @@ function detectDocumentType(prefix: string, number: string): { type: DetectedTyp
     return { type: null, format: null, label: "", valid: false };
 }
 
-function FloatingOrb({ className }: { className?: string }) {
-    return <div className={cn("absolute rounded-full blur-[100px] pointer-events-none", className)} />;
+function AnimatedGridBg() {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 opacity-[0.04]" style={{
+                backgroundImage: `
+                    linear-gradient(rgba(56,189,248,0.12) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(56,189,248,0.12) 1px, transparent 1px)
+                `,
+                backgroundSize: '60px 60px'
+            }} />
+            <div className="absolute inset-0 opacity-[0.02]" style={{
+                backgroundImage: `
+                    linear-gradient(rgba(56,189,248,0.2) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(56,189,248,0.2) 1px, transparent 1px)
+                `,
+                backgroundSize: '15px 15px'
+            }} />
+            <motion.div
+                className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent"
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+                className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"
+                animate={{ opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            />
+        </div>
+    );
+}
+
+function FloatingParticles() {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(6)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full bg-sky-400/30"
+                    style={{
+                        left: `${15 + i * 15}%`,
+                        top: `${10 + (i % 3) * 30}%`,
+                    }}
+                    animate={{
+                        y: [0, -30, 0],
+                        opacity: [0.2, 0.6, 0.2],
+                        scale: [1, 1.5, 1],
+                    }}
+                    transition={{
+                        duration: 4 + i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.8,
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
+function GlowingCard({ children, className, active }: { children: React.ReactNode; className?: string; active?: boolean }) {
+    return (
+        <div className={cn("relative group/card", className)}>
+            <motion.div
+                className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-sky-500/25 via-cyan-500/15 to-emerald-500/25"
+                animate={active ? { opacity: [0.4, 0.7, 0.4] } : { opacity: 0 }}
+                whileHover={{ opacity: 0.6 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                style={{ filter: "blur(1px)" }}
+            />
+            <div className="relative rounded-2xl bg-[#0a1025]/80 border border-white/[0.08] backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/30">
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.03] via-transparent to-emerald-500/[0.02]" />
+                <div className="relative">
+                    {children}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function KyronLogo() {
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center mb-6 lg:hidden"
+        >
+            <div className="relative mb-3">
+                <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-500 to-emerald-500 blur-xl"
+                    animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 via-cyan-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                    <Cpu className="h-7 w-7 text-white" />
+                </div>
+            </div>
+            <p className="text-[11px] font-bold text-white/40 tracking-[0.25em]">SYSTEM KYRON</p>
+        </motion.div>
+    );
 }
 
 function BrandingPanel() {
     return (
-        <div className="hidden lg:flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#060918] via-[#0a1128] to-[#060918] p-10 xl:p-14">
-            <FloatingOrb className="top-[-10%] left-[-10%] w-[500px] h-[500px] bg-sky-600/[0.08]" />
-            <FloatingOrb className="bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-emerald-600/[0.06]" />
-            <FloatingOrb className="top-[40%] right-[10%] w-[300px] h-[300px] bg-violet-600/[0.05]" />
+        <div className="hidden lg:flex flex-col justify-between relative overflow-hidden bg-[#040714] h-screen">
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-950/40 via-[#040714] to-emerald-950/20" />
 
-            <div className="absolute inset-0 opacity-[0.03]" style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-                backgroundSize: '40px 40px'
-            }} />
+            <AnimatedGridBg />
+            <FloatingParticles />
 
-            <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-12">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 flex items-center justify-center">
-                        <Cpu className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                        <p className="text-sm font-bold text-white tracking-widest">SYSTEM KYRON</p>
-                        <p className="text-[10px] text-white/30 tracking-widest uppercase">Inteligencia Corporativa</p>
-                    </div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-sky-500/[0.06] blur-[120px]" />
+            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-emerald-500/[0.05] blur-[100px]" />
+            <div className="absolute top-[50%] left-0 w-[300px] h-[300px] rounded-full bg-violet-500/[0.04] blur-[80px]" />
+
+            <div className="relative z-10 p-10 xl:p-14 flex-1 flex flex-col justify-between">
+                <div>
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex items-center gap-3.5 mb-14"
+                    >
+                        <div className="relative">
+                            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 blur-lg opacity-40" />
+                            <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-sky-500/20">
+                                <Cpu className="h-5 w-5 text-white" />
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-white tracking-[0.2em]">SYSTEM KYRON</p>
+                            <p className="text-[10px] text-white/25 tracking-[0.15em] uppercase">Inteligencia Corporativa</p>
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                    >
+                        <div className="flex items-center gap-2 mb-5">
+                            <div className="h-px flex-1 max-w-[40px] bg-gradient-to-r from-sky-500/50 to-transparent" />
+                            <span className="text-[10px] font-semibold text-sky-400/60 tracking-[0.2em] uppercase">Crear Cuenta</span>
+                        </div>
+                        <h2 className="text-3xl xl:text-[2.5rem] font-bold text-white leading-[1.15] mb-5">
+                            Tu ecosistema{" "}
+                            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+                                corporativo
+                            </span>
+                            <br />
+                            <span className="text-white/90">integral.</span>
+                        </h2>
+                        <p className="text-white/30 text-sm leading-relaxed max-w-[320px]">
+                            Gestiona contabilidad, nómina, facturación y más. La plataforma diseñada para el mercado venezolano.
+                        </p>
+                    </motion.div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
-                        Tu ecosistema<br />
-                        <span className="bg-gradient-to-r from-sky-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                            corporativo integral
-                        </span>
-                    </h2>
-                    <p className="text-white/35 text-sm leading-relaxed max-w-sm">
-                        Cero riesgo fiscal, control operativo total. La plataforma diseñada para Venezuela.
-                    </p>
-                </motion.div>
-            </div>
+                <div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.35 }}
+                        className="grid grid-cols-2 gap-2.5 mb-10"
+                    >
+                        {BRANDING_FEATURES.map((feat, idx) => {
+                            const Icon = feat.icon;
+                            return (
+                                <motion.div
+                                    key={feat.label}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.35, delay: 0.4 + idx * 0.07 }}
+                                    className="group flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.05] hover:border-white/[0.1] transition-all duration-300"
+                                >
+                                    <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110", feat.bg)}>
+                                        <Icon className={cn("h-3.5 w-3.5", feat.color)} />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <span className="text-[11px] font-medium text-white/50 group-hover:text-white/70 transition-colors block truncate">{feat.label}</span>
+                                        <span className="text-[9px] text-white/20 block truncate">{feat.desc}</span>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
 
-            <div className="relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="grid grid-cols-2 gap-3 mb-10"
-                >
-                    {BRANDING_FEATURES.map((feat, idx) => {
-                        const Icon = feat.icon;
-                        return (
-                            <motion.div
-                                key={feat.label}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.4 + idx * 0.08 }}
-                                className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/[0.1] transition-all duration-300 group"
-                            >
-                                <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0", feat.bg)}>
-                                    <Icon className={cn("h-4 w-4", feat.color)} />
-                                </div>
-                                <span className="text-xs font-medium text-white/50 group-hover:text-white/70 transition-colors">{feat.label}</span>
-                            </motion.div>
-                        );
-                    })}
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
-                    className="flex items-center gap-6"
-                >
-                    <div className="flex items-center gap-2">
-                        <Shield className="h-3.5 w-3.5 text-emerald-400/50" />
-                        <span className="text-[10px] text-white/25 tracking-wider">AES-256</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <ShieldCheck className="h-3.5 w-3.5 text-sky-400/50" />
-                        <span className="text-[10px] text-white/25 tracking-wider">SENIAT</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Lock className="h-3.5 w-3.5 text-violet-400/50" />
-                        <span className="text-[10px] text-white/25 tracking-wider">VEN-NIF</span>
-                    </div>
-                </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.8 }}
+                        className="flex items-center gap-5 px-1"
+                    >
+                        {[
+                            { icon: Shield, label: "AES-256", color: "text-emerald-400/40" },
+                            { icon: ShieldCheck, label: "SENIAT", color: "text-sky-400/40" },
+                            { icon: Lock, label: "VEN-NIF", color: "text-violet-400/40" },
+                            { icon: CircuitBoard, label: "SAIME", color: "text-cyan-400/40" },
+                        ].map(b => (
+                            <div key={b.label} className="flex items-center gap-1.5">
+                                <b.icon className={cn("h-3 w-3", b.color)} />
+                                <span className="text-[9px] text-white/20 tracking-wider font-medium">{b.label}</span>
+                            </div>
+                        ))}
+                    </motion.div>
+                </div>
             </div>
         </div>
     );
@@ -508,60 +625,94 @@ export default function RegisterSelectionPage() {
     const currentStepIdx = step === "identify" ? 0 : 1;
 
     return (
-        <div className="min-h-screen flex bg-[#060918]">
+        <div className="min-h-screen flex bg-[#040714]">
             <div className="hidden lg:block lg:w-[45%] xl:w-[42%]">
                 <div className="sticky top-0 h-screen">
                     <BrandingPanel />
                 </div>
             </div>
 
-            <div className="flex-1 relative overflow-hidden">
-                <FloatingOrb className="top-[-5%] right-[-10%] w-[500px] h-[500px] bg-sky-600/[0.06] lg:bg-sky-600/[0.04]" />
-                <FloatingOrb className="bottom-[-5%] left-[-5%] w-[400px] h-[400px] bg-emerald-600/[0.04]" />
+            <div className="flex-1 relative overflow-hidden bg-[#060918]">
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-950/20 via-[#060918] to-emerald-950/10" />
+                <AnimatedGridBg />
 
-                <div className="absolute inset-0 opacity-[0.02]" style={{
-                    backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-                    backgroundSize: '32px 32px'
-                }} />
+                <motion.div
+                    className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-sky-500/[0.06] blur-[120px] pointer-events-none"
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.04, 0.07, 0.04] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-emerald-500/[0.05] blur-[100px] pointer-events-none"
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.03, 0.06, 0.03] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                />
+                <motion.div
+                    className="absolute top-[40%] right-[5%] w-[250px] h-[250px] rounded-full bg-violet-500/[0.05] blur-[80px] pointer-events-none"
+                    animate={{ x: [0, 20, 0], y: [0, -15, 0], opacity: [0.03, 0.06, 0.03] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                />
+                <motion.div
+                    className="absolute top-[15%] left-[10%] w-[200px] h-[200px] rounded-full bg-cyan-500/[0.04] blur-[80px] pointer-events-none"
+                    animate={{ y: [0, 25, 0], opacity: [0.02, 0.05, 0.02] }}
+                    transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                />
+
 
                 <div className="relative z-10 min-h-screen flex flex-col">
                     <nav className="flex items-center justify-between px-6 py-5 max-w-2xl mx-auto w-full">
                         {step === "identify" ? (
-                            <Link href="/" className="group flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-sm">
-                                <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-                                <span className="font-medium">Inicio</span>
+                            <Link href="/" className="group flex items-center gap-2 text-white/35 hover:text-white/70 transition-all duration-300 text-sm">
+                                <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center group-hover:bg-white/[0.08] group-hover:border-white/[0.12] transition-all">
+                                    <ChevronLeft className="h-3.5 w-3.5 group-hover:-translate-x-0.5 transition-transform" />
+                                </div>
+                                <span className="font-medium hidden sm:block">Inicio</span>
                             </Link>
                         ) : (
-                            <button onClick={() => setStep("identify")} className="group flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-sm">
-                                <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-                                <span className="font-medium">Cambiar Documento</span>
+                            <button onClick={() => setStep("identify")} className="group flex items-center gap-2 text-white/35 hover:text-white/70 transition-all duration-300 text-sm">
+                                <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center group-hover:bg-white/[0.08] group-hover:border-white/[0.12] transition-all">
+                                    <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-0.5 transition-transform" />
+                                </div>
+                                <span className="font-medium hidden sm:block">Cambiar Documento</span>
                             </button>
                         )}
-                        <div className="flex items-center gap-2 text-white/20 text-xs font-medium tracking-wider">
+                        <div className="flex items-center gap-2.5 text-white/15 text-[10px] font-semibold tracking-[0.15em]">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50 animate-pulse" />
                             <Lock className="h-3 w-3" />
                             <span>KYRON v2.8.5</span>
                         </div>
                     </nav>
 
-                    <div className="flex-1 flex flex-col items-center justify-center px-5 sm:px-8 pb-10">
+                    <div className="flex-1 flex flex-col items-center justify-center px-5 sm:px-8 pb-10 pt-4">
                         <div className="w-full max-w-lg">
+                            <KyronLogo />
                             <motion.div
                                 key={step}
-                                initial={{ opacity: 0, x: step === "modules" ? 30 : -30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                 className="text-center mb-8"
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] mb-5">
-                                    <Sparkles className="h-3.5 w-3.5 text-sky-400" />
-                                    <span className="text-xs font-semibold text-white/50 tracking-wide">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] mb-6 backdrop-blur-sm"
+                                >
+                                    <div className="relative">
+                                        <div className="absolute inset-0 rounded-full bg-sky-400 blur-[6px] opacity-40" />
+                                        <Sparkles className="relative h-3.5 w-3.5 text-sky-400" />
+                                    </div>
+                                    <span className="text-[11px] font-semibold text-white/45 tracking-wide">
                                         {step === "identify" ? "Paso 1 de 3 — Identificación" : "Paso 2 de 3 — Portal"}
                                     </span>
-                                </div>
-                                <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
-                                    {step === "identify" ? "Crea tu cuenta" : "Elige tu portal"}
+                                </motion.div>
+
+                                <h1 className="text-3xl sm:text-[2.5rem] font-bold tracking-tight mb-3 leading-tight">
+                                    <span className="bg-gradient-to-b from-white via-white/95 to-white/50 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(56,189,248,0.15)]">
+                                        {step === "identify" ? "Crea tu cuenta" : "Elige tu portal"}
+                                    </span>
                                 </h1>
-                                <p className="text-white/40 text-sm max-w-sm mx-auto leading-relaxed">
+                                <p className="text-white/30 text-sm max-w-sm mx-auto leading-relaxed">
                                     {step === "identify"
                                         ? "Ingresa tu documento de identidad para comenzar el proceso de registro"
                                         : "Selecciona el módulo que mejor se adapte a tus necesidades"
@@ -569,39 +720,43 @@ export default function RegisterSelectionPage() {
                                 </p>
                             </motion.div>
 
-                            <div className="flex items-center gap-2 mb-8 px-2">
+                            <div className="flex items-start gap-3 mb-8 px-1">
                                 {STEP_LABELS.map((label, n) => {
                                     const isActive = n === currentStepIdx;
                                     const isDone = n < currentStepIdx;
                                     return (
                                         <div key={n} className="flex-1">
-                                            <div className="flex items-center gap-2 mb-1.5">
-                                                <div className={cn(
-                                                    "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-500 shrink-0",
-                                                    isDone ? "bg-gradient-to-br from-sky-500 to-emerald-500 text-white" :
-                                                    isActive ? "bg-sky-500/20 text-sky-400 ring-2 ring-sky-500/30" :
-                                                    "bg-white/[0.04] text-white/20"
-                                                )}>
+                                            <div className="flex items-center gap-2.5 mb-2">
+                                                <motion.div
+                                                    className={cn(
+                                                        "w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 transition-all duration-500",
+                                                        isDone ? "bg-gradient-to-br from-sky-500 to-emerald-500 text-white shadow-md shadow-sky-500/20" :
+                                                        isActive ? "bg-sky-500/15 text-sky-400 ring-2 ring-sky-500/25 shadow-md shadow-sky-500/10" :
+                                                        "bg-white/[0.03] text-white/15 border border-white/[0.06]"
+                                                    )}
+                                                    animate={isActive ? { scale: [1, 1.08, 1] } : {}}
+                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                                >
                                                     {isDone ? <CheckCircle2 className="h-3.5 w-3.5" /> : n + 1}
-                                                </div>
+                                                </motion.div>
                                                 <span className={cn(
-                                                    "text-[10px] font-semibold tracking-wider uppercase transition-colors hidden sm:block",
-                                                    isActive ? "text-white/60" : isDone ? "text-emerald-400/50" : "text-white/15"
+                                                    "text-[10px] font-semibold tracking-[0.1em] uppercase transition-colors hidden sm:block",
+                                                    isActive ? "text-white/55" : isDone ? "text-emerald-400/45" : "text-white/12"
                                                 )}>
                                                     {label}
                                                 </span>
                                             </div>
-                                            <div className="h-1 rounded-full bg-white/[0.04] overflow-hidden">
+                                            <div className="h-[3px] rounded-full bg-white/[0.04] overflow-hidden">
                                                 <motion.div
                                                     className={cn(
                                                         "h-full rounded-full",
                                                         isDone ? "bg-gradient-to-r from-sky-500 to-emerald-500" :
-                                                        isActive ? "bg-gradient-to-r from-sky-500 to-sky-400" :
+                                                        isActive ? "bg-gradient-to-r from-sky-500/80 to-sky-400/80" :
                                                         "bg-transparent"
                                                     )}
                                                     initial={{ width: "0%" }}
                                                     animate={{ width: isDone ? "100%" : isActive ? "50%" : "0%" }}
-                                                    transition={{ duration: 0.6, ease: "easeOut" }}
+                                                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                                                 />
                                             </div>
                                         </div>
@@ -615,170 +770,179 @@ export default function RegisterSelectionPage() {
                                         key="identify"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.35 }}
+                                        exit={{ opacity: 0, y: -15, transition: { duration: 0.2 } }}
+                                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                         className="space-y-4"
                                     >
-                                        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 backdrop-blur-sm">
-                                            <div className="flex items-center gap-3 mb-5">
-                                                <div className={cn(
-                                                    "w-10 h-10 rounded-xl flex items-center justify-center ring-1 transition-all duration-300",
-                                                    isNatural ? "bg-sky-500/10 ring-sky-500/20" :
-                                                    isJuridico ? "bg-emerald-500/10 ring-emerald-500/20" :
-                                                    "bg-white/[0.04] ring-white/[0.08]"
-                                                )}>
-                                                    <Fingerprint className={cn(
-                                                        "h-5 w-5 transition-colors",
-                                                        isNatural ? "text-sky-400" :
-                                                        isJuridico ? "text-emerald-400" :
-                                                        "text-white/30"
-                                                    )} />
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-semibold text-white">Documento de identidad</p>
-                                                    <p className="text-xs text-white/30">Cédula de identidad o RIF empresarial</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <div ref={prefixRef} className="relative shrink-0" onKeyDown={handlePrefixKeyDown}>
-                                                    <button
-                                                        ref={prefixTriggerRef}
-                                                        type="button"
-                                                        role="combobox"
-                                                        aria-expanded={prefixOpen}
-                                                        aria-haspopup="listbox"
-                                                        aria-controls="prefix-listbox"
-                                                        aria-label={`Tipo de documento: ${currentPrefix.value} — ${currentPrefix.desc}`}
-                                                        onClick={() => setPrefixOpen(o => !o)}
+                                        <GlowingCard active={isValidDoc}>
+                                            <div className="p-6">
+                                                <div className="flex items-center gap-3 mb-5">
+                                                    <motion.div
                                                         className={cn(
-                                                            "flex items-center gap-2 h-12 pl-3 pr-2 rounded-xl border transition-all duration-200 cursor-pointer",
-                                                            "bg-white/[0.03] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50",
-                                                            prefixOpen ? "border-white/20" : "border-white/[0.08] hover:border-white/15"
+                                                            "w-10 h-10 rounded-xl flex items-center justify-center ring-1 transition-all duration-500",
+                                                            isNatural ? "bg-sky-500/10 ring-sky-500/20" :
+                                                            isJuridico ? "bg-emerald-500/10 ring-emerald-500/20" :
+                                                            "bg-white/[0.04] ring-white/[0.08]"
                                                         )}
+                                                        animate={isValidDoc ? { scale: [1, 1.05, 1] } : {}}
+                                                        transition={{ duration: 1.5, repeat: Infinity }}
                                                     >
-                                                        <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg", currentPrefix.bg)}>
-                                                            <CurrentPrefixIcon className={cn("h-3.5 w-3.5", currentPrefix.color)} />
-                                                        </div>
-                                                        <span className="text-base font-bold text-white w-5 text-center">{currentPrefix.value}</span>
-                                                        <ChevronDown className={cn("h-3.5 w-3.5 text-white/30 transition-transform duration-200", prefixOpen && "rotate-180")} />
-                                                    </button>
-
-                                                    <AnimatePresence>
-                                                        {prefixOpen && (
-                                                            <motion.div
-                                                                id="prefix-listbox"
-                                                                role="listbox"
-                                                                aria-label="Tipo de documento"
-                                                                initial={{ opacity: 0, y: -8, scale: 0.95 }}
-                                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                                exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                                                                transition={{ duration: 0.2 }}
-                                                                className="absolute top-full left-0 mt-2 z-50 w-[240px] rounded-xl border border-white/10 bg-[#0c1128]/95 backdrop-blur-xl shadow-2xl shadow-black/50"
-                                                            >
-                                                                <div className="p-1.5">
-                                                                    {ALL_PREFIXES.map((p, idx) => {
-                                                                        const OptionIcon = p.icon;
-                                                                        const isActive = prefix === p.value;
-                                                                        const isFocused = prefixFocusIdx === idx;
-                                                                        return (
-                                                                            <div
-                                                                                key={p.value}
-                                                                                role="option"
-                                                                                aria-selected={isActive}
-                                                                                aria-label={`${p.value} — ${p.desc}`}
-                                                                                onClick={() => { setPrefix(p.value); setPrefixOpen(false); inputRef.current?.focus(); }}
-                                                                                className={cn(
-                                                                                    "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-150 cursor-pointer",
-                                                                                    isActive ? `bg-white/[0.06]` :
-                                                                                    isFocused ? "bg-white/[0.04]" :
-                                                                                    "hover:bg-white/[0.04]"
-                                                                                )}
-                                                                            >
-                                                                                <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg", p.bg)}>
-                                                                                    <OptionIcon className={cn("h-4 w-4", p.color)} />
-                                                                                </div>
-                                                                                <div className="flex-1 min-w-0">
-                                                                                    <div className="flex items-center gap-2">
-                                                                                        <span className={cn("text-sm font-bold", isActive ? p.color : "text-white/80")}>{p.value}</span>
-                                                                                        <span className="text-xs text-white/40">{p.desc}</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                {isActive && <CheckCircle2 className={cn("h-4 w-4 shrink-0", p.color)} />}
-                                                                            </div>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            </motion.div>
-                                                        )}
-                                                    </AnimatePresence>
+                                                        <Fingerprint className={cn(
+                                                            "h-5 w-5 transition-colors duration-500",
+                                                            isNatural ? "text-sky-400" :
+                                                            isJuridico ? "text-emerald-400" :
+                                                            "text-white/25"
+                                                        )} />
+                                                    </motion.div>
+                                                    <div>
+                                                        <p className="text-sm font-semibold text-white/90">Documento de identidad</p>
+                                                        <p className="text-[11px] text-white/25">Cédula de identidad o RIF empresarial</p>
+                                                    </div>
                                                 </div>
 
-                                                <div className="flex-1 relative">
-                                                    <Input
-                                                        value={docNumber}
-                                                        onChange={e => handleNumberChange(e.target.value)}
-                                                        placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
-                                                        ref={inputRef}
-                                                        className="h-12 text-lg font-semibold rounded-xl border border-white/[0.08] tracking-wider focus:border-sky-500/40 transition-colors pl-4 bg-white/[0.03] text-white placeholder:text-white/15"
-                                                    />
-                                                    {docNumber && (
-                                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                                                            <span className="text-[10px] font-semibold text-white/20 uppercase tracking-widest">
-                                                                {["J", "G", "C", "F"].includes(prefix) ? "RIF" : "CI"}
-                                                            </span>
-                                                        </div>
+                                                <div className="flex gap-2">
+                                                    <div ref={prefixRef} className="relative shrink-0" onKeyDown={handlePrefixKeyDown}>
+                                                        <button
+                                                            ref={prefixTriggerRef}
+                                                            type="button"
+                                                            role="combobox"
+                                                            aria-expanded={prefixOpen}
+                                                            aria-haspopup="listbox"
+                                                            aria-controls="prefix-listbox"
+                                                            aria-label={`Tipo de documento: ${currentPrefix.value} — ${currentPrefix.desc}`}
+                                                            onClick={() => setPrefixOpen(o => !o)}
+                                                            className={cn(
+                                                                "flex items-center gap-2 h-12 pl-3 pr-2 rounded-xl border transition-all duration-200 cursor-pointer",
+                                                                "bg-white/[0.02] hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40",
+                                                                prefixOpen ? "border-sky-500/30 bg-white/[0.04]" : "border-white/[0.06] hover:border-white/[0.12]"
+                                                            )}
+                                                        >
+                                                            <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg transition-all", currentPrefix.bg)}>
+                                                                <CurrentPrefixIcon className={cn("h-3.5 w-3.5", currentPrefix.color)} />
+                                                            </div>
+                                                            <span className="text-base font-bold text-white w-5 text-center">{currentPrefix.value}</span>
+                                                            <ChevronDown className={cn("h-3.5 w-3.5 text-white/25 transition-transform duration-200", prefixOpen && "rotate-180")} />
+                                                        </button>
+
+                                                        <AnimatePresence>
+                                                            {prefixOpen && (
+                                                                <motion.div
+                                                                    id="prefix-listbox"
+                                                                    role="listbox"
+                                                                    aria-label="Tipo de documento"
+                                                                    initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                                    exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                                                                    transition={{ duration: 0.18, ease: "easeOut" }}
+                                                                    className="absolute top-full left-0 mt-2 z-50 w-[260px] rounded-xl border border-white/[0.08] bg-[#0a0f24]/95 backdrop-blur-2xl shadow-2xl shadow-black/60"
+                                                                >
+                                                                    <div className="p-1.5">
+                                                                        {ALL_PREFIXES.map((p, idx) => {
+                                                                            const OptionIcon = p.icon;
+                                                                            const isActive = prefix === p.value;
+                                                                            const isFocused = prefixFocusIdx === idx;
+                                                                            return (
+                                                                                <div
+                                                                                    key={p.value}
+                                                                                    role="option"
+                                                                                    aria-selected={isActive}
+                                                                                    aria-label={`${p.value} — ${p.desc}`}
+                                                                                    onClick={() => { setPrefix(p.value); setPrefixOpen(false); inputRef.current?.focus(); }}
+                                                                                    className={cn(
+                                                                                        "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-150 cursor-pointer",
+                                                                                        isActive ? `bg-white/[0.06] border border-white/[0.06]` :
+                                                                                        isFocused ? "bg-white/[0.04]" :
+                                                                                        "hover:bg-white/[0.03] border border-transparent"
+                                                                                    )}
+                                                                                >
+                                                                                    <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg", p.bg)}>
+                                                                                        <OptionIcon className={cn("h-4 w-4", p.color)} />
+                                                                                    </div>
+                                                                                    <div className="flex-1 min-w-0">
+                                                                                        <div className="flex items-center gap-2">
+                                                                                            <span className={cn("text-sm font-bold", isActive ? p.color : "text-white/70")}>{p.value}</span>
+                                                                                            <span className="text-[11px] text-white/35">{p.desc}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {isActive && <CheckCircle2 className={cn("h-4 w-4 shrink-0", p.color)} />}
+                                                                                </div>
+                                                                            );
+                                                                        })}
+                                                                    </div>
+                                                                </motion.div>
+                                                            )}
+                                                        </AnimatePresence>
+                                                    </div>
+
+                                                    <div className="flex-1 relative group/input">
+                                                        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-focus-within/input:from-sky-500/20 group-focus-within/input:via-cyan-500/10 group-focus-within/input:to-sky-500/20 transition-all duration-500 blur-[1px]" />
+                                                        <Input
+                                                            value={docNumber}
+                                                            onChange={e => handleNumberChange(e.target.value)}
+                                                            placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
+                                                            ref={inputRef}
+                                                            className="relative h-12 text-lg font-semibold rounded-xl border border-white/[0.06] tracking-wider focus:border-sky-500/30 transition-all duration-300 pl-4 bg-white/[0.02] text-white placeholder:text-white/12 focus:bg-white/[0.04]"
+                                                        />
+                                                        {docNumber && (
+                                                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                                <span className="text-[10px] font-semibold text-white/15 uppercase tracking-widest">
+                                                                    {["J", "G", "C", "F"].includes(prefix) ? "RIF" : "CI"}
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {isJuridico && detected.valid && (
+                                                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
+                                                            <Button
+                                                                type="button"
+                                                                variant="outline"
+                                                                onClick={handleRifSearch}
+                                                                disabled={rifSearching}
+                                                                className={cn(
+                                                                    "h-12 px-4 rounded-xl font-semibold text-xs tracking-wider shrink-0 transition-all duration-300 border",
+                                                                    "bg-white/[0.02] border-white/[0.06] text-white/50 hover:bg-white/[0.06] hover:text-white/80 hover:border-white/[0.12]"
+                                                                )}
+                                                            >
+                                                                {rifSearching ? (
+                                                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                                                ) : (
+                                                                    <><Search className="h-4 w-4 mr-1.5" /> SENIAT</>
+                                                                )}
+                                                            </Button>
+                                                        </motion.div>
                                                     )}
                                                 </div>
-
-                                                {isJuridico && detected.valid && (
-                                                    <Button
-                                                        type="button"
-                                                        variant="outline"
-                                                        onClick={handleRifSearch}
-                                                        disabled={rifSearching}
-                                                        className={cn(
-                                                            "h-12 px-4 rounded-xl font-semibold text-xs tracking-wider shrink-0 transition-all duration-300 border",
-                                                            "bg-white/[0.03] border-white/[0.08] text-white/60 hover:bg-white/[0.06] hover:text-white/80 hover:border-white/15"
-                                                        )}
-                                                    >
-                                                        {rifSearching ? (
-                                                            <Loader2 className="h-4 w-4 animate-spin" />
-                                                        ) : (
-                                                            <><Search className="h-4 w-4 mr-1.5" /> Buscar</>
-                                                        )}
-                                                    </Button>
-                                                )}
                                             </div>
-                                        </div>
+                                        </GlowingCard>
 
                                         <AnimatePresence>
                                             {rifLookup && (
                                                 <motion.div
-                                                    initial={{ opacity: 0, height: 0 }}
-                                                    animate={{ opacity: 1, height: "auto" }}
-                                                    exit={{ opacity: 0, height: 0 }}
-                                                    transition={{ duration: 0.3 }}
-                                                    className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.04] p-4 overflow-hidden"
+                                                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.03] p-4 backdrop-blur-sm"
                                                 >
                                                     <div className="flex items-start gap-3">
-                                                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                        <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-emerald-500/10">
                                                             <Building2 className="h-4 w-4 text-emerald-400" />
                                                         </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-semibold text-white truncate">{rifLookup.razonSocial}</p>
-                                                            <p className="text-xs text-emerald-400/70 mt-0.5">
+                                                            <p className="text-sm font-semibold text-white/90 truncate">{rifLookup.razonSocial}</p>
+                                                            <p className="text-[11px] text-emerald-400/60 mt-0.5">
                                                                 {rifLookup.tipoEmpresa || 'Empresa registrada'}
                                                                 {rifLookup.estado && ` · ${rifLookup.estado}`}
                                                             </p>
                                                             {rifLookup.actividadEconomica && (
-                                                                <p className="text-xs text-white/30 mt-1">{rifLookup.actividadEconomica}</p>
+                                                                <p className="text-[11px] text-white/20 mt-1">{rifLookup.actividadEconomica}</p>
                                                             )}
                                                         </div>
                                                         {rifLookup.statusFiscal && (
                                                             <span className={cn(
-                                                                "text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md shrink-0",
-                                                                rifLookup.statusFiscal === 'ACTIVO' ? "text-emerald-400 bg-emerald-500/10" : "text-amber-400 bg-amber-500/10"
+                                                                "text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0",
+                                                                rifLookup.statusFiscal === 'ACTIVO' ? "text-emerald-400 bg-emerald-500/10 ring-1 ring-emerald-500/10" : "text-amber-400 bg-amber-500/10 ring-1 ring-amber-500/10"
                                                             )}>
                                                                 {rifLookup.statusFiscal}
                                                             </span>
@@ -789,16 +953,16 @@ export default function RegisterSelectionPage() {
                                         </AnimatePresence>
 
                                         {rifSearched && rifValidationError && !rifSearching && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-red-500/15 bg-red-500/[0.04]">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-red-500/10 bg-red-500/[0.03] backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
-                                                <p className="text-xs font-medium text-red-300/80">{rifValidationError}</p>
+                                                <p className="text-[11px] font-medium text-red-300/70">{rifValidationError}</p>
                                             </motion.div>
                                         )}
 
                                         {rifSearched && !rifLookup && !rifValidationError && !rifSearching && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-500/15 bg-amber-500/[0.04]">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
-                                                <p className="text-xs font-medium text-amber-300/70">
+                                                <p className="text-[11px] font-medium text-amber-300/60">
                                                     RIF válido pero no encontrado en el sistema. Podrás ingresar los datos manualmente.
                                                 </p>
                                             </motion.div>
@@ -812,36 +976,42 @@ export default function RegisterSelectionPage() {
                                                     exit={{ opacity: 0, y: -8 }}
                                                     transition={{ duration: 0.25 }}
                                                     className={cn(
-                                                        "flex items-center gap-3 p-4 rounded-2xl border transition-all duration-300",
-                                                        isNatural ? "border-sky-500/15 bg-sky-500/[0.04]" :
-                                                        "border-emerald-500/15 bg-emerald-500/[0.04]"
+                                                        "flex items-center gap-3 p-4 rounded-2xl border backdrop-blur-sm transition-all duration-500",
+                                                        isNatural ? "border-sky-500/10 bg-sky-500/[0.03]" :
+                                                        "border-emerald-500/10 bg-emerald-500/[0.03]"
                                                     )}
                                                 >
                                                     {detected.valid ? (
-                                                        <CheckCircle2 className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400" : "text-emerald-400")} />
+                                                        <motion.div
+                                                            initial={{ scale: 0 }}
+                                                            animate={{ scale: 1 }}
+                                                            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                                                        >
+                                                            <CheckCircle2 className={cn("h-4 w-4 shrink-0", isNatural ? "text-sky-400" : "text-emerald-400")} />
+                                                        </motion.div>
                                                     ) : (
-                                                        <AlertCircle className="h-4 w-4 shrink-0 text-white/20" />
+                                                        <AlertCircle className="h-4 w-4 shrink-0 text-white/15" />
                                                     )}
                                                     <div className="flex-1">
-                                                        <p className={cn("text-xs font-semibold", isNatural ? "text-sky-300/80" : "text-emerald-300/80")}>{detected.label}</p>
-                                                        <p className="text-[11px] text-white/25 mt-0.5">
+                                                        <p className={cn("text-[11px] font-semibold", isNatural ? "text-sky-300/70" : "text-emerald-300/70")}>{detected.label}</p>
+                                                        <p className="text-[10px] text-white/20 mt-0.5">
                                                             {!detected.valid
                                                                 ? (isJuridico ? "Formato: 12345678-9" : "1 a 10 dígitos")
                                                                 : "Documento válido"
                                                             }
                                                         </p>
                                                     </div>
-                                                    {isNatural ? <User className="h-4 w-4 shrink-0 text-sky-400/40" /> : <Building2 className="h-4 w-4 shrink-0 text-emerald-400/40" />}
+                                                    {isNatural ? <User className="h-4 w-4 shrink-0 text-sky-400/30" /> : <Building2 className="h-4 w-4 shrink-0 text-emerald-400/30" />}
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
 
                                         {isNatural && detected.valid && cedulaSearching && (
-                                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 p-4 rounded-2xl border border-sky-500/15 bg-sky-500/[0.04]">
+                                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 p-4 rounded-2xl border border-sky-500/10 bg-sky-500/[0.03] backdrop-blur-sm">
                                                 <Loader2 className="h-4 w-4 text-sky-400 animate-spin shrink-0" />
                                                 <div>
-                                                    <p className="text-xs font-semibold text-sky-300/80">Consultando SAIME...</p>
-                                                    <p className="text-[11px] text-white/20">Buscando datos del titular</p>
+                                                    <p className="text-[11px] font-semibold text-sky-300/70">Consultando SAIME...</p>
+                                                    <p className="text-[10px] text-white/15">Buscando datos del titular</p>
                                                 </div>
                                             </motion.div>
                                         )}
@@ -849,19 +1019,19 @@ export default function RegisterSelectionPage() {
                                         <AnimatePresence>
                                             {isNatural && detected.valid && cedulaLookup && !cedulaSearching && (
                                                 <motion.div
-                                                    initial={{ opacity: 0, height: 0 }}
-                                                    animate={{ opacity: 1, height: "auto" }}
-                                                    exit={{ opacity: 0, height: 0 }}
-                                                    transition={{ duration: 0.3 }}
-                                                    className="rounded-2xl border border-sky-500/20 bg-sky-500/[0.04] p-4 overflow-hidden"
+                                                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                                                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="rounded-2xl border border-sky-500/15 bg-sky-500/[0.03] p-4 backdrop-blur-sm overflow-hidden"
                                                 >
                                                     <div className="flex items-start gap-3">
-                                                        <div className="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                        <div className="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-sky-500/10">
                                                             <User className="h-4 w-4 text-sky-400" />
                                                         </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-semibold text-white truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
-                                                            <p className="text-xs text-sky-400/60 mt-0.5">
+                                                            <p className="text-sm font-semibold text-white/90 truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
+                                                            <p className="text-[11px] text-sky-400/50 mt-0.5">
                                                                 {fullDocument}
                                                                 {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
                                                                 {cedulaLookup.municipio && ` · ${cedulaLookup.municipio}`}
@@ -869,32 +1039,32 @@ export default function RegisterSelectionPage() {
                                                         </div>
                                                         {cedulaLookup.estatus && (
                                                             <span className={cn(
-                                                                "text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md shrink-0",
-                                                                cedulaLookup.estatus === 'VIGENTE' ? "text-emerald-400 bg-emerald-500/10" : "text-amber-400 bg-amber-500/10"
+                                                                "text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0 ring-1",
+                                                                cedulaLookup.estatus === 'VIGENTE' ? "text-emerald-400 bg-emerald-500/10 ring-emerald-500/10" : "text-amber-400 bg-amber-500/10 ring-amber-500/10"
                                                             )}>
                                                                 {cedulaLookup.estatus}
                                                             </span>
                                                         )}
                                                     </div>
                                                     {(cedulaLookup.fechaNacimiento || cedulaLookup.sexo || cedulaLookup.nacionalidad) && (
-                                                        <div className="mt-3 pt-3 border-t border-white/[0.04] grid grid-cols-2 gap-x-4 gap-y-1.5">
+                                                        <div className="mt-3 pt-3 border-t border-white/[0.04] grid grid-cols-2 gap-x-4 gap-y-2">
                                                             {cedulaLookup.nacionalidad && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">Nac:</span> {cedulaLookup.nacionalidad}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">Nac:</span> {cedulaLookup.nacionalidad}</p>
                                                             )}
                                                             {cedulaLookup.fechaNacimiento && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">F. Nac:</span> {new Date(cedulaLookup.fechaNacimiento).toLocaleDateString('es-VE')}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">F. Nac:</span> {new Date(cedulaLookup.fechaNacimiento).toLocaleDateString('es-VE')}</p>
                                                             )}
                                                             {cedulaLookup.sexo && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">Sexo:</span> {cedulaLookup.sexo}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">Sexo:</span> {cedulaLookup.sexo}</p>
                                                             )}
                                                             {cedulaLookup.estadoCivil && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">E. Civil:</span> {cedulaLookup.estadoCivil}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">E. Civil:</span> {cedulaLookup.estadoCivil}</p>
                                                             )}
                                                             {cedulaLookup.parroquia && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">Parroquia:</span> {cedulaLookup.parroquia}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">Parroquia:</span> {cedulaLookup.parroquia}</p>
                                                             )}
                                                             {cedulaLookup.fechaEmision && (
-                                                                <p className="text-[11px] text-white/30"><span className="text-sky-400/50">Emisión:</span> {new Date(cedulaLookup.fechaEmision).toLocaleDateString('es-VE')}</p>
+                                                                <p className="text-[10px] text-white/25"><span className="text-sky-400/40 font-medium">Emisión:</span> {new Date(cedulaLookup.fechaEmision).toLocaleDateString('es-VE')}</p>
                                                             )}
                                                         </div>
                                                     )}
@@ -903,12 +1073,12 @@ export default function RegisterSelectionPage() {
                                         </AnimatePresence>
 
                                         {isNatural && detected.valid && !cedulaLookup && !cedulaSearching && cedulaValidInfo && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.04]">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-emerald-500/10 bg-emerald-500/[0.03] backdrop-blur-sm">
                                                 <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-xs font-semibold text-emerald-300/80">{cedulaValidInfo.nacionalidad || 'Documento válido'}</p>
+                                                    <p className="text-[11px] font-semibold text-emerald-300/70">{cedulaValidInfo.nacionalidad || 'Documento válido'}</p>
                                                     {cedulaValidInfo.edadEstimada && (
-                                                        <p className="text-[11px] text-white/25 mt-0.5">
+                                                        <p className="text-[10px] text-white/20 mt-0.5">
                                                             Generación: {cedulaValidInfo.edadEstimada.generacion} ({cedulaValidInfo.edadEstimada.rangoEdad})
                                                         </p>
                                                     )}
@@ -917,40 +1087,61 @@ export default function RegisterSelectionPage() {
                                         )}
 
                                         {existsResult?.exists && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-500/15 bg-amber-500/[0.04]">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
                                                 <div className="flex-1">
-                                                    <p className="text-xs font-semibold text-amber-300/80">Documento ya registrado</p>
-                                                    <p className="text-[11px] text-white/25 mt-0.5">Ya existe una cuenta con este documento</p>
+                                                    <p className="text-[11px] font-semibold text-amber-300/70">Documento ya registrado</p>
+                                                    <p className="text-[10px] text-white/20 mt-0.5">Ya existe una cuenta con este documento</p>
                                                 </div>
-                                                <Button size="sm" variant="outline" asChild className="shrink-0 rounded-lg text-xs font-medium border-amber-500/20 text-amber-400/80 hover:bg-amber-500/10 hover:text-amber-300 bg-transparent">
+                                                <Button size="sm" variant="outline" asChild className="shrink-0 rounded-lg text-[10px] font-semibold border-amber-500/15 text-amber-400/70 hover:bg-amber-500/10 hover:text-amber-300 bg-transparent">
                                                     <Link href="/login">Ir al Login</Link>
                                                 </Button>
                                             </motion.div>
                                         )}
 
-                                        <Button
-                                            onClick={handleContinueToModules}
-                                            disabled={!isValidDoc || checking}
-                                            className={cn(
-                                                "w-full h-12 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300",
-                                                !isValidDoc && !checking
-                                                    ? "bg-white/[0.04] text-white/20 border border-white/[0.06] cursor-not-allowed hover:bg-white/[0.04]"
-                                                    : "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 hover:from-sky-400 hover:to-blue-500"
-                                            )}
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.15 }}
                                         >
-                                            {checking ? (
-                                                <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Verificando...</>
-                                            ) : (
-                                                <><span>Continuar</span> <ArrowRight className="h-4 w-4 ml-2" /></>
-                                            )}
-                                        </Button>
+                                            <Button
+                                                onClick={handleContinueToModules}
+                                                disabled={!isValidDoc || checking}
+                                                className={cn(
+                                                    "relative w-full h-12 rounded-xl text-sm font-semibold tracking-wide transition-all duration-500 overflow-hidden",
+                                                    !isValidDoc && !checking
+                                                        ? "bg-white/[0.03] text-white/15 border border-white/[0.05] cursor-not-allowed hover:bg-white/[0.03]"
+                                                        : "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:shadow-xl hover:from-sky-400 hover:to-blue-500"
+                                                )}
+                                            >
+                                                {isValidDoc && !checking && (
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] animate-[shimmer_3s_infinite]" />
+                                                )}
+                                                <span className="relative flex items-center justify-center gap-2">
+                                                    {checking ? (
+                                                        <><Loader2 className="h-4 w-4 animate-spin" /> Verificando...</>
+                                                    ) : (
+                                                        <>Continuar <ArrowRight className="h-4 w-4" /></>
+                                                    )}
+                                                </span>
+                                            </Button>
+                                        </motion.div>
 
-                                        <div className="flex items-center justify-center gap-2 pt-2">
-                                            <ShieldCheck className="h-3 w-3 text-white/10" />
-                                            <p className="text-[10px] text-white/15 tracking-wider">
-                                                Cifrado AES-256 · Verificación SAIME/SENIAT
-                                            </p>
+                                        <div className="flex items-center justify-center gap-3 pt-3">
+                                            <div className="flex items-center gap-1.5">
+                                                <ShieldCheck className="h-3 w-3 text-white/10" />
+                                                <p className="text-[9px] text-white/12 tracking-wider font-medium">AES-256</p>
+                                            </div>
+                                            <div className="w-px h-3 bg-white/[0.06]" />
+                                            <div className="flex items-center gap-1.5">
+                                                <Hexagon className="h-3 w-3 text-white/10" />
+                                                <p className="text-[9px] text-white/12 tracking-wider font-medium">SAIME</p>
+                                            </div>
+                                            <div className="w-px h-3 bg-white/[0.06]" />
+                                            <div className="flex items-center gap-1.5">
+                                                <CircuitBoard className="h-3 w-3 text-white/10" />
+                                                <p className="text-[9px] text-white/12 tracking-wider font-medium">SENIAT</p>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 )}
@@ -960,67 +1151,69 @@ export default function RegisterSelectionPage() {
                                         key="modules"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.35 }}
+                                        exit={{ opacity: 0, y: -15 }}
+                                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                         className="space-y-4"
                                     >
-                                        <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                                            <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center shrink-0", currentPrefix.bg)}>
-                                                <CurrentPrefixIcon className={cn("h-4 w-4", currentPrefix.color)} />
+                                        <GlowingCard>
+                                            <div className="p-4 flex items-center gap-3">
+                                                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center shrink-0", currentPrefix.bg)}>
+                                                    <CurrentPrefixIcon className={cn("h-4 w-4", currentPrefix.color)} />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-[11px] font-semibold text-white/75 truncate">
+                                                        {fullDocument} · {detected.label}
+                                                    </p>
+                                                    {cedulaLookup && (
+                                                        <p className="text-[10px] text-white/25 truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
+                                                    )}
+                                                    {rifLookup && (
+                                                        <p className="text-[10px] text-white/25 truncate">{rifLookup.razonSocial}</p>
+                                                    )}
+                                                </div>
+                                                <span className={cn("text-[8px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md shrink-0 ring-1 ring-white/[0.04]", currentPrefix.bg, currentPrefix.color)}>
+                                                    {currentPrefix.desc}
+                                                </span>
                                             </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-semibold text-white/80 truncate">
-                                                    {fullDocument} · {detected.label}
-                                                </p>
-                                                {cedulaLookup && (
-                                                    <p className="text-[11px] text-white/30 truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
-                                                )}
-                                                {rifLookup && (
-                                                    <p className="text-[11px] text-white/30 truncate">{rifLookup.razonSocial}</p>
-                                                )}
-                                            </div>
-                                            <span className={cn("text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-md shrink-0", currentPrefix.bg, currentPrefix.color)}>
-                                                {currentPrefix.desc}
-                                            </span>
-                                        </div>
+                                        </GlowingCard>
 
-                                        <p className="text-[11px] text-white/25 px-1">
+                                        <p className="text-[10px] text-white/20 px-1 tracking-wide">
                                             {availableModules.length} {availableModules.length === 1 ? 'portal disponible' : 'portales disponibles'} para <span className={cn("font-semibold", currentPrefix.color)}>{currentPrefix.desc}</span>
                                         </p>
 
-                                        <div className="space-y-3">
+                                        <div className="space-y-2.5">
                                             {availableModules.map((mod, idx) => {
                                                 const Icon = mod.icon;
                                                 return (
                                                     <motion.button
                                                         key={mod.id}
-                                                        initial={{ opacity: 0, y: 15 }}
+                                                        initial={{ opacity: 0, y: 12 }}
                                                         animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ duration: 0.3, delay: idx * 0.06 }}
+                                                        transition={{ duration: 0.35, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
                                                         onClick={() => handleSelectModule(mod.route)}
-                                                        className="group relative w-full text-left rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-300 overflow-hidden"
+                                                        className="group relative w-full text-left rounded-2xl border border-white/[0.05] bg-white/[0.015] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-400 overflow-hidden"
                                                     >
-                                                        <div className={cn("absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500", mod.gradient)} />
-                                                        <div className="relative p-5 flex items-center gap-4">
+                                                        <div className={cn("absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-600", mod.gradient)} />
+                                                        <div className="relative p-4 sm:p-5 flex items-center gap-4">
                                                             <div className={cn(
-                                                                "w-11 h-11 rounded-xl flex items-center justify-center ring-1 shrink-0 transition-all duration-300 group-hover:scale-105",
+                                                                "w-11 h-11 rounded-xl flex items-center justify-center ring-1 shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg",
                                                                 mod.iconBg
                                                             )}>
                                                                 <Icon className="h-5 w-5" />
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-0.5">
-                                                                    <h3 className="text-sm font-semibold text-white">{mod.title}</h3>
+                                                                    <h3 className="text-[13px] font-semibold text-white/90 group-hover:text-white transition-colors">{mod.title}</h3>
                                                                     {mod.badge && (
-                                                                        <span className={cn("text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded", mod.badgeColor)}>
+                                                                        <span className={cn("text-[7px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ring-1 ring-white/[0.04]", mod.badgeColor)}>
                                                                             {mod.badge}
                                                                         </span>
                                                                     )}
                                                                 </div>
-                                                                <p className="text-xs text-white/30 leading-relaxed line-clamp-2">{mod.description}</p>
+                                                                <p className="text-[11px] text-white/25 leading-relaxed line-clamp-2 group-hover:text-white/35 transition-colors">{mod.description}</p>
                                                             </div>
-                                                            <div className="w-8 h-8 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0 group-hover:bg-white/[0.08] transition-colors">
-                                                                <ArrowRight className="h-3.5 w-3.5 text-white/30 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
+                                                            <div className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center shrink-0 group-hover:bg-white/[0.08] group-hover:border-white/[0.1] transition-all">
+                                                                <ArrowRight className="h-3.5 w-3.5 text-white/20 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
                                                             </div>
                                                         </div>
                                                     </motion.button>
@@ -1031,16 +1224,33 @@ export default function RegisterSelectionPage() {
                                 )}
                             </AnimatePresence>
 
-                            <p className="text-center text-xs text-white/20 mt-6">
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-center text-[11px] text-white/18 mt-8"
+                            >
                                 ¿Ya tienes cuenta?{' '}
-                                <Link href="/login" className="text-sky-400/60 hover:text-sky-400 transition-colors font-medium">
+                                <Link href="/login" className="text-sky-400/50 hover:text-sky-400 transition-colors font-medium">
                                     Iniciar Sesión
                                 </Link>
-                            </p>
+                            </motion.p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style jsx global>{`
+                @keyframes shimmer {
+                    0% { transform: translateX(-200%); }
+                    50% { transform: translateX(200%); }
+                    100% { transform: translateX(200%); }
+                }
+                @keyframes pulse-ring {
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.15); }
+                    50% { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+                }
+            `}</style>
         </div>
     );
 }
