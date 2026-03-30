@@ -134,7 +134,7 @@ export function HeroSection() {
                             className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
                         >
                             <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
-                                <Link href="/register" className="flex items-center gap-3 justify-center">
+                                <Link href="/login" className="flex items-center gap-3 justify-center">
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                     {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
