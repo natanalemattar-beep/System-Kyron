@@ -1,15 +1,12 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useState, useCallback, useEffect } from 'react';
 import { LoadingScreen } from '@/components/landing/loading-screen';
-
-const HeroSection = dynamic(() => import("@/components/landing/hero-section").then(m => ({ default: m.HeroSection })), { ssr: false });
-const LandingHeader = dynamic(() => import("@/components/landing/landing-header").then(m => ({ default: m.LandingHeader })), { ssr: false });
-
-const WelcomeTutorial = dynamic(() => import("@/components/welcome-tutorial").then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
-const WhatsAppButton = dynamic(() => import("@/components/whatsapp-button").then(m => ({ default: m.WhatsAppButton })), { ssr: false });
-const PageTracker = dynamic(() => import("@/components/page-tracker").then(m => ({ default: m.PageTracker })), { ssr: false });
+import { HeroSection } from '@/components/landing/hero-section';
+import { LandingHeader } from '@/components/landing/landing-header';
+import { WelcomeTutorial } from '@/components/welcome-tutorial';
+import { WhatsAppButton } from '@/components/whatsapp-button';
+import { PageTracker } from '@/components/page-tracker';
 
 function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
