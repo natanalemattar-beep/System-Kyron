@@ -76,7 +76,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth !important;
+    scroll-behavior: var(--scroll-behavior, smooth) !important;
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
   }
@@ -815,5 +815,144 @@
     @apply h-1.5 w-1.5 rounded-full;
     background: linear-gradient(135deg, hsl(var(--kyron-cyan)), hsl(var(--kyron-emerald)));
     box-shadow: 0 0 6px hsla(var(--kyron-cyan), 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-tier="low"] .glass-card,
+html[data-tier="low"] .glass-liquid,
+html[data-tier="low"] .kyron-surface {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-tier="low"] .glass-liquid::before {
+  animation: none !important;
+}
+html[data-tier="low"] .animate-float-gentle,
+html[data-tier="low"] .animate-float-slow,
+html[data-tier="low"] .animate-float-slow-reverse,
+html[data-tier="low"] .animate-float-particle,
+html[data-tier="low"] .animate-shimmer-slide,
+html[data-tier="low"] .animate-gradient-shift,
+html[data-tier="low"] .animate-pulse-soft,
+html[data-tier="low"] .animate-border-glow,
+html[data-tier="low"] .animate-signal-trace,
+html[data-tier="low"] .animate-hex-pulse,
+html[data-tier="low"] .animate-data-flow,
+html[data-tier="low"] .animate-kyron-breathe,
+html[data-tier="low"] .animate-kyron-orbit,
+html[data-tier="low"] .animate-gradient-flow,
+html[data-tier="low"] .animate-glow-breathe,
+html[data-tier="low"] .animate-bounce-subtle,
+html[data-tier="low"] .animate-marquee,
+html[data-tier="low"] .animate-spin-slow {
+  animation: none !important;
+}
+html[data-tier="low"] .shadow-glow,
+html[data-tier="low"] .shadow-glow-sm,
+html[data-tier="low"] .shadow-glow-secondary,
+html[data-tier="low"] .shadow-kyron {
+  box-shadow: 0 2px 8px -2px rgba(0,0,0,0.1) !important;
+}
+html[data-tier="low"] .hover-lift:hover,
+html[data-tier="low"] .hover-glow:hover,
+html[data-tier="low"] .hover-scale:hover {
+  transform: none !important;
+  box-shadow: inherit !important;
+}
+html[data-tier="low"] .kyron-signal-line::after {
+  display: none !important;
+}
+html[data-tier="low"] .hud-grid {
+  background-image: none !important;
+}
+
+html[data-tier="mid"] .glass-card,
+html[data-tier="mid"] .glass-liquid,
+html[data-tier="mid"] .kyron-surface {
+  backdrop-filter: blur(var(--glass-blur, 16px)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur, 16px)) !important;
+}
+html[data-tier="mid"] .animate-float-particle,
+html[data-tier="mid"] .animate-kyron-orbit,
+html[data-tier="mid"] .animate-spin-slow {
+  animation: none !important;
+}
+
+html[data-tier="high"] .glass-card,
+html[data-tier="high"] .glass-liquid,
+html[data-tier="high"] .kyron-surface {
+  backdrop-filter: blur(var(--glass-blur, 24px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px));
+}
+
+.animate-marquee {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@media (update: slow) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .glass-card,
+  .glass-liquid,
+  .kyron-surface {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+
+@media (pointer: coarse) {
+  .hover-lift:hover,
+  .hover-glow:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+  .hover-scale:hover {
+    transform: none !important;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    scrollbar-width: none;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 639px) {
+  .glass-card,
+  .glass-liquid {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+@media print {
+  .animate-float-gentle,
+  .animate-shimmer-slide,
+  .animate-gradient-shift,
+  .animate-pulse-soft,
+  .animate-border-glow,
+  .animate-signal-trace,
+  .animate-kyron-breathe,
+  .animate-gradient-flow,
+  .animate-marquee {
+    animation: none !important;
+  }
+  .glass-card, .glass-liquid, .kyron-surface {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
