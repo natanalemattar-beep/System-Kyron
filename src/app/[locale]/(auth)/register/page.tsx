@@ -135,6 +135,7 @@ export default function RegisterSelectionPage() {
     const [rifLookup, setRifLookup] = useState<RifLookupResult | null>(null);
     const [rifSearching, setRifSearching] = useState(false);
     const [rifSearched, setRifSearched] = useState(false);
+    const [rifValidationError, setRifValidationError] = useState<string | null>(null);
     const [cedulaLookup, setCedulaLookup] = useState<{
         nombre: string; apellido: string; estado?: string; municipio?: string;
         primerNombre?: string; segundoNombre?: string; primerApellido?: string; segundoApellido?: string;
@@ -261,9 +262,15 @@ export default function RegisterSelectionPage() {
         if (!detected.valid || detected.type !== "juridico") return;
         setRifSearching(true);
         setRifLookup(null);
+        setRifValidationError(null);
         try {
             const res = await fetch(`/api/rif/consulta?rif=${encodeURIComponent(fullDocument)}`);
             const data = await res.json();
+            if (!res.ok && data.error) {
+                setRifValidationError(data.error);
+                setRifSearched(true);
+                return;
+            }
             if (data.found && data.data) {
                 setRifLookup(data.data);
             }
@@ -601,11 +608,20 @@ export default function RegisterSelectionPage() {
                                 </div>
                             )}
 
-                            {rifSearched && !rifLookup && !rifSearching && (
+                            {rifSearched && rifValidationError && !rifSearching && (
+                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-red-500/5 border-red-500/15 mb-4 transition-all duration-300">
+                                    <AlertCircle className="h-4 w-4 text-red-500 shrink-0" />
+                                    <p className="text-xs font-bold text-red-600">
+                                        {rifValidationError}
+                                    </p>
+                                </div>
+                            )}
+
+                            {rifSearched && !rifLookup && !rifValidationError && !rifSearching && (
                                 <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-amber-500/5 border-amber-500/15 mb-4 transition-all duration-300">
                                     <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
                                     <p className="text-xs font-bold text-amber-600">
-                                        RIF no encontrado en el sistema. Podrás ingresar los datos manualmente.
+                                        RIF válido pero no encontrado en el sistema. Podrás ingresar los datos manualmente.
                                     </p>
                                 </div>
                             )}

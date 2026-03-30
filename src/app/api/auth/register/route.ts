@@ -5,6 +5,7 @@ import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
+import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
 
 export async function POST(req: NextRequest) {
     try {
@@ -38,6 +39,11 @@ async function registerNatural(body: Record<string, unknown>) {
 
     if (!email || !password || !nombre || !apellido || !cedula) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
+    }
+
+    const cedulaValidacion = validarFormatoCedula(String(cedula).trim());
+    if (!cedulaValidacion.valid) {
+        return NextResponse.json({ error: cedulaValidacion.error || 'Cédula inválida' }, { status: 400 });
     }
 
     if (!isValidEmail(email)) {
@@ -126,8 +132,9 @@ async function registerJuridico(body: Record<string, unknown>) {
         return NextResponse.json({ error: 'La razón social debe tener al menos 3 caracteres' }, { status: 400 });
     }
 
-    if (typeof rif !== 'string' || !/^[JGCVEP]-\d{8}-\d$/.test((rif as string).trim())) {
-        return NextResponse.json({ error: 'Formato de RIF inválido. Use el formato J-12345678-9' }, { status: 400 });
+    const rifValidacion = validarRIF((rif as string).trim());
+    if (!rifValidacion.valid) {
+        return NextResponse.json({ error: rifValidacion.error || 'RIF inválido' }, { status: 400 });
     }
 
     if (codigo_ciiu !== undefined && codigo_ciiu !== null && codigo_ciiu !== '') {

@@ -1,71 +1,54 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import { generateJSON } from '@/ai/anthropic';
+import { validarRIF, normalizarRIF } from '@/lib/validacion-venezuela';
 
 export const dynamic = 'force-dynamic';
 
-async function consultarSeniatConIA(rif: string): Promise<{
-  razonSocial: string;
-  tipoEmpresa: string;
-  actividadEconomica?: string;
-  estado?: string;
-  municipio?: string;
-  direccion?: string;
-  telefono?: string;
-  statusFiscal?: string;
-  fechaRegistro?: string;
-} | null> {
-  try {
-    const prefixMap: Record<string, string> = {
-      'J': 'Sociedad Mercantil / Persona Jurídica',
-      'G': 'Organismo Gubernamental / Institución del Estado',
-      'C': 'Consejo Comunal',
-      'F': 'Firma Personal',
-      'V': 'Persona Natural Venezolana',
-      'E': 'Persona Natural Extranjera (Residente)',
-    };
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 15;
+const RATE_WINDOW_MS = 60_000;
 
-    const prefixLetter = rif.charAt(0);
-    const tipoEntidad = prefixMap[prefixLetter] || 'Entidad desconocida';
-
-    const data = await generateJSON<Record<string, string>>({
-      system: `Eres un sistema de consulta del SENIAT de Venezuela. Genera datos plausibles y realistas para entidades venezolanas. Usa nombres de empresas, organismos o firmas realistas según el tipo de entidad. Estados, municipios y direcciones deben ser reales de Venezuela.`,
-      prompt: `RIF: ${rif}
-Tipo de entidad (prefijo ${prefixLetter}): ${tipoEntidad}
-
-JSON con: razonSocial (MAYÚSCULAS), tipoEmpresa (COMPAÑÍA ANÓNIMA, SRL, FIRMA PERSONAL, etc.), actividadEconomica, estado, municipio, direccion, telefono (0xxx-xxxxxxx), statusFiscal (ACTIVO/INACTIVO), fechaRegistro (YYYY-MM-DD)`,
-      temperature: 0.3,
-      maxTokens: 1024,
-    });
-
-    if (!data.razonSocial) return null;
-
-    return {
-      razonSocial: data.razonSocial,
-      tipoEmpresa: data.tipoEmpresa || tipoEntidad,
-      actividadEconomica: data.actividadEconomica,
-      estado: data.estado,
-      municipio: data.municipio,
-      direccion: data.direccion,
-      telefono: data.telefono,
-      statusFiscal: data.statusFiscal,
-      fechaRegistro: data.fechaRegistro,
-    };
-  } catch (error) {
-    console.error('[SENIAT-IA] Error en consulta IA:', error);
-    return null;
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return true;
   }
+  entry.count++;
+  return entry.count <= RATE_LIMIT;
 }
 
 export async function GET(req: NextRequest) {
-  const rif = req.nextUrl.searchParams.get('rif')?.trim().toUpperCase();
-  
-  if (!rif || !/^[JGCVEPF]-\d{8}-\d$/.test(rif)) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(ip)) {
     return NextResponse.json(
-      { error: 'Formato de RIF inválido. Formato esperado: J-50328471-6' },
+      { error: 'Demasiadas solicitudes. Intenta en un minuto.' },
+      { status: 429 }
+    );
+  }
+
+  const rawRif = req.nextUrl.searchParams.get('rif')?.trim().toUpperCase();
+
+  if (!rawRif) {
+    return NextResponse.json(
+      { error: 'RIF requerido' },
       { status: 400 }
     );
   }
+
+  const validacion = validarRIF(rawRif);
+
+  if (!validacion.valid) {
+    return NextResponse.json({
+      error: validacion.error,
+      valid: false,
+      tipo: validacion.tipo || null,
+      digitoVerificadorCorrecto: validacion.digitoVerificador ?? null,
+    }, { status: 400 });
+  }
+
+  const rif = normalizarRIF(rawRif);
 
   try {
     const users = await query(
@@ -81,6 +64,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         found: true,
         source: 'kyron_db',
+        validacion: {
+          formatoValido: true,
+          digitoVerificadorValido: true,
+          tipo: validacion.tipo,
+          rifNormalizado: validacion.rifNormalizado,
+        },
         data: {
           razonSocial: row.razon_social,
           tipoEmpresa: row.tipo_empresa,
@@ -106,6 +95,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         found: true,
         source: 'clientes_db',
+        validacion: {
+          formatoValido: true,
+          digitoVerificadorValido: true,
+          tipo: validacion.tipo,
+          rifNormalizado: validacion.rifNormalizado,
+        },
         data: {
           razonSocial: row.razon_social,
           tipoEmpresa: row.tipo,
@@ -130,6 +125,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         found: true,
         source: 'proveedores_db',
+        validacion: {
+          formatoValido: true,
+          digitoVerificadorValido: true,
+          tipo: validacion.tipo,
+          rifNormalizado: validacion.rifNormalizado,
+        },
         data: {
           razonSocial: row.razon_social,
           tipoEmpresa: row.categoria,
@@ -141,26 +142,17 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const iaResult = await consultarSeniatConIA(rif);
-    if (iaResult) {
-      return NextResponse.json({
-        found: true,
-        source: 'seniat_ia',
-        data: {
-          razonSocial: iaResult.razonSocial,
-          tipoEmpresa: iaResult.tipoEmpresa,
-          actividadEconomica: iaResult.actividadEconomica,
-          estado: iaResult.estado,
-          municipio: iaResult.municipio,
-          direccion: iaResult.direccion,
-          telefono: iaResult.telefono,
-          statusFiscal: iaResult.statusFiscal,
-          fechaRegistro: iaResult.fechaRegistro,
-        },
-      });
-    }
-
-    return NextResponse.json({ found: false, data: null });
+    return NextResponse.json({
+      found: false,
+      validacion: {
+        formatoValido: true,
+        digitoVerificadorValido: true,
+        tipo: validacion.tipo,
+        rifNormalizado: validacion.rifNormalizado,
+      },
+      message: 'RIF con formato y dígito verificador válidos. No se encontraron datos registrados en el sistema.',
+      data: null,
+    });
   } catch (error) {
     console.error('Error en consulta RIF:', error);
     return NextResponse.json(
