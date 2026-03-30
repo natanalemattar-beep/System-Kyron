@@ -77,8 +77,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
   - **Outlook/Microsoft (Replit Integration):** Used for all types of alerts and notifications (fiscal deadlines, document status, system alerts, SENIAT reminders)
   - **Resend:** Fallback email provider
 - **AI Integrations:** Gemini (via Replit AI Integrations), OpenAI (via Replit AI Integrations), Anthropic Claude (via Replit AI Integrations)
-- **SMS:** Twilio (Replit Integration)
-- **WhatsApp Alerts:** Twilio (Replit Integration)
+- **SMS (Twilio):** Dual-purpose — envío de códigos de verificación (OTP/2FA) + alertas y notificaciones del sistema
+- **WhatsApp (Twilio):** Dual-purpose — envío de códigos de verificación (OTP/2FA) + alertas y notificaciones del sistema
 - **Google Calendar:** Not configured (user dismissed integration — ask for credentials if needed in the future)
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
 - **Excel Export:** `exceljs`
