@@ -72,10 +72,14 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** CSS keyframe animations (viewport-gated via IntersectionObserver), Framer Motion (scroll-cinematic only)
-- **Email Services:** Gmail, Outlook, Resend (with fallback chain)
-- **AI Integrations:** Anthropic Claude Sonnet (`claude-3-5-sonnet-20241022`)
-- **SMS:** Twilio
-- **WhatsApp Alerts:** Twilio
+- **Email Services:**
+  - **Gmail (Replit Integration):** Used exclusively for sending verification codes (OTP/2FA)
+  - **Outlook/Microsoft (Replit Integration):** Used for all types of alerts and notifications (fiscal deadlines, document status, system alerts, SENIAT reminders)
+  - **Resend:** Fallback email provider
+- **AI Integrations:** Gemini (via Replit AI Integrations), OpenAI (via Replit AI Integrations), Anthropic Claude (via Replit AI Integrations)
+- **SMS:** Twilio (Replit Integration)
+- **WhatsApp Alerts:** Twilio (Replit Integration)
+- **Google Calendar:** Not configured (user dismissed integration — ask for credentials if needed in the future)
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
 - **Excel Export:** `exceljs`
 - **QR Generation:** `api.qrserver.com`
