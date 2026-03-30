@@ -1,287 +1,723 @@
-
 "use client";
 
+import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CircleCheck as CheckCircle, CreditCard, Banknote, Smartphone, Globe, ShieldCheck, Activity, Terminal, Wallet, Building2, Landmark, DollarSign, Zap } from "lucide-react";
+import {
+  CreditCard, Banknote, Smartphone, Globe, ShieldCheck, Activity, Terminal,
+  Wallet, Building2, Landmark, DollarSign, Zap, ArrowRightLeft, CircleDollarSign,
+  Coins, QrCode, Store, BadgeCheck, TrendingUp, Lock, Eye, EyeOff,
+  Copy, ExternalLink, Settings2, ToggleLeft, ToggleRight, CircleCheck, Hash
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
+import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
-const paymentGateways = [
-    {
-        name: "PayPal",
-        description: "Cobros y pagos internacionales. Ideal para clientes en el exterior y freelancers venezolanos.",
-        fees: "3.49% + $0.49 por transacción",
-        status: "Configurado",
-        icon: Globe,
-        color: "text-blue-500",
-        bg: "bg-blue-500/10",
-        borderColor: "border-blue-500/20",
-        currencies: ["USD", "EUR", "GBP"],
-    },
-    {
-        name: "Zinli",
-        description: "Billetera digital venezolana para pagos rápidos en USD sin comisiones internas.",
-        fees: "0% transferencias internas",
-        status: "Activo",
-        icon: Wallet,
-        color: "text-emerald-500",
-        bg: "bg-emerald-500/10",
-        borderColor: "border-emerald-500/20",
-        currencies: ["USD"],
-    },
-    {
-        name: "Zelle",
-        description: "Transferencias bancarias instantáneas desde cuentas en EE.UU. Sin comisiones.",
-        fees: "0% (Comisión cero)",
-        status: "Activo",
-        icon: DollarSign,
-        color: "text-violet-500",
-        bg: "bg-violet-500/10",
-        borderColor: "border-violet-500/20",
-        currencies: ["USD"],
-    },
-    {
-        name: "Pago Móvil / C2P",
-        description: "Liquidación inmediata para el mercado nacional. Todos los bancos de Venezuela conectados.",
-        fees: "0% (Comisión bancaria base)",
-        status: "Activo",
-        icon: Smartphone,
-        color: "text-primary",
-        bg: "bg-primary/10",
-        borderColor: "border-primary/20",
-        currencies: ["VES"],
-    },
-    {
-        name: "Transferencia Bancaria VE",
-        description: "Transferencias entre cuentas nacionales. 29 bancos conectados vía ACH y LBTR.",
-        fees: "0% (Sin comisión)",
-        status: "Activo",
-        icon: Landmark,
-        color: "text-cyan-500",
-        bg: "bg-cyan-500/10",
-        borderColor: "border-cyan-500/20",
-        currencies: ["VES"],
-    },
-    {
-        name: "Binance Pay / Cripto",
-        description: "Pagos en criptomonedas: USDT, USDC, BTC, ETH. Conversión automática a VES o USD.",
-        fees: "0.5% conversión cripto",
-        status: "Configurado",
-        icon: Zap,
-        color: "text-amber-500",
-        bg: "bg-amber-500/10",
-        borderColor: "border-amber-500/20",
-        currencies: ["USDT", "USDC", "BTC", "ETH"],
-    },
-    {
-        name: "Tarjeta Débito/Crédito",
-        description: "Visa, MasterCard, AMEX, Maestro en bolívares o divisas. POS físico y virtual integrado.",
-        fees: "2.5% + IVA (nacional)",
-        status: "Activo",
-        icon: CreditCard,
-        color: "text-rose-500",
-        bg: "bg-rose-500/10",
-        borderColor: "border-rose-500/20",
-        currencies: ["VES", "USD"],
-    },
-    {
-        name: "Kyron Digital Wallet",
-        description: "Transferencias internas inmediatas entre nodos del ecosistema sin fricción.",
-        fees: "0% Transferencia interna",
-        status: "Primario",
-        icon: ShieldCheck,
-        color: "text-primary",
-        bg: "bg-primary/10",
-        borderColor: "border-primary/20",
-        currencies: ["VES", "USD", "EUR"],
-    },
-    {
-        name: "Reserve / USDC Wallet",
-        description: "Billetera de stablecoins USDC para Venezuela. Envío y recepción sin intermediarios.",
-        fees: "0.1% por conversión",
-        status: "Activo",
-        icon: Wallet,
-        color: "text-sky-500",
-        bg: "bg-sky-500/10",
-        borderColor: "border-sky-500/20",
-        currencies: ["USDC", "USD"],
-    },
-    {
-        name: "Tether (TRC-20 / ERC-20)",
-        description: "Recepción directa de USDT en redes Tron y Ethereum. Liquidación automática en VES.",
-        fees: "0.3% red + gas fee",
-        status: "Activo",
-        icon: Zap,
-        color: "text-green-500",
-        bg: "bg-green-500/10",
-        borderColor: "border-green-500/20",
-        currencies: ["USDT"],
-    },
-    {
-        name: "Efectivo USD / EUR",
-        description: "Registro manual de pagos en efectivo en divisas. Generación automática de recibos.",
-        fees: "0% (Sin comisión)",
-        status: "Activo",
-        icon: Banknote,
-        color: "text-lime-500",
-        bg: "bg-lime-500/10",
-        borderColor: "border-lime-500/20",
-        currencies: ["USD", "EUR"],
-    },
-    {
-        name: "Stripe Connect",
-        description: "Procesador de pagos internacional. Visa, MasterCard, Apple Pay y Google Pay.",
-        fees: "2.9% + $0.30 por transacción",
-        status: "Pendiente",
-        icon: CreditCard,
-        color: "text-indigo-500",
-        bg: "bg-indigo-500/10",
-        borderColor: "border-indigo-500/20",
-        currencies: ["USD", "EUR", "GBP"],
-    },
+interface Gateway {
+  name: string;
+  description: string;
+  fees: string;
+  status: "Activo" | "Configurado" | "Pendiente" | "Primario";
+  icon: React.ElementType;
+  color: string;
+  bg: string;
+  borderColor: string;
+  currencies: string[];
+  features?: string[];
+  network?: string;
+  popular?: boolean;
+}
+
+const internacionales: Gateway[] = [
+  {
+    name: "PayPal",
+    description: "Cobros y pagos internacionales con protección al comprador. Compatible con PayPal Business, invoicing y suscripciones recurrentes.",
+    fees: "3.49% + $0.49",
+    status: "Activo",
+    icon: Globe,
+    color: "text-blue-500",
+    bg: "bg-blue-500/10",
+    borderColor: "border-blue-500/20",
+    currencies: ["USD", "EUR", "GBP", "CAD", "MXN"],
+    features: ["Protección al comprador", "Suscripciones", "Invoicing", "Checkout Express"],
+    popular: true,
+  },
+  {
+    name: "Zelle",
+    description: "Transferencias instantáneas P2P desde cuentas bancarias en EE.UU. Sin comisiones para el receptor.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: DollarSign,
+    color: "text-violet-500",
+    bg: "bg-violet-500/10",
+    borderColor: "border-violet-500/20",
+    currencies: ["USD"],
+    features: ["Instantáneo", "Sin comisiones", "Verificación automática"],
+    popular: true,
+  },
+  {
+    name: "Stripe Connect",
+    description: "Procesador líder mundial. Visa, MasterCard, AMEX, Apple Pay, Google Pay. Split payments y marketplace.",
+    fees: "2.9% + $0.30",
+    status: "Configurado",
+    icon: CreditCard,
+    color: "text-indigo-500",
+    bg: "bg-indigo-500/10",
+    borderColor: "border-indigo-500/20",
+    currencies: ["USD", "EUR", "GBP", "BRL"],
+    features: ["Apple Pay", "Google Pay", "Split Payments", "Suscripciones"],
+  },
+  {
+    name: "Zinli",
+    description: "Billetera digital para Latinoamérica. Pagos en USD sin comisiones internas. Popular en Venezuela.",
+    fees: "0% internas / 1% retiro",
+    status: "Activo",
+    icon: Wallet,
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+    borderColor: "border-emerald-500/20",
+    currencies: ["USD"],
+    features: ["Sin comisión interna", "Tarjeta virtual", "Retiro ATM"],
+    popular: true,
+  },
+  {
+    name: "Wise (TransferWise)",
+    description: "Transferencias internacionales con tasa de cambio real del mercado medio. Multi-moneda.",
+    fees: "0.41% - 1.5%",
+    status: "Configurado",
+    icon: ArrowRightLeft,
+    color: "text-green-500",
+    bg: "bg-green-500/10",
+    borderColor: "border-green-500/20",
+    currencies: ["USD", "EUR", "GBP", "BRL", "COP"],
+    features: ["Tasa real", "Multi-moneda", "Cuenta local"],
+  },
+  {
+    name: "Remitly / Western Union",
+    description: "Recepción de remesas internacionales. Acreditación directa en bolívares o dólares.",
+    fees: "Variable según origen",
+    status: "Activo",
+    icon: Globe,
+    color: "text-orange-500",
+    bg: "bg-orange-500/10",
+    borderColor: "border-orange-500/20",
+    currencies: ["USD", "EUR", "VES"],
+    features: ["Remesas", "Cobertura global", "Efectivo/Banco"],
+  },
+  {
+    name: "Tarjeta Débito/Crédito VE",
+    description: "Visa, MasterCard, AMEX, Maestro en bolívares o divisas. POS físico y virtual integrado.",
+    fees: "2.5% + IVA",
+    status: "Activo",
+    icon: CreditCard,
+    color: "text-rose-500",
+    bg: "bg-rose-500/10",
+    borderColor: "border-rose-500/20",
+    currencies: ["VES", "USD"],
+    features: ["POS físico", "POS virtual", "Contactless", "NFC"],
+  },
+  {
+    name: "Efectivo USD / EUR",
+    description: "Registro manual de pagos en efectivo en divisas. Recibos automáticos con tasa BCV.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: Banknote,
+    color: "text-lime-500",
+    bg: "bg-lime-500/10",
+    borderColor: "border-lime-500/20",
+    currencies: ["USD", "EUR"],
+    features: ["Recibo automático", "Tasa BCV", "Arqueo de caja"],
+  },
+];
+
+const criptomonedas: Gateway[] = [
+  {
+    name: "Bitcoin (BTC)",
+    description: "Red Bitcoin y Lightning Network. Pagos peer-to-peer con confirmación rápida vía Lightning.",
+    fees: "Red: variable / LN: ~0.01%",
+    status: "Activo",
+    icon: Coins,
+    color: "text-orange-500",
+    bg: "bg-orange-500/10",
+    borderColor: "border-orange-500/20",
+    currencies: ["BTC", "SATS"],
+    network: "Bitcoin / Lightning",
+    features: ["Lightning Network", "On-chain", "Cold wallet", "Auto-conversión VES"],
+    popular: true,
+  },
+  {
+    name: "Ethereum (ETH)",
+    description: "Pagos en ETH y tokens ERC-20. Compatible con MetaMask, WalletConnect y hardware wallets.",
+    fees: "Gas fee variable",
+    status: "Activo",
+    icon: Zap,
+    color: "text-indigo-500",
+    bg: "bg-indigo-500/10",
+    borderColor: "border-indigo-500/20",
+    currencies: ["ETH", "ERC-20"],
+    network: "Ethereum / L2",
+    features: ["MetaMask", "WalletConnect", "ERC-20", "Smart Contracts"],
+  },
+  {
+    name: "USDT (Tether)",
+    description: "Stablecoin 1:1 con USD. Disponible en TRC-20 (Tron), ERC-20 (Ethereum) y BEP-20 (BSC).",
+    fees: "0.1% - 0.3% + gas",
+    status: "Activo",
+    icon: CircleDollarSign,
+    color: "text-green-500",
+    bg: "bg-green-500/10",
+    borderColor: "border-green-500/20",
+    currencies: ["USDT"],
+    network: "TRC-20 / ERC-20 / BEP-20",
+    features: ["Multi-red", "Stablecoin", "Liquidación VES", "Sin volatilidad"],
+    popular: true,
+  },
+  {
+    name: "USDC (Circle)",
+    description: "Stablecoin regulada respaldada 1:1 con USD. Auditorías mensuales. Red Ethereum, Solana, Polygon.",
+    fees: "0.1% conversión",
+    status: "Activo",
+    icon: CircleDollarSign,
+    color: "text-sky-500",
+    bg: "bg-sky-500/10",
+    borderColor: "border-sky-500/20",
+    currencies: ["USDC"],
+    network: "ERC-20 / Solana / Polygon",
+    features: ["Regulada", "Auditoría mensual", "Multi-red", "Reserve compatible"],
+    popular: true,
+  },
+  {
+    name: "Binance Pay",
+    description: "Pasarela de pagos de Binance. Acepta BTC, ETH, BNB, USDT, BUSD y +300 criptos.",
+    fees: "0% - 0.5%",
+    status: "Activo",
+    icon: Zap,
+    color: "text-amber-500",
+    bg: "bg-amber-500/10",
+    borderColor: "border-amber-500/20",
+    currencies: ["BTC", "ETH", "BNB", "USDT", "BUSD"],
+    network: "Binance Smart Chain",
+    features: ["QR Pay", "+300 criptos", "P2P Venezuela", "Auto-conversión"],
+    popular: true,
+  },
+  {
+    name: "Solana (SOL)",
+    description: "Blockchain ultrarrápida con fees mínimos. Ideal para micropagos y transacciones frecuentes.",
+    fees: "~$0.00025 por tx",
+    status: "Configurado",
+    icon: Zap,
+    color: "text-purple-500",
+    bg: "bg-purple-500/10",
+    borderColor: "border-purple-500/20",
+    currencies: ["SOL", "SPL"],
+    network: "Solana",
+    features: ["Ultra-rápido", "Fees mínimos", "SPL tokens", "Phantom wallet"],
+  },
+  {
+    name: "TRON (TRX)",
+    description: "Red Tron para USDT-TRC20 y TRX. La red más usada en Venezuela para stablecoins.",
+    fees: "~$0.50 por tx",
+    status: "Activo",
+    icon: Zap,
+    color: "text-red-500",
+    bg: "bg-red-500/10",
+    borderColor: "border-red-500/20",
+    currencies: ["TRX", "USDT-TRC20"],
+    network: "TRON",
+    features: ["TRC-20", "Bajo costo", "Popular en VE", "TronLink"],
+  },
+  {
+    name: "Polygon (MATIC)",
+    description: "Layer 2 de Ethereum. Transacciones rápidas y económicas. Compatible con dApps EVM.",
+    fees: "~$0.01 por tx",
+    status: "Configurado",
+    icon: Hash,
+    color: "text-violet-500",
+    bg: "bg-violet-500/10",
+    borderColor: "border-violet-500/20",
+    currencies: ["MATIC", "USDC", "USDT"],
+    network: "Polygon",
+    features: ["Layer 2", "EVM compatible", "Fees bajos", "USDC nativo"],
+  },
+  {
+    name: "Litecoin (LTC)",
+    description: "Pagos rápidos con confirmación en ~2.5 minutos. Alternativa económica a Bitcoin.",
+    fees: "~$0.01 por tx",
+    status: "Activo",
+    icon: Coins,
+    color: "text-slate-400",
+    bg: "bg-slate-400/10",
+    borderColor: "border-slate-400/20",
+    currencies: ["LTC"],
+    network: "Litecoin",
+    features: ["Rápido", "Económico", "Amplia aceptación"],
+  },
+  {
+    name: "Reserve (RSV/RToken)",
+    description: "Protocolo descentralizado de stablecoins. Popular en Venezuela vía app Reserve.",
+    fees: "0.1% por conversión",
+    status: "Activo",
+    icon: Wallet,
+    color: "text-teal-500",
+    bg: "bg-teal-500/10",
+    borderColor: "border-teal-500/20",
+    currencies: ["RSV", "USDC"],
+    network: "Ethereum / Base",
+    features: ["App Reserve", "Descentralizado", "Popular en VE", "Sin intermediarios"],
+  },
+];
+
+const venezuela: Gateway[] = [
+  {
+    name: "Pago Móvil C2P",
+    description: "Sistema de Cámara de Compensación Electrónica del BCV. Liquidación inmediata 24/7. Todos los bancos nacionales.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: Smartphone,
+    color: "text-primary",
+    bg: "bg-primary/10",
+    borderColor: "border-primary/20",
+    currencies: ["VES"],
+    features: ["24/7", "Instantáneo", "Todos los bancos", "Límite BCV diario"],
+    popular: true,
+  },
+  {
+    name: "Transferencia Bancaria",
+    description: "Transferencias interbancarias vía ACH y LBTR. 29+ bancos conectados en red de compensación.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: Landmark,
+    color: "text-cyan-500",
+    bg: "bg-cyan-500/10",
+    borderColor: "border-cyan-500/20",
+    currencies: ["VES"],
+    features: ["ACH", "LBTR", "29 bancos", "Mismo día"],
+    popular: true,
+  },
+  {
+    name: "Biopago",
+    description: "Sistema de pago biométrico del BDV. Autenticación con huella dactilar en puntos de venta.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: BadgeCheck,
+    color: "text-green-600",
+    bg: "bg-green-600/10",
+    borderColor: "border-green-600/20",
+    currencies: ["VES"],
+    features: ["Biométrico", "Huella dactilar", "Punto de venta", "BDV"],
+  },
+  {
+    name: "Punto de Venta (POS)",
+    description: "Terminales POS físicos y móviles. Compatible con todas las tarjetas nacionales Visa/MasterCard/Maestro.",
+    fees: "1.5% - 3% + IVA",
+    status: "Activo",
+    icon: Store,
+    color: "text-rose-500",
+    bg: "bg-rose-500/10",
+    borderColor: "border-rose-500/20",
+    currencies: ["VES"],
+    features: ["Contactless", "Chip", "Banda magnética", "POS móvil"],
+  },
+  {
+    name: "Pago QR (BCV)",
+    description: "Sistema de pago con código QR estandarizado por el BCV. Escanea y paga desde cualquier banco.",
+    fees: "0% comisión",
+    status: "Configurado",
+    icon: QrCode,
+    color: "text-primary",
+    bg: "bg-primary/10",
+    borderColor: "border-primary/20",
+    currencies: ["VES"],
+    features: ["QR dinámico", "Estándar BCV", "Todos los bancos", "Inmediato"],
+  },
+  {
+    name: "Débito Inmediato",
+    description: "Domiciliación de pagos recurrentes. Cobro automático desde cuenta bancaria del cliente.",
+    fees: "0% - 0.5%",
+    status: "Activo",
+    icon: ArrowRightLeft,
+    color: "text-amber-500",
+    bg: "bg-amber-500/10",
+    borderColor: "border-amber-500/20",
+    currencies: ["VES"],
+    features: ["Recurrente", "Automático", "Domiciliación", "Servicios"],
+  },
+  {
+    name: "Efectivo Bolívares",
+    description: "Registro manual de pagos en efectivo Bs. Generación automática de recibos y reportes fiscales.",
+    fees: "0% comisión",
+    status: "Activo",
+    icon: Banknote,
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+    borderColor: "border-emerald-500/20",
+    currencies: ["VES"],
+    features: ["Recibo automático", "Arqueo", "Reporte fiscal", "SENIAT"],
+  },
+  {
+    name: "Kyron Wallet",
+    description: "Billetera digital interna del ecosistema. Transferencias instantáneas entre usuarios Kyron. Multi-moneda.",
+    fees: "0% comisión",
+    status: "Primario",
+    icon: ShieldCheck,
+    color: "text-primary",
+    bg: "bg-primary/10",
+    borderColor: "border-primary/20",
+    currencies: ["VES", "USD", "EUR"],
+    features: ["Instantáneo", "Multi-moneda", "Ecosistema", "Sin comisión"],
+    popular: true,
+  },
 ];
 
 const bancosVenezuela = [
-    { nombre: "Banco de Venezuela", codigo: "0102", tipo: "Universal" },
-    { nombre: "Banesco", codigo: "0134", tipo: "Universal" },
-    { nombre: "Mercantil", codigo: "0105", tipo: "Universal" },
-    { nombre: "BBVA Provincial", codigo: "0108", tipo: "Universal" },
-    { nombre: "BNC", codigo: "0191", tipo: "Comercial" },
-    { nombre: "BOD", codigo: "0116", tipo: "Universal" },
-    { nombre: "Bancaribe", codigo: "0114", tipo: "Universal" },
-    { nombre: "Banco Exterior", codigo: "0115", tipo: "Universal" },
-    { nombre: "Banco Plaza", codigo: "0138", tipo: "Comercial" },
-    { nombre: "Banco Caroní", codigo: "0128", tipo: "Microfinanzas" },
-    { nombre: "Bancrecer", codigo: "0168", tipo: "Microfinanzas" },
-    { nombre: "BanFANB", codigo: "0177", tipo: "Especial" },
-    { nombre: "Banco del Tesoro", codigo: "0163", tipo: "Universal" },
-    { nombre: "Banco Bicentenario", codigo: "0175", tipo: "Universal" },
-    { nombre: "Banco Sofitasa", codigo: "0137", tipo: "Universal" },
-    { nombre: "100% Banco", codigo: "0156", tipo: "Comercial" },
-    { nombre: "Banco Activo", codigo: "0171", tipo: "Comercial" },
-    { nombre: "Bancamiga", codigo: "0172", tipo: "Universal" },
-    { nombre: "Banplus", codigo: "0174", tipo: "Comercial" },
-    { nombre: "Banco Fondo Común (BFC)", codigo: "0151", tipo: "Universal" },
-    { nombre: "Mi Banco", codigo: "0169", tipo: "Microfinanzas" },
-    { nombre: "Banco Venezolano de Crédito", codigo: "0104", tipo: "Universal" },
-    { nombre: "Banco Nacional de Crédito (BNC)", codigo: "0192", tipo: "Comercial" },
-    { nombre: "Banco de la Gente Emprendedora (Bangente)", codigo: "0166", tipo: "Microfinanzas" },
-    { nombre: "Banco Agrícola de Venezuela", codigo: "0176", tipo: "Especial" },
-    { nombre: "Instituto Municipal de Crédito Popular", codigo: "0601", tipo: "Especial" },
-    { nombre: "Del Sur Banco Universal", codigo: "0157", tipo: "Universal" },
-    { nombre: "Banco Internacional de Desarrollo", codigo: "0173", tipo: "Comercial" },
-    { nombre: "N58 Banco Digital", codigo: "0178", tipo: "Digital" },
+  { nombre: "Banco de Venezuela", codigo: "0102", tipo: "Universal", pago_movil: true },
+  { nombre: "Banesco", codigo: "0134", tipo: "Universal", pago_movil: true },
+  { nombre: "Mercantil", codigo: "0105", tipo: "Universal", pago_movil: true },
+  { nombre: "BBVA Provincial", codigo: "0108", tipo: "Universal", pago_movil: true },
+  { nombre: "BNC", codigo: "0191", tipo: "Comercial", pago_movil: true },
+  { nombre: "BOD", codigo: "0116", tipo: "Universal", pago_movil: true },
+  { nombre: "Bancaribe", codigo: "0114", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Exterior", codigo: "0115", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Plaza", codigo: "0138", tipo: "Comercial", pago_movil: true },
+  { nombre: "Banco Caroní", codigo: "0128", tipo: "Microfinanzas", pago_movil: true },
+  { nombre: "Bancrecer", codigo: "0168", tipo: "Microfinanzas", pago_movil: true },
+  { nombre: "BanFANB", codigo: "0177", tipo: "Especial", pago_movil: true },
+  { nombre: "Banco del Tesoro", codigo: "0163", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Bicentenario", codigo: "0175", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Sofitasa", codigo: "0137", tipo: "Universal", pago_movil: true },
+  { nombre: "100% Banco", codigo: "0156", tipo: "Comercial", pago_movil: true },
+  { nombre: "Banco Activo", codigo: "0171", tipo: "Comercial", pago_movil: true },
+  { nombre: "Bancamiga", codigo: "0172", tipo: "Universal", pago_movil: true },
+  { nombre: "Banplus", codigo: "0174", tipo: "Comercial", pago_movil: true },
+  { nombre: "Banco Fondo Común (BFC)", codigo: "0151", tipo: "Universal", pago_movil: true },
+  { nombre: "Mi Banco", codigo: "0169", tipo: "Microfinanzas", pago_movil: true },
+  { nombre: "Banco Venezolano de Crédito", codigo: "0104", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Nacional de Crédito (BNC)", codigo: "0192", tipo: "Comercial", pago_movil: true },
+  { nombre: "Bangente", codigo: "0166", tipo: "Microfinanzas", pago_movil: true },
+  { nombre: "Banco Agrícola de Venezuela", codigo: "0176", tipo: "Especial", pago_movil: false },
+  { nombre: "Instituto Municipal de Crédito Popular", codigo: "0601", tipo: "Especial", pago_movil: false },
+  { nombre: "Del Sur Banco Universal", codigo: "0157", tipo: "Universal", pago_movil: true },
+  { nombre: "Banco Internacional de Desarrollo", codigo: "0173", tipo: "Comercial", pago_movil: true },
+  { nombre: "N58 Banco Digital", codigo: "0178", tipo: "Digital", pago_movil: true },
 ];
 
-export default function PasarelasDePagoPage() {
-    const { toast } = useToast();
+const statsData = [
+  { label: "Pasarelas Activas", value: "26+", icon: CreditCard, color: "text-primary" },
+  { label: "Criptomonedas", value: "10+", icon: Coins, color: "text-amber-500" },
+  { label: "Bancos VE", value: "29", icon: Landmark, color: "text-cyan-500" },
+  { label: "Monedas", value: "15+", icon: CircleDollarSign, color: "text-emerald-500" },
+];
 
-    return (
-        <div className="space-y-12 pb-20">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <CreditCard className="h-3 w-3" /> NODO DE LIQUIDACIÓN
-                </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Pasarelas <span className="text-primary italic">de Pago</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Omnicanalidad Financiera • PayPal · Zinli · Zelle · Pago Móvil · Cripto · Stripe · 29 Bancos VE</p>
-            </header>
+function GatewayCard({ gateway, index }: { gateway: Gateway; index: number }) {
+  const { toast } = useToast();
+  const [expanded, setExpanded] = useState(false);
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {paymentGateways.map((gateway, i) => (
-                    <motion.div key={gateway.name} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
-                        <Card className={`glass-card border bg-card/40 p-8 rounded-[2rem] h-full flex flex-col justify-between shadow-xl relative overflow-hidden group ${gateway.borderColor}`}>
-                            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><gateway.icon className="h-20 w-20" /></div>
-                            <div className="space-y-5 relative z-10">
-                                <div className="flex justify-between items-start">
-                                    <div className={`p-3 rounded-2xl border ${gateway.bg} ${gateway.borderColor}`}>
-                                        <gateway.icon className={`h-5 w-5 ${gateway.color}`} />
-                                    </div>
-                                    <Badge className={`${gateway.bg} ${gateway.color} border-none text-[7px] font-black uppercase px-2`}>{gateway.status}</Badge>
-                                </div>
-                                <div>
-                                    <CardTitle className="text-lg font-black uppercase italic tracking-tight mb-1">{gateway.name}</CardTitle>
-                                    <CardDescription className="text-[10px] font-bold text-muted-foreground/60 uppercase leading-relaxed">{gateway.description}</CardDescription>
-                                </div>
-                                <div className="flex flex-wrap gap-1">
-                                    {gateway.currencies.map(c => (
-                                        <span key={c} className={`text-[7px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-widest ${gateway.bg} ${gateway.color}`}>{c}</span>
-                                    ))}
-                                </div>
-                                <div className="pt-4 border-t border-border/30">
-                                    <p className="text-[8px] font-black uppercase text-muted-foreground/40 tracking-widest mb-1">Comisión</p>
-                                    <p className="text-xs font-mono font-bold text-foreground/80">{gateway.fees}</p>
-                                </div>
-                            </div>
-                            <CardFooter className="p-0 pt-6 mt-auto">
-                                <Button variant="outline" className={`w-full h-11 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest ${gateway.color}`} onClick={() => toast({ title: `${gateway.name.toUpperCase()} CONFIGURADO`, description: `Pasarela ${gateway.name} activa y lista para recibir pagos.` })}>
-                                    Configurar Nodo
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    </motion.div>
-                ))}
-            </div>
-
-            <Card className="glass-card border-none bg-card/40 rounded-[3rem] overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                    <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">
-                            <Landmark className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Entidades Bancarias Conectadas</CardTitle>
-                            <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest mt-1">Red de Bancos Venezolanos • Pago Móvil & Transferencias</p>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent className="p-10">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {bancosVenezuela.map((banco, i) => (
-                            <motion.div key={banco.codigo + banco.nombre} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.04 }}>
-                                <div className="p-5 rounded-2xl bg-white/[0.03] border border-border/50 hover:border-primary/30 hover:bg-primary/5 transition-all group cursor-default">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <Building2 className="h-4 w-4 text-primary/60 group-hover:text-primary transition-colors" />
-                                        <span className="text-[7px] font-black text-muted-foreground/40 uppercase tracking-widest font-mono">{banco.codigo}</span>
-                                    </div>
-                                    <p className="text-[10px] font-black uppercase tracking-tight text-foreground/80">{banco.nombre}</p>
-                                    <p className="text-[8px] font-bold text-muted-foreground/40 uppercase mt-1">{banco.tipo}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
-
-            <Card className="glass-card border-none bg-white/[0.02] p-12 rounded-[4rem] relative overflow-hidden shadow-2xl">
-                <div className="grid md:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-8">
-                        <div className="flex items-center gap-4">
-                            <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Seguridad de Grado Militar</h3>
-                        </div>
-                        <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
-                            Todas las transacciones procesadas a través del Ecosistema Kyron están protegidas por cifrado AES-256 y selladas en el Ledger inmutable con controles antifraude avanzados.
-                        </p>
-                        <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
-                            <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> PCI DSS COMPLIANT</span>
-                            <span className="flex items-center gap-2"><Terminal className="h-3 w-3" /> SSL TLS 1.3</span>
-                        </div>
-                    </div>
-                    <div className="p-10 rounded-[3rem] bg-black/40 border border-white/5 shadow-inner">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3">
-                            <Terminal className="h-4 w-4" /> Protocolo de Liquidación
-                        </h4>
-                        <ul className="text-xs font-bold italic text-white/70 space-y-6">
-                            <li className="flex gap-6"><span className="text-primary">[1]</span> Captura de fondos multimoneda: VES, USD, EUR, USDT.</li>
-                            <li className="flex gap-6"><span className="text-primary">[2]</span> Validación automática de IGTF (3%) en operaciones en divisas.</li>
-                            <li className="flex gap-6"><span className="text-primary">[3]</span> Conciliación bancaria automática en T+0.</li>
-                            <li className="flex gap-6"><span className="text-primary">[4]</span> PayPal / Zinli / Zelle / Reserve / Cripto acreditados con tasa BCV del día.</li>
-                        </ul>
-                    </div>
-                </div>
-            </Card>
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.04, duration: 0.35 }}
+    >
+      <Card className={cn(
+        "border bg-card/60 backdrop-blur-sm rounded-2xl h-full flex flex-col justify-between shadow-lg relative overflow-hidden group transition-all duration-300 hover:shadow-xl hover:scale-[1.01]",
+        gateway.borderColor,
+        gateway.popular && "ring-1 ring-primary/10"
+      )}>
+        {gateway.popular && (
+          <div className="absolute top-3 right-3 z-10">
+            <Badge className="bg-primary/15 text-primary border-primary/20 text-[7px] font-black uppercase px-2 py-0.5">Popular</Badge>
+          </div>
+        )}
+        <div className="absolute top-0 right-0 p-5 opacity-[0.03] group-hover:opacity-[0.06] group-hover:rotate-6 transition-all duration-700">
+          <gateway.icon className="h-24 w-24" />
         </div>
-    );
+
+        <div className="p-6 space-y-4 relative z-10 flex-1">
+          <div className="flex items-start gap-3">
+            <div className={cn("p-2.5 rounded-xl border shrink-0", gateway.bg, gateway.borderColor)}>
+              <gateway.icon className={cn("h-5 w-5", gateway.color)} />
+            </div>
+            <div className="min-w-0">
+              <CardTitle className="text-sm font-black tracking-tight leading-tight">{gateway.name}</CardTitle>
+              {gateway.network && (
+                <p className={cn("text-[9px] font-bold mt-0.5", gateway.color)}>{gateway.network}</p>
+              )}
+            </div>
+          </div>
+
+          <CardDescription className="text-[11px] text-muted-foreground/70 leading-relaxed line-clamp-3">
+            {gateway.description}
+          </CardDescription>
+
+          <div className="flex flex-wrap gap-1">
+            {gateway.currencies.map(c => (
+              <span key={c} className={cn("text-[8px] font-bold px-1.5 py-0.5 rounded-md", gateway.bg, gateway.color)}>{c}</span>
+            ))}
+          </div>
+
+          <AnimatePresence>
+            {expanded && gateway.features && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden"
+              >
+                <div className="pt-3 border-t border-border/30 space-y-1.5">
+                  {gateway.features.map(f => (
+                    <div key={f} className="flex items-center gap-2">
+                      <CircleCheck className={cn("h-3 w-3 shrink-0", gateway.color)} />
+                      <span className="text-[10px] font-medium text-muted-foreground">{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="pt-3 border-t border-border/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[8px] font-bold uppercase text-muted-foreground/40 tracking-wider">Comisión</p>
+                <p className="text-[11px] font-mono font-bold text-foreground/80 mt-0.5">{gateway.fees}</p>
+              </div>
+              <Badge variant="outline" className={cn(
+                "text-[7px] font-black uppercase border-none px-2",
+                gateway.status === "Activo" && "bg-emerald-500/10 text-emerald-500",
+                gateway.status === "Configurado" && "bg-amber-500/10 text-amber-500",
+                gateway.status === "Pendiente" && "bg-muted text-muted-foreground",
+                gateway.status === "Primario" && "bg-primary/10 text-primary",
+              )}>
+                {gateway.status}
+              </Badge>
+            </div>
+          </div>
+        </div>
+
+        <CardFooter className="p-4 pt-0 gap-2">
+          {gateway.features && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex-1 h-9 rounded-lg text-[10px] font-bold text-muted-foreground hover:text-foreground"
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? <EyeOff className="mr-1.5 h-3 w-3" /> : <Eye className="mr-1.5 h-3 w-3" />}
+              {expanded ? "Ocultar" : "Detalles"}
+            </Button>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn("flex-1 h-9 rounded-lg text-[10px] font-bold", gateway.color)}
+            onClick={() => toast({
+              title: gateway.name,
+              description: gateway.status === "Activo" || gateway.status === "Primario"
+                ? `${gateway.name} está activo y procesando pagos.`
+                : `${gateway.name} requiere configuración adicional.`,
+              action: <Settings2 className={cn("h-4 w-4", gateway.color)} />,
+            })}
+          >
+            <Settings2 className="mr-1.5 h-3 w-3" />
+            Configurar
+          </Button>
+        </CardFooter>
+      </Card>
+    </motion.div>
+  );
+}
+
+export default function PasarelasDePagoPage() {
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState("todas");
+
+  const allGateways = activeTab === "todas"
+    ? [...internacionales, ...criptomonedas, ...venezuela]
+    : activeTab === "internacional"
+      ? internacionales
+      : activeTab === "cripto"
+        ? criptomonedas
+        : venezuela;
+
+  return (
+    <div className="space-y-10 pb-20">
+      <header className="border-l-4 border-primary pl-8 py-2 mt-10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-4">
+          <CreditCard className="h-3 w-3" /> NODO DE LIQUIDACIÓN
+        </div>
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground leading-none">
+          Pasarelas <span className="text-primary">de Pago</span>
+        </h1>
+        <p className="text-muted-foreground text-xs mt-2 max-w-2xl">
+          Ecosistema financiero omnicanal — PayPal, Stripe, Zelle, Zinli, criptomonedas, Pago Móvil, transferencias bancarias y 29+ bancos venezolanos integrados.
+        </p>
+      </header>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {statsData.map((stat, i) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.08 }}
+          >
+            <Card className="border bg-card/60 backdrop-blur-sm p-5 rounded-2xl">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-muted/50">
+                  <stat.icon className={cn("h-5 w-5", stat.color)} />
+                </div>
+                <div>
+                  <p className="text-2xl font-black tracking-tight">{stat.value}</p>
+                  <p className="text-[10px] font-medium text-muted-foreground">{stat.label}</p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="h-11 p-1 bg-muted/50 rounded-xl">
+          <TabsTrigger value="todas" className="rounded-lg text-xs font-bold data-[state=active]:shadow-sm px-4">
+            Todas ({internacionales.length + criptomonedas.length + venezuela.length})
+          </TabsTrigger>
+          <TabsTrigger value="internacional" className="rounded-lg text-xs font-bold data-[state=active]:shadow-sm px-4">
+            <Globe className="mr-1.5 h-3.5 w-3.5" /> Internacional ({internacionales.length})
+          </TabsTrigger>
+          <TabsTrigger value="cripto" className="rounded-lg text-xs font-bold data-[state=active]:shadow-sm px-4">
+            <Coins className="mr-1.5 h-3.5 w-3.5" /> Cripto ({criptomonedas.length})
+          </TabsTrigger>
+          <TabsTrigger value="venezuela" className="rounded-lg text-xs font-bold data-[state=active]:shadow-sm px-4">
+            <Landmark className="mr-1.5 h-3.5 w-3.5" /> Venezuela ({venezuela.length})
+          </TabsTrigger>
+        </TabsList>
+
+        <div className="mt-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {allGateways.map((gateway, i) => (
+                  <GatewayCard key={gateway.name} gateway={gateway} index={i} />
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </Tabs>
+
+      <Card className="border bg-card/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg">
+        <CardHeader className="p-8 border-b border-border/30 bg-muted/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
+                <Landmark className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-base font-black tracking-tight">Bancos Venezolanos Conectados</CardTitle>
+                <p className="text-xs text-muted-foreground mt-0.5">Red de {bancosVenezuela.length} entidades bancarias — Pago Móvil, transferencias ACH y LBTR</p>
+              </div>
+            </div>
+            <Badge className="bg-emerald-500/10 text-emerald-500 border-none text-[9px] font-bold">
+              {bancosVenezuela.filter(b => b.pago_movil).length} con Pago Móvil
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="p-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {bancosVenezuela.map((banco, i) => (
+              <motion.div
+                key={banco.codigo + banco.nombre}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.02, duration: 0.25 }}
+              >
+                <div className="p-4 rounded-xl bg-muted/20 border border-border/40 hover:border-primary/30 hover:bg-primary/5 transition-all group cursor-default">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="h-3.5 w-3.5 text-primary/50 group-hover:text-primary transition-colors" />
+                      {banco.pago_movil && (
+                        <Smartphone className="h-3 w-3 text-emerald-500/60" />
+                      )}
+                    </div>
+                    <span className="text-[8px] font-mono font-bold text-muted-foreground/40">{banco.codigo}</span>
+                  </div>
+                  <p className="text-[10px] font-bold text-foreground/80 leading-tight">{banco.nombre}</p>
+                  <p className="text-[8px] font-medium text-muted-foreground/50 mt-1">{banco.tipo}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="border bg-card/60 backdrop-blur-sm p-8 rounded-2xl shadow-lg">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
+              <ShieldCheck className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h3 className="text-base font-black tracking-tight">Seguridad Financiera</h3>
+              <p className="text-xs text-muted-foreground">Protección de grado bancario</p>
+            </div>
+          </div>
+          <div className="space-y-4">
+            {[
+              { label: "Cifrado AES-256", desc: "Datos en tránsito y reposo protegidos" },
+              { label: "PCI DSS Compliant", desc: "Cumplimiento de estándar de tarjetas" },
+              { label: "TLS 1.3", desc: "Protocolo de seguridad de transporte" },
+              { label: "Antifraude AI", desc: "Detección de transacciones anómalas" },
+              { label: "Ledger Inmutable", desc: "Registro auditable de todas las operaciones" },
+            ].map(item => (
+              <div key={item.label} className="flex items-start gap-3">
+                <Lock className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs font-bold text-foreground">{item.label}</p>
+                  <p className="text-[10px] text-muted-foreground">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="border bg-card/60 backdrop-blur-sm p-8 rounded-2xl shadow-lg">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
+              <Terminal className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h3 className="text-base font-black tracking-tight">Protocolo de Liquidación</h3>
+              <p className="text-xs text-muted-foreground">Flujo automático de fondos</p>
+            </div>
+          </div>
+          <div className="space-y-4">
+            {[
+              { step: "01", label: "Captura multimoneda", desc: "VES, USD, EUR, USDT, BTC, ETH y +15 monedas" },
+              { step: "02", label: "Validación fiscal", desc: "IGTF 3% automático en operaciones en divisas" },
+              { step: "03", label: "Conciliación T+0", desc: "Conciliación bancaria automática el mismo día" },
+              { step: "04", label: "Conversión BCV", desc: "Tasa oficial del día para acreditación en VES" },
+              { step: "05", label: "Reporte SENIAT", desc: "Generación automática de reportes fiscales" },
+            ].map(item => (
+              <div key={item.step} className="flex items-start gap-4">
+                <span className="text-sm font-black text-primary font-mono shrink-0">[{item.step}]</span>
+                <div>
+                  <p className="text-xs font-bold text-foreground">{item.label}</p>
+                  <p className="text-[10px] text-muted-foreground">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
 }

@@ -1707,7 +1707,7 @@ async function createVentasTables() {
       moneda           TEXT NOT NULL DEFAULT 'VES',
       tasa_bcv         NUMERIC(12,4),
       metodo_pago      TEXT NOT NULL DEFAULT 'efectivo'
-                       CHECK (metodo_pago IN ('efectivo','transferencia','pago_movil','zelle','punto_bancario','dolares','mixto')),
+                       CHECK (metodo_pago IN ('efectivo','transferencia','pago_movil','zelle','punto_bancario','dolares','mixto','paypal','stripe','zinli','wise','cripto_btc','cripto_eth','cripto_usdt','cripto_usdc','binance_pay','biopago','pago_qr','debito_inmediato','tarjeta','kyron_wallet','reserve','remesa','efectivo_divisa')),
       estado           TEXT NOT NULL DEFAULT 'completada'
                        CHECK (estado IN ('completada','anulada','devolucion')),
       cajero           TEXT,

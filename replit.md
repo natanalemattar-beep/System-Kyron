@@ -37,7 +37,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations.
 - **Authentication:** JWT utilities with 2FA via email or SMS (phone verification). Users with a verified phone number can choose between email or SMS for receiving OTP codes. A challenge token (HMAC-signed) binds SMS resend requests to a valid login session to prevent abuse. An optional "access key" allows skipping 2FA entirely.
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
-- **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
+- **Payment Methods:** 26+ payment gateways organized in 3 categories: Internacional (PayPal, Zelle, Stripe, Zinli, Wise, tarjetas), Criptomonedas (Bitcoin, Ethereum, USDT, USDC, Binance Pay, Solana, TRON, Polygon, Litecoin, Reserve), and Venezuela (Pago Móvil C2P, transferencias, Biopago, POS, QR BCV, débito inmediato, Kyron Wallet). 29 Venezuelan banks connected. Tabbed UI with stats, expandable card details, and security/protocol sections.
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, and WebP images. Background animations are optimized using pure CSS.
 - **Adaptive Performance System:** Detects device tiers (low/mid/high) based on hardware and network capabilities to dynamically adjust animation complexity and visual effects for optimal performance. Includes media queries for reduced motion, touch devices, and slow refresh rates.
 - **Enhanced Audit Trail:** Records detailed field-level changes.
