@@ -1,7 +1,37 @@
-export function validarFormatoCedula(cedula: string): { valid: boolean; error?: string; nacionalidad?: string; numero?: string } {
+const CEDULA_MAX_VENEZOLANO = 45_000_000;
+const CEDULA_MAX_EXTRANJERO = 99_999_999;
+
+export type CedulaEdadEstimada = {
+  rangoEdad: string;
+  generacion: string;
+};
+
+export function estimarEdadPorCedula(num: number): CedulaEdadEstimada | null {
+  if (num <= 0) return null;
+  if (num <= 3_000_000) return { rangoEdad: '70+ años', generacion: 'Pre-1955' };
+  if (num <= 6_000_000) return { rangoEdad: '60-70 años', generacion: '1955-1965' };
+  if (num <= 10_000_000) return { rangoEdad: '50-60 años', generacion: '1965-1975' };
+  if (num <= 15_000_000) return { rangoEdad: '40-50 años', generacion: '1975-1985' };
+  if (num <= 20_000_000) return { rangoEdad: '35-45 años', generacion: '1980-1990' };
+  if (num <= 25_000_000) return { rangoEdad: '28-38 años', generacion: '1988-1998' };
+  if (num <= 30_000_000) return { rangoEdad: '22-32 años', generacion: '1994-2004' };
+  if (num <= 35_000_000) return { rangoEdad: '18-25 años', generacion: '2000-2008' };
+  if (num <= 40_000_000) return { rangoEdad: '14-20 años', generacion: '2006-2012' };
+  if (num <= 45_000_000) return { rangoEdad: '10-16 años', generacion: '2010-2016' };
+  return null;
+}
+
+export function validarFormatoCedula(cedula: string): {
+  valid: boolean;
+  error?: string;
+  nacionalidad?: string;
+  numero?: string;
+  edadEstimada?: CedulaEdadEstimada;
+  info?: string;
+} {
   const cleaned = cedula.trim().toUpperCase().replace(/\s+/g, '');
 
-  const match = cleaned.match(/^([VEP])-?(\d{5,10})$/);
+  const match = cleaned.match(/^([VEP])-?(\d{1,10})$/);
   if (!match) {
     return { valid: false, error: 'Formato inválido. Use: V-12345678, E-12345678 o P-12345678' };
   }
@@ -14,21 +44,53 @@ export function validarFormatoCedula(cedula: string): { valid: boolean; error?: 
     return { valid: false, error: 'El número de cédula debe ser mayor a cero' };
   }
 
-  if (num > 99999999) {
-    return { valid: false, error: 'El número de cédula no puede exceder 8 dígitos significativos' };
+  if (prefix === 'V') {
+    if (num > CEDULA_MAX_VENEZOLANO) {
+      return {
+        valid: false,
+        error: `Cédula venezolana fuera de rango. El rango válido es V-1 hasta V-${CEDULA_MAX_VENEZOLANO.toLocaleString('es-VE')}`,
+      };
+    }
+
+    const edadEstimada = estimarEdadPorCedula(num);
+
+    return {
+      valid: true,
+      nacionalidad: 'Venezolano(a)',
+      numero: `V-${numero}`,
+      edadEstimada: edadEstimada || undefined,
+      info: edadEstimada
+        ? `Cédula venezolana válida · Generación estimada: ${edadEstimada.generacion} (${edadEstimada.rangoEdad})`
+        : 'Cédula venezolana válida',
+    };
   }
 
-  const nacionalidadMap: Record<string, string> = {
-    'V': 'Venezolano(a)',
-    'E': 'Extranjero(a)',
-    'P': 'Pasaporte',
-  };
+  if (prefix === 'E') {
+    if (num > CEDULA_MAX_EXTRANJERO) {
+      return {
+        valid: false,
+        error: 'Número de cédula de residente fuera de rango',
+      };
+    }
 
-  return {
-    valid: true,
-    nacionalidad: nacionalidadMap[prefix],
-    numero: `${prefix}-${numero}`,
-  };
+    return {
+      valid: true,
+      nacionalidad: 'Extranjero(a) Residente',
+      numero: `E-${numero}`,
+      info: 'Cédula de extranjero residente válida',
+    };
+  }
+
+  if (prefix === 'P') {
+    return {
+      valid: true,
+      nacionalidad: 'Pasaporte',
+      numero: `P-${numero}`,
+      info: 'Documento de pasaporte',
+    };
+  }
+
+  return { valid: false, error: 'Prefijo no reconocido' };
 }
 
 export function validarRIF(rif: string): { valid: boolean; error?: string; tipo?: string; digitoVerificador?: number; rifNormalizado?: string } {

@@ -90,7 +90,7 @@ function detectDocumentType(prefix: string, number: string): { type: DetectedTyp
     const trimmed = number.replace(/\s/g, "");
     if (!trimmed) return { type: null, format: null, label: "", valid: false };
 
-    const isCedulaFormat = /^\d{5,10}$/.test(trimmed);
+    const isCedulaFormat = /^\d{1,10}$/.test(trimmed);
     const isRifFormat = /^\d{8}-\d$/.test(trimmed);
 
     if (["J", "G", "C", "F"].includes(prefix)) {
@@ -144,6 +144,9 @@ export default function RegisterSelectionPage() {
         fechaEmision?: string; fechaVencimiento?: string;
     } | null>(null);
     const [cedulaSearching, setCedulaSearching] = useState(false);
+    const [cedulaValidInfo, setCedulaValidInfo] = useState<{
+        nacionalidad?: string; edadEstimada?: { rangoEdad: string; generacion: string }; info?: string;
+    } | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const fullDocument = `${prefix}-${docNumber}`;
@@ -166,6 +169,7 @@ export default function RegisterSelectionPage() {
     useEffect(() => {
         if (!detected.valid || detected.type !== "natural") {
             setCedulaLookup(null);
+            setCedulaValidInfo(null);
             return;
         }
         const doc = `${prefix}-${docNumber}`;
@@ -177,11 +181,22 @@ export default function RegisterSelectionPage() {
                 const data = await res.json();
                 if (data.found && data.data) {
                     setCedulaLookup(data.data);
+                    setCedulaValidInfo(null);
                 } else {
                     setCedulaLookup(null);
+                    if (data.validacion) {
+                        setCedulaValidInfo({
+                            nacionalidad: data.validacion.nacionalidad,
+                            edadEstimada: data.validacion.edadEstimada,
+                            info: data.validacion.info,
+                        });
+                    } else {
+                        setCedulaValidInfo(null);
+                    }
                 }
             } catch {
                 setCedulaLookup(null);
+                setCedulaValidInfo(null);
             } finally {
                 setCedulaSearching(false);
             }
@@ -643,7 +658,7 @@ export default function RegisterSelectionPage() {
                                         </p>
                                         <p className="text-xs font-medium opacity-60 uppercase tracking-wider">
                                             {!detected.valid
-                                                ? (isJuridico ? "Formato requerido: 12345678-9" : "Formato requerido: 5 a 10 dígitos")
+                                                ? (isJuridico ? "Formato requerido: 12345678-9" : "Formato requerido: 1 a 10 dígitos")
                                                 : "Documento válido — continúa para elegir módulo"
                                             }
                                         </p>
@@ -731,6 +746,22 @@ export default function RegisterSelectionPage() {
                                             )}
                                         </div>
                                     )}
+                                </div>
+                            )}
+
+                            {isNatural && detected.valid && !cedulaLookup && !cedulaSearching && cedulaValidInfo && (
+                                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border bg-emerald-500/5 border-emerald-500/15 mb-4 animate-in fade-in duration-300">
+                                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
+                                            {cedulaValidInfo.nacionalidad || 'Documento válido'}
+                                        </p>
+                                        {cedulaValidInfo.edadEstimada && (
+                                            <p className="text-xs text-muted-foreground mt-0.5">
+                                                Generación estimada: {cedulaValidInfo.edadEstimada.generacion} ({cedulaValidInfo.edadEstimada.rangoEdad})
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                             )}
 

@@ -153,8 +153,12 @@ export async function GET(req: NextRequest) {
         formatoValido: true,
         nacionalidad: validacion.nacionalidad,
         cedulaNormalizada: cedula,
+        edadEstimada: validacion.edadEstimada || null,
+        info: validacion.info || null,
       },
-      message: 'Cédula con formato válido. No se encontraron datos registrados en el sistema.',
+      message: validacion.info
+        ? `${validacion.info}. No se encontraron datos registrados en el sistema.`
+        : 'Cédula con formato válido. No se encontraron datos registrados en el sistema.',
       data: null,
     });
   } catch (error) {
