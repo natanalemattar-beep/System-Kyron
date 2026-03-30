@@ -77,6 +77,7 @@ export function HeroSection() {
                     src="/images/landing/hero-bg-light.webp"
                     alt=""
                     fill
+                    sizes="100vw"
                     className="object-cover dark:hidden"
                     priority
                 />
@@ -84,6 +85,7 @@ export function HeroSection() {
                     src="/images/landing/hero-bg-dark.webp"
                     alt=""
                     fill
+                    sizes="100vw"
                     className="object-cover hidden dark:block"
                     priority
                 />

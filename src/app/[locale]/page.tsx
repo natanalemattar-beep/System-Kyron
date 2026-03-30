@@ -105,15 +105,10 @@ function LandingContent() {
   );
 }
 
-const DynamicLandingContent = dynamic(
-  () => Promise.resolve({ default: LandingContent }),
-  { ssr: false }
-);
-
 export default function LandingPage() {
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
-      <DynamicLandingContent />
+      <LandingContent />
     </div>
   );
 }
