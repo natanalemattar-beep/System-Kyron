@@ -171,13 +171,14 @@ export function VoiceAssistant() {
 
   if (hidden) {
     return (
-      <div className="fixed bottom-6 left-6 z-[200]">
+      <div className="fixed bottom-6 left-6 z-[9990]">
         <button
           onClick={handleShow}
-          className="group flex items-center justify-center h-10 w-10 rounded-full bg-muted/80 border border-border/40 shadow-md transition-all duration-300 hover:bg-primary hover:border-primary hover:shadow-lg hover:scale-110 active:scale-95"
+          className="group flex items-center gap-2 h-11 px-4 rounded-full bg-gradient-to-r from-primary/90 to-blue-600/90 border border-white/20 shadow-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95"
           title="Mostrar Kyron Chat"
         >
-          <MessageCircle className="h-4 w-4 text-muted-foreground group-hover:text-white transition-colors" />
+          <MessageCircle className="h-4 w-4 text-white" />
+          <span className="text-[9px] font-black uppercase tracking-wider text-white/90">Chat</span>
         </button>
       </div>
     );
@@ -185,7 +186,7 @@ export function VoiceAssistant() {
 
   if (!open) {
     return (
-      <div className="fixed bottom-6 left-6 z-[200]">
+      <div className="fixed bottom-6 left-6 z-[9990]">
         <button
           onClick={() => setOpen(true)}
           className="group flex items-center gap-3 h-14 px-5 rounded-full bg-gradient-to-r from-primary via-blue-600 to-cyan-500 border border-white/20 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-105 active:scale-95"
@@ -204,7 +205,7 @@ export function VoiceAssistant() {
   }
 
   return (
-    <div className="fixed bottom-6 left-6 z-[200]">
+    <div className="fixed bottom-6 left-6 z-[9990]">
       <div className="mb-4 w-[min(420px,calc(100vw-3rem))] h-[min(600px,calc(100vh-8rem))] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
         <header className="px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
