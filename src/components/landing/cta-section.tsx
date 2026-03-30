@@ -16,7 +16,7 @@ export function CtaSection() {
         <section id="contacto" className="relative overflow-hidden">
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
-                    <div className="absolute inset-0 bg-gradient-to-b from-background via-[#030B1A] to-[#030B1A]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-100 to-slate-100 dark:via-[#030B1A] dark:to-[#030B1A]" />
                     <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
                     <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/8 blur-[100px]" />
                 </div>
@@ -30,23 +30,23 @@ export function CtaSection() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-white/80 mx-auto lg:ml-0">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 dark:text-white/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Acceso Prioritario
                             </div>
-                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter leading-[1.05] text-white uppercase break-words">
+                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter leading-[1.05] text-foreground uppercase break-words">
                                 ¿Listo para{' '}
                                 <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                     empezar
                                 </span>?
                             </h2>
-                            <p className="text-base text-white/50 max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
+                            <p className="text-base text-muted-foreground max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
                                 Complete el formulario para solicitar su auditoría técnica personalizada.
                             </p>
                             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                                 {["Registro 2 min", "Sin compromisos", "Soporte 24/7"].map((t, i) => (
                                     <div key={i} className="flex items-center gap-2">
                                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-white/50">{t}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t}</span>
                                     </div>
                                 ))}
                             </div>

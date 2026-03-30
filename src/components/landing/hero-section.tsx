@@ -39,7 +39,7 @@ function HexGrid() {
             <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="hero-hex" x="0" y="0" width="56" height="100" patternUnits="userSpaceOnUse">
-                        <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66Z" fill="none" stroke="white" strokeWidth="0.5" />
+                        <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
                     </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#hero-hex)" />
@@ -93,8 +93,8 @@ export function HeroSection() {
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#020810]/90 via-[#020810]/70 to-[#020810]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#020810]/70 via-transparent to-[#020810]/50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/50 dark:from-[#020810]/70 dark:via-transparent dark:to-[#020810]/50" />
             </div>
 
             <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
@@ -115,10 +115,10 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
                         >
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-xs font-semibold uppercase tracking-widest text-white/80">{t('badge')}</span>
+                            <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
                         </motion.div>
 
                         <motion.h1
@@ -127,8 +127,8 @@ export function HeroSection() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tighter uppercase leading-[1.02]"
                         >
-                            <span className="block text-white">{t('title_line1')}</span>
-                            <span className="block text-white">{t('title_line2')}</span>
+                            <span className="block text-foreground">{t('title_line1')}</span>
+                            <span className="block text-foreground">{t('title_line2')}</span>
                             <span className="block bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent italic animate-gradient-flow" style={{ backgroundSize: '200% 200%' }}>
                                 {t('title_line3')}
                             </span>
@@ -138,7 +138,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.35 }}
-                            className="text-base md:text-lg text-white/55 max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
+                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
                         >
                             {t('subtitle')}
                         </motion.p>
@@ -155,7 +155,7 @@ export function HeroSection() {
                                     {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl border-white/15 bg-white/5 text-white/80 hover:border-[#0ea5e9]/30 hover:bg-white/10 hover:text-white transition-all duration-500 backdrop-blur-sm">
+                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground/80 dark:text-white/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white transition-all duration-500 backdrop-blur-sm">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}
@@ -172,7 +172,7 @@ export function HeroSection() {
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
                                     <CheckCircle2 className="h-3.5 w-3.5 text-[#22c55e]" />
-                                    <span className="text-xs font-medium uppercase tracking-wider text-white/45">{feat}</span>
+                                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{feat}</span>
                                 </div>
                             ))}
                         </motion.div>
@@ -187,7 +187,7 @@ export function HeroSection() {
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
                             
-                            <div className="relative rounded-[1.5rem] overflow-hidden border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
+                            <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
                                 <Image
                                     src="/images/landing/hero-dashboard.png"
@@ -198,28 +198,28 @@ export function HeroSection() {
                                     priority
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#020810]/40 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-[#020810]/40 via-transparent to-transparent" />
                             </div>
 
-                            <div className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow border border-white/10 backdrop-blur-xl" style={{ background: 'linear-gradient(135deg, rgba(10,22,40,0.95), rgba(10,22,40,0.85))' }}>
+                            <div className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]">
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center kyron-gradient-bg">
                                         <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-white/50">{t('modules_label')}</p>
+                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('modules_label')}</p>
                                         <p className="text-base sm:text-lg font-bold text-[#22c55e] tabular-nums">{modulesCount}+</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow-reverse border border-white/10 backdrop-blur-xl" style={{ background: 'linear-gradient(135deg, rgba(10,22,40,0.95), rgba(10,22,40,0.85))' }}>
+                            <div className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow-reverse border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]">
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#0ea5e9] to-[#3b82f6] flex items-center justify-center">
                                         <Hexagon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-white/50">{t('modules_label')}</p>
+                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('modules_label')}</p>
                                         <p className="text-base sm:text-lg font-bold text-[#0ea5e9]">{t('modules_value')}</p>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@ export function HeroSection() {
                 </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020810] to-transparent z-[5]" />
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
 
             <div className="absolute bottom-6 left-0 right-0 z-10">
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
@@ -249,10 +249,10 @@ export function HeroSection() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.7 + i * 0.1 }}
-                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-white/5 backdrop-blur-sm`}
+                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm`}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
-                                    <p className="text-xs font-medium text-white/40 uppercase tracking-widest">{s.label}</p>
+                                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{s.label}</p>
                                 </motion.div>
                             );
                         })}
