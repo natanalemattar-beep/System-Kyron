@@ -25,7 +25,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   const getContextualGroups = () => {
-    if (pathname.includes('/contabilidad') || pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas') || pathname.includes('/libros-laborales') || pathname.includes('/prestaciones-sociales') || pathname.includes('/reclutamiento') || pathname.includes('/clima-organizacional') || pathname.includes('/desarrollo-personal') || pathname.includes('/salud-seguridad') || pathname.includes('/ingenieria-ia') || pathname.includes('/marketing')) return asesoriaContableNavGroups;
+    if (pathname.includes('/contabilidad') || pathname.includes('/dashboard-rrhh') || pathname.includes('/nominas') || pathname.includes('/libros-laborales') || pathname.includes('/prestaciones-sociales') || pathname.includes('/reclutamiento') || pathname.includes('/clima-organizacional') || pathname.includes('/desarrollo-personal') || pathname.includes('/salud-seguridad') || pathname.includes('/ingenieria-ia') || pathname.includes('/marketing') || pathname.includes('/proyectos-personal') || pathname.includes('/bienestar-laboral') || pathname.includes('/manuales-rrhh')) return asesoriaContableNavGroups;
     if (pathname.includes('/ventas') || pathname.includes('/punto-de-venta') || pathname.includes('/proformas')) return ventasNavGroups;
     if (pathname.includes('/sostenibilidad') || pathname.includes('/mercado-ecocreditos')) return sostenibilidadNavGroups;
     if (pathname.includes('/escritorio-juridico') || pathname.includes('/contratos') || pathname.includes('/permisos')) return legalNavGroups;

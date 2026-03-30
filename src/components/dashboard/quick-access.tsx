@@ -33,7 +33,7 @@ export function QuickAccess({ navGroups }: QuickAccessProps) {
         g.title === "Ventas y Facturación" ||
         g.title === "Finanzas y Contabilidad" || 
         g.title === "Impuestos y Cumplimiento" ||
-        g.title === "Recursos Humanos"
+        g.title === "RRHH"
     );
     
     return (
