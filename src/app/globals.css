@@ -356,10 +356,33 @@
   }
 
   * {
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--foreground) / 0.1) transparent;
   }
 
   *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-foreground/10 rounded-full;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-foreground/20;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 }
