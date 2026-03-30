@@ -10,13 +10,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap } from 'lucide-react';
+import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DocumentInput } from '@/components/document-input';
+import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 5;
@@ -136,6 +137,7 @@ export default function RegisterTelecomPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
     const verifMethod = 'email' as const;
     const [verifCode, setVerifCode] = useState('');
     const [verifSent, setVerifSent] = useState(false);
@@ -305,9 +307,16 @@ export default function RegisterTelecomPage() {
                 ...telecomMeta,
             };
 
+            const bodyWithDocs = {
+                ...body,
+                documentos_adjuntos: Object.fromEntries(
+                    Object.entries(uploadedDocs).filter(([, v]) => v != null)
+                ),
+            };
+
             const res = await fetch('/api/auth/register', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body),
+                body: JSON.stringify(bodyWithDocs),
             });
             const result = await res.json();
             if (!res.ok) throw new Error(result.error);
@@ -428,6 +437,31 @@ export default function RegisterTelecomPage() {
                                         )}
                                         {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
                                     </div>
+                                </div>
+
+                                <div className="pt-2">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                                            <Upload className="h-3 w-3 text-white" />
+                                        </div>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos de Identidad</p>
+                                    </div>
+                                    <DocumentUpload
+                                        requirements={
+                                            tipoCliente === 'empresarial'
+                                                ? [
+                                                    { id: 'cedula_frente', label: 'Cédula del Representante — Frente', description: 'Foto o escaneo legible del frente', required: true },
+                                                    { id: 'cedula_reverso', label: 'Cédula del Representante — Reverso', description: 'Foto o escaneo legible del reverso', required: true },
+                                                    { id: 'rif_documento', label: 'RIF de la Empresa', description: 'PDF o foto del RIF vigente emitido por SENIAT', required: true },
+                                                ]
+                                                : [
+                                                    { id: 'cedula_frente', label: 'Cédula — Lado Frontal', description: 'Foto o escaneo legible del frente de su cédula', required: true },
+                                                    { id: 'cedula_reverso', label: 'Cédula — Lado Reverso', description: 'Foto o escaneo legible del reverso de su cédula', required: true },
+                                                ]
+                                        }
+                                        documents={uploadedDocs}
+                                        onDocumentsChange={setUploadedDocs}
+                                    />
                                 </div>
 
                                 <div className="space-y-3 p-4 rounded-xl border border-border bg-muted/5">

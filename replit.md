@@ -23,6 +23,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - A mobile sidebar provides smooth scrolling for landing pages and contextual navigation.
 - The landing page is visually driven with simplified sections (Hero, Services, About, FAQ).
 - Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels.
+- Document upload functionality in registration: Natural (cédula frente/reverso), Asesoría Contable (RIF, acta constitutiva, última acta de asamblea, cédula representante), Telecom (cédula frente/reverso for personal, + RIF for empresarial). Uses reusable `DocumentUpload` component with drag-and-drop zones, file validation (PDF/JPG/PNG/WebP, max 10MB), and upload API at `/api/upload`.
 - Venezuela geography data (`ESTADOS_VE`, `ESTADOS_MUNICIPIOS`) is used for cascading state/municipality dropdowns in registration forms.
 - SAIME integration simulates citizen registry lookup for enriched data (full name, DOB, etc.) on cédula input.
 - Background animations are optimized using pure CSS.

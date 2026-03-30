@@ -16,13 +16,14 @@ import {
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Building, BookOpen, ShieldCheck, RefreshCw, Scale, Calculator, Check, Crown, Star,
+    Building, BookOpen, ShieldCheck, RefreshCw, Scale, Calculator, Check, Crown, Star, Upload,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
+import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 6;
@@ -118,6 +119,7 @@ export default function RegisterContabilidadPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
     const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
     const [verifCode, setVerifCode] = useState('');
     const [verifSent, setVerifSent] = useState(false);
@@ -274,6 +276,9 @@ export default function RegisterContabilidadPage() {
                     email_verificado: verifMethod === 'email',
                     telefono_verificado: verifMethod === 'sms',
                     modules: MODULES_CONTABILIDAD,
+                    documentos_adjuntos: Object.fromEntries(
+                        Object.entries(uploadedDocs).filter(([, v]) => v != null)
+                    ),
                 }),
             });
             const result = await res.json();
@@ -424,6 +429,25 @@ export default function RegisterContabilidadPage() {
                                         <Label htmlFor="codigo_ciiu" className="text-[10px] font-black uppercase tracking-widest">Código CIIU</Label>
                                         <Input id="codigo_ciiu" placeholder="Ej: 6920" {...register('codigo_ciiu')} />
                                     </div>
+                                </div>
+
+                                <div className="pt-3">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                                            <Upload className="h-3 w-3 text-white" />
+                                        </div>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos Legales de la Empresa</p>
+                                    </div>
+                                    <DocumentUpload
+                                        requirements={[
+                                            { id: 'rif_documento', label: 'RIF — Registro de Información Fiscal', description: 'PDF o foto del RIF actualizado emitido por SENIAT', required: true },
+                                            { id: 'acta_constitutiva', label: 'Acta Constitutiva', description: 'PDF del acta constitutiva registrada en el Registro Mercantil', required: true },
+                                            { id: 'ultima_acta_asamblea', label: 'Última Acta de Asamblea', description: 'PDF del acta de asamblea más reciente (si aplica)' },
+                                            { id: 'cedula_representante', label: 'Cédula del Representante Legal', description: 'Foto o escaneo de la cédula del representante legal', required: true },
+                                        ]}
+                                        documents={uploadedDocs}
+                                        onDocumentsChange={setUploadedDocs}
+                                    />
                                 </div>
                             </div>
                         )}

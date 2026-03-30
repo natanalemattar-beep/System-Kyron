@@ -15,10 +15,11 @@ import {
   User, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   MapPin, Phone, Mail, Calendar as CalendarIcon, Shield, Eye, EyeOff,
   MessageSquare, RefreshCw, ShieldCheck, ChevronDown, Sparkles, Globe,
-  Lock, Fingerprint,
+  Lock, Fingerprint, Upload,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { DocumentInput } from '@/components/document-input';
+import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
@@ -68,6 +69,7 @@ export default function RegisterNaturalPage() {
   const [registeredEmail, setRegisteredEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
 
   const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
   const [verifSent, setVerifSent] = useState(false);
@@ -210,6 +212,9 @@ export default function RegisterNaturalPage() {
           ...data,
           email_verificado: verifMethod === 'email',
           telefono_verificado: verifMethod === 'sms',
+          documentos_adjuntos: Object.fromEntries(
+            Object.entries(uploadedDocs).filter(([, v]) => v != null)
+          ),
         }),
       });
       const json = await res.json();
@@ -396,6 +401,23 @@ export default function RegisterNaturalPage() {
                     <DocumentInput type="cedula" value={field.value || ''} onChange={prefilledDoc ? () => {} : field.onChange} error={!!errors.cedula} />
                   )} />
                 </Field>
+
+                <div className="pt-2">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                      <Upload className="h-3 w-3 text-white" />
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos de Identidad</p>
+                  </div>
+                  <DocumentUpload
+                    requirements={[
+                      { id: 'cedula_frente', label: 'Cédula — Lado Frontal', description: 'Foto o escaneo legible del frente de su cédula', required: true },
+                      { id: 'cedula_reverso', label: 'Cédula — Lado Reverso', description: 'Foto o escaneo legible del reverso de su cédula', required: true },
+                    ]}
+                    documents={uploadedDocs}
+                    onDocumentsChange={setUploadedDocs}
+                  />
+                </div>
 
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
                   <Controller
