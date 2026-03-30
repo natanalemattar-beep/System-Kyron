@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from "framer-motion";
 import { ArrowRight, Play, CheckCircle2, Hexagon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
@@ -44,32 +43,20 @@ function HexGrid() {
                 </defs>
                 <rect width="100%" height="100%" fill="url(#hero-hex)" />
             </svg>
-            {[...Array(6)].map((_, i) => (
-                <motion.div
+            {[...Array(4)].map((_, i) => (
+                <div
                     key={i}
-                    className="absolute rounded-full"
+                    className="absolute rounded-full animate-[heroFloat_6s_ease-in-out_infinite]"
                     style={{
                         width: 4 + (i % 3) * 2,
                         height: 4 + (i % 3) * 2,
-                        left: `${15 + i * 14}%`,
-                        top: `${20 + (i % 3) * 25}%`,
+                        left: `${20 + i * 18}%`,
+                        top: `${25 + (i % 3) * 25}%`,
                         background: i % 2 === 0
                             ? 'linear-gradient(135deg, rgba(14,165,233,0.4), rgba(34,197,94,0.2))'
                             : 'linear-gradient(135deg, rgba(59,130,246,0.3), rgba(14,165,233,0.2))',
-                        boxShadow: i % 2 === 0
-                            ? '0 0 8px rgba(14,165,233,0.3)'
-                            : '0 0 8px rgba(59,130,246,0.3)',
-                    }}
-                    animate={{
-                        y: [0, -20 - i * 5, 0],
-                        x: [0, (i % 2 === 0 ? 8 : -8), 0],
-                        opacity: [0.3, 0.7, 0.3],
-                    }}
-                    transition={{
-                        duration: 5 + i * 0.8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: i * 0.5,
+                        animationDelay: `${i * 1.2}s`,
+                        opacity: 0.4,
                     }}
                 />
             ))}
@@ -111,43 +98,31 @@ export function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
                     <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
-                        <motion.div
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
+                        <div
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm animate-[fadeSlideUp_0.5s_0.1s_both]"
                         >
                             <span className="kyron-dot animate-pulse" />
                             <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
-                        </motion.div>
+                        </div>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
+                        <h1
+                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02] animate-[fadeSlideUp_0.6s_0.2s_both]"
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
                             <span className="block text-foreground">{t('title_line2')}</span>
                             <span className="block bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent italic animate-gradient-flow" style={{ backgroundSize: '200% 200%' }}>
                                 {t('title_line3')}
                             </span>
-                        </motion.h1>
+                        </h1>
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.35 }}
-                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
+                        <p
+                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed animate-[fadeSlideUp_0.5s_0.3s_both]"
                         >
                             {t('subtitle')}
-                        </motion.p>
+                        </p>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 14 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.45 }}
-                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+                        <div
+                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-[fadeSlideUp_0.5s_0.4s_both]"
                         >
                             <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
                                 <Link href="/register" className="flex items-center gap-3 justify-center">
@@ -161,13 +136,10 @@ export function HeroSection() {
                                     {t('cta_secondary')}
                                 </Link>
                             </Button>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.55 }}
-                            className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
+                        <div
+                            className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4 animate-[fadeIn_0.5s_0.5s_both]"
                         >
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
@@ -175,14 +147,11 @@ export function HeroSection() {
                                     <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{feat}</span>
                                 </div>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ duration: 0.7, delay: 0.3 }}
-                        className="lg:col-span-6 relative"
+                    <div
+                        className="lg:col-span-6 relative animate-[fadeSlideUp_0.7s_0.3s_both]"
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
@@ -225,7 +194,7 @@ export function HeroSection() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>
@@ -244,16 +213,14 @@ export function HeroSection() {
                             ];
                             const g = gradients[i % gradients.length];
                             return (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.7 + i * 0.1 }}
-                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm`}
+                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm animate-[fadeSlideUp_0.4s_both]`}
+                                    style={{ animationDelay: `${0.6 + i * 0.08}s` }}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
                                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{s.label}</p>
-                                </motion.div>
+                                </div>
                             );
                         })}
                     </div>
