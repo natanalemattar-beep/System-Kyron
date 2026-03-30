@@ -176,6 +176,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     const sanitizedRazonSocial = sanitizeString(razonSocial as string, 200);
     const sanitizedCapitalSocial = capital_social ? sanitizeString(String(capital_social), 50) : '';
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
+    const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
@@ -193,7 +194,7 @@ async function registerJuridico(body: Record<string, unknown>) {
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
-            sanitizedRazonSocial,
+            repNombreStr || sanitizedRazonSocial,
             sanitizedRazonSocial,
             (rif as string).trim(),
             sanitizeString((tipo_empresa ?? '') as string, 100),
@@ -207,7 +208,7 @@ async function registerJuridico(body: Record<string, unknown>) {
             sanitizeString((estado_empresa ?? '') as string, 100),
             sanitizeString((municipio_empresa ?? '') as string, 100),
             sanitizeString((direccion ?? '') as string, 500),
-            sanitizeString((repNombre ?? '') as string, 200),
+            repNombreStr,
             sanitizeString((repCedula ?? '') as string, 20),
             email,
             sanitizeString((rep_cargo ?? '') as string, 100),

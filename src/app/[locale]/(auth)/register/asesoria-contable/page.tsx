@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import {
     Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
 } from '@/components/ui/card';
@@ -16,17 +16,16 @@ import {
 } from '@/components/ui/select';
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
-    Building, BookOpen, ShieldCheck, RefreshCw, Scale, Calculator, Check, Crown, Star, Upload,
+    Building, BookOpen, ShieldCheck, Calculator, Check,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
-import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 3;
 
 const TIPOS_EMPRESA = [
     'Compañía Anónima (C.A.)', 'Compañía de Responsabilidad Limitada (C.R.L.)',
@@ -36,76 +35,6 @@ const TIPOS_EMPRESA = [
 ];
 
 const REGIMENES_IVA = ['General', 'Especial', 'Simplificado', 'Exento'];
-const PERIODOS_CONTABLES = ['Enero-Diciembre', 'Octubre-Septiembre', 'Julio-Junio', 'Abril-Marzo'];
-
-const PLANES_CONTABILIDAD = [
-    {
-        id: 'basico',
-        nombre: 'Básico',
-        precioUsd: 12,
-        descripcion: 'Contabilidad simple para emprendedores y microempresas',
-        color: 'from-slate-500 to-gray-600',
-        features: ['Libro diario y mayor', 'Balance general básico', 'Estado de resultados', 'Hasta 200 asientos/mes', 'Exportar a PDF/Excel'],
-    },
-    {
-        id: 'profesional',
-        nombre: 'Profesional',
-        precioUsd: 28,
-        descripcion: 'Facturación electrónica y cumplimiento fiscal completo',
-        popular: true,
-        color: 'from-primary to-blue-600',
-        features: ['Todo del plan Básico', 'Facturación electrónica SENIAT', 'Declaración IVA automática', 'Control de cuentas por cobrar/pagar', 'Conciliación bancaria', 'Hasta 1.000 asientos/mes', 'Reportes fiscales VEN-NIF'],
-    },
-    {
-        id: 'empresarial',
-        nombre: 'Empresarial',
-        precioUsd: 52,
-        descripcion: 'Multi-usuario con retenciones y libros de compra/venta',
-        color: 'from-emerald-500 to-teal-600',
-        features: ['Todo del plan Profesional', 'Retenciones IVA e ISLR automáticas', 'Libros de compra y venta', 'Multi-usuario (hasta 5)', 'Control de inventario básico', 'Asientos ilimitados', 'Soporte prioritario', 'Auditoría de transacciones'],
-    },
-    {
-        id: 'premium',
-        nombre: 'Premium',
-        precioUsd: 95,
-        descripcion: 'Solución completa con IA y asesoría contable',
-        color: 'from-violet-500 to-purple-600',
-        features: ['Todo del plan Empresarial', 'IA asistente contable (Kyron AI · Claude)', 'Asesoría fiscal personalizada', 'Multi-empresa ilimitado', 'Usuarios ilimitados', 'API de integración', 'Dashboard ejecutivo en tiempo real', 'Reportes personalizados SENIAT', 'Backup y recuperación avanzada', 'SLA de alta disponibilidad'],
-    },
-];
-
-const schema = z.object({
-    plan_contable: z.string().min(1, 'Seleccione un plan contable'),
-    razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
-    tipo_empresa: z.string().min(1, 'Seleccione el tipo de empresa'),
-    actividad_economica: z.string().min(5, 'Describa la actividad económica'),
-    codigo_ciiu: z.string().optional(),
-    estado_empresa: z.string().min(1, 'Seleccione el estado'),
-    municipio_empresa: z.string().min(2, 'Ingrese el municipio'),
-    direccion: z.string().min(5, 'Ingrese la dirección fiscal'),
-    telefono: z.string().min(7, 'Teléfono inválido'),
-    regimen_iva: z.string().min(1, 'Seleccione el régimen de IVA'),
-    agente_retencion_iva: z.string().min(1, 'Indique si es agente de retención IVA'),
-    agente_retencion_islr: z.string().min(1, 'Indique si es agente de retención ISLR'),
-    periodo_contable: z.string().min(1, 'Seleccione el período contable'),
-    nro_resoluciones: z.string().optional(),
-    repNombre: z.string().min(2, 'Ingrese el nombre'),
-    repApellido: z.string().min(2, 'Ingrese el apellido'),
-    repCedula: z.string().min(6, 'Cédula inválida'),
-    rep_cargo: z.string().min(2, 'Ingrese el cargo'),
-    rep_telefono: z.string().min(7, 'Teléfono inválido'),
-    repEmail: z.string().email('Correo inválido'),
-    password: z.string()
-        .min(8, 'Mínimo 8 caracteres')
-        .regex(/[A-Z]/, 'Debe contener una mayúscula')
-        .regex(/[0-9]/, 'Debe contener un número'),
-    confirmPassword: z.string(),
-}).refine(d => d.password === d.confirmPassword, {
-    message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
-});
-
-type FormData = z.infer<typeof schema>;
 
 const MODULES_CONTABILIDAD = [
     { id: 'contabilidad', label: 'Contabilidad' },
@@ -115,70 +44,50 @@ const MODULES_CONTABILIDAD = [
     { id: 'inventario', label: 'Inventario' },
 ];
 
+const schema = z.object({
+    razonSocial: z.string().min(3, 'Ingrese la razón social'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
+    tipo_empresa: z.string().min(1, 'Seleccione el tipo de empresa'),
+    repNombre: z.string().min(2, 'Ingrese el nombre'),
+    repEmail: z.string().email('Correo inválido'),
+    password: z.string()
+        .min(8, 'Mínimo 8 caracteres')
+        .regex(/[A-Z]/, 'Debe contener una mayúscula')
+        .regex(/[0-9]/, 'Debe contener un número'),
+    confirmPassword: z.string(),
+    estado_empresa: z.string().min(1, 'Seleccione el estado'),
+    municipio_empresa: z.string().min(2, 'Seleccione el municipio'),
+    telefono: z.string().min(7, 'Teléfono inválido'),
+    regimen_iva: z.string().optional(),
+}).refine(d => d.password === d.confirmPassword, {
+    message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
+});
+
+type FormData = z.infer<typeof schema>;
+
 export default function RegisterContabilidadPage() {
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
-    const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
-    const [verifCode, setVerifCode] = useState('');
-    const [verifSent, setVerifSent] = useState(false);
-    const [verifVerified, setVerifVerified] = useState(false);
-    const [verifLoading, setVerifLoading] = useState(false);
-    const [countdown, setCountdown] = useState(0);
-    const [registeredEmail, setRegisteredEmail] = useState('');
-    const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
-    const searchParams = useSearchParams();
     const { toast } = useToast();
 
-    const prefilledDoc = searchParams.get('doc') || '';
-    const prefilledRazon = searchParams.get('razon') || '';
-    const prefilledTipo = searchParams.get('tipo') || '';
-    const prefilledActividad = searchParams.get('actividad') || '';
-    const prefilledEstado = searchParams.get('estado') || '';
-    const prefilledMunicipio = searchParams.get('municipio') || '';
-    const prefilledTel = searchParams.get('tel') || '';
-    const prefilledNombre = searchParams.get('nombre') || '';
-    const prefilledApellido = searchParams.get('apellido') || '';
-
-    useEffect(() => {
-        fetch('/api/tasas-bcv?limit=1')
-            .then(r => r.json())
-            .then(d => {
-                const rate = parseFloat(d.ultima?.tasa_usd_ves);
-                if (!isNaN(rate) && rate > 0) setTasaBcv(rate);
-            })
-            .catch(() => {});
-    }, []);
-
-    const { register, handleSubmit, control, getValues, trigger, watch, setValue, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, control, watch, setValue, trigger, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange',
         defaultValues: {
-            rif: prefilledDoc || undefined,
-            razonSocial: prefilledRazon || undefined,
-            tipo_empresa: prefilledTipo || undefined,
-            actividad_economica: prefilledActividad || undefined,
-            estado_empresa: prefilledEstado || undefined,
-            municipio_empresa: prefilledMunicipio || undefined,
-            telefono: prefilledTel || undefined,
-            repNombre: prefilledNombre || undefined,
-            repApellido: prefilledApellido || undefined,
-            repCedula: prefilledDoc && !prefilledDoc.startsWith('J-') && !prefilledDoc.startsWith('G-') ? prefilledDoc : undefined,
+            regimen_iva: 'General',
         },
     });
 
     const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
 
     const estadoEmpresa = watch('estado_empresa');
-    useEffect(() => { setValue('municipio_empresa', ''); }, [estadoEmpresa]);
+    const watchedPassword = watch('password');
 
     const stepFields: Record<number, (keyof FormData)[]> = {
-        1: ['plan_contable'],
-        2: ['razonSocial', 'rif', 'tipo_empresa', 'actividad_economica'],
-        3: ['regimen_iva', 'agente_retencion_iva', 'agente_retencion_islr', 'periodo_contable', 'estado_empresa', 'municipio_empresa', 'direccion', 'telefono'],
-        4: ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'],
+        1: ['razonSocial', 'rif', 'tipo_empresa', 'repNombre', 'repEmail', 'password', 'confirmPassword'],
+        2: ['estado_empresa', 'municipio_empresa', 'telefono'],
     };
 
     const nextStep = async () => {
@@ -187,68 +96,15 @@ export default function RegisterContabilidadPage() {
             const valid = await trigger(fields);
             if (!valid) return;
         }
+        if (step === 2) {
+            return;
+        }
         setStep(s => s + 1);
     };
 
     const prevStep = () => setStep(s => s - 1);
 
-    const startCountdown = () => {
-        setCountdown(60);
-        const interval = setInterval(() => {
-            setCountdown(c => { if (c <= 1) { clearInterval(interval); return 0; } return c - 1; });
-        }, 1000);
-    };
-
-    const sendVerificationCode = async () => {
-        const email = getValues('repEmail');
-        const phone = getValues('rep_telefono');
-        const destino = verifMethod === 'email' ? email : phone;
-        setVerifLoading(true);
-        try {
-            const res = await fetch('/api/auth/send-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, tipo: verifMethod }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error);
-            setVerifSent(true);
-            startCountdown();
-            toast({ title: 'Código enviado', description: `Se envió el código a tu ${verifMethod === 'email' ? 'correo' : 'teléfono'}.` });
-        } catch (e: any) {
-            toast({ title: 'Error', description: e.message, variant: 'destructive' });
-        } finally {
-            setVerifLoading(false);
-        }
-    };
-
-    const verifyCode = async () => {
-        const email = getValues('repEmail');
-        const phone = getValues('rep_telefono');
-        const destino = verifMethod === 'email' ? email : phone;
-        setVerifLoading(true);
-        try {
-            const res = await fetch('/api/auth/verify-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, codigo: verifCode }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error);
-            setVerifVerified(true);
-            toast({ title: '¡Verificado!', description: 'Identidad confirmada.' });
-        } catch (e: any) {
-            toast({ title: 'Código incorrecto', description: e.message, variant: 'destructive' });
-        } finally {
-            setVerifLoading(false);
-        }
-    };
-
     const onSubmit = async (data: FormData) => {
-        if (!verifVerified) {
-            toast({ title: 'Verificación pendiente', description: 'Completa la verificación de identidad.', variant: 'destructive' });
-            return;
-        }
         setIsLoading(true);
         try {
             const res = await fetch('/api/auth/register', {
@@ -256,34 +112,21 @@ export default function RegisterContabilidadPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     tipo: 'juridico',
-                    plan_contable: data.plan_contable,
                     razonSocial: data.razonSocial,
                     rif: data.rif,
                     tipo_empresa: data.tipo_empresa,
-                    actividad_economica: data.actividad_economica,
-                    codigo_ciiu: data.codigo_ciiu,
                     telefono: data.telefono,
                     estado_empresa: data.estado_empresa,
                     municipio_empresa: data.municipio_empresa,
-                    direccion: data.direccion,
                     repNombre: data.repNombre,
-                    repApellido: data.repApellido,
-                    repCedula: data.repCedula,
-                    rep_cargo: data.rep_cargo,
-                    rep_telefono: data.rep_telefono,
                     repEmail: data.repEmail,
                     password: data.password,
-                    email_verificado: verifMethod === 'email',
-                    telefono_verificado: verifMethod === 'sms',
+                    regimen_iva: data.regimen_iva || 'General',
                     modules: MODULES_CONTABILIDAD,
-                    documentos_adjuntos: Object.fromEntries(
-                        Object.entries(uploadedDocs).filter(([, v]) => v != null)
-                    ),
                 }),
             });
             const result = await res.json();
             if (!res.ok) throw new Error(result.error);
-            setRegisteredEmail(data.repEmail);
             setStep(TOTAL_STEPS);
         } catch (e: any) {
             toast({ title: 'Error de registro', description: e.message, variant: 'destructive' });
@@ -293,19 +136,22 @@ export default function RegisterContabilidadPage() {
     };
 
     const stepTitles = [
-        { title: 'Selección de Plan', desc: 'Elige tu plan contable', icon: Star },
-        { title: 'Identificación Empresarial', desc: 'Datos fiscales de la organización', icon: Building },
-        { title: 'Configuración Contable', desc: 'Régimen IVA, retenciones y períodos', icon: Calculator },
-        { title: 'Representante Legal', desc: 'Responsable de la cuenta', icon: ShieldCheck },
-        { title: 'Verificación de Identidad', desc: 'Confirmación de acceso', icon: Scale },
-        { title: 'Módulo Activado', desc: 'Contabilidad registrada', icon: CheckCircle },
+        { title: 'Datos de la Empresa', desc: 'Identificación y acceso', icon: Building },
+        { title: 'Ubicación', desc: 'Estado, municipio y contacto', icon: Calculator },
+        { title: '¡Listo!', desc: 'Cuenta registrada', icon: CheckCircle },
     ];
 
     const currentStep = stepTitles[step - 1];
     const StepIcon = currentStep.icon;
 
+    const passwordChecks = [
+        { label: '8+ caracteres', ok: (watchedPassword || '').length >= 8 },
+        { label: '1 mayúscula', ok: /[A-Z]/.test(watchedPassword || '') },
+        { label: '1 número', ok: /[0-9]/.test(watchedPassword || '') },
+    ];
+
     return (
-        <div className="container mx-auto px-4 py-8 max-w-2xl min-h-screen flex items-start justify-center pt-16">
+        <div className="container mx-auto px-4 py-8 max-w-xl min-h-screen flex items-start justify-center pt-16">
             <Card className="w-full border-none shadow-2xl bg-card/60 backdrop-blur-xl rounded-[2rem] overflow-hidden">
                 <CardHeader className="p-8 border-b border-border/50 bg-muted/5">
                     <div className="flex items-center gap-4 mb-6">
@@ -313,90 +159,36 @@ export default function RegisterContabilidadPage() {
                             <BookOpen className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-primary">Registro · Contabilidad</CardTitle>
-                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">VEN-NIF · SENIAT · IVA · ISLR</CardDescription>
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-primary">Registro · Asesoría Contable</CardTitle>
+                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">Contabilidad · RRHH · Nómina · Fiscal</CardDescription>
                         </div>
                     </div>
-                    <Progress value={progress} className="h-1 mb-4" />
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-primary/5 rounded-lg">
-                            <StepIcon className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                            <p className="text-xs font-black uppercase tracking-tight text-foreground">{currentStep.title}</p>
-                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{currentStep.desc} · Paso {step} de {TOTAL_STEPS}</p>
-                        </div>
-                    </div>
+                    {step < TOTAL_STEPS && (
+                        <>
+                            <Progress value={progress} className="h-1 mb-4" />
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-primary/5 rounded-lg">
+                                    <StepIcon className="h-4 w-4 text-primary" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-black uppercase tracking-tight text-foreground">{currentStep.title}</p>
+                                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{currentStep.desc} · Paso {step} de {TOTAL_STEPS - 1}</p>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </CardHeader>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <CardContent className="p-8 space-y-6">
 
                         {step === 1 && (
-                            <div className="space-y-4">
-                                <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-1">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1 flex items-center gap-2">
-                                        <Star className="h-3.5 w-3.5" /> Elige tu Plan Contable
-                                    </p>
-                                    <p className="text-[9px] text-muted-foreground">Selecciona el plan que mejor se adapte a tu empresa. Podrás cambiarlo después.</p>
-                                    {tasaBcv && <p className="text-[8px] text-muted-foreground/60 mt-1">Tasa BCV del día: 1 USD = Bs. {tasaBcv.toFixed(2)}</p>}
+                            <div className="space-y-5">
+                                <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
+                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Registra tu empresa en 2 pasos</p>
+                                    <p className="text-[9px] text-muted-foreground mt-0.5">Solo necesitamos lo esencial. Podrás completar tu perfil después.</p>
                                 </div>
 
-                                {errors.plan_contable && <p className="text-[10px] text-destructive">{errors.plan_contable.message}</p>}
-                                <Controller name="plan_contable" control={control} render={({ field }) => (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {PLANES_CONTABILIDAD.map(plan => {
-                                            const selected = field.value === plan.id;
-                                            return (
-                                                <button
-                                                    key={plan.id}
-                                                    type="button"
-                                                    onClick={() => field.onChange(plan.id)}
-                                                    aria-label={`Seleccionar plan ${plan.nombre}`}
-                                                    className={cn(
-                                                        "relative p-4 rounded-xl border text-left transition-all duration-200 group",
-                                                        selected
-                                                            ? "border-primary bg-primary/5 ring-1 ring-primary/30 shadow-lg shadow-primary/10"
-                                                            : "border-border/50 bg-muted/10 hover:border-primary/30 hover:bg-primary/[0.02]"
-                                                    )}
-                                                >
-                                                    {'popular' in plan && plan.popular && (
-                                                        <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-primary to-blue-600 text-white text-[8px] font-black uppercase tracking-widest flex items-center gap-1">
-                                                            <Crown className="h-2.5 w-2.5" /> Recomendado
-                                                        </span>
-                                                    )}
-                                                    <div className="flex items-start justify-between mb-2">
-                                                        <div>
-                                                            <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest mb-1.5", selected ? "bg-primary/10 text-primary" : "bg-muted/30 text-muted-foreground")}>
-                                                                <BookOpen className="h-2.5 w-2.5" />
-                                                                {plan.nombre}
-                                                            </div>
-                                                            <p className="text-sm font-black text-foreground">${plan.precioUsd}/mes</p>
-                                                            {tasaBcv && <p className="text-[9px] text-muted-foreground/70">Bs. {(plan.precioUsd * tasaBcv).toFixed(2)}</p>}
-                                                        </div>
-                                                        <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-primary bg-primary" : "border-muted-foreground/30")}>
-                                                            {selected && <Check className="h-3 w-3 text-white" />}
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-[10px] text-muted-foreground mb-2.5">{plan.descripcion}</p>
-                                                    <div className="space-y-1">
-                                                        {plan.features.map((f, i) => (
-                                                            <div key={i} className="flex items-center gap-1.5">
-                                                                <Check className={cn("h-3 w-3 shrink-0", selected ? "text-primary" : "text-muted-foreground/40")} />
-                                                                <span className="text-[9px] text-muted-foreground">{f}</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                )} />
-                            </div>
-                        )}
-
-                        {step === 2 && (
-                            <div className="space-y-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="sm:col-span-2 space-y-2">
                                         <Label htmlFor="razonSocial" className="text-[10px] font-black uppercase tracking-widest">Razón Social *</Label>
@@ -420,95 +212,59 @@ export default function RegisterContabilidadPage() {
                                         )} />
                                         {errors.tipo_empresa && <p className="text-[10px] text-destructive">{errors.tipo_empresa.message}</p>}
                                     </div>
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <Label htmlFor="actividad_economica" className="text-[10px] font-black uppercase tracking-widest">Actividad Económica Principal *</Label>
-                                        <Input id="actividad_economica" placeholder="Ej: Servicios de consultoría contable y fiscal..." {...register('actividad_economica')} className={cn(errors.actividad_economica && 'border-destructive')} />
-                                        {errors.actividad_economica && <p className="text-[10px] text-destructive">{errors.actividad_economica.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="codigo_ciiu" className="text-[10px] font-black uppercase tracking-widest">Código CIIU</Label>
-                                        <Input id="codigo_ciiu" placeholder="Ej: 6920" {...register('codigo_ciiu')} />
-                                    </div>
                                 </div>
 
-                                <div className="pt-3">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                                            <Upload className="h-3 w-3 text-white" />
-                                        </div>
-                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos Legales de la Empresa</p>
+                                <div className="h-px bg-border/30" />
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="sm:col-span-2 space-y-2">
+                                        <Label htmlFor="repNombre" className="text-[10px] font-black uppercase tracking-widest">Nombre Completo *</Label>
+                                        <Input id="repNombre" placeholder="Juan Pérez" {...register('repNombre')} className={cn(errors.repNombre && 'border-destructive')} />
+                                        {errors.repNombre && <p className="text-[10px] text-destructive">{errors.repNombre.message}</p>}
                                     </div>
-                                    <DocumentUpload
-                                        requirements={[
-                                            { id: 'rif_documento', label: 'RIF — Registro de Información Fiscal', description: 'PDF o foto del RIF actualizado emitido por SENIAT', required: true },
-                                            { id: 'acta_constitutiva', label: 'Acta Constitutiva', description: 'PDF del acta constitutiva registrada en el Registro Mercantil', required: true },
-                                            { id: 'ultima_acta_asamblea', label: 'Última Acta de Asamblea', description: 'PDF del acta de asamblea más reciente (si aplica)' },
-                                            { id: 'cedula_representante', label: 'Cédula del Representante Legal', description: 'Foto o escaneo de la cédula del representante legal', required: true },
-                                        ]}
-                                        documents={uploadedDocs}
-                                        onDocumentsChange={setUploadedDocs}
-                                    />
+                                    <div className="sm:col-span-2 space-y-2">
+                                        <Label htmlFor="repEmail" className="text-[10px] font-black uppercase tracking-widest">Correo Electrónico *</Label>
+                                        <Input id="repEmail" type="email" placeholder="tu@empresa.com" {...register('repEmail')} className={cn(errors.repEmail && 'border-destructive')} />
+                                        {errors.repEmail && <p className="text-[10px] text-destructive">{errors.repEmail.message}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest">Contraseña *</Label>
+                                        <div className="relative">
+                                            <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-10', errors.password && 'border-destructive')} />
+                                            <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground" tabIndex={-1}>
+                                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                            </button>
+                                        </div>
+                                        <div className="flex gap-3 mt-1.5">
+                                            {passwordChecks.map((c, i) => (
+                                                <span key={i} className={cn("text-[9px] font-bold flex items-center gap-1", c.ok ? "text-emerald-500" : "text-muted-foreground/50")}>
+                                                    {c.ok ? <Check className="h-3 w-3" /> : <span className="w-3 h-3 rounded-full border border-current inline-flex" />}
+                                                    {c.label}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="confirmPassword" className="text-[10px] font-black uppercase tracking-widest">Confirmar *</Label>
+                                        <Input id="confirmPassword" type={showPassword ? 'text' : 'password'} {...register('confirmPassword')} className={cn(errors.confirmPassword && 'border-destructive')} />
+                                        {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
+                                    </div>
                                 </div>
                             </div>
                         )}
 
-                        {step === 3 && (
+                        {step === 2 && (
                             <div className="space-y-5">
+                                <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
+                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Ubicación y contacto</p>
+                                    <p className="text-[9px] text-muted-foreground mt-0.5">Último paso. El régimen IVA lo puedes ajustar después.</p>
+                                </div>
+
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Régimen IVA *</Label>
-                                        <Controller name="regimen_iva" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.regimen_iva && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>{REGIMENES_IVA.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.regimen_iva && <p className="text-[10px] text-destructive">{errors.regimen_iva.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Período Contable *</Label>
-                                        <Controller name="periodo_contable" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.periodo_contable && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>{PERIODOS_CONTABLES.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.periodo_contable && <p className="text-[10px] text-destructive">{errors.periodo_contable.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">¿Agente Retención IVA? *</Label>
-                                        <Controller name="agente_retencion_iva" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.agente_retencion_iva && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="si">Sí — Agente designado por SENIAT</SelectItem>
-                                                    <SelectItem value="no">No</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.agente_retencion_iva && <p className="text-[10px] text-destructive">{errors.agente_retencion_iva.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">¿Agente Retención ISLR? *</Label>
-                                        <Controller name="agente_retencion_islr" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.agente_retencion_islr && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="si">Sí</SelectItem>
-                                                    <SelectItem value="no">No</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.agente_retencion_islr && <p className="text-[10px] text-destructive">{errors.agente_retencion_islr.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="nro_resoluciones" className="text-[10px] font-black uppercase tracking-widest">Nro. Resolución SENIAT</Label>
-                                        <Input id="nro_resoluciones" placeholder="Ej: SNAT/2013/0030" {...register('nro_resoluciones')} />
-                                    </div>
                                     <div className="space-y-2">
                                         <Label className="text-[10px] font-black uppercase tracking-widest">Estado *</Label>
                                         <Controller name="estado_empresa" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
+                                            <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
                                                 <SelectTrigger className={cn(errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                                                 <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
                                             </Select>
@@ -516,10 +272,10 @@ export default function RegisterContabilidadPage() {
                                         {errors.estado_empresa && <p className="text-[10px] text-destructive">{errors.estado_empresa.message}</p>}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="municipio_empresa" className="text-[10px] font-black uppercase tracking-widest">Municipio *</Label>
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">Municipio *</Label>
                                         <Controller name="municipio_empresa" control={control} render={({ field }) => (
                                             <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                                                <SelectTrigger id="municipio_empresa" className={cn(errors.municipio_empresa && 'border-destructive')}>
+                                                <SelectTrigger className={cn(errors.municipio_empresa && 'border-destructive')}>
                                                     <SelectValue placeholder={estadoEmpresa ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
                                                 </SelectTrigger>
                                                 <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
@@ -527,121 +283,21 @@ export default function RegisterContabilidadPage() {
                                         )} />
                                         {errors.municipio_empresa && <p className="text-[10px] text-destructive">{errors.municipio_empresa.message}</p>}
                                     </div>
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <Label htmlFor="direccion" className="text-[10px] font-black uppercase tracking-widest">Dirección Fiscal *</Label>
-                                        <Input id="direccion" placeholder="Dirección completa de la sede fiscal..." {...register('direccion')} className={cn(errors.direccion && 'border-destructive')} />
-                                        {errors.direccion && <p className="text-[10px] text-destructive">{errors.direccion.message}</p>}
-                                    </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="telefono" className="text-[10px] font-black uppercase tracking-widest">Teléfono Corporativo *</Label>
-                                        <Input id="telefono" type="tel" placeholder="0212-XXXXXXX" {...register('telefono')} className={cn(errors.telefono && 'border-destructive')} />
+                                        <Label htmlFor="telefono" className="text-[10px] font-black uppercase tracking-widest">Teléfono *</Label>
+                                        <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn(errors.telefono && 'border-destructive')} />
                                         {errors.telefono && <p className="text-[10px] text-destructive">{errors.telefono.message}</p>}
                                     </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {step === 4 && (
-                            <div className="space-y-5">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="repNombre" className="text-[10px] font-black uppercase tracking-widest">Nombre *</Label>
-                                        <Input id="repNombre" {...register('repNombre')} className={cn(errors.repNombre && 'border-destructive')} />
-                                        {errors.repNombre && <p className="text-[10px] text-destructive">{errors.repNombre.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="repApellido" className="text-[10px] font-black uppercase tracking-widest">Apellido *</Label>
-                                        <Input id="repApellido" {...register('repApellido')} className={cn(errors.repApellido && 'border-destructive')} />
-                                        {errors.repApellido && <p className="text-[10px] text-destructive">{errors.repApellido.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Cédula *</Label>
-                                        <Controller name="repCedula" control={control} render={({ field }) => (
-                                            <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.repCedula} />
+                                        <Label className="text-[10px] font-black uppercase tracking-widest">Régimen IVA</Label>
+                                        <Controller name="regimen_iva" control={control} render={({ field }) => (
+                                            <Select onValueChange={field.onChange} value={field.value || 'General'}>
+                                                <SelectTrigger><SelectValue placeholder="General" /></SelectTrigger>
+                                                <SelectContent>{REGIMENES_IVA.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent>
+                                            </Select>
                                         )} />
-                                        {errors.repCedula && <p className="text-[10px] text-destructive">{errors.repCedula.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="rep_cargo" className="text-[10px] font-black uppercase tracking-widest">Cargo *</Label>
-                                        <Input id="rep_cargo" placeholder="Ej: Director Financiero, Contador..." {...register('rep_cargo')} className={cn(errors.rep_cargo && 'border-destructive')} />
-                                        {errors.rep_cargo && <p className="text-[10px] text-destructive">{errors.rep_cargo.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="rep_telefono" className="text-[10px] font-black uppercase tracking-widest">Teléfono *</Label>
-                                        <Input id="rep_telefono" type="tel" {...register('rep_telefono')} className={cn(errors.rep_telefono && 'border-destructive')} />
-                                        {errors.rep_telefono && <p className="text-[10px] text-destructive">{errors.rep_telefono.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="repEmail" className="text-[10px] font-black uppercase tracking-widest">Correo Electrónico *</Label>
-                                        <Input id="repEmail" type="email" {...register('repEmail')} className={cn(errors.repEmail && 'border-destructive')} />
-                                        {errors.repEmail && <p className="text-[10px] text-destructive">{errors.repEmail.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest">Contraseña *</Label>
-                                        <div className="relative">
-                                            <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-10', errors.password && 'border-destructive')} />
-                                            <button type="button" onClick={() => setShowPassword(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                                            </button>
-                                        </div>
-                                        {errors.password && <p className="text-[10px] text-destructive">{errors.password.message}</p>}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="confirmPassword" className="text-[10px] font-black uppercase tracking-widest">Confirmar Contraseña *</Label>
-                                        <Input id="confirmPassword" type="password" {...register('confirmPassword')} className={cn(errors.confirmPassword && 'border-destructive')} />
-                                        {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
                                     </div>
                                 </div>
-                            </div>
-                        )}
-
-                        {step === 5 && (
-                            <div className="space-y-6">
-                                {!verifSent ? (
-                                    <div className="space-y-4">
-                                        <p className="text-sm text-muted-foreground">Elige cómo verificar tu identidad:</p>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {(['email', 'sms'] as const).map(m => (
-                                                <button key={m} type="button" onClick={() => setVerifMethod(m)}
-                                                    className={cn("p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all", verifMethod === m ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground")}>
-                                                    {m === 'email' ? '📧 Correo' : '📱 SMS'}
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <Button type="button" className="w-full" onClick={sendVerificationCode} disabled={verifLoading}>
-                                            {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</> : 'Enviar Código de Verificación'}
-                                        </Button>
-                                    </div>
-                                ) : verifVerified ? (
-                                    <div className="text-center py-6 space-y-3">
-                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30">
-                                            <CheckCircle className="h-10 w-10 text-green-500" />
-                                        </div>
-                                        <p className="font-black text-green-600 uppercase tracking-widest text-xs">Identidad Verificada</p>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-4">
-                                        <p className="text-sm text-muted-foreground text-center">Ingresa el código de 6 dígitos enviado.</p>
-                                        <Input
-                                            maxLength={6}
-                                            value={verifCode}
-                                            onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                            className="text-center text-2xl tracking-[0.5em] font-mono"
-                                        />
-                                        <Button type="button" className="w-full" onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
-                                            {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar</>}
-                                        </Button>
-                                        <div className="text-center">
-                                            {countdown > 0 ? (
-                                                <p className="text-xs text-muted-foreground">Reenviar en <strong>{countdown}s</strong></p>
-                                            ) : (
-                                                <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
-                                                    <RefreshCw className="h-3 w-3" />Reenviar código
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         )}
 
@@ -650,19 +306,13 @@ export default function RegisterContabilidadPage() {
                                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-2">
                                     <CheckCircle className="h-12 w-12 text-green-500" />
                                 </div>
-                                <h2 className="text-2xl font-black uppercase italic tracking-tight">¡Módulo Activado!</h2>
-                                <p className="text-muted-foreground text-sm">Tu empresa fue registrada en el módulo de <strong className="text-primary">Contabilidad VEN-NIF</strong>.</p>
-                                {getValues('plan_contable') && (
-                                    <div className="p-3 bg-primary/5 border border-primary/10 rounded-xl text-xs">
-                                        <p className="font-black text-primary uppercase tracking-widest mb-1">Plan seleccionado:</p>
-                                        <p className="text-muted-foreground">{PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.nombre} — ${PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precioUsd}/mes{tasaBcv ? ` (Bs. ${((PLANES_CONTABILIDAD.find(p => p.id === getValues('plan_contable'))?.precioUsd ?? 0) * tasaBcv).toFixed(2)})` : ''}</p>
-                                    </div>
-                                )}
+                                <h2 className="text-2xl font-black uppercase italic tracking-tight">¡Cuenta Creada!</h2>
+                                <p className="text-muted-foreground text-sm">Tu empresa fue registrada en <strong className="text-primary">Asesoría Contable</strong>.</p>
                                 <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl text-left text-xs space-y-2">
                                     <p className="font-black text-primary uppercase tracking-widest">Módulos habilitados:</p>
-                                    {MODULES_CONTABILIDAD.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
+                                    {MODULES_CONTABILIDAD.map(m => <p key={m.id} className="text-muted-foreground flex items-center gap-2"><Check className="h-3.5 w-3.5 text-emerald-500" /> {m.label}</p>)}
                                 </div>
-                                <Button className="w-full mt-4" onClick={() => { router.push('/'); }}>
+                                <Button className="w-full mt-4" onClick={() => { router.push('/resumen-negocio' as any); }}>
                                     Ir al Portal <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                             </div>
@@ -674,18 +324,17 @@ export default function RegisterContabilidadPage() {
                             <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
                                 <ArrowLeft className="mr-2 h-4 w-4" />Anterior
                             </Button>
-                            {step < 4 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4" /></Button>}
-                            {step === 4 && <Button type="button" onClick={nextStep}>Continuar a Verificación<ArrowRight className="ml-2 h-4 w-4" /></Button>}
-                            {step === 5 && (
-                                <Button type="submit" disabled={isLoading || !verifVerified}>
-                                    {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Registrando...</> : <>Registrar Empresa<ArrowRight className="ml-2 h-4 w-4" /></>}
+                            {step === 1 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4" /></Button>}
+                            {step === 2 && (
+                                <Button type="submit" disabled={isLoading}>
+                                    {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Registrando...</> : <>Crear Cuenta<ShieldCheck className="ml-2 h-4 w-4" /></>}
                                 </Button>
                             )}
                         </CardFooter>
                     )}
                     {step < TOTAL_STEPS && (
                         <p className="text-center text-xs text-muted-foreground pb-6">
-                            ¿Ya tienes cuenta? <Link href="/login" className="text-primary font-semibold hover:underline">Iniciar sesión</Link>
+                            ¿Ya tienes cuenta? <Link href="/login-empresa" className="text-primary font-semibold hover:underline">Iniciar sesión</Link>
                         </p>
                     )}
                 </form>
