@@ -95,8 +95,11 @@ export default function ProyectosPersonalPage() {
       if (res.ok) {
         const data = await res.json();
         setProyectos(data.proyectos ?? []);
+      } else if (res.status !== 401) {
+        const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "Error al cargar proyectos", description: err.error || "No se pudieron obtener los proyectos", variant: "destructive" });
       }
-    } catch { /* silently handle */ }
+    } catch { toast({ title: "Error de conexión", description: "No se pudo contactar al servidor", variant: "destructive" }); }
     finally { setLoading(false); }
   }, []);
 

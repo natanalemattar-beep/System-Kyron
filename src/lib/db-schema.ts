@@ -660,6 +660,72 @@ async function createRRHHBienestarTables() {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_planes_vac_emp ON planes_vacaciones(empleado_id)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_planes_vac_anio ON planes_vacaciones(anio)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS manuales_procedimientos (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      titulo          TEXT NOT NULL,
+      departamento    TEXT NOT NULL,
+      cargo_destino   TEXT,
+      version         TEXT NOT NULL DEFAULT '1.0',
+      contenido       TEXT NOT NULL,
+      procedimientos  JSONB DEFAULT '[]',
+      prohibiciones   JSONB DEFAULT '[]',
+      estado          TEXT NOT NULL DEFAULT 'borrador' CHECK (estado IN ('borrador','revision','aprobado','vigente','obsoleto')),
+      aprobado_por    TEXT,
+      fecha_aprobacion DATE,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_manuales_proc_user ON manuales_procedimientos(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_manuales_proc_depto ON manuales_procedimientos(departamento)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS organigrama_nodos (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre_cargo    TEXT NOT NULL,
+      departamento    TEXT NOT NULL,
+      nivel           INT NOT NULL DEFAULT 0,
+      padre_id        INT REFERENCES organigrama_nodos(id) ON DELETE SET NULL,
+      titular         TEXT,
+      empleado_id     INT REFERENCES empleados(id) ON DELETE SET NULL,
+      tipo            TEXT NOT NULL DEFAULT 'cargo' CHECK (tipo IN ('direccion','gerencia','coordinacion','cargo','asistencia')),
+      color           TEXT DEFAULT '#3b82f6',
+      activo          BOOLEAN NOT NULL DEFAULT true,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_organi_user ON organigrama_nodos(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS contratos_laborales (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT REFERENCES empleados(id) ON DELETE SET NULL,
+      titulo          TEXT NOT NULL,
+      tipo_contrato   TEXT NOT NULL DEFAULT 'indefinido' CHECK (tipo_contrato IN ('indefinido','determinado','obra','temporal','pasantia')),
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin       DATE,
+      cargo           TEXT NOT NULL,
+      departamento    TEXT NOT NULL,
+      salario         NUMERIC(18,2) NOT NULL DEFAULT 0,
+      beneficios      JSONB DEFAULT '[]',
+      prohibiciones   JSONB DEFAULT '[]',
+      clausulas       JSONB DEFAULT '[]',
+      horario         TEXT DEFAULT 'Lunes a Viernes 8:00 AM - 5:00 PM',
+      estado          TEXT NOT NULL DEFAULT 'borrador' CHECK (estado IN ('borrador','revision','firmado','vigente','finalizado','rescindido')),
+      firmado_empleado BOOLEAN NOT NULL DEFAULT false,
+      firmado_empresa  BOOLEAN NOT NULL DEFAULT false,
+      fecha_firma     DATE,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_contratos_lab_user ON contratos_laborales(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_contratos_lab_emp ON contratos_laborales(empleado_id)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

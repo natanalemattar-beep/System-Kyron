@@ -358,6 +358,7 @@ export default function RecursosHumanosPage() {
                   { label: "Clima Organizacional", href: "/clima-organizacional", icon: Heart, color: "text-pink-400" },
                   { label: "Proyectos y Estrategias", href: "/proyectos-personal", icon: Target, color: "text-violet-400" },
                   { label: "Bienestar y Vacaciones", href: "/bienestar-laboral", icon: Award, color: "text-amber-400" },
+                  { label: "Manuales y Contratos", href: "/manuales-rrhh", icon: Briefcase, color: "text-indigo-400" },
                 ].map(item => (
                   <Link key={item.label} href={item.href as never}>
                     <Button variant="ghost" size="sm" className="w-full h-8 justify-between text-[9px] font-semibold text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg group/btn">

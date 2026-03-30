@@ -36,7 +36,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Consistent heading sizes (`text-3xl md:text-5xl`) are applied across all pages.
 
 **Technical Implementations:**
-- **Database Schema:** A comprehensive PostgreSQL schema with 70+ tables is managed.
+- **Database Schema:** A comprehensive PostgreSQL schema with 80+ tables is managed.
 - **Database Layer:** Includes helpers for batch operations, upserts, existence checks, pagination, and health checks.
 - **Demo Requests:** Landing page CTA form saves data, and sends branded notification emails using a multi-provider email service.
 - **Demo Seed Data:** Realistic Venezuelan business data.
@@ -65,6 +65,11 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Marco Legal Venezuela:** Comprehensive module with 14 fiscal entities, 9 fundamental laws, current tax rates, and calendar/filter helpers.
 - **OTP Verification:** DB-primary storage with in-memory Map fallback, codes scoped by purpose, max 5 attempts per code.
 - **Kyron Chat (Global):** VoiceAssistant component is available for all users (authenticated and unauthenticated) with hide/show toggle and context-aware greetings.
+- **HR Module Expansion (Bienestar Laboral):**
+  - **Proyectos y Estrategias de Personal** (`/proyectos-personal`): Departmental HR projects with Kanban/list views, filters by department/status/priority, progress tracking. Tables: `proyectos_personal`.
+  - **Bienestar Laboral** (`/bienestar-laboral`): Motivational system (recognition programs, incentive gamification, points rewards), vacation planning (LOTTT-compliant), and resort alliances for employees/families. Tables: `programas_motivacion`, `reconocimientos_empleado`, `alianzas_vacacionales`, `planes_vacaciones`.
+  - **Manuales y Contratos** (`/manuales-rrhh`): Procedure manuals per department/role (with procedures and workplace prohibitions), corporate org chart (hierarchical levels: direction/management/coordination/positions), and labor contracts (benefits, restrictions, LOTTT compliance). Tables: `manuales_procedimientos`, `organigrama_nodos`, `contratos_laborales`.
+  - API routes: `/api/rrhh/proyectos-personal`, `/api/rrhh/bienestar`, `/api/rrhh/manuales`.
 - **Back Button Component:** Reusable for consistent navigation across subpages.
 - **Settings Page (`/configuracion`):** Under `(admin)` route group. Allows users to toggle "Reducir Animaciones" (disables CSS animations/transitions globally via `.reduce-motion` class on `<html>`) and "Navegación Lateral" (switches from top-bar navigation to a fixed sidebar in admin layouts). UI preferences are managed by `PreferencesProvider` (in `src/lib/preferences-context.tsx`) with localStorage fallback and API persistence. The page also manages notification preferences, fiscal parameters (IVA/IGTF/ISLR), and company data. DB columns: `configuracion_usuario.reducir_animaciones`, `configuracion_usuario.nav_lateral`.
 

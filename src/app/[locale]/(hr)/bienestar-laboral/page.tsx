@@ -159,8 +159,11 @@ export default function BienestarLaboralPage() {
         setReconocimientos(data.reconocimientos ?? []);
         setAlianzas(data.alianzas ?? []);
         setPlanes(data.planes ?? []);
+      } else if (res.status !== 401) {
+        const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "Error al cargar datos", description: err.error || "No se pudieron obtener los datos de bienestar", variant: "destructive" });
       }
-    } catch { /* silently handle */ }
+    } catch { toast({ title: "Error de conexión", description: "No se pudo contactar al servidor", variant: "destructive" }); }
     finally { setLoading(false); }
   }, []);
 
@@ -182,6 +185,9 @@ export default function BienestarLaboralPage() {
         setShowProgramaDialog(false);
         setProgramaForm({ nombre: "", categoria: "reconocimiento", descripcion: "", puntos_reward: "", fecha_inicio: "", fecha_fin: "", presupuesto: "" });
         fetchData();
+      } else {
+        const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "Error", description: err.error || "No se pudo crear el programa", variant: "destructive" });
       }
     } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
     finally { setSaving(false); }
@@ -209,6 +215,9 @@ export default function BienestarLaboralPage() {
         setShowAlianzaDialog(false);
         setAlianzaForm({ nombre_complejo: "", ubicacion: "", estado_ve: "Nueva Esparta", tipo: "resort", estrellas: "4", descuento_pct: "", precio_base_usd: "", incluye_familia: true, max_personas: "4", contacto_nombre: "", contacto_telefono: "", contacto_email: "", vigencia_inicio: "", vigencia_fin: "", notas: "" });
         fetchData();
+      } else {
+        const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "Error", description: err.error || "No se pudo registrar la alianza", variant: "destructive" });
       }
     } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
     finally { setSaving(false); }

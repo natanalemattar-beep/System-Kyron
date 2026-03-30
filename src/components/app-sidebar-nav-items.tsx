@@ -101,6 +101,7 @@ export const asesoriaContableNavGroups = [
         { href: "/desarrollo-personal", label: "Carrera y Formación", icon: School },
         { href: "/proyectos-personal", label: "Proyectos y Estrategias", icon: FolderKanban },
         { href: "/bienestar-laboral", label: "Bienestar y Vacaciones", icon: Palmtree },
+        { href: "/manuales-rrhh", label: "Manuales y Contratos", icon: BookOpen },
     ],
   },
   {
