@@ -50,6 +50,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations defined in `globals.css`.
 - **FAQ System:** Landing page shows 6 most important questions with "Ver más preguntas frecuentes" link to `/faq`. Dedicated FAQ page (`src/app/[locale]/faq/page.tsx`) has 26 questions in 9 categories (General, Seguridad, IA, Fiscal, RRHH, Telecom, Sostenibilidad, Pagos, Soporte) with search and category filters. Public route.
+- **Kyron Chat (Full Page):** Dedicated full-page chat at `/kyron-chat` with 6 AI identities (Master, Fiscal, Legal, Telecom, Verde, RRHH). Each identity has contextual prompts, greetings, and gradient colors. Features: streaming responses, textarea with Shift+Enter support, scroll-to-bottom button, stop/clear controls. Added to sidebar navigation under "Kyron IA" section in both `naturalNavGroups` and `asesoriaContableNavGroups`. Also accessible via floating button (`ChatDialog` component) in all authenticated layouts.
 - **Route Protection:** Authentication required for sensitive pages, excluded from public sitemap and `robots.txt`.
 
 ## External Dependencies

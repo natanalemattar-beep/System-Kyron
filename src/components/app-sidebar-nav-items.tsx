@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -37,6 +37,13 @@ export const naturalNavGroups = [
             { href: "/partidas-nacimiento", label: "Partidas", icon: FileText },
             { href: "/actas-matrimonio", label: "Partidas Nupciales", icon: Heart },
             { href: "/documentos-judiciales", label: "Buzón Judicial", icon: Gavel },
+        ],
+    },
+    {
+        title: "Kyron IA",
+        icon: Sparkles,
+        items: [
+            { href: "/kyron-chat", label: "Chat Kyron", icon: Sparkles },
         ],
     },
     {
@@ -118,6 +125,14 @@ export const asesoriaContableNavGroups = [
         { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu },
         { href: "/marketing", label: "Marketing IA", icon: Megaphone },
         { href: "/marketing/carnets", label: "Carnets y Tarjetas", icon: IdCard },
+    ],
+  },
+  {
+    title: "Kyron IA",
+    icon: Sparkles,
+    items: [
+        { href: "/kyron-chat", label: "Chat Kyron", icon: Sparkles },
+        { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
     ],
   },
   {
