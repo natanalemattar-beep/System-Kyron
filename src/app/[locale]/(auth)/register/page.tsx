@@ -31,7 +31,7 @@ interface RifLookupResult {
 const ALL_PREFIXES = [
     { value: "V", label: "V", desc: "Venezolano", icon: UserCircle, color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20", ring: "ring-blue-500/30" },
     { value: "E", label: "E", desc: "Extranjero", icon: Globe, color: "text-cyan-500", bg: "bg-cyan-500/10", border: "border-cyan-500/20", ring: "ring-cyan-500/30" },
-    { value: "J", label: "J", desc: "Jurídico", icon: Building2, color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20", ring: "ring-emerald-500/30" },
+    { value: "J", label: "J", desc: "Jurídico / Fundación", icon: Building2, color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20", ring: "ring-emerald-500/30" },
     { value: "G", label: "G", desc: "Gobierno", icon: Landmark, color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20", ring: "ring-amber-500/30" },
     { value: "P", label: "P", desc: "Pasaporte", icon: Globe, color: "text-violet-500", bg: "bg-violet-500/10", border: "border-violet-500/20", ring: "ring-violet-500/30" },
     { value: "C", label: "C", desc: "Comunal", icon: Building, color: "text-orange-500", bg: "bg-orange-500/10", border: "border-orange-500/20", ring: "ring-orange-500/30" },
@@ -94,8 +94,13 @@ function detectDocumentType(prefix: string, number: string): { type: DetectedTyp
     const isRifFormat = /^\d{8}-\d$/.test(trimmed);
 
     if (["J", "G", "C", "F"].includes(prefix)) {
-        const label = prefix === "J" ? "Empresa (Persona Jurídica)" : prefix === "G" ? "Organismo del Estado" : prefix === "C" ? "Consejo Comunal" : "Firma Personal";
-        return { type: "juridico", format: "rif", label, valid: isRifFormat };
+        const labelMap: Record<string, string> = {
+            "J": "Persona Jurídica (Empresa / Fundación / Asociación Civil)",
+            "G": "Organismo del Estado",
+            "C": "Consejo Comunal",
+            "F": "Firma Personal",
+        };
+        return { type: "juridico", format: "rif", label: labelMap[prefix] || prefix, valid: isRifFormat };
     }
 
     if (["V", "E"].includes(prefix)) {

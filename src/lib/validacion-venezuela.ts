@@ -130,7 +130,7 @@ export function validarRIF(rif: string): { valid: boolean; error?: string; tipo?
   }
 
   const tipoMap: Record<string, string> = {
-    'J': 'Persona Jurídica (Sociedad Mercantil)',
+    'J': 'Persona Jurídica (Sociedad Mercantil / Fundación / Asociación Civil)',
     'G': 'Organismo Gubernamental',
     'V': 'Persona Natural Venezolana',
     'E': 'Persona Natural Extranjera',
