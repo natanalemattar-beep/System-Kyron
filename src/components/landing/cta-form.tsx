@@ -105,7 +105,7 @@ export function CtaForm() {
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
                                 <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Cargo</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                             <SelectValue placeholder="Rol..." />
@@ -172,7 +172,7 @@ export function CtaForm() {
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
                                 <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Tamaño</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                             <SelectValue placeholder="Empleados..." />
@@ -197,7 +197,7 @@ export function CtaForm() {
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
                                 <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Sector</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                             <SelectValue placeholder="Sector..." />
@@ -219,7 +219,7 @@ export function CtaForm() {
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
                                 <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Urgencia</FormLabel>
-                                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                                <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                             <SelectValue placeholder="Prioridad..." />
@@ -243,7 +243,7 @@ export function CtaForm() {
                     render={({ field }) => (
                         <FormItem className="space-y-1.5 text-left">
                             <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Módulo de Interés</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value || undefined}>
+                            <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
                                     <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
                                         <SelectValue placeholder="Seleccionar..." />
