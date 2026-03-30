@@ -245,11 +245,8 @@ export function LandingHeader() {
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs border-0 shadow-md shadow-primary/15">
+                                    <Button asChild className="w-full h-11 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs border-0 shadow-md shadow-primary/15">
                                         <Link href="/login"><Hexagon className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
-                                    </Button>
-                                    <Button asChild variant="outline" className="w-full h-9 rounded-xl font-semibold text-xs border-border/40 hover:border-primary/30 hover:text-primary">
-                                        <Link href="/register">{t('register')}</Link>
                                     </Button>
                                 </div>
                             </SheetContent>
