@@ -10,7 +10,7 @@ import {
     Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
     Signal, Gavel, ArrowLeft,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
-    ShoppingCart, Sparkles, Lock,
+    ShoppingCart, Sparkles, Lock, Recycle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -99,6 +99,16 @@ const MODULES: ModuleOption[] = [
         gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
         iconBg: "bg-rose-500/15 text-rose-400 ring-rose-500/20",
         forTypes: ["juridico"],
+    },
+    {
+        id: "sostenibilidad",
+        route: "sostenibilidad",
+        icon: Recycle,
+        title: "Sostenibilidad & ESG",
+        description: "Gestión ambiental, reciclaje, huella de carbono, reportes ESG y economía circular",
+        gradient: "from-green-500/20 via-lime-500/10 to-transparent",
+        iconBg: "bg-green-500/15 text-green-400 ring-green-500/20",
+        forTypes: ["natural", "juridico"],
     },
 ];
 
