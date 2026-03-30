@@ -2,8 +2,19 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { LoadingScreen } from '@/components/landing/loading-screen';
-import { HeroSection } from '@/components/landing/hero-section';
 import { LandingHeader } from '@/components/landing/landing-header';
+import {
+  HeroSection,
+  FeaturesSection,
+  ScrollCinematicSection,
+  DatabaseSection,
+  ServicesSection,
+  AboutUsSection,
+  CommentsSection,
+  FaqSection,
+  CtaSection,
+  Footer,
+} from '@/components/landing';
 import { WelcomeTutorial } from '@/components/welcome-tutorial';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { PageTracker } from '@/components/page-tracker';
@@ -34,9 +45,22 @@ function LandingContent() {
       {mounted && <LandingHeader />}
 
       <main className="flex-1 w-full">
-        {mounted && <HeroSection />}
+        {mounted && (
+          <>
+            <HeroSection />
+            <FeaturesSection />
+            <ScrollCinematicSection />
+            <ServicesSection />
+            <DatabaseSection />
+            <AboutUsSection />
+            <CommentsSection />
+            <CtaSection />
+            <FaqSection />
+          </>
+        )}
       </main>
 
+      {mounted && <Footer />}
       {mounted && <WhatsAppButton />}
     </>
   );

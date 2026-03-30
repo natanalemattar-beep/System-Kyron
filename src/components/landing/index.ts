@@ -1,6 +1,6 @@
-
 export * from './hero-section';
-
+export * from './features-section';
+export * from './scroll-cinematic-section';
 export * from './database-section';
 export * from './services-section';
 export * from './about-us-section';
