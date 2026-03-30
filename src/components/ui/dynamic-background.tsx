@@ -1,25 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import dynamic from 'next/dynamic';
+import { useState, useEffect, lazy, Suspense } from "react";
 import { holidays } from "@/lib/holidays";
 import { useDeviceTierContext } from "@/hooks/use-device-tier";
 
-const FestiveEffect = dynamic(
-  () => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })),
-  { ssr: false }
-);
-
-const SlowConnectionBanner = dynamic(
-  () => import("./slow-connection-banner").then(m => ({ default: m.SlowConnectionBanner })),
-  { ssr: false }
-);
+const FestiveEffect = lazy(() => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })));
+const SlowConnectionBanner = lazy(() => import("./slow-connection-banner").then(m => ({ default: m.SlowConnectionBanner })));
 
 export function DynamicBackground() {
   const [isSnow, setIsSnow] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { tier } = useDeviceTierContext();
 
   useEffect(() => {
+    setMounted(true);
     const now = new Date();
     for (const holiday of holidays) {
       const start = new Date(now.getFullYear(), holiday.month, holiday.day);
@@ -38,7 +32,11 @@ export function DynamicBackground() {
   return (
     <>
       <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background">
-          {isSnow && tier !== "low" && <FestiveEffect type="snow" />}
+          {mounted && isSnow && tier !== "low" && (
+            <Suspense fallback={null}>
+              <FestiveEffect type="snow" />
+            </Suspense>
+          )}
           
           {showGrid && (
             <div className="absolute inset-0 -z-10 h-full w-full opacity-[0.06] dark:opacity-[0.08] hud-grid" />
@@ -87,7 +85,11 @@ export function DynamicBackground() {
             }}
           />
       </div>
-      <SlowConnectionBanner />
+      {mounted && (
+        <Suspense fallback={null}>
+          <SlowConnectionBanner />
+        </Suspense>
+      )}
     </>
   );
 }

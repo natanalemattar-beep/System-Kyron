@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense, useState, useCallback, useEffect, useRef } from 'react';
+import { LoadingScreen } from '@/components/landing/loading-screen';
 
-const LoadingScreen = dynamic(() => import("@/components/landing/loading-screen").then(m => ({ default: m.LoadingScreen })), { ssr: false });
 const HeroSection = dynamic(() => import("@/components/landing/hero-section").then(m => ({ default: m.HeroSection })), { ssr: false });
 const LandingHeader = dynamic(() => import("@/components/landing/landing-header").then(m => ({ default: m.LandingHeader })), { ssr: false });
 
@@ -64,10 +64,10 @@ function LandingContent() {
 
       <div ref={progressRef} className="fixed top-0 left-0 right-0 h-1 bg-primary/60 origin-left z-[200] scroll-progress-bar" />
 
-      <LandingHeader />
+      {mounted && <LandingHeader />}
 
       <main className="flex-1 w-full">
-        <HeroSection />
+        {mounted && <HeroSection />}
 
         {belowFoldReady && (
           <>

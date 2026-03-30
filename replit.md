@@ -53,7 +53,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Dashboard-Socios Page:** Page at `src/app/[locale]/(socios)/dashboard-socios/page.tsx` with shareholder composition table, KPI cards, recent assembly acts, and corporate governance modules. Fetches from `/api/socios` (CRUD for `socios` and `actas_asamblea` tables). Supports adding/editing/deleting socios with dialog form.
 - **Sostenibilidad Page:** Page at `src/app/[locale]/(main)/sostenibilidad/page.tsx` fetches from `/api/eco-creditos` (tables: `eco_creditos`, `eco_transacciones`). Supports registering recycling activities with dialog form. Shows real balance, CO₂ impact, and transaction history.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
-- **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
+- **Loading Screen:** Polished splash screen with Kyron Logo and progress bar. Imported directly (not dynamically) to prevent blank-page flash during SSR→client transition.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations are defined globally.
 - **Real RIF/Cédula Validation:** Uses Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula. API endpoints perform DB-only lookups.
 - **Route Protection:** Authentication is required for sensitive pages.
