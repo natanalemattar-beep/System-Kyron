@@ -596,21 +596,11 @@ export default function PasarelasDePagoPage() {
         </TabsList>
 
         <div className="mt-6">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {allGateways.map((gateway, i) => (
-                  <GatewayCard key={gateway.name} gateway={gateway} index={i} />
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {allGateways.map((gateway, i) => (
+              <GatewayCard key={gateway.name} gateway={gateway} index={i} />
+            ))}
+          </div>
         </div>
       </Tabs>
 
