@@ -1,4 +1,4 @@
-import { Client } from '@microsoft/microsoft-graph-client';
+import { google } from 'googleapis';
 
 let connectionSettings: any;
 
@@ -19,7 +19,7 @@ async function getAccessToken() {
   }
 
   connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=outlook',
+    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
     {
       headers: {
         'Accept': 'application/json',
@@ -30,10 +30,10 @@ async function getAccessToken() {
 
   const accessToken =
     connectionSettings?.settings?.access_token ||
-    connectionSettings.settings?.oauth?.credentials?.access_token;
+    connectionSettings?.settings?.oauth?.credentials?.access_token;
 
   if (!connectionSettings || !accessToken) {
-    throw new Error('Outlook not connected');
+    throw new Error('Gmail not connected');
   }
   return accessToken;
 }
@@ -41,12 +41,13 @@ async function getAccessToken() {
 // WARNING: Never cache this client.
 // Access tokens expire, so a new client must be created each time.
 // Always call this function again to get a fresh client.
-export async function getUncachableOutlookClient() {
+export async function getUncachableGmailClient() {
   const accessToken = await getAccessToken();
 
-  return Client.initWithMiddleware({
-    authProvider: {
-      getAccessToken: async () => accessToken,
-    },
+  const oauth2Client = new google.auth.OAuth2();
+  oauth2Client.setCredentials({
+    access_token: accessToken,
   });
+
+  return google.gmail({ version: 'v1', auth: oauth2Client });
 }

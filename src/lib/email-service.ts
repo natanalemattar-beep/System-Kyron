@@ -57,31 +57,8 @@ async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
 
 async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   try {
-    const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-    const xReplitToken = process.env.REPL_IDENTITY
-      ? 'repl ' + process.env.REPL_IDENTITY
-      : process.env.WEB_REPL_RENEWAL
-      ? 'depl ' + process.env.WEB_REPL_RENEWAL
-      : null;
-
-    if (!hostname || !xReplitToken) {
-      return { success: false, provider: 'gmail', error: 'Gmail connector env vars not available' };
-    }
-
-    const connRes = await fetch(
-      'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
-      { headers: { 'Accept': 'application/json', 'X-Replit-Token': xReplitToken } }
-    );
-    if (!connRes.ok) {
-      return { success: false, provider: 'gmail', error: `Gmail connection fetch failed: ${connRes.status}` };
-    }
-
-    const connData = await connRes.json();
-    const conn = connData.items?.[0];
-    const accessToken = conn?.settings?.access_token || conn?.settings?.oauth?.credentials?.access_token;
-    if (!accessToken) {
-      return { success: false, provider: 'gmail', error: 'Gmail not connected' };
-    }
+    const { getUncachableGmailClient } = await import('@/lib/gmail-client');
+    const gmail = await getUncachableGmailClient();
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
     const fromAddr = opts.from ?? 'System Kyron <noreplysystemkyron@gmail.com>';
@@ -101,16 +78,10 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
       .replace(/\//g, '_')
       .replace(/=+$/, '');
 
-    const sendRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ raw: encodedMessage }),
+    await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: { raw: encodedMessage },
     });
-
-    if (!sendRes.ok) {
-      const errBody = await sendRes.text();
-      return { success: false, provider: 'gmail', error: `Gmail API: ${sendRes.status} ${errBody}` };
-    }
 
     return { success: true, provider: 'gmail' };
   } catch (err) {
