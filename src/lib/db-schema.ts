@@ -18,6 +18,7 @@ export async function initializeDatabase(): Promise<void> {
     await createRRHHTables();
     await createRRHHExtendedTables();
     await createRRHHLibrosLaboralesTables();
+    await createRRHHBienestarTables();
     await createLegalTables();
     await createTelecomTables();
     await createTelecomExtendedTables();
@@ -545,6 +546,120 @@ async function createRRHHTables() {
       created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3B. MÓDULO RRHH — BIENESTAR LABORAL (Proyectos, Motivación, Vacaciones, Alianzas)
+// ─────────────────────────────────────────────────────────────────────────────
+async function createRRHHBienestarTables() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS proyectos_personal (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      titulo          TEXT NOT NULL,
+      departamento    TEXT NOT NULL,
+      tipo            TEXT NOT NULL DEFAULT 'estrategia' CHECK (tipo IN ('proyecto','estrategia','capacitacion','mejora_continua')),
+      descripcion     TEXT,
+      objetivo        TEXT,
+      responsable     TEXT,
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin_est   DATE,
+      estado          TEXT NOT NULL DEFAULT 'planificado' CHECK (estado IN ('planificado','en_progreso','completado','suspendido')),
+      progreso        INT NOT NULL DEFAULT 0 CHECK (progreso >= 0 AND progreso <= 100),
+      prioridad       TEXT NOT NULL DEFAULT 'media' CHECK (prioridad IN ('alta','media','baja')),
+      presupuesto     NUMERIC(18,2) DEFAULT 0,
+      kpis            JSONB DEFAULT '[]',
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_proy_pers_user ON proyectos_personal(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_proy_pers_depto ON proyectos_personal(departamento)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS programas_motivacion (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre          TEXT NOT NULL,
+      categoria       TEXT NOT NULL DEFAULT 'reconocimiento' CHECK (categoria IN ('reconocimiento','incentivo','bienestar','team_building','formacion','gamificacion')),
+      descripcion     TEXT,
+      puntos_reward   INT NOT NULL DEFAULT 0,
+      fecha_inicio    DATE NOT NULL,
+      fecha_fin       DATE,
+      activo          BOOLEAN NOT NULL DEFAULT true,
+      participantes   INT NOT NULL DEFAULT 0,
+      presupuesto     NUMERIC(18,2) DEFAULT 0,
+      reglas          JSONB DEFAULT '{}',
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_prog_motiv_user ON programas_motivacion(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS reconocimientos_empleado (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      programa_id     INT REFERENCES programas_motivacion(id) ON DELETE SET NULL,
+      tipo            TEXT NOT NULL DEFAULT 'logro' CHECK (tipo IN ('logro','antiguedad','desempeno','innovacion','liderazgo','compañerismo')),
+      titulo          TEXT NOT NULL,
+      descripcion     TEXT,
+      puntos          INT NOT NULL DEFAULT 0,
+      fecha           DATE NOT NULL DEFAULT CURRENT_DATE,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_reconoc_emp ON reconocimientos_empleado(empleado_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS alianzas_vacacionales (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre_complejo TEXT NOT NULL,
+      ubicacion       TEXT NOT NULL,
+      estado_ve       TEXT NOT NULL,
+      tipo            TEXT NOT NULL DEFAULT 'resort' CHECK (tipo IN ('resort','hotel','posada','campamento','spa','club')),
+      estrellas       INT NOT NULL DEFAULT 3 CHECK (estrellas >= 1 AND estrellas <= 5),
+      descuento_pct   NUMERIC(5,2) NOT NULL DEFAULT 0,
+      precio_base_usd NUMERIC(18,2) NOT NULL DEFAULT 0,
+      incluye_familia BOOLEAN NOT NULL DEFAULT true,
+      max_personas    INT NOT NULL DEFAULT 4,
+      servicios       JSONB DEFAULT '[]',
+      contacto_nombre TEXT,
+      contacto_telefono TEXT,
+      contacto_email  TEXT,
+      vigencia_inicio DATE NOT NULL,
+      vigencia_fin    DATE NOT NULL,
+      activa          BOOLEAN NOT NULL DEFAULT true,
+      imagen_url      TEXT,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_alianzas_vac_user ON alianzas_vacacionales(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS planes_vacaciones (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT NOT NULL REFERENCES empleados(id) ON DELETE CASCADE,
+      alianza_id      INT REFERENCES alianzas_vacacionales(id) ON DELETE SET NULL,
+      anio            INT NOT NULL,
+      fecha_salida    DATE NOT NULL,
+      fecha_retorno   DATE NOT NULL,
+      dias_solicitados INT NOT NULL DEFAULT 15,
+      incluye_familia BOOLEAN NOT NULL DEFAULT false,
+      num_familiares  INT NOT NULL DEFAULT 0,
+      estado          TEXT NOT NULL DEFAULT 'solicitado' CHECK (estado IN ('solicitado','aprobado','en_curso','completado','cancelado')),
+      costo_estimado  NUMERIC(18,2) DEFAULT 0,
+      subsidio_empresa NUMERIC(18,2) DEFAULT 0,
+      destino         TEXT,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_planes_vac_emp ON planes_vacaciones(empleado_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_planes_vac_anio ON planes_vacaciones(anio)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
