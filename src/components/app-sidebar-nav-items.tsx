@@ -16,7 +16,7 @@ export const naturalNavGroups = [
         icon: FolderArchive,
         items: [
             { href: "/documentos", label: "Bóveda Civil", icon: Lock },
-            { href: "/cuenta-personal/certificados-ingreso", label: "Cert. Ingresos", icon: Banknote },
+            { href: "/documentos", label: "Cert. Ingresos", icon: Banknote },
             { href: "/antecedentes-penales", label: "Antecedentes", icon: Gavel },
             { href: "/registro-rif", label: "RIF Familiar", icon: FileEdit },
         ],
@@ -127,7 +127,7 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
         { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu },
         { href: "/marketing", label: "Marketing IA", icon: Megaphone },
-        { href: "/marketing/carnets", label: "Carnets y Tarjetas", icon: IdCard },
+        { href: "/marketing", label: "Carnets y Tarjetas", icon: IdCard },
     ],
   },
   {
@@ -155,7 +155,7 @@ export const ventasNavGroups = [
     icon: ShoppingCart, 
     items: [
         { href: "/facturacion", label: "Centro de Facturas", icon: FileText },
-        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+        { href: "/contabilidad/punto-de-ventas", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/proformas", label: "Cotizaciones", icon: Receipt },
         { href: "/facturacion-credito", label: "Ventas a Crédito", icon: CreditCard },
     ],
@@ -166,7 +166,7 @@ export const ventasNavGroups = [
     icon: TrendingUp,
     items: [
         { href: "/analisis-ventas", label: "Análisis Comercial", icon: BarChart3 },
-        { href: "/estrategias-ventas", label: "Estrategias IA", icon: Zap },
+        { href: "/analisis-ventas", label: "Estrategias IA", icon: Zap },
     ]
   }
 ];

@@ -1,11 +1,13 @@
 'use client';
 
-import { ArrowRight, Play, CheckCircle2, Hexagon } from "lucide-react";
+import { ArrowRight, Play, CheckCircle2, Hexagon, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
     const [value, setValue] = useState(0);
@@ -32,7 +34,8 @@ function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
     return value;
 }
 
-function HexGrid() {
+function HexGrid({ reduced }: { reduced?: boolean }) {
+    if (reduced) return null;
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-[4]">
             <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +47,19 @@ function HexGrid() {
                 <rect width="100%" height="100%" fill="url(#hero-hex)" />
             </svg>
             {[...Array(4)].map((_, i) => (
-                <div
+                <motion.div
                     key={i}
-                    className="absolute rounded-full animate-[heroFloat_6s_ease-in-out_infinite]"
+                    className="absolute rounded-full"
+                    animate={{
+                        opacity: [0.2, 0.5, 0.2],
+                        y: [0, -15, 0],
+                    }}
+                    transition={{
+                        duration: 6 + i * 1.5,
+                        repeat: Infinity,
+                        delay: i * 1.2,
+                        ease: "easeInOut",
+                    }}
                     style={{
                         width: 4 + (i % 3) * 2,
                         height: 4 + (i % 3) * 2,
@@ -55,8 +68,6 @@ function HexGrid() {
                         background: i % 2 === 0
                             ? 'linear-gradient(135deg, rgba(14,165,233,0.4), rgba(34,197,94,0.2))'
                             : 'linear-gradient(135deg, rgba(59,130,246,0.3), rgba(14,165,233,0.2))',
-                        animationDelay: `${i * 1.2}s`,
-                        opacity: 0.4,
                     }}
                 />
             ))}
@@ -64,11 +75,21 @@ function HexGrid() {
     );
 }
 
+const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (delay: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }
+    })
+};
+
 export function HeroSection() {
     const t = useTranslations('HeroSection');
     const modulesCount = useCountUp(7, 2.5, 1.5);
     const heroFeatures = t.raw('features') as string[];
     const heroStats = t.raw('stats') as { val: string; label: string }[];
+    const { tier, config } = useDevicePerformance();
 
     return (
         <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
@@ -93,13 +114,15 @@ export function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/50 dark:from-[#020810]/70 dark:via-transparent dark:to-[#020810]/50" />
             </div>
 
-            <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.06] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
-                <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.05] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.04] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
-            </div>
+            {config.enableBlur && (
+                <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
+                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.06] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
+                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.05] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.04] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
+                </div>
+            )}
 
-            <HexGrid />
+            <HexGrid reduced={tier === 'low'} />
 
             <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[80%] kyron-accent-line opacity-30" />
 
@@ -107,31 +130,47 @@ export function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
                     <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
-                        <div
+                        <motion.div
                             className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.1}
                         >
                             <span className="kyron-dot animate-pulse" />
                             <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
-                        </div>
+                        </motion.div>
 
-                        <h1
+                        <motion.h1
                             className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.2}
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
                             <span className="block text-foreground">{t('title_line2')}</span>
                             <span className="block bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent italic animate-gradient-flow" style={{ backgroundSize: '200% 200%' }}>
                                 {t('title_line3')}
                             </span>
-                        </h1>
+                        </motion.h1>
 
-                        <p
+                        <motion.p
                             className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.3}
                         >
                             {t('subtitle')}
-                        </p>
+                        </motion.p>
 
-                        <div
+                        <motion.div
                             className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.4}
                         >
                             <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
                                 <Link href="/login" className="flex items-center gap-3 justify-center">
@@ -145,18 +184,28 @@ export function HeroSection() {
                                     {t('cta_secondary')}
                                 </Link>
                             </Button>
-                        </div>
+                        </motion.div>
 
-                        <div className="flex justify-center lg:justify-start pt-1">
+                        <motion.div
+                            className="flex justify-center lg:justify-start pt-1"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.5}
+                        >
                             <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 dark:text-white/30 hover:text-[#0ea5e9] dark:hover:text-sky-400 transition-colors duration-300">
                                 <Play className="h-3 w-3 group-hover:scale-110 transition-transform" />
                                 <span>¿Cómo registrarse? — Ver tutorial paso a paso</span>
                                 <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                             </Link>
-                        </div>
+                        </motion.div>
 
-                        <div
+                        <motion.div
                             className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.55}
                         >
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
@@ -164,14 +213,19 @@ export function HeroSection() {
                                     <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{feat}</span>
                                 </div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
 
-                    <div
+                    <motion.div
                         className="lg:col-span-6 relative"
+                        initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
-                            <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
+                            {config.enableBlur && (
+                                <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
+                            )}
                             
                             <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
@@ -187,7 +241,12 @@ export function HeroSection() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-[#020810]/40 via-transparent to-transparent" />
                             </div>
 
-                            <div className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]">
+                            <motion.div
+                                className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.7, duration: 0.5 }}
+                            >
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center kyron-gradient-bg">
                                         <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -197,9 +256,14 @@ export function HeroSection() {
                                         <p className="text-base sm:text-lg font-bold text-[#22c55e] tabular-nums">{modulesCount}+</p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            <div className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-float-slow-reverse border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]">
+                            <motion.div
+                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.8, duration: 0.5 }}
+                            >
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#0ea5e9] to-[#3b82f6] flex items-center justify-center">
                                         <Hexagon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -209,16 +273,21 @@ export function HeroSection() {
                                         <p className="text-base sm:text-lg font-bold text-[#0ea5e9]">{t('modules_value')}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
 
-            <div className="absolute bottom-6 left-0 right-0 z-10">
+            <motion.div
+                className="absolute bottom-6 left-0 right-0 z-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+            >
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {heroStats.map((s, i) => {
@@ -230,18 +299,21 @@ export function HeroSection() {
                             ];
                             const g = gradients[i % gradients.length];
                             return (
-                                <div
+                                <motion.div
                                     key={i}
                                     className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1 + i * 0.08, duration: 0.4 }}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
                                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{s.label}</p>
-                                </div>
+                                </motion.div>
                             );
                         })}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }

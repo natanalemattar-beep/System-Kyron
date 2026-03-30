@@ -18,10 +18,12 @@ import {
 import { WelcomeTutorial } from '@/components/welcome-tutorial';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { PageTracker } from '@/components/page-tracker';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const { tier, isMobile } = useDevicePerformance();
 
   useEffect(() => {
     setMounted(true);
@@ -31,9 +33,17 @@ function LandingContent() {
     setIsLoading(false);
   }, []);
 
+  const skipLoadingScreen = tier === 'low';
+
+  useEffect(() => {
+    if (skipLoadingScreen && isLoading) {
+      setIsLoading(false);
+    }
+  }, [skipLoadingScreen, isLoading]);
+
   return (
     <>
-      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      {isLoading && !skipLoadingScreen && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       {mounted && (
         <>
@@ -49,7 +59,7 @@ function LandingContent() {
           <>
             <HeroSection />
             <FeaturesSection />
-            <ScrollCinematicSection />
+            {tier !== 'low' && <ScrollCinematicSection />}
             <ServicesSection />
             <DatabaseSection />
             <AboutUsSection />

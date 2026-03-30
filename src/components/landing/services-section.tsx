@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const featuresMeta = [
     { image: "/images/landing/devices-mockup.webp", icon: Receipt, color: "from-primary to-blue-600" },
@@ -22,11 +24,19 @@ const statsMeta = [
 export function ServicesSection() {
     const t = useTranslations('ServicesSection');
     const features = t.raw('features') as Array<{ title: string; subtitle: string; description: string; badges: string[] }>;
+    const { tier } = useDevicePerformance();
+    const animate = tier !== 'low';
 
     return (
         <section id="servicios" className="relative z-10 overflow-hidden">
             <div className="py-20 md:py-28">
-                <div className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center">
+                <motion.div
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"
+                    initial={animate ? { opacity: 0, y: 20 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.5 }}
+                >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
                         {t('badge')}
@@ -40,13 +50,20 @@ export function ServicesSection() {
                     <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
                         {t('subtitle')}
                     </p>
-                </div>
+                </motion.div>
 
                 <div className="space-y-20 md:space-y-28">
                     {features.map((feat, idx) => {
                         const meta = featuresMeta[idx];
                         return (
-                            <div key={idx} className="container mx-auto px-4 md:px-10 max-w-7xl">
+                            <motion.div
+                                key={idx}
+                                className="container mx-auto px-4 md:px-10 max-w-7xl"
+                                initial={animate ? { opacity: 0, y: 30 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                            >
                                 <div className={cn(
                                     "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
                                     idx % 2 === 1 && "lg:flex-row-reverse"
@@ -85,12 +102,18 @@ export function ServicesSection() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>
 
-                <div className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32">
+                <motion.div
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"
+                    initial={animate ? { opacity: 0, y: 20 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.5 }}
+                >
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-5">
                             <Globe className="h-3.5 w-3.5" />
@@ -131,7 +154,7 @@ export function ServicesSection() {
                             {t('start_now')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

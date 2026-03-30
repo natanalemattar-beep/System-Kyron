@@ -328,7 +328,7 @@ export default function DashboardEmpresaPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Clientes Activos", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", bg: "bg-cyan-500/8", ring: "ring-cyan-500/10", href: "/fidelizacion-clientes" },
-          { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", href: "/rrhh" },
+          { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", href: "/dashboard-rrhh" },
           { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", extra: data?.facturasEsteMes.monto ? `Bs. ${fmtCompact(data.facturasEsteMes.monto)}` : undefined, href: "/facturacion" },
           { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", bg: "bg-indigo-500/8", ring: "ring-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0, href: "/notificaciones" },
         ].map((stat, i) => (
@@ -602,7 +602,7 @@ export default function DashboardEmpresaPage() {
             { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8" },
             { label: "Telecom", href: "/mi-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
             { label: "Marketing", href: "/marketing", icon: Briefcase, color: "text-rose-500", bg: "bg-rose-500/8" },
-            { label: "Socios", href: "/dashboard-socios", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
+            { label: "Socios", href: "/contabilidad/tributos/poderes-representacion", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/8" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>

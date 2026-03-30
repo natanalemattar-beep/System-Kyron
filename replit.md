@@ -78,7 +78,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Internationalization:** `next-intl`
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
-- **Animations:** CSS keyframe animations (viewport-gated via IntersectionObserver), Framer Motion (scroll-cinematic only)
+- **Animations:** CSS keyframe animations (viewport-gated via IntersectionObserver), Framer Motion (landing sections: hero, features, services, about-us with stagger/fadeUp variants; scroll-cinematic for parallax; login selector with AnimatePresence; dashboards with staggered mount animations). Device-performance-aware: `src/lib/device-performance.ts` + `src/hooks/use-device-performance.ts` detect CPU cores, RAM, connection type, reduced motion preference — animations disabled on low-tier devices.
 - **Email Services:**
   - **Gmail (Replit Integration):** Used exclusively for sending verification codes (OTP/2FA)
   - **Outlook/Microsoft (Replit Integration):** Used for all types of alerts and notifications (fiscal deadlines, document status, system alerts, SENIAT reminders)

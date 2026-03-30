@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import Image from 'next/image';
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 interface SiteStats {
     totalUsuarios: number;
@@ -46,8 +48,17 @@ const Counter = ({ from, to, duration = 1500 }: { from: number, to: number, dura
     return <span ref={ref}>{displayed}</span>;
 };
 
+const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    visible: (i: number) => ({
+        opacity: 1, y: 0,
+        transition: { delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+    })
+};
+
 export function AboutUsSection() {
     const t = useTranslations('AboutUsSection');
+    const { tier } = useDevicePerformance();
     const [stats, setStats] = useState<SiteStats>({
         totalUsuarios: 0,
         totalEmpresas: 0,
@@ -75,6 +86,8 @@ export function AboutUsSection() {
         { label: t('feat_audit'), icon: ShieldCheck },
     ];
 
+    const animate = tier !== 'low';
+
     return (
         <section id="nosotros" className="relative overflow-hidden">
             <div className="relative py-20 md:py-28">
@@ -92,25 +105,45 @@ export function AboutUsSection() {
                 </div>
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
-                    <div className="text-center space-y-5 mb-16">
-                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
-                            <Globe className="h-3.5 w-3.5 text-emerald-400" />
-                            {t('badge')}
-                        </div>
-                        <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground">
+                    <motion.div
+                        className="text-center space-y-5 mb-16"
+                        initial={animate ? "hidden" : undefined}
+                        whileInView={animate ? "visible" : undefined}
+                        viewport={{ once: true, margin: "-80px" }}
+                    >
+                        <motion.div variants={animate ? fadeUp : undefined} custom={0}>
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
+                                <Globe className="h-3.5 w-3.5 text-emerald-400" />
+                                {t('badge')}
+                            </div>
+                        </motion.div>
+                        <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground">
                             {t('title_highlight')}{' '}
                             <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                 {t('title_rest')}
                             </span>
-                        </h2>
-                        <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
+                        </motion.h2>
+                        <motion.p variants={animate ? fadeUp : undefined} custom={2} className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
                             {t('subtitle')}
-                        </p>
-                    </div>
+                        </motion.p>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+                    <motion.div
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
+                        initial={animate ? { opacity: 0, y: 20 } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
                         {statCards.map((stat, i) => (
-                            <div key={i} className="hover:-translate-y-1 transition-transform duration-300">
+                            <motion.div
+                                key={i}
+                                className="hover:-translate-y-1 transition-transform duration-300"
+                                initial={animate ? { opacity: 0, scale: 0.95 } : undefined}
+                                whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.3 + i * 0.15, duration: 0.4 }}
+                            >
                                 <Card className="relative overflow-hidden rounded-[2rem] bg-card/80 dark:bg-white/[0.03] border border-border/30 dark:border-white/10 p-8 text-center group cursor-default hover:border-border/50 dark:hover:border-white/20 transition-all duration-300 shadow-2xl">
                                     <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
                                     <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-all duration-500">
@@ -123,26 +156,45 @@ export function AboutUsSection() {
                                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
                                     </div>
                                 </Card>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <motion.div
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                        initial={animate ? { opacity: 0 } : undefined}
+                        whileInView={animate ? { opacity: 1 } : undefined}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                    >
                         {featItems.map((item, i) => (
-                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-muted/30 dark:bg-white/5 border border-border/20 dark:border-white/8">
+                            <motion.div
+                                key={i}
+                                className="flex items-center gap-3 p-4 rounded-2xl bg-muted/30 dark:bg-white/5 border border-border/20 dark:border-white/8 hover:-translate-y-0.5 transition-transform duration-300"
+                                initial={animate ? { opacity: 0, y: 12 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.5 + i * 0.08, duration: 0.35 }}
+                            >
                                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/15 flex items-center justify-center shrink-0">
                                     <item.icon className="h-4 w-4 text-primary" />
                                 </div>
                                 <p className="text-xs font-semibold uppercase tracking-wider text-foreground/60">{item.label}</p>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
-                    <div className="mt-10 flex justify-center">
+                    <motion.div
+                        className="mt-10 flex justify-center"
+                        initial={animate ? { opacity: 0, y: 10 } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6, duration: 0.4 }}
+                    >
                         <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 dark:hover:bg-white/10 hover:border-border/50 dark:hover:border-white/25 transition-all duration-500">
                             {t('join_cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

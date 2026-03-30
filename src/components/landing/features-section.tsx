@@ -3,7 +3,8 @@
 import { BrainCircuit, Lock, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, Landmark, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
-
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const featuresMeta = [
     { icon: Calculator, color: "text-primary", bg: "bg-primary/10", border: "border-primary/15", glowColor: "rgba(30, 64, 175, 0.15)", span: "col-span-1" },
@@ -17,16 +18,32 @@ const featuresMeta = [
     { icon: Lock, color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/15", glowColor: "rgba(249, 115, 22, 0.15)", span: "col-span-1" },
 ];
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.2 } }
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.97 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+};
+
 export function FeaturesSection() {
     const t = useTranslations('FeaturesSection');
     const features = t.raw('features') as { title: string; description: string }[];
     const stats = t.raw('stats') as { val: string; detail: string }[];
+    const { tier } = useDevicePerformance();
+
     return (
         <section id="caracteristicas" className="py-16 md:py-32 relative">
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
 
-                <div
+                <motion.div
                     className="mb-14 md:mb-20 space-y-5 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5 }}
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
@@ -38,16 +55,21 @@ export function FeaturesSection() {
                     <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
                         {t('subtitle')}
                     </p>
-                </div>
+                </motion.div>
 
-                <div
+                <motion.div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
+                    variants={tier !== 'low' ? containerVariants : undefined}
+                    initial={tier !== 'low' ? "hidden" : undefined}
+                    whileInView={tier !== 'low' ? "visible" : undefined}
+                    viewport={{ once: true, margin: "-50px" }}
                 >
                     {features.map((f, idx) => {
                         const meta = featuresMeta[idx] || featuresMeta[0];
                         return (
-                            <div
+                            <motion.div
                                 key={f.title}
+                                variants={tier !== 'low' ? cardVariants : undefined}
                                 className={cn(
                                     "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
                                     "bg-card/30 dark:bg-card/15",
@@ -80,17 +102,21 @@ export function FeaturesSection() {
                                         {f.title}
                                         <ArrowUpRight className={cn("h-3 w-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300", meta.color)} />
                                     </h3>
-                                    <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">
+                                    <p className="text-[11px] text-muted-foreground font-semibold leading-relaxed">
                                         {f.description}
                                     </p>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
-                </div>
+                </motion.div>
 
-                <div
+                <motion.div
                     className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3"
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     {stats.map((r, i) => (
                         <div
@@ -101,7 +127,7 @@ export function FeaturesSection() {
                             <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
                         </div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
