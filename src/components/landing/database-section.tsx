@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Database, Zap, Shield, Activity, Table2, GitBranch, Lock, RefreshCw, HardDrive, Layers, Network, BarChart2, CheckCircle2, ArrowRight, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useInView } from '@/hooks/use-in-view';
+
 
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
     const [displayed, setDisplayed] = useState(0);
@@ -115,7 +115,7 @@ function LiveQueryBox() {
                 {!done && <Cursor />}
             </div>
             {done && (
-                <div className="flex items-center gap-3 px-5 py-2.5 border-t border-emerald-500/10 bg-emerald-950/20 animate-[fadeSlideUp_0.3s_both]">
+                <div className="flex items-center gap-3 px-5 py-2.5 border-t border-emerald-500/10 bg-emerald-950/20">
                     <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
                     <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">
                         Query exitosa — {ms}ms
@@ -208,8 +208,7 @@ const colorMap: Record<string, string> = {
 function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
     return (
         <div
-            className={cn("rounded-2xl border bg-card/20 backdrop-blur-sm overflow-hidden hover:scale-[1.02] transition-transform duration-300 cursor-default animate-[fadeSlideUp_0.6s_both]", colorMap[table.color].split(" ")[1])}
-            style={{ animationDelay: `${delay}s` }}
+            className={cn("rounded-2xl border bg-card/20 backdrop-blur-sm overflow-hidden hover:scale-[1.02] transition-transform duration-300 cursor-default", colorMap[table.color].split(" ")[1])}
         >
             <div className={cn("flex items-center justify-between px-4 py-3 border-b", colorMap[table.color].split(" ")[1])}>
                 <div className="flex items-center gap-2">
@@ -242,7 +241,7 @@ function SchemaCard({ table, delay }: { table: SchemaTable; delay: number }) {
 function MetricPill({ icon: Icon, label, value, suffix, color }: { icon: React.ElementType; label: string; value: number; suffix?: string; color: string; delay?: number }) {
     return (
         <div
-            className={cn("flex flex-col gap-2 p-5 rounded-2xl border bg-card/20 backdrop-blur-sm hover:bg-card/40 transition-colors duration-300 animate-[fadeSlideUp_0.5s_both]", color.split(" ")[1])}
+            className={cn("flex flex-col gap-2 p-5 rounded-2xl border bg-card/20 backdrop-blur-sm hover:bg-card/40 transition-colors duration-300", color.split(" ")[1])}
         >
             <div className="flex items-center gap-2">
                 <div className={cn("p-1.5 rounded-lg", color.split(" ")[2])}>
@@ -266,7 +265,7 @@ function FloatOrb({ className }: { className?: string }) {
 function ReplicationNode({ label, role, color, delay }: { label: string; role: string; color: string; delay: number }) {
     return (
         <div
-            className={cn("flex flex-col items-center gap-2 p-4 rounded-2xl border backdrop-blur-sm animate-[fadeSlideUp_0.5s_both]", color)}
+            className={cn("flex flex-col items-center gap-2 p-4 rounded-2xl border backdrop-blur-sm", color)}
             style={{ animationDelay: `${delay}s` }}
         >
             <HardDrive className="h-5 w-5" />
@@ -282,13 +281,10 @@ function ReplicationNode({ label, role, color, delay }: { label: string; role: s
 }
 
 export function DatabaseSection() {
-    const [sectionRef, inView] = useInView(0.05);
-
     return (
         <section
-            ref={sectionRef}
             id="base-de-datos"
-            className={`relative w-full overflow-hidden py-28 md:py-40 ${!inView ? 'animate-hidden' : ''}`}
+            className="relative w-full overflow-hidden py-28 md:py-40"
             style={{ background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.75) 60%, transparent 100%)" }}
         >
             <FloatOrb className="w-[600px] h-[600px] bg-emerald-500/30 top-[-10%] left-[-10%]" />
@@ -299,7 +295,7 @@ export function DatabaseSection() {
 
             <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-10">
 
-                <div className="text-center mb-20 space-y-5 animate-[fadeSlideUp_0.8s_both]">
+                <div className="text-center mb-20 space-y-5">
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400">
                         <Database className="h-3 w-3" />
                         Infraestructura de Datos
@@ -331,7 +327,7 @@ export function DatabaseSection() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
-                    <div className="space-y-4 animate-[fadeSlideUp_0.8s_both]">
+                    <div className="space-y-4">
                         <div className="flex items-center gap-2 mb-2">
                             <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />
                             <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Terminal SQL en vivo</span>
@@ -365,7 +361,7 @@ export function DatabaseSection() {
                 </div>
 
                 <div
-                    className="relative rounded-3xl border border-blue-500/20 bg-gradient-to-r from-blue-950/40 via-violet-950/30 to-emerald-950/40 backdrop-blur-md p-8 md:p-12 overflow-hidden mb-16 animate-[fadeSlideUp_0.8s_both]"
+                    className="relative rounded-3xl border border-blue-500/20 bg-gradient-to-r from-blue-950/40 via-violet-950/30 to-emerald-950/40 backdrop-blur-md p-8 md:p-12 overflow-hidden mb-16"
                 >
                     <div className="absolute inset-0 opacity-[0.06] hud-grid pointer-events-none rounded-3xl" />
 
@@ -416,7 +412,7 @@ export function DatabaseSection() {
                     </div>
                 </div>
 
-                <div className="mb-16 space-y-6 animate-[fadeSlideUp_0.8s_both]">
+                <div className="mb-16 space-y-6">
                     <div className="text-center space-y-3">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400">
                             <Network className="h-3 w-3" />
@@ -437,8 +433,7 @@ export function DatabaseSection() {
                         ].map((item, i) => (
                             <div
                                 key={item.module}
-                                className="p-5 rounded-2xl border border-border/40 bg-card/20 backdrop-blur-sm hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 group cursor-default animate-[fadeSlideUp_0.5s_both]"
-                                style={{ animationDelay: `${i * 0.08}s` }}
+                                className="p-5 rounded-2xl border border-border/40 bg-card/20 backdrop-blur-sm hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 group cursor-default"
                             >
                                 <div className="flex items-start justify-between mb-3">
                                     <span className="text-2xl">{item.icon}</span>
@@ -458,7 +453,7 @@ export function DatabaseSection() {
                     </div>
                 </div>
 
-                <div className="mb-16 space-y-6 animate-[fadeSlideUp_0.8s_0.1s_both]">
+                <div className="mb-16 space-y-6">
                     <div className="text-center space-y-3 mb-8">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-rose-400">
                             <Shield className="h-3 w-3" />
@@ -537,8 +532,7 @@ export function DatabaseSection() {
                     ].map((item, i) => (
                         <div
                             key={item.title}
-                            className={cn("group p-6 rounded-2xl border backdrop-blur-sm hover:scale-[1.02] transition-transform duration-300 animate-[fadeSlideUp_0.6s_both]", item.bg)}
-                            style={{ animationDelay: `${i * 0.1}s` }}
+                            className={cn("group p-6 rounded-2xl border backdrop-blur-sm hover:scale-[1.02] transition-transform duration-300", item.bg)}
                         >
                             <div className={cn("p-2.5 rounded-xl w-fit mb-4 border border-border/10", item.bg)}>
                                 <item.icon className={cn("h-5 w-5", item.color)} />

@@ -99,14 +99,14 @@ export function HeroSection() {
 
                     <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
                         <div
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm animate-[fadeSlideUp_0.5s_0.1s_both]"
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
                         >
                             <span className="kyron-dot animate-pulse" />
                             <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
                         </div>
 
                         <h1
-                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02] animate-[fadeSlideUp_0.6s_0.2s_both]"
+                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
                             <span className="block text-foreground">{t('title_line2')}</span>
@@ -116,13 +116,13 @@ export function HeroSection() {
                         </h1>
 
                         <p
-                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed animate-[fadeSlideUp_0.5s_0.3s_both]"
+                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
                         >
                             {t('subtitle')}
                         </p>
 
                         <div
-                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-[fadeSlideUp_0.5s_0.4s_both]"
+                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
                         >
                             <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
                                 <Link href="/register" className="flex items-center gap-3 justify-center">
@@ -139,7 +139,7 @@ export function HeroSection() {
                         </div>
 
                         <div
-                            className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4 animate-[fadeIn_0.5s_0.5s_both]"
+                            className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
                         >
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
@@ -151,7 +151,7 @@ export function HeroSection() {
                     </div>
 
                     <div
-                        className="lg:col-span-6 relative animate-[fadeSlideUp_0.7s_0.3s_both]"
+                        className="lg:col-span-6 relative"
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
@@ -215,8 +215,7 @@ export function HeroSection() {
                             return (
                                 <div
                                     key={i}
-                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm animate-[fadeSlideUp_0.4s_both]`}
-                                    style={{ animationDelay: `${0.6 + i * 0.08}s` }}
+                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm`}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
                                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{s.label}</p>

@@ -3,7 +3,7 @@
 import { BrainCircuit, Lock, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, Landmark, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
-import { useInView } from '@/hooks/use-in-view';
+
 
 const featuresMeta = [
     { icon: Calculator, color: "text-primary", bg: "bg-primary/10", border: "border-primary/15", glowColor: "rgba(30, 64, 175, 0.15)", span: "col-span-1" },
@@ -21,14 +21,12 @@ export function FeaturesSection() {
     const t = useTranslations('FeaturesSection');
     const features = t.raw('features') as { title: string; description: string }[];
     const stats = t.raw('stats') as { val: string; detail: string }[];
-    const [ref, inView] = useInView(0.05);
-
     return (
-        <section ref={ref} id="caracteristicas" className={`py-16 md:py-32 relative ${!inView ? 'animate-hidden' : ''}`}>
+        <section id="caracteristicas" className="py-16 md:py-32 relative">
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
 
                 <div
-                    className="mb-14 md:mb-20 space-y-5 text-center animate-[fadeSlideUp_0.7s_both]"
+                    className="mb-14 md:mb-20 space-y-5 text-center"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
@@ -51,13 +49,12 @@ export function FeaturesSection() {
                             <div
                                 key={f.title}
                                 className={cn(
-                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1 animate-[fadeSlideUp_0.5s_both]",
+                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
                                     "bg-card/30 dark:bg-card/15",
                                     meta.border, meta.span
                                 )}
                                 style={{
                                     '--glow-color': meta.glowColor,
-                                    animationDelay: `${idx * 0.07}s`,
                                 } as React.CSSProperties}
                                 onMouseEnter={(e) => {
                                     (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px -8px ${meta.glowColor}`;
@@ -93,7 +90,7 @@ export function FeaturesSection() {
                 </div>
 
                 <div
-                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 animate-[fadeSlideUp_0.6s_0.2s_both]"
+                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3"
                 >
                     {stats.map((r, i) => (
                         <div

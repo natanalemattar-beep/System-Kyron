@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from 'next/image';
 import { Link } from "@/navigation";
-import { useInView } from '@/hooks/use-in-view';
+
 
 interface SiteStats {
     totalUsuarios: number;
@@ -47,7 +47,6 @@ const Counter = ({ from, to, duration = 1500 }: { from: number, to: number, dura
 };
 
 export function AboutUsSection() {
-    const [sectionRef, inView] = useInView(0.05);
     const [stats, setStats] = useState<SiteStats>({
         totalUsuarios: 0,
         totalEmpresas: 0,
@@ -64,7 +63,7 @@ export function AboutUsSection() {
     }, []);
 
     return (
-        <section ref={sectionRef} id="nosotros" className={`relative overflow-hidden ${!inView ? 'animate-hidden' : ''}`}>
+        <section id="nosotros" className="relative overflow-hidden">
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
                     <Image
@@ -81,7 +80,7 @@ export function AboutUsSection() {
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                     <div
-                        className="text-center space-y-5 mb-16 animate-[fadeSlideUp_0.6s_both]"
+                        className="text-center space-y-5 mb-16"
                     >
                         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
                             <Globe className="h-3.5 w-3.5 text-emerald-400" />
@@ -99,7 +98,7 @@ export function AboutUsSection() {
                     </div>
 
                     <div
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12 animate-[fadeSlideUp_0.6s_0.15s_both]"
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
                     >
                         {[
                             { val: stats.totalUsuarios, label: "Usuarios Registrados", icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-400" },
@@ -123,7 +122,7 @@ export function AboutUsSection() {
                     </div>
 
                     <div
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-[fadeSlideUp_0.6s_0.25s_both]"
+                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
                     >
                         {[
                             { label: "Migración en 48h", icon: Zap },
@@ -141,7 +140,7 @@ export function AboutUsSection() {
                     </div>
 
                     <div
-                        className="mt-10 flex justify-center animate-[fadeIn_0.5s_0.4s_both]"
+                        className="mt-10 flex justify-center"
                     >
                         <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 dark:hover:bg-white/10 hover:border-border/50 dark:hover:border-white/25 transition-all duration-500">
                             Únete al Ecosistema <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

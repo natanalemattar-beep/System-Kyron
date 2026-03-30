@@ -220,7 +220,7 @@ export function ScrollCinematicSection() {
                                 return (
                                     <div
                                         key={i}
-                                        className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/15 transition-colors duration-300 animate-[fadeSlideUp_0.4s_both]"
+                                        className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/15 transition-colors duration-300"
                                         style={{ animationDelay: `${i * 0.06}s` }}
                                     >
                                         <div className="flex items-start justify-between mb-2 sm:mb-3 relative">
@@ -259,7 +259,7 @@ export function ScrollCinematicSection() {
                                 return (
                                     <div
                                         key={i}
-                                        className="text-center group animate-[fadeSlideUp_0.4s_both]"
+                                        className="text-center group"
                                         style={{ animationDelay: `${i * 0.08}s` }}
                                     >
                                         <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>

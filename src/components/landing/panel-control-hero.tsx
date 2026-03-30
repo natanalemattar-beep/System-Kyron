@@ -35,7 +35,7 @@ export function PanelControlHero() {
       </div>
 
       <div
-        className="relative z-10 w-full max-w-2xl mx-auto animate-[fadeSlideUp_0.8s_both]"
+        className="relative z-10 w-full max-w-2xl mx-auto"
       >
         <div className="rounded-[2rem] border border-border/30 dark:border-white/10 bg-card/60 dark:bg-white/[0.03] backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
 
@@ -110,7 +110,7 @@ export function PanelControlHero() {
         </div>
 
         <p
-          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6 animate-[fadeIn_0.5s_0.9s_both]"
+          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
         >
           Ecosistema Corporativo Venezuela • v2.8.5
         </p>

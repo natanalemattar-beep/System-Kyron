@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
-import { useInView } from '@/hooks/use-in-view';
+
 
 const topFaqItems = [
     {
@@ -34,13 +34,11 @@ const topFaqItems = [
 ];
 
 export function FaqSection() {
-    const [sectionRef, inView] = useInView(0.05);
-
     return (
-        <section ref={sectionRef} id="faq" className={`py-16 md:py-24 relative overflow-hidden ${!inView ? 'animate-hidden' : ''}`}>
+        <section id="faq" className="py-16 md:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
                 <div
-                    className="text-center mb-12 md:mb-16 space-y-4 animate-[fadeSlideUp_0.5s_both]"
+                    className="text-center mb-12 md:mb-16 space-y-4"
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
@@ -62,8 +60,7 @@ export function FaqSection() {
                         {topFaqItems.map((item, index) => (
                             <div
                                 key={index}
-                                className="animate-[fadeSlideUp_0.3s_both]"
-                                style={{ animationDelay: `${0.15 + index * 0.05}s` }}
+                                className=""
                             >
                                 <AccordionItem
                                     value={`item-${index}`}
@@ -88,7 +85,7 @@ export function FaqSection() {
                     </Accordion>
 
                     <div
-                        className="flex justify-center mt-10 animate-[fadeIn_0.5s_0.4s_both]"
+                        className="flex justify-center mt-10"
                     >
                         <Link href="/faq">
                             <Button
