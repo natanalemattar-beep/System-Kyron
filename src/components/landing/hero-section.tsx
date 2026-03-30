@@ -147,6 +147,14 @@ export function HeroSection() {
                             </Button>
                         </div>
 
+                        <div className="flex justify-center lg:justify-start pt-1">
+                            <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 dark:text-white/30 hover:text-[#0ea5e9] dark:hover:text-sky-400 transition-colors duration-300">
+                                <Play className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                                <span>¿Cómo registrarse? — Ver tutorial paso a paso</span>
+                                <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                            </Link>
+                        </div>
+
                         <div
                             className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
                         >

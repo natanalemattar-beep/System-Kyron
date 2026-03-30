@@ -51,6 +51,7 @@ const PUBLIC_SEGMENTS = new Set([
   'politica-privacidad',
   'sector-privado-system-kyron',
   'manual-usuario',
+  'guia-registro',
   'identidad-marca',
   'ecosistema',
   'faq',
