@@ -30,7 +30,7 @@ export default function AnalisisRiesgoPage() {
         <Card className="lg:col-span-4 glass-card border-none bg-rose-500/5 p-10 rounded-[3rem] text-center shadow-2xl flex flex-col justify-center border-l-4 border-rose-500">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-500/60 mb-6">Nivel de Exposición Global</p>
             <div className="relative inline-block mb-6">
-                <p className="text-7xl font-black italic text-rose-500 tracking-tighter leading-none shadow-glow">7.5</p>
+                <p className="text-4xl md:text-5xl font-black italic text-rose-500 tracking-tight leading-none shadow-glow">7.5</p>
                 <p className="text-[9px] font-bold uppercase opacity-40 mt-2">Sobre 10 Puntos</p>
             </div>
             <Progress value={75} className="h-3 bg-rose-500/10" />
@@ -77,7 +77,7 @@ export default function AnalisisRiesgoPage() {
 
       <div className="grid md:grid-cols-2 gap-10">
         <Card className="glass-card border-none p-10 rounded-[3rem] bg-emerald-500/5 border-l-4 border-emerald-500">
-            <h3 className="text-xl font-black uppercase italic tracking-tighter text-emerald-500 mb-6 flex items-center gap-4">
+            <h3 className="text-xl font-black uppercase italic tracking-tight text-emerald-500 mb-6 flex items-center gap-4">
                 <ShieldCheck className="h-6 w-6" /> Plan de Mitigación
             </h3>
             <p className="text-sm font-bold uppercase italic text-muted-foreground/60 leading-relaxed text-justify mb-8">

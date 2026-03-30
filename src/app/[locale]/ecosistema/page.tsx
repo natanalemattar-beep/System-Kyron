@@ -72,7 +72,7 @@ export default function EcosistemaKyron() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Lock className="h-3 w-3" /> ACCESO DE AUTORIDAD TOTAL
                     </div>
-                    <h2 className="text-3xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow leading-none">Ecosistema <span className="text-primary italic">Kyron</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic italic-shadow leading-none">Ecosistema <span className="text-primary italic">Kyron</span></h2>
                     <p className="text-[8px] md:text-[10px] font-black text-primary uppercase tracking-[0.4em] md:tracking-[0.6em] mt-3 md:mt-4 opacity-80">Terminal de Operaciones Globales • 2026</p>
                 </div>
                 <div className="flex gap-2 md:gap-3">
@@ -94,7 +94,7 @@ export default function EcosistemaKyron() {
                     <Activity className="h-3 md:h-3.5 w-3 md:w-3.5" /> Transmisión Activa
                   </div>
                   <CardHeader className="p-6 md:p-10 pb-0">
-                    <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tighter flex items-center gap-3 md:gap-4 text-foreground">
+                    <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tight flex items-center gap-3 md:gap-4 text-foreground">
                         <BarChart3 className="text-primary h-5 w-5 md:h-6 md:w-6" />
                         Flujo de Red IA
                     </CardTitle>
@@ -130,14 +130,14 @@ export default function EcosistemaKyron() {
                             <div className="group flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-rose-500/5 border border-rose-500/10 hover:bg-rose-500/10 transition-colors">
                                 <ShieldAlert className="h-5 w-5 md:h-6 md:w-6 text-rose-500 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tighter text-rose-600">Alerta de Seguridad</p>
+                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tight text-rose-600">Alerta de Seguridad</p>
                                     <p className="text-[9px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Inconsistencia detectada en protocolo fiscal Marzo.</p>
                                 </div>
                             </div>
                             <div className="group flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 hover:bg-amber-500/10 transition-colors">
                                 <Calendar className="h-5 w-5 md:h-6 md:w-6 text-amber-500 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tighter text-amber-600">Mantenimiento</p>
+                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tight text-amber-600">Mantenimiento</p>
                                     <p className="text-[9px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Habilitación CONATEL vence en 48h.</p>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@ export default function EcosistemaKyron() {
                     <Card className="bg-[#050505] text-white border border-white/5 shadow-2xl overflow-hidden relative rounded-[1.5rem] md:rounded-[2.5rem] group">
                         <div className="absolute top-0 right-0 p-6 md:p-8 opacity-5 group-hover:opacity-10 transition-all duration-700"><Fingerprint className="h-24 w-24 md:h-32 md:w-32" /></div>
                         <CardHeader className="p-6 md:p-8 relative z-10 text-white">
-                            <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tighter italic text-white">ID Digital 3D</CardTitle>
+                            <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tight italic text-white">ID Digital 3D</CardTitle>
                             <CardDescription className="text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] mt-1">Sello Inmutable</CardDescription>
                         </CardHeader>
                         <CardFooter className="p-6 md:p-8 pt-0 relative z-10">
@@ -208,7 +208,7 @@ function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any)
           </div>
         </div>
         <div className="flex flex-wrap items-end gap-2 md:gap-4">
-            <h4 className={cn("text-lg md:text-3xl font-black tracking-tighter leading-none italic", colorClass)}>{value}</h4>
+            <h4 className={cn("text-lg md:text-3xl font-black tracking-tight leading-none italic", colorClass)}>{value}</h4>
             {trend && (
                 <div className={cn(
                     "flex items-center text-[6px] md:text-[8px] font-black px-1.5 py-0.5 rounded-md border",

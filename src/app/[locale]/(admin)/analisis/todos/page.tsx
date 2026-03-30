@@ -167,7 +167,7 @@ export default function TodasLasAnalisisPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
             <Link href="/analisis"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight flex items-center gap-4 italic leading-none">
             <Sparkles className="h-10 w-10 text-primary animate-pulse" />
             Directorio de Inteligencia
           </h1>

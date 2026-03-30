@@ -147,7 +147,7 @@ export default function MisDocumentosPage() {
       <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
                 <header className="border-l-4 border-primary pl-8 py-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-foreground ">Bóveda Digital</h1>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground ">Bóveda Digital</h1>
           <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-40">Almacenamiento de Grado Legal • Zero-Knowledge</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

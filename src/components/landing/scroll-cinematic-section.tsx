@@ -127,7 +127,7 @@ function PowerStatCard({ stat, index, smoothProgress }: {
             <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
                 <Icon className="h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
             </div>
-            <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-1">{stat.value}</p>
+            <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-none mb-1">{stat.value}</p>
             <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/35">{stat.label}</p>
         </motion.div>
     );
@@ -267,7 +267,7 @@ export function ScrollCinematicSection() {
                             </span>
                         </motion.div>
 
-                        <h2 className="font-black tracking-tighter leading-[0.95] uppercase">
+                        <h2 className="font-black tracking-tight leading-[0.95] uppercase">
                             <motion.span
                                 className="block text-white will-change-[opacity,transform]"
                                 style={{
@@ -327,7 +327,7 @@ export function ScrollCinematicSection() {
                                 Todo lo que tu empresa necesita
                             </p>
                             <h3
-                                className="font-black tracking-tighter text-white uppercase"
+                                className="font-black tracking-tight text-white uppercase"
                                 style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
                             >
                                 Un ecosistema completo.
@@ -360,7 +360,7 @@ export function ScrollCinematicSection() {
                             Poder sin precedentes
                         </p>
                         <h3
-                            className="font-black tracking-tighter text-white uppercase mb-8 sm:mb-12 md:mb-16"
+                            className="font-black tracking-tight text-white uppercase mb-8 sm:mb-12 md:mb-16"
                             style={{ fontSize: "clamp(1.4rem, 4.5vw, 3.5rem)" }}
                         >
                             Cifras que hablan por sí solas.
@@ -388,7 +388,7 @@ export function ScrollCinematicSection() {
                             Interfaz intuitiva
                         </p>
                         <h3
-                            className="font-black tracking-tighter text-white uppercase mb-5 sm:mb-8"
+                            className="font-black tracking-tight text-white uppercase mb-5 sm:mb-8"
                             style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
                         >
                             Un dashboard. Todo el control.

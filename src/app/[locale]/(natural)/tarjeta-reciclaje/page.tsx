@@ -31,7 +31,7 @@ export default function TarjetaReciclajePage() {
                 >
                     <Recycle className="h-16 w-16 animate-spin-slow" />
                 </motion.div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow">Tarjeta de Reciclaje</h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic italic-shadow">Tarjeta de Reciclaje</h1>
                 <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed uppercase tracking-wide">
                     Nuestra iniciativa ambiental impulsada por la <strong>Fundación Kyron</strong>. Transformamos residuos en activos digitales inmutables.
                 </p>
@@ -40,7 +40,7 @@ export default function TarjetaReciclajePage() {
             <div className="grid lg:grid-cols-5 gap-12 items-start">
                 <Card className="lg:col-span-3 glass-card border-none rounded-[3rem] shadow-xl overflow-hidden bg-white/[0.01]">
                     <CardHeader className="p-10 pb-6">
-                        <CardTitle className="text-2xl font-black uppercase tracking-tighter flex items-center gap-4 text-white">
+                        <CardTitle className="text-2xl font-black uppercase tracking-tight flex items-center gap-4 text-white">
                             <Zap className="h-8 w-8 text-primary"/>
                             Proceso de Recolección IA
                         </CardTitle>
@@ -66,7 +66,7 @@ export default function TarjetaReciclajePage() {
                             <Magnet className="h-32 w-32 rotate-12" />
                         </div>
                         <CardHeader className="p-0 mb-6">
-                            <CardTitle className="text-xl font-black uppercase tracking-tighter flex items-center gap-3 italic text-white">
+                            <CardTitle className="text-xl font-black uppercase tracking-tight flex items-center gap-3 italic text-white">
                                 <Magnet className="text-primary h-6 w-6"/>
                                 Innovación Magnética
                             </CardTitle>
@@ -85,7 +85,7 @@ export default function TarjetaReciclajePage() {
 
                     <Card className="bg-secondary/5 border-secondary/10 rounded-[2.5rem] p-8">
                         <CardHeader className="p-0 mb-6">
-                            <CardTitle className="text-xl font-black uppercase tracking-tighter flex items-center gap-3 italic text-white">
+                            <CardTitle className="text-xl font-black uppercase tracking-tight flex items-center gap-3 italic text-white">
                                 <TrendingUp className="text-secondary h-6 w-6"/>
                                 Impacto Ciudadano
                             </CardTitle>
@@ -102,7 +102,7 @@ export default function TarjetaReciclajePage() {
 
             <Card className="glass-card border-none rounded-[3rem] shadow-2xl p-12 bg-white/[0.01]">
                 <CardHeader className="text-center mb-12">
-                    <CardTitle className="text-3xl font-black uppercase tracking-tighter italic flex items-center justify-center gap-4 text-white">
+                    <CardTitle className="text-3xl font-black uppercase tracking-tight italic flex items-center justify-center gap-4 text-white">
                         <Gift className="h-10 w-10 text-primary"/>
                         Eco-Recompensas
                     </CardTitle>

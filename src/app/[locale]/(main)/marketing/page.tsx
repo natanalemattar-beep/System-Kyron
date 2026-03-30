@@ -173,7 +173,7 @@ export default function MarketingDashboardPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-sm mb-4">
                     <Megaphone className="h-3 w-3" /> MARKETING IA — CENTRO DE MERCADO
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground italic-shadow">
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground italic-shadow">
                     Dashboard de <span className="text-primary">Inversión</span>
                 </h1>
                 <div className="flex items-center gap-4 mt-2">
@@ -205,7 +205,7 @@ export default function MarketingDashboardPage() {
                             <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
                         </div>
                         <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">{kpi.label}</p>
-                        <p className={`text-3xl font-black italic tracking-tighter ${kpi.color}`}>{kpi.value}</p>
+                        <p className={`text-3xl font-black italic tracking-tight ${kpi.color}`}>{kpi.value}</p>
                     </Card>
                 ))}
             </div>

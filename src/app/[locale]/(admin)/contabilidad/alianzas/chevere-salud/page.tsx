@@ -98,7 +98,7 @@ export default function ChervereSaludPage() {
               </div>
             </CardHeader>
             <CardContent className="p-6 pt-0">
-              <div className="text-xl font-black italic tracking-tighter text-foreground">{kpi.val}</div>
+              <div className="text-xl font-black italic tracking-tight text-foreground">{kpi.val}</div>
             </CardContent>
           </Card>
         ))}

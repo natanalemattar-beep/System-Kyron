@@ -154,19 +154,19 @@ export default function NominasPage() {
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-1000"><Wallet className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Total Erogación (Mes)</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter shadow-glow-text">{loading ? "—" : formatCurrency(totalNomina, 'Bs.')}</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight shadow-glow-text">{loading ? "—" : formatCurrency(totalNomina, 'Bs.')}</p>
                     <p className="text-[9px] font-bold text-muted-foreground/40 mt-2 uppercase">{empleados.length} empleados</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-1000"><TrendingUp className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Provisión de Utilidades</p>
-                    <p className="text-4xl font-black italic text-secondary tracking-tighter shadow-glow-secondary">{loading ? "—" : formatCurrency(totalUtilidades, 'Bs.')}</p>
+                    <p className="text-4xl font-black italic text-secondary tracking-tight shadow-glow-secondary">{loading ? "—" : formatCurrency(totalUtilidades, 'Bs.')}</p>
                     <p className="text-[9px] font-bold text-muted-foreground/40 mt-2 uppercase">Proyección 90 días</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-1000"><ShieldCheck className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Estatus Parafiscal</p>
-                    <p className="text-4xl font-black italic text-emerald-500 tracking-tighter uppercase">AL DÍA</p>
+                    <p className="text-4xl font-black italic text-emerald-500 tracking-tight uppercase">AL DÍA</p>
                 </Card>
             </div>
 
@@ -235,7 +235,7 @@ export default function NominasPage() {
 
                 <TabsContent value="vacaciones" className="animate-in fade-in duration-500">
                     <Card className="glass-card border-none rounded-[3.5rem] bg-card/40 p-10 shadow-2xl">
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8">Cronograma Vacacional Certificado</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-8">Cronograma Vacacional Certificado</h3>
                         {empleados.length === 0 ? (
                             <div className="py-12 text-center"><p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">Sin empleados registrados</p></div>
                         ) : (
@@ -264,7 +264,7 @@ export default function NominasPage() {
                         <div className="flex items-center gap-6 mb-10">
                             <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20"><TrendingUp className="h-8 w-8 text-emerald-500" /></div>
                             <div>
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Provisión Legal de Utilidades</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Provisión Legal de Utilidades</h3>
                                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Cálculo Proyectado a 90 días de salario</p>
                             </div>
                         </div>
@@ -278,7 +278,7 @@ export default function NominasPage() {
                                             <p className="text-xs font-black uppercase text-foreground/80">{e.nombre} {e.apellido}</p>
                                             <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Base: {formatCurrency(parseFloat(e.salario_base ?? "0"), 'Bs.')} × 3 meses</p>
                                         </div>
-                                        <p className="text-xl font-black italic text-emerald-500 tracking-tighter">{formatCurrency(parseFloat(e.salario_base ?? "0") * 3, 'Bs.')}</p>
+                                        <p className="text-xl font-black italic text-emerald-500 tracking-tight">{formatCurrency(parseFloat(e.salario_base ?? "0") * 3, 'Bs.')}</p>
                                     </div>
                                 ))}
                                 <div className="pt-4 border-t border-emerald-500/20 flex justify-between items-center">
@@ -294,7 +294,7 @@ export default function NominasPage() {
             <Dialog open={showDialog} onOpenChange={setShowDialog}>
                 <DialogContent className="max-w-2xl bg-card border-border rounded-[2rem] p-0 overflow-hidden">
                     <DialogHeader className="p-8 pb-4 border-b border-border bg-muted/10">
-                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-3">
+                        <DialogTitle className="text-xl font-black uppercase italic tracking-tight flex items-center gap-3">
                             <UserPlus className="h-5 w-5 text-secondary" /> Incorporar Nuevo Empleado
                         </DialogTitle>
                         <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Protocolo LOTTT 2026 • Los campos * son obligatorios</p>

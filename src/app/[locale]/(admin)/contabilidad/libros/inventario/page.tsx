@@ -107,7 +107,7 @@ export default function LibroInventarioPage() {
             <Package className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{rows.length}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{rows.length}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">{summary.categorias} Categorías</p>
           </CardContent>
         </Card>
@@ -117,7 +117,7 @@ export default function LibroInventarioPage() {
             <BarChart3 className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{summary.totalItems}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{summary.totalItems}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-emerald-500/60">En existencia</p>
           </CardContent>
         </Card>
@@ -127,7 +127,7 @@ export default function LibroInventarioPage() {
             <TrendingUp className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary/60">Al costo unitario</p>
           </CardContent>
         </Card>
@@ -137,7 +137,7 @@ export default function LibroInventarioPage() {
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className={cn("text-2xl font-black italic tracking-tighter", summary.lowStock > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.lowStock}</div>
+            <div className={cn("text-2xl font-black italic tracking-tight", summary.lowStock > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.lowStock}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-amber-500/60">Productos {`<`} 5 uds.</p>
           </CardContent>
         </Card>

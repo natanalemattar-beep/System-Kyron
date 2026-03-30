@@ -77,7 +77,7 @@ export function AboutUsSection() {
                             <Globe className="h-3.5 w-3.5 text-emerald-400" />
                             Hecho en Venezuela
                         </div>
-                        <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter uppercase leading-[1.05] text-foreground break-words">
+                        <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground break-words">
                             Construido para{' '}
                             <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
                                 Venezuela
@@ -106,7 +106,7 @@ export function AboutUsSection() {
                                         <stat.icon className="h-16 w-16 text-foreground" />
                                     </div>
                                     <div className="relative">
-                                        <p className={cn("text-5xl font-black italic tracking-tighter mb-2", stat.text)}>
+                                        <p className={cn("text-4xl font-black italic tracking-tight mb-2", stat.text)}>
                                             <Counter from={0} to={stat.val} />
                                         </p>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>

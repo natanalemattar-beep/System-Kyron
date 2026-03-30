@@ -77,7 +77,7 @@ export default function FacturacionPage() {
         <Card className="glass-card border-none bg-card/40 rounded-[3rem] shadow-2xl overflow-hidden border-l-4 border-amber-500">
           <CardHeader className="p-10 flex-row items-center justify-between bg-muted/10">
             <div className="space-y-1">
-              <CardTitle className="flex items-center gap-4 text-amber-500 text-xl font-black uppercase italic tracking-tighter">
+              <CardTitle className="flex items-center gap-4 text-amber-500 text-xl font-black uppercase italic tracking-tight">
                 <ShieldAlert className="h-6 w-6" />
                 Auditoría Preventiva de Ventas
               </CardTitle>
@@ -118,7 +118,7 @@ export default function FacturacionPage() {
                         <module.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-3">{module.title}</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground mb-3">{module.title}</CardTitle>
                         <CardDescription className="text-xs font-bold text-muted-foreground/60 uppercase leading-relaxed">{module.description}</CardDescription>
                     </div>
                 </div>

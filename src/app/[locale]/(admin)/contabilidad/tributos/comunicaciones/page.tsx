@@ -199,7 +199,7 @@ export default function ComunicacionesPage() {
                     <div className="flex items-center gap-4">
                         <Logo className="h-14 w-14" />
                         <div>
-                            <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none text-slate-900">{data.empresa}</h4>
+                            <h4 className="text-lg font-black italic uppercase tracking-tight leading-none text-slate-900">{data.empresa}</h4>
                             <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: {data.rif}</p>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ export default function AnalisisCajaPage() {
                 <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><TrendingUp className="h-32 w-32" /></div>
                     <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                             <TrendingUp className="text-primary h-6 w-6" /> Estrategia de Liquidez
                         </CardTitle>
                     </CardHeader>
@@ -74,7 +74,7 @@ export default function AnalisisCajaPage() {
                             <div key={stat.label} className="flex justify-between items-end border-b border-border/50 pb-4">
                                 <div className="space-y-1">
                                     <p className="text-[9px] font-bold text-muted-foreground/40 uppercase">{stat.label}</p>
-                                    <p className="text-xl font-black italic text-foreground tracking-tighter">{stat.val}</p>
+                                    <p className="text-xl font-black italic text-foreground tracking-tight">{stat.val}</p>
                                 </div>
                                 <Badge variant="outline" className={cn("text-[8px] font-black uppercase h-5", stat.color)}>{stat.status}</Badge>
                             </div>

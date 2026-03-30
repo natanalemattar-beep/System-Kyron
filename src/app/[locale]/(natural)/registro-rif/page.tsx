@@ -25,14 +25,14 @@ export default function RegistroRifPage() {
                 <div className="inline-block p-6 bg-primary/10 text-primary rounded-[2rem] border border-primary/20 shadow-glow-sm">
                     <FileEdit className="h-12 w-12" />
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground ">Registro RIF <br/> <span className="text-primary tracking-normal">Carga Familiar</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Registro RIF <br/> <span className="text-primary tracking-normal">Carga Familiar</span></h1>
                 <p className="text-muted-foreground text-sm font-bold uppercase tracking-[0.4em] opacity-40">Protocolo de Inscripción SENIAT para Menores</p>
             </header>
 
             <div className="grid gap-10 md:grid-cols-2">
                 <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] p-4">
                     <CardHeader className="p-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
                             <Info className="h-6 w-6 text-primary"/> Importancia
                         </CardTitle>
                         <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Beneficios y Obligaciones</CardDescription>
@@ -48,7 +48,7 @@ export default function RegistroRifPage() {
 
                 <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] p-4">
                     <CardHeader className="p-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
                             <UserPlus className="h-6 w-6 text-primary"/> Recaudos
                         </CardTitle>
                         <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Dossier de Inscripción</CardDescription>
@@ -76,7 +76,7 @@ export default function RegistroRifPage() {
                     <ShieldCheck className="h-48 w-48" />
                 </div>
                 <CardHeader className="p-0 mb-8 relative z-10">
-                    <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Asistente de Pre-Inscripción</CardTitle>
+                    <CardTitle className="text-3xl font-black uppercase italic tracking-tight">Asistente de Pre-Inscripción</CardTitle>
                     <p className="text-sm font-bold opacity-80 uppercase tracking-widest mt-2">Llenado automático de planilla digital SENIAT.</p>
                 </CardHeader>
                 <CardFooter className="p-0 relative z-10">

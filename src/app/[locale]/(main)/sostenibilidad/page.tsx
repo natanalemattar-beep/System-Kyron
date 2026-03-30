@@ -49,7 +49,7 @@ export default function SostenibilidadPage() {
                     <div className="space-y-8">
                         <div className="space-y-2">
                             <Badge className="bg-secondary text-white border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow-secondary">Hardware de Tercera Generación</Badge>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
                             <p className="text-lg font-medium italic text-muted-foreground leading-relaxed uppercase">La papelera inteligente definitiva para el sector privado.</p>
                         </div>
                         
@@ -111,7 +111,7 @@ export default function SostenibilidadPage() {
                                 <kpi.icon className="h-4 w-4" />
                             </div>
                         </div>
-                        <p className="text-3xl font-black italic text-foreground tracking-tighter mb-2">{kpi.val}</p>
+                        <p className="text-3xl font-black italic text-foreground tracking-tight mb-2">{kpi.val}</p>
                         <p className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest">{kpi.desc}</p>
                     </Card>
                 ))}
@@ -143,7 +143,7 @@ export default function SostenibilidadPage() {
                                             <Badge variant="outline" className="text-[8px] font-black uppercase border-secondary/20 text-secondary bg-secondary/5">{row.tipo}</Badge>
                                         </TableCell>
                                         <TableCell className="text-center py-6 font-mono text-xs font-bold text-foreground/60">{row.peso}</TableCell>
-                                        <TableCell className="text-right pr-10 py-6 font-black text-lg text-secondary italic tracking-tighter">{row.ecr}</TableCell>
+                                        <TableCell className="text-right pr-10 py-6 font-black text-lg text-secondary italic tracking-tight">{row.ecr}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -161,7 +161,7 @@ export default function SostenibilidadPage() {
                     <Card className="bg-secondary text-secondary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow-secondary border-none group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Coins className="h-32 w-32" /></div>
                         <div>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Canje de Activos</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Canje de Activos</h3>
                             <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">Utilice sus Eco-Créditos acumulados para liquidar facturas de telecomunicaciones o inyectar liquidez.</p>
                         </div>
                         <Button variant="secondary" className="w-full h-12 bg-white text-secondary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">ACCEDER AL EXCHANGE</Button>

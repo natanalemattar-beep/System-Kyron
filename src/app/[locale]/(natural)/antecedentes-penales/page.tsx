@@ -36,7 +36,7 @@ export default function AntecedentesPenalesPage() {
                     <Card key={cert.id} className="glass-card border-none rounded-[2rem] overflow-hidden bg-white/[0.02]">
                         <CardHeader className="flex-row items-center justify-between p-10 bg-white/[0.01]">
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Certificado {cert.id}</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Certificado {cert.id}</CardTitle>
                                 <CardDescription className="text-[10px] font-bold uppercase text-white/30 tracking-widest">Motivo: {cert.motivo}</CardDescription>
                             </div>
                             <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 px-4 h-7 text-[9px] font-black uppercase tracking-widest">{cert.estado}</Badge>

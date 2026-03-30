@@ -20,7 +20,7 @@ export default function TermsPage() {
               <FileText className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-tighter text-foreground">Términos de Servicio</h1>
+              <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">Términos de Servicio</h1>
               <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">System Kyron v2.8.5 • Última actualización: Enero 2026</p>
             </div>
           </div>

@@ -57,7 +57,7 @@ export default function CuentasPorCobrarPage() {
                     <Terminal className="h-8 w-8 text-primary" />
                 </div>
                 <div className="space-y-1">
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">Estado de Sincronización</h3>
+                    <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground">Estado de Sincronización</h3>
                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">Conexión activa con el Libro Mayor y Ledger de Ventas</p>
                 </div>
             </div>

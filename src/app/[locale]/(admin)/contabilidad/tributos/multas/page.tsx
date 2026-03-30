@@ -125,8 +125,8 @@ export default function MultasFiscalesPage() {
                                     <span className="font-black text-rose-500">{formatCurrency(intereses, 'Bs.')}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-8 bg-rose-500/5 rounded-[2rem] border border-rose-500/10">
-                                    <span className="font-black uppercase text-xs text-rose-600 italic tracking-tighter">Deuda Total Proyectada</span>
-                                    <span className="text-3xl font-black italic text-rose-500 tracking-tighter shadow-glow-sm">{formatCurrency(total, 'Bs.')}</span>
+                                    <span className="font-black uppercase text-xs text-rose-600 italic tracking-tight">Deuda Total Proyectada</span>
+                                    <span className="text-3xl font-black italic text-rose-500 tracking-tight shadow-glow-sm">{formatCurrency(total, 'Bs.')}</span>
                                 </div>
                             </div>
                         </CardContent>
@@ -136,7 +136,7 @@ export default function MultasFiscalesPage() {
                 <div className="lg:col-span-5 space-y-10">
                     <Card className="glass-card border-none bg-white/[0.02] p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Calculator className="h-32 w-32 text-white" /></div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-white mb-6">Ajuste por TC</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-white mb-6">Ajuste por TC</h3>
                         <p className="text-xs font-bold text-white/40 leading-relaxed uppercase mb-8 text-justify">
                             De acuerdo al Código Orgánico Tributario, las multas deben ser liquidadas al tipo de cambio oficial de la moneda de mayor valor publicado por el BCV al momento del pago efectivo.
                         </p>

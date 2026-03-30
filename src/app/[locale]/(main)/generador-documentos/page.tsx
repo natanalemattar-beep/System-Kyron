@@ -43,7 +43,7 @@ export default function GeneradorDocumentosPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                     <Scale className="h-3 w-3" /> NODO JURÍDICO IA
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Redacción Automatizada de Grado Legal • 2026</p>
             </header>
 
@@ -105,7 +105,7 @@ export default function GeneradorDocumentosPage() {
                     {result ? (
                         <Card className="glass-card border-none rounded-[3rem] bg-white/[0.01] h-full flex flex-col overflow-hidden">
                             <CardHeader className="p-10 border-b border-white/5 flex flex-row justify-between items-center bg-white/[0.01]">
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Vista Previa del Instrumento</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Vista Previa del Instrumento</CardTitle>
                                 <div className="flex gap-2">
                                     <Button variant="outline" size="icon" className="rounded-xl" onClick={() => window.print()}><Printer className="h-4 w-4"/></Button>
                                     <Button variant="outline" size="icon" className="rounded-xl" onClick={() => {

@@ -53,7 +53,7 @@ export default function CuentasPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
             <Landmark className="h-3 w-3" /> NODO DE TESORERÍA
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic italic-shadow">
+          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight italic italic-shadow">
             Gestión de <span className="text-primary">Cuentas</span>
           </h1>
           <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Administración Financiera y Bancaria 2026</p>
@@ -72,7 +72,7 @@ export default function CuentasPage() {
                   <item.icon className={cn("h-8 w-8 transition-all", item.color)} />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-black uppercase italic tracking-tighter text-white group-hover:text-primary transition-colors">{item.label}</h3>
+                  <h3 className="text-xl font-black uppercase italic tracking-tight text-white group-hover:text-primary transition-colors">{item.label}</h3>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">{item.desc}</p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function CuentasPage() {
             <div className="relative z-10 space-y-6">
                 <div className="space-y-1">
                     <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase tracking-widest">Liquidación</Badge>
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Conciliación Bancaria</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-white">Conciliación Bancaria</h3>
                 </div>
                 <p className="text-xs font-bold text-white/30 uppercase leading-relaxed max-w-sm">
                     Sincronización síncrona con el Libro Mayor para verificar la correspondencia entre extractos bancarios y registros contables.
@@ -107,7 +107,7 @@ export default function CuentasPage() {
                     <ShieldCheck className="h-8 w-8 text-emerald-500" />
                 </div>
                 <div className="space-y-1">
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-white">Blindaje de Cuentas</h3>
+                    <h3 className="text-xl font-black uppercase italic tracking-tight text-white">Blindaje de Cuentas</h3>
                     <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Certificado Kyron v2.8.5</p>
                 </div>
             </div>
@@ -126,7 +126,7 @@ export default function CuentasPage() {
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
               <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Legajo Maestro</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">REPOSITORIO <br/> DE CUENTAS</h3>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight leading-none italic-shadow">REPOSITORIO <br/> DE CUENTAS</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Acceda a la biblioteca completa de módulos bancarios, anticipos y flujos de efectivo auditados.</p>
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30 pointer-events-none">
                 EXPLORAR TODO EL NODO <ArrowRight className="ml-4 h-5 w-5" />

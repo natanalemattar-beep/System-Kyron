@@ -21,7 +21,7 @@ export default function MultasPage() {
                     <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] hover:bg-transparent mb-2">
                         <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4" /> Volver al Centro Contable</Link>
                     </Button>
-                    <h1 className="text-3xl font-black text-[#0A2472] uppercase tracking-tighter flex items-center gap-3">
+                    <h1 className="text-3xl font-black text-[#0A2472] uppercase tracking-tight flex items-center gap-3">
                         <AlertTriangle className="h-8 w-8 text-amber-500" />
                         Multas y Sanciones
                     </h1>

@@ -58,16 +58,16 @@ System Kyron, C.A.
                         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Ship className="h-16 w-16" /></div>
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Registro RUSAD</p>
-                            <p className="text-3xl font-black italic text-foreground tracking-tighter uppercase">ACTIVO</p>
+                            <p className="text-3xl font-black italic text-foreground tracking-tight uppercase">ACTIVO</p>
                         </Card>
                         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Globe className="h-16 w-16" /></div>
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Destinos Autorizados</p>
-                            <p className="text-3xl font-black italic text-foreground tracking-tighter">12 PAÍSES</p>
+                            <p className="text-3xl font-black italic text-foreground tracking-tight">12 PAÍSES</p>
                         </Card>
                         <Card className="glass-card border-none bg-emerald-500/5 p-8 rounded-[2.5rem] shadow-xl border-l-4 border-emerald-500">
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500/60 mb-4">Incentivos Fiscales</p>
-                            <p className="text-3xl font-black italic text-emerald-500 tracking-tighter uppercase">APLICADOS</p>
+                            <p className="text-3xl font-black italic text-emerald-500 tracking-tight uppercase">APLICADOS</p>
                         </Card>
                     </div>
                 </TabsContent>
@@ -80,7 +80,7 @@ System Kyron, C.A.
                         <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
+                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>

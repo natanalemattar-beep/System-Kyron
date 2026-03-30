@@ -41,7 +41,7 @@ export default function IgpPage() {
                 <div className="lg:col-span-7">
                     <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl">
                         <CardHeader className="p-0 mb-10">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Determinación de Base Imponible</CardTitle>
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground">Determinación de Base Imponible</CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40">Valor neto de activos menos pasivos</CardDescription>
                         </CardHeader>
                         <CardContent className="p-0 space-y-10">
@@ -54,7 +54,7 @@ export default function IgpPage() {
                             <div className="p-10 bg-amber-500/10 border-2 border-amber-500/20 rounded-[2.5rem] flex flex-col md:flex-row justify-between items-center gap-10 group hover:border-amber-500/40 transition-all">
                                 <div className="space-y-2 text-center md:text-left">
                                     <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.4em]">Cuota Tributaria Estimada</p>
-                                    <p className="text-5xl font-black italic text-amber-600 tracking-tighter shadow-glow">{formatCurrency(cuota, 'Bs.')}</p>
+                                    <p className="text-5xl font-black italic text-amber-600 tracking-tight shadow-glow">{formatCurrency(cuota, 'Bs.')}</p>
                                 </div>
                                 <div className="text-right">
                                     <Badge className="bg-amber-500/20 text-amber-600 border-none text-[8px] font-black px-4 py-1.5 uppercase">TASA: 0.25%</Badge>
@@ -67,7 +67,7 @@ export default function IgpPage() {
                 <div className="lg:col-span-5 space-y-8">
                     <Card className="glass-card border-none bg-amber-600 text-white p-10 rounded-[3rem] relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><ShieldCheck className="h-32 w-32" /></div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Calendario IGP</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Calendario IGP</h3>
                         <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">
                             La declaración de IGP se realiza anualmente durante los meses de octubre y noviembre, según el último dígito del RIF del Sujeto Pasivo Especial.
                         </p>

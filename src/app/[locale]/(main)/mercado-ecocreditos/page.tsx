@@ -34,7 +34,7 @@ export default function MercadoEcocreditosPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
                     <Recycle className="h-3 w-3" /> NODO SUSTENTABLE
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Mercado de <span className="text-secondary">Eco-Créditos</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Mercado de <span className="text-secondary">Eco-Créditos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Exchange de Activos Verdes • System Kyron 2026</p>
             </header>
 
@@ -45,7 +45,7 @@ export default function MercadoEcocreditosPage() {
                         <CardTitle className="text-[10px] font-black uppercase tracking-widest text-secondary/60">Mi Saldo Inmutable</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <p className="text-5xl font-black italic text-white tracking-tighter">{balance.toLocaleString('en-US')} <span className="text-lg uppercase font-bold text-secondary tracking-normal">E-CR</span></p>
+                        <p className="text-5xl font-black italic text-white tracking-tight">{balance.toLocaleString('en-US')} <span className="text-lg uppercase font-bold text-secondary tracking-normal">E-CR</span></p>
                         <p className="text-[9px] font-bold text-white/20 uppercase mt-4 tracking-widest flex items-center gap-2">
                             <ShieldCheck className="h-3 w-3" /> Certificado Carbono Neutral v2.8.5
                         </p>
@@ -82,7 +82,7 @@ export default function MercadoEcocreditosPage() {
             <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
                 <CardHeader className="p-10 border-b border-white/5">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Ofertas en el Ledger</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Ofertas en el Ledger</CardTitle>
                         <Button variant="outline" size="sm" className="rounded-xl border-white/10 hover:bg-white/5">
                             <RefreshCw className="h-3 w-3 mr-2" /> Actualizar Nodo
                         </Button>
@@ -127,7 +127,7 @@ export default function MercadoEcocreditosPage() {
             <div className="grid sm:grid-cols-2 gap-12">
                 <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden shadow-glow border-none group">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32" /></div>
-                    <CardTitle className="text-2xl font-black uppercase italic tracking-tighter mb-4">Inyectar Liquidez Verde</CardTitle>
+                    <CardTitle className="text-2xl font-black uppercase italic tracking-tight mb-4">Inyectar Liquidez Verde</CardTitle>
                     <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 max-w-xs">Publica tus Eco-Créditos excedentes para monetizar la sostenibilidad de tu empresa.</p>
                     <Button variant="secondary" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest bg-white text-primary">CREAR OFERTA</Button>
                 </Card>

@@ -42,7 +42,7 @@ export default function ClimaOrganizacionalPage() {
                             <m.icon className={cn("h-4 w-4", m.color)} />
                         </div>
                         <div className="space-y-4">
-                            <p className="text-4xl font-black italic text-foreground tracking-tighter leading-none">{m.val}%</p>
+                            <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">{m.val}%</p>
                             <Progress value={m.val} className="h-1.5 bg-muted" />
                         </div>
                     </Card>
@@ -83,7 +83,7 @@ export default function ClimaOrganizacionalPage() {
                     <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Award className="h-32 w-32" /></div>
                         <div>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">Programa de <br/> Liderazgo Maestro</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6 leading-tight">Programa de <br/> Liderazgo Maestro</h3>
                             <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                 Inyección de metodologías ágiles y gestión emocional para directivos. El sistema detecta perfiles con alto potencial de liderazgo basado en KPIs de equipo.
                             </p>

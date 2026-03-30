@@ -75,7 +75,7 @@ export default function FacturacionCreditoPage() {
                 <div className="lg:col-span-4 space-y-8">
                     <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-32 w-32" /></div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-primary mb-6">Integración BNPL</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-primary mb-6">Integración BNPL</h3>
                         <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                             System Kyron soporta la integración nativa con Cashea, Krece y Rapikom para automatizar la liquidación de créditos al consumo.
                         </p>

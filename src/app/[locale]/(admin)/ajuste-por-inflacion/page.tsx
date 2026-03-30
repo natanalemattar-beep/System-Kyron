@@ -30,7 +30,7 @@ export default function AjustePorInflacionPage() {
         <div className="lg:col-span-2 space-y-10">
             <Card className="glass-card border-none rounded-[3rem] p-10 bg-card/40 shadow-xl shadow-blue-500/5">
                 <CardHeader className="p-0 mb-6">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                         <HelpCircle className="text-primary h-6 w-6"/> ¿Qué es el Ajuste Fiscal?
                     </CardTitle>
                 </CardHeader>
@@ -41,7 +41,7 @@ export default function AjustePorInflacionPage() {
 
              <Card className="glass-card border-none rounded-[3rem] p-10 bg-card/40 shadow-xl">
                 <CardHeader className="p-0 mb-8">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Sujetos Obligados</CardTitle>
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground">Sujetos Obligados</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                      <ul className="space-y-6">
@@ -68,7 +68,7 @@ export default function AjustePorInflacionPage() {
                     <FileWarning className="h-32 w-32" />
                 </div>
                 <div className="relative z-10">
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-rose-500 mb-4">RIESGO DE SANCIÓN</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-rose-500 mb-4">RIESGO DE SANCIÓN</h3>
                     <p className="text-[10px] font-bold text-foreground/60 leading-relaxed uppercase mb-8">El incumplimiento del ajuste RIPF acarrea multas de hasta 1.000 veces el tipo de cambio oficial según el Código Orgánico Tributario.</p>
                 </div>
                 <Button variant="destructive" className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl relative z-10">AUDITAR ESTADOS FINANCIEROS</Button>
@@ -78,7 +78,7 @@ export default function AjustePorInflacionPage() {
       
        <Card className="glass-card border-none rounded-[3.5rem] bg-card/40 shadow-2xl overflow-hidden mt-10">
         <CardHeader className="p-12 border-b border-border bg-muted/10">
-            <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+            <CardTitle className="text-2xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                 <Calculator className="h-8 w-8 text-primary"/> Algoritmo de Cálculo Maestro
             </CardTitle>
         </CardHeader>

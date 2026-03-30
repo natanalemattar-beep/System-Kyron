@@ -110,7 +110,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mx-auto mb-8 border border-primary/20 group-hover:scale-110 transition-transform shadow-inner">
                             <Briefcase className="h-10 w-10 text-primary" />
                         </div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter mb-4">Trabajador Dependiente</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight mb-4">Trabajador Dependiente</h3>
                         <p className="text-[10px] font-bold text-muted-foreground uppercase leading-relaxed mb-8">Certificación laboral para personal bajo relación de dependencia.</p>
                         <Button variant="outline" className="w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/20 text-primary">Iniciar Gestión</Button>
                     </Card>
@@ -119,7 +119,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="p-6 bg-secondary/10 rounded-[2rem] w-fit mx-auto mb-8 border border-secondary/20 group-hover:scale-110 transition-transform shadow-inner">
                             <UserCheck className="h-10 w-10 text-secondary" />
                         </div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter mb-4">Profesional Libre</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight mb-4">Profesional Libre</h3>
                         <p className="text-[10px] font-bold text-muted-foreground uppercase leading-relaxed mb-8">Atestiguamiento de ingresos para trabajadores independientes.</p>
                         <Button variant="outline" className="w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest border-secondary/20 text-secondary">Iniciar Gestión</Button>
                     </Card>
@@ -128,7 +128,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="p-6 bg-rose-500/10 rounded-[2rem] w-fit mx-auto mb-8 border border-rose-500/20 group-hover:scale-110 transition-transform shadow-inner">
                             <Heart className="h-10 w-10 text-rose-500" />
                         </div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter mb-4">Jubilados / Pensiones</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight mb-4">Jubilados / Pensiones</h3>
                         <p className="text-[10px] font-bold text-muted-foreground uppercase leading-relaxed mb-8">Certificación de estatus ante entes públicos o privados.</p>
                         <Button variant="outline" className="w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest border-rose-500/20 text-rose-500">Iniciar Gestión</Button>
                     </Card>
@@ -141,7 +141,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                         <div className="flex items-center gap-6">
                             <Button variant="ghost" onClick={() => setStep('selector')} className="h-10 w-10 rounded-full bg-white/10"><ArrowLeft className="h-4 w-4" /></Button>
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tighter">Dossier de Certificación</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tight">Dossier de Certificación</CardTitle>
                                 <CardDescription className="text-[10px] font-bold uppercase text-primary tracking-widest">Protocolo: {type?.toUpperCase()}</CardDescription>
                             </div>
                         </div>
@@ -239,12 +239,12 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             <div className="flex items-center gap-6">
                                 <Logo className="h-16 w-16" />
                                 <div className="space-y-1">
-                                    <h4 className="text-xl font-black italic uppercase tracking-tighter leading-none">System Kyron</h4>
+                                    <h4 className="text-xl font-black italic uppercase tracking-tight leading-none">System Kyron</h4>
                                     <p className="text-[8px] font-bold uppercase tracking-[0.4em] opacity-60">Corporate Intelligence • 2026</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-900 leading-none">CERTIFICACIÓN</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">CERTIFICACIÓN</h3>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Ref: KYR-{Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
                             </div>
                         </header>

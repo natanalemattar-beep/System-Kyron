@@ -50,7 +50,7 @@ export default function VentaLineaPage() {
     return (
         <div className="space-y-8 w-full px-4 md:px-10 pb-20">
             <header className="mb-8 border-l-4 border-primary pl-6 md:pl-8 py-2">
-                <h1 className="text-2xl md:text-4xl font-black tracking-tighter flex items-center gap-3 italic text-foreground uppercase">
+                <h1 className="text-2xl md:text-4xl font-black tracking-tight flex items-center gap-3 italic text-foreground uppercase">
                     <Radio className="h-8 w-8 text-primary" />
                     Activación de Líneas Kyron
                 </h1>

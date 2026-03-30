@@ -78,7 +78,7 @@ export default function FidelizacionClientesPage() {
                 <div className="lg:col-span-4 space-y-8">
                     <Card className="bg-secondary text-secondary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow-secondary border-none group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Star className="h-32 w-32" /></div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Programa de Premiación</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4">Programa de Premiación</h3>
                         <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Automatice el envío de agradecimientos y beneficios exclusivos a sus clientes VIP.</p>
                         <Button className="w-full h-12 bg-white text-secondary hover:bg-white/90 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">CONFIGURAR CAMPAÑA</Button>
                     </Card>

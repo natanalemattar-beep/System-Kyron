@@ -179,7 +179,7 @@ export default function InventarioPage() {
                                 <div className="space-y-6 flex-1">
                                     <div className="space-y-2">
                                         <Badge className="bg-rose-500/20 text-rose-500 border-none text-[8px] font-black uppercase tracking-widest">Alerta de Vencimiento Crítica</Badge>
-                                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Riesgo en SKU: {activeAlert.sku ?? "S/N"}</h3>
+                                        <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Riesgo en SKU: {activeAlert.sku ?? "S/N"}</h3>
                                         <p className="text-[10px] font-bold text-muted-foreground uppercase">{activeAlert.nombre}</p>
                                     </div>
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
@@ -208,7 +208,7 @@ export default function InventarioPage() {
                         <Card className="glass-card border-none bg-card/40 p-8 rounded-[3rem] shadow-2xl flex flex-col justify-center text-center relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-24 w-24" /></div>
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-6">Valor en Riesgo Total</p>
-                            <p className="text-5xl font-black italic text-rose-500 tracking-tighter shadow-glow-sm">
+                            <p className="text-5xl font-black italic text-rose-500 tracking-tight shadow-glow-sm">
                                 {formatCurrency(parseInt(stats?.items_criticos ?? "0") > 0 ? parseInt(stats?.items_criticos ?? "0") * parseFloat(activeAlert?.costo_unitario ?? "0") : 0, 'Bs.')}
                             </p>
                             <div className="mt-8 pt-8 border-t border-white/5 flex items-center justify-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40">
@@ -223,22 +223,22 @@ export default function InventarioPage() {
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5"><Zap className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Valor Total Almacén</p>
-                    <p className="text-3xl font-black italic text-primary tracking-tighter shadow-glow-text">{loading ? "—" : formatCurrency(valorTotal, 'Bs.')}</p>
+                    <p className="text-3xl font-black italic text-primary tracking-tight shadow-glow-text">{loading ? "—" : formatCurrency(valorTotal, 'Bs.')}</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5"><Activity className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Total Productos</p>
-                    <p className="text-3xl font-black italic text-foreground tracking-tighter">{loading ? "—" : stats?.total_items ?? 0}</p>
+                    <p className="text-3xl font-black italic text-foreground tracking-tight">{loading ? "—" : stats?.total_items ?? 0}</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5"><ShieldAlert className="h-24 w-24 text-rose-500" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Por Vencer (30d)</p>
-                    <p className={cn("text-3xl font-black italic tracking-tighter", parseInt(stats?.items_criticos ?? "0") > 0 ? "text-rose-500" : "text-emerald-500")}>{loading ? "—" : stats?.items_criticos ?? 0}</p>
+                    <p className={cn("text-3xl font-black italic tracking-tight", parseInt(stats?.items_criticos ?? "0") > 0 ? "text-rose-500" : "text-emerald-500")}>{loading ? "—" : stats?.items_criticos ?? 0}</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5"><Archive className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Categorías</p>
-                    <p className="text-3xl font-black italic text-foreground tracking-tighter">{loading ? "—" : stats?.categorias ?? 0}</p>
+                    <p className="text-3xl font-black italic text-foreground tracking-tight">{loading ? "—" : stats?.categorias ?? 0}</p>
                 </Card>
             </div>
 
@@ -322,7 +322,7 @@ export default function InventarioPage() {
             <Dialog open={showDialog} onOpenChange={setShowDialog}>
                 <DialogContent className="max-w-2xl bg-card border-border rounded-[2rem] p-0 overflow-hidden">
                     <DialogHeader className="p-8 pb-4 border-b border-border bg-muted/10">
-                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-3">
+                        <DialogTitle className="text-xl font-black uppercase italic tracking-tight flex items-center gap-3">
                             <Archive className="h-5 w-5 text-primary" /> Registro de Nuevo Producto
                         </DialogTitle>
                         <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Todos los campos marcados son obligatorios</p>

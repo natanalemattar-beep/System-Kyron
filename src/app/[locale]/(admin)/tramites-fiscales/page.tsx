@@ -36,7 +36,7 @@ export default function TramitesFiscalesPage() {
                             <tramite.icon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-2">{tramite.title}</CardTitle>
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground mb-2">{tramite.title}</CardTitle>
                             <CardDescription className="text-xs font-bold text-muted-foreground/60 uppercase leading-relaxed">{tramite.desc}</CardDescription>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ export default function TramitesFiscalesPage() {
         <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-48 w-48" /></div>
         <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-                <h3 className="text-3xl font-black uppercase italic tracking-tighter">Asistente de Auditoría 24/7</h3>
+                <h3 className="text-3xl font-black uppercase italic tracking-tight">Asistente de Auditoría 24/7</h3>
                 <p className="text-lg font-medium opacity-90 italic leading-relaxed">Active el supervisor IA para validar cada transacción en tiempo real y evitar multas por errores de forma o fondo.</p>
                 <Button variant="secondary" className="h-14 px-10 rounded-2xl bg-white text-primary font-black uppercase text-xs tracking-widest shadow-2xl">ACTIVAR PROTECCIÓN</Button>
             </div>

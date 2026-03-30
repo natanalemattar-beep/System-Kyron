@@ -57,7 +57,7 @@ export default function AnalisisVentasPage() {
                     <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
                     <kpi.icon className="h-4 w-4 text-primary/40" />
                 </div>
-                <p className="text-2xl font-black italic text-foreground tracking-tighter">{kpi.val}</p>
+                <p className="text-2xl font-black italic text-foreground tracking-tight">{kpi.val}</p>
                 <p className={cn("text-[8px] font-black uppercase mt-2", kpi.trend.startsWith('+') ? "text-emerald-500" : "text-rose-500")}>{kpi.trend}</p>
             </Card>
         ))}
@@ -117,7 +117,7 @@ export default function AnalisisVentasPage() {
         
         <Card className="lg:col-span-4 bg-[#050505] border border-white/10 rounded-[2.5rem] p-10 flex flex-col justify-center items-center text-center group">
             <Star className="h-16 w-16 text-yellow-400 fill-yellow-400 mb-6 group-hover:scale-110 transition-transform shadow-glow" />
-            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white mb-2">Producto Estrella</h3>
+            <h3 className="text-2xl font-black uppercase italic tracking-tight text-white mb-2">Producto Estrella</h3>
             <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">IMPRESORA FISCAL TÉRMICA</p>
             <Button variant="outline" className="w-full h-12 rounded-xl font-black text-[9px] uppercase tracking-widest border-white/10 text-white/60">Ver Detalle</Button>
         </Card>

@@ -106,7 +106,7 @@ export default function IsoManualsPage() {
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
                             <StatIcon className={cn("h-4 w-4", stat.color)} />
                         </div>
-                        <p className={cn("text-2xl font-black italic tracking-tighter leading-none", stat.color)}>{stat.val}</p>
+                        <p className={cn("text-2xl font-black italic tracking-tight leading-none", stat.color)}>{stat.val}</p>
                     </Card>
                     );
                 })}
@@ -137,7 +137,7 @@ export default function IsoManualsPage() {
                             <Card className="glass-card border-none rounded-[2.5rem] bg-card/40 overflow-hidden shadow-2xl group hover:border-emerald-500/20 transition-all">
                                 <div className="flex flex-col md:flex-row">
                                     <div className="md:w-20 bg-muted/30 flex items-center justify-center border-r border-border/50">
-                                        <span className="text-xl font-black text-foreground/5 uppercase lg:vertical-text tracking-tighter group-hover:text-emerald-500/10 transition-colors">ISO-9001</span>
+                                        <span className="text-xl font-black text-foreground/5 uppercase lg:vertical-text tracking-tight group-hover:text-emerald-500/10 transition-colors">ISO-9001</span>
                                     </div>
                                     <div className="flex-1 p-8 md:p-10 space-y-6">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -146,7 +146,7 @@ export default function IsoManualsPage() {
                                                     <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase tracking-widest px-3 h-6 rounded-lg">{manual.status}</Badge>
                                                     <p className="text-[10px] font-mono font-black text-primary italic uppercase">{manual.id}</p>
                                                 </div>
-                                                <h3 className="text-xl md:text-2xl font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">{manual.title}</h3>
+                                                <h3 className="text-xl md:text-2xl font-black uppercase italic tracking-tight text-foreground group-hover:text-primary transition-colors">{manual.title}</h3>
                                                 <p className="text-[11px] font-bold text-muted-foreground/60 uppercase leading-relaxed max-w-2xl">{manual.desc}</p>
                                             </div>
                                             <div className="text-right space-y-1">
@@ -194,7 +194,7 @@ export default function IsoManualsPage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4">
                             <ClipboardCheck className="h-10 w-10 text-emerald-500 animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground leading-none">Política Integrada de <br/> Calidad y Seguridad</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground leading-none">Política Integrada de <br/> Calidad y Seguridad</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-emerald-500/20 pl-10">
                             System Kyron se compromete a la excelencia operativa mediante el cumplimiento estricto del estándar ISO 9001:2015. Nuestro sistema no solo registra procesos, sino que garantiza que cada manual sea una directriz inmutable, auditada por algoritmos de IA para eliminar la variabilidad y el error humano en la gestión de servicios.

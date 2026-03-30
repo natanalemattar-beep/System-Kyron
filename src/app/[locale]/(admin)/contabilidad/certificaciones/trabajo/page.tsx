@@ -94,7 +94,7 @@ export default function ConstanciaTrabajoPage() {
             <div className="grid md:grid-cols-2 gap-10 mt-10">
                 <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-all duration-1000"><FileSignature className="h-32 w-32" /></div>
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">Validez Jurídica</h3>
+                    <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Validez Jurídica</h3>
                     <p className="text-sm font-medium italic text-muted-foreground/60 leading-relaxed text-justify">
                         Cada constancia emitida por System Kyron incluye un código QR de validación y una firma electrónica basada en el ID Digital del representante legal, garantizando su autenticidad ante instituciones bancarias y consulares.
                     </p>
@@ -102,7 +102,7 @@ export default function ConstanciaTrabajoPage() {
                 <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between shadow-glow relative overflow-hidden border-none group">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Activity className="h-32 w-32" /></div>
                     <div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Protocolo LOTTT</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4">Protocolo LOTTT</h3>
                         <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Automatización de certificaciones laborales según el Artículo 108 de la Ley Orgánica del Trabajo.</p>
                     </div>
                     <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">CONFIGURAR PLANTILLA MAESTRA</Button>

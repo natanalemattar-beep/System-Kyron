@@ -117,7 +117,7 @@ export default function HorasExtrasPage() {
             <Timer className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{summary.totalHoras}h</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{summary.totalHoras}h</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">Marzo 2026</p>
           </CardContent>
         </Card>
@@ -127,7 +127,7 @@ export default function HorasExtrasPage() {
             <Users className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{summary.conHoras}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{summary.conHoras}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-emerald-500/60">Con horas extras</p>
           </CardContent>
         </Card>
@@ -137,7 +137,7 @@ export default function HorasExtrasPage() {
             <Clock className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-amber-500">{formatCurrency(summary.totalPago, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-amber-500">{formatCurrency(summary.totalPago, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-amber-500/60">Recargos incluidos</p>
           </CardContent>
         </Card>

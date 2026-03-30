@@ -56,7 +56,7 @@ export default function BilleteraCambioPage() {
                     <Card key={cur} className="glass-card border-none bg-card/40 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Wallet className="h-16 w-16" /></div>
                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Saldo en {cur}</p>
-                        <p className="text-3xl font-black italic text-foreground tracking-tighter leading-none">{formatCurrency(bal as number, cur as any)}</p>
+                        <p className="text-3xl font-black italic text-foreground tracking-tight leading-none">{formatCurrency(bal as number, cur as any)}</p>
                     </Card>
                 ))}
             </div>

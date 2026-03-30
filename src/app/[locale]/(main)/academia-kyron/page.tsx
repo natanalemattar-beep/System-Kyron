@@ -22,7 +22,7 @@ export default function AcademiaKyronPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-yellow-500 shadow-glow mb-4">
                     <School className="h-3 w-3" /> NODO EDUCATIVO
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Kyron <span className="text-yellow-500">Academy</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Kyron <span className="text-yellow-500">Academy</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Centro de Formación Técnica y Profesional • 2026</p>
             </header>
 
@@ -39,7 +39,7 @@ export default function AcademiaKyronPage() {
                             </div>
                         </div>
                         <CardHeader className="p-8 pb-4">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter leading-tight text-white/90">{course.title}</CardTitle>
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight leading-tight text-white/90">{course.title}</CardTitle>
                             <CardDescription className="text-xs font-bold text-white/30 uppercase mt-2">{course.desc}</CardDescription>
                         </CardHeader>
                         <CardContent className="p-8 pt-0 flex-grow">
@@ -74,7 +74,7 @@ export default function AcademiaKyronPage() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
                     <div className="space-y-6">
                         <Badge className="bg-white/20 text-white border-white/30 text-[10px] font-black uppercase tracking-[0.4em]">Certificación Master</Badge>
-                        <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-foreground">Conviértete en un Operador Maestro</h2>
+                        <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight text-foreground">Conviértete en un Operador Maestro</h2>
                         <p className="text-lg font-medium italic text-white/80 leading-relaxed">Domina el ecosistema completo y obtén una credencial verificable en Blockchain que valida tus competencias en la nueva economía digital.</p>
                         <Button className="h-16 px-12 rounded-2xl bg-white text-black font-black uppercase text-xs tracking-widest shadow-2xl hover:bg-white/90">INSCRIBIRSE AL PROGRAMA</Button>
                     </div>

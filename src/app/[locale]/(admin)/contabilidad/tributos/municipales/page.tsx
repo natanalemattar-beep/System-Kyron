@@ -31,19 +31,19 @@ export default function ImpuestosMunicipalesPage() {
                 <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl relative group overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Alícuota General</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter">Hasta 3%</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight">Hasta 3%</p>
                     <p className="text-[8px] font-bold uppercase text-[#00A86B] mt-4 italic">Sobre Ingresos Brutos</p>
                 </Card>
                 <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl border-l-4 border-[#0A2472] group overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0A2472]/60 mb-4">Mínimo Tributario</p>
-                    <p className="text-4xl font-black italic text-[#0A2472] tracking-tighter shadow-sm">240 TC</p>
+                    <p className="text-4xl font-black italic text-[#0A2472] tracking-tight shadow-sm">240 TC</p>
                     <p className="text-[8px] font-bold uppercase text-slate-400 mt-4 italic">Moneda Mayor Valor BCV</p>
                 </Card>
                 <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl relative group overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Vigencia Licencia</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter">3 AÑOS</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight">3 AÑOS</p>
                     <p className="text-[8px] font-bold uppercase text-emerald-500 mt-4 italic">Renovación Automática</p>
                 </Card>
             </div>

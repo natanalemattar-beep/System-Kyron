@@ -201,7 +201,7 @@ export default function PasarelasDePagoPage() {
                                     <Badge className={`${gateway.bg} ${gateway.color} border-none text-[7px] font-black uppercase px-2`}>{gateway.status}</Badge>
                                 </div>
                                 <div>
-                                    <CardTitle className="text-lg font-black uppercase italic tracking-tighter mb-1">{gateway.name}</CardTitle>
+                                    <CardTitle className="text-lg font-black uppercase italic tracking-tight mb-1">{gateway.name}</CardTitle>
                                     <CardDescription className="text-[10px] font-bold text-muted-foreground/60 uppercase leading-relaxed">{gateway.description}</CardDescription>
                                 </div>
                                 <div className="flex flex-wrap gap-1">
@@ -259,7 +259,7 @@ export default function PasarelasDePagoPage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Seguridad de Grado Militar</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Seguridad de Grado Militar</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                             Todas las transacciones procesadas a través del Ecosistema Kyron están protegidas por cifrado AES-256 y selladas en el Ledger inmutable con controles antifraude avanzados.

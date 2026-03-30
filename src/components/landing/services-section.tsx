@@ -58,7 +58,7 @@ export function ServicesSection() {
                         <Zap className="h-3.5 w-3.5" />
                         Ecosistema Completo
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tighter text-foreground uppercase leading-[1.05] mb-4 break-words">
+                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight text-foreground uppercase leading-[1.05] mb-4 break-words">
                         Todo lo que necesitas,{' '}
                         <span className="kyron-gradient-text italic">
                             integrado
@@ -88,7 +88,7 @@ export function ServicesSection() {
                                         <feat.icon className="h-3.5 w-3.5" />
                                         {feat.subtitle}
                                     </div>
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter uppercase text-foreground leading-[1.1]">
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase text-foreground leading-[1.1]">
                                         {feat.title}
                                     </h3>
                                     <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed max-w-lg">
@@ -133,7 +133,7 @@ export function ServicesSection() {
                             <Globe className="h-3.5 w-3.5" />
                             Plataforma en Cifras
                         </div>
-                        <h3 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase text-foreground mb-3">
+                        <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase text-foreground mb-3">
                             Resultados que <span className="kyron-gradient-text italic">hablan solos</span>
                         </h3>
                         <p className="text-sm text-muted-foreground max-w-xl mx-auto font-medium">

@@ -52,7 +52,7 @@ export default function CertificacionFinancieraPage() {
             {step === 'form' ? (
                 <Card className="glass-card border-none rounded-[3rem] p-1 shadow-2xl max-w-4xl mx-auto">
                     <CardHeader className="p-10 border-b border-border/50 bg-muted/10 text-center">
-                        <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tighter">Parámetros de Certificación</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tight">Parámetros de Certificación</CardTitle>
                         <CardDescription className="text-[10px] font-bold uppercase opacity-40">Defina los valores para el dictamen financiero</CardDescription>
                     </CardHeader>
                     <CardContent className="p-10 space-y-8">
@@ -93,12 +93,12 @@ export default function CertificacionFinancieraPage() {
                             <div className="flex items-center gap-6">
                                 <Logo className="h-16 w-16" />
                                 <div className="space-y-1">
-                                    <h4 className="text-xl font-black italic uppercase tracking-tighter leading-none">System Kyron</h4>
+                                    <h4 className="text-xl font-black italic uppercase tracking-tight leading-none">System Kyron</h4>
                                     <p className="text-[8px] font-bold uppercase tracking-[0.4em] opacity-60">Finance Node • 2026</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-900 leading-none">CERTIFICACIÓN FINANCIERA</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">CERTIFICACIÓN FINANCIERA</h3>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">ID: KYR-FIN-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
                             </div>
                         </header>

@@ -91,7 +91,7 @@ export default function ReportesGlobalPage() {
                         <Badge className="bg-muted text-muted-foreground border-none text-[8px] font-black uppercase px-3">{group.items.length} REPORTES</Badge>
                     </div>
                     <div>
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">{group.title}</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">{group.title}</CardTitle>
                         <ul className="space-y-4">
                             {group.items.map((item, idx) => (
                                 <li key={idx} className="flex items-center gap-4 text-xs font-bold uppercase tracking-tight text-foreground/60 hover:text-primary transition-colors cursor-pointer group/item">
@@ -118,7 +118,7 @@ export default function ReportesGlobalPage() {
             <div className="space-y-8 relative z-10">
                 <div className="flex items-center gap-4">
                     <Activity className="h-8 w-8 text-[#00A86B] animate-pulse" />
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Visualización Ejecutiva</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Visualización Ejecutiva</h3>
                 </div>
                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                     System Kyron transforma sus datos crudos en visiones estratégicas de alta densidad. El motor IA genera resúmenes gráficos que permiten a la directiva identificar cuellos de botella financieros en menos de 3 segundos de inspección.

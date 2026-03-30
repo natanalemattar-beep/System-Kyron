@@ -112,7 +112,7 @@ export default function LibroDiarioPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><FileText className="h-4 w-4 text-primary" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{rows.length}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{rows.length}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">Marzo 2026</p>
           </CardContent>
         </Card>
@@ -122,7 +122,7 @@ export default function LibroDiarioPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><TrendingDown className="h-4 w-4 text-rose-500" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-rose-500">{formatCurrency(totals.debe, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-rose-500">{formatCurrency(totals.debe, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-rose-500/60">Débitos acumulados</p>
           </CardContent>
         </Card>
@@ -132,7 +132,7 @@ export default function LibroDiarioPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><TrendingUp className="h-4 w-4 text-emerald-500" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{formatCurrency(totals.haber, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{formatCurrency(totals.haber, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-emerald-500/60">Créditos acumulados</p>
           </CardContent>
         </Card>
@@ -142,7 +142,7 @@ export default function LibroDiarioPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><Scale className="h-4 w-4 text-primary" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className={cn("text-2xl font-black italic tracking-tighter", totals.balance >= 0 ? "text-emerald-500" : "text-rose-500")}>
+            <div className={cn("text-2xl font-black italic tracking-tight", totals.balance >= 0 ? "text-emerald-500" : "text-rose-500")}>
               {formatCurrency(Math.abs(totals.balance), 'Bs.')}
             </div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">{totals.balance >= 0 ? 'Superávit' : 'Déficit'}</p>

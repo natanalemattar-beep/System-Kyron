@@ -50,16 +50,16 @@ export default function CuentasPorPagarPage() {
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><HandCoins className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Total Deuda Acumulada</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter leading-none">{formatCurrency(2928, 'Bs.')}</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">{formatCurrency(2928, 'Bs.')}</p>
                 </Card>
                 <Card className="glass-card border-none bg-rose-500/5 p-8 rounded-[2rem] shadow-xl border-l-4 border-rose-500">
                     <p className="text-[10px] font-black uppercase tracking-widest text-rose-500 mb-4">Monto en Mora</p>
-                    <p className="text-4xl font-black italic text-rose-500 tracking-tighter leading-none">{formatCurrency(986, 'Bs.')}</p>
+                    <p className="text-4xl font-black italic text-rose-500 tracking-tight leading-none">{formatCurrency(986, 'Bs.')}</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Días Promedio Pago</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter leading-none">32 DÍAS</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">32 DÍAS</p>
                 </Card>
             </div>
 

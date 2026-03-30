@@ -48,15 +48,15 @@ export default function CuentasPorPagarPage() {
             <div className="grid gap-6 md:grid-cols-3">
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem]">
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Total Deuda</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter">Bs. 2.928,00</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight">Bs. 2.928,00</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem]">
                     <p className="text-[10px] font-black uppercase tracking-widest text-rose-500 mb-4">En Mora</p>
-                    <p className="text-4xl font-black italic text-rose-500 tracking-tighter">1 Factura</p>
+                    <p className="text-4xl font-black italic text-rose-500 tracking-tight">1 Factura</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem]">
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Días Promedio</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter">32 Días</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight">32 Días</p>
                 </Card>
             </div>
 

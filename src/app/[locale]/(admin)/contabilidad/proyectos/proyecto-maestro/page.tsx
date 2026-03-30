@@ -38,13 +38,13 @@ export default function ProyectoMaestroPage() {
                     <Card key={pro.id} className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl hover:border-primary/20 transition-all group">
                         <div className="flex flex-col md:flex-row">
                             <div className="md:w-20 bg-muted/30 flex items-center justify-center border-r border-border/50">
-                                <span className="text-xl font-black text-white/5 uppercase lg:vertical-text tracking-tighter group-hover:text-primary/10 transition-colors">ESTADO</span>
+                                <span className="text-xl font-black text-white/5 uppercase lg:vertical-text tracking-tight group-hover:text-primary/10 transition-colors">ESTADO</span>
                             </div>
                             <div className="flex-1 p-10 space-y-8">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                                     <div className="space-y-2">
                                         <Badge variant="outline" className="text-[8px] font-black border-primary/30 text-primary uppercase tracking-widest px-3 h-6">{pro.status}</Badge>
-                                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">{pro.name}</h3>
+                                        <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">{pro.name}</h3>
                                         <p className="text-[9px] font-mono font-bold text-muted-foreground uppercase">{pro.id} • VENCE: {pro.deadline}</p>
                                     </div>
                                     <div className="text-right">
@@ -84,7 +84,7 @@ export default function ProyectoMaestroPage() {
                     <div className="space-y-8 relative z-10">
                         <div className="flex items-center gap-4">
                             <Target className="h-8 w-8 text-[#00A86B] animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Monitor de Hitos</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-white">Monitor de Hitos</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                             El sistema de proyectos de System Kyron permite una supervisión milimétrica de la ejecución presupuestaria. Cada dólar invertido se rastrea mediante el módulo de CONTABILIDAD para garantizar una desviación cero sobre el presupuesto original.

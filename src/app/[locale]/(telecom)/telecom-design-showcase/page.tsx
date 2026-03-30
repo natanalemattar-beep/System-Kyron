@@ -12,7 +12,7 @@ export default function TelecomDesignShowcasePage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 shadow-glow mb-4">
                     <Terminal className="h-3 w-3" /> ÁREA DESIGN
                 </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground uppercase leading-none italic">Telecom <span className="text-amber-500">Design Lab</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic">Telecom <span className="text-amber-500">Design Lab</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Muestrario de Componentes UHD • Protocolo de Interfaz v2.8.5</p>
             </header>
 
@@ -20,7 +20,7 @@ export default function TelecomDesignShowcasePage() {
                 <Card className="glass-card border-none bg-amber-500/5 rounded-[3rem] p-10 border border-amber-500/10 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform"><Signal className="h-32 w-32" /></div>
                     <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
                             <Radio className="h-6 w-6 text-amber-500" /> Transmisión 5G
                         </CardTitle>
                     </CardHeader>
@@ -38,12 +38,12 @@ export default function TelecomDesignShowcasePage() {
 
                 <Card className="glass-card border-none bg-white/[0.01] rounded-[3rem] p-10 border border-white/5 flex flex-col justify-center items-center text-center">
                     <Activity className="h-16 w-16 text-emerald-400 mb-6 animate-pulse" />
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground mb-2">Telemetría</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground mb-2">Telemetría</h3>
                     <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Status: Operational</p>
                 </Card>
 
                 <Card className="bg-amber-600 text-black rounded-[3rem] p-10 flex flex-col justify-between shadow-glow-secondary">
-                    <CardTitle className="text-3xl font-black uppercase italic tracking-tighter leading-none">ÁREA <br/> MAESTRA</CardTitle>
+                    <CardTitle className="text-3xl font-black uppercase italic tracking-tight leading-none">ÁREA <br/> MAESTRA</CardTitle>
                     <div className="flex items-center gap-4 pt-10">
                         <Cpu className="h-8 w-8 opacity-40" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Auth v2.8.5</span>

@@ -91,7 +91,7 @@ export default function CestaTicketPage() {
             <Calculator className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{formatCurrency(UT, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{formatCurrency(UT, 'Bs.')}</div>
             <p className="text-[8px] font-black uppercase mt-1 text-primary">Gaceta 2026</p>
           </CardContent>
         </Card>
@@ -101,7 +101,7 @@ export default function CestaTicketPage() {
             <Banknote className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{formatCurrency(cestaTicketDiario, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{formatCurrency(cestaTicketDiario, 'Bs.')}</div>
             <p className="text-[8px] font-black uppercase mt-1 text-emerald-500/60">Por jornada</p>
           </CardContent>
         </Card>
@@ -111,7 +111,7 @@ export default function CestaTicketPage() {
             <Users className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{summary.empleados}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{summary.empleados}</div>
             <p className="text-[8px] font-black uppercase mt-1 text-primary">Activos</p>
           </CardContent>
         </Card>
@@ -121,7 +121,7 @@ export default function CestaTicketPage() {
             <Calendar className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-amber-500">{summary.totalDias}</div>
+            <div className="text-2xl font-black italic tracking-tight text-amber-500">{summary.totalDias}</div>
             <p className="text-[8px] font-black uppercase mt-1 text-amber-500/60">Jornadas laborales</p>
           </CardContent>
         </Card>
@@ -131,7 +131,7 @@ export default function CestaTicketPage() {
             <Wallet className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-primary">{formatCurrency(summary.totalMensual, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-primary">{formatCurrency(summary.totalMensual, 'Bs.')}</div>
             <p className="text-[8px] font-black uppercase mt-1 text-primary/60">Marzo 2026</p>
           </CardContent>
         </Card>

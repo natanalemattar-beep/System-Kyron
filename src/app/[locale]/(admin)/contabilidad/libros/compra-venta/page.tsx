@@ -130,7 +130,7 @@ export default function LibroCompraVentaPage() {
             <TrendingUp className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-xl font-black italic tracking-tighter text-emerald-500">{formatCurrency(summary.totalVentas, 'Bs.')}</div>
+            <div className="text-xl font-black italic tracking-tight text-emerald-500">{formatCurrency(summary.totalVentas, 'Bs.')}</div>
           </CardContent>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all">
@@ -139,7 +139,7 @@ export default function LibroCompraVentaPage() {
             <TrendingDown className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-xl font-black italic tracking-tighter text-rose-500">{formatCurrency(summary.totalCompras, 'Bs.')}</div>
+            <div className="text-xl font-black italic tracking-tight text-rose-500">{formatCurrency(summary.totalCompras, 'Bs.')}</div>
           </CardContent>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all">
@@ -148,7 +148,7 @@ export default function LibroCompraVentaPage() {
             <Receipt className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-xl font-black italic tracking-tighter text-primary">{formatCurrency(summary.debitoFiscal, 'Bs.')}</div>
+            <div className="text-xl font-black italic tracking-tight text-primary">{formatCurrency(summary.debitoFiscal, 'Bs.')}</div>
           </CardContent>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all">
@@ -157,7 +157,7 @@ export default function LibroCompraVentaPage() {
             <Receipt className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className="text-xl font-black italic tracking-tighter text-amber-500">{formatCurrency(summary.creditoFiscal, 'Bs.')}</div>
+            <div className="text-xl font-black italic tracking-tight text-amber-500">{formatCurrency(summary.creditoFiscal, 'Bs.')}</div>
           </CardContent>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-2 rounded-[2rem] shadow-sm hover:shadow-xl transition-all">
@@ -166,7 +166,7 @@ export default function LibroCompraVentaPage() {
             <Scale className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-5 pt-0">
-            <div className={cn("text-xl font-black italic tracking-tighter", summary.cuotaTributaria >= 0 ? "text-primary" : "text-emerald-500")}>
+            <div className={cn("text-xl font-black italic tracking-tight", summary.cuotaTributaria >= 0 ? "text-primary" : "text-emerald-500")}>
               {formatCurrency(Math.abs(summary.cuotaTributaria), 'Bs.')}
             </div>
             <p className="text-[8px] font-black uppercase mt-1 text-muted-foreground/40">{summary.cuotaTributaria >= 0 ? 'A pagar' : 'A favor'}</p>

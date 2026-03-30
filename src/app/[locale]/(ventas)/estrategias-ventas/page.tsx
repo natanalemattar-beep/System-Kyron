@@ -144,7 +144,7 @@ export default function EstrategiasVentasPage() {
                                 <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
                                 <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
                             </div>
-                            <p className={`text-2xl font-black italic tracking-tighter ${kpi.color}`}>{kpi.value}</p>
+                            <p className={`text-2xl font-black italic tracking-tight ${kpi.color}`}>{kpi.value}</p>
                         </Card>
                     </motion.div>
                 ))}

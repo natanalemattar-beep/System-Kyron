@@ -83,7 +83,7 @@ export default function ActaAsambleaPage() {
         <div className="lg:col-span-4 space-y-8">
             <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><FileSignature className="h-32 w-32" /></div>
-                <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">Custodia de Libros</h3>
+                <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Custodia de Libros</h3>
                 <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                     De conformidad con el Código de Comercio, cada acta registrada en System Kyron genera una huella digital inmutable que certifica la fecha y hora de la asamblea ante auditorías del SAREN.
                 </p>

@@ -134,7 +134,7 @@ export default function CierreCajaPage() {
                                 )}>
                                     <p className="text-[10px] font-black uppercase tracking-widest mb-4 opacity-60">Diferencia</p>
                                     <p className={cn(
-                                        "text-4xl font-black italic tracking-tighter leading-none",
+                                        "text-4xl font-black italic tracking-tight leading-none",
                                         diferenciaBs === 0 ? "text-emerald-400" : "text-rose-400"
                                     )}>{formatCurrency(diferenciaBs, 'Bs.')}</p>
                                 </div>

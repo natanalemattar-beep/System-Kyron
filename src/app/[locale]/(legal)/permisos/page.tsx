@@ -53,7 +53,7 @@ export default function PermisosPage() {
                     <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</span>
                     <div className={cn("p-2 rounded-xl", kpi.bg)}><kpi.icon className={cn("h-4 w-4", kpi.color)} /></div>
                 </div>
-                <p className={cn("text-2xl font-black italic tracking-tighter", kpi.color)}>{kpi.value}</p>
+                <p className={cn("text-2xl font-black italic tracking-tight", kpi.color)}>{kpi.value}</p>
             </Card>
         ))}
       </div>
@@ -69,7 +69,7 @@ export default function PermisosPage() {
                         <AccordionItem value={emisor} key={emisor} className="border-border/30">
                             <AccordionTrigger className="px-6 md:px-8 py-5 hover:bg-muted/30 transition-all">
                                 <div className="flex justify-between items-center w-full pr-6">
-                                    <span className="font-black uppercase italic tracking-tighter text-foreground/80">{emisor}</span>
+                                    <span className="font-black uppercase italic tracking-tight text-foreground/80">{emisor}</span>
                                     <Badge className="bg-muted border-border text-[8px] font-black uppercase px-3">{lista.length} ITEMS</Badge>
                                 </div>
                             </AccordionTrigger>
@@ -102,7 +102,7 @@ export default function PermisosPage() {
         <div className="lg:col-span-4 space-y-6">
             <Card className="bg-primary text-primary-foreground rounded-2xl p-8 relative overflow-hidden shadow-lg border-none group">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Activity className="h-24 w-24" /></div>
-                <h3 className="text-xl font-black uppercase italic tracking-tighter mb-3">Nueva Solicitud</h3>
+                <h3 className="text-xl font-black uppercase italic tracking-tight mb-3">Nueva Solicitud</h3>
                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-6">Inicie el protocolo de gestión ante nuevos entes emisores.</p>
                 <Button className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-lg">
                     <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR TRÁMITE

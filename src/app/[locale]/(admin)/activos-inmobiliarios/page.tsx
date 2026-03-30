@@ -41,12 +41,12 @@ export default function ActivosInmobiliariosPage() {
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-24 w-24" /></div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Valor Patrimonial Total</p>
-            <p className="text-4xl font-black italic text-primary tracking-tighter shadow-glow-text">{formatCurrency(400000, 'USD')}</p>
+            <p className="text-4xl font-black italic text-primary tracking-tight shadow-glow-text">{formatCurrency(400000, 'USD')}</p>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-24 w-24" /></div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Mantenimiento Preventivo</p>
-            <p className="text-4xl font-black italic text-foreground tracking-tighter">AL DÍA</p>
+            <p className="text-4xl font-black italic text-foreground tracking-tight">AL DÍA</p>
         </Card>
       </div>
 

@@ -104,7 +104,7 @@ export default function ControlLicoresPage() {
             <Package className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{summary.totalUnidades}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{summary.totalUnidades}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-rose-500">{summary.tipos} Tipos de bebida</p>
           </CardContent>
         </Card>
@@ -114,7 +114,7 @@ export default function ControlLicoresPage() {
             <BarChart3 className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary/60">Al costo unitario</p>
           </CardContent>
         </Card>
@@ -124,7 +124,7 @@ export default function ControlLicoresPage() {
             <Wine className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{rows.length}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{rows.length}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-rose-500/60">Especies registradas</p>
           </CardContent>
         </Card>
@@ -134,7 +134,7 @@ export default function ControlLicoresPage() {
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className={cn("text-2xl font-black italic tracking-tighter", summary.stockBajo > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.stockBajo}</div>
+            <div className={cn("text-2xl font-black italic tracking-tight", summary.stockBajo > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.stockBajo}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-amber-500/60">Productos {`<`} 10 uds.</p>
           </CardContent>
         </Card>

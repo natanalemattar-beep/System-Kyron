@@ -117,7 +117,7 @@ export default function IdentidadMarcaPage() {
           </div>
           
           <div className="space-y-2">
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic italic-shadow leading-none">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase italic italic-shadow leading-none">
               SYSTEM <span className="text-primary">KYRON</span>
             </h1>
             <p className="text-[10px] font-black text-foreground/20 uppercase tracking-[1em] mt-4">Corporate Intelligence</p>

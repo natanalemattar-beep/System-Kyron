@@ -54,7 +54,7 @@ export default function EstudioFactibilidadPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary">
                         <Activity className="h-3 w-3" /> Audit: 2025-MASTER
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Factibilidad <span className="text-primary">Económica</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Factibilidad <span className="text-primary">Económica</span></h1>
                     <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Dictamen Técnico-Financiero • System Kyron 2025</p>
                 </div>
                 <div className="flex gap-3">
@@ -123,7 +123,7 @@ export default function EstudioFactibilidadPage() {
                             <ShieldCheck className="h-48 w-48" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 flex items-center gap-3">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6 flex items-center gap-3">
                                 <CheckCircle className="h-6 w-6" /> Dictamen Maestro
                             </h3>
                             <p className="text-lg font-medium italic leading-relaxed opacity-90 text-justify">

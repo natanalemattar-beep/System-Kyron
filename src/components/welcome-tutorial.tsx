@@ -184,7 +184,7 @@ export function WelcomeTutorial() {
                   <Icon className={cn("h-9 w-9", step.color)} />
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-xl sm:text-2xl font-black tracking-tighter uppercase italic leading-tight">
+                  <h2 className="text-xl sm:text-2xl font-black tracking-tight uppercase italic leading-tight">
                     {step.title}
                   </h2>
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">

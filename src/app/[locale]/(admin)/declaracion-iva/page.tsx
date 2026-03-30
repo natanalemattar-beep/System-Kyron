@@ -188,7 +188,7 @@ export default function DeclaracionIvaPage() {
                 <div className="grid lg:grid-cols-3 gap-10">
                     <Card className="lg:col-span-2 glass-card border-none rounded-[3rem] p-1 shadow-2xl bg-card/40">
                         <CardHeader className="p-10 border-b border-border/50">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Resumen del Periodo: {latest.periodo}</CardTitle>
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground">Resumen del Periodo: {latest.periodo}</CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">
                                 Estado: <span className={latest.estado === 'presentada' ? 'text-emerald-500' : 'text-amber-500'}>{latest.estado.toUpperCase()}</span>
                             </CardDescription>
@@ -197,17 +197,17 @@ export default function DeclaracionIvaPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="p-8 bg-white/[0.03] border border-border rounded-[2rem] shadow-inner space-y-2">
                                     <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-widest">Débito Fiscal (Ventas)</p>
-                                    <p className="text-3xl font-black italic text-foreground tracking-tighter">{formatCurrency(ivaDebito, 'Bs.')}</p>
+                                    <p className="text-3xl font-black italic text-foreground tracking-tight">{formatCurrency(ivaDebito, 'Bs.')}</p>
                                 </div>
                                 <div className="p-8 bg-white/[0.03] border border-border rounded-[2rem] shadow-inner space-y-2">
                                     <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-widest">Crédito Fiscal (Compras)</p>
-                                    <p className="text-3xl font-black italic text-foreground tracking-tighter">{formatCurrency(ivaCredito, 'Bs.')}</p>
+                                    <p className="text-3xl font-black italic text-foreground tracking-tight">{formatCurrency(ivaCredito, 'Bs.')}</p>
                                 </div>
                             </div>
                             <div className="p-10 bg-primary/10 border-2 border-primary/20 rounded-[2.5rem] flex flex-col md:flex-row justify-between items-center gap-10 group hover:border-primary/40 transition-all">
                                 <div className="space-y-2 text-center md:text-left">
                                     <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Monto Neto a Liquidar</p>
-                                    <p className="text-5xl font-black italic text-primary tracking-tighter italic-shadow">{formatCurrency(totalAPagar, 'Bs.')}</p>
+                                    <p className="text-5xl font-black italic text-primary tracking-tight italic-shadow">{formatCurrency(totalAPagar, 'Bs.')}</p>
                                 </div>
                                 <Button size="lg" onClick={handleDeclarar} disabled={submitting || latest.estado === 'presentada'} className="w-full md:w-auto btn-3d-primary h-16 px-12 rounded-2xl font-black uppercase text-xs tracking-widest shadow-glow">
                                     {submitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Calculator className="mr-3 h-5 w-5" />}
@@ -238,7 +238,7 @@ export default function DeclaracionIvaPage() {
                                 <AlertTriangle className="h-32 w-32 text-amber-500" />
                             </div>
                             <div className="relative z-10">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-amber-600 mb-4">CRONOGRAMA</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-amber-600 mb-4">CRONOGRAMA</h3>
                                 <p className="text-[10px] font-bold text-foreground/60 leading-relaxed uppercase mb-8">Tienes hasta el día 15 del mes en curso para evitar sanciones del Código Orgánico Tributario.</p>
                             </div>
                             <Button variant="outline" className="w-full h-12 rounded-xl border-amber-500/20 bg-amber-500/5 text-amber-600 font-black uppercase text-[10px] tracking-widest shadow-inner">

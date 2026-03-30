@@ -76,7 +76,7 @@ export default function PropuestaProyectoPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary">
                         <FileText className="h-3 w-3" /> Proposal Node: 2025
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Propuesta <span className="text-primary">Estratégica</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Propuesta <span className="text-primary">Estratégica</span></h1>
                     <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Consolidado Técnico de Innovación • System Kyron</p>
                 </div>
                 <div className="flex gap-3">
@@ -94,14 +94,14 @@ export default function PropuestaProyectoPage() {
                     <CardHeader className="p-12 md:p-20 text-center relative border-b border-white/5 bg-white/[0.01]">
                         <div className="absolute top-10 left-10 opacity-20"><Logo className="h-12 w-12" /></div>
                         <div className="mx-auto w-fit mb-10 bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-20 w-20" /></div>
-                        <CardTitle className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic text-white mb-4 leading-tight">EFICIENCIA Y FINANZAS <br/> DEL FUTURO</CardTitle>
+                        <CardTitle className="text-3xl md:text-5xl font-black uppercase tracking-tight italic text-white mb-4 leading-tight">EFICIENCIA Y FINANZAS <br/> DEL FUTURO</CardTitle>
                         <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs md:text-sm">Proyecto Maestro de Gestión Integral 2025</CardDescription>
                     </CardHeader>
                     
                     <CardContent className="p-12 md:p-20 space-y-20">
                         <section className="space-y-8">
                             <div className="flex items-center gap-6">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">1. Visión Maestra</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">1. Visión Maestra</h3>
                                 <div className="h-px flex-1 bg-white/10"></div>
                             </div>
                             <p className="text-lg md:text-xl font-medium italic text-muted-foreground leading-relaxed text-justify border-l-4 border-primary/20 pl-10">
@@ -111,7 +111,7 @@ export default function PropuestaProyectoPage() {
 
                         <section className="space-y-12">
                             <div className="flex items-center gap-6">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">2. Pilares de Innovación</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">2. Pilares de Innovación</h3>
                                 <div className="h-px flex-1 bg-white/10"></div>
                             </div>
                             <div className="grid md:grid-cols-2 gap-8">
@@ -129,7 +129,7 @@ export default function PropuestaProyectoPage() {
 
                         <section className="bg-primary text-primary-foreground p-12 rounded-[3rem] shadow-glow relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-10 opacity-10"><Zap className="h-40 w-40" /></div>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja de Ecosistema</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja de Ecosistema</h3>
                             <ul className="space-y-6 relative z-10">
                                 {["Centralización Total: Un único nodo para telecom, finanzas y leyes.", "Cumplimiento Predictivo: IA auditando cada factura contra la ley vigente.", "Monetización Sostenible: Transformación de residuos en activos digitales.", "Seguridad de Grado Militar: Cifrado AES-256 y Blockchain Ledger."].map((b, i) => (
                                     <li key={i} className="flex items-center gap-4 text-lg font-bold italic"><ChevronRight className="h-5 w-5 text-muted-foreground/60" /> {b}</li>

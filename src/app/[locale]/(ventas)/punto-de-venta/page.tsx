@@ -131,7 +131,7 @@ export default function PuntoDeVentaPage() {
                         <TabletSmartphone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-black uppercase tracking-tighter italic text-primary">System Kyron</h1>
+                        <h1 className="text-xl font-black uppercase tracking-tight italic text-primary">System Kyron</h1>
                         <p className="text-[8px] font-bold uppercase tracking-widest opacity-40">Punto de Venta Profesional</p>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ export default function PuntoDeVentaPage() {
                                 </div>
                                 <div className="p-4 flex-grow flex flex-col justify-between">
                                     <p className="font-bold text-[10px] uppercase tracking-tight text-white/70 leading-tight mb-2 line-clamp-2">{product.name}</p>
-                                    <p className="text-sm font-black text-primary italic tracking-tighter">{formatCurrency(product.price, 'USD')}</p>
+                                    <p className="text-sm font-black text-primary italic tracking-tight">{formatCurrency(product.price, 'USD')}</p>
                                 </div>
                             </Card>
                         ))}
@@ -178,7 +178,7 @@ export default function PuntoDeVentaPage() {
                 <Card className="flex flex-col bg-card/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden">
                     <CardHeader className="p-8 pb-4">
                         <div className="flex items-center justify-between">
-                            <CardTitle className="text-lg font-black uppercase italic tracking-tighter text-white">Orden Actual</CardTitle>
+                            <CardTitle className="text-lg font-black uppercase italic tracking-tight text-white">Orden Actual</CardTitle>
                             <Badge variant="secondary" className="bg-primary/10 text-primary border-none text-[10px] font-black">{cart.length} ITEMS</Badge>
                         </div>
                     </CardHeader>
@@ -211,8 +211,8 @@ export default function PuntoDeVentaPage() {
                             <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>Sub-Total Bruto:</span><span className="text-white/60">{formatCurrency(totalInCurrency, currency)}</span></div>
                             <div className="flex justify-between text-[10px] font-black uppercase text-white/30"><span>IVA Aplicado (16%):</span><span className="text-white/60">{formatCurrency(iva, currency)}</span></div>
                             <div className="flex justify-between text-2xl font-black text-primary pt-4 border-t border-white/5 shadow-glow-text">
-                                <span className="italic uppercase tracking-tighter">Total a Pagar:</span>
-                                <span className="italic tracking-tighter">{formatCurrency(total, currency)}</span>
+                                <span className="italic uppercase tracking-tight">Total a Pagar:</span>
+                                <span className="italic tracking-tight">{formatCurrency(total, currency)}</span>
                             </div>
                         </div>
                         
@@ -240,7 +240,7 @@ export default function PuntoDeVentaPage() {
                         <div className="p-3 bg-primary/10 rounded-2xl w-fit mb-4">
                             <CheckSquare className="h-8 w-8 text-primary" />
                         </div>
-                        <DialogTitle className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none">Confirmar <br/> Transacción</DialogTitle>
+                        <DialogTitle className="text-3xl font-black italic uppercase tracking-tight text-white leading-none">Confirmar <br/> Transacción</DialogTitle>
                         <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-primary/60">Seleccione el medio de inyección de liquidez</DialogDescription>
                     </DialogHeader>
                     <div className="grid grid-cols-2 gap-4 py-4">
@@ -281,7 +281,7 @@ export default function PuntoDeVentaPage() {
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
                 <DialogContent className="sm:max-w-md rounded-[3rem] bg-black/95 backdrop-blur-3xl border-white/10 p-10">
                     <DialogHeader className="text-center mb-8">
-                        <DialogTitle className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</DialogTitle>
+                        <DialogTitle className="text-3xl font-black tracking-tight uppercase italic text-white">Transacción Exitosa</DialogTitle>
                         <DialogDescription className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto mt-4">
                             <Lock className="h-3 w-3 mr-2 inline" /> Sellado en Ledger Digital v2.8.5
                         </DialogDescription>

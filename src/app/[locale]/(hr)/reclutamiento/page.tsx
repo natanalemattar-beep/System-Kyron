@@ -44,7 +44,7 @@ export default function ReclutamientoPage() {
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
                             <stat.icon className={cn("h-4 w-4", stat.color)} />
                         </div>
-                        <p className="text-3xl font-black italic text-foreground tracking-tighter">{stat.val}</p>
+                        <p className="text-3xl font-black italic text-foreground tracking-tight">{stat.val}</p>
                     </Card>
                 ))}
             </div>
@@ -96,7 +96,7 @@ export default function ReclutamientoPage() {
                 <div className="lg:col-span-4 space-y-8">
                     <Card className="glass-card border-none p-10 rounded-[3rem] bg-secondary/5 shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32 text-secondary" /></div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">Contratación 5G</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Contratación 5G</h3>
                         <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                             Protocolo de firma digital inmutable y asignación inmediata de perfil eSIM Kyron para el nuevo colaborador. Inducción técnica asistida por IA.
                         </p>

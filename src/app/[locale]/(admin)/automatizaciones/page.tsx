@@ -33,12 +33,12 @@ export default function AutomatizacionesPage() {
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Bot className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Tareas Automatizadas</p>
-                    <p className="text-4xl font-black italic text-primary tracking-tighter">12 PROCESOS</p>
+                    <p className="text-4xl font-black italic text-primary tracking-tight">12 PROCESOS</p>
                 </Card>
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-24 w-24" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Tiempo Ahorrado (Mes)</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tighter">45 HORAS</p>
+                    <p className="text-4xl font-black italic text-foreground tracking-tight">45 HORAS</p>
                 </Card>
             </div>
 
@@ -79,7 +79,7 @@ export default function AutomatizacionesPage() {
             <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><ShieldCheck className="h-32 w-32" /></div>
                 <div>
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Integridad Maestra</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Integridad Maestra</h3>
                     <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">Nuestras automatizaciones están auditadas para garantizar el 100% de cumplimiento legal ante fiscalizaciones.</p>
                 </div>
                 <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "SOLICITUD ENVIADA", description: "Su solicitud de auditoría de automatizaciones ha sido registrada." })}>SOLICITAR AUDITORÍA</Button>

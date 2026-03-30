@@ -579,7 +579,7 @@ export default function ManualUsuarioPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.3em] text-primary">
               <BookOpen className="h-3 w-3" /> Manual de Usuario v2.8.5
             </div>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9]">
               <span className="text-foreground">Guía de</span>
               <br />
               <span className="bg-gradient-to-r from-primary via-cyan-400 to-primary bg-clip-text text-transparent">

@@ -86,7 +86,7 @@ export default function LibroNominaPage() {
             <Banknote className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{formatCurrency(summary.totalBruto, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{formatCurrency(summary.totalBruto, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">Acumulado año fiscal</p>
           </CardContent>
         </Card>
@@ -96,7 +96,7 @@ export default function LibroNominaPage() {
             <TrendingDown className="h-4 w-4 text-rose-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-rose-500">{formatCurrency(summary.totalDeducciones, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-rose-500">{formatCurrency(summary.totalDeducciones, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-rose-500/60">SSO + FAOV + ISLR + INCES</p>
           </CardContent>
         </Card>
@@ -106,7 +106,7 @@ export default function LibroNominaPage() {
             <Wallet className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{formatCurrency(summary.totalNeto, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{formatCurrency(summary.totalNeto, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-emerald-500/60">Total desembolsado</p>
           </CardContent>
         </Card>
@@ -116,7 +116,7 @@ export default function LibroNominaPage() {
             <Calendar className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-foreground">{summary.pagadas} / {rows.length}</div>
+            <div className="text-2xl font-black italic tracking-tight text-foreground">{summary.pagadas} / {rows.length}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary">Quincenas procesadas</p>
           </CardContent>
         </Card>

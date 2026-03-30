@@ -119,7 +119,7 @@ export default function TarjetaDigitalPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-3">
                     <Sparkles className="h-3 w-3" /> Identidad Digital
                 </div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tighter mb-2 text-foreground">ID Digital Interactiva</h1>
+                <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 text-foreground">ID Digital Interactiva</h1>
                 <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Pulsa la tarjeta para girar</p>
             </motion.div>
 
@@ -156,15 +156,15 @@ export default function TarjetaDigitalPage() {
                             <div className="w-full space-y-3">
                                 <div className="flex items-center gap-3 text-[11px]">
                                     <div className="p-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10"><Phone className="h-3.5 w-3.5"/></div>
-                                    <span className="font-mono font-bold tracking-tighter text-white/80">{userData.phone}</span>
+                                    <span className="font-mono font-bold tracking-tight text-white/80">{userData.phone}</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-[11px]">
                                     <div className="p-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10"><Mail className="h-3.5 w-3.5"/></div>
-                                    <span className="font-mono font-bold truncate tracking-tighter text-white/80">{userData.email}</span>
+                                    <span className="font-mono font-bold truncate tracking-tight text-white/80">{userData.email}</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-[11px]">
                                     <div className="p-1.5 rounded-lg bg-primary/5 text-primary border border-primary/10"><Home className="h-3.5 w-3.5"/></div>
-                                    <span className="font-mono font-bold tracking-tighter text-white/80">{userData.address}</span>
+                                    <span className="font-mono font-bold tracking-tight text-white/80">{userData.address}</span>
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@ export default function TarjetaDigitalPage() {
                             <div className="p-4 bg-primary/10 rounded-2xl w-fit mx-auto mb-4 shadow-inner border border-primary/5">
                                 <QrCode className="h-10 w-10 text-primary"/>
                             </div>
-                            <h3 className="font-black text-xl tracking-tighter mb-1 text-white uppercase italic">Acceso Digital</h3>
+                            <h3 className="font-black text-xl tracking-tight mb-1 text-white uppercase italic">Acceso Digital</h3>
                             <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-widest">Escanea para conectar</p>
                         </div>
 

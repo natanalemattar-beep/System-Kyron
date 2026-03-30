@@ -43,7 +43,7 @@ export default function AutorizacionesPage() {
                         <Badge variant={auth.estado === 'Aprobada' ? 'default' : 'secondary'} className="text-[8px] font-black uppercase tracking-widest h-6 px-3">{auth.estado}</Badge>
                     </div>
                     <div>
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-2">{auth.ente}</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground mb-2">{auth.ente}</CardTitle>
                         <CardDescription className="text-xs font-bold text-muted-foreground/60 uppercase leading-relaxed">{auth.tipo}</CardDescription>
                     </div>
                     <div className="space-y-4 pt-6 border-t border-border/50">
@@ -72,7 +72,7 @@ export default function AutorizacionesPage() {
             <div className="space-y-8">
                 <div className="flex items-center gap-4">
                     <ShieldAlert className="h-8 w-8 text-amber-500 animate-pulse" />
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Próximos Vencimientos</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-white">Próximos Vencimientos</h3>
                 </div>
                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                     El supervisor IA ha detectado que la autorización del **MINEC (Impacto Ambiental)** requiere actualización de recaudos técnicos antes del 15 de agosto para evitar la paralización de la Unidad 04.

@@ -70,7 +70,7 @@ export default function TodosLosLibrosPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
             <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none italic-shadow">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight flex items-center gap-4 italic leading-none italic-shadow">
             <Book className="h-10 w-10 text-primary" />
             Bóveda de <span className="text-primary">Registros</span>
           </h1>

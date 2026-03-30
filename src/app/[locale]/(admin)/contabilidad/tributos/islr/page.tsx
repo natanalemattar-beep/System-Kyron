@@ -91,7 +91,7 @@ export default function IslrPage() {
                         <div className="lg:col-span-5 space-y-10">
                             <Card className="glass-card border-none bg-indigo-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-8 opacity-10"><Zap className="h-32 w-32" /></div>
-                                <h3 className="text-xl font-black uppercase italic tracking-tighter mb-6">Aviso SPE</h3>
+                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-6">Aviso SPE</h3>
                                 <p className="text-xs font-bold text-white/60 leading-relaxed uppercase text-justify">
                                     Los Sujetos Pasivos Especiales deben enterar las retenciones de ISLR según el calendario de pagos de IVA. System Kyron automatiza el archivo XML de carga masiva para el portal SENIAT.
                                 </p>
@@ -114,7 +114,7 @@ export default function IslrPage() {
                 <TabsContent value="requisitos" className="animate-in fade-in duration-500">
                     <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl max-w-4xl mx-auto">
                         <CardHeader className="p-0 mb-10">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                                 <CheckCircle className="text-indigo-500 h-6 w-6" /> Dossier de Inscripción y Renovación
                             </CardTitle>
                         </CardHeader>

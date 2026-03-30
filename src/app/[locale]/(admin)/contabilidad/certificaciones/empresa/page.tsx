@@ -44,7 +44,7 @@ export default function CertificacionesEmpresaPage() {
                                 <Badge className="bg-emerald-500/20 text-emerald-400 border-none h-6 px-3 text-[8px] font-black uppercase tracking-widest">{cert.status}</Badge>
                             </div>
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-2">{cert.issuer}</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground mb-2">{cert.issuer}</CardTitle>
                                 <p className="text-xs font-bold text-muted-foreground/60 uppercase leading-relaxed">{cert.name}</p>
                             </div>
                             <div className="space-y-4 pt-6 border-t border-border/50">
@@ -73,7 +73,7 @@ export default function CertificacionesEmpresaPage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Bóveda de Solvencias</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-white">Bóveda de Solvencias</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                             System Kyron mantiene un registro inmutable de todas las solvencias corporativas. El sistema alerta automáticamente al departamento legal 30 días antes del vencimiento de cualquier certificación oficial para garantizar la continuidad operativa.

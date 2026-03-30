@@ -27,7 +27,7 @@ export default function CalendarioFiscalPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] hover:bg-transparent mb-2">
             <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro Contable</Link>
           </Button>
-          <h1 className="text-3xl font-black text-[#0A2472] uppercase tracking-tighter flex items-center gap-3">
+          <h1 className="text-3xl font-black text-[#0A2472] uppercase tracking-tight flex items-center gap-3">
             <CalendarIcon className="h-8 w-8 text-[#00A86B]" />
             Calendario Fiscal
           </h1>
@@ -76,7 +76,7 @@ export default function CalendarioFiscalPage() {
             <div className="relative z-10 space-y-6">
               <h3 className="text-xl font-black uppercase italic text-[#00A86B]">Próximo Vencimiento</h3>
               <div className="space-y-1">
-                <p className="text-4xl font-black tracking-tighter italic">12 DÍAS</p>
+                <p className="text-4xl font-black tracking-tight italic">12 DÍAS</p>
                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Restantes para ISLR 2025</p>
               </div>
               <Button variant="secondary" className="w-full bg-white text-[#0A2472] hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest h-12 rounded-xl shadow-lg">PREPARAR DECLARACIÓN</Button>

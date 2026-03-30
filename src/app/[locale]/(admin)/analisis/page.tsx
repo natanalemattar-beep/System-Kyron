@@ -64,7 +64,7 @@ export default function AnalisisPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
                         <PieChart className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow">
+                    <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight italic italic-shadow">
                         Centro de <span className="text-primary">Análisis</span>
                     </h1>
                     <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">
@@ -82,7 +82,7 @@ export default function AnalisisPage() {
                 <Card className="bg-primary/5 border-primary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
                     <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Wallet className="h-16 w-16 text-primary" /></div>
                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60 mb-2">Salud de Caja</p>
-                    <p className="text-3xl font-black italic text-white tracking-tighter mb-4">
+                    <p className="text-3xl font-black italic text-white tracking-tight mb-4">
                         {loading ? <span className="opacity-40 animate-pulse">Cargando...</span> : cajaSalud}
                         {' '}<span className="text-xs opacity-40 tracking-normal">Disponibles</span>
                     </p>
@@ -97,7 +97,7 @@ export default function AnalisisPage() {
                 <Card className="bg-secondary/5 border-secondary/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
                     <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Zap className="h-16 w-16 text-secondary" /></div>
                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-secondary/60 mb-2">Margen de Utilidad</p>
-                    <p className="text-3xl font-black italic text-white tracking-tighter mb-4">
+                    <p className="text-3xl font-black italic text-white tracking-tight mb-4">
                         {loading ? <span className="opacity-40 animate-pulse">Cargando...</span> : eficiencia}
                         {' '}<span className="text-xs opacity-40 tracking-normal">Neto</span>
                     </p>
@@ -112,7 +112,7 @@ export default function AnalisisPage() {
                 <Card className="bg-rose-500/5 border-rose-500/20 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-xl">
                     <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16 text-rose-500" /></div>
                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-rose-500/60 mb-2">Riesgo Fiscal</p>
-                    <p className="text-3xl font-black italic text-white tracking-tighter mb-4">
+                    <p className="text-3xl font-black italic text-white tracking-tight mb-4">
                         {loading ? <span className="opacity-40 animate-pulse">Cargando...</span> : riesgoFiscal}
                         {' '}<span className="text-xs opacity-40 tracking-normal">Vencidas</span>
                     </p>
@@ -135,7 +135,7 @@ export default function AnalisisPage() {
                                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                                     </div>
                                     <div className="space-y-1">
-                                        <h3 className="text-sm font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
+                                        <h3 className="text-sm font-black uppercase italic tracking-tight text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
                                         <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest leading-tight">{item.desc}</p>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ export default function AnalisisPage() {
                     <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6 text-center md:text-left">
                             <Badge className="bg-primary text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Inteligencia Maestra</Badge>
-                            <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">EXPLORAR<br /> DIRECTORIO BI</h3>
+                            <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight leading-none italic-shadow">EXPLORAR<br /> DIRECTORIO BI</h3>
                             <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda a la biblioteca completa de métricas corporativas, proyecciones de mercado y KPIs analíticos de misión crítica.</p>
                             <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
                                 VER TODO EL CATÁLOGO <ArrowRight className="ml-4 h-5 w-5" />
@@ -167,7 +167,7 @@ export default function AnalisisPage() {
                         <div className="hidden md:flex justify-end">
                             <div className="p-12 rounded-[3.5rem] bg-white/5 border border-white/10 backdrop-blur-md shadow-inner text-center space-y-4">
                                 <Sparkles className="h-20 w-20 mx-auto text-primary mb-2 drop-shadow-glow" />
-                                <p className="text-5xl font-black italic tracking-tighter">50+</p>
+                                <p className="text-5xl font-black italic tracking-tight">50+</p>
                                 <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Módulos Analíticos</p>
                             </div>
                         </div>

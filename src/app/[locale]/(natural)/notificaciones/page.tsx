@@ -179,7 +179,7 @@ export default function NotificacionesPage() {
         <div className="inline-block p-4 bg-primary/10 rounded-2xl border border-primary/20">
           <Bell className="h-10 w-10 text-primary" />
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-foreground">
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">
           Buzón de Alertas
         </h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">

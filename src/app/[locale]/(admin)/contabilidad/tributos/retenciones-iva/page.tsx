@@ -63,7 +63,7 @@ export default function RetencionesIvaPage() {
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
                             <stat.icon className={cn("h-4 w-4", stat.color)} />
                         </div>
-                        <p className="text-2xl font-black italic text-foreground tracking-tighter">{stat.val}</p>
+                        <p className="text-2xl font-black italic text-foreground tracking-tight">{stat.val}</p>
                     </Card>
                 ))}
             </div>
@@ -130,7 +130,7 @@ export default function RetencionesIvaPage() {
                 <TabsContent value="excepciones" className="animate-in fade-in duration-500">
                     <div className="grid md:grid-cols-2 gap-8">
                         <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40">
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-primary mb-8 flex items-center gap-4">
+                            <h3 className="text-xl font-black uppercase italic tracking-tight text-primary mb-8 flex items-center gap-4">
                                 <Ban className="h-6 w-6 text-rose-500" /> Excepciones de Retención
                             </h3>
                             <div className="space-y-6">
@@ -155,7 +155,7 @@ export default function RetencionesIvaPage() {
                                 <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 w-fit">
                                     <ShieldAlert className="h-8 w-8 text-primary" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Certificación de Gasto</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Certificación de Gasto</h3>
                                 <p className="text-sm font-medium italic text-muted-foreground/60 leading-relaxed text-justify">
                                     El sistema bloquea automáticamente la retención en conceptos marcados como "Excepción", solicitando únicamente la validación del comprobante de pago para el cierre contable.
                                 </p>
@@ -196,7 +196,7 @@ export default function RetencionesIvaPage() {
                             <div className="space-y-8">
                                 <div className="flex items-center gap-4">
                                     <ShieldAlert className="h-10 w-10 text-rose-500 animate-pulse" />
-                                    <h3 className="text-3xl font-black uppercase italic tracking-tighter text-foreground leading-none">Recuperación de <br/> Excedentes</h3>
+                                    <h3 className="text-3xl font-black uppercase italic tracking-tight text-foreground leading-none">Recuperación de <br/> Excedentes</h3>
                                 </div>
                                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                                     Si el monto de retenciones de IVA acumulado supera su débito fiscal del periodo, el sistema inicia automáticamente el protocolo de **Recuperación de Excedentes**. Este proceso genera el expediente digital para la compensación o devolución ante el SENIAT.
@@ -236,7 +236,7 @@ export default function RetencionesIvaPage() {
                     <div className="space-y-8 relative z-10">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Inteligencia Preventiva</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Inteligencia Preventiva</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-primary/20 pl-10">
                             El sistema audita cada factura en el momento del pago o abono en cuenta. Si se detecta un proveedor no registrado como contribuyente ordinario, el motor IA fuerza la retención al 100% para blindar a la empresa contra multas solidarias.

@@ -183,7 +183,7 @@ export default function EscritorioJuridicoPage() {
                 {loading ? (
                   <div className="h-9 w-16 bg-white/5 rounded animate-pulse" />
                 ) : (
-                  <div className="text-3xl font-black italic text-white tracking-tighter leading-none">{kpi.value}</div>
+                  <div className="text-3xl font-black italic text-white tracking-tight leading-none">{kpi.value}</div>
                 )}
               </CardContent>
             </Card>
@@ -195,7 +195,7 @@ export default function EscritorioJuridicoPage() {
         <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden">
           <CardHeader className="p-10 border-b border-white/5 flex flex-col md:flex-row justify-between items-center bg-white/[0.01]">
             <div className="space-y-1">
-              <CardTitle className="text-xl font-black uppercase italic tracking-tighter">Expedientes y Trámites</CardTitle>
+              <CardTitle className="text-xl font-black uppercase italic tracking-tight">Expedientes y Trámites</CardTitle>
               <CardDescription className="text-[10px] font-bold uppercase opacity-30 tracking-widest">
                 {documentos.length} documentos registrados
               </CardDescription>
@@ -296,7 +296,7 @@ export default function EscritorioJuridicoPage() {
               <FileText className="h-32 w-32" />
             </div>
             <div className="relative z-10">
-              <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Generador Legal IA</h3>
+              <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4">Generador Legal IA</h3>
               <h4 className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">
                 Redacción automatizada de borradores legales seguros.
               </h4>
@@ -345,7 +345,7 @@ export default function EscritorioJuridicoPage() {
           <div className="lg:col-span-5 space-y-10">
             <div className="flex items-center gap-6">
               <Logo className="h-16 w-16 drop-shadow-glow" />
-              <h2 className="text-3xl md:text-5xl font-black text-foreground uppercase italic tracking-tighter leading-none">
+              <h2 className="text-3xl md:text-5xl font-black text-foreground uppercase italic tracking-tight leading-none">
                 Archivo <br/> <span className="text-slate-500">Legal Seguro</span>
               </h2>
             </div>
@@ -378,7 +378,7 @@ export default function EscritorioJuridicoPage() {
             <Card className="bg-slate-500/5 border border-slate-500/20 p-10 rounded-[3rem] flex items-center justify-between">
               <div className="space-y-2">
                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Documentos en Archivo</p>
-                <p className="text-2xl font-black text-white italic tracking-tighter uppercase">{documentos.length} REGISTROS</p>
+                <p className="text-2xl font-black text-white italic tracking-tight uppercase">{documentos.length} REGISTROS</p>
               </div>
               <Badge className="bg-slate-500/20 text-slate-400 border-slate-500/30 text-[9px] font-black px-6 py-2 rounded-xl uppercase">
                 {documentos.length > 0 ? "Activo" : "Vacío"}

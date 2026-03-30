@@ -105,7 +105,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
                         <Lock className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
@@ -178,13 +178,13 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none hover:bg-primary/15 transition-all">
-                                        <TableCell className="pl-12 py-12 text-2xl font-black text-foreground italic uppercase tracking-tighter">
+                                        <TableCell className="pl-12 py-12 text-2xl font-black text-foreground italic uppercase tracking-tight">
                                             <div className="flex items-center gap-4">
                                                 <TerminalIcon className="h-8 w-8 text-primary" />
                                                 TOTAL INVERSIÓN ESTRATÉGICA
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-right pr-12 text-5xl font-mono font-black text-primary italic shadow-glow-text">
+                                        <TableCell className="text-right pr-12 text-3xl font-mono font-black text-primary italic shadow-glow-text">
                                             {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
                                         </TableCell>
                                     </TableRow>

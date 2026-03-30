@@ -33,7 +33,7 @@ export default function PerfilPersonalPage() {
                     <AvatarFallback className="text-4xl font-black bg-primary text-foreground">CM</AvatarFallback>
                 </Avatar>
                 <div className="space-y-2 mb-8 relative z-10">
-                    <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white">Carlos Mattar</h2>
+                    <h2 className="text-2xl font-black uppercase italic tracking-tight text-white">Carlos Mattar</h2>
                     <p className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] italic">Ciudadano Verificado</p>
                 </div>
                 <Badge className="bg-emerald-500/20 text-emerald-400 border-none px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-glow-secondary mb-8">ID DIGITAL NIVEL 5</Badge>

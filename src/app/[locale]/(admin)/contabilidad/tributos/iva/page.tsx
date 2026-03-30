@@ -47,7 +47,7 @@ export default function IvaPage() {
                 <div className="lg:col-span-7 space-y-10">
                     <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-1 shadow-2xl">
                         <CardHeader className="p-10 border-b border-border/50">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                                 <CheckCircle className="text-primary h-6 w-6" /> Registro de Sujetos Pasivos
                             </CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Alineado con Providencia 0049</CardDescription>
@@ -103,7 +103,7 @@ export default function IvaPage() {
                     <Card className="glass-card border-none bg-[#050505] p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Landmark className="h-32 w-32 text-primary" /></div>
                         <div className="relative z-10 space-y-8">
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-primary">Blindaje SENIAT</h3>
+                            <h3 className="text-xl font-black uppercase italic tracking-tight text-primary">Blindaje SENIAT</h3>
                             <p className="text-xs font-bold text-white/40 leading-relaxed uppercase text-justify">
                                 El sistema audita el momento imponible según el Artículo 13 de la Ley de IVA, asegurando que la retención se realice al momento del pago o abono en cuenta, según lo que ocurra primero.
                             </p>

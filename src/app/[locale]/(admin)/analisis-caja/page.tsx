@@ -33,7 +33,7 @@ export default function AnalisisCajaPage() {
                 <CashFlowAnalysis />
                 <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 shadow-2xl">
                     <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                             <TrendingUp className="text-primary h-6 w-6" /> Estrategia de Inyección
                         </CardTitle>
                     </CardHeader>

@@ -137,7 +137,7 @@ export default function AportesParafiscalesPage() {
                                                 <p.logo className={cn("h-8 w-8", p.color)} />
                                             </div>
                                             <div>
-                                                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-800 dark:text-white">{p.name}</h3>
+                                                <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-800 dark:text-white">{p.name}</h3>
                                                 <p className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">{p.legal}</p>
                                             </div>
                                         </div>
@@ -186,7 +186,7 @@ export default function AportesParafiscalesPage() {
                                 <Card className="glass-card border-none rounded-[3rem] bg-[#0A2472] p-10 text-white shadow-2xl relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Landmark className="h-32 w-32" /></div>
                                     <div className="relative z-10 space-y-8">
-                                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-[#00A86B]">Datos de Liquidación</h3>
+                                        <h3 className="text-xl font-black uppercase italic tracking-tight text-[#00A86B]">Datos de Liquidación</h3>
                                         
                                         <div className="space-y-6">
                                             <div className="space-y-2">

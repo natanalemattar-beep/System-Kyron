@@ -87,7 +87,7 @@ export default function PrestacionesSocialesPage() {
                                     </div>
                                     <div className="pt-4 border-t border-white/5 flex justify-between items-end">
                                         <p className="text-[10px] font-black uppercase text-secondary">Fondo Acumulado</p>
-                                        <p className="text-2xl font-black italic text-foreground tracking-tighter">{formatCurrency(emp.fondo, 'Bs.')}</p>
+                                        <p className="text-2xl font-black italic text-foreground tracking-tight">{formatCurrency(emp.fondo, 'Bs.')}</p>
                                     </div>
                                 </div>
                             )}

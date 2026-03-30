@@ -46,7 +46,7 @@ export default function AnalisisMercadoPage() {
                 <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-5"><kpi.icon className="h-16 w-16" /></div>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">{kpi.title}</p>
-                    <p className="text-3xl font-black italic text-foreground tracking-tighter mb-2">{kpi.value}</p>
+                    <p className="text-3xl font-black italic text-foreground tracking-tight mb-2">{kpi.value}</p>
                     <p className="text-[9px] font-bold uppercase text-primary/60">{kpi.description}</p>
                 </Card>
             </motion.div>
@@ -77,7 +77,7 @@ export default function AnalisisMercadoPage() {
             <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Lightbulb className="h-32 w-32" /></div>
                 <div>
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Insight Maestro</h3>
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Insight Maestro</h3>
                     <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">La demanda supera a la oferta en los meses de marzo y julio. El motor IA recomienda inyectar un 20% más de stock preventivo para capturar el excedente de mercado.</p>
                 </div>
                 <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">DETALLES TÉCNICOS</Button>

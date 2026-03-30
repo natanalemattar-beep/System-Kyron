@@ -55,7 +55,7 @@ System Kyron, C.A.
                     <div className="grid gap-8 md:grid-cols-2">
                         <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Truck className="h-32 w-32" /></div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8">Gestión de Guías de Movilización</h3>
+                            <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-8">Gestión de Guías de Movilización</h3>
                             <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                                 Emisión automatizada de guías SICA/SADA y permisos de transporte terrestre para carga pesada y materiales estratégicos.
                             </p>
@@ -64,7 +64,7 @@ System Kyron, C.A.
 
                         <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
                             <div>
-                                <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">Cumplimiento de Flota</h3>
+                                <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Cumplimiento de Flota</h3>
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center border-b border-border/50 pb-3">
                                         <span className="text-[9px] font-bold text-slate-500 uppercase">Certificado de Revisión</span>
@@ -91,7 +91,7 @@ System Kyron, C.A.
                         <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
+                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>

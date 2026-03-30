@@ -105,7 +105,7 @@ export function LandingSidebar() {
                                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center"
                                 >
                                     <option.icon className="h-3.5 w-3.5 text-primary mb-1" />
-                                    <span className="text-[7px] font-black uppercase tracking-tighter leading-none">{option.label}</span>
+                                    <span className="text-[7px] font-black uppercase tracking-tight leading-none">{option.label}</span>
                                 </Link>
                             ))}
                             <Link href="/login" className="col-span-2 text-[8px] font-black uppercase text-center py-1 hover:text-primary transition-colors">Ver todos los portales</Link>

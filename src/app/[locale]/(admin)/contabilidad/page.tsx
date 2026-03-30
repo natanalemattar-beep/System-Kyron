@@ -247,7 +247,7 @@ export default function ContabilidadPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-6 pt-0">
-                <div className="text-2xl font-black italic tracking-tighter text-foreground">{kpi.val}</div>
+                <div className="text-2xl font-black italic tracking-tight text-foreground">{kpi.val}</div>
                 <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend}</p>
               </CardContent>
             </Card>
@@ -266,7 +266,7 @@ export default function ContabilidadPage() {
                 <Badge className="bg-primary text-primary-foreground border-none text-[8px] font-black px-4 py-1 uppercase tracking-[0.4em] shadow-glow">
                   Inteligencia Maestra
                 </Badge>
-                <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Asistente Autónomo</h3>
+                <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Asistente Autónomo</h3>
               </div>
               <div className="space-y-6">
                 <div className="space-y-2">

@@ -62,11 +62,11 @@ System Kyron, C.A.
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div className="p-6 bg-white/[0.03] border border-border rounded-[2rem] shadow-inner text-center">
                                             <p className="text-[9px] font-black uppercase text-primary/60 mb-2">Estatus RACDA</p>
-                                            <p className="text-2xl font-black italic text-foreground tracking-tighter">VIGENTE</p>
+                                            <p className="text-2xl font-black italic text-foreground tracking-tight">VIGENTE</p>
                                         </div>
                                         <div className="p-6 bg-white/[0.03] border border-border rounded-[2rem] shadow-inner text-center">
                                             <p className="text-[9px] font-black uppercase text-primary/60 mb-2">Huella de Carbono</p>
-                                            <p className="text-2xl font-black italic text-foreground tracking-tighter">BAJA</p>
+                                            <p className="text-2xl font-black italic text-foreground tracking-tight">BAJA</p>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -75,7 +75,7 @@ System Kyron, C.A.
                         <div className="lg:col-span-5">
                             <Card className="bg-secondary text-secondary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow-secondary border-none group">
                                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Recycle className="h-32 w-32" /></div>
-                                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Economía Circular</h3>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Economía Circular</h3>
                                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                     System Kyron integra la telemetría de sus Smart Bins directamente con el Manifiesto de Desechos del MINEC.
                                 </p>
@@ -93,7 +93,7 @@ System Kyron, C.A.
                         <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
+                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>

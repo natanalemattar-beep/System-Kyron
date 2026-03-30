@@ -154,8 +154,8 @@ export default function ModeloZeduPage() {
                 <div className="flex items-start justify-start border-b-4 border-slate-100 mb-16 pb-10 gap-12">
                     <Logo id="main-logo-zedu" className="h-28 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg rounded-2xl shrink-0" />
                     <div className="pt-2 space-y-2">
-                        <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
-                        <h2 className="text-3xl font-black text-slate-400 uppercase tracking-tighter italic leading-none">SYSTEM KYRON</h2>
+                        <h1 className="text-4xl md:text-5xl font-black text-[#0A2472] uppercase tracking-tight italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-2xl md:text-3xl font-black text-slate-400 uppercase tracking-tight italic leading-none">SYSTEM KYRON</h2>
                         <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">U.E.P. Gabriela Mistral · Caracas, Venezuela</p>
                     </div>
                 </div>
@@ -164,7 +164,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 1 — INFORMACIÓN DEL EQUIPO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Users className="h-7 w-7" /> 1. INFORMACIÓN DEL EQUIPO
                         </h2>
                         <table className="w-full border-collapse">
@@ -195,7 +195,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 2 — POBLACIÓN A TRABAJAR */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <MapPin className="h-7 w-7" /> 2. POBLACIÓN A TRABAJAR
                         </h2>
                         <table className="w-full border-collapse">
@@ -261,7 +261,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 3 — ANÁLISIS DEL PROBLEMA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <AlertTriangle className="h-7 w-7" /> 3. ANÁLISIS DEL PROBLEMA
                         </h2>
                         <table className="w-full border-collapse">
@@ -327,7 +327,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 4 — SOLUCIÓN PROPUESTA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Lightbulb className="h-7 w-7" /> 4. SOLUCIÓN PROPUESTA — SYSTEM KYRON
                         </h2>
                         <table className="w-full border-collapse">
@@ -415,7 +415,7 @@ export default function ModeloZeduPage() {
                         </table>
 
                         <div className="mt-12">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <ShieldCheck className="h-6 w-6" /> Propuestas Existentes y Diferenciadores
                             </h3>
                             <table className="w-full border-collapse">
@@ -461,7 +461,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 5 — PRESUPUESTO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Zap className="h-7 w-7" /> 5. PRESUPUESTO (INVERSIÓN REQUERIDA)
                         </h2>
                         <table className="w-full border-collapse">
@@ -593,7 +593,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 6 — ALIADOS */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Handshake className="h-7 w-7" /> 6. ALIADOS ESTRATÉGICOS
                         </h2>
                         <table className="w-full border-collapse">
@@ -636,13 +636,13 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 6B — COMPETENCIA Y FABRICANTES DE TELEFONÍA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Globe className="h-7 w-7" /> 6B. COMPETENCIA Y FABRICANTES DE TELEFONÍA
                         </h2>
 
                         {/* Operadores competidores */}
                         <div className="mb-10">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Activity className="h-6 w-6" /> Operadores de Telefonía — Competencia Directa en Venezuela
                             </h3>
                             <table className="w-full border-collapse">
@@ -691,7 +691,7 @@ export default function ModeloZeduPage() {
 
                         {/* Fabricantes de telefonía */}
                         <div>
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Smartphone className="h-6 w-6" /> Fabricantes de Telefonía — Proveedores de Inventario y Aliados Tecnológicos
                             </h3>
                             <table className="w-full border-collapse">
@@ -749,7 +749,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 7 — PLAN DE ACCIÓN */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <ClipboardList className="h-7 w-7" /> 7. PLAN DE ACCIÓN
                         </h2>
                         <table className="w-full border-collapse">
@@ -819,7 +819,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 8 — IMPACTO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <TrendingUp className="h-7 w-7" /> 8. IMPACTO ESPERADO
                         </h2>
                         <table className="w-full border-collapse">
@@ -861,7 +861,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 9 — PUBLICIDAD WEB */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Megaphone className="h-7 w-7" /> 9. ESTRATEGIA PUBLICITARIA — PLATAFORMA WEB
                         </h2>
                         <table className="w-full border-collapse">
@@ -960,7 +960,7 @@ export default function ModeloZeduPage() {
                         <p className="text-xs text-slate-400 mt-3 italic">Nota: El presupuesto publicitario se autofinancia a partir del mes 4 con los ingresos de suscripción de las primeras 15 empresas cliente. El ROI publicitario proyectado es de 340% anual, considerando un costo de adquisición de cliente (CAC) de $40 y un valor de vida del cliente (LTV) de $588.</p>
 
                         <div className="mt-12">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Target className="h-6 w-6" /> Métricas de Rendimiento Web (KPIs Publicitarios)
                             </h3>
                             <table className="w-full border-collapse">

@@ -87,7 +87,7 @@ export default function ProteccionPensionesPage() {
                             <div className="p-10 bg-emerald-500/10 border-2 border-emerald-500/20 rounded-[2.5rem] flex flex-col md:flex-row justify-between items-center gap-10 group hover:border-emerald-500/40 transition-all">
                                 <div className="space-y-2 text-center md:text-left">
                                     <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em]">Monto Neto a Pagar</p>
-                                    <p className="text-5xl font-black italic text-emerald-500 tracking-tighter shadow-glow-secondary">{formatCurrency(total, 'Bs.')}</p>
+                                    <p className="text-5xl font-black italic text-emerald-500 tracking-tight shadow-glow-secondary">{formatCurrency(total, 'Bs.')}</p>
                                     <p className="text-[8px] font-bold text-slate-400 uppercase mt-2">Base mínima validada: 130 Bs/emp</p>
                                 </div>
                                 <div className="text-right space-y-4 w-full md:w-auto">
@@ -131,7 +131,7 @@ export default function ProteccionPensionesPage() {
                     <Card className="glass-card border-none rounded-[3rem] bg-[#0A2472] p-10 text-white shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Landmark className="h-32 w-32" /></div>
                         <div className="relative z-10 space-y-8">
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-[#00A86B]">Datos de Liquidación SENIAT</h3>
+                            <h3 className="text-xl font-black uppercase italic tracking-tight text-[#00A86B]">Datos de Liquidación SENIAT</h3>
                             
                             <div className="space-y-6">
                                 <div className="space-y-2">
@@ -191,7 +191,7 @@ export default function ProteccionPensionesPage() {
                     <Card className="bg-rose-600/10 border-2 border-rose-600/20 rounded-[2.5rem] p-8 flex flex-col justify-between relative overflow-hidden group shadow-2xl">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><AlertTriangle className="h-24 w-24 text-rose-500" /></div>
                         <div className="relative z-10">
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-rose-500 mb-4 flex items-center gap-3">
+                            <h3 className="text-xl font-black uppercase italic tracking-tight text-rose-500 mb-4 flex items-center gap-3">
                                 <Zap className="h-5 w-5" /> ALERTA SANCIONATORIA
                             </h3>
                             <p className="text-[10px] font-bold text-slate-600 leading-relaxed uppercase mb-6 text-justify">

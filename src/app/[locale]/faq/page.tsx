@@ -250,7 +250,7 @@ export default function FaqPage() {
                                 <MessageCircle className="h-3.5 w-3.5" />
                                 Centro de Ayuda
                             </div>
-                            <h1 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tighter text-foreground uppercase leading-[1.1] break-words">
+                            <h1 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1] break-words">
                                 Preguntas{' '}
                                 <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic">
                                     Frecuentes

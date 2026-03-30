@@ -183,7 +183,7 @@ export default function LibroMayorPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><Wallet className="h-4 w-4 text-emerald-500" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-emerald-500">{formatCurrency(totalActivos, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-emerald-500">{formatCurrency(totalActivos, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-emerald-500/60">Saldo deudor neto</p>
           </CardContent>
         </Card>
@@ -193,7 +193,7 @@ export default function LibroMayorPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><Landmark className="h-4 w-4 text-rose-500" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-rose-500">{formatCurrency(totalPasivos, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-rose-500">{formatCurrency(totalPasivos, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-rose-500/60">Obligaciones vigentes</p>
           </CardContent>
         </Card>
@@ -203,7 +203,7 @@ export default function LibroMayorPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><TrendingUp className="h-4 w-4 text-primary" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-primary">{formatCurrency(totalIngresos, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-primary">{formatCurrency(totalIngresos, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-primary/60">Ventas del período</p>
           </CardContent>
         </Card>
@@ -213,7 +213,7 @@ export default function LibroMayorPage() {
             <div className="p-2.5 rounded-xl bg-muted border border-border"><TrendingDown className="h-4 w-4 text-amber-500" /></div>
           </CardHeader>
           <CardContent className="p-6 pt-0">
-            <div className="text-2xl font-black italic tracking-tighter text-amber-500">{formatCurrency(totalGastos, 'Bs.')}</div>
+            <div className="text-2xl font-black italic tracking-tight text-amber-500">{formatCurrency(totalGastos, 'Bs.')}</div>
             <p className="text-[9px] font-black uppercase mt-2 text-amber-500/60">Egresos operacionales</p>
           </CardContent>
         </Card>

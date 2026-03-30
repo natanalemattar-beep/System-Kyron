@@ -39,7 +39,7 @@ export default function SaludSeguridadPage() {
                     <div className="relative z-10 space-y-10">
                         <div className="space-y-2">
                             <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase tracking-[0.4em] px-4">Cumplimiento Auditoría</Badge>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Programa SSL v2.8.5</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Programa SSL v2.8.5</h3>
                         </div>
                         <div className="space-y-6">
                             <div className="space-y-2">
@@ -104,7 +104,7 @@ export default function SaludSeguridadPage() {
             <div className="grid md:grid-cols-2 gap-10">
                 <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02] shadow-xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32 text-emerald-500" /></div>
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6 flex items-center gap-4">
+                    <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6 flex items-center gap-4">
                         <Activity className="h-6 w-6 text-emerald-500" /> Prevención Proactiva
                     </h3>
                     <p className="text-sm font-medium italic text-muted-foreground/60 leading-relaxed text-justify mb-8 uppercase">
@@ -125,7 +125,7 @@ export default function SaludSeguridadPage() {
                 <Card className="bg-[#050505] border border-white/10 rounded-[3rem] p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border-none group">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Terminal className="h-32 w-32 text-emerald-500" /></div>
                     <div className="space-y-2">
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Alertas LOPCYMAT</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">Alertas LOPCYMAT</h3>
                         <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em]">Monitor de Contingencias</p>
                     </div>
                     <div className="space-y-4 py-8">

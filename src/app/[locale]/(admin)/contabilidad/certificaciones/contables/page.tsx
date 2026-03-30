@@ -110,7 +110,7 @@ export default function CertificacionesContablesPage() {
                                         <protocol.icon className="h-8 w-8" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-white group-hover:text-primary transition-colors">{protocol.title}</h3>
+                                        <h3 className="text-xl font-black uppercase italic tracking-tight text-white group-hover:text-primary transition-colors">{protocol.title}</h3>
                                         <p className="text-[10px] font-bold text-muted-foreground uppercase leading-relaxed tracking-widest">{protocol.desc}</p>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@ export default function CertificacionesContablesPage() {
                         <Card className="glass-card border-none rounded-[3rem] p-1 shadow-2xl bg-card/40 overflow-hidden">
                             <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row items-center justify-between">
                                 <div className="space-y-1">
-                                    <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tighter">Parámetros del Dictamen</CardTitle>
+                                    <CardTitle className="text-xl font-black uppercase italic text-foreground tracking-tight">Parámetros del Dictamen</CardTitle>
                                     <CardDescription className="text-[10px] font-bold uppercase text-primary tracking-widest">{selectedType?.title}</CardDescription>
                                 </div>
                                 <Button variant="ghost" size="icon" onClick={() => setStep('hub')} className="h-10 w-10 rounded-full bg-white/5"><X className="h-4 w-4" /></Button>
@@ -173,12 +173,12 @@ export default function CertificacionesContablesPage() {
                                 <div className="flex items-center gap-6">
                                     <Logo className="h-16 w-16" />
                                     <div className="space-y-1">
-                                        <h4 className="text-xl font-black italic uppercase tracking-tighter leading-none">System Kyron</h4>
+                                        <h4 className="text-xl font-black italic uppercase tracking-tight leading-none">System Kyron</h4>
                                         <p className="text-[8px] font-bold uppercase tracking-[0.4em] opacity-60">Finance Node • 2026</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-slate-900 leading-none">{selectedType?.title}</h3>
+                                    <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">{selectedType?.title}</h3>
                                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Protocolo: CC-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
                                 </div>
                             </header>
@@ -248,7 +248,7 @@ export default function CertificacionesContablesPage() {
                     <div className="space-y-8 relative z-10">
                         <div className="flex items-center gap-4">
                             <ShieldCheck className="h-8 w-8 text-primary animate-pulse" />
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Blindaje Técnico</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-white">Blindaje Técnico</h3>
                         </div>
                         <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                             Nuestras certificaciones contables no son simples cartas; son informes técnicos basados en la trazabilidad total del sistema. Cada dictamen es respaldado por el motor de auditoría forense de Kyron para garantizar transparencia absoluta.

@@ -82,7 +82,7 @@ export default function FlotaEmpresarialPage() {
                             <stat.icon className={cn("h-4 w-4 opacity-20 group-hover:opacity-100 transition-all", stat.color)} />
                         </CardHeader>
                         <CardContent className="p-6 pt-0">
-                            <p className={cn("text-2xl font-black italic tracking-tighter", stat.color)}>{stat.val}</p>
+                            <p className={cn("text-2xl font-black italic tracking-tight", stat.color)}>{stat.val}</p>
                         </CardContent>
                     </Card>
                 ))}
@@ -93,7 +93,7 @@ export default function FlotaEmpresarialPage() {
                 <Card className="lg:col-span-8 border-none shadow-sm rounded-[2.5rem] bg-white overflow-hidden flex flex-col">
                     <CardHeader className="p-10 border-b border-slate-50 flex flex-row justify-between items-center bg-slate-50/30">
                         <div>
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-[#0A2472]">Evolución de Consumo</CardTitle>
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-[#0A2472]">Evolución de Consumo</CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase text-slate-400 mt-1">Tráfico de datos consolidado (Últimos 6 meses)</CardDescription>
                         </div>
                         <BarChart3 className="h-6 w-6 text-[#00A86B] opacity-20" />
@@ -126,14 +126,14 @@ export default function FlotaEmpresarialPage() {
                     </div>
                     <div className="relative z-10 space-y-8">
                         <div>
-                            <h3 className="text-3xl font-black uppercase italic tracking-tighter leading-none mb-2">Facturación <br/> <span className="text-[#00A86B]">Marzo 2026</span></h3>
+                            <h3 className="text-3xl font-black uppercase italic tracking-tight leading-none mb-2">Facturación <br/> <span className="text-[#00A86B]">Marzo 2026</span></h3>
                             <p className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">Resumen Maestro de Egresos</p>
                         </div>
                         
                         <div className="space-y-6">
                             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
                                 <p className="text-[9px] font-black uppercase text-[#00A86B] mb-2 tracking-widest">Total a Pagar</p>
-                                <p className="text-4xl font-black italic tracking-tighter">$ 1.245,00</p>
+                                <p className="text-4xl font-black italic tracking-tight">$ 1.245,00</p>
                             </div>
                             <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest opacity-60">
                                 <span>Vencimiento:</span>
@@ -156,7 +156,7 @@ export default function FlotaEmpresarialPage() {
             <Card className="border-none shadow-sm rounded-[3rem] bg-white overflow-hidden">
                 <CardHeader className="p-10 border-b border-slate-50 flex flex-col md:flex-row justify-between items-center bg-slate-50/20">
                     <div className="space-y-1 text-center md:text-left">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-[#0A2472]">Listado de Líneas Corporativas</CardTitle>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tight text-[#0A2472]">Listado de Líneas Corporativas</CardTitle>
                         <CardDescription className="text-[10px] font-bold uppercase text-slate-400">Control individual de activos móviles</CardDescription>
                     </div>
                     <div className="relative w-full md:w-80 mt-6 md:mt-0">
@@ -242,7 +242,7 @@ export default function FlotaEmpresarialPage() {
                                 </div>
                             </div>
                             <div>
-                                <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-[#0A2472]">
+                                <CardTitle className="text-2xl font-black uppercase italic tracking-tight text-[#0A2472]">
                                     Gestión de Homologación por IMEI
                                 </CardTitle>
                                 <CardDescription className="text-[10px] font-bold uppercase text-slate-400 mt-1 tracking-widest">
@@ -291,7 +291,7 @@ export default function FlotaEmpresarialPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] mb-2">
                         <ExternalLink className="h-3 w-3" /> Aliados Estratégicos
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-[#0A2472]">
+                    <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tight text-[#0A2472]">
                         Trabajamos con los <span className="text-[#00A86B]">mejores fabricantes</span>
                     </h2>
                     <p className="text-slate-500 text-sm font-medium max-w-xl mx-auto">

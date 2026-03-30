@@ -37,15 +37,15 @@ export default function EstructuraCostosPage() {
       <div className="grid gap-6 md:grid-cols-3">
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Costos Fijos Mensuales</p>
-            <p className="text-4xl font-black italic text-foreground tracking-tighter">{formatCurrency(totalCostosFijos, 'Bs.')}</p>
+            <p className="text-4xl font-black italic text-foreground tracking-tight">{formatCurrency(totalCostosFijos, 'Bs.')}</p>
         </Card>
         <Card className="glass-card border-none bg-emerald-500/5 rounded-[2.5rem] p-8 shadow-2xl border-l-4 border-emerald-500">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500/60 mb-4">Punto de Equilibrio</p>
-            <p className="text-4xl font-black italic text-emerald-500 tracking-tighter">458 Uds.</p>
+            <p className="text-4xl font-black italic text-emerald-500 tracking-tight">458 Uds.</p>
         </Card>
         <Card className="glass-card border-none bg-primary/5 rounded-[2.5rem] p-8 shadow-2xl border-l-4 border-primary">
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 mb-4">Margen Promedio</p>
-            <p className="text-4xl font-black italic text-primary tracking-tighter">32.5%</p>
+            <p className="text-4xl font-black italic text-primary tracking-tight">32.5%</p>
         </Card>
       </div>
 
@@ -81,7 +81,7 @@ export default function EstructuraCostosPage() {
 
         <div className="lg:col-span-5 space-y-8">
             <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02] shadow-2xl">
-                <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8">Análisis de Sensibilidad</h3>
+                <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-8">Análisis de Sensibilidad</h3>
                 <div className="space-y-6">
                     {[
                         { label: "+10% Precio de Venta", impact: "+15.2% Utilidad", color: "text-emerald-500" },
@@ -98,7 +98,7 @@ export default function EstructuraCostosPage() {
 
             <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden shadow-glow border-none group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32" /></div>
-                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Maximizar Rentabilidad</h3>
+                <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4">Maximizar Rentabilidad</h3>
                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">El motor de IA sugiere optimizar la logística de última milla para reducir el costo variable en un 12%.</p>
                 <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl">SIMULAR ESCENARIOS</Button>
             </Card>

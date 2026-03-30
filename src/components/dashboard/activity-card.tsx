@@ -46,7 +46,7 @@ export function ActivityCard({ recentActivities }: { recentActivities: Activity[
               </DialogTrigger>
               <DialogContent className="rounded-[2.5rem] border-white/10 bg-black/90 backdrop-blur-3xl">
                   <DialogHeader>
-                      <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter">Detalle Operativo</DialogTitle>
+                      <DialogTitle className="text-2xl font-black uppercase italic tracking-tight">Detalle Operativo</DialogTitle>
                       <DialogDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40">Registro inmutable de actividad</DialogDescription>
                   </DialogHeader>
                   <div className="py-10 space-y-6">

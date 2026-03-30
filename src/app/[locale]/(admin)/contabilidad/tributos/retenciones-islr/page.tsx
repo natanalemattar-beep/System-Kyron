@@ -48,8 +48,8 @@ export default function RetencionesIslrPage() {
                                 <Zap className={cn("h-4 w-4 opacity-20", c.color)} />
                             </div>
                             <div>
-                                <CardTitle className="text-sm font-black uppercase italic tracking-tighter text-foreground mb-1">{c.name}</CardTitle>
-                                <p className={cn("text-xl font-black italic tracking-tighter", c.color)}>{c.rate}</p>
+                                <CardTitle className="text-sm font-black uppercase italic tracking-tight text-foreground mb-1">{c.name}</CardTitle>
+                                <p className={cn("text-xl font-black italic tracking-tight", c.color)}>{c.rate}</p>
                             </div>
                             <div className="pt-2">
                                 <p className="text-[8px] font-bold text-muted-foreground uppercase">Base: {c.base}</p>

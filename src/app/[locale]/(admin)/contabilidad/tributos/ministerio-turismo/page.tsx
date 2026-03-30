@@ -59,7 +59,7 @@ System Kyron, C.A.
                                     <Star className="h-8 w-8 text-primary" />
                                 </div>
                                 <div className="space-y-4">
-                                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">Contribución 1% INATUR</h3>
+                                    <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground">Contribución 1% INATUR</h3>
                                     <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase text-justify">
                                         Liquidación mensual obligatoria para prestadores de servicios. El sistema calcula la tasa basada en los ingresos brutos.
                                     </p>
@@ -96,7 +96,7 @@ System Kyron, C.A.
                         <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
                             <Logo className="h-14 w-14" />
                             <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
+                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
                             </div>
                         </header>

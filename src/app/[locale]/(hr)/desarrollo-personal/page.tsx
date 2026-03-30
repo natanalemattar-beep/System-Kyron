@@ -47,7 +47,7 @@ export default function DesarrolloPersonalPage() {
                                                 <path.icon className="h-6 w-6 text-primary" />
                                             </div>
                                             <div>
-                                                <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">{path.name}</h3>
+                                                <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground">{path.name}</h3>
                                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Nivel Actual: {path.level} • Siguiente: {path.next}</p>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@ export default function DesarrolloPersonalPage() {
 
                     <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-10 opacity-5"><BookOpen className="h-48 w-48 text-primary" /></div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8">Protocolo de Inducción Técnica</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-8">Protocolo de Inducción Técnica</h3>
                         <div className="grid md:grid-cols-2 gap-10">
                             <div className="space-y-6">
                                 {[
@@ -88,7 +88,7 @@ export default function DesarrolloPersonalPage() {
                 <div className="lg:col-span-4 space-y-8">
                     <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group h-[300px]">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32" /></div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4 leading-none">Inyectar <br/> Conocimiento</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4 leading-none">Inyectar <br/> Conocimiento</h3>
                         <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Acceda a la biblioteca de cursos certificados por el Colegio Gabriela Mistral.</p>
                         <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">ACADEMIA KYRON</Button>
                     </Card>

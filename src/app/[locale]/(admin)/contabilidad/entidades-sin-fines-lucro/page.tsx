@@ -61,7 +61,7 @@ export default function EntidadesSinFinesLucroPage() {
                             <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
                             <stat.icon className={cn("h-4 w-4", stat.color)} />
                         </div>
-                        <p className={cn("text-2xl font-black italic tracking-tighter leading-none", stat.color)}>{stat.val}</p>
+                        <p className={cn("text-2xl font-black italic tracking-tight leading-none", stat.color)}>{stat.val}</p>
                     </Card>
                 ))}
             </div>
@@ -133,7 +133,7 @@ export default function EntidadesSinFinesLucroPage() {
                     <div className="lg:col-span-4 space-y-8">
                         <Card className="glass-card border-none p-10 rounded-[3rem] bg-emerald-600 text-white shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><ShieldCheck className="h-32 w-32" /></div>
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6">Blindaje Social</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Blindaje Social</h3>
                             <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                 Las entidades sin fines de lucro deben cumplir con el reporte de actividades y el origen de fondos lícitos. El sistema bloquea transacciones no documentadas para proteger la personalidad jurídica de la institución.
                             </p>

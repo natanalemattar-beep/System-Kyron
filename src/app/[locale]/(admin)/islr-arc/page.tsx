@@ -79,7 +79,7 @@ export default function IslrArcPage() {
                         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000">
                             <Terminal className="h-32 w-32" />
                         </div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-6">Guía de Retención</h3>
+                        <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Guía de Retención</h3>
                         <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                             El comprobante AR-C es obligatorio según el Reglamento de la Ley de ISLR. El sistema consolida los pagos de nómina y calcula el porcentaje de retención basado en la planilla ARI de cada trabajador.
                         </p>

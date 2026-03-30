@@ -370,7 +370,7 @@ export function DatabaseSection() {
                         <Database className="h-3 w-3" />
                         Infraestructura de Datos
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase leading-[1.1] break-words overflow-hidden">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase leading-[1.1] break-words overflow-hidden">
                         Base de Datos
                         <br />
                         <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent italic break-words">
@@ -462,7 +462,7 @@ export function DatabaseSection() {
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-[9px] font-black uppercase tracking-[0.3em] text-violet-400">
                                 <GitBranch className="h-3 w-3" /> Replicación & Alta Disponibilidad
                             </div>
-                            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-tight">
+                            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight">
                                 Arquitectura de<br />
                                 <span className="text-violet-400">Cero Pérdida</span> de Datos
                             </h3>
@@ -527,7 +527,7 @@ export function DatabaseSection() {
                             <Network className="h-3 w-3" />
                             Integración Multi-Módulo
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                             Conectividad<span className="text-emerald-400"> Centralizada</span>
                         </h3>
                     </div>
@@ -579,7 +579,7 @@ export function DatabaseSection() {
                             <Shield className="h-3 w-3" />
                             Cumplimiento Normativo
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                             Regulaciones<span className="text-rose-400"> Venezolanas</span>
                         </h3>
                     </div>

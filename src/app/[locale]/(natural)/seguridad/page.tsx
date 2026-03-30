@@ -25,7 +25,7 @@ export default function SeguridadPage() {
                 <div className="lg:col-span-7 space-y-8">
                     <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-4">
                         <CardHeader className="p-8">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
                                 <KeyRound className="h-6 w-6 text-primary"/> Autenticación 2FA
                             </CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Capa de Seguridad Extra</CardDescription>
@@ -41,7 +41,7 @@ export default function SeguridadPage() {
 
                     <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-4">
                         <CardHeader className="p-8">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
                                 <Smartphone className="h-6 w-6 text-primary"/> Dispositivos Vinculados
                             </CardTitle>
                         </CardHeader>
@@ -70,7 +70,7 @@ export default function SeguridadPage() {
                             <Lock className="h-32 w-32" />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-rose-500 mb-4 flex items-center gap-3">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-rose-500 mb-4 flex items-center gap-3">
                                 <Activity className="h-6 w-6" /> BLOQUEO MAESTRO
                             </h3>
                             <p className="text-[10px] font-bold text-white/40 leading-relaxed uppercase mb-8">Inhabilite el acceso a todos sus activos digitales y documentos certificados en caso de extravío de su terminal físico.</p>

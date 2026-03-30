@@ -43,7 +43,7 @@ export default function ManutencionPage() {
                                 <History className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tighter">Historial de Depósitos</CardTitle>
+                                <CardTitle className="text-xl font-black uppercase italic tracking-tight">Historial de Depósitos</CardTitle>
                                 <CardDescription className="text-[10px] font-bold uppercase opacity-30 tracking-widest">Registro Inmutable de Aportes</CardDescription>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ export default function ManutencionPage() {
                             <CheckCircle className="h-32 w-32" />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4 leading-none">Estatus Legal: <br/> CUMPLIMIENTO</h3>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4 leading-none">Estatus Legal: <br/> CUMPLIMIENTO</h3>
                             <p className="text-xs font-bold opacity-80 leading-relaxed uppercase">Su historial transaccional no registra deudas ni retrasos. El blindaje legal está activo.</p>
                         </div>
                     </Card>

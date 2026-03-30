@@ -34,7 +34,7 @@ export default function JuegosAzarPage() {
                         <CardTitle className="text-[10px] font-black uppercase tracking-widest text-purple-600">Monto Gravado (Mes)</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <p className="text-4xl font-black italic text-foreground tracking-tighter">Bs. 85.000,00</p>
+                        <p className="text-4xl font-black italic text-foreground tracking-tight">Bs. 85.000,00</p>
                         <p className="text-[8px] font-bold uppercase text-muted-foreground mt-4 italic">Alícuota según Ley de Impuesto a Juegos</p>
                     </CardContent>
                 </Card>

@@ -44,17 +44,17 @@ export default function LibroLicoresPage() {
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-24 w-24" /></div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Impuesto Acumulado (Mes)</p>
-            <p className="text-4xl font-black italic text-primary tracking-tighter shadow-glow-text">{formatCurrency(465.50, 'Bs.')}</p>
+            <p className="text-4xl font-black italic text-primary tracking-tight shadow-glow-text">{formatCurrency(465.50, 'Bs.')}</p>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-24 w-24" /></div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Total Especies en Almacén</p>
-            <p className="text-4xl font-black italic text-foreground tracking-tighter">458 Uds.</p>
+            <p className="text-4xl font-black italic text-foreground tracking-tight">458 Uds.</p>
         </Card>
         <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Landmark className="h-24 w-24" /></div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Estatus Fiscal</p>
-            <p className="text-4xl font-black italic text-emerald-500 tracking-tighter uppercase">AL DÍA</p>
+            <p className="text-4xl font-black italic text-emerald-500 tracking-tight uppercase">AL DÍA</p>
         </Card>
       </div>
 
