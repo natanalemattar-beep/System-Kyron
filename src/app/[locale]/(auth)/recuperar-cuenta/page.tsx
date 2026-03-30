@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, Mail, KeyRound, ShieldCheck, Eye, EyeOff,
-  CircleCheck, ArrowRight, RefreshCw, User
+  CircleCheck, ArrowRight, RefreshCw, User, Search, AlertTriangle
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -35,7 +35,7 @@ export default function RecuperarCuentaPage() {
   };
 
   const findAccount = async () => {
-    if (!email.trim()) { setError('Ingresa tu correo electrónico'); return; }
+    if (!email.trim()) { setError('Ingresa tu correo electrónico, cédula o RIF'); return; }
     setIsLoading(true);
     setError('');
     try {
@@ -45,10 +45,20 @@ export default function RecuperarCuentaPage() {
         body: JSON.stringify({ action: 'find-account', email: email.trim().toLowerCase() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) {
+        if (data.noEmail) {
+          setError(data.error);
+        } else if (res.status === 404) {
+          setError(data.error || 'No encontramos una cuenta con ese dato');
+        } else {
+          throw new Error(data.error);
+        }
+        return;
+      }
       setAccountInfo({ nombre: data.nombre, tipo: data.tipo, maskedEmail: data.maskedEmail });
-      await sendCode();
       setStep('code-sent');
+      startCountdown();
+      toast({ title: 'Código enviado', description: 'Revisa tu correo electrónico.' });
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -123,7 +133,7 @@ export default function RecuperarCuentaPage() {
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {step === 'choose' && 'Selecciona qué necesitas recuperar'}
-            {step === 'find-account' && 'Ingresa el correo asociado a tu cuenta'}
+            {step === 'find-account' && 'Ingresa tu correo, cédula o RIF para buscar tu cuenta'}
             {step === 'code-sent' && `Enviamos un código a ${accountInfo?.maskedEmail || 'tu correo'}`}
             {step === 'new-password' && 'Crea una nueva contraseña segura'}
             {step === 'done' && 'Tu contraseña ha sido actualizada'}
@@ -144,7 +154,7 @@ export default function RecuperarCuentaPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-bold text-foreground">Olvidé mi contraseña</p>
-                    <p className="text-xs text-muted-foreground">Restablecer contraseña por correo</p>
+                    <p className="text-xs text-muted-foreground">Buscar por correo, cédula o RIF</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                 </button>
@@ -158,7 +168,7 @@ export default function RecuperarCuentaPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-bold text-foreground">Encontrar mi cuenta</p>
-                    <p className="text-xs text-muted-foreground">Buscar cuenta por correo electrónico</p>
+                    <p className="text-xs text-muted-foreground">Buscar cuenta por correo, cédula o RIF</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                 </button>
@@ -168,25 +178,31 @@ export default function RecuperarCuentaPage() {
             {step === 'find-account' && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Correo Electrónico</Label>
+                  <Label className="text-sm font-semibold">Correo, Cédula o RIF</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
-                      type="email"
-                      placeholder="tu@correo.com"
+                      type="text"
+                      placeholder="tu@correo.com, V-12345678 o J-12345678-9"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       onKeyDown={e => e.key === 'Enter' && findAccount()}
                       className="h-12 pl-10 rounded-xl"
                     />
                   </div>
+                  <p className="text-[11px] text-muted-foreground/60">Puedes buscar con tu correo electrónico, número de cédula o RIF</p>
                 </div>
-                {error && <p className="text-sm text-destructive">{error}</p>}
+                {error && (
+                  <div className="flex items-start gap-2.5 p-3 rounded-xl bg-destructive/5 border border-destructive/15">
+                    <AlertTriangle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )}
                 <Button onClick={findAccount} disabled={isLoading} className="w-full h-12 rounded-xl font-bold">
-                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
                   Buscar Cuenta
                 </Button>
-                <button onClick={() => { setStep('choose'); setError(''); }} className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <button onClick={() => { setStep('choose'); setError(''); setEmail(''); }} className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Volver
                 </button>
               </div>

@@ -22,27 +22,47 @@ export async function POST(req: NextRequest) {
     const { action, email, code, newPassword } = await req.json();
 
     if (action === 'find-account') {
-      if (!email) {
-        return NextResponse.json({ error: 'Ingresa tu correo electrónico' }, { status: 400 });
-      }
-      const normalizedEmail = sanitizeEmail(email);
-      if (!isValidEmail(normalizedEmail)) {
-        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+      const { identifier } = await Promise.resolve({ identifier: email });
+
+      if (!identifier || !String(identifier).trim()) {
+        return NextResponse.json({ error: 'Ingresa tu correo electrónico, cédula o RIF' }, { status: 400 });
       }
 
-      const user = await queryOne<{ id: number; nombre: string }>(
-        `SELECT id, nombre FROM users WHERE email = $1`,
-        [normalizedEmail]
-      );
+      const input = String(identifier).trim();
 
       await new Promise(r => setTimeout(r, 150 + Math.random() * 200));
 
+      let user: { id: number; nombre: string; email: string } | null = null;
+
+      if (isValidEmail(input)) {
+        const normalizedEmail = sanitizeEmail(input);
+        user = await queryOne<{ id: number; nombre: string; email: string }>(
+          `SELECT id, nombre, email FROM users WHERE email = $1`,
+          [normalizedEmail]
+        );
+      } else {
+        const cleaned = input.toUpperCase().replace(/\s/g, '');
+        user = await queryOne<{ id: number; nombre: string; email: string }>(
+          `SELECT id, nombre, email FROM users WHERE UPPER(cedula) = $1 OR UPPER(rif) = $1`,
+          [cleaned]
+        );
+      }
+
       if (!user) {
         return NextResponse.json({
-          success: true,
+          success: false,
+          found: false,
+          error: 'No encontramos una cuenta asociada a este dato. Verifica que esté bien escrito o intenta con otro identificador (correo, cédula o RIF).',
+        }, { status: 404 });
+      }
+
+      if (!user.email) {
+        return NextResponse.json({
+          success: false,
           found: true,
-          maskedEmail: maskEmail(normalizedEmail),
-        });
+          noEmail: true,
+          error: 'Esta cuenta no tiene un correo electrónico asociado. Contacta al administrador para recuperar tu acceso.',
+        }, { status: 400 });
       }
 
       const codigo = generateResetCode();
@@ -50,11 +70,11 @@ export async function POST(req: NextRequest) {
 
       await query(
         `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, 'email', $2, $3, 'password-reset')`,
-        [normalizedEmail, codigo, expiresAt]
+        [user.email, codigo, expiresAt]
       );
 
       await sendEmail({
-        to: normalizedEmail,
+        to: user.email,
         subject: `${codigo} — Recuperar contraseña · System Kyron`,
         html: buildKyronEmailTemplate({
           title: 'Recuperación de Contraseña',
@@ -69,7 +89,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         found: true,
-        maskedEmail: maskEmail(normalizedEmail),
+        maskedEmail: maskEmail(user.email),
       });
     }
 
