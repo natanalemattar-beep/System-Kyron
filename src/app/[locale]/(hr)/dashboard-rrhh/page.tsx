@@ -353,6 +353,9 @@ export default function RecursosHumanosPage() {
                   { label: "Reclutamiento", href: "/reclutamiento", icon: UserPlus, color: "text-cyan-400" },
                   { label: "Desarrollo Personal", href: "/desarrollo-personal", icon: School, color: "text-teal-400" },
                   { label: "Prestaciones", href: "/prestaciones-sociales", icon: Scale, color: "text-green-400" },
+                  { label: "Libros Laborales", href: "/libros-laborales", icon: Briefcase, color: "text-blue-400" },
+                  { label: "Salud y Seguridad", href: "/salud-seguridad", icon: Stethoscope, color: "text-rose-400" },
+                  { label: "Clima Organizacional", href: "/clima-organizacional", icon: Heart, color: "text-pink-400" },
                 ].map(item => (
                   <Link key={item.label} href={item.href as never}>
                     <Button variant="ghost" size="sm" className="w-full h-8 justify-between text-[9px] font-semibold text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg group/btn">

@@ -57,7 +57,7 @@ const MODULES: ModuleOption[] = [
         route: "natural",
         icon: User,
         title: "Persona Natural",
-        description: "Registro personal con cédula, datos de contacto y ubicación",
+        description: "Registro personal con cédula, datos de contacto y ubicación geográfica venezolana",
         color: "text-blue-500",
         bgColor: "bg-blue-500/10 hover:bg-blue-500/15",
         borderColor: "border-blue-500/20 hover:border-blue-500/40",
@@ -67,23 +67,56 @@ const MODULES: ModuleOption[] = [
         id: "asesoria-contable",
         route: "asesoria-contable",
         icon: Building2,
-        title: "Asesoría Contable",
-        description: "Contabilidad, RRHH, marketing, facturación, legal y más — todo integrado en un solo módulo empresarial",
+        title: "Asesoría Contable & Empresarial",
+        description: "Contabilidad VEN-NIF, facturación SENIAT, declaraciones IVA/ISLR/IGTF, inventario, clientes y proveedores",
         color: "text-emerald-500",
         bgColor: "bg-emerald-500/10 hover:bg-emerald-500/15",
         borderColor: "border-emerald-500/20 hover:border-emerald-500/40",
         forTypes: ["juridico"],
     },
     {
+        id: "rrhh",
+        route: "rrhh",
+        icon: Users,
+        title: "Recursos Humanos",
+        description: "Nómina LOTTT, prestaciones sociales Art. 142, vacaciones, IVSS, FAOV, INCES y libros laborales",
+        color: "text-orange-500",
+        bgColor: "bg-orange-500/10 hover:bg-orange-500/15",
+        borderColor: "border-orange-500/20 hover:border-orange-500/40",
+        forTypes: ["juridico"],
+    },
+    {
+        id: "legal",
+        route: "legal",
+        icon: Gavel,
+        title: "Escritorio Jurídico",
+        description: "Contratos, poderes notariados, permisos SENIAT/SAPI, actas de asamblea y cumplimiento legal",
+        color: "text-purple-500",
+        bgColor: "bg-purple-500/10 hover:bg-purple-500/15",
+        borderColor: "border-purple-500/20 hover:border-purple-500/40",
+        forTypes: ["juridico"],
+    },
+    {
         id: "telecom",
         route: "telecom",
         icon: Signal,
-        title: "Mi Línea",
-        description: "Planes de telefonía, datos móviles y servicios de conectividad",
+        title: "Mi Línea 5G",
+        description: "Planes de telefonía, datos móviles 5G, eSIM, y servicios de conectividad empresarial",
         color: "text-cyan-500",
         bgColor: "bg-cyan-500/10 hover:bg-cyan-500/15",
         borderColor: "border-cyan-500/20 hover:border-cyan-500/40",
         forTypes: ["natural", "juridico"],
+    },
+    {
+        id: "ventas",
+        route: "asesoria-contable",
+        icon: ShoppingCart,
+        title: "Punto de Venta & Ventas",
+        description: "TPV integrado, control de inventario en tiempo real, estrategias de venta y fidelización de clientes",
+        color: "text-rose-500",
+        bgColor: "bg-rose-500/10 hover:bg-rose-500/15",
+        borderColor: "border-rose-500/20 hover:border-rose-500/40",
+        forTypes: ["juridico"],
     },
 ];
 
@@ -511,6 +544,17 @@ export default function RegisterSelectionPage() {
                                 <span className="text-foreground">Tu empresa, </span>
                                 <span className="bg-gradient-to-r from-primary via-cyan-400 to-emerald-400 bg-clip-text text-transparent italic">protegida.</span>
                             </h1>
+                            <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto mb-4">
+                                Automatización fiscal total — IVA, IGTF, ISLR sin multas ni retrasos ante el SENIAT.
+                            </p>
+                            <div className="grid grid-cols-3 gap-2 mb-2">
+                                {FISCAL_METRICS.map((m) => (
+                                    <div key={m.label} className={cn("rounded-xl border border-white/5 p-2 text-center", m.bg)}>
+                                        <p className={cn("text-lg font-black", m.color)}>{m.value}</p>
+                                        <p className="text-[9px] font-black uppercase tracking-wider text-foreground/70">{m.label}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </header>
 
                         {/* Step indicator */}

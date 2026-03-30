@@ -418,6 +418,181 @@ export default function MiLineaPage() {
         </CardContent>
       </Card>
 
+      {lineas.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {lineas.filter(l => l.activa).map((linea) => {
+            const usoGB = parseFloat(linea.uso_datos_gb || '0') || 0;
+            const limiteGB = Math.max(parseFloat(linea.limite_datos_gb || '30') || 30, 0.1);
+            const pctUso = Number.isFinite(usoGB / limiteGB) ? (usoGB / limiteGB) * 100 : 0;
+            const operadoraLabel = OPERADORAS.find(o => o.value === linea.operadora)?.label || linea.operadora;
+            return (
+              <Card key={`usage-${linea.id}`} className="bg-card/60 border border-border/50 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 bg-primary/10 rounded-lg">
+                      <Signal className="h-3.5 w-3.5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">{linea.numero}</p>
+                      <p className="text-[9px] text-muted-foreground">{operadoraLabel} · {linea.plan_contratado || 'Sin plan'}</p>
+                    </div>
+                  </div>
+                  <Badge variant="outline" className="text-[9px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">Activa</Badge>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-muted-foreground">Datos utilizados</span>
+                    <span className={cn("font-bold", pctUso > 90 ? "text-rose-500" : pctUso > 70 ? "text-amber-500" : "text-emerald-500")}>
+                      {usoGB.toFixed(1)} / {limiteGB} GB
+                    </span>
+                  </div>
+                  <div className="h-2.5 w-full bg-muted/30 rounded-full overflow-hidden">
+                    <div
+                      className={cn("h-full rounded-full transition-all duration-500",
+                        pctUso > 90 ? "bg-gradient-to-r from-rose-500 to-rose-400" :
+                        pctUso > 70 ? "bg-gradient-to-r from-amber-500 to-amber-400" :
+                        "bg-gradient-to-r from-emerald-500 to-cyan-400"
+                      )}
+                      style={{ width: `${Math.min(pctUso, 100)}%` }}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mt-3">
+                    <div className="text-center p-2 rounded-lg bg-muted/10">
+                      <p className="text-[9px] text-muted-foreground">Llamadas</p>
+                      <p className="text-xs font-bold text-foreground">Ilimitadas</p>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-muted/10">
+                      <p className="text-[9px] text-muted-foreground">SMS</p>
+                      <p className="text-xs font-bold text-foreground">500</p>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-muted/10">
+                      <p className="text-[9px] text-muted-foreground">Velocidad</p>
+                      <p className="text-xs font-bold text-cyan-500">5G</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      )}
+
+      <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
+        <CardHeader className="px-5 py-4 border-b border-border/50">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-cyan-500/10 rounded-lg">
+              <Wifi className="h-4 w-4 text-cyan-500" />
+            </div>
+            <div>
+              <CardTitle className="text-sm font-semibold text-foreground">Planes Disponibles</CardTitle>
+              <CardDescription className="text-[10px] text-muted-foreground">
+                Planes de telefonía Kyron 5G
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { name: "Conecta", data: "10 GB", price: "$8", speed: "4G LTE", color: "border-blue-500/20", highlight: false, features: ["Llamadas ilimitadas", "100 SMS", "Roaming básico"] },
+              { name: "Global", data: "40 GB", price: "$18", speed: "5G", color: "border-primary/30", highlight: true, features: ["Llamadas ilimitadas", "500 SMS", "Roaming premium", "Hotspot 15GB"] },
+              { name: "Infinite", data: "Ilimitado", price: "$35", speed: "5G Ultra", color: "border-cyan-500/20", highlight: false, features: ["Todo ilimitado", "Roaming global", "Hotspot ilimitado", "VPN incluida"] },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                role="group"
+                aria-label={`Plan ${plan.name} — ${plan.data} por ${plan.price}/mes`}
+                className={cn(
+                  "relative rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+                  plan.highlight ? "border-primary/40 bg-primary/5 ring-2 ring-primary/10" : "border-border/50 bg-card/40",
+                  plan.color
+                )}
+              >
+                {plan.highlight && (
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
+                    <span className="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Popular</span>
+                  </div>
+                )}
+                <p className="text-lg font-black text-foreground mb-0.5">{plan.name}</p>
+                <p className="text-2xl font-black text-primary mb-1">{plan.price}<span className="text-xs text-muted-foreground font-medium">/mes</span></p>
+                <p className="text-xs font-bold text-cyan-500 mb-3">{plan.data} · {plan.speed}</p>
+                <div className="space-y-1.5">
+                  {plan.features.map((f) => (
+                    <div key={f} className="flex items-center gap-1.5">
+                      <CheckCircle className="h-3 w-3 text-emerald-500 shrink-0" />
+                      <span className="text-[10px] text-muted-foreground">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  size="sm"
+                  variant={plan.highlight ? "default" : "outline"}
+                  className="w-full mt-3 h-8 rounded-lg text-[10px] font-bold"
+                  onClick={() => toast({ title: `Plan ${plan.name}`, description: `Seleccionaste el plan ${plan.name} — ${plan.data} por ${plan.price}/mes` })}
+                >
+                  Contratar
+                </Button>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <Card className="bg-card/60 border border-border/50 rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-1.5 bg-emerald-500/10 rounded-lg">
+              <Activity className="h-3.5 w-3.5 text-emerald-500" />
+            </div>
+            <span className="text-xs font-semibold text-foreground">Estado de Red</span>
+            <Badge className="ml-auto text-[8px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">Operativa</Badge>
+          </div>
+          <div className="space-y-2">
+            {[
+              { label: "Latencia", value: "12ms", status: "text-emerald-500" },
+              { label: "Cobertura 5G", value: "98.5%", status: "text-emerald-500" },
+              { label: "Velocidad de descarga", value: "450 Mbps", status: "text-cyan-500" },
+              { label: "Velocidad de subida", value: "85 Mbps", status: "text-cyan-500" },
+              { label: "Última caída registrada", value: "Hace 47 días", status: "text-muted-foreground" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center justify-between p-2 rounded-lg bg-muted/10">
+                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+                <span className={cn("text-xs font-bold", item.status)}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="bg-card/60 border border-border/50 rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-1.5 bg-amber-500/10 rounded-lg">
+              <DollarSign className="h-3.5 w-3.5 text-amber-500" />
+            </div>
+            <span className="text-xs font-semibold text-foreground">Recargas Rápidas</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {["$5", "$10", "$15", "$20", "$30", "$50"].map((amount) => (
+              <Button
+                key={amount}
+                variant="outline"
+                size="sm"
+                className="h-10 rounded-lg text-sm font-bold border-border/50 hover:border-primary/40 hover:bg-primary/5"
+                onClick={() => toast({ title: "Recarga procesada", description: `Se procesó la recarga de ${amount} exitosamente.` })}
+              >
+                {amount}
+              </Button>
+            ))}
+          </div>
+          <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/15">
+            <p className="text-[10px] font-bold text-cyan-500 mb-1">Recarga Automática</p>
+            <p className="text-[9px] text-muted-foreground">Activa la recarga automática cuando tu saldo llegue a $2</p>
+            <Button size="sm" variant="outline" className="mt-2 h-7 text-[9px] rounded-lg border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/10">
+              Activar Auto-Recarga
+            </Button>
+          </div>
+        </Card>
+      </div>
+
       {facturas.length > 0 && (
         <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
           <CardHeader className="px-5 py-4 border-b border-border/50">

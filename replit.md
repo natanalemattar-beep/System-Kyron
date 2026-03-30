@@ -22,7 +22,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Application routes are organized under `src/app/[locale]/` with grouped routes for authentication, administration, main application, natural persons, HR, legal, sales, partners, and telecommunications.
 - A mobile sidebar provides smooth scrolling for landing pages and contextual navigation.
 - The landing page is visually driven with simplified sections (Hero, Services, About, FAQ).
-- Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels.
+- Register pages feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels. Module selection expanded to 6 options: Persona Natural, Asesoría Contable & Empresarial, Recursos Humanos (LOTTT), Escritorio Jurídico, Mi Línea 5G, and Punto de Venta & Ventas. Mobile view includes fiscal metrics (IVA 16%, IGTF 3%, ISLR 34%) and anti-multa description.
 - Document upload functionality is reusable with drag-and-drop zones, file validation (PDF/JPG/PNG/WebP, max 10MB).
 - Venezuela geography data is used for cascading state/municipality dropdowns in registration forms.
 - SAIME integration simulates citizen registry lookup for enriched data.
@@ -59,7 +59,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences. Document-ready notifications auto-trigger when document status changes to ready states (aprobado, entregado, vigente, firmado, etc.) via `notifyDocumentReady()` helper in `src/lib/document-notifications.ts`.
 - **Permisología Module:** Covers SENIAT, various ministries, municipalities, and autonomous entities.
 - **Carnets & Tarjetas Module:** Generates QR codes for various cards.
-- **Telecom Module:** Manages personal and enterprise telecommunications lines with auto-assigned unique numbers.
+- **Telecom Module:** Manages personal and enterprise telecommunications lines with auto-assigned unique numbers. Enhanced with per-line data usage visualization (color-coded progress bars), plans comparison section (Conecta/Global/Infinite with pricing), network status panel (latency, 5G coverage, speeds), and quick recharge buttons ($5–$50 with auto-recarga option).
+- **Marketing Module:** Investment dashboard with market alerts (IBVC, BCV bonds, real estate, crypto, banking), financial analysis tables, payment alternatives. Enhanced with campaign management section (email/SMS/WhatsApp campaigns with sent/opened/clicks/conversion metrics), social media analytics (Instagram/LinkedIn/X/TikTok with followers/growth/engagement), ROI by channel table, and SEO/traffic analytics panel.
 - **Marco Legal Venezuela:** Comprehensive module with 14 fiscal entities, 9 fundamental laws, current tax rates, and calendar/filter helpers.
 - **OTP Verification:** DB-primary storage with in-memory Map fallback, codes scoped by purpose, max 5 attempts per code.
 - **Kyron Chat (Global):** VoiceAssistant component is available for all users (authenticated and unauthenticated) with hide/show toggle and context-aware greetings.
