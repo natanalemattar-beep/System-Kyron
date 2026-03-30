@@ -477,7 +477,7 @@ export default function RegisterSelectionPage() {
                 {step === "identify" && (
                     <section className="w-full mb-8">
                         <div className={cn(
-                            "relative rounded-3xl border-2 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl transition-all duration-500",
+                            "relative overflow-visible rounded-3xl border-2 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl transition-all duration-500",
                             isNatural ? "border-blue-500/30 shadow-blue-500/5" :
                             isJuridico ? "border-emerald-500/30 shadow-emerald-500/5" :
                             "border-border/30"
@@ -537,7 +537,7 @@ export default function RegisterSelectionPage() {
                                             id="prefix-listbox"
                                             role="listbox"
                                             aria-label="Tipo de documento"
-                                            className="absolute top-full left-0 mt-2 z-50 w-[220px] rounded-2xl border border-border/40 bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/20 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+                                            className="absolute top-full left-0 mt-2 z-50 w-[220px] rounded-2xl border border-border/40 bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/20 animate-in fade-in slide-in-from-top-2 duration-200"
                                         >
                                             <div className="p-1.5">
                                                 {ALL_PREFIXES.map((p, idx) => {
