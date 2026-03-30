@@ -1,10 +1,10 @@
 'use client';
 
-import { motion } from "framer-motion";
 import { Receipt, ArrowRight, Lock, Sparkles, Zap, ShieldCheck, BarChart3, Globe, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import Image from 'next/image';
+import { useInView } from '@/hooks/use-in-view';
 
 const features = [
     {
@@ -44,15 +44,13 @@ const platformStats = [
 ];
 
 export function ServicesSection() {
+    const [ref, inView] = useInView(0.05);
+
     return (
-        <section id="servicios" className="relative z-10 overflow-hidden">
+        <section ref={ref} id="servicios" className={`relative z-10 overflow-hidden ${!inView ? 'animate-hidden' : ''}`}>
             <div className="py-20 md:py-28">
-                <motion.div
-                    className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                <div
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center animate-[fadeSlideUp_0.6s_both]"
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
@@ -67,17 +65,13 @@ export function ServicesSection() {
                     <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
                         Soluciones interconectadas que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.
                     </p>
-                </motion.div>
+                </div>
 
                 <div className="space-y-20 md:space-y-28">
                     {features.map((feat, idx) => (
-                        <motion.div
+                        <div
                             key={feat.title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7 }}
-                            className="container mx-auto px-4 md:px-10 max-w-7xl"
+                            className="container mx-auto px-4 md:px-10 max-w-7xl animate-[fadeSlideUp_0.7s_both]"
                         >
                             <div className={cn(
                                 "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
@@ -117,16 +111,12 @@ export function ServicesSection() {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
-                <motion.div
-                    className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                <div
+                    className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32 animate-[fadeSlideUp_0.6s_both]"
                 >
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-5">
@@ -143,13 +133,10 @@ export function ServicesSection() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                         {platformStats.map((stat, i) => (
-                            <motion.div
+                            <div
                                 key={stat.label}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.07, duration: 0.5 }}
-                                className="group relative overflow-hidden rounded-2xl border border-border/30 hover:border-border/60 bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+                                className="group relative overflow-hidden rounded-2xl border border-border/30 hover:border-border/60 bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 animate-[fadeSlideUp_0.5s_both]"
+                                style={{ animationDelay: `${i * 0.07}s` }}
                             >
                                 <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.bg)} />
                                 <div className="relative p-5 flex flex-col items-center text-center gap-2.5">
@@ -163,7 +150,7 @@ export function ServicesSection() {
                                         {stat.label}
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
@@ -172,7 +159,7 @@ export function ServicesSection() {
                             Comenzar Ahora <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

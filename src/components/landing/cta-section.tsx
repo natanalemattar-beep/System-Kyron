@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { useInView } from '@/hooks/use-in-view';
 
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
@@ -12,8 +12,10 @@ const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.C
 });
 
 export function CtaSection() {
+    const [sectionRef, inView] = useInView(0.05);
+
     return (
-        <section id="contacto" className="relative overflow-hidden">
+        <section ref={sectionRef} id="contacto" className={`relative overflow-hidden ${!inView ? 'animate-hidden' : ''}`}>
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-100 to-slate-100 dark:via-[#030B1A] dark:to-[#030B1A]" />
@@ -23,12 +25,8 @@ export function CtaSection() {
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <motion.div
-                            className="space-y-7 text-center lg:text-left"
-                            initial={{ opacity: 0, x: -24 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        <div
+                            className="space-y-7 text-center lg:text-left animate-[fadeSlideUp_0.8s_both]"
                         >
                             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 dark:text-white/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> Acceso Prioritario
@@ -50,17 +48,13 @@ export function CtaSection() {
                                     </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 24 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="w-full"
+                        <div
+                            className="w-full animate-[fadeSlideUp_0.8s_0.1s_both]"
                         >
                             <CtaForm />
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 'use client';
 
 import { BrainCircuit, Lock, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, Landmark, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
+import { useInView } from '@/hooks/use-in-view';
 
 const featuresMeta = [
     { icon: Calculator, color: "text-primary", bg: "bg-primary/10", border: "border-primary/15", glowColor: "rgba(30, 64, 175, 0.15)", span: "col-span-1" },
@@ -17,31 +17,18 @@ const featuresMeta = [
     { icon: Lock, color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/15", glowColor: "rgba(249, 115, 22, 0.15)", span: "col-span-1" },
 ];
 
-const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.07 } }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }
-};
-
 export function FeaturesSection() {
     const t = useTranslations('FeaturesSection');
     const features = t.raw('features') as { title: string; description: string }[];
     const stats = t.raw('stats') as { val: string; detail: string }[];
+    const [ref, inView] = useInView(0.05);
 
     return (
-        <section id="caracteristicas" className="py-16 md:py-32 relative">
+        <section ref={ref} id="caracteristicas" className={`py-16 md:py-32 relative ${!inView ? 'animate-hidden' : ''}`}>
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
 
-                <motion.div
-                    className="mb-14 md:mb-20 space-y-5 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
+                <div
+                    className="mb-14 md:mb-20 space-y-5 text-center animate-[fadeSlideUp_0.7s_both]"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
@@ -53,27 +40,25 @@ export function FeaturesSection() {
                     <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
                         {t('subtitle')}
                     </p>
-                </motion.div>
+                </div>
 
-                <motion.div
+                <div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.05 }}
                 >
                     {features.map((f, idx) => {
                         const meta = featuresMeta[idx] || featuresMeta[0];
                         return (
-                            <motion.div
+                            <div
                                 key={f.title}
-                                variants={itemVariants}
                                 className={cn(
-                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
+                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1 animate-[fadeSlideUp_0.5s_both]",
                                     "bg-card/30 dark:bg-card/15",
                                     meta.border, meta.span
                                 )}
-                                style={{ '--glow-color': meta.glowColor } as React.CSSProperties}
+                                style={{
+                                    '--glow-color': meta.glowColor,
+                                    animationDelay: `${idx * 0.07}s`,
+                                } as React.CSSProperties}
                                 onMouseEnter={(e) => {
                                     (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px -8px ${meta.glowColor}`;
                                 }}
@@ -102,17 +87,13 @@ export function FeaturesSection() {
                                         {f.description}
                                     </p>
                                 </div>
-                            </motion.div>
+                            </div>
                         );
                     })}
-                </motion.div>
+                </div>
 
-                <motion.div
-                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                <div
+                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 animate-[fadeSlideUp_0.6s_0.2s_both]"
                 >
                     {stats.map((r, i) => (
                         <div
@@ -123,7 +104,7 @@ export function FeaturesSection() {
                             <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
                         </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

@@ -1,7 +1,6 @@
 
 'use client';
 
-import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, TrendingUp, DollarSign, Users, Calculator, Smartphone, Recycle, Gavel, BarChart3 } from "lucide-react";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
@@ -25,28 +24,21 @@ export function PanelControlHero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
 
-      {/* Background orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-0">
         <div className="absolute -top-40 left-1/4 w-[700px] h-[700px] rounded-full bg-primary/8 blur-[140px]" />
         <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] rounded-full bg-violet-500/6 blur-[120px]" />
         <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-500/5 blur-[100px]" />
-        {/* Corner brackets */}
         <div className="absolute top-28 left-6 w-10 h-10 border-t-2 border-l-2 border-primary/20" />
         <div className="absolute top-28 right-6 w-10 h-10 border-t-2 border-r-2 border-primary/20" />
         <div className="absolute bottom-10 left-6 w-6 h-6 border-b-2 border-l-2 border-primary/10" />
         <div className="absolute bottom-10 right-6 w-6 h-6 border-b-2 border-r-2 border-primary/10" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-2xl mx-auto"
+      <div
+        className="relative z-10 w-full max-w-2xl mx-auto animate-[fadeSlideUp_0.8s_both]"
       >
-        {/* Panel card */}
         <div className="rounded-[2rem] border border-border/30 dark:border-white/10 bg-card/60 dark:bg-white/[0.03] backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
 
-          {/* Topbar */}
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02]">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
@@ -67,7 +59,6 @@ export function PanelControlHero() {
             </div>
           </div>
 
-          {/* KPI row */}
           <div className="grid grid-cols-3 divide-x divide-border/30 dark:divide-white/8">
             {kpis.map((kpi, i) => (
               <div
@@ -82,7 +73,6 @@ export function PanelControlHero() {
             ))}
           </div>
 
-          {/* Module grid */}
           <div className="p-5 border-t border-border/30 dark:border-white/8">
             <div className="grid grid-cols-3 gap-2.5">
               {modules.map((mod, i) => (
@@ -105,7 +95,6 @@ export function PanelControlHero() {
             </div>
           </div>
 
-          {/* Footer CTA */}
           <NextLink href="/register" className="block group">
             <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-primary/15 to-transparent border-t border-primary/15 hover:from-primary/25 transition-all">
               <div className="flex items-center gap-3">
@@ -120,16 +109,12 @@ export function PanelControlHero() {
           </NextLink>
         </div>
 
-        {/* Tagline below panel */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
+        <p
+          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6 animate-[fadeIn_0.5s_0.9s_both]"
         >
           Ecosistema Corporativo Venezuela • v2.8.5
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
     </section>
   );
 }

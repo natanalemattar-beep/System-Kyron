@@ -2,9 +2,9 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { MessageCircle, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
+import { useInView } from '@/hooks/use-in-view';
 
 const topFaqItems = [
     {
@@ -34,15 +34,13 @@ const topFaqItems = [
 ];
 
 export function FaqSection() {
+    const [sectionRef, inView] = useInView(0.05);
+
     return (
-        <section id="faq" className="py-16 md:py-24 relative overflow-hidden">
+        <section ref={sectionRef} id="faq" className={`py-16 md:py-24 relative overflow-hidden ${!inView ? 'animate-hidden' : ''}`}>
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
-                <motion.div
-                    className="text-center mb-12 md:mb-16 space-y-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.5 }}
+                <div
+                    className="text-center mb-12 md:mb-16 space-y-4 animate-[fadeSlideUp_0.5s_both]"
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
@@ -57,22 +55,15 @@ export function FaqSection() {
                     <p className="text-muted-foreground text-xs md:text-sm max-w-lg mx-auto">
                         Las dudas más comunes sobre el ecosistema System Kyron.
                     </p>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.5, delay: 0.15 }}
-                >
+                <div className="animate-[fadeSlideUp_0.5s_0.15s_both]">
                     <Accordion type="single" collapsible className="w-full space-y-3">
                         {topFaqItems.map((item, index) => (
-                            <motion.div
+                            <div
                                 key={index}
-                                initial={{ opacity: 0, y: 15 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                                className="animate-[fadeSlideUp_0.3s_both]"
+                                style={{ animationDelay: `${0.15 + index * 0.05}s` }}
                             >
                                 <AccordionItem
                                     value={`item-${index}`}
@@ -92,16 +83,12 @@ export function FaqSection() {
                                         {item.answer}
                                     </AccordionContent>
                                 </AccordionItem>
-                            </motion.div>
+                            </div>
                         ))}
                     </Accordion>
 
-                    <motion.div
-                        className="flex justify-center mt-10"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 }}
+                    <div
+                        className="flex justify-center mt-10 animate-[fadeIn_0.5s_0.4s_both]"
                     >
                         <Link href="/faq">
                             <Button
@@ -112,8 +99,8 @@ export function FaqSection() {
                                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </div>
         </section>
     );

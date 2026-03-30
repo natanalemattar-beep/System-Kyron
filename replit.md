@@ -48,7 +48,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Security:** Implemented security headers, rate limiting, input validation, and parameterized SQL.
 - **Payment Methods:** Integration with 12 payment gateways and 29 Venezuelan banks.
 - **Special Pages:** Dedicated pages for Zedu Model: AutoMind AI project and an enhanced user manual.
-- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, and CSS-based animations.
+- **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, and CSS-based animations. Landing page animations use `useInView` hook (`src/hooks/use-in-view.ts`) with `animate-hidden` CSS utility to gate animations until sections scroll into viewport. Only `scroll-cinematic-section` retains Framer Motion for scroll-driven parallax.
 - **Tutorial/Onboarding:** `WelcomeTutorial` component for first-time users.
 - **Loading Screen:** Polished splash screen with Kyron Logo and progress bar.
 - **Kyron Design System:** Signature gradient, CSS utilities, and animations are defined globally.
@@ -68,7 +68,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Internationalization:** `next-intl`
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
-- **Animations:** Framer Motion
+- **Animations:** CSS keyframe animations (viewport-gated via IntersectionObserver), Framer Motion (scroll-cinematic only)
 - **Email Services:** Gmail, Outlook, Resend (with fallback chain)
 - **AI Integrations:** Anthropic Claude Sonnet (`claude-3-5-sonnet-20241022`)
 - **SMS:** Twilio

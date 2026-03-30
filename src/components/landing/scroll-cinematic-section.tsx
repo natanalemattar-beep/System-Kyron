@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Calculator, Shield, Brain, Zap, Signal, Users, Cpu, TrendingUp, Lock, Globe } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import Image from "next/image";
@@ -16,54 +16,12 @@ interface Highlight {
 }
 
 const highlights: Highlight[] = [
-    {
-        icon: Calculator,
-        color: "from-blue-500 to-primary",
-        label: "Contabilidad & Fiscal",
-        desc: "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.",
-        stat: "100%",
-        statLabel: "Cumplimiento fiscal",
-    },
-    {
-        icon: Signal,
-        color: "from-cyan-400 to-blue-500",
-        label: "Mi Línea 5G",
-        desc: "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.",
-        stat: "5G",
-        statLabel: "Velocidad de red",
-    },
-    {
-        icon: Brain,
-        color: "from-violet-500 to-purple-600",
-        label: "IA Integrada",
-        desc: "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.",
-        stat: "IA",
-        statLabel: "Claude · Anthropic",
-    },
-    {
-        icon: Shield,
-        color: "from-emerald-500 to-cyan-600",
-        label: "Seguridad AES-256",
-        desc: "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.",
-        stat: "256",
-        statLabel: "Bits de cifrado",
-    },
-    {
-        icon: Users,
-        color: "from-orange-400 to-rose-500",
-        label: "RR.HH & Nómina",
-        desc: "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.",
-        stat: "LOTTT",
-        statLabel: "Marco legal",
-    },
-    {
-        icon: Zap,
-        color: "from-yellow-400 to-orange-500",
-        label: "Facturación Fiscal",
-        desc: "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.",
-        stat: "3%",
-        statLabel: "IGTF automático",
-    },
+    { icon: Calculator, color: "from-blue-500 to-primary", label: "Contabilidad & Fiscal", desc: "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", stat: "100%", statLabel: "Cumplimiento fiscal" },
+    { icon: Signal, color: "from-cyan-400 to-blue-500", label: "Mi Línea 5G", desc: "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", stat: "5G", statLabel: "Velocidad de red" },
+    { icon: Brain, color: "from-violet-500 to-purple-600", label: "IA Integrada", desc: "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.", stat: "IA", statLabel: "Claude · Anthropic" },
+    { icon: Shield, color: "from-emerald-500 to-cyan-600", label: "Seguridad AES-256", desc: "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", stat: "256", statLabel: "Bits de cifrado" },
+    { icon: Users, color: "from-orange-400 to-rose-500", label: "RR.HH & Nómina", desc: "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", stat: "LOTTT", statLabel: "Marco legal" },
+    { icon: Zap, color: "from-yellow-400 to-orange-500", label: "Facturación Fiscal", desc: "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", stat: "3%", statLabel: "IGTF automático" },
 ];
 
 const powerStats = [
@@ -75,7 +33,7 @@ const powerStats = [
 
 function CSSParticles() {
     const particles = useMemo(() => {
-        return Array.from({ length: 8 }, (_, i) => ({
+        return Array.from({ length: 6 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
@@ -107,68 +65,6 @@ function CSSParticles() {
     );
 }
 
-function PowerStatCard({ stat, index, smoothProgress }: {
-    stat: typeof powerStats[0];
-    index: number;
-    smoothProgress: MotionValue<number>;
-}) {
-    const cardStart = 0.60 + index * 0.025;
-    const cardEnd = cardStart + 0.04;
-    const Icon = stat.icon;
-
-    const opacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
-    const y = useTransform(smoothProgress, [cardStart, cardEnd], [30, 0]);
-
-    return (
-        <motion.div
-            style={{ opacity, y }}
-            className="text-center group will-change-[opacity,transform]"
-        >
-            <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
-                <Icon className="h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
-            </div>
-            <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-none mb-1">{stat.value}</p>
-            <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/35">{stat.label}</p>
-        </motion.div>
-    );
-}
-
-function HighlightCard({ h, index, smoothProgress }: {
-    h: Highlight;
-    index: number;
-    smoothProgress: MotionValue<number>;
-}) {
-    const cardStart = 0.36 + index * 0.025;
-    const cardEnd = cardStart + 0.04;
-    const Icon = h.icon;
-
-    const cardOpacity = useTransform(smoothProgress, [cardStart, cardEnd], [0, 1]);
-    const cardY = useTransform(smoothProgress, [cardStart, cardEnd], [30, 0]);
-
-    return (
-        <motion.div
-            style={{ opacity: cardOpacity, y: cardY }}
-            className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/15 transition-colors duration-300 will-change-[opacity,transform]"
-        >
-            <div className="flex items-start justify-between mb-2 sm:mb-3 relative">
-                <div
-                    className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0`}
-                >
-                    <Icon className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-white" />
-                </div>
-                <div className="text-right">
-                    <p className="text-sm sm:text-lg font-black text-white/90 leading-none">{h.stat}</p>
-                    <p className="text-[6px] sm:text-[7px] font-bold text-white/25 uppercase tracking-wider leading-tight mt-0.5">
-                        {h.statLabel}
-                    </p>
-                </div>
-            </div>
-            <p className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider text-white/80 mb-1">{h.label}</p>
-            <p className="text-[8px] sm:text-[10px] text-white/30 leading-relaxed hidden sm:block">{h.desc}</p>
-        </motion.div>
-    );
-}
-
 export function ScrollCinematicSection() {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -177,34 +73,32 @@ export function ScrollCinematicSection() {
         offset: ["start start", "end end"],
     });
 
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const taglineOpacity = useTransform(scrollYProgress, [0.04, 0.09], [0, 1]);
+    const taglineY = useTransform(scrollYProgress, [0.04, 0.09], [20, 0]);
 
-    const taglineOpacity = useTransform(smoothProgress, [0.04, 0.09], [0, 1]);
-    const taglineY = useTransform(smoothProgress, [0.04, 0.09], [20, 0]);
+    const line1Opacity = useTransform(scrollYProgress, [0.07, 0.13], [0, 1]);
+    const line1Y = useTransform(scrollYProgress, [0.07, 0.13], [40, 0]);
 
-    const line1Opacity = useTransform(smoothProgress, [0.07, 0.13], [0, 1]);
-    const line1Y = useTransform(smoothProgress, [0.07, 0.13], [40, 0]);
+    const line2Opacity = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
+    const line2Y = useTransform(scrollYProgress, [0.12, 0.18], [40, 0]);
 
-    const line2Opacity = useTransform(smoothProgress, [0.12, 0.18], [0, 1]);
-    const line2Y = useTransform(smoothProgress, [0.12, 0.18], [40, 0]);
+    const line3Opacity = useTransform(scrollYProgress, [0.17, 0.23], [0, 1]);
+    const line3Y = useTransform(scrollYProgress, [0.17, 0.23], [40, 0]);
 
-    const line3Opacity = useTransform(smoothProgress, [0.17, 0.23], [0, 1]);
-    const line3Y = useTransform(smoothProgress, [0.17, 0.23], [40, 0]);
+    const subtitleOpacity = useTransform(scrollYProgress, [0.22, 0.27], [0, 1]);
+    const subtitleY = useTransform(scrollYProgress, [0.22, 0.27], [20, 0]);
 
-    const subtitleOpacity = useTransform(smoothProgress, [0.22, 0.27], [0, 1]);
-    const subtitleY = useTransform(smoothProgress, [0.22, 0.27], [20, 0]);
+    const exitOpacity = useTransform(scrollYProgress, [0.29, 0.34], [1, 0]);
+    const exitY = useTransform(scrollYProgress, [0.29, 0.34], [0, -60]);
 
-    const exitOpacity = useTransform(smoothProgress, [0.29, 0.34], [1, 0]);
-    const exitY = useTransform(smoothProgress, [0.29, 0.34], [0, -60]);
-
-    const highlightsOpacity = useTransform(smoothProgress, (v: number) => {
+    const highlightsOpacity = useTransform(scrollYProgress, (v: number) => {
         if (v < 0.33) return 0;
         if (v < 0.38) return (v - 0.33) / 0.05;
         if (v < 0.52) return 1;
         if (v < 0.56) return 1 - (v - 0.52) / 0.04;
         return 0;
     });
-    const highlightsY = useTransform(smoothProgress, (v: number) => {
+    const highlightsY = useTransform(scrollYProgress, (v: number) => {
         if (v < 0.33) return 50;
         if (v < 0.38) return 50 * (1 - (v - 0.33) / 0.05);
         if (v < 0.52) return 0;
@@ -212,14 +106,14 @@ export function ScrollCinematicSection() {
         return -40;
     });
 
-    const statsOpacity = useTransform(smoothProgress, (v: number) => {
+    const statsOpacity = useTransform(scrollYProgress, (v: number) => {
         if (v < 0.55) return 0;
         if (v < 0.60) return (v - 0.55) / 0.05;
         if (v < 0.74) return 1;
         if (v < 0.78) return 1 - (v - 0.74) / 0.04;
         return 0;
     });
-    const statsY = useTransform(smoothProgress, (v: number) => {
+    const statsY = useTransform(scrollYProgress, (v: number) => {
         if (v < 0.55) return 40;
         if (v < 0.60) return 40 * (1 - (v - 0.55) / 0.05);
         if (v < 0.74) return 0;
@@ -227,11 +121,11 @@ export function ScrollCinematicSection() {
         return -40;
     });
 
-    const dashboardOpacity = useTransform(smoothProgress, [0.78, 0.86], [0, 1]);
-    const dashboardScale = useTransform(smoothProgress, [0.78, 0.86], [0.85, 1]);
-    const dashboardY = useTransform(smoothProgress, [0.78, 0.86], [50, 0]);
+    const dashboardOpacity = useTransform(scrollYProgress, [0.78, 0.86], [0, 1]);
+    const dashboardScale = useTransform(scrollYProgress, [0.78, 0.86], [0.85, 1]);
+    const dashboardY = useTransform(scrollYProgress, [0.78, 0.86], [50, 0]);
 
-    const scrollHintOpacity = useTransform(smoothProgress, [0.0, 0.02, 0.07], [0, 1, 0]);
+    const scrollHintOpacity = useTransform(scrollYProgress, [0.0, 0.02, 0.07], [0, 1, 0]);
 
     return (
         <div ref={containerRef} className="relative" style={{ height: "400vh" }}>
@@ -270,29 +164,20 @@ export function ScrollCinematicSection() {
                         <h2 className="font-black tracking-tight leading-[0.95] uppercase">
                             <motion.span
                                 className="block text-white will-change-[opacity,transform]"
-                                style={{
-                                    opacity: line1Opacity,
-                                    y: line1Y,
-                                    fontSize: "clamp(2.2rem, 10vw, 8rem)",
-                                }}
+                                style={{ opacity: line1Opacity, y: line1Y, fontSize: "clamp(2.2rem, 10vw, 8rem)" }}
                             >
                                 Tu empresa.
                             </motion.span>
                             <motion.span
                                 className="block text-white will-change-[opacity,transform]"
-                                style={{
-                                    opacity: line2Opacity,
-                                    y: line2Y,
-                                    fontSize: "clamp(2.2rem, 10vw, 8rem)",
-                                }}
+                                style={{ opacity: line2Opacity, y: line2Y, fontSize: "clamp(2.2rem, 10vw, 8rem)" }}
                             >
                                 Toda.
                             </motion.span>
                             <motion.span
                                 className="block italic will-change-[opacity,transform]"
                                 style={{
-                                    opacity: line3Opacity,
-                                    y: line3Y,
+                                    opacity: line3Opacity, y: line3Y,
                                     fontSize: "clamp(2.2rem, 10vw, 8rem)",
                                     background: "linear-gradient(135deg, #22d3ee 0%, #3b82f6 40%, #10b981 80%)",
                                     WebkitBackgroundClip: "text",
@@ -316,65 +201,75 @@ export function ScrollCinematicSection() {
 
                 <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center px-3 sm:px-4 md:px-10 will-change-[opacity,transform]"
-                    style={{
-                        opacity: highlightsOpacity,
-                        y: highlightsY,
-                    }}
+                    style={{ opacity: highlightsOpacity, y: highlightsY }}
                 >
                     <div className="w-full max-w-6xl mx-auto">
                         <div className="text-center mb-4 sm:mb-6 md:mb-8">
                             <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-2 sm:mb-3">
                                 Todo lo que tu empresa necesita
                             </p>
-                            <h3
-                                className="font-black tracking-tight text-white uppercase"
-                                style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
-                            >
+                            <h3 className="font-black tracking-tight text-white uppercase" style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}>
                                 Un ecosistema completo.
                             </h3>
                             <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mx-auto mt-3 sm:mt-4" />
                         </div>
 
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
-                            {highlights.map((h, i) => (
-                                <HighlightCard
-                                    key={i}
-                                    h={h}
-                                    index={i}
-                                    smoothProgress={smoothProgress}
-                                />
-                            ))}
+                            {highlights.map((h, i) => {
+                                const Icon = h.icon;
+                                return (
+                                    <div
+                                        key={i}
+                                        className="group relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2.5 sm:p-4 md:p-5 overflow-hidden hover:border-white/15 transition-colors duration-300 animate-[fadeSlideUp_0.4s_both]"
+                                        style={{ animationDelay: `${i * 0.06}s` }}
+                                    >
+                                        <div className="flex items-start justify-between mb-2 sm:mb-3 relative">
+                                            <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${h.color} flex items-center justify-center flex-shrink-0`}>
+                                                <Icon className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-white" />
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-sm sm:text-lg font-black text-white/90 leading-none">{h.stat}</p>
+                                                <p className="text-[6px] sm:text-[7px] font-bold text-white/25 uppercase tracking-wider leading-tight mt-0.5">{h.statLabel}</p>
+                                            </div>
+                                        </div>
+                                        <p className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider text-white/80 mb-1">{h.label}</p>
+                                        <p className="text-[8px] sm:text-[10px] text-white/30 leading-relaxed hidden sm:block">{h.desc}</p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </motion.div>
 
                 <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 will-change-[opacity,transform]"
-                    style={{
-                        opacity: statsOpacity,
-                        y: statsY,
-                    }}
+                    style={{ opacity: statsOpacity, y: statsY }}
                 >
                     <div className="w-full max-w-4xl mx-auto text-center">
                         <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-4 sm:mb-6">
                             Poder sin precedentes
                         </p>
-                        <h3
-                            className="font-black tracking-tight text-white uppercase mb-8 sm:mb-12 md:mb-16"
-                            style={{ fontSize: "clamp(1.4rem, 4.5vw, 3.5rem)" }}
-                        >
+                        <h3 className="font-black tracking-tight text-white uppercase mb-8 sm:mb-12 md:mb-16" style={{ fontSize: "clamp(1.4rem, 4.5vw, 3.5rem)" }}>
                             Cifras que hablan por sí solas.
                         </h3>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
-                            {powerStats.map((stat, i) => (
-                                <PowerStatCard
-                                    key={i}
-                                    stat={stat}
-                                    index={i}
-                                    smoothProgress={smoothProgress}
-                                />
-                            ))}
+                            {powerStats.map((stat, i) => {
+                                const Icon = stat.icon;
+                                return (
+                                    <div
+                                        key={i}
+                                        className="text-center group animate-[fadeSlideUp_0.4s_both]"
+                                        style={{ animationDelay: `${i * 0.08}s` }}
+                                    >
+                                        <div className={`mx-auto w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
+                                            <Icon className="h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
+                                        </div>
+                                        <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-none mb-1">{stat.value}</p>
+                                        <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/35">{stat.label}</p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </motion.div>
@@ -387,10 +282,7 @@ export function ScrollCinematicSection() {
                         <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/20 mb-2 sm:mb-3">
                             Interfaz intuitiva
                         </p>
-                        <h3
-                            className="font-black tracking-tight text-white uppercase mb-5 sm:mb-8"
-                            style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}
-                        >
+                        <h3 className="font-black tracking-tight text-white uppercase mb-5 sm:mb-8" style={{ fontSize: "clamp(1.2rem, 4vw, 3rem)" }}>
                             Un dashboard. Todo el control.
                         </h3>
                         <div className="relative mx-auto max-w-3xl">
