@@ -14,7 +14,7 @@ export default function LegalLayout({
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden hud-grid">
+      <div className="flex min-h-screen bg-background text-foreground relative hud-grid">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,hsl(var(--primary))_12%,transparent_12.5%,transparent_87%,hsl(var(--primary))_87.5%,hsl(var(--primary)))] [background-size:80px_140px]" />

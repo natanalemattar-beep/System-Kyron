@@ -22,7 +22,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      <div className="flex min-h-screen bg-background text-foreground relative">
           <PageTracker userId={user?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.04] hud-grid" />
@@ -36,7 +36,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             </div>
           )}
 
-          <div className={`flex-1 flex flex-col min-h-screen relative w-full overflow-x-hidden ${prefs.nav_lateral ? 'lg:ml-[280px]' : ''}`}>
+          <div className={`flex-1 flex flex-col min-h-screen relative w-full ${prefs.nav_lateral ? 'lg:ml-[280px]' : ''}`}>
               <AppHeader 
                 user={headerUser} 
                 dashboardHref="/dashboard-empresa" 

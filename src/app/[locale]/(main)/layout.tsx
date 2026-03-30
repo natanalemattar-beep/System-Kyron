@@ -13,7 +13,7 @@ export default function MainLayout({
     const user = { name: "Operador Maestro", email: "master@kyron.com", fallback: "KY" };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      <div className="flex min-h-screen bg-background text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/[0.05] rounded-full blur-[250px] opacity-40 animate-pulse" />

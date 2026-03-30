@@ -74,7 +74,7 @@ function LandingContent() {
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
+    <div className="relative min-h-screen flex flex-col selection:bg-primary/20 w-full bg-transparent">
       <LandingContent />
     </div>
   );

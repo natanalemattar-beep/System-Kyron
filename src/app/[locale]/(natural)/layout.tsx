@@ -29,7 +29,7 @@ export default function NaturalLayout({
     };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      <div className="flex min-h-screen bg-background text-foreground relative">
           <PageTracker userId={authUser?.id} />
           {/* Fondo HUD Ciudadano - Menos agresivo, más elegante */}
           <div className="fixed inset-0 pointer-events-none -z-10">

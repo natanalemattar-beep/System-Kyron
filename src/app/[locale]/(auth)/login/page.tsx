@@ -37,7 +37,7 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative overflow-x-hidden bg-gradient-to-b from-background via-background to-muted/30">
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-background via-background to-muted/30">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-primary/[0.04] to-transparent" />
         <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-primary/[0.06] blur-[150px] animate-[pulse_8s_ease-in-out_infinite]" />

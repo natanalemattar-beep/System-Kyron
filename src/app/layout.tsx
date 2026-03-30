@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="dns-prefetch" href="https://wa.me" />
       </head>
-      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
+      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground">
         <Providers>
           {children}
         </Providers>
