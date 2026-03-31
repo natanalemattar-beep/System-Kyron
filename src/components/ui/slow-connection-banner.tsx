@@ -9,10 +9,10 @@ function detectSlowConnection(): boolean {
   if (typeof navigator === 'undefined') return false;
   const conn = (navigator as any).connection;
   if (!conn) return false;
-  if (conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g') return true;
-  if (typeof conn.downlink === 'number' && conn.downlink < 0.5) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 1500) return true;
-  if (conn.saveData === true) return true;
+  if (conn.effectiveType === 'slow-2g') return true;
+  if (conn.effectiveType === '2g' && typeof conn.downlink === 'number' && conn.downlink < 0.1) return true;
+  if (typeof conn.downlink === 'number' && conn.downlink < 0.15) return true;
+  if (typeof conn.rtt === 'number' && conn.rtt > 5000) return true;
   return false;
 }
 
@@ -75,7 +75,7 @@ export function SlowConnectionBanner() {
 
         setSpeed(getConnectionSpeed());
 
-        if (elapsed > 4000) {
+        if (elapsed > 8000) {
           prevStateRef.current = 'slow';
           setState('slow');
           setDismissed(false);
@@ -119,8 +119,8 @@ export function SlowConnectionBanner() {
   useEffect(() => {
     mountedRef.current = true;
 
-    const initialDelay = setTimeout(checkConnection, 3000);
-    const interval = setInterval(checkConnection, 20000);
+    const initialDelay = setTimeout(checkConnection, 10000);
+    const interval = setInterval(checkConnection, 60000);
 
     const handleOnline = () => {
       if (!mountedRef.current) return;
