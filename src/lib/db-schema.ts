@@ -31,6 +31,7 @@ export async function initializeDatabase(): Promise<void> {
     await createProyectosTables();
     await createAdvancedSystemTables();
     await createAutomationTables();
+    await createPlanUsageTables();
     await createPerformanceOptimizations();
     console.log('[db-schema] Base de datos inicializada correctamente — v2.9.0');
   } catch (err) {
@@ -2340,6 +2341,31 @@ async function seedAutomationRules(): Promise<void> {
       [rule.name, rule.description, rule.trigger_type, JSON.stringify(rule.trigger_config), rule.action_type]
     );
   }
+}
+
+async function createPlanUsageTables(): Promise<void> {
+  await query(`
+    CREATE TABLE IF NOT EXISTS uso_plan (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      plan            TEXT NOT NULL DEFAULT 'starter'
+                      CHECK (plan IN ('starter','profesional','empresarial','kyron_max')),
+      periodo         TEXT NOT NULL,
+      consultas_ai    INT NOT NULL DEFAULT 0,
+      alertas_fiscales INT NOT NULL DEFAULT 0,
+      alertas_regulatorias INT NOT NULL DEFAULT 0,
+      facturas        INT NOT NULL DEFAULT 0,
+      chat_mensajes   INT NOT NULL DEFAULT 0,
+      simulador_multas INT NOT NULL DEFAULT 0,
+      exportaciones   INT NOT NULL DEFAULT 0,
+      consultas_rif   INT NOT NULL DEFAULT 0,
+      blockchain_proofs INT NOT NULL DEFAULT 0,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE(user_id, periodo)
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_uso_plan_user ON uso_plan(user_id, periodo)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_uso_plan_plan ON uso_plan(plan)`);
 }
 
 async function createPerformanceOptimizations(): Promise<void> {
