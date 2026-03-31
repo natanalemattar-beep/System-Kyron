@@ -283,9 +283,8 @@ const chapters = [
     title: "Modelo ZEDU — AutoMind AI",
     icon: BrainCircuit,
     color: "from-violet-500 to-fuchsia-500",
-    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind AI, desarrollado por Miguel Uzcategui, Miguel Angel Goites y Joaquin de Barros en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, chatbot de atención automatizada para representantes y herramientas de Kyron AI (potenciado por Claude de Anthropic) de apoyo administrativo. El documento completo está disponible en la sección Sector Privado del portal.`,
+    content: `El Modelo Zedu corresponde al proyecto educativo AutoMind AI, desarrollado en el Colegio Santa Rosa de Lima, Caracas. Transforma el sistema de archivado tradicional de instituciones educativas en un entorno digital eficiente, integrando digitalización de expedientes estudiantiles, chatbot de atención automatizada para representantes y herramientas de Kyron AI (potenciado por Claude de Anthropic) de apoyo administrativo. El documento completo está disponible en la sección Sector Privado del portal.`,
     details: [
-      "Equipo: Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros.",
       "Digitalización y búsqueda instantánea de expedientes con OCR.",
       "Chatbot Kyron AI: atención 24/7 vía WhatsApp y portal web.",
       "Generación de reportes, circulares y análisis estratégico.",
