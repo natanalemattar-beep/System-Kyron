@@ -26,7 +26,7 @@ interface Comentario {
 
 function StarRating({ value, onChange, readonly = false }: { value: number; onChange?: (v: number) => void; readonly?: boolean }) {
     return (
-        <div className="flex gap-0.5">
+        <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map(star => (
                 <button
                     key={star}
@@ -34,7 +34,7 @@ function StarRating({ value, onChange, readonly = false }: { value: number; onCh
                     disabled={readonly}
                     onClick={() => onChange?.(star)}
                     className={cn(
-                        "transition-all duration-200",
+                        "transition-all duration-200 p-0.5",
                         readonly ? "cursor-default" : "cursor-pointer hover:scale-125"
                     )}
                 >
@@ -163,7 +163,7 @@ export function CommentsSection() {
                                         <div className="flex items-start justify-between">
                                             <StarRating value={c.calificacion} readonly />
                                             {c.modulo && (
-                                                <span className="text-[7px] font-black uppercase tracking-[0.2em] text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+                                                <span className="text-[9px] sm:text-[7px] font-black uppercase tracking-[0.2em] text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
                                                     {c.modulo}
                                                 </span>
                                             )}
@@ -194,12 +194,12 @@ export function CommentsSection() {
                                                     ) : (
                                                         <User className="h-2.5 w-2.5 text-blue-500/60" />
                                                     )}
-                                                    <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
+                                                    <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {c.tipo === 'juridico' ? t('empresa') : t('persona')}
                                                     </span>
                                                     <span className="text-muted-foreground/40">·</span>
                                                     <Clock className="h-2.5 w-2.5 text-muted-foreground/50" />
-                                                    <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
+                                                    <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {timeAgo(c.created_at)}
                                                     </span>
                                                 </div>
@@ -270,7 +270,7 @@ export function CommentsSection() {
                                     </div>
                                 </div>
 
-                                <p className="text-[8px] font-bold text-muted-foreground/70 uppercase tracking-[0.2em] text-center">
+                                <p className="text-[10px] sm:text-[8px] font-bold text-muted-foreground/70 uppercase tracking-[0.2em] text-center">
                                     {t('login_required')}
                                 </p>
                             </CardContent>

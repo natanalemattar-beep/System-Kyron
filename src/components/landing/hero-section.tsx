@@ -142,7 +142,7 @@ export function HeroSection() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
+                            className="text-[clamp(1.75rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
@@ -290,7 +290,7 @@ export function HeroSection() {
                                     transition={{ delay: 1 + i * 0.08, duration: 0.4 }}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
-                                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{s.label}</p>
+                                    <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider sm:tracking-widest">{s.label}</p>
                                 </motion.div>
                             );
                         })}

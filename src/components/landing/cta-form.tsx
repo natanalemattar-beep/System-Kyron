@@ -99,7 +99,7 @@ export function CtaForm() {
                 
                 <div className="space-y-1 mb-6 relative z-10 text-center sm:text-left">
                     <h3 className="text-lg md:text-2xl font-black tracking-tight uppercase italic text-foreground">{t('form_title')}</h3>
-                    <p className="text-[8px] md:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t('form_subtitle')}</p>
+                    <p className="text-[10px] md:text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{t('form_subtitle')}</p>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -108,11 +108,11 @@ export function CtaForm() {
                         name="name"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_name')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_name')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder={t('field_name_placeholder')} {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
                                 </FormControl>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -121,7 +121,7 @@ export function CtaForm() {
                         name="role"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_role')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_role')}</FormLabel>
                                 <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
@@ -134,7 +134,7 @@ export function CtaForm() {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -146,11 +146,11 @@ export function CtaForm() {
                         name="email"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_email')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_email')}</FormLabel>
                                 <FormControl>
                                     <Input type="email" placeholder={t('field_email_placeholder')} {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
                                 </FormControl>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -159,11 +159,11 @@ export function CtaForm() {
                         name="phone"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_phone')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_phone')}</FormLabel>
                                 <FormControl>
                                     <Input type="tel" placeholder={t('field_phone_placeholder')} {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
                                 </FormControl>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -175,11 +175,11 @@ export function CtaForm() {
                         name="company"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_company')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_company')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder={t('field_company_placeholder')} {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
                                 </FormControl>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -188,7 +188,7 @@ export function CtaForm() {
                         name="companySize"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_size')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_size')}</FormLabel>
                                 <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
@@ -201,7 +201,7 @@ export function CtaForm() {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -213,7 +213,7 @@ export function CtaForm() {
                         name="sector"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_sector')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_sector')}</FormLabel>
                                 <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
@@ -226,7 +226,7 @@ export function CtaForm() {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -235,7 +235,7 @@ export function CtaForm() {
                         name="urgency"
                         render={({ field }) => (
                             <FormItem className="space-y-1.5 text-left">
-                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_urgency')}</FormLabel>
+                                <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_urgency')}</FormLabel>
                                 <Select onValueChange={field.onChange} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
@@ -248,7 +248,7 @@ export function CtaForm() {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                <FormMessage className="text-[8px]" />
+                                <FormMessage className="text-[10px] md:text-[8px]" />
                             </FormItem>
                         )}
                     />
@@ -259,7 +259,7 @@ export function CtaForm() {
                     name="module"
                     render={({ field }) => (
                         <FormItem className="space-y-1.5 text-left">
-                            <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_module')}</FormLabel>
+                            <FormLabel className="text-[10px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">{t('field_module')}</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
                                     <SelectTrigger className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold">
@@ -272,19 +272,19 @@ export function CtaForm() {
                                     ))}
                                 </SelectContent>
                             </Select>
-                            <FormMessage className="text-[8px]" />
+                            <FormMessage className="text-[10px] md:text-[8px]" />
                         </FormItem>
                     )}
                 />
 
-                <Button type="submit" className="w-full text-[9px] md:text-[10px] font-black h-12 md:h-14 mt-4 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
+                <Button type="submit" className="w-full text-[10px] md:text-[10px] font-black h-12 md:h-14 mt-4 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
                     {isSubmitting ? (
                         <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> {t('btn_submitting')}</>
                     ) : (
                         <span className="flex items-center gap-2 justify-center">{t('btn_submit')} <Send className="h-3 w-3" /></span>
                     )}
                 </Button>
-                <p className="text-center text-[7px] md:text-[8px] text-muted-foreground/70 uppercase font-black tracking-[0.4em] mt-4">{t('footer_text')}</p>
+                <p className="text-center text-[9px] md:text-[8px] text-muted-foreground/70 uppercase font-black tracking-[0.4em] mt-4">{t('footer_text')}</p>
             </form>
         </Form>
     );

@@ -40,7 +40,7 @@ export async function verifyCode(email: string, inputCode: string): Promise<{ va
   try {
     const record = await queryOne<{ id: number; codigo: string; intentos: number }>(
       `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
-       WHERE destino = $1 AND tipo = 'email' AND usado = false AND expires_at > NOW()
+       WHERE destino = $1 AND tipo IN ('email', 'sms', 'whatsapp') AND usado = false AND expires_at > NOW()
        AND COALESCE(proposito, 'verification') = 'verification'
        ORDER BY created_at DESC LIMIT 1`,
       [key]

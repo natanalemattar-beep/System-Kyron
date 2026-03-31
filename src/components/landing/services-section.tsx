@@ -134,14 +134,14 @@ export function ServicesSection() {
                                 className="group liquid-glass rounded-2xl transition-all duration-500 hover:-translate-y-1"
                             >
                                 <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", stat.bg)} />
-                                <div className="relative p-5 flex flex-col items-center text-center gap-2.5">
+                                <div className="relative p-3 sm:p-5 flex flex-col items-center text-center gap-2">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-xl liquid-glass-subtle group-hover:scale-110 transition-transform duration-300">
                                         <stat.icon className={cn("h-4.5 w-4.5", stat.color)} />
                                     </div>
-                                    <div className={cn("text-xl sm:text-2xl font-black tracking-tight", stat.color)}>
+                                    <div className={cn("text-lg sm:text-2xl font-black tracking-tight", stat.color)}>
                                         {stat.value}
                                     </div>
-                                    <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground/70 leading-tight">
+                                    <div className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground/70 leading-tight">
                                         {t(stat.key)}
                                     </div>
                                 </div>

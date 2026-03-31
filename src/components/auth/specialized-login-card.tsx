@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
-  Smartphone, MessageSquare
+  Smartphone, MessageSquare, MessageCircle
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
@@ -189,14 +189,14 @@ export function SpecializedLoginCard({
   const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
-  const handleSwitchMethod = async (method: 'email' | 'sms') => {
+  const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
     if (method === verificationMethod || switchingMethod) return;
     setSwitchingMethod(true);
     setError(null);
     setCodeDigits(['', '', '', '', '', '']);
     try {
       const body: Record<string, string> = { method, destino: verificationEmail, tipo: method };
-      if (method === 'sms' && challengeToken) {
+      if ((method === 'sms' || method === 'whatsapp') && challengeToken) {
         body.challengeToken = challengeToken;
       }
       const res = await fetch('/api/auth/send-code', {
@@ -212,15 +212,13 @@ export function SpecializedLoginCard({
       }
       setVerificationMethod(method);
       setCountdown(600);
-      toast({
-        title: method === 'sms' ? 'Código enviado por SMS' : 'Código enviado por correo',
-        description: method === 'sms'
-          ? `Revisa los mensajes en ${maskedPhone}`
-          : `Revisa tu correo ${maskedEmail}`,
-        action: method === 'sms'
-          ? <Smartphone className="text-emerald-500 h-4 w-4" />
-          : <Mail className="text-cyan-500 h-4 w-4" />,
-      });
+      const channelLabels = {
+        email: { title: 'Código enviado por correo', desc: `Revisa tu correo ${maskedEmail}`, icon: <Mail className="text-cyan-500 h-4 w-4" /> },
+        sms: { title: 'Código enviado por SMS', desc: `Revisa los mensajes en ${maskedPhone}`, icon: <Smartphone className="text-emerald-500 h-4 w-4" /> },
+        whatsapp: { title: 'Código enviado por WhatsApp', desc: `Revisa tu WhatsApp en ${maskedPhone}`, icon: <MessageCircle className="text-green-500 h-4 w-4" /> },
+      };
+      const ch = channelLabels[method];
+      toast({ title: ch.title, description: ch.desc, action: ch.icon });
       setTimeout(() => inputRefs.current[0]?.focus(), 100);
     } catch {
       setError('Error de conexión al reenviar código.');
@@ -488,17 +486,20 @@ export function SpecializedLoginCard({
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.3, type: "spring" }}
                   >
-                    {verificationMethod === 'sms'
-                      ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
-                      : <KeyRound className={cn("h-7 w-7", theme.accent)} />
+                    {verificationMethod === 'whatsapp'
+                      ? <MessageCircle className={cn("h-7 w-7 text-green-500")} />
+                      : verificationMethod === 'sms'
+                        ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
+                        : <KeyRound className={cn("h-7 w-7", theme.accent)} />
                     }
                   </motion.div>
                   <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
                   <p className="text-[13px] text-muted-foreground mt-2">
                     Código de 6 dígitos enviado a{' '}
                     <strong className="text-foreground">
-                      {verificationMethod === 'sms' ? maskedPhone : maskedEmail}
+                      {verificationMethod === 'email' ? maskedEmail : maskedPhone}
                     </strong>
+                    {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
                   </p>
                   {countdown > 0 && (
                     <p className="text-xs text-muted-foreground mt-1.5">
@@ -507,35 +508,28 @@ export function SpecializedLoginCard({
                   )}
 
                   {hasPhone && (
-                    <div className="flex items-center justify-center gap-1.5 mt-4">
-                      <button
-                        type="button"
-                        onClick={() => handleSwitchMethod('email')}
-                        disabled={switchingMethod || isLoading}
-                        className={cn(
-                          "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
-                          verificationMethod === 'email'
-                            ? cn("bg-primary/10 border border-primary/20", theme.accent)
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-                        )}
-                      >
-                        <Mail className="h-3.5 w-3.5" />
-                        Correo
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleSwitchMethod('sms')}
-                        disabled={switchingMethod || isLoading}
-                        className={cn(
-                          "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
-                          verificationMethod === 'sms'
-                            ? cn("bg-primary/10 border border-primary/20", theme.accent)
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-                        )}
-                      >
-                        <Smartphone className="h-3.5 w-3.5" />
-                        SMS
-                      </button>
+                    <div className="flex items-center justify-center gap-1.5 mt-4 flex-wrap">
+                      {([
+                        { method: 'email' as const, icon: Mail, label: 'Correo', activeColor: theme.accent },
+                        { method: 'sms' as const, icon: Smartphone, label: 'SMS', activeColor: theme.accent },
+                        { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', activeColor: 'text-green-500' },
+                      ]).map(({ method, icon: MethodIcon, label, activeColor }) => (
+                        <button
+                          key={method}
+                          type="button"
+                          onClick={() => handleSwitchMethod(method)}
+                          disabled={switchingMethod || isLoading}
+                          className={cn(
+                            "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
+                            verificationMethod === method
+                              ? cn("bg-primary/10 border border-primary/20", activeColor)
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
+                          )}
+                        >
+                          <MethodIcon className="h-3.5 w-3.5" />
+                          {label}
+                        </button>
+                      ))}
                     </div>
                   )}
 
@@ -602,7 +596,11 @@ export function SpecializedLoginCard({
                       <>
                         {' · '}
                         <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          Enviar por SMS
+                          SMS
+                        </button>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
+                          WhatsApp
                         </button>
                       </>
                     )}
@@ -610,7 +608,23 @@ export function SpecializedLoginCard({
                       <>
                         {' · '}
                         <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          Enviar por correo
+                          Correo
+                        </button>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
+                          WhatsApp
+                        </button>
+                      </>
+                    )}
+                    {verificationMethod === 'whatsapp' && (
+                      <>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                          Correo
+                        </button>
+                        {' · '}
+                        <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                          SMS
                         </button>
                       </>
                     )}

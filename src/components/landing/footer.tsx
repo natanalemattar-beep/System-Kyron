@@ -37,7 +37,7 @@ export function Footer() {
             <div className="border-b border-border/40 dark:border-white/8 py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
-                        <span key={i} className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/50 shrink-0 flex items-center gap-3">
+                        <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/50 shrink-0 flex items-center gap-3">
                             {m} <Hexagon className="h-2 w-2 text-primary/20" />
                         </span>
                     ))}
@@ -52,7 +52,7 @@ export function Footer() {
                             <Logo className="h-10 w-10 drop-shadow-glow" />
                             <div className="flex flex-col">
                                 <span className="text-lg font-black uppercase tracking-tight text-foreground leading-none">System Kyron</span>
-                                <span className="text-[8px] font-bold uppercase tracking-[0.35em] mt-1 kyron-gradient-text">{tHero('slogan')}</span>
+                                <span className="text-[10px] sm:text-[8px] font-bold uppercase tracking-[0.35em] mt-1 kyron-gradient-text">{tHero('slogan')}</span>
                             </div>
                         </div>
                         <p className="text-xs text-muted-foreground/70 font-medium leading-relaxed max-w-sm">
@@ -103,7 +103,7 @@ export function Footer() {
 
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('status_online')}</span>
+                            <span className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('status_online')}</span>
                         </div>
                     </div>
                 </div>
@@ -111,11 +111,11 @@ export function Footer() {
                 <div className="mt-12 pt-8 border-t border-border/40 dark:border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-3">
                         <Hexagon className="h-3.5 w-3.5 text-primary/30" />
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
+                        <p className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
                             &copy; 2026 {t('copyright')}
                         </p>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-8 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
+                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] sm:text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
                         <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> {t('user_manual')}</Link>
                         <Link href="/terms"                className="hover:text-primary transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> {t('terms')}</Link>
                         <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> {t('privacy')}</Link>
@@ -123,10 +123,10 @@ export function Footer() {
                 </div>
 
                 <div className="mt-6 pt-5 border-t border-border/20 dark:border-white/5 flex flex-col items-center gap-1.5">
-                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[8px]">
+                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
                         Carlos Mattar · CEO-Fundador
                     </p>
-                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[8px]">
+                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
                         Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
                     </p>
                 </div>
