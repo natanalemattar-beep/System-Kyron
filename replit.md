@@ -41,7 +41,8 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS-based animations, and WebP images. Background animations are optimized using pure CSS.
 - **Scroll Lock Fix:** The WelcomeTutorial dialog uses a `useRemoveScrollLock` hook to counteract Radix UI's `react-remove-scroll` body scroll lock, ensuring the landing page remains scrollable while the tutorial is displayed. CSS uses `overflow-x: clip` (not `hidden`) on html/body to avoid unintended scroll containers. The DynamicBackground fixed overlay has `pointer-events-none`.
 - **Adaptive Performance System:** Detects device tiers (low/mid/high) based on hardware and network capabilities to dynamically adjust animation complexity and visual effects for optimal performance. Includes media queries for reduced motion, touch devices, and slow refresh rates.
-- **Enhanced Audit Trail:** Records detailed field-level changes.
+- **Enhanced Audit Trail:** Records detailed field-level changes with blockchain proof-of-existence hashing for critical and high-risk entries.
+- **Blockchain Integration:** SHA-256 hashing of audit entries, Merkle tree batch anchoring, support for Polygon/Ethereum/BSC chains. Critical tables (transacciones_pagos, facturas, declaraciones_iva/islr, retenciones, nomina, contratos, users) and high/critical risk operations automatically generate blockchain proofs. API at `/api/blockchain` for stats, proofs listing, verification, and batch anchoring. Env vars: `BLOCKCHAIN_RPC_URL`, `BLOCKCHAIN_PRIVATE_KEY`, `BLOCKCHAIN_CHAIN` (default: polygon_amoy).
 - **Real RIF/Cédula Validation:** Uses Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula.
 - **Route Protection:** Authentication is required for sensitive pages.
 - **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences.
@@ -62,3 +63,4 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
 - **Excel Export:** `exceljs`
 - **QR Generation:** `api.qrserver.com`
+- **Blockchain:** ethers.js v6 (Polygon/Ethereum/BSC proof-of-existence anchoring)

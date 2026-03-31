@@ -1984,6 +1984,34 @@ async function createAdvancedSystemTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_auditoria_tabla ON auditoria_detallada(tabla_afectada, created_at DESC)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_auditoria_risk ON auditoria_detallada(risk_level) WHERE risk_level IN ('high','critical')`);
 
+  await query(`ALTER TABLE auditoria_detallada ADD COLUMN IF NOT EXISTS blockchain_hash TEXT`);
+  await query(`ALTER TABLE auditoria_detallada ADD COLUMN IF NOT EXISTS blockchain_verified BOOLEAN DEFAULT FALSE`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS blockchain_proofs (
+      id              SERIAL PRIMARY KEY,
+      entity_type     TEXT NOT NULL,
+      entity_id       TEXT NOT NULL,
+      data_hash       TEXT NOT NULL,
+      payload_snapshot JSONB,
+      merkle_root     TEXT,
+      tx_hash         TEXT,
+      block_number    INT,
+      chain_id        INT,
+      chain_name      TEXT,
+      status          TEXT NOT NULL DEFAULT 'pending'
+                      CHECK (status IN ('pending','anchored','verified','failed')),
+      anchor_attempts INT NOT NULL DEFAULT 0,
+      last_error      TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      anchored_at     TIMESTAMPTZ
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_blockchain_entity ON blockchain_proofs(entity_type, entity_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_blockchain_hash ON blockchain_proofs(data_hash)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_blockchain_status ON blockchain_proofs(status) WHERE status = 'pending'`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_blockchain_tx ON blockchain_proofs(tx_hash) WHERE tx_hash IS NOT NULL`);
+
   await query(`
     CREATE TABLE IF NOT EXISTS dashboard_cache (
       id              SERIAL PRIMARY KEY,

@@ -1,4 +1,5 @@
 import { query } from '@/lib/db';
+import { generateProofPayload } from '@/lib/blockchain-service';
 
 export interface LogActivityParams {
   userId?: number | null;
@@ -46,12 +47,53 @@ export interface AuditParams {
   riskLevel?: 'low' | 'medium' | 'high' | 'critical';
 }
 
+const BLOCKCHAIN_RISK_LEVELS = new Set(['high', 'critical']);
+const BLOCKCHAIN_TABLES = new Set([
+  'transacciones_pagos', 'facturas', 'declaraciones_iva', 'declaraciones_islr',
+  'retenciones', 'nomina', 'contratos', 'users',
+]);
+
 export async function logAudit(params: AuditParams): Promise<void> {
   try {
+    const shouldHash = BLOCKCHAIN_RISK_LEVELS.has(params.riskLevel || 'low') ||
+                       BLOCKCHAIN_TABLES.has(params.tablaAfectada);
+
+    let blockchainHash: string | null = null;
+
+    if (shouldHash) {
+      const proof = generateProofPayload({
+        tablaAfectada: params.tablaAfectada,
+        registroId: params.registroId,
+        operacion: params.operacion,
+        datosAnteriores: params.datosAnteriores,
+        datosNuevos: params.datosNuevos,
+        camposModificados: params.camposModificados,
+        userId: params.userId,
+        riskLevel: params.riskLevel,
+      });
+
+      blockchainHash = proof.dataHash;
+
+      try {
+        await query(
+          `INSERT INTO blockchain_proofs (entity_type, entity_id, data_hash, payload_snapshot, status)
+           VALUES ($1, $2, $3, $4, 'pending')`,
+          [
+            params.tablaAfectada,
+            String(params.registroId || 0),
+            proof.dataHash,
+            JSON.stringify(proof.payload),
+          ]
+        );
+      } catch (proofErr: any) {
+        console.error('[audit-logger] Error storing blockchain proof:', proofErr.message);
+      }
+    }
+
     await query(
       `INSERT INTO auditoria_detallada 
-       (user_id, tabla_afectada, registro_id, operacion, datos_anteriores, datos_nuevos, campos_modificados, ip_address, user_agent, session_id, risk_level)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+       (user_id, tabla_afectada, registro_id, operacion, datos_anteriores, datos_nuevos, campos_modificados, ip_address, user_agent, session_id, risk_level, blockchain_hash, blockchain_verified)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
       [
         params.userId ?? null,
         params.tablaAfectada,
@@ -64,6 +106,8 @@ export async function logAudit(params: AuditParams): Promise<void> {
         params.userAgent ?? null,
         params.sessionId ?? null,
         params.riskLevel ?? 'low',
+        blockchainHash,
+        false,
       ]
     );
   } catch (err: any) {
