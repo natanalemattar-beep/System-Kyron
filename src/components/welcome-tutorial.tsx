@@ -134,12 +134,13 @@ export function WelcomeTutorial() {
         <div
           className="fixed inset-0 z-[60] bg-black/80 animate-in fade-in-0"
           onClick={handleClose}
+          style={{ touchAction: 'pan-y' }}
           aria-hidden="true"
         />
         <DialogPrimitive.Content
           className="fixed left-[50%] top-[50%] z-[60] grid w-full max-w-[90vw] sm:max-w-[640px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200"
-          onPointerDownOutside={(e) => e.preventDefault()}
-          onInteractOutside={(e) => e.preventDefault()}
+          onPointerDownOutside={() => {}}
+          onInteractOutside={() => {}}
         >
           <DialogHeader className="sr-only">
             <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>

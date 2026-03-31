@@ -89,8 +89,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     min-height: 100dvh;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -936,10 +938,10 @@ html[data-tier="high"] .kyron-surface {
   .hover-scale:hover {
     transform: none !important;
   }
-  ::-webkit-scrollbar {
+  .custom-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  * {
+  .custom-scrollbar {
     scrollbar-width: none;
   }
 }
