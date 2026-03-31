@@ -131,7 +131,7 @@ export function HeroSection() {
 
                     <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
                         <motion.div
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 mx-auto lg:ml-0 backdrop-blur-sm"
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full liquid-glass-subtle mx-auto lg:ml-0"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
@@ -242,7 +242,7 @@ export function HeroSection() {
                             </div>
 
                             <motion.div
-                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
+                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 liquid-glass animate-glass-breathe"
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.7, duration: 0.5 }}
@@ -275,16 +275,16 @@ export function HeroSection() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {heroStats.map((s, i) => {
                             const gradients = [
-                                { gradient: "from-[#0ea5e9]/20 to-[#0ea5e9]/5", text: "text-[#0ea5e9]" },
-                                { gradient: "from-[#3b82f6]/20 to-[#3b82f6]/5", text: "text-[#3b82f6]" },
-                                { gradient: "from-[#06b6d4]/20 to-[#06b6d4]/5", text: "text-[#06b6d4]" },
-                                { gradient: "from-[#22c55e]/20 to-[#22c55e]/5", text: "text-[#22c55e]" },
+                                { text: "text-[#0ea5e9]" },
+                                { text: "text-[#3b82f6]" },
+                                { text: "text-[#06b6d4]" },
+                                { text: "text-[#22c55e]" },
                             ];
                             const g = gradients[i % gradients.length];
                             return (
                                 <motion.div
                                     key={i}
-                                    className={`flex flex-col items-center gap-0.5 p-3 rounded-2xl bg-gradient-to-b ${g.gradient} border border-border/10 dark:border-white/5 backdrop-blur-sm`}
+                                    className="flex flex-col items-center gap-0.5 p-3 rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 1 + i * 0.08, duration: 0.4 }}

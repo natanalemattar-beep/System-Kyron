@@ -112,7 +112,7 @@ export function AboutUsSection() {
                         viewport={{ once: true, margin: "-80px" }}
                     >
                         <motion.div variants={animate ? fadeUp : undefined} custom={0}>
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
                                 <Globe className="h-3.5 w-3.5 text-emerald-400" />
                                 {t('badge')}
                             </div>
@@ -144,7 +144,7 @@ export function AboutUsSection() {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.3 + i * 0.15, duration: 0.4 }}
                             >
-                                <Card className="relative overflow-hidden rounded-[2rem] bg-card/80 dark:bg-white/[0.03] border border-border/30 dark:border-white/10 p-8 text-center group cursor-default hover:border-border/50 dark:hover:border-white/20 transition-all duration-300 shadow-2xl">
+                                <Card className="relative overflow-hidden rounded-[2rem] liquid-glass p-8 text-center group cursor-default transition-all duration-300">
                                     <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
                                     <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-all duration-500">
                                         <stat.icon className="h-16 w-16 text-foreground" />
@@ -170,7 +170,7 @@ export function AboutUsSection() {
                         {featItems.map((item, i) => (
                             <motion.div
                                 key={i}
-                                className="flex items-center gap-3 p-4 rounded-2xl bg-muted/30 dark:bg-white/5 border border-border/20 dark:border-white/8 hover:-translate-y-0.5 transition-transform duration-300"
+                                className="flex items-center gap-3 p-4 rounded-2xl liquid-glass-subtle hover:-translate-y-0.5 transition-transform duration-300"
                                 initial={animate ? { opacity: 0, y: 12 } : undefined}
                                 whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                                 viewport={{ once: true }}

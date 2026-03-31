@@ -127,7 +127,7 @@ export function CommentsSection() {
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="text-center mb-10 md:mb-14">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[9px] font-black uppercase tracking-[0.35em] border border-violet-500/20 mb-5">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-600 dark:text-violet-400 text-[9px] font-black uppercase tracking-[0.35em] mb-5">
                         <MessageSquare className="h-3 w-3" /> {t('badge')}
                     </div>
                     <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4">
@@ -158,7 +158,7 @@ export function CommentsSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                         {comentarios.map((c) => (
                             <div key={c.id}>
-                                <Card className="group relative rounded-3xl border border-border/30 dark:border-white/[0.06] bg-card/60 dark:bg-white/[0.015] hover:bg-card/80 dark:hover:bg-white/[0.03] transition-all duration-500 shadow-lg hover:shadow-xl overflow-hidden h-full hover:-translate-y-1">
+                                <Card className="group relative rounded-3xl liquid-glass transition-all duration-500 h-full hover:-translate-y-1">
                                     <CardContent className="p-6 space-y-4 relative">
                                         <div className="flex items-start justify-between">
                                             <StarRating value={c.calificacion} readonly />

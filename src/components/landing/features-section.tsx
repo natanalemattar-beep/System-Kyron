@@ -40,10 +40,9 @@ function FeatureRow({ feature, meta, index, animate }: {
                 isLeft ? "md:text-right md:order-1" : "md:text-left md:order-3"
             )}>
                 <div className={cn(
-                    "group relative p-6 rounded-2xl border border-border/20 dark:border-white/[0.06] bg-card/20 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1",
-                    "hover:border-border/40 dark:hover:border-white/10"
+                    "group relative p-6 rounded-2xl liquid-glass transition-all duration-500 hover:-translate-y-1"
                 )}>
-                    <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none", meta.accent)} />
+                    <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-[1]", meta.accent)} />
 
                     <div className="relative">
                         <div className={cn("inline-flex items-center gap-2.5 mb-3", isLeft ? "md:flex-row-reverse" : "")}>
@@ -117,7 +116,7 @@ export function FeaturesSection() {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-subtle text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.2]">
@@ -158,7 +157,7 @@ export function FeaturesSection() {
                     {stats.map((r, i) => (
                         <div
                             key={i}
-                            className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl bg-muted/30 dark:bg-white/[0.02] border border-border/30 dark:border-white/[0.06] hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
+                            className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl liquid-glass-subtle hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
                         >
                             <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
                             <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>

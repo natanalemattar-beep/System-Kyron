@@ -56,11 +56,17 @@ function LandingContent() {
         {mounted && (
           <>
             <HeroSection />
+            <div className="section-divider" />
             <FeaturesSection />
+            <div className="section-divider" />
             <ServicesSection />
+            <div className="section-divider" />
             <AboutUsSection />
+            <div className="section-divider" />
             <CommentsSection />
+            <div className="section-divider" />
             <CtaSection />
+            <div className="section-divider" />
             <FaqSection />
           </>
         )}

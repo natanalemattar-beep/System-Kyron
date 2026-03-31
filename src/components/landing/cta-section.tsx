@@ -27,7 +27,7 @@ export function CtaSection() {
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         <div className="space-y-7 text-center lg:text-left">
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/30 dark:border-white/10 bg-muted/50 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 dark:text-white/80 mx-auto lg:ml-0">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 dark:text-white/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> {t('badge')}
                             </div>
                             <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight leading-[1.05] text-foreground uppercase">

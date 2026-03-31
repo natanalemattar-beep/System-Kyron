@@ -14,7 +14,7 @@ export function FaqSection() {
         <section id="faq" className="py-16 md:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
                 <div className="text-center mb-12 md:mb-16 space-y-4">
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
@@ -35,7 +35,7 @@ export function FaqSection() {
                             <div key={index}>
                                 <AccordionItem
                                     value={`item-${index}`}
-                                    className="border border-border/30 dark:border-white/[0.06] rounded-3xl px-6 overflow-hidden bg-card/50 dark:bg-white/[0.02] hover:bg-card/80 dark:hover:bg-white/[0.035] transition-all duration-500 hover:border-primary/20 hover:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:bg-card/70"
+                                    className="liquid-glass rounded-3xl px-6 transition-all duration-500 hover:border-primary/20 data-[state=open]:border-primary/30 data-[state=open]:shadow-xl"
                                 >
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">

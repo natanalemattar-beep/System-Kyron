@@ -37,7 +37,7 @@ export function ServicesSection() {
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
@@ -81,7 +81,7 @@ export function ServicesSection() {
                                         </p>
                                         <div className="flex flex-wrap gap-2">
                                             {feat.badges.map((b) => (
-                                                <span key={b} className="px-3 py-1.5 rounded-full border border-border/40 bg-muted/30 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                                <span key={b} className="px-3 py-1.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                                     {b}
                                                 </span>
                                             ))}
@@ -131,11 +131,11 @@ export function ServicesSection() {
                         {statsMeta.map((stat) => (
                             <div
                                 key={stat.key}
-                                className="group relative overflow-hidden rounded-2xl border border-border/30 hover:border-border/60 bg-card/30 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+                                className="group liquid-glass rounded-2xl transition-all duration-500 hover:-translate-y-1"
                             >
-                                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.bg)} />
+                                <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", stat.bg)} />
                                 <div className="relative p-5 flex flex-col items-center text-center gap-2.5">
-                                    <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-border/30 bg-background/50 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-xl liquid-glass-subtle group-hover:scale-110 transition-transform duration-300">
                                         <stat.icon className={cn("h-4.5 w-4.5", stat.color)} />
                                     </div>
                                     <div className={cn("text-xl sm:text-2xl font-black tracking-tight", stat.color)}>
