@@ -63,7 +63,7 @@ export function SlowConnectionBanner() {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 6000);
 
-    fetch('/api/db-health', {
+    fetch('/api/ping', {
       method: 'HEAD',
       cache: 'no-store',
       signal: controller.signal,
