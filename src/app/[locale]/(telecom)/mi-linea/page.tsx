@@ -259,19 +259,23 @@ export default function MiLineaPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Líneas Activas", val: `${totalActivas} / ${lineas.length}`, icon: Phone, color: "text-emerald-500" },
-          { label: "Datos Usados", val: `${totalDatosUsados.toFixed(1)} GB`, icon: Wifi, color: "text-blue-500" },
-          { label: "Gasto Mensual", val: formatCurrency(totalGasto, 'USD'), icon: DollarSign, color: "text-primary" },
-          { label: "Facturas Pendientes", val: `${facturasPendientes}`, icon: FileText, color: facturasPendientes > 0 ? "text-yellow-500" : "text-emerald-500" },
+          { label: "Líneas Activas", val: `${totalActivas} / ${lineas.length}`, icon: Phone, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
+          { label: "Datos Usados", val: `${totalDatosUsados.toFixed(1)} GB`, icon: Wifi, color: "text-kyron-cyan", accent: "from-kyron-cyan/20 to-kyron-cyan/0", ring: "ring-kyron-cyan/20", iconBg: "bg-kyron-cyan/10" },
+          { label: "Gasto Mensual", val: formatCurrency(totalGasto, 'USD'), icon: DollarSign, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
+          { label: "Facturas Pendientes", val: `${facturasPendientes}`, icon: FileText, color: facturasPendientes > 0 ? "text-amber-500" : "text-emerald-500", accent: facturasPendientes > 0 ? "from-amber-500/20 to-amber-500/0" : "from-emerald-500/20 to-emerald-500/0", ring: facturasPendientes > 0 ? "ring-amber-500/20" : "ring-emerald-500/20", iconBg: facturasPendientes > 0 ? "bg-amber-500/10" : "bg-emerald-500/10" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-            <Card className="bg-card/60 border border-border/50 rounded-xl p-4 hover:border-border transition-colors">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{stat.label}</span>
-                <stat.icon className={cn("h-3.5 w-3.5 opacity-40", stat.color)} />
+            <div className={cn("kyron-surface p-4 rounded-xl ring-1 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden relative group", stat.ring)}>
+              <div className={cn("absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r", stat.accent)} />
+              <div className={cn("absolute -top-6 -right-6 w-16 h-16 rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity bg-gradient-to-br", stat.accent)} />
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
+                <div className={cn("p-1.5 rounded-lg", stat.iconBg)}>
+                  <stat.icon className={cn("h-3 w-3", stat.color)} />
+                </div>
               </div>
-              <p className={cn("text-lg font-bold tracking-tight", stat.color)}>{stat.val}</p>
-            </Card>
+              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -425,53 +429,91 @@ export default function MiLineaPage() {
             const limiteGB = Math.max(parseFloat(linea.limite_datos_gb || '30') || 30, 0.1);
             const pctUso = Number.isFinite(usoGB / limiteGB) ? (usoGB / limiteGB) * 100 : 0;
             const operadoraLabel = OPERADORAS.find(o => o.value === linea.operadora)?.label || linea.operadora;
+            const gaugeColor = pctUso > 90 ? '#f43f5e' : pctUso > 70 ? '#f59e0b' : '#10b981';
+            const gaugeR = 28;
+            const gaugeC = 2 * Math.PI * gaugeR;
+            const gaugeDash = (pctUso / 100) * gaugeC;
+            const operadoraColors: Record<string, string> = {
+              movistar: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+              digitel:  'bg-rose-500/10 text-rose-400 border-rose-500/20',
+              movilnet: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+              inter:    'bg-violet-500/10 text-violet-400 border-violet-500/20',
+              cantv:    'bg-amber-500/10 text-amber-400 border-amber-500/20',
+              simple:   'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+            };
+            const opColor = operadoraColors[linea.operadora] || 'bg-muted/20 text-muted-foreground border-border/40';
             return (
-              <Card key={`usage-${linea.id}`} className="bg-card/60 border border-border/50 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1.5 bg-primary/10 rounded-lg">
-                      <Signal className="h-3.5 w-3.5 text-primary" />
+              <motion.div
+                key={`usage-${linea.id}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="kyron-surface rounded-xl p-4 ring-1 ring-emerald-500/15 relative overflow-hidden group hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-emerald-500/30 via-cyan-400/20 to-emerald-500/0" />
+                  <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full blur-2xl opacity-10 group-hover:opacity-20 transition-opacity" style={{ background: gaugeColor }} />
+
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className="relative">
+                        <div className="p-2 bg-primary/10 rounded-xl ring-1 ring-primary/20">
+                          <Signal className="h-4 w-4 text-primary" />
+                        </div>
+                        <div className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-card animate-pulse" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-foreground font-mono tracking-wide">{linea.numero}</p>
+                        <p className="text-[9px] text-muted-foreground mt-0.5">{linea.plan_contratado || 'Sin plan'}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs font-bold text-foreground">{linea.numero}</p>
-                      <p className="text-[9px] text-muted-foreground">{operadoraLabel} · {linea.plan_contratado || 'Sin plan'}</p>
+                    <Badge variant="outline" className={cn("text-[8px] font-semibold px-2 py-0.5 rounded-md border", opColor)}>
+                      {operadoraLabel}
+                    </Badge>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="relative flex-shrink-0">
+                      <svg width="72" height="72" viewBox="0 0 72 72" className="-rotate-90">
+                        <circle cx="36" cy="36" r={gaugeR} fill="none" stroke="currentColor" strokeWidth="5" className="text-muted/20" />
+                        <circle
+                          cx="36" cy="36" r={gaugeR}
+                          fill="none"
+                          stroke={gaugeColor}
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                          strokeDasharray={`${gaugeDash} ${gaugeC}`}
+                          style={{ filter: `drop-shadow(0 0 4px ${gaugeColor})`, transition: 'stroke-dasharray 0.8s ease' }}
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <p className="text-sm font-black" style={{ color: gaugeColor }}>{Math.round(pctUso)}%</p>
+                        <p className="text-[8px] text-muted-foreground font-medium leading-none">uso</p>
+                      </div>
+                    </div>
+
+                    <div className="flex-1 space-y-2">
+                      <div>
+                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">Datos usados</p>
+                        <p className="text-xs font-bold" style={{ color: gaugeColor }}>
+                          {usoGB.toFixed(1)} <span className="text-muted-foreground font-normal">/ {limiteGB} GB</span>
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {[
+                          { label: 'Llamadas', val: '∞', color: 'text-emerald-400' },
+                          { label: 'SMS', val: '500', color: 'text-primary' },
+                          { label: 'Red', val: '5G', color: 'text-kyron-cyan' },
+                        ].map(item => (
+                          <div key={item.label} className="text-center p-1.5 rounded-lg bg-muted/10 border border-border/30">
+                            <p className="text-[8px] text-muted-foreground">{item.label}</p>
+                            <p className={cn("text-[10px] font-black", item.color)}>{item.val}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <Badge variant="outline" className="text-[9px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">Activa</Badge>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[10px]">
-                    <span className="text-muted-foreground">Datos utilizados</span>
-                    <span className={cn("font-bold", pctUso > 90 ? "text-rose-500" : pctUso > 70 ? "text-amber-500" : "text-emerald-500")}>
-                      {usoGB.toFixed(1)} / {limiteGB} GB
-                    </span>
-                  </div>
-                  <div className="h-2.5 w-full bg-muted/30 rounded-full overflow-hidden">
-                    <div
-                      className={cn("h-full rounded-full transition-all duration-500",
-                        pctUso > 90 ? "bg-gradient-to-r from-rose-500 to-rose-400" :
-                        pctUso > 70 ? "bg-gradient-to-r from-amber-500 to-amber-400" :
-                        "bg-gradient-to-r from-emerald-500 to-cyan-400"
-                      )}
-                      style={{ width: `${Math.min(pctUso, 100)}%` }}
-                    />
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 mt-3">
-                    <div className="text-center p-2 rounded-lg bg-muted/10">
-                      <p className="text-[9px] text-muted-foreground">Llamadas</p>
-                      <p className="text-xs font-bold text-foreground">Ilimitadas</p>
-                    </div>
-                    <div className="text-center p-2 rounded-lg bg-muted/10">
-                      <p className="text-[9px] text-muted-foreground">SMS</p>
-                      <p className="text-xs font-bold text-foreground">500</p>
-                    </div>
-                    <div className="text-center p-2 rounded-lg bg-muted/10">
-                      <p className="text-[9px] text-muted-foreground">Velocidad</p>
-                      <p className="text-xs font-bold text-cyan-500">5G</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              </motion.div>
             );
           })}
         </div>
