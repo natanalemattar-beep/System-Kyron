@@ -4,73 +4,77 @@
 
 @layer base {
   :root {
-    --background: 220 25% 95%;
-    --foreground: 224 50% 6%;
+    --background: 222 30% 93%;
+    --foreground: 224 55% 5%;
 
-    --card: 220 30% 99%;
-    --card-foreground: 224 50% 6%;
+    --card: 220 38% 98%;
+    --card-foreground: 224 55% 5%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 50% 6%;
+    --popover: 220 40% 99%;
+    --popover-foreground: 224 55% 5%;
 
-    --primary: 224 76% 38%;
+    --primary: 225 82% 36%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 162 72% 30%;
+    --secondary: 160 78% 28%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 218 26% 90%;
-    --muted-foreground: 220 18% 40%;
+    --muted: 220 30% 88%;
+    --muted-foreground: 220 22% 38%;
 
-    --accent: 220 35% 92%;
-    --accent-foreground: 224 50% 12%;
+    --accent: 222 42% 90%;
+    --accent-foreground: 224 55% 10%;
 
-    --destructive: 0 78% 54%;
+    --destructive: 0 80% 52%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 22% 82%;
-    --input: 220 22% 84%;
-    --ring: 224 76% 38%;
+    --border: 220 28% 78%;
+    --input: 220 28% 80%;
+    --ring: 225 82% 36%;
 
     --radius: 1.5rem;
 
-    --kyron-cyan: 190 95% 44%;
-    --kyron-emerald: 158 82% 38%;
-    --kyron-indigo: 240 85% 60%;
+    --kyron-cyan: 188 100% 40%;
+    --kyron-emerald: 156 88% 34%;
+    --kyron-indigo: 242 88% 62%;
+    --kyron-gold: 43 95% 50%;
+    --kyron-violet: 270 80% 58%;
   }
 
   .dark {
-    --background: 225 44% 4%;
-    --foreground: 214 40% 96%;
+    --background: 228 55% 3%;
+    --foreground: 214 45% 96%;
 
-    --card: 226 42% 7%;
-    --card-foreground: 214 40% 96%;
+    --card: 226 50% 6%;
+    --card-foreground: 214 45% 96%;
 
-    --popover: 226 38% 8%;
-    --popover-foreground: 214 40% 96%;
+    --popover: 226 48% 7%;
+    --popover-foreground: 214 45% 96%;
 
-    --primary: 220 90% 56%;
-    --primary-foreground: 225 44% 4%;
+    --primary: 218 95% 60%;
+    --primary-foreground: 228 55% 3%;
 
-    --secondary: 162 80% 40%;
-    --secondary-foreground: 225 44% 4%;
+    --secondary: 160 88% 44%;
+    --secondary-foreground: 228 55% 3%;
 
-    --muted: 224 30% 13%;
-    --muted-foreground: 218 22% 60%;
+    --muted: 226 38% 11%;
+    --muted-foreground: 218 25% 62%;
 
-    --accent: 224 30% 15%;
-    --accent-foreground: 214 40% 96%;
+    --accent: 226 38% 13%;
+    --accent-foreground: 214 45% 96%;
 
-    --destructive: 0 72% 52%;
+    --destructive: 0 75% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 224 22% 20%;
-    --input: 224 22% 20%;
-    --ring: 220 90% 56%;
+    --border: 224 30% 18%;
+    --input: 224 30% 18%;
+    --ring: 218 95% 60%;
 
-    --kyron-cyan: 190 95% 52%;
-    --kyron-emerald: 158 82% 44%;
-    --kyron-indigo: 240 85% 66%;
+    --kyron-cyan: 188 100% 56%;
+    --kyron-emerald: 156 90% 48%;
+    --kyron-indigo: 240 90% 70%;
+    --kyron-gold: 43 100% 58%;
+    --kyron-violet: 270 85% 68%;
   }
 }
 
@@ -159,11 +163,11 @@
 
   .kyron-gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--kyron-cyan)), hsl(var(--primary)), hsl(var(--kyron-emerald)));
+    background-image: linear-gradient(125deg, hsl(var(--kyron-cyan)), hsl(var(--primary)), hsl(var(--kyron-emerald)), hsl(var(--kyron-indigo) / 0.7));
   }
 
   .kyron-gradient-bg {
-    background: linear-gradient(135deg, hsl(var(--kyron-cyan)), hsl(var(--primary)), hsl(var(--kyron-emerald)));
+    background: linear-gradient(125deg, hsl(var(--kyron-cyan)), hsl(var(--primary)), hsl(var(--kyron-emerald)));
   }
 
   .kyron-gradient-border {

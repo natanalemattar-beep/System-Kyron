@@ -58,6 +58,13 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        kyron: {
+          cyan: "hsl(var(--kyron-cyan))",
+          emerald: "hsl(var(--kyron-emerald))",
+          indigo: "hsl(var(--kyron-indigo))",
+          gold: "hsl(var(--kyron-gold))",
+          violet: "hsl(var(--kyron-violet))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
