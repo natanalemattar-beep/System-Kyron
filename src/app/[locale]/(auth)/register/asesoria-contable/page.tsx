@@ -17,6 +17,7 @@ import {
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, BookOpen, ShieldCheck, Calculator, Check, Star, Crown, Zap, Sparkles,
+    Mail, RefreshCw, Fingerprint,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Progress } from '@/components/ui/progress';
@@ -96,8 +97,6 @@ const PLANES = [
     },
 ];
 
-const TOTAL_STEPS = 4;
-
 const TIPOS_EMPRESA = [
     'Compañía Anónima (C.A.)', 'Compañía de Responsabilidad Limitada (C.R.L.)',
     'Sociedad Anónima (S.A.)', 'Sociedad de Responsabilidad Limitada (S.R.L.)',
@@ -143,6 +142,8 @@ const colorMap: Record<string, { bg: string; border: string; text: string; accen
     amber: { bg: 'bg-amber-500/5', border: 'border-amber-500/20', text: 'text-amber-600', accent: 'bg-amber-500', ring: 'ring-amber-500' },
 };
 
+const TOTAL_STEPS = 5;
+
 export default function RegisterContabilidadPage() {
     const [step, setStep] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -151,7 +152,14 @@ export default function RegisterContabilidadPage() {
     const router = useRouter();
     const { toast } = useToast();
 
-    const { register, handleSubmit, control, watch, setValue, trigger, formState: { errors } } = useForm<FormData>({
+    const [verifSent, setVerifSent] = useState(false);
+    const [verifCode, setVerifCode] = useState('');
+    const [verifVerified, setVerifVerified] = useState(false);
+    const [verifLoading, setVerifLoading] = useState(false);
+    const [verifDestino, setVerifDestino] = useState('');
+    const [countdown, setCountdown] = useState(0);
+
+    const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange',
         defaultValues: {
@@ -169,6 +177,67 @@ export default function RegisterContabilidadPage() {
         3: ['estado_empresa', 'municipio_empresa', 'telefono'],
     };
 
+    const startCountdown = () => {
+        setCountdown(60);
+        const timer = setInterval(() => {
+            setCountdown(prev => {
+                if (prev <= 1) { clearInterval(timer); return 0; }
+                return prev - 1;
+            });
+        }, 1000);
+    };
+
+    const sendVerificationCode = async () => {
+        setVerifLoading(true);
+        const email = getValues('repEmail');
+        setVerifDestino(email);
+        try {
+            const res = await fetch('/api/auth/send-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ destino: email, tipo: 'email' }),
+            });
+            const json = await res.json();
+            if (!res.ok) {
+                toast({ title: 'Error al enviar código', description: json.error, variant: 'destructive' });
+                return;
+            }
+            setVerifSent(true);
+            startCountdown();
+            toast({ title: 'Código enviado', description: `Revisa tu correo ${email}` });
+        } catch {
+            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
+        } finally {
+            setVerifLoading(false);
+        }
+    };
+
+    const verifyCode = async () => {
+        if (verifCode.length !== 6) {
+            toast({ title: 'Código inválido', description: 'El código debe tener 6 dígitos.', variant: 'destructive' });
+            return;
+        }
+        setVerifLoading(true);
+        try {
+            const res = await fetch('/api/auth/verify-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ destino: verifDestino, codigo: verifCode }),
+            });
+            const json = await res.json();
+            if (!res.ok) {
+                toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
+                return;
+            }
+            setVerifVerified(true);
+            toast({ title: '¡Verificado!', description: 'Correo electrónico confirmado.' });
+        } catch {
+            toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
+        } finally {
+            setVerifLoading(false);
+        }
+    };
+
     const nextStep = async () => {
         if (step === 1) {
             if (!selectedPlan) {
@@ -183,17 +252,26 @@ export default function RegisterContabilidadPage() {
             const valid = await trigger(fields);
             if (!valid) return;
         }
-        if (step === 3) {
-            return;
-        }
         setStep(s => s + 1);
     };
 
-    const prevStep = () => setStep(s => s - 1);
+    const prevStep = () => {
+        if (step === 4) {
+            setVerifSent(false);
+            setVerifCode('');
+            setVerifVerified(false);
+        }
+        setStep(s => s - 1);
+    };
 
     const planData = PLANES.find(p => p.id === selectedPlan);
 
     const onSubmit = async (data: FormData) => {
+        if (!verifVerified) {
+            toast({ title: 'Verificación requerida', description: 'Debes verificar tu correo electrónico antes de completar el registro.', variant: 'destructive' });
+            return;
+        }
+
         setIsLoading(true);
         try {
             const res = await fetch('/api/auth/register', {
@@ -230,6 +308,7 @@ export default function RegisterContabilidadPage() {
         { title: 'Selección de Plan', desc: 'Elige tu plan contable', icon: Star },
         { title: 'Datos de la Empresa', desc: 'Identificación y acceso', icon: Building },
         { title: 'Ubicación', desc: 'Estado, municipio y contacto', icon: Calculator },
+        { title: 'Verificación', desc: 'Confirma tu identidad', icon: Fingerprint },
         { title: '¡Listo!', desc: 'Cuenta registrada', icon: CheckCircle },
     ];
 
@@ -441,7 +520,7 @@ export default function RegisterContabilidadPage() {
 
                                 <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
                                     <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Ubicación y contacto</p>
-                                    <p className="text-[9px] text-muted-foreground mt-0.5">Último paso. El régimen IVA lo puedes ajustar después.</p>
+                                    <p className="text-[9px] text-muted-foreground mt-0.5">Información de ubicación y régimen IVA.</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -485,6 +564,91 @@ export default function RegisterContabilidadPage() {
                             </div>
                         )}
 
+                        {step === 4 && (
+                            <div className="space-y-6">
+                                <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center">
+                                    <div className="flex items-center justify-center gap-2 mb-2">
+                                        <Fingerprint className="h-5 w-5 text-primary" />
+                                        <p className="text-xs font-black text-primary uppercase tracking-widest">Verificación de Identidad</p>
+                                    </div>
+                                    <p className="text-[11px] text-muted-foreground">Enviaremos un código de 6 dígitos a tu correo electrónico para confirmar tu identidad.</p>
+                                </div>
+
+                                {verifVerified ? (
+                                    <div className="text-center py-6 space-y-3">
+                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
+                                            <CheckCircle className="h-10 w-10 text-emerald-500" />
+                                        </div>
+                                        <p className="text-sm font-black text-emerald-500 uppercase tracking-widest">¡Correo Verificado!</p>
+                                        <p className="text-xs text-muted-foreground">{verifDestino}</p>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-5">
+                                        <div className="p-4 rounded-xl border border-border/50 bg-muted/5 space-y-3">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 bg-sky-500/10 rounded-lg">
+                                                    <Mail className="h-4 w-4 text-sky-400" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-foreground">Correo Electrónico</p>
+                                                    <p className="text-xs text-muted-foreground">{getValues('repEmail')}</p>
+                                                </div>
+                                            </div>
+
+                                            {!verifSent ? (
+                                                <Button
+                                                    type="button"
+                                                    className="w-full"
+                                                    onClick={sendVerificationCode}
+                                                    disabled={verifLoading}
+                                                >
+                                                    {verifLoading ? (
+                                                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</>
+                                                    ) : (
+                                                        <><Mail className="mr-2 h-4 w-4" />Enviar Código de Verificación</>
+                                                    )}
+                                                </Button>
+                                            ) : (
+                                                <div className="space-y-3">
+                                                    <p className="text-[10px] text-emerald-500 font-bold text-center uppercase tracking-widest">Código enviado a {verifDestino}</p>
+                                                    <div className="flex gap-2">
+                                                        <Input
+                                                            placeholder="000000"
+                                                            maxLength={6}
+                                                            value={verifCode}
+                                                            onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                                            className="text-center text-2xl font-black tracking-[0.5em] h-14"
+                                                        />
+                                                    </div>
+                                                    <Button
+                                                        type="button"
+                                                        className="w-full"
+                                                        onClick={verifyCode}
+                                                        disabled={verifLoading || verifCode.length !== 6}
+                                                    >
+                                                        {verifLoading ? (
+                                                            <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</>
+                                                        ) : (
+                                                            <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>
+                                                        )}
+                                                    </Button>
+                                                    <div className="text-center">
+                                                        {countdown > 0 ? (
+                                                            <p className="text-[10px] text-muted-foreground">Reenviar en {countdown}s</p>
+                                                        ) : (
+                                                            <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
+                                                                <RefreshCw className="h-3 w-3" /> Reenviar código
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         {step === TOTAL_STEPS && (
                             <div className="text-center py-8 space-y-4">
                                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-2">
@@ -525,9 +689,10 @@ export default function RegisterContabilidadPage() {
                                 </Button>
                             )}
                             {step === 2 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4" /></Button>}
-                            {step === 3 && (
-                                <Button type="submit" disabled={isLoading}>
-                                    {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Registrando...</> : <>Crear Cuenta<ShieldCheck className="ml-2 h-4 w-4" /></>}
+                            {step === 3 && <Button type="button" onClick={nextStep}>Continuar a Verificación<ArrowRight className="ml-2 h-4 w-4" /></Button>}
+                            {step === 4 && (
+                                <Button type="submit" disabled={isLoading || !verifVerified}>
+                                    {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Registrando...</> : <>Finalizar Registro<ArrowRight className="ml-2 h-4 w-4" /></>}
                                 </Button>
                             )}
                         </CardFooter>

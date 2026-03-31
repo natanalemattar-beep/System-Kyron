@@ -7,6 +7,16 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
 import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
 
+async function verificarCodigoUsado(destino: string): Promise<boolean> {
+    const record = await queryOne<{ id: number }>(
+        `SELECT id FROM verification_codes
+         WHERE destino = $1 AND usado = true AND expires_at > NOW() - INTERVAL '30 minutes'
+         ORDER BY created_at DESC LIMIT 1`,
+        [destino]
+    );
+    return !!record;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const ip = getClientIP(req);
@@ -56,6 +66,16 @@ async function registerNatural(body: Record<string, unknown>) {
     }
 
     const normalizedEmail = sanitizeEmail(email);
+
+    const emailVerified = await verificarCodigoUsado(normalizedEmail);
+    const phoneVerified = telefono ? await verificarCodigoUsado(telefono) : false;
+
+    if (!emailVerified && !phoneVerified) {
+        return NextResponse.json({
+            error: 'Debes verificar tu correo electrónico o teléfono antes de registrarte. Completa el paso de verificación.',
+        }, { status: 403 });
+    }
+
     const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
@@ -67,8 +87,6 @@ async function registerNatural(body: Record<string, unknown>) {
     }
 
     const password_hash = await bcrypt.hash(password, 12);
-    const email_verificado = !!(body as Record<string, unknown>).email_verificado;
-    const telefono_verificado = !!(body as Record<string, unknown>).telefono_verificado;
 
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
@@ -85,8 +103,8 @@ async function registerNatural(body: Record<string, unknown>) {
             telefono ?? '', telefono_alt ?? '',
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
-            email_verificado, telefono_verificado,
-            email_verificado || telefono_verificado,
+            emailVerified, phoneVerified,
+            emailVerified || phoneVerified,
         ]
     );
 
@@ -110,7 +128,7 @@ async function registerNatural(body: Record<string, unknown>) {
         descripcion: `Nuevo usuario natural registrado: ${nombre} ${apellido} (${email})`,
         entidadTipo: 'usuario',
         entidadId: user.id,
-        metadata: { email, tipo: 'natural', cedula },
+        metadata: { email, tipo: 'natural', cedula, email_verificado: emailVerified, telefono_verificado: phoneVerified },
     });
     return res;
 }
@@ -126,6 +144,22 @@ async function registerJuridico(body: Record<string, unknown>) {
 
     if (!repEmail || !password || !razonSocial || !rif) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
+    }
+
+    const email = repEmail as string;
+    if (!isValidEmail(email)) {
+        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
+    }
+
+    const normalizedEmail = sanitizeEmail(email);
+
+    const emailVerified = await verificarCodigoUsado(normalizedEmail);
+    const phoneVerified = telefono ? await verificarCodigoUsado(String(telefono)) : false;
+
+    if (!emailVerified && !phoneVerified) {
+        return NextResponse.json({
+            error: 'Debes verificar tu correo electrónico o teléfono antes de registrarte. Completa el paso de verificación.',
+        }, { status: 403 });
     }
 
     const VALID_PLANS: Record<string, number> = {
@@ -164,17 +198,11 @@ async function registerJuridico(body: Record<string, unknown>) {
         }
     }
 
-    const email = repEmail as string;
-    if (!isValidEmail(email)) {
-        return NextResponse.json({ error: 'Formato de correo inválido' }, { status: 400 });
-    }
-
     const pwCheck = isStrongPassword(password as string);
     if (!pwCheck.valid) {
         return NextResponse.json({ error: pwCheck.reason }, { status: 400 });
     }
 
-    const normalizedEmail = sanitizeEmail(email);
     const existing = await queryOne('SELECT id FROM users WHERE email = $1', [normalizedEmail]);
     if (existing) {
         return NextResponse.json({ error: 'Ya existe una cuenta con ese correo' }, { status: 409 });
@@ -198,14 +226,16 @@ async function registerJuridico(body: Record<string, unknown>) {
             fecha_constitucion, registro_mercantil, capital_social,
             telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
             rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
-            plan, plan_monto
+            plan, plan_monto,
+            email_verificado, telefono_verificado, verificado
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
                  $9, $10, $11,
                  $12, $13, $14, $15, $16,
                  $17, $18, $19, $20, $21,
-                 $22, $23)
+                 $22, $23,
+                 $24, $25, $26)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -230,6 +260,9 @@ async function registerJuridico(body: Record<string, unknown>) {
             sanitizeString((rep_telefono ?? '') as string, 20),
             validatedPlan,
             validatedPlanMonto,
+            emailVerified,
+            phoneVerified,
+            emailVerified || phoneVerified,
         ]
     );
 
@@ -263,7 +296,7 @@ async function registerJuridico(body: Record<string, unknown>) {
         descripcion: `Nueva empresa registrada: ${razonSocial as string} (RIF: ${rif as string})`,
         entidadTipo: 'usuario',
         entidadId: user.id,
-        metadata: { email, tipo: 'juridico', rif, razon_social: razonSocial },
+        metadata: { email, tipo: 'juridico', rif, razon_social: razonSocial, email_verificado: emailVerified, telefono_verificado: phoneVerified },
     });
     return res;
 }
