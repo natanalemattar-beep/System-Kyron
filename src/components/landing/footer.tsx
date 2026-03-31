@@ -2,15 +2,8 @@
 
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
-import { Mail, MapPin, Linkedin, Twitter, FileText, Shield, Gavel, ArrowUpRight, Hexagon } from "lucide-react";
+import { Mail, MapPin, FileText, Shield, Gavel, ArrowUpRight, Hexagon } from "lucide-react";
 import { useTranslations } from 'next-intl';
-
-const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer"
-        className="h-9 w-9 rounded-xl border border-border/40 dark:border-white/8 bg-muted/30 dark:bg-white/[0.02] flex items-center justify-center text-muted-foreground/70 hover:text-[#0ea5e9] hover:border-[#0ea5e9]/30 hover:bg-[#0ea5e9]/5 transition-all duration-300">
-        {children}
-    </a>
-);
 
 export function Footer() {
     const t = useTranslations('Footer');
@@ -65,10 +58,6 @@ export function Footer() {
                         <p className="text-xs text-muted-foreground/70 font-medium leading-relaxed max-w-sm">
                             {t('description')}
                         </p>
-                        <div className="flex gap-2">
-                            <SocialIcon href="#"><Linkedin className="h-3.5 w-3.5" /></SocialIcon>
-                            <SocialIcon href="#"><Twitter className="h-3.5 w-3.5" /></SocialIcon>
-                        </div>
                     </div>
 
                     <div className="md:col-span-2 space-y-5">
