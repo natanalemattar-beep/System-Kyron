@@ -7,27 +7,30 @@ export async function register() {
       console.error('[instrumentation] Database initialization failed — app will continue without DB:', err);
     }
 
-    const CUATRO_HORAS = 4 * 60 * 60 * 1000;
     setTimeout(async () => {
       try {
-        const { verificarAlertasPredictivas } = await import('@/lib/alertas-predictivas');
-        await verificarAlertasPredictivas();
-        console.log('[alertas-predictivas] Revisión inicial completada');
+        const { runScheduledAutomations } = await import('@/lib/automation-engine');
+        const logs = await runScheduledAutomations();
+        const success = logs.filter(l => l.status === 'success').length;
+        const failed = logs.filter(l => l.status === 'error').length;
+        console.log(`[automation-engine] Ejecución inicial: ${success} éxito, ${failed} error de ${logs.length} regla(s)`);
       } catch (err) {
-        console.warn('[alertas-predictivas] Error en revisión inicial:', err);
+        console.warn('[automation-engine] Error en ejecución inicial:', err);
       }
     }, 30_000);
 
+    const UNA_HORA = 60 * 60 * 1000;
     setInterval(async () => {
       try {
-        const { verificarAlertasPredictivas } = await import('@/lib/alertas-predictivas');
-        const alertas = await verificarAlertasPredictivas();
-        if (alertas.length > 0) {
-          console.log(`[alertas-predictivas] ${alertas.length} alerta(s) enviada(s)`);
+        const { runScheduledAutomations } = await import('@/lib/automation-engine');
+        const logs = await runScheduledAutomations();
+        if (logs.length > 0) {
+          const success = logs.filter(l => l.status === 'success').length;
+          console.log(`[automation-engine] Ciclo: ${success}/${logs.length} automatización(es) ejecutada(s)`);
         }
       } catch (err) {
-        console.warn('[alertas-predictivas] Error en revisión periódica:', err);
+        console.warn('[automation-engine] Error en ciclo periódico:', err);
       }
-    }, CUATRO_HORAS);
+    }, UNA_HORA);
   }
 }

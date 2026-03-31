@@ -49,6 +49,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom (with data usage visualization, plan comparisons, network status, recharge), Marketing (investment dashboard, campaign management, social media analytics, SEO/traffic analytics), and Marco Legal Venezuela (fiscal entities, laws, tax rates, calendar).
 - **HR Module Expansion (Bienestar Laboral):** Features personnel projects, motivational systems, vacation planning, procedure manuals, corporate org charts, and labor contracts.
 - **Settings Page:** Allows users to toggle animation reduction and navigation layout preferences, manage notification settings, fiscal parameters, and company data.
+- **Real Automation Engine (v2.9):** Database-backed automation system with 7 scheduled rules, execution logging, and live dashboard. Rules: BCV Sync (6h), Fiscal Alerts (4h), DB Health Check (2h), Blockchain Batch Anchor (12h), Session Cleanup (daily), Invoice Reminders (8h), Activity Digest (daily). Engine runs via `instrumentation.ts` on hourly intervals. API: `/api/automations` (GET rules/stats/logs, POST execute/toggle/run_scheduled). DB tables: `automation_rules`, `automation_logs`. Dashboard at `/automatizaciones` with real-time stats, per-rule execution history, manual execute/pause controls.
 
 ## External Dependencies
 - **Database:** PostgreSQL

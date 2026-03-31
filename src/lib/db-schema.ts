@@ -30,8 +30,9 @@ export async function initializeDatabase(): Promise<void> {
     await createVentasTables();
     await createProyectosTables();
     await createAdvancedSystemTables();
+    await createAutomationTables();
     await createPerformanceOptimizations();
-    console.log('[db-schema] Base de datos inicializada correctamente — v2.8.5');
+    console.log('[db-schema] Base de datos inicializada correctamente — v2.9.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -2221,6 +2222,119 @@ async function createAdvancedSystemTables() {
     )
   `);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_metas_user ON metas_kpi(user_id, estado)`);
+}
+
+async function createAutomationTables(): Promise<void> {
+  await query(`
+    CREATE TABLE IF NOT EXISTS automation_rules (
+      id              TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+      name            TEXT NOT NULL,
+      description     TEXT NOT NULL DEFAULT '',
+      trigger_type    TEXT NOT NULL DEFAULT 'schedule'
+                      CHECK (trigger_type IN ('schedule','event','manual')),
+      trigger_config  JSONB NOT NULL DEFAULT '{}',
+      action_type     TEXT NOT NULL,
+      action_config   JSONB NOT NULL DEFAULT '{}',
+      enabled         BOOLEAN NOT NULL DEFAULT true,
+      last_run_at     TIMESTAMPTZ,
+      next_run_at     TIMESTAMPTZ,
+      run_count       INT NOT NULL DEFAULT 0,
+      fail_count      INT NOT NULL DEFAULT 0,
+      avg_duration_ms NUMERIC(12,2),
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_automation_action_unique ON automation_rules(action_type) WHERE trigger_type = 'schedule'`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_automation_enabled ON automation_rules(enabled, next_run_at)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS automation_logs (
+      id              TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+      rule_id         TEXT NOT NULL REFERENCES automation_rules(id) ON DELETE CASCADE,
+      status          TEXT NOT NULL DEFAULT 'running'
+                      CHECK (status IN ('running','success','error','skipped')),
+      started_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      finished_at     TIMESTAMPTZ,
+      duration_ms     NUMERIC(12,2),
+      result_summary  TEXT,
+      error_message   TEXT
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_automation_logs_rule ON automation_logs(rule_id, started_at DESC)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_automation_logs_status ON automation_logs(status, started_at DESC)`);
+
+  try {
+    const rows = await query<{ cnt: number }>(`SELECT COUNT(*)::int as cnt FROM automation_rules`);
+    const cnt = rows[0]?.cnt ?? 0;
+    if (cnt === 0) {
+      await seedAutomationRules();
+    }
+  } catch {
+    await seedAutomationRules();
+  }
+}
+
+async function seedAutomationRules(): Promise<void> {
+  const rules = [
+    {
+      name: 'Sincronización BCV',
+      description: 'Obtiene tasas de cambio USD/VES del Banco Central de Venezuela automáticamente',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
+      action_type: 'bcv_sync',
+    },
+    {
+      name: 'Alertas Fiscales Predictivas',
+      description: 'Verifica vencimientos de IVA, ISLR, IGTF según calendario SENIAT y RIF terminal',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 4, label: 'Cada 4 horas' },
+      action_type: 'fiscal_alerts',
+    },
+    {
+      name: 'Monitor de Salud del Sistema',
+      description: 'Verifica latencia de DB, usuarios activos, espacio en disco y tablas del sistema',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 2, label: 'Cada 2 horas' },
+      action_type: 'db_health_check',
+    },
+    {
+      name: 'Anclaje Blockchain por Lotes',
+      description: 'Procesa pruebas de auditoría pendientes y las ancla al registro blockchain',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 12, label: 'Cada 12 horas' },
+      action_type: 'blockchain_batch_anchor',
+    },
+    {
+      name: 'Limpieza de Sesiones',
+      description: 'Elimina sesiones expiradas y códigos de verificación obsoletos del sistema',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 24, label: 'Diario' },
+      action_type: 'session_cleanup',
+    },
+    {
+      name: 'Recordatorio de Facturas',
+      description: 'Detecta facturas por vencer o vencidas y genera notificaciones automáticas de cobranza',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 8, label: 'Cada 8 horas' },
+      action_type: 'invoice_reminders',
+    },
+    {
+      name: 'Resumen de Actividad Diario',
+      description: 'Genera un digest de actividad del sistema: eventos de auth, contabilidad y errores en 24h',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 24, label: 'Diario' },
+      action_type: 'activity_digest',
+    },
+  ];
+
+  for (const rule of rules) {
+    await query(
+      `INSERT INTO automation_rules (name, description, trigger_type, trigger_config, action_type)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (action_type) WHERE trigger_type = 'schedule' DO NOTHING`,
+      [rule.name, rule.description, rule.trigger_type, JSON.stringify(rule.trigger_config), rule.action_type]
+    );
+  }
 }
 
 async function createPerformanceOptimizations(): Promise<void> {
