@@ -2350,6 +2350,8 @@ async function createPlanUsageTables(): Promise<void> {
       user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       plan            TEXT NOT NULL DEFAULT 'starter'
                       CHECK (plan IN ('starter','profesional','empresarial','kyron_max')),
+      ciclo           TEXT NOT NULL DEFAULT 'mensual'
+                      CHECK (ciclo IN ('mensual','anual')),
       periodo         TEXT NOT NULL,
       consultas_ai    INT NOT NULL DEFAULT 0,
       alertas_fiscales INT NOT NULL DEFAULT 0,
@@ -2366,6 +2368,10 @@ async function createPlanUsageTables(): Promise<void> {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_uso_plan_user ON uso_plan(user_id, periodo)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_uso_plan_plan ON uso_plan(plan)`);
+
+  try {
+    await query(`ALTER TABLE uso_plan ADD COLUMN IF NOT EXISTS ciclo TEXT NOT NULL DEFAULT 'mensual' CHECK (ciclo IN ('mensual','anual'))`);
+  } catch { /* column already exists */ }
 }
 
 async function createPerformanceOptimizations(): Promise<void> {

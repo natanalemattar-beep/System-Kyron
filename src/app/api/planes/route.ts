@@ -9,7 +9,9 @@ import {
   cambiarPlan,
   formatearLimite,
   esRecursoValido,
+  calcularPrecio,
   type PlanTier,
+  type CicloFacturacion,
   type RecursoLimite,
 } from '@/lib/planes-kyron';
 
@@ -23,10 +25,14 @@ export async function GET(req: NextRequest) {
     const vista = searchParams.get('vista') || 'planes';
 
     if (vista === 'planes') {
+      const cicloParam = (searchParams.get('ciclo') || 'mensual') as CicloFacturacion;
+      const ciclo = cicloParam === 'anual' ? 'anual' : 'mensual';
       const planes = obtenerTodosLosPlanes();
       return NextResponse.json({
+        ciclo,
         planes: planes.map(p => ({
           ...p,
+          precios: calcularPrecio(p, ciclo),
           limites: Object.fromEntries(
             Object.entries(p.limites).map(([k, v]) => [k, { valor: v, display: formatearLimite(v) }])
           ),
@@ -165,12 +171,16 @@ export async function POST(req: NextRequest) {
 
     if (accion === 'cambiar-plan') {
       const nuevoPlan = body.plan;
+      const cicloRaw = body.ciclo || 'mensual';
+      const ciclo: CicloFacturacion = cicloRaw === 'anual' ? 'anual' : 'mensual';
+
       if (!nuevoPlan || !PLANES_VALIDOS.includes(nuevoPlan)) {
         return NextResponse.json({ error: 'Plan no válido' }, { status: 400 });
       }
 
-      await cambiarPlan(session.userId, nuevoPlan as PlanTier);
+      await cambiarPlan(session.userId, nuevoPlan as PlanTier, ciclo);
       const plan = obtenerPlan(nuevoPlan as PlanTier);
+      const precios = calcularPrecio(plan, ciclo);
       return NextResponse.json({
         success: true,
         plan: {
@@ -178,7 +188,11 @@ export async function POST(req: NextRequest) {
           nombre: plan.nombre,
           color: plan.color,
         },
-        mensaje: `Plan actualizado a ${plan.nombreCompleto}.`,
+        ciclo,
+        precios,
+        mensaje: ciclo === 'anual'
+          ? `Plan actualizado a ${plan.nombreCompleto} (anual). Ahorras $${plan.ahorroAnualUSD}/año.`
+          : `Plan actualizado a ${plan.nombreCompleto} (mensual).`,
       });
     }
 

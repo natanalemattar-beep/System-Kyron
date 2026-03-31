@@ -1,6 +1,7 @@
 import { query, queryOne } from '@/lib/db';
 
 export type PlanTier = 'starter' | 'profesional' | 'empresarial' | 'kyron_max';
+export type CicloFacturacion = 'mensual' | 'anual';
 
 export interface PlanKyron {
   id: PlanTier;
@@ -8,6 +9,9 @@ export interface PlanKyron {
   nombreCompleto: string;
   precioMensualUSD: number;
   precioAnualUSD: number;
+  precioAnualMensualizado: number;
+  ahorroAnualUSD: number;
+  ahorroAnualPorcentaje: number;
   color: string;
   descripcion: string;
   destacado: boolean;
@@ -45,6 +49,9 @@ export const PLANES: PlanKyron[] = [
     nombreCompleto: 'Kyron Starter',
     precioMensualUSD: 0,
     precioAnualUSD: 0,
+    precioAnualMensualizado: 0,
+    ahorroAnualUSD: 0,
+    ahorroAnualPorcentaje: 0,
     color: '#64748B',
     descripcion: 'Para emprendedores y freelancers que inician. Incluye AI y alertas de cortesía.',
     destacado: false,
@@ -84,6 +91,9 @@ export const PLANES: PlanKyron[] = [
     nombreCompleto: 'Kyron Profesional',
     precioMensualUSD: 29,
     precioAnualUSD: 290,
+    precioAnualMensualizado: 24.17,
+    ahorroAnualUSD: 58,
+    ahorroAnualPorcentaje: 17,
     color: '#0EA5E9',
     descripcion: 'Para PYMEs y contadores. Contabilidad completa con AI fiscal y alertas expandidas.',
     destacado: false,
@@ -127,6 +137,9 @@ export const PLANES: PlanKyron[] = [
     nombreCompleto: 'Kyron Empresarial',
     precioMensualUSD: 79,
     precioAnualUSD: 790,
+    precioAnualMensualizado: 65.83,
+    ahorroAnualUSD: 158,
+    ahorroAnualPorcentaje: 17,
     color: '#A78BFA',
     descripcion: 'Para empresas medianas. Todos los módulos con AI avanzada y alertas multicanal.',
     destacado: true,
@@ -172,6 +185,9 @@ export const PLANES: PlanKyron[] = [
     nombreCompleto: 'Kyron MAX — Sin Límites',
     precioMensualUSD: 199,
     precioAnualUSD: 1990,
+    precioAnualMensualizado: 165.83,
+    ahorroAnualUSD: 398,
+    ahorroAnualPorcentaje: 17,
     color: '#F59E0B',
     descripcion: 'Todo ilimitado. AI sin restricciones, alertas 24/7, soporte prioritario, API dedicada.',
     destacado: false,
@@ -236,6 +252,7 @@ export function formatearLimite(valor: number): string {
 export interface UsoPlan {
   userId: number;
   plan: PlanTier;
+  ciclo: CicloFacturacion;
   periodo: string;
   consultas_ai: number;
   alertas_fiscales: number;
@@ -260,15 +277,16 @@ export async function obtenerUsoPlan(userId: number): Promise<UsoPlan> {
   if (uso) return uso;
 
   await query(
-    `INSERT INTO uso_plan (user_id, plan, periodo)
-     VALUES ($1, $2, $3)
+    `INSERT INTO uso_plan (user_id, plan, ciclo, periodo)
+     VALUES ($1, $2, $3, $4)
      ON CONFLICT (user_id, periodo) DO NOTHING`,
-    [userId, 'starter', periodo]
+    [userId, 'starter', 'mensual', periodo]
   );
 
   return {
     userId,
     plan: 'starter',
+    ciclo: 'mensual' as CicloFacturacion,
     periodo,
     consultas_ai: 0,
     alertas_fiscales: 0,
@@ -381,12 +399,16 @@ export async function obtenerResumenUso(userId: number) {
     { key: 'blockchainProofs' as RecursoLimite, label: 'Blockchain Proofs', icon: 'shield', usado: uso.blockchain_proofs },
   ];
 
+  const precios = calcularPrecio(plan, uso.ciclo || 'mensual');
+
   return {
     plan: {
       id: plan.id,
       nombre: plan.nombre,
       color: plan.color,
     },
+    ciclo: uso.ciclo || 'mensual',
+    precios,
     periodo: uso.periodo,
     recursos: recursos.map(r => ({
       ...r,
@@ -398,17 +420,46 @@ export async function obtenerResumenUso(userId: number) {
   };
 }
 
-export async function cambiarPlan(userId: number, nuevoPlan: PlanTier): Promise<boolean> {
+export async function cambiarPlan(userId: number, nuevoPlan: PlanTier, ciclo: CicloFacturacion = 'mensual'): Promise<boolean> {
   const ahora = new Date();
   const periodo = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}`;
 
   await query(
-    `INSERT INTO uso_plan (user_id, plan, periodo)
-     VALUES ($1, $2, $3)
+    `INSERT INTO uso_plan (user_id, plan, ciclo, periodo)
+     VALUES ($1, $2, $3, $4)
      ON CONFLICT (user_id, periodo)
-     DO UPDATE SET plan = EXCLUDED.plan`,
-    [userId, nuevoPlan, periodo]
+     DO UPDATE SET plan = EXCLUDED.plan, ciclo = EXCLUDED.ciclo`,
+    [userId, nuevoPlan, ciclo, periodo]
   );
 
   return true;
+}
+
+export function calcularPrecio(plan: PlanKyron, ciclo: CicloFacturacion): {
+  precioTotal: number;
+  precioMensualEfectivo: number;
+  ahorro: number;
+  ahorroPorc: number;
+  etiquetaPrecio: string;
+} {
+  if (ciclo === 'anual') {
+    return {
+      precioTotal: plan.precioAnualUSD,
+      precioMensualEfectivo: plan.precioAnualMensualizado,
+      ahorro: plan.ahorroAnualUSD,
+      ahorroPorc: plan.ahorroAnualPorcentaje,
+      etiquetaPrecio: plan.precioAnualUSD === 0
+        ? 'Gratis'
+        : `$${plan.precioAnualUSD}/año ($${plan.precioAnualMensualizado}/mes)`,
+    };
+  }
+  return {
+    precioTotal: plan.precioMensualUSD,
+    precioMensualEfectivo: plan.precioMensualUSD,
+    ahorro: 0,
+    ahorroPorc: 0,
+    etiquetaPrecio: plan.precioMensualUSD === 0
+      ? 'Gratis'
+      : `$${plan.precioMensualUSD}/mes`,
+  };
 }
