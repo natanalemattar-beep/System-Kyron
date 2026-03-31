@@ -1,0 +1,68 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "y_cROB4qJJJl7zjUHR2Ar"
+uri = "file://screenshots/01-loading-screen.jpg"
+type = "image"
+title = "Pantalla de Carga"
+
+[[outputs]]
+id = "w8kJnKJxGSIqCZ3YpOGzm"
+uri = "file://screenshots/03-register.jpg"
+type = "image"
+title = "Registro de Cuenta"
+
+[[outputs]]
+id = "dV8dQ4yZnSbZpu1MfBZHt"
+uri = "file://screenshots/05-contabilidad.jpg"
+type = "image"
+title = "Selector de Portales"
+
+[[outputs]]
+id = "1J16bHC1NZWwDnccrDGdB"
+uri = "file://screenshots/08-guia-registro.jpg"
+type = "image"
+title = "Guia de Registro"
+
+[[outputs]]
+id = "lCB-oKAPRb3-z08cRxoE9"
+uri = "file://screenshots/11-login-empresa.jpg"
+type = "image"
+title = "Login Contabilidad"
+
+[[outputs]]
+id = "VahDUksJ13cxlQXAeuREk"
+uri = "file://screenshots/12-login-personal.jpg"
+type = "image"
+title = "Login Cuenta Personal"
+
+[[outputs]]
+id = "G9I6H98l9nEHpBHw6I6M_"
+uri = "file://screenshots/13-login-socios.jpg"
+type = "image"
+title = "Login Socios"
+
+[[outputs]]
+id = "V4IlbxoWqKNlNraPuHosa"
+uri = "file://screenshots/14-login-linea.jpg"
+type = "image"
+title = "Login Telecomunicaciones"
+
+[[outputs]]
+id = "tS7qnkdK5FWx80iLJ55e0"
+uri = "file://screenshots/16-login-juridico.jpg"
+type = "image"
+title = "Login Escritorio Juridico"
+
+[[outputs]]
+id = "UQdmJ82kZlnZv0r8IjK07"
+uri = "file://screenshots/17-faq.jpg"
+type = "image"
+title = "Preguntas Frecuentes (FAQ)"
+
+[[outputs]]
+id = "YhHOW23cPO3fNzH3BMkju"
+uri = "file://screenshots/18-login-sostenibilidad.jpg"
+type = "image"
+title = "Login Sostenibilidad"
