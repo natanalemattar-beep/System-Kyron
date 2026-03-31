@@ -14,6 +14,7 @@ const nextConfig = {
       'lucide-react',
       'recharts',
       'date-fns',
+      'framer-motion',
       '@radix-ui/react-dialog',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-select',

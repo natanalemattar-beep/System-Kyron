@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -25,7 +25,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
+import { ESTADOS_VE, getMunicipios, getCiudades } from '@/lib/venezuela-geo';
 
 const TOTAL_STEPS = 5;
 const FORM_STEPS = TOTAL_STEPS - 1;
@@ -121,7 +121,12 @@ export default function RegisterNaturalPage() {
   };
 
   const estadoResidencia = watch('estado_residencia');
-  useEffect(() => { if (!prefilledMunicipio) setValue('municipio', ''); }, [estadoResidencia]);
+  const isInitialMount = useRef(true);
+  useEffect(() => {
+    if (isInitialMount.current) { isInitialMount.current = false; return; }
+    setValue('municipio', '');
+    setValue('ciudad', '');
+  }, [estadoResidencia]);
 
   const nextStep = async () => {
     const fields = step === 1 ? step1Fields : step === 2 ? step2Fields : step3Fields;
@@ -623,7 +628,20 @@ export default function RegisterNaturalPage() {
                     />
                   </Field>
                   <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
-                    <Input id="ciudad" placeholder="Ej: Petare" readOnly={!!prefilledParroquia} className={cn("rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11", prefilledParroquia && "bg-muted/60 text-foreground/80 cursor-not-allowed")} {...register('ciudad')} />
+                    <Controller
+                      name="ciudad"
+                      control={control}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoResidencia || !!prefilledParroquia}>
+                          <SelectTrigger id="ciudad" className={cn("rounded-xl bg-muted/30 border-border/50 h-11", prefilledParroquia && "bg-muted/60 text-foreground/80 cursor-not-allowed")}>
+                            <SelectValue placeholder={estadoResidencia ? 'Selecciona ciudad/parroquia' : 'Primero selecciona el estado'} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {getCiudades(estadoResidencia || '').map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </Field>
                 </div>
 

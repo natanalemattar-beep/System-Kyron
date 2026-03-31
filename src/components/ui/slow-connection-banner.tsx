@@ -9,9 +9,9 @@ function detectSlowConnection(): boolean {
   if (typeof navigator === 'undefined') return false;
   const conn = (navigator as any).connection;
   if (!conn) return false;
-  if (conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g') return true;
-  if (typeof conn.downlink === 'number' && conn.downlink <= 1) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 3000) return true;
+  if (conn.effectiveType === 'slow-2g') return true;
+  if (typeof conn.downlink === 'number' && conn.downlink <= 0.5) return true;
+  if (typeof conn.rtt === 'number' && conn.rtt > 5000) return true;
   return false;
 }
 
@@ -91,14 +91,14 @@ export function SlowConnectionBanner() {
 
     const start = performance.now();
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 6000);
+    const timeout = setTimeout(() => controller.abort(), 15000);
 
     fetch('/api/ping', { method: 'HEAD', cache: 'no-store', signal: controller.signal })
       .then(() => {
         clearTimeout(timeout);
         const elapsed = performance.now() - start;
         if (!mountedRef.current) return;
-        if (elapsed > 8000) {
+        if (elapsed > 12000) {
           prevStateRef.current = 'slow';
           setState('slow');
           setDismissed(false);
@@ -115,13 +115,19 @@ export function SlowConnectionBanner() {
         }
         firstCheckDone.current = true;
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         clearTimeout(timeout);
         if (!mountedRef.current) return;
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
           prevStateRef.current = 'offline'; setState('offline'); setDismissed(false);
+        } else if (err instanceof DOMException && err.name === 'AbortError') {
+          if (firstCheckDone.current) {
+            prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
+          }
         } else {
-          prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
+          if (firstCheckDone.current) {
+            prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
+          }
         }
         firstCheckDone.current = true;
       });
@@ -129,7 +135,7 @@ export function SlowConnectionBanner() {
 
   useEffect(() => {
     mountedRef.current = true;
-    const initialDelay = setTimeout(checkConnection, 10000);
+    const initialDelay = setTimeout(checkConnection, 25000);
     const interval = setInterval(checkConnection, 60000);
     const handleOnline = () => { if (!mountedRef.current) return; setTimeout(() => { if (mountedRef.current) checkConnection(); }, 1500); };
     const handleOffline = () => { if (!mountedRef.current) return; prevStateRef.current = 'offline'; setState('offline'); setDismissed(false); };

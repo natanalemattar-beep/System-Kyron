@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Play, CheckCircle2, Hexagon, Sparkles } from "lucide-react";
+import { ArrowRight, Play, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
@@ -242,8 +242,8 @@ export function HeroSection() {
                             </div>
 
                             <motion.div
-                                className="hidden sm:block absolute -bottom-4 -left-4 md:-left-8 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
-                                initial={{ opacity: 0, y: 20 }}
+                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
+                                initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.7, duration: 0.5 }}
                             >
@@ -254,23 +254,6 @@ export function HeroSection() {
                                     <div>
                                         <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('modules_label')}</p>
                                         <p className="text-base sm:text-lg font-bold text-[#22c55e] tabular-nums">{modulesCount}+</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-border/20 dark:border-white/10 backdrop-blur-xl bg-card/95 dark:bg-[rgba(10,22,40,0.92)]"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8, duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-2 sm:gap-3">
-                                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#0ea5e9] to-[#3b82f6] flex items-center justify-center">
-                                        <Hexagon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('modules_label')}</p>
-                                        <p className="text-base sm:text-lg font-bold text-[#0ea5e9]">{t('modules_value')}</p>
                                     </div>
                                 </div>
                             </motion.div>

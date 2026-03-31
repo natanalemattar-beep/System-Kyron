@@ -115,8 +115,40 @@ export const ESTADOS_MUNICIPIOS: Record<string, string[]> = {
   ],
 };
 
+export const CIUDADES_PARROQUIAS: Record<string, string[]> = {
+  'Amazonas': ['Puerto Ayacucho', 'San Fernando de Atabapo', 'La Esmeralda', 'San Carlos de Río Negro', 'San Juan de Manapiare'],
+  'Anzoátegui': ['Barcelona', 'Puerto La Cruz', 'El Tigre', 'Anaco', 'Lechería', 'Guanta', 'Puerto Píritu', 'Clarines', 'Cantaura', 'San José de Guanipa', 'Pariaguán'],
+  'Apure': ['San Fernando de Apure', 'Achaguas', 'Guasdualito', 'Biruaca', 'Elorza', 'Bruzual'],
+  'Aragua': ['Maracay', 'Turmero', 'La Victoria', 'Cagua', 'Villa de Cura', 'Palo Negro', 'El Limón', 'Santa Rita', 'San Mateo', 'Colonia Tovar'],
+  'Barinas': ['Barinas', 'Barinitas', 'Socopó', 'Santa Bárbara', 'Ciudad Bolivia', 'Sabaneta', 'Obispos'],
+  'Bolívar': ['Ciudad Bolívar', 'Ciudad Guayana', 'Puerto Ordaz', 'San Félix', 'Upata', 'El Callao', 'Caicara del Orinoco', 'Santa Elena de Uairén', 'Tumeremo'],
+  'Carabobo': ['Valencia', 'Puerto Cabello', 'Naguanagua', 'San Diego', 'Guacara', 'Los Guayos', 'Mariara', 'Bejuma', 'Tocuyito', 'Libertador'],
+  'Cojedes': ['San Carlos', 'Tinaquillo', 'Las Vegas', 'Tinaco', 'El Baúl', 'Libertad'],
+  'Delta Amacuro': ['Tucupita', 'Pedernales', 'Curiapo', 'Sierra Imataca'],
+  'Dependencias Federales': ['Gran Roque', 'Los Roques'],
+  'Distrito Capital': ['Caracas', 'El Junquito', 'Caricuao', 'Petare', 'Catia', 'Chacao', 'Baruta', 'El Hatillo', 'Antimano', 'La Pastora', 'San Agustín', 'La Vega', 'El Paraíso', 'Sucre', 'El Recreo', 'San Bernardino', 'Altamira', 'Los Palos Grandes', 'La Candelaria', 'San Martín'],
+  'Falcón': ['Coro', 'Punto Fijo', 'Tucacas', 'Chichiriviche', 'Dabajuro', 'Churuguara', 'La Vela de Coro', 'Judibana', 'Morón'],
+  'Guárico': ['San Juan de los Morros', 'Valle de la Pascua', 'Zaraza', 'Calabozo', 'Tucupido', 'Altagracia de Orituco', 'Chaguaramas', 'Ortiz', 'El Socorro'],
+  'La Guaira': ['La Guaira', 'Macuto', 'Caraballeda', 'Catia La Mar', 'Maiquetía', 'Naiguatá'],
+  'Lara': ['Barquisimeto', 'Cabudare', 'Carora', 'El Tocuyo', 'Quíbor', 'Duaca', 'Sanare', 'Los Rastrojos'],
+  'Mérida': ['Mérida', 'El Vigía', 'Ejido', 'Tovar', 'Lagunillas', 'Mucuchíes', 'Bailadores', 'Tabay', 'Apartaderos', 'Santo Domingo'],
+  'Miranda': ['Los Teques', 'Guarenas', 'Guatire', 'Charallave', 'Ocumare del Tuy', 'Cúa', 'Santa Teresa del Tuy', 'Petare', 'Baruta', 'Chacao', 'El Hatillo', 'Higuerote', 'Río Chico', 'San Antonio de los Altos', 'Carrizal'],
+  'Monagas': ['Maturín', 'Punta de Mata', 'Caripito', 'Temblador', 'Barrancas del Orinoco', 'Aguasay', 'Caripe'],
+  'Nueva Esparta': ['La Asunción', 'Porlamar', 'Juan Griego', 'Pampatar', 'El Valle del Espíritu Santo', 'San Juan Bautista', 'Boca de Río'],
+  'Portuguesa': ['Guanare', 'Acarigua', 'Araure', 'Ospino', 'Turén', 'Biscucuy', 'Agua Blanca', 'Papelón'],
+  'Sucre': ['Cumaná', 'Carúpano', 'Güiria', 'Cariaco', 'Río Caribe', 'Irapa', 'Casanay', 'Araya'],
+  'Táchira': ['San Cristóbal', 'Táriba', 'La Grita', 'San Antonio del Táchira', 'Rubio', 'Capacho', 'Ureña', 'Colón', 'Michelena', 'Palmira', 'El Piñal', 'Lobatera'],
+  'Trujillo': ['Trujillo', 'Valera', 'Boconó', 'Escuque', 'La Puerta', 'Betijoque', 'Carache', 'Motatán', 'Pampanito', 'Sabana de Mendoza'],
+  'Yaracuy': ['San Felipe', 'Chivacoa', 'Yaritagua', 'Nirgua', 'Cocorote', 'Urachiche', 'Aroa', 'Independencia'],
+  'Zulia': ['Maracaibo', 'Cabimas', 'Ciudad Ojeda', 'Machiques', 'San Francisco', 'Santa Rita', 'Los Puertos de Altagracia', 'La Concepción', 'Mene Grande', 'Villa del Rosario', 'Paraguaipoa', 'Caja Seca'],
+};
+
 export const ESTADOS_VE = Object.keys(ESTADOS_MUNICIPIOS).sort();
 
 export function getMunicipios(estado: string): string[] {
   return ESTADOS_MUNICIPIOS[estado] ?? [];
+}
+
+export function getCiudades(estado: string): string[] {
+  return CIUDADES_PARROQUIAS[estado] ?? [];
 }
