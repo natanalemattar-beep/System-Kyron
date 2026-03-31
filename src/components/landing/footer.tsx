@@ -4,7 +4,6 @@ import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
 import { Mail, MapPin, Linkedin, Twitter, FileText, Shield, Gavel, ArrowUpRight, Hexagon } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
     <a href={href} target="_blank" rel="noopener noreferrer"
@@ -16,10 +15,7 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 export function Footer() {
     const t = useTranslations('Footer');
     const tHero = useTranslations('HeroSection');
-    const [currentYear, setCurrentYear] = useState<number | null>(null);
     const modules = t.raw('module_list') as string[];
-
-    useEffect(() => { setCurrentYear(new Date().getFullYear()); }, []);
 
     const navItems = [
         { label: t('nav_home'), href: "#inicio" },
@@ -127,7 +123,7 @@ export function Footer() {
                     <div className="flex items-center gap-3">
                         <Hexagon className="h-3.5 w-3.5 text-primary/30" />
                         <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
-                            &copy; {currentYear || '2026'} {t('copyright')}
+                            &copy; 2026 {t('copyright')}
                         </p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
