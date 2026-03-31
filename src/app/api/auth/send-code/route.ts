@@ -4,6 +4,7 @@ import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
+import { sendWhatsAppMessage } from '@/lib/whatsapp-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,14 +22,22 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     let destino: string;
-    let tipo: 'email' | 'sms';
+    let tipo: 'email' | 'sms' | 'whatsapp';
 
     if (body.destino && body.tipo) {
       destino = body.destino;
       tipo = body.tipo;
     } else if (body.method) {
-      tipo = body.method === 'sms' ? 'sms' : 'email';
-      destino = tipo === 'email' ? (body.email || '') : (body.phone || '');
+      if (body.method === 'whatsapp') {
+        tipo = 'whatsapp';
+        destino = body.phone || '';
+      } else if (body.method === 'sms') {
+        tipo = 'sms';
+        destino = body.phone || '';
+      } else {
+        tipo = 'email';
+        destino = body.email || '';
+      }
     } else {
       return NextResponse.json({ error: 'Destino y tipo son requeridos' }, { status: 400 });
     }
@@ -36,11 +45,11 @@ export async function POST(req: NextRequest) {
     if (!destino || !tipo) {
       return NextResponse.json({ error: 'Destino y tipo son requeridos' }, { status: 400 });
     }
-    if (!['email', 'sms'].includes(tipo)) {
-      return NextResponse.json({ error: 'Tipo debe ser "email" o "sms"' }, { status: 400 });
+    if (!['email', 'sms', 'whatsapp'].includes(tipo)) {
+      return NextResponse.json({ error: 'Tipo debe ser "email", "sms" o "whatsapp"' }, { status: 400 });
     }
 
-    if (tipo === 'sms' && body.challengeToken) {
+    if ((tipo === 'sms' || tipo === 'whatsapp') && body.challengeToken) {
       const challenge = verifyLoginChallenge(body.challengeToken, destino);
       if (!challenge.valid) {
         return NextResponse.json(
@@ -110,7 +119,7 @@ export async function POST(req: NextRequest) {
           { status: 502 }
         );
       }
-    } else {
+    } else if (tipo === 'sms' || tipo === 'whatsapp') {
       try {
         let phoneNumber = destino;
 
@@ -140,35 +149,45 @@ export async function POST(req: NextRequest) {
           );
         }
 
-        const { sendSms } = await import('@/lib/twilio-client');
-        const result = await sendSms(
-          normalized,
-          `System Kyron: Tu código de verificación es ${codigo}. Válido por 10 minutos.`
-        );
-        if (!result.success) {
-          throw new Error(result.error || 'SMS send failed');
+        if (tipo === 'sms') {
+          const { sendSms } = await import('@/lib/twilio-client');
+          const smsBody = `🔐 System Kyron\n\nTu código de verificación:\n${codigo}\n\nVálido por 10 minutos.\nNo lo compartas con nadie.`;
+          const result = await sendSms(normalized, smsBody);
+          if (!result.success) {
+            throw new Error(result.error || 'SMS send failed');
+          }
+        } else if (tipo === 'whatsapp') {
+          const waBody = `🔐 *System Kyron*\n\n_Código de Verificación_\n\n*${codigo}*\n\nVálido por 10 minutos.\nNo lo compartas con nadie.`;
+          const result = await sendWhatsAppMessage(normalized, waBody);
+          if (!result.success) {
+            throw new Error(result.error || 'WhatsApp send failed');
+          }
         }
-      } catch (smsErr) {
-        console.error('[send-code] SMS sending failed:', smsErr);
-        const errorMsg = String(smsErr);
+      } catch (sendErr) {
+        console.error(`[send-code] ${tipo.toUpperCase()} sending failed:`, sendErr);
+        const errorMsg = String(sendErr);
         if (errorMsg.includes('not configured') || errorMsg.includes('not connected')) {
+          const channel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
           return NextResponse.json(
-            { error: 'El envío por SMS no está disponible. Usa verificación por correo electrónico.' },
+            { error: `El envío por ${channel} no está disponible. Usa verificación por correo electrónico.` },
             { status: 503 }
           );
         }
+        const channel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
         return NextResponse.json(
-          { error: 'No se pudo enviar el SMS. Verifica el número e intenta de nuevo.' },
+          { error: `No se pudo enviar el ${channel}. Verifica el número e intenta de nuevo.` },
           { status: 502 }
         );
       }
     }
 
+    const channelLabel = tipo === 'email' ? 'correo electrónico' : tipo === 'sms' ? 'SMS' : 'WhatsApp';
     return NextResponse.json({
       success: true,
-      message: tipo === 'email'
-        ? `Código enviado a ${destino}`
-        : `Código enviado al número ${destino}`,
+      message: `Código de verificación enviado a tu ${channelLabel}`,
+      channel: tipo,
+      destination: tipo === 'email' ? destino : destino.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3'),
+      expiresIn: 600,
     });
   } catch (err) {
     console.error('[send-code] error:', err);
