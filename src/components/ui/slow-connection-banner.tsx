@@ -9,10 +9,9 @@ function detectSlowConnection(): boolean {
   if (typeof navigator === 'undefined') return false;
   const conn = (navigator as any).connection;
   if (!conn) return false;
-  if (conn.effectiveType === 'slow-2g') return true;
-  if (conn.effectiveType === '2g' && typeof conn.downlink === 'number' && conn.downlink < 0.1) return true;
-  if (typeof conn.downlink === 'number' && conn.downlink < 0.15) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 5000) return true;
+  if (conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g') return true;
+  if (typeof conn.downlink === 'number' && conn.downlink <= 1) return true;
+  if (typeof conn.rtt === 'number' && conn.rtt > 3000) return true;
   return false;
 }
 
