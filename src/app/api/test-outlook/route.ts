@@ -150,36 +150,42 @@ const ALERTAS_DEMO = [
 
 export async function GET() {
   const results = [];
-  const to = 'natanalemattar@gmail.com';
+  const destinations = [
+    'natanalemattar@gmail.com',
+    'alertas_systemkyron@hotmail.com',
+  ];
   const timestamp = new Date().toLocaleString('es-VE', { timeZone: 'America/Caracas' });
 
-  for (const alerta of ALERTAS_DEMO) {
-    const html = buildKyronEmailTemplate({
-      title: alerta.title,
-      body: alerta.body,
-      footer: alerta.footer,
-    });
+  for (const to of destinations) {
+    for (const alerta of ALERTAS_DEMO) {
+      const html = buildKyronEmailTemplate({
+        title: alerta.title,
+        body: alerta.body,
+        footer: alerta.footer,
+      });
 
-    const result = await sendEmail({
-      to,
-      subject: alerta.subject,
-      html,
-      module: 'legal',
-      purpose: 'alert',
-    });
+      const result = await sendEmail({
+        to,
+        subject: alerta.subject,
+        html,
+        module: 'legal',
+        purpose: 'alert',
+      });
 
-    results.push({
-      subject: alerta.subject,
-      urgencia: alerta.urgencia,
-      success: result.success,
-      provider: result.provider,
-      error: result.error || null,
-    });
+      results.push({
+        to,
+        subject: alerta.subject,
+        urgencia: alerta.urgencia,
+        success: result.success,
+        provider: result.provider,
+        error: result.error || null,
+      });
+    }
   }
 
   return NextResponse.json({
-    message: `${results.length} alertas de prueba enviadas`,
-    to,
+    message: `${results.length} alertas de prueba enviadas a ${destinations.length} destinos`,
+    destinations,
     timestamp,
     results,
   });
