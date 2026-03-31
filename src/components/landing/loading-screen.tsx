@@ -25,8 +25,8 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             return;
         }
 
-        const steps = 20;
-        const intervalMs = 30;
+        const steps = 10;
+        const intervalMs = 25;
         let current = 0;
         let cancelled = false;
 
@@ -43,7 +43,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                             setVisible(false);
                             onCompleteRef.current();
                         }
-                    }, 300);
+                    }, 150);
                 }
                 return;
             }

@@ -1,22 +1,49 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { LoadingScreen } from '@/components/landing/loading-screen';
 import { LandingHeader } from '@/components/landing/landing-header';
-import {
-  HeroSection,
-  FeaturesSection,
-  ServicesSection,
-  AboutUsSection,
-  CommentsSection,
-  FaqSection,
-  CtaSection,
-  Footer,
-} from '@/components/landing';
-import { WelcomeTutorial } from '@/components/welcome-tutorial';
-import { WhatsAppButton } from '@/components/whatsapp-button';
+import { HeroSection } from '@/components/landing';
 import { PageTracker } from '@/components/page-tracker';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
+
+const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
+const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
+const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: false });
+const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
+const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
+const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
+const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
+const WhatsAppButton = dynamic(() => import('@/components/whatsapp-button').then(m => ({ default: m.WhatsAppButton })), { ssr: false });
+
+function LazySection({ children, fallbackHeight = '200px' }: { children: React.ReactNode; fallbackHeight?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref}>
+      {visible ? children : <div style={{ minHeight: fallbackHeight }} />}
+    </div>
+  );
+}
 
 function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -57,22 +84,22 @@ function LandingContent() {
           <>
             <HeroSection />
             <div className="section-divider" />
-            <FeaturesSection />
+            <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
             <div className="section-divider" />
-            <ServicesSection />
+            <LazySection fallbackHeight="500px"><ServicesSection /></LazySection>
             <div className="section-divider" />
-            <AboutUsSection />
+            <LazySection fallbackHeight="500px"><AboutUsSection /></LazySection>
             <div className="section-divider" />
-            <CommentsSection />
+            <LazySection fallbackHeight="400px"><CommentsSection /></LazySection>
             <div className="section-divider" />
-            <CtaSection />
+            <LazySection fallbackHeight="300px"><CtaSection /></LazySection>
             <div className="section-divider" />
-            <FaqSection />
+            <LazySection fallbackHeight="400px"><FaqSection /></LazySection>
           </>
         )}
       </main>
 
-      {mounted && <Footer />}
+      {mounted && <LazySection fallbackHeight="200px"><Footer /></LazySection>}
       {mounted && <WhatsAppButton />}
     </>
   );
