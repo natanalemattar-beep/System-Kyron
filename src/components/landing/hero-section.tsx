@@ -217,7 +217,7 @@ export function HeroSection() {
                     </div>
 
                     <motion.div
-                        className="lg:col-span-6 relative"
+                        className="hidden lg:block lg:col-span-6 relative"
                         initial={{ opacity: 0, x: 30, scale: 0.95 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -283,7 +283,7 @@ export function HeroSection() {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
 
             <motion.div
-                className="absolute bottom-6 left-0 right-0 z-10"
+                className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
