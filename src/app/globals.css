@@ -187,7 +187,7 @@
   }
 
   .kyron-surface {
-    @apply relative bg-card/90 dark:bg-card/40 border border-border/50 dark:border-white/[0.06] backdrop-blur-2xl rounded-2xl transition-all duration-500;
+    @apply relative bg-card/90 dark:bg-card/40 border border-border/50 dark:border-white/[0.06] rounded-2xl transition-all duration-300;
     box-shadow:
       0 1px 2px rgba(0,0,0,0.04),
       0 4px 16px -4px rgba(30, 60, 120, 0.08),
@@ -217,7 +217,7 @@
   }
 
   .glass-card {
-    @apply relative bg-card/80 dark:bg-card/30 border border-border/60 dark:border-white/[0.08] backdrop-blur-2xl transition-all duration-500;
+    @apply relative bg-card/80 dark:bg-card/30 border border-border/60 dark:border-white/[0.08] transition-all duration-300;
     box-shadow:
       0 2px 4px rgba(30, 60, 120, 0.06),
       0 6px 20px -6px rgba(30, 60, 120, 0.10),
@@ -269,7 +269,7 @@
   }
 
   .glass-liquid {
-    @apply relative overflow-hidden backdrop-blur-2xl;
+    @apply relative overflow-hidden;
     background: linear-gradient(
       135deg,
       hsl(var(--card) / 0.85) 0%,
@@ -297,7 +297,7 @@
       transparent 50%
     );
     pointer-events: none;
-    animation: liquid-shimmer 8s ease-in-out infinite;
+    animation: none;
   }
 
   .dark .glass-liquid {
@@ -381,72 +381,78 @@
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
-    filter: blur(80px);
+    filter: blur(60px);
+    will-change: transform;
   }
 
   .bg-orb--primary {
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     top: -10%;
     left: 15%;
     background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
-    opacity: 0.07;
-    animation: orb-float-1 25s ease-in-out infinite;
+    opacity: 0.06;
+    animation: orb-float-1 30s ease-in-out infinite;
   }
   .dark .bg-orb--primary {
-    opacity: 0.05;
+    opacity: 0.04;
   }
 
   .bg-orb--cyan {
-    width: 500px;
-    height: 500px;
+    width: 350px;
+    height: 350px;
     bottom: 5%;
     right: 10%;
     background: radial-gradient(circle, rgb(6, 182, 212) 0%, transparent 70%);
-    opacity: 0.06;
-    animation: orb-float-2 30s ease-in-out infinite;
+    opacity: 0.05;
+    animation: orb-float-2 35s ease-in-out infinite;
   }
   .dark .bg-orb--cyan {
-    opacity: 0.04;
-  }
-
-  .bg-orb--emerald {
-    width: 450px;
-    height: 450px;
-    top: 40%;
-    right: 25%;
-    background: radial-gradient(circle, hsl(var(--kyron-emerald)) 0%, transparent 70%);
-    opacity: 0.05;
-    animation: orb-float-3 22s ease-in-out infinite;
-  }
-  .dark .bg-orb--emerald {
     opacity: 0.03;
   }
 
-  .bg-orb--violet {
-    width: 350px;
-    height: 350px;
-    top: 60%;
-    left: 5%;
-    background: radial-gradient(circle, rgb(139, 92, 246) 0%, transparent 70%);
+  .bg-orb--emerald {
+    width: 300px;
+    height: 300px;
+    top: 40%;
+    right: 25%;
+    background: radial-gradient(circle, hsl(var(--kyron-emerald)) 0%, transparent 70%);
     opacity: 0.04;
-    animation: orb-float-4 28s ease-in-out infinite;
+    animation: orb-float-3 28s ease-in-out infinite;
   }
-  .dark .bg-orb--violet {
+  .dark .bg-orb--emerald {
     opacity: 0.025;
   }
 
+  .bg-orb--violet {
+    width: 250px;
+    height: 250px;
+    top: 60%;
+    left: 5%;
+    background: radial-gradient(circle, rgb(139, 92, 246) 0%, transparent 70%);
+    opacity: 0.03;
+    animation: orb-float-4 32s ease-in-out infinite;
+  }
+  .dark .bg-orb--violet {
+    opacity: 0.02;
+  }
+
   .bg-orb--gold {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     top: 15%;
     right: 5%;
     background: radial-gradient(circle, hsl(var(--kyron-gold)) 0%, transparent 70%);
-    opacity: 0.04;
-    animation: orb-float-5 35s ease-in-out infinite;
+    opacity: 0.03;
+    animation: orb-float-5 38s ease-in-out infinite;
   }
   .dark .bg-orb--gold {
-    opacity: 0.02;
+    opacity: 0.015;
+  }
+
+  @media (max-width: 768px) {
+    .bg-orb { display: none; }
+    .hud-grid { display: none; }
   }
 
   .bg-mesh-light {
@@ -1014,7 +1020,7 @@
   }
 
   .liquid-glass {
-    @apply relative overflow-hidden backdrop-blur-xl;
+    @apply relative overflow-hidden;
     background: linear-gradient(
       135deg,
       hsl(var(--card) / 0.6) 0%,
@@ -1057,31 +1063,6 @@
       transparent 50%
     );
     pointer-events: none;
-    animation: liquid-refract 10s ease-in-out infinite;
-  }
-  .liquid-glass::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.06),
-      transparent
-    );
-    pointer-events: none;
-    animation: prismatic-sweep 6s ease-in-out infinite;
-  }
-  .dark .liquid-glass::after {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.03),
-      transparent
-    );
   }
   .liquid-glass:hover {
     border-color: rgba(255, 255, 255, 0.2);
@@ -1101,7 +1082,7 @@
   }
 
   .liquid-glass-subtle {
-    @apply relative overflow-hidden backdrop-blur-lg;
+    @apply relative overflow-hidden;
     background: linear-gradient(
       135deg,
       hsl(var(--card) / 0.4) 0%,
@@ -1253,26 +1234,10 @@ html[data-tier="low"] .hud-grid {
   background-image: none !important;
 }
 
-html[data-tier="mid"] .glass-card,
-html[data-tier="mid"] .glass-liquid,
-html[data-tier="mid"] .kyron-surface {
-  backdrop-filter: blur(var(--glass-blur, 16px)) !important;
-  -webkit-backdrop-filter: blur(var(--glass-blur, 16px)) !important;
-}
 html[data-tier="mid"] .animate-float-particle,
 html[data-tier="mid"] .animate-kyron-orbit,
 html[data-tier="mid"] .animate-spin-slow {
   animation: none !important;
-}
-
-html[data-tier="high"] .glass-card,
-html[data-tier="high"] .glass-liquid,
-html[data-tier="high"] .kyron-surface {
-  backdrop-filter: blur(var(--glass-blur, 24px));
-  -webkit-backdrop-filter: blur(var(--glass-blur, 24px));
-}
-html[data-tier="high"] .bg-orb {
-  will-change: transform;
 }
 
 .animate-marquee {
@@ -1312,13 +1277,6 @@ html[data-tier="high"] .bg-orb {
   }
 }
 
-@media (pointer: coarse) and (max-width: 639px) {
-  .glass-card,
-  .glass-liquid {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-}
 
 @media print {
   .animate-float-gentle,
