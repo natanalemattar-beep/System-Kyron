@@ -597,12 +597,12 @@ export default function DashboardEmpresaPage() {
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-2">
           {[
             { label: "Contabilidad", href: "/contabilidad", icon: Calculator, color: "text-blue-500", bg: "bg-blue-500/8" },
-            { label: "RRHH", href: "/dashboard-rrhh", icon: Users, color: "text-emerald-500", bg: "bg-emerald-500/8" },
-            { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
             { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8" },
-            { label: "Telecom", href: "/mi-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
-            { label: "Marketing", href: "/marketing", icon: Briefcase, color: "text-rose-500", bg: "bg-rose-500/8" },
-            { label: "Socios", href: "/contabilidad/tributos/poderes-representacion", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
+            { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
+            { label: "Inventario", href: "/inventario", icon: Briefcase, color: "text-amber-600", bg: "bg-amber-600/8" },
+            { label: "Telecom", href: "/venta-linea", icon: Wifi, color: "text-teal-500", bg: "bg-teal-500/8" },
+            { label: "Reportes", href: "/reportes", icon: BarChart3, color: "text-rose-500", bg: "bg-rose-500/8" },
+            { label: "Marketing", href: "/marketing", icon: Users, color: "text-indigo-500", bg: "bg-indigo-500/8" },
             { label: "ECO", href: "/sostenibilidad", icon: Leaf, color: "text-green-500", bg: "bg-green-500/8" },
           ].map((mod, i) => (
             <Link key={i} href={mod.href as never}>
