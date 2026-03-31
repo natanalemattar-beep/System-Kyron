@@ -774,7 +774,7 @@ export default function RegisterSelectionPage() {
                                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                         className="space-y-4"
                                     >
-                                        <div ref={prefixRef} className="relative mb-3" onKeyDown={handlePrefixKeyDown}>
+                                        <div ref={prefixRef} className="relative mb-2" onKeyDown={handlePrefixKeyDown}>
                                             <button
                                                 ref={prefixTriggerRef}
                                                 type="button"
@@ -785,21 +785,18 @@ export default function RegisterSelectionPage() {
                                                 aria-label={`Tipo de documento: ${currentPrefix.value} — ${currentPrefix.desc}`}
                                                 onClick={() => setPrefixOpen(o => !o)}
                                                 className={cn(
-                                                    "flex items-center gap-3 w-full h-14 px-4 rounded-xl border-2 transition-all duration-200 cursor-pointer shadow-lg",
+                                                    "flex items-center gap-2.5 w-full h-11 px-3 rounded-xl border transition-all duration-200 cursor-pointer",
                                                     "hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40",
                                                     prefixOpen
-                                                        ? "border-sky-500/50 bg-sky-500/10 shadow-sky-500/20"
-                                                        : "border-white/15 bg-white/[0.05] hover:bg-white/[0.08] shadow-black/20 hover:border-white/25"
+                                                        ? "border-sky-500/40 bg-sky-500/10"
+                                                        : "border-white/10 bg-white/[0.04] hover:bg-white/[0.06] hover:border-white/20"
                                                 )}
                                             >
-                                                <div className={cn("flex items-center justify-center w-9 h-9 rounded-lg transition-all ring-1", currentPrefix.bg, currentPrefix.ring)}>
-                                                    <CurrentPrefixIcon className={cn("h-4.5 w-4.5", currentPrefix.color)} />
+                                                <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg transition-all", currentPrefix.bg)}>
+                                                    <CurrentPrefixIcon className={cn("h-3.5 w-3.5", currentPrefix.color)} />
                                                 </div>
-                                                <div className="flex-1 text-left">
-                                                    <p className={cn("text-base font-bold", currentPrefix.color)}>{currentPrefix.value} — {currentPrefix.desc}</p>
-                                                    <p className="text-[10px] text-white/25">Toca para cambiar tipo de documento</p>
-                                                </div>
-                                                <ChevronDown className={cn("h-4 w-4 text-white/40 transition-transform duration-200 shrink-0", prefixOpen && "rotate-180")} />
+                                                <span className={cn("text-sm font-bold", currentPrefix.color)}>{currentPrefix.value} — {currentPrefix.desc}</span>
+                                                <ChevronDown className={cn("h-3.5 w-3.5 text-white/35 transition-transform duration-200 ml-auto shrink-0", prefixOpen && "rotate-180")} />
                                             </button>
 
                                             <AnimatePresence>
@@ -808,13 +805,13 @@ export default function RegisterSelectionPage() {
                                                         id="prefix-listbox"
                                                         role="listbox"
                                                         aria-label="Tipo de documento"
-                                                        initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                                                        initial={{ opacity: 0, y: -4, scale: 0.97 }}
                                                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                        exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                                                        transition={{ duration: 0.18, ease: "easeOut" }}
-                                                        className="absolute top-full left-0 right-0 mt-2 z-50 rounded-xl border border-white/[0.08] bg-[#0a0f24]/95 backdrop-blur-2xl shadow-2xl shadow-black/60"
+                                                        exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                                                        transition={{ duration: 0.15, ease: "easeOut" }}
+                                                        className="absolute top-full left-0 right-0 mt-1.5 z-50 rounded-xl border border-white/[0.08] bg-[#0a0f24]/95 backdrop-blur-2xl shadow-2xl shadow-black/60"
                                                     >
-                                                        <div className="p-1.5">
+                                                        <div className="p-1">
                                                             {ALL_PREFIXES.map((p, idx) => {
                                                                 const OptionIcon = p.icon;
                                                                 const isActive = prefix === p.value;
@@ -827,22 +824,18 @@ export default function RegisterSelectionPage() {
                                                                         aria-label={`${p.value} — ${p.desc}`}
                                                                         onClick={() => { setPrefix(p.value); setPrefixOpen(false); inputRef.current?.focus(); }}
                                                                         className={cn(
-                                                                            "flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-150 cursor-pointer",
-                                                                            isActive ? `bg-white/[0.06] border border-white/[0.06]` :
+                                                                            "flex items-center gap-2.5 w-full px-2.5 py-2 rounded-lg text-left transition-all duration-150 cursor-pointer",
+                                                                            isActive ? "bg-white/[0.06] border border-white/[0.06]" :
                                                                             isFocused ? "bg-white/[0.04]" :
                                                                             "hover:bg-white/[0.03] border border-transparent"
                                                                         )}
                                                                     >
-                                                                        <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg", p.bg)}>
-                                                                            <OptionIcon className={cn("h-4 w-4", p.color)} />
+                                                                        <div className={cn("flex items-center justify-center w-6 h-6 rounded-md", p.bg)}>
+                                                                            <OptionIcon className={cn("h-3 w-3", p.color)} />
                                                                         </div>
-                                                                        <div className="flex-1 min-w-0">
-                                                                            <div className="flex items-center gap-2">
-                                                                                <span className={cn("text-sm font-bold", isActive ? p.color : "text-white/70")}>{p.value}</span>
-                                                                                <span className="text-[11px] text-white/35">{p.desc}</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        {isActive && <CheckCircle2 className={cn("h-4 w-4 shrink-0", p.color)} />}
+                                                                        <span className={cn("text-xs font-bold", isActive ? p.color : "text-white/70")}>{p.value}</span>
+                                                                        <span className="text-[11px] text-white/35">{p.desc}</span>
+                                                                        {isActive && <CheckCircle2 className={cn("h-3.5 w-3.5 shrink-0 ml-auto", p.color)} />}
                                                                     </div>
                                                                 );
                                                             })}
