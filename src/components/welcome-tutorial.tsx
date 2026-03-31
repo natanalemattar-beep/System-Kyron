@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
-  Dialog,
-  DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
@@ -93,52 +92,9 @@ const steps = [
   },
 ];
 
-function useRemoveScrollLock(isOpen: boolean) {
-  useEffect(() => {
-    if (!isOpen) return;
-
-    let cleaning = false;
-    const unlock = () => {
-      if (cleaning) return;
-      cleaning = true;
-
-      document.documentElement.removeAttribute('data-scroll-locked');
-      document.documentElement.style.removeProperty('overflow');
-      document.body.style.removeProperty('overflow');
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('padding-right');
-      document.body.style.removeProperty('margin-right');
-      document.body.style.removeProperty('width');
-      document.body.style.removeProperty('top');
-
-      document.querySelectorAll('style[data-remove-scroll-bar]').forEach((el) => el.remove());
-
-      requestAnimationFrame(() => { cleaning = false; });
-    };
-
-    const raf = requestAnimationFrame(unlock);
-    const t1 = setTimeout(unlock, 50);
-    const t2 = setTimeout(unlock, 200);
-
-    const observer = new MutationObserver(() => unlock());
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-scroll-locked', 'style'] });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-    observer.observe(document.head, { childList: true });
-
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(t1);
-      clearTimeout(t2);
-      observer.disconnect();
-    };
-  }, [isOpen]);
-}
-
 export function WelcomeTutorial() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-
-  useRemoveScrollLock(isOpen);
 
   useEffect(() => {
     const seen = localStorage.getItem(STORAGE_KEY);
@@ -166,135 +122,148 @@ export function WelcomeTutorial() {
     setCurrentStep(0);
   }, []);
 
+  if (!isOpen) return null;
+
   const step = steps[currentStep];
   const Icon = step.icon;
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
-      <DialogContent hideClose className="max-w-[90vw] sm:max-w-[640px] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl">
-        <DialogHeader className="sr-only">
-          <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>
-          <DialogDescription>Tutorial de introducción a la plataforma System Kyron.</DialogDescription>
-        </DialogHeader>
-
-        <div className="absolute top-0 left-0 right-0 h-1 bg-muted/50 z-10">
-          <div
-            className="h-full bg-primary shadow-glow-sm transition-all duration-300 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        <button
+    <DialogPrimitive.Root open={isOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
+      <DialogPrimitive.Portal forceMount>
+        <div
+          className="fixed inset-0 z-[60] bg-black/80 animate-in fade-in-0"
           onClick={handleClose}
-          className="absolute top-5 right-5 z-20 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+          aria-hidden="true"
+        />
+        <DialogPrimitive.Content
+          className="fixed left-[50%] top-[50%] z-[60] grid w-full max-w-[90vw] sm:max-w-[640px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200"
+          onPointerDownOutside={(e) => e.preventDefault()}
+          onInteractOutside={(e) => e.preventDefault()}
         >
-          <X className="h-4 w-4" />
-        </button>
+          <DialogHeader className="sr-only">
+            <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>
+            <DialogDescription>Tutorial de introducción a la plataforma System Kyron.</DialogDescription>
+          </DialogHeader>
 
-        <div className="pt-8 pb-6 px-8 sm:px-10">
-          <div className="flex items-center justify-between mb-8">
-            <span className={cn(
-              "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
-              step.bg, step.color, step.border
-            )}>
-              {step.tag}
-            </span>
-            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-              {currentStep + 1} / {steps.length}
-            </span>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-muted/50 z-10">
+            <div
+              className="h-full bg-primary shadow-glow-sm transition-all duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            />
           </div>
 
-          <div key={currentStep} className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className={cn(
-                  "relative w-20 h-20 rounded-[1.5rem] flex items-center justify-center shrink-0 border",
-                  step.bg, step.border
-                )}>
-                  <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t-2 border-l-2 border-current opacity-30" style={{ color: 'inherit' }} />
-                  <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b-2 border-r-2 border-current opacity-30" style={{ color: 'inherit' }} />
-                  <Icon className={cn("h-9 w-9", step.color)} />
-                </div>
-                <div className="space-y-2">
-                  <h2 className="text-xl sm:text-2xl font-black tracking-tight uppercase italic leading-tight">
-                    {step.title}
-                  </h2>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-                    System Kyron
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm text-muted-foreground font-medium leading-relaxed border-l-4 border-primary/20 pl-5">
-                {step.description}
-              </p>
-
-              <div className="flex items-center gap-1.5">
-                {steps.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentStep(i)}
-                    className={cn(
-                      "h-1.5 rounded-full transition-all duration-300",
-                      i === currentStep
-                        ? "bg-primary w-6"
-                        : i < currentStep
-                        ? "bg-primary/40 w-1.5"
-                        : "bg-muted w-1.5"
-                    )}
-                  />
-                ))}
-              </div>
-          </div>
-        </div>
-
-        <div className="px-8 sm:px-10 pb-8 flex items-center justify-between gap-4">
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            disabled={currentStep === 0}
-            className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 disabled:opacity-20"
+          <button
+            onClick={handleClose}
+            className="absolute top-5 right-5 z-20 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
           >
-            <ChevronLeft className="mr-1.5 h-3.5 w-3.5" /> Anterior
-          </Button>
+            <X className="h-4 w-4" />
+          </button>
 
-          <div className="flex items-center gap-3">
-            {currentStep < steps.length - 1 ? (
-              <>
+          <div className="pt-8 pb-6 px-8 sm:px-10">
+            <div className="flex items-center justify-between mb-8">
+              <span className={cn(
+                "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
+                step.bg, step.color, step.border
+              )}>
+                {step.tag}
+              </span>
+              <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                {currentStep + 1} / {steps.length}
+              </span>
+            </div>
+
+            <div key={currentStep} className="space-y-8">
+                <div className="flex items-center gap-6">
+                  <div className={cn(
+                    "relative w-20 h-20 rounded-[1.5rem] flex items-center justify-center shrink-0 border",
+                    step.bg, step.border
+                  )}>
+                    <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t-2 border-l-2 border-current opacity-30" style={{ color: 'inherit' }} />
+                    <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b-2 border-r-2 border-current opacity-30" style={{ color: 'inherit' }} />
+                    <Icon className={cn("h-9 w-9", step.color)} />
+                  </div>
+                  <div className="space-y-2">
+                    <h2 className="text-xl sm:text-2xl font-black tracking-tight uppercase italic leading-tight">
+                      {step.title}
+                    </h2>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                      System Kyron
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-sm text-muted-foreground font-medium leading-relaxed border-l-4 border-primary/20 pl-5">
+                  {step.description}
+                </p>
+
+                <div className="flex items-center gap-1.5">
+                  {steps.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentStep(i)}
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-300",
+                        i === currentStep
+                          ? "bg-primary w-6"
+                          : i < currentStep
+                          ? "bg-primary/40 w-1.5"
+                          : "bg-muted w-1.5"
+                      )}
+                    />
+                  ))}
+                </div>
+            </div>
+          </div>
+
+          <div className="px-8 sm:px-10 pb-8 flex items-center justify-between gap-4">
+            <Button
+              variant="ghost"
+              onClick={handleBack}
+              disabled={currentStep === 0}
+              className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 disabled:opacity-20"
+            >
+              <ChevronLeft className="mr-1.5 h-3.5 w-3.5" /> Anterior
+            </Button>
+
+            <div className="flex items-center gap-3">
+              {currentStep < steps.length - 1 ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={handleClose}
+                    className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 text-muted-foreground/50 hover:text-muted-foreground"
+                  >
+                    Omitir
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    className="btn-3d-primary rounded-xl px-7 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                  >
+                    Siguiente <ChevronRight className="ml-1.5 h-3.5 w-3.5" />
+                  </Button>
+                </>
+              ) : (
                 <Button
-                  variant="ghost"
                   onClick={handleClose}
-                  className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 text-muted-foreground/50 hover:text-muted-foreground"
+                  className="btn-3d-primary rounded-xl px-8 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
                 >
-                  Omitir
+                  Comenzar <CheckCircle2 className="ml-1.5 h-3.5 w-3.5" />
                 </Button>
-                <Button
-                  onClick={handleNext}
-                  className="btn-3d-primary rounded-xl px-7 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
-                >
-                  Siguiente <ChevronRight className="ml-1.5 h-3.5 w-3.5" />
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={handleClose}
-                className="btn-3d-primary rounded-xl px-8 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
-              >
-                Comenzar <CheckCircle2 className="ml-1.5 h-3.5 w-3.5" />
-              </Button>
-            )}
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="px-8 sm:px-10 pb-6 pt-0">
-          <div className="flex items-center gap-2 pt-5 border-t border-border/30">
-            <Logo className="h-3.5 w-3.5 opacity-30" />
-            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
-              System Kyron • Plataforma Corporativa Venezuela
-            </span>
+          <div className="px-8 sm:px-10 pb-6 pt-0">
+            <div className="flex items-center gap-2 pt-5 border-t border-border/30">
+              <Logo className="h-3.5 w-3.5 opacity-30" />
+              <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
+                System Kyron • Plataforma Corporativa Venezuela
+              </span>
+            </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }
