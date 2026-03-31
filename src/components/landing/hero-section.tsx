@@ -92,7 +92,7 @@ export function HeroSection() {
     const { tier, config } = useDevicePerformance();
 
     return (
-        <section id="inicio" className="relative min-h-screen flex items-center">
+        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center">
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
@@ -128,7 +128,7 @@ export function HeroSection() {
 
             <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[80%] kyron-accent-line opacity-30" />
 
-            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-28 pb-16 md:pt-36 md:pb-24">
+            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-28 pb-8 md:pt-36 md:pb-24 flex-1 flex items-center w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
                     <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
@@ -269,7 +269,7 @@ export function HeroSection() {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
 
             <motion.div
-                className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0"
+                className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
