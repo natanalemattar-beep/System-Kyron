@@ -1,65 +1,102 @@
 import { NextResponse } from 'next/server';
-import { getUncachableOutlookClient } from '@/lib/outlook-client';
+import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
+
+const ALERT_LEVELS = [
+  {
+    tipo: 'info',
+    emoji: 'ℹ️',
+    label: 'INFORMATIVA',
+    color: '#0EA5E9',
+    borderColor: '#0EA5E9',
+    titulo: 'Reporte Mensual Generado',
+    mensaje: 'El reporte financiero del mes de Marzo 2026 ha sido generado exitosamente. Se procesaron 847 transacciones por un total de Bs. 2,450,000.00. Puede descargarlo desde el módulo de reportes.',
+    detalle: 'Módulo: Finanzas · Acción: Generación automática',
+  },
+  {
+    tipo: 'advertencia',
+    emoji: '⚠️',
+    label: 'ADVERTENCIA',
+    color: '#F59E0B',
+    borderColor: '#F59E0B',
+    titulo: 'Licencia SENIAT Próxima a Vencer',
+    mensaje: 'La licencia fiscal RIF J-12345678-9 vence en 15 días (15/04/2026). Se recomienda iniciar el proceso de renovación lo antes posible para evitar sanciones administrativas.',
+    detalle: 'Módulo: Legal/Fiscal · Prioridad: Media',
+  },
+  {
+    tipo: 'alerta',
+    emoji: '🚨',
+    label: 'ALERTA CRÍTICA',
+    color: '#EF4444',
+    borderColor: '#EF4444',
+    titulo: 'Intento de Acceso No Autorizado Detectado',
+    mensaje: 'Se detectaron 5 intentos fallidos de acceso desde la IP 192.168.1.45 en los últimos 10 minutos. La cuenta usuario@empresa.com ha sido bloqueada temporalmente por seguridad. Se requiere revisión inmediata.',
+    detalle: 'Módulo: Seguridad · Prioridad: CRÍTICA · Acción requerida',
+  },
+];
 
 export async function GET() {
-  try {
-    const client = await getUncachableOutlookClient();
+  const results = [];
+  const to = 'natanalemattar@gmail.com';
+  const timestamp = new Date().toLocaleString('es-VE', { timeZone: 'America/Caracas' });
 
-    await client.api('/me/sendMail').post({
-      message: {
-        subject: '[System Kyron] Prueba de conexión Outlook',
-        body: {
-          contentType: 'HTML',
-          content: `
-            <div style="font-family: 'Helvetica Neue', sans-serif; max-width: 520px; margin: 0 auto; background: #060D1F; border-radius: 16px; overflow: hidden;">
-              <div style="background: linear-gradient(135deg, #0EA5E9, #22C55E); padding: 2px;">
-                <div style="background: #060D1F; border-radius: 14px; padding: 40px 36px;">
-                  <div style="text-align: center; margin-bottom: 32px;">
-                    <p style="color: #F1F5F9; font-size: 15px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin: 0;">SYSTEM KYRON</p>
-                    <p style="color: #64748B; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 4px 0 0 0;">Inteligencia Corporativa</p>
-                  </div>
-                  <h1 style="color: #22C55E; font-size: 20px; font-weight: 700; text-align: center; margin: 0 0 16px 0;">
-                    ✅ Conexión Exitosa
-                  </h1>
-                  <p style="color: #E2E8F0; font-size: 14px; text-align: center; margin: 0 0 24px 0;">
-                    La integración de Outlook está funcionando correctamente.<br/>
-                    Los correos de alerta se enviarán desde esta cuenta.
-                  </p>
-                  <div style="background: #0A1530; border-left: 3px solid #0EA5E9; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px;">
-                    <p style="color: #94A3B8; font-size: 12px; margin: 0;">
-                      <strong style="color: #0EA5E9;">Fecha:</strong> ${new Date().toLocaleString('es-VE', { timeZone: 'America/Caracas' })}
-                    </p>
-                  </div>
-                  <p style="color: #475569; font-size: 11px; text-align: center; margin: 0;">
-                    System Kyron · Inteligencia Corporativa · Venezuela
-                  </p>
-                </div>
-              </div>
-            </div>
-          `,
-        },
-        toRecipients: [
-          { emailAddress: { address: 'alertas_systemkyron@hotmail.com' } },
-        ],
-      },
-      saveToSentItems: true,
+  for (const alert of ALERT_LEVELS) {
+    const html = buildKyronEmailTemplate({
+      title: `${alert.emoji} ${alert.titulo}`,
+      body: `
+        <div style="margin-bottom: 20px;">
+          <div style="display: inline-block; background: ${alert.color}20; border: 1px solid ${alert.color}40; border-radius: 6px; padding: 4px 12px; margin-bottom: 16px;">
+            <span style="color: ${alert.color}; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">${alert.label}</span>
+          </div>
+        </div>
+        <p style="color: #E2E8F0; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0;">${alert.mensaje}</p>
+        <div style="background: #0A1530; border-left: 3px solid ${alert.color}; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+          <p style="color: #94A3B8; font-size: 12px; margin: 0;">
+            <strong style="color: ${alert.color};">Detalle:</strong> ${alert.detalle}
+          </p>
+        </div>
+        <div style="background: #0A1530; border-radius: 8px; padding: 12px 16px;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="color: #64748B; font-size: 11px; padding: 4px 0;">Fecha/Hora:</td>
+              <td style="color: #94A3B8; font-size: 11px; padding: 4px 0; text-align: right;">${timestamp}</td>
+            </tr>
+            <tr>
+              <td style="color: #64748B; font-size: 11px; padding: 4px 0;">Sistema:</td>
+              <td style="color: #94A3B8; font-size: 11px; padding: 4px 0; text-align: right;">System Kyron v2.9.0</td>
+            </tr>
+            <tr>
+              <td style="color: #64748B; font-size: 11px; padding: 4px 0;">Enviado a:</td>
+              <td style="color: #94A3B8; font-size: 11px; padding: 4px 0; text-align: right;">${to}</td>
+            </tr>
+          </table>
+        </div>
+      `,
+      footer: alert.tipo === 'alerta'
+        ? 'Esta alerta requiere acción inmediata. Si no reconoces esta actividad, contacta al administrador.'
+        : 'Este es un mensaje automático de System Kyron. Puedes configurar tus preferencias de notificación en el panel.',
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Email de prueba enviado exitosamente desde Outlook',
-      provider: 'outlook',
-      from: 'alertas_systemkyron@hotmail.com',
-      timestamp: new Date().toISOString(),
+    const result = await sendEmail({
+      to,
+      subject: `[Kyron ${alert.label}] ${alert.titulo}`,
+      html,
+      module: 'sistema',
+      purpose: 'alert',
     });
-  } catch (err: any) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: err.message || String(err),
-        hint: 'Verifica que la cuenta de Outlook esté conectada en Integrations',
-      },
-      { status: 500 }
-    );
+
+    results.push({
+      level: alert.label,
+      subject: alert.titulo,
+      success: result.success,
+      provider: result.provider,
+      error: result.error || null,
+    });
   }
+
+  return NextResponse.json({
+    message: 'Prueba de alertas enviada',
+    to,
+    timestamp,
+    results,
+  });
 }
