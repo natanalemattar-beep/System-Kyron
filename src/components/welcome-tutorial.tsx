@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -93,9 +93,52 @@ const steps = [
   },
 ];
 
+function useRemoveScrollLock(isOpen: boolean) {
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    let cleaning = false;
+    const unlock = () => {
+      if (cleaning) return;
+      cleaning = true;
+
+      document.documentElement.removeAttribute('data-scroll-locked');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('padding-right');
+      document.body.style.removeProperty('margin-right');
+      document.body.style.removeProperty('width');
+      document.body.style.removeProperty('top');
+
+      document.querySelectorAll('style[data-remove-scroll-bar]').forEach((el) => el.remove());
+
+      requestAnimationFrame(() => { cleaning = false; });
+    };
+
+    const raf = requestAnimationFrame(unlock);
+    const t1 = setTimeout(unlock, 50);
+    const t2 = setTimeout(unlock, 200);
+
+    const observer = new MutationObserver(() => unlock());
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-scroll-locked', 'style'] });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    observer.observe(document.head, { childList: true });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      observer.disconnect();
+    };
+  }, [isOpen]);
+}
+
 export function WelcomeTutorial() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  useRemoveScrollLock(isOpen);
 
   useEffect(() => {
     const seen = localStorage.getItem(STORAGE_KEY);
