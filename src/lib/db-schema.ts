@@ -1869,7 +1869,7 @@ async function createConfiguracionTables() {
       id         SERIAL PRIMARY KEY,
       user_id    INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       tipo       TEXT NOT NULL
-                 CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento')),
+                 CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental')),
       titulo     TEXT NOT NULL,
       mensaje    TEXT NOT NULL,
       leida      BOOLEAN NOT NULL DEFAULT false,
@@ -1880,6 +1880,8 @@ async function createConfiguracionTables() {
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user_id ON notificaciones(user_id)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_leida   ON notificaciones(user_id, leida)`);
+  await safeQuery(`ALTER TABLE notificaciones DROP CONSTRAINT IF EXISTS notificaciones_tipo_check`);
+  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental'))`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS demo_requests (
@@ -2264,11 +2266,7 @@ async function createAutomationTables(): Promise<void> {
   await query(`CREATE INDEX IF NOT EXISTS idx_automation_logs_status ON automation_logs(status, started_at DESC)`);
 
   try {
-    const rows = await query<{ cnt: number }>(`SELECT COUNT(*)::int as cnt FROM automation_rules`);
-    const cnt = rows[0]?.cnt ?? 0;
-    if (cnt === 0) {
-      await seedAutomationRules();
-    }
+    await seedAutomationRules();
   } catch {
     await seedAutomationRules();
   }
@@ -2324,6 +2322,13 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 24, label: 'Diario' },
       action_type: 'activity_digest',
+    },
+    {
+      name: 'Monitor Regulatorio — Gacetas y Asamblea Nacional',
+      description: 'Verifica cambios en Gacetas Oficiales, decretos de la Asamblea Nacional, providencias y resoluciones de entes gubernamentales. Genera alertas para empresas registradas.',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
+      action_type: 'regulatory_alerts',
     },
   ];
 
