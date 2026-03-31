@@ -1,54 +1,126 @@
 'use client';
 
-import { BrainCircuit, Lock, Calculator, Users, Smartphone, Recycle, Gavel, BarChart3, Landmark, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
+import { Calculator, Users, Smartphone, BrainCircuit, Gavel, Recycle, BarChart3, Landmark, Lock, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const featuresMeta = [
-    { icon: Calculator, color: "text-primary", bg: "bg-primary/10", border: "border-primary/15", glowColor: "rgba(30, 64, 175, 0.15)", span: "col-span-1" },
-    { icon: Users, color: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/15", glowColor: "rgba(139, 92, 246, 0.15)", span: "col-span-1" },
-    { icon: Smartphone, color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/15", glowColor: "rgba(59, 130, 246, 0.15)", span: "col-span-1" },
-    { icon: BrainCircuit, color: "text-rose-400", bg: "bg-rose-500/10", border: "border-rose-500/15", glowColor: "rgba(244, 63, 94, 0.15)", span: "col-span-1 sm:col-span-2 lg:col-span-1", featured: true },
-    { icon: Gavel, color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/15", glowColor: "rgba(245, 158, 11, 0.15)", span: "col-span-1" },
-    { icon: Recycle, color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/15", glowColor: "rgba(16, 185, 129, 0.15)", span: "col-span-1" },
-    { icon: BarChart3, color: "text-cyan-400", bg: "bg-cyan-500/10", border: "border-cyan-500/15", glowColor: "rgba(6, 182, 212, 0.15)", span: "col-span-1" },
-    { icon: Landmark, color: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-500/15", glowColor: "rgba(99, 102, 241, 0.15)", span: "col-span-1" },
-    { icon: Lock, color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/15", glowColor: "rgba(249, 115, 22, 0.15)", span: "col-span-1" },
+    { icon: Calculator, color: "text-primary", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary" },
+    { icon: Users, color: "text-violet-400", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500" },
+    { icon: Smartphone, color: "text-blue-400", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500" },
+    { icon: BrainCircuit, color: "text-rose-400", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true },
+    { icon: Gavel, color: "text-amber-400", accent: "from-amber-500/20 to-amber-600/5", line: "from-amber-500 to-amber-600", dot: "bg-amber-500" },
+    { icon: Recycle, color: "text-emerald-400", accent: "from-emerald-500/20 to-emerald-600/5", line: "from-emerald-500 to-emerald-600", dot: "bg-emerald-500" },
+    { icon: BarChart3, color: "text-cyan-400", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500" },
+    { icon: Landmark, color: "text-indigo-400", accent: "from-indigo-500/20 to-indigo-600/5", line: "from-indigo-500 to-indigo-600", dot: "bg-indigo-500" },
+    { icon: Lock, color: "text-orange-400", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500" },
 ];
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.2 } }
-};
+function FeatureRow({ feature, meta, index, animate }: {
+    feature: { title: string; description: string };
+    meta: typeof featuresMeta[0];
+    index: number;
+    animate: boolean;
+}) {
+    const isLeft = index % 2 === 0;
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.97 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
-};
+    return (
+        <motion.div
+            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center"
+            initial={animate ? { opacity: 0, y: 40 } : undefined}
+            whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+        >
+            <div className={cn(
+                "md:px-8",
+                isLeft ? "md:text-right md:order-1" : "md:text-left md:order-3"
+            )}>
+                <div className={cn(
+                    "group relative p-6 rounded-2xl border border-border/20 dark:border-white/[0.06] bg-card/20 dark:bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1",
+                    "hover:border-border/40 dark:hover:border-white/10"
+                )}>
+                    <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none", meta.accent)} />
+
+                    <div className="relative">
+                        <div className={cn("inline-flex items-center gap-2.5 mb-3", isLeft ? "md:flex-row-reverse" : "")}>
+                            <div className={cn("p-2.5 rounded-xl border border-border/20 dark:border-white/5 group-hover:scale-110 transition-transform duration-300", `bg-gradient-to-br ${meta.accent}`)}>
+                                <meta.icon className={cn("h-5 w-5", meta.color)} />
+                            </div>
+                            <h3 className={cn("text-sm font-black uppercase tracking-tight flex items-center gap-2", meta.color)}>
+                                {feature.title}
+                                {meta.featured && (
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-black uppercase tracking-widest text-rose-400">
+                                        <Sparkles className="h-2 w-2" /> IA
+                                    </span>
+                                )}
+                            </h3>
+                        </div>
+                        <p className="text-[11.5px] text-muted-foreground font-medium leading-relaxed">
+                            {feature.description}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="hidden md:flex flex-col items-center order-2 relative z-10">
+                <div className={cn("w-4 h-4 rounded-full border-2 border-background shadow-lg ring-2 ring-offset-0", meta.dot, `ring-${meta.dot.replace('bg-', '')}/30`)}>
+                    <div className={cn("absolute inset-0 rounded-full animate-ping opacity-20", meta.dot)} />
+                </div>
+            </div>
+
+            <div className={cn(
+                "hidden md:block md:px-8",
+                isLeft ? "md:order-3" : "md:order-1"
+            )} />
+        </motion.div>
+    );
+}
+
+function TimelineProgress() {
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start center", "end center"]
+    });
+    const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+    return (
+        <div ref={ref} className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px]">
+            <div className="absolute inset-0 bg-border/20 dark:bg-white/[0.06] rounded-full" />
+            <motion.div
+                className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-violet-500 to-emerald-500 rounded-full origin-top"
+                style={{ scaleY, height: '100%' }}
+            />
+        </div>
+    );
+}
 
 export function FeaturesSection() {
     const t = useTranslations('FeaturesSection');
     const features = t.raw('features') as { title: string; description: string }[];
     const stats = t.raw('stats') as { val: string; detail: string }[];
     const { tier } = useDevicePerformance();
+    const animate = tier !== 'low';
 
     return (
-        <section id="caracteristicas" className="py-16 md:py-32 relative">
-            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
+        <section id="caracteristicas" className="py-16 md:py-32 relative overflow-hidden" style={{ position: 'relative' }}>
+            <div className="container mx-auto px-4 md:px-10 max-w-6xl">
 
                 <motion.div
-                    className="mb-14 md:mb-20 space-y-5 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    className="mb-16 md:mb-24 space-y-5 text-center"
+                    initial={animate ? { opacity: 0, y: 20 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5 }}
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.2] overflow-hidden">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.2]">
                         {t('title_highlight')} <br className="hidden sm:block" />
                         <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">{t('title_rest')}</span>
                     </h2>
@@ -57,64 +129,29 @@ export function FeaturesSection() {
                     </p>
                 </motion.div>
 
-                <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
-                    variants={tier !== 'low' ? containerVariants : undefined}
-                    initial={tier !== 'low' ? "hidden" : undefined}
-                    whileInView={tier !== 'low' ? "visible" : undefined}
-                    viewport={{ once: true, margin: "-50px" }}
-                >
-                    {features.map((f, idx) => {
-                        const meta = featuresMeta[idx] || featuresMeta[0];
-                        return (
-                            <motion.div
-                                key={f.title}
-                                variants={tier !== 'low' ? cardVariants : undefined}
-                                className={cn(
-                                    "group relative flex flex-col gap-5 p-6 md:p-7 rounded-[1.75rem] border transition-all duration-300 hover:-translate-y-1",
-                                    "bg-card/30 dark:bg-card/15",
-                                    meta.border, meta.span
-                                )}
-                                style={{
-                                    '--glow-color': meta.glowColor,
-                                } as React.CSSProperties}
-                                onMouseEnter={(e) => {
-                                    (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px -8px ${meta.glowColor}`;
-                                }}
-                                onMouseLeave={(e) => {
-                                    (e.currentTarget as HTMLElement).style.boxShadow = '';
-                                }}
-                            >
-                                <div className="absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="relative">
+                    <TimelineProgress />
 
-                                {meta.featured && (
-                                    <div className="absolute top-4 right-4">
-                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-black uppercase tracking-widest text-rose-400">
-                                            <Sparkles className="h-2 w-2" /> {t('ai_native_badge')}
-                                        </span>
-                                    </div>
-                                )}
-                                <div className={cn("p-3 rounded-2xl w-fit border border-border/20 dark:border-white/5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-inner", meta.bg)}>
-                                    <meta.icon className={cn("h-5 w-5", meta.color)} />
-                                </div>
-                                <div className="space-y-2 flex-1">
-                                    <h3 className={cn("text-sm font-black uppercase tracking-tight flex items-center gap-2", meta.color)}>
-                                        {f.title}
-                                        <ArrowUpRight className={cn("h-3 w-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300", meta.color)} />
-                                    </h3>
-                                    <p className="text-[11px] text-muted-foreground font-semibold leading-relaxed">
-                                        {f.description}
-                                    </p>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
-                </motion.div>
+                    <div className="space-y-8 md:space-y-6">
+                        {features.map((f, idx) => {
+                            const meta = featuresMeta[idx] || featuresMeta[0];
+                            return (
+                                <FeatureRow
+                                    key={f.title}
+                                    feature={f}
+                                    meta={meta}
+                                    index={idx}
+                                    animate={animate}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
 
                 <motion.div
-                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3"
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3"
+                    initial={animate ? { opacity: 0, y: 15 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
