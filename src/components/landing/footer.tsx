@@ -121,6 +121,15 @@ export function Footer() {
                         <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> {t('privacy')}</Link>
                     </div>
                 </div>
+
+                <div className="mt-6 pt-5 border-t border-border/20 dark:border-white/5 flex flex-col items-center gap-1.5">
+                    <p className="text-[7px] font-semibold text-muted-foreground/40 tracking-wide">
+                        Carlos Mattar · CEO-Fundador
+                    </p>
+                    <p className="text-[7px] font-semibold text-muted-foreground/40 tracking-wide">
+                        Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
+                    </p>
+                </div>
             </div>
         </footer>
     );
