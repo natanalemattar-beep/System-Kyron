@@ -79,6 +79,7 @@
     scroll-behavior: var(--scroll-behavior, smooth) !important;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
+    overflow-y: scroll !important;
   }
   * { @apply border-border; }
   body {
@@ -88,6 +89,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
+    overflow-y: scroll !important;
     min-height: 100dvh;
   }
 
