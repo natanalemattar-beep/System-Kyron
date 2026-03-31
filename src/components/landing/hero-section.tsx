@@ -92,7 +92,7 @@ export function HeroSection() {
     const { tier, config } = useDevicePerformance();
 
     return (
-        <section id="inicio" className="relative min-h-screen flex items-center overflow-x-hidden">
+        <section id="inicio" className="relative min-h-screen flex items-center">
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
