@@ -10,8 +10,8 @@ function detectSlowConnection(): boolean {
   const conn = (navigator as any).connection;
   if (!conn) return false;
   if (conn.effectiveType === 'slow-2g') return true;
-  if (typeof conn.downlink === 'number' && conn.downlink <= 0.5) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 5000) return true;
+  if (typeof conn.downlink === 'number' && conn.downlink <= 0.3) return true;
+  if (typeof conn.rtt === 'number' && conn.rtt > 8000) return true;
   return false;
 }
 
@@ -71,6 +71,8 @@ export function SlowConnectionBanner() {
   const prevStateRef = useRef<ConnectionState>('good');
   const recoveryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const firstCheckDone = useRef(false);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const slowCountRef = useRef(0);
 
   const checkConnection = useCallback(() => {
     if (!mountedRef.current) return;
@@ -91,14 +93,17 @@ export function SlowConnectionBanner() {
 
     const start = performance.now();
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    const timeout = setTimeout(() => controller.abort(), 20000);
 
     fetch('/api/ping', { method: 'HEAD', cache: 'no-store', signal: controller.signal })
       .then(() => {
         clearTimeout(timeout);
         const elapsed = performance.now() - start;
         if (!mountedRef.current) return;
-        if (elapsed > 12000) {
+        
+        slowCountRef.current = 0;
+        
+        if (elapsed > 15000) {
           prevStateRef.current = 'slow';
           setState('slow');
           setDismissed(false);
@@ -121,11 +126,13 @@ export function SlowConnectionBanner() {
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
           prevStateRef.current = 'offline'; setState('offline'); setDismissed(false);
         } else if (err instanceof DOMException && err.name === 'AbortError') {
-          if (firstCheckDone.current) {
+          slowCountRef.current++;
+          if (slowCountRef.current >= 2 && firstCheckDone.current) {
             prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
           }
         } else {
-          if (firstCheckDone.current) {
+          slowCountRef.current++;
+          if (slowCountRef.current >= 2 && firstCheckDone.current) {
             prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
           }
         }
@@ -136,19 +143,35 @@ export function SlowConnectionBanner() {
   useEffect(() => {
     mountedRef.current = true;
     const initialDelay = setTimeout(checkConnection, 25000);
-    const interval = setInterval(checkConnection, 60000);
-    const handleOnline = () => { if (!mountedRef.current) return; setTimeout(() => { if (mountedRef.current) checkConnection(); }, 1500); };
-    const handleOffline = () => { if (!mountedRef.current) return; prevStateRef.current = 'offline'; setState('offline'); setDismissed(false); };
+    const interval = setInterval(checkConnection, 120000);
+    const handleOnline = () => { 
+      if (!mountedRef.current) return; 
+      slowCountRef.current = 0;
+      setTimeout(() => { if (mountedRef.current) checkConnection(); }, 1500); 
+    };
+    const handleOffline = () => { 
+      if (!mountedRef.current) return; 
+      prevStateRef.current = 'offline'; 
+      setState('offline'); 
+      setDismissed(false); 
+    };
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
     const conn = (navigator as any).connection;
-    const handleChange = () => { if (mountedRef.current) checkConnection(); };
+    const handleChange = () => { 
+      if (!mountedRef.current) return;
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = setTimeout(() => { 
+        if (mountedRef.current) checkConnection(); 
+      }, 2000);
+    };
     conn?.addEventListener?.('change', handleChange);
     return () => {
       mountedRef.current = false;
       clearTimeout(initialDelay);
       clearInterval(interval);
       if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
       conn?.removeEventListener?.('change', handleChange);
