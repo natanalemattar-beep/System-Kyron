@@ -99,6 +99,7 @@ export function HeroSection() {
                     alt=""
                     fill
                     sizes="100vw"
+                    quality={90}
                     className="object-cover dark:hidden"
                     priority
                 />
@@ -107,6 +108,7 @@ export function HeroSection() {
                     alt=""
                     fill
                     sizes="100vw"
+                    quality={90}
                     className="object-cover hidden dark:block"
                     priority
                 />
@@ -234,6 +236,7 @@ export function HeroSection() {
                                     alt="System Kyron Dashboard"
                                     width={800}
                                     height={450}
+                                    quality={90}
                                     className="w-full h-auto"
                                     priority
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"

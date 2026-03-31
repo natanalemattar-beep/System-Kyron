@@ -95,6 +95,7 @@ export function ServicesSection() {
                                                 alt={feat.title}
                                                 width={idx === 0 ? 800 : 600}
                                                 height={idx === 0 ? 450 : 600}
+                                                quality={85}
                                                 className="w-full h-auto"
                                                 loading="lazy"
                                                 sizes="(max-width: 1024px) 100vw, 50vw"

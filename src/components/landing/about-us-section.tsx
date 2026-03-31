@@ -96,6 +96,7 @@ export function AboutUsSection() {
                         src="/images/landing/caracas-skyline.webp"
                         alt=""
                         fill
+                        quality={85}
                         className="object-cover"
                         loading="lazy"
                         sizes="100vw"
