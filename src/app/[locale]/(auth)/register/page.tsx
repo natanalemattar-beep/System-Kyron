@@ -800,9 +800,8 @@ export default function RegisterSelectionPage() {
                                                     </div>
                                                 </div>
 
-                                                <div className="flex gap-2">
+                                                <div className="flex gap-2 items-end">
                                                     <div ref={prefixRef} className="relative shrink-0" onKeyDown={handlePrefixKeyDown}>
-                                                        <p className="text-[10px] font-medium text-white/30 mb-1.5 ml-1 tracking-wide">TIPO</p>
                                                         <button
                                                             ref={prefixTriggerRef}
                                                             type="button"
@@ -813,16 +812,18 @@ export default function RegisterSelectionPage() {
                                                             aria-label={`Tipo de documento: ${currentPrefix.value} — ${currentPrefix.desc}`}
                                                             onClick={() => setPrefixOpen(o => !o)}
                                                             className={cn(
-                                                                "flex items-center gap-2 h-12 pl-3 pr-2.5 rounded-xl border transition-all duration-200 cursor-pointer",
-                                                                "bg-white/[0.03] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40",
-                                                                prefixOpen ? "border-sky-500/30 bg-white/[0.05]" : "border-white/[0.08] hover:border-white/[0.15]"
+                                                                "flex items-center gap-2.5 h-12 pl-3 pr-3 rounded-xl border-2 transition-all duration-200 cursor-pointer shadow-lg",
+                                                                "hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40",
+                                                                prefixOpen
+                                                                    ? "border-sky-500/50 bg-sky-500/10 shadow-sky-500/20"
+                                                                    : "border-white/15 bg-white/[0.05] hover:bg-white/[0.08] shadow-black/20 hover:border-white/25"
                                                             )}
                                                         >
-                                                            <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg transition-all", currentPrefix.bg)}>
-                                                                <CurrentPrefixIcon className={cn("h-3.5 w-3.5", currentPrefix.color)} />
+                                                            <div className={cn("flex items-center justify-center w-8 h-8 rounded-lg transition-all ring-1", currentPrefix.bg, currentPrefix.ring)}>
+                                                                <CurrentPrefixIcon className={cn("h-4 w-4", currentPrefix.color)} />
                                                             </div>
-                                                            <span className="text-base font-bold text-white w-5 text-center">{currentPrefix.value}</span>
-                                                            <ChevronDown className={cn("h-3.5 w-3.5 text-white/30 transition-transform duration-200", prefixOpen && "rotate-180")} />
+                                                            <span className={cn("text-lg font-bold w-5 text-center", currentPrefix.color)}>{currentPrefix.value}</span>
+                                                            <ChevronDown className={cn("h-4 w-4 text-white/40 transition-transform duration-200", prefixOpen && "rotate-180")} />
                                                         </button>
 
                                                         <AnimatePresence>
@@ -876,8 +877,7 @@ export default function RegisterSelectionPage() {
                                                     </div>
 
                                                     <div className="flex-1 relative group/input">
-                                                        <p className="text-[10px] font-medium text-white/30 mb-1.5 ml-1 tracking-wide">NÚMERO</p>
-                                                        <div className="absolute -inset-[1px] top-[22px] rounded-xl bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-focus-within/input:from-sky-500/20 group-focus-within/input:via-cyan-500/10 group-focus-within/input:to-sky-500/20 transition-all duration-500 blur-[1px]" />
+                                                        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-focus-within/input:from-sky-500/20 group-focus-within/input:via-cyan-500/10 group-focus-within/input:to-sky-500/20 transition-all duration-500 blur-[1px]" />
                                                         <Input
                                                             value={docNumber}
                                                             onChange={e => handleNumberChange(e.target.value)}
