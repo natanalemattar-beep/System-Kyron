@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useLayoutEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -94,7 +94,7 @@ const steps = [
 ];
 
 function useRemoveScrollLock(isOpen: boolean) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isOpen) return;
 
     let cleaning = false;
