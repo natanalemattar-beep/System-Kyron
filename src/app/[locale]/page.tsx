@@ -52,7 +52,7 @@ function LandingContent() {
 
       {mounted && <LandingHeader />}
 
-      <main className="flex-1 w-full">
+      <main className="w-full">
         {mounted && (
           <>
             <HeroSection />
@@ -74,7 +74,7 @@ function LandingContent() {
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen flex flex-col selection:bg-primary/20 w-full bg-transparent">
+    <div className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent">
       <LandingContent />
     </div>
   );

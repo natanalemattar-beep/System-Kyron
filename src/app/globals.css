@@ -78,8 +78,7 @@
   html {
     scroll-behavior: var(--scroll-behavior, smooth) !important;
     -webkit-text-size-adjust: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-x: clip;
   }
   * { @apply border-border; }
   body {
@@ -88,9 +87,8 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    overflow-y: visible;
-    min-height: 100%;
+    overflow-x: clip;
+    min-height: 100dvh;
   }
 
   h1, h2, h3, h4, h5, h6 {

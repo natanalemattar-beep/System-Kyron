@@ -31,7 +31,7 @@ export function DynamicBackground() {
 
   return (
     <>
-      <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background">
+      <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background pointer-events-none">
           {mounted && isSnow && tier !== "low" && (
             <Suspense fallback={null}>
               <FestiveEffect type="snow" />
