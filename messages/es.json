@@ -269,7 +269,8 @@
         "footer": "System Kyron v2.8.5 · Infraestructura Segura · Venezuela",
         "options": {
             "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
-            "lines": { "label": "Mis Líneas", "description": "Gestión de líneas telefónicas personales y flota empresarial por separado." },
+            "lines_personal": { "label": "Mi Línea Personal", "description": "Gestión de tu línea móvil, recargas, consumo 5G y eSIM individual." },
+            "lines_business": { "label": "Mi Línea Empresa", "description": "Control de flota corporativa, límites por empleado y facturación consolidada." },
             "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." },
             "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
             "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },

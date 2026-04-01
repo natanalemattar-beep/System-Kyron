@@ -269,7 +269,8 @@
         "footer": "System Kyron v2.8.5 · Secure Infrastructure · Venezuela",
         "options": {
             "personal": { "label": "Personal Account", "description": "Access your identity documents, civil procedures, and health services." },
-            "lines": { "label": "My Lines", "description": "Unified portal to manage your personal line and corporate fleet." },
+            "lines_personal": { "label": "My Personal Line", "description": "Manage your mobile line, top-ups, 5G usage, and individual eSIM." },
+            "lines_business": { "label": "My Business Line", "description": "Corporate fleet control, per-employee limits, and consolidated billing." },
             "accounting": { "label": "Accounting Advisory", "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module." },
             "legal": { "label": "Legal Advisory", "description": "Contract management, legal documents, and registry procedures." },
             "invoicing": { "label": "Invoicing", "description": "Point of sale for quick payments, inventory control, and sales." },

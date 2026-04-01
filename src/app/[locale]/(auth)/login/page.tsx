@@ -2,7 +2,7 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Smartphone, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
@@ -11,7 +11,8 @@ import { useState } from 'react';
 
 const optionKeys = [
   { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-500', borderHover: 'hover:border-blue-500/30', shadow: 'hover:shadow-blue-500/8', glow: 'rgba(59,130,246,0.15)' },
-  { key: 'lines', href: '/login-linea', icon: Signal, category: 'citizen', color: 'from-cyan-500 to-blue-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-500', borderHover: 'hover:border-cyan-500/30', shadow: 'hover:shadow-cyan-500/8', glow: 'rgba(6,182,212,0.15)' },
+  { key: 'lines_personal', href: '/login-linea?type=personal', icon: Smartphone, category: 'citizen', color: 'from-cyan-500 to-blue-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-500', borderHover: 'hover:border-cyan-500/30', shadow: 'hover:shadow-cyan-500/8', glow: 'rgba(6,182,212,0.15)' },
+  { key: 'lines_business', href: '/login-linea?type=empresa', icon: Signal, category: 'citizen', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-500', borderHover: 'hover:border-amber-500/30', shadow: 'hover:shadow-amber-500/8', glow: 'rgba(245,158,11,0.15)' },
   { key: 'accounting', href: '/login-empresa', icon: Banknote, category: 'corporate', color: 'from-emerald-500 to-teal-600', iconBg: 'bg-emerald-500/10', textColor: 'text-emerald-500', borderHover: 'hover:border-emerald-500/30', shadow: 'hover:shadow-emerald-500/8', glow: 'rgba(16,185,129,0.15)' },
   { key: 'legal', href: '/login-escritorio-juridico', icon: Gavel, category: 'corporate', color: 'from-violet-500 to-purple-600', iconBg: 'bg-violet-500/10', textColor: 'text-violet-500', borderHover: 'hover:border-violet-500/30', shadow: 'hover:shadow-violet-500/8', glow: 'rgba(139,92,246,0.15)' },
   { key: 'invoicing', href: '/login-ventas', icon: ShoppingCart, category: 'corporate', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-500', borderHover: 'hover:border-amber-500/30', shadow: 'hover:shadow-amber-500/8', glow: 'rgba(245,158,11,0.15)' },

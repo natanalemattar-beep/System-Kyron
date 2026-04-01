@@ -9,7 +9,7 @@ import {
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound,
   Smartphone, Signal, RotateCcw
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -36,7 +36,9 @@ const ACCESS_TYPES = {
 type AccessType = keyof typeof ACCESS_TYPES;
 
 export default function LoginLineaUnifiedPage() {
-  const [selected, setSelected] = useState<AccessType>('personal');
+  const searchParams = useSearchParams();
+  const initialType = searchParams.get('type') === 'empresa' ? 'empresa' : 'personal';
+  const [selected, setSelected] = useState<AccessType>(initialType);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
