@@ -37,6 +37,9 @@ externalPort = 80
 [userenv]
 
 [userenv.shared]
+TWILIO_ACCOUNT_SID = "AC0168557ba863996fbac2466690001ab4"
+TWILIO_AUTH_TOKEN = "d6b9174b83b84932842051c45dc527a8"
+TWILIO_PHONE_NUMBER = "+584167312194"
 
 [deployment]
 run = ["npm", "run", "start"]
