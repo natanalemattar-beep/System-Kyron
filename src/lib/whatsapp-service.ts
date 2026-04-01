@@ -1,6 +1,6 @@
 import { getTwilioClient } from '@/lib/twilio-client';
 
-const WHATSAPP_FROM = 'whatsapp:+584167312194';
+const WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886';
 
 function normalizeVenezuelanPhone(phone: string): string {
   let cleaned = phone.replace(/[\s\-\(\)]/g, '');

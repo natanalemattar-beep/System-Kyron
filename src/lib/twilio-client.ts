@@ -1,9 +1,10 @@
 async function getCredentials() {
-  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
     return {
       accountSid: process.env.TWILIO_ACCOUNT_SID,
       authToken: process.env.TWILIO_AUTH_TOKEN,
-      phoneNumber: process.env.TWILIO_PHONE_NUMBER,
+      phoneNumber: process.env.TWILIO_PHONE_NUMBER || '',
+      messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID || '',
     };
   }
 
@@ -42,14 +43,11 @@ async function getCredentials() {
     throw new Error('Twilio not connected: missing auth credentials');
   }
 
-  if (!s.phone_number) {
-    throw new Error('Twilio not configured: missing phone_number. Set TWILIO_PHONE_NUMBER or configure it in the Twilio connector.');
-  }
-
   return {
     accountSid: s.account_sid,
     authToken,
-    phoneNumber: s.phone_number,
+    phoneNumber: s.phone_number || process.env.TWILIO_PHONE_NUMBER || '',
+    messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID || '',
   };
 }
 
@@ -67,13 +65,19 @@ export async function getTwilioFromPhoneNumber() {
 export async function sendSms(to: string, body: string): Promise<{ success: boolean; sid?: string; error?: string }> {
   try {
     const client = await getTwilioClient();
-    const from = await getTwilioFromPhoneNumber();
+    const creds = await getCredentials();
 
-    const message = await client.messages.create({
-      body,
-      from,
-      to,
-    });
+    const msgOpts: Record<string, string> = { body, to };
+
+    if (creds.messagingServiceSid) {
+      msgOpts.messagingServiceSid = creds.messagingServiceSid;
+    } else if (creds.phoneNumber) {
+      msgOpts.from = creds.phoneNumber;
+    } else {
+      return { success: false, error: 'No Twilio phone number or Messaging Service configured' };
+    }
+
+    const message = await client.messages.create(msgOpts);
 
     return { success: true, sid: message.sid };
   } catch (err) {
