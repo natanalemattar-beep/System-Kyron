@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus,
   Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
-  KeyRound, RotateCcw, Scan, Sparkles
+  KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
@@ -23,8 +23,11 @@ export default function LoginPersonalPage() {
   const [showAccessKey, setShowAccessKey] = useState(false);
   const [useAccessKey, setUseAccessKey] = useState(false);
   const [step, setStep] = useState<'credentials' | 'verification'>('credentials');
+  const [loginMode, setLoginMode] = useState<'email' | 'phone'>('email');
+  const [phoneMethod, setPhoneMethod] = useState<'sms' | 'whatsapp'>('sms');
   const [verificationEmail, setVerificationEmail] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
+  const [maskedPhone, setMaskedPhone] = useState('');
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -72,6 +75,34 @@ export default function LoginPersonalPage() {
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push('/dashboard');
+    } catch { setError('Error de conexión.'); setIsLoading(false); }
+  };
+
+  const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const phone = (formData.get('phone') as string || '').trim();
+    if (!phone) { setError('Ingresa tu número de teléfono'); return; }
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/auth/login-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, method: phoneMethod }),
+      });
+      const json = await res.json();
+      if (!res.ok) { setError(json.error || 'Error al enviar código.'); setIsLoading(false); return; }
+      if (json.requiresVerification) {
+        setVerificationEmail(json.email);
+        setMaskedPhone(json.maskedPhone || '');
+        setStep('verification');
+        setCountdown(600);
+        setCodeDigits(['', '', '', '', '', '']);
+        setIsLoading(false);
+        const label = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
+        toast({ title: `Código enviado por ${label}`, description: `Revisa tu ${label} en ${json.maskedPhone}`, action: <Smartphone className="text-emerald-500 h-4 w-4" /> });
+      }
     } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
@@ -183,77 +214,124 @@ export default function LoginPersonalPage() {
         <div className="p-8 md:p-10 flex flex-col justify-center bg-card">
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-              <div className="mb-8">
+              <div className="mb-6">
                 <h2 className="text-2xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-                <p className="text-sm text-muted-foreground mt-1.5">Accede a tu cuenta personal</p>
+                <p className="text-sm text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
               </div>
 
-              <form onSubmit={handleLogin} className="space-y-5">
-                {error && (
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-sm text-destructive">{error}</p>
-                  </div>
-                )}
+              <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
+                <button type="button" onClick={() => { setLoginMode('email'); setError(null); }}
+                  className={cn("flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                    loginMode === 'email' ? "bg-card shadow-sm border border-border/30 text-blue-500" : "text-muted-foreground hover:text-foreground"
+                  )}>
+                  <Mail className="h-3.5 w-3.5" /> Correo
+                </button>
+                <button type="button" onClick={() => { setLoginMode('phone'); setError(null); }}
+                  className={cn("flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                    loginMode === 'phone' ? "bg-card shadow-sm border border-border/30 text-emerald-500" : "text-muted-foreground hover:text-foreground"
+                  )}>
+                  <Smartphone className="h-3.5 w-3.5" /> Teléfono
+                </button>
+              </div>
 
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-foreground/80">Correo Electrónico</Label>
-                  <div className="relative group">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                    <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
-                  </div>
+              {error && (
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-5">
+                  <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive">{error}</p>
                 </div>
+              )}
 
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <Label className="text-sm font-semibold text-foreground/80">Contraseña</Label>
-                    <Link href="/recuperar-cuenta" className="text-xs font-medium text-blue-500 hover:underline">¿Olvidaste?</Link>
-                  </div>
-                  <div className="relative group">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                    <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <button
-                    type="button"
-                    onClick={() => setUseAccessKey(v => !v)}
-                    className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? "text-blue-500" : "text-muted-foreground hover:text-foreground")}
-                  >
-                    <KeyRound className="h-3.5 w-3.5" />
-                    {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
-                  </button>
-                  {useAccessKey && (
+              {loginMode === 'email' ? (
+                <form onSubmit={handleLogin} className="space-y-5">
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-foreground/80">Correo Electrónico</Label>
                     <div className="relative group">
-                      <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
-                      <Input
-                        name="accessKey"
-                        type={showAccessKey ? 'text' : 'password'}
-                        placeholder="Tu llave personal"
-                        autoComplete="off"
-                        minLength={6}
-                        className="h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all"
-                      />
-                      <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                        {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
+                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <Label className="text-sm font-semibold text-foreground/80">Contraseña</Label>
+                      <Link href="/recuperar-cuenta" className="text-xs font-medium text-blue-500 hover:underline">¿Olvidaste?</Link>
+                    </div>
+                    <div className="relative group">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className="h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
+                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
-                  )}
-                  {useAccessKey && (
-                    <p className="text-[10px] text-muted-foreground/60 leading-relaxed">
-                      Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
-                    </p>
-                  )}
-                </div>
+                  </div>
 
-                <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg bg-blue-600 hover:bg-blue-500 text-white transition-all hover:shadow-xl" disabled={isLoading || isScanning}>
-                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Entrar <ArrowRight className="ml-2 h-4 w-4" /></>}
-                </Button>
-              </form>
+                  <div className="space-y-2">
+                    <button type="button" onClick={() => setUseAccessKey(v => !v)}
+                      className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? "text-blue-500" : "text-muted-foreground hover:text-foreground")}>
+                      <KeyRound className="h-3.5 w-3.5" />
+                      {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
+                    </button>
+                    {useAccessKey && (
+                      <div className="relative group">
+                        <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-blue-500 transition-colors" />
+                        <Input name="accessKey" type={showAccessKey ? 'text' : 'password'} placeholder="Tu llave personal" autoComplete="off" minLength={6}
+                          className="h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50 transition-all" />
+                        <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                          {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg bg-blue-600 hover:bg-blue-500 text-white transition-all hover:shadow-xl" disabled={isLoading || isScanning}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  </Button>
+                </form>
+              ) : (
+                <form onSubmit={handlePhoneLogin} className="space-y-5">
+                  <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+                    <div className="flex items-start gap-2.5">
+                      <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-[12px] font-semibold text-foreground/80">Acceso sin contraseña</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">Recibirás un código de 6 dígitos para verificar tu identidad.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-foreground/80">Número de Teléfono</Label>
+                    <div className="relative group">
+                      <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-emerald-500 transition-colors" />
+                      <Input name="phone" type="tel" placeholder="04XX-XXXXXXX" required autoComplete="tel"
+                        className="h-12 pl-10 rounded-xl border-border/50 bg-muted/20 focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50 transition-all" />
+                    </div>
+                    <p className="text-[10px] text-muted-foreground/50">El número debe estar registrado en tu cuenta</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-foreground/80">Recibir código por</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button type="button" onClick={() => setPhoneMethod('sms')}
+                        className={cn("flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          phoneMethod === 'sms' ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500" : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                        )}>
+                        <MessageSquare className="h-4 w-4" /> SMS
+                      </button>
+                      <button type="button" onClick={() => setPhoneMethod('whatsapp')}
+                        className={cn("flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          phoneMethod === 'whatsapp' ? "border-green-500/50 bg-green-500/5 text-green-500" : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                        )}>
+                        <MessageCircle className="h-4 w-4" /> WhatsApp
+                      </button>
+                    </div>
+                  </div>
+
+                  <Button type="submit" className="w-full h-12 rounded-xl font-bold text-sm shadow-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white transition-all hover:shadow-xl" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  </Button>
+                </form>
+              )}
 
               <div className="mt-5">
                 <div className="flex items-center gap-3 mb-4">

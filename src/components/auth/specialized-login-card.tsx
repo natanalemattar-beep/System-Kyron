@@ -59,6 +59,8 @@ export function SpecializedLoginCard({
   const [showAccessKey, setShowAccessKey] = useState(false);
   const [useAccessKey, setUseAccessKey] = useState(false);
   const [step, setStep] = useState<'credentials' | 'verification'>('credentials');
+  const [loginMode, setLoginMode] = useState<'email' | 'phone'>('email');
+  const [phoneMethod, setPhoneMethod] = useState<'sms' | 'whatsapp'>('sms');
   const [verificationEmail, setVerificationEmail] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
   const [userName, setUserName] = useState('');
@@ -160,6 +162,45 @@ export function SpecializedLoginCard({
     await attemptLogin(savedCredentials.email, savedCredentials.password);
   };
 
+  const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const phone = (formData.get('phone') as string || '').trim();
+    if (!phone) { setError('Ingresa tu número de teléfono'); return; }
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/auth/login-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, method: phoneMethod }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error || 'Error al enviar código.');
+        setIsLoading(false);
+        return;
+      }
+      if (json.requiresVerification) {
+        setVerificationEmail(json.email);
+        setMaskedPhone(json.maskedPhone || '');
+        setUserName(json.nombre || '');
+        setHasPhone(true);
+        setChallengeToken(json.challengeToken || '');
+        setVerificationMethod(phoneMethod);
+        setStep('verification');
+        setCountdown(600);
+        setCodeDigits(['', '', '', '', '', '']);
+        setIsLoading(false);
+        const channelLabel = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
+        const icon = phoneMethod === 'sms'
+          ? <Smartphone className="text-emerald-500 h-4 w-4" />
+          : <MessageCircle className="text-green-500 h-4 w-4" />;
+        toast({ title: `Código enviado por ${channelLabel}`, description: `Revisa tu ${channelLabel} en ${json.maskedPhone}`, action: icon });
+      }
+    } catch { setError('Error de conexión.'); setIsLoading(false); }
+  };
+
   const handleCodeChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
     const newDigits = [...codeDigits];
@@ -193,7 +234,7 @@ export function SpecializedLoginCard({
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 
-  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); };
+  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
   const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
@@ -375,117 +416,219 @@ export function SpecializedLoginCard({
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="mb-8">
+                <div className="mb-6">
                   <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-                  <p className="text-[13px] text-muted-foreground mt-1.5">Accede con tu correo y contraseña</p>
+                  <p className="text-[13px] text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
                 </div>
 
-                <form onSubmit={handleAuth} className="space-y-5">
-                  <AnimatePresence>
-                    {error && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="overflow-hidden"
-                      >
-                        {error === 'NO_ACCOUNT' ? (
-                          <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
-                            <div className="flex items-start gap-3">
-                              <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                              <div className="space-y-1">
-                                <p className="text-[13px] font-semibold text-foreground">Correo o contraseña incorrectos</p>
-                                <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva si aún no estás registrado.</p>
-                              </div>
-                            </div>
-                            <Link href="/register">
-                              <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 hover:bg-amber-500/10 hover:text-amber-700">
-                                <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
-                              </Button>
-                            </Link>
-                          </div>
-                        ) : (
-                          <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                            <div className="flex items-start gap-3">
-                              <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                              <p className="text-[13px] text-destructive">{error}</p>
-                            </div>
-                            {emailDeliveryFailed && savedCredentials && (
-                              <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
-                                <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
-                              </Button>
-                            )}
-                          </div>
-                        )}
-                      </motion.div>
+                <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
+                  <button
+                    type="button"
+                    onClick={() => { setLoginMode('email'); setError(null); }}
+                    className={cn(
+                      "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                      loginMode === 'email'
+                        ? cn("bg-card shadow-sm border border-border/30", theme.accent)
+                        : "text-muted-foreground hover:text-foreground"
                     )}
-                  </AnimatePresence>
+                  >
+                    <Mail className="h-3.5 w-3.5" /> Correo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setLoginMode('phone'); setError(null); }}
+                    className={cn(
+                      "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                      loginMode === 'phone'
+                        ? "bg-card shadow-sm border border-border/30 text-emerald-500"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <Smartphone className="h-3.5 w-3.5" /> Teléfono
+                  </button>
+                </div>
 
-                  <div className="space-y-2">
-                    <Label className="text-[13px] font-semibold text-foreground/80">Correo Electrónico</Label>
-                    <div className="relative group">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <Label className="text-[13px] font-semibold text-foreground/80">Contraseña</Label>
-                      <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
-                    </div>
-                    <div className="relative group">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
-                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <button
-                      type="button"
-                      onClick={() => setUseAccessKey(v => !v)}
-                      className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
+                <AnimatePresence>
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden mb-5"
                     >
-                      <KeyRound className="h-3.5 w-3.5" />
-                      {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
-                    </button>
-                    <AnimatePresence>
-                      {useAccessKey && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="overflow-hidden space-y-2"
-                        >
-                          <div className="relative group">
-                            <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                            <Input
-                              name="accessKey"
-                              type={showAccessKey ? 'text' : 'password'}
-                              placeholder="Tu llave personal"
-                              autoComplete="off"
-                              minLength={6}
-                              className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)}
-                            />
-                            <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                              {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                            </button>
+                      {error === 'NO_ACCOUNT' ? (
+                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                          <div className="flex items-start gap-3">
+                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="text-[13px] font-semibold text-foreground">Credenciales incorrectas</p>
+                              <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva.</p>
+                            </div>
                           </div>
-                          <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
-                            Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
-                          </p>
-                        </motion.div>
+                          <Link href="/register">
+                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 hover:bg-amber-500/10 hover:text-amber-700">
+                              <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
+                            </Button>
+                          </Link>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
+                          <div className="flex items-start gap-3">
+                            <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                            <p className="text-[13px] text-destructive">{error}</p>
+                          </div>
+                          {emailDeliveryFailed && savedCredentials && (
+                            <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
+                              <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                            </Button>
+                          )}
+                        </div>
                       )}
-                    </AnimatePresence>
-                  </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                  <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.btnBg)} disabled={isLoading}>
-                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
-                  </Button>
-                </form>
+                <AnimatePresence mode="wait">
+                  {loginMode === 'email' ? (
+                    <motion.form
+                      key="email-form"
+                      onSubmit={handleAuth}
+                      className="space-y-5"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="space-y-2">
+                        <Label className="text-[13px] font-semibold text-foreground/80">Correo Electrónico</Label>
+                        <div className="relative group">
+                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                          <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <Label className="text-[13px] font-semibold text-foreground/80">Contraseña</Label>
+                          <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
+                        </div>
+                        <div className="relative group">
+                          <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                          <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                          <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <button
+                          type="button"
+                          onClick={() => setUseAccessKey(v => !v)}
+                          className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
+                        >
+                          <KeyRound className="h-3.5 w-3.5" />
+                          {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
+                        </button>
+                        <AnimatePresence>
+                          {useAccessKey && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden space-y-2"
+                            >
+                              <div className="relative group">
+                                <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                                <Input
+                                  name="accessKey"
+                                  type={showAccessKey ? 'text' : 'password'}
+                                  placeholder="Tu llave personal"
+                                  autoComplete="off"
+                                  minLength={6}
+                                  className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)}
+                                />
+                                <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                                  {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                              </div>
+                              <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
+                                Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.btnBg)} disabled={isLoading}>
+                        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
+                      </Button>
+                    </motion.form>
+                  ) : (
+                    <motion.form
+                      key="phone-form"
+                      onSubmit={handlePhoneLogin}
+                      className="space-y-5"
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+                        <div className="flex items-start gap-2.5">
+                          <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-[12px] font-semibold text-foreground/80">Acceso sin contraseña</p>
+                            <p className="text-[11px] text-muted-foreground mt-0.5">Recibirás un código de 6 dígitos en tu teléfono para verificar tu identidad.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-[13px] font-semibold text-foreground/80">Número de Teléfono</Label>
+                        <div className="relative group">
+                          <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-emerald-500 transition-colors" />
+                          <Input name="phone" type="tel" placeholder="04XX-XXXXXXX" required autoComplete="tel" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50")} />
+                        </div>
+                        <p className="text-[10px] text-muted-foreground/50">El número debe estar registrado en tu cuenta</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-[13px] font-semibold text-foreground/80">Recibir código por</Label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setPhoneMethod('sms')}
+                            className={cn(
+                              "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                              phoneMethod === 'sms'
+                                ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500"
+                                : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                            )}
+                          >
+                            <MessageSquare className="h-4 w-4" /> SMS
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPhoneMethod('whatsapp')}
+                            className={cn(
+                              "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                              phoneMethod === 'whatsapp'
+                                ? "border-green-500/50 bg-green-500/5 text-green-500"
+                                : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                            )}
+                          >
+                            <MessageCircle className="h-4 w-4" /> WhatsApp
+                          </button>
+                        </div>
+                      </div>
+
+                      <Button type="submit" className="w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
+                        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}
+                      </Button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
 
                 <div className="mt-8 pt-6 border-t border-border/30 space-y-4">
                   <Button variant="outline" asChild className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
