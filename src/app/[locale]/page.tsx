@@ -33,7 +33,7 @@ function LazySection({ children, fallbackHeight = '200px' }: { children: React.R
           observer.disconnect();
         }
       },
-      { rootMargin: '300px' }
+      { rootMargin: '400px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -76,10 +76,9 @@ function LandingContent() {
           <PageTracker />
           <WelcomeTutorial />
           <HeaderGuideArrows />
+          <LandingHeader />
         </>
       )}
-
-      {mounted && <LandingHeader />}
 
       <main className="w-full">
         {mounted && (

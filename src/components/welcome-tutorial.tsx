@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
   DialogHeader,
@@ -19,6 +19,7 @@ import {
   UserPlus,
   Building2,
   LayoutDashboard,
+  PartyPopper,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,84 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const STORAGE_KEY = 'kyron-tutorial-seen';
+
+function getTimeGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return '¡Buenos días!';
+  if (hour >= 12 && hour < 18) return '¡Buenas tardes!';
+  return '¡Buenas noches!';
+}
+
+function TypingText({ text, speed = 25, className }: { text: string; speed?: number; className?: string }) {
+  const [displayed, setDisplayed] = useState('');
+  const indexRef = useRef(0);
+
+  useEffect(() => {
+    setDisplayed('');
+    indexRef.current = 0;
+    const interval = setInterval(() => {
+      indexRef.current++;
+      setDisplayed(text.slice(0, indexRef.current));
+      if (indexRef.current >= text.length) clearInterval(interval);
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+
+  return (
+    <span className={className}>
+      {displayed}
+      {displayed.length < text.length && (
+        <span className="inline-block w-[2px] h-[1em] bg-primary/60 animate-pulse ml-0.5 align-middle" />
+      )}
+    </span>
+  );
+}
+
+function Confetti() {
+  const [particles] = useState(() => {
+    const colors = ['#0ea5e9', '#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+    return Array.from({ length: 40 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      delay: Math.random() * 0.6,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: 4 + Math.random() * 6,
+      duration: 1.5 + Math.random() * 1.5,
+      rotation: Math.random() > 0.5 ? 360 : -360,
+      drift: (Math.random() - 0.5) * 100,
+    }));
+  });
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            top: '-5%',
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.color,
+          }}
+          initial={{ y: 0, opacity: 1, rotate: 0 }}
+          animate={{
+            y: ['0%', '120vh'],
+            opacity: [1, 1, 0],
+            rotate: [0, p.rotation],
+            x: [0, p.drift],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            ease: 'easeIn',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 const steps = [
   {
@@ -38,6 +117,8 @@ const steps = [
     tag: "BIENVENIDA",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
     screenshotAlt: "Ecosistema Kyron - Terminal de operaciones",
+    useGreeting: true,
+    useTyping: true,
   },
   {
     title: "Accede a tu Portal",
@@ -104,23 +185,40 @@ const steps = [
     tag: "LISTO",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
     screenshotAlt: "Dashboard completo de System Kyron",
+    showConfetti: true,
   },
 ];
 
 export function WelcomeTutorial() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [imgLoaded, setImgLoaded] = useState<Record<number, boolean>>({ 0: false });
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     const seen = localStorage.getItem(STORAGE_KEY);
     if (!seen) {
-      const timer = setTimeout(() => setIsOpen(true), 800);
+      const timer = setTimeout(() => setIsOpen(true), 600);
       return () => clearTimeout(timer);
     }
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const next1 = currentStep + 1;
+    const next2 = currentStep + 2;
+    [next1, next2].forEach(idx => {
+      if (idx < steps.length && !imgLoaded[idx]) {
+        const img = new window.Image();
+        img.onload = () => setImgLoaded(prev => ({ ...prev, [idx]: true }));
+        img.src = steps[idx].screenshot;
+      }
+    });
+  }, [currentStep, isOpen, imgLoaded]);
+
   const handleNext = useCallback(() => {
     if (currentStep < steps.length - 1) {
+      setDirection(1);
       setCurrentStep(s => s + 1);
     } else {
       handleClose();
@@ -128,7 +226,10 @@ export function WelcomeTutorial() {
   }, [currentStep]);
 
   const handleBack = useCallback(() => {
-    if (currentStep > 0) setCurrentStep(s => s - 1);
+    if (currentStep > 0) {
+      setDirection(-1);
+      setCurrentStep(s => s - 1);
+    }
   }, [currentStep]);
 
   const handleClose = useCallback(() => {
@@ -137,11 +238,24 @@ export function WelcomeTutorial() {
     setCurrentStep(0);
   }, []);
 
+  const handleStepClick = useCallback((idx: number) => {
+    setDirection(idx > currentStep ? 1 : -1);
+    setCurrentStep(idx);
+  }, [currentStep]);
+
   if (!isOpen) return null;
 
   const step = steps[currentStep];
   const Icon = step.icon;
   const progress = ((currentStep + 1) / steps.length) * 100;
+  const isFirstStep = 'useGreeting' in step && step.useGreeting;
+  const isLastStep = 'showConfetti' in step && step.showConfetti;
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
+  };
 
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
@@ -157,15 +271,18 @@ export function WelcomeTutorial() {
           onPointerDownOutside={() => {}}
           onInteractOutside={() => {}}
         >
+          {isLastStep && <Confetti />}
+
           <DialogHeader className="sr-only">
             <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>
             <DialogDescription>Tutorial de introducción a la plataforma System Kyron.</DialogDescription>
           </DialogHeader>
 
           <div className="absolute top-0 left-0 right-0 h-1 bg-muted/50 z-10">
-            <div
-              className="h-full bg-primary shadow-glow-sm transition-all duration-300 ease-out"
-              style={{ width: `${progress}%` }}
+            <motion.div
+              className="h-full bg-primary shadow-glow-sm"
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
 
@@ -177,20 +294,38 @@ export function WelcomeTutorial() {
               )}>
                 {step.tag}
               </span>
-              <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-                {currentStep + 1} / {steps.length}
-              </span>
+              <div className="flex items-center gap-2">
+                {isLastStep && <PartyPopper className="h-4 w-4 text-amber-400 animate-bounce" />}
+                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                  {currentStep + 1} / {steps.length}
+                </span>
+              </div>
             </div>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.25 }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="space-y-4 sm:space-y-5"
               >
+                {isFirstStep && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1, duration: 0.3 }}
+                    className="text-center mb-2"
+                  >
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-orange-500/10 border border-amber-500/20 text-amber-500 text-[11px] font-bold">
+                      {getTimeGreeting()} 👋
+                    </span>
+                  </motion.div>
+                )}
+
                 <div className="flex items-center gap-3 sm:gap-5">
                   <div className={cn(
                     "relative w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 border",
@@ -208,19 +343,39 @@ export function WelcomeTutorial() {
                   </div>
                 </div>
 
-                <p className="text-[11px] sm:text-sm text-muted-foreground font-medium leading-relaxed border-l-4 border-primary/20 pl-3 sm:pl-4">
-                  {step.description}
-                </p>
+                <div className="border-l-4 border-primary/20 pl-3 sm:pl-4">
+                  {'useTyping' in step && step.useTyping ? (
+                    <TypingText
+                      text={step.description}
+                      speed={18}
+                      className="text-[11px] sm:text-sm text-muted-foreground font-medium leading-relaxed"
+                    />
+                  ) : (
+                    <p className="text-[11px] sm:text-sm text-muted-foreground font-medium leading-relaxed">
+                      {step.description}
+                    </p>
+                  )}
+                </div>
 
                 <div className="relative w-full rounded-xl overflow-hidden border border-border/30 shadow-lg">
                   <div className="relative w-full aspect-[16/9]">
+                    {!imgLoaded[currentStep] && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
+                        <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                      </div>
+                    )}
                     <Image
                       src={step.screenshot}
                       alt={step.screenshotAlt}
                       fill
-                      className="object-cover object-top"
+                      className={cn(
+                        "object-cover object-top transition-opacity duration-300",
+                        imgLoaded[currentStep] ? "opacity-100" : "opacity-0"
+                      )}
                       sizes="(max-width: 700px) 100vw, 700px"
                       quality={85}
+                      priority={currentStep === 0}
+                      onLoad={() => setImgLoaded(prev => ({ ...prev, [currentStep]: true }))}
                     />
                   </div>
                   <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
@@ -230,7 +385,7 @@ export function WelcomeTutorial() {
                   {steps.map((_, i) => (
                     <button
                       key={i}
-                      onClick={() => setCurrentStep(i)}
+                      onClick={() => handleStepClick(i)}
                       className={cn(
                         "h-1.5 rounded-full transition-all duration-300",
                         i === currentStep
