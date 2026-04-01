@@ -153,9 +153,9 @@ function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => 
   switch (purpose) {
     case 'verification':
     case 'password-reset':
-      return [sendViaGmail, sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
+      return [sendViaGmail, sendViaResend, sendViaWhatsApp, sendViaSms];
     case 'alert':
-      return [sendViaOutlook, sendViaGmail, sendViaResend, sendViaWhatsApp, sendViaSms];
+      return [sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
     default:
       return [sendViaGmail, sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
   }
