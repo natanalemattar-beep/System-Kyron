@@ -566,7 +566,7 @@ export function SpecializedLoginCard({
                   )}
                 </AnimatePresence>
 
-                <div className="flex justify-center gap-2.5 mb-6">
+                <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mb-6">
                   {codeDigits.map((digit, i) => (
                     <motion.div
                       key={i}
@@ -580,7 +580,7 @@ export function SpecializedLoginCard({
                         onChange={e => handleCodeChange(i, e.target.value)}
                         onKeyDown={e => handleCodeKeyDown(i, e)}
                         onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                        className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
+                        className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-black rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
                         disabled={isLoading} autoComplete="one-time-code"
                       />
                     </motion.div>

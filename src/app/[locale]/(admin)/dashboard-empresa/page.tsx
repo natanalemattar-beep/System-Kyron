@@ -309,8 +309,8 @@ export default function DashboardEmpresaPage() {
                   <div className="h-7 w-28 bg-muted/20 rounded-lg animate-pulse" />
                 ) : (
                   <div className="flex items-end justify-between gap-2">
-                    <p className="text-lg md:text-xl font-bold tracking-tight text-foreground">{kpi.value}</p>
-                    {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.sparkColor || "#888"} />}
+                    <p className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground truncate">{kpi.value}</p>
+                    <div className="hidden sm:block">{kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.sparkColor || "#888"} />}</div>
                   </div>
                 )}
                 {kpi.variacion !== undefined && !loading && (
