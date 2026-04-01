@@ -196,23 +196,50 @@ async function createContabilidadTables() {
       user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       cliente_id        INT REFERENCES clientes(id) ON DELETE SET NULL,
       numero_factura    TEXT NOT NULL,
+      numero_control    TEXT,
+      serie             TEXT,
       tipo              TEXT NOT NULL DEFAULT 'venta'
                         CHECK (tipo IN ('venta','compra','nota_credito','nota_debito')),
+      tipo_documento    TEXT NOT NULL DEFAULT 'FACTURA'
+                        CHECK (tipo_documento IN ('FACTURA','NOTA_DEBITO','NOTA_CREDITO','ORDEN_ENTREGA','GUIA_DESPACHO')),
+      condicion_pago    TEXT NOT NULL DEFAULT 'contado'
+                        CHECK (condicion_pago IN ('contado','credito')),
       fecha_emision     DATE NOT NULL,
       fecha_vencimiento DATE,
       moneda            TEXT NOT NULL DEFAULT 'VES',
       subtotal          NUMERIC(18,2) NOT NULL DEFAULT 0,
+      base_imponible    NUMERIC(18,2) NOT NULL DEFAULT 0,
+      base_exenta       NUMERIC(18,2) NOT NULL DEFAULT 0,
+      base_no_sujeta    NUMERIC(18,2) NOT NULL DEFAULT 0,
       porcentaje_iva    NUMERIC(5,2)  NOT NULL DEFAULT 16.00,
+      alicuota_tipo     TEXT NOT NULL DEFAULT 'general'
+                        CHECK (alicuota_tipo IN ('general','reducida','adicional','exento')),
       monto_iva         NUMERIC(18,2) NOT NULL DEFAULT 0,
       porcentaje_igtf   NUMERIC(5,2)  NOT NULL DEFAULT 3.00,
       monto_igtf        NUMERIC(18,2) NOT NULL DEFAULT 0,
       total             NUMERIC(18,2) NOT NULL DEFAULT 0,
       tasa_bcv          NUMERIC(12,4),
       total_usd         NUMERIC(18,2),
+      monto_moneda_ext  NUMERIC(18,2),
+      moneda_extranjera TEXT,
+      retencion_iva     NUMERIC(18,2) NOT NULL DEFAULT 0,
+      porcentaje_ret_iva NUMERIC(5,2) NOT NULL DEFAULT 0,
+      retencion_islr    NUMERIC(18,2) NOT NULL DEFAULT 0,
+      porcentaje_ret_islr NUMERIC(5,2) NOT NULL DEFAULT 0,
+      total_a_pagar     NUMERIC(18,2) NOT NULL DEFAULT 0,
+      rif_emisor        TEXT,
+      razon_social_emisor TEXT,
+      domicilio_fiscal_emisor TEXT,
+      telefono_emisor   TEXT,
+      factura_referencia_id INT REFERENCES facturas(id) ON DELETE SET NULL,
+      factura_referencia_num TEXT,
+      factura_referencia_fecha DATE,
+      motivo_ajuste     TEXT,
       estado            TEXT NOT NULL DEFAULT 'emitida'
                         CHECK (estado IN ('borrador','emitida','pendiente','cobrada','pagada','vencida','anulada')),
       descripcion       TEXT,
       notas             TEXT,
+      sin_derecho_credito_fiscal BOOLEAN NOT NULL DEFAULT false,
       created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
@@ -225,11 +252,15 @@ async function createContabilidadTables() {
       id               SERIAL PRIMARY KEY,
       factura_id       INT NOT NULL REFERENCES facturas(id) ON DELETE CASCADE,
       descripcion      TEXT NOT NULL,
+      codigo           TEXT,
+      unidad           TEXT NOT NULL DEFAULT 'UND',
       cantidad         NUMERIC(12,4) NOT NULL DEFAULT 1,
       precio_unitario  NUMERIC(18,2) NOT NULL DEFAULT 0,
       descuento_pct    NUMERIC(5,2)  NOT NULL DEFAULT 0,
       subtotal         NUMERIC(18,2) NOT NULL DEFAULT 0,
-      aplica_iva       BOOLEAN NOT NULL DEFAULT true
+      aplica_iva       BOOLEAN NOT NULL DEFAULT true,
+      tipo_gravamen    TEXT NOT NULL DEFAULT 'gravado'
+                       CHECK (tipo_gravamen IN ('gravado','exento','no_sujeto'))
     )
   `);
 
@@ -2395,6 +2426,37 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_user_estado ON facturas(user_id, estado)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_created ON facturas(created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_fecha ON facturas(fecha_emision DESC)`);
+
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS numero_control TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS serie TEXT`);
+  await safeQuery(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS tipo_documento TEXT NOT NULL DEFAULT 'FACTURA'`);
+  await safeQuery(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS condicion_pago TEXT NOT NULL DEFAULT 'contado'`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS base_imponible NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS base_exenta NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS base_no_sujeta NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await safeQuery(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS alicuota_tipo TEXT NOT NULL DEFAULT 'general'`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS monto_moneda_ext NUMERIC(18,2)`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS moneda_extranjera TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS retencion_iva NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS porcentaje_ret_iva NUMERIC(5,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS retencion_islr NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS porcentaje_ret_islr NUMERIC(5,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS total_a_pagar NUMERIC(18,2) NOT NULL DEFAULT 0`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS rif_emisor TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS razon_social_emisor TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS domicilio_fiscal_emisor TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS telefono_emisor TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS factura_referencia_id INT REFERENCES facturas(id) ON DELETE SET NULL`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS factura_referencia_num TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS factura_referencia_fecha DATE`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS motivo_ajuste TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS sin_derecho_credito_fiscal BOOLEAN NOT NULL DEFAULT false`);
+
+  await query(`ALTER TABLE factura_items ADD COLUMN IF NOT EXISTS codigo TEXT`);
+  await query(`ALTER TABLE factura_items ADD COLUMN IF NOT EXISTS unidad TEXT NOT NULL DEFAULT 'UND'`);
+  await safeQuery(`ALTER TABLE factura_items ADD COLUMN IF NOT EXISTS tipo_gravamen TEXT NOT NULL DEFAULT 'gravado'`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_numero_control ON facturas(numero_control)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_activo ON empleados(user_id, activo)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_cedula ON empleados(cedula)`);
