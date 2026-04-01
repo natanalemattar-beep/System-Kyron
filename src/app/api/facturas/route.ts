@@ -2,12 +2,36 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
+import { createHash } from 'crypto';
 
 export const dynamic = 'force-dynamic';
 
+function generarHashFiscal(data: {
+    numero_factura: string;
+    numero_control: string;
+    fecha_emision: string;
+    rif_emisor: string | null;
+    total: number;
+    tipo_documento: string;
+    moneda: string;
+    emitida_at: string;
+}): string {
+    const payload = [
+        data.numero_factura,
+        data.numero_control,
+        data.fecha_emision,
+        data.rif_emisor ?? '',
+        data.total.toFixed(2),
+        data.tipo_documento,
+        data.moneda,
+        data.emitida_at,
+    ].join('|');
+    return createHash('sha256').update(payload).digest('hex');
+}
+
 async function getNextNumeroControl(userId: number): Promise<string> {
     const result = await query<{ max_num: string | null }>(
-        `SELECT MAX(numero_control) as max_num FROM facturas WHERE user_id = $1 AND numero_control IS NOT NULL`,
+        `SELECT MAX(numero_control) as max_num FROM facturas WHERE user_id = $1 AND numero_control IS NOT NULL FOR UPDATE`,
         [userId]
     );
     const current = result[0]?.max_num;
@@ -28,7 +52,7 @@ async function getNextNumeroFactura(userId: number, tipoDoc: string): Promise<st
     };
     const prefix = prefixes[tipoDoc] || 'FAC';
     const result = await query<{ count: string }>(
-        `SELECT COUNT(*)::text as count FROM facturas WHERE user_id = $1 AND tipo_documento = $2`,
+        `SELECT COUNT(*)::text as count FROM facturas WHERE user_id = $1 AND tipo_documento = $2 FOR UPDATE`,
         [userId, tipoDoc]
     );
     const num = parseInt(result[0]?.count ?? '0', 10) + 1;
@@ -76,6 +100,7 @@ export async function GET(req: NextRequest) {
                     f.estado, f.descripcion,
                     f.factura_referencia_id, f.factura_referencia_num, f.motivo_ajuste,
                     f.sin_derecho_credito_fiscal,
+                    f.inmutable, f.hash_fiscal, f.emitida_at, f.anulada_at, f.anulada_por_nc, f.cobrada_at,
                     f.cliente_id,
                     c.razon_social AS cliente_nombre, c.rif AS cliente_rif,
                     c.direccion AS cliente_direccion, c.telefono AS cliente_telefono
@@ -173,7 +198,22 @@ export async function POST(req: NextRequest) {
         const numFactura = numero_factura || await getNextNumeroFactura(session.userId, tipoDoc);
         const numControl = await getNextNumeroControl(session.userId);
 
-        const [factura] = await query<{ id: number; numero_factura: string; numero_control: string; total: string }>(
+        const estadoFinal = estado ?? 'emitida';
+        const esEmitida = estadoFinal !== 'borrador';
+        const emitidaAtTimestamp = esEmitida ? new Date().toISOString() : null;
+
+        const hashFiscal = esEmitida ? generarHashFiscal({
+            numero_factura: numFactura,
+            numero_control: numControl,
+            fecha_emision,
+            rif_emisor: rif_emisor ?? null,
+            total,
+            tipo_documento: tipoDoc,
+            moneda: moneda ?? 'VES',
+            emitida_at: emitidaAtTimestamp!,
+        }) : null;
+
+        const [factura] = await query<{ id: number; numero_factura: string; numero_control: string; total: string; hash_fiscal: string | null; inmutable: boolean }>(
             `INSERT INTO facturas (
                 user_id, cliente_id, numero_factura, numero_control, serie,
                 tipo, tipo_documento, condicion_pago,
@@ -189,11 +229,13 @@ export async function POST(req: NextRequest) {
                 rif_emisor, razon_social_emisor, domicilio_fiscal_emisor, telefono_emisor,
                 factura_referencia_id, factura_referencia_num, factura_referencia_fecha, motivo_ajuste,
                 estado, descripcion, notas,
-                sin_derecho_credito_fiscal
+                sin_derecho_credito_fiscal,
+                emitida_at, hash_fiscal, inmutable
             ) VALUES (
                 $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,
-                $21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42
-            ) RETURNING id, numero_factura, numero_control, total::text`,
+                $21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,
+                $43,$44,$45
+            ) RETURNING id, numero_factura, numero_control, total::text, hash_fiscal, inmutable`,
             [
                 session.userId,
                 cliente_id ?? null,
@@ -233,10 +275,13 @@ export async function POST(req: NextRequest) {
                 factura_referencia_num ?? null,
                 factura_referencia_fecha ?? null,
                 motivo_ajuste ?? null,
-                estado ?? 'emitida',
+                estadoFinal,
                 descripcion ?? null,
                 notas ?? null,
                 false,
+                emitidaAtTimestamp,
+                hashFiscal,
+                esEmitida,
             ]
         );
 
@@ -267,7 +312,7 @@ export async function POST(req: NextRequest) {
             userId: session.userId,
             evento: tipoDoc === 'FACTURA' ? 'NUEVA_FACTURA' : tipoDoc === 'NOTA_DEBITO' ? 'NUEVA_NOTA_DEBITO' : tipoDoc === 'NOTA_CREDITO' ? 'NUEVA_NOTA_CREDITO' : 'NUEVO_DOCUMENTO',
             categoria: 'contabilidad',
-            descripcion: `${tipoDoc} creada: ${factura.numero_factura} (Control: ${factura.numero_control}) — Total: ${factura.total}`,
+            descripcion: `${tipoDoc} creada: ${factura.numero_factura} (Control: ${factura.numero_control}) — Total: ${factura.total}${esEmitida ? ' [INMUTABLE — SENIAT]' : ' [BORRADOR]'}`,
             entidadTipo: 'factura',
             entidadId: factura.id,
             metadata: {
@@ -276,11 +321,30 @@ export async function POST(req: NextRequest) {
                 tipo_documento: tipoDoc,
                 total: factura.total,
                 moneda: moneda ?? 'VES',
-                estado: estado ?? 'emitida',
+                estado: estadoFinal,
+                inmutable: esEmitida,
+                hash_fiscal: factura.hash_fiscal,
             },
         });
 
-        return NextResponse.json({ success: true, factura });
+        if (esEmitida && tipoDoc === 'NOTA_CREDITO' && factura_referencia_id) {
+            try {
+                await query(
+                    `UPDATE facturas SET estado = 'anulada', anulada_por_nc = $1 WHERE id = $2 AND user_id = $3 AND inmutable = true`,
+                    [factura.numero_factura, factura_referencia_id, session.userId]
+                );
+            } catch {
+            }
+        }
+
+        return NextResponse.json({
+            success: true,
+            factura,
+            inmutable: esEmitida,
+            mensaje_fiscal: esEmitida
+                ? 'DOCUMENTO FISCAL EMITIDO — Este documento es inmutable según la Providencia SNAT/2011/00071. No puede ser editado ni eliminado. Para correcciones utilice Nota de Crédito o Nota de Débito.'
+                : 'Borrador guardado. Puede editarse hasta ser emitido.',
+        });
     } catch (err) {
         console.error('[facturas] POST error:', err);
         return NextResponse.json({ error: 'Error al crear factura' }, { status: 500 });

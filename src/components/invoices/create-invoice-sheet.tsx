@@ -587,6 +587,14 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
               </div>
             </div>
 
+            <div className="rounded-lg border-2 border-rose-500/30 bg-rose-500/[0.05] p-3 flex items-start gap-3">
+              <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+              <div className="text-[10px] leading-relaxed">
+                <p className="font-bold text-rose-500 mb-0.5">DOCUMENTO INMUTABLE — SENIAT</p>
+                <p className="text-muted-foreground">Al emitir este documento, quedará <span className="font-bold text-foreground">sellado con hash criptográfico SHA-256</span> y protegido por triggers de base de datos. No podrá ser editado ni eliminado. La copia del cliente y la de la empresa serán idénticas e inalterables. Para correcciones posteriores, deberá emitir una Nota de Crédito o Nota de Débito.</p>
+              </div>
+            </div>
+
             <SheetFooter className="flex-col gap-2 pt-4">
               <Button type="submit" className="w-full h-11 font-bold" disabled={isSubmitting}>
                 {isSubmitting ? 'Procesando...' : `Emitir ${watchedTipoDoc === 'NOTA_DEBITO' ? 'Nota de Débito' : watchedTipoDoc === 'NOTA_CREDITO' ? 'Nota de Crédito' : 'Factura'}`}

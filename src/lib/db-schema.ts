@@ -2457,6 +2457,8 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeQuery(`ALTER TABLE factura_items ADD COLUMN IF NOT EXISTS tipo_gravamen TEXT NOT NULL DEFAULT 'gravado'`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_numero_control ON facturas(numero_control)`);
+  await safeIndex(`CREATE UNIQUE INDEX IF NOT EXISTS idx_facturas_user_control_unique ON facturas(user_id, numero_control) WHERE numero_control IS NOT NULL`);
+  await safeIndex(`CREATE UNIQUE INDEX IF NOT EXISTS idx_facturas_user_factura_unique ON facturas(user_id, numero_factura)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_activo ON empleados(user_id, activo)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_empleados_cedula ON empleados(cedula)`);
@@ -2476,4 +2478,150 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_cedula ON users(cedula)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_tasas_bcv_fecha ON tasas_bcv(fecha DESC)`);
+
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS emitida_at TIMESTAMPTZ`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS hash_fiscal TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS inmutable BOOLEAN NOT NULL DEFAULT false`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS anulada_at TIMESTAMPTZ`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS anulada_por_nc TEXT`);
+  await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS cobrada_at TIMESTAMPTZ`);
+
+  await safeQuery(`
+    CREATE OR REPLACE FUNCTION proteger_factura_emitida()
+    RETURNS TRIGGER AS $$
+    BEGIN
+      IF OLD.inmutable = true THEN
+
+        IF NEW.inmutable IS DISTINCT FROM OLD.inmutable
+           OR NEW.hash_fiscal IS DISTINCT FROM OLD.hash_fiscal
+           OR NEW.emitida_at IS DISTINCT FROM OLD.emitida_at
+        THEN
+          RAISE EXCEPTION 'DOCUMENTO FISCAL INMUTABLE: Los campos de sellado fiscal (inmutable, hash_fiscal, emitida_at) no pueden ser alterados.';
+        END IF;
+
+        IF NEW.numero_factura IS DISTINCT FROM OLD.numero_factura
+           OR NEW.numero_control IS DISTINCT FROM OLD.numero_control
+           OR NEW.total IS DISTINCT FROM OLD.total
+           OR NEW.subtotal IS DISTINCT FROM OLD.subtotal
+           OR NEW.monto_iva IS DISTINCT FROM OLD.monto_iva
+           OR NEW.base_imponible IS DISTINCT FROM OLD.base_imponible
+           OR NEW.base_exenta IS DISTINCT FROM OLD.base_exenta
+           OR NEW.base_no_sujeta IS DISTINCT FROM OLD.base_no_sujeta
+           OR NEW.porcentaje_iva IS DISTINCT FROM OLD.porcentaje_iva
+           OR NEW.monto_igtf IS DISTINCT FROM OLD.monto_igtf
+           OR NEW.porcentaje_igtf IS DISTINCT FROM OLD.porcentaje_igtf
+           OR NEW.retencion_iva IS DISTINCT FROM OLD.retencion_iva
+           OR NEW.retencion_islr IS DISTINCT FROM OLD.retencion_islr
+           OR NEW.total_a_pagar IS DISTINCT FROM OLD.total_a_pagar
+           OR NEW.rif_emisor IS DISTINCT FROM OLD.rif_emisor
+           OR NEW.razon_social_emisor IS DISTINCT FROM OLD.razon_social_emisor
+           OR NEW.domicilio_fiscal_emisor IS DISTINCT FROM OLD.domicilio_fiscal_emisor
+           OR NEW.telefono_emisor IS DISTINCT FROM OLD.telefono_emisor
+           OR NEW.fecha_emision IS DISTINCT FROM OLD.fecha_emision
+           OR NEW.cliente_id IS DISTINCT FROM OLD.cliente_id
+           OR NEW.tipo_documento IS DISTINCT FROM OLD.tipo_documento
+           OR NEW.condicion_pago IS DISTINCT FROM OLD.condicion_pago
+           OR NEW.moneda IS DISTINCT FROM OLD.moneda
+           OR NEW.serie IS DISTINCT FROM OLD.serie
+           OR NEW.tasa_bcv IS DISTINCT FROM OLD.tasa_bcv
+           OR NEW.total_usd IS DISTINCT FROM OLD.total_usd
+           OR NEW.monto_moneda_ext IS DISTINCT FROM OLD.monto_moneda_ext
+           OR NEW.moneda_extranjera IS DISTINCT FROM OLD.moneda_extranjera
+           OR NEW.descripcion IS DISTINCT FROM OLD.descripcion
+           OR NEW.factura_referencia_id IS DISTINCT FROM OLD.factura_referencia_id
+           OR NEW.factura_referencia_num IS DISTINCT FROM OLD.factura_referencia_num
+           OR NEW.motivo_ajuste IS DISTINCT FROM OLD.motivo_ajuste
+           OR NEW.sin_derecho_credito_fiscal IS DISTINCT FROM OLD.sin_derecho_credito_fiscal
+           OR NEW.user_id IS DISTINCT FROM OLD.user_id
+        THEN
+          RAISE EXCEPTION 'DOCUMENTO FISCAL INMUTABLE: La factura % (Control: %) ya fue emitida el % y no puede ser modificada según Providencia SNAT/2011/00071. Para correcciones use Nota de Crédito o Nota de Débito.',
+            OLD.numero_factura, OLD.numero_control, OLD.emitida_at;
+        END IF;
+
+        IF NEW.estado IS DISTINCT FROM OLD.estado THEN
+          IF OLD.estado = 'emitida' AND NEW.estado IN ('cobrada', 'pagada') THEN
+            NEW.cobrada_at = NOW();
+            RETURN NEW;
+          END IF;
+
+          IF OLD.estado IN ('emitida', 'cobrada', 'pagada') AND NEW.estado = 'anulada' AND NEW.anulada_por_nc IS NOT NULL THEN
+            NEW.anulada_at = NOW();
+            RETURN NEW;
+          END IF;
+
+          RAISE EXCEPTION 'DOCUMENTO FISCAL INMUTABLE: Transición de estado no permitida (% -> %). Solo se permite: emitida->cobrada/pagada, o anulación mediante Nota de Crédito.',
+            OLD.estado, NEW.estado;
+        END IF;
+
+      END IF;
+      RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql
+  `);
+
+  await safeQuery(`DROP TRIGGER IF EXISTS trg_proteger_factura ON facturas`);
+  await safeQuery(`
+    CREATE TRIGGER trg_proteger_factura
+    BEFORE UPDATE ON facturas
+    FOR EACH ROW
+    EXECUTE FUNCTION proteger_factura_emitida()
+  `);
+
+  await safeQuery(`
+    CREATE OR REPLACE FUNCTION bloquear_delete_factura()
+    RETURNS TRIGGER AS $$
+    BEGIN
+      IF OLD.inmutable = true THEN
+        RAISE EXCEPTION 'DOCUMENTO FISCAL INMUTABLE: La factura % no puede ser eliminada. Los documentos fiscales emitidos son permanentes según la Providencia SNAT/2011/00071.',
+          OLD.numero_factura;
+      END IF;
+      RETURN OLD;
+    END;
+    $$ LANGUAGE plpgsql
+  `);
+
+  await safeQuery(`DROP TRIGGER IF EXISTS trg_bloquear_delete_factura ON facturas`);
+  await safeQuery(`
+    CREATE TRIGGER trg_bloquear_delete_factura
+    BEFORE DELETE ON facturas
+    FOR EACH ROW
+    EXECUTE FUNCTION bloquear_delete_factura()
+  `);
+
+  await safeQuery(`
+    CREATE OR REPLACE FUNCTION bloquear_modificar_factura_items()
+    RETURNS TRIGGER AS $$
+    DECLARE
+      is_inmutable BOOLEAN;
+      target_factura_id INT;
+    BEGIN
+      IF TG_OP = 'DELETE' THEN
+        target_factura_id := OLD.factura_id;
+      ELSIF TG_OP = 'INSERT' THEN
+        target_factura_id := NEW.factura_id;
+      ELSE
+        target_factura_id := OLD.factura_id;
+      END IF;
+
+      SELECT inmutable INTO is_inmutable FROM facturas WHERE id = target_factura_id;
+      IF is_inmutable = true THEN
+        RAISE EXCEPTION 'DOCUMENTO FISCAL INMUTABLE: No se pueden agregar, modificar ni eliminar items de una factura emitida.';
+      END IF;
+
+      IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+      END IF;
+      RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql
+  `);
+
+  await safeQuery(`DROP TRIGGER IF EXISTS trg_bloquear_delete_items ON factura_items`);
+  await safeQuery(`DROP TRIGGER IF EXISTS trg_bloquear_modificar_items ON factura_items`);
+  await safeQuery(`
+    CREATE TRIGGER trg_bloquear_modificar_items
+    BEFORE INSERT OR UPDATE OR DELETE ON factura_items
+    FOR EACH ROW
+    EXECUTE FUNCTION bloquear_modificar_factura_items()
+  `);
 }

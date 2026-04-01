@@ -194,6 +194,21 @@ export default function ModeloFacturaPage() {
                 <p>Documento emitido por sistema computarizado conforme al numeral 2 del Art. 6 de la Providencia Administrativa SNAT/2011/00071.</p>
                 <p className="font-bold italic">Las copias de este documento no dan derecho a crédito fiscal — Art. 13 num. 13.</p>
               </div>
+
+              <div className="border-2 border-emerald-700 rounded-lg p-3 mt-4 bg-emerald-50">
+                <div className="flex items-center gap-2 mb-1">
+                  <Shield className="h-4 w-4 text-emerald-700" />
+                  <p className="text-xs font-black text-emerald-800 uppercase tracking-wider">Documento Fiscal Inmutable</p>
+                </div>
+                <p className="text-[9px] text-emerald-700 leading-relaxed">
+                  Este documento fue generado electrónicamente y sellado con hash criptográfico SHA-256.
+                  No puede ser modificado ni eliminado conforme a la Providencia SNAT/2011/00071.
+                  Para correcciones emita Nota de Crédito (Art. 18) o Nota de Débito (Art. 18).
+                </p>
+                <p className="text-[8px] font-mono text-emerald-600 mt-1 break-all">
+                  Hash: a3f8c1...{'{verificación digital}'}
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>
