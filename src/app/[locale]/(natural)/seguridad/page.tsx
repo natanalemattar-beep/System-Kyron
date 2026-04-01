@@ -1,93 +1,149 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, KeyRound, Smartphone, Lock, Activity, Terminal , ArrowLeft } from "lucide-react";
+import { ShieldCheck, KeyRound, Smartphone, Lock, Activity, Terminal, ArrowLeft } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-
 import { Link } from '@/navigation';
+import { motion } from "framer-motion";
+
 export default function SeguridadPage() {
     return (
-        <div className="max-w-4xl mx-auto space-y-12">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
-                <header className="border-l-4 border-primary pl-8 py-2">
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground  flex items-center gap-6">
-                    <ShieldCheck className="h-10 w-10 text-primary" />
-                    Seguridad de Nodo
-                </h1>
-                <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-40">Protección de Identidad • Encryption AES-256</p>
-            </header>
+        <div className="max-w-5xl mx-auto space-y-8">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
+            </Link>
 
-            <div className="grid gap-8 lg:grid-cols-12">
-                <div className="lg:col-span-7 space-y-8">
-                    <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-4">
-                        <CardHeader className="p-8">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
-                                <KeyRound className="h-6 w-6 text-primary"/> Autenticación 2FA
-                            </CardTitle>
-                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Capa de Seguridad Extra</CardDescription>
-                        </CardHeader>
-                        <CardContent className="p-8 pt-0 flex items-center justify-between">
-                            <div className="space-y-1">
-                                <Label className="text-sm font-black uppercase italic text-white/80">App de Autenticación</Label>
-                                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Google Authenticator / Authy</p>
-                            </div>
-                            <Switch className="data-[state=checked]:bg-primary shadow-glow-sm" />
-                        </CardContent>
-                    </Card>
+            <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-emerald-500/[0.04] via-card to-card p-6 sm:p-8"
+            >
+                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+                <div className="relative flex items-start gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                        <ShieldCheck className="h-7 w-7 text-emerald-500" />
+                    </div>
+                    <div className="space-y-1">
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Seguridad</h1>
+                        <p className="text-sm text-muted-foreground font-medium">Protección de identidad, autenticación y dispositivos vinculados</p>
+                        <div className="flex items-center gap-2 pt-1">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500">
+                                <Lock className="h-3 w-3" /> AES-256
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                <Terminal className="h-3 w-3" /> TLS 1.3
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
 
-                    <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-4">
-                        <CardHeader className="p-8">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white flex items-center gap-4">
-                                <Smartphone className="h-6 w-6 text-primary"/> Dispositivos Vinculados
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-8 pt-0 space-y-4">
-                            <div className="flex justify-between items-center p-5 bg-white/[0.03] border border-white/5 rounded-2xl group hover:bg-white/[0.05] transition-all">
-                                <div className="space-y-1">
-                                    <p className="text-xs font-black uppercase italic text-white/90">iPhone 15 Pro - Caracas</p>
-                                    <p className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest">Activo Ahora • Nodo Central</p>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-4">
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                        <Card className="rounded-2xl border border-border/30 bg-card">
+                            <CardHeader className="pb-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center">
+                                        <KeyRound className="h-4 w-4 text-primary" />
+                                    </div>
+                                    <div>
+                                        <CardTitle className="text-sm font-semibold text-foreground">Autenticación 2FA</CardTitle>
+                                        <p className="text-[11px] text-muted-foreground">Capa de seguridad adicional</p>
+                                    </div>
                                 </div>
-                                <Badge className="bg-primary/20 text-primary border-primary/30 text-[8px] font-black uppercase">Este Nodo</Badge>
-                            </div>
-                            <div className="flex justify-between items-center p-5 bg-white/[0.01] border border-white/5 rounded-2xl opacity-50">
-                                <div className="space-y-1">
-                                    <p className="text-xs font-black uppercase italic text-white/90">Windows PC - Valencia</p>
-                                    <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest">Visto hace 2 días</p>
+                            </CardHeader>
+                            <CardContent className="flex items-center justify-between pt-0">
+                                <div className="space-y-0.5">
+                                    <Label className="text-sm font-medium text-foreground/80">App de Autenticación</Label>
+                                    <p className="text-[11px] text-muted-foreground">Google Authenticator / Authy</p>
                                 </div>
-                                <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase text-rose-500 hover:text-rose-400 hover:bg-rose-500/10">Revocar</Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+                                <Switch className="data-[state=checked]:bg-primary" />
+                            </CardContent>
+                        </Card>
+                    </motion.div>
+
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+                        <Card className="rounded-2xl border border-border/30 bg-card">
+                            <CardHeader className="pb-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center">
+                                        <Smartphone className="h-4 w-4 text-primary" />
+                                    </div>
+                                    <CardTitle className="text-sm font-semibold text-foreground">Dispositivos Vinculados</CardTitle>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="space-y-3 pt-0">
+                                <div className="flex justify-between items-center p-4 rounded-xl bg-muted/20 border border-border/20 hover:bg-muted/30 transition-colors">
+                                    <div className="space-y-0.5">
+                                        <p className="text-sm font-medium text-foreground/90">iPhone 15 Pro — Caracas</p>
+                                        <p className="text-[11px] text-emerald-500 font-medium">Activo ahora</p>
+                                    </div>
+                                    <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] font-bold uppercase tracking-wider">Este dispositivo</Badge>
+                                </div>
+                                <div className="flex justify-between items-center p-4 rounded-xl bg-muted/10 border border-border/15 opacity-60">
+                                    <div className="space-y-0.5">
+                                        <p className="text-sm font-medium text-foreground/90">Windows PC — Valencia</p>
+                                        <p className="text-[11px] text-muted-foreground">Visto hace 2 días</p>
+                                    </div>
+                                    <Button variant="ghost" size="sm" className="text-[10px] font-bold uppercase tracking-widest text-rose-500 hover:text-rose-400 hover:bg-rose-500/5 rounded-lg h-8">Revocar</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </div>
 
-                <div className="lg:col-span-5 space-y-8">
-                    <Card className="bg-rose-600/10 border-2 border-rose-600/20 rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
-                            <Lock className="h-32 w-32" />
-                        </div>
-                        <div className="relative z-10">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tight text-rose-500 mb-4 flex items-center gap-3">
-                                <Activity className="h-6 w-6" /> BLOQUEO MAESTRO
-                            </h3>
-                            <p className="text-[10px] font-bold text-white/40 leading-relaxed uppercase mb-8">Inhabilite el acceso a todos sus activos digitales y documentos certificados en caso de extravío de su terminal físico.</p>
-                        </div>
-                        <Button variant="destructive" className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl relative z-10">ACTIVAR PROTOCOLO DE EMERGENCIA</Button>
-                    </Card>
+                <div className="lg:col-span-5 space-y-4">
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                        <Card className="rounded-2xl border border-rose-500/20 bg-rose-500/[0.03] overflow-hidden">
+                            <CardContent className="p-6 space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+                                        <Activity className="h-5 w-5 text-rose-500" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-sm font-bold text-rose-500">Bloqueo de Emergencia</h3>
+                                        <p className="text-[11px] text-muted-foreground">Inhabilita acceso a todos tus datos</p>
+                                    </div>
+                                </div>
+                                <p className="text-[12px] text-muted-foreground leading-relaxed">
+                                    Bloquea el acceso a todos tus documentos y activos digitales en caso de extravío de tu dispositivo.
+                                </p>
+                                <Button variant="destructive" className="w-full h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest">
+                                    Activar Bloqueo de Emergencia
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
 
-                    <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
-                        <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-6 flex items-center gap-3">
-                            <Terminal className="h-4 w-4" /> Telemetría de Seguridad
-                        </h4>
-                        <div className="space-y-4 text-[9px] font-bold uppercase tracking-widest text-white/20">
-                            <div className="flex justify-between"><span>Encriptación:</span> <span className="text-white/60">AES-XTS-512</span></div>
-                            <div className="flex justify-between"><span>SSL Node:</span> <span className="text-white/60">TLS 1.3 Active</span></div>
-                            <div className="flex justify-between"><span>Auth Level:</span> <span className="text-white/60">Tier 5 (Master)</span></div>
-                        </div>
-                    </Card>
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+                        <Card className="rounded-2xl border border-border/30 bg-card">
+                            <CardContent className="p-6">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Terminal className="h-4 w-4 text-muted-foreground/40" />
+                                    <span className="text-[11px] font-semibold text-muted-foreground/60">Estado del Sistema</span>
+                                </div>
+                                <div className="space-y-3 text-[12px]">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-muted-foreground">Encriptación</span>
+                                        <span className="font-medium text-foreground/70">AES-XTS-512</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-muted-foreground">SSL</span>
+                                        <span className="font-medium text-foreground/70">TLS 1.3 Activo</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-muted-foreground">Nivel de Acceso</span>
+                                        <span className="font-medium text-foreground/70">Tier 5 (Master)</span>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </div>
             </div>
         </div>

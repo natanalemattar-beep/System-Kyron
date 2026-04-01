@@ -1,15 +1,15 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download, Terminal , ArrowLeft } from "lucide-react";
+import { Gavel, Calculator, History, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Download, ArrowLeft } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-
 import { Link } from '@/navigation';
+import { motion } from "framer-motion";
+
 const depositos = [
     { id: "DEP-001", fecha: "15/07/2024", monto: 1200, concepto: "Mensualidad Julio", estado: "Confirmado" },
     { id: "DEP-002", fecha: "15/06/2024", monto: 1200, concepto: "Mensualidad Junio", estado: "Confirmado" },
@@ -20,89 +20,113 @@ export default function ManutencionPage() {
     const { toast } = useToast();
 
     return (
-        <div className="space-y-12">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
-                <header className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-4 border-primary pl-8 py-2">
-                <div className="space-y-2">
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground  flex items-center gap-4">
-                        <Gavel className="h-8 w-8 text-primary" />
-                        Obligación de Manutención
-                    </h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Cumplimiento LOPNNA • Nodo de Responsabilidad Civil</p>
+        <div className="space-y-8 max-w-5xl mx-auto">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
+            </Link>
+
+            <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-amber-500/[0.04] via-card to-card p-6 sm:p-8"
+            >
+                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+                <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+                    <div className="flex items-start gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+                            <Gavel className="h-7 w-7 text-amber-500" />
+                        </div>
+                        <div className="space-y-1">
+                            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Obligación de Manutención</h1>
+                            <p className="text-sm text-muted-foreground font-medium">Cumplimiento LOPNNA — Responsabilidad civil</p>
+                        </div>
+                    </div>
+                    <Button className="h-11 px-6 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2 shrink-0"
+                        onClick={() => toast({ title: "Calculadora activa", description: "Sincronizando con Unidad Tributaria vigente." })}>
+                        <Calculator className="h-3.5 w-3.5" /> Calcular Aporte
+                    </Button>
                 </div>
-                <Button className="btn-3d-primary h-14 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => toast({ title: "Calculadora Activa", description: "Sincronizando con Unidad Tributaria vigente." })}>
-                    <Calculator className="mr-3 h-5 w-5"/> CALCULAR APORTE
-                </Button>
-            </header>
+            </motion.div>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden shadow-2xl">
-                    <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-primary/10 rounded-2xl">
-                                <History className="h-6 w-6 text-primary" />
+            <div className="grid gap-6 lg:grid-cols-12">
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="lg:col-span-8">
+                    <Card className="rounded-2xl border border-border/30 bg-card overflow-hidden">
+                        <CardHeader className="border-b border-border/20 bg-muted/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center">
+                                    <History className="h-4 w-4 text-primary" />
+                                </div>
+                                <div>
+                                    <CardTitle className="text-sm font-semibold text-foreground">Historial de Depósitos</CardTitle>
+                                    <CardDescription className="text-[11px] text-muted-foreground">Registro inmutable de aportes</CardDescription>
+                                </div>
                             </div>
-                            <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tight">Historial de Depósitos</CardTitle>
-                                <CardDescription className="text-[10px] font-bold uppercase opacity-30 tracking-widest">Registro Inmutable de Aportes</CardDescription>
-                            </div>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-white/[0.02] border-none">
-                                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
-                                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Concepto</TableHead>
-                                    <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
-                                    <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {depositos.map(dep => (
-                                    <TableRow key={dep.id} className="border-white/5 hover:bg-white/[0.02] transition-all group">
-                                        <TableCell className="pl-10 py-6 text-[10px] font-bold text-white/30 uppercase">{dep.fecha}</TableCell>
-                                        <TableCell className="py-6 font-black uppercase text-xs text-white/80 group-hover:text-white">{dep.concepto}</TableCell>
-                                        <TableCell className="text-right py-6 font-mono text-sm font-black text-primary italic">{formatCurrency(dep.monto, 'Bs.')}</TableCell>
-                                        <TableCell className="text-center py-6">
-                                            <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-6 px-3 rounded-lg">{dep.estado}</Badge>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                    <CardFooter className="p-8 border-t border-white/5 flex justify-center bg-white/[0.01]">
-                        <Button variant="link" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 hover:text-primary">
-                            <Download className="mr-3 h-4 w-4"/> DESCARGAR ESTADO DE CUENTA LEDGER
-                        </Button>
-                    </CardFooter>
-                </Card>
-
-                <div className="lg:col-span-4 space-y-10">
-                    <Card className="bg-emerald-600 text-white rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow-secondary border-none">
-                        <div className="absolute top-0 right-0 p-8 opacity-10">
-                            <CheckCircle className="h-32 w-32" />
-                        </div>
-                        <div className="relative z-10">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4 leading-none">Estatus Legal: <br/> CUMPLIMIENTO</h3>
-                            <p className="text-xs font-bold opacity-80 leading-relaxed uppercase">Su historial transaccional no registra deudas ni retrasos. El blindaje legal está activo.</p>
-                        </div>
-                    </Card>
-
-                    <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8 border border-white/5">
-                        <CardHeader className="p-0 mb-6">
-                            <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 flex items-center gap-3 italic">
-                                <AlertTriangle className="h-4 w-4" /> Protocolo LOPNNA
-                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-0 space-y-6 text-[10px] font-bold uppercase tracking-widest text-white/40 leading-relaxed text-justify">
-                            <div className="flex gap-4">
-                                <span className="font-black text-primary">[Art. 365]</span>
-                                <span>La manutención es un derecho de orden público e irrenunciable. El sistema monitorea la Unidad Tributaria para ajustes síncronos.</span>
-                            </div>
+                        <CardContent className="p-0">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/5 border-border/20">
+                                        <TableHead className="pl-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Fecha</TableHead>
+                                        <TableHead className="py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Concepto</TableHead>
+                                        <TableHead className="text-right py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Monto</TableHead>
+                                        <TableHead className="text-center py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Estatus</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {depositos.map(dep => (
+                                        <TableRow key={dep.id} className="border-border/15 hover:bg-muted/10 transition-colors">
+                                            <TableCell className="pl-6 py-4 text-[11px] font-medium text-muted-foreground">{dep.fecha}</TableCell>
+                                            <TableCell className="py-4 text-sm font-medium text-foreground/80">{dep.concepto}</TableCell>
+                                            <TableCell className="text-right py-4 font-mono text-sm font-semibold text-primary">{formatCurrency(dep.monto, 'Bs.')}</TableCell>
+                                            <TableCell className="text-center py-4">
+                                                <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5 h-6 px-3 rounded-lg">{dep.estado}</Badge>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
                         </CardContent>
+                        <CardFooter className="border-t border-border/20 p-4 flex justify-center">
+                            <Button variant="ghost" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary gap-2">
+                                <Download className="h-3.5 w-3.5" /> Descargar Estado de Cuenta
+                            </Button>
+                        </CardFooter>
                     </Card>
+                </motion.div>
+
+                <div className="lg:col-span-4 space-y-4">
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+                        <Card className="rounded-2xl border border-emerald-500/20 bg-emerald-500 text-white overflow-hidden">
+                            <CardContent className="p-6 relative">
+                                <div className="absolute top-0 right-0 p-4 opacity-[0.08]">
+                                    <CheckCircle className="h-24 w-24" />
+                                </div>
+                                <div className="relative z-10 space-y-3">
+                                    <h3 className="text-lg font-bold">Estatus Legal</h3>
+                                    <p className="text-2xl font-bold">En Cumplimiento</p>
+                                    <p className="text-sm opacity-80 leading-relaxed">Sin deudas ni retrasos. Blindaje legal activo.</p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
+
+                    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                        <Card className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.02]">
+                            <CardContent className="p-5 space-y-3">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/15 flex items-center justify-center">
+                                        <AlertTriangle className="h-4 w-4 text-amber-500" />
+                                    </div>
+                                    <span className="text-[11px] font-semibold text-amber-500">Protocolo LOPNNA</span>
+                                </div>
+                                <div className="flex gap-3 text-[12px] text-muted-foreground leading-relaxed">
+                                    <span className="font-bold text-primary shrink-0">[Art. 365]</span>
+                                    <span>La manutención es un derecho de orden público e irrenunciable. El sistema monitorea la Unidad Tributaria para ajustes síncronos.</span>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </div>
             </div>
         </div>

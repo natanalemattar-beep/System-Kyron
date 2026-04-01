@@ -25,7 +25,7 @@ export default function NaturalLayout({
         name: fullName,
         email: authUser?.email || "",
         fallback: initials,
-        color: "bg-primary shadow-glow"
+        color: "bg-primary"
     };
 
     return (

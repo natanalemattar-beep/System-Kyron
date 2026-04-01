@@ -144,16 +144,23 @@ export default function MisDocumentosPage() {
 
   return (
     <div className="space-y-12">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
-                <header className="border-l-4 border-primary pl-8 py-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground ">Bóveda Digital</h1>
-          <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-40">Almacenamiento de Grado Legal • Zero-Knowledge</p>
+      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
+      <header className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-blue-500/[0.04] via-card to-card p-6 sm:p-8">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+        <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+        <div className="flex items-start gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+            <Lock className="h-7 w-7 text-blue-500" />
+          </div>
+          <div className="space-y-1">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Bóveda Digital</h1>
+            <p className="text-sm text-muted-foreground font-medium">Almacenamiento seguro de documentos personales</p>
+          </div>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest">
-              <Plus className="mr-2 h-4 w-4" /> ADJUNTAR DOCUMENTO
+            <Button className="h-11 px-6 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2 shrink-0">
+              <Plus className="h-3.5 w-3.5" /> Adjuntar Documento
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-card border-border rounded-2xl max-w-lg">
@@ -210,18 +217,19 @@ export default function MisDocumentosPage() {
             </div>
             <DialogFooter>
               <DialogClose asChild><Button variant="outline" className="rounded-xl">Cancelar</Button></DialogClose>
-              <Button onClick={handleUpload} disabled={uploading} className="btn-3d-primary rounded-xl font-black uppercase text-[9px] tracking-widest">
-                {uploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
-                REGISTRAR
+              <Button onClick={handleUpload} disabled={uploading} className="rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2">
+                {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                Registrar
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        </div>
       </header>
 
       <div className="relative max-w-md">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 h-5 w-5" />
-        <Input placeholder="Buscar activos digitales..." value={search} onChange={e => setSearch(e.target.value)} className="pl-12 h-14 rounded-2xl bg-white/5 border-white/10 text-xs font-bold uppercase tracking-widest" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/40 h-4 w-4" />
+        <Input placeholder="Buscar documentos..." value={search} onChange={e => setSearch(e.target.value)} className="pl-11 h-11 rounded-xl border-border/30 bg-background text-sm" />
       </div>
 
       {loading ? (
@@ -229,10 +237,12 @@ export default function MisDocumentosPage() {
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 space-y-4">
-          <Lock className="h-16 w-16 text-white/5 mx-auto" />
-          <p className="text-white/20 font-black uppercase tracking-[0.4em] text-sm italic">
-            {documentos.length === 0 ? "Bóveda vacía — adjunte su primer documento" : "Sin resultados para esta búsqueda"}
+        <div className="text-center py-16">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-muted/20 border border-border/20 flex items-center justify-center mb-4">
+            <Lock className="h-7 w-7 text-muted-foreground/30" />
+          </div>
+          <p className="text-sm text-muted-foreground/50 font-medium">
+            {documentos.length === 0 ? "Bóveda vacía — adjunta tu primer documento" : "Sin resultados para esta búsqueda"}
           </p>
         </div>
       ) : (
@@ -240,49 +250,41 @@ export default function MisDocumentosPage() {
           {filtered.map(doc => {
             const Icon = iconByType[doc.tipo_archivo?.toUpperCase()] ?? File;
             return (
-              <Card key={doc.id} className="glass-card border-none rounded-[2rem] bg-white/[0.02] hover:bg-white/[0.04] transition-all group overflow-hidden">
-                <CardHeader className="flex-row items-center gap-6 p-8 pb-4">
-                  <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 group-hover:scale-110 transition-transform shadow-inner">
-                    <Icon className="h-6 w-6 text-primary" />
+              <Card key={doc.id} className="rounded-2xl border border-border/30 bg-card hover:border-border/50 hover:shadow-lg transition-all group overflow-hidden">
+                <CardHeader className="flex-row items-center gap-4 p-5 pb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <CardTitle className="text-sm font-black uppercase italic tracking-tight text-white/90 truncate">{doc.nombre}</CardTitle>
-                    <CardDescription className="text-[9px] font-bold uppercase opacity-30 tracking-widest">
-                      {formatDate(doc.created_at)} • {formatSize(doc.tamano_kb)} • {doc.tipo_archivo}
+                    <CardTitle className="text-sm font-semibold text-foreground/90 truncate">{doc.nombre}</CardTitle>
+                    <CardDescription className="text-[10px] text-muted-foreground/50 font-medium">
+                      {formatDate(doc.created_at)} · {formatSize(doc.tamano_kb)} · {doc.tipo_archivo}
                     </CardDescription>
                     {doc.categoria && (
-                      <span className="inline-block mt-1 text-[8px] font-black uppercase tracking-widest text-primary/60 bg-primary/10 px-2 py-0.5 rounded">{doc.categoria}</span>
+                      <span className="inline-block mt-1 text-[9px] font-bold uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-lg border border-primary/10">{doc.categoria}</span>
                     )}
                   </div>
                 </CardHeader>
-                <CardContent className="p-8 pt-4">
+                <CardContent className="p-5 pt-2">
                   {doc.organismo && (
-                    <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-3">Emisor: {doc.organismo}</p>
+                    <p className="text-[11px] text-muted-foreground/50 font-medium mb-2">Emisor: {doc.organismo}</p>
                   )}
                   {doc.fecha_vencimiento && (
-                    <p className="text-[8px] font-bold uppercase tracking-widest text-amber-400/60 mb-3">Vence: {formatDate(doc.fecha_vencimiento)}</p>
+                    <p className="text-[11px] text-amber-500/70 font-medium mb-2">Vence: {formatDate(doc.fecha_vencimiento)}</p>
                   )}
-                  <div className="flex gap-3">
-                    <Button
-                      variant="outline"
-                      className="flex-1 h-10 rounded-xl border-white/5 bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-white/10 transition-all"
-                      onClick={() => toast({ title: "VISTA PREVIA", description: `Abriendo ${doc.nombre}` })}
-                    >
-                      <Eye className="mr-2 h-3 w-3" /> Ver
+                  <div className="flex gap-2 pt-2 border-t border-border/20">
+                    <Button variant="ghost" size="sm"
+                      className="flex-1 h-9 rounded-xl text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary gap-1.5"
+                      onClick={() => toast({ title: "Vista previa", description: `Abriendo ${doc.nombre}` })}>
+                      <Eye className="h-3 w-3" /> Ver
                     </Button>
-                    <Button
-                      variant="outline"
-                      className="flex-1 h-10 rounded-xl border-white/5 bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-white/10 transition-all"
-                      onClick={() => toast({ title: "DESCARGA INICIADA", description: `${doc.nombre}.${doc.tipo_archivo?.toLowerCase() ?? "pdf"}` })}
-                    >
-                      <Download className="mr-2 h-3 w-3" /> Bajar
+                    <Button variant="ghost" size="sm"
+                      className="flex-1 h-9 rounded-xl text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary gap-1.5"
+                      onClick={() => toast({ title: "Descarga iniciada", description: `${doc.nombre}.${doc.tipo_archivo?.toLowerCase() ?? "pdf"}` })}>
+                      <Download className="h-3 w-3" /> Bajar
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-10 w-10 rounded-xl border-rose-500/20 bg-rose-500/5 text-rose-400 hover:bg-rose-500/20"
-                      onClick={() => handleDelete(doc.id, doc.nombre)}
-                    >
+                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl text-muted-foreground/40 hover:text-rose-500 hover:bg-rose-500/5"
+                      onClick={() => handleDelete(doc.id, doc.nombre)}>
                       <Trash2 className="h-3 w-3" />
                     </Button>
                   </div>

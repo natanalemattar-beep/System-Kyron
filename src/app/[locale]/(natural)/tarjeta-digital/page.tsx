@@ -218,10 +218,10 @@ export default function TarjetaDigitalPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
             >
-                <Button className="flex-1 h-11 font-black rounded-xl shadow-lg btn-3d-primary text-[9px] uppercase tracking-widest" onClick={handleSaveContact}>
+                <Button className="flex-1 h-11 font-bold rounded-xl text-[10px] uppercase tracking-widest gap-2" onClick={handleSaveContact}>
                     <Download className="mr-2 h-4 w-4"/> Guardar VCF
                 </Button>
-                <Button variant="secondary" className="flex-1 h-11 font-black rounded-xl shadow-md text-[9px] uppercase tracking-widest border border-border/50" onClick={handleShare}>
+                <Button variant="secondary" className="flex-1 h-11 font-bold rounded-xl text-[10px] uppercase tracking-widest border border-border/30 gap-2" onClick={handleShare}>
                     <Share2 className="mr-2 h-4 w-4"/> Compartir
                 </Button>
             </motion.div>

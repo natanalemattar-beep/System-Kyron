@@ -1,101 +1,117 @@
-
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, ShieldCheck, KeyRound, Mail, Smartphone, MapPin, Building, Globe, Zap, LogOut, ShieldAlert } from "lucide-react";
+import { User, ShieldCheck, KeyRound, Mail, Smartphone, MapPin, LogOut, ShieldAlert, Pencil } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 
-/**
- * @fileOverview Perfil del Usuario en el Portal Personal.
- */
-
 export default function PerfilPersonalPage() {
   return (
-    <div className="space-y-12 pb-20 px-4 md:px-16 max-w-6xl mx-auto">
-      <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-            <User className="h-3 w-3" /> MI IDENTIDAD
+    <div className="space-y-8 pb-20 max-w-5xl mx-auto">
+      <motion.header
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-indigo-500/[0.04] via-card to-card p-6 sm:p-8 mt-6"
+      >
+        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+        <div className="relative flex items-start gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+            <User className="h-7 w-7 text-indigo-500" />
+          </div>
+          <div className="space-y-1">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Mi Perfil</h1>
+            <p className="text-sm text-muted-foreground font-medium">Gestiona tu identidad digital y credenciales personales</p>
+          </div>
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión de <span className="text-primary italic">Perfil Ciudadano</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Credenciales Personales • Acceso Seguro 2026</p>
-      </header>
+      </motion.header>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        {/* Lado Izquierdo: Información Básica */}
-        <div className="lg:col-span-4 space-y-10">
-            <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] text-center shadow-2xl flex flex-col items-center group overflow-hidden">
-                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:rotate-12 transition-transform"><Zap className="h-32 w-32" /></div>
-                <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-primary/20 p-1 shadow-2xl mb-8 group-hover:scale-105 transition-transform">
-                    <AvatarFallback className="text-4xl font-black bg-primary text-foreground">CM</AvatarFallback>
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-4 space-y-6">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <Card className="rounded-2xl border border-border/30 bg-card text-center overflow-hidden">
+              <div className="h-20 bg-gradient-to-r from-indigo-500/20 via-blue-500/10 to-transparent" />
+              <div className="-mt-12 flex flex-col items-center px-6 pb-6">
+                <Avatar className="h-24 w-24 border-4 border-card shadow-lg mb-4">
+                  <AvatarFallback className="text-2xl font-bold bg-gradient-to-br from-indigo-500 to-blue-600 text-white">CM</AvatarFallback>
                 </Avatar>
-                <div className="space-y-2 mb-8 relative z-10">
-                    <h2 className="text-2xl font-black uppercase italic tracking-tight text-white">Carlos Mattar</h2>
-                    <p className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] italic">Ciudadano Verificado</p>
-                </div>
-                <Badge className="bg-emerald-500/20 text-emerald-400 border-none px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-glow-secondary mb-8">ID DIGITAL NIVEL 5</Badge>
-                <Button variant="ghost" asChild className="text-rose-500 font-black uppercase text-[10px] tracking-widest hover:bg-rose-500/10">
-                    <Link href="/login"><LogOut className="mr-2 h-4 w-4" /> Finalizar Sesión</Link>
+                <h2 className="text-lg font-bold text-foreground">Carlos Mattar</h2>
+                <p className="text-[11px] text-primary font-semibold mt-0.5">Ciudadano Verificado</p>
+                <span className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-widest text-emerald-500">
+                  <ShieldCheck className="h-3 w-3" /> ID Digital Nivel 5
+                </span>
+                <Button variant="ghost" asChild className="mt-4 text-rose-500 text-xs font-semibold hover:bg-rose-500/5 rounded-xl h-9 px-4">
+                  <Link href="/login"><LogOut className="mr-2 h-3.5 w-3.5" /> Cerrar Sesión</Link>
                 </Button>
+              </div>
             </Card>
+          </motion.div>
 
-            <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-8 italic border-b border-primary/10 pb-4">Seguridad de la Cuenta</h3>
-                <div className="space-y-6">
-                    <div className="flex justify-between items-center border-b border-white/5 pb-4">
-                        <div className="flex items-center gap-3"><ShieldAlert className="h-4 w-4 text-primary/40" /><span className="text-[9px] font-bold text-muted-foreground uppercase">Autenticación</span></div>
-                        <span className="text-[9px] font-black text-emerald-500 uppercase">BIOMÉTRICA</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-white/5 pb-4">
-                        <div className="flex items-center gap-3"><KeyRound className="h-4 w-4 text-primary/40" /><span className="text-[9px] font-bold text-muted-foreground uppercase">2FA Status</span></div>
-                        <span className="text-[9px] font-black text-emerald-500 uppercase">ACTIVO</span>
-                    </div>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+            <Card className="rounded-2xl border border-border/30 bg-card">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-semibold text-foreground/70">Seguridad</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 pb-5">
+                <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30 border border-border/20">
+                  <div className="flex items-center gap-2.5">
+                    <ShieldAlert className="h-4 w-4 text-muted-foreground/50" />
+                    <span className="text-[11px] font-medium text-muted-foreground">Autenticación</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Biométrica</span>
                 </div>
+                <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30 border border-border/20">
+                  <div className="flex items-center gap-2.5">
+                    <KeyRound className="h-4 w-4 text-muted-foreground/50" />
+                    <span className="text-[11px] font-medium text-muted-foreground">2FA</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Activo</span>
+                </div>
+              </CardContent>
             </Card>
+          </motion.div>
         </div>
 
-        {/* Lado Derecho: Detalles */}
-        <div className="lg:col-span-8 space-y-10">
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-white/5 bg-muted/10">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Información de Contacto</CardTitle>
-                </CardHeader>
-                <CardContent className="p-10">
-                    <div className="grid sm:grid-cols-2 gap-10">
-                        <div className="space-y-6">
-                            <div className="space-y-2">
-                                <p className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1 tracking-widest">Email Principal</p>
-                                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 shadow-inner">
-                                    <Mail className="h-4 w-4 text-primary/40" />
-                                    <span className="text-xs font-bold text-white/80">carlos.mattar@email.com</span>
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <p className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1 tracking-widest">Teléfono Móvil</p>
-                                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 shadow-inner">
-                                    <Smartphone className="h-4 w-4 text-primary/40" />
-                                    <span className="text-xs font-bold text-white/80">0414-9377068</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="space-y-6">
-                            <div className="space-y-2">
-                                <p className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1 tracking-widest">Residencia</p>
-                                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 shadow-inner">
-                                    <MapPin className="h-4 w-4 text-primary/40" />
-                                    <span className="text-xs font-bold text-white/80">La Guaira, Venezuela</span>
-                                </div>
-                            </div>
-                        </div>
+        <div className="lg:col-span-8">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <Card className="rounded-2xl border border-border/30 bg-card overflow-hidden">
+              <CardHeader className="border-b border-border/20 bg-muted/10">
+                <CardTitle className="text-sm font-semibold text-foreground/70">Información de Contacto</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Email Principal</p>
+                    <div className="flex items-center gap-3">
+                      <Mail className="h-4 w-4 text-primary/50" />
+                      <span className="text-sm font-medium text-foreground/80">carlos.mattar@email.com</span>
                     </div>
-                </CardContent>
-                <CardFooter className="p-10 bg-primary/5 border-t border-white/5 flex justify-end">
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-xl">EDITAR INFORMACIÓN</Button>
-                </CardFooter>
+                  </div>
+                  <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Teléfono Móvil</p>
+                    <div className="flex items-center gap-3">
+                      <Smartphone className="h-4 w-4 text-primary/50" />
+                      <span className="text-sm font-medium text-foreground/80">0414-9377068</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-muted/20 border border-border/20 sm:col-span-2">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Residencia</p>
+                    <div className="flex items-center gap-3">
+                      <MapPin className="h-4 w-4 text-primary/50" />
+                      <span className="text-sm font-medium text-foreground/80">La Guaira, Venezuela</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="border-t border-border/20 bg-muted/5 p-4 flex justify-end">
+                <Button className="h-10 px-6 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2">
+                  <Pencil className="h-3.5 w-3.5" /> Editar Información
+                </Button>
+              </CardFooter>
             </Card>
+          </motion.div>
         </div>
       </div>
     </div>

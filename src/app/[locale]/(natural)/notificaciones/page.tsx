@@ -171,20 +171,21 @@ export default function NotificacionesPage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-12">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4">
+      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
         <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
       </Link>
 
-      <header className="text-center space-y-4 border-b border-white/5 pb-8">
-        <div className="inline-block p-4 bg-primary/10 rounded-2xl border border-primary/20">
-          <Bell className="h-10 w-10 text-primary" />
+      <header className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-primary/[0.04] via-card to-card p-6 sm:p-8">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-primary/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+        <div className="relative flex items-start gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+            <Bell className="h-7 w-7 text-primary" />
+          </div>
+          <div className="space-y-1">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Buzón de Alertas</h1>
+            <p className="text-sm text-muted-foreground font-medium">Alertas por email, WhatsApp y SMS en tiempo real</p>
+          </div>
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">
-          Buzón de Alertas
-        </h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">
-          Alertas por Email, WhatsApp y SMS en Tiempo Real
-        </p>
       </header>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
