@@ -105,9 +105,12 @@ export function SpecializedLoginCard({
           setSavedCredentials({ email, password });
           setEmailDeliveryFailed(true);
           setError(json.error || 'No pudimos enviar el código de verificación.');
+        } else if (res.status === 401) {
+          setSavedCredentials(null);
+          setError('NO_ACCOUNT');
         } else {
           setSavedCredentials(null);
-          setError(json.error || 'Credenciales incorrectas.');
+          setError(json.error || 'Error al iniciar sesión.');
         }
         setIsLoading(false);
         return;
@@ -131,7 +134,11 @@ export function SpecializedLoginCard({
         setEmailDeliveryFailed(false);
         setSavedCredentials(null);
         setIsLoading(false);
-        toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+        if (json.emailFailed && json.hasPhone) {
+          toast({ title: 'Correo no disponible', description: json.emailFailedMessage || 'Usa SMS o WhatsApp para recibir tu código.', action: <Smartphone className="text-amber-500 h-4 w-4" /> });
+        } else {
+          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+        }
         return;
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
@@ -382,17 +389,34 @@ export function SpecializedLoginCard({
                         exit={{ opacity: 0, height: 0 }}
                         className="overflow-hidden"
                       >
-                        <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                          <div className="flex items-start gap-3">
-                            <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                            <p className="text-[13px] text-destructive">{error}</p>
+                        {error === 'NO_ACCOUNT' ? (
+                          <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                            <div className="flex items-start gap-3">
+                              <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                              <div className="space-y-1">
+                                <p className="text-[13px] font-semibold text-foreground">Correo o contraseña incorrectos</p>
+                                <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva si aún no estás registrado.</p>
+                              </div>
+                            </div>
+                            <Link href="/register">
+                              <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 hover:bg-amber-500/10 hover:text-amber-700">
+                                <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
+                              </Button>
+                            </Link>
                           </div>
-                          {emailDeliveryFailed && savedCredentials && (
-                            <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
-                              <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
-                            </Button>
-                          )}
-                        </div>
+                        ) : (
+                          <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
+                            <div className="flex items-start gap-3">
+                              <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                              <p className="text-[13px] text-destructive">{error}</p>
+                            </div>
+                            {emailDeliveryFailed && savedCredentials && (
+                              <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
+                                <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                              </Button>
+                            )}
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>

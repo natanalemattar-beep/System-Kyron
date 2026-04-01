@@ -148,16 +148,29 @@ export async function POST(req: NextRequest) {
             return { success: false, error: String(err) };
         });
 
+        const challengeToken = createLoginChallenge(normalizedEmail, user.id);
+
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
+            if (hasPhone) {
+                return NextResponse.json({
+                    requiresVerification: true,
+                    maskedEmail,
+                    nombre: displayName,
+                    hasAccessKey: !!user.access_key_hash,
+                    hasPhone,
+                    maskedPhone,
+                    challengeToken,
+                    emailFailed: true,
+                    emailFailedMessage: 'No pudimos enviar el código por correo. Usa SMS o WhatsApp.',
+                });
+            }
             return NextResponse.json({
                 error: 'No pudimos enviar el código de verificación a tu correo. Por favor intenta de nuevo en unos momentos.',
                 emailDeliveryFailed: true,
                 maskedEmail,
             }, { status: 503 });
         }
-
-        const challengeToken = createLoginChallenge(normalizedEmail, user.id);
 
         return NextResponse.json({
             requiresVerification: true,
