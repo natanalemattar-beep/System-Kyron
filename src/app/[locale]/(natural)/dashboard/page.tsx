@@ -118,14 +118,14 @@ export default function DashboardPersonalPage() {
                     {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
                   </h1>
                 </div>
-                <p className="text-[11px] text-white/35 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
+                <p className="text-[11px] text-muted-foreground/60 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
               </div>
             </div>
             <div className="flex items-center gap-2.5 mt-1">
               <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400/80 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En vivo
               </span>
-              <span className={cn("text-[10px] px-2.5 py-0.5 rounded-lg bg-white/[0.05] border border-white/[0.06] font-semibold flex items-center gap-1.5", verif.color)}>
+              <span className={cn("text-[10px] px-2.5 py-0.5 rounded-lg bg-muted/50 border border-border/30 font-semibold flex items-center gap-1.5", verif.color)}>
                 <Trophy className="h-3 w-3" /> {verif.label}
               </span>
             </div>
@@ -282,18 +282,18 @@ export default function DashboardPersonalPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.4 }}
         >
-          <Card className="border border-border/30 rounded-xl bg-gradient-to-b from-[#0a1628] to-card/90 p-5 text-white overflow-hidden relative">
+          <Card className="border border-border/30 rounded-xl bg-gradient-to-br from-primary/[0.04] via-card to-card p-5 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/[0.06] blur-[50px]" />
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-3.5 w-3.5 text-blue-400" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400/60">IA Jurídica</span>
+                <Sparkles className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400" />
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60 dark:text-blue-400/60">IA Jurídica</span>
               </div>
-              <h3 className="text-sm font-bold text-white/90 mb-1">Asistencia Legal</h3>
-              <p className="text-[10px] text-white/35 mb-4 leading-relaxed">
+              <h3 className="text-sm font-bold text-foreground/90 mb-1">Asistencia Legal</h3>
+              <p className="text-[10px] text-muted-foreground/60 mb-4 leading-relaxed">
                 ¿Dudas sobre ISLR o trámites sucesorales? Solicita orientación.
               </p>
-              <Button asChild size="sm" className="w-full h-8 text-[10px] font-semibold rounded-lg bg-white/[0.06] border border-white/[0.08] text-white hover:bg-white/[0.1]">
+              <Button asChild size="sm" className="w-full h-8 text-[10px] font-semibold rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/15">
                 <Link href="/manual-usuario">Pedir ayuda IA</Link>
               </Button>
             </div>
