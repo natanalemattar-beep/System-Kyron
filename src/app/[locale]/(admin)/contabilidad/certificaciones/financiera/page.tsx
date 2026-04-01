@@ -2,7 +2,7 @@
 "use client";
 import { BackButton } from "@/components/back-button";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Download, Printer, Activity, Landmark, CircleCheck as CheckCircle, Terminal, FileText, Loader as Loader2, Search, Scale, Calculator } from "lucide-react";
@@ -18,14 +18,21 @@ export default function CertificacionFinancieraPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [step, setStep] = useState<'form' | 'preview'>('form');
+    const [certDate, setCertDate] = useState("");
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
         rif: "J-50328471-6",
         liquidez: 2.45,
         patrimonio: 950000,
         solvencia: "ÓPTIMA",
-        fecha: new Date().toISOString().substring(0, 10),
+        fecha: "",
     });
+
+    useEffect(() => {
+        const now = new Date();
+        setData(prev => ({ ...prev, fecha: now.toISOString().substring(0, 10) }));
+        setCertDate(now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
+    }, []);
 
     const handleGenerate = () => {
         setIsLoading(true);
@@ -101,7 +108,7 @@ export default function CertificacionFinancieraPage() {
                             </div>
                             <div className="text-right">
                                 <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">CERTIFICACIÓN FINANCIERA</h3>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">ID: KYR-FIN-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">ID: KYR-FIN-{data.fecha.replace(/-/g, '')}</p>
                             </div>
                         </header>
 
@@ -133,7 +140,7 @@ export default function CertificacionFinancieraPage() {
                             </p>
 
                             <p className="indent-12">
-                                Constancia que se expide en la ciudad de Caracas, a los {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}.
+                                Constancia que se expide en la ciudad de Caracas, a los {certDate}.
                             </p>
                         </div>
 

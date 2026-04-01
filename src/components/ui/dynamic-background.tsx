@@ -25,10 +25,10 @@ export function DynamicBackground() {
     }
   }, []);
 
-  const isLow = tier === "low";
-  const isHigh = tier === "high";
-  const showOrbs = !isLow;
-  const showGrid = !isLow;
+  const isLow = !mounted || tier === "low";
+  const isHigh = mounted && tier === "high";
+  const showOrbs = mounted && !isLow;
+  const showGrid = mounted && !isLow;
 
   return (
     <>

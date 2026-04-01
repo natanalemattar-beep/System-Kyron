@@ -107,7 +107,10 @@ export function HeaderGuideArrows() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [show, handleDismiss]);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 640);
+  }, []);
 
   return (
     <AnimatePresence>

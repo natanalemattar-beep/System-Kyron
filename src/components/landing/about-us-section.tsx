@@ -99,7 +99,7 @@ export function AboutUsSection() {
                         quality={85}
                         className="object-cover"
                         loading="lazy"
-                        sizes="100vw"
+                        sizes="(max-width: 1280px) 100vw, 1280px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
                     <div className="absolute inset-0 bg-white/60 dark:bg-[#030B1A]/60" />

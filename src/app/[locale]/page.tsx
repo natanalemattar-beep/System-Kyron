@@ -51,10 +51,6 @@ function LandingContent() {
   const [mounted, setMounted] = useState(false);
   const { tier } = useDevicePerformance();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
   }, []);
@@ -66,6 +62,12 @@ function LandingContent() {
       setIsLoading(false);
     }
   }, [skipLoadingScreen, isLoading]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setMounted(true);
+    }
+  }, [isLoading]);
 
   return (
     <>

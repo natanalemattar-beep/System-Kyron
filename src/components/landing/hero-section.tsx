@@ -98,18 +98,18 @@ export function HeroSection() {
                     src="/images/landing/hero-bg-light.webp"
                     alt=""
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                    sizes="100vw"
                     quality={85}
-                    className="object-cover dark:hidden"
+                    className="object-cover dark:opacity-0"
                     priority
                 />
                 <Image
                     src="/images/landing/hero-bg-dark.webp"
                     alt=""
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                    sizes="100vw"
                     quality={85}
-                    className="object-cover hidden dark:block"
+                    className="object-cover opacity-0 dark:opacity-100"
                     priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />
