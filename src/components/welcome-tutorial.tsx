@@ -154,13 +154,6 @@ export function WelcomeTutorial() {
             />
           </div>
 
-          <button
-            onClick={handleClose}
-            className="absolute top-5 right-5 z-20 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-          >
-            <X className="h-4 w-4" />
-          </button>
-
           <div className="pt-6 sm:pt-8 pb-4 sm:pb-6 px-5 sm:px-10">
             <div className="flex items-center justify-between mb-5 sm:mb-8">
               <span className={cn(
