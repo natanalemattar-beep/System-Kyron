@@ -92,7 +92,7 @@ export function HeroSection() {
     const { tier, config } = useDevicePerformance();
 
     return (
-        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center">
+        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-hidden">
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
@@ -128,10 +128,10 @@ export function HeroSection() {
 
             <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[80%] kyron-accent-line opacity-30" />
 
-            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-28 pb-8 md:pt-36 md:pb-24 flex-1 flex items-center w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-24 pb-8 sm:pt-28 md:pt-36 md:pb-24 flex-1 flex items-center w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-                    <div className="lg:col-span-6 space-y-7 text-center lg:text-left">
+                    <div className="lg:col-span-6 space-y-5 sm:space-y-7 text-center lg:text-left">
                         <motion.div
                             className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full liquid-glass-subtle mx-auto lg:ml-0"
                             variants={fadeUp}
@@ -174,13 +174,13 @@ export function HeroSection() {
                             animate="visible"
                             custom={0.4}
                         >
-                            <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
-                                <Link href="/login" className="flex items-center gap-3 justify-center">
+                            <Button asChild size="lg" className="relative h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
+                                <Link href="/login" className="flex items-center gap-2 sm:gap-3 justify-center">
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                    {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                                    {t('cta_main')} <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground/80 dark:text-white/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white transition-all duration-500 backdrop-blur-sm">
+                            <Button variant="outline" asChild size="lg" className="h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground/80 dark:text-white/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white transition-all duration-500 backdrop-blur-sm">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}
@@ -287,7 +287,7 @@ export function HeroSection() {
                             return (
                                 <motion.div
                                     key={i}
-                                    className="flex flex-col items-center gap-0.5 p-3 rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
+                                    className="flex flex-col items-center gap-0.5 p-2 sm:p-3 rounded-xl sm:rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 1 + i * 0.08, duration: 0.4 }}

@@ -138,7 +138,7 @@ export function WelcomeTutorial() {
           aria-hidden="true"
         />
         <DialogPrimitive.Content
-          className="fixed left-[50%] top-[50%] z-[60] grid w-full max-w-[90vw] sm:max-w-[640px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200"
+          className="fixed left-[50%] top-[50%] z-[60] grid w-[calc(100vw-2rem)] max-w-[640px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-2xl sm:rounded-[2rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200 max-h-[90vh] overflow-y-auto"
           onPointerDownOutside={() => {}}
           onInteractOutside={() => {}}
         >
@@ -161,8 +161,8 @@ export function WelcomeTutorial() {
             <X className="h-4 w-4" />
           </button>
 
-          <div className="pt-8 pb-6 px-8 sm:px-10">
-            <div className="flex items-center justify-between mb-8">
+          <div className="pt-6 sm:pt-8 pb-4 sm:pb-6 px-5 sm:px-10">
+            <div className="flex items-center justify-between mb-5 sm:mb-8">
               <span className={cn(
                 "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
                 step.bg, step.color, step.border
@@ -174,18 +174,18 @@ export function WelcomeTutorial() {
               </span>
             </div>
 
-            <div key={currentStep} className="space-y-8">
-                <div className="flex items-center gap-6">
+            <div key={currentStep} className="space-y-5 sm:space-y-8">
+                <div className="flex items-center gap-4 sm:gap-6">
                   <div className={cn(
-                    "relative w-20 h-20 rounded-[1.5rem] flex items-center justify-center shrink-0 border",
+                    "relative w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-[1.5rem] flex items-center justify-center shrink-0 border",
                     step.bg, step.border
                   )}>
-                    <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t-2 border-l-2 border-current opacity-30" style={{ color: 'inherit' }} />
-                    <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b-2 border-r-2 border-current opacity-30" style={{ color: 'inherit' }} />
-                    <Icon className={cn("h-9 w-9", step.color)} />
+                    <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 border-t-2 border-l-2 border-current opacity-30 hidden sm:block" style={{ color: 'inherit' }} />
+                    <div className="absolute bottom-1.5 right-1.5 w-2.5 h-2.5 border-b-2 border-r-2 border-current opacity-30 hidden sm:block" style={{ color: 'inherit' }} />
+                    <Icon className={cn("h-6 w-6 sm:h-9 sm:w-9", step.color)} />
                   </div>
-                  <div className="space-y-2">
-                    <h2 className="text-xl sm:text-2xl font-black tracking-tight uppercase italic leading-tight">
+                  <div className="space-y-1 sm:space-y-2 min-w-0">
+                    <h2 className="text-base sm:text-2xl font-black tracking-tight uppercase italic leading-tight">
                       {step.title}
                     </h2>
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
@@ -194,7 +194,7 @@ export function WelcomeTutorial() {
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground font-medium leading-relaxed border-l-4 border-primary/20 pl-5">
+                <p className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed border-l-4 border-primary/20 pl-4 sm:pl-5">
                   {step.description}
                 </p>
 
@@ -217,49 +217,49 @@ export function WelcomeTutorial() {
             </div>
           </div>
 
-          <div className="px-8 sm:px-10 pb-8 flex items-center justify-between gap-4">
+          <div className="px-5 sm:px-10 pb-5 sm:pb-8 flex items-center justify-between gap-2 sm:gap-4">
             <Button
               variant="ghost"
               onClick={handleBack}
               disabled={currentStep === 0}
-              className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 disabled:opacity-20"
+              className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-9 sm:h-11 px-3 sm:px-5 disabled:opacity-20"
             >
-              <ChevronLeft className="mr-1.5 h-3.5 w-3.5" /> Anterior
+              <ChevronLeft className="mr-1 sm:mr-1.5 h-3.5 w-3.5" /> <span className="hidden sm:inline">Anterior</span>
             </Button>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {currentStep < steps.length - 1 ? (
                 <>
                   <Button
                     variant="ghost"
                     onClick={handleClose}
-                    className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-11 px-5 text-muted-foreground/50 hover:text-muted-foreground"
+                    className="rounded-xl font-bold text-[10px] uppercase tracking-widest h-9 sm:h-11 px-3 sm:px-5 text-muted-foreground/50 hover:text-muted-foreground"
                   >
                     Omitir
                   </Button>
                   <Button
                     onClick={handleNext}
-                    className="btn-3d-primary rounded-xl px-7 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                    className="btn-3d-primary rounded-xl px-4 sm:px-7 h-9 sm:h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
                   >
-                    Siguiente <ChevronRight className="ml-1.5 h-3.5 w-3.5" />
+                    Siguiente <ChevronRight className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
                   </Button>
                 </>
               ) : (
                 <Button
                   onClick={handleClose}
-                  className="btn-3d-primary rounded-xl px-8 h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                  className="btn-3d-primary rounded-xl px-5 sm:px-8 h-9 sm:h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
                 >
-                  Comenzar <CheckCircle2 className="ml-1.5 h-3.5 w-3.5" />
+                  Comenzar <CheckCircle2 className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
                 </Button>
               )}
             </div>
           </div>
 
-          <div className="px-8 sm:px-10 pb-6 pt-0">
-            <div className="flex items-center gap-2 pt-5 border-t border-border/30">
+          <div className="px-5 sm:px-10 pb-4 sm:pb-6 pt-0">
+            <div className="flex items-center gap-2 pt-4 sm:pt-5 border-t border-border/30">
               <Logo className="h-3.5 w-3.5 opacity-30" />
               <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
-                System Kyron • Plataforma Corporativa Venezuela
+                System Kyron • Venezuela
               </span>
             </div>
           </div>
