@@ -63,6 +63,16 @@ export const asesoriaContableNavGroups = [
     items: [
         { href: "/contabilidad", label: "Centro Contable", icon: BrainCircuit },
         { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen },
+        { href: "/contabilidad/plan-cuentas", label: "Plan de Cuentas", icon: FolderArchive },
+        { href: "/contabilidad/asientos-contables", label: "Asientos Contables", icon: FileEdit },
+        { href: "/contabilidad/estados-financieros", label: "Estados Financieros", icon: BarChart3 },
+        { href: "/contabilidad/presupuesto", label: "Presupuesto", icon: Target },
+        { href: "/contabilidad/indicadores-financieros", label: "Indicadores", icon: TrendingUp },
+        { href: "/contabilidad/centro-costos", label: "Centro de Costos", icon: Building2 },
+        { href: "/contabilidad/depreciacion-activos", label: "Depreciación Activos", icon: History },
+        { href: "/contabilidad/cierre-contable", label: "Cierre Contable", icon: Lock },
+        { href: "/contabilidad/exportacion-seniat", label: "Exportación SENIAT", icon: Landmark },
+        { href: "/contabilidad/dictamen-contador", label: "Dictamen del Contador", icon: Star },
         { href: "/contabilidad/cuentas", label: "Gestión de Cuentas", icon: Wallet },
         { href: "/contabilidad/analisis", label: "Análisis e IA", icon: PieChart },
         { href: "/contabilidad/entidades-sin-fines-lucro", label: "ESFL y Condominios", icon: Handshake },
@@ -117,6 +127,31 @@ export const asesoriaContableNavGroups = [
     ],
   },
   {
+    title: "Marketing",
+    icon: Megaphone,
+    items: [
+        { href: "/marketing", label: "Dashboard Marketing", icon: Megaphone },
+        { href: "/marketing/campanas", label: "Campañas", icon: Target },
+        { href: "/marketing/embudos", label: "Embudos de Venta", icon: TrendingUp },
+        { href: "/marketing/crm", label: "CRM Clientes", icon: Users },
+        { href: "/marketing/redes-sociales", label: "Redes Sociales", icon: Globe },
+        { href: "/marketing/email-marketing", label: "Email Marketing", icon: MailOpen },
+        { href: "/marketing/carnets", label: "Carnets y Tarjetas", icon: IdCard },
+    ],
+  },
+  {
+    title: "Informática",
+    icon: Cpu,
+    items: [
+        { href: "/informatica", label: "Centro IT", icon: Cpu },
+        { href: "/informatica/helpdesk", label: "Help Desk / Soporte", icon: LifeBuoy },
+        { href: "/informatica/infraestructura", label: "Infraestructura", icon: Signal },
+        { href: "/informatica/seguridad", label: "Ciberseguridad", icon: Shield },
+        { href: "/informatica/licencias", label: "Licencias Software", icon: FileCheck },
+        { href: "/informatica/respaldos", label: "Respaldos / Backup", icon: FolderArchive },
+    ],
+  },
+  {
     title: "Planificación",
     icon: Target,
     items: [
@@ -126,8 +161,6 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
         { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
         { href: "/ingenieria-ia", label: "Ingeniería e IA", icon: Cpu },
-        { href: "/marketing", label: "Marketing IA", icon: Megaphone },
-        { href: "/marketing", label: "Carnets y Tarjetas", icon: IdCard },
     ],
   },
   {
