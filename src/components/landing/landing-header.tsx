@@ -125,19 +125,24 @@ export function LandingHeader() {
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
                             <Button variant="ghost" asChild className={cn(
-                                "rounded-xl h-9 px-4 text-[9px] font-black uppercase tracking-[0.15em] border transition-all duration-200",
+                                "rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
-                                    ? "border-border/60 text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-primary/5"
-                                    : "border-white/15 text-white/70 hover:bg-white/10 hover:border-white/30 hover:text-white"
+                                    ? "border-emerald-500/30 text-emerald-500 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 hover:shadow-[0_0_15px_-4px_rgba(16,185,129,0.25)]"
+                                    : "border-emerald-400/30 text-emerald-300 hover:bg-emerald-500/10 hover:border-emerald-400/50 hover:text-emerald-200"
                             )}>
-                                <Link href="/register">{t('register')}</Link>
+                                <Link href="/register" className="flex items-center gap-2">
+                                    <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                    <UserPlus className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                                    {t('register')}
+                                </Link>
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] bg-primary hover:bg-primary/90 text-white border-0 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/25 transition-all duration-200">
-                                        <Hexagon className="h-3 w-3 mr-2" /> 
+                                    <Button className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-0 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
+                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                        <ShieldCheck className="h-3 w-3 mr-2 group-hover:scale-110 transition-transform" /> 
                                         {t('access')}
-                                        <ChevronDown className="h-2.5 w-2.5 ml-1.5 opacity-50" />
+                                        <ChevronDown className="h-2.5 w-2.5 ml-1.5 opacity-60" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-[min(520px,calc(100vw-2rem))] p-0 rounded-2xl border-border/30 bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/[0.08] overflow-hidden">
@@ -241,16 +246,25 @@ export function LandingHeader() {
                                         </div>
                                     </div>
                                 </nav>
-                                <div className="p-4 border-t border-border/20 space-y-2.5 bg-muted/5 shrink-0">
+                                <div className="p-4 border-t border-border/20 space-y-3 bg-muted/5 shrink-0">
                                     <div className="flex items-center gap-2 pb-2.5 border-b border-border/20">
                                         <LanguageSwitcher variant="default" align="start" />
                                         <ThemeToggle />
                                     </div>
-                                    <Button asChild variant="outline" className="w-full h-11 rounded-xl font-bold text-xs border-primary/30 text-primary hover:bg-primary/5 hover:border-primary/50 transition-all">
-                                        <Link href="/register"><UserPlus className="mr-2 h-3.5 w-3.5" />{t('register')}</Link>
+                                    <Button asChild variant="outline" className="w-full h-12 rounded-2xl font-black text-xs uppercase tracking-widest border-2 border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:text-emerald-300 hover:shadow-[0_0_20px_-4px_rgba(16,185,129,0.3)] transition-all duration-300 relative overflow-hidden group">
+                                        <Link href="/register" className="flex items-center justify-center gap-2.5">
+                                            <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                            <UserPlus className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                                            {t('register')}
+                                        </Link>
                                     </Button>
-                                    <Button asChild className="w-full h-11 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs border-0 shadow-md shadow-primary/15">
-                                        <Link href="/login"><Hexagon className="mr-2 h-3.5 w-3.5" />{t('access')}</Link>
+                                    <Button asChild className="w-full h-12 rounded-2xl font-black text-xs uppercase tracking-widest border-0 text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
+                                        <Link href="/login" className="flex items-center justify-center gap-2.5">
+                                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                            <ShieldCheck className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                                            {t('access')}
+                                            <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 transition-transform duration-300" />
+                                        </Link>
                                     </Button>
                                 </div>
                             </SheetContent>
