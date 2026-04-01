@@ -86,7 +86,7 @@ const fadeUp = {
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
-    const modulesCount = useCountUp(7, 2.5, 1.5);
+    const modulesCount = useCountUp(7, 2, 1);
     const heroFeatures = t.raw('features') as string[];
     const heroStats = t.raw('stats') as { val: string; label: string }[];
     const { tier, config } = useDevicePerformance();
@@ -98,8 +98,8 @@ export function HeroSection() {
                     src="/images/landing/hero-bg-light.webp"
                     alt=""
                     fill
-                    sizes="100vw"
-                    quality={90}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                    quality={85}
                     className="object-cover dark:hidden"
                     priority
                 />
@@ -107,8 +107,8 @@ export function HeroSection() {
                     src="/images/landing/hero-bg-dark.webp"
                     alt=""
                     fill
-                    sizes="100vw"
-                    quality={90}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                    quality={85}
                     className="object-cover hidden dark:block"
                     priority
                 />
@@ -137,7 +137,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.1}
+                            custom={0.05}
                         >
                             <span className="kyron-dot animate-pulse" />
                             <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
@@ -148,7 +148,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.2}
+                            custom={0.1}
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
                             <span className="block text-foreground">{t('title_line2')}</span>
@@ -162,7 +162,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.3}
+                            custom={0.15}
                         >
                             {t('subtitle')}
                         </motion.p>
@@ -172,7 +172,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.4}
+                            custom={0.2}
                         >
                             <Button asChild size="lg" className="relative h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
                                 <Link href="/login" className="flex items-center gap-2 sm:gap-3 justify-center">
@@ -193,7 +193,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.5}
+                            custom={0.25}
                         >
                             <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 dark:text-white/30 hover:text-[#0ea5e9] dark:hover:text-sky-400 transition-colors duration-300">
                                 <Play className="h-3 w-3 group-hover:scale-110 transition-transform" />
@@ -207,7 +207,7 @@ export function HeroSection() {
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
-                            custom={0.55}
+                            custom={0.3}
                         >
                             {heroFeatures.map((feat, i) => (
                                 <div key={i} className="flex items-center gap-2">
@@ -222,7 +222,7 @@ export function HeroSection() {
                         className="hidden lg:block lg:col-span-6 relative"
                         initial={{ opacity: 0, x: 30, scale: 0.95 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
-                        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             {config.enableBlur && (
@@ -248,7 +248,7 @@ export function HeroSection() {
                                 className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 liquid-glass animate-glass-breathe"
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7, duration: 0.5 }}
+                                transition={{ delay: 0.4, duration: 0.4 }}
                             >
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center kyron-gradient-bg">
@@ -272,7 +272,7 @@ export function HeroSection() {
                 className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
             >
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -290,7 +290,7 @@ export function HeroSection() {
                                     className="flex flex-col items-center gap-0.5 p-2 sm:p-3 rounded-xl sm:rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1 + i * 0.08, duration: 0.4 }}
+                                    transition={{ delay: 0.55 + i * 0.06, duration: 0.35 }}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
                                     <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider sm:tracking-widest">{s.label}</p>

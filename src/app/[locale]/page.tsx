@@ -32,7 +32,7 @@ function LazySection({ children, fallbackHeight = '200px' }: { children: React.R
           observer.disconnect();
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '300px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
