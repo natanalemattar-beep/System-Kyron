@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -270,11 +270,15 @@ export const informaticaNavGroups = [
 
 export const telecomNavGroups = [
   { 
-    title: "Mi Línea", 
+    title: "Mi Línea Personal", 
     icon: Smartphone, 
     items: [ 
       { href: "/mi-linea", label: "Mis Líneas", icon: Phone },
       { href: "/venta-linea", label: "Nueva Línea", icon: Smartphone },
+      { href: "/recargas", label: "Recargas", icon: CreditCardIcon },
+      { href: "/consumo-5g", label: "Consumo 5G", icon: Gauge },
+      { href: "/esim", label: "eSIM Digital", icon: ScanLine },
+      { href: "/facturas-linea", label: "Mis Facturas", icon: Receipt },
     ], 
   },
   {
@@ -282,6 +286,10 @@ export const telecomNavGroups = [
     icon: Building,
     items: [
       { href: "/flota-empresarial", label: "Flota Empresarial", icon: Building },
+      { href: "/limites-corporativos", label: "Límites por Empleado", icon: SlidersHorizontal },
+      { href: "/reportes-flota", label: "Reportes de Flota", icon: ChartLine },
+      { href: "/homologacion-imei", label: "Homologación IMEI", icon: Fingerprint },
+      { href: "/facturacion-corporativa", label: "Facturación Corp.", icon: FileSpreadsheet },
     ],
   },
 ];
