@@ -45,7 +45,7 @@ export function Footer() {
             </div>
 
             <div className="container mx-auto px-6 pt-16 pb-10">
-                <div className="grid md:grid-cols-12 gap-12 md:gap-8">
+                <div className="grid md:grid-cols-12 gap-8 md:gap-8">
 
                     <div className="md:col-span-4 space-y-6">
                         <div className="flex items-center gap-3">

@@ -162,7 +162,7 @@ export function AboutUsSection() {
                     </motion.div>
 
                     <motion.div
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
                         initial={animate ? { opacity: 0 } : undefined}
                         whileInView={animate ? { opacity: 1 } : undefined}
                         viewport={{ once: true, margin: "-50px" }}

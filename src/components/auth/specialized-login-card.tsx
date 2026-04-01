@@ -269,7 +269,7 @@ export function SpecializedLoginCard({
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn("w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40")}
       >
-        <div className={cn('relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
+        <div className={cn('hidden md:flex relative overflow-hidden flex-col justify-between text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/[0.07] blur-[80px]" />
             <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-white/[0.05] blur-[60px]" />
@@ -349,7 +349,16 @@ export function SpecializedLoginCard({
           </motion.div>
         </div>
 
-        <div className="p-8 md:p-10 flex flex-col justify-center bg-card">
+        <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
+          <div className={cn("flex md:hidden items-center gap-3 mb-6 pb-5 border-b border-border/20")}>
+            <div className={cn("h-10 w-10 rounded-xl bg-gradient-to-br flex items-center justify-center shadow text-white shrink-0", theme.gradient)}>
+              <Icon className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-black tracking-tight text-foreground">{portalName}</p>
+              <p className="text-[11px] text-muted-foreground leading-tight">{portalDescription}</p>
+            </div>
+          </div>
           <AnimatePresence mode="wait">
             {step === 'credentials' ? (
               <motion.div
