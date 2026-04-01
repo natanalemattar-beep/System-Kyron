@@ -124,7 +124,7 @@ export function LandingHeader() {
                             <ThemeToggle />
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
-                            <Button variant="ghost" asChild className={cn(
+                            <Button variant="ghost" asChild data-guide="register" className={cn(
                                 "rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
                                     ? "border-emerald-500/30 text-emerald-500 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 hover:shadow-[0_0_15px_-4px_rgba(16,185,129,0.25)]"
@@ -138,7 +138,7 @@ export function LandingHeader() {
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-0 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
+                                    <Button data-guide="access" className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-0 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
                                         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                         <ShieldCheck className="h-3 w-3 mr-2 group-hover:scale-110 transition-transform" /> 
                                         {t('access')}

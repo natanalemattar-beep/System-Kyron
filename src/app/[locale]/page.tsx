@@ -17,6 +17,7 @@ const CtaSection = dynamic(() => import('@/components/landing/cta-section').then
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 const WhatsAppButton = dynamic(() => import('@/components/whatsapp-button').then(m => ({ default: m.WhatsAppButton })), { ssr: false });
+const HeaderGuideArrows = dynamic(() => import('@/components/landing/header-guide-arrows').then(m => ({ default: m.HeaderGuideArrows })), { ssr: false });
 
 function LazySection({ children, fallbackHeight = '200px' }: { children: React.ReactNode; fallbackHeight?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -74,6 +75,7 @@ function LandingContent() {
         <>
           <PageTracker />
           <WelcomeTutorial />
+          <HeaderGuideArrows />
         </>
       )}
 
