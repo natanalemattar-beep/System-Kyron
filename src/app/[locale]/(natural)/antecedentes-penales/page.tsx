@@ -1,13 +1,13 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { ArrowLeft, Shield, ShieldCheck, Clock, FileText, Download, CircleCheck, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Shield, Download, CirclePlus as PlusCircle, CircleCheck as CheckCircle , ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-
 import { Link } from '@/navigation';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+
 const certificados = [
     { id: "AP-2024-005", fecha: "22/07/2024", motivo: "Trámites Migratorios", estado: "Aprobado", vence: "22/10/2024" },
 ];
@@ -16,41 +16,95 @@ export default function AntecedentesPenalesPage() {
     const { toast } = useToast();
 
     return (
-        <div className="space-y-8">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"><ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard</Link>
-                <header className="flex justify-between items-center border-l-4 border-primary pl-8 py-2">
-                <div>
-                    <h1 className="text-3xl font-black tracking-tight uppercase italic text-foreground  flex items-center gap-4">
-                        <Shield className="h-8 w-8 text-primary" />
-                        Antecedentes Penales
-                    </h1>
-                    <p className="text-muted-foreground mt-2 font-bold text-xs uppercase tracking-widest opacity-60">Certificaciones Internacionales • MPPRIJP</p>
-                </div>
-                <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest" onClick={() => toast({ title: "Protocolo Iniciado", description: "Iniciando trámite ante el Ministerio." })}>
-                    <PlusCircle className="mr-2 h-4 w-4"/> Nueva Solicitud
-                </Button>
-            </header>
+        <div className="space-y-8 max-w-5xl mx-auto">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+                <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
+            </Link>
 
-            <div className="grid gap-6">
-                {certificados.map(cert => (
-                    <Card key={cert.id} className="glass-card border-none rounded-[2rem] overflow-hidden bg-white/[0.02]">
-                        <CardHeader className="flex-row items-center justify-between p-10 bg-white/[0.01]">
-                            <div>
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Certificado {cert.id}</CardTitle>
-                                <CardDescription className="text-[10px] font-bold uppercase text-white/30 tracking-widest">Motivo: {cert.motivo}</CardDescription>
+            <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-violet-500/[0.04] via-card to-card p-6 sm:p-8"
+            >
+                <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+                <div className="relative flex flex-col sm:flex-row items-start justify-between gap-5">
+                    <div className="flex items-start gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+                            <Shield className="h-7 w-7 text-violet-500" />
+                        </div>
+                        <div className="space-y-2 min-w-0">
+                            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">Antecedentes Penales</h1>
+                            <p className="text-sm text-muted-foreground font-medium max-w-lg">
+                                Certificaciones emitidas por el MPPRIJP para trámites migratorios, laborales e internacionales.
+                            </p>
+                            <div className="flex flex-wrap items-center gap-3 pt-1">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500">
+                                    <ShieldCheck className="h-3 w-3" /> MPPRIJP
+                                </span>
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    <Globe className="h-3 w-3" /> Validez Internacional
+                                </span>
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    <Clock className="h-3 w-3" /> Vigencia 90 días
+                                </span>
                             </div>
-                            <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 px-4 h-7 text-[9px] font-black uppercase tracking-widest">{cert.estado}</Badge>
-                        </CardHeader>
-                        <CardContent className="p-10 space-y-4 text-xs font-bold uppercase tracking-widest text-white/40">
-                            <p>Emitido: <span className="text-white/70 ml-2">{cert.fecha}</span></p>
-                            <p>Vencimiento: <span className="text-rose-400 ml-2 italic">{cert.vence}</span></p>
-                        </CardContent>
-                        <CardFooter className="p-8 border-t border-white/5 flex justify-center">
-                            <Button variant="outline" className="w-full h-12 rounded-xl border-white/10 hover:bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60">
-                                <Download className="mr-3 h-4 w-4 text-primary"/> Descargar Certificado PDF
+                        </div>
+                    </div>
+                    <Button className="h-11 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2 bg-violet-600 hover:bg-violet-500 text-white shadow-lg shrink-0" onClick={() => toast({ title: "Protocolo Iniciado", description: "Iniciando trámite ante el Ministerio." })}>
+                        <FileText className="h-3.5 w-3.5" /> Nueva Solicitud
+                    </Button>
+                </div>
+            </motion.div>
+
+            <div className="grid gap-4">
+                {certificados.map((cert, i) => (
+                    <motion.div
+                        key={cert.id}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: i * 0.1 }}
+                        className="relative rounded-2xl border border-border/30 bg-card overflow-hidden hover:border-border/50 transition-all hover:shadow-lg"
+                    >
+                        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500/60 via-emerald-500/30 to-transparent" />
+                        <div className="p-6 sm:p-8">
+                            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 tabular-nums">{cert.id}</span>
+                                        <span className={cn(
+                                            "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border",
+                                            "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+                                        )}>
+                                            <CircleCheck className="h-3 w-3" /> {cert.estado}
+                                        </span>
+                                    </div>
+                                    <h3 className="text-lg font-bold text-foreground/90">Certificado de Antecedentes Penales</h3>
+                                    <p className="text-[12px] text-muted-foreground">Motivo: {cert.motivo}</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                                <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Emitido</p>
+                                    <p className="text-sm font-semibold text-foreground/80 mt-1">{cert.fecha}</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Vencimiento</p>
+                                    <p className="text-sm font-semibold text-amber-500 mt-1">{cert.vence}</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Organismo</p>
+                                    <p className="text-sm font-semibold text-foreground/80 mt-1">MPPRIJP</p>
+                                </div>
+                            </div>
+
+                            <Button variant="outline" className="w-full h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2 border-border/30 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all"
+                                onClick={() => toast({ title: "Descargando", description: "Preparando certificado PDF..." })}>
+                                <Download className="h-3.5 w-3.5" /> Descargar Certificado PDF
                             </Button>
-                        </CardFooter>
-                    </Card>
+                        </div>
+                    </motion.div>
                 ))}
             </div>
         </div>
