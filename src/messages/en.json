@@ -274,7 +274,8 @@
             "legal": { "label": "Legal Advisory", "description": "Contract management, legal documents, and registry procedures." },
             "invoicing": { "label": "Invoicing", "description": "Point of sale for quick payments, inventory control, and sales." },
             "partners": { "label": "Partners & Directors", "description": "Strategic oversight, profit sharing, and profitability analysis." },
-            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology." }
+            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology." },
+            "it": { "label": "IT Department", "description": "Infrastructure, cybersecurity, technical support, licenses, and backups." }
         }
     },
     "RegisterPage": {

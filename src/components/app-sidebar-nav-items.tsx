@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -140,18 +140,6 @@ export const asesoriaContableNavGroups = [
     ],
   },
   {
-    title: "Informática",
-    icon: Cpu,
-    items: [
-        { href: "/informatica", label: "Centro IT", icon: Cpu },
-        { href: "/informatica/helpdesk", label: "Help Desk / Soporte", icon: LifeBuoy },
-        { href: "/informatica/infraestructura", label: "Infraestructura", icon: Signal },
-        { href: "/informatica/seguridad", label: "Ciberseguridad", icon: Shield },
-        { href: "/informatica/licencias", label: "Licencias Software", icon: FileCheck },
-        { href: "/informatica/respaldos", label: "Respaldos / Backup", icon: FolderArchive },
-    ],
-  },
-  {
     title: "Planificación",
     icon: Target,
     items: [
@@ -239,6 +227,45 @@ export const sociosNavGroups = [
             { href: "/contabilidad/tributos/poderes-representacion", label: "Empresas Holding", icon: Gavel },
         ], 
     },
+];
+
+export const informaticaNavGroups = [
+  {
+    title: "Dashboard",
+    icon: LayoutDashboard,
+    items: [
+        { href: "/dashboard-it", label: "Panel IT", icon: LayoutDashboard },
+    ],
+  },
+  {
+    title: "Soporte",
+    icon: LifeBuoy,
+    items: [
+        { href: "/helpdesk", label: "Help Desk / Soporte", icon: LifeBuoy },
+    ],
+  },
+  {
+    title: "Infraestructura",
+    icon: Server,
+    items: [
+        { href: "/infraestructura", label: "Servidores y Redes", icon: Signal },
+    ],
+  },
+  {
+    title: "Seguridad",
+    icon: Shield,
+    items: [
+        { href: "/seguridad", label: "Ciberseguridad", icon: Shield },
+    ],
+  },
+  {
+    title: "Gestión",
+    icon: FileCheck,
+    items: [
+        { href: "/licencias", label: "Licencias Software", icon: FileCheck },
+        { href: "/respaldos", label: "Respaldos / Backup", icon: FolderArchive },
+    ],
+  },
 ];
 
 export const telecomNavGroups = [

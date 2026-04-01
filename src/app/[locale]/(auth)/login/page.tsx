@@ -2,7 +2,7 @@
 
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
-import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield } from 'lucide-react';
+import { User, Building2, ArrowRight, ChevronLeft, ShieldCheck, KeyRound, Globe, Signal, Banknote, Gavel, ShoppingCart, Users, Recycle, Sparkles, Lock, Zap, Fingerprint, Shield, Cpu } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
@@ -17,6 +17,7 @@ const optionKeys = [
   { key: 'invoicing', href: '/login-ventas', icon: ShoppingCart, category: 'corporate', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-500', borderHover: 'hover:border-amber-500/30', shadow: 'hover:shadow-amber-500/8', glow: 'rgba(245,158,11,0.15)' },
   { key: 'partners', href: '/login-socios', icon: Users, category: 'corporate', color: 'from-slate-500 to-zinc-600', iconBg: 'bg-slate-500/10', textColor: 'text-slate-500', borderHover: 'hover:border-slate-500/30', shadow: 'hover:shadow-slate-500/8', glow: 'rgba(100,116,139,0.15)' },
   { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500/10', textColor: 'text-green-500', borderHover: 'hover:border-green-500/30', shadow: 'hover:shadow-green-500/8', glow: 'rgba(34,197,94,0.15)' },
+  { key: 'it', href: '/login-informatica', icon: Cpu, category: 'corporate', color: 'from-cyan-500 to-teal-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-500', borderHover: 'hover:border-cyan-500/30', shadow: 'hover:shadow-cyan-500/8', glow: 'rgba(6,182,212,0.15)' },
 ];
 
 const containerVariants = {

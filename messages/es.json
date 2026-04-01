@@ -274,7 +274,8 @@
             "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
             "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },
             "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." },
-            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." }
+            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." },
+            "it": { "label": "Informática", "description": "Infraestructura, ciberseguridad, soporte técnico, licencias y respaldos." }
         }
     },
     "RegisterPage": {
