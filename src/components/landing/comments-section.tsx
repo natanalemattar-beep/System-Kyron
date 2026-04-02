@@ -132,7 +132,7 @@ export function CommentsSection() {
                     </div>
                     <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4">
                         <span className="text-foreground">{t('title_prefix')} </span>
-                        <span className="bg-gradient-to-r from-violet-500 via-primary to-cyan-400 bg-clip-text text-transparent italic">{t('title_highlight')}</span>
+                        <span className="liquid-glass-text italic">{t('title_highlight')}</span>
                     </h2>
                     <p className="text-xs md:text-sm text-muted-foreground max-w-lg mx-auto font-bold uppercase tracking-wide">
                         {t('subtitle')}

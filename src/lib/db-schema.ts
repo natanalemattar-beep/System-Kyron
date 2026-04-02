@@ -6,8 +6,8 @@
 
 import { query } from '@/lib/db';
 
-async function safeQuery(sql: string): Promise<void> {
-  try { await query(sql); } catch { /* column/table may not exist yet */ }
+async function safeQuery(sql: string, params?: unknown[]): Promise<void> {
+  try { await query(sql, params); } catch { /* column/table may not exist yet */ }
 }
 
 export async function initializeDatabase(): Promise<void> {
@@ -33,7 +33,7 @@ export async function initializeDatabase(): Promise<void> {
     await createAutomationTables();
     await createPlanUsageTables();
     await createPerformanceOptimizations();
-    console.log('[db-schema] Base de datos inicializada correctamente — v2.9.0');
+    console.log('[db-schema] Base de datos inicializada correctamente — v3.1.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -2383,6 +2383,13 @@ async function seedAutomationRules(): Promise<void> {
       trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
       action_type: 'regulatory_alerts',
     },
+    {
+      name: 'Emails Automáticos',
+      description: 'Procesa reglas de email automatizado: facturas vencidas, resúmenes semanales, recordatorios de pago y alertas fiscales por correo',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 4, label: 'Cada 4 horas' },
+      action_type: 'email_automation',
+    },
   ];
 
   for (const rule of rules) {
@@ -2439,6 +2446,42 @@ async function createPerformanceOptimizations(): Promise<void> {
   )`);
   await query(`CREATE INDEX IF NOT EXISTS idx_email_log_created ON email_log(created_at DESC)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_email_log_modulo ON email_log(modulo, created_at DESC)`);
+
+  await query(`CREATE TABLE IF NOT EXISTS notificaciones (
+    id           SERIAL PRIMARY KEY,
+    user_id      INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    tipo         TEXT NOT NULL DEFAULT 'info'
+                 CHECK (tipo IN ('info','alerta','cobranza','fiscal','sistema','bienvenida','recordatorio')),
+    titulo       TEXT NOT NULL,
+    mensaje      TEXT NOT NULL,
+    prioridad    TEXT NOT NULL DEFAULT 'normal'
+                 CHECK (prioridad IN ('baja','normal','alta','critica')),
+    leida        BOOLEAN NOT NULL DEFAULT false,
+    canal        TEXT NOT NULL DEFAULT 'app'
+                 CHECK (canal IN ('app','email','sms','whatsapp','multi')),
+    metadata     JSONB DEFAULT '{}',
+    created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user ON notificaciones(user_id, leida, created_at DESC)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_tipo ON notificaciones(tipo, created_at DESC)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_prioridad ON notificaciones(prioridad) WHERE leida = false`);
+
+  await query(`CREATE TABLE IF NOT EXISTS email_automaticos (
+    id             SERIAL PRIMARY KEY,
+    tipo           TEXT NOT NULL
+                   CHECK (tipo IN ('bienvenida','verificacion','factura_emitida','factura_vencida','nomina_lista','contrato_firmado','alerta_fiscal','resumen_semanal','recordatorio_pago','cambio_plan')),
+    nombre         TEXT NOT NULL,
+    asunto_template TEXT NOT NULL,
+    activo         BOOLEAN NOT NULL DEFAULT true,
+    destinatario_tipo TEXT NOT NULL DEFAULT 'usuario'
+                   CHECK (destinatario_tipo IN ('usuario','admin','cliente','todos')),
+    intervalo_horas INT,
+    ultimo_envio   TIMESTAMPTZ,
+    total_enviados INT NOT NULL DEFAULT 0,
+    created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`);
+  await safeQuery(`CREATE UNIQUE INDEX IF NOT EXISTS idx_email_auto_tipo_unique ON email_automaticos(tipo)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_email_auto_tipo ON email_automaticos(tipo, activo)`);
 
   const safeIndex = async (sql: string) => {
     try { await query(sql); } catch { /* table/column may not exist yet */ }
@@ -2502,6 +2545,33 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_cedula ON users(cedula)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_tasas_bcv_fecha ON tasas_bcv(fecha DESC)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_activity_log_metadata ON activity_log USING GIN (metadata jsonb_path_ops)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_auditoria_metadata ON auditoria_detallada USING GIN (metadata jsonb_path_ops)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_notificaciones_metadata ON notificaciones USING GIN (metadata jsonb_path_ops)`);
+
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_user_activo ON clientes(user_id, activo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_rif ON clientes(rif)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_email ON clientes(email)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_fecha ON movimientos_bancarios(fecha DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_cuenta ON movimientos_bancarios(cuenta_id, fecha DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_transacciones_user ON transacciones_pagos(user_id, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_retenciones_user ON retenciones(user_id, tipo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contratos_user ON contratos_legales(user_id, estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_automation_logs_rule ON automation_logs(rule_id, started_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_automation_logs_status ON automation_logs(status, started_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_email_log_estado ON email_log(estado, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_system_health_type ON system_health_log(metric_type, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_blockchain_status ON blockchain_proofs(status)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_cxc_vencimiento ON cuentas_por_cobrar(fecha_vencimiento) WHERE estado = 'pendiente'`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_cxp_vencimiento ON cuentas_por_pagar(fecha_vencimiento) WHERE estado = 'pendiente'`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_vacantes_estado ON vacantes(estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nomina_items_nomina ON nomina_items(nomina_id)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_estado ON eco_creditos(estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contact_messages_read ON contact_messages(read, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_dashboard_cache_key ON dashboard_cache(cache_key, updated_at DESC)`);
+
+  await seedEmailAutomaticos();
 
   await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS emitida_at TIMESTAMPTZ`);
   await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS hash_fiscal TEXT`);
@@ -2648,4 +2718,28 @@ async function createPerformanceOptimizations(): Promise<void> {
     FOR EACH ROW
     EXECUTE FUNCTION bloquear_modificar_factura_items()
   `);
+}
+
+async function seedEmailAutomaticos(): Promise<void> {
+  const templates: { tipo: string; nombre: string; asunto: string; destinatario_tipo: string; intervalo?: number }[] = [
+    { tipo: 'bienvenida', nombre: 'Email de Bienvenida', asunto: '¡Bienvenido a System Kyron! Tu cuenta está lista', destinatario_tipo: 'usuario' },
+    { tipo: 'verificacion', nombre: 'Verificación de Identidad', asunto: 'Código de verificación — System Kyron', destinatario_tipo: 'usuario' },
+    { tipo: 'factura_emitida', nombre: 'Factura Emitida', asunto: 'Nueva factura emitida #{numero} — System Kyron', destinatario_tipo: 'cliente' },
+    { tipo: 'factura_vencida', nombre: 'Recordatorio Factura Vencida', asunto: 'Factura #{numero} vencida — Acción requerida', destinatario_tipo: 'cliente', intervalo: 48 },
+    { tipo: 'nomina_lista', nombre: 'Nómina Procesada', asunto: 'Nómina del periodo {periodo} procesada exitosamente', destinatario_tipo: 'admin' },
+    { tipo: 'contrato_firmado', nombre: 'Contrato Firmado', asunto: 'Contrato #{ref} firmado y sellado — System Kyron', destinatario_tipo: 'usuario' },
+    { tipo: 'alerta_fiscal', nombre: 'Alerta Fiscal Automática', asunto: 'Alerta fiscal: {tipo_alerta} — Vence {fecha}', destinatario_tipo: 'admin', intervalo: 4 },
+    { tipo: 'resumen_semanal', nombre: 'Resumen Semanal Ejecutivo', asunto: 'Tu resumen semanal — System Kyron', destinatario_tipo: 'admin', intervalo: 168 },
+    { tipo: 'recordatorio_pago', nombre: 'Recordatorio de Pago', asunto: 'Recordatorio: Pago pendiente de tu plan {plan}', destinatario_tipo: 'usuario', intervalo: 72 },
+    { tipo: 'cambio_plan', nombre: 'Confirmación Cambio de Plan', asunto: 'Plan actualizado a {plan} — System Kyron', destinatario_tipo: 'usuario' },
+  ];
+
+  for (const t of templates) {
+    await safeQuery(
+      `INSERT INTO email_automaticos (tipo, nombre, asunto_template, destinatario_tipo, intervalo_horas)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (tipo) DO NOTHING`,
+      [t.tipo, t.nombre, t.asunto, t.destinatario_tipo, t.intervalo ?? null]
+    );
+  }
 }

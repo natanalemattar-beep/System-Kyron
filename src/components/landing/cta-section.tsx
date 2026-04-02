@@ -32,7 +32,7 @@ export function CtaSection() {
                             </div>
                             <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight leading-[1.05] text-foreground uppercase">
                                 {t('title_highlight')}{' '}
-                                <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
+                                <span className="liquid-glass-text italic">
                                     {t('title_rest')}
                                 </span>?
                             </h2>

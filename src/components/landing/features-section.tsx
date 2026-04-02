@@ -120,8 +120,8 @@ export function FeaturesSection() {
                         <Sparkles className="h-3 w-3" /> {t('badge')}
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.2]">
-                        {t('title_highlight')} <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">{t('title_rest')}</span>
+                        <span className="liquid-glass-highlight">{t('title_highlight')}</span> <br className="hidden sm:block" />
+                        <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
                     <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
                         {t('subtitle')}

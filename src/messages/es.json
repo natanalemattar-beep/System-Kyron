@@ -15,15 +15,15 @@
         "mobile_portal": "Portal Kyron"
     },
     "HeroSection": {
-        "title_line1": "Todo tu",
-        "title_line2": "negocio en",
-        "title_line3": "un solo lugar",
+        "title_line1": "Domina tu",
+        "title_line2": "empresa con",
+        "title_line3": "inteligencia total",
         "slogan": "Inteligencia Corporativa · Riesgo Cero",
-        "subtitle": "Contabilidad, facturación, nómina y conectividad. 100% adaptado a la normativa venezolana.",
-        "badge": "Plataforma Empresarial Inteligente",
-        "cta_main": "Acceder",
-        "cta_secondary": "Guía de Usuario",
-        "features": ["VEN-NIF Certificado", "IVA & IGTF Auto", "BCV Tiempo Real", "IA Integrada"],
+        "subtitle": "Automatiza contabilidad, facturación y nómina. IA que trabaja por ti, 100% alineada a la normativa venezolana.",
+        "badge": "Plataforma Empresarial con IA",
+        "cta_main": "Comenzar Gratis",
+        "cta_secondary": "Ver Capacidades",
+        "features": ["VEN-NIF Certificado", "IVA & IGTF Automático", "Tasa BCV en Vivo", "IA Multimodelo"],
         "compliance": "Cumplimiento",
         "modules_label": "Módulos",
         "modules_value": "7 Integrados",
@@ -36,33 +36,33 @@
     },
     "FeaturesSection": {
         "badge": "Capacidades del Sistema",
-        "title_highlight": "Todo lo que tu",
-        "title_rest": "empresa necesita",
-        "subtitle": "Módulos integrados bajo un solo ecosistema digital diseñado para el mercado venezolano.",
+        "title_highlight": "Potencia cada área",
+        "title_rest": "de tu negocio",
+        "subtitle": "9 módulos interconectados bajo un solo ecosistema digital. Automatización real para el mercado venezolano.",
         "ai_native_badge": "IA Nativa",
         "features": [
-            { "title": "Contabilidad VEN-NIF", "description": "Libros digitales, RIPF, declaraciones de IVA, ISLR e IGTF automatizadas y selladas con sello SENIAT." },
-            { "title": "RRHH & Nómina", "description": "Cálculo de nómina con SSO, FAOV, LPH, utilidades, prestaciones y LOPCYMAT. Cumplimiento total LOTTT." },
-            { "title": "Mi Línea 5G / eSIM", "description": "Provisión de líneas físicas y eSIM, gestión de flota corporativa, control de consumo y telemetría en tiempo real." },
-            { "title": "Inteligencia Artificial", "description": "Kyron AI integrado (potenciado por Claude de Anthropic). Generación de contratos, análisis fiscal, pitch IA, clasificación de residuos y más." },
-            { "title": "IA Legal & Permisos", "description": "Contratos, poderes notariales, permisos CONATEL, SENIAT y Gaceta Oficial actualizada automáticamente." },
-            { "title": "Ameru — Eco-Créditos", "description": "Clasificación de residuos por IA, generación de eco-créditos certificados y mercado de sostenibilidad." },
-            { "title": "Dashboard & Analítica", "description": "KPIs en tiempo real, análisis de flujo de caja, proyecciones financieras y reportes PDF/PowerPoint." },
-            { "title": "Gestión de Tributos", "description": "IVA, ISLR, IGTF, parafiscales, municipales, retenciones y calendario fiscal automatizado." },
-            { "title": "Seguridad Avanzada", "description": "Sellado criptográfico, log de auditoría inmutable y cifrado AES-256 en toda la plataforma corporativa." }
+            { "title": "Contabilidad VEN-NIF", "description": "Libros fiscales digitales, declaraciones de IVA, ISLR e IGTF calculadas al instante con sellado SENIAT automático." },
+            { "title": "RRHH & Nómina", "description": "Nóminas con SSO, FAOV, LPH, utilidades y prestaciones LOPCYMAT. Un clic y tu equipo está pagado." },
+            { "title": "Mi Línea 5G / eSIM", "description": "Conectividad de nueva generación: provisión de eSIM 5G, control de flota y telemetría empresarial en tiempo real." },
+            { "title": "Inteligencia Artificial", "description": "3 motores de IA especializados: Claude para chat, Gemini para documentos legales, OpenAI para análisis de negocio." },
+            { "title": "IA Legal & Permisos", "description": "Genera contratos y poderes notariales con IA. Permisos CONATEL, SENIAT y Gaceta Oficial actualizados al segundo." },
+            { "title": "Ameru — Eco-Créditos", "description": "Clasifica residuos con visión artificial, acumula eco-créditos certificados y accede al mercado verde." },
+            { "title": "Dashboard & Analítica", "description": "KPIs en vivo, flujo de caja proyectado, insights generados por IA y reportes ejecutivos en PDF y PowerPoint." },
+            { "title": "Gestión de Tributos", "description": "IVA, ISLR, IGTF, parafiscales, municipales y retenciones con calendario fiscal automatizado. Nunca más una multa." },
+            { "title": "Seguridad Blindada", "description": "Cifrado AES-256, auditoría inmutable con blockchain y sellado criptográfico en cada operación fiscal." }
         ],
         "stats": [
-            { "val": "48h", "detail": "Tiempo de migración" },
+            { "val": "48h", "detail": "Migración garantizada" },
             { "val": "Multi-empresa", "detail": "Holdings y condominios" },
             { "val": "Bilingüe", "detail": "Español & English" },
-            { "val": "Kyron AI", "detail": "Potenciado por Claude (Anthropic)" }
+            { "val": "3 IAs", "detail": "Claude · Gemini · OpenAI" }
         ]
     },
     "ServicesSection": {
-        "badge": "Ecosistema Completo",
-        "title_highlight": "Todo lo que necesitas,",
-        "title_rest": "integrado",
-        "subtitle": "Soluciones interconectadas que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.",
+        "badge": "Ecosistema Inteligente",
+        "title_highlight": "Todo automatizado,",
+        "title_rest": "sin esfuerzo",
+        "subtitle": "Contabilidad, facturación, legal, telecom e IA trabajando juntos. Tú decides, Kyron ejecuta.",
         "modules_title": "Todo Integrado,",
         "modules_highlight": "Un Ecosistema",
         "explore": "Explorar Ecosistema",
@@ -70,20 +70,20 @@
             {
                 "title": "Contabilidad & Fiscal",
                 "subtitle": "VEN-NIF · SENIAT · ISLR",
-                "description": "Sistema contable completo con libros legales, plan de cuentas venezolano, cálculo automático de IVA 16%, IGTF 3% e ISLR. Compatible con Gaceta Oficial vigente.",
+                "description": "Libros legales, plan de cuentas venezolano, IVA 16%, IGTF 3% e ISLR calculados automáticamente. Siempre alineado con la Gaceta Oficial vigente.",
                 "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
             },
             {
-                "title": "Seguridad AES-256",
-                "subtitle": "Cifrado Militar · JWT · Auditoría",
-                "description": "Infraestructura de seguridad de grado bancario. Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro inmutable de cada acción.",
-                "badges": ["AES-256", "JWT", "HTTPS", "Auditoría"]
+                "title": "Seguridad Impenetrable",
+                "subtitle": "Cifrado AES-256 · JWT · Blockchain",
+                "description": "Tu información protegida con estándares bancarios internacionales. Cifrado extremo, autenticación JWT, auditoría inmutable y sellado blockchain.",
+                "badges": ["AES-256", "JWT", "Blockchain", "Auditoría"]
             },
             {
-                "title": "Inteligencia Artificial",
-                "subtitle": "Kyron AI · Claude (Anthropic)",
-                "description": "IA fiscal potenciada por Claude de Anthropic. Monitorea la Gaceta Oficial, asistente contable inteligente, análisis predictivo de flujo de caja, y generación automática de reportes ejecutivos.",
-                "badges": ["Kyron AI", "Claude", "Chat IA", "Reportes"]
+                "title": "Triple IA Integrada",
+                "subtitle": "Claude · Gemini · OpenAI",
+                "description": "Tres motores de inteligencia artificial especializados: Claude para chat y visión, Gemini para documentos legales, OpenAI para análisis estratégico y predicciones de negocio.",
+                "badges": ["Claude", "Gemini", "OpenAI", "Chat IA"]
             }
         ],
         "modules": [
@@ -95,10 +95,10 @@
             "Socios",
             "Sostenibilidad"
         ],
-        "platform_badge": "Plataforma en Cifras",
+        "platform_badge": "Impacto Medible",
         "platform_title": "Resultados que",
-        "platform_highlight": "hablan solos",
-        "platform_subtitle": "La infraestructura más robusta de Venezuela para gestión corporativa integral.",
+        "platform_highlight": "transforman",
+        "platform_subtitle": "La infraestructura corporativa más avanzada de Venezuela. Cada métrica, verificable.",
         "stat_modules": "Módulos Integrados",
         "stat_encryption": "Cifrado Empresarial",
         "stat_compliance": "Cumplimiento Fiscal",
@@ -106,20 +106,20 @@
         "start_now": "Comenzar Ahora"
     },
     "ComplianceSection": {
-        "badge": "Cumplimiento Normativo",
-        "title_highlight": "Regulado y",
-        "title_rest": "certificado",
-        "subtitle": "System Kyron cumple con toda la normativa vigente venezolana. Cada módulo está diseñado para satisfacer los requisitos de los entes regulatorios.",
-        "security_badge": "Infraestructura de Seguridad",
+        "badge": "Cumplimiento Total",
+        "title_highlight": "Regulado,",
+        "title_rest": "blindado",
+        "subtitle": "Cada módulo supera los requisitos de SENIAT, SUNDDE y entes regulatorios. No solo cumplimos: marcamos el estándar.",
+        "security_badge": "Infraestructura Blindada",
         "security_title_1": "Seguridad de grado",
         "security_title_2": "bancario",
-        "security_desc": "Toda la infraestructura está protegida con los más altos estándares de seguridad, equiparable a sistemas bancarios internacionales."
+        "security_desc": "Cifrado AES-256, sellado blockchain y auditoría inmutable. Tu información está más protegida que en un banco."
     },
     "IntegrationsStrip": {
         "badge": "Ecosistema Conectado",
-        "title_highlight": "Integrado con",
-        "title_rest": "todo Venezuela",
-        "subtitle": "Conectamos tu empresa con la banca nacional, operadoras de telecomunicaciones, pasarelas de pago y la inteligencia artificial más avanzada.",
+        "title_highlight": "Conectado con",
+        "title_rest": "toda Venezuela",
+        "subtitle": "Banca nacional, operadoras telecom, pasarelas de pago y 3 motores de IA. Todo fluye en un solo lugar.",
         "cat_banking": "Banca Venezolana",
         "cat_payments": "Pagos & Fintech",
         "cat_telecom": "Telecom & Conectividad",
@@ -128,9 +128,9 @@
     },
     "AboutUsSection": {
         "badge": "Hecho en Venezuela",
-        "title_highlight": "Construido para",
-        "title_rest": "Venezuela",
-        "subtitle": "Ingeniería de software diseñada para la excelencia operativa y el cumplimiento normativo total.",
+        "title_highlight": "Creado para",
+        "title_rest": "dominar",
+        "subtitle": "Ingeniería de software de élite, diseñada para que tu empresa opere con la precisión de una máquina.",
         "stat_users": "Usuarios Registrados",
         "stat_compliance": "Cumplimiento Fiscal",
         "stat_companies": "Empresas Activas",
@@ -141,10 +141,10 @@
         "join_cta": "Únete al Ecosistema"
     },
     "FaqSection": {
-        "badge": "Soporte",
+        "badge": "Respuestas Claras",
         "title_highlight": "Preguntas",
         "title_rest": "Frecuentes",
-        "subtitle": "Las dudas más comunes sobre el ecosistema System Kyron.",
+        "subtitle": "Todo lo que necesitas saber antes de dar el paso. Sin letra pequeña.",
         "view_more": "Ver más preguntas frecuentes",
         "items": [
             {
@@ -170,10 +170,10 @@
         ]
     },
     "CtaSection": {
-        "badge": "Acceso Prioritario",
+        "badge": "Acceso Inmediato",
         "title_highlight": "¿Listo para",
-        "title_rest": "empezar",
-        "subtitle": "Complete el formulario para solicitar su auditoría técnica personalizada.",
+        "title_rest": "transformarte",
+        "subtitle": "Solicita tu auditoría técnica gratuita y descubre cómo Kyron puede automatizar tu operación.",
         "check_1": "Registro 2 min",
         "check_2": "Sin compromisos",
         "check_3": "Soporte 24/7",
@@ -244,9 +244,9 @@
     "ScrollCinematic": {
         "tagline": "System Kyron — Inteligencia Corporativa",
         "line1": "Tu empresa.",
-        "line2": "Toda.",
-        "line3": "En un solo lugar.",
-        "subtitle": "Contabilidad, nóminas, facturación, 5G y mucho más — diseñado para Venezuela, con IA integrada y cumplimiento fiscal automatizado.",
+        "line2": "Automatizada.",
+        "line3": "Sin límites.",
+        "subtitle": "Contabilidad, nóminas, facturación, 5G y triple IA — diseñado para Venezuela, con cumplimiento fiscal que nunca falla.",
         "highlights_subtitle": "Todo lo que tu empresa necesita",
         "highlights_title": "Un ecosistema completo.",
         "power_subtitle": "Poder sin precedentes",
@@ -406,10 +406,10 @@
         "gazette": "Gaceta Oficial IA"
     },
     "CommentsSection": {
-        "badge": "Comentarios Reales",
-        "title_prefix": "Lo que dicen",
-        "title_highlight": "nuestros usuarios",
-        "subtitle": "Opiniones verificadas de personas y empresas registradas",
+        "badge": "Voces Reales",
+        "title_prefix": "Lo que opinan",
+        "title_highlight": "quienes ya operan",
+        "subtitle": "Opiniones verificadas de personas y empresas que confían en System Kyron",
         "loading": "Cargando...",
         "empty_title": "Sin comentarios aún",
         "empty_subtitle": "Sé el primero en compartir tu experiencia con System Kyron.",

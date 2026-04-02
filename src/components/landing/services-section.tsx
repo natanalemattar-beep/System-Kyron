@@ -43,7 +43,7 @@ export function ServicesSection() {
                     </div>
                     <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight text-foreground uppercase leading-[1.05] mb-4">
                         {t('title_highlight')}{' '}
-                        <span className="kyron-gradient-text italic">
+                        <span className="liquid-glass-text italic">
                             {t('title_rest')}
                         </span>
                     </h2>

@@ -121,6 +121,9 @@ async function registerNatural(body: Record<string, unknown>) {
         user: { id: user.id, email: user.email, tipo: 'natural', nombre: `${nombre} ${apellido}` },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+    sendWelcomeEmail(normalizedEmail, `${nombre} ${apellido}`).catch(() => {});
+
     await logActivity({
         userId: user.id,
         evento: 'REGISTRO_USUARIO',
@@ -289,6 +292,9 @@ async function registerJuridico(body: Record<string, unknown>) {
         user: { id: user.id, email: user.email, tipo: 'juridico', nombre: razonSocial },
     });
     res.cookies.set(cookie.name, cookie.value, cookie.options as Parameters<typeof res.cookies.set>[2]);
+
+    sendWelcomeEmail(email as string, razonSocial as string).catch(() => {});
+
     await logActivity({
         userId: user.id,
         evento: 'REGISTRO_USUARIO',
@@ -299,4 +305,34 @@ async function registerJuridico(body: Record<string, unknown>) {
         metadata: { email, tipo: 'juridico', rif, razon_social: razonSocial, email_verificado: emailVerified, telefono_verificado: phoneVerified },
     });
     return res;
+}
+
+async function sendWelcomeEmail(email: string, nombre: string) {
+    try {
+        const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
+        const html = buildKyronEmailTemplate({
+            title: `Bienvenido a System Kyron, ${nombre}`,
+            body: `
+                <p style="margin: 0 0 16px 0;">Tu cuenta ha sido creada exitosamente. Ahora tienes acceso a la plataforma de inteligencia corporativa más avanzada de Venezuela.</p>
+                <p style="margin: 0 0 8px 0;"><strong style="color: #0EA5E9;">Lo que puedes hacer ahora:</strong></p>
+                <ul style="margin: 0 0 16px 0; padding-left: 20px;">
+                    <li style="margin-bottom: 6px;">Configurar tu perfil y datos fiscales</li>
+                    <li style="margin-bottom: 6px;">Explorar los 7+ módulos integrados</li>
+                    <li style="margin-bottom: 6px;">Activar Kyron AI para asistencia inteligente</li>
+                    <li style="margin-bottom: 6px;">Generar tu primera factura con IVA y tasa BCV automática</li>
+                </ul>
+                <p style="margin: 0;">Tu cuenta incluye cifrado AES-256 y auditoría inmutable desde el primer momento.</p>
+            `,
+            footer: 'Este email fue enviado porque te registraste en System Kyron. Si no fuiste tú, ignora este mensaje.',
+        });
+        await sendEmail({
+            to: email,
+            subject: `Bienvenido a System Kyron, ${nombre}`,
+            html,
+            module: 'auth',
+            purpose: 'general',
+        });
+    } catch (err) {
+        console.error('[register] Welcome email failed:', err);
+    }
 }

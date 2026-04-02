@@ -91,7 +91,7 @@ export function IntegrationsStrip() {
                     </div>
                     <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1] mb-4">
                         {t('title_highlight')}{' '}
-                        <span className="kyron-gradient-text italic">{t('title_rest')}</span>
+                        <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
                     <p className="text-sm text-muted-foreground max-w-xl mx-auto font-medium">
                         {t('subtitle')}

@@ -1,5 +1,9 @@
 import { query, queryOne, queryWithCount } from '@/lib/db';
 
+async function safeQuery(sql: string, params?: unknown[]): Promise<void> {
+  try { await query(sql, params); } catch { /* non-fatal */ }
+}
+
 export interface AutomationRule {
   id: string;
   name: string;
@@ -152,6 +156,121 @@ registerAction('invoice_reminders', async () => {
   }
 
   return `${overdue.length} factura(s) próximas a vencer, ${notified} notificación(es) creada(s)`;
+});
+
+registerAction('email_automation', async () => {
+  const pendingEmails = await query(
+    `SELECT ea.* FROM email_automaticos ea
+     WHERE ea.activo = true 
+       AND ea.intervalo_horas IS NOT NULL
+       AND (ea.ultimo_envio IS NULL OR ea.ultimo_envio < NOW() - (ea.intervalo_horas || ' hours')::interval)`
+  );
+
+  let processed = 0;
+  const errors: string[] = [];
+
+  for (const emailRule of pendingEmails) {
+    const rule = emailRule as Record<string, unknown>;
+    try {
+      if (rule.tipo === 'factura_vencida') {
+        const overdue = await query(
+          `SELECT COUNT(*) as cnt FROM facturas 
+           WHERE estado = 'pendiente' AND fecha_vencimiento < CURRENT_DATE`
+        );
+        const cnt = parseInt((overdue[0] as Record<string, string>)?.cnt || '0');
+        if (cnt > 0) {
+          const affectedUsers = await query(
+            `SELECT DISTINCT f.user_id, u.email, u.nombre, u.apellido 
+             FROM facturas f JOIN users u ON u.id = f.user_id 
+             WHERE f.estado = 'pendiente' AND f.fecha_vencimiento < CURRENT_DATE`
+          );
+          for (const row of affectedUsers) {
+            const u = row as Record<string, string>;
+            await safeQuery(
+              `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+               VALUES ($1, 'cobranza', 'Facturas vencidas pendientes', $2, 'alta', 'multi')`,
+              [u.user_id, `${cnt} factura(s) con fecha de vencimiento pasada requieren atención`]
+            );
+            if (u.email) {
+              try {
+                const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
+                await sendEmail({
+                  to: u.email,
+                  subject: `${cnt} factura(s) vencida(s) — Acción requerida`,
+                  html: buildKyronEmailTemplate({
+                    title: `Facturas Vencidas`,
+                    body: `<p>Hola ${u.nombre || ''},</p><p>Tienes <strong>${cnt}</strong> factura(s) con fecha de vencimiento pasada que requieren atención inmediata.</p><p>Ingresa a System Kyron para gestionar tus pagos pendientes.</p>`,
+                    footer: 'Este es un recordatorio automático de System Kyron.',
+                  }),
+                  module: 'contabilidad',
+                  purpose: 'general',
+                });
+              } catch { /* email delivery failure is non-fatal */ }
+            }
+          }
+        }
+      } else if (rule.tipo === 'resumen_semanal') {
+        const stats = await queryOne<Record<string, string>>(
+          `SELECT COUNT(*) as total FROM activity_log WHERE created_at > NOW() - INTERVAL '7 days'`
+        );
+        const total = stats?.total || '0';
+        const adminUsers = await query(
+          `SELECT id, email, nombre FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+        );
+        for (const row of adminUsers) {
+          const u = row as Record<string, string>;
+          await safeQuery(
+            `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+             VALUES ($1, 'info', 'Resumen semanal disponible', $2, 'normal', 'app')`,
+            [u.id, `Tu resumen de actividad semanal está listo: ${total} eventos registrados`]
+          );
+          if (u.email) {
+            try {
+              const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
+              await sendEmail({
+                to: u.email,
+                subject: 'Tu resumen semanal — System Kyron',
+                html: buildKyronEmailTemplate({
+                  title: 'Resumen Semanal',
+                  body: `<p>Hola ${u.nombre || ''},</p><p>Tu resumen de actividad semanal está listo: <strong>${total}</strong> eventos registrados en los últimos 7 días.</p>`,
+                  footer: 'Resumen automático generado por System Kyron.',
+                }),
+                module: 'sistema',
+                purpose: 'general',
+              });
+            } catch { /* email delivery failure is non-fatal */ }
+          }
+        }
+      } else if (rule.tipo === 'alerta_fiscal') {
+        await safeQuery(
+          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+           SELECT id, 'fiscal', 'Revisión fiscal automática', 
+             'Verificación periódica de obligaciones fiscales completada', 'normal', 'app'
+           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+        );
+      } else if (rule.tipo === 'recordatorio_pago') {
+        await safeQuery(
+          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+           SELECT id, 'cobranza', 'Recordatorio de pago', 
+             'Recuerda mantener tu suscripción al día para acceso ininterrumpido', 'normal', 'app'
+           FROM users WHERE activo = true AND plan_actual != 'gratuito'`
+        );
+      }
+
+      await query(
+        `UPDATE email_automaticos SET ultimo_envio = NOW(), total_enviados = total_enviados + 1 WHERE id = $1`,
+        [rule.id]
+      );
+      processed++;
+    } catch (err) {
+      const msg = `[email_automation] Rule ${rule.tipo}(id=${rule.id}) failed: ${err instanceof Error ? err.message : String(err)}`;
+      console.error(msg);
+      errors.push(msg);
+    }
+  }
+
+  const errSummary = errors.length > 0 ? ` | ${errors.length} error(s)` : '';
+  return `${processed} regla(s) de email automático procesada(s) de ${pendingEmails.length} pendiente(s)${errSummary}`;
 });
 
 registerAction('activity_digest', async () => {

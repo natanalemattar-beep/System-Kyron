@@ -20,7 +20,7 @@ export function FaqSection() {
                     </div>
                     <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1]">
                         {t('title_highlight')}{' '}
-                        <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic">
+                        <span className="liquid-glass-text italic">
                             {t('title_rest')}
                         </span>
                     </h2>

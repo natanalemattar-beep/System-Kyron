@@ -120,7 +120,7 @@ export function AboutUsSection() {
                         </motion.div>
                         <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground">
                             {t('title_highlight')}{' '}
-                            <span className="bg-gradient-to-r from-cyan-400 via-primary to-emerald-400 bg-clip-text text-transparent italic">
+                            <span className="liquid-glass-text italic">
                                 {t('title_rest')}
                             </span>
                         </motion.h2>

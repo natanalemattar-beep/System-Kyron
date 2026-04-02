@@ -29,7 +29,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - Seasonal theming system for Venezuelan holidays.
 
 **Technical Implementations:**
-- **Database Layer:** PostgreSQL schema with over 80 tables, supporting batch operations, upserts, and pagination.
+- **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables, GIN indexes for JSONB metadata columns, 40+ composite/partial indexes, supporting batch operations, upserts, and pagination.
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations.
 - **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification.
 - **Security:** CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Permissions-Policy, rate limiting with brute-force lockout, memory-safe maps, password complexity, input sanitization, and parameterized SQL.
@@ -42,7 +42,9 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion.
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Document Authenticity Verification (AI-Powered):** Multi-layer verification using Claude Vision AI for Venezuelan documents, checking integrity, metadata, and visual content.
-- **Real Automation Engine:** Database-backed system with scheduled rules, execution logging, and a live dashboard for tasks like BCV Sync and Blockchain Batch Anchoring.
+- **Real Automation Engine:** Database-backed system with 9 scheduled rules (BCV Sync, Fiscal Alerts, Regulatory Monitor, Health Check, Blockchain Batch, Session Cleanup, Invoice Reminders, Activity Digest, Email Automation), execution logging, and a live dashboard.
+- **Automated Email System:** 10 email automation templates (welcome, verification, invoice issued/overdue, payroll, contract signed, fiscal alert, weekly summary, payment reminder, plan change) backed by `email_automaticos` table with scheduling, logging, and multi-channel delivery (Gmail, Outlook, SMS, WhatsApp).
+- **Notifications System:** `notificaciones` table with typed notifications (info, alert, billing, fiscal, system, welcome, reminder), priority levels, multi-channel delivery, and JSONB metadata.
 - **Alertas Fiscales Expandidas:** Monitors 30+ Venezuelan fiscal obligations.
 - **Alertas Regulatorias:** Monitors legislative changes from Gacetas and National Assembly.
 - **Admin Message Endpoint:** POST `/api/admin/send-message` for sending personalized emails.

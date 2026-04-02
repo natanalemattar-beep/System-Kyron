@@ -153,7 +153,7 @@ export function HeroSection() {
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
                             <span className="block text-foreground">{t('title_line2')}</span>
-                            <span className="block bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#22c55e] bg-clip-text text-transparent italic animate-gradient-flow" style={{ backgroundSize: '200% 200%' }}>
+                            <span className="block liquid-glass-text italic">
                                 {t('title_line3')}
                             </span>
                         </motion.h1>
