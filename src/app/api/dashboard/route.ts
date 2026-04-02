@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { queryOne, query } from '@/lib/db';
+import { cachedQuery } from '@/lib/cache';
 
 export const dynamic = 'force-dynamic';
+
+const TASA_TTL = 300_000;
 
 export async function GET() {
     const session = await getSession();
@@ -84,9 +87,11 @@ export async function GET() {
                  LIMIT 8`,
                 [uid]
             ),
-            queryOne<{ tasa_usd_ves: string; fecha: string }>(
-                `SELECT tasa_usd_ves::text, fecha::text FROM tasas_bcv ORDER BY fecha DESC LIMIT 1`
-            ).catch(() => null),
+            cachedQuery(`dashboard:tasa`, TASA_TTL, () =>
+                queryOne<{ tasa_usd_ves: string; fecha: string }>(
+                    `SELECT tasa_usd_ves::text, fecha::text FROM tasas_bcv ORDER BY fecha DESC LIMIT 1`
+                ).catch(() => null)
+            ),
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(monto), 0)::text AS total
                  FROM movimientos_bancarios

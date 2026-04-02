@@ -2494,6 +2494,9 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_user ON eco_creditos(user_id)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_created ON page_visits(created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_module_created ON page_visits(module, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_device_created ON page_visits(device_type, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_page_visits_page_created ON page_visits(page, created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino, created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_tipo ON users(tipo)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_cedula ON users(cedula)`);

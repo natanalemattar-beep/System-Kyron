@@ -75,33 +75,68 @@ const PUBLIC_SEGMENTS = new Set([
 ]);
 
 // Public API path prefixes — these routes handle their own logic
+const PUBLIC_API_SET = new Set([
+  '/api/stats',
+  '/api/visits',
+  '/api/contact',
+]);
+
 const PUBLIC_API_PREFIXES = [
   '/api/auth/',
   '/api/cedula/',
   '/api/rif/',
-  '/api/stats',
-  '/api/visits',
-  '/api/contact',
 ];
 
+function isPublicApi(pathname: string): boolean {
+  if (PUBLIC_API_SET.has(pathname)) return true;
+  for (let i = 0; i < PUBLIC_API_PREFIXES.length; i++) {
+    if (pathname.startsWith(PUBLIC_API_PREFIXES[i])) return true;
+  }
+  return false;
+}
+
 function isPublicPage(pathname: string): boolean {
-  const parts = pathname.split('/');
-  // parts[0] = '', parts[1] = locale, parts[2] = page segment
-  const segment = parts[2] ?? '';
+  const secondSlash = pathname.indexOf('/', 1);
+  const thirdSlash = secondSlash > 0 ? pathname.indexOf('/', secondSlash + 1) : -1;
+  const segment = secondSlash > 0
+    ? (thirdSlash > 0 ? pathname.substring(secondSlash + 1, thirdSlash) : pathname.substring(secondSlash + 1))
+    : '';
   if (PUBLIC_SEGMENTS.has(segment)) return true;
-  // Allow all /register/* paths
   if (segment === 'register') return true;
   return false;
 }
 
+const sessionCache = new Map<string, { valid: boolean; expiresAt: number }>();
+const SESSION_CACHE_TTL = 15_000;
+const SESSION_CACHE_MAX = 500;
+
 async function verifySession(req: NextRequest): Promise<boolean> {
   const token = req.cookies.get(COOKIE_NAME)?.value;
   if (!token) return false;
+
+  const now = Date.now();
+  const cached = sessionCache.get(token);
+  if (cached && now < cached.expiresAt) return cached.valid;
+
   try {
-    await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+    if (sessionCache.size >= SESSION_CACHE_MAX) sessionCache.clear();
+    const expMs = typeof payload.exp === 'number' ? payload.exp * 1000 : now + SESSION_CACHE_TTL;
+    const cacheUntil = Math.min(now + SESSION_CACHE_TTL, expMs);
+    if (cacheUntil <= now) return true;
+    sessionCache.set(token, { valid: true, expiresAt: cacheUntil });
     return true;
   } catch {
+    sessionCache.set(token, { valid: false, expiresAt: now + 5_000 });
     return false;
+  }
+}
+
+const securityHeaderEntries = Object.entries(SECURITY_HEADERS);
+
+function applySecurityHeaders(response: NextResponse): void {
+  for (let i = 0; i < securityHeaderEntries.length; i++) {
+    response.headers.set(securityHeaderEntries[i][0], securityHeaderEntries[i][1]);
   }
 }
 
@@ -109,24 +144,17 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/api/')) {
-    const isPublicApi = PUBLIC_API_PREFIXES.some(p => pathname.startsWith(p));
     const response = NextResponse.next();
-    for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
-      response.headers.set(key, value);
-    }
-    if (!isPublicApi) {
-      // Protected API routes handle their own getSession() auth check.
-      // We pass through here — they return 401 if no valid session.
-    }
+    applySecurityHeaders(response);
     return response;
   }
 
-  // Page routes: protect everything not in the public list
   if (!isPublicPage(pathname)) {
     const authed = await verifySession(req);
     if (!authed) {
-      const parts = pathname.split('/');
-      const locale = parts[1] && locales.includes(parts[1] as 'en' | 'es') ? parts[1] : defaultLocale;
+      const secondSlash = pathname.indexOf('/', 1);
+      const localeStr = secondSlash > 0 ? pathname.substring(1, secondSlash) : '';
+      const locale = locales.includes(localeStr as 'en' | 'es') ? localeStr : defaultLocale;
       const loginUrl = new URL(`/${locale}/login`, req.url);
       loginUrl.searchParams.set('from', pathname);
       return NextResponse.redirect(loginUrl);
@@ -134,9 +162,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   const response = intlMiddleware(req);
-  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
-    response.headers.set(key, value);
-  }
+  applySecurityHeaders(response);
   return response;
 }
 

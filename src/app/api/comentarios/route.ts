@@ -1,20 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { getSession } from '@/lib/auth';
+import { cachedQuery, invalidateCache } from '@/lib/cache';
 
 export const dynamic = 'force-dynamic';
 
+const COMENTARIOS_TTL = 120_000;
+
 export async function GET() {
     try {
-        const rows = await query(
-            `SELECT c.id, c.texto, c.calificacion, c.modulo, c.created_at,
-                    u.nombre, u.apellido, u.tipo as user_tipo, u.razon_social
-             FROM comentarios_publicos c
-             JOIN users u ON c.user_id = u.id
-             WHERE c.aprobado = true AND c.visible = true
-             ORDER BY c.created_at DESC
-             LIMIT 20`,
-            []
+        const rows = await cachedQuery('comentarios:list', COMENTARIOS_TTL, () =>
+            query(
+                `SELECT c.id, c.texto, c.calificacion, c.modulo, c.created_at,
+                        u.nombre, u.apellido, u.tipo as user_tipo, u.razon_social
+                 FROM comentarios_publicos c
+                 JOIN users u ON c.user_id = u.id
+                 WHERE c.aprobado = true AND c.visible = true
+                 ORDER BY c.created_at DESC
+                 LIMIT 20`,
+                []
+            )
         );
 
         const comentarios = rows.map((r: any) => ({
@@ -73,6 +78,7 @@ export async function POST(req: NextRequest) {
             [session.userId, texto.trim(), cal, modulo || null]
         );
 
+        invalidateCache('comentarios:');
         return NextResponse.json({ success: true, message: 'Comentario publicado' });
     } catch (err) {
         console.error('[comentarios] POST error:', err);

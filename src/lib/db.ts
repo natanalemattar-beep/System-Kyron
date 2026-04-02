@@ -19,6 +19,7 @@ export function getPool(): Pool {
             statement_timeout: 30000,
             query_timeout: 30000,
             allowExitOnIdle: false,
+            application_name: 'system-kyron',
         });
         pool.on('error', (err) => {
             console.error('[db] Error inesperado en cliente idle:', err.message);

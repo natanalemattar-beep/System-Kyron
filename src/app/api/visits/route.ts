@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/lib/db';
+import { getPool } from '@/lib/db';
 import { headers } from 'next/headers';
+import { invalidateCache } from '@/lib/cache';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -31,18 +32,22 @@ export async function POST(req: NextRequest) {
     const module = body.module || 'other';
     const device_type = detectDevice(ua);
 
-    await query(
-      `INSERT INTO page_visits (page, visitor_id, user_id, module, ip, user_agent, referrer, device_type)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-      [page, visitor_id, user_id, module, ip, ua.slice(0, 512), referrer.slice(0, 256), device_type]
-    );
-
-    await query(`
+    const pool = getPool();
+    pool.query(
+      `WITH visit_insert AS (
+        INSERT INTO page_visits (page, visitor_id, user_id, module, ip, user_agent, referrer, device_type)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      )
       INSERT INTO site_metrics (metric_key, metric_value, updated_at)
       VALUES ('total_visits', 1, NOW())
       ON CONFLICT (metric_key)
-      DO UPDATE SET metric_value = site_metrics.metric_value + 1, updated_at = NOW()
-    `);
+      DO UPDATE SET metric_value = site_metrics.metric_value + 1, updated_at = NOW()`,
+      [page, visitor_id, user_id, module, ip, ua.slice(0, 512), referrer.slice(0, 256), device_type]
+    ).then(() => {
+      invalidateCache('stats:');
+    }).catch(err => {
+      console.error('[visits] Error en registro:', err.message);
+    });
 
     return NextResponse.json({ ok: true });
   } catch {
@@ -52,20 +57,23 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const [totalResult, todayResult, uniqueResult, usersResult, activeResult] = await Promise.all([
-      query<{ total: string }>(`SELECT metric_value AS total FROM site_metrics WHERE metric_key = 'total_visits'`),
-      query<{ total: string }>(`SELECT COUNT(*) AS total FROM page_visits WHERE created_at >= NOW() - INTERVAL '24 hours'`),
-      query<{ total: string }>(`SELECT COUNT(DISTINCT visitor_id) AS total FROM page_visits WHERE visitor_id IS NOT NULL`),
-      query<{ total: string }>(`SELECT COUNT(*) AS total FROM users`),
-      query<{ total: string }>(`SELECT COUNT(*) AS total FROM page_visits WHERE created_at >= NOW() - INTERVAL '5 minutes'`),
-    ]);
+    const pool = getPool();
+    const result = await pool.query(`
+      SELECT
+        (SELECT COALESCE(metric_value, 0) FROM site_metrics WHERE metric_key = 'total_visits') AS total_visits,
+        (SELECT COUNT(*) FROM page_visits WHERE created_at >= NOW() - INTERVAL '24 hours') AS visits_today,
+        (SELECT COUNT(DISTINCT visitor_id) FROM page_visits WHERE visitor_id IS NOT NULL) AS unique_visitors,
+        (SELECT COUNT(*) FROM users) AS registered_users,
+        (SELECT COUNT(*) FROM page_visits WHERE created_at >= NOW() - INTERVAL '5 minutes') AS active_now
+    `);
 
+    const row = result.rows[0] || {};
     return NextResponse.json({
-      totalVisits: parseInt(totalResult[0]?.total ?? '0', 10),
-      visitsToday: parseInt(todayResult[0]?.total ?? '0', 10),
-      uniqueVisitors: parseInt(uniqueResult[0]?.total ?? '0', 10),
-      registeredUsers: parseInt(usersResult[0]?.total ?? '0', 10),
-      activeNow: parseInt(activeResult[0]?.total ?? '0', 10),
+      totalVisits: parseInt(row.total_visits ?? '0', 10),
+      visitsToday: parseInt(row.visits_today ?? '0', 10),
+      uniqueVisitors: parseInt(row.unique_visitors ?? '0', 10),
+      registeredUsers: parseInt(row.registered_users ?? '0', 10),
+      activeNow: parseInt(row.active_now ?? '0', 10),
     });
   } catch {
     return NextResponse.json({
