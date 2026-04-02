@@ -129,7 +129,7 @@ export const CIUDADES_PARROQUIAS: Record<string, string[]> = {
   'Distrito Capital': ['Caracas', 'El Junquito', 'Caricuao', 'Petare', 'Catia', 'Chacao', 'Baruta', 'El Hatillo', 'Antimano', 'La Pastora', 'San Agustín', 'La Vega', 'El Paraíso', 'Sucre', 'El Recreo', 'San Bernardino', 'Altamira', 'Los Palos Grandes', 'La Candelaria', 'San Martín'],
   'Falcón': ['Coro', 'Punto Fijo', 'Tucacas', 'Chichiriviche', 'Dabajuro', 'Churuguara', 'La Vela de Coro', 'Judibana', 'Morón'],
   'Guárico': ['San Juan de los Morros', 'Valle de la Pascua', 'Zaraza', 'Calabozo', 'Tucupido', 'Altagracia de Orituco', 'Chaguaramas', 'Ortiz', 'El Socorro'],
-  'La Guaira': ['La Guaira', 'Macuto', 'Caraballeda', 'Catia La Mar', 'Maiquetía', 'Naiguatá'],
+  'La Guaira': ['La Guaira', 'Macuto', 'Caraballeda', 'Catia La Mar', 'Maiquetía', 'Naiguatá', 'Urimare', 'Carlos Soublette', 'Carayaca', 'El Junko'],
   'Lara': ['Barquisimeto', 'Cabudare', 'Carora', 'El Tocuyo', 'Quíbor', 'Duaca', 'Sanare', 'Los Rastrojos'],
   'Mérida': ['Mérida', 'El Vigía', 'Ejido', 'Tovar', 'Lagunillas', 'Mucuchíes', 'Bailadores', 'Tabay', 'Apartaderos', 'Santo Domingo'],
   'Miranda': ['Los Teques', 'Guarenas', 'Guatire', 'Charallave', 'Ocumare del Tuy', 'Cúa', 'Santa Teresa del Tuy', 'Petare', 'Baruta', 'Chacao', 'El Hatillo', 'Higuerote', 'Río Chico', 'San Antonio de los Altos', 'Carrizal'],
