@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Link } from "@/navigation";
 import {
   Calculator, Wallet, TrendingUp, Activity, BookOpen, Receipt, Users, HandCoins, Zap,
@@ -209,6 +211,7 @@ export default function ContabilidadPage() {
 
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
+      <ModuleTutorial config={moduleTutorials["contabilidad"]} />
       <MotionContainer variant="fade-left" as="header" className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">

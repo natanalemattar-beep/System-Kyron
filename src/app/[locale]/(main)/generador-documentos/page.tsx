@@ -2,6 +2,8 @@
 "use client";
 
 import { useState } from "react";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Wand as Wand2, Loader as Loader2, Download, Printer, ShieldCheck, Gavel, Scale } from "lucide-react";
@@ -39,6 +41,7 @@ export default function GeneradorDocumentosPage() {
 
     return (
         <div className="space-y-12 w-full px-6 md:px-16 pb-20">
+            <ModuleTutorial config={moduleTutorials["legal"]} />
             <header className="border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                     <Scale className="h-3 w-3" /> NODO JURÍDICO IA

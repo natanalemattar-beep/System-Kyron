@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -95,6 +97,7 @@ export default function DashboardPersonalPage() {
 
   return (
     <div className="space-y-6 pb-16 max-w-6xl mx-auto">
+      <ModuleTutorial config={moduleTutorials["ciudadano"]} />
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}

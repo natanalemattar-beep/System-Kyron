@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Send, Trash2, StopCircle,
@@ -325,6 +327,7 @@ export default function KyronChatPage() {
 
   return (
     <PageTransition>
+      <ModuleTutorial config={moduleTutorials["kyron-ia"]} />
       <div className="flex flex-col h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)]">
         <div className="shrink-0 border-b border-border/40 bg-card/50 backdrop-blur-sm px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between mb-3">

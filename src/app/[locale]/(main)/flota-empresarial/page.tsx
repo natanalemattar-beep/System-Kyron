@@ -3,10 +3,13 @@
   import { Card, CardContent } from "@/components/ui/card";
   import { Building, ArrowLeft } from "lucide-react";
   import { Link } from "@/navigation";
+  import { ModuleTutorial } from "@/components/module-tutorial";
+  import { moduleTutorials } from "@/lib/module-tutorials";
 
   export default function Page() {
       return (
           <div className="space-y-8 pb-20">
+              <ModuleTutorial config={moduleTutorials["telecom"]} />
               <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4">
                   <ArrowLeft className="h-3.5 w-3.5" /> Volver
               </Link>

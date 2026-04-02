@@ -21,6 +21,8 @@ import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
@@ -228,6 +230,7 @@ export default function DashboardEmpresaPage() {
 
   return (
     <div className="space-y-5 pb-16 max-w-6xl mx-auto">
+      <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}

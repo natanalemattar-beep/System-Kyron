@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Recycle, Leaf, MapPin, Coins, ShieldCheck, Zap, Cpu, Battery, Wifi, Download, Activity, Terminal, Loader2, Plus } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -120,6 +122,7 @@ export default function SostenibilidadPage() {
 
   return (
     <div className="space-y-10 pb-20">
+      <ModuleTutorial config={moduleTutorials["sostenibilidad"]} />
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mb-4">

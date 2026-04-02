@@ -10,24 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   Sparkles,
-  ShieldCheck,
   Rocket,
   ChevronRight,
   ChevronLeft,
   CircleCheck as CheckCircle2,
   CircleUser as UserCircle,
   UserPlus,
-  Building2,
   LayoutDashboard,
   PartyPopper,
-  Calculator,
-  Receipt,
-  Users,
-  Gavel,
-  Megaphone,
-  Smartphone,
-  Leaf,
-  BrainCircuit,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -123,25 +113,22 @@ interface TutorialStep {
   bg: string;
   border: string;
   tag: string;
-  section: string;
   screenshot: string;
   screenshotAlt: string;
   useGreeting?: boolean;
   useTyping?: boolean;
   showConfetti?: boolean;
-  bullets?: string[];
 }
 
 const steps: TutorialStep[] = [
   {
     title: "Bienvenido a System Kyron",
-    description: "La plataforma de gestión empresarial más completa de Venezuela. Un ecosistema que integra todos los módulos que tu organización necesita en un solo lugar.",
+    description: "La plataforma de gestión empresarial más completa de Venezuela. Contabilidad, nómina, facturación, legal, marketing, telecom, sostenibilidad e IA — todo en un solo ecosistema.",
     icon: Sparkles,
     color: "text-yellow-400",
     bg: "bg-yellow-400/15",
     border: "border-yellow-400/20",
     tag: "BIENVENIDA",
-    section: "INICIO",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
     screenshotAlt: "Ecosistema Kyron - Plataforma integral de gestión empresarial venezolana",
     useGreeting: true,
@@ -149,13 +136,12 @@ const steps: TutorialStep[] = [
   },
   {
     title: "Accede a tu Portal",
-    description: "Haz clic en el botón ACCEDER en la barra superior. Se desplegará un menú con los portales disponibles. Selecciona el tuyo e ingresa con tu correo y contraseña.",
+    description: "Haz clic en el botón ACCEDER en la barra superior. Se desplegará un menú con todos los portales disponibles. Selecciona el tuyo e ingresa con tu correo y contraseña.",
     icon: UserCircle,
     color: "text-primary",
     bg: "bg-primary/15",
     border: "border-primary/20",
     tag: "ACCESO",
-    section: "INICIO",
     screenshot: "/images/tutorial/step-2-login.jpg",
     screenshotAlt: "Selector de portales - Portal Ciudadano y Portales Corporativos",
   },
@@ -167,199 +153,33 @@ const steps: TutorialStep[] = [
     bg: "bg-secondary/15",
     border: "border-secondary/20",
     tag: "REGISTRO",
-    section: "INICIO",
     screenshot: "/images/tutorial/step-3-register.jpg",
     screenshotAlt: "Formulario de registro - Datos personales y tipo de cuenta",
   },
   {
-    title: "Tu Dashboard Central",
-    description: "Al ingresar, tu Dashboard Empresarial te muestra el estado de tu organización en tiempo real: ingresos, gastos, utilidad, tasa BCV, salud financiera y accesos rápidos a todos los módulos.",
+    title: "Explora los Módulos",
+    description: "Cada módulo tiene su propia guía paso a paso. Al entrar por primera vez a Contabilidad, Facturación, RRHH, Marketing o cualquier otro módulo, verás un tutorial específico que te explicará todo lo que necesitas.",
     icon: LayoutDashboard,
     color: "text-cyan-400",
     bg: "bg-cyan-400/15",
     border: "border-cyan-400/20",
-    tag: "DASHBOARD",
-    section: "ECOSISTEMA",
-    screenshot: "/images/tutorial/step-1-ecosistema.jpg",
-    screenshotAlt: "Dashboard Central - Métricas en tiempo real, tasa BCV y accesos rápidos",
-  },
-  {
-    title: "Contabilidad & Fiscal",
-    description: "Gestiona tu contabilidad bajo normas VEN-NIF con libros obligatorios, plan de cuentas, asientos contables, estados financieros, conciliación bancaria, centro de costos y cierre contable. Incluye el Centro Tributario con IVA, ISLR, IGTF, retenciones, parafiscales, municipales y calendario fiscal SENIAT.",
-    icon: Calculator,
-    color: "text-blue-400",
-    bg: "bg-blue-400/15",
-    border: "border-blue-400/20",
-    tag: "CONTABILIDAD",
-    section: "MÓDULOS",
+    tag: "MÓDULOS",
     screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Centro Contable - Libros, estados financieros, tributos y exportación SENIAT",
-    bullets: [
-      "Libros contables obligatorios (Diario, Mayor, Inventario, Compra-Venta)",
-      "Centro Tributario: IVA, ISLR, IGTF, retenciones y parafiscales",
-      "Estados financieros, cierre contable y exportación SENIAT",
-    ],
-  },
-  {
-    title: "Facturación & Ventas",
-    description: "Emite facturas con tasa BCV en tiempo real, gestiona cotizaciones, notas de crédito/débito, punto de venta, ventas a crédito, cuentas por cobrar y cuentas por pagar. Todo integrado con tu contabilidad automáticamente.",
-    icon: Receipt,
-    color: "text-amber-400",
-    bg: "bg-amber-400/15",
-    border: "border-amber-400/20",
-    tag: "FACTURACIÓN",
-    section: "MÓDULOS",
-    screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Centro de Facturación - Facturas electrónicas con tasa BCV y punto de venta",
-    bullets: [
-      "Facturas electrónicas con tasa BCV automática",
-      "Punto de venta, cotizaciones y ventas a crédito",
-      "Cuentas por cobrar y pagar con análisis de vencimientos",
-    ],
-  },
-  {
-    title: "RRHH & Nómina",
-    description: "Administra tu recurso humano completo: pago de nómina, prestaciones sociales, certificados laborales, libros de horas extras, LOPCYMAT, reclutamiento, clima organizacional, carrera y formación, bienestar laboral y vacaciones.",
-    icon: Users,
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/15",
-    border: "border-emerald-400/20",
-    tag: "RRHH",
-    section: "MÓDULOS",
-    screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Gestión de RRHH - Nómina, prestaciones, certificados y bienestar laboral",
-    bullets: [
-      "Nómina, liquidaciones y prestaciones sociales",
-      "Salud laboral, LOPCYMAT y clima organizacional",
-      "Reclutamiento, formación y gestión de vacaciones",
-    ],
-  },
-  {
-    title: "Legal & Permisología",
-    description: "Genera contratos con IA, gestiona permisos vigentes, autorizaciones, trámites fiscales y toda la documentación legal de tu empresa. Incluye módulo de permisología con licencias CONATEL, protección de pensiones y archivo de contratos.",
-    icon: Gavel,
-    color: "text-purple-400",
-    bg: "bg-purple-400/15",
-    border: "border-purple-400/20",
-    tag: "LEGAL",
-    section: "MÓDULOS",
-    screenshot: "/images/tutorial/step-6-ia.jpg",
-    screenshotAlt: "Gestión Legal - Generador de contratos IA y centro de permisología",
-    bullets: [
-      "Generador de contratos con inteligencia artificial",
-      "Centro de permisología y licencias vigentes",
-      "Trámites fiscales y documentación legal automatizada",
-    ],
-  },
-  {
-    title: "Marketing & CRM",
-    description: "Impulsa tu negocio con campañas de marketing, embudos de venta, CRM de clientes, gestión de redes sociales, email marketing y carnets corporativos. Todo desde un solo dashboard con métricas en tiempo real.",
-    icon: Megaphone,
-    color: "text-pink-400",
-    bg: "bg-pink-400/15",
-    border: "border-pink-400/20",
-    tag: "MARKETING",
-    section: "MÓDULOS",
-    screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Dashboard Marketing - Campañas, CRM, embudos y redes sociales",
-    bullets: [
-      "Campañas y embudos de venta con métricas",
-      "CRM de clientes y fidelización",
-      "Redes sociales, email marketing y carnets",
-    ],
-  },
-  {
-    title: "Mi Línea (Telecom)",
-    description: "Gestiona líneas telefónicas personales y empresariales: recargas, consumo 5G, eSIM digital, facturación de líneas, flota empresarial con límites por empleado, homologación IMEI y reportes de flota corporativa.",
-    icon: Smartphone,
-    color: "text-teal-400",
-    bg: "bg-teal-400/15",
-    border: "border-teal-400/20",
-    tag: "TELECOM",
-    section: "SERVICIOS",
-    screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Mi Línea - Gestión de telecomunicaciones personales y empresariales",
-    bullets: [
-      "Líneas personales: recargas, 5G, eSIM y facturas",
-      "Flota empresarial con control por empleado",
-      "Homologación IMEI y reportes corporativos",
-    ],
-  },
-  {
-    title: "Sostenibilidad",
-    description: "Mide y gestiona el impacto ambiental de tu empresa con el Dashboard Ambiental. Participa en el mercado de Eco-Créditos y obtén tu Tarjeta de Reciclaje Avanzada para contribuir a un futuro sostenible.",
-    icon: Leaf,
-    color: "text-green-400",
-    bg: "bg-green-400/15",
-    border: "border-green-400/20",
-    tag: "ECO",
-    section: "SERVICIOS",
-    screenshot: "/images/tutorial/step-1-ecosistema.jpg",
-    screenshotAlt: "Sostenibilidad - Dashboard ambiental y mercado de eco-créditos",
-    bullets: [
-      "Dashboard ambiental con métricas de impacto",
-      "Mercado Eco-Exchange de créditos verdes",
-      "Tarjeta de reciclaje y certificaciones ambientales",
-    ],
-  },
-  {
-    title: "Portal Ciudadano",
-    description: "Para personas naturales: accede a tu Terminal Ciudadana con identidad digital 3D, bóveda de documentos civiles, red médica, carnet de salud, partidas de nacimiento, actas de matrimonio y buzón judicial.",
-    icon: Building2,
-    color: "text-indigo-400",
-    bg: "bg-indigo-400/15",
-    border: "border-indigo-400/20",
-    tag: "CIUDADANO",
-    section: "PORTALES",
-    screenshot: "/images/tutorial/step-5-ciudadano.jpg",
-    screenshotAlt: "Portal Ciudadano - Identidad digital, documentos civiles y gestión personal",
-    bullets: [
-      "ID Digital 3D y datos maestros personales",
-      "Bóveda de documentos civiles y judiciales",
-      "Red médica, carnet de salud y LOPNNA",
-    ],
-  },
-  {
-    title: "Kyron IA — Tu Asistente",
-    description: "Nuestro motor de inteligencia artificial potencia toda la plataforma: audita operaciones contra la Gaceta Oficial, genera documentos legales, analiza estados financieros, recomienda estrategias fiscales y responde consultas en tiempo real.",
-    icon: BrainCircuit,
-    color: "text-violet-400",
-    bg: "bg-violet-400/15",
-    border: "border-violet-400/20",
-    tag: "INTELIGENCIA ARTIFICIAL",
-    section: "IA",
-    screenshot: "/images/tutorial/step-6-ia.jpg",
-    screenshotAlt: "Kyron IA - Asistente fiscal, análisis financiero y generación de documentos",
-    bullets: [
-      "Asistente fiscal con Gaceta Oficial integrada",
-      "Análisis financiero y recomendaciones automáticas",
-      "Generador de documentos legales con IA",
-    ],
+    screenshotAlt: "Módulos del ecosistema - Cada módulo con su propia guía de introducción",
   },
   {
     title: "¡Todo Listo!",
-    description: "Tu cuenta está configurada. Todos los módulos están disponibles para ti: contabilidad, facturación, RRHH, legal, marketing, telecom, sostenibilidad e IA. Comienza a operar y aprovecha al máximo System Kyron.",
+    description: "Tu cuenta está lista. Todos los módulos están disponibles para ti. Comienza explorando y cada sección te guiará con su tutorial específico.",
     icon: Rocket,
     color: "text-rose-400",
     bg: "bg-rose-400/15",
     border: "border-rose-400/20",
     tag: "LISTO",
-    section: "FINAL",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
-    screenshotAlt: "Ecosistema Kyron - Todos los módulos listos para operar",
+    screenshotAlt: "Ecosistema Kyron - Todos los módulos listos para usar",
     showConfetti: true,
   },
 ];
-
-const sectionColors: Record<string, string> = {
-  "INICIO": "text-yellow-500/50",
-  "ECOSISTEMA": "text-cyan-500/50",
-  "MÓDULOS": "text-blue-500/50",
-  "SERVICIOS": "text-teal-500/50",
-  "PORTALES": "text-indigo-500/50",
-  "IA": "text-violet-500/50",
-  "FINAL": "text-rose-500/50",
-};
 
 export function WelcomeTutorial() {
   const [isOpen, setIsOpen] = useState(false);
@@ -422,9 +242,6 @@ export function WelcomeTutorial() {
   const progress = ((currentStep + 1) / steps.length) * 100;
   const isFirstStep = step.useGreeting;
   const isLastStep = step.showConfetti;
-  const prevSection = currentStep > 0 ? steps[currentStep - 1].section : null;
-  const showSectionHeader = step.section !== prevSection;
-
   const slideVariants = {
     enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
     center: { x: 0, opacity: 1 },
@@ -462,22 +279,12 @@ export function WelcomeTutorial() {
 
           <div className="pt-6 sm:pt-8 pb-4 sm:pb-5 px-5 sm:px-8">
             <div className="flex items-center justify-between mb-4 sm:mb-5">
-              <div className="flex items-center gap-2">
-                {showSectionHeader && (
-                  <span className={cn(
-                    "text-[7px] font-black uppercase tracking-[0.5em] mr-1",
-                    sectionColors[step.section] || "text-muted-foreground/40"
-                  )}>
-                    {step.section} ›
-                  </span>
-                )}
-                <span className={cn(
+              <span className={cn(
                   "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
                   step.bg, step.color, step.border
                 )}>
                   {step.tag}
-                </span>
-              </div>
+              </span>
               <div className="flex items-center gap-2">
                 {isLastStep && <PartyPopper className="h-4 w-4 text-amber-400 animate-bounce" />}
                 <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
@@ -541,19 +348,6 @@ export function WelcomeTutorial() {
                   )}
                 </div>
 
-                {step.bullets && step.bullets.length > 0 && (
-                  <div className="grid gap-1.5 pl-1">
-                    {step.bullets.map((bullet, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className={cn("h-3 w-3 mt-0.5 shrink-0", step.color)} />
-                        <span className="text-[10px] sm:text-xs text-muted-foreground/70 font-medium leading-snug">
-                          {bullet}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
                 <div className="relative w-full rounded-xl overflow-hidden border border-border/30 shadow-lg">
                   <div className="relative w-full aspect-[16/9]">
                     {!imgLoaded[currentStep] && (
@@ -578,25 +372,21 @@ export function WelcomeTutorial() {
                   <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
                 </div>
 
-                <div className="flex items-center gap-1 pt-1">
-                  {steps.map((s, i) => {
-                    const isNewSection = i === 0 || s.section !== steps[i - 1].section;
-                    return (
-                      <div key={i} className={cn("flex items-center", isNewSection && i > 0 && "ml-1.5")}>
-                        <button
-                          onClick={() => handleStepClick(i)}
-                          className={cn(
-                            "h-1.5 rounded-full transition-all duration-300",
-                            i === currentStep
-                              ? "bg-primary w-5"
-                              : i < currentStep
-                              ? "bg-primary/40 w-1.5"
-                              : "bg-muted w-1.5"
-                          )}
-                        />
-                      </div>
-                    );
-                  })}
+                <div className="flex items-center gap-1.5 pt-1">
+                  {steps.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleStepClick(i)}
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-300",
+                        i === currentStep
+                          ? "bg-primary w-6"
+                          : i < currentStep
+                          ? "bg-primary/40 w-1.5"
+                          : "bg-muted w-1.5"
+                      )}
+                    />
+                  ))}
                 </div>
               </motion.div>
             </AnimatePresence>

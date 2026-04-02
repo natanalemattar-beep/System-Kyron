@@ -1,5 +1,7 @@
 "use client";
 
+import { ModuleTutorial } from "@/components/module-tutorial";
+import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, BarChart3, Users, Wallet } from "lucide-react";
@@ -85,6 +87,7 @@ export default function FacturacionPage() {
 
   return (
     <div className="space-y-10 pb-20">
+      <ModuleTutorial config={moduleTutorials["facturacion"]} />
       <div>
         <BackButton href="/dashboard-empresa" label="Dashboard" />
         <header className="mt-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
