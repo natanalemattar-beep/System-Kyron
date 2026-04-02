@@ -2462,6 +2462,9 @@ async function createPerformanceOptimizations(): Promise<void> {
     metadata     JSONB DEFAULT '{}',
     created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
   )`);
+  await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS prioridad TEXT NOT NULL DEFAULT 'normal'`);
+  await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS canal TEXT NOT NULL DEFAULT 'app'`);
+  await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS metadata JSONB DEFAULT '{}'`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user ON notificaciones(user_id, leida, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_tipo ON notificaciones(tipo, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_prioridad ON notificaciones(prioridad) WHERE leida = false`);
@@ -2547,29 +2550,47 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_tasas_bcv_fecha ON tasas_bcv(fecha DESC)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_activity_log_metadata ON activity_log USING GIN (metadata jsonb_path_ops)`);
+  await safeQuery(`ALTER TABLE auditoria_detallada ADD COLUMN IF NOT EXISTS metadata JSONB`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_auditoria_metadata ON auditoria_detallada USING GIN (metadata jsonb_path_ops)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_notificaciones_metadata ON notificaciones USING GIN (metadata jsonb_path_ops)`);
 
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_user_activo ON clientes(user_id, activo)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_rif ON clientes(rif)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_email ON clientes(email)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_fecha ON movimientos_bancarios(fecha DESC)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_cuenta ON movimientos_bancarios(cuenta_id, fecha DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_fecha2 ON movimientos_bancarios(fecha_operacion DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_movimientos_cuenta ON movimientos_bancarios(cuenta_id, fecha_operacion DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_transacciones_user ON transacciones_pagos(user_id, created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_retenciones_user ON retenciones(user_id, tipo)`);
+  await safeQuery(`CREATE TABLE IF NOT EXISTS contratos_legales (
+    id          SERIAL PRIMARY KEY,
+    user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    titulo      TEXT NOT NULL,
+    tipo        TEXT DEFAULT 'general',
+    descripcion TEXT,
+    contraparte TEXT,
+    fecha_inicio DATE,
+    fecha_fin    DATE,
+    monto        NUMERIC(18,2),
+    moneda       TEXT DEFAULT 'VES',
+    estado       TEXT DEFAULT 'borrador' CHECK (estado IN ('borrador','activo','vencido','cancelado','renovado')),
+    archivo_url  TEXT,
+    metadata     JSONB DEFAULT '{}',
+    created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contratos_user ON contratos_legales(user_id, estado)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_automation_logs_rule ON automation_logs(rule_id, started_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_automation_logs_status ON automation_logs(status, started_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_email_log_estado ON email_log(estado, created_at DESC)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_system_health_type ON system_health_log(metric_type, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_system_health_type ON system_health_log(metric_type, recorded_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_blockchain_status ON blockchain_proofs(status)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_cxc_vencimiento ON cuentas_por_cobrar(fecha_vencimiento) WHERE estado = 'pendiente'`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_cxp_vencimiento ON cuentas_por_pagar(fecha_vencimiento) WHERE estado = 'pendiente'`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_vacantes_estado ON vacantes(estado)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_nomina_items_nomina ON nomina_items(nomina_id)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_estado ON eco_creditos(estado)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contact_messages_read ON contact_messages(read, created_at DESC)`);
-  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_dashboard_cache_key ON dashboard_cache(cache_key, updated_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_eco_creditos_nivel ON eco_creditos(nivel)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contact_messages_leido ON contact_messages(leido, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_dashboard_cache_key ON dashboard_cache(cache_key, generated_at DESC)`);
 
   await seedEmailAutomaticos();
 

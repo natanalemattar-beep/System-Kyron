@@ -138,6 +138,7 @@ export default function DashboardEmpresaPage() {
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientClosingForm, setClientClosingForm] = useState<{ periodo: string; fecha_inicio: string; fecha_fin: string } | null>(null);
+  const [fiscalDeadlines, setFiscalDeadlines] = useState<Array<{ label: string; diff: number; dateStr: string; iconKey: string; color: string; bg: string }>>([]);
 
   useEffect(() => {
     const now = new Date();
@@ -149,6 +150,19 @@ export default function DashboardEmpresaPage() {
     const fechaFin = now.toISOString().split("T")[0];
     setClientClosingForm({ periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin });
     setClosingForm(f => ({ ...f, periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin }));
+    const m = now.getMonth();
+    const y = now.getFullYear();
+    const rawDeadlines = [
+      { label: "IVA — Declaración mensual", date: new Date(y, m + 1, 15), iconKey: "iva", color: "text-blue-400", bg: "bg-blue-500/8" },
+      { label: "Retenciones IVA — Quincenal", date: new Date(y, m, now.getDate() <= 15 ? 15 : new Date(y, m + 1, 0).getDate()), iconKey: "ret", color: "text-cyan-400", bg: "bg-cyan-500/8" },
+      { label: "ISLR — Anticipo trimestral", date: new Date(y, Math.ceil((m + 1) / 3) * 3, 15), iconKey: "islr", color: "text-purple-400", bg: "bg-purple-500/8" },
+      { label: "Contribuciones parafiscales", date: new Date(y, m + 1, 5), iconKey: "para", color: "text-emerald-400", bg: "bg-emerald-500/8" },
+      { label: "FAOV / BANAVIH", date: new Date(y, m + 1, 5), iconKey: "faov", color: "text-teal-400", bg: "bg-teal-500/8" },
+    ].map(d => {
+      const diff = Math.ceil((d.date.getTime() - now.getTime()) / 86400000);
+      return { label: d.label, diff, dateStr: d.date.toLocaleDateString("es-VE", { day: "2-digit", month: "short" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
+    }).sort((a, b) => a.diff - b.diff);
+    setFiscalDeadlines(rawDeadlines);
   }, []);
 
   useEffect(() => {
@@ -593,6 +607,74 @@ export default function DashboardEmpresaPage() {
           </Card>
         </motion.div>
       </div>
+
+      <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.58 }}>
+        <Card className="border border-amber-500/10 rounded-xl bg-card/80 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-amber-400" />
+              <span className="text-[11px] font-semibold text-foreground/60">Calendario Fiscal SENIAT</span>
+            </div>
+            <Link href="/contabilidad"><span className="text-[10px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3 w-3" /></span></Link>
+          </div>
+          <div className="space-y-1.5">
+            {fiscalDeadlines.length === 0 ? (
+              <div className="py-4 text-center"><p className="text-[10px] text-muted-foreground/30">Cargando calendario...</p></div>
+            ) : fiscalDeadlines.map((d, i) => {
+              const FISCAL_ICONS: Record<string, typeof PercentCircle> = { iva: PercentCircle, ret: Receipt, islr: Landmark, para: Users, faov: Building2 };
+              const IconComp = FISCAL_ICONS[d.iconKey] ?? Calendar;
+              return (
+                <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/5 border border-border/10 hover:bg-muted/10 transition-colors">
+                  <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center shrink-0", d.bg)}>
+                    <IconComp className={cn("h-3.5 w-3.5", d.color)} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-medium truncate">{d.label}</p>
+                    <p className="text-[9px] text-muted-foreground/40">{d.dateStr}</p>
+                  </div>
+                  <Badge className={cn("text-[8px] font-bold h-5 rounded-md border", d.diff <= 5 ? "bg-rose-500/10 text-rose-400 border-rose-500/15" : d.diff <= 15 ? "bg-amber-500/10 text-amber-400 border-amber-500/15" : "bg-emerald-500/8 text-emerald-400 border-emerald-500/15")}>
+                    {d.diff < 0 ? "VENCIDO" : d.diff === 0 ? "HOY" : d.diff === 1 ? "Mañana" : `${d.diff}d`}
+                  </Badge>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+
+        <Card className="border border-blue-500/10 rounded-xl bg-card/80 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-blue-400" />
+              <span className="text-[11px] font-semibold text-foreground/60">Antigüedad de Cuentas</span>
+            </div>
+          </div>
+          <div className="space-y-2">
+            {[
+              { range: "0 — 30 días", pct: 65, color: "bg-emerald-500", textColor: "text-emerald-400", label: "Corriente" },
+              { range: "31 — 60 días", pct: 22, color: "bg-amber-500", textColor: "text-amber-400", label: "Atención" },
+              { range: "61 — 90 días", pct: 10, color: "bg-orange-500", textColor: "text-orange-400", label: "Riesgo" },
+              { range: "+90 días", pct: 3, color: "bg-rose-500", textColor: "text-rose-400", label: "Crítico" },
+            ].map((bucket, i) => (
+              <div key={i} className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-medium text-foreground/60">{bucket.range}</span>
+                  <div className="flex items-center gap-2">
+                    <span className={cn("text-[9px] font-semibold", bucket.textColor)}>{bucket.label}</span>
+                    <span className="text-[10px] font-bold tabular-nums">{bucket.pct}%</span>
+                  </div>
+                </div>
+                <div className="w-full h-1.5 rounded-full bg-muted/20 overflow-hidden">
+                  <div className={cn("h-full rounded-full transition-all duration-700", bucket.color)} style={{ width: `${bucket.pct}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 pt-2.5 border-t border-border/15 flex items-center justify-between">
+            <span className="text-[9px] text-muted-foreground/35">Total cuentas activas</span>
+            <Link href="/cuentas-por-cobrar"><span className="text-[10px] font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1">Detalle <ChevronRight className="h-3 w-3" /></span></Link>
+          </div>
+        </Card>
+      </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
         <div className="flex items-center gap-2 mb-3 ml-1">

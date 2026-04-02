@@ -29,7 +29,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Seasonal theming system for Venezuelan holidays.
 
 **Technical Implementations:**
-- **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables, GIN indexes for JSONB metadata columns, 40+ composite/partial indexes, supporting batch operations, upserts, and pagination.
+- **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables (including `contratos_legales`), GIN indexes for JSONB metadata columns, 40+ composite/partial indexes, supporting batch operations, upserts, and pagination. All column/index mismatches resolved (zero DB startup errors).
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations. Includes `/api/solicitudes` for generic service requests and `/api/arqueo-caja` for cash register closings. All 40+ action buttons across every module now wired to real API persistence (zero toast-only fake saves remain).
 - **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification. Dev mode fallback: when email delivery is unavailable (no SMTP/OAuth configured), the API returns the verification code in the JSON response and the frontend displays it in an amber "Modo Desarrollo" warning box above the code input fields.
 - **Security:** CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Permissions-Policy, rate limiting with brute-force lockout, memory-safe maps, password complexity, input sanitization, and parameterized SQL.
@@ -57,6 +57,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Admin Message Endpoint:** POST `/api/admin/send-message` for sending personalized emails.
 - **Sistema de Planes con Límites:** 4 subscription plans with progressive resource limits.
 - **Facturación Homologada SENIAT (Providencia 0071):** Billing compliant with Venezuelan regulations, including fiscal hashes and immutability.
+- **Dashboard Widgets:** Company dashboard includes Tax Calendar (SENIAT deadlines: IVA, ISLR, retenciones, parafiscales, FAOV), Accounts Aging (0-30/31-60/61-90/90+ day buckets), and Fiscal Status cards. Natural person dashboard includes Document Expiry Alerts (cédula, RIF, pasaporte, licencia) with color-coded urgency badges, and Eco-Credits mini chart with material breakdown.
 - **Multi-Currency Display:** `CurrencyContext` (`src/lib/currency-context.tsx`) provides VES/USD/EUR display conversion across all billing and dashboard pages. `CurrencyProvider` is in admin and ventas layouts. `CurrencySelector` and `CurrencySelectorCompact` components allow switching. All amounts are stored/submitted in VES; display conversion is reference-only using static exchange rates. Pages using it: facturacion, proformas, facturacion-credito, nota-debito, nota-credito, dashboard-empresa.
 
 ## External Dependencies
