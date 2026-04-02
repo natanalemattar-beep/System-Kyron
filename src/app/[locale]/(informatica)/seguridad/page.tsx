@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+
 const amenazas = [
   { tipo: "Intentos de Login Fallidos", cantidad: 23, severidad: "media", origen: "Múltiples IPs", accion: "Bloqueado por fail2ban" },
   { tipo: "Escaneo de Puertos", cantidad: 8, severidad: "baja", origen: "185.220.x.x (TOR)", accion: "Bloqueado por firewall" },
@@ -35,6 +37,7 @@ const certificaciones = [
 ];
 
 export default function SeguridadPage() {
+  const { toast } = useToast();
 
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">

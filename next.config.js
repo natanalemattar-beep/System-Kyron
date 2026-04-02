@@ -9,7 +9,6 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
-    scrollRestoration: true,
     optimizePackageImports: [
       'lucide-react',
       'recharts',

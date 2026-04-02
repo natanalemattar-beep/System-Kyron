@@ -16,7 +16,7 @@ System Kyron is an integrated technological ecosystem designed for comprehensive
 - The system should support both `{destino, codigo}` and `{email, code}` formats for `/api/auth/verify-code`. Both paths use the centralized `verifyCode()` helper from `src/lib/verification-codes.ts`.
 
 ## System Architecture
-The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-intl` for internationalization. Styling is managed with Tailwind CSS and shadcn/ui. PostgreSQL serves as the database. Authentication uses JWT with HTTP-only cookies.
+The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopack for fast dev compilation. It uses `next-intl` for internationalization. Styling is managed with Tailwind CSS and shadcn/ui. PostgreSQL serves as the database. Authentication uses JWT with HTTP-only cookies. Dev server runs on port 5000 with `--turbopack` flag.
 
 **UI/UX Decisions:**
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
