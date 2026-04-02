@@ -9,6 +9,7 @@ import { PageTracker } from '@/components/page-tracker';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
+const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: false });
 const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: false });
 const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
@@ -88,6 +89,8 @@ function LandingContent() {
             <HeroSection />
             <div className="section-divider" />
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
+            <div className="section-divider" />
+            <LazySection fallbackHeight="600px"><ShowcaseSection /></LazySection>
             <div className="section-divider" />
             <LazySection fallbackHeight="500px"><ServicesSection /></LazySection>
             <div className="section-divider" />

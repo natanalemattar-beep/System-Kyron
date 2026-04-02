@@ -9,9 +9,9 @@ import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const featuresMeta = [
-    { image: "/images/landing/devices-mockup.webp", icon: Receipt, color: "from-primary to-blue-600" },
-    { image: "/images/landing/security-shield.webp", icon: Lock, color: "from-emerald-500 to-cyan-600" },
-    { image: "/images/landing/ai-brain.webp", icon: Sparkles, color: "from-violet-500 to-purple-600" },
+    { image: "/images/landing/screenshot-contabilidad.jpg", icon: Receipt, color: "from-primary to-blue-600" },
+    { image: "/images/landing/screenshot-portales.jpg", icon: Lock, color: "from-emerald-500 to-cyan-600" },
+    { image: "/images/landing/screenshot-faq.jpg", icon: Sparkles, color: "from-violet-500 to-purple-600" },
 ];
 
 const statsMeta = [
