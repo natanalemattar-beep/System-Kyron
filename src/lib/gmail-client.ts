@@ -1,6 +1,7 @@
 import { google } from 'googleapis';
 
 let connectionSettings: any;
+let _tokenFetchPromise: Promise<string> | null = null;
 
 async function getAccessToken() {
   if (connectionSettings && connectionSettings.settings?.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
@@ -8,6 +9,17 @@ async function getAccessToken() {
       || connectionSettings.settings?.oauth?.credentials?.access_token;
   }
 
+  if (_tokenFetchPromise) return _tokenFetchPromise;
+
+  _tokenFetchPromise = _fetchAccessToken();
+  try {
+    return await _tokenFetchPromise;
+  } finally {
+    _tokenFetchPromise = null;
+  }
+}
+
+async function _fetchAccessToken(): Promise<string> {
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY
     ? 'repl ' + process.env.REPL_IDENTITY

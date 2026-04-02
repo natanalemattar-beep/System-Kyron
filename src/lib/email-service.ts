@@ -35,11 +35,18 @@ async function logEmail(opts: EmailOptions, result: EmailResult) {
   }
 }
 
+let _cachedGmailSender: string | null = null;
+
 async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   try {
     const { getUncachableGmailClient, getGmailSenderAddress } = await import('@/lib/gmail-client');
-    const gmail = await getUncachableGmailClient();
-    const senderEmail = await getGmailSenderAddress();
+
+    const [gmail, senderEmail] = await Promise.all([
+      getUncachableGmailClient(),
+      _cachedGmailSender
+        ? Promise.resolve(_cachedGmailSender)
+        : getGmailSenderAddress().then(addr => { _cachedGmailSender = addr; return addr; }),
+    ]);
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
     const fromAddr = opts.from ?? `System Kyron <${senderEmail || GMAIL_SENDER}>`;
@@ -204,22 +211,52 @@ function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => 
   }
 }
 
+const _providerCooldown = new Map<string, number>();
+const COOLDOWN_MS = 120_000;
+
+function isProviderCoolingDown(name: string): boolean {
+  const until = _providerCooldown.get(name);
+  if (!until) return false;
+  if (Date.now() > until) {
+    _providerCooldown.delete(name);
+    return false;
+  }
+  return true;
+}
+
+function markProviderFailed(name: string) {
+  _providerCooldown.set(name, Date.now() + COOLDOWN_MS);
+}
+
+function getProviderName(fn: Function): string {
+  return fn.name || 'unknown';
+}
+
 export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
   const purpose = opts.purpose ?? 'general';
   const providerFns = getProviderOrder(purpose);
-  const providers = providerFns.map(fn => () => fn(opts));
 
-  for (const tryProvider of providers) {
-    const result = await tryProvider();
+  for (const providerFn of providerFns) {
+    const name = getProviderName(providerFn);
+    if (isProviderCoolingDown(name)) {
+      console.log(`[email-service] Skipping ${name} (cooldown)`);
+      continue;
+    }
+
+    const result = await providerFn(opts);
     if (result.success) {
-      await logEmail(opts, result);
+      logEmail(opts, result).catch(() => {});
       return result;
     }
+
     console.warn(`[email-service] ${result.provider} failed (${purpose}): ${result.error}`);
+    if (result.error?.includes('not connected') || result.error?.includes('not configured') || result.error?.includes('not set')) {
+      markProviderFailed(name);
+    }
   }
 
   const fallback: EmailResult = { success: false, provider: 'none', error: 'All providers failed' };
-  await logEmail(opts, fallback);
+  logEmail(opts, fallback).catch(() => {});
   return fallback;
 }
 
