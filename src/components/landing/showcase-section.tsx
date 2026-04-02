@@ -1,14 +1,15 @@
 'use client';
 
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { Monitor, Smartphone, ShieldCheck, BookOpen, HelpCircle } from 'lucide-react';
+import { ThemeImage } from '@/components/ui/theme-image';
 
 const screenshots = [
   {
-    src: '/images/landing/screenshot-contabilidad.jpg',
+    darkSrc: '/images/landing/screenshot-contabilidad-dark.jpg',
+    lightSrc: '/images/landing/screenshot-contabilidad-light.jpg',
     title: 'Contabilidad Empresarial',
     description: 'Auditoría Forense con IA y Conciliación Bancaria T+0',
     icon: Monitor,
@@ -17,7 +18,8 @@ const screenshots = [
     size: 'large' as const,
   },
   {
-    src: '/images/landing/screenshot-registro.jpg',
+    darkSrc: '/images/landing/screenshot-registro-dark.jpg',
+    lightSrc: '/images/landing/screenshot-registro-light.jpg',
     title: 'Registro Inteligente',
     description: 'Formulario con validación de cédula y documentos',
     icon: Smartphone,
@@ -26,7 +28,8 @@ const screenshots = [
     size: 'medium' as const,
   },
   {
-    src: '/images/landing/screenshot-portales.jpg',
+    darkSrc: '/images/landing/screenshot-portales-dark.jpg',
+    lightSrc: '/images/landing/screenshot-portales-light.jpg',
     title: 'Portal de Acceso',
     description: 'Selección de portales con cifrado AES-256',
     icon: ShieldCheck,
@@ -35,7 +38,8 @@ const screenshots = [
     size: 'medium' as const,
   },
   {
-    src: '/images/landing/screenshot-guia.jpg',
+    darkSrc: '/images/landing/screenshot-guia-dark.jpg',
+    lightSrc: '/images/landing/screenshot-guia-light.jpg',
     title: 'Guía Interactiva',
     description: 'Tutorial paso a paso para nuevos usuarios',
     icon: BookOpen,
@@ -44,7 +48,8 @@ const screenshots = [
     size: 'medium' as const,
   },
   {
-    src: '/images/landing/screenshot-faq.jpg',
+    darkSrc: '/images/landing/screenshot-faq-dark.jpg',
+    lightSrc: '/images/landing/screenshot-faq-light.jpg',
     title: 'Centro de Ayuda',
     description: '26 preguntas en 9 categorías especializadas',
     icon: HelpCircle,
@@ -86,8 +91,9 @@ function ScreenshotCard({
         )} />
 
         <div className="relative overflow-hidden">
-          <Image
-            src={item.src}
+          <ThemeImage
+            darkSrc={item.darkSrc}
+            lightSrc={item.lightSrc}
             alt={item.title}
             width={item.size === 'large' ? 800 : 640}
             height={item.size === 'large' ? 500 : 360}

@@ -3,15 +3,15 @@
 import { Receipt, ArrowRight, Lock, Sparkles, Zap, ShieldCheck, BarChart3, Globe, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
+import { ThemeImage } from '@/components/ui/theme-image';
 
 const featuresMeta = [
-    { image: "/images/landing/screenshot-contabilidad.jpg", icon: Receipt, color: "from-primary to-blue-600" },
-    { image: "/images/landing/screenshot-portales.jpg", icon: Lock, color: "from-emerald-500 to-cyan-600" },
-    { image: "/images/landing/screenshot-faq.jpg", icon: Sparkles, color: "from-violet-500 to-purple-600" },
+    { darkImage: "/images/landing/screenshot-contabilidad-dark.jpg", lightImage: "/images/landing/screenshot-contabilidad-light.jpg", icon: Receipt, color: "from-primary to-blue-600" },
+    { darkImage: "/images/landing/screenshot-portales-dark.jpg", lightImage: "/images/landing/screenshot-portales-light.jpg", icon: Lock, color: "from-emerald-500 to-cyan-600" },
+    { darkImage: "/images/landing/screenshot-faq-dark.jpg", lightImage: "/images/landing/screenshot-faq-light.jpg", icon: Sparkles, color: "from-violet-500 to-purple-600" },
 ];
 
 const statsMeta = [
@@ -90,8 +90,9 @@ export function ServicesSection() {
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                         <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
                                         <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 shadow-2xl bg-card/30 hover:-translate-y-1 transition-transform duration-300">
-                                            <Image
-                                                src={meta.image}
+                                            <ThemeImage
+                                                darkSrc={meta.darkImage}
+                                                lightSrc={meta.lightImage}
                                                 alt={feat.title}
                                                 width={idx === 0 ? 800 : 600}
                                                 height={idx === 0 ? 450 : 600}
