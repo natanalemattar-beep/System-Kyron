@@ -186,6 +186,9 @@ async function registerJuridico(body: Record<string, unknown>) {
     if (!rifValidacion.valid) {
         return NextResponse.json({ error: rifValidacion.error || 'RIF inválido' }, { status: 400 });
     }
+    if (rifValidacion.warning) {
+        console.log(`[register] RIF warning for ${(rif as string).trim()}: ${rifValidacion.warning}`);
+    }
 
     if (codigo_ciiu !== undefined && codigo_ciiu !== null && codigo_ciiu !== '') {
         if (typeof codigo_ciiu !== 'string' || !/^\d{4,6}$/.test((codigo_ciiu as string).trim())) {

@@ -95,7 +95,7 @@ export function validarFormatoCedula(cedula: string): {
   return { valid: false, error: 'Prefijo no reconocido' };
 }
 
-export function validarRIF(rif: string): { valid: boolean; error?: string; tipo?: string; digitoVerificador?: number; rifNormalizado?: string } {
+export function validarRIF(rif: string): { valid: boolean; warning?: string; error?: string; tipo?: string; digitoVerificador?: number; rifNormalizado?: string } {
   const cleaned = rif.trim().toUpperCase().replace(/\s+/g, '');
 
   const match = cleaned.match(/^([JGCVEPF])-?(\d{8})-?(\d)$/);
@@ -141,12 +141,15 @@ export function validarRIF(rif: string): { valid: boolean; error?: string; tipo?
     'F': 'Firma Personal',
   };
 
+  const rifNormalizado = `${prefix}-${cuerpo}-${digitoIngresado}`;
+
   if (digitoIngresado !== digitoCalculado) {
     return {
-      valid: false,
-      error: `Dígito verificador inválido. Para ${prefix}-${cuerpo}, el dígito correcto es ${digitoCalculado}, se ingresó ${digitoIngresado}`,
+      valid: true,
+      warning: `Nota: El dígito verificador ingresado (${digitoIngresado}) no coincide con el cálculo estándar (${digitoCalculado}). Si tu RIF fue emitido por SENIAT con este dígito, es válido.`,
       tipo: tipoMap[prefix],
-      digitoVerificador: digitoCalculado,
+      digitoVerificador: digitoIngresado,
+      rifNormalizado,
     };
   }
 
@@ -154,7 +157,7 @@ export function validarRIF(rif: string): { valid: boolean; error?: string; tipo?
     valid: true,
     tipo: tipoMap[prefix],
     digitoVerificador: digitoCalculado,
-    rifNormalizado: `${prefix}-${cuerpo}-${digitoCalculado}`,
+    rifNormalizado,
   };
 }
 

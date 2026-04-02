@@ -48,6 +48,10 @@ export async function GET(req: NextRequest) {
     }, { status: 400 });
   }
 
+  if (validacion.warning) {
+    console.log(`[rif/consulta] RIF warning: ${validacion.warning}`);
+  }
+
   const rif = normalizarRIF(rawRif);
 
   try {
