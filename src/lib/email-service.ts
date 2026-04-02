@@ -160,7 +160,7 @@ function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => 
     case 'alert':
     case 'general':
     default:
-      return [sendViaGmail, sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
+      return [sendViaGmail, sendViaOutlook, sendViaResend];
   }
 }
 
