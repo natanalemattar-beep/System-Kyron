@@ -3,15 +3,24 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { BackButton } from "@/components/back-button";
-import { FileMinus, Shield, Search, Plus, Trash2, AlertTriangle, Loader2 } from "lucide-react";
+import { FileMinus, Shield, Plus, Trash2, AlertTriangle, Loader2, BadgeCheck, ArrowRight, ArrowLeft, FileText, Building2, UserCheck, Link2, ListChecks, Calculator, Zap, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { motion, AnimatePresence } from "framer-motion";
+
+const steps = [
+  { id: 1, label: "Emisor", icon: Building2, desc: "Datos fiscales" },
+  { id: 2, label: "Receptor", icon: UserCheck, desc: "Cliente" },
+  { id: 3, label: "Referencia", icon: Link2, desc: "Factura original" },
+  { id: 4, label: "Items", icon: ListChecks, desc: "Ajustes" },
+  { id: 5, label: "Resumen", icon: Calculator, desc: "Totales" },
+];
 
 export default function NotaDebitoPage() {
   const { toast } = useToast();
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rifEmisor, setRifEmisor] = useState('');
   const [razonSocialEmisor, setRazonSocialEmisor] = useState('');
@@ -42,18 +51,22 @@ export default function NotaDebitoPage() {
   const handleSubmit = async () => {
     if (!rifEmisor || !razonSocialEmisor || !domicilioFiscalEmisor) {
       toast({ title: 'Error', description: 'Complete los datos del emisor (Art. 18)', variant: 'destructive' });
+      setCurrentStep(1);
       return;
     }
     if (!clienteRif || !clienteNombre) {
       toast({ title: 'Error', description: 'Complete los datos del receptor', variant: 'destructive' });
+      setCurrentStep(2);
       return;
     }
     if (!facturaRef) {
       toast({ title: 'Error', description: 'Debe indicar el N° de factura original (Art. 18 num. 7)', variant: 'destructive' });
+      setCurrentStep(3);
       return;
     }
     if (!motivo) {
       toast({ title: 'Error', description: 'Debe indicar el motivo del ajuste', variant: 'destructive' });
+      setCurrentStep(3);
       return;
     }
 
@@ -100,149 +113,416 @@ export default function NotaDebitoPage() {
     }
   };
 
+  const canGoNext = () => {
+    if (currentStep === 1) return rifEmisor && razonSocialEmisor && domicilioFiscalEmisor;
+    if (currentStep === 2) return clienteRif && clienteNombre;
+    if (currentStep === 3) return facturaRef && motivo;
+    if (currentStep === 4) return items.some(it => it.descripcion && it.precio_unitario > 0);
+    return true;
+  };
+
   return (
-    <div className="space-y-8 pb-20">
-      <div>
-        <BackButton href="/facturacion" label="Centro de Facturación" />
-        <header className="mt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-amber-600 mb-4">
-            <FileMinus className="h-3 w-3" /> NOTA DE DÉBITO
-          </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase">Nota de <span className="text-amber-500 italic">Débito</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
-        </header>
+    <div className="space-y-6 pb-20 relative">
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-amber-500/[0.03] blur-[150px]" />
+        <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-orange-500/[0.03] blur-[120px]" />
       </div>
 
-      <Card className="glass-card border-none bg-card/50 rounded-2xl">
-        <CardHeader className="p-6">
-          <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Emisor</CardTitle>
-          <CardDescription className="text-[10px]">Art. 18 num. 4 — RIF, razón social y domicilio fiscal</CardDescription>
-        </CardHeader>
-        <CardContent className="p-6 pt-0 space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-xs font-bold text-muted-foreground">RIF Emisor *</label>
-              <Input placeholder="J-12345678-0" value={rifEmisor} onChange={e => setRifEmisor(e.target.value)} className="font-mono mt-1" />
+      <div>
+        <BackButton href="/facturacion" label="Centro de Facturación" />
+        <motion.header
+          className="mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-400 mb-4">
+            <FileMinus className="h-3 w-3" /> NOTA DE DÉBITO
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+          </div>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            Nota de{' '}
+            <span className="bg-gradient-to-r from-amber-500 via-orange-400 to-amber-500 bg-clip-text text-transparent italic">Débito</span>
+          </h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
+        </motion.header>
+      </div>
+
+      <motion.div
+        className="flex items-center gap-2 py-4 overflow-x-auto"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        {steps.map((step, i) => (
+          <div key={step.id} className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentStep(step.id)}
+              className={cn(
+                "flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all duration-300 shrink-0",
+                currentStep === step.id
+                  ? "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 scale-105 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
+                  : currentStep > step.id
+                  ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-500"
+                  : "bg-card/30 border-border/30 text-muted-foreground/40 hover:border-border/50"
+              )}
+            >
+              <div className={cn(
+                "p-1.5 rounded-lg",
+                currentStep === step.id ? "bg-amber-500/20" :
+                currentStep > step.id ? "bg-emerald-500/10" : "bg-muted/20"
+              )}>
+                {currentStep > step.id ? (
+                  <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                ) : (
+                  <step.icon className="h-3.5 w-3.5" />
+                )}
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase tracking-wider leading-none">{step.label}</p>
+                <p className="text-[8px] font-medium opacity-60 mt-0.5">{step.desc}</p>
+              </div>
+            </button>
+            {i < steps.length - 1 && (
+              <div className={cn("w-6 h-px shrink-0", currentStep > step.id ? "bg-emerald-500/30" : "bg-border/20")} />
+            )}
+          </div>
+        ))}
+      </motion.div>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <AnimatePresence mode="wait">
+            {currentStep === 1 && (
+              <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 border-b border-border/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+                        <Building2 className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Emisor</CardTitle>
+                        <CardDescription className="text-[10px]">Art. 18 num. 4 — RIF, razón social y domicilio fiscal</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">RIF Emisor *</label>
+                        <Input placeholder="J-12345678-0" value={rifEmisor} onChange={e => setRifEmisor(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Razón Social *</label>
+                        <Input placeholder="Mi Empresa C.A." value={razonSocialEmisor} onChange={e => setRazonSocialEmisor(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Domicilio Fiscal *</label>
+                      <Input placeholder="Av. Principal, Edif. Centro, Caracas" value={domicilioFiscalEmisor} onChange={e => setDomicilioFiscalEmisor(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {currentStep === 2 && (
+              <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 border-b border-border/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+                        <UserCheck className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Receptor</CardTitle>
+                        <CardDescription className="text-[10px]">Art. 18 num. 5 — Datos del cliente receptor</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">RIF Receptor *</label>
+                        <Input placeholder="V-12345678-0" value={clienteRif} onChange={e => setClienteRif(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Nombre / Razón Social *</label>
+                        <Input placeholder="Cliente S.R.L." value={clienteNombre} onChange={e => setClienteNombre(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {currentStep === 3 && (
+              <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 border-b border-border/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+                        <Link2 className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Referencia a Factura Original</CardTitle>
+                        <CardDescription className="text-[10px]">Art. 18 num. 7 — Número y fecha de la factura que se modifica</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">N° Factura Original *</label>
+                        <Input placeholder="FAC-000001" value={facturaRef} onChange={e => setFacturaRef(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Motivo del Ajuste *</label>
+                        <Input placeholder="Intereses por mora, cargos adicionales" value={motivo} onChange={e => setMotivo(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-amber-500/50 focus:ring-amber-500/20 transition-all" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {currentStep === 4 && (
+              <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 border-b border-border/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+                        <ListChecks className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Items del Ajuste</CardTitle>
+                        <CardDescription className="text-[10px]">Detalle de los cargos adicionales</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    {items.map((item, i) => (
+                      <motion.div
+                        key={i}
+                        className="p-4 rounded-xl border border-border/20 bg-card/30 space-y-3"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.05 * i }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest">Item {i + 1}</span>
+                          {items.length > 1 && (
+                            <Button type="button" variant="ghost" size="sm" onClick={() => removeItem(i)} className="h-7 px-2 text-rose-500 hover:bg-rose-500/10 rounded-lg">
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </Button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-12 gap-3">
+                          <div className="col-span-5 space-y-1">
+                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Descripción</label>
+                            <Input
+                              placeholder="Cargo adicional"
+                              value={item.descripcion}
+                              onChange={e => { const n = [...items]; n[i].descripcion = e.target.value; setItems(n); }}
+                              className="h-10 rounded-xl text-sm"
+                            />
+                          </div>
+                          <div className="col-span-2 space-y-1">
+                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Cantidad</label>
+                            <Input
+                              type="number" placeholder="1"
+                              value={item.cantidad}
+                              onChange={e => { const n = [...items]; n[i].cantidad = parseFloat(e.target.value) || 0; setItems(n); }}
+                              className="h-10 rounded-xl text-sm"
+                            />
+                          </div>
+                          <div className="col-span-3 space-y-1">
+                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Precio Unit.</label>
+                            <Input
+                              type="number" step="0.01" placeholder="0.00"
+                              value={item.precio_unitario}
+                              onChange={e => { const n = [...items]; n[i].precio_unitario = parseFloat(e.target.value) || 0; setItems(n); }}
+                              className="h-10 rounded-xl text-sm"
+                            />
+                          </div>
+                          <div className="col-span-2 space-y-1">
+                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Gravamen</label>
+                            <select
+                              value={item.tipo_gravamen}
+                              onChange={e => { const n = [...items]; n[i].tipo_gravamen = e.target.value as any; setItems(n); }}
+                              className="w-full h-10 rounded-xl border bg-background px-3 text-sm"
+                            >
+                              <option value="gravado">Gravado</option>
+                              <option value="exento">Exento</option>
+                            </select>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                    <Button variant="outline" size="sm" onClick={addItem} className="rounded-xl hover:bg-amber-500/5 hover:text-amber-500 hover:border-amber-500/20 transition-all">
+                      <Plus className="mr-2 h-4 w-4" /> Añadir Item
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {currentStep === 5 && (
+              <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 border-b border-border/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+                        <Calculator className="h-4 w-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resumen de Emisión</CardTitle>
+                        <CardDescription className="text-[10px]">Verifique los totales antes de emitir</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                        <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Emisor</p>
+                        <p className="text-sm font-bold text-foreground">{razonSocialEmisor || '—'}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono">{rifEmisor || '—'}</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                        <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Receptor</p>
+                        <p className="text-sm font-bold text-foreground">{clienteNombre || '—'}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono">{clienteRif || '—'}</p>
+                      </div>
+                    </div>
+                    <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                      <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Referencia</p>
+                      <p className="text-sm font-bold text-foreground">Factura: <span className="font-mono text-amber-500">{facturaRef || '—'}</span></p>
+                      <p className="text-[10px] text-muted-foreground mt-1">{motivo || '—'}</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-muted/20 border border-border/20 space-y-2">
+                      <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-2">Detalle Items ({items.length})</p>
+                      {items.filter(it => it.descripcion).map((it, i) => (
+                        <div key={i} className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">{it.descripcion}</span>
+                          <span className="font-mono font-bold">Bs. {fmt(it.cantidad * it.precio_unitario)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="flex gap-3 justify-between mt-6">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+              disabled={currentStep === 1}
+              className="rounded-xl h-11 px-6 font-bold uppercase text-[10px] tracking-[0.15em]"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+            </Button>
+            {currentStep < 5 ? (
+              <Button
+                onClick={() => setCurrentStep(Math.min(5, currentStep + 1))}
+                disabled={!canGoNext()}
+                className="rounded-xl h-11 px-6 font-bold uppercase text-[10px] tracking-[0.15em] bg-amber-500 hover:bg-amber-600 shadow-[0_8px_30px_-5px_rgba(245,158,11,0.3)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(245,158,11,0.5)]"
+              >
+                Siguiente <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="rounded-xl h-11 px-8 font-bold uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 shadow-[0_8px_30px_-5px_rgba(245,158,11,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(245,158,11,0.5)]"
+              >
+                {isSubmitting ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <Zap className="mr-2 h-4 w-4" />}
+                Emitir Nota de Débito
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden sticky top-4">
+              <CardHeader className="p-5 border-b border-border/20 bg-gradient-to-r from-amber-500/[0.05] to-orange-500/[0.05]">
+                <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
+                  <Calculator className="h-3.5 w-3.5 text-amber-500" />
+                  Cálculo en Vivo
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-5 space-y-3">
+                {baseImponible > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground text-[11px]">Base Imponible:</span>
+                    <span className="font-mono font-bold text-[11px]">Bs. {fmt(baseImponible)}</span>
+                  </div>
+                )}
+                {baseExenta > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground text-[11px]">Base Exenta:</span>
+                    <span className="font-mono font-bold text-[11px]">Bs. {fmt(baseExenta)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground text-[11px]">Subtotal:</span>
+                  <span className="font-mono font-bold text-[11px]">Bs. {fmt(subtotal)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground text-[11px]">IVA (16%):</span>
+                  <span className="font-mono font-bold text-[11px]">Bs. {fmt(montoIva)}</span>
+                </div>
+                <div className="h-px bg-border/20 my-2" />
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-black uppercase">Total</span>
+                  <span className="text-xl font-black bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent tabular-nums">
+                    Bs. {fmt(total)}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <div className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.03] p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Shield className="h-4 w-4 text-amber-500" />
+                <p className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Requisitos Art. 18</p>
+              </div>
+              <div className="space-y-2">
+                {[
+                  { req: 'Denominación "Nota de Débito"', done: true },
+                  { req: "Numeración consecutiva", done: true },
+                  { req: "N° Control preimpreso", done: true },
+                  { req: "Datos del emisor", done: !!rifEmisor && !!razonSocialEmisor },
+                  { req: "Datos del receptor", done: !!clienteRif && !!clienteNombre },
+                  { req: "Referencia a factura", done: !!facturaRef },
+                  { req: "Monto del ajuste", done: total > 0 },
+                ].map((r, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <div className={cn("h-4 w-4 rounded-full flex items-center justify-center transition-all",
+                      r.done ? "bg-emerald-500/20" : "bg-muted/30"
+                    )}>
+                      {r.done ? <CheckCircle className="h-3 w-3 text-emerald-500" /> : <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/20" />}
+                    </div>
+                    <span className={cn("text-[10px]", r.done ? "text-foreground font-medium" : "text-muted-foreground/40")}>{r.req}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              <label className="text-xs font-bold text-muted-foreground">Razón Social *</label>
-              <Input placeholder="Mi Empresa C.A." value={razonSocialEmisor} onChange={e => setRazonSocialEmisor(e.target.value)} className="mt-1" />
-            </div>
-          </div>
-          <div>
-            <label className="text-xs font-bold text-muted-foreground">Domicilio Fiscal *</label>
-            <Input placeholder="Av. Principal, Edif. Centro, Caracas" value={domicilioFiscalEmisor} onChange={e => setDomicilioFiscalEmisor(e.target.value)} className="mt-1" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-card border-none bg-card/50 rounded-2xl">
-        <CardHeader className="p-6">
-          <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Receptor</CardTitle>
-          <CardDescription className="text-[10px]">Art. 18 num. 5</CardDescription>
-        </CardHeader>
-        <CardContent className="p-6 pt-0 grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs font-bold text-muted-foreground">RIF Receptor *</label>
-            <Input placeholder="V-12345678-0" value={clienteRif} onChange={e => setClienteRif(e.target.value)} className="font-mono mt-1" />
-          </div>
-          <div>
-            <label className="text-xs font-bold text-muted-foreground">Nombre / Razón Social *</label>
-            <Input placeholder="Cliente S.R.L." value={clienteNombre} onChange={e => setClienteNombre(e.target.value)} className="mt-1" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-card border-none bg-card/50 rounded-2xl">
-        <CardHeader className="p-6">
-          <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Referencia a Factura Original</CardTitle>
-          <CardDescription className="text-[10px]">Art. 18 num. 7 — Número y fecha de la factura que se modifica</CardDescription>
-        </CardHeader>
-        <CardContent className="p-6 pt-0 grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs font-bold text-muted-foreground">N° Factura Original *</label>
-            <Input placeholder="FAC-000001" value={facturaRef} onChange={e => setFacturaRef(e.target.value)} className="font-mono mt-1" />
-          </div>
-          <div>
-            <label className="text-xs font-bold text-muted-foreground">Motivo del Ajuste *</label>
-            <Input placeholder="Intereses por mora, cargos adicionales" value={motivo} onChange={e => setMotivo(e.target.value)} className="mt-1" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-card border-none bg-card/50 rounded-2xl">
-        <CardHeader className="p-6">
-          <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Items del Ajuste</CardTitle>
-        </CardHeader>
-        <CardContent className="p-6 pt-0 space-y-3">
-          {items.map((item, i) => (
-            <div key={i} className="grid grid-cols-12 gap-2 items-end">
-              <div className="col-span-5">
-                {i === 0 && <label className="text-[10px] font-bold text-muted-foreground">Descripción</label>}
-                <Input
-                  placeholder="Cargo adicional"
-                  value={item.descripcion}
-                  onChange={e => { const n = [...items]; n[i].descripcion = e.target.value; setItems(n); }}
-                />
-              </div>
-              <div className="col-span-2">
-                {i === 0 && <label className="text-[10px] font-bold text-muted-foreground">Cantidad</label>}
-                <Input
-                  type="number" placeholder="1"
-                  value={item.cantidad}
-                  onChange={e => { const n = [...items]; n[i].cantidad = parseFloat(e.target.value) || 0; setItems(n); }}
-                />
-              </div>
-              <div className="col-span-2">
-                {i === 0 && <label className="text-[10px] font-bold text-muted-foreground">Precio Unit.</label>}
-                <Input
-                  type="number" step="0.01" placeholder="0.00"
-                  value={item.precio_unitario}
-                  onChange={e => { const n = [...items]; n[i].precio_unitario = parseFloat(e.target.value) || 0; setItems(n); }}
-                />
-              </div>
-              <div className="col-span-2">
-                {i === 0 && <label className="text-[10px] font-bold text-muted-foreground">Gravamen</label>}
-                <select
-                  value={item.tipo_gravamen}
-                  onChange={e => { const n = [...items]; n[i].tipo_gravamen = e.target.value as any; setItems(n); }}
-                  className="w-full h-10 rounded-md border bg-background px-3 text-sm"
-                >
-                  <option value="gravado">Gravado</option>
-                  <option value="exento">Exento</option>
-                </select>
-              </div>
-              <div className="col-span-1">
-                <Button type="button" variant="destructive" size="icon" onClick={() => removeItem(i)} disabled={items.length === 1}>
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          ))}
-          <Button variant="outline" size="sm" onClick={addItem}>
-            <Plus className="mr-2 h-4 w-4" /> Añadir Item
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card className="glass-card border-none bg-card/50 rounded-2xl">
-        <CardContent className="p-6 space-y-2 text-sm">
-          {baseImponible > 0 && <div className="flex justify-between"><span className="text-muted-foreground">Base Imponible:</span><span className="font-mono">Bs. {fmt(baseImponible)}</span></div>}
-          {baseExenta > 0 && <div className="flex justify-between"><span className="text-muted-foreground">Base Exenta:</span><span className="font-mono">Bs. {fmt(baseExenta)}</span></div>}
-          <div className="flex justify-between"><span className="text-muted-foreground">Subtotal:</span><span className="font-mono">Bs. {fmt(subtotal)}</span></div>
-          <div className="flex justify-between"><span className="text-muted-foreground">IVA (16%):</span><span className="font-mono">Bs. {fmt(montoIva)}</span></div>
-          <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total Nota de Débito:</span><span className="font-mono text-amber-500">Bs. {fmt(total)}</span></div>
-        </CardContent>
-      </Card>
-
-      <div className="flex gap-3 justify-end">
-        <Button variant="outline" className="rounded-xl h-11 px-6 font-bold uppercase text-[10px] tracking-[0.15em]">
-          Guardar Borrador
-        </Button>
-        <Button onClick={handleSubmit} disabled={isSubmitting} className="rounded-xl h-11 px-8 font-bold uppercase text-[10px] tracking-[0.15em] bg-amber-500 hover:bg-amber-600">
-          {isSubmitting ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <FileMinus className="mr-2 h-4 w-4" />}
-          Emitir Nota de Débito
-        </Button>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
