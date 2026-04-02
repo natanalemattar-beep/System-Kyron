@@ -480,7 +480,7 @@ export default function RegisterJuridicoPage() {
                   </Field>
                   <Field id="fecha_constitucion" label="Fecha de Constitución" error={errors.fecha_constitucion?.message} optional>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="fecha_constitucion" type="date" className="pl-9 bg-background border-input" {...register('fecha_constitucion')} />
                     </div>
                   </Field>
@@ -504,13 +504,13 @@ export default function RegisterJuridicoPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="telefono" label="Teléfono Corporativo" error={errors.telefono?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="telefono" placeholder="0212-1234567" className="pl-9 bg-background border-input" {...register('telefono')} />
                     </div>
                   </Field>
                   <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message} optional>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9 bg-background border-input" {...register('telefono_alt')} />
                     </div>
                   </Field>
@@ -552,7 +552,7 @@ export default function RegisterJuridicoPage() {
                 </Field>
                 <Field id="direccion" label="Dirección Fiscal Completa" error={errors.direccion?.message}>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
                     <textarea
                       id="direccion"
                       placeholder="Av. Francisco de Miranda, Centro Lido, Torre A, Piso 8, Ofic. 8-B..."
@@ -590,13 +590,13 @@ export default function RegisterJuridicoPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <Field id="rep_telefono" label="Teléfono Directo" error={errors.rep_telefono?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="rep_telefono" placeholder="0414-1234567" className="pl-9 bg-background border-input" {...register('rep_telefono')} />
                     </div>
                   </Field>
                   <Field id="repEmail" label="Correo Electrónico" error={errors.repEmail?.message}>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="repEmail" type="email" placeholder="rep@empresa.com" className="pl-9 bg-background border-input" {...register('repEmail')} />
                     </div>
                   </Field>
@@ -608,7 +608,7 @@ export default function RegisterJuridicoPage() {
                   <div className="grid grid-cols-2 gap-4">
                     <Field id="password" label="Contraseña" error={errors.password?.message}>
                       <div className="relative">
-                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                         <Input id="password" type={showPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
                         <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
                           {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -617,7 +617,7 @@ export default function RegisterJuridicoPage() {
                     </Field>
                     <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
                       <div className="relative">
-                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                         <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
                         <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
                           {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
