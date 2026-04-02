@@ -348,29 +348,59 @@ export function WelcomeTutorial() {
                   )}
                 </div>
 
-                <div className="relative w-full rounded-xl overflow-hidden border border-border/30 shadow-lg">
-                  <div className="relative w-full aspect-[16/9]">
-                    {!imgLoaded[currentStep] && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
-                        <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                      </div>
-                    )}
-                    <Image
-                      src={step.screenshot}
-                      alt={step.screenshotAlt}
-                      fill
-                      className={cn(
-                        "object-cover object-top transition-opacity duration-300",
-                        imgLoaded[currentStep] ? "opacity-100" : "opacity-0"
+                {!isLastStep ? (
+                  <div className="relative w-full rounded-xl overflow-hidden border border-border/30 shadow-lg">
+                    <div className="relative w-full aspect-[16/9]">
+                      {!imgLoaded[currentStep] && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
+                          <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        </div>
                       )}
-                      sizes="(max-width: 700px) 100vw, 700px"
-                      quality={85}
-                      priority={currentStep === 0}
-                      onLoad={() => setImgLoaded(prev => ({ ...prev, [currentStep]: true }))}
-                    />
+                      <Image
+                        src={step.screenshot}
+                        alt={step.screenshotAlt}
+                        fill
+                        className={cn(
+                          "object-cover object-top transition-opacity duration-300",
+                          imgLoaded[currentStep] ? "opacity-100" : "opacity-0"
+                        )}
+                        sizes="(max-width: 700px) 100vw, 700px"
+                        quality={85}
+                        priority={currentStep === 0}
+                        onLoad={() => setImgLoaded(prev => ({ ...prev, [currentStep]: true }))}
+                      />
+                    </div>
+                    <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
                   </div>
-                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 pointer-events-none" />
-                </div>
+                ) : (
+                  <div className="relative w-full rounded-2xl border border-border/20 bg-gradient-to-br from-primary/5 via-emerald-500/5 to-violet-500/5 overflow-hidden">
+                    <div className="flex flex-col items-center justify-center py-10 sm:py-14 gap-4">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.2 }}
+                      >
+                        <PartyPopper className="h-14 w-14 sm:h-20 sm:w-20 text-amber-400 drop-shadow-lg" />
+                      </motion.div>
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-lg sm:text-2xl font-black uppercase tracking-widest text-foreground/80"
+                      >
+                        ¡A explorar!
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                        className="text-[11px] sm:text-xs text-muted-foreground/60 font-medium text-center max-w-[280px]"
+                      >
+                        Cada módulo tiene su propia guía. Disfruta el ecosistema.
+                      </motion.p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex items-center gap-1.5 pt-1">
                   {steps.map((_, i) => (
