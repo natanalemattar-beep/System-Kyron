@@ -1,6 +1,6 @@
 'use server';
 
-import { generateText } from '@/ai/anthropic';
+import { geminiGenerateText } from '@/ai/gemini';
 
 export type GacetaConsultantInput = {
   query: string;
@@ -9,7 +9,7 @@ export type GacetaConsultantInput = {
 export type GacetaConsultantOutput = string;
 
 export async function consultGaceta6952(input: GacetaConsultantInput): Promise<GacetaConsultantOutput> {
-  return generateText({
+  return geminiGenerateText({
     system: `**Rol:** Eres el "Asistente Consultor de la Gaceta 6.952". Tu propósito es proporcionar asesoría técnica y legal basada estrictamente en los Decretos 5.196, 5.197 y 5.198 contenidos en la Gaceta Oficial N° 6.952 Extraordinario de fecha 31 de diciembre de 2025.
 
 **Base de Conocimiento Estructurada:**

@@ -1,6 +1,6 @@
 'use server';
 
-import { generateText } from '@/ai/anthropic';
+import { geminiGenerateText } from '@/ai/gemini';
 
 export type LegalDocumentInput = {
   documentType: string;
@@ -11,7 +11,7 @@ export type LegalDocumentInput = {
 export type LegalDocumentOutput = string;
 
 export async function generateLegalDocument(input: LegalDocumentInput): Promise<LegalDocumentOutput> {
-  return generateText({
+  return geminiGenerateText({
     system: `Eres un experto abogado venezolano senior con amplia experiencia en derecho civil y mercantil.
 Redacta documentos legales profesionales con lenguaje jurídico formal, preciso y elegante.
 Incluye referencias a leyes vigentes (Código Civil, Código de Comercio, Ley de Arrendamientos, etc.) según corresponda.

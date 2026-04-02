@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeString } from '@/lib/input-sanitizer';
-import { generateText } from '@/ai/anthropic';
+import { geminiGenerateText } from '@/ai/gemini';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     const sanitizedPrompt = sanitizeString(prompt, 4000);
 
-    const content = await generateText({
+    const content = await geminiGenerateText({
       system: `Eres un experto fiscal venezolano especializado en el Código Orgánico Tributario (COT), 
 la Gaceta Oficial N° 6.952, normativas SENIAT, IVA, ISLR, IGTF, VEN-NIF y legislación tributaria venezolana.
 Responde SIEMPRE en español, de forma clara, precisa y profesional.

@@ -1,6 +1,6 @@
 'use server';
 
-import { generateJSON } from '@/ai/anthropic';
+import { openaiGenerateJSON } from '@/ai/openai';
 
 export type AnalyzeSentimentInput = {
   textToAnalyze: string;
@@ -14,7 +14,7 @@ export type AnalyzeSentimentOutput = {
 export async function analyzeSentiment(
   input: AnalyzeSentimentInput
 ): Promise<AnalyzeSentimentOutput> {
-  const result = await generateJSON<AnalyzeSentimentOutput>({
+  const result = await openaiGenerateJSON<AnalyzeSentimentOutput>({
     system: `You are a sentiment analysis expert. Analyze text and classify it as "Positivo", "Negativo", or "Neutral". Respond with a JSON object containing "sentiment" (one of those three values) and "confidence" (number between 0 and 1).`,
     prompt: `Text to analyze: ${input.textToAnalyze}`,
   });

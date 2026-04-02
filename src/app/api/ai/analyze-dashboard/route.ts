@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
-import { generateText } from '@/ai/anthropic';
+import { openaiGenerateText } from '@/ai/openai';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Datos demasiado grandes para análisis' }, { status: 400 });
     }
 
-    const analysis = await generateText({
+    const analysis = await openaiGenerateText({
       system: `Eres un analista financiero y de negocios experto para empresas venezolanas.
 Analiza los datos del dashboard y proporciona:
 1. Un resumen ejecutivo en 2-3 líneas

@@ -1,6 +1,6 @@
 'use server';
 
-import { generateJSON } from '@/ai/anthropic';
+import { openaiGenerateJSON } from '@/ai/openai';
 
 export type SalesStrategyInput = {
   topProducts: { name: string; sales: number; revenue: string }[];
@@ -17,7 +17,7 @@ export type SalesStrategyOutput = {
 };
 
 export async function generateSalesStrategies(input: SalesStrategyInput): Promise<SalesStrategyOutput> {
-  const result = await generateJSON<SalesStrategyOutput>({
+  const result = await openaiGenerateJSON<SalesStrategyOutput>({
     system: `You are a world-class sales and marketing strategist for a Venezuelan company selling office supplies, tech, and furniture.
 Generate exactly 3 creative, actionable, and impactful sales strategies.
 Each strategy must have: icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty), titulo (string), descripcion (string), impacto (string).

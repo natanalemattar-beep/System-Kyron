@@ -57,7 +57,10 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
 - **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend (with a two-account fallback system)
-- **AI Integrations:** Gemini, OpenAI, Anthropic Claude (via Replit AI Integrations)
+- **AI Integrations (Multi-Provider):** Three AI providers strategically distributed via Replit AI Integrations:
+  - **Anthropic Claude** (`src/ai/anthropic.ts`): Kyron Chat conversational AI, document verification (vision/multimodal), automated data entry from images
+  - **Google Gemini** (`src/ai/gemini.ts`): Document generation (legal documents, fiscal chat, Gaceta 6952 consultant)
+  - **OpenAI** (`src/ai/openai.ts`): Business analysis & insights (dashboard analysis, sales strategies, sentiment analysis, transaction categorization)
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
