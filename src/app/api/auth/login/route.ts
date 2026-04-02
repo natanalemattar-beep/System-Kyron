@@ -13,7 +13,7 @@ interface DbUser {
     id: number;
     email: string;
     password_hash: string;
-    tipo: 'natural' | 'juridico';
+    tipo: 'natural' | 'juridico' | 'admin';
     nombre: string;
     apellido: string | null;
     cedula: string | null;

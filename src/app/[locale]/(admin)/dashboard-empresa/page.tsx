@@ -24,6 +24,8 @@ import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
+import { SeasonalBanner } from "@/components/seasonal-decorations";
+import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
   PieChart as RPieChart, Pie, Cell, Tooltip,
@@ -124,6 +126,7 @@ function MiniSparkline({ data, color }: { data: number[]; color: string }) {
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
   const { user } = useAuth();
+  const { activeEvent } = useSeasonalTheme();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -231,6 +234,7 @@ export default function DashboardEmpresaPage() {
   return (
     <div className="space-y-5 pb-16 max-w-6xl mx-auto">
       <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
+      <SeasonalBanner />
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -250,9 +254,13 @@ export default function DashboardEmpresaPage() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  {greeting && <GreetingIcon className="h-4 w-4 text-amber-300/60" />}
+                  {activeEvent ? (
+                    <span className="text-lg">{activeEvent.emoji}</span>
+                  ) : (
+                    greeting && <GreetingIcon className="h-4 w-4 text-amber-300/60" />
+                  )}
                   <h1 className="text-lg md:text-xl font-bold tracking-tight">
-                    {greeting?.text ?? "Hola"}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
+                    {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
                   </h1>
                 </div>
                 <p className="text-[11px] text-white/35 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>

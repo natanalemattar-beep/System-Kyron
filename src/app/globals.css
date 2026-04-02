@@ -1266,3 +1266,31 @@ html[data-tier="mid"] .animate-spin-slow {
     -webkit-backdrop-filter: none !important;
   }
 }
+
+@keyframes seasonal-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: var(--particle-opacity, 0.2);
+  }
+  25% {
+    transform: translateY(25vh) translateX(calc(var(--drift) * 0.5)) rotate(90deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(var(--drift)) rotate(180deg);
+    opacity: var(--particle-opacity, 0.2);
+  }
+  75% {
+    transform: translateY(75vh) translateX(calc(var(--drift) * 0.5)) rotate(270deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.seasonal-particle {
+  animation: seasonal-fall linear infinite;
+  will-change: transform, opacity;
+  user-select: none;
+  line-height: 1;
+}

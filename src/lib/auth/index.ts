@@ -14,7 +14,7 @@ const EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days in seconds
 export interface SessionPayload {
     userId: number;
     email: string;
-    tipo: 'natural' | 'juridico';
+    tipo: 'natural' | 'juridico' | 'admin';
     nombre: string;
 }
 

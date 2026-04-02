@@ -5,7 +5,7 @@ import { query, queryOne } from '@/lib/db';
 interface DbUser {
     id: number;
     email: string;
-    tipo: 'natural' | 'juridico';
+    tipo: 'natural' | 'juridico' | 'admin';
     nombre: string;
     apellido: string | null;
     cedula: string | null;

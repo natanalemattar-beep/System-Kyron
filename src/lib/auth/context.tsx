@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, Rea
 export interface AuthUser {
     id: number;
     email: string;
-    tipo: 'natural' | 'juridico';
+    tipo: 'natural' | 'juridico' | 'admin';
     nombre: string;
     apellido?: string;
     cedula?: string;
