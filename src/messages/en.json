@@ -105,6 +105,27 @@
         "stat_support": "Active AI Support",
         "start_now": "Get Started"
     },
+    "ComplianceSection": {
+        "badge": "Regulatory Compliance",
+        "title_highlight": "Regulated and",
+        "title_rest": "certified",
+        "subtitle": "System Kyron complies with all current Venezuelan regulations. Each module is designed to meet the requirements of regulatory entities.",
+        "security_badge": "Security Infrastructure",
+        "security_title_1": "Bank-grade",
+        "security_title_2": "security",
+        "security_desc": "All infrastructure is protected with the highest security standards, comparable to international banking systems."
+    },
+    "IntegrationsStrip": {
+        "badge": "Connected Ecosystem",
+        "title_highlight": "Integrated with",
+        "title_rest": "all of Venezuela",
+        "subtitle": "We connect your company with national banks, telecom operators, payment gateways, and the most advanced artificial intelligence.",
+        "cat_banking": "Venezuelan Banking",
+        "cat_payments": "Payments & Fintech",
+        "cat_telecom": "Telecom & Connectivity",
+        "cat_tech": "Technology & AI",
+        "cta": "View all integrations"
+    },
     "AboutUsSection": {
         "badge": "Made in Venezuela",
         "title_highlight": "Built for",

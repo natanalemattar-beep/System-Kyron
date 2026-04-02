@@ -11,6 +11,8 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
 const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: false });
 const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
+const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: false });
+const IntegrationsStrip = dynamic(() => import('@/components/landing/integrations-strip').then(m => ({ default: m.IntegrationsStrip })), { ssr: false });
 const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: false });
 const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
 const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
@@ -93,6 +95,10 @@ function LandingContent() {
             <LazySection fallbackHeight="600px"><ShowcaseSection /></LazySection>
             <div className="section-divider" />
             <LazySection fallbackHeight="500px"><ServicesSection /></LazySection>
+            <div className="section-divider" />
+            <LazySection fallbackHeight="500px"><ComplianceSection /></LazySection>
+            <div className="section-divider" />
+            <LazySection fallbackHeight="400px"><IntegrationsStrip /></LazySection>
             <div className="section-divider" />
             <LazySection fallbackHeight="500px"><AboutUsSection /></LazySection>
             <div className="section-divider" />

@@ -122,13 +122,25 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-border/20 dark:border-white/5 flex flex-col items-center gap-1.5">
-                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
-                        Carlos Mattar · CEO-Fundador
-                    </p>
-                    <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
-                        Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
-                    </p>
+                <div className="mt-6 pt-5 border-t border-border/20 dark:border-white/5">
+                    <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
+                        {["SENIAT", "BCV", "VEN-NIF", "LOTTT", "CONATEL", "SUDEBAN"].map(ent => (
+                            <span key={ent} className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 flex items-center gap-1.5">
+                                <Shield className="h-2 w-2 text-primary/30" /> {ent}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="flex flex-col items-center gap-1.5">
+                        <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
+                            Carlos Mattar · CEO-Fundador
+                        </p>
+                        <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
+                            Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
+                        </p>
+                        <p className="font-semibold text-muted-foreground/30 tracking-wide text-[8px] sm:text-[7px] mt-1">
+                            Cifrado AES-256 · JWT · HTTPS · Auditoría Inmutable
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>

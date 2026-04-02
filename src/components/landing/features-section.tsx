@@ -154,15 +154,23 @@ export function FeaturesSection() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    {stats.map((r, i) => (
-                        <div
-                            key={i}
-                            className="flex flex-col items-center text-center gap-1.5 p-5 rounded-2xl liquid-glass-subtle hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
-                        >
-                            <p className="text-xs font-black text-foreground/80 uppercase tracking-tight">{r.val}</p>
-                            <p className="text-[8px] font-semibold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
-                        </div>
-                    ))}
+                    {stats.map((r, i) => {
+                        const colors = [
+                            "text-cyan-600 dark:text-cyan-400",
+                            "text-violet-600 dark:text-violet-400",
+                            "text-blue-600 dark:text-blue-400",
+                            "text-emerald-600 dark:text-emerald-400",
+                        ];
+                        return (
+                            <div
+                                key={i}
+                                className="flex flex-col items-center text-center gap-2 p-5 rounded-2xl liquid-glass hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
+                            >
+                                <p className={cn("text-lg font-black uppercase tracking-tight", colors[i % colors.length])}>{r.val}</p>
+                                <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
+                            </div>
+                        );
+                    })}
                 </motion.div>
             </div>
         </section>
