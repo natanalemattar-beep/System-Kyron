@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Upload, X, FileText, Image, Loader2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DocumentVerification } from '@/components/document-verification';
 
 export interface UploadedDoc {
   name: string;
@@ -116,19 +117,28 @@ export function DocumentUpload({ requirements, onDocumentsChange, documents, cla
             )}
 
             {doc ? (
-              <div className="flex items-center gap-3 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5">
-                <div className="shrink-0 p-2 rounded-lg bg-emerald-500/10">
-                  {isImage(doc.type) ? (
-                    <Image className="h-4 w-4 text-emerald-500" />
-                  ) : (
-                    <FileText className="h-4 w-4 text-emerald-500" />
-                  )}
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5">
+                  <div className="shrink-0 p-2 rounded-lg bg-emerald-500/10">
+                    {isImage(doc.type) ? (
+                      <Image className="h-4 w-4 text-emerald-500" />
+                    ) : (
+                      <FileText className="h-4 w-4 text-emerald-500" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-foreground truncate">{doc.name}</p>
+                    <p className="text-xs text-muted-foreground">{formatSize(doc.size)}</p>
+                  </div>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-foreground truncate">{doc.name}</p>
-                  <p className="text-xs text-muted-foreground">{formatSize(doc.size)}</p>
-                </div>
-                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                <DocumentVerification
+                  filePath={doc.url}
+                  originalName={doc.name}
+                  mimeType={doc.type}
+                  docCategory={doc.docType}
+                  compact
+                />
               </div>
             ) : (
               <div

@@ -1002,6 +1002,27 @@ async function createDocumentosTables() {
       created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS verificaciones_documentos (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      documento_id    INT,
+      archivo_path    TEXT NOT NULL,
+      archivo_nombre  TEXT NOT NULL,
+      tipo_mime       TEXT NOT NULL,
+      categoria       TEXT DEFAULT 'general',
+      hash_sha256     TEXT NOT NULL,
+      veredicto       TEXT NOT NULL CHECK (veredicto IN ('autentico','sospechoso','fraudulento','no_determinado')),
+      confianza       NUMERIC(5,2) NOT NULL,
+      puntaje_total   INT NOT NULL,
+      resultado       JSONB NOT NULL,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_user ON verificaciones_documentos(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_hash ON verificaciones_documentos(hash_sha256)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verif_docs_path ON verificaciones_documentos(archivo_path)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

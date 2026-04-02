@@ -3,13 +3,14 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet , ArrowLeft } from "lucide-react";
+import { File, Download, Eye, Search, Lock, Upload, Loader2, Trash2, Plus, FileText, Image, FileSpreadsheet, ArrowLeft, Fingerprint } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { DocumentVerification } from "@/components/document-verification";
 
 import { Link } from '@/navigation';
 const categorias = [
@@ -48,6 +49,14 @@ type Documento = {
   organismo: string | null;
   descripcion: string | null;
   created_at: string;
+};
+
+const MIME_MAP: Record<string, string> = {
+  PDF: 'application/pdf',
+  JPG: 'image/jpeg',
+  JPEG: 'image/jpeg',
+  PNG: 'image/png',
+  WEBP: 'image/webp',
 };
 
 export default function MisDocumentosPage() {
@@ -272,6 +281,20 @@ export default function MisDocumentosPage() {
                   {doc.fecha_vencimiento && (
                     <p className="text-[11px] text-amber-500/70 font-medium mb-2">Vence: {formatDate(doc.fecha_vencimiento)}</p>
                   )}
+
+                  {doc.url_storage && (
+                    <div className="mb-3">
+                      <DocumentVerification
+                        filePath={doc.url_storage}
+                        originalName={doc.nombre}
+                        mimeType={MIME_MAP[doc.tipo_archivo?.toUpperCase()] || 'application/pdf'}
+                        docCategory={doc.categoria}
+                        documentoId={doc.id}
+                        compact
+                      />
+                    </div>
+                  )}
+
                   <div className="flex gap-2 pt-2 border-t border-border/20">
                     <Button variant="ghost" size="sm"
                       className="flex-1 h-9 rounded-xl text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary gap-1.5"
