@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, queryOne } from '@/lib/db';
-import { getSession } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,16 +9,53 @@ interface BCVRateData {
   tasa_eur_ves: number | null;
 }
 
+async function fetchFromPyDolarAPI(): Promise<BCVRateData | null> {
+  try {
+    const res = await fetch('https://pydolarve.org/api/v2/dollar?monitor=bcv', {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const usd = data?.monitors?.usd;
+    if (!usd?.price) return null;
+    const today = new Date().toISOString().split('T')[0];
+    return {
+      fecha: today,
+      tasa_usd_ves: parseFloat(String(usd.price).replace(',', '.')),
+      tasa_eur_ves: data?.monitors?.eur?.price ? parseFloat(String(data.monitors.eur.price).replace(',', '.')) : null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function fetchFromDolarAPI(): Promise<BCVRateData | null> {
+  try {
+    const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial', {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data?.promedio) return null;
+    const today = new Date().toISOString().split('T')[0];
+    return {
+      fecha: today,
+      tasa_usd_ves: data.promedio,
+      tasa_eur_ves: null,
+    };
+  } catch {
+    return null;
+  }
+}
+
 async function fetchFromExchangeRateAPI(): Promise<BCVRateData | null> {
   try {
     const res = await fetch('https://open.er-api.com/v6/latest/USD', {
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return null;
-
     const data = await res.json();
     if (data.result !== 'success' || !data.rates?.VES) return null;
-
     const today = new Date().toISOString().split('T')[0];
     return {
       fecha: today,
@@ -31,35 +67,13 @@ async function fetchFromExchangeRateAPI(): Promise<BCVRateData | null> {
   }
 }
 
-async function fetchFromPyDolarAPI(): Promise<BCVRateData | null> {
-  try {
-    const res = await fetch('https://pydolarve.org/api/v1/dollar?page=bcv', {
-      signal: AbortSignal.timeout(10000),
-    });
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    const bcvMonitor = data?.monitors?.usd;
-    if (!bcvMonitor?.price) return null;
-
-    const today = new Date().toISOString().split('T')[0];
-    return {
-      fecha: today,
-      tasa_usd_ves: parseFloat(bcvMonitor.price),
-      tasa_eur_ves: data?.monitors?.eur?.price ? parseFloat(data.monitors.eur.price) : null,
-    };
-  } catch {
-    return null;
-  }
-}
-
 export async function GET(req: NextRequest) {
   const cronSecret = req.headers.get('x-cron-secret');
   const validCronSecret = process.env.CRON_SECRET;
+  const isInternal = req.headers.get('x-internal-fetch') === 'true';
 
-  if (cronSecret && validCronSecret && cronSecret === validCronSecret) {
-    // Authorized via cron secret
-  } else {
+  if (!isInternal && !(cronSecret && validCronSecret && cronSecret === validCronSecret)) {
+    const { getSession } = await import('@/lib/auth');
     const session = await getSession();
     if (!session) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
@@ -69,30 +83,34 @@ export async function GET(req: NextRequest) {
   try {
     const today = new Date().toISOString().split('T')[0];
 
-    const existing = await queryOne<{ id: number }>(
-      `SELECT id FROM tasas_bcv WHERE fecha = $1`,
+    const existing = await queryOne<{ id: number; tasa_usd_ves: string }>(
+      `SELECT id, tasa_usd_ves::text FROM tasas_bcv WHERE fecha = $1`,
       [today]
     );
 
     if (existing) {
-      const current = await queryOne(
-        `SELECT id, fecha, tasa_usd_ves::text, tasa_eur_ves::text, fuente, created_at
-         FROM tasas_bcv WHERE fecha = $1`,
-        [today]
-      );
       return NextResponse.json({
         updated: false,
         message: 'Tasa del día ya existe',
-        tasa: current,
+        tasa: existing,
       });
     }
 
-    let rateData = await fetchFromPyDolarAPI();
-    let fuente = 'pydolar-bcv';
+    const sources: Array<{ fn: () => Promise<BCVRateData | null>; name: string }> = [
+      { fn: fetchFromPyDolarAPI, name: 'pydolar-bcv' },
+      { fn: fetchFromDolarAPI, name: 'dolarapi' },
+      { fn: fetchFromExchangeRateAPI, name: 'exchangerate-api' },
+    ];
 
-    if (!rateData) {
-      rateData = await fetchFromExchangeRateAPI();
-      fuente = 'exchangerate-api';
+    let rateData: BCVRateData | null = null;
+    let fuente = '';
+
+    for (const source of sources) {
+      rateData = await source.fn();
+      if (rateData) {
+        fuente = source.name;
+        break;
+      }
     }
 
     if (!rateData) {
@@ -115,11 +133,7 @@ export async function GET(req: NextRequest) {
 
     console.log(`[tasas-bcv] Auto-fetch: ${rateData.tasa_usd_ves} VES/USD from ${fuente}`);
 
-    return NextResponse.json({
-      updated: true,
-      fuente,
-      tasa,
-    });
+    return NextResponse.json({ updated: true, fuente, tasa });
   } catch (err) {
     console.error('[tasas-bcv/auto-fetch] error:', err);
     return NextResponse.json({ error: 'Error al actualizar tasa BCV' }, { status: 500 });

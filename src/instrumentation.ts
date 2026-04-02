@@ -9,6 +9,22 @@ export async function register() {
 
     setTimeout(async () => {
       try {
+        const baseUrl = `http://localhost:${process.env.PORT || 5000}`;
+        const res = await fetch(`${baseUrl}/api/tasas-bcv/auto-fetch`, {
+          headers: { 'x-internal-fetch': 'true' },
+          signal: AbortSignal.timeout(20000),
+        });
+        const data = await res.json();
+        if (data.updated) {
+          console.log(`[bcv-rate] Tasa del día cargada: ${data.tasa?.tasa_usd_ves} Bs/$ (${data.fuente})`);
+        } else if (data.tasa) {
+          console.log(`[bcv-rate] Tasa del día ya existe: ${data.tasa.tasa_usd_ves} Bs/$`);
+        }
+      } catch (err) {
+        console.warn('[bcv-rate] No se pudo cargar tasa al inicio:', err);
+      }
+
+      try {
         const { runScheduledAutomations } = await import('@/lib/automation-engine');
         const logs = await runScheduledAutomations();
         const success = logs.filter(l => l.status === 'success').length;
@@ -17,7 +33,7 @@ export async function register() {
       } catch (err) {
         console.warn('[automation-engine] Error en ejecución inicial:', err);
       }
-    }, 30_000);
+    }, 15_000);
 
     const UNA_HORA = 60 * 60 * 1000;
     setInterval(async () => {
@@ -32,5 +48,19 @@ export async function register() {
         console.warn('[automation-engine] Error en ciclo periódico:', err);
       }
     }, UNA_HORA);
+
+    setInterval(async () => {
+      try {
+        const baseUrl = `http://localhost:${process.env.PORT || 5000}`;
+        const res = await fetch(`${baseUrl}/api/tasas-bcv/auto-fetch`, {
+          headers: { 'x-internal-fetch': 'true' },
+          signal: AbortSignal.timeout(20000),
+        });
+        const data = await res.json();
+        if (data.updated) {
+          console.log(`[bcv-rate] Actualización periódica: ${data.tasa?.tasa_usd_ves} Bs/$ (${data.fuente})`);
+        }
+      } catch {}
+    }, 4 * UNA_HORA);
   }
 }
