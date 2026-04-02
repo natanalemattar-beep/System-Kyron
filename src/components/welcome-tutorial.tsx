@@ -116,7 +116,7 @@ const steps = [
     border: "border-yellow-400/20",
     tag: "BIENVENIDA",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
-    screenshotAlt: "Ecosistema Kyron - Terminal de operaciones",
+    screenshotAlt: "Ecosistema Kyron - Dashboard con métricas de Liquidez, Telemetría, Riesgo y Eco-Créditos",
     useGreeting: true,
     useTyping: true,
   },
@@ -129,7 +129,7 @@ const steps = [
     border: "border-primary/20",
     tag: "ACCESO",
     screenshot: "/images/tutorial/step-2-login.jpg",
-    screenshotAlt: "Selector de portales - Acceso seguro AES-256",
+    screenshotAlt: "Selector de portales - Portal Ciudadano y Portales Corporativos",
   },
   {
     title: "Crea tu Cuenta",
@@ -140,7 +140,7 @@ const steps = [
     border: "border-secondary/20",
     tag: "REGISTRO",
     screenshot: "/images/tutorial/step-3-register.jpg",
-    screenshotAlt: "Formulario de registro - Crear cuenta",
+    screenshotAlt: "Formulario de registro - Datos personales, cédula de identidad y documentos",
   },
   {
     title: "Panel Empresarial",
@@ -151,7 +151,7 @@ const steps = [
     border: "border-blue-400/20",
     tag: "EMPRESA",
     screenshot: "/images/tutorial/step-4-portal-empresa.jpg",
-    screenshotAlt: "Portales corporativos - Panel empresarial",
+    screenshotAlt: "Portal Contabilidad - Acceso empresarial con auditoría IA y conciliación bancaria",
   },
   {
     title: "Portal Ciudadano",
@@ -162,7 +162,7 @@ const steps = [
     border: "border-emerald-400/20",
     tag: "CIUDADANO",
     screenshot: "/images/tutorial/step-5-ciudadano.jpg",
-    screenshotAlt: "Portal ciudadano - Servicios para personas naturales",
+    screenshotAlt: "Mi Cuenta Personal - Identidad digital, trámites civiles y bóveda ciudadana",
   },
   {
     title: "Blindaje Fiscal con IA",
@@ -173,7 +173,7 @@ const steps = [
     border: "border-violet-400/20",
     tag: "IA FISCAL",
     screenshot: "/images/tutorial/step-6-ia.jpg",
-    screenshotAlt: "Motor IA Claude - Guía de operaciones",
+    screenshotAlt: "Guía de Operaciones - 21 módulos documentados con Motor IA Claude by Anthropic",
   },
   {
     title: "¡Todo Listo!",
@@ -184,7 +184,7 @@ const steps = [
     border: "border-rose-400/20",
     tag: "LISTO",
     screenshot: "/images/tutorial/step-1-ecosistema.jpg",
-    screenshotAlt: "Dashboard completo de System Kyron",
+    screenshotAlt: "Ecosistema Kyron - Terminal de operaciones lista para usar",
     showConfetti: true,
   },
 ];
