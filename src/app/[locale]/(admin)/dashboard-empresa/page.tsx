@@ -22,6 +22,8 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
+import { useCurrency } from "@/lib/currency-context";
+import { CurrencySelector } from "@/components/currency-selector";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
 import { SeasonalBanner } from "@/components/seasonal-decorations";
@@ -58,16 +60,6 @@ interface DashboardData {
 
 interface ActivityLog { id: number; evento: string; categoria: string; descripcion: string | null; created_at: string; }
 interface CierrePeriodo { id?: number; periodo: string; ingresos: number; gastos: number; utilidad: number; facturas_emitidas: number; facturas_cobradas: number; }
-
-function fmtBs(n: number): string {
-  return new Intl.NumberFormat("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
-}
-
-function fmtCompact(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
-  return fmtBs(n);
-}
 
 function getGreeting(hour: number): { text: string; icon: typeof Sun } {
   if (hour >= 5 && hour < 12) return { text: "Buenos días", icon: Sunrise };
@@ -127,6 +119,7 @@ export default function DashboardEmpresaPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { activeEvent } = useSeasonalTheme();
+  const { format: fmtCur, convert, config: curConfig, formatRaw } = useCurrency();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -199,7 +192,7 @@ export default function DashboardEmpresaPage() {
     try {
       const res = await fetch("/api/periodo-cierre", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...closingForm, cerrado_por: user?.nombre ?? "Usuario" }) });
       const json = await res.json();
-      if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: Bs. ${fmtBs(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
+      if (res.ok) { setClosingData(json.cierre); toast({ title: "PERIODO FISCAL CERRADO", description: `${closingForm.periodo} — Utilidad: ${fmtCur(json.cierre?.utilidad ?? 0)}` }); setShowCierre(false); fetchDashboard(); }
       else toast({ title: "Error", description: json.error ?? "No se pudo cerrar", variant: "destructive" });
     } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
     setIsClosing(false);
@@ -283,7 +276,8 @@ export default function DashboardEmpresaPage() {
               )}
             </div>
           </div>
-          <div className="flex gap-2 flex-wrap no-print">
+          <div className="flex gap-2 flex-wrap no-print items-center">
+            <CurrencySelector className="border-white/10 bg-white/[0.04]" />
             <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-[10px] font-medium text-white/40 hover:text-white hover:bg-white/[0.05]" onClick={() => fetchDashboard(true)} disabled={refreshing}>
               <RefreshCw className={cn("h-3.5 w-3.5 mr-1.5", refreshing && "animate-spin")} /> Actualizar
             </Button>
@@ -302,10 +296,10 @@ export default function DashboardEmpresaPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Ingresos", value: data ? fmtBs(data.ingresos) : "—", variacion: data?.variaciones.ingresos, icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", sparkColor: "#10b981", sparkData: sparklineData.ingresos },
-          { label: "Gastos", value: data ? fmtBs(data.gastos) : "—", variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", bg: "bg-rose-500/8", ring: "ring-rose-500/10", sparkColor: "#f43f5e", sparkData: sparklineData.gastos },
-          { label: "Utilidad Neta", value: data ? fmtBs(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", sparkColor: "#f59e0b", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
-          { label: "Liquidez", value: data ? fmtBs(data.liquidezTotal) : "—", icon: Wallet, color: "text-blue-500", bg: "bg-blue-500/8", ring: "ring-blue-500/10", sparkColor: "#3b82f6", sparkData: [] as number[] },
+          { label: "Ingresos", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones.ingresos, icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", sparkColor: "#10b981", sparkData: sparklineData.ingresos },
+          { label: "Gastos", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", bg: "bg-rose-500/8", ring: "ring-rose-500/10", sparkColor: "#f43f5e", sparkData: sparklineData.gastos },
+          { label: "Utilidad Neta", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", sparkColor: "#f59e0b", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
+          { label: "Liquidez", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-blue-500", bg: "bg-blue-500/8", ring: "ring-blue-500/10", sparkColor: "#3b82f6", sparkData: [] as number[] },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}>
             <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.03] hover:-translate-y-0.5 duration-300 ring-0 hover:ring-4", kpi.ring)}>
@@ -340,7 +334,7 @@ export default function DashboardEmpresaPage() {
         {[
           { label: "Clientes Activos", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", bg: "bg-cyan-500/8", ring: "ring-cyan-500/10", href: "/fidelizacion-clientes" },
           { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", href: "/dashboard-rrhh" },
-          { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", extra: data?.facturasEsteMes.monto ? `Bs. ${fmtCompact(data.facturasEsteMes.monto)}` : undefined, href: "/facturacion" },
+          { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", extra: data?.facturasEsteMes.monto ? fmtCur(data.facturasEsteMes.monto) : undefined, href: "/facturacion" },
           { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", bg: "bg-indigo-500/8", ring: "ring-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0, href: "/notificaciones" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.05 }}>
@@ -394,8 +388,8 @@ export default function DashboardEmpresaPage() {
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
                           <XAxis dataKey="mes" stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickMargin={10} />
-                          <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => fmtCompact(v as number)} width={45} />
-                          <ChartTooltip cursor={{ stroke: "rgba(255,255,255,0.06)" }} content={<ChartTooltipContent indicator="dot" formatter={(v) => `Bs. ${fmtBs(v as number)}`} />} />
+                          <YAxis stroke="#475569" fontSize={9} fontWeight="600" axisLine={false} tickLine={false} tickFormatter={(v) => `${curConfig.symbol} ${formatRaw(convert(v as number))}`} width={55} />
+                          <ChartTooltip cursor={{ stroke: "rgba(255,255,255,0.06)" }} content={<ChartTooltipContent indicator="dot" formatter={(v) => fmtCur(v as number)} />} />
                           <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" strokeWidth={2} fillOpacity={1} fill="url(#gIng)" />
                           <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" strokeWidth={2} fillOpacity={1} fill="url(#gGas)" />
                         </AreaChart>
@@ -459,7 +453,7 @@ export default function DashboardEmpresaPage() {
                     <span className="text-[11px] font-medium text-foreground/60">Por Cobrar</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs font-bold text-emerald-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasCobrar.total ?? 0)}`}</p>
+                    <p className="text-xs font-bold text-emerald-400">{loading ? "—" : fmtCur(data?.cuentasCobrar.total ?? 0)}</p>
                     <p className="text-[9px] text-muted-foreground/35">{data?.cuentasCobrar.count ?? 0} pendientes</p>
                   </div>
                 </div>
@@ -471,7 +465,7 @@ export default function DashboardEmpresaPage() {
                     <span className="text-[11px] font-medium text-foreground/60">Por Pagar</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs font-bold text-rose-400">{loading ? "—" : `Bs. ${fmtBs(data?.cuentasPagar.total ?? 0)}`}</p>
+                    <p className="text-xs font-bold text-rose-400">{loading ? "—" : fmtCur(data?.cuentasPagar.total ?? 0)}</p>
                     <p className="text-[9px] text-muted-foreground/35">{data?.cuentasPagar.count ?? 0} pendientes</p>
                   </div>
                 </div>
@@ -515,7 +509,7 @@ export default function DashboardEmpresaPage() {
                       <p className="text-[9px] text-muted-foreground/35">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
                     </div>
                     <span className={cn("text-[11px] font-bold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-400" : "text-rose-400")}>
-                      {mov.tipo === "credito" ? "+" : "-"}{fmtBs(parseFloat(mov.monto))}
+                      {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseFloat(mov.monto))}
                     </span>
                   </div>
                 ))}
@@ -578,11 +572,11 @@ export default function DashboardEmpresaPage() {
               <p className="text-[9px] text-white/30 mb-3">Modelado predictivo</p>
               <div className="space-y-1.5">
                 <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/15 hover:text-emerald-300 justify-start"
-                  onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Ventas +20%", description: `Ingresos: Bs. ${fmtBs(a)} · Utilidad: Bs. ${fmtBs(a - (data?.gastos ?? 0))}` }); }}>
+                  onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Ventas +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
                   <TrendingUp className="h-3 w-3 mr-2 text-emerald-400" /> Ventas +20%
                 </Button>
                 <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-rose-500/15 hover:border-rose-500/15 hover:text-rose-300 justify-start"
-                  onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "Inflación 35%", description: `Gastos: Bs. ${fmtBs(inf)} · Utilidad: Bs. ${fmtBs((data?.ingresos ?? 0) - inf)}` }); }}>
+                  onClick={() => { const inf = data ? data.gastos * 1.35 : 0; toast({ title: "Inflación 35%", description: `Gastos: ${fmtCur(inf)} · Utilidad: ${fmtCur((data?.ingresos ?? 0) - inf)}` }); }}>
                   <AlertTriangle className="h-3 w-3 mr-2 text-rose-400" /> Inflación 35%
                 </Button>
               </div>
@@ -592,7 +586,7 @@ export default function DashboardEmpresaPage() {
           <Card className="border border-border/30 rounded-xl bg-card/80 p-4">
             <span className="text-[11px] font-semibold text-foreground/60 mb-3 block">Nómina</span>
             <div className="flex items-baseline gap-1 mb-1">
-              <span className="text-lg font-bold tracking-tight">{loading ? "—" : `Bs. ${fmtBs(data?.nominaMensual ?? 0)}`}</span>
+              <span className="text-lg font-bold tracking-tight">{loading ? "—" : fmtCur(data?.nominaMensual ?? 0)}</span>
             </div>
             <p className="text-[10px] text-muted-foreground/40">{data?.empleados ?? 0} empleados activos</p>
             <Link href="/contabilidad/libros/nomina"><Button variant="outline" size="sm" className="mt-2 w-full h-7 text-[10px] font-medium rounded-lg border-border/25">Ver Nómina</Button></Link>
@@ -638,9 +632,9 @@ export default function DashboardEmpresaPage() {
               <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-amber-500">Resumen: {closingData.periodo}</p>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><p className="text-[9px] text-muted-foreground">Ingresos</p><p className="text-base font-bold text-emerald-400">Bs. {fmtBs(closingData.ingresos)}</p></div>
-                  <div><p className="text-[9px] text-muted-foreground">Gastos</p><p className="text-base font-bold text-rose-400">Bs. {fmtBs(closingData.gastos)}</p></div>
-                  <div><p className="text-[9px] text-muted-foreground">Utilidad</p><p className={cn("text-lg font-bold", closingData.utilidad >= 0 ? "text-amber-400" : "text-rose-400")}>Bs. {fmtBs(closingData.utilidad)}</p></div>
+                  <div><p className="text-[9px] text-muted-foreground">Ingresos</p><p className="text-base font-bold text-emerald-400">{fmtCur(closingData.ingresos)}</p></div>
+                  <div><p className="text-[9px] text-muted-foreground">Gastos</p><p className="text-base font-bold text-rose-400">{fmtCur(closingData.gastos)}</p></div>
+                  <div><p className="text-[9px] text-muted-foreground">Utilidad</p><p className={cn("text-lg font-bold", closingData.utilidad >= 0 ? "text-amber-400" : "text-rose-400")}>{fmtCur(closingData.utilidad)}</p></div>
                   <div><p className="text-[9px] text-muted-foreground">Facturas</p><p className="text-base font-bold">{closingData.facturas_emitidas} / {closingData.facturas_cobradas}</p></div>
                 </div>
               </div>

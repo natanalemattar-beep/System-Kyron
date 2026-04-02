@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/ui/motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
+import { CurrencyProvider } from "@/lib/currency-context";
 import { PageTracker } from "@/components/page-tracker";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 
@@ -72,7 +73,9 @@ export default function AdminLayout({
 }>) {
     return (
       <PreferencesProvider>
-        <AdminLayoutInner>{children}</AdminLayoutInner>
+        <CurrencyProvider>
+          <AdminLayoutInner>{children}</AdminLayoutInner>
+        </CurrencyProvider>
       </PreferencesProvider>
     );
 }

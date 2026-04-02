@@ -48,6 +48,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Admin Message Endpoint:** POST `/api/admin/send-message` for sending personalized emails.
 - **Sistema de Planes con Límites:** 4 subscription plans with progressive resource limits.
 - **Facturación Homologada SENIAT (Providencia 0071):** Billing compliant with Venezuelan regulations, including fiscal hashes and immutability.
+- **Multi-Currency Display:** `CurrencyContext` (`src/lib/currency-context.tsx`) provides VES/USD/EUR display conversion across all billing and dashboard pages. `CurrencyProvider` is in admin and ventas layouts. `CurrencySelector` and `CurrencySelectorCompact` components allow switching. All amounts are stored/submitted in VES; display conversion is reference-only using static exchange rates. Pages using it: facturacion, proformas, facturacion-credito, nota-debito, nota-credito, dashboard-empresa.
 
 ## External Dependencies
 - **Database:** PostgreSQL

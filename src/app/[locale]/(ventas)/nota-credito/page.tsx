@@ -9,6 +9,8 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCurrency } from "@/lib/currency-context";
+import { CurrencySelectorCompact } from "@/components/currency-selector";
 
 const steps = [
   { id: 1, label: "Emisor", icon: Building2, desc: "Datos fiscales" },
@@ -20,6 +22,7 @@ const steps = [
 
 export default function NotaCreditoPage() {
   const { toast } = useToast();
+  const { format: fmtCur, config: curConfig } = useCurrency();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rifEmisor, setRifEmisor] = useState('');
@@ -46,8 +49,6 @@ export default function NotaCreditoPage() {
   const subtotal = baseImponible + baseExenta;
   const montoIva = baseImponible * 0.16;
   const total = subtotal + montoIva;
-  const fmt = (n: number) => n.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
   const handleSubmit = async () => {
     if (!rifEmisor || !razonSocialEmisor || !domicilioFiscalEmisor) {
       toast({ title: 'Error', description: 'Complete los datos del emisor (Art. 18)', variant: 'destructive' });
@@ -144,7 +145,10 @@ export default function NotaCreditoPage() {
             Nota de{' '}
             <span className="bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500 bg-clip-text text-transparent italic">Crédito</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
+          <div className="flex items-center gap-3 mt-2">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
+            <CurrencySelectorCompact />
+          </div>
         </motion.header>
       </div>
 
@@ -405,7 +409,7 @@ export default function NotaCreditoPage() {
                       {items.filter(it => it.descripcion).map((it, i) => (
                         <div key={i} className="flex justify-between text-sm">
                           <span className="text-muted-foreground">{it.descripcion}</span>
-                          <span className="font-mono font-bold">Bs. {fmt(it.cantidad * it.precio_unitario)}</span>
+                          <span className="font-mono font-bold">{fmtCur(it.cantidad * it.precio_unitario)}</span>
                         </div>
                       ))}
                     </div>
@@ -462,28 +466,28 @@ export default function NotaCreditoPage() {
                 {baseImponible > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground text-[11px]">Base Imponible:</span>
-                    <span className="font-mono font-bold text-[11px]">Bs. {fmt(baseImponible)}</span>
+                    <span className="font-mono font-bold text-[11px]">{fmtCur(baseImponible)}</span>
                   </div>
                 )}
                 {baseExenta > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground text-[11px]">Base Exenta:</span>
-                    <span className="font-mono font-bold text-[11px]">Bs. {fmt(baseExenta)}</span>
+                    <span className="font-mono font-bold text-[11px]">{fmtCur(baseExenta)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground text-[11px]">Subtotal:</span>
-                  <span className="font-mono font-bold text-[11px]">Bs. {fmt(subtotal)}</span>
+                  <span className="font-mono font-bold text-[11px]">{fmtCur(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground text-[11px]">IVA (16%):</span>
-                  <span className="font-mono font-bold text-[11px]">Bs. {fmt(montoIva)}</span>
+                  <span className="font-mono font-bold text-[11px]">{fmtCur(montoIva)}</span>
                 </div>
                 <div className="h-px bg-border/20 my-2" />
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-black uppercase">Total</span>
+                  <span className="text-xs font-black uppercase">Total ({curConfig.symbol})</span>
                   <span className="text-xl font-black bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent tabular-nums">
-                    Bs. {fmt(total)}
+                    {fmtCur(total)}
                   </span>
                 </div>
               </CardContent>

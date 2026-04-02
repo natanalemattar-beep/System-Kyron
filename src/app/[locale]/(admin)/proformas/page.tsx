@@ -6,10 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Receipt, CirclePlus as PlusCircle, Eye, CircleCheck as CheckCircle, TrendingUp, FileText, Clock, Send, ArrowUpRight, DollarSign, BarChart3 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { BackButton } from "@/components/back-button";
 import { motion } from "framer-motion";
+import { useCurrency } from "@/lib/currency-context";
+import { CurrencySelector } from "@/components/currency-selector";
 
 const proformas = [
     { id: "PRO-2026-001", fecha: "19/03/2026", cliente: "Constructora XYZ C.A.", total: 15000, estado: "Enviada", items: 5, validez: "15 días" },
@@ -27,6 +29,7 @@ const statusConfig: Record<string, { variant: "default" | "secondary" | "outline
 
 export default function ProformasPage() {
     const { toast } = useToast();
+    const { format: fmtCur } = useCurrency();
 
     const totalCotizado = proformas.reduce((a, b) => a + b.total, 0);
     const aprobadas = proformas.filter(p => p.estado === 'Aprobada');
@@ -58,15 +61,18 @@ export default function ProformasPage() {
                     </h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Cotizaciones y Presupuestos • Ciclo de Venta 2026</p>
                 </div>
-                <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
-                    <PlusCircle className="mr-3 h-4 w-4" /> NUEVA PROFORMA
-                </Button>
+                <div className="flex items-center gap-3">
+                    <CurrencySelector />
+                    <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
+                        <PlusCircle className="mr-3 h-4 w-4" /> NUEVA PROFORMA
+                    </Button>
+                </div>
             </motion.header>
 
             <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
                 {[
-                    { label: "Total Cotizado", val: formatCurrency(totalCotizado, 'Bs.'), icon: DollarSign, color: "text-violet-500", change: `${proformas.length} proformas` },
-                    { label: "Aprobadas", val: formatCurrency(totalAprobado, 'Bs.'), icon: CheckCircle, color: "text-emerald-500", change: `${aprobadas.length} contratos` },
+                    { label: "Total Cotizado", val: fmtCur(totalCotizado), icon: DollarSign, color: "text-violet-500", change: `${proformas.length} proformas` },
+                    { label: "Aprobadas", val: fmtCur(totalAprobado), icon: CheckCircle, color: "text-emerald-500", change: `${aprobadas.length} contratos` },
                     { label: "Tasa Conversión", val: `${Math.round((aprobadas.length / proformas.length) * 100)}%`, icon: TrendingUp, color: "text-blue-500", change: "este mes" },
                     { label: "Pendientes", val: `${proformas.filter(p => p.estado === 'Enviada').length}`, icon: Send, color: "text-amber-500", change: "en espera" },
                 ].map((kpi, i) => (
@@ -150,7 +156,7 @@ export default function ProformasPage() {
                                         <TableCell className="text-center py-5">
                                             <span className="text-[10px] font-bold text-muted-foreground">{p.items}</span>
                                         </TableCell>
-                                        <TableCell className="text-right py-5 font-mono text-sm font-black text-foreground">{formatCurrency(p.total, 'Bs.')}</TableCell>
+                                        <TableCell className="text-right py-5 font-mono text-sm font-black text-foreground">{fmtCur(p.total)}</TableCell>
                                         <TableCell className="text-center py-5">
                                             <span className={cn(
                                                 "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider border",

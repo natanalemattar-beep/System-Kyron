@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CreditCard, CirclePlus as PlusCircle, CircleCheck as CheckCircle, Activity, DollarSign, TrendingUp, AlertTriangle, Clock, Users, ArrowUpRight, Zap, Smartphone } from "lucide-react";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { BackButton } from "@/components/back-button";
 import { motion } from "framer-motion";
+import { useCurrency } from "@/lib/currency-context";
+import { CurrencySelector } from "@/components/currency-selector";
 
 const facturas = [
     { id: "FACC-001", cliente: "Tech Solutions LLC", fecha: "25/03/2026", vencimiento: "24/04/2026", monto: 5500, estado: "Pendiente", metodo: "Crédito Directo", diasRestantes: 22 },
@@ -21,6 +23,7 @@ const facturas = [
 
 export default function FacturacionCreditoPage() {
     const { toast } = useToast();
+    const { format: fmtCur } = useCurrency();
     const totalPendiente = facturas.filter(f => f.estado === 'Pendiente').reduce((a, b) => a + b.monto, 0);
     const totalVencido = facturas.filter(f => f.estado === 'Vencida').reduce((a, b) => a + b.monto, 0);
     const totalCobrado = facturas.filter(f => f.estado === 'Pagada').reduce((a, b) => a + b.monto, 0);
@@ -51,16 +54,19 @@ export default function FacturacionCreditoPage() {
                     </h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Gestión BNPL • Cuentas por Cobrar 2026</p>
                 </div>
-                <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 shadow-[0_8px_30px_-5px_rgba(16,185,129,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(16,185,129,0.5)] hover:-translate-y-0.5">
-                    <PlusCircle className="mr-3 h-4 w-4" /> NUEVO CRÉDITO
-                </Button>
+                <div className="flex items-center gap-3">
+                    <CurrencySelector />
+                    <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 shadow-[0_8px_30px_-5px_rgba(16,185,129,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(16,185,129,0.5)] hover:-translate-y-0.5">
+                        <PlusCircle className="mr-3 h-4 w-4" /> NUEVO CRÉDITO
+                    </Button>
+                </div>
             </motion.header>
 
             <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
                 {[
-                    { label: "Por Cobrar", val: formatCurrency(totalPendiente, 'Bs.'), icon: Clock, color: "text-amber-500", change: `${facturas.filter(f => f.estado === 'Pendiente').length} facturas` },
-                    { label: "Vencido", val: formatCurrency(totalVencido, 'Bs.'), icon: AlertTriangle, color: "text-rose-500", change: `${facturas.filter(f => f.estado === 'Vencida').length} vencidas` },
-                    { label: "Cobrado", val: formatCurrency(totalCobrado, 'Bs.'), icon: CheckCircle, color: "text-emerald-500", change: "este mes" },
+                    { label: "Por Cobrar", val: fmtCur(totalPendiente), icon: Clock, color: "text-amber-500", change: `${facturas.filter(f => f.estado === 'Pendiente').length} facturas` },
+                    { label: "Vencido", val: fmtCur(totalVencido), icon: AlertTriangle, color: "text-rose-500", change: `${facturas.filter(f => f.estado === 'Vencida').length} vencidas` },
+                    { label: "Cobrado", val: fmtCur(totalCobrado), icon: CheckCircle, color: "text-emerald-500", change: "este mes" },
                     { label: "Clientes", val: `${new Set(facturas.map(f => f.cliente)).size}`, icon: Users, color: "text-blue-500", change: "con crédito activo" },
                 ].map((kpi, i) => (
                     <motion.div
@@ -145,7 +151,7 @@ export default function FacturacionCreditoPage() {
                                                     </p>
                                                 )}
                                             </TableCell>
-                                            <TableCell className="text-right py-5 font-mono text-sm font-black text-foreground">{formatCurrency(f.monto, 'Bs.')}</TableCell>
+                                            <TableCell className="text-right py-5 font-mono text-sm font-black text-foreground">{fmtCur(f.monto)}</TableCell>
                                             <TableCell className="text-right pr-6 py-5">
                                                 <span className={cn(
                                                     "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider border",
@@ -220,7 +226,7 @@ export default function FacturacionCreditoPage() {
                                 <p className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Alerta de Mora</p>
                             </div>
                             <p className="text-[11px] text-muted-foreground leading-relaxed">
-                                Hay {facturas.filter(f => f.estado === 'Vencida').length} factura(s) vencida(s) por un monto total de {formatCurrency(totalVencido, 'Bs.')}. Se recomienda gestionar la cobranza inmediatamente.
+                                Hay {facturas.filter(f => f.estado === 'Vencida').length} factura(s) vencida(s) por un monto total de {fmtCur(totalVencido)}. Se recomienda gestionar la cobranza inmediatamente.
                             </p>
                             <Button variant="outline" size="sm" className="mt-3 rounded-xl text-[10px] font-bold uppercase tracking-wider h-9 border-amber-500/20 text-amber-500 hover:bg-amber-500/10 w-full transition-all">
                                 Gestionar Cobranza

@@ -11,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 import { motion } from "framer-motion";
+import { useCurrency } from "@/lib/currency-context";
+import { CurrencySelector } from "@/components/currency-selector";
 
 const facturacionModules = [
     {
@@ -76,12 +78,12 @@ const facturacionModules = [
 ];
 
 const recentActivity = [
-    { doc: "Factura #0089", client: "Inversiones Bolívar C.A.", amount: "$1,250.00", status: "Pagada", date: "28/03/2026", type: "factura" },
-    { doc: "Factura #0088", client: "Tech Solutions VE", amount: "$3,480.00", status: "Pendiente", date: "27/03/2026", type: "factura" },
-    { doc: "N/C #0012", client: "Servicios Delta S.R.L.", amount: "-$450.00", status: "Procesada", date: "26/03/2026", type: "nota_credito" },
-    { doc: "Proforma #0045", client: "Constructora Norte C.A.", amount: "$8,900.00", status: "Enviada", date: "25/03/2026", type: "proforma" },
-    { doc: "Factura #0087", client: "Logística Express C.A.", amount: "$2,100.00", status: "Pagada", date: "24/03/2026", type: "factura" },
-    { doc: "N/D #0005", client: "Importadora Central", amount: "$320.00", status: "Emitida", date: "23/03/2026", type: "nota_debito" },
+    { doc: "Factura #0089", client: "Inversiones Bolívar C.A.", amount: 50000, status: "Pagada", date: "28/03/2026", type: "factura" },
+    { doc: "Factura #0088", client: "Tech Solutions VE", amount: 139200, status: "Pendiente", date: "27/03/2026", type: "factura" },
+    { doc: "N/C #0012", client: "Servicios Delta S.R.L.", amount: -18000, status: "Procesada", date: "26/03/2026", type: "nota_credito" },
+    { doc: "Proforma #0045", client: "Constructora Norte C.A.", amount: 356000, status: "Enviada", date: "25/03/2026", type: "proforma" },
+    { doc: "Factura #0087", client: "Logística Express C.A.", amount: 84000, status: "Pagada", date: "24/03/2026", type: "factura" },
+    { doc: "N/D #0005", client: "Importadora Central", amount: 12800, status: "Emitida", date: "23/03/2026", type: "nota_debito" },
 ];
 
 function AnimatedCounter({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
@@ -107,6 +109,7 @@ function AnimatedCounter({ value, prefix = "", suffix = "" }: { value: number; p
 
 export default function FacturacionPage() {
   const { toast } = useToast();
+  const { format: fmtCur } = useCurrency();
   const [isCorrecting, setIsCorrecting] = useState(false);
 
   const handleAutoCorrect = () => {
@@ -155,11 +158,12 @@ export default function FacturacionPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Ciclo de Vida Documental • Control de Ingresos 2026</p>
           </div>
           <motion.div
-            className="flex gap-3"
+            className="flex items-center gap-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
+            <CurrencySelector />
             <Button
               onClick={handleAutoCorrect}
               disabled={isCorrecting}
@@ -174,9 +178,9 @@ export default function FacturacionPage() {
 
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {[
-          { label: "Facturado Este Mes", val: 24850, prefix: "$", change: "+12.4%", up: true, icon: DollarSign, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+          { label: "Facturado Este Mes", val: 994000, isCurrency: true, change: "+12.4%", up: true, icon: DollarSign, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
           { label: "Documentos Emitidos", val: 89, change: "+8 hoy", up: true, icon: FileCheck, color: "text-blue-500", glow: "shadow-blue-500/20" },
-          { label: "Cuentas por Cobrar", val: 6230, prefix: "$", change: "14 pendientes", up: false, icon: Wallet, color: "text-amber-500", glow: "shadow-amber-500/20" },
+          { label: "Cuentas por Cobrar", val: 249200, isCurrency: true, change: "14 pendientes", up: false, icon: Wallet, color: "text-amber-500", glow: "shadow-amber-500/20" },
           { label: "Clientes Activos", val: 156, change: "+3 nuevos", up: true, icon: Users, color: "text-violet-500", glow: "shadow-violet-500/20" },
         ].map((kpi, i) => (
           <motion.div
@@ -202,7 +206,7 @@ export default function FacturacionPage() {
                 </div>
               </div>
               <p className="text-3xl font-black text-foreground tracking-tight">
-                <AnimatedCounter value={kpi.val} prefix={kpi.prefix || ""} />
+                {kpi.isCurrency ? fmtCur(kpi.val) : <AnimatedCounter value={kpi.val} />}
               </p>
               <div className="flex items-center gap-2 mt-2">
                 <div className={cn("flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold",
@@ -343,7 +347,7 @@ export default function FacturacionPage() {
                   </div>
                   <div className="text-right shrink-0 flex items-center gap-4">
                     <div>
-                      <p className={cn("text-sm font-black tabular-nums", item.amount.startsWith('-') ? "text-rose-500" : "text-foreground")}>{item.amount}</p>
+                      <p className={cn("text-sm font-black tabular-nums", item.amount < 0 ? "text-rose-500" : "text-foreground")}>{item.amount < 0 ? '-' : ''}{fmtCur(Math.abs(item.amount))}</p>
                       <div className="flex items-center gap-2 justify-end mt-0.5">
                         <span className={cn(
                           "text-[9px] font-bold uppercase px-2 py-0.5 rounded-md",
