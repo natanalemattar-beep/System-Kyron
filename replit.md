@@ -20,8 +20,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 
 **UI/UX Decisions:**
 - Application routes are organized under `src/app/[locale]/` with grouped routes for authentication, administration, main application, natural persons, HR, legal, sales, partners, and telecommunications.
-- Landing page redesigned as a clean, focused welcome screen with hero section showing only login/register access portals (7 module login cards). All extra sections (Features, Showcase, Services, AboutUs, Comments, CTA, FAQ) removed.
-- An intuitive mobile sidebar enhances navigation.
+- Visually driven landing pages and an intuitive mobile sidebar enhance navigation.
 - Registration processes feature custom prefix selectors, auto-hyphenation for RIF, SENIAT AI lookup for company data, SAIME cédula lookup with auto-fill, and rich result panels.
 - Document upload functionality is reusable with drag-and-drop zones and robust validation.
 - Venezuela geography data is used for cascading dropdowns in forms.

@@ -1,43 +1,73 @@
 'use client';
 
-import { ArrowRight, ShieldCheck, UserPlus, Sparkles, Lock, ChevronRight } from "lucide-react";
+import { ArrowRight, Play, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
-import { loginOptions } from "@/lib/login-options";
-import { cn } from "@/lib/utils";
 
-function FloatingParticles({ reduced }: { reduced?: boolean }) {
+function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
+    const [value, setValue] = useState(0);
+    const rafRef = useRef<number>(0);
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            let start: number | null = null;
+            const step = (ts: number) => {
+                if (!start) start = ts;
+                const progress = Math.min((ts - start) / (duration * 1000), 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                setValue(Math.round(eased * target));
+                if (progress < 1) {
+                    rafRef.current = requestAnimationFrame(step);
+                }
+            };
+            rafRef.current = requestAnimationFrame(step);
+        }, delay * 1000);
+        return () => {
+            clearTimeout(timeout);
+            cancelAnimationFrame(rafRef.current);
+        };
+    }, [target, duration, delay]);
+    return value;
+}
+
+function HexGrid({ reduced }: { reduced?: boolean }) {
     if (reduced) return null;
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none -z-[4]">
-            {[...Array(20)].map((_, i) => (
+            <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="hero-hex" x="0" y="0" width="56" height="100" patternUnits="userSpaceOnUse">
+                        <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#hero-hex)" />
+            </svg>
+            {[...Array(4)].map((_, i) => (
                 <motion.div
                     key={i}
                     className="absolute rounded-full"
                     animate={{
-                        y: [0, -30, 0],
-                        opacity: [0, 0.6, 0],
+                        opacity: [0.2, 0.5, 0.2],
+                        y: [0, -15, 0],
                     }}
                     transition={{
-                        duration: 4 + (i % 4) * 2,
+                        duration: 6 + i * 1.5,
                         repeat: Infinity,
-                        delay: i * 0.5,
+                        delay: i * 1.2,
                         ease: "easeInOut",
                     }}
                     style={{
-                        width: 2 + (i % 3),
-                        height: 2 + (i % 3),
-                        left: `${5 + (i * 4.7) % 90}%`,
-                        top: `${10 + (i * 7.3) % 80}%`,
-                        background: i % 3 === 0
-                            ? 'rgba(14,165,233,0.5)'
-                            : i % 3 === 1
-                                ? 'rgba(59,130,246,0.4)'
-                                : 'rgba(34,197,94,0.4)',
+                        width: 4 + (i % 3) * 2,
+                        height: 4 + (i % 3) * 2,
+                        left: `${20 + i * 18}%`,
+                        top: `${25 + (i % 3) * 25}%`,
+                        background: i % 2 === 0
+                            ? 'linear-gradient(135deg, rgba(14,165,233,0.4), rgba(34,197,94,0.2))'
+                            : 'linear-gradient(135deg, rgba(59,130,246,0.3), rgba(14,165,233,0.2))',
                     }}
                 />
             ))}
@@ -46,37 +76,30 @@ function FloatingParticles({ reduced }: { reduced?: boolean }) {
 }
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: (delay: number) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
-    })
-};
-
-const scaleIn = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: (delay: number) => ({
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }
+        transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }
     })
 };
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
-    const tHeader = useTranslations('LandingHeader');
+    const modulesCount = useCountUp(7, 2, 1);
+    const heroFeatures = t.raw('features') as string[];
+    const heroStats = t.raw('stats') as { val: string; label: string }[];
     const { tier, config } = useDevicePerformance();
 
     return (
-        <section id="inicio" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-hidden">
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
                     alt=""
                     fill
                     sizes="100vw"
-                    quality={90}
+                    quality={85}
                     className="object-cover dark:opacity-0"
                     priority
                 />
@@ -85,30 +108,32 @@ export function HeroSection() {
                     alt=""
                     fill
                     sizes="100vw"
-                    quality={90}
+                    quality={85}
                     className="object-cover opacity-0 dark:opacity-100"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/95 dark:from-[#020810]/80 dark:via-[#020810]/60 dark:to-[#020810]/95" />
-                <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-white/50 dark:from-[#020810]/50 dark:via-transparent dark:to-[#020810]/50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/50 dark:from-[#020810]/70 dark:via-transparent dark:to-[#020810]/50" />
             </div>
 
             {config.enableBlur && (
                 <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-[#0ea5e9]/[0.07] dark:bg-[#0ea5e9]/[0.05] blur-[150px] animate-[pulse_10s_ease-in-out_infinite]" />
-                    <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-[#3b82f6]/[0.06] dark:bg-[#3b82f6]/[0.04] blur-[120px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
-                    <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[400px] h-[400px] rounded-full bg-[#22c55e]/[0.05] dark:bg-[#22c55e]/[0.03] blur-[100px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
+                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.06] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
+                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.05] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.04] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
                 </div>
             )}
 
-            <FloatingParticles reduced={tier === 'low'} />
+            <HexGrid reduced={tier === 'low'} />
 
-            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-6xl relative z-10 pt-28 pb-12 sm:pt-32 md:pt-36 lg:pt-20 flex-1 flex items-center w-full">
-                <div className="w-full flex flex-col items-center gap-10 lg:gap-14">
+            <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[80%] kyron-accent-line opacity-30" />
 
-                    <div className="text-center space-y-6 max-w-3xl">
+            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-24 pb-8 sm:pt-28 md:pt-36 md:pb-24 flex-1 flex items-center w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+                    <div className="lg:col-span-6 space-y-5 sm:space-y-7 text-center lg:text-left">
                         <motion.div
-                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full liquid-glass-subtle"
+                            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full liquid-glass-subtle mx-auto lg:ml-0"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
@@ -119,7 +144,7 @@ export function HeroSection() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-[clamp(2rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
+                            className="text-[clamp(1.75rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
@@ -133,7 +158,7 @@ export function HeroSection() {
                         </motion.h1>
 
                         <motion.p
-                            className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto font-medium leading-relaxed"
+                            className="text-base md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 font-medium leading-relaxed"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
@@ -143,136 +168,138 @@ export function HeroSection() {
                         </motion.p>
 
                         <motion.div
-                            className="flex flex-col sm:flex-row justify-center gap-4 pt-2"
+                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
                             custom={0.2}
                         >
-                            <Button asChild size="lg" className="relative h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.4)] hover:scale-[1.02] active:scale-[0.98]">
-                                <Link href="/login" className="flex items-center gap-3 justify-center">
+                            <Button asChild size="lg" className="relative h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)]">
+                                <Link href="/login" className="flex items-center gap-2 sm:gap-3 justify-center">
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                    <ShieldCheck className="h-5 w-5" />
-                                    {tHeader('access')}
-                                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                                    {t('cta_main')} <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-14 px-10 text-xs font-bold uppercase tracking-widest rounded-2xl border-2 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/50 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 hover:shadow-[0_8px_30px_-8px_rgba(16,185,129,0.25)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]">
-                                <Link href="/register" className="flex items-center gap-3 justify-center">
-                                    <UserPlus className="h-5 w-5" />
-                                    {tHeader('register')}
+                            <Button variant="outline" asChild size="lg" className="h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground/80 dark:text-white/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white transition-all duration-500 backdrop-blur-sm">
+                                <Link href="/manual-usuario" className="flex items-center gap-2">
+                                    <Play className="h-4 w-4" />
+                                    {t('cta_secondary')}
                                 </Link>
                             </Button>
                         </motion.div>
 
                         <motion.div
-                            className="flex items-center justify-center gap-6 pt-2"
+                            className="flex justify-center lg:justify-start pt-1"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"
                             custom={0.25}
                         >
-                            <div className="flex items-center gap-1.5 text-muted-foreground/50">
-                                <Lock className="h-3 w-3" />
-                                <span className="text-[10px] font-medium uppercase tracking-wider">AES-256</span>
-                            </div>
-                            <div className="w-px h-3 bg-border/30" />
-                            <div className="flex items-center gap-1.5 text-muted-foreground/50">
-                                <ShieldCheck className="h-3 w-3" />
-                                <span className="text-[10px] font-medium uppercase tracking-wider">SSL/TLS</span>
-                            </div>
-                            <div className="w-px h-3 bg-border/30" />
-                            <div className="flex items-center gap-1.5 text-muted-foreground/50">
-                                <Sparkles className="h-3 w-3" />
-                                <span className="text-[10px] font-medium uppercase tracking-wider">IA Integrada</span>
-                            </div>
+                            <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 dark:text-white/30 hover:text-[#0ea5e9] dark:hover:text-sky-400 transition-colors duration-300">
+                                <Play className="h-3 w-3 group-hover:scale-110 transition-transform" />
+                                <span>¿Cómo registrarse? — Ver tutorial paso a paso</span>
+                                <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                            </Link>
+                        </motion.div>
+
+                        <motion.div
+                            className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 pt-4"
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={0.3}
+                        >
+                            {heroFeatures.map((feat, i) => (
+                                <div key={i} className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-3.5 w-3.5 text-[#22c55e]" />
+                                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{feat}</span>
+                                </div>
+                            ))}
                         </motion.div>
                     </div>
 
                     <motion.div
-                        className="w-full max-w-4xl"
-                        variants={scaleIn}
-                        initial="hidden"
-                        animate="visible"
-                        custom={0.3}
+                        className="hidden lg:block lg:col-span-6 relative"
+                        initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="relative">
+                        <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             {config.enableBlur && (
-                                <div className="absolute -inset-4 rounded-[2rem] opacity-50" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.1), rgba(59,130,246,0.1), rgba(34,197,94,0.1))', filter: 'blur(40px)' }} />
+                                <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
                             )}
-
-                            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.12)] dark:shadow-[0_24px_80px_-20px_rgba(0,0,0,0.5)] liquid-glass p-4 sm:p-6">
+                            
+                            <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
-
-                                <div className="mb-4 sm:mb-5">
-                                    <div className="flex items-center gap-2.5">
-                                        <div className="h-8 w-8 rounded-xl flex items-center justify-center kyron-gradient-bg shadow-md shadow-primary/20">
-                                            <Sparkles className="h-4 w-4 text-white" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-bold text-foreground tracking-tight">Portales de Acceso</p>
-                                            <p className="text-[10px] text-muted-foreground/50 font-medium">Selecciona tu módulo para iniciar sesión</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3">
-                                    {loginOptions.map((option, i) => (
-                                        <motion.div
-                                            key={option.href}
-                                            initial={{ opacity: 0, y: 15 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.4 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                        >
-                                            <Link
-                                                href={option.href as any}
-                                                className="flex items-center gap-3 p-3.5 rounded-xl border border-border/20 dark:border-white/8 bg-background/50 dark:bg-white/[0.03] hover:bg-background/80 dark:hover:bg-white/[0.07] hover:border-border/40 dark:hover:border-white/15 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group"
-                                            >
-                                                <div className={cn(
-                                                    "h-10 w-10 rounded-xl bg-gradient-to-br flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition-all duration-300",
-                                                    option.gradient
-                                                )}>
-                                                    <option.icon className="h-4 w-4" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <span className="text-[12px] font-bold text-foreground/80 group-hover:text-foreground transition-colors block leading-tight">{option.label}</span>
-                                                    <p className="text-[10px] text-muted-foreground/40 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
-                                                </div>
-                                                <ChevronRight className="h-4 w-4 text-muted-foreground/15 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
-                                            </Link>
-                                        </motion.div>
-                                    ))}
-                                </div>
-
-                                <div className="mt-4 sm:mt-5 pt-4 border-t border-border/10 dark:border-white/5">
-                                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                                        <Link
-                                            href="/login"
-                                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/[0.06] hover:bg-primary/[0.12] border border-primary/15 hover:border-primary/25 transition-all group"
-                                        >
-                                            <ShieldCheck className="h-3.5 w-3.5 text-primary/60 group-hover:text-primary transition-colors" />
-                                            <span className="text-[11px] font-bold text-primary/70 group-hover:text-primary transition-colors">Ver todos los servicios</span>
-                                            <ArrowRight className="h-3 w-3 text-primary/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                                        </Link>
-                                        <span className="text-[10px] text-muted-foreground/30 hidden sm:inline">|</span>
-                                        <Link
-                                            href="/register"
-                                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/[0.06] hover:bg-emerald-500/[0.12] border border-emerald-500/15 hover:border-emerald-500/25 transition-all group"
-                                        >
-                                            <UserPlus className="h-3.5 w-3.5 text-emerald-500/60 group-hover:text-emerald-500 transition-colors" />
-                                            <span className="text-[11px] font-bold text-emerald-500/70 group-hover:text-emerald-500 transition-colors">Crear cuenta nueva</span>
-                                            <ArrowRight className="h-3 w-3 text-emerald-500/40 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all" />
-                                        </Link>
-                                    </div>
-                                </div>
+                                <Image
+                                    src="/images/landing/hero-dashboard.webp"
+                                    alt="System Kyron Dashboard"
+                                    width={800}
+                                    height={450}
+                                    quality={90}
+                                    className="w-full h-auto"
+                                    priority
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-[#020810]/40 via-transparent to-transparent" />
                             </div>
+
+                            <motion.div
+                                className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 liquid-glass animate-glass-breathe"
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.4 }}
+                            >
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center kyron-gradient-bg">
+                                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{t('modules_label')}</p>
+                                        <p className="text-base sm:text-lg font-bold text-[#22c55e] tabular-nums">{modulesCount}+</p>
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </motion.div>
 
                 </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-[5]" />
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
+
+            <motion.div
+                className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
+            >
+                <div className="container mx-auto px-4 md:px-10 max-w-7xl">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {heroStats.map((s, i) => {
+                            const gradients = [
+                                { text: "text-[#0ea5e9]" },
+                                { text: "text-[#3b82f6]" },
+                                { text: "text-[#06b6d4]" },
+                                { text: "text-[#22c55e]" },
+                            ];
+                            const g = gradients[i % gradients.length];
+                            return (
+                                <motion.div
+                                    key={i}
+                                    className="flex flex-col items-center gap-0.5 p-2 sm:p-3 rounded-xl sm:rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.55 + i * 0.06, duration: 0.35 }}
+                                >
+                                    <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
+                                    <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider sm:tracking-widest">{s.label}</p>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </motion.div>
         </section>
     );
 }
