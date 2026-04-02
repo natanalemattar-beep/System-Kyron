@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
 import { sendWhatsAppMessage } from '@/lib/whatsapp-service';
+import { generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 
 export const dynamic = 'force-dynamic';
 
@@ -97,16 +98,30 @@ export async function POST(req: NextRequest) {
     );
 
     if (tipo === 'email') {
+      let magicLink: string | undefined;
+      const user = await queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [destino.toLowerCase()]);
+      if (user) {
+        const token = generateMagicToken();
+        await storeMagicToken(destino, token, user.id);
+        const baseUrl = process.env.REPLIT_DEPLOYMENT_URL
+          ? `https://${process.env.REPLIT_DEPLOYMENT_URL}`
+          : process.env.REPLIT_DEV_DOMAIN
+          ? `https://${process.env.REPLIT_DEV_DOMAIN}`
+          : (process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+        magicLink = `${baseUrl}/es/verify-link/${token}`;
+      }
+
       const html = buildKyronEmailTemplate({
-        title: 'Verificación de Correo Electrónico',
-        body: 'Usa el siguiente código para verificar tu cuenta en System Kyron.',
+        title: 'Verificación de Identidad',
+        body: 'Verifica tu identidad haciendo clic en el botón o ingresando el código de verificación.',
         code: codigo,
-        footer: 'Si no solicitaste este código, ignora este correo.',
+        magicLink,
+        footer: 'Si no solicitaste este código, ignora este correo. El enlace y el código expiran en 10 minutos.',
       });
 
       const result = await sendEmail({
         to: destino,
-        subject: `${codigo} — Código de Verificación · System Kyron`,
+        subject: `${codigo} — Verificación de Identidad · System Kyron`,
         html,
         module: 'auth',
         purpose: 'verification',
