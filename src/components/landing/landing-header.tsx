@@ -138,11 +138,12 @@ export function LandingHeader() {
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button data-guide="access" className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-0 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
-                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                        <ShieldCheck className="h-3 w-3 mr-2 group-hover:scale-110 transition-transform" /> 
+                                    <Button data-guide="access" className="rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-0 text-white shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.04] active:scale-[0.97] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#06b6d4] via-[#0ea5e9] via-[#3b82f6] to-[#8b5cf6] bg-[length:300%_100%] animate-gradient-flow">
+                                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                                        <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20" />
+                                        <ShieldCheck className="h-3.5 w-3.5 mr-2 group-hover:scale-110 transition-transform drop-shadow-sm" /> 
                                         {t('access')}
-                                        <ChevronDown className="h-2.5 w-2.5 ml-1.5 opacity-60" />
+                                        <ChevronDown className="h-2.5 w-2.5 ml-1.5 opacity-70" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-[min(520px,calc(100vw-2rem))] p-0 rounded-2xl border-border/30 bg-card/98 backdrop-blur-3xl shadow-2xl shadow-black/[0.08] overflow-hidden">
@@ -258,12 +259,13 @@ export function LandingHeader() {
                                             {t('register')}
                                         </Link>
                                     </Button>
-                                    <Button asChild className="w-full h-12 rounded-2xl font-black text-xs uppercase tracking-widest border-0 text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#0ea5e9] via-[#3b82f6] to-[#0ea5e9] bg-[length:200%_100%] animate-gradient-flow">
+                                    <Button asChild className="w-full h-12 rounded-2xl font-black text-xs uppercase tracking-widest border-0 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group bg-gradient-to-r from-[#06b6d4] via-[#0ea5e9] via-[#3b82f6] to-[#8b5cf6] bg-[length:300%_100%] animate-gradient-flow">
                                         <Link href="/login" className="flex items-center justify-center gap-2.5">
-                                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                            <ShieldCheck className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                                            <span className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/20" />
+                                            <ShieldCheck className="h-4 w-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" />
                                             {t('access')}
-                                            <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 transition-transform duration-300" />
+                                            <ArrowRight className="h-3.5 w-3.5 opacity-80 group-hover:translate-x-1 transition-transform duration-300" />
                                         </Link>
                                     </Button>
                                 </div>
