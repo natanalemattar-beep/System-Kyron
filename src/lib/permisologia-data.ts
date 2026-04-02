@@ -2711,6 +2711,46 @@ export const tiposPermiso: PermisoTipo[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════
+  // SENIAT — JURISDICCIONES DE BAJA IMPOSICIÓN FISCAL (PARAÍSOS FISCALES)
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: 'SENIAT-BAJA-IMPOSICION-DECLARACION',
+    nombre: 'Declaración Informativa de Inversiones en Jurisdicciones de Baja Imposición Fiscal',
+    organismoId: 'SENIAT',
+    descripcion: 'Obligación de presentar ante el SENIAT una declaración informativa sobre las inversiones efectuadas o mantenidas en jurisdicciones de baja imposición fiscal (comúnmente denominados "paraísos fiscales"). SUJETOS OBLIGADOS: Personas naturales residentes en Venezuela y personas jurídicas domiciliadas en el país que posean inversiones, cuentas bancarias, bienes, acciones, participaciones societarias, fideicomisos, fondos de inversión u otros activos en jurisdicciones clasificadas como de baja imposición fiscal por el SENIAT. JURISDICCIONES DE BAJA IMPOSICIÓN: Incluye países y territorios con tasa del ISLR menor al 20% o que no intercambian información tributaria con Venezuela (lista oficial del SENIAT incluye: Panamá, Islas Caimán, Islas Vírgenes Británicas, Bahamas, Bermudas, Curazao, Aruba, Luxemburgo, Liechtenstein, Mónaco, Andorra, entre otros). CONTENIDO DE LA DECLARACIÓN: Tipo de inversión, jurisdicción, monto invertido, rendimientos obtenidos, instituciones financieras involucradas, fecha de constitución, beneficiarios efectivos. PLAZO: Debe presentarse conjuntamente con la declaración definitiva de ISLR del ejercicio fiscal correspondiente. SANCIONES: La omisión o presentación con datos falsos constituye ilícito tributario sancionado con multa de 100 a 500 UT, sin perjuicio de las acciones penales por defraudación tributaria.',
+    vigencia: 12,
+    requisitosInscripcion: ['Poseer inversiones o activos en jurisdicciones de baja imposición fiscal', 'RIF vigente', 'Descargar formato oficial del portal SENIAT', 'Completar la declaración informativa con datos de todas las inversiones'],
+    requisitosRenovacion: ['Presentar anualmente junto con la declaración definitiva de ISLR', 'Actualizar datos de inversiones mantenidas, adquiridas o enajenadas', 'Reportar cambios en montos, jurisdicciones y beneficiarios'],
+    costoEstimado: 'Gratuito (declaración informativa obligatoria)',
+    baseLegal: 'Ley de ISLR Art. 100-109 (Transparencia Fiscal Internacional), Providencia SENIAT sobre Jurisdicciones de Baja Imposición',
+    aplica: ['todos'],
+  },
+  {
+    id: 'SENIAT-BAJA-IMPOSICION-MANUAL-USUARIO',
+    nombre: 'Manual de Usuario — Declaración Inversiones en Jurisdicciones de Baja Imposición Fiscal',
+    organismoId: 'SENIAT',
+    descripcion: 'Manual de usuario oficial del SENIAT con las instrucciones paso a paso para completar y presentar la Declaración Informativa de Inversiones en Jurisdicciones de Baja Imposición Fiscal. CONTENIDO DEL MANUAL: 1) ACCESO AL SISTEMA: Ingreso al portal fiscal del SENIAT con usuario y clave, navegación al módulo de declaraciones informativas. 2) LLENADO DEL FORMATO: Identificación del declarante (RIF, razón social, domicilio fiscal), datos de cada inversión (tipo, jurisdicción, entidad financiera, monto en moneda original y equivalente en bolívares, fecha de constitución/adquisición, rendimientos del período). 3) TIPOS DE INVERSIONES DECLARABLES: Cuentas bancarias, depósitos a plazo, acciones y participaciones en sociedades extranjeras, fondos de inversión, bonos y valores, bienes inmuebles, fideicomisos, contratos de seguros, préstamos otorgados, derechos de propiedad intelectual registrados en esas jurisdicciones. 4) ENVÍO Y CONFIRMACIÓN: Proceso de validación, generación del comprobante de recepción, archivo del acuse de recibo. 5) CORRECCIONES: Procedimiento para sustitutivas en caso de errores.',
+    vigencia: null,
+    requisitosInscripcion: ['Descargar desde portal SENIAT → Información de Interés → Jurisdicciones de Baja Imposición'],
+    requisitosRenovacion: ['Consultar versión actualizada del manual cada año fiscal'],
+    costoEstimado: 'Gratuito (guía informativa)',
+    baseLegal: 'Ley de ISLR Art. 100-109, Providencia SENIAT sobre Jurisdicciones de Baja Imposición',
+    aplica: ['todos'],
+  },
+  {
+    id: 'SENIAT-BAJA-IMPOSICION-MANUAL-TECNICO',
+    nombre: 'Manual Técnico — Declaración Inversiones en Jurisdicciones de Baja Imposición Fiscal',
+    organismoId: 'SENIAT',
+    descripcion: 'Manual técnico oficial del SENIAT con las especificaciones para sistemas informáticos y contadores que procesan la Declaración Informativa de Inversiones en Jurisdicciones de Baja Imposición Fiscal. CONTENIDO TÉCNICO: 1) ESTRUCTURA DEL ARCHIVO: Especificación del formato de datos (XML/CSV) para carga masiva cuando el contribuyente tiene múltiples inversiones en varias jurisdicciones. 2) CAMPOS OBLIGATORIOS: Código de jurisdicción (según lista SENIAT), tipo de inversión (catálogo de códigos), moneda original (código ISO 4217), monto en moneda extranjera, tipo de cambio aplicable (BCV), monto equivalente en bolívares, fecha de adquisición (formato AAAA-MM-DD), rendimientos brutos del período, impuestos pagados en la jurisdicción extranjera. 3) VALIDACIONES: Reglas de integridad de datos, totales que deben cuadrar, cruces con la declaración de ISLR. 4) ERRORES COMUNES: Códigos de jurisdicción inválidos, montos inconsistentes, omisión de campos obligatorios. 5) INTEGRACIÓN CON ISLR: Cómo se vincula la declaración informativa con la declaración definitiva de rentas.',
+    vigencia: null,
+    requisitosInscripcion: ['Descargar desde portal SENIAT → Información de Interés → Jurisdicciones de Baja Imposición'],
+    requisitosRenovacion: ['Consultar actualizaciones técnicas del formato'],
+    costoEstimado: 'Gratuito (especificación técnica)',
+    baseLegal: 'Ley de ISLR Art. 100-109, COT Art. 145 (deberes formales)',
+    aplica: ['todos'],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
   // GACETA OFICIAL — PUBLICACIONES LEGALES OBLIGATORIAS
   // ═══════════════════════════════════════════════════════════════
   {
