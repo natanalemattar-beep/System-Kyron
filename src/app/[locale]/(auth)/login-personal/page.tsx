@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
@@ -187,9 +188,7 @@ export default function LoginPersonalPage() {
           </div>
 
           <div className="relative z-10 space-y-8">
-            <div className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg">
-              <Fingerprint className="h-7 w-7 text-white" />
-            </div>
+            <Logo className="h-14 w-14 drop-shadow-lg" />
             <div className="space-y-3">
               <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">Mi Cuenta Personal</h1>
               <p className="text-sm font-medium text-white/70 leading-relaxed max-w-sm">Gestión de identidad, trámites civiles y bóveda digital ciudadana.</p>

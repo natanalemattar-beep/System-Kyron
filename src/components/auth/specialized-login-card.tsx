@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -341,12 +342,11 @@ export function SpecializedLoginCard({
 
           <div className="relative z-10 space-y-8">
             <motion.div
-              className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
             >
-              <Icon className="h-7 w-7 text-white" />
+              <Logo className="h-14 w-14 drop-shadow-lg" />
             </motion.div>
             <div className="space-y-3">
               <motion.h1

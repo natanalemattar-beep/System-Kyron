@@ -1,70 +1,18 @@
 
 import { cn } from "@/lib/utils";
-
-/**
- * @fileOverview Logo Institucional de System Kyron v2.8.5.
- * Diseño HUD de precisión: Hexágono negro, glifo de inducción neón y nodo de inteligencia central.
- */
+import Image from "next/image";
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
   return (
-    <div className={cn("relative flex items-center justify-center", className)}>
-      <svg
-        id={id}
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
-      >
-        <defs>
-          <linearGradient id="logo-gradient-master" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#0ea5e9" />
-            <stop offset="100%" stopColor="#22c55e" />
-          </linearGradient>
-          
-          <linearGradient id="hex-gradient-master" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="#0ea5e9" />
-            <stop offset="100%" stopColor="#22c55e" />
-          </linearGradient>
-
-          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-        
-        {/* Hexágono Negro de Fondo */}
-        <path
-          d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
-          fill="#050505"
-        />
-
-        {/* Borde del Hexágono con Gradiente */}
-        <path
-          d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
-          stroke="url(#hex-gradient-master)"
-          strokeWidth="3"
-          strokeLinejoin="round"
-        />
-        
-        {/* Glifo de Inducción Neón (Ángulo) */}
-        <g filter="url(#glow)">
-          <path
-            d="M65 30L40 50L65 70"
-            stroke="url(#logo-gradient-master)"
-            strokeWidth="12"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          {/* Nodo de Inteligencia Central */}
-          <circle cx="40" cy="50" r="5" fill="#ffffff" />
-          <circle cx="40" cy="50" r="2" fill="#22c55e" />
-        </g>
-
-        {/* Sensores de Precisión */}
-        <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
-        <circle cx="50" cy="95" r="2" fill="#22c55e" />
-      </svg>
+    <div id={id} className={cn("relative flex items-center justify-center shrink-0", className)}>
+      <Image
+        src="/images/logo-transparent.png"
+        alt="System Kyron"
+        width={512}
+        height={512}
+        className="w-full h-full object-contain"
+        priority
+      />
     </div>
   );
 }
