@@ -180,10 +180,10 @@ export default function FacturasLineaPage() {
                       </TableCell>
                       <TableCell className="text-right pr-5">
                         <div className="flex gap-1 justify-end">
-                          <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md" onClick={() => toast({ title: "Factura", description: `Visualizando factura ${f.numero_factura || f.id}` })}>
+                          <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'factura', descripcion: "Factura" }) }); if (res.ok) toast({ title: "Factura", description: `Visualizando factura ${f.numero_factura || f.id}` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                             <Eye className="h-3.5 w-3.5" />
                           </Button>
-                          <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md" onClick={() => toast({ title: "Descarga", description: "Generando PDF..." })}>
+                          <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'descarga', descripcion: "Descarga" }) }); if (res.ok) toast({ title: "Descarga", description: "Generando PDF..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                             <Download className="h-3.5 w-3.5" />
                           </Button>
                         </div>

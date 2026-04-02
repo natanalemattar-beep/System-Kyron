@@ -43,7 +43,7 @@ export default function DeclaracionesAnterioresPage() {
             <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                 <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row justify-between items-center">
                     <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Historial de Cumplimiento Certificado</CardTitle>
-                    <Button variant="outline" size="sm" className="h-9 px-4 rounded-xl text-[9px] font-black uppercase border-border" onClick={() => toast({ title: "SINCRONIZANDO ARCHIVO" })}>ACTUALIZAR</Button>
+                    <Button variant="outline" size="sm" className="h-9 px-4 rounded-xl text-[9px] font-black uppercase border-border" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'sincronizar_declaraciones', descripcion: 'Sincronización de archivo de declaraciones anteriores' }) }); if (res.ok) toast({ title: "SINCRONIZANDO ARCHIVO", description: "Actualización registrada." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>ACTUALIZAR</Button>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
@@ -64,7 +64,7 @@ export default function DeclaracionesAnterioresPage() {
                                     <TableCell className="py-6 text-center text-[10px] font-bold text-muted-foreground uppercase">{row.period}</TableCell>
                                     <TableCell className="text-right py-6 font-mono text-sm font-black text-foreground/70 italic">{formatCurrency(row.amount, 'Bs.')}</TableCell>
                                     <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary" onClick={() => toast({ title: "COMPROBANTE DIGITAL", description: "Visualizando comprobante de declaración." })}>
+                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'comprobante_declaracion', descripcion: 'Visualización de comprobante de declaración' }) }); if (res.ok) toast({ title: "COMPROBANTE DIGITAL", description: "Visualizando comprobante de declaración." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                                             <Eye className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
@@ -77,7 +77,7 @@ export default function DeclaracionesAnterioresPage() {
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
                         <ShieldCheck className="h-4 w-4 text-primary" /> Sellado de Tiempo Inmutable RFC 3161
                     </div>
-                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "EXPORTACIÓN XML", description: "Lote de declaraciones anteriores exportado en formato XML." })}>DESCARGAR LOTE XML</Button>
+                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'exportacion_xml', descripcion: 'Exportación lote declaraciones anteriores en XML' }) }); if (res.ok) toast({ title: "EXPORTACIÓN XML", description: "Lote de declaraciones anteriores exportado en formato XML." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>DESCARGAR LOTE XML</Button>
                 </CardFooter>
             </Card>
         </div>

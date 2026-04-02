@@ -49,7 +49,7 @@ export default function FacturacionCorporativaPage() {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold"
-            onClick={() => toast({ title: "Exportando", description: "Generando reporte de facturación..." })}>
+            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'exportando', descripcion: "Exportando" }) }); if (res.ok) toast({ title: "Exportando", description: "Generando reporte de facturación..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
             <Download className="mr-1.5 h-3.5 w-3.5" /> Exportar
           </Button>
         </div>
@@ -94,7 +94,7 @@ export default function FacturacionCorporativaPage() {
               <CreditCard className="mr-2 h-4 w-4" /> Pagar Todo
             </Button>
             <Button variant="outline" className="rounded-xl font-bold text-xs h-11 px-6 border-white/20 text-white hover:bg-white/10"
-              onClick={() => toast({ title: "Descarga", description: "Generando factura consolidada PDF..." })}>
+              onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'descarga', descripcion: "Descarga" }) }); if (res.ok) toast({ title: "Descarga", description: "Generando factura consolidada PDF..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
               <Download className="mr-2 h-4 w-4" /> PDF
             </Button>
           </div>
@@ -147,7 +147,7 @@ export default function FacturacionCorporativaPage() {
                     <TableCell className="text-center text-[11px] text-muted-foreground">{f.vencimiento}</TableCell>
                     <TableCell className="text-right pr-5">
                       <Button variant="ghost" size="icon" className="h-7 w-7 rounded-md"
-                        onClick={() => toast({ title: "Descarga", description: `Generando PDF de ${f.id}...` })}>
+                        onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'descarga', descripcion: "Descarga" }) }); if (res.ok) toast({ title: "Descarga", description: `Generando PDF de ${f.id}...` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                         <Download className="h-3.5 w-3.5" />
                       </Button>
                     </TableCell>

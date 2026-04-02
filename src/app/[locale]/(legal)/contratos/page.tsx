@@ -298,14 +298,14 @@ export default function ContratosPage() {
                         variant="outline"
                         size="sm"
                         className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest"
-                        onClick={() => toast({ title: "DESCARGA INICIADA", description: `${contrato.titulo} — PDF generado.` })}
+                        onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'legal', subcategoria: 'descarga_iniciada', descripcion: "DESCARGA INICIADA" }) }); if (res.ok) toast({ title: "DESCARGA INICIADA", description: `${contrato.titulo} — PDF generado.` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                       >
                         <Download className="mr-1.5 h-3 w-3" /> PDF
                       </Button>
                       <Button
                         size="sm"
                         className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest btn-3d-primary"
-                        onClick={() => toast({ title: "VISTA PREVIA", description: `Abriendo ${contrato.titulo}` })}
+                        onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'legal', subcategoria: 'vista_previa', descripcion: "VISTA PREVIA" }) }); if (res.ok) toast({ title: "VISTA PREVIA", description: `Abriendo ${contrato.titulo}` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                       >
                         <Eye className="mr-1.5 h-3 w-3" /> VER
                       </Button>

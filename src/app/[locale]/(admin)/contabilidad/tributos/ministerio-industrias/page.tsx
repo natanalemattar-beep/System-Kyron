@@ -128,7 +128,7 @@ System Kyron, C.A.
                             <Button variant="outline" className="h-12 px-8 rounded-xl border-slate-200 text-slate-600 font-black uppercase text-[10px]" onClick={() => window.print()}>
                                 <Printer className="mr-3 h-4 w-4" /> IMPRIMIR
                             </Button>
-                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={() => toast({ title: "DESCARGA INICIADA" })}>
+                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'descarga_word_ministerio', descripcion: 'Descarga documento Word ministerio de industrias' }) }); if (res.ok) toast({ title: "DESCARGA INICIADA", description: "Documento generado correctamente." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                                 <Download className="mr-3 h-4 w-4" /> GUARDAR WORD
                             </Button>
                         </footer>

@@ -28,7 +28,7 @@ export default function ActivosInmobiliariosPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Registro de Propiedades • Valoración de Activos 2026</p>
         </div>
         <div className="flex gap-2">
-            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={() => toast({ title: "REPORTE GENERADO" })}>
+            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'exportar_inventario_inmobiliario', descripcion: 'Exportación de inventario inmobiliario' }) }); if (res.ok) toast({ title: "REPORTE GENERADO", description: "Su reporte ha sido registrado." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                 <Download className="mr-2 h-4 w-4" /> EXPORTAR INVENTARIO
             </Button>
             <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">

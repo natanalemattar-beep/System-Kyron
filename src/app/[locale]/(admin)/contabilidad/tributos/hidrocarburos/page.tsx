@@ -23,7 +23,7 @@ export default function HidrocarburosPage() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Hidrocarburos <span className="text-primary italic">y Minería</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Régimen Especial Sin Regalías • Providencia 0091</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => toast({ title: "DECLARACIÓN SECTORIAL INICIADA" })}>
+                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'declaracin_sectorial_iniciada', descripcion: "DECLARACIÓN SECTORIAL INICIADA" }) }); if (res.ok) toast({ title: "DECLARACIÓN SECTORIAL INICIADA" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                     <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR ACTIVIDAD
                 </Button>
             </header>

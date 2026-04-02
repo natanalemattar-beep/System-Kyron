@@ -23,7 +23,7 @@ export default function FonacitPage() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Aporte <span className="text-primary italic">FONACIT (LOCTI)</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Ley Orgánica de Ciencia, Tecnología e Innovación • 2026</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => toast({ title: "REGISTRO LOCTI INICIADO" })}>
+                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'registro_locti_iniciado', descripcion: "REGISTRO LOCTI INICIADO" }) }); if (res.ok) toast({ title: "REGISTRO LOCTI INICIADO" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                     <PlusCircle className="mr-3 h-4 w-4" /> DECLARAR APORTE
                 </Button>
             </header>

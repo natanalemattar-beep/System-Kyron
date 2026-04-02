@@ -50,11 +50,11 @@ export default function ReportesFlotaPage() {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold"
-            onClick={() => toast({ title: "Exportando", description: "Generando reporte Excel..." })}>
+            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'exportando', descripcion: "Exportando" }) }); if (res.ok) toast({ title: "Exportando", description: "Generando reporte Excel..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
             <Download className="mr-1.5 h-3.5 w-3.5" /> Excel
           </Button>
           <Button variant="outline" size="sm" className="h-9 rounded-lg text-xs font-semibold"
-            onClick={() => toast({ title: "Exportando", description: "Generando reporte PDF..." })}>
+            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'exportando', descripcion: "Exportando" }) }); if (res.ok) toast({ title: "Exportando", description: "Generando reporte PDF..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
             <FileText className="mr-1.5 h-3.5 w-3.5" /> PDF
           </Button>
         </div>

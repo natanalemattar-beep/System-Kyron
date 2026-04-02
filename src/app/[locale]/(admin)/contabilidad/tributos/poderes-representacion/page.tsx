@@ -111,7 +111,7 @@ System Kyron, C.A.
                             <Button variant="outline" className="h-12 px-8 rounded-xl border-slate-200 text-slate-600 font-black uppercase text-[10px]" onClick={() => window.print()}>
                                 <Printer className="mr-3 h-4 w-4" /> IMPRIMIR
                             </Button>
-                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={() => toast({ title: "CARTA SAREN LISTA" })}>
+                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'carta_saren_lista', descripcion: "CARTA SAREN LISTA" }) }); if (res.ok) toast({ title: "CARTA SAREN LISTA" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                                 <Download className="mr-3 h-4 w-4" /> EXPORTAR .DOC
                             </Button>
                         </footer>

@@ -88,7 +88,7 @@ export default function ClimaOrganizacionalPage() {
                                 Inyección de metodologías ágiles y gestión emocional para directivos. El sistema detecta perfiles con alto potencial de liderazgo basado en KPIs de equipo.
                             </p>
                         </div>
-                        <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "EVALUACIÓN 360° SOLICITADA", description: "Se programará una evaluación completa del clima organizacional." })}>SOLICITAR EVALUACIÓN 360</Button>
+                        <Button variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'rrhh', subcategoria: 'evaluacion_360', descripcion: 'Solicitud de evaluación 360° clima organizacional' }) }); if (res.ok) toast({ title: "EVALUACIÓN 360° SOLICITADA", description: "Se programará una evaluación completa del clima organizacional." }); else toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>SOLICITAR EVALUACIÓN 360</Button>
                     </Card>
 
                     <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-8 border border-white/5">

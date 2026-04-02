@@ -64,7 +64,7 @@ export default function ReportesGlobalPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Inteligencia de Negocios • Auditoría Consolidada 2026</p>
         </div>
         <div className="flex gap-3">
-            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50" onClick={() => toast({ title: "PROGRAMAR REPORTE", description: "Configure la frecuencia de envío automático de reportes." })}>
+            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'programar_reporte', descripcion: "PROGRAMAR REPORTE" }) }); if (res.ok) toast({ title: "PROGRAMAR REPORTE", description: "Configure la frecuencia de envío automático de reportes." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                 <Printer className="mr-2 h-4 w-4" /> IMPRIMIR TODO
             </Button>
             <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
@@ -103,7 +103,7 @@ export default function ReportesGlobalPage() {
                     </div>
                 </div>
                 <CardFooter className="p-0 pt-10">
-                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all" onClick={() => toast({ title: "DESCARGA INICIADA", description: "Lote de reportes exportado exitosamente." })}>DESCARGAR LOTE</Button>
+                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'descarga_iniciada', descripcion: "DESCARGA INICIADA" }) }); if (res.ok) toast({ title: "DESCARGA INICIADA", description: "Lote de reportes exportado exitosamente." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>DESCARGAR LOTE</Button>
 
                 </CardFooter>
             </Card>
@@ -123,7 +123,7 @@ export default function ReportesGlobalPage() {
                 <p className="text-lg font-medium italic text-white/60 leading-relaxed text-justify">
                     System Kyron transforma sus datos crudos en visiones estratégicas de alta densidad. El motor IA genera resúmenes gráficos que permiten a la directiva identificar cuellos de botella financieros en menos de 3 segundos de inspección.
                 </p>
-                <Button variant="secondary" className="h-14 px-10 rounded-2xl bg-white text-primary font-black uppercase text-[10px] tracking-[0.2em] shadow-glow" onClick={() => toast({ title: "HOLOGRAFÍA 3D", description: "Renderización holográfica de datos activada." })}>SOLICITAR VISTA 3D</Button>
+                <Button variant="secondary" className="h-14 px-10 rounded-2xl bg-white text-primary font-black uppercase text-[10px] tracking-[0.2em] shadow-glow" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'holografa_3d', descripcion: "HOLOGRAFÍA 3D" }) }); if (res.ok) toast({ title: "HOLOGRAFÍA 3D", description: "Renderización holográfica de datos activada." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>SOLICITAR VISTA 3D</Button>
             </div>
             <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 shadow-inner relative z-10">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3 italic">

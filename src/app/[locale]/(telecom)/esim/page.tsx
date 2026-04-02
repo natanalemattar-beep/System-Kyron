@@ -137,10 +137,10 @@ export default function ESimPage() {
                   </div>
                 </div>
                 <div className="flex gap-2 pt-1">
-                  <Button variant="outline" size="sm" className="rounded-lg text-[10px] h-8 flex-1" onClick={() => toast({ title: "QR generado", description: `Código QR de ${esim.nombre} listo.` })}>
+                  <Button variant="outline" size="sm" className="rounded-lg text-[10px] h-8 flex-1" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'qr_generado', descripcion: "QR generado" }) }); if (res.ok) toast({ title: "QR generado", description: `Código QR de ${esim.nombre} listo.` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                     <QrCode className="mr-1.5 h-3 w-3" /> Ver QR
                   </Button>
-                  <Button variant="outline" size="sm" className="rounded-lg text-[10px] h-8 flex-1" onClick={() => toast({ title: "Perfil descargado", description: "Archivo .esim generado." })}>
+                  <Button variant="outline" size="sm" className="rounded-lg text-[10px] h-8 flex-1" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'perfil_descargado', descripcion: "Perfil descargado" }) }); if (res.ok) toast({ title: "Perfil descargado", description: "Archivo .esim generado." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                     <Download className="mr-1.5 h-3 w-3" /> Descargar
                   </Button>
                 </div>

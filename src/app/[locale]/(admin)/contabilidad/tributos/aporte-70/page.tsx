@@ -23,7 +23,7 @@ export default function Aporte70Page() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Aporte <span className="text-primary italic">del 70%</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Servicios Desconcentrados y Entes Autónomos • Providencia 0091</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => toast({ title: "SOLICITUD INICIADA" })}>
+                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'aporte_70_registro', descripcion: 'Registro de aporte Ley del 70%' }) }); if (res.ok) toast({ title: "SOLICITUD INICIADA", description: "Registro recibido correctamente." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                     <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR APORTE
                 </Button>
             </header>
@@ -55,7 +55,7 @@ export default function Aporte70Page() {
                                             <p className="text-xs font-bold text-foreground">Mensual (Según RIF)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "TRÁMITE INICIADO", description: "Solicitud de registro Ley del 70% recibida. Un asesor fiscal le contactará." })}>INICIAR TRÁMITE</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'tramite_ley_70', descripcion: 'Trámite de registro Ley del 70%' }) }); if (res.ok) toast({ title: "TRÁMITE INICIADO", description: "Solicitud de registro Ley del 70% recibida. Un asesor fiscal le contactará." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>INICIAR TRÁMITE</Button>
                                 </div>
                             </div>
                         </CardContent>

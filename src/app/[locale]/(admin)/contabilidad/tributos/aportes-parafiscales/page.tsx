@@ -176,7 +176,7 @@ export default function AportesParafiscalesPage() {
                                     </div>
                                     
                                     <div className="mt-10 pt-10 border-t border-slate-100 dark:border-white/5">
-                                        <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={() => toast({ title: "TRÁMITE INICIADO", description: "Su solicitud de registro parafiscal ha sido recibida. Un asesor le contactará." })}>INICIAR TRÁMITE DE REGISTRO</Button>
+                                        <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'registro_parafiscal', descripcion: 'Solicitud de trámite de registro parafiscal' }) }); if (res.ok) toast({ title: "TRÁMITE INICIADO", description: "Su solicitud de registro parafiscal ha sido recibida. Un asesor le contactará." }); else toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>INICIAR TRÁMITE DE REGISTRO</Button>
                                     </div>
                                 </Card>
                             </div>
@@ -214,7 +214,7 @@ export default function AportesParafiscalesPage() {
 
                                         <div className="p-6 bg-black/40 rounded-[2rem] border border-white/5 flex flex-col items-center gap-4 text-center">
                                             <p className="text-[10px] font-black text-[#00A86B] uppercase tracking-widest italic">Autorización de Pago</p>
-                                            <Button variant="secondary" className="w-full bg-white text-[#0A2472] font-black uppercase text-[9px] tracking-widest h-12 rounded-xl shadow-xl" onClick={() => toast({ title: "KYRON WALLET", description: "Sincronizando con billetera digital. Recibirá confirmación por correo." })}>PAGAR CON KYRON WALLET</Button>
+                                            <Button variant="secondary" className="w-full bg-white text-[#0A2472] font-black uppercase text-[9px] tracking-widest h-12 rounded-xl shadow-xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'pago_parafiscal_wallet', descripcion: 'Pago parafiscal con Kyron Wallet' }) }); if (res.ok) toast({ title: "KYRON WALLET", description: "Sincronizando con billetera digital. Recibirá confirmación por correo." }); else toast({ title: "Error", description: "No se pudo procesar", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>PAGAR CON KYRON WALLET</Button>
                                         </div>
                                     </div>
                                 </Card>

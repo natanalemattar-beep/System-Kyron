@@ -64,7 +64,7 @@ export default function CertificacionesEmpresaPage() {
                             <div className="p-4 bg-white rounded-2xl shadow-inner border border-border">
                                 <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=cert-${cert.id}`} alt="QR Code" width={80} height={80} className="grayscale group-hover:grayscale-0 transition-all" />
                             </div>
-                            <Button variant="outline" className="w-full h-10 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "DESCARGA INICIADA" })}>DESCARGAR PDF</Button>
+                            <Button variant="outline" className="w-full h-10 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'descarga_iniciada', descripcion: "DESCARGA INICIADA" }) }); if (res.ok) toast({ title: "DESCARGA INICIADA" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>DESCARGAR PDF</Button>
                         </CardFooter>
                     </Card>
                 ))}

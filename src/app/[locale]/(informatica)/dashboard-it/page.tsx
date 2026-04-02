@@ -135,7 +135,7 @@ export default function DashboardITPage() {
         </div>
         <div className="flex gap-3">
           <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2"
-            onClick={() => toast({ title: "Verificación Iniciada", description: "Ejecutando health check en todos los sistemas..." })}>
+            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'verificacin_iniciada', descripcion: "Verificación Iniciada" }) }); if (res.ok) toast({ title: "Verificación Iniciada", description: "Ejecutando health check en todos los sistemas..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
             <RefreshCw className="h-4 w-4" /> HEALTH CHECK
           </Button>
         </div>

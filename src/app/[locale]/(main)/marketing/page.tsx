@@ -394,7 +394,7 @@ export default function MarketingDashboardPage() {
                             <Button 
                                 className="w-full mt-4 h-10 rounded-xl text-[9px] font-black uppercase tracking-widest" 
                                 variant={alt.recommended ? "default" : "outline"}
-                                onClick={() => toast({ title: "SOLICITUD INICIADA", description: `Se abrió el proceso de solicitud para: ${alt.name}` })}
+                                onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'marketing', subcategoria: 'solicitud_iniciada', descripcion: "SOLICITUD INICIADA" }) }); if (res.ok) toast({ title: "SOLICITUD INICIADA", description: `Se abrió el proceso de solicitud para: ${alt.name}` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                             >
                                 Solicitar Financiamiento
                             </Button>

@@ -80,7 +80,7 @@ export default function ConatelPage() {
                 </div>
                 <Button
                     className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest"
-                    onClick={() => toast({ title: "NUEVA SOLICITUD", description: "Formulario de solicitud CONATEL abierto. Complete los requisitos." })}
+                    onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'nueva_solicitud', descripcion: "NUEVA SOLICITUD" }) }); if (res.ok) toast({ title: "NUEVA SOLICITUD", description: "Formulario de solicitud CONATEL abierto. Complete los requisitos." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                 >
                     <Plus className="mr-2 h-4 w-4" /> NUEVA SOLICITUD
                 </Button>
@@ -138,7 +138,7 @@ export default function ConatelPage() {
                                         variant="outline"
                                         size="sm"
                                         className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest"
-                                        onClick={() => toast({ title: "DESCARGA INICIADA", description: `Certificado ${lic.id} generado en PDF.` })}
+                                        onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'descarga_iniciada', descripcion: "DESCARGA INICIADA" }) }); if (res.ok) toast({ title: "DESCARGA INICIADA", description: `Certificado ${lic.id} generado en PDF.` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                                     >
                                         <Download className="mr-1.5 h-3 w-3" /> PDF
                                     </Button>
@@ -146,7 +146,7 @@ export default function ConatelPage() {
                                         <Button
                                             size="sm"
                                             className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest btn-3d-primary"
-                                            onClick={() => toast({ title: "RENOVACIÓN INICIADA", description: "Expediente de renovación enviado a CONATEL." })}
+                                            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'renovacin_iniciada', descripcion: "RENOVACIÓN INICIADA" }) }); if (res.ok) toast({ title: "RENOVACIÓN INICIADA", description: "Expediente de renovación enviado a CONATEL." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                                         >
                                             <RefreshCw className="mr-1.5 h-3 w-3" /> RENOVAR
                                         </Button>

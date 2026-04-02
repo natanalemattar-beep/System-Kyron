@@ -124,7 +124,7 @@ export default function EstrategiasVentasPage() {
                 <Button
                     variant="outline"
                     className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50"
-                    onClick={() => toast({ title: "ANÁLISIS ACTUALIZADO", description: "Estrategias regeneradas con datos en tiempo real." })}
+                    onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'ventas', subcategoria: 'regenerar_estrategias_ia', descripcion: 'Regeneración de estrategias con IA' }) }); if (res.ok) toast({ title: "ANÁLISIS ACTUALIZADO", description: "Estrategias regeneradas con datos en tiempo real." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                 >
                     <RefreshCw className="mr-2 h-4 w-4" /> REGENERAR CON IA
                 </Button>

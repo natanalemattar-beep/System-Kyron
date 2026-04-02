@@ -55,7 +55,7 @@ export default function SeguridadPage() {
           </p>
         </div>
         <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
-          onClick={() => toast({ title: "Escaneo Iniciado", description: "Ejecutando análisis de vulnerabilidades en toda la infraestructura..." })}>
+          onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'escaneo_seguridad', descripcion: 'Escaneo de seguridad infraestructura completa' }) }); if (res.ok) toast({ title: "Escaneo Iniciado", description: "Ejecutando análisis de vulnerabilidades en toda la infraestructura..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
           <Zap className="h-4 w-4" /> ESCANEO DE SEGURIDAD
         </Button>
       </motion.header>

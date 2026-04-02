@@ -96,7 +96,7 @@ export default function RegistroRifPage() {
                         </CardContent>
                         <CardFooter className="pt-0">
                             <Button variant="outline" className="w-full h-10 rounded-xl border-border/30 text-[10px] font-bold uppercase tracking-widest gap-2"
-                                onClick={() => toast({ title: "Checklist generado" })}>
+                                onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'natural', subcategoria: 'checklist_generado', descripcion: "Checklist generado" }) }); if (res.ok) toast({ title: "Checklist generado" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                                 <Download className="h-3.5 w-3.5" /> Descargar Checklist
                             </Button>
                         </CardFooter>

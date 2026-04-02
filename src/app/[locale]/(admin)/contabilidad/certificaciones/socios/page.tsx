@@ -78,7 +78,7 @@ export default function CertificacionesSociosPage() {
                                         <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-6 px-3 rounded-lg">{socio.estatus}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary" onClick={() => toast({ title: "EXPEDIENTE ABIERTO" })}>
+                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'expediente_abierto', descripcion: "EXPEDIENTE ABIERTO" }) }); if (res.ok) toast({ title: "EXPEDIENTE ABIERTO" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
                                             <Eye className="h-4 w-4" />
                                         </Button>
                                     </TableCell>

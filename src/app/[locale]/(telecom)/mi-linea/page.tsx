@@ -570,7 +570,7 @@ export default function MiLineaPage() {
                   size="sm"
                   variant={plan.highlight ? "default" : "outline"}
                   className="w-full mt-3 h-8 rounded-lg text-[10px] font-bold"
-                  onClick={() => toast({ title: `Plan ${plan.name}`, description: `Seleccionaste el plan ${plan.name} — ${plan.data} por ${plan.price}/mes` })}
+                  onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'plan_planname', descripcion: `Plan ${plan.name}` }) }); if (res.ok) toast({ title: `Plan ${plan.name}`, description: `Seleccionaste el plan ${plan.name} — ${plan.data} por ${plan.price}/mes` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                 >
                   Contratar
                 </Button>
@@ -619,7 +619,7 @@ export default function MiLineaPage() {
                 variant="outline"
                 size="sm"
                 className="h-10 rounded-lg text-sm font-bold border-border/50 hover:border-primary/40 hover:bg-primary/5"
-                onClick={() => toast({ title: "Recarga procesada", description: `Se procesó la recarga de ${amount} exitosamente.` })}
+                onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'recarga_procesada', descripcion: "Recarga procesada" }) }); if (res.ok) toast({ title: "Recarga procesada", description: `Se procesó la recarga de ${amount} exitosamente.` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
               >
                 {amount}
               </Button>

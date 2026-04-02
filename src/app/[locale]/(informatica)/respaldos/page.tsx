@@ -107,7 +107,7 @@ export default function RespaldosPage() {
           </p>
         </div>
         <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
-          onClick={() => toast({ title: "Respaldo Manual Iniciado", description: "Ejecutando respaldo completo de todos los sistemas..." })}>
+          onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'respaldo_manual', descripcion: 'Respaldo manual completo de todos los sistemas' }) }); if (res.ok) toast({ title: "Respaldo Manual Iniciado", description: "Ejecutando respaldo completo de todos los sistemas..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
           <Zap className="h-4 w-4" /> RESPALDO AHORA
         </Button>
       </motion.header>
