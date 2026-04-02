@@ -9,9 +9,9 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { ThemeImage } from '@/components/ui/theme-image';
 
 const featuresMeta = [
-    { darkImage: "/images/landing/screenshot-contabilidad-dark.jpg", lightImage: "/images/landing/screenshot-contabilidad-light.jpg", icon: Receipt, color: "from-primary to-blue-600" },
-    { darkImage: "/images/landing/screenshot-portales-dark.jpg", lightImage: "/images/landing/screenshot-portales-light.jpg", icon: Lock, color: "from-emerald-500 to-cyan-600" },
-    { darkImage: "/images/landing/screenshot-faq-dark.jpg", lightImage: "/images/landing/screenshot-faq-light.jpg", icon: Sparkles, color: "from-violet-500 to-purple-600" },
+    { darkImage: "/images/landing/services-contabilidad.png", lightImage: "/images/landing/services-contabilidad.png", icon: Receipt, color: "from-primary to-blue-600" },
+    { darkImage: "/images/landing/services-seguridad.png", lightImage: "/images/landing/services-seguridad.png", icon: Lock, color: "from-emerald-500 to-cyan-600" },
+    { darkImage: "/images/landing/services-ia.png", lightImage: "/images/landing/services-ia.png", icon: Sparkles, color: "from-violet-500 to-purple-600" },
 ];
 
 const statsMeta = [

@@ -1,5 +1,22 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "9gqnGtpuWvqX4Z74sPz-4"
+uri = "file://public/images/landing/services-contabilidad.png"
+type = "image"
+title = "accounting dashboard illustration"
+
+[[generated]]
+id = "3g6uO8BGylYDbcqWqD_S_"
+uri = "file://public/images/landing/services-seguridad.png"
+type = "image"
+title = "cybersecurity shield illustration"
+
+[[generated]]
+id = "EQ9znwCFKcRG6H0hSepVO"
+uri = "file://public/images/landing/services-ia.png"
+type = "image"
+title = "AI assistant illustration"
 
 [[outputs]]
 id = "y_cROB4qJJJl7zjUHR2Ar"
