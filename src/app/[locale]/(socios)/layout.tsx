@@ -2,6 +2,7 @@
 
 import { AppHeader } from "@/components/app-header";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 
@@ -37,6 +38,7 @@ export default function SociosLayout({
                 </p>
               </footer>
           </div>
+          <ScrollToTop />
           <LazyChatDialog />
       </div>
     );

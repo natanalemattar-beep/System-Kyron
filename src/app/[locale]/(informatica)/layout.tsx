@@ -5,6 +5,7 @@ import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { informaticaNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export default function InformaticaLayout({
   children,
@@ -40,6 +41,7 @@ export default function InformaticaLayout({
                 </p>
               </footer>
           </div>
+          <ScrollToTop />
           <LazyChatDialog />
       </div>
     );

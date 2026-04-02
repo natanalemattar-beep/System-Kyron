@@ -5,6 +5,7 @@ import { AppHeader } from "@/components/app-header";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { PageTracker } from "@/components/page-tracker";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
@@ -39,6 +40,7 @@ export default function MainLayout({
                 </p>
               </footer>
           </div>
+          <ScrollToTop />
           <WelcomeTutorial />
           <LazyChatDialog />
       </div>

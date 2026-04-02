@@ -41,6 +41,10 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences.
 - **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion.
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
+- **Global Search (Ctrl+K/Cmd+K):** Command palette for instant navigation to any module/page. Indexed 35+ pages with keyword search.
+- **Scroll-to-Top Button:** Floating button on all portal layouts for easy navigation on long pages.
+- **Custom Scrollbars:** Styled thin scrollbars across the entire app for a polished look.
+- **Focus States:** Improved accessibility with consistent focus-visible outlines.
 - **Document Authenticity Verification (AI-Powered):** Multi-layer verification using Claude Vision AI for Venezuelan documents, checking integrity, metadata, and visual content.
 - **Real Automation Engine:** Database-backed system with 9 scheduled rules (BCV Sync, Fiscal Alerts, Regulatory Monitor, Health Check, Blockchain Batch, Session Cleanup, Invoice Reminders, Activity Digest, Email Automation), execution logging, and a live dashboard.
 - **Automated Email System:** 10 email automation templates (welcome, verification, invoice issued/overdue, payroll, contract signed, fiscal alert, weekly summary, payment reminder, plan change) backed by `email_automaticos` table with scheduling, logging, and multi-channel delivery (Gmail, Outlook, SMS, WhatsApp).

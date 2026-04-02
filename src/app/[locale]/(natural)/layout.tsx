@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/ui/motion";
 import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { PageTracker } from "@/components/page-tracker";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 /**
  * @fileOverview Layout del Portal Natural (Ciudadano).
@@ -57,6 +58,7 @@ export default function NaturalLayout({
                 </p>
               </footer>
           </div>
+          <ScrollToTop />
           <LazyChatDialog />
       </div>
     );

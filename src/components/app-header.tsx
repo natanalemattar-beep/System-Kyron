@@ -32,6 +32,7 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
+import { GlobalSearch } from "./global-search";
 
 interface AppHeaderProps {
   user: any;
@@ -278,6 +279,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
           </nav>
 
           <div className="flex items-center justify-end gap-2 min-w-fit">
+            <GlobalSearch />
             <div className="hidden sm:flex items-center gap-1.5">
                 <LanguageSwitcher variant="default" align="end" />
                 <ThemeToggle />

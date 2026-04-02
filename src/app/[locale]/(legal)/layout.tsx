@@ -5,6 +5,7 @@ import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { legalNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export default function LegalLayout({
   children,
@@ -39,6 +40,7 @@ export default function LegalLayout({
                 </p>
               </footer>
           </div>
+          <ScrollToTop />
           <LazyChatDialog />
       </div>
     );
