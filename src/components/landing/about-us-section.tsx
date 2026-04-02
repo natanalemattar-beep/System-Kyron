@@ -102,7 +102,7 @@ export function AboutUsSection() {
                         sizes="(max-width: 1280px) 100vw, 1280px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-                    <div className="absolute inset-0 bg-[#e8f0fe]/65 dark:bg-[#030B1A]/60" />
+                    <div className="absolute inset-0 bg-[#e8f0fe]/65 dark:bg-[#020a18]/65" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">

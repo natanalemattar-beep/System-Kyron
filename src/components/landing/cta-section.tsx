@@ -19,9 +19,9 @@ export function CtaSection() {
         <section id="contacto" className="relative overflow-hidden">
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
-                    <div className="absolute inset-0 bg-gradient-to-b from-background via-[#dde8f8] to-[#dde8f8] dark:via-[#030B1A] dark:to-[#030B1A]" />
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/[0.14] dark:bg-primary/10 blur-[120px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.12] dark:bg-cyan-500/8 blur-[100px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-background via-[#dde8f8] to-[#dde8f8] dark:via-[#020a18] dark:to-[#0a1628]" />
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/[0.14] dark:bg-primary/[0.12] blur-[120px]" />
+                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.12] dark:bg-cyan-500/[0.10] blur-[100px]" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">

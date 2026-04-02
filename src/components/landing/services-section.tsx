@@ -89,7 +89,7 @@ export function ServicesSection() {
                                     </div>
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                         <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
-                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/40 dark:border-border/20 shadow-2xl bg-white/40 dark:bg-card/30 hover:-translate-y-1 transition-transform duration-300">
+                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/40 dark:border-white/[0.08] shadow-2xl bg-white/40 dark:bg-card/30 hover:-translate-y-1 transition-transform duration-300">
                                             <ThemeImage
                                                 darkSrc={meta.darkImage}
                                                 lightSrc={meta.lightImage}

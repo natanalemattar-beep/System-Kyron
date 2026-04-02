@@ -26,7 +26,7 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-blue-200/50 dark:border-white/8 bg-gradient-to-b from-transparent via-[#e2ecf9]/30 to-[#dae5f5]/50 dark:from-transparent dark:via-transparent dark:to-transparent">
+        <footer id="footer" className="relative overflow-hidden border-t border-blue-200/50 dark:border-white/[0.06] bg-gradient-to-b from-transparent via-[#e2ecf9]/30 to-[#dae5f5]/50 dark:from-transparent dark:via-[#020a18]/40 dark:to-[#0a1628]/30">
             <div className="absolute inset-0 pointer-events-none -z-10">
                 <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-[#0ea5e9]/4 blur-[100px]" />
                 <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-[#22c55e]/3 blur-[80px]" />
@@ -34,7 +34,7 @@ export function Footer() {
 
             <div className="kyron-accent-line opacity-100" />
 
-            <div className="border-b border-blue-200/40 dark:border-white/8 py-3 overflow-hidden">
+            <div className="border-b border-blue-200/40 dark:border-white/[0.06] py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
                         <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/50 shrink-0 flex items-center gap-3">

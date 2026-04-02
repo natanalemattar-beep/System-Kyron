@@ -82,7 +82,7 @@ function ScreenshotCard({
       <div className={cn(
         'relative rounded-2xl overflow-hidden border shadow-xl transition-all duration-500',
         'hover:-translate-y-1.5 hover:shadow-2xl',
-        'bg-white/60 dark:bg-card/30',
+        'bg-white/60 dark:bg-white/[0.03]',
         item.accent
       )}>
         <div className={cn(

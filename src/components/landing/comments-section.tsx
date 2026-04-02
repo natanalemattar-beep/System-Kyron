@@ -121,8 +121,8 @@ export function CommentsSection() {
     return (
         <section className="py-16 md:py-24 bg-transparent relative overflow-hidden w-full">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute top-1/4 left-0 w-[450px] h-[450px] rounded-full bg-violet-500/[0.12] dark:bg-violet-500/8 blur-[120px]" />
-                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.12] dark:bg-primary/8 blur-[120px]" />
+                <div className="absolute top-1/4 left-0 w-[450px] h-[450px] rounded-full bg-violet-500/[0.12] dark:bg-violet-500/[0.10] blur-[120px]" />
+                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.12] dark:bg-primary/[0.10] blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
