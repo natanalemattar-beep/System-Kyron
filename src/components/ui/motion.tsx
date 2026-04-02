@@ -1,10 +1,12 @@
 'use client';
 
-import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
+import { motion, useInView, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
+const springBounce = { type: 'spring', stiffness: 100, damping: 18, mass: 0.8 } as const;
+const smoothEase = [0.16, 1, 0.3, 1] as const;
+const snappyEase = [0.22, 0.68, 0, 1.02] as const;
 
 function useHasMounted() {
   const [mounted, setMounted] = useState(false);
@@ -13,38 +15,51 @@ function useHasMounted() {
 }
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  exit: { opacity: 0, y: -12, filter: 'blur(4px)' },
 };
 
 const fadeDown: Variants = {
-  hidden: { opacity: 0, y: -12 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: -20, filter: 'blur(4px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  exit: { opacity: 0, y: 12, filter: 'blur(4px)' },
 };
 
 const fadeLeft: Variants = {
-  hidden: { opacity: 0, x: -16 },
-  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, x: -28, filter: 'blur(4px)' },
+  visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+  exit: { opacity: 0, x: 16, filter: 'blur(3px)' },
 };
 
 const fadeRight: Variants = {
-  hidden: { opacity: 0, x: 16 },
-  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, x: 28, filter: 'blur(4px)' },
+  visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+  exit: { opacity: 0, x: -16, filter: 'blur(3px)' },
 };
 
 const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.96 },
-  visible: { opacity: 1, scale: 1 },
+  hidden: { opacity: 0, scale: 0.9, filter: 'blur(8px)' },
+  visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+  exit: { opacity: 0, scale: 0.95, filter: 'blur(4px)' },
 };
 
 const blurIn: Variants = {
-  hidden: { opacity: 0, filter: 'blur(4px)' },
-  visible: { opacity: 1, filter: 'blur(0px)' },
+  hidden: { opacity: 0, filter: 'blur(12px)', scale: 0.97 },
+  visible: { opacity: 1, filter: 'blur(0px)', scale: 1 },
+  exit: { opacity: 0, filter: 'blur(8px)', scale: 0.98 },
 };
 
 const slideUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 36, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -18, scale: 0.98 },
+};
+
+const expandIn: Variants = {
+  hidden: { opacity: 0, scale: 0.85, filter: 'blur(10px)', rotateX: 8 },
+  visible: { opacity: 1, scale: 1, filter: 'blur(0px)', rotateX: 0 },
+  exit: { opacity: 0, scale: 0.92, filter: 'blur(6px)' },
 };
 
 const variantMap = {
@@ -55,6 +70,7 @@ const variantMap = {
   'scale-in': scaleIn,
   'blur-in': blurIn,
   'slide-up': slideUp,
+  'expand-in': expandIn,
 };
 
 type AnimationVariant = keyof typeof variantMap;
@@ -75,7 +91,7 @@ export function MotionContainer({
   className,
   variant = 'fade-up',
   delay = 0,
-  duration = 0.5,
+  duration = 0.55,
   once = true,
   amount = 0.2,
   as = 'div',
@@ -99,7 +115,7 @@ export function MotionContainer({
       variants={variantMap[variant]}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      transition={{ duration, delay, ease: easeOut }}
+      transition={{ duration, delay, ease: smoothEase }}
     >
       {children}
     </Component>
@@ -117,7 +133,7 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className,
-  staggerDelay = 0.06,
+  staggerDelay = 0.08,
   once = true,
   amount = 0.15,
 }: StaggerContainerProps) {
@@ -141,7 +157,7 @@ export function StaggerContainer({
         visible: {
           transition: {
             staggerChildren: staggerDelay,
-            delayChildren: 0.05,
+            delayChildren: 0.1,
           },
         },
       }}
@@ -162,7 +178,7 @@ export function StaggerItem({
   children,
   className,
   variant = 'fade-up',
-  duration = 0.4,
+  duration = 0.5,
 }: StaggerItemProps) {
   return (
     <motion.div
@@ -171,7 +187,7 @@ export function StaggerItem({
         hidden: variantMap[variant].hidden,
         visible: {
           ...variantMap[variant].visible,
-          transition: { duration, ease: easeOut },
+          transition: { duration, ease: smoothEase },
         },
       }}
     >
@@ -196,9 +212,9 @@ export function PageTransition({ children, className }: PageTransitionProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: easeOut }}
+      initial={{ opacity: 0, y: 18, filter: 'blur(8px)', scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
+      transition={{ duration: 0.5, ease: smoothEase }}
     >
       {children}
     </motion.div>
@@ -216,7 +232,7 @@ interface CountUpProps {
 
 export function CountUp({
   target,
-  duration = 1.5,
+  duration = 1.8,
   prefix = '',
   suffix = '',
   className,
@@ -233,7 +249,7 @@ export function CountUp({
     const step = (now: number) => {
       const elapsed = (now - start) / 1000;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - Math.pow(1 - progress, 4);
       setCount(eased * target);
       if (progress < 1) requestAnimationFrame(step);
     };
@@ -262,7 +278,7 @@ interface FloatingElementProps {
 export function FloatingElement({
   children,
   className,
-  amplitude = 5,
+  amplitude = 6,
   duration = 5,
   delay = 0,
 }: FloatingElementProps) {
@@ -278,6 +294,7 @@ export function FloatingElement({
       className={className}
       animate={{
         y: [-amplitude, amplitude, -amplitude],
+        rotate: [-0.5, 0.5, -0.5],
       }}
       transition={{
         duration,
@@ -301,8 +318,8 @@ export function GlowPulse({ className, color = 'primary' }: GlowPulseProps) {
     <motion.div
       className={cn('absolute rounded-full pointer-events-none', className)}
       animate={{
-        scale: [1, 1.1, 1],
-        opacity: [0.1, 0.2, 0.1],
+        scale: [1, 1.15, 1],
+        opacity: [0.08, 0.22, 0.08],
       }}
       transition={{
         duration: 4,
@@ -320,8 +337,78 @@ export function ShimmerText({ children, className }: { children: React.ReactNode
       <motion.span
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none"
         animate={{ x: ['-100%', '100%'] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 5 }}
       />
     </span>
+  );
+}
+
+interface RevealProps {
+  children: React.ReactNode;
+  className?: string;
+  direction?: 'up' | 'down' | 'left' | 'right';
+  delay?: number;
+  duration?: number;
+}
+
+export function Reveal({
+  children,
+  className,
+  direction = 'up',
+  delay = 0,
+  duration = 0.6,
+}: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const mounted = useHasMounted();
+  const prefersReduced = useReducedMotion();
+
+  if (!mounted || prefersReduced) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
+
+  const dirMap = {
+    up: { y: 40, x: 0 },
+    down: { y: -40, x: 0 },
+    left: { y: 0, x: -40 },
+    right: { y: 0, x: 40 },
+  };
+
+  return (
+    <div ref={ref} className={cn('overflow-hidden', className)}>
+      <motion.div
+        initial={{ opacity: 0, ...dirMap[direction], filter: 'blur(6px)' }}
+        animate={isInView ? { opacity: 1, y: 0, x: 0, filter: 'blur(0px)' } : {}}
+        transition={{ duration, delay, ease: snappyEase }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+interface ModalTransitionProps {
+  children: React.ReactNode;
+  className?: string;
+  isOpen: boolean;
+}
+
+export function ModalTransition({ children, className, isOpen }: ModalTransitionProps) {
+  const prefersReduced = useReducedMotion();
+
+  return (
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div
+          className={className}
+          initial={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.92, filter: 'blur(8px)', y: 12 }}
+          animate={prefersReduced ? { opacity: 1 } : { opacity: 1, scale: 1, filter: 'blur(0px)', y: 0 }}
+          exit={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.95, filter: 'blur(6px)', y: -8 }}
+          transition={{ duration: 0.3, ease: smoothEase }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
