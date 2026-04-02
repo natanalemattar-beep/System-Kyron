@@ -79,3 +79,27 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Excel Export:** `exceljs`
 - **QR Generation:** `api.qrserver.com`
 - **Blockchain:** ethers.js v6 (Polygon/Ethereum/BSC)
+
+## Environment Setup Status
+**Configured:**
+- DATABASE_URL (PostgreSQL provisioned)
+- TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER, TWILIO_MESSAGING_SERVICE_SID
+- GMAIL_USER (noreplysystemkyron@gmail.com)
+- SESSION_SECRET
+- ADMIN_ALERT_EMAIL
+
+**Pending Configuration:**
+- Gmail Connector: OAuth needs to be authorized via Replit Integrations panel (for sending verification codes)
+- Outlook Connector: OAuth needs to be authorized via Replit Integrations panel (for sending alerts from alertas_systemkyron@hotmail.com)
+- GMAIL_APP_PASSWORD: Required for SMTP fallback if Gmail connector fails
+- RESEND_API_KEY: Optional, last-resort email fallback
+- JWT_SECRET: Uses dev fallback in development; must be set for production
+- BLOCKCHAIN_RPC_URL, BLOCKCHAIN_PRIVATE_KEY: Required for blockchain anchoring feature
+- DB_INIT_SECRET, ADMIN_PROMOTE_SECRET, CRON_SECRET: Administrative secrets
+
+## Email System Architecture
+Two-account fallback system:
+1. **Verification/General emails**: Gmail (OAuth) → Outlook → Gmail (SMTP) → Resend
+2. **Alert emails**: Outlook → Gmail (OAuth) → Gmail (SMTP) → Resend
+- Gmail: noreplysystemkyron@gmail.com
+- Hotmail/Outlook: alertas_systemkyron@hotmail.com
