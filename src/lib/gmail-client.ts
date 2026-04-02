@@ -3,8 +3,9 @@ import { google } from 'googleapis';
 let connectionSettings: any;
 
 async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
+  if (connectionSettings && connectionSettings.settings?.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
+    return connectionSettings.settings.access_token
+      || connectionSettings.settings?.oauth?.credentials?.access_token;
   }
 
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
@@ -15,28 +16,46 @@ async function getAccessToken() {
     : null;
 
   if (!xReplitToken) {
-    throw new Error('X-Replit-Token not found for repl/depl');
+    throw new Error('Gmail: X-Replit-Token not found');
   }
 
   if (!hostname) {
     throw new Error('Gmail: REPLIT_CONNECTORS_HOSTNAME not set');
   }
 
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
+  const res = await fetch(
+    'https://' + hostname + '/api/v2/connection?include_secrets=true',
     {
       headers: {
         'Accept': 'application/json',
         'X-Replit-Token': xReplitToken,
       },
     }
-  ).then(res => res.json()).then(data => data.items?.[0]);
+  );
 
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings?.settings?.oauth?.credentials?.access_token;
+  if (!res.ok) {
+    const body = await res.text();
+    console.error(`[gmail-client] Connector API returned ${res.status}: ${body.substring(0, 300)}`);
+    throw new Error(`Gmail connector API error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  connectionSettings = data.items?.find((item: any) => item.connector_name === 'google-mail');
+
+  const accessToken = connectionSettings?.settings?.access_token
+    || connectionSettings?.settings?.oauth?.credentials?.access_token;
 
   if (!connectionSettings || !accessToken) {
-    throw new Error('Gmail not connected. Please connect Gmail in the Integrations panel.');
+    throw new Error('Gmail not connected');
   }
+
+  if (!connectionSettings.settings.expires_at && connectionSettings.settings?.oauth?.credentials?.expires_at) {
+    connectionSettings.settings.expires_at = connectionSettings.settings.oauth.credentials.expires_at;
+  }
+  if (!connectionSettings.settings.access_token && accessToken) {
+    connectionSettings.settings.access_token = accessToken;
+  }
+
   return accessToken;
 }
 
@@ -53,10 +72,9 @@ export async function getUncachableGmailClient() {
 
 export async function getGmailSenderAddress(): Promise<string> {
   try {
-    const accessToken = await getAccessToken();
-    if (connectionSettings?.settings?.email || connectionSettings?.metadata?.email) {
-      return connectionSettings.settings?.email || connectionSettings.metadata?.email;
-    }
+    await getAccessToken();
+    const email = connectionSettings?.settings?.email || connectionSettings?.metadata?.email;
+    if (email) return email;
 
     const gmail = await getUncachableGmailClient();
     const profile = await gmail.users.getProfile({ userId: 'me' });

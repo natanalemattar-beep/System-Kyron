@@ -4,7 +4,8 @@ let connectionSettings: any;
 
 async function getAccessToken() {
   if (connectionSettings && connectionSettings.settings?.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
+    return connectionSettings.settings.access_token
+      || connectionSettings.settings?.oauth?.credentials?.access_token;
   }
 
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
@@ -22,13 +23,15 @@ async function getAccessToken() {
     throw new Error('Outlook: REPLIT_CONNECTORS_HOSTNAME not set');
   }
 
-  const url = 'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=outlook';
-  const res = await fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'X-Replit-Token': xReplitToken,
-    },
-  });
+  const res = await fetch(
+    'https://' + hostname + '/api/v2/connection?include_secrets=true',
+    {
+      headers: {
+        'Accept': 'application/json',
+        'X-Replit-Token': xReplitToken,
+      },
+    }
+  );
 
   if (!res.ok) {
     const body = await res.text();
@@ -37,16 +40,22 @@ async function getAccessToken() {
   }
 
   const data = await res.json();
-  connectionSettings = data.items?.[0];
+  connectionSettings = data.items?.find((item: any) => item.connector_name === 'outlook');
 
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings?.settings?.oauth?.credentials?.access_token;
+  const accessToken = connectionSettings?.settings?.access_token
+    || connectionSettings?.settings?.oauth?.credentials?.access_token;
 
   if (!connectionSettings || !accessToken) {
-    console.error('[outlook-client] No connection or access token found. Items count:', data.items?.length ?? 0);
     throw new Error('Outlook not connected');
   }
 
-  console.log('[outlook-client] Access token obtained successfully');
+  if (!connectionSettings.settings.expires_at && connectionSettings.settings?.oauth?.credentials?.expires_at) {
+    connectionSettings.settings.expires_at = connectionSettings.settings.oauth.credentials.expires_at;
+  }
+  if (!connectionSettings.settings.access_token && accessToken) {
+    connectionSettings.settings.access_token = accessToken;
+  }
+
   return accessToken;
 }
 

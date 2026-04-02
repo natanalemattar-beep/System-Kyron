@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Not available' }, { status: 404 });
+  }
+
   const { searchParams } = new URL(req.url);
   const connector = searchParams.get('connector') || 'google-mail';
 
@@ -17,11 +21,8 @@ export async function GET(req: Request) {
     : null;
 
   const info: Record<string, unknown> = {
-    hostname: hostname ? `${hostname.substring(0, 20)}...` : 'NOT SET',
     hasReplIdentity: !!replIdentity,
-    replIdentityLength: replIdentity?.length ?? 0,
     hasWebReplRenewal: !!webReplRenewal,
-    tokenPrefix: xReplitToken ? xReplitToken.substring(0, 10) + '...' : 'NONE',
   };
 
   if (!xReplitToken || !hostname) {
@@ -29,7 +30,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const url = 'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=' + connector;
+    const url = 'https://' + hostname + '/api/v2/connection?include_secrets=true';
     const res = await fetch(url, {
       headers: {
         'Accept': 'application/json',
@@ -38,41 +39,28 @@ export async function GET(req: Request) {
     });
 
     info.connectorStatus = res.status;
-    info.connectorStatusText = res.statusText;
 
     if (!res.ok) {
-      const body = await res.text();
-      info.connectorErrorBody = body.substring(0, 300);
+      info.error = 'Connector API error';
       return NextResponse.json(info);
     }
 
     const data = await res.json();
-    const conn = data.items?.[0];
+    const conn = data.items?.find((item: any) => item.connector_name === connector);
+    info.totalConnections = data.items?.length ?? 0;
     info.connectionFound = !!conn;
     info.connectionStatus = conn?.status;
     info.hasAccessToken = !!conn?.settings?.access_token;
     info.hasOAuthToken = !!conn?.settings?.oauth?.credentials?.access_token;
-    info.expiresAt = conn?.settings?.expires_at;
-    info.settingsKeys = conn?.settings ? Object.keys(conn.settings) : [];
+    info.expiresAt = conn?.settings?.expires_at || conn?.settings?.oauth?.credentials?.expires_at;
 
-    if (conn?.settings?.access_token) {
-      const { google } = await import('googleapis');
-      const oauth2Client = new google.auth.OAuth2();
-      oauth2Client.setCredentials({ access_token: conn.settings.access_token });
-      const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
-      try {
-        const profile = await gmail.users.getProfile({ userId: 'me' });
-        info.gmailEmail = profile.data.emailAddress;
-        info.gmailWorking = true;
-      } catch (gmailErr) {
-        info.gmailWorking = false;
-        info.gmailError = String(gmailErr).substring(0, 200);
-      }
+    if (connector === 'outlook' && (conn?.settings?.access_token || conn?.settings?.oauth?.credentials?.access_token)) {
+      info.outlookWorking = true;
     }
 
     return NextResponse.json(info);
   } catch (err) {
-    info.fetchError = String(err).substring(0, 200);
+    info.error = 'Fetch failed';
     return NextResponse.json(info);
   }
 }
