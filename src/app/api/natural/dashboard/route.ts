@@ -18,8 +18,8 @@ export async function GET() {
                 `SELECT 
                     COUNT(*)::text AS total,
                     COUNT(*) FILTER (WHERE estado IN ('pendiente', 'en_proceso'))::text AS pendientes,
-                    COUNT(*) FILTER (WHERE estado = 'aprobada')::text AS aprobadas
-                 FROM solicitudes_civiles WHERE user_id = $1`,
+                    COUNT(*) FILTER (WHERE estado = 'aprobado')::text AS aprobadas
+                 FROM solicitudes_documentos_civiles WHERE user_id = $1`,
                 [uid]
             ),
             queryOne<{ total: string }>(
