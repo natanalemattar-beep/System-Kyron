@@ -142,6 +142,7 @@ export default function RegisterTelecomPage() {
     const [verifCode, setVerifCode] = useState('');
     const [verifSent, setVerifSent] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [docFromParams, setDocFromParams] = useState(false);
@@ -210,6 +211,7 @@ export default function RegisterTelecomPage() {
     };
 
     const nextStep = async () => {
+        if (step === 3 && !acceptTerms) return;
         const fields = stepFields[step];
         if (fields) { const v = await trigger(fields); if (!v) return; }
         if (step === 1 && tieneTelefono) {
@@ -650,6 +652,16 @@ export default function RegisterTelecomPage() {
                                     <Input type="password" {...register('confirmPassword')} className={cn(errors.confirmPassword && 'border-destructive')} />
                                     {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
                                 </div>
+                                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
+                                    <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
+                                    <span className="text-xs text-muted-foreground">
+                                        He leído y acepto los{' '}
+                                        <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
+                                        y la{' '}
+                                        <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                                    </span>
+                                </label>
+                                {!acceptTerms && <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>}
                             </div>
                         )}
 

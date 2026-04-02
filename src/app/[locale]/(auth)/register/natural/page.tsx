@@ -72,6 +72,7 @@ export default function RegisterNaturalPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
   const [verifSent, setVerifSent] = useState(false);
@@ -133,6 +134,7 @@ export default function RegisterNaturalPage() {
   const nextStep = async () => {
     const fields = step === 1 ? step1Fields : step === 2 ? step2Fields : step3Fields;
     const valid = await trigger(fields as any);
+    if (step === 3 && !acceptTerms) return;
     if (valid) setStep(s => s + 1);
   };
 
@@ -717,12 +719,23 @@ export default function RegisterNaturalPage() {
                   </div>
                 </Field>
 
-                <div className="p-3.5 rounded-2xl bg-muted/30 border border-border/50 text-xs text-muted-foreground">
-                  Al crear tu cuenta aceptas nuestros{' '}
-                  <a href="/terms" className="text-primary font-semibold hover:underline">Términos de Servicio</a>{' '}
-                  y nuestra{' '}
-                  <a href="/politica-privacidad" className="text-primary font-semibold hover:underline">Política de Privacidad</a>.
-                </div>
+                <label className="flex items-start gap-3 p-3.5 rounded-2xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    He leído y acepto los{' '}
+                    <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
+                    y la{' '}
+                    <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                  </span>
+                </label>
+                {!acceptTerms && step === 3 && (
+                  <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>
+                )}
               </>
             )}
 

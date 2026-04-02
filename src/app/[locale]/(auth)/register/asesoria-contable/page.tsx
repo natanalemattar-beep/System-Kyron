@@ -154,6 +154,7 @@ export default function RegisterContabilidadPage() {
     const router = useRouter();
     const { toast } = useToast();
 
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifSent, setVerifSent] = useState(false);
     const [verifCode, setVerifCode] = useState('');
     const [verifVerified, setVerifVerified] = useState(false);
@@ -249,6 +250,7 @@ export default function RegisterContabilidadPage() {
             setStep(2);
             return;
         }
+        if (step === 3 && !acceptTerms) return;
         const fields = stepFields[step];
         if (fields) {
             const valid = await trigger(fields);
@@ -563,6 +565,16 @@ export default function RegisterContabilidadPage() {
                                         )} />
                                     </div>
                                 </div>
+                                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
+                                    <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
+                                    <span className="text-xs text-muted-foreground">
+                                        He leído y acepto los{' '}
+                                        <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
+                                        y la{' '}
+                                        <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                                    </span>
+                                </label>
+                                {!acceptTerms && <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>}
                             </div>
                         )}
 

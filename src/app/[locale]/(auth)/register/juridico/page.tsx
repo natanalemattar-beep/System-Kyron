@@ -171,6 +171,7 @@ export default function RegisterJuridicoPage() {
   const [fileActaName, setFileActaName] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
   const [verifSent, setVerifSent] = useState(false);
   const [verifCode, setVerifCode] = useState('');
@@ -287,6 +288,9 @@ export default function RegisterJuridicoPage() {
     } else if (step === 3) {
       const valid = await trigger(step3Fields as any);
       if (valid) setStep(s => s + 1);
+    } else if (step === 5) {
+      if (!acceptTerms) return;
+      setStep(s => s + 1);
     } else {
       setStep(s => s + 1);
     }
@@ -699,6 +703,24 @@ export default function RegisterJuridicoPage() {
                 <p className="text-xs text-muted-foreground text-center mt-2">
                   {selectedModules.size} módulo(s) seleccionado(s)
                 </p>
+
+                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    He leído y acepto los{' '}
+                    <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
+                    y la{' '}
+                    <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                  </span>
+                </label>
+                {!acceptTerms && (
+                  <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>
+                )}
               </>
             )}
 
