@@ -5,6 +5,7 @@ import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
+import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export default function TelecomLayout({
@@ -40,6 +41,7 @@ export default function TelecomLayout({
               </footer>
           </div>
           <ScrollToTop />
+          <FinancialToolkit />
           <LazyChatDialog />
       </div>
     );

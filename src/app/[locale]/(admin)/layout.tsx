@@ -11,6 +11,7 @@ import { CurrencyProvider } from "@/lib/currency-context";
 import { PageTracker } from "@/components/page-tracker";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { FinancialToolkit } from "@/components/financial-toolkit";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
@@ -62,6 +63,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
               </footer>
           </div>
           <ScrollToTop />
+          <FinancialToolkit />
           <WelcomeTutorial />
           <LazyChatDialog />
       </div>

@@ -5,6 +5,7 @@ import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
+import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export default function HRLayout({
@@ -42,6 +43,7 @@ export default function HRLayout({
               </footer>
           </div>
           <ScrollToTop />
+          <FinancialToolkit />
           <LazyChatDialog />
       </div>
     );

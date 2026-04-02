@@ -28,6 +28,7 @@ import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
 import { SeasonalBanner } from "@/components/seasonal-decorations";
 import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
+import { ActivityTimeline } from "@/components/activity-timeline";
 import {
   Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid,
   PieChart as RPieChart, Pie, Cell, Tooltip,
@@ -702,6 +703,10 @@ export default function DashboardEmpresaPage() {
             </Link>
           ))}
         </div>
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.4 }}>
+        <ActivityTimeline limit={10} />
       </motion.div>
 
       <Dialog open={showCierre} onOpenChange={setShowCierre}>

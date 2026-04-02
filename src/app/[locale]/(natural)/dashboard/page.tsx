@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/auth/context";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { ActivityTimeline } from "@/components/activity-timeline";
 
 interface NaturalDashboardData {
   solicitudes: { total: number; pendientes: number; aprobadas: number };
@@ -481,6 +482,14 @@ export default function DashboardPersonalPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.65, duration: 0.4 }}
+      >
+        <ActivityTimeline limit={8} />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7, duration: 0.4 }}
         className="rounded-xl border border-border/20 bg-gradient-to-r from-blue-500/[0.02] to-indigo-500/[0.02] p-4 flex flex-col sm:flex-row items-center justify-between gap-3"
       >
         <div className="flex items-center gap-2.5">

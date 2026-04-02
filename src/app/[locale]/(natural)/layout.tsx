@@ -8,6 +8,7 @@ import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { PageTracker } from "@/components/page-tracker";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { FinancialToolkit } from "@/components/financial-toolkit";
 
 /**
  * @fileOverview Layout del Portal Natural (Ciudadano).
@@ -59,6 +60,7 @@ export default function NaturalLayout({
               </footer>
           </div>
           <ScrollToTop />
+          <FinancialToolkit />
           <LazyChatDialog />
       </div>
     );

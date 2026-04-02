@@ -5,6 +5,7 @@ import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
+import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { CurrencyProvider } from "@/lib/currency-context";
 
@@ -39,6 +40,7 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
                 </footer>
             </div>
             <ScrollToTop />
+          <FinancialToolkit />
             <LazyChatDialog />
         </div>
       </CurrencyProvider>
