@@ -80,6 +80,6 @@ export async function getGmailSenderAddress(): Promise<string> {
     const profile = await gmail.users.getProfile({ userId: 'me' });
     return profile.data.emailAddress || 'noreplysystemkyron@gmail.com';
   } catch {
-    return 'noreplysystemkyron@gmail.com';
+    return 'noreplysystemkyron@gmail.com';  
   }
 }

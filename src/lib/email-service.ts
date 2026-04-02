@@ -1,5 +1,8 @@
 import { query } from '@/lib/db';
 
+const OUTLOOK_SENDER = 'alertas_systemkyron@hotmail.com';
+const GMAIL_SENDER = 'noreplysystemkyron@gmail.com';
+
 export type EmailProvider = 'gmail' | 'outlook' | 'resend' | 'whatsapp' | 'sms';
 export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
@@ -39,7 +42,7 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
     const senderEmail = await getGmailSenderAddress();
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
+    const fromAddr = opts.from ?? `System Kyron <${senderEmail || GMAIL_SENDER}>`;
     const rawEmail = [
       `From: ${fromAddr}`,
       `To: ${recipients.join(', ')}`,
@@ -80,6 +83,9 @@ async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
       message: {
         subject: opts.subject,
         body: { contentType: 'HTML', content: opts.html },
+        from: {
+          emailAddress: { address: OUTLOOK_SENDER, name: 'System Kyron' },
+        },
         toRecipients: recipients.map(email => ({
           emailAddress: { address: email },
         })),
@@ -87,8 +93,10 @@ async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
       saveToSentItems: true,
     });
 
+    console.log(`[email-service] Outlook sent to ${recipients.join(', ')} from ${OUTLOOK_SENDER} (${opts.purpose ?? 'general'})`);
     return { success: true, provider: 'outlook' };
   } catch (err) {
+    console.error(`[email-service] Outlook failed:`, String(err));
     return { success: false, provider: 'outlook', error: String(err) };
   }
 }
@@ -109,7 +117,7 @@ async function sendViaSMTP(opts: EmailOptions): Promise<EmailResult> {
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
     await transporter.sendMail({
-      from: opts.from ?? `System Kyron <${smtpUser}>`,
+      from: opts.from ?? `System Kyron <${GMAIL_SENDER}>`,
       to: recipients.join(', '),
       subject: opts.subject,
       html: opts.html,
@@ -135,7 +143,7 @@ async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
 
     await resend.emails.send({
-      from: opts.from ?? 'System Kyron <noreplysystemkyron@gmail.com>',
+      from: opts.from ?? `System Kyron <${GMAIL_SENDER}>`,
       to: recipients,
       subject: opts.subject,
       html: opts.html,
