@@ -7,7 +7,8 @@ import { useTranslations } from 'next-intl';
 const CRITICAL_ASSETS = [
     '/images/landing/hero-bg-light.webp',
     '/images/landing/hero-bg-dark.webp',
-    '/images/landing/hero-dashboard.webp',
+    '/images/landing/hero-dashboard-dark.jpg',
+    '/images/landing/hero-dashboard-light.jpg',
 ];
 
 function preloadImage(src: string): Promise<void> {
