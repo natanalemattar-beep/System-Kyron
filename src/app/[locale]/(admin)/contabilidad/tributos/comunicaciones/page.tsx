@@ -130,7 +130,7 @@ export default function ComunicacionesPage() {
                             <PopoverContent className="w-[300px] p-0 bg-card border-border rounded-2xl overflow-hidden shadow-2xl">
                                 <div className="p-3 border-b border-border bg-muted/30">
                                     <div className="relative">
-                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground pointer-events-none" />
                                         <Input 
                                             placeholder="Buscar ente..." 
                                             className="h-8 pl-7 text-[10px] bg-background border-border rounded-lg font-bold uppercase tracking-widest"

@@ -147,7 +147,7 @@ export default function PuntoDeVentaPage() {
                 ) : (
                     <div className="flex items-center gap-4">
                         <div className="relative w-64">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                             <Input placeholder="Escanear o buscar..." className="pl-9 h-10 rounded-xl bg-white/5 border-white/10" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                         <Button onClick={() => setActiveCashier(null)} variant="ghost" size="sm" className="text-[10px] font-black text-rose-500 uppercase tracking-widest hover:bg-rose-500/10 rounded-lg">Finalizar Turno</Button>

@@ -668,7 +668,7 @@ export default function DashboardEmpresaPage() {
         <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col rounded-2xl">
           <DialogHeader><DialogTitle className="text-sm font-bold flex items-center gap-2"><History className="h-4 w-4 text-cyan-400" /> Registro de Auditoría</DialogTitle></DialogHeader>
           <div className="relative mb-3">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
             <Input placeholder="Buscar eventos..." className="pl-9 h-8 rounded-xl text-xs" value={auditSearch} onChange={e => setAuditSearch(e.target.value)} />
           </div>
           <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">

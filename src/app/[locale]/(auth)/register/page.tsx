@@ -254,14 +254,14 @@ function GlowingCard({ children, className, active }: { children: React.ReactNod
     return (
         <div className={cn("relative group/card", className)}>
             <motion.div
-                className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-sky-500/25 via-cyan-500/15 to-emerald-500/25"
+                className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-sky-500/25 via-cyan-500/15 to-emerald-500/25 pointer-events-none"
                 animate={active ? { opacity: [0.4, 0.7, 0.4] } : { opacity: 0 }}
                 whileHover={{ opacity: 0.6 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 style={{ filter: "blur(1px)" }}
             />
             <div className="relative rounded-2xl bg-[#0a1025]/80 border border-white/[0.08] backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.03] via-transparent to-emerald-500/[0.02]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-500/[0.03] via-transparent to-emerald-500/[0.02] pointer-events-none" />
                 <div className="relative">
                     {children}
                 </div>
@@ -873,7 +873,7 @@ export default function RegisterSelectionPage() {
 
                                                 <div className="flex gap-2 items-end">
                                                     <div className="flex-1 relative group/input">
-                                                        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-focus-within/input:from-sky-500/20 group-focus-within/input:via-cyan-500/10 group-focus-within/input:to-sky-500/20 transition-all duration-500 blur-[1px]" />
+                                                        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-sky-500/0 via-sky-500/0 to-sky-500/0 group-focus-within/input:from-sky-500/20 group-focus-within/input:via-cyan-500/10 group-focus-within/input:to-sky-500/20 transition-all duration-500 blur-[1px] pointer-events-none" />
                                                         <Input
                                                             value={docNumber}
                                                             onChange={e => handleNumberChange(e.target.value)}

@@ -142,11 +142,13 @@ export default function RegisterNaturalPage() {
     }, 1000);
   };
 
-  const watchedFields = watch();
   useEffect(() => {
-    const { password, confirmPassword, ...safeData } = watchedFields;
-    try { sessionStorage.setItem('kyron-register-natural', JSON.stringify(safeData)); } catch {}
-  }, [watchedFields]);
+    const subscription = watch((data) => {
+      const { password, confirmPassword, ...safeData } = data;
+      try { sessionStorage.setItem('kyron-register-natural', JSON.stringify(safeData)); } catch {}
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   useEffect(() => {
     try { sessionStorage.setItem('kyron-register-natural-step', String(step)); } catch {}
