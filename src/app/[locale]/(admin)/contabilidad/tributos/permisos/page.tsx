@@ -19,8 +19,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Logo } from "@/components/logo";
-import { organismos, tiposPermiso, getOrganismoById, generarCartaSolicitud, type PermisoTipo, type Organismo } from "@/lib/permisologia-data";
-import { companyData } from "@/lib/permisos-data";
+import { organismos, tiposPermiso, getOrganismoById, type PermisoTipo, type Organismo } from "@/lib/permisologia-data";
+import { useAuth } from "@/lib/auth/context";
 
 const nivelAlertaConfig = {
   critico: { label: "CRÍTICO", color: "bg-red-500/10 text-red-400 border-red-500/30", icon: XCircle },
@@ -50,6 +50,7 @@ type Resumen = {
 
 export default function PermisologiaPage() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("catalogo");
   const [filterOrg, setFilterOrg] = useState<string>("todos");
   const [filterSector, setFilterSector] = useState<string>("todos");
@@ -111,9 +112,9 @@ export default function PermisologiaPage() {
       body: JSON.stringify({ tipoPermisoId: cartaDialog.permiso.id, tipoCarta: cartaDialog.tipo }),
     }).then(r => r.json()).then(data => {
       if (data.carta) setCartaText(data.carta);
-      else setCartaText(generarCartaSolicitud(cartaDialog.permiso, companyData, cartaDialog.tipo));
+      else setCartaText('Error al generar la carta. Verifique que su perfil de empresa esté completo.');
     }).catch(() => {
-      setCartaText(generarCartaSolicitud(cartaDialog.permiso, companyData, cartaDialog.tipo));
+      setCartaText('Error al generar la carta. Intente nuevamente.');
     }).finally(() => setCartaLoading(false));
   }, [cartaDialog]);
 
@@ -330,8 +331,8 @@ export default function PermisologiaPage() {
                 <header className="flex justify-between items-center mb-8 border-b border-slate-200 pb-6 relative z-10">
                   <Logo className="h-12 w-12" />
                   <div className="text-right">
-                    <p className="font-black text-xs uppercase italic">System Kyron, C.A.</p>
-                    <p className="text-[8px] font-bold uppercase text-slate-500">RIF: {companyData.rif}</p>
+                    <p className="font-black text-xs uppercase italic">{user?.razon_social || `${user?.nombre || ''} ${user?.apellido || ''}`.trim() || 'Mi Empresa'}</p>
+                    <p className="text-[8px] font-bold uppercase text-slate-500">RIF: {user?.rif || 'Sin RIF'}</p>
                   </div>
                 </header>
                 <div className="whitespace-pre-wrap text-sm leading-relaxed relative z-10 text-justify">

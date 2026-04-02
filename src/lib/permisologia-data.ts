@@ -1823,7 +1823,20 @@ export function getPermisosByTipo(tipo: Organismo['tipo']): PermisoTipo[] {
   return tiposPermiso.filter(p => orgIds.includes(p.organismoId));
 }
 
-export function generarCartaSolicitud(permiso: PermisoTipo, empresa: typeof import('./permisos-data').companyData, tipo: 'inscripcion' | 'renovacion'): string {
+export interface EmpresaCarta {
+  denominacion: string;
+  rif: string;
+  direccion: string;
+  telefono?: string;
+  representante: {
+    nombre: string;
+    cedula: string;
+    cargo: string;
+  };
+  objetoSocial?: string;
+}
+
+export function generarCartaSolicitud(permiso: PermisoTipo, empresa: EmpresaCarta, tipo: 'inscripcion' | 'renovacion'): string {
   const organismo = getOrganismoById(permiso.organismoId);
   const fecha = new Date().toLocaleDateString('es-VE', { year: 'numeric', month: 'long', day: 'numeric' });
   const requisitos = tipo === 'inscripcion' ? permiso.requisitosInscripcion : permiso.requisitosRenovacion;
@@ -1838,7 +1851,7 @@ Su Despacho.-
 
 REF.: SOLICITUD DE ${tipo === 'inscripcion' ? 'INSCRIPCIÓN' : 'RENOVACIÓN'} — ${permiso.nombre.toUpperCase()}
 
-Yo, ${empresa.socios[0]?.nombre || 'REPRESENTANTE LEGAL'}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N° ${empresa.socios[0]?.cedula || 'V-00.000.000'}, actuando en mi carácter de ${empresa.socios[0]?.cargo || 'Representante Legal'} de la sociedad mercantil "${empresa.denominacion}", inscrita ante el Registro Mercantil correspondiente, domiciliada en ${empresa.direccion}, identificada con el Registro de Información Fiscal (RIF) N° ${empresa.rif}, me dirijo a usted respetuosamente con el objeto de solicitar la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} del siguiente permiso:
+Yo, ${empresa.representante.nombre}, venezolano(a), mayor de edad, titular de la Cédula de Identidad N° ${empresa.representante.cedula}, actuando en mi carácter de ${empresa.representante.cargo} de la sociedad mercantil "${empresa.denominacion}", inscrita ante el Registro Mercantil correspondiente, domiciliada en ${empresa.direccion}, identificada con el Registro de Información Fiscal (RIF) N° ${empresa.rif}, me dirijo a usted respetuosamente con el objeto de solicitar la ${tipo === 'inscripcion' ? 'inscripción' : 'renovación'} del siguiente permiso:
 
 PERMISO SOLICITADO: ${permiso.nombre}
 ORGANISMO EMISOR: ${organismo?.nombre || permiso.organismoId}
@@ -1853,8 +1866,8 @@ Sin otro particular al cual hacer referencia, quedo de usted.
 Atentamente,
 
 _________________________
-${empresa.socios[0]?.nombre || 'REPRESENTANTE LEGAL'}
-${empresa.socios[0]?.cargo || 'Representante Legal'}
+${empresa.representante.nombre}
+${empresa.representante.cargo}
 ${empresa.denominacion}
 RIF: ${empresa.rif}
 `.trim();
