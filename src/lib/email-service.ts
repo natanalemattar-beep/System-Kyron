@@ -223,7 +223,7 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
   return fallback;
 }
 
-export function buildKyronEmailTemplate(content: { title: string; body: string; code?: string; footer?: string }) {
+export function buildKyronEmailTemplate(content: { title: string; body: string; code?: string; magicLink?: string; footer?: string }) {
     const baseUrl = process.env.REPLIT_DEV_DOMAIN
       ? `https://${process.env.REPLIT_DEV_DOMAIN}`
       : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
@@ -242,6 +242,14 @@ export function buildKyronEmailTemplate(content: { title: string; body: string; 
           <div style="color: #94A3B8; font-size: 14px; text-align: center; margin: 0 0 36px 0;">
             ${content.body}
           </div>
+          ${content.magicLink ? `
+          <div style="text-align: center; margin-bottom: 24px;">
+            <a href="${content.magicLink}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #0EA5E9, #22C55E); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 16px 40px; border-radius: 12px;">
+              Verificar mi identidad
+            </a>
+            <p style="color: #475569; font-size: 11px; margin: 12px 0 0 0;">Haz clic en el botón o usa el código de abajo</p>
+          </div>
+          ` : ''}
           ${content.code ? `
           <div style="background: #0A1530; border: 2px solid #0EA5E9; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 28px;">
             <p style="color: #94A3B8; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px 0;">Tu código de verificación</p>

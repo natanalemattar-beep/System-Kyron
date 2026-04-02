@@ -677,6 +677,11 @@ export function SpecializedLoginCard({
                     </strong>
                     {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
                   </p>
+                  {verificationMethod === 'email' && (
+                    <p className="text-[11px] text-muted-foreground/60 mt-1.5">
+                      También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
+                    </p>
+                  )}
                   {countdown > 0 && (
                     <p className="text-xs text-muted-foreground mt-1.5">
                       Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>

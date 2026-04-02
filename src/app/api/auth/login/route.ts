@@ -5,7 +5,7 @@ import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse, checkBruteForce, recordLoginFailure, clearLoginFailures } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
-import { generateCode, storeCode } from '@/lib/verification-codes';
+import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
 
@@ -137,6 +137,14 @@ export async function POST(req: NextRequest) {
         const code = generateCode();
         await storeCode(normalizedEmail, code, user.id);
 
+        const magicToken = generateMagicToken();
+        await storeMagicToken(normalizedEmail, magicToken, user.id);
+
+        const baseUrl = process.env.REPLIT_DEV_DOMAIN
+          ? `https://${process.env.REPLIT_DEV_DOMAIN}`
+          : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+        const magicLinkUrl = `${baseUrl}/es/verify-link/${magicToken}`;
+
         const maskedEmail = normalizedEmail.replace(
             /^(.{2})(.*)(@.*)$/,
             (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
@@ -156,9 +164,10 @@ export async function POST(req: NextRequest) {
             subject: `${code} — Código de verificación · System Kyron`,
             html: buildKyronEmailTemplate({
                 title: 'Verificación de identidad',
-                body: `Hola <strong>${displayName}</strong>, alguien está intentando acceder a tu cuenta. Ingresa el siguiente código para confirmar que eres tú.`,
+                body: `Hola <strong>${displayName}</strong>, alguien está intentando acceder a tu cuenta. Usa el código o haz clic en el botón para verificar tu identidad.`,
                 code,
-                footer: 'Si no solicitaste este código, ignora este mensaje. Nunca compartas tu código con nadie.',
+                magicLink: magicLinkUrl,
+                footer: 'Si no solicitaste este acceso, ignora este mensaje. Nunca compartas tu código con nadie.',
             }),
             module: 'auth',
             purpose: 'verification',
