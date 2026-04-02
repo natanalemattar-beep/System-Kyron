@@ -40,6 +40,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Route Protection:** Authentication required for sensitive pages.
 - **Alert Notifications:** Asynchronously sends alerts via email, WhatsApp, and SMS based on user preferences.
 - **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion.
+- **Permisología Integral:** Comprehensive permits database with 91 government organisms (SENIAT, 30+ ministries, 24 gobernaciones, 10 alcaldías, 20+ entes autónomos/institutos) and 122+ permit types covering all Venezuelan business licensing requirements. Includes SAPI, CONATEL, SUNDDE, SUNAGRO, BCV, SUDEBAN, SUNAVAL, SUDEASEG, SENCAMER, INSAI, CENCOEX, CORPOELEC, INTT, INN, INEA, BOMBEROS, and more. Filterable by 21 economic sectors. Auto-generates formal solicitation letters (inscripción/renovación) with company letterhead.
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Global Search (Ctrl+K/Cmd+K):** Command palette for instant navigation to any module/page. Indexed 35+ pages with keyword search.
 - **Scroll-to-Top Button:** Floating button on all portal layouts for easy navigation on long pages.

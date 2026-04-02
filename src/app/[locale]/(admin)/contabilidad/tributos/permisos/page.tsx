@@ -259,11 +259,20 @@ export default function PermisologiaPage() {
               <SelectItem value="servicios">Servicios</SelectItem>
               <SelectItem value="alimentos">Alimentos</SelectItem>
               <SelectItem value="salud">Salud</SelectItem>
+              <SelectItem value="farmaceutico">Farmacéutico</SelectItem>
               <SelectItem value="telecomunicaciones">Telecomunicaciones</SelectItem>
               <SelectItem value="construccion">Construcción</SelectItem>
               <SelectItem value="transporte">Transporte</SelectItem>
               <SelectItem value="turismo">Turismo</SelectItem>
               <SelectItem value="mineria">Minería</SelectItem>
+              <SelectItem value="petroleo">Petróleo</SelectItem>
+              <SelectItem value="energia">Energía</SelectItem>
+              <SelectItem value="agricultura">Agricultura</SelectItem>
+              <SelectItem value="pesca">Pesca</SelectItem>
+              <SelectItem value="financiero">Financiero</SelectItem>
+              <SelectItem value="tecnologia">Tecnología</SelectItem>
+              <SelectItem value="cultura">Cultura</SelectItem>
+              <SelectItem value="deporte">Deporte</SelectItem>
               <SelectItem value="ambiente">Ambiente</SelectItem>
               <SelectItem value="educacion">Educación</SelectItem>
             </SelectContent>
