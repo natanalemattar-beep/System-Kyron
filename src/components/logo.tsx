@@ -12,7 +12,7 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
       )}
     >
       <Image
-        src="/images/logo-transparent.png"
+        src="/images/logo-black.png"
         alt="System Kyron"
         width={512}
         height={512}
