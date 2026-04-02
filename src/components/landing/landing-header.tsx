@@ -8,13 +8,9 @@ import {
     ChevronDown,
     Sparkles,
     ShieldCheck,
-    Hexagon,
     ArrowRight,
     ChevronRight,
     KeyRound,
-    Zap,
-    Shield,
-    BarChart3,
     UserPlus
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -230,22 +226,6 @@ export function LandingHeader() {
                                         </SheetClose>
                                     ))}
 
-                                    <div className="mt-4 pt-4 border-t border-border/10">
-                                        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground/30 px-4 mb-2.5">{t('mobile_portal')}</p>
-                                        <div className="grid grid-cols-4 gap-1.5 px-1">
-                                            {[
-                                                { icon: Zap, label: "IA", color: "text-amber-400", bg: "bg-amber-400/10", border: "border-amber-400/15" },
-                                                { icon: Shield, label: "AES-256", color: "text-emerald-400", bg: "bg-emerald-400/10", border: "border-emerald-400/15" },
-                                                { icon: BarChart3, label: "Analítica", color: "text-blue-400", bg: "bg-blue-400/10", border: "border-blue-400/15" },
-                                                { icon: Hexagon, label: "Blockchain", color: "text-purple-400", bg: "bg-purple-400/10", border: "border-purple-400/15" },
-                                            ].map((feat) => (
-                                                <div key={feat.label} className={cn("flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl border", feat.border, feat.bg, "transition-all duration-200")}>
-                                                    <feat.icon className={cn("h-3.5 w-3.5", feat.color)} />
-                                                    <span className="text-[7px] font-bold text-center text-muted-foreground/50 leading-tight">{feat.label}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
                                 </nav>
                                 <div className="p-4 border-t border-border/20 space-y-3 bg-muted/5 shrink-0">
                                     <div className="flex items-center gap-2 pb-2.5 border-b border-border/20">
