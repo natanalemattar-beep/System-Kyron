@@ -1,11 +1,46 @@
 "use client";
 
+import { AppHeader } from "@/components/app-header";
+import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+import { PageTransition } from "@/components/ui/motion";
+import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
+import { PageTracker } from "@/components/page-tracker";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { CurrencyProvider } from "@/lib/currency-context";
 
 export default function VentasLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <CurrencyProvider>
-      {children}
-    </CurrencyProvider>
-  );
+    const user = { name: "Comercial", email: "ventas@kyron.com", fallback: "VT" };
+
+    return (
+      <CurrencyProvider>
+        <div className="flex min-h-screen bg-background text-foreground relative">
+            <PageTracker />
+            <div className="fixed inset-0 pointer-events-none -z-10">
+              <div className="absolute inset-0 opacity-[0.02] hud-grid" />
+              <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-emerald-500/[0.04] rounded-full blur-[200px] opacity-40" />
+              <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-primary/[0.03] rounded-full blur-[180px] opacity-30" />
+            </div>
+
+            <div className="flex-1 flex flex-col min-h-screen relative w-full">
+                <AppHeader 
+                  user={{...user, color: "bg-emerald-600 shadow-glow-secondary"}} 
+                  dashboardHref="/estrategias-ventas" 
+                  navGroups={ventasNavGroups}
+                />
+                <main className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10">
+                    <PageTransition>
+                      {children}
+                    </PageTransition>
+                </main>
+                <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+                  <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
+                    System Kyron • Ventas & Comercial • 2026
+                  </p>
+                </footer>
+            </div>
+            <ScrollToTop />
+            <LazyChatDialog />
+        </div>
+      </CurrencyProvider>
+    );
 }

@@ -45,6 +45,9 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Scroll-to-Top Button:** Floating button on all portal layouts for easy navigation on long pages.
 - **Custom Scrollbars:** Styled thin scrollbars across the entire app for a polished look.
 - **Focus States:** Improved accessibility with consistent focus-visible outlines.
+- **Breadcrumbs Navigation:** Auto-generated breadcrumbs in AppHeader showing the current page path with clickable links.
+- **Enhanced Layouts:** HR and Ventas layouts upgraded with full AppHeader, PageTransition, ScrollToTop, footer, and visual background effects.
+- **CSS Utility Classes:** card-hover-lift, shimmer-border, glow-text, surface-interactive, badge-pulse, text-balance, themed ::selection colors.
 - **Document Authenticity Verification (AI-Powered):** Multi-layer verification using Claude Vision AI for Venezuelan documents, checking integrity, metadata, and visual content.
 - **Real Automation Engine:** Database-backed system with 9 scheduled rules (BCV Sync, Fiscal Alerts, Regulatory Monitor, Health Check, Blockchain Batch, Session Cleanup, Invoice Reminders, Activity Digest, Email Automation), execution logging, and a live dashboard.
 - **Automated Email System:** 10 email automation templates (welcome, verification, invoice issued/overdue, payroll, contract signed, fiscal alert, weekly summary, payment reminder, plan change) backed by `email_automaticos` table with scheduling, logging, and multi-channel delivery (Gmail, Outlook, SMS, WhatsApp).

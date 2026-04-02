@@ -33,6 +33,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./language-switcher";
 import { GlobalSearch } from "./global-search";
+import { Breadcrumbs } from "./ui/breadcrumbs";
 
 interface AppHeaderProps {
   user: any;
@@ -89,6 +90,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
       <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       
       <div className="w-full px-4 md:px-8">
+        <Breadcrumbs dashboardHref={dashboardHref} className="absolute -bottom-5 left-4 md:left-8 opacity-60 hover:opacity-100 transition-opacity hidden md:flex" />
         <div className="flex items-center justify-between w-full gap-4">
           
           <div className="flex items-center gap-3.5">
