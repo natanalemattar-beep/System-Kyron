@@ -57,7 +57,13 @@ export default function FonacitPage() {
                                             <p className="text-xs font-bold text-foreground">Anual (Junio 2026)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "TRÁMITE FONACIT", description: "Solicitud de trámite FONACIT registrada. Un asesor le contactará." })}>INICIAR TRÁMITE</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
+                                        try {
+                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'fonacit', descripcion: 'Solicitud de trámite FONACIT' }) });
+                                            if (res.ok) { toast({ title: "TRÁMITE FONACIT", description: "Solicitud de trámite FONACIT registrada. Un asesor le contactará." }); }
+                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                                    }}>INICIAR TRÁMITE</Button>
                                 </div>
                             </div>
                         </CardContent>

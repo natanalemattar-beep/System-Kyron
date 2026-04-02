@@ -279,7 +279,13 @@ export default function FlotaEmpresarialPage() {
                     </div>
                     <Button
                         className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl transition-all"
-                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de flota ha sido registrada." })}
+                        onClick={async () => {
+                            try {
+                                const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'verificar_flota', descripcion: 'Solicitud de verificación de flota empresarial' }) });
+                                if (res.ok) { toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de flota ha sido registrada." }); }
+                                else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                            } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                        }}
                     >
                         <Shield className="mr-3 h-4 w-4" />
                         Verificar Flota
@@ -386,7 +392,13 @@ export default function FlotaEmpresarialPage() {
                 <div className="flex justify-center pt-4">
                     <Button
                         className="h-14 px-12 rounded-2xl font-black uppercase text-xs tracking-widest bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl transition-all"
-                        onClick={() => toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de flota ha sido registrada." })}
+                        onClick={async () => {
+                            try {
+                                const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'catalogo_equipos', descripcion: 'Solicitud de catálogo completo de equipos' }) });
+                                if (res.ok) { toast({ title: "SOLICITUD PROCESADA", description: "Su solicitud de catálogo ha sido registrada." }); }
+                                else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                            } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                        }}
                     >
                         <ExternalLink className="mr-3 h-4 w-4" />
                         Ver Catálogo Completo de Equipos

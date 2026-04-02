@@ -199,7 +199,13 @@ export default function InventarioPage() {
                                             {formatCurrency(activeAlert.stock_actual * parseFloat(activeAlert.costo_unitario), 'Bs.')}
                                         </p>
                                     </div>
-                                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={() => toast({ title: "ESTRATEGIA ACTIVADA", description: "Protocolo de liquidación registrado." })}>
+                                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={async () => {
+                                        try {
+                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'inventario', subcategoria: 'liquidacion', descripcion: `Estrategia de liquidación para ${activeAlert?.nombre ?? 'producto'}` }) });
+                                            if (res.ok) { toast({ title: "ESTRATEGIA ACTIVADA", description: "Protocolo de liquidación registrado." }); }
+                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                                    }}>
                                         <Wand2 className="mr-2 h-4 w-4" /> Aplicar Estrategia
                                     </Button>
                                 </div>

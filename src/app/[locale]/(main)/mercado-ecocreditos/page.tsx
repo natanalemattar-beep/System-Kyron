@@ -135,7 +135,13 @@ export default function MercadoEcocreditosPage() {
                     <ShieldCheck className="h-12 w-12 text-secondary mb-6 animate-pulse" />
                     <CardTitle className="text-xl font-black uppercase italic text-white mb-2">Certificación Neutral</CardTitle>
                     <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">Obtén el sello Kyron de Carbono Neutralidad</p>
-                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-white/10 text-white" onClick={() => toast({ title: "AUDITORÍA SOLICITADA", description: "Su solicitud de auditoría de eco-créditos ha sido registrada." })}>SOLICITAR AUDITORÍA</Button>
+                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-white/10 text-white" onClick={async () => {
+                        try {
+                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'eco_creditos', subcategoria: 'auditoria_carbono', descripcion: 'Solicitud de auditoría de carbono neutralidad' }) });
+                            if (res.ok) { toast({ title: "AUDITORÍA SOLICITADA", description: "Su solicitud de auditoría de eco-créditos ha sido registrada." }); }
+                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                    }}>SOLICITAR AUDITORÍA</Button>
                 </Card>
             </div>
         </div>

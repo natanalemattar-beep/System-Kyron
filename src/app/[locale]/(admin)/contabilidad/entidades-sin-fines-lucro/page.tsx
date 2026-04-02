@@ -137,7 +137,13 @@ export default function EntidadesSinFinesLucroPage() {
                             <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                 Las entidades sin fines de lucro deben cumplir con el reporte de actividades y el origen de fondos lícitos. El sistema bloquea transacciones no documentadas para proteger la personalidad jurídica de la institución.
                             </p>
-                            <Button variant="secondary" className="w-full h-12 bg-white text-emerald-600 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={() => toast({ title: "AUDITORÍA SOLICITADA", description: "Solicitud de auditoría para entidad sin fines de lucro registrada." })}>SOLICITAR AUDITORÍA</Button>
+                            <Button variant="secondary" className="w-full h-12 bg-white text-emerald-600 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl" onClick={async () => {
+                                        try {
+                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'auditoria', subcategoria: 'entidad_sin_fines_lucro', descripcion: 'Solicitud de auditoría para entidad sin fines de lucro' }) });
+                                            if (res.ok) { toast({ title: "AUDITORÍA SOLICITADA", description: "Solicitud de auditoría para entidad sin fines de lucro registrada." }); }
+                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                                    }}>SOLICITAR AUDITORÍA</Button>
                         </Card>
 
                         <Card className="glass-card border-none p-8 rounded-[2.5rem] bg-card/40 shadow-xl">

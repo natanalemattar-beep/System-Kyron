@@ -57,7 +57,13 @@ export default function HidrocarburosPage() {
                                             <p className="text-xs font-bold text-foreground">Anual (Diciembre 2026)</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={() => toast({ title: "RENOVACIÓN INICIADA", description: "Solicitud de renovación de permiso de hidrocarburos registrada." })}>RENOVAR PERMISO</Button>
+                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
+                                        try {
+                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'hidrocarburos_renovacion', descripcion: 'Solicitud de renovación de permiso de hidrocarburos' }) });
+                                            if (res.ok) { toast({ title: "RENOVACIÓN INICIADA", description: "Solicitud de renovación de permiso de hidrocarburos registrada." }); }
+                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
+                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                                    }}>RENOVAR PERMISO</Button>
                                 </div>
                             </div>
                         </CardContent>

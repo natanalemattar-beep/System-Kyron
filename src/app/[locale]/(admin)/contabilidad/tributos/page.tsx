@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Landmark, FileText, Banknote, CreditCard, ShieldCheck, Calendar, Gavel, History, ArrowRight, Activity, Zap, Bot, Building2, Users, Printer, Scale, Globe, Truck, Leaf, TreePalm as Palmtree, Terminal, Coins, Microscope, Ship, Clock, TriangleAlert as AlertTriangle, MailOpen, Settings2, Bell, ShieldAlert } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,6 +75,34 @@ const registrationStatus = [
 
 export default function TributosHubPage() {
   const { toast } = useToast();
+  const [saving, setSaving] = useState(false);
+
+  const handleSaveAlerts = useCallback(async () => {
+    setSaving(true);
+    try {
+      const alerts: Record<string, boolean> = {};
+      ['iva', 'islr', 'igtf', 'dpp'].forEach(id => {
+        const el = document.getElementById(`alert-${id}`) as HTMLButtonElement | null;
+        alerts[`alerta_${id}`] = el?.getAttribute('data-state') === 'checked';
+      });
+      const res = await fetch('/api/configuracion', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          notif_vencimientos: alerts.alerta_iva || alerts.alerta_islr || alerts.alerta_igtf || alerts.alerta_dpp,
+        }),
+      });
+      if (res.ok) {
+        toast({ title: "AJUSTES GUARDADOS", description: "Configuración tributaria actualizada exitosamente." });
+      } else {
+        const d = await res.json();
+        toast({ title: "Error", description: d.error ?? "No se pudo guardar", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error de conexión", variant: "destructive" });
+    }
+    setSaving(false);
+  }, [toast]);
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10 bg-background min-h-screen">
@@ -227,7 +255,7 @@ export default function TributosHubPage() {
                         ))}
                     </div>
 
-                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={() => toast({ title: "AJUSTES GUARDADOS", description: "Configuración tributaria actualizada exitosamente." })}>GUARDAR AJUSTES</Button>
+                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" disabled={saving} onClick={handleSaveAlerts}>{saving ? 'GUARDANDO...' : 'GUARDAR AJUSTES'}</Button>
                 </div>
             </Card>
         </div>

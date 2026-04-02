@@ -84,7 +84,13 @@ export default function FacturacionCorporativaPage() {
           </div>
           <div className="flex gap-3">
             <Button variant="secondary" className="rounded-xl font-bold text-xs h-11 px-6"
-              onClick={() => toast({ title: "Pago procesado", description: "Se ha registrado el pago consolidado.", action: <CircleCheck className="h-4 w-4 text-emerald-500" /> })}>
+              onClick={async () => {
+                try {
+                  const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'pago_consolidado', descripcion: `Pago consolidado facturación corporativa` }) });
+                  if (res.ok) { toast({ title: "Pago procesado", description: "Se ha registrado el pago consolidado.", action: <CircleCheck className="h-4 w-4 text-emerald-500" /> }); }
+                  else { toast({ title: "Error", description: "No se pudo procesar", variant: "destructive" }); }
+                } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+              }}>
               <CreditCard className="mr-2 h-4 w-4" /> Pagar Todo
             </Button>
             <Button variant="outline" className="rounded-xl font-bold text-xs h-11 px-6 border-white/20 text-white hover:bg-white/10"

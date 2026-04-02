@@ -51,12 +51,35 @@ export default function CierreCajaPage() {
         setConteoBs(prev => ({ ...prev, [valor]: Number(cantidad) }));
     };
     
-    const handleCerrarCaja = () => {
-        toast({
-            title: "Cierre de Caja Guardado",
-            description: `Diferencia de ${formatCurrency(diferenciaBs, 'Bs.')} registrada en el sistema.`,
-            action: <CheckCircle className="text-primary" />
-        });
+    const [saving, setSaving] = useState(false);
+    const handleCerrarCaja = async () => {
+        setSaving(true);
+        try {
+            const res = await fetch('/api/arqueo-caja', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    total_contado: totalContadoBs,
+                    total_esperado: totalEsperadoEnCaja,
+                    diferencia: diferenciaBs,
+                    conteo: conteoBs,
+                    observaciones,
+                }),
+            });
+            if (res.ok) {
+                toast({
+                    title: "Cierre de Caja Guardado",
+                    description: `Diferencia de ${formatCurrency(diferenciaBs, 'Bs.')} registrada en el sistema.`,
+                    action: <CheckCircle className="text-primary" />
+                });
+            } else {
+                const d = await res.json();
+                toast({ title: "Error", description: d.error ?? "No se pudo guardar", variant: "destructive" });
+            }
+        } catch {
+            toast({ title: "Error de conexión", variant: "destructive" });
+        }
+        setSaving(false);
     }
 
     return (

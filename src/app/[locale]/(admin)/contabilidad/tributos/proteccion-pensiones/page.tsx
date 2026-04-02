@@ -181,7 +181,13 @@ export default function ProteccionPensionesPage() {
                                             <p className="text-[8px] font-black text-emerald-600 uppercase tracking-widest mb-2">Configuración</p>
                                             <p className="text-[9px] font-bold text-slate-400 uppercase leading-relaxed">System Kyron solicitará confirmación 48h antes de ejecutar el pago.</p>
                                         </div>
-                                        <Button className="w-full h-12 rounded-xl btn-3d-secondary font-black uppercase text-[10px] tracking-widest" onClick={() => toast({ title: "AUTORIZACIÓN GUARDADA", description: "Configuración de pago automático DPP registrada exitosamente." })}>GUARDAR AUTORIZACIÓN</Button>
+                                        <Button className="w-full h-12 rounded-xl btn-3d-secondary font-black uppercase text-[10px] tracking-widest" onClick={async () => {
+                                            try {
+                                                const res = await fetch('/api/configuracion', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ notif_pagos: true }) });
+                                                if (res.ok) { toast({ title: "AUTORIZACIÓN GUARDADA", description: "Configuración de pago automático DPP registrada exitosamente." }); }
+                                                else { toast({ title: "Error", description: "No se pudo guardar", variant: "destructive" }); }
+                                            } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
+                                        }}>GUARDAR AUTORIZACIÓN</Button>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
