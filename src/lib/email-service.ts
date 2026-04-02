@@ -32,36 +32,14 @@ async function logEmail(opts: EmailOptions, result: EmailResult) {
   }
 }
 
-async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
-  try {
-    const { getUncachableOutlookClient } = await import('@/lib/outlook-client');
-    const client = await getUncachableOutlookClient();
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-
-    await client.api('/me/sendMail').post({
-      message: {
-        subject: opts.subject,
-        body: { contentType: 'HTML', content: opts.html },
-        toRecipients: recipients.map(email => ({
-          emailAddress: { address: email },
-        })),
-      },
-      saveToSentItems: true,
-    });
-
-    return { success: true, provider: 'outlook' };
-  } catch (err) {
-    return { success: false, provider: 'outlook', error: String(err) };
-  }
-}
-
 async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   try {
-    const { getUncachableGmailClient } = await import('@/lib/gmail-client');
+    const { getUncachableGmailClient, getGmailSenderAddress } = await import('@/lib/gmail-client');
     const gmail = await getUncachableGmailClient();
+    const senderEmail = await getGmailSenderAddress();
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const fromAddr = opts.from ?? 'System Kyron <noreplysystemkyron@gmail.com>';
+    const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
     const rawEmail = [
       `From: ${fromAddr}`,
       `To: ${recipients.join(', ')}`,
@@ -83,9 +61,35 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
       requestBody: { raw: encodedMessage },
     });
 
+    console.log(`[email-service] Gmail sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
     return { success: true, provider: 'gmail' };
   } catch (err) {
-    return { success: false, provider: 'gmail', error: String(err) };
+    const errorMsg = String(err);
+    console.error(`[email-service] Gmail failed:`, errorMsg);
+    return { success: false, provider: 'gmail', error: errorMsg };
+  }
+}
+
+async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
+  try {
+    const { getUncachableOutlookClient } = await import('@/lib/outlook-client');
+    const client = await getUncachableOutlookClient();
+    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+
+    await client.api('/me/sendMail').post({
+      message: {
+        subject: opts.subject,
+        body: { contentType: 'HTML', content: opts.html },
+        toRecipients: recipients.map(email => ({
+          emailAddress: { address: email },
+        })),
+      },
+      saveToSentItems: true,
+    });
+
+    return { success: true, provider: 'outlook' };
+  } catch (err) {
+    return { success: false, provider: 'outlook', error: String(err) };
   }
 }
 
@@ -117,7 +121,7 @@ async function sendViaSms(opts: EmailOptions): Promise<EmailResult> {
   try {
     const { sendSms } = await import('@/lib/twilio-client');
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const plainText = opts.subject + (opts.html ? '' : '');
+    const plainText = opts.subject;
 
     for (const recipient of recipients) {
       const result = await sendSms(recipient, `SYSTEM KYRON: ${plainText}`);
@@ -153,9 +157,8 @@ function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => 
   switch (purpose) {
     case 'verification':
     case 'password-reset':
-      return [sendViaGmail, sendViaResend, sendViaWhatsApp, sendViaSms];
     case 'alert':
-      return [sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
+    case 'general':
     default:
       return [sendViaGmail, sendViaOutlook, sendViaResend, sendViaWhatsApp, sendViaSms];
   }

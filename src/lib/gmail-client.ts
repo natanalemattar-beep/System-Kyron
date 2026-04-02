@@ -1,12 +1,6 @@
 import { google } from 'googleapis';
 
-let connectionSettings: any;
-
-async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
-
+async function fetchConnectionSettings() {
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY
     ? 'repl ' + process.env.REPL_IDENTITY
@@ -15,10 +9,14 @@ async function getAccessToken() {
     : null;
 
   if (!xReplitToken) {
-    throw new Error('X-Replit-Token not found for repl/depl');
+    throw new Error('Gmail: X-Replit-Token not available (no REPL_IDENTITY or WEB_REPL_RENEWAL)');
   }
 
-  connectionSettings = await fetch(
+  if (!hostname) {
+    throw new Error('Gmail: REPLIT_CONNECTORS_HOSTNAME not set');
+  }
+
+  const res = await fetch(
     'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
     {
       headers: {
@@ -26,28 +24,48 @@ async function getAccessToken() {
         'X-Replit-Token': xReplitToken,
       },
     }
-  ).then(res => res.json()).then(data => data.items?.[0]);
+  );
+
+  if (!res.ok) {
+    throw new Error(`Gmail: connector API returned ${res.status} ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  const connection = data.items?.[0];
+
+  if (!connection) {
+    throw new Error('Gmail: no google-mail connection found. Please connect Gmail in the Integrations panel.');
+  }
 
   const accessToken =
-    connectionSettings?.settings?.access_token ||
-    connectionSettings?.settings?.oauth?.credentials?.access_token;
+    connection.settings?.access_token ||
+    connection.settings?.oauth?.credentials?.access_token;
 
-  if (!connectionSettings || !accessToken) {
-    throw new Error('Gmail not connected');
+  if (!accessToken) {
+    throw new Error('Gmail: connection found but no access_token available. The token may have expired — please reconnect Gmail.');
   }
-  return accessToken;
+
+  return { accessToken, email: connection.settings?.email || connection.metadata?.email };
 }
 
-// WARNING: Never cache this client.
-// Access tokens expire, so a new client must be created each time.
-// Always call this function again to get a fresh client.
 export async function getUncachableGmailClient() {
-  const accessToken = await getAccessToken();
+  const { accessToken } = await fetchConnectionSettings();
 
   const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({
-    access_token: accessToken,
-  });
+  oauth2Client.setCredentials({ access_token: accessToken });
 
   return google.gmail({ version: 'v1', auth: oauth2Client });
+}
+
+export async function getGmailSenderAddress(): Promise<string> {
+  try {
+    const { email } = await fetchConnectionSettings();
+    if (email) return email;
+
+    const gmail = await getUncachableGmailClient();
+    const profile = await gmail.users.getProfile({ userId: 'me' });
+    return profile.data.emailAddress || 'noreplysystemkyron@gmail.com';
+  } catch {
+    return 'noreplysystemkyron@gmail.com';
+  }
 }
