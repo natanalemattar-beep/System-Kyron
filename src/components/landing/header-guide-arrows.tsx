@@ -131,9 +131,9 @@ export function HeaderGuideArrows() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="fixed z-[160] flex flex-col items-center pointer-events-none"
+              className="fixed z-[160] flex flex-col items-end pointer-events-none"
               style={{
-                left: registerPos.x,
+                left: registerPos.x - registerPos.w / 2 - 8,
                 top: registerPos.y + 8,
                 transform: 'translateX(-50%)',
               }}
@@ -187,9 +187,9 @@ export function HeaderGuideArrows() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.4, delay: 0.35 }}
-              className="fixed z-[160] flex flex-col items-center pointer-events-none"
+              className="fixed z-[160] flex flex-col items-start pointer-events-none"
               style={{
-                left: accessPos.x,
+                left: accessPos.x + accessPos.w / 2 + 8,
                 top: accessPos.y + 8,
                 transform: 'translateX(-50%)',
               }}
