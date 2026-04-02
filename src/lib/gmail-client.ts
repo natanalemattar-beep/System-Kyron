@@ -24,7 +24,7 @@ async function getAccessToken() {
   }
 
   const res = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true',
+    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
     {
       headers: {
         'Accept': 'application/json',
@@ -40,7 +40,7 @@ async function getAccessToken() {
   }
 
   const data = await res.json();
-  connectionSettings = data.items?.find((item: any) => item.connector_name === 'google-mail');
+  connectionSettings = data.items?.[0];
 
   const accessToken = connectionSettings?.settings?.access_token
     || connectionSettings?.settings?.oauth?.credentials?.access_token;
