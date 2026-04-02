@@ -1,4 +1,4 @@
-const CEDULA_MAX_VENEZOLANO = 45_000_000;
+const CEDULA_MAX_VENEZOLANO = 150_000_000;
 const CEDULA_MAX_EXTRANJERO = 99_999_999;
 
 export type CedulaEdadEstimada = {
@@ -18,6 +18,8 @@ export function estimarEdadPorCedula(num: number): CedulaEdadEstimada | null {
   if (num <= 35_000_000) return { rangoEdad: '18-25 años', generacion: '2000-2008' };
   if (num <= 40_000_000) return { rangoEdad: '14-20 años', generacion: '2006-2012' };
   if (num <= 45_000_000) return { rangoEdad: '10-16 años', generacion: '2010-2016' };
+  if (num <= 60_000_000) return { rangoEdad: '5-12 años', generacion: '2014-2021' };
+  if (num <= 150_000_000) return { rangoEdad: 'Reciente', generacion: '2020+' };
   return null;
 }
 
