@@ -22,7 +22,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
 - Visually driven landing pages, intuitive mobile sidebar, redesigned Login/Dashboard, and dynamic pricing display.
 - Custom form components for registration (prefix selectors, RIF/Cédula lookup), reusable document upload, and Venezuela geography data for cascading dropdowns.
-- Kyron Chat provides context-aware AI chat with 10+ identity modes.
+- Kyron Chat provides context-aware AI chat with 10+ identity modes. Personal portal uses dedicated `/api/ai/kyron-chat-personal` endpoint powered by Gemini Flash (cost-effective for free accounts). Business/admin portals use `/api/ai/kyron-chat` powered by Claude Sonnet (premium). Full-page chat at `(natural)/chat-personal` for personal, `(admin)/kyron-chat` for business.
 - Consistent heading sizes and an adaptive performance system.
 - Themed screenshots for landing pages and AI-generated illustrations for services.
 - Comprehensive welcome and per-module tutorial systems.

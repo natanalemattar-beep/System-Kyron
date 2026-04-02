@@ -218,6 +218,8 @@ export function ChatDialog() {
     setIsStreaming(false);
   }, [streamingText]);
 
+  const isPersonalPortal = identity.role === 'Kyron Personal';
+
   const handleSend = useCallback(async (text?: string) => {
     const messageText = text || input.trim();
     if (!messageText || isStreaming) return;
@@ -232,8 +234,10 @@ export function ChatDialog() {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
+    const apiEndpoint = isPersonalPortal ? '/api/ai/kyron-chat-personal' : '/api/ai/kyron-chat';
+
     try {
-      const res = await fetch('/api/ai/kyron-chat', {
+      const res = await fetch(apiEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -298,7 +302,7 @@ export function ChatDialog() {
       setIsStreaming(false);
       setStreamingText('');
     }
-  }, [input, messages, isStreaming, identity.context]);
+  }, [input, messages, isStreaming, identity.context, isPersonalPortal]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

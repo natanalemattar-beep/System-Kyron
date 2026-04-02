@@ -59,6 +59,7 @@ export const ESTADOS_MUNICIPIOS: Record<string, string[]> = {
   'La Guaira': [
     'Vargas',
   ],
+  /* TODO: Usuario indica 22 parroquias para La Guaira — pendiente lista completa */
   'Lara': [
     'Andrés Eloy Blanco', 'Crespo', 'Iribarren', 'Jiménez', 'Morán', 'Palavecino',
     'Simón Planas', 'Torres', 'Urdaneta',

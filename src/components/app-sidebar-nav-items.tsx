@@ -43,7 +43,7 @@ export const naturalNavGroups = [
         title: "Kyron IA",
         icon: Sparkles,
         items: [
-            { href: "/kyron-chat", label: "Chat Kyron", icon: Sparkles },
+            { href: "/chat-personal", label: "Chat Kyron", icon: Sparkles },
         ],
     },
     {
