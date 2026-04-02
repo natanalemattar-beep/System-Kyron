@@ -70,11 +70,11 @@ export function LandingHeader() {
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
             isScrolled
-                ? "bg-background/85 backdrop-blur-3xl py-2.5 shadow-[0_1px_20px_-4px_rgba(0,0,0,0.06)]"
+                ? "bg-background/80 backdrop-blur-3xl py-2.5 shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
                 : "bg-transparent py-6 landing-hero-header"
         )}>
             {isScrolled && (
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
             )}
             <div className="container mx-auto px-5 md:px-10">
                 <div className="flex items-center justify-between h-11 w-full">

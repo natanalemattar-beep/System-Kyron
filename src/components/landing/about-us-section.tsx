@@ -75,8 +75,8 @@ export function AboutUsSection() {
     }, []);
 
     const statCards = [
-        { val: stats.totalUsuarios, label: t('stat_users'), icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-400" },
-        { val: stats.totalEmpresas, label: t('stat_companies'), icon: Building2, color: "from-violet-500 to-purple-600", text: "text-violet-400" }
+        { val: stats.totalUsuarios, label: t('stat_users'), icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-600 dark:text-cyan-400" },
+        { val: stats.totalEmpresas, label: t('stat_companies'), icon: Building2, color: "from-violet-500 to-purple-600", text: "text-violet-600 dark:text-violet-400" }
     ];
 
     const featItems = [
@@ -102,7 +102,7 @@ export function AboutUsSection() {
                         sizes="(max-width: 1280px) 100vw, 1280px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-                    <div className="absolute inset-0 bg-white/60 dark:bg-[#030B1A]/60" />
+                    <div className="absolute inset-0 bg-[#e8f0fe]/65 dark:bg-[#030B1A]/60" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">

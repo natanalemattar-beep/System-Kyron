@@ -113,15 +113,15 @@ export function HeroSection() {
                     className="object-cover opacity-0 dark:opacity-100"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/50 dark:from-[#020810]/70 dark:via-transparent dark:to-[#020810]/50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#e8f0fe]/90 via-[#edf2fb]/70 to-[#e8f0fe] dark:from-[#020810]/90 dark:via-[#020810]/70 dark:to-[#020810]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#e8f0fe]/70 via-transparent to-[#e8f0fe]/50 dark:from-[#020810]/70 dark:via-transparent dark:to-[#020810]/50" />
             </div>
 
             {config.enableBlur && (
                 <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.06] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
-                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.05] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.04] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
+                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.12] dark:bg-[#0ea5e9]/[0.04] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
+                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.10] dark:bg-[#3b82f6]/[0.03] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.08] dark:bg-[#22c55e]/[0.02] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
                 </div>
             )}
 
@@ -230,7 +230,7 @@ export function HeroSection() {
                                 <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
                             )}
                             
-                            <div className="relative rounded-[1.5rem] overflow-hidden border border-border/20 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
+                            <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/50 dark:border-white/10 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
                                 <ThemeImage
                                     darkSrc="/images/landing/hero-dashboard-dark.jpg"
@@ -243,7 +243,7 @@ export function HeroSection() {
                                     priority
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-[#020810]/40 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#e8f0fe]/50 dark:from-[#020810]/40 via-transparent to-transparent" />
                             </div>
 
                             <motion.div
@@ -268,7 +268,7 @@ export function HeroSection() {
                 </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
+            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-[5]" />
 
             <motion.div
                 className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"

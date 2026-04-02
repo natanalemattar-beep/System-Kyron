@@ -4,38 +4,38 @@
 
 @layer base {
   :root {
-    --background: 220 20% 96%;
+    --background: 216 28% 95%;
     --foreground: 224 50% 8%;
 
-    --card: 0 0% 100%;
+    --card: 210 40% 99%;
     --card-foreground: 224 50% 8%;
 
-    --popover: 0 0% 100%;
+    --popover: 210 40% 99%;
     --popover-foreground: 224 50% 8%;
 
-    --primary: 225 76% 40%;
+    --primary: 217 80% 46%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 72% 30%;
+    --secondary: 160 72% 34%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 91%;
-    --muted-foreground: 220 15% 42%;
+    --muted: 216 24% 90%;
+    --muted-foreground: 220 15% 38%;
 
-    --accent: 222 30% 93%;
+    --accent: 218 35% 93%;
     --accent-foreground: 224 50% 10%;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 18% 82%;
-    --input: 220 18% 84%;
-    --ring: 225 76% 40%;
+    --border: 216 22% 84%;
+    --input: 216 22% 84%;
+    --ring: 217 80% 46%;
 
     --radius: 1.5rem;
 
-    --kyron-cyan: 188 100% 36%;
-    --kyron-emerald: 156 80% 30%;
+    --kyron-cyan: 188 100% 38%;
+    --kyron-emerald: 156 80% 34%;
     --kyron-indigo: 242 80% 56%;
     --kyron-gold: 43 90% 48%;
     --kyron-violet: 270 75% 52%;
@@ -187,24 +187,33 @@
   }
 
   .kyron-surface {
-    @apply relative bg-card border border-border/50 rounded-2xl transition-all duration-300;
+    @apply relative border rounded-2xl transition-all duration-300;
+    background: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(240, 248, 255, 0.7) 100%
+    );
+    border-color: rgba(180, 200, 230, 0.4);
     box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.04),
-      0 4px 16px -4px rgba(0, 0, 0, 0.06);
+      0 2px 8px -2px rgba(14, 165, 233, 0.05),
+      0 4px 16px -4px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
   .dark .kyron-surface {
-    @apply bg-card/40 border-white/[0.06];
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
     box-shadow:
       0 4px 24px -8px rgba(0,0,0,0.4),
       0 1px 4px rgba(0,0,0,0.2),
       inset 0 1px 0 rgba(255,255,255,0.03);
   }
   .kyron-surface:hover {
-    @apply border-primary/20;
+    border-color: rgba(14, 165, 233, 0.25);
     transform: translateY(-1px);
     box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.05),
-      0 8px 24px -6px rgba(0, 0, 0, 0.10);
+      0 4px 16px -4px rgba(14, 165, 233, 0.1),
+      0 8px 24px -6px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .dark .kyron-surface:hover {
     @apply border-primary/10;
@@ -216,13 +225,26 @@
   }
 
   .glass-card {
-    @apply relative bg-card border border-border/50 transition-all duration-300;
+    @apply relative border transition-all duration-300;
+    background: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(240, 248, 255, 0.75) 50%,
+      rgba(248, 250, 255, 0.85) 100%
+    );
+    border-color: rgba(180, 200, 230, 0.4);
     box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.04),
-      0 4px 16px -6px rgba(0, 0, 0, 0.06);
+      0 2px 8px -2px rgba(14, 165, 233, 0.05),
+      0 4px 16px -6px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
   .dark .glass-card {
-    @apply bg-card/30 border-white/[0.08];
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.08);
     box-shadow:
       0 8px 40px -12px rgba(0, 0, 0, 0.5),
       0 2px 8px rgba(0, 0, 0, 0.2),
@@ -230,11 +252,12 @@
   }
 
   .glass-card:hover {
-    @apply border-primary/20;
+    border-color: rgba(14, 165, 233, 0.3);
     transform: translateY(-1px);
     box-shadow:
-      0 2px 6px rgba(0, 0, 0, 0.05),
-      0 8px 24px -6px rgba(0, 0, 0, 0.10);
+      0 4px 20px -4px rgba(14, 165, 233, 0.1),
+      0 8px 24px -6px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .dark .glass-card:hover {
     @apply border-primary/10;
@@ -965,10 +988,22 @@
   }
 
   .liquid-glass {
-    @apply relative overflow-hidden bg-card border border-border/50;
+    @apply relative overflow-hidden border;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(240, 248, 255, 0.7) 40%,
+      rgba(248, 250, 255, 0.75) 70%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+    border-color: rgba(180, 200, 230, 0.45);
     box-shadow:
-      0 2px 8px -2px rgba(0, 0, 0, 0.06),
-      0 1px 2px rgba(0, 0, 0, 0.03);
+      0 2px 12px -3px rgba(14, 165, 233, 0.06),
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(12px) saturate(1.3);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
   }
   .dark .liquid-glass {
     background: linear-gradient(
@@ -986,10 +1021,11 @@
       inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
   .liquid-glass:hover {
-    @apply border-primary/25;
+    border-color: rgba(14, 165, 233, 0.3);
     box-shadow:
-      0 4px 16px -4px rgba(0, 0, 0, 0.08),
-      0 2px 4px rgba(0, 0, 0, 0.04);
+      0 4px 20px -4px rgba(14, 165, 233, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .dark .liquid-glass:hover {
     border-color: rgba(255, 255, 255, 0.12);
@@ -1001,8 +1037,18 @@
   }
 
   .liquid-glass-subtle {
-    @apply relative overflow-hidden bg-card/80 border border-border/40;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+    @apply relative overflow-hidden border;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.65) 0%,
+      rgba(240, 248, 255, 0.5) 100%
+    );
+    border-color: rgba(180, 200, 230, 0.35);
+    box-shadow:
+      0 1px 6px -2px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
   }
   .dark .liquid-glass-subtle {
     background: linear-gradient(

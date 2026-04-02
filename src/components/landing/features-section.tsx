@@ -8,15 +8,15 @@ import { useRef } from 'react';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const featuresMeta = [
-    { icon: Calculator, color: "text-primary", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary" },
-    { icon: Users, color: "text-violet-400", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500" },
-    { icon: Smartphone, color: "text-blue-400", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500" },
-    { icon: BrainCircuit, color: "text-rose-400", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true },
-    { icon: Gavel, color: "text-amber-400", accent: "from-amber-500/20 to-amber-600/5", line: "from-amber-500 to-amber-600", dot: "bg-amber-500" },
-    { icon: Recycle, color: "text-emerald-400", accent: "from-emerald-500/20 to-emerald-600/5", line: "from-emerald-500 to-emerald-600", dot: "bg-emerald-500" },
-    { icon: BarChart3, color: "text-cyan-400", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500" },
-    { icon: Landmark, color: "text-indigo-400", accent: "from-indigo-500/20 to-indigo-600/5", line: "from-indigo-500 to-indigo-600", dot: "bg-indigo-500" },
-    { icon: Lock, color: "text-orange-400", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500" },
+    { icon: Calculator, color: "text-blue-600 dark:text-primary", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary" },
+    { icon: Users, color: "text-violet-600 dark:text-violet-400", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500" },
+    { icon: Smartphone, color: "text-blue-600 dark:text-blue-400", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500" },
+    { icon: BrainCircuit, color: "text-rose-600 dark:text-rose-400", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true },
+    { icon: Gavel, color: "text-amber-600 dark:text-amber-400", accent: "from-amber-500/20 to-amber-600/5", line: "from-amber-500 to-amber-600", dot: "bg-amber-500" },
+    { icon: Recycle, color: "text-emerald-600 dark:text-emerald-400", accent: "from-emerald-500/20 to-emerald-600/5", line: "from-emerald-500 to-emerald-600", dot: "bg-emerald-500" },
+    { icon: BarChart3, color: "text-cyan-600 dark:text-cyan-400", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500" },
+    { icon: Landmark, color: "text-indigo-600 dark:text-indigo-400", accent: "from-indigo-500/20 to-indigo-600/5", line: "from-indigo-500 to-indigo-600", dot: "bg-indigo-500" },
+    { icon: Lock, color: "text-orange-600 dark:text-orange-400", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500" },
 ];
 
 function FeatureRow({ feature, meta, index, animate }: {
@@ -89,7 +89,7 @@ function TimelineProgress() {
 
     return (
         <div ref={ref} className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px]">
-            <div className="absolute inset-0 bg-border/20 dark:bg-white/[0.06] rounded-full" />
+            <div className="absolute inset-0 bg-blue-200/40 dark:bg-white/[0.06] rounded-full" />
             <motion.div
                 className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-violet-500 to-emerald-500 rounded-full origin-top"
                 style={{ scaleY, height: '100%' }}
