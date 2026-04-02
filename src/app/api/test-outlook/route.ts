@@ -151,7 +151,8 @@ const ALERTAS_DEMO = [
 export async function GET() {
   const results = [];
   const destinations = [
-    'alertas_systemkyron@hotmail.com',
+    'natanalemattar@gmail.com',
+    'fernandaluciarosato@gmail.com',
   ];
   const timestamp = new Date().toLocaleString('es-VE', { timeZone: 'America/Caracas' });
 
