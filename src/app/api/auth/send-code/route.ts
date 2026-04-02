@@ -114,6 +114,19 @@ export async function POST(req: NextRequest) {
 
       if (!result.success) {
         console.error(`[send-code] Email failed via all providers:`, result.error);
+        const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
+        if (isDev) {
+          console.log(`[send-code][DEV] Código de verificación para ${destino}: ${codigo}`);
+          return NextResponse.json({
+            success: true,
+            message: 'Código generado (modo desarrollo)',
+            channel: tipo,
+            destination: destino,
+            expiresIn: 600,
+            devCode: codigo,
+            devMessage: 'Email no disponible. Código mostrado en pantalla (solo desarrollo).',
+          });
+        }
         return NextResponse.json(
           { error: 'No se pudo enviar el correo. Verifica tu dirección e intenta de nuevo.' },
           { status: 502 }

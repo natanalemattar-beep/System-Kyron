@@ -73,6 +73,7 @@ export function SpecializedLoginCard({
   const [maskedPhone, setMaskedPhone] = useState('');
   const [switchingMethod, setSwitchingMethod] = useState(false);
   const [challengeToken, setChallengeToken] = useState('');
+  const [devCode, setDevCode] = useState<string | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -129,6 +130,7 @@ export function SpecializedLoginCard({
         setHasPhone(!!json.hasPhone);
         setMaskedPhone(json.maskedPhone || '');
         setChallengeToken(json.challengeToken || '');
+        setDevCode(json.devCode || null);
         setVerificationMethod('email');
         setStep('verification');
         setCountdown(600);
@@ -136,7 +138,9 @@ export function SpecializedLoginCard({
         setEmailDeliveryFailed(false);
         setSavedCredentials(null);
         setIsLoading(false);
-        if (json.emailFailed && json.hasPhone) {
+        if (json.devCode) {
+          toast({ title: 'Modo desarrollo', description: 'Código mostrado en pantalla', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
+        } else if (json.emailFailed && json.hasPhone) {
           toast({ title: 'Correo no disponible', description: json.emailFailedMessage || 'Usa SMS o WhatsApp para recibir tu código.', action: <Smartphone className="text-amber-500 h-4 w-4" /> });
         } else {
           toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
@@ -187,6 +191,7 @@ export function SpecializedLoginCard({
         setUserName(json.nombre || '');
         setHasPhone(true);
         setChallengeToken(json.challengeToken || '');
+        setDevCode(null);
         setVerificationMethod(phoneMethod);
         setStep('verification');
         setCountdown(600);
@@ -234,7 +239,7 @@ export function SpecializedLoginCard({
     } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
   };
 
-  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); };
+  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
   const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
@@ -260,13 +265,19 @@ export function SpecializedLoginCard({
       }
       setVerificationMethod(method);
       setCountdown(600);
-      const channelLabels = {
-        email: { title: 'Código enviado por correo', desc: `Revisa tu correo ${maskedEmail}`, icon: <Mail className="text-cyan-500 h-4 w-4" /> },
-        sms: { title: 'Código enviado por SMS', desc: `Revisa los mensajes en ${maskedPhone}`, icon: <Smartphone className="text-emerald-500 h-4 w-4" /> },
-        whatsapp: { title: 'Código enviado por WhatsApp', desc: `Revisa tu WhatsApp en ${maskedPhone}`, icon: <MessageCircle className="text-green-500 h-4 w-4" /> },
-      };
-      const ch = channelLabels[method];
-      toast({ title: ch.title, description: ch.desc, action: ch.icon });
+      if (json.devCode) {
+        setDevCode(json.devCode);
+        toast({ title: 'Modo desarrollo', description: 'Código mostrado en pantalla', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
+      } else {
+        setDevCode(null);
+        const channelLabels = {
+          email: { title: 'Código enviado por correo', desc: `Revisa tu correo ${maskedEmail}`, icon: <Mail className="text-cyan-500 h-4 w-4" /> },
+          sms: { title: 'Código enviado por SMS', desc: `Revisa los mensajes en ${maskedPhone}`, icon: <Smartphone className="text-emerald-500 h-4 w-4" /> },
+          whatsapp: { title: 'Código enviado por WhatsApp', desc: `Revisa tu WhatsApp en ${maskedPhone}`, icon: <MessageCircle className="text-green-500 h-4 w-4" /> },
+        };
+        const ch = channelLabels[method];
+        toast({ title: ch.title, description: ch.desc, action: ch.icon });
+      }
       setTimeout(() => inputRefs.current[0]?.focus(), 100);
     } catch {
       setError('Error de conexión al reenviar código.');
@@ -671,13 +682,16 @@ export function SpecializedLoginCard({
                   </motion.div>
                   <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
                   <p className="text-[13px] text-muted-foreground mt-2">
-                    Código de 6 dígitos enviado a{' '}
-                    <strong className="text-foreground">
-                      {verificationMethod === 'email' ? maskedEmail : maskedPhone}
-                    </strong>
-                    {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
+                    {devCode ? 'Ingresa el código mostrado abajo' : (
+                      <>Código de 6 dígitos enviado a{' '}
+                      <strong className="text-foreground">
+                        {verificationMethod === 'email' ? maskedEmail : maskedPhone}
+                      </strong>
+                      {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
+                      </>
+                    )}
                   </p>
-                  {verificationMethod === 'email' && (
+                  {!devCode && verificationMethod === 'email' && (
                     <p className="text-[11px] text-muted-foreground/60 mt-1.5">
                       También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
                     </p>
@@ -721,6 +735,17 @@ export function SpecializedLoginCard({
                     </div>
                   )}
                 </div>
+
+                {devCode && (
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-5">
+                    <Sparkles className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Modo Desarrollo</p>
+                      <p className="text-[12px] text-muted-foreground mt-0.5">El email no está configurado. Tu código es:</p>
+                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-amber-600 dark:text-amber-400 mt-2">{devCode}</p>
+                    </div>
+                  </div>
+                )}
 
                 <AnimatePresence>
                   {error && (

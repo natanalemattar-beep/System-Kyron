@@ -178,8 +178,25 @@ export async function POST(req: NextRequest) {
 
         const challengeToken = createLoginChallenge(normalizedEmail, user.id);
 
+        const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
+
         if (emailResult && !emailResult.success) {
             console.error('[login] Verification email failed:', emailResult.error);
+            if (isDev) {
+                console.log(`[login][DEV] Código de verificación para ${normalizedEmail}: ${code}`);
+                return NextResponse.json({
+                    requiresVerification: true,
+                    maskedEmail,
+                    nombre: displayName,
+                    hasAccessKey: !!user.access_key_hash,
+                    hasPhone,
+                    maskedPhone,
+                    challengeToken,
+                    emailFailed: true,
+                    devCode: code,
+                    devMessage: 'Email no disponible. Código mostrado en pantalla (solo desarrollo).',
+                });
+            }
             if (hasPhone) {
                 return NextResponse.json({
                     requiresVerification: true,

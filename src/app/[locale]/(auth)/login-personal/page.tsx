@@ -30,6 +30,7 @@ export default function LoginPersonalPage() {
   const [maskedPhone, setMaskedPhone] = useState('');
   const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
+  const [devCode, setDevCode] = useState<string | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -66,11 +67,16 @@ export default function LoginPersonalPage() {
       if (json.requiresVerification) {
         setVerificationEmail(email);
         setMaskedEmail(json.maskedEmail || email);
+        setDevCode(json.devCode || null);
         setStep('verification');
         setCountdown(600);
         setCodeDigits(['', '', '', '', '', '']);
         setIsLoading(false);
-        toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+        if (json.devCode) {
+          toast({ title: 'Modo desarrollo', description: 'Código mostrado en pantalla', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
+        } else {
+          toast({ title: 'Código enviado', description: `Revisa tu correo ${json.maskedEmail || email}`, action: <Mail className="text-cyan-500 h-4 w-4" /> });
+        }
         return;
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
@@ -96,6 +102,7 @@ export default function LoginPersonalPage() {
       if (json.requiresVerification) {
         setVerificationEmail(json.email);
         setMaskedPhone(json.maskedPhone || '');
+        setDevCode(null);
         setStep('verification');
         setCountdown(600);
         setCodeDigits(['', '', '', '', '', '']);
@@ -382,7 +389,7 @@ export default function LoginPersonalPage() {
                 </div>
                 <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong>
+                  {devCode ? 'Ingresa el código mostrado abajo' : <>Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong></>}
                 </p>
                 {countdown > 0 && (
                   <p className="text-xs text-muted-foreground mt-1.5">
@@ -390,6 +397,17 @@ export default function LoginPersonalPage() {
                   </p>
                 )}
               </div>
+
+              {devCode && (
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-5">
+                  <Sparkles className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Modo Desarrollo</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">El email no está configurado. Tu código es:</p>
+                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-amber-600 dark:text-amber-400 mt-2">{devCode}</p>
+                  </div>
+                </div>
+              )}
 
               {error && (
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-5">
@@ -421,12 +439,12 @@ export default function LoginPersonalPage() {
               )}
 
               <div className="space-y-3 mt-4">
-                <Button variant="outline" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); }} className="w-full h-11 rounded-xl text-sm font-semibold border-border/40" disabled={isLoading}>
+                <Button variant="outline" onClick={() => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setDevCode(null); }} className="w-full h-11 rounded-xl text-sm font-semibold border-border/40" disabled={isLoading}>
                   <RotateCcw className="mr-2 h-4 w-4" /> Volver a iniciar sesión
                 </Button>
                 <p className="text-center text-xs text-muted-foreground/60">
                   ¿No recibiste el código?{' '}
-                  <button onClick={() => { setStep('credentials'); setError(null); }} className="text-blue-500 hover:underline font-medium">Solicitar nuevo</button>
+                  <button onClick={() => { setStep('credentials'); setError(null); setDevCode(null); }} className="text-blue-500 hover:underline font-medium">Solicitar nuevo</button>
                 </p>
               </div>
             </motion.div>

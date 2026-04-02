@@ -31,7 +31,7 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 **Technical Implementations:**
 - **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables, GIN indexes for JSONB metadata columns, 40+ composite/partial indexes, supporting batch operations, upserts, and pagination.
 - **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations. Includes `/api/solicitudes` for generic service requests and `/api/arqueo-caja` for cash register closings. All 40+ action buttons across every module now wired to real API persistence (zero toast-only fake saves remain).
-- **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification.
+- **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification. Dev mode fallback: when email delivery is unavailable (no SMTP/OAuth configured), the API returns the verification code in the JSON response and the frontend displays it in an amber "Modo Desarrollo" warning box above the code input fields.
 - **Security:** CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Permissions-Policy, rate limiting with brute-force lockout, memory-safe maps, password complexity, input sanitization, and parameterized SQL.
 - **Payment Methods:** Support for 26+ payment gateways and 29 Venezuelan banks.
 - **Performance Optimizations:** Lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS animations, WebP images, adaptive performance, smart loading screens, IntersectionObserver, in-memory TTL cache, and optimized database queries with composite indexes.
