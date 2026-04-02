@@ -3,7 +3,7 @@ import { Client } from '@microsoft/microsoft-graph-client';
 let connectionSettings: any;
 
 async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
+  if (connectionSettings && connectionSettings.settings?.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
     return connectionSettings.settings.access_token;
   }
 
@@ -15,32 +15,41 @@ async function getAccessToken() {
     : null;
 
   if (!xReplitToken) {
-    throw new Error('X-Replit-Token not found for repl/depl');
+    throw new Error('Outlook: X-Replit-Token not found');
   }
 
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=outlook',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'X-Replit-Token': xReplitToken,
-      },
-    }
-  ).then(res => res.json()).then(data => data.items?.[0]);
+  if (!hostname) {
+    throw new Error('Outlook: REPLIT_CONNECTORS_HOSTNAME not set');
+  }
 
-  const accessToken =
-    connectionSettings?.settings?.access_token ||
-    connectionSettings.settings?.oauth?.credentials?.access_token;
+  const url = 'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=outlook';
+  const res = await fetch(url, {
+    headers: {
+      'Accept': 'application/json',
+      'X-Replit-Token': xReplitToken,
+    },
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    console.error(`[outlook-client] Connector API returned ${res.status}: ${body.substring(0, 300)}`);
+    throw new Error(`Outlook connector API error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  connectionSettings = data.items?.[0];
+
+  const accessToken = connectionSettings?.settings?.access_token || connectionSettings?.settings?.oauth?.credentials?.access_token;
 
   if (!connectionSettings || !accessToken) {
+    console.error('[outlook-client] No connection or access token found. Items count:', data.items?.length ?? 0);
     throw new Error('Outlook not connected');
   }
+
+  console.log('[outlook-client] Access token obtained successfully');
   return accessToken;
 }
 
-// WARNING: Never cache this client.
-// Access tokens expire, so a new client must be created each time.
-// Always call this function again to get a fresh client.
 export async function getUncachableOutlookClient() {
   const accessToken = await getAccessToken();
 
