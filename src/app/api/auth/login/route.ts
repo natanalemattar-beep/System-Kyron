@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
-import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { rateLimit, getClientIP, rateLimitResponse, checkBruteForce, recordLoginFailure, clearLoginFailures } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
@@ -45,6 +45,15 @@ export async function POST(req: NextRequest) {
         const emailRl = rateLimit(`login:email:${normalizedEmail}`, 5, 15 * 60 * 1000);
         if (!emailRl.allowed) return rateLimitResponse(emailRl.retryAfterMs);
 
+        const bruteCheck = checkBruteForce(`bf:${normalizedEmail}`);
+        if (bruteCheck.locked) {
+            const mins = Math.ceil(bruteCheck.retryAfterMs / 60000);
+            return NextResponse.json(
+                { error: `Cuenta temporalmente bloqueada por múltiples intentos fallidos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
+                { status: 423 }
+            );
+        }
+
         const user = await queryOne<DbUser>(
             `SELECT id, email, password_hash, tipo, nombre, apellido, cedula, razon_social, rif, access_key_hash, telefono, COALESCE(telefono_verificado, false) as telefono_verificado
              FROM users WHERE email = $1`,
@@ -58,17 +67,27 @@ export async function POST(req: NextRequest) {
 
         const valid = await bcrypt.compare(password, user.password_hash);
         if (!valid) {
+            const bruteResult = recordLoginFailure(`bf:${normalizedEmail}`);
             await logActivity({
                 userId: user.id,
                 evento: 'LOGIN_FALLIDO',
                 categoria: 'auth',
-                descripcion: `Intento de login fallido: ${user.email}`,
+                descripcion: `Intento de login fallido: ${user.email}${bruteResult.locked ? ' — cuenta bloqueada temporalmente' : ''}`,
                 entidadTipo: 'usuario',
                 entidadId: user.id,
-                metadata: { ip },
+                metadata: { ip, accountLocked: bruteResult.locked },
             });
+            if (bruteResult.locked) {
+                const mins = Math.ceil(bruteResult.lockDurationMs / 60000);
+                return NextResponse.json(
+                    { error: `Cuenta bloqueada por múltiples intentos fallidos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
+                    { status: 423 }
+                );
+            }
             return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
         }
+
+        clearLoginFailures(`bf:${normalizedEmail}`);
 
         const displayName = user.tipo === 'juridico'
             ? (user.razon_social ?? user.nombre)

@@ -10,14 +10,31 @@ const intlMiddleware = createMiddleware({
   localePrefix
 });
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+const CSP_DIRECTIVES = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob: https://flagcdn.com https://images.unsplash.com https://picsum.photos https://api.qrserver.com https://i.pravatar.cc",
+  "connect-src 'self' https://*.replit.dev https://*.replit.app",
+  "frame-ancestors 'self' https://*.replit.dev https://*.replit.app",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join('; ');
+
 const SECURITY_HEADERS: Record<string, string> = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'X-DNS-Prefetch-Control': 'on',
+  ...(IS_PRODUCTION ? { 'Content-Security-Policy': CSP_DIRECTIVES } : {}),
 };
 
 const COOKIE_NAME = 'sk_session';

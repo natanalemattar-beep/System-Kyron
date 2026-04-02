@@ -47,7 +47,9 @@ const fullSchema = z.object({
   password: z.string()
     .min(8, 'Mínimo 8 caracteres.')
     .regex(/[A-Z]/, 'Debe tener al menos una mayúscula.')
-    .regex(/[0-9]/, 'Debe tener al menos un número.'),
+    .regex(/[a-z]/, 'Debe tener al menos una minúscula.')
+    .regex(/[0-9]/, 'Debe tener al menos un número.')
+    .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Debe tener al menos un carácter especial (!@#$%...).'),
   confirmPassword: z.string().min(8, 'Confirma tu contraseña.'),
 }).refine(d => d.password === d.confirmPassword, {
   message: 'Las contraseñas no coinciden.',
@@ -701,7 +703,7 @@ export default function RegisterNaturalPage() {
                         )} />
                       ))}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">Min. 8, 1 mayúscula, 1 número</span>
+                    <span className="text-[10px] text-muted-foreground">Min. 8, mayúscula, minúscula, número y carácter especial</span>
                   </div>
                 </Field>
 

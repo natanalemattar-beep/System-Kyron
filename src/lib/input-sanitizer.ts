@@ -22,6 +22,11 @@ export function isStrongPassword(password: string): { valid: boolean; reason?: s
   if (!/[A-Z]/.test(password)) return { valid: false, reason: 'Debe contener al menos una mayúscula' };
   if (!/[a-z]/.test(password)) return { valid: false, reason: 'Debe contener al menos una minúscula' };
   if (!/[0-9]/.test(password)) return { valid: false, reason: 'Debe contener al menos un número' };
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(password)) return { valid: false, reason: 'Debe contener al menos un carácter especial (!@#$%...)' };
+  const commonPatterns = ['password', '12345678', 'qwerty', 'abcdefg', 'letmein', 'admin123', 'welcome1'];
+  if (commonPatterns.some(p => password.toLowerCase().includes(p))) {
+    return { valid: false, reason: 'La contraseña contiene un patrón demasiado común' };
+  }
   return { valid: true };
 }
 

@@ -89,6 +89,10 @@ export default function RecuperarCuentaPage() {
 
   const resetPassword = async () => {
     if (newPassword.length < 8) { setError('Mínimo 8 caracteres'); return; }
+    if (!/[A-Z]/.test(newPassword)) { setError('Debe contener al menos una mayúscula'); return; }
+    if (!/[a-z]/.test(newPassword)) { setError('Debe contener al menos una minúscula'); return; }
+    if (!/[0-9]/.test(newPassword)) { setError('Debe contener al menos un número'); return; }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(newPassword)) { setError('Debe contener al menos un carácter especial (!@#$%...)'); return; }
     if (newPassword !== confirmPassword) { setError('Las contraseñas no coinciden'); return; }
     setIsLoading(true);
     setError('');
@@ -283,6 +287,18 @@ export default function RecuperarCuentaPage() {
                 <div className="space-y-1.5 text-xs text-muted-foreground">
                   <p className={cn("flex items-center gap-1.5", newPassword.length >= 8 && "text-emerald-600")}>
                     <ShieldCheck className="h-3 w-3" /> Mínimo 8 caracteres
+                  </p>
+                  <p className={cn("flex items-center gap-1.5", /[A-Z]/.test(newPassword) && "text-emerald-600")}>
+                    <ShieldCheck className="h-3 w-3" /> Una mayúscula
+                  </p>
+                  <p className={cn("flex items-center gap-1.5", /[a-z]/.test(newPassword) && "text-emerald-600")}>
+                    <ShieldCheck className="h-3 w-3" /> Una minúscula
+                  </p>
+                  <p className={cn("flex items-center gap-1.5", /[0-9]/.test(newPassword) && "text-emerald-600")}>
+                    <ShieldCheck className="h-3 w-3" /> Un número
+                  </p>
+                  <p className={cn("flex items-center gap-1.5", /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(newPassword) && "text-emerald-600")}>
+                    <ShieldCheck className="h-3 w-3" /> Un carácter especial
                   </p>
                   <p className={cn("flex items-center gap-1.5", newPassword === confirmPassword && newPassword.length > 0 && "text-emerald-600")}>
                     <ShieldCheck className="h-3 w-3" /> Las contraseñas coinciden

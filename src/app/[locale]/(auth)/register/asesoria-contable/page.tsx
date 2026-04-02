@@ -123,7 +123,9 @@ const schema = z.object({
     password: z.string()
         .min(8, 'Mínimo 8 caracteres')
         .regex(/[A-Z]/, 'Debe contener una mayúscula')
-        .regex(/[0-9]/, 'Debe contener un número'),
+        .regex(/[a-z]/, 'Debe contener una minúscula')
+        .regex(/[0-9]/, 'Debe contener un número')
+        .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Debe contener un carácter especial (!@#$%...)'),
     confirmPassword: z.string(),
     estado_empresa: z.string().min(1, 'Seleccione el estado'),
     municipio_empresa: z.string().min(2, 'Seleccione el municipio'),

@@ -103,7 +103,9 @@ const schema = z
             .string()
             .min(8, "Mínimo 8 caracteres")
             .regex(/[A-Z]/, "Una mayúscula requerida")
-            .regex(/[0-9]/, "Un número requerido"),
+            .regex(/[a-z]/, "Una minúscula requerida")
+            .regex(/[0-9]/, "Un número requerido")
+            .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, "Un carácter especial requerido (!@#$%...)"),
         confirmPassword: z.string(),
     })
     .refine((d) => d.password === d.confirmPassword, {

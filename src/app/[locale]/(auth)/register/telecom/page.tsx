@@ -104,7 +104,7 @@ const baseSchema = z.object({
     direccion_servicio: z.string().min(5, 'Ingrese la dirección de servicio'),
 
     email: z.string().email('Correo inválido'),
-    password: z.string().min(8,'Mínimo 8 caracteres').regex(/[A-Z]/,'Una mayúscula').regex(/[0-9]/,'Un número'),
+    password: z.string().min(8,'Mínimo 8 caracteres').regex(/[A-Z]/,'Una mayúscula').regex(/[a-z]/,'Una minúscula').regex(/[0-9]/,'Un número').regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/,'Un carácter especial (!@#$%...)'),
     confirmPassword: z.string(),
 }).refine(d => d.password === d.confirmPassword, { message:'Las contraseñas no coinciden', path:['confirmPassword'] })
   .refine(d => {

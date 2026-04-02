@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { queryOne } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
-import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
+import { rateLimit, getClientIP, rateLimitResponse, checkBruteForce, recordLoginFailure } from '@/lib/rate-limiter';
 import { generateCode, storeCode } from '@/lib/verification-codes';
 import { createLoginChallenge } from '@/lib/login-challenge';
 
@@ -56,6 +56,15 @@ export async function POST(req: NextRequest) {
     const phoneRl = rateLimit(`login-phone:${normalized}`, 5, 15 * 60 * 1000);
     if (!phoneRl.allowed) return rateLimitResponse(phoneRl.retryAfterMs);
 
+    const bruteCheck = checkBruteForce(`bf:phone:${normalized}`);
+    if (bruteCheck.locked) {
+      const mins = Math.ceil(bruteCheck.retryAfterMs / 60000);
+      return NextResponse.json(
+        { error: `Número temporalmente bloqueado por múltiples intentos. Intenta de nuevo en ${mins} minuto${mins > 1 ? 's' : ''}.` },
+        { status: 423 }
+      );
+    }
+
     const user = await queryOne<DbUser>(
       `SELECT id, email, tipo, nombre, apellido, razon_social, telefono,
               COALESCE(telefono_verificado, false) as telefono_verificado
@@ -66,6 +75,7 @@ export async function POST(req: NextRequest) {
     );
 
     if (!user) {
+      recordLoginFailure(`bf:phone:${normalized}`);
       await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
       return NextResponse.json({
         error: 'No encontramos una cuenta con ese número. Verifica el número o regístrate.'

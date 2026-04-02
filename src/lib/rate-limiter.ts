@@ -1,10 +1,18 @@
 const attempts = new Map<string, { count: number; resetAt: number }>();
+const bruteForceTracker = new Map<string, { failures: number; lockedUntil: number }>();
+
+const MAX_MAP_SIZE = 10000;
 
 setInterval(() => {
   const now = Date.now();
   for (const [key, val] of attempts) {
     if (val.resetAt <= now) attempts.delete(key);
   }
+  for (const [key, val] of bruteForceTracker) {
+    if (val.lockedUntil <= now && val.failures <= 0) bruteForceTracker.delete(key);
+  }
+  if (attempts.size > MAX_MAP_SIZE) attempts.clear();
+  if (bruteForceTracker.size > MAX_MAP_SIZE) bruteForceTracker.clear();
 }, 60_000);
 
 export function rateLimit(
@@ -30,6 +38,46 @@ export function rateLimit(
 
   entry.count++;
   return { allowed: true, remaining: maxAttempts - entry.count, retryAfterMs: 0 };
+}
+
+export function recordLoginFailure(identifier: string): { locked: boolean; lockDurationMs: number } {
+  const now = Date.now();
+  const entry = bruteForceTracker.get(identifier) || { failures: 0, lockedUntil: 0 };
+
+  if (entry.lockedUntil > now) {
+    return { locked: true, lockDurationMs: entry.lockedUntil - now };
+  }
+
+  entry.failures++;
+
+  let lockDurationMs = 0;
+  if (entry.failures >= 10) {
+    lockDurationMs = 30 * 60 * 1000;
+  } else if (entry.failures >= 7) {
+    lockDurationMs = 10 * 60 * 1000;
+  } else if (entry.failures >= 5) {
+    lockDurationMs = 3 * 60 * 1000;
+  }
+
+  if (lockDurationMs > 0) {
+    entry.lockedUntil = now + lockDurationMs;
+  }
+
+  bruteForceTracker.set(identifier, entry);
+  return { locked: lockDurationMs > 0, lockDurationMs };
+}
+
+export function checkBruteForce(identifier: string): { locked: boolean; retryAfterMs: number } {
+  const now = Date.now();
+  const entry = bruteForceTracker.get(identifier);
+  if (!entry || entry.lockedUntil <= now) {
+    return { locked: false, retryAfterMs: 0 };
+  }
+  return { locked: true, retryAfterMs: entry.lockedUntil - now };
+}
+
+export function clearLoginFailures(identifier: string): void {
+  bruteForceTracker.delete(identifier);
 }
 
 export function getClientIP(req: Request): string {
