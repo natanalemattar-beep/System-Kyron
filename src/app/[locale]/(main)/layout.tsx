@@ -1,9 +1,12 @@
 'use client';
 
+import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { PageTransition } from "@/components/ui/motion";
 import { PageTracker } from "@/components/page-tracker";
+
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
 export default function MainLayout({
   children,
@@ -36,6 +39,7 @@ export default function MainLayout({
                 </p>
               </footer>
           </div>
+          <WelcomeTutorial />
           <LazyChatDialog />
       </div>
     );

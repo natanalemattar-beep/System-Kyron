@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from "next/dynamic";
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { PageTransition } from "@/components/ui/motion";
@@ -8,6 +9,8 @@ import { useAuth } from "@/lib/auth/context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
 import { PageTracker } from "@/components/page-tracker";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
+
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
@@ -56,6 +59,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
                 </p>
               </footer>
           </div>
+          <WelcomeTutorial />
           <LazyChatDialog />
       </div>
     );
