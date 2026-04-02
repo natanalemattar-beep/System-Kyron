@@ -66,7 +66,13 @@ export default function RegisterNaturalPage() {
   const searchParams = useSearchParams();
   const prefilledDoc = searchParams.get('doc') || '';
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => {
+    try {
+      const s = typeof window !== 'undefined' ? sessionStorage.getItem('kyron-register-natural-step') : null;
+      const parsed = s ? parseInt(s, 10) : 1;
+      return parsed >= 1 && parsed <= 3 ? parsed : 1;
+    } catch { return 1; }
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -96,20 +102,33 @@ export default function RegisterNaturalPage() {
 
   const hasSaimeData = !!(prefilledNombre && prefilledApellido);
 
+  const getSavedFormData = (): Partial<FormData> => {
+    try {
+      const saved = sessionStorage.getItem('kyron-register-natural');
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  };
+
+  const savedData = typeof window !== 'undefined' ? getSavedFormData() : {};
+
   const { register, handleSubmit, control, getValues, watch, setValue, formState: { errors }, trigger } =
     useForm<FormData>({
       resolver: zodResolver(fullSchema),
       mode: 'onTouched',
       defaultValues: {
-        cedula: prefilledDoc || undefined,
-        nombre: prefilledNombre || undefined,
-        apellido: prefilledApellido || undefined,
-        estado_residencia: prefilledEstado || undefined,
-        municipio: prefilledMunicipio || undefined,
-        ciudad: prefilledParroquia || undefined,
-        fecha_nacimiento: prefilledFechaNac || undefined,
-        genero: prefilledSexo || undefined,
-        estado_civil: prefilledCivil || undefined,
+        cedula: prefilledDoc || savedData.cedula || undefined,
+        nombre: prefilledNombre || savedData.nombre || undefined,
+        apellido: prefilledApellido || savedData.apellido || undefined,
+        estado_residencia: prefilledEstado || savedData.estado_residencia || undefined,
+        municipio: prefilledMunicipio || savedData.municipio || undefined,
+        ciudad: prefilledParroquia || savedData.ciudad || undefined,
+        fecha_nacimiento: prefilledFechaNac || savedData.fecha_nacimiento || undefined,
+        genero: prefilledSexo || savedData.genero || undefined,
+        estado_civil: prefilledCivil || savedData.estado_civil || undefined,
+        telefono: savedData.telefono || undefined,
+        telefono_alt: savedData.telefono_alt || undefined,
+        direccion: savedData.direccion || undefined,
+        email: savedData.email || undefined,
       },
     });
 
@@ -122,6 +141,16 @@ export default function RegisterNaturalPage() {
       });
     }, 1000);
   };
+
+  const watchedFields = watch();
+  useEffect(() => {
+    const { password, confirmPassword, ...safeData } = watchedFields;
+    try { sessionStorage.setItem('kyron-register-natural', JSON.stringify(safeData)); } catch {}
+  }, [watchedFields]);
+
+  useEffect(() => {
+    try { sessionStorage.setItem('kyron-register-natural-step', String(step)); } catch {}
+  }, [step]);
 
   const estadoResidencia = watch('estado_residencia');
   const isInitialMount = useRef(true);
@@ -232,6 +261,7 @@ export default function RegisterNaturalPage() {
         return;
       }
       setRegisteredEmail(data.email);
+      try { sessionStorage.removeItem('kyron-register-natural'); sessionStorage.removeItem('kyron-register-natural-step'); } catch {}
       setStep(TOTAL_STEPS);
     } catch {
       toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
