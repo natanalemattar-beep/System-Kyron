@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Loader2, CircleCheck, CircleX, ShieldCheck } from 'lucide-react';
-import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 
@@ -11,10 +10,10 @@ export default function VerifyLinkPage() {
   const router = useRouter();
   const params = useParams();
   const token = params?.token as string;
-  const [status, setStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
+  const locale = (params?.locale as string) || 'es';
+  const [status, setStatus] = useState<'verifying' | 'success' | 'registration' | 'error'>('verifying');
   const [errorMsg, setErrorMsg] = useState('');
   const [userName, setUserName] = useState('');
-  const [userType, setUserType] = useState<'natural' | 'juridico'>('natural');
   const attempted = useRef(false);
 
   useEffect(() => {
@@ -36,9 +35,13 @@ export default function VerifyLinkPage() {
           return;
         }
 
+        if (json.registrationMode) {
+          setStatus('registration');
+          return;
+        }
+
         setStatus('success');
         setUserName(json.user?.nombre || '');
-        setUserType(json.user?.tipo || 'natural');
 
         const redirectPath = json.user?.tipo === 'juridico'
           ? '/dashboard-empresa'
@@ -63,7 +66,7 @@ export default function VerifyLinkPage() {
           {status === 'verifying' && (
             <Loader2 className="h-8 w-8 text-primary animate-spin" />
           )}
-          {status === 'success' && (
+          {(status === 'success' || status === 'registration') && (
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -106,6 +109,27 @@ export default function VerifyLinkPage() {
             <p className="text-sm text-muted-foreground">
               Bienvenido, <strong className="text-foreground">{userName}</strong>. Redirigiendo...
             </p>
+          </motion.div>
+        )}
+
+        {status === 'registration' && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <h1 className="text-xl font-black tracking-tight text-foreground uppercase">
+              Correo verificado
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Tu correo ha sido verificado exitosamente. Puedes cerrar esta pestaña y continuar con tu registro.
+            </p>
+            <Button
+              onClick={() => router.push(`/${locale}/register`)}
+              className="rounded-xl font-bold text-xs uppercase tracking-widest"
+            >
+              Ir al registro
+            </Button>
           </motion.div>
         )}
 

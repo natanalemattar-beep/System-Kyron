@@ -25,7 +25,7 @@ function hashToken(token: string): string {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
-export async function storeMagicToken(email: string, token: string, userId: number): Promise<void> {
+export async function storeMagicToken(email: string, token: string, userId?: number): Promise<void> {
   const expiresAt = new Date(Date.now() + CODE_EXPIRY_MS);
   const hashed = hashToken(token);
   try {
@@ -39,7 +39,7 @@ export async function storeMagicToken(email: string, token: string, userId: numb
     fallbackMagicTokens.set(hashed, {
       email: email.toLowerCase(),
       expires: Date.now() + CODE_EXPIRY_MS,
-      userId,
+      userId: userId ?? 0,
     });
   }
 }

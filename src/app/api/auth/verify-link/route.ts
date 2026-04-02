@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { queryOne } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 import { createToken, setSessionCookie } from '@/lib/auth';
 import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
@@ -32,18 +32,40 @@ export async function POST(req: NextRequest) {
 
     const result = await verifyMagicToken(token);
 
-    if (!result.valid || !result.userId) {
+    if (!result.valid) {
       return NextResponse.json({ error: result.error || 'Enlace inválido o expirado.' }, { status: 401 });
     }
 
-    const user = await queryOne<DbUser>(
-      `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
-       FROM users WHERE id = $1`,
-      [result.userId]
-    );
+    if (!result.email) {
+      return NextResponse.json({ error: 'Enlace inválido.' }, { status: 401 });
+    }
+
+    const user = result.userId
+      ? await queryOne<DbUser>(
+          `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
+           FROM users WHERE id = $1`,
+          [result.userId]
+        )
+      : await queryOne<DbUser>(
+          `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
+           FROM users WHERE email = $1`,
+          [result.email]
+        );
 
     if (!user) {
-      return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+      await query(
+        `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito, usado)
+         VALUES ($1, 'email', 'MAGIC_VERIFIED', NOW() + INTERVAL '30 minutes', 'verification', true)`,
+        [result.email.toLowerCase()]
+      );
+
+      return NextResponse.json({
+        success: true,
+        verified: true,
+        registrationMode: true,
+        email: result.email,
+        message: 'Correo verificado. Puedes continuar con tu registro.',
+      });
     }
 
     const displayName = user.tipo === 'juridico'

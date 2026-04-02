@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
         ),
       ]);
 
+      const originalEmail = destino;
       if (userConfig[0]?.email_verificacion) {
         destino = userConfig[0].email_verificacion;
       }
@@ -99,20 +100,17 @@ export async function POST(req: NextRequest) {
           `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, $2, $3, $4, 'verification')`,
           [destino, tipo, codigo, expiresAt]
         ),
-        queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [destino.toLowerCase()]),
+        queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [originalEmail.toLowerCase()]),
       ]);
 
-      let magicLink: string | undefined;
-      if (user) {
-        const token = generateMagicToken();
-        const baseUrl = process.env.REPLIT_DEPLOYMENT_URL
-          ? `https://${process.env.REPLIT_DEPLOYMENT_URL}`
-          : process.env.REPLIT_DEV_DOMAIN
-          ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-          : (process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
-        magicLink = `${baseUrl}/es/verify-link/${token}`;
-        storeMagicToken(destino, token, user.id).catch(() => {});
-      }
+      const token = generateMagicToken();
+      const baseUrl = process.env.REPLIT_DEPLOYMENT_URL
+        ? `https://${process.env.REPLIT_DEPLOYMENT_URL}`
+        : process.env.REPLIT_DEV_DOMAIN
+        ? `https://${process.env.REPLIT_DEV_DOMAIN}`
+        : (process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+      const magicLink = `${baseUrl}/es/verify-link/${token}`;
+      storeMagicToken(destino, token, user?.id).catch(() => {});
 
       const html = buildKyronEmailTemplate({
         title: 'Verificación de Identidad',
