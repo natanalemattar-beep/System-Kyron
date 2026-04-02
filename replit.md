@@ -62,7 +62,12 @@ The system is built on Next.js 15 (App Router) with TypeScript, utilizing `next-
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
-- **Email Services:** Outlook/Microsoft (primary, via Replit connector), Gmail API (backup, via Replit connector), SMTP (fallback), Resend (last resort). Provider order: Outlook → SMTP → Gmail → Resend. Connector clients fetch all connections without `connector_names` filter to avoid 401 errors.
+- **Email Services:** Two primary accounts with mutual backup:
+  - **Gmail** (`noreplysystemkyron@gmail.com`): Verification codes, notifications, general emails. Backup for alerts when Hotmail fails.
+  - **Hotmail/Outlook** (`alertas_systemkyron@hotmail.com`): All alerts. Backup for verification/notifications when Gmail fails.
+  - Provider order for verification/general: Gmail → Outlook → SMTP → Resend.
+  - Provider order for alerts: Outlook → Gmail → SMTP → Resend.
+  - Connector clients fetch all connections without `connector_names` filter to avoid 401 errors.
 - **AI Integrations:** Gemini, OpenAI, Anthropic Claude (via Replit AI Integrations)
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
