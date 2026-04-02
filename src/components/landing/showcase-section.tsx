@@ -8,33 +8,33 @@ import { ThemeImage } from '@/components/ui/theme-image';
 
 const screenshots = [
   {
+    darkSrc: '/images/landing/screenshot-portales-dark.jpg',
+    lightSrc: '/images/landing/screenshot-portales-light.jpg',
+    title: 'Selector de Portales',
+    description: 'Acceso centralizado a todos los módulos con cifrado AES-256',
+    icon: ShieldCheck,
+    color: 'from-cyan-500 to-blue-500',
+    accent: 'border-cyan-500/30',
+    size: 'large' as const,
+  },
+  {
     darkSrc: '/images/landing/screenshot-contabilidad-dark.jpg',
     lightSrc: '/images/landing/screenshot-contabilidad-light.jpg',
-    title: 'Contabilidad Empresarial',
-    description: 'Auditoría Forense con IA y Conciliación Bancaria T+0',
+    title: 'Acceso Seguro',
+    description: 'Login especializado por módulo con verificación 2FA',
     icon: Monitor,
     color: 'from-blue-500 to-violet-500',
     accent: 'border-blue-500/30',
-    size: 'large' as const,
+    size: 'medium' as const,
   },
   {
     darkSrc: '/images/landing/screenshot-registro-dark.jpg',
     lightSrc: '/images/landing/screenshot-registro-light.jpg',
     title: 'Registro Inteligente',
-    description: 'Formulario con validación de cédula y documentos',
+    description: 'Validación de cédula y RIF con consulta SAIME/SENIAT',
     icon: Smartphone,
     color: 'from-emerald-500 to-cyan-500',
     accent: 'border-emerald-500/30',
-    size: 'medium' as const,
-  },
-  {
-    darkSrc: '/images/landing/screenshot-portales-dark.jpg',
-    lightSrc: '/images/landing/screenshot-portales-light.jpg',
-    title: 'Portal de Acceso',
-    description: 'Selección de portales con cifrado AES-256',
-    icon: ShieldCheck,
-    color: 'from-cyan-500 to-blue-500',
-    accent: 'border-cyan-500/30',
     size: 'medium' as const,
   },
   {
@@ -153,7 +153,7 @@ export function ShowcaseSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-auto gap-4 md:gap-5">
           {screenshots.map((item, idx) => (
             <ScreenshotCard key={item.title} item={item} index={idx} animate={animate} />
           ))}

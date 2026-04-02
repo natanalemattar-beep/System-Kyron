@@ -47,7 +47,7 @@ export function ThemeImage({
         width={width}
         height={height}
         quality={quality}
-        className={cn(className, 'absolute inset-0 opacity-0 dark:opacity-100')}
+        className={cn(className, 'absolute top-0 left-0 w-full h-full object-cover opacity-0 dark:opacity-100')}
         priority={priority}
         loading={loading}
         sizes={sizes}
