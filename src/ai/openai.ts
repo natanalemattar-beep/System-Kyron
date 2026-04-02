@@ -16,6 +16,7 @@ export function getOpenAIClient(): OpenAI {
 }
 
 export const OPENAI_MODEL = 'gpt-4o-mini';
+export const OPENAI_MODEL_FAST = 'gpt-4o-mini';
 
 export async function openaiGenerateText(opts: {
   system: string;

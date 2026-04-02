@@ -3,8 +3,15 @@ import { getSession } from '@/lib/auth';
 import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeString } from '@/lib/input-sanitizer';
 import { geminiGenerateText } from '@/ai/gemini';
+import { openaiGenerateText } from '@/ai/openai';
 
 export const dynamic = 'force-dynamic';
+
+const FISCAL_SYSTEM = `Eres un experto fiscal venezolano especializado en el Código Orgánico Tributario (COT), 
+la Gaceta Oficial N° 6.952, normativas SENIAT, IVA, ISLR, IGTF, VEN-NIF y legislación tributaria venezolana.
+Responde SIEMPRE en español, de forma clara, precisa y profesional.
+Cita artículos y leyes específicas cuando sea relevante.
+No inventes normativas ni cifras que no sean reales.`;
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -23,15 +30,21 @@ export async function POST(req: NextRequest) {
 
     const sanitizedPrompt = sanitizeString(prompt, 4000);
 
-    const content = await geminiGenerateText({
-      system: `Eres un experto fiscal venezolano especializado en el Código Orgánico Tributario (COT), 
-la Gaceta Oficial N° 6.952, normativas SENIAT, IVA, ISLR, IGTF, VEN-NIF y legislación tributaria venezolana.
-Responde SIEMPRE en español, de forma clara, precisa y profesional.
-Cita artículos y leyes específicas cuando sea relevante.
-No inventes normativas ni cifras que no sean reales.`,
-      prompt: sanitizedPrompt,
-      maxTokens: 2048,
-    });
+    let content: string;
+    try {
+      content = await geminiGenerateText({
+        system: FISCAL_SYSTEM,
+        prompt: sanitizedPrompt,
+        maxTokens: 2048,
+      });
+    } catch (geminiErr) {
+      console.error('[fiscal-chat] Gemini failed, trying OpenAI fallback:', geminiErr);
+      content = await openaiGenerateText({
+        system: FISCAL_SYSTEM,
+        prompt: sanitizedPrompt,
+        maxTokens: 2048,
+      });
+    }
 
     return NextResponse.json({ content: content || 'No pude procesar la consulta. Intenta de nuevo.' });
   } catch (err) {

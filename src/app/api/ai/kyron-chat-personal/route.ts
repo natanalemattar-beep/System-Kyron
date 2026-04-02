@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -131,10 +132,13 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    let client;
-    try {
-      client = getGeminiClient();
-    } catch {
+    let geminiAvailable = false;
+    try { getGeminiClient(); geminiAvailable = true; } catch {}
+
+    let openaiAvailable = false;
+    try { getOpenAIClient(); openaiAvailable = true; } catch {}
+
+    if (!geminiAvailable && !openaiAvailable) {
       return new Response(JSON.stringify({
         error: 'El chat IA no está disponible en este momento.',
       }), { status: 503, headers: { 'Content-Type': 'application/json' } });
@@ -142,32 +146,74 @@ export async function POST(req: NextRequest) {
 
     const ctx = context ? `\n\nCONTEXTO: ${context.substring(0, 300)}` : '';
 
-    const trimmedHistory = chatHistory.slice(-12).map(m => ({
-      role: m.role === 'user' ? 'user' as const : 'model' as const,
-      parts: [{ text: m.content.substring(0, 2000) }],
-    }));
-
-    const response = await client.models.generateContentStream({
-      model: GEMINI_MODEL,
-      contents: trimmedHistory,
-      config: {
-        systemInstruction: SYSTEM_PROMPT + ctx,
-        maxOutputTokens: 1024,
-        temperature: 0.7,
-      },
-    });
-
     const encoder = new TextEncoder();
+
+    async function streamGemini(ctrl: ReadableStreamDefaultController) {
+      const client = getGeminiClient();
+      const geminiHistory = chatHistory.slice(-12).map(m => ({
+        role: m.role === 'user' ? 'user' as const : 'model' as const,
+        parts: [{ text: m.content.substring(0, 2000) }],
+      }));
+      const response = await client.models.generateContentStream({
+        model: GEMINI_MODEL,
+        contents: geminiHistory,
+        config: {
+          systemInstruction: SYSTEM_PROMPT + ctx,
+          maxOutputTokens: 1024,
+          temperature: 0.7,
+        },
+      });
+      for await (const chunk of response) {
+        const text = chunk.text;
+        if (text) {
+          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+        }
+      }
+      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+    }
+
+    async function streamOpenAI(ctrl: ReadableStreamDefaultController) {
+      const client = getOpenAIClient();
+      const openaiHistory = chatHistory.slice(-12).map(m => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content.substring(0, 2000),
+      }));
+      const stream = await client.chat.completions.create({
+        model: OPENAI_MODEL,
+        max_tokens: 1024,
+        temperature: 0.7,
+        stream: true,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT + ctx },
+          ...openaiHistory,
+        ],
+      });
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content;
+        if (text) {
+          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+        }
+      }
+      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+    }
+
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of response) {
-            const text = chunk.text;
-            if (text) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+          if (geminiAvailable) {
+            try {
+              await streamGemini(controller);
+            } catch (err) {
+              console.error('[kyron-chat-personal] Gemini failed, trying OpenAI fallback:', err);
+              if (openaiAvailable) {
+                await streamOpenAI(controller);
+              } else {
+                throw err;
+              }
             }
+          } else {
+            await streamOpenAI(controller);
           }
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
           controller.close();
         } catch (err) {
           console.error('[kyron-chat-personal] stream error:', err);

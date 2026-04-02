@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { openaiGenerateText } from '@/ai/openai';
+import { geminiGenerateText } from '@/ai/gemini';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,8 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Datos demasiado grandes para análisis' }, { status: 400 });
     }
 
-    const analysis = await openaiGenerateText({
-      system: `Eres un analista financiero y de negocios experto para empresas venezolanas.
+    const sysPrompt = `Eres un analista financiero y de negocios experto para empresas venezolanas.
 Analiza los datos del dashboard y proporciona:
 1. Un resumen ejecutivo en 2-3 líneas
 2. Los 3 puntos más críticos o destacados
@@ -37,16 +37,31 @@ Analiza los datos del dashboard y proporciona:
 
 Responde siempre en español, de forma concisa y profesional.
 Cita cifras específicas cuando estén disponibles.
-Considera el contexto económico venezolano (inflación, tipo de cambio BCV, normativa SENIAT).`,
-      prompt: `Módulo: ${module || 'Dashboard General'}
+Considera el contexto económico venezolano (inflación, tipo de cambio BCV, normativa SENIAT).`;
+
+    const userPrompt = `Módulo: ${module || 'Dashboard General'}
 ${context ? `Contexto adicional: ${context}` : ''}
 
 Datos del dashboard:
 ${dataStr}
 
-Por favor analiza estos datos y proporciona insights accionables.`,
-      maxTokens: 1024,
-    });
+Por favor analiza estos datos y proporciona insights accionables.`;
+
+    let analysis: string;
+    try {
+      analysis = await openaiGenerateText({
+        system: sysPrompt,
+        prompt: userPrompt,
+        maxTokens: 1024,
+      });
+    } catch (openaiErr) {
+      console.error('[analyze-dashboard] OpenAI failed, trying Gemini fallback:', openaiErr);
+      analysis = await geminiGenerateText({
+        system: sysPrompt,
+        prompt: userPrompt,
+        maxTokens: 1024,
+      });
+    }
 
     return NextResponse.json({ analysis: analysis || 'No se pudo generar el análisis.', module: module || 'Dashboard General' });
   } catch (err) {

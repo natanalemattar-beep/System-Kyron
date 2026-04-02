@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/auth';
 import Anthropic from '@anthropic-ai/sdk';
+import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -284,18 +285,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const apiKey = process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      return new Response(JSON.stringify({
-        error: 'El chat IA no está disponible en este momento.',
-      }), { status: 503, headers: { 'Content-Type': 'application/json' } });
-    }
-
-    const client = new Anthropic({
-      apiKey,
-      baseURL: process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL || undefined,
-    });
-
     const ctx = context ? `\n\nCONTEXTO DEL USUARIO: ${context.substring(0, 500)}` : '';
 
     const trimmedHistory = chatHistory.slice(-20).map(m => ({
@@ -303,26 +292,81 @@ export async function POST(req: NextRequest) {
       content: m.content.substring(0, 4000),
     }));
 
-    const stream = await client.messages.stream({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 8192,
-      system: SYSTEM_PROMPT + ctx,
-      messages: trimmedHistory,
-    });
+    const anthropicKey = process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
+    let geminiAvailable = false;
+    try { getGeminiClient(); geminiAvailable = true; } catch {}
+
+    if (!anthropicKey && !geminiAvailable) {
+      return new Response(JSON.stringify({
+        error: 'El chat IA no está disponible en este momento.',
+      }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+    }
 
     const encoder = new TextEncoder();
+
+    async function streamAnthropic(ctrl: ReadableStreamDefaultController) {
+      const client = new Anthropic({
+        apiKey: anthropicKey!,
+        baseURL: process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL || undefined,
+      });
+      const stream = await client.messages.stream({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8192,
+        system: SYSTEM_PROMPT + ctx,
+        messages: trimmedHistory,
+      });
+      for await (const event of stream) {
+        if (event.type === 'content_block_delta') {
+          const delta = event.delta;
+          if ('text' in delta) {
+            ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text: delta.text })}\n\n`));
+          }
+        }
+      }
+      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+    }
+
+    async function streamGemini(ctrl: ReadableStreamDefaultController) {
+      const gemini = getGeminiClient();
+      const geminiHistory = trimmedHistory.map(m => ({
+        role: m.role === 'user' ? 'user' as const : 'model' as const,
+        parts: [{ text: m.content }],
+      }));
+      const response = await gemini.models.generateContentStream({
+        model: GEMINI_MODEL,
+        contents: geminiHistory,
+        config: {
+          systemInstruction: SYSTEM_PROMPT + ctx,
+          maxOutputTokens: 4096,
+          temperature: 0.7,
+        },
+      });
+      for await (const chunk of response) {
+        const text = chunk.text;
+        if (text) {
+          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+        }
+      }
+      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+    }
+
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta') {
-              const delta = event.delta;
-              if ('text' in delta) {
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: delta.text })}\n\n`));
+          if (anthropicKey) {
+            try {
+              await streamAnthropic(controller);
+            } catch (err) {
+              console.error('[kyron-chat] Anthropic failed, trying Gemini fallback:', err);
+              if (geminiAvailable) {
+                await streamGemini(controller);
+              } else {
+                throw err;
               }
             }
+          } else {
+            await streamGemini(controller);
           }
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
           controller.close();
         } catch (err) {
           console.error('[kyron-chat] stream error:', err);
