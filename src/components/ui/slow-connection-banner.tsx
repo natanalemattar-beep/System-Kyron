@@ -10,8 +10,8 @@ function detectSlowConnection(): boolean {
   const conn = (navigator as any).connection;
   if (!conn) return false;
   if (conn.effectiveType === 'slow-2g') return true;
-  if (typeof conn.downlink === 'number' && conn.downlink <= 0.3) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 8000) return true;
+  if (typeof conn.downlink === 'number' && conn.downlink <= 0.25) return true;
+  if (typeof conn.rtt === 'number' && conn.rtt > 10000) return true;
   return false;
 }
 
@@ -63,6 +63,12 @@ const STATE_TOKENS = {
   },
 };
 
+const SLOW_THRESHOLD_MS = 20000;
+const CONSECUTIVE_SLOW_REQUIRED = 3;
+const INITIAL_DELAY_MS = 45000;
+const CHECK_INTERVAL_MS = 120000;
+const PING_TIMEOUT_MS = 25000;
+
 export function SlowConnectionBanner() {
   const [state, setState] = useState<ConnectionState>('good');
   const [dismissed, setDismissed] = useState(false);
@@ -70,9 +76,9 @@ export function SlowConnectionBanner() {
   const mountedRef = useRef(true);
   const prevStateRef = useRef<ConnectionState>('good');
   const recoveryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const firstCheckDone = useRef(false);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const slowCountRef = useRef(0);
+  const checkCountRef = useRef(0);
 
   const checkConnection = useCallback(() => {
     if (!mountedRef.current) return;
@@ -84,86 +90,91 @@ export function SlowConnectionBanner() {
       setDismissed(false);
       return;
     }
+
     if (detectSlowConnection()) {
-      prevStateRef.current = 'slow';
-      setState('slow');
-      setDismissed(false);
+      slowCountRef.current++;
+      if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED) {
+        prevStateRef.current = 'slow';
+        setState('slow');
+        setDismissed(false);
+      }
       return;
     }
 
     const start = performance.now();
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 20000);
+    const timeout = setTimeout(() => controller.abort(), PING_TIMEOUT_MS);
 
     fetch('/api/ping', { method: 'HEAD', cache: 'no-store', signal: controller.signal })
       .then(() => {
         clearTimeout(timeout);
         const elapsed = performance.now() - start;
         if (!mountedRef.current) return;
-        
-        slowCountRef.current = 0;
-        
-        if (elapsed > 15000) {
-          prevStateRef.current = 'slow';
-          setState('slow');
-          setDismissed(false);
-        } else if (wasOfflineOrSlow && firstCheckDone.current) {
-          setState('recovered');
-          setDismissed(false);
-          if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
-          recoveryTimerRef.current = setTimeout(() => {
-            if (mountedRef.current) { prevStateRef.current = 'good'; setState('good'); }
-          }, 4000);
+        checkCountRef.current++;
+
+        if (elapsed > SLOW_THRESHOLD_MS && checkCountRef.current > 1) {
+          slowCountRef.current++;
+          if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED) {
+            prevStateRef.current = 'slow';
+            setState('slow');
+            setDismissed(false);
+          }
         } else {
-          prevStateRef.current = 'good';
-          setState('good');
+          if (slowCountRef.current > 0) slowCountRef.current = Math.max(0, slowCountRef.current - 1);
+
+          if (wasOfflineOrSlow && checkCountRef.current > 1) {
+            setState('recovered');
+            setDismissed(false);
+            if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
+            recoveryTimerRef.current = setTimeout(() => {
+              if (mountedRef.current) { prevStateRef.current = 'good'; setState('good'); }
+            }, 4000);
+          } else {
+            prevStateRef.current = 'good';
+            setState('good');
+          }
         }
-        firstCheckDone.current = true;
       })
       .catch((err: unknown) => {
         clearTimeout(timeout);
         if (!mountedRef.current) return;
+        checkCountRef.current++;
+
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
           prevStateRef.current = 'offline'; setState('offline'); setDismissed(false);
-        } else if (err instanceof DOMException && err.name === 'AbortError') {
-          slowCountRef.current++;
-          if (slowCountRef.current >= 2 && firstCheckDone.current) {
-            prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
-          }
         } else {
           slowCountRef.current++;
-          if (slowCountRef.current >= 2 && firstCheckDone.current) {
+          if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED && checkCountRef.current > 1) {
             prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
           }
         }
-        firstCheckDone.current = true;
       });
   }, []);
 
   useEffect(() => {
     mountedRef.current = true;
-    const initialDelay = setTimeout(checkConnection, 25000);
-    const interval = setInterval(checkConnection, 120000);
-    const handleOnline = () => { 
-      if (!mountedRef.current) return; 
+    const initialDelay = setTimeout(checkConnection, INITIAL_DELAY_MS);
+    const interval = setInterval(checkConnection, CHECK_INTERVAL_MS);
+    const handleOnline = () => {
+      if (!mountedRef.current) return;
       slowCountRef.current = 0;
-      setTimeout(() => { if (mountedRef.current) checkConnection(); }, 1500); 
+      setTimeout(() => { if (mountedRef.current) checkConnection(); }, 2000);
     };
-    const handleOffline = () => { 
-      if (!mountedRef.current) return; 
-      prevStateRef.current = 'offline'; 
-      setState('offline'); 
-      setDismissed(false); 
+    const handleOffline = () => {
+      if (!mountedRef.current) return;
+      prevStateRef.current = 'offline';
+      setState('offline');
+      setDismissed(false);
     };
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
     const conn = (navigator as any).connection;
-    const handleChange = () => { 
+    const handleChange = () => {
       if (!mountedRef.current) return;
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = setTimeout(() => { 
-        if (mountedRef.current) checkConnection(); 
-      }, 2000);
+      debounceTimerRef.current = setTimeout(() => {
+        if (mountedRef.current) checkConnection();
+      }, 3000);
     };
     conn?.addEventListener?.('change', handleChange);
     return () => {
@@ -204,16 +215,15 @@ export function SlowConnectionBanner() {
         transition-all duration-500 ease-out
         ${show ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0'}
       `}
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
     >
-      <div className="pointer-events-auto mt-3 mx-4 max-w-md w-full">
+      <div className="pointer-events-auto mt-3 mx-4 max-w-md w-full relative">
 
-        {/* Outer glow bloom */}
         <div
-          className="absolute inset-0 rounded-2xl blur-xl opacity-60 pointer-events-none"
+          className="absolute inset-0 rounded-2xl blur-xl opacity-60 pointer-events-none -z-10"
           style={{ background: t.glow, transform: 'scale(1.08) translateY(4px)' }}
         />
 
-        {/* Main glass container */}
         <div
           className="relative overflow-hidden rounded-2xl"
           style={{
@@ -230,36 +240,15 @@ export function SlowConnectionBanner() {
             `,
           }}
         >
-          {/* Top shine / refraction highlight */}
           <div
             className="absolute top-0 left-0 right-0 h-px"
             style={{ background: `linear-gradient(90deg, transparent, ${t.shine}, rgba(255,255,255,0.14), ${t.shine}, transparent)` }}
           />
 
-          {/* Liquid shimmer sweep */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `radial-gradient(ellipse at 20% 0%, ${t.shine} 0%, transparent 55%)`,
-              animation: 'liquid-shimmer 8s ease-in-out infinite',
-            }}
-          />
-
-          {/* Noise texture overlay for glass depth */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-[0.025] rounded-2xl"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-              backgroundSize: '120px 120px',
-            }}
-          />
-
-          {/* Content */}
           <div className="relative flex items-center gap-3 px-4 py-3">
 
-            {/* Icon badge */}
             <div
-              className="flex-shrink-0 relative"
+              className="flex-shrink-0"
               style={{
                 width: 36, height: 36,
                 borderRadius: 12,
@@ -274,7 +263,6 @@ export function SlowConnectionBanner() {
               {isSlow      && <SignalLow  className="h-4 w-4" style={{ color: t.icon }} />}
             </div>
 
-            {/* Text */}
             <div className="flex-1 min-w-0">
               <p className="text-[13px] font-bold leading-tight truncate" style={{ color: t.label }}>
                 {label}
@@ -284,16 +272,12 @@ export function SlowConnectionBanner() {
               </p>
             </div>
 
-            {/* Dismiss button */}
             {!isRecovered && (
               <button
                 onClick={() => setDismissed(true)}
-                className="flex-shrink-0 transition-all duration-200 border-none bg-transparent cursor-pointer rounded-lg p-1.5 group"
+                className="flex-shrink-0 transition-all duration-200 border-none bg-transparent cursor-pointer rounded-lg p-1.5"
                 aria-label="Cerrar aviso"
-                style={{
-                  color: t.close,
-                  backdropFilter: 'blur(4px)',
-                }}
+                style={{ color: t.close }}
                 onMouseEnter={e => (e.currentTarget.style.background = t.closeHov)}
                 onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               >
@@ -302,7 +286,6 @@ export function SlowConnectionBanner() {
             )}
           </div>
 
-          {/* Bottom progress bar */}
           <div
             className="absolute bottom-0 left-0 right-0 overflow-hidden"
             style={{ height: 2, background: t.barBg }}
