@@ -43,6 +43,8 @@ TWILIO_PHONE_NUMBER = "+12603702393"
 TWILIO_MESSAGING_SERVICE_SID = "MGc5b7fb2fdb40f897da04e504b74653bf"
 NEXT_PUBLIC_BASE_URL = "http://localhost:5000"
 NODE_ENV = "development"
+ADMIN_ALERT_EMAIL = "natanalemattar@gmail.com"
+GMAIL_USER = "natanalemattar@gmail.com"
 
 [deployment]
 run = ["npm", "run", "start"]

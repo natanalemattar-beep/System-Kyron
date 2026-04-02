@@ -93,6 +93,36 @@ async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
   }
 }
 
+async function sendViaSMTP(opts: EmailOptions): Promise<EmailResult> {
+  const smtpUser = process.env.GMAIL_USER;
+  const smtpPass = process.env.GMAIL_APP_PASSWORD;
+  if (!smtpUser || !smtpPass) {
+    return { success: false, provider: 'gmail', error: 'GMAIL_USER or GMAIL_APP_PASSWORD not configured' };
+  }
+
+  try {
+    const nodemailer = await import('nodemailer');
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: smtpUser, pass: smtpPass },
+    });
+
+    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
+    await transporter.sendMail({
+      from: opts.from ?? `System Kyron <${smtpUser}>`,
+      to: recipients.join(', '),
+      subject: opts.subject,
+      html: opts.html,
+    });
+
+    console.log(`[email-service] SMTP/Gmail sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
+    return { success: true, provider: 'gmail' };
+  } catch (err) {
+    console.error(`[email-service] SMTP failed:`, String(err));
+    return { success: false, provider: 'gmail', error: String(err) };
+  }
+}
+
 async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey || resendKey === 're_placeholder_123') {
@@ -160,7 +190,7 @@ function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => 
     case 'alert':
     case 'general':
     default:
-      return [sendViaGmail, sendViaOutlook, sendViaResend];
+      return [sendViaSMTP, sendViaGmail, sendViaOutlook, sendViaResend];
   }
 }
 
