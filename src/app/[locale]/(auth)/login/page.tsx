@@ -34,7 +34,6 @@ const itemVariants = {
 export default function LoginSelectionPage() {
   const t = useTranslations('LoginPage');
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
-
   const personalOptions = optionKeys.filter(o => o.category === 'citizen');
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
