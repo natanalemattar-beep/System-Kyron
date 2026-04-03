@@ -1,16 +1,57 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 
+function mutateThemeDom(next: "light" | "dark") {
+  const html = document.documentElement;
+  html.classList.remove("light", "dark");
+  html.classList.add(next);
+  html.style.colorScheme = next;
+}
+
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const toggle = useCallback(() => {
+    const isDark = resolvedTheme === "dark";
+    const next = isDark ? "light" : "dark" as const;
+    const html = document.documentElement;
+
+    if (typeof document.startViewTransition === "function") {
+      html.classList.add("vt-fade", "theme-switching");
+      let transition: ViewTransition;
+      try {
+        transition = document.startViewTransition(() => {
+          mutateThemeDom(next);
+          setTheme(next);
+        });
+      } catch {
+        mutateThemeDom(next);
+        setTheme(next);
+        html.classList.remove("vt-fade", "theme-switching");
+        return;
+      }
+      transition.finished.finally(() => {
+        html.classList.remove("vt-fade", "theme-switching");
+      });
+    } else {
+      html.classList.add("theme-switching");
+      mutateThemeDom(next);
+      setTheme(next);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          html.classList.remove("theme-switching");
+        });
+      });
+    }
+  }, [resolvedTheme, setTheme]);
 
   if (!mounted) {
     return (
@@ -19,14 +60,6 @@ export function ThemeToggle() {
   }
 
   const isDark = resolvedTheme === "dark"
-
-  const toggle = () => {
-    document.documentElement.classList.add("theme-transition")
-    setTheme(isDark ? "light" : "dark")
-    setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition")
-    }, 800)
-  }
 
   return (
     <button
