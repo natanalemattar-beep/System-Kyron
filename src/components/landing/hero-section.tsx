@@ -78,11 +78,12 @@ function HexGrid({ reduced }: { reduced?: boolean }) {
 }
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
     visible: (delay: number) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }
+        filter: 'blur(0px)',
+        transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }
     })
 };
 
@@ -223,9 +224,9 @@ export function HeroSection() {
 
                     <motion.div
                         className="hidden lg:block lg:col-span-6 relative"
-                        initial={{ opacity: 0, x: 30, scale: 0.95 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        initial={{ opacity: 0, x: 50, scale: 0.92, filter: 'blur(12px)', rotateY: -8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', rotateY: 0 }}
+                        transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
                             {config.enableBlur && (
@@ -256,9 +257,9 @@ export function HeroSection() {
 
                             <motion.div
                                 className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 liquid-glass animate-glass-breathe"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.4 }}
+                                initial={{ opacity: 0, y: -30, scale: 0.8, filter: 'blur(6px)' }}
+                                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                                transition={{ delay: 0.6, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                             >
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center kyron-gradient-bg">
@@ -283,9 +284,9 @@ export function HeroSection() {
 
             <motion.div
                 className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
+                initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -300,10 +301,10 @@ export function HeroSection() {
                             return (
                                 <motion.div
                                     key={i}
-                                    className="flex flex-col items-center gap-0.5 p-2 sm:p-3 rounded-xl sm:rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-0.5"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.55 + i * 0.06, duration: 0.35 }}
+                                    className="flex flex-col items-center gap-0.5 p-2 sm:p-3 rounded-xl sm:rounded-2xl liquid-glass-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ delay: 0.6 + i * 0.1, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                                 >
                                     <p className={`text-sm font-bold leading-none ${g.text}`}>{s.val}</p>
                                     <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider sm:tracking-widest">{s.label}</p>

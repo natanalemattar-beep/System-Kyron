@@ -30,17 +30,17 @@ function FeatureRow({ feature, meta, index, animate }: {
     return (
         <motion.div
             className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center"
-            initial={animate ? { opacity: 0, y: 24 } : undefined}
-            whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+            initial={animate ? { opacity: 0, y: 30, filter: 'blur(6px)', scale: 0.97 } : undefined}
+            whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 } : undefined}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
             <div className={cn(
                 "md:px-8",
                 isLeft ? "md:text-right md:order-1" : "md:text-left md:order-3"
             )}>
                 <div className={cn(
-                    "group relative p-6 rounded-2xl liquid-glass transition-all duration-500 hover:-translate-y-1"
+                    "group relative p-6 rounded-2xl liquid-glass transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
                 )}>
                     <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-[1]", meta.accent)} />
 
@@ -117,10 +117,10 @@ export function FeaturesSection() {
 
                 <motion.div
                     className="mb-16 md:mb-24 space-y-5 text-center"
-                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-subtle text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
@@ -155,10 +155,10 @@ export function FeaturesSection() {
 
                 <motion.div
                     className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3"
-                    initial={animate ? { opacity: 0, y: 15 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 25, filter: 'blur(6px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 >
                     {stats.map((r, i) => {
                         const colors = [
@@ -170,7 +170,7 @@ export function FeaturesSection() {
                         return (
                             <div
                                 key={i}
-                                className="flex flex-col items-center text-center gap-2 p-5 rounded-2xl liquid-glass hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-0.5"
+                                className="flex flex-col items-center text-center gap-2 p-5 rounded-2xl liquid-glass hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-1.5 hover:shadow-lg"
                             >
                                 <p className={cn("text-lg font-black uppercase tracking-tight", colors[i % colors.length])}>{r.val}</p>
                                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{r.detail}</p>

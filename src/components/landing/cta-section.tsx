@@ -3,6 +3,8 @@
 import dynamic from 'next/dynamic';
 import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
@@ -14,6 +16,8 @@ const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.C
 export function CtaSection() {
     const t = useTranslations('CtaSection');
     const checks = [t('check_1'), t('check_2'), t('check_3')];
+    const { tier } = useDevicePerformance();
+    const animate = tier !== 'low';
 
     return (
         <section id="contacto" className="relative overflow-hidden">
@@ -28,7 +32,13 @@ export function CtaSection() {
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <div className="space-y-7 text-center lg:text-left">
+                        <motion.div
+                            className="space-y-7 text-center lg:text-left"
+                            initial={animate ? { opacity: 0, x: -40, filter: 'blur(8px)' } : undefined}
+                            whileInView={animate ? { opacity: 1, x: 0, filter: 'blur(0px)' } : undefined}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        >
                             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> {t('badge')}
                             </div>
@@ -49,11 +59,17 @@ export function CtaSection() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="w-full">
+                        <motion.div
+                            className="w-full"
+                            initial={animate ? { opacity: 0, x: 40, scale: 0.95, filter: 'blur(8px)' } : undefined}
+                            whileInView={animate ? { opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' } : undefined}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                        >
                             <CtaForm />
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>

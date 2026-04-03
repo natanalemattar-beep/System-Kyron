@@ -91,10 +91,10 @@ export function ComplianceSection() {
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <motion.div
                     className="text-center mb-16 md:mb-20"
-                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <ShieldCheck className="h-3.5 w-3.5" />
@@ -114,13 +114,13 @@ export function ComplianceSection() {
                         <motion.div
                             key={reg.name}
                             className={cn(
-                                "group relative rounded-[1.5rem] liquid-glass p-6 transition-all duration-500 hover:-translate-y-1",
+                                "group relative rounded-[1.5rem] liquid-glass p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl",
                                 reg.border
                             )}
-                            initial={animate ? { opacity: 0, y: 20 } : undefined}
-                            whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                            initial={animate ? { opacity: 0, y: 30, scale: 0.95, filter: 'blur(4px)' } : undefined}
+                            whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
                             viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: idx * 0.08 }}
+                            transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <div className={cn("absolute inset-0 rounded-[1.5rem] bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", reg.accent)} />
 
@@ -150,10 +150,10 @@ export function ComplianceSection() {
 
                 <motion.div
                     className="rounded-[2rem] liquid-glass p-8 md:p-10"
-                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, scale: 0.97, filter: 'blur(6px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
+                    transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="flex flex-col md:flex-row items-center gap-8">
                         <div className="flex-1 text-center md:text-left">
@@ -174,7 +174,7 @@ export function ComplianceSection() {
                             {securityFeatures.map((feat, i) => (
                                 <div
                                     key={feat.label}
-                                    className="flex items-center gap-3 p-3 rounded-xl liquid-glass-subtle hover:-translate-y-0.5 transition-transform duration-300"
+                                    className="flex items-center gap-3 p-3 rounded-xl liquid-glass-subtle hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300"
                                 >
                                     <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/15">
                                         <feat.icon className="h-4 w-4 text-emerald-500" />

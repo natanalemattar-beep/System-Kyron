@@ -74,14 +74,14 @@ function ScreenshotCard({
         'group relative',
         item.size === 'large' ? 'md:col-span-2 md:row-span-2' : ''
       )}
-      initial={animate ? { opacity: 0, y: 30 } : undefined}
-      whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+      initial={animate ? { opacity: 0, y: 35, scale: 0.95, filter: 'blur(6px)' } : undefined}
+      whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className={cn(
         'relative rounded-2xl overflow-hidden border shadow-xl transition-all duration-500',
-        'hover:-translate-y-1.5 hover:shadow-2xl',
+        'hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)]',
         'bg-card/60 backdrop-blur-sm',
         item.accent
       )}>
@@ -140,10 +140,10 @@ export function ShowcaseSection() {
       <div className="container mx-auto px-4 md:px-10 max-w-7xl">
         <motion.div
           className="text-center mb-12 md:mb-16"
-          initial={animate ? { opacity: 0, y: 20 } : undefined}
-          whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+          initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
+          whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-[9px] font-black uppercase tracking-[0.3em] text-primary mx-auto mb-5">
             <Monitor className="h-3 w-3" /> Vista Previa de la Plataforma

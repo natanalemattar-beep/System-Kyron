@@ -49,10 +49,10 @@ const Counter = ({ from, to, duration = 1500 }: { from: number, to: number, dura
 };
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 30, filter: 'blur(6px)' },
     visible: (i: number) => ({
-        opacity: 1, y: 0,
-        transition: { delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        transition: { delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }
     })
 };
 
@@ -131,19 +131,19 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
-                        initial={animate ? { opacity: 0, y: 20 } : undefined}
-                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                        initial={animate ? { opacity: 0, y: 25, filter: 'blur(6px)' } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                         viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     >
                         {statCards.map((stat, i) => (
                             <motion.div
                                 key={i}
-                                className="hover:-translate-y-1 transition-transform duration-300"
-                                initial={animate ? { opacity: 0, scale: 0.95 } : undefined}
-                                whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
+                                className="hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
+                                initial={animate ? { opacity: 0, scale: 0.9, filter: 'blur(4px)' } : undefined}
+                                whileInView={animate ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.3 + i * 0.15, duration: 0.4 }}
+                                transition={{ delay: 0.25 + i * 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                             >
                                 <Card className="relative overflow-hidden rounded-[2rem] liquid-glass p-8 text-center group cursor-default transition-all duration-300">
                                     <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
@@ -163,19 +163,19 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
-                        initial={animate ? { opacity: 0 } : undefined}
-                        whileInView={animate ? { opacity: 1 } : undefined}
+                        initial={animate ? { opacity: 0, y: 20, filter: 'blur(4px)' } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                         viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                        transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
                         {featItems.map((item, i) => (
                             <motion.div
                                 key={i}
-                                className="flex items-center gap-3 p-4 rounded-2xl liquid-glass-subtle hover:-translate-y-0.5 transition-transform duration-300"
-                                initial={animate ? { opacity: 0, y: 12 } : undefined}
-                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                className="flex items-center gap-3 p-4 rounded-2xl liquid-glass-subtle hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300"
+                                initial={animate ? { opacity: 0, y: 20, scale: 0.95 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.5 + i * 0.08, duration: 0.35 }}
+                                transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/15 flex items-center justify-center shrink-0">
                                     <item.icon className="h-4 w-4 text-primary" />
@@ -187,10 +187,10 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="mt-10 flex justify-center"
-                        initial={animate ? { opacity: 0, y: 10 } : undefined}
-                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                        initial={animate ? { opacity: 0, y: 20, filter: 'blur(4px)' } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.6, duration: 0.4 }}
+                        transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-border/30 bg-muted/30 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 hover:border-border/50 transition-all duration-500">
                             {t('join_cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

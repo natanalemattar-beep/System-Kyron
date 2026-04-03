@@ -5,10 +5,14 @@ import { MessageCircle, ArrowRight } from "lucide-react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
+import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 export function FaqSection() {
     const t = useTranslations('FaqSection');
     const faqItems = t.raw('items') as Array<{ question: string; answer: string }>;
+    const { tier } = useDevicePerformance();
+    const animate = tier !== 'low';
 
     return (
         <section id="faq" className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/40 to-indigo-50/30 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
@@ -19,7 +23,13 @@ export function FaqSection() {
                 <div className="absolute bottom-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-indigo-400/[0.05] dark:bg-indigo-500/[0.03] blur-[90px]" />
             </div>
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
-                <div className="text-center mb-12 md:mb-16 space-y-4">
+                <motion.div
+                    className="text-center mb-12 md:mb-16 space-y-4"
+                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
                         {t('badge')}
@@ -33,9 +43,14 @@ export function FaqSection() {
                     <p className="text-muted-foreground text-xs md:text-sm max-w-lg mx-auto">
                         {t('subtitle')}
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="animate-[fadeSlideUp_0.5s_0.15s_both]">
+                <motion.div
+                    initial={animate ? { opacity: 0, y: 25, filter: 'blur(4px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                >
                     <Accordion type="single" collapsible className="w-full space-y-3">
                         {faqItems.map((item, index) => (
                             <div key={index}>
@@ -72,7 +87,7 @@ export function FaqSection() {
                             </Button>
                         </Link>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

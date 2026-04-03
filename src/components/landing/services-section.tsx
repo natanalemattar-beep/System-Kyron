@@ -38,10 +38,10 @@ export function ServicesSection() {
             <div className="py-20 md:py-28">
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"
-                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
                         <Zap className="h-3.5 w-3.5" />
@@ -65,10 +65,10 @@ export function ServicesSection() {
                             <motion.div
                                 key={idx}
                                 className="container mx-auto px-4 md:px-10 max-w-7xl"
-                                initial={animate ? { opacity: 0, y: 30 } : undefined}
-                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                initial={animate ? { opacity: 0, y: 40, filter: 'blur(6px)' } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                                 viewport={{ once: true, margin: "-80px" }}
-                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <div className={cn(
                                     "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
@@ -95,7 +95,7 @@ export function ServicesSection() {
                                     </div>
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                         <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
-                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-border/30 shadow-2xl bg-card/60 backdrop-blur-sm hover:-translate-y-1 transition-all duration-500">
+                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-border/30 shadow-2xl bg-card/60 backdrop-blur-sm hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500">
                                             <ThemeImage
                                                 darkSrc={meta.darkImage}
                                                 lightSrc={meta.lightImage}
@@ -117,10 +117,10 @@ export function ServicesSection() {
 
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"
-                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(6px)' } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-semibold uppercase tracking-widest text-primary mx-auto mb-5">
@@ -139,7 +139,7 @@ export function ServicesSection() {
                         {statsMeta.map((stat) => (
                             <div
                                 key={stat.key}
-                                className="group liquid-glass rounded-2xl transition-all duration-500 hover:-translate-y-1"
+                                className="group liquid-glass rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
                             >
                                 <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", stat.bg)} />
                                 <div className="relative p-3 sm:p-5 flex flex-col items-center text-center gap-2">
