@@ -2,15 +2,28 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { CirclePlus as PlusCircle, Download, Eye, Gavel, ShieldCheck, Activity } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { CirclePlus as PlusCircle, Eye, Gavel, ShieldCheck, Activity, Calendar, Building2, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { initialPermisos } from "@/lib/permisos-data";
-import { formatDate, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+
+type Permiso = {
+    id: string;
+    tipo: string;
+    emisor: string;
+    fechaEmision: string;
+    fechaVencimiento: string;
+    estado: string;
+    requisitosInscripcion: string[];
+    requisitosRenovacion: string[];
+};
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Vigente: "default",
@@ -19,16 +32,81 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
   "En Renovación": "outline",
 };
 
+const emisoresComunes = [
+  "SENIAT",
+  "SAREN",
+  "CONATEL",
+  "SAPI",
+  "Ministerio del Poder Popular de Petróleo",
+  "Ministerio del Poder Popular de Comercio",
+  "Ministerio del Poder Popular de Industrias",
+  "Alcaldía Municipal",
+  "Gobernación del Estado",
+  "Cuerpo de Bomberos",
+  "INCES",
+  "IVSS",
+  "Otro",
+];
+
+const estadosPermiso = ["Vigente", "Por Vencer", "Vencido", "En Renovación"];
+
 export default function PermisosPage() {
-  const [permisos] = useState(initialPermisos);
+  const [permisos, setPermisos] = useState<Permiso[]>([]);
   const { toast } = useToast();
+  const [registroOpen, setRegistroOpen] = useState(false);
+  const [detallePermiso, setDetallePermiso] = useState<Permiso | null>(null);
+  const [formData, setFormData] = useState({
+    tipo: "",
+    emisor: "",
+    emisorCustom: "",
+    fechaEmision: "",
+    fechaVencimiento: "",
+    estado: "Vigente",
+  });
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
     const emisor = permiso.emisor;
     if (!acc[emisor]) acc[emisor] = [];
     acc[emisor].push(permiso);
     return acc;
-  }, {} as Record<string, typeof initialPermisos>);
+  }, {} as Record<string, Permiso[]>);
+
+  const resetForm = () => {
+    setFormData({ tipo: "", emisor: "", emisorCustom: "", fechaEmision: "", fechaVencimiento: "", estado: "Vigente" });
+  };
+
+  const handleRegistrar = () => {
+    const emisorFinal = formData.emisor === "Otro" ? formData.emisorCustom : formData.emisor;
+
+    if (!formData.tipo.trim()) {
+      toast({ title: "Campo requerido", description: "Ingrese el tipo de permiso o trámite.", variant: "destructive" });
+      return;
+    }
+    if (!emisorFinal.trim()) {
+      toast({ title: "Campo requerido", description: "Seleccione o ingrese el ente emisor.", variant: "destructive" });
+      return;
+    }
+    if (!formData.fechaEmision) {
+      toast({ title: "Campo requerido", description: "Ingrese la fecha de emisión.", variant: "destructive" });
+      return;
+    }
+
+    const nuevoPermiso: Permiso = {
+      id: `PERM-${String(permisos.length + 1).padStart(3, "0")}`,
+      tipo: formData.tipo.trim(),
+      emisor: emisorFinal.trim(),
+      fechaEmision: formData.fechaEmision,
+      fechaVencimiento: formData.fechaVencimiento || "Indefinido",
+      estado: formData.estado,
+      requisitosInscripcion: [],
+      requisitosRenovacion: [],
+    };
+
+    setPermisos(prev => [...prev, nuevoPermiso]);
+    setRegistroOpen(false);
+    resetForm();
+    toast({ title: "Trámite registrado", description: `"${nuevoPermiso.tipo}" ha sido agregado al directorio.` });
+  };
 
   return (
     <div className="space-y-10 pb-20">
@@ -70,7 +148,10 @@ export default function PermisosPage() {
                             <ShieldCheck className="h-8 w-8 text-primary/40" />
                         </div>
                         <p className="text-sm font-black uppercase tracking-widest text-foreground/40 mb-2">Sin permisos registrados</p>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 max-w-sm">Registre su primer trámite para comenzar a gestionar sus licencias y habilitaciones.</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 max-w-sm mb-6">Registre su primer trámite para comenzar a gestionar sus licencias y habilitaciones.</p>
+                        <Button onClick={() => setRegistroOpen(true)} className="btn-3d-primary h-10 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest">
+                            <PlusCircle className="mr-2 h-4 w-4" /> REGISTRAR PRIMER TRÁMITE
+                        </Button>
                     </div>
                 ) : (
                 <Accordion type="single" collapsible className="w-full">
@@ -93,7 +174,7 @@ export default function PermisosPage() {
                                                     <Badge variant={statusVariant[p.estado]} className="text-[8px] font-black uppercase tracking-widest">{p.estado}</Badge>
                                                 </TableCell>
                                                 <TableCell className="text-right pr-6 md:pr-8 py-4">
-                                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-muted/40">
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-muted/40" onClick={() => setDetallePermiso(p)}>
                                                         <Eye className="h-4 w-4 text-muted-foreground/40" />
                                                     </Button>
                                                 </TableCell>
@@ -114,7 +195,10 @@ export default function PermisosPage() {
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Activity className="h-24 w-24" /></div>
                 <h3 className="text-xl font-black uppercase italic tracking-tight mb-3">Nueva Solicitud</h3>
                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-6">Inicie el protocolo de gestión ante nuevos entes emisores.</p>
-                <Button className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-lg">
+                <Button
+                    className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-lg"
+                    onClick={() => setRegistroOpen(true)}
+                >
                     <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR TRÁMITE
                 </Button>
             </Card>
@@ -147,6 +231,144 @@ export default function PermisosPage() {
             </Card>
         </div>
       </div>
+
+      <Dialog open={registroOpen} onOpenChange={setRegistroOpen}>
+        <DialogContent className="max-w-lg rounded-3xl">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-black uppercase tracking-tight flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-primary/10"><PlusCircle className="h-5 w-5 text-primary" /></div>
+              Registrar Trámite
+            </DialogTitle>
+            <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Complete los datos del permiso o licencia a registrar.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">Tipo de permiso / trámite *</label>
+              <Input
+                placeholder="Ej: Licencia de Actividades Económicas"
+                value={formData.tipo}
+                onChange={e => setFormData(prev => ({ ...prev, tipo: e.target.value }))}
+                className="rounded-xl h-11"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">Ente emisor *</label>
+              <Select value={formData.emisor} onValueChange={val => setFormData(prev => ({ ...prev, emisor: val }))}>
+                <SelectTrigger className="rounded-xl h-11">
+                  <SelectValue placeholder="Seleccione el organismo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {emisoresComunes.map(e => (
+                    <SelectItem key={e} value={e}>{e}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {formData.emisor === "Otro" && (
+                <Input
+                  placeholder="Nombre del ente emisor"
+                  value={formData.emisorCustom}
+                  onChange={e => setFormData(prev => ({ ...prev, emisorCustom: e.target.value }))}
+                  className="rounded-xl h-11 mt-2"
+                />
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">Fecha de emisión *</label>
+                <Input
+                  type="date"
+                  value={formData.fechaEmision}
+                  onChange={e => setFormData(prev => ({ ...prev, fechaEmision: e.target.value }))}
+                  className="rounded-xl h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">Fecha de vencimiento</label>
+                <Input
+                  type="date"
+                  value={formData.fechaVencimiento}
+                  onChange={e => setFormData(prev => ({ ...prev, fechaVencimiento: e.target.value }))}
+                  className="rounded-xl h-11"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">Estado</label>
+              <Select value={formData.estado} onValueChange={val => setFormData(prev => ({ ...prev, estado: val }))}>
+                <SelectTrigger className="rounded-xl h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {estadosPermiso.map(e => (
+                    <SelectItem key={e} value={e}>{e}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-3">
+            <Button variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-11 font-black text-[9px] uppercase tracking-widest">
+              Cancelar
+            </Button>
+            <Button onClick={handleRegistrar} className="btn-3d-primary rounded-xl h-11 font-black text-[9px] uppercase tracking-widest px-8">
+              <PlusCircle className="mr-2 h-4 w-4" /> Registrar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!detallePermiso} onOpenChange={open => { if (!open) setDetallePermiso(null); }}>
+        <DialogContent className="max-w-md rounded-3xl">
+          {detallePermiso && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-lg font-black uppercase tracking-tight flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-primary/10"><FileText className="h-5 w-5 text-primary" /></div>
+                  Detalle del Permiso
+                </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">ID</span>
+                  <span className="text-sm font-black text-primary italic">{detallePermiso.id}</span>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Tipo</span>
+                  <span className="text-xs font-bold text-foreground/80 text-right max-w-[60%]">{detallePermiso.tipo}</span>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Emisor</span>
+                  <span className="text-xs font-bold text-foreground/80 flex items-center gap-2"><Building2 className="h-3.5 w-3.5 text-primary/60" /> {detallePermiso.emisor}</span>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Emisión</span>
+                  <span className="text-xs font-bold text-foreground/80 flex items-center gap-2"><Calendar className="h-3.5 w-3.5 text-primary/60" /> {detallePermiso.fechaEmision}</span>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Vencimiento</span>
+                  <span className="text-xs font-bold text-foreground/80 flex items-center gap-2"><Calendar className="h-3.5 w-3.5 text-amber-500/60" /> {detallePermiso.fechaVencimiento}</span>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/30">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Estado</span>
+                  <Badge variant={statusVariant[detallePermiso.estado]} className="text-[8px] font-black uppercase tracking-widest">{detallePermiso.estado}</Badge>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setDetallePermiso(null)} className="rounded-xl h-11 font-black text-[9px] uppercase tracking-widest w-full">
+                  Cerrar
+                </Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
