@@ -11,7 +11,7 @@ export function getGeminiClient(): GoogleGenAI {
   _client = new GoogleGenAI({
     apiKey,
     httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-      ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL }
+      ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL, apiVersion: '' }
       : undefined,
   });
   return _client;
