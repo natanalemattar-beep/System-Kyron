@@ -11,9 +11,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <ThemeProvider
             attribute="class"
-            defaultTheme="light"
-            forcedTheme="light"
-            disableTransitionOnChange
+            defaultTheme="dark"
+            enableSystem
+            storageKey="kyron-theme"
         >
             <PerformanceProvider>
                 <AuthProvider>

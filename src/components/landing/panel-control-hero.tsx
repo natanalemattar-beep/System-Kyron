@@ -24,10 +24,10 @@ export function PanelControlHero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
 
-      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-0 bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-violet-50/50">
-        <div className="absolute -top-40 left-1/4 w-[700px] h-[700px] rounded-full bg-indigo-400/[0.12] blur-[140px]" />
-        <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] rounded-full bg-violet-400/[0.10] blur-[120px]" />
-        <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-400/[0.08] blur-[100px]" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-0 bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-violet-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
+        <div className="absolute -top-40 left-1/4 w-[700px] h-[700px] rounded-full bg-indigo-400/[0.12] dark:bg-indigo-500/[0.05] blur-[140px]" />
+        <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] rounded-full bg-violet-400/[0.10] dark:bg-violet-500/[0.04] blur-[120px]" />
+        <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-emerald-400/[0.08] dark:bg-emerald-500/[0.03] blur-[100px]" />
         <div className="absolute top-28 left-6 w-10 h-10 border-t-2 border-l-2 border-primary/20" />
         <div className="absolute top-28 right-6 w-10 h-10 border-t-2 border-r-2 border-primary/20" />
         <div className="absolute bottom-10 left-6 w-6 h-6 border-b-2 border-l-2 border-primary/10" />

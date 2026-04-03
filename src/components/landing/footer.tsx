@@ -26,11 +26,11 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-slate-200/50 bg-gradient-to-b from-slate-50/80 via-slate-100/60 to-slate-100/80">
+        <footer id="footer" className="relative overflow-hidden border-t border-border/30 bg-gradient-to-b from-slate-50/80 via-slate-100/60 to-slate-100/80 dark:from-[hsl(224,28%,6%)] dark:via-[hsl(224,24%,7%)] dark:to-[hsl(224,28%,6%)]">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-blue-400/[0.06] blur-[100px]" />
-                <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-emerald-400/[0.04] blur-[80px]" />
-                <div className="absolute top-0 left-[50%] w-[500px] h-[200px] rounded-full bg-indigo-400/[0.04] blur-[120px]" />
+                <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-blue-400/[0.06] dark:bg-blue-500/[0.03] blur-[100px]" />
+                <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-emerald-400/[0.04] dark:bg-emerald-500/[0.02] blur-[80px]" />
+                <div className="absolute top-0 left-[50%] w-[500px] h-[200px] rounded-full bg-indigo-400/[0.04] dark:bg-indigo-500/[0.02] blur-[120px]" />
             </div>
 
             <div className="kyron-accent-line opacity-100" />

@@ -29,11 +29,11 @@ export function ServicesSection() {
 
     return (
         <section id="servicios" className="relative z-10 overflow-hidden">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-indigo-50/80 to-cyan-50/60">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
-                <div className="absolute -top-20 right-[10%] w-[600px] h-[600px] rounded-full bg-blue-400/[0.08] blur-[120px]" />
-                <div className="absolute bottom-0 left-[5%] w-[500px] h-[500px] rounded-full bg-indigo-400/[0.07] blur-[100px]" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-indigo-50/80 to-cyan-50/60 dark:from-[hsl(224,28%,10%)] dark:via-[hsl(224,24%,9%)] dark:to-[hsl(224,28%,8%)]">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-500/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-300/30 dark:via-indigo-500/15 to-transparent" />
+                <div className="absolute -top-20 right-[10%] w-[600px] h-[600px] rounded-full bg-blue-400/[0.08] dark:bg-blue-500/[0.04] blur-[120px]" />
+                <div className="absolute bottom-0 left-[5%] w-[500px] h-[500px] rounded-full bg-indigo-400/[0.07] dark:bg-indigo-500/[0.03] blur-[100px]" />
             </div>
             <div className="py-20 md:py-28">
                 <motion.div
@@ -95,7 +95,7 @@ export function ServicesSection() {
                                     </div>
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                         <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
-                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/40 shadow-2xl bg-white/40 hover:-translate-y-1 transition-transform duration-300">
+                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-border/30 shadow-2xl bg-card/60 backdrop-blur-sm hover:-translate-y-1 transition-all duration-500">
                                             <ThemeImage
                                                 darkSrc={meta.darkImage}
                                                 lightSrc={meta.lightImage}

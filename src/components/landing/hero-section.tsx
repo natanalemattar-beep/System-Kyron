@@ -9,6 +9,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { ThemeImage } from '@/components/ui/theme-image';
+import { useTheme } from 'next-themes';
 
 function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
     const [value, setValue] = useState(0);
@@ -91,6 +92,10 @@ export function HeroSection() {
     const heroFeatures = t.raw('features') as string[];
     const heroStats = t.raw('stats') as { val: string; label: string }[];
     const { tier, config } = useDevicePerformance();
+    const { resolvedTheme } = useTheme();
+    const [themeMounted, setThemeMounted] = useState(false);
+    useEffect(() => { setThemeMounted(true); }, []);
+    const isDark = themeMounted && resolvedTheme === 'dark';
 
     return (
         <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-hidden">
@@ -101,18 +106,24 @@ export function HeroSection() {
                     fill
                     sizes="100vw"
                     quality={85}
-                    className="object-cover"
+                    className={`object-cover transition-opacity duration-700 ${isDark ? 'opacity-20' : 'opacity-100'}`}
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#e8f0fe]/90 via-[#edf2fb]/70 to-[#e8f0fe]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#e8f0fe]/70 via-transparent to-[#e8f0fe]/50" />
+                <div className={`absolute inset-0 transition-colors duration-700 ${isDark
+                    ? 'bg-gradient-to-b from-[#0a0e1a]/95 via-[#0d1117]/90 to-[#0a0e1a]/95'
+                    : 'bg-gradient-to-b from-[#e8f0fe]/90 via-[#edf2fb]/70 to-[#e8f0fe]'
+                }`} />
+                <div className={`absolute inset-0 transition-colors duration-700 ${isDark
+                    ? 'bg-gradient-to-r from-[#0a0e1a]/80 via-transparent to-[#0a0e1a]/60'
+                    : 'bg-gradient-to-r from-[#e8f0fe]/70 via-transparent to-[#e8f0fe]/50'
+                }`} />
             </div>
 
             {config.enableBlur && (
                 <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.12] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
-                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.10] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.08] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
+                    <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[120px] animate-[pulse_10s_ease-in-out_infinite] transition-colors duration-700 ${isDark ? 'bg-[#0ea5e9]/[0.08]' : 'bg-[#0ea5e9]/[0.12]'}`} />
+                    <div className={`absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s] transition-colors duration-700 ${isDark ? 'bg-[#3b82f6]/[0.06]' : 'bg-[#3b82f6]/[0.10]'}`} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s] transition-colors duration-700 ${isDark ? 'bg-[#22c55e]/[0.05]' : 'bg-[#22c55e]/[0.08]'}`} />
                 </div>
             )}
 
@@ -221,7 +232,10 @@ export function HeroSection() {
                                 <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
                             )}
                             
-                            <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/50 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)]">
+                            <div className={`relative rounded-[1.5rem] overflow-hidden border transition-all duration-700 ${isDark
+                                ? 'border-white/10 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.1),0_8px_24px_-8px_rgba(0,0,0,0.4)]'
+                                : 'border-blue-200/50 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)]'
+                            }`}>
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
                                 <ThemeImage
                                     darkSrc="/images/landing/hero-dashboard-dark.jpg"
@@ -234,7 +248,10 @@ export function HeroSection() {
                                     priority
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#e8f0fe]/50 via-transparent to-transparent" />
+                                <div className={`absolute inset-0 transition-colors duration-700 ${isDark
+                                    ? 'bg-gradient-to-t from-[#0a0e1a]/60 via-transparent to-transparent'
+                                    : 'bg-gradient-to-t from-[#e8f0fe]/50 via-transparent to-transparent'
+                                }`} />
                             </div>
 
                             <motion.div
@@ -259,7 +276,10 @@ export function HeroSection() {
                 </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-[5]" />
+            <div className={`absolute bottom-0 left-0 right-0 h-40 z-[5] transition-colors duration-700 ${isDark
+                ? 'bg-gradient-to-t from-[hsl(224,28%,8%)] via-[hsl(224,28%,8%)]/60 to-transparent'
+                : 'bg-gradient-to-t from-background via-background/60 to-transparent'
+            }`} />
 
             <motion.div
                 className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"

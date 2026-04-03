@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
 interface ThemeImageProps {
   darkSrc?: string;
@@ -17,6 +18,7 @@ interface ThemeImageProps {
 }
 
 export function ThemeImage({
+  darkSrc,
   lightSrc,
   alt,
   width,
@@ -27,9 +29,19 @@ export function ThemeImage({
   loading,
   sizes,
 }: ThemeImageProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === 'dark';
+  const src = isDark && darkSrc ? darkSrc : lightSrc;
+
   return (
     <Image
-      src={lightSrc}
+      src={src}
       alt={alt}
       width={width}
       height={height}

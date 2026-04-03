@@ -27,12 +27,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { loginOptions } from "@/lib/login-options";
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { useTheme } from "next-themes";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mounted, setMounted] = useState(false);
     const tHero = useTranslations('HeroSection');
     const t = useTranslations('LandingHeader');
+    const { resolvedTheme } = useTheme();
+    const isDark = mounted && resolvedTheme === 'dark';
 
     useEffect(() => {
         setMounted(true);
@@ -66,7 +69,12 @@ export function LandingHeader() {
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
             isScrolled
-                ? "bg-background/80 backdrop-blur-3xl py-2.5 shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
+                ? cn(
+                    "py-2.5",
+                    isDark
+                        ? "bg-[hsl(224,28%,8%)]/75 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.08),0_4px_16px_-8px_rgba(0,0,0,0.3)]"
+                        : "bg-background/80 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
+                  )
                 : "bg-transparent py-6 landing-hero-header"
         )}>
             {isScrolled && (
@@ -80,14 +88,14 @@ export function LandingHeader() {
                             <Logo className="h-8 w-8 sm:h-9 sm:w-9 transition-all duration-300 group-hover:scale-105 drop-shadow-glow shrink-0" /> 
                             <div className="flex flex-col">
                                 <span className={cn(
-                                    "text-xs sm:text-[13px] font-black tracking-[0.25em] sm:tracking-[0.3em] uppercase italic leading-none transition-colors duration-300",
-                                    isScrolled ? "text-foreground" : "text-white"
+                                    "text-xs sm:text-[13px] font-black tracking-[0.25em] sm:tracking-[0.3em] uppercase italic leading-none transition-colors duration-500",
+                                    isScrolled ? "text-foreground" : isDark ? "text-foreground" : "text-white"
                                 )}>
                                     System Kyron
                                 </span>
                                 <span className={cn(
-                                    "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.35em] mt-1 transition-opacity duration-300",
-                                    isScrolled ? "kyron-gradient-text opacity-70" : "text-foreground/50"
+                                    "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.35em] mt-1 transition-opacity duration-500",
+                                    isScrolled ? "kyron-gradient-text opacity-70" : isDark ? "kyron-gradient-text opacity-60" : "text-foreground/50"
                                 )}>
                                     {tHero('slogan')}
                                 </span>
@@ -102,10 +110,12 @@ export function LandingHeader() {
                                 href={item.href as any} 
                                 onClick={(e) => handleAnchorClick(e, item.href)}
                                 className={cn(
-                                    "text-[9px] font-black uppercase tracking-[0.3em] transition-all duration-200 relative group py-1",
+                                    "text-[9px] font-black uppercase tracking-[0.3em] transition-all duration-300 relative group py-1",
                                     isScrolled
                                         ? "text-foreground/70 hover:text-primary"
-                                        : "text-foreground/60 hover:text-foreground"
+                                        : isDark
+                                            ? "text-foreground/60 hover:text-primary"
+                                            : "text-foreground/60 hover:text-foreground"
                                 )}
                             >
                                 {t(item.labelKey)}
@@ -192,10 +202,12 @@ export function LandingHeader() {
                                     variant="ghost" 
                                     size="icon" 
                                     className={cn(
-                                        "lg:hidden rounded-xl h-9 w-9 border transition-all",
+                                        "lg:hidden rounded-xl h-9 w-9 border transition-all duration-500",
                                         isScrolled
                                             ? "bg-muted/50 border-border/60"
-                                            : "bg-white/10 border-white/15 text-white"
+                                            : isDark
+                                                ? "bg-white/5 border-white/10 text-foreground"
+                                                : "bg-white/10 border-white/15 text-white"
                                     )}
                                     aria-label={t('mobile_portal')}
                                 >
