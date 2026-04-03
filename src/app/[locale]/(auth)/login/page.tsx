@@ -10,15 +10,15 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const optionKeys = [
-  { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-600', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-blue-500/8', glow: 'rgba(59,130,246,0.12)' },
-  { key: 'lines_personal', href: '/login-linea?type=personal', icon: Smartphone, category: 'citizen', color: 'from-cyan-500 to-blue-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/8', glow: 'rgba(6,182,212,0.12)' },
-  { key: 'lines_business', href: '/login-linea?type=empresa', icon: Signal, category: 'citizen', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-600', borderHover: 'hover:border-amber-400/50', shadow: 'hover:shadow-amber-500/8', glow: 'rgba(245,158,11,0.12)' },
-  { key: 'accounting', href: '/login-empresa', icon: Banknote, category: 'corporate', color: 'from-emerald-500 to-teal-600', iconBg: 'bg-emerald-500/10', textColor: 'text-emerald-600', borderHover: 'hover:border-emerald-400/50', shadow: 'hover:shadow-emerald-500/8', glow: 'rgba(16,185,129,0.12)' },
-  { key: 'legal', href: '/login-escritorio-juridico', icon: Gavel, category: 'corporate', color: 'from-violet-500 to-purple-600', iconBg: 'bg-violet-500/10', textColor: 'text-violet-600', borderHover: 'hover:border-violet-400/50', shadow: 'hover:shadow-violet-500/8', glow: 'rgba(139,92,246,0.12)' },
-  { key: 'invoicing', href: '/login-ventas', icon: ShoppingCart, category: 'corporate', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-600', borderHover: 'hover:border-amber-400/50', shadow: 'hover:shadow-amber-500/8', glow: 'rgba(245,158,11,0.12)' },
-  { key: 'partners', href: '/login-socios', icon: Users, category: 'corporate', color: 'from-slate-500 to-zinc-600', iconBg: 'bg-slate-500/10', textColor: 'text-slate-600', borderHover: 'hover:border-slate-400/50', shadow: 'hover:shadow-slate-500/8', glow: 'rgba(100,116,139,0.12)' },
-  { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500/10', textColor: 'text-green-600', borderHover: 'hover:border-green-400/50', shadow: 'hover:shadow-green-500/8', glow: 'rgba(34,197,94,0.12)' },
-  { key: 'it', href: '/login-informatica', icon: Cpu, category: 'corporate', color: 'from-cyan-500 to-teal-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/8', glow: 'rgba(6,182,212,0.12)' },
+  { key: 'personal', href: '/login-personal', icon: User, category: 'citizen', color: 'from-blue-500 to-indigo-600', iconBg: 'bg-blue-500/10', textColor: 'text-blue-600', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-blue-500/10', glow: 'rgba(59,130,246,0.18)' },
+  { key: 'lines_personal', href: '/login-linea?type=personal', icon: Smartphone, category: 'citizen', color: 'from-cyan-500 to-blue-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/10', glow: 'rgba(6,182,212,0.18)' },
+  { key: 'lines_business', href: '/login-linea?type=empresa', icon: Signal, category: 'citizen', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-600', borderHover: 'hover:border-amber-400/50', shadow: 'hover:shadow-amber-500/10', glow: 'rgba(245,158,11,0.18)' },
+  { key: 'accounting', href: '/login-empresa', icon: Banknote, category: 'corporate', color: 'from-emerald-500 to-teal-600', iconBg: 'bg-emerald-500/10', textColor: 'text-emerald-600', borderHover: 'hover:border-emerald-400/50', shadow: 'hover:shadow-emerald-500/10', glow: 'rgba(16,185,129,0.18)' },
+  { key: 'legal', href: '/login-escritorio-juridico', icon: Gavel, category: 'corporate', color: 'from-violet-500 to-purple-600', iconBg: 'bg-violet-500/10', textColor: 'text-violet-600', borderHover: 'hover:border-violet-400/50', shadow: 'hover:shadow-violet-500/10', glow: 'rgba(139,92,246,0.18)' },
+  { key: 'invoicing', href: '/login-ventas', icon: ShoppingCart, category: 'corporate', color: 'from-amber-500 to-orange-600', iconBg: 'bg-amber-500/10', textColor: 'text-amber-600', borderHover: 'hover:border-amber-400/50', shadow: 'hover:shadow-amber-500/10', glow: 'rgba(245,158,11,0.18)' },
+  { key: 'partners', href: '/login-socios', icon: Users, category: 'corporate', color: 'from-slate-500 to-zinc-600', iconBg: 'bg-slate-500/10', textColor: 'text-slate-600', borderHover: 'hover:border-slate-400/50', shadow: 'hover:shadow-slate-500/10', glow: 'rgba(100,116,139,0.18)' },
+  { key: 'sustainability', href: '/login-sostenibilidad', icon: Recycle, category: 'corporate', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500/10', textColor: 'text-green-600', borderHover: 'hover:border-green-400/50', shadow: 'hover:shadow-green-500/10', glow: 'rgba(34,197,94,0.18)' },
+  { key: 'it', href: '/login-informatica', icon: Cpu, category: 'corporate', color: 'from-cyan-500 to-teal-600', iconBg: 'bg-cyan-500/10', textColor: 'text-cyan-600', borderHover: 'hover:border-cyan-400/50', shadow: 'hover:shadow-cyan-500/10', glow: 'rgba(6,182,212,0.18)' },
 ];
 
 const containerVariants = {
@@ -38,12 +38,12 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-[#eef4fb] via-[#e8f0fe] to-[#dde8f8]">
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0]">
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-blue-400/10 blur-[180px] animate-[pulse_8s_ease-in-out_infinite]" />
-        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-emerald-400/10 blur-[160px] animate-[pulse_10s_ease-in-out_infinite]" />
-        <div className="absolute top-[50%] left-[0%] w-[400px] h-[400px] rounded-full bg-cyan-400/8 blur-[140px] animate-[pulse_12s_ease-in-out_infinite]" />
-        <div className="absolute top-[20%] right-[15%] w-[350px] h-[350px] rounded-full bg-teal-400/8 blur-[130px]" />
+        <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-blue-400/[0.14] blur-[180px] animate-[pulse_8s_ease-in-out_infinite]" />
+        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-emerald-400/[0.12] blur-[160px] animate-[pulse_10s_ease-in-out_infinite]" />
+        <div className="absolute top-[50%] left-[0%] w-[400px] h-[400px] rounded-full bg-cyan-400/[0.10] blur-[140px] animate-[pulse_12s_ease-in-out_infinite]" />
+        <div className="absolute top-[20%] right-[15%] w-[350px] h-[350px] rounded-full bg-violet-400/[0.08] blur-[130px]" />
         <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
           <defs><pattern id="selGrid" width="56" height="100" patternUnits="userSpaceOnUse"><path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66Z" fill="none" stroke="#64748b" strokeWidth="0.5" /></pattern></defs>
           <rect width="100%" height="100%" fill="url(#selGrid)"/>
@@ -155,8 +155,8 @@ export default function LoginSelectionPage() {
                 <Link href={option.href as any} className="group block">
                   <div
                     className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur-md",
-                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+                      "relative flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-md shadow-sm",
+                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:bg-white/90",
                       option.borderHover, option.shadow
                     )}
                     style={{ '--card-glow': option.glow } as React.CSSProperties}

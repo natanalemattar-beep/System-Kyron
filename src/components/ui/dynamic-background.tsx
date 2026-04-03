@@ -40,7 +40,7 @@ export function DynamicBackground() {
         )}
 
         {showGrid && (
-          <div className="absolute inset-0 -z-10 h-full w-full opacity-[0.06] hud-grid" />
+          <div className="absolute inset-0 -z-10 h-full w-full opacity-[0.08] hud-grid" />
         )}
 
         {showOrbs && (
@@ -59,11 +59,11 @@ export function DynamicBackground() {
 
         <div className="absolute inset-0 pointer-events-none bg-mesh-light" />
 
-        <div className="hidden absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-        <div className="hidden absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent" />
 
-        <div className="absolute top-0 left-0 right-0 h-48 pointer-events-none bg-gradient-to-b from-primary/[0.04] via-cyan-400/[0.02] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none bg-gradient-to-t from-primary/[0.03] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-64 pointer-events-none bg-gradient-to-b from-primary/[0.06] via-cyan-400/[0.03] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none bg-gradient-to-t from-primary/[0.04] via-blue-500/[0.02] to-transparent" />
       </div>
       {mounted && (
         <Suspense fallback={null}>
