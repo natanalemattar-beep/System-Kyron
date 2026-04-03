@@ -240,7 +240,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="center" className={cn(
                         "p-3 rounded-2xl border-border/30 bg-card/98 backdrop-blur-3xl shadow-xl overflow-hidden",
-                        useWideLayout ? "w-[540px]" : "w-[380px]"
+                        useWideLayout ? "w-[580px]" : "w-[460px]"
                     )}>
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
                         <DropdownMenuLabel className="p-2.5 mb-2.5 bg-primary/[0.04] rounded-xl border border-primary/8">
@@ -269,7 +269,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                         )}>
                                             <item.icon className={cn("h-3 w-3", isActive ? "text-primary" : "text-muted-foreground/60")} />
                                         </div>
-                                        <span className="truncate">{item.label}</span>
+                                        <span>{item.label}</span>
                                     </Link>
                                 </DropdownMenuItem>
                                 );
