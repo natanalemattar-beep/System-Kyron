@@ -33,7 +33,7 @@ const PLANES = [
         color: 'lightblue',
         popular: false,
         descripcion: 'Contabilidad simple para emprendedores',
-        features: ['Libro diario y mayor', 'Balance general', 'Estado de resultados', 'Hasta 200 asientos/mes'],
+        features: ['Libro diario y mayor', 'Balance general', 'Estado de resultados', 'Hasta 200 asientos/mes', 'IA Kyron: 10 consultas/mes'],
     },
     {
         id: 'profesional',
@@ -43,7 +43,7 @@ const PLANES = [
         color: 'green',
         popular: true,
         descripcion: 'Facturación electrónica y cumplimiento fiscal',
-        features: ['Todo del Básico', 'Facturación SENIAT', 'Declaración IVA', 'Conciliación bancaria'],
+        features: ['Todo del Básico', 'Facturación SENIAT', 'Declaración IVA', 'Conciliación bancaria', 'IA Kyron: 50 consultas/mes'],
     },
     {
         id: 'empresarial',
@@ -53,7 +53,7 @@ const PLANES = [
         color: 'darkblue',
         popular: false,
         descripcion: 'Multi-usuario con retenciones y nómina',
-        features: ['Todo del Profesional', 'Retenciones IVA/ISLR', 'Multi-usuario (5)', 'Nómina básica'],
+        features: ['Todo del Profesional', 'Retenciones IVA/ISLR', 'Multi-usuario (5)', 'Nómina básica', 'IA Kyron: 200 consultas/mes'],
     },
     {
         id: 'premium',
@@ -62,8 +62,8 @@ const PLANES = [
         icon: Crown,
         color: 'neon',
         popular: false,
-        descripcion: 'Solución completa con IA y asesoría',
-        features: ['Todo del Empresarial', 'IA Kyron', 'Usuarios ilimitados', 'Soporte 24/7'],
+        descripcion: 'Solución completa con IA ilimitada y asesoría',
+        features: ['Todo del Empresarial', 'IA Kyron ilimitada', 'Usuarios ilimitados', 'Soporte prioritario 24/7'],
     },
 ];
 
