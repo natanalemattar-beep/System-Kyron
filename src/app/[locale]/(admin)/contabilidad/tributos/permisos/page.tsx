@@ -75,7 +75,17 @@ export default function PermisologiaPage() {
   const [misPermisos, setMisPermisos] = useState<MiPermiso[]>([]);
   const [misPermisosStats, setMisPermisosStats] = useState<{ vigentes: number; vencidos: number; en_tramite: number; por_vencer: number } | null>(null);
   const [registroDialog, setRegistroDialog] = useState(false);
+  const [pagadoIds, setPagadoIds] = useState<Set<string>>(new Set());
   const [formData, setFormData] = useState({ tipo: '', nombre_permiso: '', organismo: '', numero_permiso: '', fecha_emision: '', fecha_vencimiento: '', estado: 'vigente', descripcion: '', alertar_dias_antes: '30' });
+
+  const handlePagoPasarela = useCallback((permisoId: string, _planilla: string) => {
+    setPagadoIds(prev => new Set([...prev, permisoId]));
+    const bancoNombre = permisoId.replace('SENIAT-PAGO-', '').toUpperCase();
+    setAlertas(prev => prev.filter(a => {
+      const alertaOrg = (a.organismo || '').toUpperCase();
+      return !alertaOrg.includes(bancoNombre);
+    }));
+  }, []);
 
   const fetchMisPermisos = useCallback(() => {
     fetch('/api/permisos-legales').then(r => r.json()).then(data => {
@@ -302,7 +312,7 @@ export default function PermisologiaPage() {
             </Select>
           </div>
 
-          <PermisosCatalogo groups={permisosByTipoOrg} onGenerarCarta={(p, t) => setCartaDialog({ permiso: p, tipo: t })} />
+          <PermisosCatalogo groups={permisosByTipoOrg} onGenerarCarta={(p, t) => setCartaDialog({ permiso: p, tipo: t })} onPagado={handlePagoPasarela} pagadoIds={pagadoIds} />
         </TabsContent>
 
         <TabsContent value="directorio" className="mt-6 space-y-6">
@@ -533,7 +543,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
   );
 }
 
-function PermisosCatalogo({ groups, onGenerarCarta }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void }) {
+function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void; onPagado?: (permisoId: string, planilla: string) => void; pagadoIds?: Set<string> }) {
   if (groups.length === 0) {
     return (
       <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-16 text-center">
@@ -563,7 +573,7 @@ function PermisosCatalogo({ groups, onGenerarCarta }: { groups: { org: Organismo
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-0 pb-0">
-              {permisos.map(p => <PermisoCard key={p.id} permiso={p} onGenerarCarta={onGenerarCarta} />)}
+              {permisos.map(p => <PermisoCard key={p.id} permiso={p} onGenerarCarta={onGenerarCarta} onPagado={onPagado} inicioPagado={pagadoIds?.has(p.id)} />)}
             </AccordionContent>
           </Card>
         </AccordionItem>
@@ -572,8 +582,52 @@ function PermisosCatalogo({ groups, onGenerarCarta }: { groups: { org: Organismo
   );
 }
 
-function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void }) {
+function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { permiso: PermisoTipo; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void; onPagado?: (permisoId: string, planilla: string) => void; inicioPagado?: boolean }) {
   const [expanded, setExpanded] = useState(false);
+  const [planilla, setPlanilla] = useState('');
+  const [pagado, setPagado] = useState(inicioPagado || false);
+  const { toast } = useToast();
+  const esPasarela = permiso.esPasarelaPago;
+
+  const handleIrAlBanco = () => {
+    if (!planilla.trim()) {
+      toast({ title: "PLANILLA REQUERIDA", description: "Ingrese el número de planilla SENIAT antes de continuar", variant: "destructive" });
+      return;
+    }
+    if (permiso.urlBanco) {
+      window.open(permiso.urlBanco, '_blank', 'noopener,noreferrer');
+      toast({ title: "REDIRIGIENDO AL BANCO", description: `Abriendo ${permiso.nombre.split('—')[1]?.trim() || 'banca en línea'}. Use la planilla N° ${planilla} en la sección de Pagos → Tributos SENIAT.` });
+    }
+  };
+
+  const handleConfirmarPago = () => {
+    if (!planilla.trim()) {
+      toast({ title: "PLANILLA REQUERIDA", description: "Ingrese el número de planilla para confirmar el pago", variant: "destructive" });
+      return;
+    }
+    setPagado(true);
+    onPagado?.(permiso.id, planilla);
+    toast({ title: "PAGO CONFIRMADO", description: `Planilla N° ${planilla} marcada como pagada. Las alertas de este banco se han desactivado.` });
+  };
+
+  if (pagado) {
+    return (
+      <div className="border-t border-emerald-500/10 bg-emerald-500/[0.03]">
+        <div className="px-8 py-5 flex items-center gap-6">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3 mb-1">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+              <p className="font-black text-sm text-emerald-400/80 uppercase truncate">{permiso.nombre}</p>
+              <Badge className="text-[7px] font-black uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
+                PAGADO
+              </Badge>
+            </div>
+            <p className="text-[10px] text-muted-foreground/50">Planilla N° {planilla} — Pago confirmado</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="border-t border-white/5 hover:bg-white/[0.02] transition-all">
@@ -581,6 +635,11 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1">
             <p className="font-black text-sm text-foreground/90 uppercase truncate">{permiso.nombre}</p>
+            {esPasarela && (
+              <Badge variant="outline" className="text-[7px] font-black uppercase border-emerald-500/20 text-emerald-400 px-2 shrink-0">
+                <Landmark className="mr-1 h-2.5 w-2.5" /> PAGO DIRECTO
+              </Badge>
+            )}
             {permiso.vigencia && (
               <Badge variant="outline" className="text-[7px] font-black uppercase border-white/10 px-2 shrink-0">
                 <Calendar className="mr-1 h-2.5 w-2.5" /> {permiso.vigencia} MESES
@@ -590,44 +649,96 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
           <p className="text-[10px] text-muted-foreground/60 line-clamp-1">{permiso.descripcion}</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-primary text-[8px] font-black uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
-            <FileSignature className="mr-1.5 h-3 w-3" /> Inscripción
-          </Button>
-          {permiso.requisitosRenovacion.length > 0 && (
-            <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-amber-400 text-[8px] font-black uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
-              <RefreshCw className="mr-1.5 h-3 w-3" /> Renovación
+          {!esPasarela && (
+            <>
+              <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-primary text-[8px] font-black uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
+                <FileSignature className="mr-1.5 h-3 w-3" /> Inscripción
+              </Button>
+              {permiso.requisitosRenovacion.length > 0 && (
+                <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-amber-400 text-[8px] font-black uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
+                  <RefreshCw className="mr-1.5 h-3 w-3" /> Renovación
+                </Button>
+              )}
+            </>
+          )}
+          {esPasarela && (
+            <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-emerald-400 text-[8px] font-black uppercase hover:bg-emerald-500/10" onClick={e => { e.stopPropagation(); setExpanded(true); }}>
+              <Landmark className="mr-1.5 h-3 w-3" /> Pagar
             </Button>
           )}
           <ChevronRight className={`h-4 w-4 text-muted-foreground/30 transition-transform ${expanded ? 'rotate-90' : ''}`} />
         </div>
       </div>
       {expanded && (
-        <div className="px-8 pb-6 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-white/5 pt-5">
-          <div className="space-y-3">
-            <p className="text-[8px] font-black uppercase tracking-widest text-primary/60">Requisitos de Inscripción</p>
-            <ul className="space-y-2">
-              {permiso.requisitosInscripcion.map((r, i) => (
-                <li key={i} className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
-                  <ArrowRight className="h-3 w-3 text-primary/40 shrink-0 mt-0.5" />
-                  {r}
-                </li>
-              ))}
-            </ul>
-          </div>
-          {permiso.requisitosRenovacion.length > 0 && (
+        <div className="px-8 pb-6 border-t border-white/5 pt-5 space-y-5">
+          {esPasarela && (
+            <div className="bg-primary/[0.04] border border-primary/10 rounded-2xl p-6 space-y-4">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <Landmark className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-primary">Pagar Tributo SENIAT</p>
+                  <p className="text-[8px] text-muted-foreground/50">Ingrese su número de planilla y vaya directamente al banco</p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">N° de Planilla SENIAT</label>
+                <div className="flex gap-3">
+                  <Input
+                    placeholder="Ej: 2090012345678"
+                    value={planilla}
+                    onChange={e => setPlanilla(e.target.value)}
+                    className="h-12 rounded-xl bg-white/5 border-white/10 font-mono text-sm font-bold flex-1"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <Button
+                    className="h-12 px-6 rounded-xl btn-3d-primary font-black uppercase text-[9px] shrink-0"
+                    onClick={e => { e.stopPropagation(); handleIrAlBanco(); }}
+                  >
+                    <ExternalLink className="mr-2 h-4 w-4" /> IR AL BANCO
+                  </Button>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 pt-2 border-t border-white/5">
+                <Button
+                  variant="outline"
+                  className="h-10 px-5 rounded-xl border-emerald-500/20 text-emerald-400 font-black uppercase text-[8px] hover:bg-emerald-500/10"
+                  onClick={e => { e.stopPropagation(); handleConfirmarPago(); }}
+                >
+                  <CheckCircle2 className="mr-2 h-3.5 w-3.5" /> CONFIRMAR PAGO REALIZADO
+                </Button>
+                <p className="text-[8px] text-muted-foreground/40 italic">Al confirmar, las alertas de pago de este banco se desactivarán</p>
+              </div>
+            </div>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <p className="text-[8px] font-black uppercase tracking-widest text-amber-400/60">Requisitos de Renovación</p>
+              <p className="text-[8px] font-black uppercase tracking-widest text-primary/60">Requisitos de Inscripción</p>
               <ul className="space-y-2">
-                {permiso.requisitosRenovacion.map((r, i) => (
+                {permiso.requisitosInscripcion.map((r, i) => (
                   <li key={i} className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
-                    <ArrowRight className="h-3 w-3 text-amber-400/40 shrink-0 mt-0.5" />
+                    <ArrowRight className="h-3 w-3 text-primary/40 shrink-0 mt-0.5" />
                     {r}
                   </li>
                 ))}
               </ul>
             </div>
-          )}
-          <div className="md:col-span-2 flex flex-wrap gap-4 pt-2 border-t border-white/5">
+            {permiso.requisitosRenovacion.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-[8px] font-black uppercase tracking-widest text-amber-400/60">Requisitos de Renovación</p>
+                <ul className="space-y-2">
+                  {permiso.requisitosRenovacion.map((r, i) => (
+                    <li key={i} className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
+                      <ArrowRight className="h-3 w-3 text-amber-400/40 shrink-0 mt-0.5" />
+                      {r}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-4 pt-2 border-t border-white/5">
             {permiso.baseLegal && (
               <div className="flex items-center gap-2 text-[9px] text-muted-foreground/40">
                 <Zap className="h-3 w-3" /> <span className="font-bold">Base legal:</span> {permiso.baseLegal}

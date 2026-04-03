@@ -25,6 +25,8 @@ export type PermisoTipo = {
   requisitosRenovacion: string[];
   costoEstimado?: string;
   baseLegal?: string;
+  urlBanco?: string;
+  esPasarelaPago?: boolean;
   aplica: ('comercio' | 'industria' | 'servicios' | 'construccion' | 'telecomunicaciones' | 'alimentos' | 'salud' | 'educacion' | 'transporte' | 'mineria' | 'ambiente' | 'turismo' | 'energia' | 'agricultura' | 'pesca' | 'petroleo' | 'financiero' | 'farmaceutico' | 'cultura' | 'deporte' | 'tecnologia' | 'todos')[];
 };
 
@@ -2410,6 +2412,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar cada planilla generada antes de su vencimiento'],
     costoEstimado: 'Sin comisión bancaria por pago de tributos',
     baseLegal: 'Convenio SENIAT-BDV para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://bancaenlinea.banvenez.com',
     aplica: ['todos'],
   },
   {
@@ -2422,6 +2426,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar antes de la fecha de vencimiento de cada planilla'],
     costoEstimado: 'Sin comisión bancaria por pago de tributos',
     baseLegal: 'Convenio SENIAT-Banesco para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.banesco.com',
     aplica: ['todos'],
   },
   {
@@ -2434,6 +2440,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar cada planilla antes de su vencimiento'],
     costoEstimado: 'Sin comisión bancaria por pago de tributos',
     baseLegal: 'Convenio SENIAT-Mercantil para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.mercantilbanco.com',
     aplica: ['todos'],
   },
   {
@@ -2446,6 +2454,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar antes de vencimiento'],
     costoEstimado: 'Sin comisión bancaria por pago de tributos',
     baseLegal: 'Convenio SENIAT-Provincial para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.provincial.com',
     aplica: ['todos'],
   },
   {
@@ -2458,6 +2468,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar antes de vencimiento'],
     costoEstimado: 'Sin comisión bancaria por pago de tributos',
     baseLegal: 'Convenio SENIAT-BNC para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.bnc.com.ve',
     aplica: ['todos'],
   },
   {
@@ -2470,6 +2482,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar antes de vencimiento'],
     costoEstimado: 'Sin comisión bancaria',
     baseLegal: 'Convenio SENIAT-Banco del Tesoro para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.bancondeltesoro.com.ve',
     aplica: ['todos'],
   },
   {
@@ -2482,6 +2496,8 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Pagar antes de vencimiento'],
     costoEstimado: 'Sin comisión bancaria',
     baseLegal: 'Convenio SENIAT-Bicentenario para recaudación de tributos nacionales',
+    esPasarelaPago: true,
+    urlBanco: 'https://www.bicentenariobu.com',
     aplica: ['todos'],
   },
   {
