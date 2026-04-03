@@ -16,7 +16,7 @@ export default function LegalLayout({
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(168,18%,93%)] via-background to-[hsl(205,20%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(168,18%,93%)] via-background to-[hsl(205,20%,92%)] dark:from-[hsl(168,10%,10%)] dark:via-background dark:to-[hsl(205,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

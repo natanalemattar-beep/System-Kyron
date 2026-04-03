@@ -16,7 +16,7 @@ export default function HRLayout({
     const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(160,16%,93%)] via-background to-[hsl(195,18%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(160,16%,93%)] via-background to-[hsl(195,18%,92%)] dark:from-[hsl(160,10%,10%)] dark:via-background dark:to-[hsl(195,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

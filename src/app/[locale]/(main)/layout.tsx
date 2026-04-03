@@ -18,7 +18,7 @@ export default function MainLayout({
     const user = { name: "Operador Maestro", email: "master@kyron.com", fallback: "KY" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,18%,94%)] via-background to-[hsl(208,20%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,18%,94%)] via-background to-[hsl(208,20%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(208,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

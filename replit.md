@@ -61,6 +61,8 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Enterprise Security Pages:** `/seguridad-empresarial` (Centro de Seguridad with toggleable protections, threat log, recommendations), `/seguridad-empresarial/auditoria` (full access audit log), `/seguridad-empresarial/dispositivos` (device management with session control).
 - **Personal Account Security:** `/seguridad-cuenta` (2FA toggle, active sessions, security history, quick actions).
 - **Terminology:** Platform uses "CENTRO" instead of "NODO" throughout. "CENTRO DE VENTAS", "Estado del Sistema", "AUTENTICAR ACCESO".
+- **Dark Mode Layouts:** All 9 layout groups (admin, natural, main, telecom, informatica, hr, ventas, socios, legal) use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants alongside light HSL values. Auth layout intentionally forces light theme.
+- **Hydration Safety:** Pages must not use `new Date()` or `Math.random()` in `useState` initializers or direct JSX. Use `useEffect` to set client-only values after mount.
 
 ## External Dependencies
 - **Database:** PostgreSQL

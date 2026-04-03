@@ -2,7 +2,7 @@
 "use client";
 import { BackButton } from "@/components/back-button";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Signature as FileSignature, Banknote, Scale, Coins, ShieldCheck, ArrowRight, Activity, Terminal, Printer, Download, CircleCheck as CheckCircle, Loader as Loader2, X } from "lucide-react";
@@ -61,8 +61,17 @@ export default function CertificacionesContablesPage() {
         rif: "J-50328471-6",
         monto: 125000,
         motivo: "SOLICITUD DE CRÉDITO CORPORATIVO",
-        fecha: new Date().toISOString().substring(0, 10),
+        fecha: "",
     });
+
+    const [protocolId, setProtocolId] = useState("");
+    const [certDate, setCertDate] = useState("");
+
+    useEffect(() => {
+        setFormData(prev => ({ ...prev, fecha: new Date().toISOString().substring(0, 10) }));
+        setProtocolId("CC-" + Math.random().toString(36).substr(2, 6).toUpperCase());
+        setCertDate(new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
+    }, []);
 
     const handleSelectProtocol = (protocol: any) => {
         setSelectedType(protocol);
@@ -189,7 +198,7 @@ export default function CertificacionesContablesPage() {
                                 </div>
                                 <div className="text-right">
                                     <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">{selectedType?.title}</h3>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Protocolo: CC-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Protocolo: {protocolId || "CC-000000"}</p>
                                 </div>
                             </header>
 
@@ -221,7 +230,7 @@ export default function CertificacionesContablesPage() {
                                 </p>
 
                                 <p className="indent-12">
-                                    Certificación que se expide en Caracas, a los {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}.
+                                    Certificación que se expide en Caracas, a los {certDate || "—"}.
                                 </p>
                             </div>
 

@@ -28,7 +28,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker userId={user?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] hud-grid" />

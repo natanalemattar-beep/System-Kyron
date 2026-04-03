@@ -15,7 +15,7 @@ export default function SociosLayout({
     const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(172,14%,93%)] via-background to-[hsl(215,18%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(172,14%,93%)] via-background to-[hsl(215,18%,92%)] dark:from-[hsl(172,10%,10%)] dark:via-background dark:to-[hsl(215,12%,8%)] text-foreground relative">
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />
             <div className="absolute top-0 right-[-5%] w-[800px] h-[800px] bg-indigo-400/[0.06] rounded-full blur-[250px]" />

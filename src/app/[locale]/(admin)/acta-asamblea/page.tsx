@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Signature as FileSignature, Printer, Download, CircleCheck as CheckCircle, Gavel, Activity, Terminal } from "lucide-react";
@@ -15,7 +15,11 @@ import { formatDate } from "@/lib/utils";
 export default function ActaAsambleaPage() {
     const { toast } = useToast();
     const [tipo, setTipo] = useState("ordinaria");
-    const [fecha, setFecha] = useState(new Date().toISOString().substring(0, 10));
+    const [fecha, setFecha] = useState("");
+
+    useEffect(() => {
+        setFecha(new Date().toISOString().substring(0, 10));
+    }, []);
 
     const handleAction = (action: string) => {
         toast({

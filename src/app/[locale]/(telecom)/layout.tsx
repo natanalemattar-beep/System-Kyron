@@ -16,7 +16,7 @@ export default function TelecomLayout({
     const user = { name: "Área Técnica", email: "telecom@kyron.com", fallback: "TE" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,15%,93%)] via-background to-[hsl(200,16%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,15%,93%)] via-background to-[hsl(200,16%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(200,10%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

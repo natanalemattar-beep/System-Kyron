@@ -31,7 +31,7 @@ export default function NaturalLayout({
     };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(165,16%,94%)] via-background to-[hsl(200,18%,93%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(165,16%,94%)] via-background to-[hsl(200,18%,93%)] dark:from-[hsl(165,10%,10%)] dark:via-background dark:to-[hsl(200,12%,8%)] text-foreground relative">
           <PageTracker userId={authUser?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

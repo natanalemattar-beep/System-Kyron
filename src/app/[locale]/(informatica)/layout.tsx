@@ -16,7 +16,7 @@ export default function InformaticaLayout({
     const user = { name: "Dpto. IT", email: "it@kyron.com", fallback: "IT" };
 
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(175,16%,93%)] via-background to-[hsl(210,18%,92%)] text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(175,16%,93%)] via-background to-[hsl(210,18%,92%)] dark:from-[hsl(175,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />

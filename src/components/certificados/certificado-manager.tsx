@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,7 +41,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         rif: "J-50328471-6",
         cargo: "",
         salario: 0,
-        ingreso: new Date().toISOString().substring(0, 10),
+        ingreso: "",
         tlf: "0212-267-8490",
         profesion: "",
         actividad: "",
@@ -49,6 +49,15 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         ente: "IVSS",
         numCarnet: ""
     });
+
+    const [refId, setRefId] = useState("");
+    const [certDateStr, setCertDateStr] = useState("");
+
+    useEffect(() => {
+        setFormData((prev: any) => ({ ...prev, ingreso: new Date().toISOString().substring(0, 10) }));
+        setRefId("KYR-" + Math.random().toString(36).substr(2, 9).toUpperCase());
+        setCertDateStr(new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
+    }, []);
 
     const handleSelectType = (selectedType: CertType) => {
         setType(selectedType);
@@ -245,7 +254,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             </div>
                             <div className="text-right">
                                 <h3 className="text-2xl font-black uppercase italic tracking-tight text-slate-900 leading-none">CERTIFICACIÓN</h3>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Ref: KYR-{Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Ref: {refId || "KYR-000000000"}</p>
                             </div>
                         </header>
 
@@ -265,7 +274,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             </p>
 
                             <p className="indent-12">
-                                Constancia que se expide a petición de la parte interesada, a los fines de ser presentada ante quien corresponda, en la ciudad de Caracas, a los {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}.
+                                Constancia que se expide a petición de la parte interesada, a los fines de ser presentada ante quien corresponda, en la ciudad de Caracas, a los {certDateStr || "—"}.
                             </p>
                         </div>
 
