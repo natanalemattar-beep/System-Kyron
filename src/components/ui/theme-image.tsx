@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 interface ThemeImageProps {
-  darkSrc: string;
+  darkSrc?: string;
   lightSrc: string;
   alt: string;
   width: number;
@@ -17,7 +17,6 @@ interface ThemeImageProps {
 }
 
 export function ThemeImage({
-  darkSrc,
   lightSrc,
   alt,
   width,
@@ -29,29 +28,16 @@ export function ThemeImage({
   sizes,
 }: ThemeImageProps) {
   return (
-    <div className="relative">
-      <Image
-        src={lightSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        quality={quality}
-        className={cn(className, 'dark:opacity-0')}
-        priority={priority}
-        loading={loading}
-        sizes={sizes}
-      />
-      <Image
-        src={darkSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        quality={quality}
-        className={cn(className, 'absolute top-0 left-0 w-full h-full object-cover opacity-0 dark:opacity-100')}
-        priority={priority}
-        loading={loading}
-        sizes={sizes}
-      />
-    </div>
+    <Image
+      src={lightSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      quality={quality}
+      className={className}
+      priority={priority}
+      loading={loading}
+      sizes={sizes}
+    />
   );
 }

@@ -101,27 +101,18 @@ export function HeroSection() {
                     fill
                     sizes="100vw"
                     quality={85}
-                    className="object-cover dark:opacity-0"
+                    className="object-cover"
                     priority
                 />
-                <Image
-                    src="/images/landing/hero-bg-dark.webp"
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    quality={85}
-                    className="object-cover opacity-0 dark:opacity-100"
-                    priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#e8f0fe]/90 via-[#edf2fb]/70 to-[#e8f0fe] dark:from-[#020a18]/85 dark:via-[#020a18]/65 dark:to-[#020a18]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#e8f0fe]/70 via-transparent to-[#e8f0fe]/50 dark:from-[#020a18]/60 dark:via-transparent dark:to-[#020a18]/40" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#e8f0fe]/90 via-[#edf2fb]/70 to-[#e8f0fe]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#e8f0fe]/70 via-transparent to-[#e8f0fe]/50" />
             </div>
 
             {config.enableBlur && (
                 <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.12] dark:bg-[#0ea5e9]/[0.07] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
-                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.10] dark:bg-[#3b82f6]/[0.06] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.08] dark:bg-[#22c55e]/[0.04] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
+                    <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/[0.12] blur-[120px] animate-[pulse_10s_ease-in-out_infinite]" />
+                    <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/[0.10] blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#22c55e]/[0.08] blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s]" />
                 </div>
             )}
 
