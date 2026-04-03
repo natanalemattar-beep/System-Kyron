@@ -1,9 +1,8 @@
 import { query } from '@/lib/db';
 
-const OUTLOOK_SENDER = 'alertas_systemkyron@hotmail.com';
 const GMAIL_SENDER = 'noreplysystemkyron@gmail.com';
 
-export type EmailProvider = 'gmail' | 'outlook' | 'resend' | 'whatsapp' | 'sms';
+export type EmailProvider = 'gmail';
 export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
 export interface EmailOptions {
@@ -80,184 +79,17 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   }
 }
 
-async function sendViaOutlook(opts: EmailOptions): Promise<EmailResult> {
-  try {
-    const { getUncachableOutlookClient } = await import('@/lib/outlook-client');
-    const client = await getUncachableOutlookClient();
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-
-    await client.api('/me/sendMail').post({
-      message: {
-        subject: opts.subject,
-        body: { contentType: 'HTML', content: opts.html },
-        from: {
-          emailAddress: { address: OUTLOOK_SENDER, name: 'System Kyron' },
-        },
-        toRecipients: recipients.map(email => ({
-          emailAddress: { address: email },
-        })),
-      },
-      saveToSentItems: true,
-    });
-
-    console.log(`[email-service] Outlook sent to ${recipients.join(', ')} from ${OUTLOOK_SENDER} (${opts.purpose ?? 'general'})`);
-    return { success: true, provider: 'outlook' };
-  } catch (err) {
-    console.error(`[email-service] Outlook failed:`, String(err));
-    return { success: false, provider: 'outlook', error: String(err) };
-  }
-}
-
-async function sendViaSMTP(opts: EmailOptions): Promise<EmailResult> {
-  const smtpUser = process.env.GMAIL_USER;
-  const smtpPass = process.env.GMAIL_APP_PASSWORD;
-  if (!smtpUser || !smtpPass) {
-    return { success: false, provider: 'gmail', error: 'GMAIL_USER or GMAIL_APP_PASSWORD not configured' };
-  }
-
-  try {
-    const nodemailer = await import('nodemailer');
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: smtpUser, pass: smtpPass },
-    });
-
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    await transporter.sendMail({
-      from: opts.from ?? `System Kyron <${GMAIL_SENDER}>`,
-      to: recipients.join(', '),
-      subject: opts.subject,
-      html: opts.html,
-    });
-
-    console.log(`[email-service] SMTP/Gmail sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
-    return { success: true, provider: 'gmail' };
-  } catch (err) {
-    console.error(`[email-service] SMTP failed:`, String(err));
-    return { success: false, provider: 'gmail', error: String(err) };
-  }
-}
-
-async function sendViaResend(opts: EmailOptions): Promise<EmailResult> {
-  const resendKey = process.env.RESEND_API_KEY;
-  if (!resendKey || resendKey === 're_placeholder_123') {
-    return { success: false, provider: 'resend', error: 'RESEND_API_KEY not configured' };
-  }
-
-  try {
-    const { Resend } = await import('resend');
-    const resend = new Resend(resendKey);
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-
-    await resend.emails.send({
-      from: opts.from ?? `System Kyron <${GMAIL_SENDER}>`,
-      to: recipients,
-      subject: opts.subject,
-      html: opts.html,
-    });
-
-    return { success: true, provider: 'resend' };
-  } catch (err) {
-    return { success: false, provider: 'resend', error: String(err) };
-  }
-}
-
-async function sendViaSms(opts: EmailOptions): Promise<EmailResult> {
-  try {
-    const { sendSms } = await import('@/lib/twilio-client');
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const plainText = opts.subject;
-
-    for (const recipient of recipients) {
-      const result = await sendSms(recipient, `SYSTEM KYRON: ${plainText}`);
-      if (!result.success) {
-        return { success: false, provider: 'sms', error: result.error };
-      }
-    }
-    return { success: true, provider: 'sms' };
-  } catch (err) {
-    return { success: false, provider: 'sms', error: String(err) };
-  }
-}
-
-async function sendViaWhatsApp(opts: EmailOptions): Promise<EmailResult> {
-  try {
-    const { sendWhatsAppMessage } = await import('@/lib/whatsapp-service');
-    const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const plainText = `*SYSTEM KYRON*\n\n*${opts.subject}*`;
-
-    for (const recipient of recipients) {
-      const result = await sendWhatsAppMessage(recipient, plainText);
-      if (!result.success) {
-        return { success: false, provider: 'whatsapp', error: result.error };
-      }
-    }
-    return { success: true, provider: 'whatsapp' };
-  } catch (err) {
-    return { success: false, provider: 'whatsapp', error: String(err) };
-  }
-}
-
-function getProviderOrder(purpose: EmailPurpose): Array<(opts: EmailOptions) => Promise<EmailResult>> {
-  switch (purpose) {
-    case 'verification':
-    case 'password-reset':
-      return [sendViaGmail, sendViaOutlook, sendViaSMTP, sendViaResend];
-    case 'alert':
-      return [sendViaOutlook, sendViaGmail, sendViaSMTP, sendViaResend];
-    case 'general':
-    default:
-      return [sendViaGmail, sendViaOutlook, sendViaSMTP, sendViaResend];
-  }
-}
-
-const _providerCooldown = new Map<string, number>();
-const COOLDOWN_MS = 120_000;
-
-function isProviderCoolingDown(name: string): boolean {
-  const until = _providerCooldown.get(name);
-  if (!until) return false;
-  if (Date.now() > until) {
-    _providerCooldown.delete(name);
-    return false;
-  }
-  return true;
-}
-
-function markProviderFailed(name: string) {
-  _providerCooldown.set(name, Date.now() + COOLDOWN_MS);
-}
-
-function getProviderName(fn: Function): string {
-  return fn.name || 'unknown';
-}
-
 export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
-  const purpose = opts.purpose ?? 'general';
-  const providerFns = getProviderOrder(purpose);
+  const result = await sendViaGmail(opts);
 
-  for (const providerFn of providerFns) {
-    const name = getProviderName(providerFn);
-    if (isProviderCoolingDown(name)) {
-      console.log(`[email-service] Skipping ${name} (cooldown)`);
-      continue;
-    }
-
-    const result = await providerFn(opts);
-    if (result.success) {
-      logEmail(opts, result).catch(() => {});
-      return result;
-    }
-
-    console.warn(`[email-service] ${result.provider} failed (${purpose}): ${result.error}`);
-    if (result.error?.includes('not connected') || result.error?.includes('not configured') || result.error?.includes('not set')) {
-      markProviderFailed(name);
-    }
+  if (result.success) {
+    logEmail(opts, result).catch(() => {});
+    return result;
   }
 
-  const fallback: EmailResult = { success: false, provider: 'none', error: 'All providers failed' };
-  logEmail(opts, fallback).catch(() => {});
-  return fallback;
+  console.warn(`[email-service] Gmail failed (${opts.purpose ?? 'general'}): ${result.error}`);
+  logEmail(opts, result).catch(() => {});
+  return result;
 }
 
 export function buildKyronEmailTemplate(content: { title: string; body: string; code?: string; magicLink?: string; footer?: string }) {
