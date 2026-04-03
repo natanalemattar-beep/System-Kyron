@@ -158,7 +158,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                                     )}
                                                 >
                                                     <item.icon className={cn("h-3.5 w-3.5 shrink-0", isActive ? "text-primary" : "opacity-40")} />
-                                                    <span className="text-[10px] font-bold uppercase tracking-[0.1em] truncate">{item.label}</span>
+                                                    <span className="text-[10px] font-bold uppercase tracking-[0.1em]">{item.label}</span>
                                                     {isActive && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
                                                 </Link>
                                             </SheetClose>

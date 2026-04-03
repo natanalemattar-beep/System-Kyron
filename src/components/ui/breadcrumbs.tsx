@@ -93,11 +93,11 @@ export function Breadcrumbs({ dashboardHref = '/dashboard', className }: Breadcr
         <span key={crumb.href} className="flex items-center gap-1">
           <ChevronRight className="h-3 w-3 text-muted-foreground/40" />
           {crumb.isLast ? (
-            <span className="text-foreground/70 font-medium truncate max-w-[140px]">{crumb.label}</span>
+            <span className="text-foreground/70 font-medium truncate max-w-[220px]">{crumb.label}</span>
           ) : (
             <Link 
               href={crumb.href as any}
-              className="hover:text-foreground transition-colors truncate max-w-[120px]"
+              className="hover:text-foreground transition-colors truncate max-w-[200px]"
             >
               {crumb.label}
             </Link>
