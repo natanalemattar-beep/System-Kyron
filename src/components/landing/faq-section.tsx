@@ -11,12 +11,12 @@ export function FaqSection() {
     const faqItems = t.raw('items') as Array<{ question: string; answer: string }>;
 
     return (
-        <section id="faq" className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/40 to-indigo-50/30">
+        <section id="faq" className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/40 to-indigo-50/30 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-300/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/25 to-transparent" />
-                <div className="absolute top-[20%] right-[15%] w-[400px] h-[400px] rounded-full bg-sky-400/[0.07] blur-[100px]" />
-                <div className="absolute bottom-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-indigo-400/[0.05] blur-[90px]" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-300/30 dark:via-sky-500/15 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/25 dark:via-blue-500/10 to-transparent" />
+                <div className="absolute top-[20%] right-[15%] w-[400px] h-[400px] rounded-full bg-sky-400/[0.07] dark:bg-sky-500/[0.03] blur-[100px]" />
+                <div className="absolute bottom-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-indigo-400/[0.05] dark:bg-indigo-500/[0.03] blur-[90px]" />
             </div>
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
                 <div className="text-center mb-12 md:mb-16 space-y-4">

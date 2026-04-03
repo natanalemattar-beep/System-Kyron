@@ -101,8 +101,8 @@ export function AboutUsSection() {
                         loading="lazy"
                         sizes="(max-width: 1280px) 100vw, 1280px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-rose-50/90 via-pink-50/80 to-orange-50/85" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-rose-100/20 to-amber-100/30" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-rose-50/90 via-pink-50/80 to-orange-50/85 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-rose-100/20 to-amber-100/30 dark:from-transparent dark:via-transparent dark:to-transparent" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">

@@ -35,7 +35,7 @@ export function Footer() {
 
             <div className="kyron-accent-line opacity-100" />
 
-            <div className="border-b border-blue-200/40 py-3 overflow-hidden">
+            <div className="border-b border-blue-200/40 dark:border-blue-800/30 py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
                         <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-foreground/50 shrink-0 flex items-center gap-3">

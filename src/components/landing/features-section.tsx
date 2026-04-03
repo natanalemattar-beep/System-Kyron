@@ -30,10 +30,10 @@ function FeatureRow({ feature, meta, index, animate }: {
     return (
         <motion.div
             className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center"
-            initial={animate ? { opacity: 0, y: 40 } : undefined}
+            initial={animate ? { opacity: 0, y: 24 } : undefined}
             whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
         >
             <div className={cn(
                 "md:px-8",
@@ -89,7 +89,7 @@ function TimelineProgress() {
 
     return (
         <div ref={ref} className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px]">
-            <div className="absolute inset-0 bg-blue-200/40 rounded-full" />
+            <div className="absolute inset-0 bg-blue-200/40 dark:bg-blue-800/30 rounded-full" />
             <motion.div
                 className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-violet-500 to-emerald-500 rounded-full origin-top"
                 style={{ scaleY, height: '100%' }}
@@ -108,8 +108,8 @@ export function FeaturesSection() {
     return (
         <section id="caracteristicas" className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]" style={{ position: 'relative' }}>
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-300/25 to-transparent" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-300/30 dark:via-violet-500/15 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-300/25 dark:via-rose-500/10 to-transparent" />
                 <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-violet-400/[0.08] dark:bg-violet-500/[0.04] blur-[120px]" />
                 <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-rose-400/[0.06] dark:bg-rose-500/[0.03] blur-[100px]" />
             </div>
