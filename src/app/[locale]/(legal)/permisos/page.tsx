@@ -473,7 +473,7 @@ export default function PermisosPage() {
       </Dialog>
 
       <Dialog open={registroOpen} onOpenChange={setRegistroOpen}>
-        <DialogContent className="max-w-2xl rounded-3xl bg-card/95 backdrop-blur-3xl border-border/20 p-0 max-h-[90vh] flex flex-col overflow-hidden">
+        <DialogContent className="max-w-2xl rounded-3xl bg-card/95 backdrop-blur-3xl border-border/20 p-0 max-h-[90vh] flex flex-col overflow-y-auto">
           <div className="p-6 sm:p-8 border-b border-border/20 bg-primary/5 shrink-0">
             <DialogHeader>
               <DialogTitle className="text-lg sm:text-xl font-black uppercase text-foreground flex items-center gap-3">

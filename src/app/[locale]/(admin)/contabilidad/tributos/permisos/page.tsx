@@ -373,7 +373,7 @@ export default function PermisologiaPage() {
       </Dialog>
 
       <Dialog open={registroDialog} onOpenChange={setRegistroDialog}>
-        <DialogContent className="max-w-2xl rounded-[2rem] bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-hidden">
+        <DialogContent className="max-w-2xl max-h-[90vh] rounded-[2rem] bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-y-auto">
           <div className="p-8 border-b border-white/5 bg-primary/5">
             <DialogHeader>
               <DialogTitle className="text-xl font-black uppercase text-foreground">Registrar Nuevo Permiso</DialogTitle>
