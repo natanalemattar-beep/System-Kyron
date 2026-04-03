@@ -7,13 +7,19 @@ import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { useAuth } from "@/lib/auth/context";
 
 export default function TelecomLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = { name: "Área Técnica", email: "telecom@kyron.com", fallback: "TE" };
+    const { user: authUser } = useAuth();
+    const displayName = authUser?.tipo === 'juridico'
+      ? (authUser?.razon_social || authUser?.nombre || "Empresa")
+      : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";
+    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
+    const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,15%,93%)] via-background to-[hsl(200,16%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(200,10%,8%)] text-foreground relative">

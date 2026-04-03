@@ -18,8 +18,10 @@ const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').th
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     const { prefs } = usePreferences();
-    const displayName = user?.nombre || "Empresa";
-    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "AD";
+    const displayName = user?.tipo === 'juridico'
+      ? (user?.razon_social || user?.nombre || "Empresa")
+      : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";
+    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
     const headerUser = { 
         name: displayName,
         email: user?.email || "",

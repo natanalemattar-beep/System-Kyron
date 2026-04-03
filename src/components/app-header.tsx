@@ -331,8 +331,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
                     <DropdownMenuLabel className="p-3 bg-muted/20 rounded-xl mb-1.5">
                         <div className="flex flex-col gap-0.5">
-                            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-foreground italic leading-none">Operador</p>
-                            <p className="text-[8px] text-muted-foreground/40 font-mono truncate">{user?.email || "admin@kyron.com"}</p>
+                            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-foreground italic leading-none truncate">{user?.name || "Usuario"}</p>
+                            <p className="text-[8px] text-muted-foreground/40 font-mono truncate">{user?.email || ""}</p>
                         </div>
                     </DropdownMenuLabel>
                     

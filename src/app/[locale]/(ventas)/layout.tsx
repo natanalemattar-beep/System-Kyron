@@ -8,9 +8,15 @@ import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { CurrencyProvider } from "@/lib/currency-context";
+import { useAuth } from "@/lib/auth/context";
 
 export default function VentasLayout({ children }: { children: React.ReactNode }) {
-    const user = { name: "Comercial", email: "ventas@kyron.com", fallback: "VT" };
+    const { user: authUser } = useAuth();
+    const displayName = authUser?.tipo === 'juridico'
+      ? (authUser?.razon_social || authUser?.nombre || "Empresa")
+      : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";
+    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
+    const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
       <CurrencyProvider>

@@ -6,13 +6,19 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
+import { useAuth } from "@/lib/auth/context";
 
 export default function SociosLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
+    const { user: authUser } = useAuth();
+    const displayName = authUser?.tipo === 'juridico'
+      ? (authUser?.razon_social || authUser?.nombre || "Empresa")
+      : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";
+    const initials = displayName.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase() || "US";
+    const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(172,14%,93%)] via-background to-[hsl(215,18%,92%)] dark:from-[hsl(172,10%,10%)] dark:via-background dark:to-[hsl(215,12%,8%)] text-foreground relative">

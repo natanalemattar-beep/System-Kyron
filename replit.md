@@ -63,6 +63,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Terminology:** Platform uses "CENTRO" instead of "NODO" throughout. "CENTRO DE VENTAS", "Estado del Sistema", "AUTENTICAR ACCESO".
 - **Dark Mode Layouts:** All 9 layout groups (admin, natural, main, telecom, informatica, hr, ventas, socios, legal) use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants alongside light HSL values. Auth layout intentionally forces light theme.
 - **Profile Pages:** Natural users use `/perfil` (under `(natural)` layout), empresa/admin users use `/perfil-empresa` (under `(admin)` layout). Both pages use `useAuth()` to display real user data. Header profile link auto-selects the correct route based on `dashboardHref`.
+- **Dynamic User Identity:** All 8 layout groups (admin, main, ventas, legal, telecom, informatica, socios, hr) use `useAuth()` to build the header user object dynamically. For juridico users, `razon_social` is displayed; for natural users, `nombre + apellido`. No hardcoded user names or emails anywhere.
 - **Hydration Safety:** Pages must not use `new Date()` or `Math.random()` in `useState` initializers or direct JSX. Use `useEffect` to set client-only values after mount.
 
 ## External Dependencies
