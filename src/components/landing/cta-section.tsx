@@ -20,7 +20,7 @@ export function CtaSection() {
             <div className="relative py-20 md:py-28">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-teal-50/40 to-cyan-50/60 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]" />
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-300/35 dark:via-emerald-500/15 to-transparent" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-300/35 dark:via-transparent to-transparent" />
                     <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-400/[0.10] dark:bg-emerald-500/[0.04] blur-[120px]" />
                     <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-400/[0.08] dark:bg-cyan-500/[0.03] blur-[100px]" />
                     <div className="absolute top-[50%] right-[10%] w-[300px] h-[300px] rounded-full bg-teal-400/[0.06] dark:bg-teal-500/[0.03] blur-[80px]" />

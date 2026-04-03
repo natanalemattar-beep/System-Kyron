@@ -82,8 +82,8 @@ export function ComplianceSection() {
     return (
         <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-amber-50/50 via-orange-50/30 to-yellow-50/40 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-300/30 dark:via-amber-500/15 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-300/25 dark:via-orange-500/10 to-transparent" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-300/30 dark:via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-300/25 dark:via-transparent to-transparent" />
                 <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-amber-400/[0.08] dark:bg-amber-500/[0.03] blur-[120px]" />
                 <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-orange-400/[0.06] dark:bg-orange-500/[0.03] blur-[100px]" />
             </div>

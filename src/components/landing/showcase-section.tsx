@@ -132,8 +132,8 @@ export function ShowcaseSection() {
   return (
     <section className="py-16 md:py-28 relative overflow-hidden bg-gradient-to-br from-cyan-50/60 via-teal-50/40 to-emerald-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-300/30 dark:via-cyan-500/15 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-300/25 dark:via-teal-500/10 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-300/30 dark:via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-300/25 dark:via-transparent to-transparent" />
         <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] rounded-full bg-cyan-400/[0.07] dark:bg-cyan-500/[0.03] blur-[120px]" />
         <div className="absolute bottom-[15%] right-[10%] w-[400px] h-[400px] rounded-full bg-emerald-400/[0.06] dark:bg-emerald-500/[0.03] blur-[100px]" />
       </div>

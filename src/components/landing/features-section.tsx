@@ -108,8 +108,8 @@ export function FeaturesSection() {
     return (
         <section id="caracteristicas" className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]" style={{ position: 'relative' }}>
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-300/30 dark:via-violet-500/15 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-300/25 dark:via-rose-500/10 to-transparent" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-300/30 dark:via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-300/25 dark:via-transparent to-transparent" />
                 <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-violet-400/[0.08] dark:bg-violet-500/[0.04] blur-[120px]" />
                 <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-rose-400/[0.06] dark:bg-rose-500/[0.03] blur-[100px]" />
             </div>
