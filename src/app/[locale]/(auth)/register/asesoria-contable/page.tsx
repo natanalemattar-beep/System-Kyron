@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -123,6 +124,7 @@ const stepConfig = [
 ];
 
 export default function RegisterContabilidadPage() {
+    const searchParams = useSearchParams();
     const [step, setStep] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -138,10 +140,26 @@ export default function RegisterContabilidadPage() {
     const [verifDestino, setVerifDestino] = useState('');
     const [countdown, setCountdown] = useState(0);
 
+    const prefillDoc = searchParams.get('doc') || '';
+    const prefillRazon = searchParams.get('razon') || '';
+    const prefillTipo = searchParams.get('tipo') || '';
+    const prefillEstado = searchParams.get('estado') || '';
+    const prefillMunicipio = searchParams.get('municipio') || '';
+    const prefillTel = searchParams.get('tel') || '';
+    const hasPrefill = !!prefillDoc;
+
     const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange',
-        defaultValues: { regimen_iva: 'General' },
+        defaultValues: {
+            regimen_iva: 'General',
+            rif: prefillDoc,
+            razonSocial: prefillRazon,
+            tipo_empresa: prefillTipo,
+            estado_empresa: prefillEstado,
+            municipio_empresa: prefillMunicipio,
+            telefono: prefillTel,
+        },
     });
 
     const estadoEmpresa = watch('estado_empresa');
@@ -448,39 +466,93 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     )}
 
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 bg-primary/10 rounded-lg">
-                                                <Building className="h-3.5 w-3.5 text-primary" />
+                                    {hasPrefill && (
+                                        <div className="p-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-3">
+                                            <div className="flex items-center gap-2">
+                                                <div className="p-1.5 bg-emerald-500/10 rounded-lg">
+                                                    <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                                                </div>
+                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500">Datos de la Empresa (verificados)</p>
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Datos de la Empresa</p>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {prefillRazon && (
+                                                    <div className="col-span-2 p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">Razón Social</p>
+                                                        <p className="text-sm font-semibold text-foreground">{prefillRazon}</p>
+                                                    </div>
+                                                )}
+                                                <div className="p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">RIF</p>
+                                                    <p className="text-sm font-semibold text-foreground">{prefillDoc}</p>
+                                                </div>
+                                                {prefillTipo && (
+                                                    <div className="p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">Tipo</p>
+                                                        <p className="text-sm font-semibold text-foreground">{prefillTipo}</p>
+                                                    </div>
+                                                )}
+                                                {prefillEstado && (
+                                                    <div className="p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">Estado</p>
+                                                        <p className="text-sm font-semibold text-foreground">{prefillEstado}</p>
+                                                    </div>
+                                                )}
+                                                {prefillMunicipio && (
+                                                    <div className="p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">Municipio</p>
+                                                        <p className="text-sm font-semibold text-foreground">{prefillMunicipio}</p>
+                                                    </div>
+                                                )}
+                                                {prefillTel && (
+                                                    <div className="p-2.5 rounded-xl bg-background/60 border border-border/30">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">Teléfono</p>
+                                                        <p className="text-sm font-semibold text-foreground">{prefillTel}</p>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
+                                    )}
 
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <div className="col-span-2 space-y-1.5">
-                                                <Label htmlFor="razonSocial" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Razón Social</Label>
-                                                <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.razonSocial && 'border-destructive')} />
-                                                {errors.razonSocial && <p className="text-xs text-destructive">{errors.razonSocial.message}</p>}
+                                    {!hasPrefill && (
+                                        <div className="space-y-1">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <div className="p-1.5 bg-primary/10 rounded-lg">
+                                                    <Building className="h-3.5 w-3.5 text-primary" />
+                                                </div>
+                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Datos de la Empresa</p>
                                             </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">RIF</Label>
-                                                <Controller name="rif" control={control} render={({ field }) => (
-                                                    <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
-                                                )} />
-                                                {errors.rif && <p className="text-xs text-destructive">{errors.rif.message}</p>}
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Tipo de Empresa</Label>
-                                                <Controller name="tipo_empresa" control={control} render={({ field }) => (
-                                                    <Select onValueChange={field.onChange} value={field.value}>
-                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.tipo_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                        <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                                    </Select>
-                                                )} />
-                                                {errors.tipo_empresa && <p className="text-xs text-destructive">{errors.tipo_empresa.message}</p>}
+
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="col-span-2 space-y-1.5">
+                                                    <Label htmlFor="razonSocial" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Razón Social</Label>
+                                                    <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.razonSocial && 'border-destructive')} />
+                                                    {errors.razonSocial && <p className="text-xs text-destructive">{errors.razonSocial.message}</p>}
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">RIF</Label>
+                                                    <Controller name="rif" control={control} render={({ field }) => (
+                                                        <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                                                    )} />
+                                                    {errors.rif && <p className="text-xs text-destructive">{errors.rif.message}</p>}
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Tipo de Empresa</Label>
+                                                    <Controller name="tipo_empresa" control={control} render={({ field }) => (
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.tipo_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                            <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                                        </Select>
+                                                    )} />
+                                                    {errors.tipo_empresa && <p className="text-xs text-destructive">{errors.tipo_empresa.message}</p>}
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <Label htmlFor="telefono" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
+                                                    <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.telefono && 'border-destructive')} />
+                                                    {errors.telefono && <p className="text-xs text-destructive">{errors.telefono.message}</p>}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    )}
 
                                     <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
@@ -493,16 +565,18 @@ export default function RegisterContabilidadPage() {
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
-                                            <div className="space-y-1.5">
+                                            <div className={cn("space-y-1.5", hasPrefill ? "col-span-2" : "")}>
                                                 <Label htmlFor="repNombre" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</Label>
                                                 <Input id="repNombre" placeholder="Juan Pérez" {...register('repNombre')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repNombre && 'border-destructive')} />
                                                 {errors.repNombre && <p className="text-xs text-destructive">{errors.repNombre.message}</p>}
                                             </div>
-                                            <div className="space-y-1.5">
-                                                <Label htmlFor="telefono" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
-                                                <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.telefono && 'border-destructive')} />
-                                                {errors.telefono && <p className="text-xs text-destructive">{errors.telefono.message}</p>}
-                                            </div>
+                                            {!hasPrefill && (
+                                                <div className="space-y-1.5">
+                                                    <Label htmlFor="telefono2" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
+                                                    <Input id="telefono2" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.telefono && 'border-destructive')} />
+                                                    {errors.telefono && <p className="text-xs text-destructive">{errors.telefono.message}</p>}
+                                                </div>
+                                            )}
                                             <div className="col-span-2 space-y-1.5">
                                                 <Label htmlFor="repEmail" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Correo Electrónico</Label>
                                                 <Input id="repEmail" type="email" placeholder="tu@empresa.com" {...register('repEmail')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repEmail && 'border-destructive')} />
@@ -518,7 +592,7 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 bg-violet-500/10 rounded-lg">
                                                 <ShieldCheck className="h-3.5 w-3.5 text-violet-500" />
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-500">Seguridad y Ubicación</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-500">{hasPrefill ? 'Seguridad' : 'Seguridad y Ubicación'}</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
@@ -547,28 +621,32 @@ export default function RegisterContabilidadPage() {
                                                 <Input id="confirmPassword" type={showPassword ? 'text' : 'password'} {...register('confirmPassword')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.confirmPassword && 'border-destructive')} />
                                                 {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message}</p>}
                                             </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Estado</Label>
-                                                <Controller name="estado_empresa" control={control} render={({ field }) => (
-                                                    <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
-                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Estado..." /></SelectTrigger>
-                                                        <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
-                                                    </Select>
-                                                )} />
-                                                {errors.estado_empresa && <p className="text-xs text-destructive">{errors.estado_empresa.message}</p>}
-                                            </div>
-                                            <div className="space-y-1.5">
-                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Municipio</Label>
-                                                <Controller name="municipio_empresa" control={control} render={({ field }) => (
-                                                    <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.municipio_empresa && 'border-destructive')}>
-                                                            <SelectValue placeholder={estadoEmpresa ? 'Municipio...' : 'Primero el estado'} />
-                                                        </SelectTrigger>
-                                                        <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
-                                                    </Select>
-                                                )} />
-                                                {errors.municipio_empresa && <p className="text-xs text-destructive">{errors.municipio_empresa.message}</p>}
-                                            </div>
+                                            {!hasPrefill && (
+                                                <>
+                                                    <div className="space-y-1.5">
+                                                        <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Estado</Label>
+                                                        <Controller name="estado_empresa" control={control} render={({ field }) => (
+                                                            <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
+                                                                <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Estado..." /></SelectTrigger>
+                                                                <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
+                                                            </Select>
+                                                        )} />
+                                                        {errors.estado_empresa && <p className="text-xs text-destructive">{errors.estado_empresa.message}</p>}
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Municipio</Label>
+                                                        <Controller name="municipio_empresa" control={control} render={({ field }) => (
+                                                            <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
+                                                                <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.municipio_empresa && 'border-destructive')}>
+                                                                    <SelectValue placeholder={estadoEmpresa ? 'Municipio...' : 'Primero el estado'} />
+                                                                </SelectTrigger>
+                                                                <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
+                                                            </Select>
+                                                        )} />
+                                                        {errors.municipio_empresa && <p className="text-xs text-destructive">{errors.municipio_empresa.message}</p>}
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
