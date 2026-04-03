@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -145,19 +145,6 @@ export default function RegisterContabilidadPage() {
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
-    useEffect(() => {
-        const html = document.documentElement;
-        const wasDark = html.classList.contains('dark');
-        html.classList.remove('dark');
-        html.style.colorScheme = 'light';
-        return () => {
-            if (wasDark) {
-                html.classList.add('dark');
-                html.style.colorScheme = 'dark';
-            }
-        };
-    }, []);
-
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifSent, setVerifSent] = useState(false);
     const [verifCode, setVerifCode] = useState('');
