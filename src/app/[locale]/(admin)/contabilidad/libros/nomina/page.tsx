@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 import {
   Users, Download, ArrowLeft, Loader2, Inbox,
@@ -35,6 +36,7 @@ const SAMPLE_NOMINAS: Nomina[] = [
 ];
 
 export default function LibroNominaPage() {
+  const { toast } = useToast();
   const [rows, setRows] = useState<Nomina[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,9 +76,9 @@ export default function LibroNominaPage() {
             Registro quincenal · Deducciones legales · LOTTT / LOPCYMAT
           </p>
         </div>
-        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-          <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
-        </Button>
+        <Button onClick={() => { toast({ title: "EXPORTANDO", description: "Generando archivo .XLSX..." }); window.print(); }} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+              <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
+            </Button>
       </header>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

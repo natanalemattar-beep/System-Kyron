@@ -61,7 +61,7 @@ System Kyron, C.A.
                             <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
                                 Emisión automatizada de guías SICA/SADA y permisos de transporte terrestre para carga pesada y materiales estratégicos.
                             </p>
-                            <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Guía</Button>
+                            <Button onClick={() => toast({ title: "GENERAR GUÍA", description: "Generando documento..." })} variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Guía</Button>
                         </Card>
 
                         <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">

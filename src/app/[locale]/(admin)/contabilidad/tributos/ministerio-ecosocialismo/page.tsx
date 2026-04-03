@@ -81,7 +81,7 @@ System Kyron, C.A.
                                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 text-justify">
                                     System Kyron integra la telemetría de sus Smart Bins directamente con el Manifiesto de Desechos del MINEC.
                                 </p>
-                                <Button variant="secondary" className="w-full h-12 bg-white text-secondary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">VER TABLERO VERDE</Button>
+                                <Button onClick={() => toast({ title: "VER TABLERO VERDE", description: "Cargando vista..." })} variant="secondary" className="w-full h-12 bg-white text-secondary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">VER TABLERO VERDE</Button>
                             </Card>
                         </div>
                     </div>

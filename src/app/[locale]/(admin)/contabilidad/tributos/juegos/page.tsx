@@ -24,7 +24,7 @@ export default function JuegosAzarPage() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Actividades <span className="text-purple-600 italic">de Juegos</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Impuesto a Casinos y Bingos • Liquidación Mensual</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl bg-purple-600 hover:bg-purple-700 border-none">
+                <Button onClick={() => toast({ title: "REGISTRAR APUESTA", description: "Módulo de registro en desarrollo." })} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl bg-purple-600 hover:bg-purple-700 border-none">
                     REGISTRAR APUESTA
                 </Button>
             </header>

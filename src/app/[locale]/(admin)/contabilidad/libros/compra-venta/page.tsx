@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 import {
   BookOpen, Download, Printer, Loader2, Inbox, ArrowLeft,
@@ -47,6 +48,7 @@ const SAMPLE_COMPRAS: Factura[] = [
 ];
 
 export default function LibroCompraVentaPage() {
+  const { toast } = useToast();
   const [rows, setRows] = useState<Factura[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("ventas");
@@ -114,12 +116,12 @@ export default function LibroCompraVentaPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-            Sincronizar Facturas
-          </Button>
-          <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-            <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar Libro (.XLSX)
-          </Button>
+          <Button variant="outline" onClick={() => toast({ title: "SINCRONIZANDO", description: "Sincronizando facturas con el módulo de facturación..." })} className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
+              Sincronizar Facturas
+            </Button>
+          <Button onClick={() => { toast({ title: "EXPORTANDO", description: "Generando Libro en formato .XLSX..." }); window.print(); }} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+              <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar Libro (.XLSX)
+            </Button>
         </div>
       </header>
 

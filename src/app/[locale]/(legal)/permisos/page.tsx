@@ -13,11 +13,11 @@ import {
   Gavel, ShieldCheck, Activity, FileText, Search, Filter, Plus, Landmark,
   Calendar, ChevronRight, ArrowRight, Clock, RefreshCw, FileSignature,
   Eye, Building2, Zap, Copy, Printer, Download, BookOpen, ClipboardList,
-  CheckCircle2, AlertTriangle, XCircle
+  CheckCircle2, AlertTriangle, XCircle, MapPin, Building, Flag, Scale, DollarSign
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { organismos, permisosTipos, type Organismo, type PermisoTipo } from "@/lib/permisologia-data";
+import { organismos, permisosTipos, getPermisosByOrganismo, type Organismo, type PermisoTipo } from "@/lib/permisologia-data";
 import { Logo } from "@/components/logo";
 
 type PermisoRegistrado = {
@@ -58,6 +58,24 @@ const sectorLabels: Record<string, string> = {
   pesca: "Pesca", financiero: "Financiero", tecnologia: "Tecnología",
   cultura: "Cultura", deporte: "Deporte", ambiente: "Ambiente", educacion: "Educación"
 };
+
+const tipoOrgConfig: Record<string, { label: string; color: string; bg: string; icon: typeof Landmark }> = {
+  seniat: { label: "SENIAT", color: "text-red-600", bg: "bg-red-500/10 border-red-500/20", icon: DollarSign },
+  ministerio: { label: "Ministerios", color: "text-violet-600", bg: "bg-violet-500/10 border-violet-500/20", icon: Building },
+  gobernacion: { label: "Gobernaciones", color: "text-blue-600", bg: "bg-blue-500/10 border-blue-500/20", icon: Flag },
+  alcaldia: { label: "Alcaldías", color: "text-emerald-600", bg: "bg-emerald-500/10 border-emerald-500/20", icon: MapPin },
+  regulador: { label: "Reguladores", color: "text-amber-600", bg: "bg-amber-500/10 border-amber-500/20", icon: Scale },
+  otro: { label: "Otros", color: "text-slate-600", bg: "bg-slate-500/10 border-slate-500/20", icon: Landmark },
+};
+
+function getOrganismoTipo(org: Organismo): string {
+  if (org.tipo === 'seniat') return 'seniat';
+  if (org.tipo === 'ministerio') return 'ministerio';
+  if (org.tipo === 'gobernacion') return 'gobernacion';
+  if (org.tipo === 'alcaldia') return 'alcaldia';
+  if (org.tipo === 'ente_autonomo' || org.tipo === 'instituto') return 'regulador';
+  return 'otro';
+}
 
 function getOrganismoById(id: string) {
   return organismos.find(o => o.id === id);
@@ -108,6 +126,7 @@ export default function PermisosPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOrg, setFilterOrg] = useState("todos");
   const [filterSector, setFilterSector] = useState("todos");
+  const [filterTipoOrg, setFilterTipoOrg] = useState("todos");
   const [cartaDialog, setCartaDialog] = useState<{ permiso: PermisoTipo; tipo: 'inscripcion' | 'renovacion' } | null>(null);
 
   const [formData, setFormData] = useState({
@@ -160,11 +179,14 @@ export default function PermisosPage() {
   const permisosByTipoOrg = useMemo(() => {
     const q = searchQuery.toLowerCase();
     return organismos
+      .filter(org => {
+        if (filterTipoOrg !== 'todos' && getOrganismoTipo(org) !== filterTipoOrg) return false;
+        if (filterOrg !== 'todos' && org.id !== filterOrg) return false;
+        return true;
+      })
       .map(org => ({
         org,
-        permisos: permisosTipos.filter(p => {
-          if (p.organismoId !== org.id) return false;
-          if (filterOrg !== 'todos' && p.organismoId !== filterOrg) return false;
+        permisos: getPermisosByOrganismo(org.id).filter(p => {
           if (filterSector !== 'todos' && !p.aplica.includes(filterSector as any) && !p.aplica.includes('todos')) return false;
           if (q) {
             const haystack = `${p.nombre} ${p.descripcion} ${org.nombre} ${org.siglas || ''} ${p.baseLegal || ''} ${p.requisitosInscripcion.join(' ')}`.toLowerCase();
@@ -174,7 +196,22 @@ export default function PermisosPage() {
         })
       }))
       .filter(g => g.permisos.length > 0);
-  }, [searchQuery, filterOrg, filterSector]);
+  }, [searchQuery, filterOrg, filterSector, filterTipoOrg]);
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, { orgs: number; permisos: number }> = {};
+    for (const key of Object.keys(tipoOrgConfig)) {
+      counts[key] = { orgs: 0, permisos: 0 };
+    }
+    organismos.forEach(org => {
+      const tipo = getOrganismoTipo(org);
+      if (counts[tipo]) {
+        counts[tipo].orgs++;
+        counts[tipo].permisos += getPermisosByOrganismo(org.id).length;
+      }
+    });
+    return counts;
+  }, []);
 
   const totalPermisosCatalogo = useMemo(() => permisosTipos.length, []);
   const totalOrganismos = useMemo(() => organismos.length, []);
@@ -299,18 +336,33 @@ export default function PermisosPage() {
         </div>
 
         <TabsContent value="catalogo" className="mt-6 space-y-6">
-          <Card className="glass-card border-none rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-blue-500/10"><BookOpen className="h-4 w-4 text-blue-500" /></div>
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-blue-600">Catálogo de Permisología Venezolana — Referencia Completa</p>
-                <p className="text-[9px] font-bold text-foreground/50 mt-0.5">
-                  Todos los permisos, licencias y trámites ante organismos nacionales, regionales y municipales.
-                  Incluye requisitos de inscripción, renovación, base legal y costos estimados.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[{ key: 'todos', label: 'Todos', color: 'text-foreground', bg: 'bg-muted/30 border-border/30', icon: BookOpen }].concat(
+              Object.entries(tipoOrgConfig).map(([key, cfg]) => ({ key, label: cfg.label, color: cfg.color, bg: cfg.bg, icon: cfg.icon }))
+            ).map(cat => {
+              const isActive = filterTipoOrg === cat.key;
+              const count = cat.key === 'todos' ? totalPermisosCatalogo : (categoryCounts[cat.key]?.permisos || 0);
+              const orgCount = cat.key === 'todos' ? totalOrganismos : (categoryCounts[cat.key]?.orgs || 0);
+              return (
+                <button
+                  key={cat.key}
+                  type="button"
+                  onClick={() => setFilterTipoOrg(cat.key)}
+                  className={cn(
+                    "p-3 rounded-2xl border transition-all text-left",
+                    isActive ? `${cat.bg} ring-2 ring-offset-2 ring-primary/30 shadow-lg` : "bg-card/30 border-border/20 hover:bg-card/60"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <cat.icon className={cn("h-3.5 w-3.5", isActive ? cat.color : "text-foreground/30")} />
+                    <span className={cn("text-[8px] font-black uppercase tracking-widest", isActive ? cat.color : "text-foreground/50")}>{cat.label}</span>
+                  </div>
+                  <p className={cn("text-lg font-black", isActive ? cat.color : "text-foreground/60")}>{count}</p>
+                  <p className="text-[7px] font-bold uppercase text-foreground/30">{orgCount} organismos</p>
+                </button>
+              );
+            })}
+          </div>
 
           <div className="flex flex-col md:flex-row gap-3">
             <div className="relative flex-1">
@@ -346,9 +398,16 @@ export default function PermisosPage() {
             </Select>
           </div>
 
-          <div className="flex items-center gap-3 text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
-            <FileText className="h-3.5 w-3.5" />
-            {permisosByTipoOrg.reduce((sum, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
+              <FileText className="h-3.5 w-3.5" />
+              {permisosByTipoOrg.reduce((sum, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
+            </div>
+            {(filterTipoOrg !== 'todos' || filterOrg !== 'todos' || filterSector !== 'todos' || searchQuery) && (
+              <Button variant="ghost" size="sm" className="text-[8px] font-black uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
+                Limpiar filtros
+              </Button>
+            )}
           </div>
 
           <CatalogoSection groups={permisosByTipoOrg} onGenerarCarta={(p, t) => setCartaDialog({ permiso: p, tipo: t })} />
@@ -575,17 +634,26 @@ function CatalogoSection({ groups, onGenerarCarta }: { groups: { org: Organismo;
 
   return (
     <Accordion type="multiple" className="space-y-3">
-      {groups.map(({ org, permisos }) => (
+      {groups.map(({ org, permisos }) => {
+        const tipoOrg = getOrganismoTipo(org);
+        const tipoCfg = tipoOrgConfig[tipoOrg] || tipoOrgConfig.otro;
+        const TipoIcon = tipoCfg.icon;
+        return (
         <AccordionItem key={org.id} value={org.id} className="border-none">
           <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden">
             <AccordionTrigger className="px-6 md:px-8 py-5 hover:bg-muted/20 transition-all hover:no-underline">
               <div className="flex justify-between items-center w-full pr-4">
                 <div className="flex items-center gap-4">
-                  <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                    <Landmark className="h-4 w-4 text-primary" />
+                  <div className={cn("p-2.5 rounded-xl border", tipoCfg.bg)}>
+                    <TipoIcon className={cn("h-4 w-4", tipoCfg.color)} />
                   </div>
                   <div className="text-left">
-                    <p className="font-black uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-black uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
+                      <Badge variant="outline" className={cn("text-[6px] font-black uppercase px-1.5 py-0 h-4 border", tipoCfg.bg, tipoCfg.color)}>
+                        {tipoCfg.label}
+                      </Badge>
+                    </div>
                     <p className="text-[8px] font-bold uppercase tracking-widest text-foreground/40">{org.nombre}</p>
                   </div>
                 </div>
@@ -597,7 +665,8 @@ function CatalogoSection({ groups, onGenerarCarta }: { groups: { org: Organismo;
             </AccordionContent>
           </Card>
         </AccordionItem>
-      ))}
+        );
+      })}
     </Accordion>
   );
 }

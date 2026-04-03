@@ -34,7 +34,7 @@ export default function IgpPage() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Grandes <span className="text-amber-600 italic">Patrimonios</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaración Anual • Sujetos Pasivos Especiales</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-amber-600 hover:bg-amber-700 border-none">
+                <Button onClick={() => toast({ title: "SOLICITAR VALORACIÓN", description: "Procesando solicitar valoración..." })} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-amber-600 hover:bg-amber-700 border-none">
                     SOLICITAR VALORACIÓN
                 </Button>
             </header>

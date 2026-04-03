@@ -39,7 +39,7 @@ export default function IvaPage() {
                     <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
                         <Link href="/contabilidad/tributos/retenciones-iva">Gestionar Retenciones</Link>
                     </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
+                    <Button onClick={() => toast({ title: "DECLARAR AHORA", description: "Procesando declarar ahora..." })} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
                         DECLARAR AHORA
                     </Button>
                 </div>
@@ -111,7 +111,7 @@ export default function IvaPage() {
                             </p>
                             <div className="p-6 bg-white/5 rounded-2xl border border-white/10 flex flex-col gap-4 text-center">
                                 <p className="text-[10px] font-black text-primary uppercase tracking-widest italic">Despacho Automático</p>
-                                <Button variant="secondary" className="w-full bg-white text-black font-black uppercase text-[9px] tracking-widest h-12 rounded-xl">CONECTAR PORTAL FISCAL</Button>
+                                <Button onClick={() => toast({ title: "CONECTAR PORTAL FISCAL", description: "Conexión en proceso..." })} variant="secondary" className="w-full bg-white text-black font-black uppercase text-[9px] tracking-widest h-12 rounded-xl">CONECTAR PORTAL FISCAL</Button>
                             </div>
                         </div>
                     </Card>

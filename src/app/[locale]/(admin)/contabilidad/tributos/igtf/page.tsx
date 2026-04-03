@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DollarSign, ArrowLeft, Loader2, Inbox, Download } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Link } from "@/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 interface Movimiento {
     id: number;
@@ -18,7 +19,8 @@ interface Movimiento {
 }
 
 export default function IGTFPage() {
-    const [rows, setRows] = useState<Movimiento[]>([]);
+    const { toast } = useToast();
+  const [rows, setRows] = useState<Movimiento[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

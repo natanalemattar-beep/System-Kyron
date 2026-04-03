@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 import {
   BookOpen, ArrowLeft, Search, ShieldCheck, TrendingUp, TrendingDown,
@@ -122,6 +123,7 @@ const CUENTAS_MAYOR: CuentaMayor[] = [
 const GRUPOS = [...new Set(CUENTAS_MAYOR.map(c => c.grupo))];
 
 export default function LibroMayorPage() {
+  const { toast } = useToast();
   const [search, setSearch] = useState("");
   const [selectedCuenta, setSelectedCuenta] = useState<string | null>(null);
   const [filterGrupo, setFilterGrupo] = useState<string>("todos");
@@ -170,9 +172,9 @@ export default function LibroMayorPage() {
           <Button variant="outline" onClick={() => window.print()} className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
             <Printer className="mr-2 h-4 w-4" /> Imprimir
           </Button>
-          <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-            <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
-          </Button>
+          <Button onClick={() => { toast({ title: "EXPORTANDO", description: "Generando archivo .XLSX..." }); window.print(); }} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+              <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
+            </Button>
         </div>
       </header>
 

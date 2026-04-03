@@ -8,6 +8,7 @@ import { Calendar, Bell, ShieldCheck, Activity, Terminal, ArrowRight, Clock, Tri
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
 
 const obligations = [
     { name: "IVA (Sujetos Pasivos Especiales)", freq: "Mensual", date: "Días 12 al 27", urgency: "high", note: "Según terminal RIF" },
@@ -19,7 +20,9 @@ const obligations = [
 ];
 
 export default function CalendarioFiscalPage() {
-    return (
+    const { toast } = useToast();
+
+  return (
         <div className="space-y-12 pb-20 px-4 md:px-10 bg-[#f5f7fa] min-h-screen">
             <header className="border-l-4 border-amber-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">

@@ -68,7 +68,7 @@ System Kyron, C.A.
                                 </div>
                             </div>
                             <div className="pt-10">
-                                <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Declaración</Button>
+                                <Button onClick={() => toast({ title: "GENERAR DECLARACIÓN", description: "Generando documento..." })} variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Declaración</Button>
                             </div>
                         </Card>
 

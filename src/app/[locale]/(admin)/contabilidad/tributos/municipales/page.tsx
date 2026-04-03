@@ -84,7 +84,7 @@ export default function ImpuestosMunicipalesPage() {
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase text-slate-400 italic">
                         <Terminal className="h-4 w-4 text-[#0A2472]" /> Sincronizado con LOCAPTEM 2023
                     </div>
-                    <Button variant="outline" className="h-10 px-6 rounded-xl border-slate-200 bg-white text-[9px] font-black uppercase tracking-widest">Descargar Solvencia Municipal</Button>
+                    <Button onClick={() => toast({ title: "DESCARGAR SOLVENCIA MUNICIPAL", description: "Preparando descarga..." })} variant="outline" className="h-10 px-6 rounded-xl border-slate-200 bg-white text-[9px] font-black uppercase tracking-widest">Descargar Solvencia Municipal</Button>
                 </CardFooter>
             </Card>
         </div>

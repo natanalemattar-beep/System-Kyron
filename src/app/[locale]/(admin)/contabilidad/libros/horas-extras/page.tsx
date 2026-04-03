@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 import {
   Clock, Download, ArrowLeft, Loader2, Inbox,
@@ -44,7 +45,8 @@ const SAMPLE_HORAS: HoraExtra[] = [
 ];
 
 export default function HorasExtrasPage() {
-  const [horasData, setHorasData] = useState<HoraExtra[]>([]);
+  const { toast } = useToast();
+  const [horasData, sethorasData] = useState<HoraExtra[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -105,9 +107,9 @@ export default function HorasExtrasPage() {
             Recargos: Diurna +50% · Nocturna +80% · Feriada +150% · LOTTT
           </p>
         </div>
-        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-          <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
-        </Button>
+        <Button onClick={() => { toast({ title: "EXPORTANDO", description: "Generando archivo .XLSX..." }); window.print(); }} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+              <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
+            </Button>
       </header>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

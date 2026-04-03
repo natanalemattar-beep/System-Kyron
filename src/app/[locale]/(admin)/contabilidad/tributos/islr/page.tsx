@@ -37,10 +37,10 @@ export default function IslrPage() {
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaraciones Definitivas y Estimadas • Decreto 1.800</p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
+                    <Button onClick={() => toast({ title: "PLANILLA ARI", description: "Procesando planilla ari..." })} variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
                         PLANILLA ARI
                     </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-[#0A2472]">
+                    <Button onClick={() => toast({ title: "DECLARACIÓN ANUAL", description: "Procesando declaración anual..." })} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-[#0A2472]">
                         DECLARACIÓN ANUAL
                     </Button>
                 </div>

@@ -234,7 +234,7 @@ export default function ContabilidadPage() {
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
             System Kyron v2.8.5 · Normas VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
           </p>
-        </div>
+        </motion.div>
         <div className="flex gap-3 no-print">
           <button
             className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border border-border bg-card/50 text-foreground/60 hover:bg-primary/5 hover:text-primary transition-all flex items-center gap-3"
@@ -244,8 +244,8 @@ export default function ContabilidadPage() {
             {isAuditing ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldAlert className="h-4 w-4 text-primary" />}
             AUDITORÍA FORENSE
           </button>
-          <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">
-            <Receipt className="mr-3 h-4 w-4" /> CERRAR PERIODO
+          <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg" asChild>
+            <a href="/es/contabilidad/cierre-contable"><Receipt className="mr-3 h-4 w-4" /> CERRAR PERIODO</a>
           </Button>
         </div>
       </MotionContainer>
@@ -306,7 +306,7 @@ export default function ContabilidadPage() {
                   </div>
                 </div>
               </div>
-              <Button variant="secondary" className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
+              <Button variant="secondary" onClick={() => toast({ title: "PROTOCOLOS IA", description: "Configuración de protocolos de inteligencia artificial contable. Módulo en desarrollo." })} className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
                 GESTIONAR PROTOCOLOS IA
               </Button>
             </div>

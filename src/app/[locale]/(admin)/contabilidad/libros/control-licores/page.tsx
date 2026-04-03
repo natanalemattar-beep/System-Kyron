@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 import {
   Wine, Download, ArrowLeft, CirclePlus as PlusCircle, Loader2, Inbox,
@@ -40,6 +41,7 @@ const SAMPLE_LICORES: ItemLicor[] = [
 ];
 
 export default function ControlLicoresPage() {
+  const { toast } = useToast();
   const [rows, setRows] = useState<ItemLicor[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -88,9 +90,9 @@ export default function ControlLicoresPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-            <PlusCircle className="mr-2 h-4 w-4" /> Registrar Entrada
-          </Button>
+          <Button variant="outline" onClick={() => toast({ title: "REGISTRAR ENTRADA", description: "Funcionalidad de registro de entrada de licores disponible próximamente." })} className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
+              Registrar Entrada
+            </Button>
           <Button className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl bg-rose-500 hover:bg-rose-600 text-white">
             <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
           </Button>

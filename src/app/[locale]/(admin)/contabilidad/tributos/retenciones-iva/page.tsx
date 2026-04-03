@@ -122,8 +122,8 @@ export default function RetencionesIvaPage() {
                                 <Terminal className="h-4 w-4" /> Momento de Retención: Pago o Abono en Cuenta
                             </div>
                             <div className="flex gap-2">
-                                <Button variant="outline" className="h-10 rounded-xl border-border bg-card/50 text-[9px] font-black uppercase">LIBRO DE VENTAS</Button>
-                                <Button variant="outline" className="h-10 rounded-xl border-border bg-card/50 text-[9px] font-black uppercase">COMPROBANTES</Button>
+                                <Button onClick={() => toast({ title: "LIBRO DE VENTAS", description: "Procesando libro de ventas..." })} variant="outline" className="h-10 rounded-xl border-border bg-card/50 text-[9px] font-black uppercase">LIBRO DE VENTAS</Button>
+                                <Button onClick={() => toast({ title: "COMPROBANTES", description: "Procesando comprobantes..." })} variant="outline" className="h-10 rounded-xl border-border bg-card/50 text-[9px] font-black uppercase">COMPROBANTES</Button>
                             </div>
                         </CardFooter>
                     </Card>
@@ -161,7 +161,7 @@ export default function RetencionesIvaPage() {
                                 <p className="text-sm font-medium italic text-muted-foreground/60 leading-relaxed text-justify">
                                     El sistema bloquea automáticamente la retención en conceptos marcados como "Excepción", solicitando únicamente la validación del comprobante de pago para el cierre contable.
                                 </p>
-                                <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl">CONFIGURAR LÍMITES</Button>
+                                <Button onClick={() => toast({ title: "CONFIGURAR LÍMITES", description: "Panel de configuración en desarrollo." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl">CONFIGURAR LÍMITES</Button>
                             </div>
                         </Card>
                     </div>
@@ -204,8 +204,8 @@ export default function RetencionesIvaPage() {
                                     Si el monto de retenciones de IVA acumulado supera su débito fiscal del periodo, el sistema inicia automáticamente el protocolo de **Recuperación de Excedentes**. Este proceso genera el expediente digital para la compensación o devolución ante el SENIAT.
                                 </p>
                                 <div className="flex gap-4">
-                                    <Button className="h-14 px-10 rounded-2xl bg-white text-rose-600 font-black uppercase text-xs tracking-widest shadow-xl hover:bg-white/90">INICIAR RECLAMO</Button>
-                                    <Button variant="outline" className="h-14 px-8 rounded-2xl border-white/20 text-white font-black uppercase text-[10px]">VER HISTÓRICO</Button>
+                                    <Button onClick={() => toast({ title: "INICIAR RECLAMO", description: "Iniciando proceso..." })} className="h-14 px-10 rounded-2xl bg-white text-rose-600 font-black uppercase text-xs tracking-widest shadow-xl hover:bg-white/90">INICIAR RECLAMO</Button>
+                                    <Button onClick={() => toast({ title: "VER HISTÓRICO", description: "Cargando vista..." })} variant="outline" className="h-14 px-8 rounded-2xl border-white/20 text-white font-black uppercase text-[10px]">VER HISTÓRICO</Button>
                                 </div>
                             </div>
                             <div className="p-10 rounded-[3rem] bg-black/40 border border-white/5 shadow-inner">

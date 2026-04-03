@@ -83,7 +83,7 @@ System Kyron, C.A.
                                                     <p className="text-xs font-bold text-foreground">15 de Mayo, 2025</p>
                                                 </div>
                                             </div>
-                                            <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">INICIAR TRÁMITE</Button>
+                                            <Button onClick={() => toast({ title: "INICIAR TRÁMITE", description: "Iniciando proceso..." })} variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">INICIAR TRÁMITE</Button>
                                         </div>
                                     </div>
                                 </CardContent>
