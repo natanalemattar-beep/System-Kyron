@@ -149,7 +149,7 @@ export function ServicesSection() {
                                     <div className={cn("text-lg sm:text-2xl font-black tracking-tight", stat.color)}>
                                         {stat.value}
                                     </div>
-                                    <div className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground/70 leading-tight">
+                                    <div className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-foreground/60 leading-tight">
                                         {t(stat.key)}
                                     </div>
                                 </div>

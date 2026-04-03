@@ -38,7 +38,7 @@ export function Footer() {
             <div className="border-b border-blue-200/40 py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
-                        <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/50 shrink-0 flex items-center gap-3">
+                        <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-foreground/50 shrink-0 flex items-center gap-3">
                             {m} <Hexagon className="h-2 w-2 text-primary/20" />
                         </span>
                     ))}
@@ -56,7 +56,7 @@ export function Footer() {
                                 <span className="text-[10px] sm:text-[8px] font-bold uppercase tracking-[0.35em] mt-1 kyron-gradient-text">{tHero('slogan')}</span>
                             </div>
                         </div>
-                        <p className="text-xs text-muted-foreground/70 font-medium leading-relaxed max-w-sm">
+                        <p className="text-xs text-foreground/60 font-medium leading-relaxed max-w-sm">
                             {t('description')}
                         </p>
                     </div>
@@ -66,7 +66,7 @@ export function Footer() {
                         <nav className="flex flex-col gap-3">
                             {navItems.map(item => (
                                 <a key={item.label} href={item.href} onClick={(e) => handleAnchorClick(e, item.href)}
-                                    className="text-[10px] font-semibold text-muted-foreground/70 hover:text-foreground transition-colors uppercase tracking-widest">
+                                    className="text-[10px] font-semibold text-foreground/60 hover:text-foreground transition-colors uppercase tracking-widest">
                                     {item.label}
                                 </a>
                             ))}
@@ -77,7 +77,7 @@ export function Footer() {
                         <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">{t('modules')}</h4>
                         <nav className="flex flex-col gap-3">
                             {modules.slice(0, 5).map(m => (
-                                <Link key={m} href="/login" className="text-[10px] font-semibold text-muted-foreground/70 hover:text-foreground transition-colors uppercase tracking-widest flex items-center gap-1 group">
+                                <Link key={m} href="/login" className="text-[10px] font-semibold text-foreground/60 hover:text-foreground transition-colors uppercase tracking-widest flex items-center gap-1 group">
                                     {m} <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </Link>
                             ))}
@@ -88,13 +88,13 @@ export function Footer() {
                         <h4 className="text-[9px] font-black uppercase tracking-[0.4em] kyron-gradient-text">{t('contact')}</h4>
                         <div className="space-y-4">
                             <a href="mailto:infosystemkyron@gmail.com"
-                                className="flex items-center gap-3 group text-muted-foreground/70 hover:text-foreground transition-colors">
+                                className="flex items-center gap-3 group text-foreground/60 hover:text-foreground transition-colors">
                                 <div className="h-8 w-8 rounded-xl border border-border/40 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-[#0ea5e9]/30 transition-colors">
                                     <Mail className="h-3.5 w-3.5 text-primary" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
                             </a>
-                            <div className="flex items-center gap-3 text-muted-foreground/70">
+                            <div className="flex items-center gap-3 text-foreground/60">
                                 <div className="h-8 w-8 rounded-xl border border-border/40 bg-muted/20 flex items-center justify-center shrink-0">
                                     <MapPin className="h-3.5 w-3.5 text-primary" />
                                 </div>
@@ -104,7 +104,7 @@ export function Footer() {
 
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 bg-muted/20 mt-2">
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('status_online')}</span>
+                            <span className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.3em] text-foreground/50">{t('status_online')}</span>
                         </div>
                     </div>
                 </div>
@@ -112,11 +112,11 @@ export function Footer() {
                 <div className="mt-12 pt-8 border-t border-border/40 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-3">
                         <Hexagon className="h-3.5 w-3.5 text-primary/30" />
-                        <p className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
+                        <p className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-foreground/50">
                             &copy; 2026 {t('copyright')}
                         </p>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] sm:text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">
+                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] sm:text-[9px] font-black uppercase tracking-widest text-foreground/50">
                         <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-1.5"><FileText className="h-3 w-3"/> {t('user_manual')}</Link>
                         <Link href="/terms"                className="hover:text-primary transition-all flex items-center gap-1.5"><Gavel className="h-3 w-3"/> {t('terms')}</Link>
                         <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-1.5"><Shield className="h-3 w-3"/> {t('privacy')}</Link>
@@ -126,19 +126,19 @@ export function Footer() {
                 <div className="mt-6 pt-5 border-t border-border/20">
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
                         {["SENIAT", "BCV", "VEN-NIF", "LOTTT", "CONATEL", "SUDEBAN"].map(ent => (
-                            <span key={ent} className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 flex items-center gap-1.5">
+                            <span key={ent} className="text-[8px] font-black uppercase tracking-[0.3em] text-foreground/40 flex items-center gap-1.5">
                                 <Shield className="h-2 w-2 text-primary/30" /> {ent}
                             </span>
                         ))}
                     </div>
                     <div className="flex flex-col items-center gap-1.5">
-                        <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
+                        <p className="font-semibold text-foreground/50 tracking-wide text-[10px] sm:text-[8px]">
                             Carlos Mattar · CEO-Fundador
                         </p>
-                        <p className="font-semibold text-muted-foreground/40 tracking-wide text-[10px] sm:text-[8px]">
+                        <p className="font-semibold text-foreground/50 tracking-wide text-[10px] sm:text-[8px]">
                             Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
                         </p>
-                        <p className="font-semibold text-muted-foreground/30 tracking-wide text-[8px] sm:text-[7px] mt-1">
+                        <p className="font-semibold text-foreground/40 tracking-wide text-[8px] sm:text-[7px] mt-1">
                             Cifrado AES-256 · JWT · HTTPS · Auditoría Inmutable
                         </p>
                     </div>

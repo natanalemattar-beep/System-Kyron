@@ -42,7 +42,7 @@ function StarRating({ value, onChange, readonly = false }: { value: number; onCh
                         "h-4 w-4 transition-colors",
                         star <= value
                             ? "fill-amber-400 text-amber-400"
-                            : "text-muted-foreground/40"
+                            : "text-foreground/25"
                     )} />
                 </button>
             ))}
@@ -199,8 +199,8 @@ export function CommentsSection() {
                                                     <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {c.tipo === 'juridico' ? t('empresa') : t('persona')}
                                                     </span>
-                                                    <span className="text-muted-foreground/40">·</span>
-                                                    <Clock className="h-2.5 w-2.5 text-muted-foreground/50" />
+                                                    <span className="text-foreground/30">·</span>
+                                                    <Clock className="h-2.5 w-2.5 text-foreground/40" />
                                                     <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {timeAgo(c.created_at)}
                                                     </span>

@@ -87,7 +87,7 @@ export function LandingHeader() {
                                 </span>
                                 <span className={cn(
                                     "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.35em] mt-1 transition-opacity duration-300",
-                                    isScrolled ? "kyron-gradient-text opacity-70" : "text-white/50"
+                                    isScrolled ? "kyron-gradient-text opacity-70" : "text-foreground/50"
                                 )}>
                                     {tHero('slogan')}
                                 </span>
@@ -104,8 +104,8 @@ export function LandingHeader() {
                                 className={cn(
                                     "text-[9px] font-black uppercase tracking-[0.3em] transition-all duration-200 relative group py-1",
                                     isScrolled
-                                        ? "text-muted-foreground/70 hover:text-primary"
-                                        : "text-white/60 hover:text-white"
+                                        ? "text-foreground/70 hover:text-primary"
+                                        : "text-foreground/60 hover:text-foreground"
                                 )}
                             >
                                 {t(item.labelKey)}
@@ -124,7 +124,7 @@ export function LandingHeader() {
                                 "rounded-xl h-9 px-5 text-[9px] font-black uppercase tracking-[0.15em] border-2 transition-all duration-300 relative overflow-hidden group",
                                 isScrolled
                                     ? "border-emerald-500/30 text-emerald-500 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 hover:shadow-[0_0_15px_-4px_rgba(16,185,129,0.25)]"
-                                    : "border-emerald-400/30 text-emerald-300 hover:bg-emerald-500/10 hover:border-emerald-400/50 hover:text-emerald-200"
+                                    : "border-emerald-500/40 text-emerald-600 hover:bg-emerald-500/10 hover:border-emerald-500/50 hover:text-emerald-700"
                             )}>
                                 <Link href="/register" className="flex items-center gap-2">
                                     <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -151,7 +151,7 @@ export function LandingHeader() {
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-bold text-foreground tracking-tight">{t('control_center')}</span>
-                                                <span className="text-[10px] text-muted-foreground/40 font-medium">{t('security_protocol')}</span>
+                                                <span className="text-[10px] text-muted-foreground font-medium">{t('security_protocol')}</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
@@ -166,7 +166,7 @@ export function LandingHeader() {
                                                         </div>
                                                         <div className="flex-1 min-w-0">
                                                             <span className="text-[11px] font-bold text-foreground/80 group-hover:text-foreground transition-colors block">{option.label}</span>
-                                                            <p className="text-[9px] text-muted-foreground/40 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
+                                                            <p className="text-[9px] text-muted-foreground/70 line-clamp-1 mt-0.5 leading-snug">{option.description}</p>
                                                         </div>
                                                         <ChevronRight className="h-3 w-3 text-muted-foreground/10 group-hover:text-foreground/25 group-hover:translate-x-0.5 transition-all shrink-0" />
                                                     </Link>
@@ -207,7 +207,7 @@ export function LandingHeader() {
                                     <Logo className="h-8 w-8 shrink-0" />
                                     <div className="flex flex-col">
                                         <SheetTitle className="text-[13px] font-black tracking-tight text-foreground leading-none">{t('mobile_portal')}</SheetTitle>
-                                        <span className="text-[7px] font-bold uppercase tracking-[0.2em] mt-1 text-muted-foreground/40">
+                                        <span className="text-[7px] font-bold uppercase tracking-[0.2em] mt-1 text-muted-foreground/70">
                                             {tHero('slogan')}
                                         </span>
                                     </div>

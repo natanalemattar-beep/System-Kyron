@@ -180,7 +180,7 @@ export function AboutUsSection() {
                                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/15 flex items-center justify-center shrink-0">
                                     <item.icon className="h-4 w-4 text-primary" />
                                 </div>
-                                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/60">{item.label}</p>
+                                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/80">{item.label}</p>
                             </motion.div>
                         ))}
                     </motion.div>
