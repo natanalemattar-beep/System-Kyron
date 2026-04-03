@@ -44,7 +44,7 @@ export default function FacturacionCreditoPage() {
                 transition={{ duration: 0.5 }}
             >
                 <div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400 mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-600 mb-4">
                         <CreditCard className="h-3 w-3" /> NODO DE FINANCIAMIENTO
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     </div>
@@ -223,7 +223,7 @@ export default function FacturacionCreditoPage() {
                         <div className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.03] p-5">
                             <div className="flex items-center gap-2 mb-3">
                                 <AlertTriangle className="h-4 w-4 text-amber-500" />
-                                <p className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Alerta de Mora</p>
+                                <p className="text-[10px] font-black uppercase tracking-wider text-amber-600">Alerta de Mora</p>
                             </div>
                             <p className="text-[11px] text-muted-foreground leading-relaxed">
                                 Hay {facturas.filter(f => f.estado === 'Vencida').length} factura(s) vencida(s) por un monto total de {fmtCur(totalVencido)}. Se recomienda gestionar la cobranza inmediatamente.

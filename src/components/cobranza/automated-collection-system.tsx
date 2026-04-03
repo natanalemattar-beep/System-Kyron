@@ -187,8 +187,8 @@ export const AutomatedCollectionSystem = () => {
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         campaign.status === 'active' 
-                          ? 'bg-green-900/50 text-green-300' 
-                          : 'bg-gray-700 text-gray-300'
+                          ? 'bg-green-50 text-green-600' 
+                          : 'bg-slate-200 text-slate-600'
                       }`}>
                         {campaign.status === 'active' ? 'Activa' : 'Pausada'}
                       </span>
@@ -239,16 +239,16 @@ export const AutomatedCollectionSystem = () => {
                     <div className="flex items-center gap-2 mt-1">
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         comm.channel === 'email' ? 'bg-blue-900/50 text-blue-300' :
-                        comm.channel === 'sms' ? 'bg-gray-700 text-gray-300' :
-                        comm.channel === 'whatsapp' ? 'bg-green-900/50 text-green-300' :
-                        'bg-purple-900/50 text-purple-300'
+                        comm.channel === 'sms' ? 'bg-slate-200 text-slate-600' :
+                        comm.channel === 'whatsapp' ? 'bg-green-50 text-green-600' :
+                        'bg-purple-50 text-purple-600'
                       }`}>
                         {comm.channel}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
-                        comm.status === 'read' ? 'bg-green-900/50 text-green-300' :
+                        comm.status === 'read' ? 'bg-green-50 text-green-600' :
                         comm.status === 'responded' ? 'bg-blue-900/50 text-blue-300' :
-                        'bg-gray-700 text-gray-300'
+                        'bg-slate-200 text-slate-600'
                       }`}>
                         {comm.status}
                       </span>
@@ -263,7 +263,7 @@ export const AutomatedCollectionSystem = () => {
                   {comm.message}
                 </div>
                 {comm.response && (
-                    <div className="text-sm text-gray-300 my-3 p-2 bg-secondary rounded-md">
+                    <div className="text-sm text-slate-600 my-3 p-2 bg-secondary rounded-md">
                         <span className="font-semibold text-primary">Respuesta:</span> {comm.response}
                     </div>
                 )}

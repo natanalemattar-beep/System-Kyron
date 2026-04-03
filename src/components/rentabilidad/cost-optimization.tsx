@@ -206,10 +206,10 @@ export const CostOptimization = () => {
             <div className="text-2xl font-bold text-green-400">
               {analysis ? ((analysis.totalVariance / analysis.totalBudget) * 100).toFixed(1) : 0}%
             </div>
-            <div className="text-sm text-green-300">Varianza Total</div>
+            <div className="text-sm text-green-600">Varianza Total</div>
           </div>
-          <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
-            <div className="text-2xl font-bold text-purple-400">
+          <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+            <div className="text-2xl font-bold text-purple-600">
               {analysis ? ((analysis.fixedCosts / analysis.totalActual) * 100).toFixed(0) : 0}%
             </div>
             <div className="text-sm text-purple-300">Estructura Fija</div>
@@ -231,9 +231,9 @@ export const CostOptimization = () => {
                         {category.type}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
-                        category.trend === 'up' ? 'bg-red-900/50 text-red-300' :
-                        category.trend === 'down' ? 'bg-green-900/50 text-green-300' :
-                        'bg-gray-700 text-gray-300'
+                        category.trend === 'up' ? 'bg-red-50 text-red-600' :
+                        category.trend === 'down' ? 'bg-green-50 text-green-600' :
+                        'bg-slate-200 text-slate-600'
                       }`}>
                         {category.trend === 'up' ? '↗' : category.trend === 'down' ? '↘' : '→'}
                       </span>
@@ -287,14 +287,14 @@ export const CostOptimization = () => {
 
         <div className="space-y-6">
           {analysis && (
-            <div className="bg-gray-900/50 rounded-lg p-4">
+            <div className="bg-slate-100 rounded-lg p-4">
               <h3 className="font-semibold mb-3">Estructura de Costos</h3>
               <div className="space-y-3">
                 {Object.entries(analysis.costStructure).map(([category, amount]) => (
                   <div key={category} className="flex justify-between items-center">
-                    <span className="text-sm text-gray-300 capitalize">{category}:</span>
+                    <span className="text-sm text-slate-600 capitalize">{category}:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 bg-gray-700 rounded-full h-2">
+                      <div className="w-24 bg-slate-200 rounded-full h-2">
                         <div 
                           className="h-2 rounded-full bg-blue-500"
                           style={{ 
@@ -336,7 +336,7 @@ export const CostOptimization = () => {
 
           <div className="bg-green-900/50 border border-green-800 rounded-lg p-4">
             <h3 className="font-semibold text-green-200 mb-3">📈 Proyección de Impacto</h3>
-            <div className="space-y-2 text-sm text-green-300">
+            <div className="space-y-2 text-sm text-green-600">
               <div className="flex justify-between">
                 <span>Mejora margen neto:</span>
                 <span className="font-medium">+{analysis ? ((totalOptimizationPotential / analysis.totalActual) * 100).toFixed(1) : 0}%</span>

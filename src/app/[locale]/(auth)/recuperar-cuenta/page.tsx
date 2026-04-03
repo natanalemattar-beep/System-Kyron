@@ -168,7 +168,7 @@ export default function RecuperarCuentaPage() {
                   className="w-full flex items-center gap-4 p-4 rounded-xl border border-border hover:border-primary/40 hover:bg-primary/5 transition-all text-left group"
                 >
                   <div className="p-2.5 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/15 transition-colors">
-                    <User className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
+                    <User className="h-5 w-5 text-cyan-600" />
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-bold text-foreground">Encontrar mi cuenta</p>
@@ -316,7 +316,7 @@ export default function RecuperarCuentaPage() {
 
             {step === 'done' && (
               <div className="text-center py-4 space-y-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100">
                   <CircleCheck className="h-9 w-9 text-emerald-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">

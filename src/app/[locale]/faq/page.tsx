@@ -269,7 +269,7 @@ export default function FaqPage() {
                                     placeholder="Buscar en las preguntas frecuentes..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-12 pl-11 pr-4 rounded-2xl border border-border/30 dark:border-white/[0.06] bg-card/50 dark:bg-white/[0.02] text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all"
+                                    className="w-full h-12 pl-11 pr-4 rounded-2xl border border-border/30 bg-card/50 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition-all"
                                 />
                             </div>
                         </div>
@@ -280,7 +280,7 @@ export default function FaqPage() {
                                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
                                     activeCategory === null
                                         ? 'bg-primary/10 border-primary/30 text-primary'
-                                        : 'bg-card/30 dark:bg-white/[0.02] border-border/20 dark:border-white/[0.06] text-muted-foreground hover:border-primary/20 hover:text-foreground'
+                                        : 'bg-card/30 border-border/20 text-muted-foreground hover:border-primary/20 hover:text-foreground'
                                 }`}
                             >
                                 Todas ({totalQuestions})
@@ -294,7 +294,7 @@ export default function FaqPage() {
                                         className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
                                             activeCategory === cat.id
                                                 ? 'bg-primary/10 border-primary/30 text-primary'
-                                                : 'bg-card/30 dark:bg-white/[0.02] border-border/20 dark:border-white/[0.06] text-muted-foreground hover:border-primary/20 hover:text-foreground'
+                                                : 'bg-card/30 border-border/20 text-muted-foreground hover:border-primary/20 hover:text-foreground'
                                         }`}
                                     >
                                         <Icon className="h-3 w-3" />
@@ -343,14 +343,14 @@ export default function FaqPage() {
                                                 <AccordionItem
                                                     key={index}
                                                     value={`${category.id}-${index}`}
-                                                    className="border border-border/30 dark:border-white/[0.06] rounded-2xl px-6 overflow-hidden bg-card/50 dark:bg-white/[0.02] hover:bg-card/80 dark:hover:bg-white/[0.035] transition-all duration-500 hover:border-primary/20 hover:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:bg-card/70"
+                                                    className="border border-border/30 rounded-2xl px-6 overflow-hidden bg-card/50 hover:bg-card/80 transition-all duration-500 hover:border-primary/20 hover:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:bg-card/70"
                                                 >
                                                     <AccordionTrigger className="text-left hover:no-underline py-4">
                                                         <span className="text-xs md:text-sm font-bold text-foreground/90 leading-snug">
                                                             {item.question}
                                                         </span>
                                                     </AccordionTrigger>
-                                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed border-t border-border/15 dark:border-white/[0.04] pt-4">
+                                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed border-t border-border/15 pt-4">
                                                         {item.answer}
                                                     </AccordionContent>
                                                 </AccordionItem>
@@ -363,7 +363,7 @@ export default function FaqPage() {
                     )}
 
                     <div className="mt-16 text-center">
-                        <div className="inline-block p-8 rounded-3xl border border-border/20 dark:border-white/[0.04] bg-card/30 dark:bg-white/[0.01]">
+                        <div className="inline-block p-8 rounded-3xl border border-border/20 bg-card/30">
                             <Headphones className="h-8 w-8 text-primary/60 mx-auto mb-3" />
                             <h3 className="text-sm font-black uppercase tracking-tight text-foreground mb-1">
                                 ¿No encontraste tu respuesta?

@@ -124,24 +124,24 @@ function exportCSV(rows: any[], filename: string) {
 
 function estadoBadge(estado: string) {
   const colors: Record<string, string> = {
-    vigente: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-    activo: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-    activa: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-    en_curso: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-    pendiente: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-    prenatal: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
-    postnatal: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
-    lactancia: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400',
-    por_vencer: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-    vencida: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-    vencido: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-    cancelado: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-    disfrutado: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-    finalizado: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
-    reintegrada: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
-    calculado: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400',
-    liquidado: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-    pagado_parcial: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+    vigente: 'bg-emerald-100 text-emerald-700
+    activo: 'bg-emerald-100 text-emerald-700
+    activa: 'bg-emerald-100 text-emerald-700
+    en_curso: 'bg-blue-100 text-blue-700
+    pendiente: 'bg-amber-100 text-amber-700
+    prenatal: 'bg-purple-100 text-purple-700
+    postnatal: 'bg-pink-100 text-pink-700
+    lactancia: 'bg-rose-100 text-rose-700
+    por_vencer: 'bg-orange-100 text-orange-700
+    vencida: 'bg-red-100 text-red-700
+    vencido: 'bg-red-100 text-red-700
+    cancelado: 'bg-red-100 text-red-700
+    disfrutado: 'bg-green-100 text-green-700
+    finalizado: 'bg-slate-100 text-slate-600
+    reintegrada: 'bg-teal-100 text-teal-700
+    calculado: 'bg-cyan-100 text-cyan-700
+    liquidado: 'bg-green-100 text-green-700
+    pagado_parcial: 'bg-yellow-100 text-yellow-700
   };
   return (
     <span className={cn('px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide', colors[estado] || 'bg-slate-100 text-slate-600')}>
@@ -615,12 +615,12 @@ export default function LibrosLaboralesPage() {
       </header>
 
       {showAlertas && alertas.length > 0 && (
-        <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4 space-y-2">
-          <h3 className="text-xs font-black uppercase tracking-widest text-amber-800 dark:text-amber-400 flex items-center gap-2">
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
+          <h3 className="text-xs font-black uppercase tracking-widest text-amber-800 flex items-center gap-2">
             <Bell className="h-3.5 w-3.5" /> Alertas Activas ({alertas.length})
           </h3>
           {alertas.map((a, i) => (
-            <div key={i} className="flex items-center gap-3 text-xs py-1.5 border-b border-amber-200/50 dark:border-amber-800/50 last:border-0">
+            <div key={i} className="flex items-center gap-3 text-xs py-1.5 border-b border-amber-200/50 last:border-0">
               <span className={cn('px-2 py-0.5 rounded-full text-[9px] font-bold uppercase', a.urgencia === 'alta' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700')}>
                 {a.tipo}
               </span>

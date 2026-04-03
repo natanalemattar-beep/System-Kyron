@@ -47,7 +47,7 @@ export function FaqSection() {
                                             </span>
                                         </div>
                                     </AccordionTrigger>
-                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-border/15 dark:border-white/[0.04] pt-4">
+                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-border/15 pt-4">
                                         {item.answer}
                                     </AccordionContent>
                                 </AccordionItem>

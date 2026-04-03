@@ -121,13 +121,13 @@ export function CommentsSection() {
     return (
         <section className="py-16 md:py-24 bg-transparent relative overflow-hidden w-full">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute top-1/4 left-0 w-[450px] h-[450px] rounded-full bg-violet-500/[0.12] dark:bg-violet-500/[0.10] blur-[120px]" />
-                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.12] dark:bg-primary/[0.10] blur-[120px]" />
+                <div className="absolute top-1/4 left-0 w-[450px] h-[450px] rounded-full bg-violet-500/[0.12] blur-[120px]" />
+                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.12] blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="text-center mb-10 md:mb-14">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-700 dark:text-violet-400 text-[9px] font-black uppercase tracking-[0.35em] mb-5">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-700 text-[9px] font-black uppercase tracking-[0.35em] mb-5">
                         <MessageSquare className="h-3 w-3" /> {t('badge')}
                     </div>
                     <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4">
@@ -173,13 +173,13 @@ export function CommentsSection() {
                                             &ldquo;{c.texto}&rdquo;
                                         </p>
 
-                                        <div className="flex items-center gap-3 pt-3 border-t border-border/20 dark:border-white/5">
+                                        <div className="flex items-center gap-3 pt-3 border-t border-border/20">
                                             <Avatar className="h-9 w-9 border border-primary/15 shadow-sm">
                                                 <AvatarFallback className={cn(
                                                     "text-[10px] font-black",
                                                     c.tipo === 'juridico'
-                                                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                                        : "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                                                        ? "bg-emerald-500/10 text-emerald-600"
+                                                        : "bg-blue-500/10 text-blue-600"
                                                 )}>
                                                     {c.iniciales}
                                                 </AvatarFallback>
@@ -225,7 +225,7 @@ export function CommentsSection() {
                             </Button>
                         </div>
                     ) : (
-                        <Card className="rounded-3xl border-2 border-primary/20 bg-card/80 dark:bg-white/[0.02] shadow-xl overflow-hidden">
+                        <Card className="rounded-3xl border-2 border-primary/20 bg-card/80 shadow-xl overflow-hidden">
                             <CardContent className="p-6 space-y-5">
                                 <div className="flex items-center justify-between">
                                     <h3 className="text-sm font-black uppercase tracking-tight">

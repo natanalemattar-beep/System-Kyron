@@ -137,7 +137,7 @@ export default function NotaCreditoPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-rose-600 dark:text-rose-400 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-rose-600 mb-4">
             <FilePlus className="h-3 w-3" /> NOTA DE CRÉDITO
             <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
           </div>
@@ -165,7 +165,7 @@ export default function NotaCreditoPage() {
               className={cn(
                 "flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all duration-300 shrink-0",
                 currentStep === step.id
-                  ? "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400 scale-105 shadow-[0_0_20px_-5px_rgba(244,63,94,0.3)]"
+                  ? "bg-rose-500/10 border-rose-500/30 text-rose-600 scale-105 shadow-[0_0_20px_-5px_rgba(244,63,94,0.3)]"
                   : currentStep > step.id
                   ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-500"
                   : "bg-card/30 border-border/30 text-muted-foreground/40 hover:border-border/50"
@@ -502,7 +502,7 @@ export default function NotaCreditoPage() {
             <div className="rounded-2xl border border-rose-500/15 bg-rose-500/[0.03] p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-rose-500" />
-                <p className="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400">Requisitos Art. 18</p>
+                <p className="text-[10px] font-black uppercase tracking-wider text-rose-600">Requisitos Art. 18</p>
               </div>
               <div className="space-y-2">
                 {[

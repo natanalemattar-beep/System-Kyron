@@ -114,7 +114,7 @@ export default function DashboardPersonalPage() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1628] via-[#0e1b35] to-[#0c1830] p-6 md:p-8 text-white mt-4 md:mt-6"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 p-6 md:p-8 text-white mt-4 md:mt-6"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-blue-500/[0.06] blur-[120px]" />
@@ -301,8 +301,8 @@ export default function DashboardPersonalPage() {
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/[0.06] blur-[50px]" />
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60 dark:text-blue-400/60">IA Jurídica</span>
+                <Sparkles className="h-3.5 w-3.5 text-blue-500" />
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500/60">IA Jurídica</span>
               </div>
               <h3 className="text-sm font-bold text-foreground/90 mb-1">Asistencia Legal</h3>
               <p className="text-[10px] text-muted-foreground/60 mb-4 leading-relaxed">

@@ -15,7 +15,7 @@ const regulations = [
         name: "SENIAT",
         full: "Servicio Nacional Integrado de Administración Aduanera y Tributaria",
         icon: Landmark,
-        color: "text-blue-600 dark:text-blue-400",
+        color: "text-blue-600",
         accent: "from-blue-500/20 to-blue-500/5",
         border: "border-blue-500/20",
         badges: ["IVA 16%", "ISLR", "IGTF 3%"],
@@ -24,7 +24,7 @@ const regulations = [
         name: "BCV",
         full: "Banco Central de Venezuela",
         icon: Banknote,
-        color: "text-emerald-600 dark:text-emerald-400",
+        color: "text-emerald-600",
         accent: "from-emerald-500/20 to-emerald-500/5",
         border: "border-emerald-500/20",
         badges: ["Tasas BCV", "Divisas"],
@@ -33,7 +33,7 @@ const regulations = [
         name: "LOTTT",
         full: "Ley Orgánica del Trabajo, Trabajadores y Trabajadoras",
         icon: Scale,
-        color: "text-violet-600 dark:text-violet-400",
+        color: "text-violet-600",
         accent: "from-violet-500/20 to-violet-500/5",
         border: "border-violet-500/20",
         badges: ["Nómina", "Prestaciones", "Utilidades"],
@@ -42,7 +42,7 @@ const regulations = [
         name: "CONATEL",
         full: "Comisión Nacional de Telecomunicaciones",
         icon: Radio,
-        color: "text-cyan-600 dark:text-cyan-400",
+        color: "text-cyan-600",
         accent: "from-cyan-500/20 to-cyan-500/5",
         border: "border-cyan-500/20",
         badges: ["Permisos", "Habilitación"],
@@ -51,7 +51,7 @@ const regulations = [
         name: "VEN-NIF",
         full: "Normas Internacionales de Información Financiera para Venezuela",
         icon: FileCheck,
-        color: "text-amber-600 dark:text-amber-400",
+        color: "text-amber-600",
         accent: "from-amber-500/20 to-amber-500/5",
         border: "border-amber-500/20",
         badges: ["NIIF", "Plan de Cuentas"],
@@ -60,7 +60,7 @@ const regulations = [
         name: "SUDEBAN",
         full: "Superintendencia de las Instituciones del Sector Bancario",
         icon: Building2,
-        color: "text-rose-600 dark:text-rose-400",
+        color: "text-rose-600",
         accent: "from-rose-500/20 to-rose-500/5",
         border: "border-rose-500/20",
         badges: ["Normativa", "Reportes"],
@@ -155,13 +155,13 @@ export function ComplianceSection() {
                 >
                     <div className="flex flex-col md:flex-row items-center gap-8">
                         <div className="flex-1 text-center md:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[9px] font-black uppercase tracking-widest mb-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[9px] font-black uppercase tracking-widest mb-4">
                                 <Globe className="h-3 w-3" />
                                 {t('security_badge')}
                             </div>
                             <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-foreground mb-2">
                                 {t('security_title_1')}{' '}
-                                <span className="text-emerald-600 dark:text-emerald-400 italic">{t('security_title_2')}</span>
+                                <span className="text-emerald-600 italic">{t('security_title_2')}</span>
                             </h3>
                             <p className="text-sm text-muted-foreground font-medium max-w-lg">
                                 {t('security_desc')}

@@ -115,7 +115,7 @@ export default function ModeloFacturaPage() {
               <req.icon className="h-4 w-4 text-emerald-500" />
             </div>
             <div>
-              <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">{req.label}</p>
+              <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">{req.label}</p>
               <p className="text-[11px] text-muted-foreground mt-0.5">{req.desc}</p>
             </div>
           </div>
@@ -276,7 +276,7 @@ export default function ModeloFacturaPage() {
                     <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Numeral {r.num}</p>
+                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">Numeral {r.num}</p>
                     <p className="text-[11px] text-foreground">{r.req}</p>
                   </div>
                 </div>

@@ -71,7 +71,7 @@ export function AppSidebar() {
 
   return (
     <aside className="flex flex-col h-full bg-transparent overflow-hidden">
-      <div className="p-8 border-b border-border/30 dark:border-white/5 flex flex-col items-center gap-4 bg-muted/5 relative">
+      <div className="p-8 border-b border-border/30 flex flex-col items-center gap-4 bg-muted/5 relative">
         <div className="absolute bottom-0 left-0 right-0 kyron-accent-line opacity-20" />
         <Logo className="h-10 w-10 drop-shadow-glow" /> 
         <div className="text-center">
@@ -95,7 +95,7 @@ export function AppSidebar() {
         ))}
       </div>
 
-      <div className="p-6 border-t border-border/30 dark:border-white/5 bg-muted/5 relative">
+      <div className="p-6 border-t border-border/30 bg-muted/5 relative">
         <div className="absolute top-0 left-0 right-0 kyron-accent-line opacity-15" />
         <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex flex-col gap-3">
             <div className="flex items-center gap-3">

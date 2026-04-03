@@ -108,11 +108,11 @@ export const PaymentReconciliation = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'reconciled': return 'bg-green-900/50 text-green-300';
+      case 'reconciled': return 'bg-green-50 text-green-600';
       case 'completed': return 'bg-blue-900/50 text-blue-300';
       case 'pending': return 'bg-yellow-900/50 text-yellow-300';
-      case 'failed': return 'bg-red-900/50 text-red-300';
-      default: return 'bg-gray-700 text-gray-300';
+      case 'failed': return 'bg-red-50 text-red-600';
+      default: return 'bg-slate-200 text-slate-600';
     }
   };
 
@@ -165,9 +165,9 @@ export const PaymentReconciliation = () => {
           <div className="text-2xl font-bold text-blue-400">${(pendingReconciliation / 1000).toFixed(0)}K</div>
           <div className="text-sm text-blue-300">Por Conciliar</div>
         </div>
-        <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
           <div className="text-2xl font-bold text-purple-400">{payments.filter(p => p.status === 'reconciled').length}</div>
-          <div className="text-sm text-purple-300">Pagos Conciliados</div>
+          <div className="text-sm text-purple-600">Pagos Conciliados</div>
         </div>
       </div>
 

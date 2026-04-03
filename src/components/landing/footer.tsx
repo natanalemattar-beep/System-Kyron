@@ -26,7 +26,7 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-blue-200/50 dark:border-white/[0.06] bg-gradient-to-b from-transparent via-[#e2ecf9]/30 to-[#dae5f5]/50 dark:from-transparent dark:via-[#020a18]/40 dark:to-[#0a1628]/30">
+        <footer id="footer" className="relative overflow-hidden border-t border-blue-200/50 bg-gradient-to-b from-transparent via-[#e2ecf9]/30 to-[#dae5f5]/50">
             <div className="absolute inset-0 pointer-events-none -z-10">
                 <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-[#0ea5e9]/4 blur-[100px]" />
                 <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-[#22c55e]/3 blur-[80px]" />
@@ -34,7 +34,7 @@ export function Footer() {
 
             <div className="kyron-accent-line opacity-100" />
 
-            <div className="border-b border-blue-200/40 dark:border-white/[0.06] py-3 overflow-hidden">
+            <div className="border-b border-blue-200/40 py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
                         <span key={i} className="text-[9px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/50 shrink-0 flex items-center gap-3">
@@ -88,27 +88,27 @@ export function Footer() {
                         <div className="space-y-4">
                             <a href="mailto:infosystemkyron@gmail.com"
                                 className="flex items-center gap-3 group text-muted-foreground/70 hover:text-foreground transition-colors">
-                                <div className="h-8 w-8 rounded-xl border border-border/40 dark:border-white/8 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-[#0ea5e9]/30 transition-colors">
+                                <div className="h-8 w-8 rounded-xl border border-border/40 bg-primary/5 flex items-center justify-center shrink-0 group-hover:border-[#0ea5e9]/30 transition-colors">
                                     <Mail className="h-3.5 w-3.5 text-primary" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
                             </a>
                             <div className="flex items-center gap-3 text-muted-foreground/70">
-                                <div className="h-8 w-8 rounded-xl border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] flex items-center justify-center shrink-0">
+                                <div className="h-8 w-8 rounded-xl border border-border/40 bg-muted/20 flex items-center justify-center shrink-0">
                                     <MapPin className="h-3.5 w-3.5 text-primary" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">{t('location')}</span>
                             </div>
                         </div>
 
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02] mt-2">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border/40 bg-muted/20 mt-2">
                             <span className="kyron-dot animate-pulse" />
                             <span className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('status_online')}</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-border/40 dark:border-white/8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                <div className="mt-12 pt-8 border-t border-border/40 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-3">
                         <Hexagon className="h-3.5 w-3.5 text-primary/30" />
                         <p className="text-[10px] sm:text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/60">
@@ -122,7 +122,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-border/20 dark:border-white/5">
+                <div className="mt-6 pt-5 border-t border-border/20">
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
                         {["SENIAT", "BCV", "VEN-NIF", "LOTTT", "CONATEL", "SUDEBAN"].map(ent => (
                             <span key={ent} className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 flex items-center gap-1.5">

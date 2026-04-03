@@ -75,8 +75,8 @@ export function AboutUsSection() {
     }, []);
 
     const statCards = [
-        { val: stats.totalUsuarios, label: t('stat_users'), icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-600 dark:text-cyan-400" },
-        { val: stats.totalEmpresas, label: t('stat_companies'), icon: Building2, color: "from-violet-500 to-purple-600", text: "text-violet-600 dark:text-violet-400" }
+        { val: stats.totalUsuarios, label: t('stat_users'), icon: Users, color: "from-cyan-500 to-blue-600", text: "text-cyan-600" },
+        { val: stats.totalEmpresas, label: t('stat_companies'), icon: Building2, color: "from-violet-500 to-purple-600", text: "text-violet-600" }
     ];
 
     const featItems = [
@@ -102,7 +102,7 @@ export function AboutUsSection() {
                         sizes="(max-width: 1280px) 100vw, 1280px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-                    <div className="absolute inset-0 bg-[#e8f0fe]/65 dark:bg-[#020a18]/65" />
+                    <div className="absolute inset-0 bg-[#e8f0fe]/65" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
@@ -113,7 +113,7 @@ export function AboutUsSection() {
                         viewport={{ once: true, margin: "-80px" }}
                     >
                         <motion.div variants={animate ? fadeUp : undefined} custom={0}>
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80 mx-auto">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-xs font-semibold uppercase tracking-widest text-foreground/80 mx-auto">
                                 <Globe className="h-3.5 w-3.5 text-emerald-400" />
                                 {t('badge')}
                             </div>
@@ -192,7 +192,7 @@ export function AboutUsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.6, duration: 0.4 }}
                     >
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 dark:hover:bg-white/10 hover:border-border/50 dark:hover:border-white/25 transition-all duration-500">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl border border-border/30 bg-muted/30 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-muted/60 hover:border-border/50 transition-all duration-500">
                             {t('join_cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>

@@ -6,8 +6,6 @@ import { useTranslations } from 'next-intl';
 
 const CRITICAL_ASSETS = [
     '/images/landing/hero-bg-light.webp',
-    '/images/landing/hero-bg-dark.webp',
-    '/images/landing/hero-dashboard-dark.jpg',
     '/images/landing/hero-dashboard-light.jpg',
 ];
 
@@ -99,7 +97,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
     return (
         <div
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-50 dark:bg-[#020810]"
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-50"
             style={{
                 opacity: exiting ? 0 : 1,
                 transition: 'opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -123,16 +121,16 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                 </div>
 
                 <div className="text-center space-y-1 animate-[fadeSlideUp_0.4s_0.2s_both]">
-                    <h1 className="text-base font-black uppercase tracking-[0.5em] text-slate-800 dark:text-white/80">
+                    <h1 className="text-base font-black uppercase tracking-[0.5em] text-slate-800">
                         System Kyron
                     </h1>
-                    <p className="text-[7px] font-bold uppercase tracking-[0.6em] text-primary/60 dark:text-cyan-400/40">
+                    <p className="text-[7px] font-bold uppercase tracking-[0.6em] text-primary/60">
                         {t('subtitle')}
                     </p>
                 </div>
 
                 <div className="w-full space-y-3 animate-[fadeIn_0.3s_0.3s_both]">
-                    <div className="w-full h-[2px] bg-slate-200 dark:bg-white/[0.04] rounded-full overflow-hidden">
+                    <div className="w-full h-[2px] bg-slate-200 rounded-full overflow-hidden">
                         <div
                             className="h-full rounded-full transition-all duration-300 ease-out"
                             style={{
@@ -143,17 +141,17 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                         />
                     </div>
                     <div className="flex items-center justify-between">
-                        <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-white/20 transition-all duration-200">
+                        <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-400 transition-all duration-200">
                             {statusText}
                         </span>
-                        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-slate-400 dark:text-white/20 tabular-nums">
+                        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-slate-400 tabular-nums">
                             {Math.round(progress)}%
                         </span>
                     </div>
                 </div>
             </div>
 
-            <p className="absolute bottom-8 text-[7px] font-bold uppercase tracking-[0.5em] text-slate-300 dark:text-white/10 animate-[fadeIn_0.3s_0.5s_both]">
+            <p className="absolute bottom-8 text-[7px] font-bold uppercase tracking-[0.5em] text-slate-300 animate-[fadeIn_0.3s_0.5s_both]">
                 Inteligencia Corporativa
             </p>
         </div>

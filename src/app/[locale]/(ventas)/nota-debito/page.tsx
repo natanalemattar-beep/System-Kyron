@@ -137,7 +137,7 @@ export default function NotaDebitoPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-400 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-amber-600 mb-4">
             <FileMinus className="h-3 w-3" /> NOTA DE DÉBITO
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
           </div>
@@ -165,7 +165,7 @@ export default function NotaDebitoPage() {
               className={cn(
                 "flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all duration-300 shrink-0",
                 currentStep === step.id
-                  ? "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 scale-105 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
+                  ? "bg-amber-500/10 border-amber-500/30 text-amber-600 scale-105 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
                   : currentStep > step.id
                   ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-500"
                   : "bg-card/30 border-border/30 text-muted-foreground/40 hover:border-border/50"
@@ -502,7 +502,7 @@ export default function NotaDebitoPage() {
             <div className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.03] p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-amber-500" />
-                <p className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Requisitos Art. 18</p>
+                <p className="text-[10px] font-black uppercase tracking-wider text-amber-600">Requisitos Art. 18</p>
               </div>
               <div className="space-y-2">
                 {[

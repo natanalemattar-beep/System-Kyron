@@ -37,9 +37,9 @@ export function PanelControlHero() {
       <div
         className="relative z-10 w-full max-w-2xl mx-auto"
       >
-        <div className="rounded-[2rem] border border-border/30 dark:border-white/10 bg-card/60 dark:bg-white/[0.03] backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
+        <div className="rounded-[2rem] border border-border/30 bg-card/60 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
 
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 dark:border-white/8 bg-muted/20 dark:bg-white/[0.02]">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 bg-muted/20">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
                 <div className="h-3 w-3 rounded-full bg-rose-500/80" />
@@ -55,11 +55,11 @@ export function PanelControlHero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span className="text-[8px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400/90">Live</span>
+              <span className="text-[8px] font-black uppercase tracking-widest text-emerald-600">Live</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 divide-x divide-border/30 dark:divide-white/8">
+          <div className="grid grid-cols-3 divide-x divide-border/30">
             {kpis.map((kpi, i) => (
               <div
                 key={kpi.label}
@@ -73,7 +73,7 @@ export function PanelControlHero() {
             ))}
           </div>
 
-          <div className="p-5 border-t border-border/30 dark:border-white/8">
+          <div className="p-5 border-t border-border/30">
             <div className="grid grid-cols-3 gap-2.5">
               {modules.map((mod, i) => (
                 <NextLink
@@ -84,7 +84,7 @@ export function PanelControlHero() {
                     mod.bg, mod.border
                   )}
                 >
-                  <div className={cn("p-2 rounded-xl bg-muted/50 dark:bg-black/30 w-fit", mod.color)}>
+                  <div className={cn("p-2 rounded-xl bg-muted/50 w-fit", mod.color)}>
                     <mod.icon className="h-4 w-4" />
                   </div>
                   <p className="text-[9px] font-black uppercase tracking-tight text-muted-foreground leading-tight">

@@ -23,7 +23,7 @@ const integrationCategories = [
             { name: "Venezuela", icon: Building2 },
             { name: "Bicentenario", icon: Building2 },
         ],
-        color: "text-blue-600 dark:text-blue-400",
+        color: "text-blue-600",
         accent: "from-blue-500/15",
     },
     {
@@ -37,7 +37,7 @@ const integrationCategories = [
             { name: "Zinli", icon: Banknote },
             { name: "Crypto", icon: Globe },
         ],
-        color: "text-emerald-600 dark:text-emerald-400",
+        color: "text-emerald-600",
         accent: "from-emerald-500/15",
     },
     {
@@ -51,7 +51,7 @@ const integrationCategories = [
             { name: "PBX Virtual", icon: Server },
             { name: "WhatsApp API", icon: Smartphone },
         ],
-        color: "text-cyan-600 dark:text-cyan-400",
+        color: "text-cyan-600",
         accent: "from-cyan-500/15",
     },
     {
@@ -65,7 +65,7 @@ const integrationCategories = [
             { name: "AWS/Cloud", icon: Cloud },
             { name: "Next.js 15", icon: Cpu },
         ],
-        color: "text-violet-600 dark:text-violet-400",
+        color: "text-violet-600",
         accent: "from-violet-500/15",
     },
 ];

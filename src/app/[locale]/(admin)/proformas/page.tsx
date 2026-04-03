@@ -51,7 +51,7 @@ export default function ProformasPage() {
                 transition={{ duration: 0.5 }}
             >
                 <div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-violet-600 dark:text-violet-400 mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-violet-600 mb-4">
                         <Receipt className="h-3 w-3" /> NODO COMERCIAL
                         <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
                     </div>

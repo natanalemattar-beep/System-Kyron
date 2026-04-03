@@ -249,11 +249,11 @@ export const IntelligentPortfolioManager = () => {
                 </div>
                 <div className="text-sm text-orange-300">En Mora</div>
               </div>
-              <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
                 <div className="text-2xl font-bold text-purple-400">
                   {metrics.averageCollectionTime}d
                 </div>
-                <div className="text-sm text-purple-300">Promedio Cobro</div>
+                <div className="text-sm text-purple-600">Promedio Cobro</div>
               </div>
             </div>
           )}
@@ -334,7 +334,7 @@ export const IntelligentPortfolioManager = () => {
                   <div key={risk} className="flex items-center justify-between">
                     <span className="capitalize text-muted-foreground">{risk}:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-700 rounded-full h-2">
+                      <div className="w-32 bg-slate-200 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full ${
                             risk === 'bajo' ? 'bg-green-500' :
@@ -365,7 +365,7 @@ export const IntelligentPortfolioManager = () => {
                   <div key={segment} className="flex items-center justify-between">
                     <span className="capitalize text-muted-foreground">{segment}:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-700 rounded-full h-2">
+                      <div className="w-32 bg-slate-200 rounded-full h-2">
                         <div 
                           className="h-2 rounded-full bg-blue-500"
                           style={{ width: `${efficiency}%` }}

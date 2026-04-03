@@ -132,7 +132,7 @@ export function HeroSection() {
                             custom={0.05}
                         >
                             <span className="kyron-dot animate-pulse" />
-                            <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80 dark:text-white/80">{t('badge')}</span>
+                            <span className="text-xs font-semibold uppercase tracking-widest text-foreground/80">{t('badge')}</span>
                         </motion.div>
 
                         <motion.h1
@@ -172,7 +172,7 @@ export function HeroSection() {
                                     {t('cta_main')} <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 dark:border-white/15 bg-muted/30 dark:bg-white/5 text-foreground/80 dark:text-white/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white transition-all duration-500 backdrop-blur-sm">
+                            <Button variant="outline" asChild size="lg" className="h-12 sm:h-14 px-7 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 bg-muted/30 text-foreground/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 hover:text-foreground transition-all duration-500 backdrop-blur-sm">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}
@@ -187,7 +187,7 @@ export function HeroSection() {
                             animate="visible"
                             custom={0.25}
                         >
-                            <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 dark:text-white/30 hover:text-[#0ea5e9] dark:hover:text-sky-400 transition-colors duration-300">
+                            <Link href="/guia-registro" className="group inline-flex items-center gap-2 text-xs text-foreground/40 hover:text-[#0ea5e9] transition-colors duration-300">
                                 <Play className="h-3 w-3 group-hover:scale-110 transition-transform" />
                                 <span>¿Cómo registrarse? — Ver tutorial paso a paso</span>
                                 <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -221,7 +221,7 @@ export function HeroSection() {
                                 <div className="absolute -inset-6 rounded-[2.5rem] opacity-40" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(59,130,246,0.12), rgba(34,197,94,0.12))', filter: 'blur(30px)' }} />
                             )}
                             
-                            <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/50 dark:border-[#0ea5e9]/15 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(14,165,233,0.12),0_8px_32px_-8px_rgba(0,0,0,0.5)]">
+                            <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/50 shadow-[0_20px_60px_-15px_rgba(14,165,233,0.15),0_8px_24px_-8px_rgba(0,0,0,0.1)]">
                                 <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#0ea5e9]/40 to-transparent" />
                                 <ThemeImage
                                     darkSrc="/images/landing/hero-dashboard-dark.jpg"
@@ -234,7 +234,7 @@ export function HeroSection() {
                                     priority
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#e8f0fe]/50 dark:from-[#020a18]/50 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#e8f0fe]/50 via-transparent to-transparent" />
                             </div>
 
                             <motion.div

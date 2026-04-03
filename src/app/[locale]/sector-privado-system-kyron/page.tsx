@@ -131,7 +131,7 @@ export default function ModeloZeduPage() {
     const tableLabelClass = "label-cell bg-slate-50 p-5 text-[10px] font-black uppercase border border-black text-slate-500 w-1/3 border-r-2";
 
     return (
-        <div className="min-h-screen bg-slate-100 dark:bg-slate-100 py-12 px-4 selection:bg-blue-100" style={{ colorScheme: 'light' }}>
+        <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100" style={{ colorScheme: 'light' }}>
             <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
                 <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
                     <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>

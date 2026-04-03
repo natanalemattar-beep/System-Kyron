@@ -15,10 +15,10 @@ const featuresMeta = [
 ];
 
 const statsMeta = [
-    { value: "7+", icon: BarChart3, color: "text-blue-600 dark:text-primary", bg: "from-primary/15 to-primary/5", key: "stat_modules" },
-    { value: "AES-256", icon: ShieldCheck, color: "text-cyan-600 dark:text-cyan-400", bg: "from-cyan-500/15 to-cyan-500/5", key: "stat_encryption" },
-    { value: "VEN-NIF", icon: FileCheck, color: "text-violet-600 dark:text-violet-400", bg: "from-violet-500/15 to-violet-500/5", key: "stat_compliance" },
-    { value: "24/7", icon: Sparkles, color: "text-amber-600 dark:text-amber-400", bg: "from-amber-500/15 to-amber-500/5", key: "stat_support" },
+    { value: "7+", icon: BarChart3, color: "text-blue-600", bg: "from-primary/15 to-primary/5", key: "stat_modules" },
+    { value: "AES-256", icon: ShieldCheck, color: "text-cyan-600", bg: "from-cyan-500/15 to-cyan-500/5", key: "stat_encryption" },
+    { value: "VEN-NIF", icon: FileCheck, color: "text-violet-600", bg: "from-violet-500/15 to-violet-500/5", key: "stat_compliance" },
+    { value: "24/7", icon: Sparkles, color: "text-amber-600", bg: "from-amber-500/15 to-amber-500/5", key: "stat_support" },
 ];
 
 export function ServicesSection() {
@@ -89,7 +89,7 @@ export function ServicesSection() {
                                     </div>
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
                                         <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
-                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/40 dark:border-white/[0.08] shadow-2xl bg-white/40 dark:bg-card/30 hover:-translate-y-1 transition-transform duration-300">
+                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-blue-200/40 shadow-2xl bg-white/40 hover:-translate-y-1 transition-transform duration-300">
                                             <ThemeImage
                                                 darkSrc={meta.darkImage}
                                                 lightSrc={meta.lightImage}

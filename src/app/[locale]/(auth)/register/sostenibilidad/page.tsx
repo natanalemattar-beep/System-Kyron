@@ -329,7 +329,7 @@ export default function RegisterSostenibilidadPage() {
                             <Recycle className="h-6 w-6 text-emerald-500" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600">
                                 Registro · Sostenibilidad
                             </CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">
@@ -466,7 +466,7 @@ export default function RegisterSostenibilidadPage() {
                         {step === 2 && (
                             <div className="space-y-4">
                                 <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/10 mb-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-2">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-1 flex items-center gap-2">
                                         <Leaf className="h-3.5 w-3.5" /> Perfil
                                         Ambiental
                                     </p>
@@ -854,7 +854,7 @@ export default function RegisterSostenibilidadPage() {
                                     </div>
                                 ) : verifVerified ? (
                                     <div className="text-center py-6 space-y-3">
-                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30">
+                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
                                             <CheckCircle className="h-10 w-10 text-green-500" />
                                         </div>
                                         <p className="font-black text-green-600 uppercase tracking-widest text-xs">
@@ -928,7 +928,7 @@ export default function RegisterSostenibilidadPage() {
 
                         {step === TOTAL_STEPS && (
                             <div className="text-center py-8 space-y-4">
-                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-2">
+                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-2">
                                     <CheckCircle className="h-12 w-12 text-green-500" />
                                 </div>
                                 <h2 className="text-2xl font-black uppercase italic tracking-tight">

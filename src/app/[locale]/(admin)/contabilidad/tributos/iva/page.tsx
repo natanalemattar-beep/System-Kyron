@@ -47,7 +47,7 @@ export default function IvaPage() {
 
             <div className="grid gap-10 lg:grid-cols-12">
                 <div className="lg:col-span-7 space-y-10">
-                    <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-1 shadow-2xl">
+                    <Card className="glass-card border-none rounded-[3rem] bg-white p-1 shadow-2xl">
                         <CardHeader className="p-10 border-b border-border/50">
                             <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
                                 <CheckCircle className="text-primary h-6 w-6" /> Registro de Sujetos Pasivos

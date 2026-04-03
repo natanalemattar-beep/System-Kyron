@@ -228,7 +228,7 @@ export default function TributosHubPage() {
                 </div>
             </Card>
 
-            <Card className="glass-card border-none rounded-[3rem] bg-slate-100 dark:bg-card/60 shadow-2xl p-10 overflow-hidden relative border-l-4 border-primary">
+            <Card className="glass-card border-none rounded-[3rem] bg-slate-100 shadow-2xl p-10 overflow-hidden relative border-l-4 border-primary">
                 <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none"><Bell className="h-48 w-48" /></div>
                 <div className="relative z-10 space-y-8">
                     <div className="flex items-center gap-4 border-b border-border/50 pb-6">
