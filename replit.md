@@ -78,10 +78,12 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
 - **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend
-- **AI Integrations:**
-  - **Anthropic Claude:** Kyron Chat (corporate), document verification, automated data entry (with fallbacks).
-  - **Google Gemini:** Personal chat, fiscal chat, legal docs, Gaceta 6952 consultant (with fallbacks).
-  - **OpenAI:** Dashboard analysis, sales strategies, sentiment analysis, transaction categorization (with fallbacks).
+- **AI Integrations (Replit Managed):**
+  - **Anthropic Claude:** Kyron Chat (corporate), document verification, automated data entry (with fallbacks). Env: `AI_INTEGRATIONS_ANTHROPIC_API_KEY`, `AI_INTEGRATIONS_ANTHROPIC_BASE_URL`.
+  - **Google Gemini:** Personal chat, fiscal chat, legal docs, Gaceta 6952 consultant (with fallbacks). Env: `AI_INTEGRATIONS_GEMINI_API_KEY`, `AI_INTEGRATIONS_GEMINI_BASE_URL`.
+  - **OpenAI:** Dashboard analysis, sales strategies, sentiment analysis, transaction categorization (with fallbacks). Env: `AI_INTEGRATIONS_OPENAI_API_KEY`, `AI_INTEGRATIONS_OPENAI_BASE_URL`.
+  - All three providers are configured via Replit AI Integrations with managed API keys. The client files in `src/ai/` read `AI_INTEGRATIONS_*` vars as primary, falling back to legacy `*_API_KEY` vars.
+- **Email:** Gmail via Replit Google Mail connector (OAuth, connection `conn_google-mail_01KNAMVN9FXXGCJ1GC8JME3DMP`). Client in `src/lib/gmail-client.ts`.
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
