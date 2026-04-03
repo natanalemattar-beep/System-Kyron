@@ -1,0 +1,13 @@
+src/app/[locale]/(telecom)/consumo-5g/page.tsx
+src/app/[locale]/(telecom)/esim/page.tsx
+src/app/[locale]/(telecom)/facturacion-corporativa/page.tsx
+src/app/[locale]/(telecom)/facturas-linea/page.tsx
+src/app/[locale]/(telecom)/flota-empresarial/page.tsx
+src/app/[locale]/(telecom)/homologacion-imei/page.tsx
+src/app/[locale]/(telecom)/internet-empresarial/page.tsx
+src/app/[locale]/(telecom)/limites-corporativos/page.tsx
+src/app/[locale]/(telecom)/mi-linea/page.tsx
+src/app/[locale]/(telecom)/recargas/page.tsx
+src/app/[locale]/(telecom)/reportes-flota/page.tsx
+src/app/[locale]/(telecom)/telecom-design-showcase/page.tsx
+src/app/[locale]/(telecom)/venta-linea/page.tsx

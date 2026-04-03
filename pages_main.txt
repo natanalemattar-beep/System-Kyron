@@ -1,0 +1,17 @@
+src/app/[locale]/(main)/academia-kyron/page.tsx
+src/app/[locale]/(main)/data-entry/page.tsx
+src/app/[locale]/(main)/estudio-factibilidad-economica/page.tsx
+src/app/[locale]/(main)/estudio-poblacion/page.tsx
+src/app/[locale]/(main)/generador-documentos/page.tsx
+src/app/[locale]/(main)/ingenieria-ia/page.tsx
+src/app/[locale]/(main)/marketing/campanas/page.tsx
+src/app/[locale]/(main)/marketing/carnets/page.tsx
+src/app/[locale]/(main)/marketing/crm/page.tsx
+src/app/[locale]/(main)/marketing/email-marketing/page.tsx
+src/app/[locale]/(main)/marketing/embudos/page.tsx
+src/app/[locale]/(main)/marketing/page.tsx
+src/app/[locale]/(main)/marketing/redes-sociales/page.tsx
+src/app/[locale]/(main)/mercado-ecocreditos/page.tsx
+src/app/[locale]/(main)/propuesta-proyecto/page.tsx
+src/app/[locale]/(main)/sostenibilidad/page.tsx
+src/app/[locale]/(main)/terminal/page.tsx

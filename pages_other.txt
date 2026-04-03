@@ -1,0 +1,11 @@
+src/app/[locale]/ecosistema/page.tsx
+src/app/[locale]/faq/page.tsx
+src/app/[locale]/guia-registro/page.tsx
+src/app/[locale]/identidad-marca/page.tsx
+src/app/[locale]/k7r0n-mail/page.tsx
+src/app/[locale]/manual-usuario/page.tsx
+src/app/[locale]/page.tsx
+src/app/[locale]/politica-privacidad/page.tsx
+src/app/[locale]/sector-privado-system-kyron/page.tsx
+src/app/[locale]/terms/page.tsx
+src/app/[locale]/verify-link/[token]/page.tsx

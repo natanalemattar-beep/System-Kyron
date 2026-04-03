@@ -1,0 +1,5 @@
+src/app/[locale]/(ventas)/estrategias-ventas/page.tsx
+src/app/[locale]/(ventas)/modelo-factura/page.tsx
+src/app/[locale]/(ventas)/nota-credito/page.tsx
+src/app/[locale]/(ventas)/nota-debito/page.tsx
+src/app/[locale]/(ventas)/punto-de-venta/page.tsx

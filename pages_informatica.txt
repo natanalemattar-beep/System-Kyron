@@ -1,0 +1,6 @@
+src/app/[locale]/(informatica)/dashboard-it/page.tsx
+src/app/[locale]/(informatica)/helpdesk/page.tsx
+src/app/[locale]/(informatica)/infraestructura/page.tsx
+src/app/[locale]/(informatica)/licencias/page.tsx
+src/app/[locale]/(informatica)/respaldos/page.tsx
+src/app/[locale]/(informatica)/seguridad/page.tsx

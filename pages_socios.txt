@@ -1,0 +1,1 @@
+src/app/[locale]/(socios)/dashboard-socios/page.tsx

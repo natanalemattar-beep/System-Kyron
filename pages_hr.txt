@@ -1,0 +1,12 @@
+src/app/[locale]/(hr)/bienestar-laboral/page.tsx
+src/app/[locale]/(hr)/clima-organizacional/page.tsx
+src/app/[locale]/(hr)/dashboard-rrhh/page.tsx
+src/app/[locale]/(hr)/desarrollo-personal/page.tsx
+src/app/[locale]/(hr)/libros-laborales/page.tsx
+src/app/[locale]/(hr)/manuales-rrhh/page.tsx
+src/app/[locale]/(hr)/nominas/page.tsx
+src/app/[locale]/(hr)/prestaciones-sociales/page.tsx
+src/app/[locale]/(hr)/proyectos-personal/page.tsx
+src/app/[locale]/(hr)/reclutamiento/page.tsx
+src/app/[locale]/(hr)/salud-seguridad/page.tsx
+src/app/[locale]/(hr)/viaticos/page.tsx
