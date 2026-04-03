@@ -338,7 +338,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                     
                     <div className="space-y-0.5">
                         <DropdownMenuItem asChild className="rounded-lg h-9 cursor-pointer">
-                            <Link href="/perfil" className="flex items-center px-3 text-[9px] font-bold uppercase tracking-[0.1em] gap-2.5">
+                            <Link href={dashboardHref === "/dashboard-empresa" ? "/perfil-empresa" : "/perfil"} className="flex items-center px-3 text-[9px] font-bold uppercase tracking-[0.1em] gap-2.5">
                                 <User className="h-3.5 w-3.5 text-primary/50" />
                                 <span>Mi Perfil</span>
                             </Link>

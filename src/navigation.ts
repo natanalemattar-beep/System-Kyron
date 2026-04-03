@@ -31,6 +31,7 @@ export const pathnames = {
   '/reportes': '/reportes',
   '/configuracion': '/configuracion',
   '/perfil': '/perfil',
+  '/perfil-empresa': '/perfil-empresa',
 
   // CONTABILIDAD BASE
   '/contabilidad': '/contabilidad',

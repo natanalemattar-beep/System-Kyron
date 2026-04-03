@@ -20,6 +20,7 @@ const routeLabels: Record<string, string> = {
   'configuracion': 'Configuración',
   'notificaciones': 'Notificaciones',
   'perfil': 'Perfil',
+  'perfil-empresa': 'Perfil Empresarial',
   'contabilidad': 'Contabilidad',
   'facturacion': 'Facturación',
   'facturacion-corporativa': 'Facturación Corp.',

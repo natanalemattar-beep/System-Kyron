@@ -1,10 +1,9 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, ShieldCheck, KeyRound, Mail, Smartphone, MapPin, LogOut, ShieldAlert, Pencil, Building2, Loader2 } from "lucide-react";
+import { User, ShieldCheck, KeyRound, Mail, LogOut, ShieldAlert, Building2, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth/context";
 import { useRouter } from "next/navigation";
@@ -12,10 +11,10 @@ import { useRouter } from "next/navigation";
 function getInitials(nombre?: string, apellido?: string): string {
   const first = nombre?.charAt(0)?.toUpperCase() ?? "";
   const last = apellido?.charAt(0)?.toUpperCase() ?? "";
-  return first + last || "U";
+  return first + last || "E";
 }
 
-export default function PerfilPersonalPage() {
+export default function PerfilEmpresaPage() {
   const { user, isLoading, logout } = useAuth();
   const router = useRouter();
 
@@ -56,16 +55,16 @@ export default function PerfilPersonalPage() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-indigo-500/[0.04] via-card to-card p-6 sm:p-8 mt-6"
+        className="relative overflow-hidden rounded-2xl border border-border/30 bg-gradient-to-br from-cyan-500/[0.04] via-card to-card p-6 sm:p-8 mt-6"
       >
-        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
+        <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/[0.03] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
         <div className="relative flex items-start gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-            <User className="h-7 w-7 text-indigo-500" />
+          <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+            <Building2 className="h-7 w-7 text-cyan-500" />
           </div>
           <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Mi Perfil</h1>
-            <p className="text-sm text-muted-foreground font-medium">Gestiona tu identidad digital y credenciales personales</p>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Perfil Empresarial</h1>
+            <p className="text-sm text-muted-foreground font-medium">Información de la cuenta y credenciales de la empresa</p>
           </div>
         </div>
       </motion.header>
@@ -74,18 +73,18 @@ export default function PerfilPersonalPage() {
         <div className="lg:col-span-4 space-y-6">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <Card className="rounded-2xl border border-border/30 bg-card text-center overflow-hidden">
-              <div className="h-20 bg-gradient-to-r from-indigo-500/20 via-blue-500/10 to-transparent" />
+              <div className="h-20 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-transparent" />
               <div className="-mt-12 flex flex-col items-center px-6 pb-6">
                 <Avatar className="h-24 w-24 border-4 border-card shadow-lg mb-4">
-                  <AvatarFallback className="text-2xl font-bold bg-gradient-to-br from-indigo-500 to-blue-600 text-white">{initials}</AvatarFallback>
+                  <AvatarFallback className="text-2xl font-bold bg-gradient-to-br from-cyan-500 to-blue-600 text-white">{initials}</AvatarFallback>
                 </Avatar>
                 <h2 className="text-lg font-bold text-foreground">{displayName}</h2>
                 <p className="text-[11px] text-primary font-semibold mt-0.5">{userLabel}</p>
-                {user.cedula && (
-                  <span className="text-[10px] text-muted-foreground mt-1">C.I. {user.cedula}</span>
-                )}
                 {user.rif && (
-                  <span className="text-[10px] text-muted-foreground mt-0.5">RIF: {user.rif}</span>
+                  <span className="text-[10px] text-muted-foreground mt-1">RIF: {user.rif}</span>
+                )}
+                {user.cedula && (
+                  <span className="text-[10px] text-muted-foreground mt-0.5">C.I. {user.cedula}</span>
                 )}
                 <span className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-widest text-emerald-500">
                   <ShieldCheck className="h-3 w-3" /> Cuenta Verificada
@@ -141,7 +140,7 @@ export default function PerfilPersonalPage() {
                       <span className="text-sm font-medium text-foreground/80">{user.email}</span>
                     </div>
                   </div>
-                  {user.tipo === "juridico" && user.razon_social && (
+                  {user.razon_social && (
                     <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Razón Social</p>
                       <div className="flex items-center gap-3">
@@ -151,9 +150,18 @@ export default function PerfilPersonalPage() {
                     </div>
                   )}
                   <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Tipo de Cuenta</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Representante</p>
                     <div className="flex items-center gap-3">
                       <User className="h-4 w-4 text-primary/50" />
+                      <span className="text-sm font-medium text-foreground/80">
+                        {user.nombre}{user.apellido ? ` ${user.apellido}` : ""}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Tipo de Cuenta</p>
+                    <div className="flex items-center gap-3">
+                      <ShieldCheck className="h-4 w-4 text-primary/50" />
                       <span className="text-sm font-medium text-foreground/80 capitalize">{userLabel}</span>
                     </div>
                   </div>
@@ -161,13 +169,13 @@ export default function PerfilPersonalPage() {
                     <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">Cédula</p>
                       <div className="flex items-center gap-3">
-                        <ShieldCheck className="h-4 w-4 text-primary/50" />
+                        <User className="h-4 w-4 text-primary/50" />
                         <span className="text-sm font-medium text-foreground/80">{user.cedula}</span>
                       </div>
                     </div>
                   )}
                   {user.rif && (
-                    <div className="p-4 rounded-xl bg-muted/20 border border-border/20 sm:col-span-2">
+                    <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mb-2">RIF</p>
                       <div className="flex items-center gap-3">
                         <Building2 className="h-4 w-4 text-primary/50" />

@@ -646,32 +646,34 @@ export default function DashboardEmpresaPage() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-blue-400" />
-              <span className="text-[11px] font-semibold text-foreground/60">Antigüedad de Cuentas</span>
+              <span className="text-[11px] font-semibold text-foreground/60">Cuentas por Cobrar</span>
             </div>
           </div>
-          <div className="space-y-2">
-            {[
-              { range: "0 — 30 días", pct: 65, color: "bg-emerald-500", textColor: "text-emerald-400", label: "Corriente" },
-              { range: "31 — 60 días", pct: 22, color: "bg-amber-500", textColor: "text-amber-400", label: "Atención" },
-              { range: "61 — 90 días", pct: 10, color: "bg-orange-500", textColor: "text-orange-400", label: "Riesgo" },
-              { range: "+90 días", pct: 3, color: "bg-rose-500", textColor: "text-rose-400", label: "Crítico" },
-            ].map((bucket, i) => (
-              <div key={i} className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-medium text-foreground/60">{bucket.range}</span>
-                  <div className="flex items-center gap-2">
-                    <span className={cn("text-[9px] font-semibold", bucket.textColor)}>{bucket.label}</span>
-                    <span className="text-[10px] font-bold tabular-nums">{bucket.pct}%</span>
-                  </div>
-                </div>
-                <div className="w-full h-1.5 rounded-full bg-muted/20 overflow-hidden">
-                  <div className={cn("h-full rounded-full transition-all duration-700", bucket.color)} style={{ width: `${bucket.pct}%` }} />
+          {data && (data.cuentasCobrar.count > 0 || data.cuentasPagar.count > 0) ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+                <span className="text-[10px] font-medium text-foreground/60">Por cobrar</span>
+                <div className="text-right">
+                  <span className="text-sm font-bold text-emerald-400">{fmtCur(data.cuentasCobrar.total)}</span>
+                  <span className="text-[9px] text-muted-foreground/40 ml-2">{data.cuentasCobrar.count} pendientes</span>
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="flex items-center justify-between p-3 rounded-xl bg-rose-500/5 border border-rose-500/10">
+                <span className="text-[10px] font-medium text-foreground/60">Por pagar</span>
+                <div className="text-right">
+                  <span className="text-sm font-bold text-rose-400">{fmtCur(data.cuentasPagar.total)}</span>
+                  <span className="text-[9px] text-muted-foreground/40 ml-2">{data.cuentasPagar.count} pendientes</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-6">
+              <CheckCircle className="h-6 w-6 text-emerald-400/30 mx-auto mb-2" />
+              <p className="text-[10px] text-muted-foreground/40">Sin cuentas pendientes</p>
+            </div>
+          )}
           <div className="mt-3 pt-2.5 border-t border-border/15 flex items-center justify-between">
-            <span className="text-[9px] text-muted-foreground/35">Total cuentas activas</span>
+            <span className="text-[9px] text-muted-foreground/35">Datos en tiempo real</span>
             <Link href="/cuentas-por-cobrar"><span className="text-[10px] font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1">Detalle <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
         </Card>

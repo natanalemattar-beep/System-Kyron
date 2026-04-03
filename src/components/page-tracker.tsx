@@ -28,7 +28,8 @@ function getModuleFromPath(path: string): string {
     p.startsWith('/proformas') ||
     p.startsWith('/automatizaciones') ||
     p.startsWith('/configuracion') ||
-    p.startsWith('/notificaciones')
+    p.startsWith('/notificaciones') ||
+    p.startsWith('/perfil-empresa')
   ) return 'admin';
   if (
     p.startsWith('/dashboard-rrhh') ||
