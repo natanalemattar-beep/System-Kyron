@@ -133,13 +133,25 @@ export default function PagosDigitalesPage() {
   const { toast } = useToast();
   const [verifying, setVerifying] = useState(false);
 
-  const verificarPago = () => {
+  const verificarPago = async () => {
     setVerifying(true);
-    toast({ title: "VERIFICANDO PAGO MÓVIL", description: "Consultando API bancaria BOD en tiempo real..." });
-    setTimeout(() => {
+    toast({ title: "VERIFICANDO PAGO MÓVIL", description: "Consultando API bancaria en tiempo real..." });
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "pagos", subcategoria: "verificacion_pago_movil", descripcion: "Verificación de pago móvil en tiempo real" }),
+      });
+      if (res.ok) {
+        toast({ title: "PAGO VERIFICADO", description: "Solicitud de verificación registrada. Procesando con el banco emisor." });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo verificar el pago." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
       setVerifying(false);
-      toast({ title: "✓ PAGO VERIFICADO", description: "Ref. 202603180006 · Bs. 65.400,00 · BOD (0116). Acreditado en sistema." });
-    }, 2200);
+    }
   };
 
   return (

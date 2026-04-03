@@ -95,12 +95,22 @@ export default function EstrategiasVentasPage() {
 
     const handleActivar = async (id: number, titulo: string) => {
         setActivating(id);
-        await new Promise(r => setTimeout(r, 1200));
-        setActivating(null);
-        toast({
-            title: "✔ ESTRATEGIA ACTIVADA",
-            description: `${titulo} — En ejecución. Revisa el módulo de analítica para seguimiento.`,
-        });
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "ventas", subcategoria: "estrategia", descripcion: `Activar estrategia: ${titulo}`, metadata: { estrategia_id: id } }),
+            });
+            if (res.ok) {
+                toast({ title: "ESTRATEGIA ACTIVADA", description: `${titulo} — En ejecución. Revisa el módulo de analítica para seguimiento.` });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo activar la estrategia." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
+            setActivating(null);
+        }
     };
 
     return (

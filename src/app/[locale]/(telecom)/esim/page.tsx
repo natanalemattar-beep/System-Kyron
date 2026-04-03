@@ -46,16 +46,24 @@ export default function ESimPage() {
   const { toast } = useToast();
   const [activando, setActivando] = useState(false);
 
-  const handleNuevaEsim = () => {
+  const handleNuevaEsim = async () => {
     setActivando(true);
-    setTimeout(() => {
-      setActivando(false);
-      toast({
-        title: "Solicitud registrada",
-        description: "Tu nueva eSIM está siendo generada. Recibirás el código QR por correo.",
-        action: <CircleCheck className="h-4 w-4 text-emerald-500" />,
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "telecom", subcategoria: "esim", descripcion: "Solicitud de nueva eSIM digital" }),
       });
-    }, 2000);
+      if (res.ok) {
+        toast({ title: "Solicitud registrada", description: "Tu nueva eSIM está siendo generada. Recibirás el código QR por correo.", action: <CircleCheck className="h-4 w-4 text-emerald-500" /> });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo procesar la solicitud." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
+      setActivando(false);
+    }
   };
 
   return (

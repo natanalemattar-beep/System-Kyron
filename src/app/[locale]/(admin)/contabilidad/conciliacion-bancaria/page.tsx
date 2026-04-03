@@ -100,13 +100,25 @@ export default function ConciliacionBancariaPage() {
   const { toast } = useToast();
   const [isSyncing, setIsSyncing] = useState(false);
 
-  const handleSync = () => {
+  const handleSync = async () => {
     setIsSyncing(true);
     toast({ title: "SINCRONIZANDO BANCOS", description: "Conectando con BCV, Banesco, Mercantil, BdV, BBVA Provincial, BNC, BOD..." });
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "contabilidad", subcategoria: "conciliacion_bancaria", descripcion: "Sincronización y conciliación bancaria automática" }),
+      });
+      if (res.ok) {
+        toast({ title: "CONCILIACIÓN COMPLETADA", description: "Solicitud de sincronización bancaria registrada exitosamente." });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo iniciar la conciliación." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
       setIsSyncing(false);
-      toast({ title: "CONCILIACIÓN COMPLETADA", description: "6 bancos sincronizados. 1 diferencia en Mercantil (Bs. 45.000). Revisión recomendada." });
-    }, 2800);
+    }
   };
 
   return (

@@ -36,23 +36,29 @@ export default function HomologacionIMEIPage() {
   const [resultado, setResultado] = useState<null | { valido: boolean; mensaje: string }>(null);
   const [search, setSearch] = useState("");
 
-  const verificarIMEI = () => {
+  const verificarIMEI = async () => {
     if (imeiInput.length !== 15 || !/^\d+$/.test(imeiInput)) {
       toast({ variant: "destructive", title: "IMEI inválido", description: "El IMEI debe tener exactamente 15 dígitos numéricos." });
       return;
     }
     setBuscando(true);
     setResultado(null);
-    setTimeout(() => {
-      setBuscando(false);
-      const valido = Math.random() > 0.3;
-      setResultado({
-        valido,
-        mensaje: valido
-          ? "Equipo homologado por CONATEL. Apto para activación en redes venezolanas."
-          : "Equipo NO homologado. No puede ser activado en operadoras nacionales."
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "telecom", subcategoria: "homologacion_imei", descripcion: `Verificación IMEI: ${imeiInput}`, metadata: { imei: imeiInput } }),
       });
-    }, 2000);
+      if (res.ok) {
+        setResultado({ valido: true, mensaje: "Solicitud de homologación registrada. CONATEL verificará el equipo en las próximas 24-48 horas." });
+      } else {
+        setResultado({ valido: false, mensaje: "No se pudo procesar la solicitud. Intente nuevamente." });
+      }
+    } catch {
+      setResultado({ valido: false, mensaje: "Error de conexión con el servidor." });
+    } finally {
+      setBuscando(false);
+    }
   };
 
   const filtrados = EQUIPOS.filter(e =>

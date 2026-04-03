@@ -15,20 +15,32 @@ export default function EstudioPoblacionPage() {
     const [data, setData] = useState<any | null>(null);
     const { toast } = useToast();
 
-    const handleAnalyze = () => {
+    const handleAnalyze = async () => {
         if (!location.trim()) return;
         setIsAnalyzing(true);
-        setTimeout(() => {
-            setData({
-                poblacion: "1,245,600",
-                densidad: "450 hab/km²",
-                crecimiento: "+2.4%",
-                perfil: "Comercial / Tecnológico",
-                potencial: "Alto"
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "marketing", subcategoria: "estudio_poblacion", descripcion: `Análisis demográfico: ${location}`, metadata: { localidad: location } }),
             });
+            if (res.ok) {
+                setData({
+                    poblacion: "Consultando fuentes oficiales...",
+                    densidad: "—",
+                    crecimiento: "—",
+                    perfil: "Pendiente de análisis",
+                    potencial: "En proceso"
+                });
+                toast({ title: "Análisis Solicitado", description: "La solicitud ha sido registrada. Los datos se actualizarán cuando estén disponibles." });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo procesar el análisis." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
             setIsAnalyzing(false);
-            toast({ title: "Análisis Demográfico Listo", description: "Datos poblacionales actualizados." });
-        }, 1500);
+        }
     };
 
     return (

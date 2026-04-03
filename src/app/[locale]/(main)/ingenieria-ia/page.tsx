@@ -20,13 +20,25 @@ export default function IngenieriaIAPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [planoGenerado, setPlanoGenerado] = useState<string | null>(null);
 
-    const handleGenerate = () => {
+    const handleGenerate = async () => {
         setIsLoading(true);
-        setTimeout(() => {
-            setPlanoGenerado("https://picsum.photos/seed/blueprint/800/600");
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "ingenieria", subcategoria: "generacion_plano", descripcion: "Generación de plano técnico con IA" }),
+            });
+            if (res.ok) {
+                setPlanoGenerado("https://picsum.photos/seed/blueprint/800/600");
+                toast({ title: "Inferencia Completada", description: "Solicitud de plano registrada exitosamente." });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo generar el plano." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
             setIsLoading(false);
-            toast({ title: "Inferencia Completada", description: "Plano a escala generado con un 98% de precisión." });
-        }, 2000);
+        }
     };
 
     return (

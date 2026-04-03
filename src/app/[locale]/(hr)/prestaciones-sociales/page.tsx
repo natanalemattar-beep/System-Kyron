@@ -28,17 +28,25 @@ export default function PrestacionesSocialesPage() {
 
     const emp = useMemo(() => empleados.find(e => e.id === Number(selectedId)), [selectedId]);
 
-    const handleCalculate = () => {
+    const handleCalculate = async () => {
         setIsCalculating(true);
         toast({ title: "EJECUTANDO ALGORITMO LOTTT", description: "Auditando fondo de garantía y días adicionales..." });
-        setTimeout(() => {
-            setIsCalculating(false);
-            toast({
-                title: "CÁLCULO FINALIZADO",
-                description: "Liquidación proyectada con 100% de precisión legal.",
-                action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "rrhh", subcategoria: "prestaciones", descripcion: `Cálculo prestaciones sociales — Empleado ${emp?.nombre || selectedId}`, metadata: { empleado_id: selectedId } }),
             });
-        }, 1200);
+            if (res.ok) {
+                toast({ title: "CÁLCULO FINALIZADO", description: "Liquidación proyectada con 100% de precisión legal.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo ejecutar el cálculo." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
+            setIsCalculating(false);
+        }
     };
 
     return (

@@ -34,17 +34,25 @@ export default function CertificacionFinancieraPage() {
         setCertDate(now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
     }, []);
 
-    const handleGenerate = () => {
+    const handleGenerate = async () => {
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            setStep('preview');
-            toast({
-                title: "CERTIFICACIÓN GENERADA",
-                description: "Documento sellado bajo protocolo de integridad financiera.",
-                action: <CheckCircle className="text-primary h-4 w-4" />
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "contabilidad", subcategoria: "certificacion_financiera", descripcion: "Generación de certificación financiera", metadata: data }),
             });
-        }, 1500);
+            if (res.ok) {
+                setStep('preview');
+                toast({ title: "CERTIFICACIÓN GENERADA", description: "Documento sellado bajo protocolo de integridad financiera.", action: <CheckCircle className="text-primary h-4 w-4" /> });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo generar la certificación." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

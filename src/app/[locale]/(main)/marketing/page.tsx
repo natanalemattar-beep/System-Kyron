@@ -154,16 +154,24 @@ export default function MarketingDashboardPage() {
         });
     };
 
-    const handleRefresh = () => {
+    const handleRefresh = async () => {
         setRefreshing(true);
-        setTimeout(() => {
-            setRefreshing(false);
-            toast({
-                title: "DATOS ACTUALIZADOS",
-                description: "Mercados sincronizados — 18 Mar 2026, 14:35 VET",
-                action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "marketing", subcategoria: "sincronizacion", descripcion: "Actualización de datos de mercado" }),
             });
-        }, 1200);
+            if (res.ok) {
+                toast({ title: "DATOS ACTUALIZADOS", description: "Mercados sincronizados exitosamente.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudieron actualizar los datos." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
+            setRefreshing(false);
+        }
     };
 
     const visibleAlerts = marketAlerts.filter(a => activeAlerts.includes(a.id));

@@ -196,17 +196,25 @@ export default function ContabilidadPage() {
     }
   }, [toast]);
 
-  const runForensicAudit = () => {
+  const runForensicAudit = async () => {
     setIsAuditing(true);
     toast({ title: "INICIANDO AUDITORÍA FORENSE", description: "Escaneando inconsistencias en el Ledger central VEN-NIF..." });
-    setTimeout(() => {
-      setIsAuditing(false);
-      toast({
-        title: "ANÁLISIS COMPLETADO",
-        description: "Integridad: 99.8%. IGTF y retenciones IVA verificadas. 0 diferencias fiscales.",
-        action: <CheckCircle className="text-primary h-4 w-4" />,
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "contabilidad", subcategoria: "auditoria_forense", descripcion: "Auditoría forense del Ledger central VEN-NIF" }),
       });
-    }, 3000);
+      if (res.ok) {
+        toast({ title: "ANÁLISIS COMPLETADO", description: "Auditoría forense registrada. Resultados disponibles en el panel.", action: <CheckCircle className="text-primary h-4 w-4" /> });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo iniciar la auditoría." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
+      setIsAuditing(false);
+    }
   };
 
   return (

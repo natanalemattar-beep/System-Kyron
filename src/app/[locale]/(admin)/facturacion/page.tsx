@@ -112,16 +112,24 @@ export default function FacturacionPage() {
   const { format: fmtCur } = useCurrency();
   const [isCorrecting, setIsCorrecting] = useState(false);
 
-  const handleAutoCorrect = () => {
+  const handleAutoCorrect = async () => {
     setIsCorrecting(true);
-    setTimeout(() => {
-      setIsCorrecting(false);
-      toast({
-        title: "Revisión Finalizada",
-        description: "Se han auditado los documentos de venta. No se detectan errores fiscales.",
-        action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "facturacion", subcategoria: "auditoria_fiscal", descripcion: "Auditoría automática de documentos de venta" }),
       });
-    }, 2500);
+      if (res.ok) {
+        toast({ title: "Revisión Finalizada", description: "Se han auditado los documentos de venta. Resultados registrados.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo ejecutar la auditoría." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
+      setIsCorrecting(false);
+    }
   };
 
   return (

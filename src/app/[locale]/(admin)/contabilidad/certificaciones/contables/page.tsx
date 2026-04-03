@@ -69,17 +69,25 @@ export default function CertificacionesContablesPage() {
         setStep('form');
     };
 
-    const handleGenerate = () => {
+    const handleGenerate = async () => {
         setIsGenerating(true);
-        setTimeout(() => {
-            setIsGenerating(false);
-            setStep('preview');
-            toast({
-                title: "DOCUMENTO CERTIFICADO",
-                description: "Sello digital inmutable aplicado con éxito.",
-                action: <CheckCircle className="text-emerald-500 h-4 w-4" />
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ categoria: "contabilidad", subcategoria: "certificacion_contable", descripcion: `Certificación contable: ${selectedType?.title || 'general'}`, metadata: { tipo: selectedType?.id } }),
             });
-        }, 1500);
+            if (res.ok) {
+                setStep('preview');
+                toast({ title: "DOCUMENTO CERTIFICADO", description: "Sello digital inmutable aplicado con éxito.", action: <CheckCircle className="text-emerald-500 h-4 w-4" /> });
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo generar la certificación." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión" });
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     return (

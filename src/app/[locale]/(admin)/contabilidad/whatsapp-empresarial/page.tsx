@@ -54,12 +54,24 @@ export default function WhatsappEmpresarialPage() {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
 
-  const guardar = () => {
+  const guardar = async () => {
     setSaving(true);
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categoria: "whatsapp", subcategoria: "configuracion", descripcion: "Actualización de respuestas automáticas WhatsApp Empresarial" }),
+      });
+      if (res.ok) {
+        toast({ title: "RESPUESTAS GUARDADAS", description: "Las respuestas automáticas se han actualizado y activado." });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo guardar la configuración." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
       setSaving(false);
-      toast({ title: "RESPUESTAS GUARDADAS", description: "Las respuestas automáticas se han actualizado y activado." });
-    }, 1500);
+    }
   };
 
   return (

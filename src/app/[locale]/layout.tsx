@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import { DemoBannerProvider } from "@/components/demo-banner";
+import { DemoBannerSpacer } from "@/components/demo-banner-spacer";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
 
@@ -26,9 +28,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <DynamicBackground />
-      <div className="relative flex min-h-screen flex-col">
-        {children}
-      </div>
+      <DemoBannerProvider>
+        <DemoBannerSpacer />
+        <div className="relative flex min-h-screen flex-col">
+          {children}
+        </div>
+      </DemoBannerProvider>
     </NextIntlClientProvider>
   );
 }
