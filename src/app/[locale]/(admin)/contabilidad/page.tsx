@@ -221,12 +221,15 @@ export default function ContabilidadPage() {
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
       <ModuleTutorial config={moduleTutorials["contabilidad"]} />
       <MotionContainer variant="fade-left" as="header" className="flex flex-col md:flex-row justify-between items-end gap-8 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
-            <BrainCircuit className="h-3 w-3" /> ÁREA CONTABLE INTEGRAL · VEN-NIF · SENIAT
-          </div>
+        <motion.div className="space-y-1" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}>
+          <motion.div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3" whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(var(--primary), 0.3)" }} transition={{ type: "spring", stiffness: 400 }}>
+            <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
+              <BrainCircuit className="h-3 w-3" />
+            </motion.div>
+            ÁREA CONTABLE INTEGRAL · VEN-NIF · SENIAT
+          </motion.div>
           <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">
-            CENTRO DE <span className="text-primary italic">CONTABILIDAD</span>
+            CENTRO DE <motion.span className="text-primary italic" whileHover={{ scale: 1.05 }}>CONTABILIDAD</motion.span>
           </h1>
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
             System Kyron v2.8.5 · Normas VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%

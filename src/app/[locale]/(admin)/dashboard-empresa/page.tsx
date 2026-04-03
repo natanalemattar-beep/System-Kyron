@@ -244,10 +244,10 @@ export default function DashboardEmpresaPage() {
       <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
       <SeasonalBanner />
       <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] p-6 md:p-8 text-white mt-4 md:mt-6"
+        initial={{ opacity: 0, y: -20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-2xl"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.06] blur-[120px]" />
@@ -316,14 +316,14 @@ export default function DashboardEmpresaPage() {
           { label: "Utilidad Neta", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", sparkColor: "#f59e0b", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
           { label: "Liquidez", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-blue-500", bg: "bg-blue-500/8", ring: "ring-blue-500/10", sparkColor: "#3b82f6", sparkData: [] as number[] },
         ].map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}>
-            <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.03] hover:-translate-y-0.5 duration-300 ring-0 hover:ring-4", kpi.ring)}>
+          <motion.div key={i} initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.08 + i * 0.06, duration: 0.5, ease: "easeOut" }} whileHover={{ y: -4 }}>
+            <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.05] duration-500 ring-0 hover:ring-4 cursor-pointer", kpi.ring)}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[10px] font-semibold text-muted-foreground/60">{kpi.label}</span>
-                  <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300", kpi.bg)}>
+                  <motion.div className={cn("h-8 w-8 rounded-lg flex items-center justify-center group-hover:scale-120 transition-transform duration-300", kpi.bg)} whileHover={{ scale: 1.2, rotate: 5 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                     <kpi.icon className={cn("h-4 w-4", kpi.color)} />
-                  </div>
+                  </motion.div>
                 </div>
                 {loading ? (
                   <div className="h-7 w-28 bg-muted/20 rounded-lg animate-pulse" />
@@ -352,12 +352,12 @@ export default function DashboardEmpresaPage() {
           { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", extra: data?.facturasEsteMes.monto ? fmtCur(data.facturasEsteMes.monto) : undefined, href: "/facturacion" },
           { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", bg: "bg-indigo-500/8", ring: "ring-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0, href: "/notificaciones" },
         ].map((stat, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.05 }}>
+          <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: "easeOut" }} whileHover={{ x: 4 }}>
             <Link href={stat.href as never}>
-              <div className={cn("flex items-center gap-3 p-3.5 rounded-xl border border-border/30 bg-card/60 hover:bg-card hover:shadow-md hover:shadow-black/[0.03] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group ring-0 hover:ring-4", stat.ring)}>
-                <div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300", stat.bg)}>
+              <div className={cn("flex items-center gap-3 p-3.5 rounded-xl border border-border/30 bg-card/60 hover:bg-card hover:shadow-lg hover:shadow-black/[0.06] transition-all duration-500 cursor-pointer group ring-0 hover:ring-4", stat.ring)}>
+                <motion.div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300", stat.bg)} whileHover={{ scale: 1.15 }}>
                   <stat.icon className={cn("h-4 w-4", stat.color)} />
-                </div>
+                </motion.div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-1.5">
                     <p className="text-base font-bold tracking-tight">{loading ? "—" : stat.value}</p>
@@ -374,8 +374,8 @@ export default function DashboardEmpresaPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <motion.div className="lg:col-span-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
-          <Card className="border border-border/30 rounded-xl overflow-hidden bg-card/80">
+        <motion.div className="lg:col-span-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.6, ease: "easeOut" }} whileHover={{ y: -2 }}>
+          <Card className="border border-border/30 rounded-xl overflow-hidden bg-card/80 transition-all duration-500 hover:shadow-lg hover:shadow-black/[0.08]">
             <CardHeader className="p-5 pb-2 flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-xs font-bold uppercase tracking-wider text-foreground/70">Flujo Financiero</CardTitle>
