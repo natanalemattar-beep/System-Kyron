@@ -38,7 +38,7 @@ export default function RecargasPage() {
 
   const montoFinal = monto ?? (parseFloat(montoCustom) || 0);
 
-  const handleRecargar = () => {
+  const handleRecargar = async () => {
     if (!montoFinal || montoFinal <= 0) {
       toast({ variant: "destructive", title: "Monto requerido", description: "Selecciona o ingresa un monto válido." });
       return;
@@ -48,17 +48,34 @@ export default function RecargasPage() {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: "Recarga exitosa",
-        description: `Se recargaron ${formatCurrency(montoFinal, 'USD')} a la línea ${numero}.`,
-        action: <CircleCheck className="h-4 w-4 text-emerald-500" />,
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          categoria: "telecom",
+          subcategoria: "recarga",
+          descripcion: `Recarga de ${formatCurrency(montoFinal, 'USD')} a la línea ${numero}`,
+          metadata: { monto: montoFinal, numero, metodo_pago: metodoPago },
+        }),
       });
-      setMonto(null);
-      setMontoCustom("");
-      setMetodoPago(null);
-    }, 1500);
+      if (res.ok) {
+        toast({
+          title: "Recarga exitosa",
+          description: `Se recargaron ${formatCurrency(montoFinal, 'USD')} a la línea ${numero}.`,
+          action: <CircleCheck className="h-4 w-4 text-emerald-500" />,
+        });
+        setMonto(null);
+        setMontoCustom("");
+        setMetodoPago(null);
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo procesar la recarga." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión", description: "Intente nuevamente." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

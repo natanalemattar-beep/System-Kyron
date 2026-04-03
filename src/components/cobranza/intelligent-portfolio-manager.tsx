@@ -1,163 +1,94 @@
-
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useCallback } from 'react';
+import { Loader2 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
-interface PortfolioClient {
-  id: string;
-  name: string;
-  segment: 'premium' | 'empresarial' | 'pyme' | 'individual';
-  totalDebt: number;
-  currentDebt: number;
-  paymentHistory: number; // 0-100%
+type CXC = {
+  id: number;
+  concepto: string;
+  monto_original: string;
+  monto_pendiente: string;
+  moneda: string;
+  fecha_emision: string;
+  fecha_vencimiento: string | null;
+  estado: string;
+  cliente_id: number | null;
+  cliente_nombre: string | null;
+  cliente_rif: string | null;
+  cliente_telefono: string | null;
+  cliente_email: string | null;
+};
+
+type Stats = {
+  total_pendiente: string;
+  total_vencido: string;
+  num_pendientes: number;
+  num_vencidas: number;
+};
+
+interface ClientPortfolio {
+  clienteId: number | null;
+  nombre: string;
+  rif: string | null;
+  email: string | null;
+  telefono: string | null;
+  totalDeuda: number;
+  cuentasPendientes: number;
+  cuentasVencidas: number;
   riskLevel: 'bajo' | 'medio' | 'alto' | 'critico';
-  lastPayment: Date;
-  nextPayment: Date;
-  contact: {
-    email: string;
-    phone: string;
-    preferredChannel: 'email' | 'sms' | 'whatsapp' | 'llamada';
-  };
-  paymentBehavior: {
-    averageDelay: number;
-    paymentFrequency: string;
-    preferredMethod: string;
-  };
-}
-
-interface PortfolioMetrics {
-  totalPortfolio: number;
-  currentDebt: number;
-  overdueDebt: number;
-  collectionEfficiency: number;
-  averageCollectionTime: number;
-  riskDistribution: {
-    bajo: number;
-    medio: number;
-    alto: number;
-    critico: number;
-  };
 }
 
 export const IntelligentPortfolioManager = () => {
-  const [clients, setClients] = useState<PortfolioClient[]>([]);
-  const [metrics, setMetrics] = useState<PortfolioMetrics | null>(null);
+  const [portfolios, setPortfolios] = useState<ClientPortfolio[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [loading, setLoading] = useState(true);
   const [selectedSegment, setSelectedSegment] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'analytics'>('grid');
 
-  useEffect(() => {
-    const portfolioData: PortfolioClient[] = [
-      {
-        id: 'cl-001',
-        name: 'TechSolutions Corp',
-        segment: 'empresarial',
-        totalDebt: 50000,
-        currentDebt: 15000,
-        paymentHistory: 95,
-        riskLevel: 'bajo',
-        lastPayment: new Date('2024-05-15'),
-        nextPayment: new Date('2024-06-15'),
-        contact: {
-          email: 'finanzas@techsolutions.com',
-          phone: '+58 412-555-0101',
-          preferredChannel: 'email'
-        },
-        paymentBehavior: {
-          averageDelay: 2,
-          paymentFrequency: 'mensual',
-          preferredMethod: 'transferencia'
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await fetch("/api/cuentas-por-cobrar");
+      if (!res.ok) return;
+      const data = await res.json();
+      const cuentas: CXC[] = data.cuentas || [];
+      setStats(data.stats || null);
+
+      const grouped: Record<string, ClientPortfolio> = {};
+      for (const c of cuentas) {
+        const key = c.cliente_id ? String(c.cliente_id) : `sin-${c.id}`;
+        if (!grouped[key]) {
+          grouped[key] = {
+            clienteId: c.cliente_id,
+            nombre: c.cliente_nombre || c.concepto,
+            rif: c.cliente_rif,
+            email: c.cliente_email,
+            telefono: c.cliente_telefono,
+            totalDeuda: 0,
+            cuentasPendientes: 0,
+            cuentasVencidas: 0,
+            riskLevel: 'bajo',
+          };
         }
-      },
-      {
-        id: 'cl-002',
-        name: 'Distribuidora La Económica',
-        segment: 'pyme',
-        totalDebt: 25000,
-        currentDebt: 12000,
-        paymentHistory: 75,
-        riskLevel: 'medio',
-        lastPayment: new Date('2024-05-20'),
-        nextPayment: new Date('2024-06-05'),
-        contact: {
-          email: 'cobranza@leconomica.com',
-          phone: '+58 414-555-0202',
-          preferredChannel: 'whatsapp'
-        },
-        paymentBehavior: {
-          averageDelay: 7,
-          paymentFrequency: 'quincenal',
-          preferredMethod: 'punto_venta'
-        }
-      },
-      {
-        id: 'cl-003',
-        name: 'Constructora Norte',
-        segment: 'empresarial',
-        totalDebt: 150000,
-        currentDebt: 45000,
-        paymentHistory: 60,
-        riskLevel: 'alto',
-        lastPayment: new Date('2024-04-30'),
-        nextPayment: new Date('2024-05-30'),
-        contact: {
-          email: 'contabilidad@constructoranorte.com',
-          phone: '+58 416-555-0303',
-          preferredChannel: 'llamada'
-        },
-        paymentBehavior: {
-          averageDelay: 15,
-          paymentFrequency: 'mensual',
-          preferredMethod: 'transferencia'
-        }
-      },
-      {
-        id: 'cl-004',
-        name: 'Consultores Asociados',
-        segment: 'premium',
-        totalDebt: 75000,
-        currentDebt: 20000,
-        paymentHistory: 98,
-        riskLevel: 'bajo',
-        lastPayment: new Date('2024-05-28'),
-        nextPayment: new Date('2024-06-28'),
-        contact: {
-          email: 'admin@consultoresasociados.com',
-          phone: '+58 424-555-0404',
-          preferredChannel: 'email'
-        },
-        paymentBehavior: {
-          averageDelay: 0,
-          paymentFrequency: 'mensual',
-          preferredMethod: 'tarjeta_credito'
-        }
+        grouped[key].totalDeuda += parseFloat(c.monto_pendiente || '0');
+        if (['pendiente', 'parcial'].includes(c.estado)) grouped[key].cuentasPendientes++;
+        if (c.estado === 'vencida') grouped[key].cuentasVencidas++;
       }
-    ];
 
-    setClients(portfolioData);
-
-    const totalPortfolio = portfolioData.reduce((sum, client) => sum + client.totalDebt, 0);
-    const currentDebt = portfolioData.reduce((sum, client) => sum + client.currentDebt, 0);
-    const overdueDebt = portfolioData
-      .filter(client => new Date(client.nextPayment) < new Date())
-      .reduce((sum, client) => sum + client.currentDebt, 0);
-
-    const metricsData: PortfolioMetrics = {
-      totalPortfolio,
-      currentDebt,
-      overdueDebt,
-      collectionEfficiency: ((currentDebt - overdueDebt) / currentDebt) * 100,
-      averageCollectionTime: 15, // días
-      riskDistribution: {
-        bajo: portfolioData.filter(c => c.riskLevel === 'bajo').length,
-        medio: portfolioData.filter(c => c.riskLevel === 'medio').length,
-        alto: portfolioData.filter(c => c.riskLevel === 'alto').length,
-        critico: portfolioData.filter(c => c.riskLevel === 'critico').length
+      for (const p of Object.values(grouped)) {
+        if (p.cuentasVencidas > 2 || p.totalDeuda > 100000) p.riskLevel = 'critico';
+        else if (p.cuentasVencidas > 0 || p.totalDeuda > 50000) p.riskLevel = 'alto';
+        else if (p.totalDeuda > 20000) p.riskLevel = 'medio';
+        else p.riskLevel = 'bajo';
       }
-    };
 
-    setMetrics(metricsData);
+      setPortfolios(Object.values(grouped));
+    } catch {} finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
@@ -169,57 +100,58 @@ export const IntelligentPortfolioManager = () => {
     }
   };
 
-  const getSegmentColor = (segment: string) => {
-    switch (segment) {
-      case 'premium': return 'bg-purple-100 text-purple-800';
-      case 'empresarial': return 'bg-blue-100 text-blue-800';
-      case 'pyme': return 'bg-green-100 text-green-800';
-      case 'individual': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const filteredPortfolios = selectedSegment === 'all'
+    ? portfolios
+    : portfolios.filter(p => p.riskLevel === selectedSegment);
+
+  const totalCartera = portfolios.reduce((s, p) => s + p.totalDeuda, 0);
+  const totalVencido = parseFloat(stats?.total_vencido || '0');
+  const eficiencia = totalCartera > 0 ? ((totalCartera - totalVencido) / totalCartera) * 100 : 100;
+
+  const riskDist = {
+    bajo: portfolios.filter(p => p.riskLevel === 'bajo').length,
+    medio: portfolios.filter(p => p.riskLevel === 'medio').length,
+    alto: portfolios.filter(p => p.riskLevel === 'alto').length,
+    critico: portfolios.filter(p => p.riskLevel === 'critico').length,
   };
 
-  const filteredClients = selectedSegment === 'all' 
-    ? clients 
-    : clients.filter(client => client.segment === selectedSegment);
+  if (loading) {
+    return (
+      <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6 flex items-center justify-center py-20">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-bold">Gestor Inteligente de Cartera</h2>
-          <p className="text-muted-foreground">Análisis predictivo y gestión proactiva de cobranza</p>
+          <p className="text-muted-foreground">Análisis y gestión proactiva de cobranza</p>
         </div>
         <div className="flex gap-3">
-          <select 
+          <select
             value={selectedSegment}
             onChange={(e) => setSelectedSegment(e.target.value)}
             className="border-input bg-background rounded-lg px-3 py-2 text-sm"
           >
-            <option value="all">Todos los segmentos</option>
-            <option value="premium">Premium</option>
-            <option value="empresarial">Empresarial</option>
-            <option value="pyme">PYME</option>
-            <option value="individual">Individual</option>
+            <option value="all">Todos los niveles</option>
+            <option value="bajo">Riesgo Bajo</option>
+            <option value="medio">Riesgo Medio</option>
+            <option value="alto">Riesgo Alto</option>
+            <option value="critico">Riesgo Crítico</option>
           </select>
           <div className="flex bg-muted rounded-lg p-1">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-3 py-1 rounded text-sm ${
-                viewMode === 'grid' 
-                  ? 'bg-background shadow-sm' 
-                  : 'text-muted-foreground'
-              }`}
+              className={`px-3 py-1 rounded text-sm ${viewMode === 'grid' ? 'bg-background shadow-sm' : 'text-muted-foreground'}`}
             >
               Lista
             </button>
             <button
               onClick={() => setViewMode('analytics')}
-              className={`px-3 py-1 rounded text-sm ${
-                viewMode === 'analytics' 
-                  ? 'bg-background shadow-sm' 
-                  : 'text-muted-foreground'
-              }`}
+              className={`px-3 py-1 rounded text-sm ${viewMode === 'analytics' ? 'bg-background shadow-sm' : 'text-muted-foreground'}`}
             >
               Analytics
             </button>
@@ -229,153 +161,111 @@ export const IntelligentPortfolioManager = () => {
 
       {viewMode === 'grid' ? (
         <>
-          {metrics && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-blue-900/50 p-4 rounded-lg border border-blue-800">
-                <div className="text-2xl font-bold text-blue-400">
-                  ${(metrics.totalPortfolio / 1000).toFixed(0)}K
-                </div>
-                <div className="text-sm text-blue-300">Cartera Total</div>
-              </div>
-              <div className="bg-green-900/50 p-4 rounded-lg border border-green-800">
-                <div className="text-2xl font-bold text-green-400">
-                  {metrics.collectionEfficiency.toFixed(0)}%
-                </div>
-                <div className="text-sm text-green-300">Eficiencia Cobranza</div>
-              </div>
-              <div className="bg-orange-900/50 p-4 rounded-lg border border-orange-800">
-                <div className="text-2xl font-bold text-orange-400">
-                  ${(metrics.overdueDebt / 1000).toFixed(0)}K
-                </div>
-                <div className="text-sm text-orange-300">En Mora</div>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <div className="text-2xl font-bold text-purple-400">
-                  {metrics.averageCollectionTime}d
-                </div>
-                <div className="text-sm text-purple-600">Promedio Cobro</div>
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
+              <div className="text-2xl font-bold text-blue-600">{formatCurrency(totalCartera, 'Bs.')}</div>
+              <div className="text-sm text-blue-500">Cartera Total</div>
             </div>
-          )}
+            <div className="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
+              <div className="text-2xl font-bold text-green-600">{eficiencia.toFixed(0)}%</div>
+              <div className="text-sm text-green-500">Eficiencia Cobranza</div>
+            </div>
+            <div className="bg-orange-500/10 p-4 rounded-lg border border-orange-500/20">
+              <div className="text-2xl font-bold text-orange-600">{formatCurrency(totalVencido, 'Bs.')}</div>
+              <div className="text-sm text-orange-500">En Mora</div>
+            </div>
+            <div className="bg-purple-500/10 p-4 rounded-lg border border-purple-500/20">
+              <div className="text-2xl font-bold text-purple-600">{portfolios.length}</div>
+              <div className="text-sm text-purple-500">Clientes en Cartera</div>
+            </div>
+          </div>
 
-          <div className="space-y-4">
-            {filteredClients.map((client) => (
-              <div key={client.id} className="border border-border rounded-lg p-4 hover:border-blue-700 transition-colors">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
-                      {client.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{client.name}</h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className={`px-2 py-1 rounded-full text-xs ${getSegmentColor(client.segment)}`}>
-                          {client.segment}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs ${getRiskColor(client.riskLevel)}`}>
-                          Riesgo {client.riskLevel}
-                        </span>
+          {filteredPortfolios.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground/50">
+              <p className="text-sm font-bold">Sin clientes en cartera</p>
+              <p className="text-xs mt-1">Las cuentas por cobrar registradas aparecerán aquí agrupadas por cliente</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {filteredPortfolios.map((client, i) => (
+                <div key={i} className="border border-border rounded-lg p-4 hover:border-primary/30 transition-colors">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        {client.nombre.charAt(0)}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold">{client.nombre}</h3>
+                        <div className="flex items-center gap-2 mt-1">
+                          {client.rif && <span className="text-xs text-muted-foreground font-mono">{client.rif}</span>}
+                          <span className={`px-2 py-1 rounded-full text-xs ${getRiskColor(client.riskLevel)}`}>
+                            Riesgo {client.riskLevel}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold">
-                      ${client.currentDebt.toLocaleString('en-US')}
-                    </div>
-                    <div className="text-sm text-muted-foreground">Deuda actual</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">Historial pago:</span>
-                    <div className="font-medium">{client.paymentHistory}%</div>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Último pago:</span>
-                    <div className="font-medium">{client.lastPayment.toLocaleDateString()}</div>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Próximo pago:</span>
-                    <div className={`font-medium ${
-                      new Date(client.nextPayment) < new Date() 
-                        ? 'text-red-400' 
-                        : 'text-foreground'
-                    }`}>
-                      {client.nextPayment.toLocaleDateString()}
+                    <div className="text-right">
+                      <div className="text-lg font-bold">{formatCurrency(client.totalDeuda, 'Bs.')}</div>
+                      <div className="text-sm text-muted-foreground">Deuda actual</div>
                     </div>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">Canal preferido:</span>
-                    <div className="font-medium capitalize">{client.contact.preferredChannel}</div>
-                  </div>
-                </div>
 
-                <div className="flex justify-between items-center">
-                  <div className="text-xs text-muted-foreground">
-                    Retraso promedio: {client.paymentBehavior.averageDelay} días
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="default" size="sm">Contactar</Button>
-                    <Button variant="outline" size="sm">Ver Detalles</Button>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Pendientes:</span>
+                      <div className="font-medium">{client.cuentasPendientes}</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Vencidas:</span>
+                      <div className={`font-medium ${client.cuentasVencidas > 0 ? 'text-red-500' : 'text-foreground'}`}>{client.cuentasVencidas}</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Email:</span>
+                      <div className="font-medium text-xs truncate">{client.email || '—'}</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Teléfono:</span>
+                      <div className="font-medium">{client.telefono || '—'}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-background rounded-lg p-6">
             <h3 className="font-semibold mb-4">Distribución de Riesgo</h3>
-            {metrics && (
-              <div className="space-y-3">
-                {Object.entries(metrics.riskDistribution).map(([risk, count]) => (
-                  <div key={risk} className="flex items-center justify-between">
-                    <span className="capitalize text-muted-foreground">{risk}:</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-32 bg-slate-200 rounded-full h-2">
-                        <div 
-                          className={`h-2 rounded-full ${
-                            risk === 'bajo' ? 'bg-green-500' :
-                            risk === 'medio' ? 'bg-yellow-500' :
-                            risk === 'alto' ? 'bg-orange-500' : 'bg-red-500'
-                          }`}
-                          style={{ width: `${(count / clients.length) * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm font-medium">{count}</span>
+            <div className="space-y-3">
+              {Object.entries(riskDist).map(([risk, count]) => (
+                <div key={risk} className="flex items-center justify-between">
+                  <span className="capitalize text-muted-foreground">{risk}:</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-32 bg-muted rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full ${
+                          risk === 'bajo' ? 'bg-green-500' :
+                          risk === 'medio' ? 'bg-yellow-500' :
+                          risk === 'alto' ? 'bg-orange-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: portfolios.length > 0 ? `${(count / portfolios.length) * 100}%` : '0%' }}
+                      ></div>
                     </div>
+                    <span className="text-sm font-medium">{count}</span>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="bg-background rounded-lg p-6">
-            <h3 className="font-semibold mb-4">Eficiencia por Segmento</h3>
+            <h3 className="font-semibold mb-4">Resumen de Cartera</h3>
             <div className="space-y-4">
-              {['premium', 'empresarial', 'pyme', 'individual'].map(segment => {
-                const segmentClients = clients.filter(c => c.segment === segment);
-                const efficiency = segmentClients.length > 0 
-                  ? segmentClients.reduce((sum, c) => sum + c.paymentHistory, 0) / segmentClients.length
-                  : 0;
-                
-                return (
-                  <div key={segment} className="flex items-center justify-between">
-                    <span className="capitalize text-muted-foreground">{segment}:</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-32 bg-slate-200 rounded-full h-2">
-                        <div 
-                          className="h-2 rounded-full bg-blue-500"
-                          style={{ width: `${efficiency}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm font-medium">{efficiency.toFixed(0)}%</span>
-                    </div>
-                  </div>
-                );
-              })}
+              <div className="flex justify-between"><span className="text-muted-foreground">Total Cartera:</span><span className="font-bold">{formatCurrency(totalCartera, 'Bs.')}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">En Mora:</span><span className="font-bold text-red-500">{formatCurrency(totalVencido, 'Bs.')}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Eficiencia:</span><span className="font-bold text-green-600">{eficiencia.toFixed(1)}%</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Clientes:</span><span className="font-bold">{portfolios.length}</span></div>
             </div>
           </div>
         </div>

@@ -20,12 +20,32 @@ export default function MercadoEcocreditosPage() {
     const { toast } = useToast();
     const [balance, setBalance] = useState(12450);
 
-    const handleTransaction = (offer: typeof activeOffers[0]) => {
-        toast({
-            title: "Protocolo Blockchain Activo",
-            description: `Se ha iniciado la transferencia de ${offer.credits} Eco-Créditos. Sellando transacción en el Ledger.`,
-            action: <ShieldCheck className="text-primary h-4 w-4" />
-        });
+    const handleTransaction = async (offer: typeof activeOffers[0]) => {
+        try {
+            const res = await fetch("/api/solicitudes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    categoria: "eco_creditos",
+                    subcategoria: offer.type === "Buy" ? "compra" : "venta",
+                    descripcion: `${offer.type === "Buy" ? "Compra" : "Venta"} de ${offer.credits} Eco-Créditos — ${offer.company}`,
+                    metadata: { offer_id: offer.id, credits: offer.credits, price: offer.price, type: offer.type, company: offer.company },
+                }),
+            });
+            if (res.ok) {
+                toast({
+                    title: "Protocolo Blockchain Activo",
+                    description: `Transacción de ${offer.credits} Eco-Créditos registrada. Sellando en el Ledger.`,
+                    action: <ShieldCheck className="text-primary h-4 w-4" />
+                });
+                if (offer.type === "Buy") setBalance(prev => prev + offer.credits);
+                else setBalance(prev => Math.max(0, prev - offer.credits));
+            } else {
+                toast({ variant: "destructive", title: "Error", description: "No se pudo procesar la transacción." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión", description: "Intente nuevamente." });
+        }
     };
 
     return (

@@ -1,277 +1,214 @@
-
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
-interface CollectionCampaign {
-  id: string;
-  name: string;
-  targetSegment: string;
-  channels: string[];
-  messageTemplate: string;
-  schedule: {
-    startDate: Date;
-    frequency: string;
-    bestTime: string;
-  };
-  status: 'active' | 'paused' | 'completed';
-  results: {
-    sent: number;
-    delivered: number;
-    responded: number;
-    paid: number;
-    conversionRate: number;
-  };
-}
+type CXC = {
+  id: number;
+  concepto: string;
+  monto_original: string;
+  monto_pendiente: string;
+  moneda: string;
+  fecha_emision: string;
+  fecha_vencimiento: string | null;
+  estado: string;
+  cliente_nombre: string | null;
+  cliente_telefono: string | null;
+  cliente_email: string | null;
+};
 
-interface CommunicationLog {
-  id: string;
-  clientId: string;
+interface CollectionAction {
+  cxcId: number;
   clientName: string;
-  phone: string;
-  debtAmount: number;
-  channel: 'email' | 'sms' | 'whatsapp' | 'llamada';
-  type: 'recordatorio' | 'aviso' | 'urgente' | 'negociacion';
-  status: 'sent' | 'delivered' | 'read' | 'responded';
-  timestamp: Date;
-  message: string;
-  response?: string;
+  concepto: string;
+  montoPendiente: number;
+  estado: string;
+  vencimiento: string | null;
+  email: string | null;
+  telefono: string | null;
+  urgency: 'normal' | 'urgente' | 'critico';
 }
 
 export const AutomatedCollectionSystem = () => {
-  const [campaigns, setCampaigns] = useState<CollectionCampaign[]>([]);
-  const [communications, setCommunications] = useState<CommunicationLog[]>([]);
-  const [newCampaign, setNewCampaign] = useState({
-    name: '',
-    targetSegment: 'empresarial',
-    channels: [] as string[],
-    message: ''
-  });
+  const { toast } = useToast();
+  const [actions, setActions] = useState<CollectionAction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [sendingId, setSendingId] = useState<number | null>(null);
 
-  useEffect(() => {
-    const campaignData: CollectionCampaign[] = [
-      {
-        id: 'camp-001',
-        name: 'Recordatorio Mensual Empresas',
-        targetSegment: 'empresarial',
-        channels: ['email', 'whatsapp'],
-        messageTemplate: 'Estimado cliente, le recordamos su pago pendiente de ${amount} con vencimiento ${dueDate}',
-        schedule: {
-          startDate: new Date('2024-06-01'),
-          frequency: 'mensual',
-          bestTime: '10:00 AM'
-        },
-        status: 'active',
-        results: {
-          sent: 45,
-          delivered: 42,
-          responded: 28,
-          paid: 25,
-          conversionRate: 89.3
-        }
-      },
-      {
-        id: 'camp-002',
-        name: 'Campaña PYME Semanal',
-        targetSegment: 'pyme',
-        channels: ['sms', 'whatsapp'],
-        messageTemplate: 'Hola! Su pago de ${amount} vence pronto. ¿Necesita ayuda?',
-        schedule: {
-          startDate: new Date('2024-05-20'),
-          frequency: 'semanal',
-          bestTime: '2:00 PM'
-        },
-        status: 'active',
-        results: {
-          sent: 120,
-          delivered: 115,
-          responded: 65,
-          paid: 58,
-          conversionRate: 89.2
-        }
-      }
-    ];
+  const fetchCuentas = useCallback(async () => {
+    try {
+      const res = await fetch("/api/cuentas-por-cobrar");
+      if (!res.ok) return;
+      const data = await res.json();
+      const cuentas: CXC[] = data.cuentas || [];
 
-    setCampaigns(campaignData);
+      const pending = cuentas
+        .filter(c => ['pendiente', 'parcial', 'vencida'].includes(c.estado))
+        .map(c => {
+          let urgency: 'normal' | 'urgente' | 'critico' = 'normal';
+          if (c.estado === 'vencida') urgency = 'critico';
+          else if (c.fecha_vencimiento) {
+            const days = Math.ceil((new Date(c.fecha_vencimiento).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+            if (days <= 7) urgency = 'urgente';
+          }
+          return {
+            cxcId: c.id,
+            clientName: c.cliente_nombre || 'Sin cliente',
+            concepto: c.concepto,
+            montoPendiente: parseFloat(c.monto_pendiente || '0'),
+            estado: c.estado,
+            vencimiento: c.fecha_vencimiento,
+            email: c.cliente_email,
+            telefono: c.cliente_telefono,
+            urgency,
+          };
+        })
+        .sort((a, b) => {
+          const order = { critico: 0, urgente: 1, normal: 2 };
+          return order[a.urgency] - order[b.urgency];
+        });
 
-    const logs: CommunicationLog[] = [
-      {
-        id: 'comm-001',
-        clientId: 'cl-001',
-        clientName: 'TechSolutions Corp',
-        phone: '584125550101',
-        debtAmount: 15000,
-        channel: 'email',
-        type: 'recordatorio',
-        status: 'read',
-        timestamp: new Date('2024-05-28T10:00:00'),
-        message: 'Recordatorio de pago pendiente - $15,000 - Vence 15/06/2024',
-        response: 'Pago programado para el 10/06'
-      },
-      {
-        id: 'comm-002',
-        clientId: 'cl-002',
-        clientName: 'Distribuidora La Económica',
-        phone: '584145550202',
-        debtAmount: 12000,
-        channel: 'whatsapp',
-        type: 'aviso',
-        status: 'read',
-        timestamp: new Date('2024-05-29T14:30:00'),
-        message: 'Hola! Su pago de $12,000 vence el 05/06. ¿Todo bien?',
-        response: 'Sí, pagaré el 03/06'
-      },
-      {
-        id: 'comm-003',
-        clientId: 'cl-003',
-        clientName: 'Constructora Norte',
-        phone: '584165550303',
-        debtAmount: 45000,
-        channel: 'llamada',
-        type: 'urgente',
-        status: 'responded',
-        timestamp: new Date('2024-05-30T11:15:00'),
-        message: 'Llamada urgente: pago vencido de $45,000',
-        response: 'Solicitaremos prórroga'
-      }
-    ];
-
-    setCommunications(logs);
+      setActions(pending);
+    } catch {} finally {
+      setLoading(false);
+    }
   }, []);
 
-  const createCampaign = () => {
-    if (newCampaign.name && newCampaign.channels.length > 0 && newCampaign.message) {
-      const campaign: CollectionCampaign = {
-        id: `camp-${Date.now()}`,
-        name: newCampaign.name,
-        targetSegment: newCampaign.targetSegment,
-        channels: newCampaign.channels,
-        messageTemplate: newCampaign.message,
-        schedule: {
-          startDate: new Date(),
-          frequency: 'semanal',
-          bestTime: '10:00 AM'
-        },
-        status: 'active',
-        results: { sent: 0, delivered: 0, responded: 0, paid: 0, conversionRate: 0 }
-      };
+  useEffect(() => { fetchCuentas(); }, [fetchCuentas]);
 
-      setCampaigns([...campaigns, campaign]);
-      setNewCampaign({ name: '', targetSegment: 'empresarial', channels: [], message: '' });
+  const handleSendReminder = async (action: CollectionAction) => {
+    setSendingId(action.cxcId);
+    try {
+      const res = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          categoria: "cobranza",
+          subcategoria: "recordatorio",
+          descripcion: `Recordatorio de cobro a ${action.clientName}: ${action.concepto} — ${formatCurrency(action.montoPendiente, 'Bs.')}`,
+          metadata: {
+            cxc_id: action.cxcId,
+            cliente: action.clientName,
+            monto: action.montoPendiente,
+            email: action.email,
+            telefono: action.telefono,
+          },
+        }),
+      });
+      if (res.ok) {
+        toast({ title: "Recordatorio enviado", description: `Notificación registrada para ${action.clientName}.` });
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo registrar el recordatorio." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally {
+      setSendingId(null);
     }
   };
+
+  const getUrgencyColor = (urgency: string) => {
+    switch (urgency) {
+      case 'critico': return 'bg-red-100 text-red-700 border-red-200';
+      case 'urgente': return 'bg-orange-100 text-orange-700 border-orange-200';
+      default: return 'bg-blue-100 text-blue-700 border-blue-200';
+    }
+  };
+
+  const getUrgencyLabel = (urgency: string) => {
+    switch (urgency) {
+      case 'critico': return 'Vencido';
+      case 'urgente': return 'Próximo a vencer';
+      default: return 'Normal';
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6 flex items-center justify-center py-20">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const criticos = actions.filter(a => a.urgency === 'critico').length;
+  const urgentes = actions.filter(a => a.urgency === 'urgente').length;
+  const totalPendiente = actions.reduce((s, a) => s + a.montoPendiente, 0);
 
   return (
     <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-bold">Sistema de Cobranza Automatizada</h2>
-          <p className="text-muted-foreground">Comunicación omnicanal y campañas inteligentes</p>
-        </div>
-        <Button variant="default">+ Nueva Campaña</Button>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
-          <h3 className="font-semibold mb-4">Campañas de Cobranza</h3>
-          <div className="space-y-4">
-            {campaigns.map((campaign) => (
-              <div key={campaign.id} className="border border-border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h4 className="font-medium">{campaign.name}</h4>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="bg-blue-900/50 text-blue-300 px-2 py-1 rounded-full text-xs">
-                        {campaign.targetSegment}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        campaign.status === 'active' 
-                          ? 'bg-green-50 text-green-600' 
-                          : 'bg-slate-200 text-slate-600'
-                      }`}>
-                        {campaign.status === 'active' ? 'Activa' : 'Pausada'}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-green-400">
-                      {campaign.results.conversionRate}%
-                    </div>
-                    <div className="text-xs text-muted-foreground">Conversión</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">Canales:</span>
-                    <div className="font-medium">
-                      {campaign.channels.map(ch => 
-                        ch === 'email' ? '📧' :
-                        ch === 'sms' ? '💬' :
-                        ch === 'whatsapp' ? '💚' : '📞'
-                      ).join(' ')}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Frecuencia:</span>
-                    <div className="font-medium">{campaign.schedule.frequency}</div>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center text-xs text-muted-foreground">
-                  <span>Enviados: {campaign.results.sent}</span>
-                  <span>Pagados: {campaign.results.paid}</span>
-                  <span>Éxito: {campaign.results.conversionRate}%</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold mb-4">Registro de Comunicaciones Automatizadas</h3>
-          <div className="space-y-3">
-            {communications.map((comm) => (
-              <div key={comm.id} className="border border-border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h4 className="font-medium">{comm.clientName}</h4>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        comm.channel === 'email' ? 'bg-blue-900/50 text-blue-300' :
-                        comm.channel === 'sms' ? 'bg-slate-200 text-slate-600' :
-                        comm.channel === 'whatsapp' ? 'bg-green-50 text-green-600' :
-                        'bg-purple-50 text-purple-600'
-                      }`}>
-                        {comm.channel}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        comm.status === 'read' ? 'bg-green-50 text-green-600' :
-                        comm.status === 'responded' ? 'bg-blue-900/50 text-blue-300' :
-                        'bg-slate-200 text-slate-600'
-                      }`}>
-                        {comm.status}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right text-xs text-muted-foreground">
-                    {typeof comm.timestamp.toLocaleTimeString === 'function' ? comm.timestamp.toLocaleTimeString() : ''}
-                  </div>
-                </div>
-
-                <div className="text-sm text-gray-400 my-3">
-                  {comm.message}
-                </div>
-                {comm.response && (
-                    <div className="text-sm text-slate-600 my-3 p-2 bg-secondary rounded-md">
-                        <span className="font-semibold text-primary">Respuesta:</span> {comm.response}
-                    </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <p className="text-muted-foreground">Gestión de recordatorios y seguimiento de cobros pendientes</p>
         </div>
       </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
+          <div className="text-2xl font-bold text-primary">{actions.length}</div>
+          <div className="text-sm text-primary/70">Cuentas Pendientes</div>
+        </div>
+        <div className="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
+          <div className="text-2xl font-bold text-red-600">{criticos}</div>
+          <div className="text-sm text-red-500">Vencidas</div>
+        </div>
+        <div className="bg-orange-500/10 p-4 rounded-lg border border-orange-500/20">
+          <div className="text-2xl font-bold text-orange-600">{urgentes}</div>
+          <div className="text-sm text-orange-500">Próximas a Vencer</div>
+        </div>
+        <div className="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
+          <div className="text-2xl font-bold text-blue-600">{formatCurrency(totalPendiente, 'Bs.')}</div>
+          <div className="text-sm text-blue-500">Total por Cobrar</div>
+        </div>
+      </div>
+
+      {actions.length === 0 ? (
+        <div className="text-center py-12 text-muted-foreground/50">
+          <p className="text-sm font-bold">Sin cuentas pendientes de cobro</p>
+          <p className="text-xs mt-1">Todas las cuentas por cobrar están al día</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {actions.map((action) => (
+            <div key={action.cxcId} className="border border-border rounded-lg p-4">
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h4 className="font-medium">{action.clientName}</h4>
+                  <p className="text-sm text-muted-foreground">{action.concepto}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`px-2 py-1 rounded-full text-xs border ${getUrgencyColor(action.urgency)}`}>
+                      {getUrgencyLabel(action.urgency)}
+                    </span>
+                    {action.email && <span className="text-xs text-muted-foreground">{action.email}</span>}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold">{formatCurrency(action.montoPendiente, 'Bs.')}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {action.vencimiento ? `Vence: ${new Date(action.vencimiento).toLocaleDateString("es-VE")}` : 'Sin vencimiento'}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleSendReminder(action)}
+                  disabled={sendingId === action.cxcId}
+                >
+                  {sendingId === action.cxcId ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                  Enviar Recordatorio
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

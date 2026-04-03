@@ -109,18 +109,45 @@ export default function PuntoDeVentaPage() {
         setIsCheckoutOpen(true);
     };
 
-    const handleFinalizeTransaction = () => {
+    const handleFinalizeTransaction = async () => {
         setIsProcessing(true);
-        setTimeout(() => {
-            setIsProcessing(false);
-            setIsCheckoutOpen(false);
-            setIsReceiptOpen(true);
-            toast({ 
-                title: "Venta Registrada", 
-                description: "La factura fiscal ha sido generada y sellada.", 
-                action: <CheckCircle className="text-green-500" /> 
+        try {
+            const numeroVenta = `VTA-${Date.now().toString(36).toUpperCase()}`;
+            const res = await fetch("/api/ventas-pos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    numero_venta: numeroVenta,
+                    moneda: currency === "Bs." ? "VES" : "USD",
+                    tasa_bcv: currency === "Bs." ? String(exchangeRate) : null,
+                    metodo_pago: paymentMethod?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '_') || "efectivo",
+                    cajero: activeCashier,
+                    items: cart.map(item => ({
+                        descripcion: item.name,
+                        cantidad: String(item.quantity),
+                        precio_unitario: String(currency === "Bs." ? item.price * exchangeRate : item.price),
+                        descuento_pct: "0",
+                        aplica_iva: true,
+                    })),
+                }),
             });
-        }, 1500);
+            if (res.ok) {
+                setIsCheckoutOpen(false);
+                setIsReceiptOpen(true);
+                toast({
+                    title: "Venta Registrada",
+                    description: `Factura ${numeroVenta} generada y sellada fiscalmente.`,
+                    action: <CheckCircle className="text-green-500" />
+                });
+            } else {
+                const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+                toast({ variant: "destructive", title: "Error", description: err.error || "No se pudo registrar la venta." });
+            }
+        } catch {
+            toast({ variant: "destructive", title: "Error de conexión", description: "No se pudo conectar con el servidor." });
+        } finally {
+            setIsProcessing(false);
+        }
     };
 
     return (
