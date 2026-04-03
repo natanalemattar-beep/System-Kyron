@@ -1936,7 +1936,7 @@ async function createConfiguracionTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user_id ON notificaciones(user_id)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_leida   ON notificaciones(user_id, leida)`);
   await safeQuery(`ALTER TABLE notificaciones DROP CONSTRAINT IF EXISTS notificaciones_tipo_check`);
-  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental'))`);
+  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental','sistema','bienvenida','recordatorio'))`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS demo_requests (

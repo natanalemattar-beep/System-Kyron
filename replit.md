@@ -44,7 +44,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
 - **CSS Utility Classes:** `card-hover-lift`, `shimmer-border`, `glow-text`, `surface-interactive`, `badge-pulse`, `text-balance`, themed `::selection` colors.
 - **Document Authenticity Verification:** AI-powered multi-layer verification using Claude Vision AI.
-- **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard.
+- **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard. All queries aligned with actual DB schema (tasas_bcv uses fecha/tasa_usd_ves columns, notificaciones uses valid tipo values, invoice_reminders uses facturas.user_id).
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, multi-channel delivery, and JSONB metadata.
 - **Alerts:** Expanded Fiscal Alerts monitoring 30+ Venezuelan fiscal obligations and Regulatory Alerts for legislative changes.

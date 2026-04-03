@@ -50,9 +50,9 @@ registerAction('bcv_sync', async () => {
     const usdRate = data?.monitors?.usd?.price;
     if (usdRate && typeof usdRate === 'number') {
       await query(
-        `INSERT INTO tasas_bcv (moneda, tasa, fuente, fecha)
-         VALUES ('USD', $1, 'pydolarve_auto', CURRENT_DATE)
-         ON CONFLICT (moneda, fecha) DO UPDATE SET tasa = $1, fuente = 'pydolarve_auto', updated_at = NOW()`,
+        `INSERT INTO tasas_bcv (fecha, tasa_usd_ves, fuente)
+         VALUES (CURRENT_DATE, $1, 'pydolarve_auto')
+         ON CONFLICT (fecha) DO UPDATE SET tasa_usd_ves = $1, fuente = 'pydolarve_auto'`,
         [usdRate]
       );
       return `Tasa USD/VES actualizada: ${usdRate.toFixed(2)} Bs.`;
@@ -145,9 +145,9 @@ registerAction('invoice_reminders', async () => {
     if (i.cliente_email) {
       try {
         await query(
-          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, leida)
-           SELECT u.id, 'cobranza', 'Factura por cobrar', $1, 'alta', false
-           FROM users u WHERE u.empresa_id = (SELECT empresa_id FROM facturas WHERE id = $2) LIMIT 1`,
+          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, leida, canal)
+           SELECT f.user_id, 'alerta', 'Factura por cobrar', $1, 'alta', false, 'app'
+           FROM facturas f WHERE f.id = $2 LIMIT 1`,
           [`Factura #${i.numero_factura} por ${i.total} - Cliente: ${i.cliente_nombre}`, i.id]
         );
         notified++;
@@ -188,7 +188,7 @@ registerAction('email_automation', async () => {
             const u = row as Record<string, string>;
             await safeQuery(
               `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-               VALUES ($1, 'cobranza', 'Facturas vencidas pendientes', $2, 'alta', 'multi')`,
+               VALUES ($1, 'alerta', 'Facturas vencidas pendientes', $2, 'alta', 'multi')`,
               [u.user_id, `${cnt} factura(s) con fecha de vencimiento pasada requieren atención`]
             );
             if (u.email) {
@@ -251,9 +251,9 @@ registerAction('email_automation', async () => {
       } else if (rule.tipo === 'recordatorio_pago') {
         await safeQuery(
           `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-           SELECT id, 'cobranza', 'Recordatorio de pago', 
+           SELECT id, 'info', 'Recordatorio de pago', 
              'Recuerda mantener tu suscripción al día para acceso ininterrumpido', 'normal', 'app'
-           FROM users WHERE activo = true AND plan_actual != 'gratuito'`
+           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
         );
       }
 
