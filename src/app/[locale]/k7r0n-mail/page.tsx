@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Send, Shield, CheckCircle, XCircle, Loader2, Lock, Plus, Trash2, Sparkles, Eye, Pencil, ArrowRight } from 'lucide-react';
+import { Mail, Send, Shield, CheckCircle, XCircle, Loader2, Lock, Plus, Trash2, Sparkles, Eye, Pencil, ArrowRight, FileEdit } from 'lucide-react';
 
 const TEMPLATES = [
   { id: 'personalizado', label: 'Personalizado' },
@@ -42,12 +42,24 @@ type HistoryItem = {
   time: string;
 };
 
+type Mode = 'ai' | 'manual';
+
+const EMPTY_DRAFT: Draft = {
+  to: [''],
+  nombre: null,
+  subject: '',
+  message: '',
+  sender: 'auto',
+  template: 'personalizado',
+};
+
 export default function KyronMailPage() {
   const { toast } = useToast();
   const [authenticated, setAuthenticated] = useState(false);
   const [masterKey, setMasterKey] = useState('');
   const [failCount, setFailCount] = useState(0);
 
+  const [mode, setMode] = useState<Mode>('ai');
   const [prompt, setPrompt] = useState('');
   const [generating, setGenerating] = useState(false);
   const [draft, setDraft] = useState<Draft | null>(null);
@@ -71,6 +83,13 @@ export default function KyronMailPage() {
         toast({ variant: 'destructive', title: 'Clave incorrecta' });
       }
     }
+  };
+
+  const switchMode = (m: Mode) => {
+    setMode(m);
+    setDraft(null);
+    setEditing(false);
+    setPrompt('');
   };
 
   const handleGenerate = async () => {
@@ -101,12 +120,25 @@ export default function KyronMailPage() {
     }
   };
 
+  const handleManualCreate = () => {
+    setDraft({ ...EMPTY_DRAFT, to: [''] });
+    setEditing(true);
+  };
+
   const handleSend = async () => {
     if (!draft) return;
     const validRecipients = draft.to.filter(r => r.includes('@') && r !== 'pendiente@definir.com');
     if (!validRecipients.length) {
-      toast({ variant: 'destructive', title: 'Falta el correo', description: 'Edita el borrador y agrega un correo válido.' });
-      setEditing(true);
+      toast({ variant: 'destructive', title: 'Falta el correo', description: 'Agrega al menos un correo válido.' });
+      if (!editing) setEditing(true);
+      return;
+    }
+    if (!draft.subject.trim()) {
+      toast({ variant: 'destructive', title: 'Falta el asunto', description: 'Escribe un asunto para el correo.' });
+      return;
+    }
+    if (!draft.message.trim()) {
+      toast({ variant: 'destructive', title: 'Falta el mensaje', description: 'Escribe el contenido del correo.' });
       return;
     }
 
@@ -139,6 +171,7 @@ export default function KyronMailPage() {
         toast({ title: 'Enviado', description: `Correo enviado via ${data.provider}` });
         setDraft(null);
         setPrompt('');
+        setEditing(false);
         promptRef.current?.focus();
       } else {
         toast({ variant: 'destructive', title: 'Error al enviar', description: data.error });
@@ -176,6 +209,71 @@ export default function KyronMailPage() {
     );
   }
 
+  const draftEditor = (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Para</label>
+        {(draft?.to || ['']).map((r, i) => (
+          <div key={i} className="flex gap-2">
+            <Input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              value={r}
+              onChange={e => {
+                const copy = [...(draft?.to || [''])];
+                copy[i] = e.target.value;
+                setDraft(prev => prev ? { ...prev, to: copy } : null);
+              }}
+              className="h-10 rounded-xl text-sm"
+            />
+            {(draft?.to?.length || 0) > 1 && (
+              <Button variant="ghost" size="icon" onClick={() => setDraft(prev => prev ? { ...prev, to: prev.to.filter((_, idx) => idx !== i) } : null)} className="h-10 w-10 text-destructive">
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            )}
+          </div>
+        ))}
+        <Button variant="outline" size="sm" onClick={() => setDraft(prev => prev ? { ...prev, to: [...prev.to, ''] } : null)} className="rounded-lg text-[10px]">
+          <Plus className="mr-1 h-3 w-3" /> Agregar
+        </Button>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre</label>
+          <Input placeholder="Nombre del destinatario" value={draft?.nombre || ''} onChange={e => setDraft(prev => prev ? { ...prev, nombre: e.target.value || null } : null)} className="h-10 rounded-xl text-sm" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Remitente</label>
+          <Select value={draft?.sender || 'auto'} onValueChange={v => setDraft(prev => prev ? { ...prev, sender: v } : null)}>
+            <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {SENDERS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Asunto</label>
+          <Input placeholder="Asunto del correo" value={draft?.subject || ''} onChange={e => setDraft(prev => prev ? { ...prev, subject: e.target.value } : null)} className="h-10 rounded-xl text-sm" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Plantilla</label>
+          <Select value={draft?.template || 'personalizado'} onValueChange={v => setDraft(prev => prev ? { ...prev, template: v } : null)}>
+            <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {TEMPLATES.map(t => <SelectItem key={t.id} value={t.id}>{t.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div className="space-y-1">
+        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Mensaje</label>
+        <Textarea placeholder="Escribe el contenido del correo..." value={draft?.message || ''} onChange={e => setDraft(prev => prev ? { ...prev, message: e.target.value } : null)} rows={8} className="rounded-xl resize-none text-sm" />
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-8 pb-20 px-4 md:px-10 max-w-6xl mx-auto">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
@@ -192,129 +290,125 @@ export default function KyronMailPage() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-5">
-          <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="h-4 w-4 text-amber-500" />
-              <span className="text-xs font-black uppercase tracking-widest text-foreground">Dime qué enviar</span>
-            </div>
-            <Textarea
-              ref={promptRef}
-              placeholder={`Ejemplos:\n• "Mándale un correo a juan@gmail.com diciéndole que su factura está lista"\n• "Envía una bienvenida a maria@empresa.com desde outlook"\n• "Avísale a soporte@cliente.com que su ticket fue resuelto"`}
-              value={prompt}
-              onChange={e => setPrompt(e.target.value)}
-              rows={4}
-              className="rounded-xl resize-none text-sm"
-              onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleGenerate(); }}
-            />
-            <div className="flex items-center justify-between mt-3">
-              <span className="text-[10px] text-muted-foreground">Ctrl+Enter para generar</span>
-              <Button onClick={handleGenerate} disabled={generating || !prompt.trim()} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-6">
-                {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                {generating ? 'Generando...' : 'Generar Correo'}
-              </Button>
-            </div>
-          </Card>
+          <div className="flex gap-2">
+            <Button
+              variant={mode === 'ai' ? 'default' : 'outline'}
+              onClick={() => switchMode('ai')}
+              className="flex-1 h-11 rounded-xl font-bold text-xs uppercase tracking-widest"
+            >
+              <Sparkles className="mr-2 h-4 w-4" /> IA
+            </Button>
+            <Button
+              variant={mode === 'manual' ? 'default' : 'outline'}
+              onClick={() => switchMode('manual')}
+              className="flex-1 h-11 rounded-xl font-bold text-xs uppercase tracking-widest"
+            >
+              <FileEdit className="mr-2 h-4 w-4" /> Manual
+            </Button>
+          </div>
 
-          {draft && (
-            <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Eye className="h-4 w-4 text-primary" />
-                  <span className="text-xs font-black uppercase tracking-widest text-foreground">Borrador</span>
+          {mode === 'ai' && (
+            <>
+              <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl">
+                <div className="flex items-center gap-2 mb-4">
+                  <Sparkles className="h-4 w-4 text-amber-500" />
+                  <span className="text-xs font-black uppercase tracking-widest text-foreground">Dime qué enviar</span>
                 </div>
-                <Button variant="ghost" size="sm" onClick={() => setEditing(!editing)} className="text-xs rounded-lg">
-                  <Pencil className="mr-1 h-3 w-3" /> {editing ? 'Cerrar edición' : 'Editar'}
-                </Button>
-              </div>
+                <Textarea
+                  ref={promptRef}
+                  placeholder={`Ejemplos:\n• "Mándale un correo a juan@gmail.com diciéndole que su factura está lista"\n• "Envía una bienvenida a maria@empresa.com desde outlook"\n• "Avísale a soporte@cliente.com que su ticket fue resuelto"`}
+                  value={prompt}
+                  onChange={e => setPrompt(e.target.value)}
+                  rows={4}
+                  className="rounded-xl resize-none text-sm"
+                  onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleGenerate(); }}
+                />
+                <div className="flex items-center justify-between mt-3">
+                  <span className="text-[10px] text-muted-foreground">Ctrl+Enter para generar</span>
+                  <Button onClick={handleGenerate} disabled={generating || !prompt.trim()} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-6">
+                    {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+                    {generating ? 'Generando...' : 'Generar Correo'}
+                  </Button>
+                </div>
+              </Card>
 
-              {editing ? (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Para</label>
-                    {draft.to.map((r, i) => (
-                      <div key={i} className="flex gap-2">
-                        <Input
-                          type="email"
-                          value={r}
-                          onChange={e => {
-                            const copy = [...draft.to];
-                            copy[i] = e.target.value;
-                            setDraft({ ...draft, to: copy });
-                          }}
-                          className="h-10 rounded-xl text-sm"
-                        />
-                        {draft.to.length > 1 && (
-                          <Button variant="ghost" size="icon" onClick={() => setDraft({ ...draft, to: draft.to.filter((_, idx) => idx !== i) })} className="h-10 w-10 text-destructive">
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                    <Button variant="outline" size="sm" onClick={() => setDraft({ ...draft, to: [...draft.to, ''] })} className="rounded-lg text-[10px]">
-                      <Plus className="mr-1 h-3 w-3" /> Agregar
+              {draft && (
+                <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Eye className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-black uppercase tracking-widest text-foreground">Borrador</span>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => setEditing(!editing)} className="text-xs rounded-lg">
+                      <Pencil className="mr-1 h-3 w-3" /> {editing ? 'Vista previa' : 'Editar'}
                     </Button>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre</label>
-                      <Input value={draft.nombre || ''} onChange={e => setDraft({ ...draft, nombre: e.target.value || null })} className="h-10 rounded-xl text-sm" />
+
+                  {editing ? draftEditor : (
+                    <div className="space-y-3">
+                      <div className="flex flex-wrap gap-2">
+                        {draft.to.map((r, i) => (
+                          <span key={i} className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold">{r}</span>
+                        ))}
+                        {draft.nombre && <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-700 text-xs font-semibold">{draft.nombre}</span>}
+                      </div>
+                      <div className="p-4 rounded-xl bg-muted/30 border border-border/50">
+                        <p className="text-xs font-bold text-foreground mb-1">{draft.subject}</p>
+                        <p className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">{draft.message}</p>
+                      </div>
+                      <div className="flex gap-2 text-[10px] text-muted-foreground">
+                        <span className="px-2 py-0.5 rounded bg-muted/50">{SENDERS.find(s => s.id === draft.sender)?.label || draft.sender}</span>
+                        <span className="px-2 py-0.5 rounded bg-muted/50">{TEMPLATES.find(t => t.id === draft.template)?.label || draft.template}</span>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Remitente</label>
-                      <Select value={draft.sender} onValueChange={v => setDraft({ ...draft, sender: v })}>
-                        <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {SENDERS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                  )}
+
+                  <Button onClick={handleSend} disabled={sending} className="w-full h-12 rounded-xl font-black text-sm uppercase tracking-widest" size="lg">
+                    {sending ? (
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
+                    ) : (
+                      <><Send className="mr-2 h-4 w-4" /> Enviar<ArrowRight className="ml-2 h-4 w-4" /></>
+                    )}
+                  </Button>
+                </Card>
+              )}
+            </>
+          )}
+
+          {mode === 'manual' && (
+            <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4">
+              <div className="flex items-center gap-2 mb-2">
+                <FileEdit className="h-4 w-4 text-primary" />
+                <span className="text-xs font-black uppercase tracking-widest text-foreground">Redactar correo</span>
+              </div>
+
+              {!draft ? (
+                <div className="py-8 text-center">
+                  <div className="mx-auto w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                    <Mail className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Asunto</label>
-                      <Input value={draft.subject} onChange={e => setDraft({ ...draft, subject: e.target.value })} className="h-10 rounded-xl text-sm" />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Plantilla</label>
-                      <Select value={draft.template} onValueChange={v => setDraft({ ...draft, template: v })}>
-                        <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {TEMPLATES.map(t => <SelectItem key={t.id} value={t.id}>{t.label}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Mensaje</label>
-                    <Textarea value={draft.message} onChange={e => setDraft({ ...draft, message: e.target.value })} rows={8} className="rounded-xl resize-none text-sm" />
-                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">Escribe tu correo manualmente con control total.</p>
+                  <Button onClick={handleManualCreate} className="rounded-xl font-bold text-xs uppercase tracking-widest h-10 px-8">
+                    <Plus className="mr-2 h-4 w-4" /> Nuevo correo
+                  </Button>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-2">
-                    {draft.to.map((r, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary text-xs font-semibold">{r}</span>
-                    ))}
-                    {draft.nombre && <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-700 text-xs font-semibold">{draft.nombre}</span>}
+                <>
+                  {draftEditor}
+                  <div className="flex gap-3 pt-2">
+                    <Button variant="outline" onClick={() => { setDraft(null); setEditing(false); }} className="flex-1 h-12 rounded-xl font-bold text-xs uppercase tracking-widest">
+                      Descartar
+                    </Button>
+                    <Button onClick={handleSend} disabled={sending} className="flex-[2] h-12 rounded-xl font-black text-sm uppercase tracking-widest" size="lg">
+                      {sending ? (
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
+                      ) : (
+                        <><Send className="mr-2 h-4 w-4" /> Enviar<ArrowRight className="ml-2 h-4 w-4" /></>
+                      )}
+                    </Button>
                   </div>
-                  <div className="p-4 rounded-xl bg-muted/30 border border-border/50">
-                    <p className="text-xs font-bold text-foreground mb-1">{draft.subject}</p>
-                    <p className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">{draft.message}</p>
-                  </div>
-                  <div className="flex gap-2 text-[10px] text-muted-foreground">
-                    <span className="px-2 py-0.5 rounded bg-muted/50">{SENDERS.find(s => s.id === draft.sender)?.label || draft.sender}</span>
-                    <span className="px-2 py-0.5 rounded bg-muted/50">{TEMPLATES.find(t => t.id === draft.template)?.label || draft.template}</span>
-                  </div>
-                </div>
+                </>
               )}
-
-              <Button onClick={handleSend} disabled={sending} className="w-full h-12 rounded-xl font-black text-sm uppercase tracking-widest" size="lg">
-                {sending ? (
-                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
-                ) : (
-                  <><Send className="mr-2 h-4 w-4" /> Enviar<ArrowRight className="ml-2 h-4 w-4" /></>
-                )}
-              </Button>
             </Card>
           )}
         </div>
