@@ -113,6 +113,7 @@ export default function PermisosPage() {
   const [formData, setFormData] = useState({
     tipo: "", organismo: "", nombre: "", numero: "",
     fechaEmision: "", fechaVencimiento: "", estado: "Vigente",
+    alertarDias: "30", descripcion: "",
   });
 
   const estadoToDb: Record<string, string> = {
@@ -189,7 +190,7 @@ export default function PermisosPage() {
   }, [toast]);
 
   const resetForm = () => {
-    setFormData({ tipo: "", organismo: "", nombre: "", numero: "", fechaEmision: "", fechaVencimiento: "", estado: "Vigente" });
+    setFormData({ tipo: "", organismo: "", nombre: "", numero: "", fechaEmision: "", fechaVencimiento: "", estado: "Vigente", alertarDias: "30", descripcion: "" });
   };
 
   const handleRegistrar = async () => {
@@ -222,11 +223,11 @@ export default function PermisosPage() {
           fecha_emision: formData.fechaEmision || null,
           fecha_vencimiento: formData.fechaVencimiento || null,
           estado: estadoToDb[formData.estado] || "vigente",
-          descripcion: null,
+          descripcion: formData.descripcion.trim() || null,
           responsable: null,
           costo_tramite: "0",
           moneda_costo: "USD",
-          alertar_dias_antes: "30",
+          alertar_dias_antes: formData.alertarDias || "30",
           notas: null,
         }),
       });
@@ -413,21 +414,21 @@ export default function PermisosPage() {
       </Dialog>
 
       <Dialog open={registroOpen} onOpenChange={setRegistroOpen}>
-        <DialogContent className="max-w-2xl rounded-3xl bg-card/95 backdrop-blur-3xl border-border/20 p-0 overflow-hidden">
-          <div className="p-8 border-b border-border/20 bg-primary/5">
+        <DialogContent className="max-w-2xl rounded-3xl bg-card/95 backdrop-blur-3xl border-border/20 p-0 max-h-[90vh] flex flex-col overflow-hidden">
+          <div className="p-6 sm:p-8 border-b border-border/20 bg-primary/5 shrink-0">
             <DialogHeader>
-              <DialogTitle className="text-xl font-black uppercase text-foreground flex items-center gap-3">
+              <DialogTitle className="text-lg sm:text-xl font-black uppercase text-foreground flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-primary/10"><Plus className="h-5 w-5 text-primary" /></div>
-                Registrar Trámite
+                Registrar Nuevo Permiso
               </DialogTitle>
               <DialogDescription className="text-[10px] font-bold uppercase text-foreground/50">
-                Agregue un permiso, licencia o habilitación al expediente
+                Agregar permiso al expediente de la empresa
               </DialogDescription>
             </DialogHeader>
           </div>
 
-          <div className="p-8 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="p-6 sm:p-8 space-y-4 overflow-y-auto flex-1 min-h-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[9px] font-black uppercase text-foreground/60">Tipo</label>
                 <Select value={formData.tipo} onValueChange={v => setFormData(p => ({ ...p, tipo: v }))}>
@@ -462,10 +463,10 @@ export default function PermisosPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-foreground/60">Nombre del permiso / trámite *</label>
+              <label className="text-[9px] font-black uppercase text-foreground/60">Nombre del permiso *</label>
               <Input className="h-11 rounded-xl border-border/30" placeholder="Ej: Licencia de Actividades Económicas" value={formData.nombre} onChange={e => setFormData(p => ({ ...p, nombre: e.target.value }))} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[9px] font-black uppercase text-foreground/60">N° Expediente</label>
                 <Input className="h-11 rounded-xl border-border/30" value={formData.numero} onChange={e => setFormData(p => ({ ...p, numero: e.target.value }))} />
@@ -480,7 +481,7 @@ export default function PermisosPage() {
                 </Select>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[9px] font-black uppercase text-foreground/60">Fecha de Emisión *</label>
                 <Input type="date" className="h-11 rounded-xl border-border/30" value={formData.fechaEmision} onChange={e => setFormData(p => ({ ...p, fechaEmision: e.target.value }))} />
@@ -490,13 +491,26 @@ export default function PermisosPage() {
                 <Input type="date" className="h-11 rounded-xl border-border/30" value={formData.fechaVencimiento} onChange={e => setFormData(p => ({ ...p, fechaVencimiento: e.target.value }))} />
               </div>
             </div>
+            <div className="space-y-2">
+              <label className="text-[9px] font-black uppercase text-foreground/60">Alertar (días antes del vencimiento)</label>
+              <Input type="number" className="h-11 rounded-xl border-border/30" value={formData.alertarDias} onChange={e => setFormData(p => ({ ...p, alertarDias: e.target.value }))} />
+            </div>
+            <div className="space-y-2">
+              <label className="text-[9px] font-black uppercase text-foreground/60">Descripción / Notas</label>
+              <textarea
+                className="w-full min-h-[80px] rounded-xl border border-border/30 bg-transparent px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/30"
+                placeholder="Observaciones adicionales sobre este trámite..."
+                value={formData.descripcion}
+                onChange={e => setFormData(p => ({ ...p, descripcion: e.target.value }))}
+              />
+            </div>
           </div>
 
-          <DialogFooter className="p-6 border-t border-border/20 gap-3">
-            <Button variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-12 px-6 font-black text-[9px] uppercase tracking-widest">
+          <DialogFooter className="p-6 border-t border-border/20 gap-3 shrink-0">
+            <Button type="button" variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-12 px-6 font-black text-[9px] uppercase tracking-widest">
               CANCELAR
             </Button>
-            <Button onClick={handleRegistrar} disabled={loading} className="btn-3d-primary rounded-xl h-12 px-8 font-black text-[9px] uppercase tracking-widest">
+            <Button type="button" onClick={handleRegistrar} disabled={loading} className="btn-3d-primary rounded-xl h-12 px-8 font-black text-[9px] uppercase tracking-widest">
               {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
               {loading ? "GUARDANDO..." : "REGISTRAR"}
             </Button>
