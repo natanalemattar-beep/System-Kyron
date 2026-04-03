@@ -16,7 +16,7 @@ import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, BookOpen, ShieldCheck, Check, Star, Crown, Zap,
     Mail, RefreshCw, Fingerprint, Calculator, FileText, Users, Headphones,
-    TrendingUp, Shield, BarChart3, Lock,
+    TrendingUp, Shield, BarChart3, Lock, Phone, MessageCircle,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from '@/navigation';
@@ -152,6 +152,7 @@ export default function RegisterContabilidadPage() {
     const [verifVerified, setVerifVerified] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [verifDestino, setVerifDestino] = useState('');
+    const [verifMethod, setVerifMethod] = useState<'email' | 'sms' | 'whatsapp' | null>(null);
     const [countdown, setCountdown] = useState(0);
 
     const prefillDoc = searchParams.get('doc') || '';
@@ -191,15 +192,17 @@ export default function RegisterContabilidadPage() {
         }, 1000);
     };
 
-    const sendVerificationCode = async () => {
+    const sendVerificationCode = async (method?: 'email' | 'sms' | 'whatsapp') => {
+        const useMethod = method || verifMethod || 'email';
         setVerifLoading(true);
-        const email = getValues('repEmail');
-        setVerifDestino(email);
+        const destino = useMethod === 'email' ? getValues('repEmail') : getValues('telefono');
+        setVerifDestino(destino);
+        setVerifMethod(useMethod);
         try {
             const res = await fetch('/api/auth/send-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: email, tipo: 'email' }),
+                body: JSON.stringify({ destino, tipo: useMethod }),
             });
             const json = await res.json();
             if (!res.ok) {
@@ -208,7 +211,8 @@ export default function RegisterContabilidadPage() {
             }
             setVerifSent(true);
             startCountdown();
-            toast({ title: 'Código enviado', description: `Revisa tu correo ${email}` });
+            const channelLabel = useMethod === 'email' ? `correo ${destino}` : useMethod === 'sms' ? `SMS al ${destino}` : `WhatsApp al ${destino}`;
+            toast({ title: 'Código enviado', description: `Revisa tu ${channelLabel}` });
         } catch {
             toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
         } finally {
@@ -272,6 +276,7 @@ export default function RegisterContabilidadPage() {
             setVerifSent(false);
             setVerifCode('');
             setVerifVerified(false);
+            setVerifMethod(null);
         }
         setStep(s => s - 1);
     };
@@ -719,8 +724,8 @@ export default function RegisterContabilidadPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-lg" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }}>
                                             <Fingerprint className="h-8 w-8 text-white" />
                                         </div>
-                                        <h2 className="text-xl font-black text-slate-800">Verifica tu correo</h2>
-                                        <p className="text-sm text-slate-500">Enviaremos un código de 6 dígitos para confirmar tu identidad.</p>
+                                        <h2 className="text-xl font-black text-slate-800">Verifica tu identidad</h2>
+                                        <p className="text-sm text-slate-500">Elige cómo recibir tu código de verificación de 6 dígitos.</p>
                                     </div>
 
                                     {verifVerified ? (
@@ -733,49 +738,105 @@ export default function RegisterContabilidadPage() {
                                                 <p className="text-sm text-slate-500 mt-1">{verifDestino}</p>
                                             </div>
                                         </div>
+                                    ) : !verifSent ? (
+                                        <div className="space-y-3">
+                                            <button
+                                                type="button"
+                                                onClick={() => sendVerificationCode('email')}
+                                                disabled={verifLoading}
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center gap-4 group"
+                                            >
+                                                <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' }}>
+                                                    <Mail className="h-5 w-5 text-blue-600" />
+                                                </div>
+                                                <div className="flex-1 text-left">
+                                                    <p className="text-sm font-black text-slate-800">Correo Electrónico</p>
+                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('repEmail')}</p>
+                                                </div>
+                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => sendVerificationCode('sms')}
+                                                disabled={verifLoading}
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-emerald-400 hover:bg-emerald-50 transition-all duration-200 flex items-center gap-4 group"
+                                            >
+                                                <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
+                                                    <Phone className="h-5 w-5 text-emerald-600" />
+                                                </div>
+                                                <div className="flex-1 text-left">
+                                                    <p className="text-sm font-black text-slate-800">SMS</p>
+                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
+                                                </div>
+                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => sendVerificationCode('whatsapp')}
+                                                disabled={verifLoading}
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-green-500 hover:bg-green-50 transition-all duration-200 flex items-center gap-4 group"
+                                            >
+                                                <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #bbf7d0, #86efac)' }}>
+                                                    <MessageCircle className="h-5 w-5 text-green-700" />
+                                                </div>
+                                                <div className="flex-1 text-left">
+                                                    <p className="text-sm font-black text-slate-800">WhatsApp</p>
+                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
+                                                </div>
+                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-green-600 transition-colors" />
+                                            </button>
+
+                                            {verifLoading && (
+                                                <div className="flex items-center justify-center gap-2 py-2">
+                                                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                                                    <p className="text-xs text-slate-500 font-bold">Enviando código...</p>
+                                                </div>
+                                            )}
+                                        </div>
                                     ) : (
                                         <div className="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="p-2.5 rounded-xl" style={{ background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' }}>
-                                                    <Mail className="h-5 w-5 text-blue-600" />
+                                                <div className="p-2.5 rounded-xl" style={{ background: verifMethod === 'email' ? 'linear-gradient(135deg, #dbeafe, #bfdbfe)' : 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
+                                                    {verifMethod === 'email' ? <Mail className="h-5 w-5 text-blue-600" /> : verifMethod === 'whatsapp' ? <MessageCircle className="h-5 w-5 text-green-700" /> : <Phone className="h-5 w-5 text-emerald-600" />}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-700">Correo de destino</p>
-                                                    <p className="text-sm text-slate-500">{getValues('repEmail')}</p>
+                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-700">
+                                                        {verifMethod === 'email' ? 'Código enviado por correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
+                                                    </p>
+                                                    <p className="text-sm text-slate-500">{verifDestino}</p>
                                                 </div>
+                                                <button type="button" onClick={() => { setVerifSent(false); setVerifCode(''); setVerifMethod(null); }} className="text-xs font-bold text-slate-400 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-white transition-colors">Cambiar</button>
                                             </div>
 
-                                            {!verifSent ? (
-                                                <Button type="button" className="w-full h-12 rounded-xl font-bold text-white shadow-md" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }} onClick={sendVerificationCode} disabled={verifLoading}>
-                                                    {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</> : <><Mail className="mr-2 h-4 w-4" />Enviar Código de Verificación</>}
-                                                </Button>
-                                            ) : (
-                                                <div className="space-y-4">
-                                                    <div className="flex items-center justify-center gap-2 py-1">
-                                                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                                        <p className="text-xs text-emerald-600 font-black uppercase tracking-widest">Código enviado a tu correo</p>
-                                                    </div>
-                                                    <Input
-                                                        placeholder="000000"
-                                                        maxLength={6}
-                                                        value={verifCode}
-                                                        onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                        className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white border-2 border-slate-200 focus:border-blue-400 text-slate-800 shadow-sm"
-                                                    />
-                                                    <Button type="button" className="w-full h-12 rounded-xl font-bold text-white shadow-md" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }} onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
-                                                        {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>}
-                                                    </Button>
-                                                    <div className="text-center">
-                                                        {countdown > 0 ? (
-                                                            <p className="text-xs text-slate-500">Reenviar en <span className="font-bold text-blue-600">{countdown}s</span></p>
-                                                        ) : (
-                                                            <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-blue-600 font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
-                                                                <RefreshCw className="h-3 w-3" /> Reenviar código
-                                                            </button>
-                                                        )}
-                                                    </div>
+                                            <div className="space-y-4">
+                                                <div className="flex items-center justify-center gap-2 py-1">
+                                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                                    <p className="text-xs text-emerald-600 font-black uppercase tracking-widest">
+                                                        {verifMethod === 'email' ? 'Código enviado a tu correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
+                                                    </p>
                                                 </div>
-                                            )}
+                                                <Input
+                                                    placeholder="000000"
+                                                    maxLength={6}
+                                                    value={verifCode}
+                                                    onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                                    className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white border-2 border-slate-200 focus:border-blue-400 text-slate-800 shadow-sm"
+                                                />
+                                                <Button type="button" className="w-full h-12 rounded-xl font-bold text-white shadow-md" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }} onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
+                                                    {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>}
+                                                </Button>
+                                                <div className="text-center">
+                                                    {countdown > 0 ? (
+                                                        <p className="text-xs text-slate-500">Reenviar en <span className="font-bold text-blue-600">{countdown}s</span></p>
+                                                    ) : (
+                                                        <button type="button" onClick={() => sendVerificationCode()} disabled={verifLoading} className="text-xs text-blue-600 font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
+                                                            <RefreshCw className="h-3 w-3" /> Reenviar código
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
