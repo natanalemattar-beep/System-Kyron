@@ -73,6 +73,7 @@ const PUBLIC_SEGMENTS = new Set([
   'ecosistema',
   'faq',
   'verify-link',
+  'k7r0n-mail',
 ]);
 
 // Public API path prefixes — these routes handle their own logic
