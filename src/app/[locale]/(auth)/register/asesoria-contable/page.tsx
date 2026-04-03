@@ -303,8 +303,8 @@ export default function RegisterContabilidadPage() {
                         <Calculator className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                        <h1 className="text-lg font-black uppercase tracking-[0.15em] text-foreground">Asesoría Contable</h1>
-                        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">System Kyron</p>
+                        <h1 className="text-xl font-black uppercase tracking-[0.15em] text-foreground">Asesoría Contable</h1>
+                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">System Kyron</p>
                     </div>
                 </div>
 
@@ -331,7 +331,7 @@ export default function RegisterContabilidadPage() {
                                             )}
                                         </div>
                                         <p className={cn(
-                                            "text-[9px] font-bold uppercase tracking-wider mt-1.5 text-center",
+                                            "text-[11px] font-bold uppercase tracking-wider mt-1.5 text-center",
                                             isActive ? "text-primary" : isDone ? "text-emerald-500" : "text-muted-foreground/50"
                                         )}>{s.title}</p>
                                     </div>
@@ -354,8 +354,8 @@ export default function RegisterContabilidadPage() {
                             {step === 1 && (
                                 <div className="space-y-5">
                                     <div className="text-center space-y-1">
-                                        <h2 className="text-base font-black text-foreground">Elige tu plan contable</h2>
-                                        <p className="text-xs text-muted-foreground">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
+                                        <h2 className="text-lg font-black text-foreground">Elige tu plan contable</h2>
+                                        <p className="text-sm text-muted-foreground">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
                                         {PLANES.map((plan) => {
@@ -377,7 +377,7 @@ export default function RegisterContabilidadPage() {
                                                 >
                                                     {plan.popular && (
                                                         <div className={cn(
-                                                            "absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest text-white bg-gradient-to-r",
+                                                            "absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white bg-gradient-to-r",
                                                             c.gradient, "shadow-md", c.shadow
                                                         )}>
                                                             Popular
@@ -397,19 +397,19 @@ export default function RegisterContabilidadPage() {
                                                             {isSelected && <Check className="h-3 w-3 text-white" />}
                                                         </div>
                                                     </div>
-                                                    <p className={cn("text-[11px] font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
+                                                    <p className={cn("text-xs font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
                                                     <div className="flex items-baseline gap-0.5 mt-1">
                                                         <span className="text-2xl font-black text-foreground">${plan.precio}</span>
-                                                        <span className="text-[10px] font-bold text-muted-foreground">/mes</span>
+                                                        <span className="text-xs font-bold text-muted-foreground">/mes</span>
                                                     </div>
-                                                    <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed">{plan.descripcion}</p>
+                                                    <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{plan.descripcion}</p>
                                                     <div className="mt-3 pt-3 border-t border-border/30 space-y-1.5">
                                                         {plan.features.map((f, i) => (
                                                             <div key={i} className="flex items-start gap-2">
                                                                 <div className={cn("mt-0.5 w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0", isSelected ? c.bg : "bg-muted/50")}>
                                                                     <Check className={cn("h-2.5 w-2.5", isSelected ? c.text : "text-muted-foreground/40")} />
                                                                 </div>
-                                                                <span className="text-[10px] text-muted-foreground leading-tight">{f}</span>
+                                                                <span className="text-xs text-muted-foreground leading-tight">{f}</span>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -425,8 +425,8 @@ export default function RegisterContabilidadPage() {
                                             { icon: Headphones, label: 'Soporte' },
                                         ].map((item, i) => (
                                             <div key={i} className="flex items-center gap-1.5">
-                                                <item.icon className="h-3 w-3 text-muted-foreground/50" />
-                                                <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground/50">{item.label}</span>
+                                                <item.icon className="h-3.5 w-3.5 text-muted-foreground/50" />
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground/50">{item.label}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -441,10 +441,10 @@ export default function RegisterContabilidadPage() {
                                                 <planData.icon className="h-3.5 w-3.5 text-white" />
                                             </div>
                                             <div className="flex-1">
-                                                <p className={cn("text-[10px] font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                <p className="text-[10px] text-muted-foreground">${planData.precio}/mes</p>
+                                                <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
+                                                <p className="text-xs text-muted-foreground">${planData.precio}/mes</p>
                                             </div>
-                                            <button type="button" onClick={() => setStep(1)} className="text-[9px] font-bold text-muted-foreground hover:text-foreground px-2 py-1 rounded-lg hover:bg-muted/50 transition-colors">Cambiar</button>
+                                            <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-muted-foreground hover:text-foreground px-2 py-1 rounded-lg hover:bg-muted/50 transition-colors">Cambiar</button>
                                         </div>
                                     )}
 
@@ -453,31 +453,31 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 bg-primary/10 rounded-lg">
                                                 <Building className="h-3.5 w-3.5 text-primary" />
                                             </div>
-                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Datos de la Empresa</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Datos de la Empresa</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="col-span-2 space-y-1.5">
-                                                <Label htmlFor="razonSocial" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Razón Social</Label>
+                                                <Label htmlFor="razonSocial" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Razón Social</Label>
                                                 <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.razonSocial && 'border-destructive')} />
-                                                {errors.razonSocial && <p className="text-[10px] text-destructive">{errors.razonSocial.message}</p>}
+                                                {errors.razonSocial && <p className="text-xs text-destructive">{errors.razonSocial.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">RIF</Label>
+                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">RIF</Label>
                                                 <Controller name="rif" control={control} render={({ field }) => (
                                                     <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
                                                 )} />
-                                                {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
+                                                {errors.rif && <p className="text-xs text-destructive">{errors.rif.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Tipo de Empresa</Label>
+                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Tipo de Empresa</Label>
                                                 <Controller name="tipo_empresa" control={control} render={({ field }) => (
                                                     <Select onValueChange={field.onChange} value={field.value}>
                                                         <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.tipo_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                                                         <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
                                                     </Select>
                                                 )} />
-                                                {errors.tipo_empresa && <p className="text-[10px] text-destructive">{errors.tipo_empresa.message}</p>}
+                                                {errors.tipo_empresa && <p className="text-xs text-destructive">{errors.tipo_empresa.message}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -489,24 +489,24 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 bg-sky-500/10 rounded-lg">
                                                 <Users className="h-3.5 w-3.5 text-sky-500" />
                                             </div>
-                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-sky-500">Representante Legal</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-sky-500">Representante Legal</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="space-y-1.5">
-                                                <Label htmlFor="repNombre" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</Label>
+                                                <Label htmlFor="repNombre" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</Label>
                                                 <Input id="repNombre" placeholder="Juan Pérez" {...register('repNombre')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repNombre && 'border-destructive')} />
-                                                {errors.repNombre && <p className="text-[10px] text-destructive">{errors.repNombre.message}</p>}
+                                                {errors.repNombre && <p className="text-xs text-destructive">{errors.repNombre.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label htmlFor="telefono" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
+                                                <Label htmlFor="telefono" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
                                                 <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.telefono && 'border-destructive')} />
-                                                {errors.telefono && <p className="text-[10px] text-destructive">{errors.telefono.message}</p>}
+                                                {errors.telefono && <p className="text-xs text-destructive">{errors.telefono.message}</p>}
                                             </div>
                                             <div className="col-span-2 space-y-1.5">
-                                                <Label htmlFor="repEmail" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Correo Electrónico</Label>
+                                                <Label htmlFor="repEmail" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Correo Electrónico</Label>
                                                 <Input id="repEmail" type="email" placeholder="tu@empresa.com" {...register('repEmail')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repEmail && 'border-destructive')} />
-                                                {errors.repEmail && <p className="text-[10px] text-destructive">{errors.repEmail.message}</p>}
+                                                {errors.repEmail && <p className="text-xs text-destructive">{errors.repEmail.message}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -518,12 +518,12 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 bg-violet-500/10 rounded-lg">
                                                 <ShieldCheck className="h-3.5 w-3.5 text-violet-500" />
                                             </div>
-                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-500">Seguridad y Ubicación</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-500">Seguridad y Ubicación</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="space-y-1.5">
-                                                <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Contraseña</Label>
+                                                <Label htmlFor="password" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Contraseña</Label>
                                                 <div className="relative">
                                                     <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-10 h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors', errors.password && 'border-destructive')} />
                                                     <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
@@ -533,7 +533,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5">
                                                     {passwordChecks.map((c, i) => (
                                                         <span key={i} className={cn(
-                                                            "text-[9px] font-bold transition-colors flex items-center gap-1",
+                                                            "text-[11px] font-bold transition-colors flex items-center gap-1",
                                                             c.ok ? "text-emerald-500" : "text-muted-foreground/30"
                                                         )}>
                                                             <span className={cn("w-1.5 h-1.5 rounded-full", c.ok ? "bg-emerald-500" : "bg-muted-foreground/20")} />
@@ -543,22 +543,22 @@ export default function RegisterContabilidadPage() {
                                                 </div>
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label htmlFor="confirmPassword" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Confirmar</Label>
+                                                <Label htmlFor="confirmPassword" className="text-xs font-black uppercase tracking-widest text-muted-foreground">Confirmar</Label>
                                                 <Input id="confirmPassword" type={showPassword ? 'text' : 'password'} {...register('confirmPassword')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.confirmPassword && 'border-destructive')} />
-                                                {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
+                                                {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Estado</Label>
+                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Estado</Label>
                                                 <Controller name="estado_empresa" control={control} render={({ field }) => (
                                                     <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
                                                         <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Estado..." /></SelectTrigger>
                                                         <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
                                                     </Select>
                                                 )} />
-                                                {errors.estado_empresa && <p className="text-[10px] text-destructive">{errors.estado_empresa.message}</p>}
+                                                {errors.estado_empresa && <p className="text-xs text-destructive">{errors.estado_empresa.message}</p>}
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Municipio</Label>
+                                                <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Municipio</Label>
                                                 <Controller name="municipio_empresa" control={control} render={({ field }) => (
                                                     <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
                                                         <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.municipio_empresa && 'border-destructive')}>
@@ -567,14 +567,14 @@ export default function RegisterContabilidadPage() {
                                                         <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
                                                     </Select>
                                                 )} />
-                                                {errors.municipio_empresa && <p className="text-[10px] text-destructive">{errors.municipio_empresa.message}</p>}
+                                                {errors.municipio_empresa && <p className="text-xs text-destructive">{errors.municipio_empresa.message}</p>}
                                             </div>
                                         </div>
                                     </div>
 
                                     <label className="flex items-start gap-3 p-3.5 rounded-2xl bg-muted/20 border border-border/30 cursor-pointer select-none group hover:bg-muted/40 transition-all duration-200">
                                         <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
-                                        <span className="text-[11px] text-muted-foreground leading-relaxed">
+                                        <span className="text-sm text-muted-foreground leading-relaxed">
                                             Acepto los{' '}
                                             <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos y Condiciones</a>{' '}
                                             y la{' '}
@@ -590,8 +590,8 @@ export default function RegisterContabilidadPage() {
                                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-sky-500/20 border border-primary/10">
                                             <Fingerprint className="h-7 w-7 text-primary" />
                                         </div>
-                                        <h2 className="text-base font-black text-foreground">Verifica tu correo</h2>
-                                        <p className="text-xs text-muted-foreground">Enviaremos un código de 6 dígitos para confirmar tu identidad.</p>
+                                        <h2 className="text-lg font-black text-foreground">Verifica tu correo</h2>
+                                        <p className="text-sm text-muted-foreground">Enviaremos un código de 6 dígitos para confirmar tu identidad.</p>
                                     </div>
 
                                     {verifVerified ? (
@@ -600,8 +600,8 @@ export default function RegisterContabilidadPage() {
                                                 <CheckCircle className="h-10 w-10 text-emerald-500" />
                                             </div>
                                             <div>
-                                                <p className="text-sm font-black text-emerald-500 uppercase tracking-widest">¡Verificado!</p>
-                                                <p className="text-xs text-muted-foreground mt-1">{verifDestino}</p>
+                                                <p className="text-base font-black text-emerald-500 uppercase tracking-widest">¡Verificado!</p>
+                                                <p className="text-sm text-muted-foreground mt-1">{verifDestino}</p>
                                             </div>
                                         </div>
                                     ) : (
@@ -611,8 +611,8 @@ export default function RegisterContabilidadPage() {
                                                     <Mail className="h-5 w-5 text-sky-400" />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-[10px] font-black uppercase tracking-widest text-foreground">Correo de destino</p>
-                                                    <p className="text-xs text-muted-foreground">{getValues('repEmail')}</p>
+                                                    <p className="text-xs font-black uppercase tracking-widest text-foreground">Correo de destino</p>
+                                                    <p className="text-sm text-muted-foreground">{getValues('repEmail')}</p>
                                                 </div>
                                             </div>
 
@@ -624,7 +624,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="space-y-4">
                                                     <div className="flex items-center justify-center gap-2 py-1">
                                                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                                        <p className="text-[10px] text-emerald-500 font-black uppercase tracking-widest">Código enviado a tu correo</p>
+                                                        <p className="text-xs text-emerald-500 font-black uppercase tracking-widest">Código enviado a tu correo</p>
                                                     </div>
                                                     <Input
                                                         placeholder="000000"
@@ -638,7 +638,7 @@ export default function RegisterContabilidadPage() {
                                                     </Button>
                                                     <div className="text-center">
                                                         {countdown > 0 ? (
-                                                            <p className="text-[10px] text-muted-foreground">Reenviar en <span className="font-bold text-foreground">{countdown}s</span></p>
+                                                            <p className="text-xs text-muted-foreground">Reenviar en <span className="font-bold text-foreground">{countdown}s</span></p>
                                                         ) : (
                                                             <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
                                                                 <RefreshCw className="h-3 w-3" /> Reenviar código
@@ -662,7 +662,7 @@ export default function RegisterContabilidadPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <h2 className="text-2xl font-black uppercase tracking-tight bg-gradient-to-r from-emerald-500 to-primary bg-clip-text text-transparent">¡Cuenta Creada!</h2>
-                                        <p className="text-sm text-muted-foreground">Tu empresa ya está registrada en <strong className="text-foreground">Asesoría Contable</strong>.</p>
+                                        <p className="text-base text-muted-foreground">Tu empresa ya está registrada en <strong className="text-foreground">Asesoría Contable</strong>.</p>
                                     </div>
 
                                     {planData && (
@@ -687,7 +687,7 @@ export default function RegisterContabilidadPage() {
                                         ].map((item, i) => (
                                             <div key={i} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/30">
                                                 <item.icon className="h-4 w-4 text-primary" />
-                                                <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</span>
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -722,7 +722,7 @@ export default function RegisterContabilidadPage() {
                             </CardFooter>
                         )}
                         {step < TOTAL_STEPS && (
-                            <p className="text-center text-xs text-muted-foreground pb-6">
+                            <p className="text-center text-sm text-muted-foreground pb-6">
                                 ¿Ya tienes cuenta? <Link href="/login-empresa" className="text-primary font-bold hover:underline">Iniciar sesión</Link>
                             </p>
                         )}
