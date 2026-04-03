@@ -93,9 +93,9 @@ function renderMarkdown(text: string) {
     if (listItems.length > 0 && listType) {
       const Tag = listType;
       elements.push(
-        <Tag key={`list-${elements.length}`} className={cn("my-1.5 space-y-1", listType === 'ul' ? "list-disc" : "list-decimal", "pl-5")}>
+        <Tag key={`list-${elements.length}`} className={cn("my-2 space-y-1.5", listType === 'ul' ? "list-disc" : "list-decimal", "pl-6")}>
           {listItems.map((item, i) => (
-            <li key={i} className="text-[15px] leading-relaxed">{renderInline(item)}</li>
+            <li key={i} className="text-base leading-relaxed">{renderInline(item)}</li>
           ))}
         </Tag>
       );
@@ -145,13 +145,13 @@ function renderMarkdown(text: string) {
 
     if (trimmed.startsWith('### ')) {
       flushList();
-      elements.push(<h4 key={i} className="text-base font-bold text-foreground mt-3 mb-1.5">{renderInline(trimmed.slice(4))}</h4>);
+      elements.push(<h4 key={i} className="text-lg font-bold text-foreground mt-3 mb-1.5">{renderInline(trimmed.slice(4))}</h4>);
     } else if (trimmed.startsWith('## ')) {
       flushList();
-      elements.push(<h3 key={i} className="text-lg font-bold text-foreground mt-4 mb-2">{renderInline(trimmed.slice(3))}</h3>);
+      elements.push(<h3 key={i} className="text-xl font-bold text-foreground mt-4 mb-2">{renderInline(trimmed.slice(3))}</h3>);
     } else if (trimmed.startsWith('# ')) {
       flushList();
-      elements.push(<h2 key={i} className="text-xl font-bold text-foreground mt-4 mb-2">{renderInline(trimmed.slice(2))}</h2>);
+      elements.push(<h2 key={i} className="text-2xl font-bold text-foreground mt-5 mb-2">{renderInline(trimmed.slice(2))}</h2>);
     } else if (/^[-*]\s/.test(trimmed)) {
       if (listType !== 'ul') { flushList(); listType = 'ul'; }
       listItems.push(trimmed.replace(/^[-*]\s+/, ''));
@@ -165,7 +165,7 @@ function renderMarkdown(text: string) {
       }
     } else {
       flushList();
-      elements.push(<p key={i} className="text-[15px] leading-relaxed text-foreground/80">{renderInline(trimmed)}</p>);
+      elements.push(<p key={i} className="text-base leading-relaxed text-foreground/80">{renderInline(trimmed)}</p>);
     }
   }
   flushList();
@@ -339,14 +339,14 @@ export default function KyronChatPage() {
                 <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-emerald-500 rounded-full border-2 border-background" />
               </div>
               <div>
-                <h1 className="text-base font-bold text-foreground">{identity.role}</h1>
-                <p className="text-xs font-semibold text-muted-foreground">Asistente IA · Claude Sonnet · En línea</p>
+                <h1 className="text-lg font-bold text-foreground">{identity.role}</h1>
+                <p className="text-sm font-semibold text-muted-foreground">Asistente IA · Claude Sonnet · En línea</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {hasMessages && (
-                <Button variant="outline" size="sm" onClick={clearChat} className="h-8 px-3 text-[10px] font-bold uppercase tracking-wider gap-1.5 rounded-lg">
-                  <Trash2 className="h-3 w-3" /> Limpiar
+                <Button variant="outline" size="sm" onClick={clearChat} className="h-9 px-4 text-sm font-bold uppercase tracking-wider gap-1.5 rounded-lg">
+                  <Trash2 className="h-4 w-4" /> Limpiar
                 </Button>
               )}
             </div>
@@ -367,7 +367,7 @@ export default function KyronChatPage() {
                     }
                   }}
                   className={cn(
-                    "shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider transition-all",
+                    "shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-bold uppercase tracking-wider transition-all",
                     active
                       ? "border-primary/30 bg-primary/10 text-primary"
                       : "border-border/40 bg-muted/20 text-muted-foreground hover:bg-muted/40 hover:text-foreground"
@@ -388,16 +388,16 @@ export default function KyronChatPage() {
               <div className={cn("p-5 rounded-2xl bg-gradient-to-br mb-5 shadow-lg", identity.color)}>
                 <IconComponent className="h-12 w-12 text-white" />
               </div>
-              <h2 className="text-xl font-bold text-foreground mb-1">{identity.role}</h2>
-              <p className="text-sm text-muted-foreground text-center mb-8 leading-relaxed max-w-sm">
+              <h2 className="text-2xl font-bold text-foreground mb-1">{identity.role}</h2>
+              <p className="text-base text-muted-foreground text-center mb-8 leading-relaxed max-w-sm">
                 {GREETINGS[selectedIdentity]}
               </p>
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {prompts.map((prompt, i) => (
                   <button
                     key={i}
                     onClick={() => handleSend(prompt)}
-                    className="text-left px-4 py-3 rounded-xl border border-border/50 bg-card/80 hover:bg-primary/5 hover:border-primary/20 transition-all text-sm font-medium text-foreground/70 hover:text-foreground leading-relaxed"
+                    className="text-left px-4 py-3.5 rounded-xl border border-border/50 bg-card/80 hover:bg-primary/5 hover:border-primary/20 transition-all text-base font-medium text-foreground/70 hover:text-foreground leading-relaxed"
                   >
                     {prompt}
                   </button>
@@ -422,7 +422,7 @@ export default function KyronChatPage() {
                       : 'bg-card border border-border/50 rounded-bl-md shadow-sm'
                   )}>
                     {msg.role === 'user' ? (
-                      <p className="text-[15px] font-medium leading-relaxed">{msg.content}</p>
+                      <p className="text-base font-medium leading-relaxed">{msg.content}</p>
                     ) : (
                       renderMarkdown(msg.content)
                     )}
@@ -472,8 +472,8 @@ export default function KyronChatPage() {
         <div className="shrink-0 border-t border-border/40 bg-card/50 backdrop-blur-sm px-4 sm:px-6 py-3">
           {isStreaming && (
             <div className="flex justify-center mb-2">
-              <Button variant="outline" size="sm" onClick={stopStreaming} className="h-8 px-3 text-xs font-bold uppercase tracking-wider gap-1.5 rounded-lg">
-                <StopCircle className="h-3.5 w-3.5" /> Detener respuesta
+              <Button variant="outline" size="sm" onClick={stopStreaming} className="h-9 px-4 text-sm font-bold uppercase tracking-wider gap-1.5 rounded-lg">
+                <StopCircle className="h-4 w-4" /> Detener respuesta
               </Button>
             </div>
           )}
@@ -501,7 +501,7 @@ export default function KyronChatPage() {
               <Send className="h-4 w-4" />
             </Button>
           </form>
-          <p className="text-xs text-muted-foreground/40 text-center mt-2 font-medium">
+          <p className="text-sm text-muted-foreground/40 text-center mt-2 font-medium">
             Kyron puede cometer errores. Verifica la información importante.
           </p>
         </div>
