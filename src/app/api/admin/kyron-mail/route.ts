@@ -5,7 +5,7 @@ import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 
 export const dynamic = 'force-dynamic';
 
-const MASTER_KEY = 'KYRON-2026-MASTER';
+const MASTER_KEY = 'Carlos0507..';
 
 const TEMPLATES: Record<string, { subject: string; title: string; footer: string }> = {
   bienvenida: {
