@@ -61,8 +61,13 @@ Este portal es GRATUITO para personas naturales. Ayudas con:
 🌱 SOSTENIBILIDAD:
 - Tarjeta de Reciclaje: Eco-Créditos por reciclaje
 
-📬 NOTIFICACIONES:
-- Centro de avisos: email, WhatsApp, SMS, in-app
+📬 NOTIFICACIONES Y COMUNICACIONES:
+- Centro de avisos en /notificaciones: email, WhatsApp, SMS, in-app
+- Los códigos de verificación (login, registro, 2FA) se envían desde noreplysystemkyron@gmail.com
+- Las alertas del sistema se envían desde alertas_systemkyron@hotmail.com
+- Si un canal falla, el sistema cambia automáticamente al canal de respaldo
+- En /configuracion puedes activar/desactivar notificaciones por email y configurar un email alternativo para alertas
+- WhatsApp y SMS disponibles vía Twilio para notificaciones urgentes
 
 NAVEGACIÓN DEL PORTAL:
 - /dashboard → Panel personal principal
