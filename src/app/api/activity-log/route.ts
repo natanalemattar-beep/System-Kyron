@@ -26,10 +26,10 @@ export async function GET(req: NextRequest) {
     params.push(limit);
 
     const logs = await query(
-      `SELECT id, evento, categoria, descripcion, entidad_tipo, entidad_id, metadata, ip, creado_en
+      `SELECT id, evento, categoria, descripcion, entidad_tipo, entidad_id, metadata, ip, created_at AS creado_en
        FROM activity_log
        WHERE ${conditions.join(' AND ')}
-       ORDER BY creado_en DESC
+       ORDER BY created_at DESC
        LIMIT $${i}`,
       params
     );

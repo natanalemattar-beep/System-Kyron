@@ -52,6 +52,8 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Subscription Plans:** Four plans with progressive resource limits.
 - **SENIAT Compliant Billing:** Facturación Homologada SENIAT (Providencia 0071) with fiscal hashes and immutability.
 - **Dashboard Widgets:** Company dashboard includes Tax Calendar, Accounts Aging, and Fiscal Status cards. Natural person dashboard includes Document Expiry Alerts and Eco-Credits chart. Both feature an Activity Timeline.
+- **Activity Log Column Mapping:** The `activity_log` DB table uses `created_at` but the API returns it aliased as `creado_en` for all frontend consumers.
+- **Chart THEMES Fix:** `src/components/ui/chart.tsx` THEMES object uses `{ light: "", dark: ".dark" }` — both key and value must be explicit to avoid Turbopack SSR bundling errors.
 - **Financial Toolkit:** Floating calculator panel with USD↔VES converter (live BCV rate), IVA calculator (16%), IGTF calculator (3%), and ISLR retention calculator.
 - **Live BCV Rate:** Always-visible exchange rate badge in the app header, auto-refreshing.
 - **Multi-Currency Display:** `CurrencyContext` provides VES/USD/EUR display conversion across billing and dashboard pages, with amounts stored in VES.

@@ -59,7 +59,7 @@ interface DashboardData {
   chartMensual: Array<{ mes: string; ingresos: number; gastos: number }>;
 }
 
-interface ActivityLog { id: number; evento: string; categoria: string; descripcion: string | null; created_at: string; }
+interface ActivityLog { id: number; evento: string; categoria: string; descripcion: string | null; creado_en: string; }
 interface CierrePeriodo { id?: number; periodo: string; ingresos: number; gastos: number; utilidad: number; facturas_emitidas: number; facturas_cobradas: number; }
 
 function getGreeting(hour: number): { text: string; icon: typeof Sun } {
@@ -771,7 +771,7 @@ export default function DashboardEmpresaPage() {
                     <p className="text-[10px] font-medium truncate">{log.evento}</p>
                     {log.descripcion && <p className="text-[9px] text-muted-foreground/50 mt-0.5 line-clamp-1">{log.descripcion}</p>}
                   </div>
-                  <p className="text-[9px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.created_at).toLocaleString("es-VE", { dateStyle: "short", timeStyle: "short" })}</p>
+                  <p className="text-[9px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.creado_en).toLocaleString("es-VE", { dateStyle: "short", timeStyle: "short" })}</p>
                 </div>
               ))
             )}
