@@ -1,20 +1,15 @@
 import { GoogleGenAI } from '@google/genai';
 
-let _client: GoogleGenAI | null = null;
-
 export function getGeminiClient(): GoogleGenAI {
-  if (_client) return _client;
-
   const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('Gemini API key not configured');
 
-  _client = new GoogleGenAI({
+  return new GoogleGenAI({
     apiKey,
     httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
       ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL, apiVersion: '' }
       : undefined,
   });
-  return _client;
 }
 
 export const GEMINI_MODEL = 'gemini-2.5-flash';
