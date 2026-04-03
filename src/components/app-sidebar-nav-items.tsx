@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan, Plane } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -99,6 +99,7 @@ export const asesoriaContableNavGroups = [
         { href: "/contabilidad/rrhh/certificados-laborales", label: "Cert. Laborales", icon: FileSignature, section: "Nómina" },
         { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Scale, section: "Nómina" },
         { href: "/libros-laborales", label: "Libros Laborales", icon: BookOpen, section: "Nómina" },
+        { href: "/viaticos", label: "Viáticos y Gastos", icon: Plane, badge: "NUEVO", section: "Nómina" },
         { href: "/reclutamiento", label: "Selección e Inducción", icon: UserPlus, section: "Desarrollo" },
         { href: "/salud-seguridad", label: "Salud / LOPCYMAT", icon: Stethoscope, section: "Desarrollo" },
         { href: "/clima-organizacional", label: "Clima y Liderazgo", icon: BrainCircuit, section: "Desarrollo" },

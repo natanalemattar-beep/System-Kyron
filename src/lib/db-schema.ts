@@ -19,6 +19,7 @@ export async function initializeDatabase(): Promise<void> {
     await createRRHHExtendedTables();
     await createRRHHLibrosLaboralesTables();
     await createRRHHBienestarTables();
+    await createViaticosTable();
     await createLegalTables();
     await createTelecomTables();
     await createTelecomExtendedTables();
@@ -581,6 +582,52 @@ async function createRRHHTables() {
       created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3B-PRE. MÓDULO RRHH — VIÁTICOS Y GASTOS DE VIAJE
+// ─────────────────────────────────────────────────────────────────────────────
+async function createViaticosTable() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS viaticos (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id     INT REFERENCES empleados(id) ON DELETE SET NULL,
+      tipo_viaje      TEXT NOT NULL
+                      CHECK (tipo_viaje IN ('internacional','nacional')),
+      origen          TEXT NOT NULL DEFAULT 'empresa',
+      destino_pais    TEXT,
+      destino_ciudad  TEXT NOT NULL,
+      motivo          TEXT NOT NULL,
+      fecha_salida    DATE NOT NULL,
+      fecha_retorno   DATE NOT NULL,
+      dias            INT NOT NULL DEFAULT 1,
+      categoria       TEXT NOT NULL
+                      CHECK (categoria IN ('pasaje_aereo','pasaje_terrestre','hotel','restaurante','transporte_local','combustible','peaje','telefonia','seguro_viaje','visa','impuestos','propinas','lavanderia','representacion','otros')),
+      descripcion     TEXT,
+      proveedor       TEXT,
+      numero_factura  TEXT,
+      tiene_factura   BOOLEAN NOT NULL DEFAULT true,
+      monto           NUMERIC(18,2) NOT NULL DEFAULT 0,
+      moneda          TEXT NOT NULL DEFAULT 'USD'
+                      CHECK (moneda IN ('USD','VES','EUR','COP','BRL')),
+      tasa_cambio     NUMERIC(18,6),
+      monto_ves       NUMERIC(18,2),
+      estado          TEXT NOT NULL DEFAULT 'pendiente'
+                      CHECK (estado IN ('pendiente','aprobado','rechazado','pagado','rendido')),
+      aprobado_por    TEXT,
+      fecha_aprobacion DATE,
+      adjunto_url     TEXT,
+      notas           TEXT,
+      es_socio        BOOLEAN NOT NULL DEFAULT false,
+      es_bono         BOOLEAN NOT NULL DEFAULT false,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_viaticos_user_id ON viaticos(user_id)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_viaticos_tipo ON viaticos(tipo_viaje)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_viaticos_estado ON viaticos(estado)`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
