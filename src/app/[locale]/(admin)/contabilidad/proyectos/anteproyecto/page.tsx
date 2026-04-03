@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 const anteproyectos = [
     { id: "ANT-2026-01", title: "Expansión Sede La Guaira", budget: 45000, status: "En Revisión", date: "15/03/2026" },
-    { id: "ANT-2026-02", title: "Actualización Nodo 5G", budget: 12000, status: "Aprobado", date: "10/03/2026" },
+    { id: "ANT-2026-02", title: "Actualización Red 5G", budget: 12000, status: "Aprobado", date: "10/03/2026" },
 ];
 
 export default function AnteproyectoPage() {
@@ -23,7 +23,7 @@ export default function AnteproyectoPage() {
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <FileText className="h-3 w-3" /> NODO DE PLANIFICACIÓN
+                        <FileText className="h-3 w-3" /> CENTRO DE PLANIFICACIÓN
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión de <span className="text-primary italic">Anteproyectos</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Borradores y Diseños Técnicos • Control de Inversión 2026</p>

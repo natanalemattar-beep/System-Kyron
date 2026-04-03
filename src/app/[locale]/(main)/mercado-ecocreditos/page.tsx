@@ -52,7 +52,7 @@ export default function MercadoEcocreditosPage() {
         <div className="space-y-12 w-full px-6 md:px-16 pb-20">
             <header className="border-l-4 border-secondary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
-                    <Recycle className="h-3 w-3" /> NODO SUSTENTABLE
+                    <Recycle className="h-3 w-3" /> CENTRO SUSTENTABLE
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Mercado de <span className="text-secondary">Eco-Créditos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Exchange de Activos Verdes • System Kyron 2026</p>
@@ -104,7 +104,7 @@ export default function MercadoEcocreditosPage() {
                     <div className="flex justify-between items-center">
                         <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Ofertas en el Ledger</CardTitle>
                         <Button variant="outline" size="sm" className="rounded-xl border-white/10 hover:bg-white/5">
-                            <RefreshCw className="h-3 w-3 mr-2" /> Actualizar Nodo
+                            <RefreshCw className="h-3 w-3 mr-2" /> Actualizar Datos
                         </Button>
                     </div>
                 </CardHeader>
@@ -112,7 +112,7 @@ export default function MercadoEcocreditosPage() {
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-white/[0.02] border-none">
-                                <TableHead className="pl-10 font-black uppercase text-[10px] tracking-widest text-white/40">Empresa / Nodo</TableHead>
+                                <TableHead className="pl-10 font-black uppercase text-[10px] tracking-widest text-white/40">Empresa / Origen</TableHead>
                                 <TableHead className="font-black uppercase text-[10px] tracking-widest text-white/40">Activo</TableHead>
                                 <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Monto (USD)</TableHead>
                                 <TableHead className="text-center font-black uppercase text-[10px] tracking-widest text-white/40">Tipo</TableHead>

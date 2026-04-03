@@ -128,7 +128,7 @@ export default function NominasPage() {
             <header className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 border-l-4 border-secondary pl-8 py-2 mt-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
-                        <Calculator className="h-3 w-3" /> NODO DE COMPENSACIÓN
+                        <Calculator className="h-3 w-3" /> CENTRO DE COMPENSACIÓN
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Libro de <span className="text-secondary italic">Nómina y Beneficios</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Control Salarial • Vacaciones • Utilidades 2026</p>

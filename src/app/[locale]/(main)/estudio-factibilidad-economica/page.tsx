@@ -132,7 +132,7 @@ export default function EstudioFactibilidadPage() {
                         </div>
                         <div className="pt-10 border-t border-white/20">
                             <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Firma de Validación</p>
-                            <p className="text-sm font-black uppercase italic mt-2 tracking-widest">NODO ESTRATÉGICO 2025</p>
+                            <p className="text-sm font-black uppercase italic mt-2 tracking-widest">CENTRO ESTRATÉGICO 2025</p>
                         </div>
                     </Card>
                 </div>

@@ -33,7 +33,7 @@ export default function GeneradorDocumentosPage() {
             setResult(doc);
             toast({ title: "Documento Generado", description: "Borrador legal listo para revisión técnica." });
         } catch (error) {
-            toast({ variant: "destructive", title: "Error en el Nodo IA", description: "No se pudo generar el documento. Intenta de nuevo." });
+            toast({ variant: "destructive", title: "Error en el Asistente IA", description: "No se pudo generar el documento. Intenta de nuevo." });
         } finally {
             setIsLoading(false);
         }
@@ -44,7 +44,7 @@ export default function GeneradorDocumentosPage() {
             <ModuleTutorial config={moduleTutorials["legal"]} />
             <header className="border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <Scale className="h-3 w-3" /> NODO JURÍDICO IA
+                    <Scale className="h-3 w-3" /> CENTRO JURÍDICO IA
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Redacción Automatizada de Grado Legal • 2026</p>

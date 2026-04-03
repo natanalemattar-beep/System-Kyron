@@ -156,7 +156,7 @@ export default function FacturacionPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.3 }}
             >
-              <Activity className="h-3 w-3 animate-pulse" /> NODO DE VENTAS
+              <Activity className="h-3 w-3 animate-pulse" /> CENTRO DE VENTAS
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </motion.div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">

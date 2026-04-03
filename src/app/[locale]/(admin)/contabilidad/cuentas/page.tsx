@@ -51,7 +51,7 @@ export default function CuentasPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
-            <Landmark className="h-3 w-3" /> NODO DE TESORERÍA
+            <Landmark className="h-3 w-3" /> CENTRO DE TESORERÍA
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight italic italic-shadow">
             Gestión de <span className="text-primary">Cuentas</span>
@@ -129,7 +129,7 @@ export default function CuentasPage() {
               <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight leading-none italic-shadow">REPOSITORIO <br/> DE CUENTAS</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-white/70">Acceda a la biblioteca completa de módulos bancarios, anticipos y flujos de efectivo auditados.</p>
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30 pointer-events-none">
-                EXPLORAR TODO EL NODO <ArrowRight className="ml-4 h-5 w-5" />
+                EXPLORAR TODO EL CENTRO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>
             </div>
           </div>

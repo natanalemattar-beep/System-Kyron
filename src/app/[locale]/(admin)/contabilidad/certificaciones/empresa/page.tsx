@@ -24,7 +24,7 @@ export default function CertificacionesEmpresaPage() {
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <ShieldCheck className="h-3 w-3" /> NODO DE CUMPLIMIENTO
+                        <ShieldCheck className="h-3 w-3" /> CENTRO DE CUMPLIMIENTO
                     </div>
                 <BackButton href="/contabilidad" label="Contabilidad" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Certificaciones <span className="text-primary italic">de Empresa</span></h1>

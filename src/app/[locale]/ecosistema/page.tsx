@@ -125,7 +125,7 @@ export default function EcosistemaKyron() {
                 
                 <div className="space-y-6 md:space-y-8">
                     <Card className="glass-card border-none rounded-[1.5rem] md:rounded-[2.5rem] border-l-4 border-rose-500 bg-card/40 shadow-xl">
-                        <CardHeader className="p-6 md:p-8 pb-3 md:pb-4"><CardTitle className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-primary italic">Notificaciones del Nodo</CardTitle></CardHeader>
+                        <CardHeader className="p-6 md:p-8 pb-3 md:pb-4"><CardTitle className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-primary italic">Notificaciones del Sistema</CardTitle></CardHeader>
                         <CardContent className="px-6 md:px-8 pb-6 md:pb-8 space-y-4">
                             <div className="group flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-rose-500/5 border border-rose-500/10 hover:bg-rose-500/10 transition-colors">
                                 <ShieldAlert className="h-5 w-5 md:h-6 md:w-6 text-rose-500 shrink-0 mt-0.5" />
@@ -151,7 +151,7 @@ export default function EcosistemaKyron() {
                             <CardDescription className="text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] mt-1">Sello Inmutable</CardDescription>
                         </CardHeader>
                         <CardFooter className="p-6 md:p-8 pt-0 relative z-10">
-                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-slate-100">AUTENTICAR NODO</Button>
+                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-slate-100">AUTENTICAR ACCESO</Button>
                         </CardFooter>
                     </Card>
                 </div>

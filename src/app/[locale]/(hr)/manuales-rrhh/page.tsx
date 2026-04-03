@@ -248,7 +248,7 @@ export default function ManualesRRHHPage() {
         body: JSON.stringify({ accion: "nodo_organigrama", ...nodoForm, nivel: parseInt(nodoForm.nivel) || 0, padre_id: nodoForm.padre_id ? parseInt(nodoForm.padre_id) : null }),
       });
       if (res.ok) {
-        toast({ title: "Nodo creado", description: `"${nodoForm.nombre_cargo}" añadido al organigrama` });
+        toast({ title: "Cargo creado", description: `"${nodoForm.nombre_cargo}" añadido al organigrama` });
         setShowNodoDialog(false);
         setNodoForm({ nombre_cargo: "", departamento: "Gerencia", nivel: "0", padre_id: "", titular: "", tipo: "cargo", color: "#3b82f6" });
         fetchData();
@@ -641,7 +641,7 @@ export default function ManualesRRHHPage() {
                   </div>
                   <div>
                     <h3 className="font-black text-sm text-foreground uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
-                    <p className="text-xs text-muted-foreground">El organigrama refleja la cadena de mando conforme a la LOTTT. Los niveles van desde Dirección (nivel 0) hasta cargos operativos. Cada nodo puede vincularse a un empleado registrado en el sistema.</p>
+                    <p className="text-xs text-muted-foreground">El organigrama refleja la cadena de mando conforme a la LOTTT. Los niveles van desde Dirección (nivel 0) hasta cargos operativos. Cada cargo puede vincularse a un empleado registrado en el sistema.</p>
                     <div className="flex flex-wrap gap-3 mt-4">
                       {Object.entries(TIPOS_NODO).map(([key, info]) => (
                         <div key={key} className="flex items-center gap-2">

@@ -156,7 +156,7 @@ export default function DashboardSociosPage() {
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-4">
-            <Briefcase className="h-3 w-3" /> NODO SOCIETARIO
+            <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
           </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase">Gestión de <span className="text-indigo-500 italic">Socios</span></h1>
           <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Estructura Accionaria • Gobernanza Corporativa 2026</p>

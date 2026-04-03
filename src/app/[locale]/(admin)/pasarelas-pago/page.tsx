@@ -546,7 +546,7 @@ export default function PasarelasDePagoPage() {
     <div className="space-y-10 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-4">
-          <CreditCard className="h-3 w-3" /> NODO DE LIQUIDACIÓN
+          <CreditCard className="h-3 w-3" /> CENTRO DE LIQUIDACIÓN
         </div>
         <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground leading-none">
           Pasarelas <span className="text-primary">de Pago</span>

@@ -94,7 +94,7 @@ export default function CertificacionesContablesPage() {
         <div className="space-y-12 pb-20 px-4 md:px-10">
             <header className="border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <FileSignature className="h-3 w-3" /> NODO DE FE PÚBLICA
+                    <FileSignature className="h-3 w-3" /> CENTRO DE FE PÚBLICA
                 </div>
                 <BackButton href="/contabilidad" label="Contabilidad" />
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Certificaciones <span className="text-primary italic">Contables</span></h1>

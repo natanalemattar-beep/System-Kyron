@@ -18,7 +18,7 @@ export default function JuegosAzarPage() {
             <header className="border-l-4 border-purple-600 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-600/10 border border-purple-600/20 text-[9px] font-black uppercase tracking-[0.4em] text-purple-600 shadow-sm mb-4">
-                        <Zap className="h-3 w-3" /> NODO AZAR
+                        <Zap className="h-3 w-3" /> CENTRO AZAR
                     </div>
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Actividades <span className="text-purple-600 italic">de Juegos</span></h1>

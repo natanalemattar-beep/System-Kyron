@@ -34,7 +34,7 @@ export default function EntidadesSinFinesLucroPage() {
             <header className="border-l-4 border-emerald-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-emerald-600 shadow-glow-secondary mb-4">
-                        <Handshake className="h-3 w-3" /> NODO DE TRANSPARENCIA
+                        <Handshake className="h-3 w-3" /> CENTRO DE TRANSPARENCIA
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión <span className="text-emerald-500 italic">ESFL y Condominios</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Contabilidad Social • Rendición de Cuentas 2026</p>

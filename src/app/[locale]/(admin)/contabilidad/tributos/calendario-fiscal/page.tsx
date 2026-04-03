@@ -24,7 +24,7 @@ export default function CalendarioFiscalPage() {
             <header className="border-l-4 border-amber-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-600 shadow-sm mb-4">
-                        <Calendar className="h-3 w-3" /> NODO CRONOLÓGICO
+                        <Calendar className="h-3 w-3" /> CENTRO CRONOLÓGICO
                     </div>
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Calendario <span className="text-amber-600 italic">Fiscal 2026</span></h1>

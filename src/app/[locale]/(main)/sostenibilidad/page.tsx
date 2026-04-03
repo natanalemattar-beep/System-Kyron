@@ -233,7 +233,7 @@ export default function SostenibilidadPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/20 border-none">
-                    <TableHead className="pl-6 py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Fecha / Nodo</TableHead>
+                    <TableHead className="pl-6 py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Fecha / Origen</TableHead>
                     <TableHead className="py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Material</TableHead>
                     <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Peso</TableHead>
                     <TableHead className="text-right pr-6 py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Recompensa</TableHead>

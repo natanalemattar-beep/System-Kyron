@@ -22,7 +22,7 @@ export default function DesarrolloPersonalPage() {
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <School className="h-3 w-3" /> NODO EDUCATIVO
+                        <School className="h-3 w-3" /> CENTRO EDUCATIVO
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Desarrollo y <span className="text-primary italic">Carrera Personal</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Plan de Vida Profesional • Academia Kyron 2026</p>

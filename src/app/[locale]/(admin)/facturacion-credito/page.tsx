@@ -45,7 +45,7 @@ export default function FacturacionCreditoPage() {
             >
                 <div>
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-600 mb-4">
-                        <CreditCard className="h-3 w-3" /> NODO DE FINANCIAMIENTO
+                        <CreditCard className="h-3 w-3" /> CENTRO DE FINANCIAMIENTO
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">

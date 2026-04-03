@@ -58,7 +58,7 @@ export default function AnalisisPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
-            <PieChart className="h-3 w-3" /> NODO ANALÍTICO
+            <PieChart className="h-3 w-3" /> CENTRO ANALÍTICO
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight italic leading-none">
             Inteligencia <span className="text-primary">Estratégica</span>
@@ -134,7 +134,7 @@ export default function AnalisisPage() {
             <div className="space-y-6 text-center md:text-left">
               <Badge className="bg-primary text-white border-none text-[10px] font-black px-4 py-1.5 rounded-lg shadow-glow">Módulo de Ingeniería Financiera</Badge>
               <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight leading-none">ESTUDIO DE <br/> FACTIBILIDAD</h3>
-              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-muted-foreground">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el nodo central.</p>
+              <p className="text-lg font-medium opacity-80 leading-relaxed uppercase italic text-muted-foreground">Consulte el dictamen técnico de VAN, TIR y retorno de inversión auditado por el centro de control.</p>
               <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl border-none font-black uppercase text-[11px] tracking-[0.2em]">
                 VER ESTUDIO MAESTRO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>

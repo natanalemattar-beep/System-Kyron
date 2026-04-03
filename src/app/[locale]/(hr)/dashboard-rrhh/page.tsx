@@ -319,7 +319,7 @@ export default function RecursosHumanosPage() {
           <Card className="border border-border/20 rounded-xl bg-card/80 p-4">
             <div className="flex items-center gap-2 mb-3">
               <Activity className="h-4 w-4 text-emerald-400" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">Estado del Nodo</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">Estado del Sistema</span>
             </div>
             <div className="space-y-2">
               {empleados.length > 0 && (

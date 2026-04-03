@@ -62,7 +62,7 @@ export default function ComunicacionesPage() {
         const header = `Caracas, ${formatDate(data.fecha)}\n\nCiudadanos\n${selectedInst.address}\nPresente.-\n\n`;
         
         if (institucionId === 'ameru') {
-            return header + `Asunto: Solicitud de Despliegue de Nodos Ameru IA\n\nPor la presente, actuando en nombre de ${data.empresa}, me dirijo a ustedes para formalizar nuestra solicitud de despliegue de los sistemas de reciclaje inteligente Ameru IA en nuestras instalaciones comerciales. Buscamos integrar la tecnología de inducción magnética para la trazabilidad de nuestros activos verdes y la acumulación de Eco-Créditos.\n\nAgradecemos la asignación de un técnico para la evaluación de campo.\n\nAtentamente,\n\n\n\n`;
+            return header + `Asunto: Solicitud de Instalación de Equipos Ameru IA\n\nPor la presente, actuando en nombre de ${data.empresa}, me dirijo a ustedes para formalizar nuestra solicitud de instalación de los sistemas de reciclaje inteligente Ameru IA en nuestras instalaciones comerciales. Buscamos integrar la tecnología de inducción magnética para la trazabilidad de nuestros activos verdes y la acumulación de Eco-Créditos.\n\nAgradecemos la asignación de un técnico para la evaluación de campo.\n\nAtentamente,\n\n\n\n`;
         }
 
         if (institucionId === 'telecom_ops') {
@@ -100,7 +100,7 @@ export default function ComunicacionesPage() {
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                <MailOpen className="h-3 w-3" /> NODO DE CORRESPONDENCIA
+                <MailOpen className="h-3 w-3" /> CENTRO DE CORRESPONDENCIA
             </div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro de <span className="text-primary italic">Comunicaciones</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Notificaciones Estratégicas • Despacho v2.8.5</p>

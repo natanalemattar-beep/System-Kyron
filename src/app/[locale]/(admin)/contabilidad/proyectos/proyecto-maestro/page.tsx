@@ -12,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 
 const proyectos = [
     { id: "PRO-2026-X1", name: "Modernización de Flota DT-200", progress: 65, budget: 125000, deadline: "30/06/2026", status: "Ejecución" },
-    { id: "PRO-2026-M4", name: "Sincronización Nodo Gabriela Mistral", progress: 100, budget: 8500, deadline: "Finalizado", status: "Completado" },
+    { id: "PRO-2026-M4", name: "Sincronización Red Gabriela Mistral", progress: 100, budget: 8500, deadline: "Finalizado", status: "Completado" },
 ];
 
 export default function ProyectoMaestroPage() {
@@ -23,7 +23,7 @@ export default function ProyectoMaestroPage() {
             <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Hammer className="h-3 w-3" /> NODO DE EJECUCIÓN
+                        <Hammer className="h-3 w-3" /> CENTRO DE EJECUCIÓN
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión de <span className="text-primary italic">Proyectos</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Dossier de Ejecución • Control de Hitos 2026</p>

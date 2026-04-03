@@ -45,7 +45,7 @@ export default function IngenieriaIAPage() {
         <div className="space-y-12 pb-20 px-6 md:px-16">
             <header className="border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <Terminal className="h-3 w-3" /> NODO DE INGENIERÍA
+                    <Terminal className="h-3 w-3" /> CENTRO DE INGENIERÍA
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Asistente <span className="text-primary italic">Técnico IA</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Inferencia de Planos y Cómputos Métricos v2.8.5</p>

@@ -18,7 +18,7 @@ export default function ImpuestosMunicipalesPage() {
             <header className="border-l-4 border-[#0A2472] pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] shadow-sm mb-4">
-                        <Landmark className="h-3 w-3" /> NODO MUNICIPAL
+                        <Landmark className="h-3 w-3" /> CENTRO MUNICIPAL
                     </div>
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Impuestos <span className="text-[#00A86B] italic">Municipales</span></h1>

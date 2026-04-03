@@ -28,7 +28,7 @@ export default function EstructuraCostosPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-            <Activity className="h-3 w-3" /> NODO DE RENTABILIDAD
+            <Activity className="h-3 w-3" /> CENTRO DE RENTABILIDAD
         </div>
         <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Estructura <span className="text-primary italic">de Costos</span></h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Análisis de Eficiencia • Punto de Equilibrio 2026</p>

@@ -20,7 +20,7 @@ export default function AcademiaKyronPage() {
         <div className="space-y-12 w-full px-6 md:px-16 pb-20">
             <header className="border-l-4 border-yellow-500 pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-yellow-500/10 border border-yellow-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-yellow-500 shadow-glow mb-4">
-                    <School className="h-3 w-3" /> NODO EDUCATIVO
+                    <School className="h-3 w-3" /> CENTRO EDUCATIVO
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Kyron <span className="text-yellow-500">Academy</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Centro de Formación Técnica y Profesional • 2026</p>

@@ -105,7 +105,7 @@ export default function PropuestaProyectoPage() {
                                 <div className="h-px flex-1 bg-white/10"></div>
                             </div>
                             <p className="text-lg md:text-xl font-medium italic text-muted-foreground leading-relaxed text-justify border-l-4 border-primary/20 pl-10">
-                                System Kyron no es solo software; es un nodo de inteligencia operativa que fusiona telecomunicaciones 5G, tecnología de reciclaje magnético y un blindaje legal inmutable. Nuestra propuesta elimina el riesgo fiscal y optimiza el 100% de los procesos administrativos mediante IA predictiva.
+                                System Kyron no es solo software; es un centro de inteligencia operativa que fusiona telecomunicaciones 5G, tecnología de reciclaje magnético y un blindaje legal inmutable. Nuestra propuesta elimina el riesgo fiscal y optimiza el 100% de los procesos administrativos mediante IA predictiva.
                             </p>
                         </section>
 
@@ -131,7 +131,7 @@ export default function PropuestaProyectoPage() {
                             <div className="absolute top-0 right-0 p-10 opacity-10"><Zap className="h-40 w-40" /></div>
                             <h3 className="text-2xl font-black uppercase italic tracking-tight mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja de Ecosistema</h3>
                             <ul className="space-y-6 relative z-10">
-                                {["Centralización Total: Un único nodo para telecom, finanzas y leyes.", "Cumplimiento Predictivo: IA auditando cada factura contra la ley vigente.", "Monetización Sostenible: Transformación de residuos en activos digitales.", "Seguridad de Grado Militar: Cifrado AES-256 y Blockchain Ledger."].map((b, i) => (
+                                {["Centralización Total: Un solo centro para telecom, finanzas y leyes.", "Cumplimiento Predictivo: IA auditando cada factura contra la ley vigente.", "Monetización Sostenible: Transformación de residuos en activos digitales.", "Seguridad de Grado Militar: Cifrado AES-256 y Blockchain Ledger."].map((b, i) => (
                                     <li key={i} className="flex items-center gap-4 text-lg font-bold italic"><ChevronRight className="h-5 w-5 text-muted-foreground/60" /> {b}</li>
                                 ))}
                             </ul>
@@ -144,7 +144,7 @@ export default function PropuestaProyectoPage() {
                             <p className="font-black text-[10px] uppercase tracking-[0.5em] text-muted-foreground/60">Dirección de Estrategia Maestra • System Kyron</p>
                         </div>
                         <Button size="lg" className="h-16 px-12 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl no-print">
-                            SOLICITAR AUDITORÍA DE NODO <ArrowRight className="ml-3 h-5 w-5" />
+                            SOLICITAR AUDITORÍA DEL CENTRO <ArrowRight className="ml-3 h-5 w-5" />
                         </Button>
                     </CardFooter>
                 </Card>

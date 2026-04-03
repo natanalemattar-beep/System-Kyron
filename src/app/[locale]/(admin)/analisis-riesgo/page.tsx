@@ -20,7 +20,7 @@ export default function AnalisisRiesgoPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-rose-500 pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 shadow-glow mb-4">
-            <ShieldAlert className="h-3 w-3" /> NODO DE MITIGACIÓN
+            <ShieldAlert className="h-3 w-3" /> CENTRO DE MITIGACIÓN
         </div>
         <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión <span className="text-rose-500 italic">de Riesgo</span></h1>
         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Mapa de Calor • Protocolos de Contingencia 2026</p>

@@ -23,7 +23,7 @@ export default function FidelizacionClientesPage() {
         <div className="space-y-12 pb-20">
             <header className="border-l-4 border-secondary pl-8 py-2 mt-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
-                    <Heart className="h-3 w-3" /> NODO DE LEALTAD
+                    <Heart className="h-3 w-3" /> CENTRO DE LEALTAD
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Fidelización <span className="text-secondary italic">de Clientes</span></h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Análisis de Retención • Customer Lifetime Value 2026</p>
