@@ -40,6 +40,13 @@ export const naturalNavGroups = [
         ],
     },
     {
+        title: "Conectividad",
+        icon: Wifi,
+        items: [
+            { href: "/mi-internet", label: "Internet y Teléfono", icon: Wifi, badge: "NUEVO" },
+        ],
+    },
+    {
         title: "Kyron IA",
         icon: Sparkles,
         items: [
@@ -271,6 +278,7 @@ export const telecomNavGroups = [
     icon: Building,
     items: [
       { href: "/flota-empresarial", label: "Flota Empresarial", icon: Building },
+      { href: "/internet-empresarial", label: "Internet y Telefonía", icon: Wifi, badge: "NUEVO" },
       { href: "/limites-corporativos", label: "Límites por Empleado", icon: SlidersHorizontal },
       { href: "/reportes-flota", label: "Reportes de Flota", icon: ChartLine },
       { href: "/homologacion-imei", label: "Homologación IMEI", icon: Fingerprint },
