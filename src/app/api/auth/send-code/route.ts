@@ -264,16 +264,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    console.log(`[send-code] ${channelLabel} externo no disponible (${twilioResult.error}), usando verificacion integrada System Kyron`);
-    return NextResponse.json({
-      success: true,
-      message: `Verificacion System Kyron`,
-      channel: tipo,
-      destination: masked,
-      expiresIn: 600,
-      kyronCode: codigo,
-      kyronVerification: true,
-    });
+    console.log(`[send-code] ${channelLabel} no disponible: ${twilioResult.error}`);
+    return NextResponse.json(
+      { error: `No se pudo enviar el codigo por ${channelLabel}. Intenta con otro metodo de verificacion.` },
+      { status: 502 }
+    );
 
   } catch (err) {
     console.error('[send-code] error:', err);
