@@ -1,17 +1,18 @@
 'use client';
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
+    const { theme, setTheme, resolvedTheme } = useTheme();
+    const previousTheme = useRef<string | undefined>(undefined);
+
     useEffect(() => {
-        const html = document.documentElement;
-        const wasDark = html.classList.contains('dark');
-        html.classList.remove('dark');
-        html.style.colorScheme = 'light';
+        previousTheme.current = theme;
+        setTheme('light');
         return () => {
-            if (wasDark) {
-                html.classList.add('dark');
-                html.style.colorScheme = 'dark';
+            if (previousTheme.current && previousTheme.current !== 'light') {
+                setTheme(previousTheme.current);
             }
         };
     }, []);
