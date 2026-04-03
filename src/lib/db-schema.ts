@@ -1080,7 +1080,7 @@ async function createAnalyticsTables() {
     CREATE TABLE IF NOT EXISTS verification_codes (
       id         SERIAL PRIMARY KEY,
       destino    TEXT NOT NULL,
-      tipo       TEXT NOT NULL CHECK (tipo IN ('email', 'sms')),
+      tipo       TEXT NOT NULL CHECK (tipo IN ('email', 'sms', 'whatsapp')),
       codigo     TEXT NOT NULL,
       usado      BOOLEAN NOT NULL DEFAULT false,
       intentos   INT NOT NULL DEFAULT 0,
@@ -1090,6 +1090,8 @@ async function createAnalyticsTables() {
     )
   `);
   await query(`ALTER TABLE verification_codes ADD COLUMN IF NOT EXISTS proposito TEXT NOT NULL DEFAULT 'verification'`);
+  await safeQuery(`ALTER TABLE verification_codes DROP CONSTRAINT IF EXISTS verification_codes_tipo_check`);
+  await safeQuery(`ALTER TABLE verification_codes ADD CONSTRAINT verification_codes_tipo_check CHECK (tipo IN ('email', 'sms', 'whatsapp'))`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_created_at ON verification_codes(created_at DESC)`);
 

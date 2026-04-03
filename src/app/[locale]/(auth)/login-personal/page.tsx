@@ -403,8 +403,8 @@ export default function LoginPersonalPage() {
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-5">
                   <Sparkles className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Modo Desarrollo</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">El email no está configurado. Tu código es:</p>
+                    <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Código de Verificación</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
                     <p className="text-3xl font-black font-mono tracking-[0.3em] text-amber-600 dark:text-amber-400 mt-2">{devCode}</p>
                   </div>
                 </div>

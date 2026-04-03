@@ -250,18 +250,29 @@ export async function POST(req: NextRequest) {
     } catch (sendErr) {
       console.error(`[send-code] ${tipo.toUpperCase()} sending failed:`, sendErr);
       const errorMsg = String(sendErr);
-      if (errorMsg.includes('not configured') || errorMsg.includes('not connected')) {
-        const channel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
-        return NextResponse.json(
-          { error: `El envío por ${channel} no está disponible. Usa verificación por correo electrónico.` },
-          { status: 503 }
-        );
-      }
       const channel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
-      return NextResponse.json(
-        { error: `No se pudo enviar el ${channel}. Verifica el número e intenta de nuevo.` },
-        { status: 502 }
-      );
+
+      if (errorMsg.includes('not configured') || errorMsg.includes('not connected')) {
+        return NextResponse.json({
+          success: true,
+          message: `${channel} no disponible. Código mostrado en pantalla.`,
+          channel: tipo,
+          destination: destino.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3'),
+          expiresIn: 600,
+          devCode: codigo,
+          devMessage: `${channel} no configurado. Código mostrado en pantalla.`,
+        });
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: `No se pudo enviar por ${channel}. Código mostrado en pantalla.`,
+        channel: tipo,
+        destination: destino.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3'),
+        expiresIn: 600,
+        devCode: codigo,
+        devMessage: `${channel} temporalmente no disponible (${errorMsg.includes('daily messages limit') ? 'límite diario alcanzado' : 'error de envío'}). Usa el código mostrado en pantalla.`,
+      });
     }
 
     const channelLabel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
