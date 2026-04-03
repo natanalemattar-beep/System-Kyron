@@ -185,7 +185,7 @@ export default function KyronMailPage() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-background">
         <Card className="w-full max-w-sm p-10 bg-card/60 border-none rounded-3xl shadow-2xl text-center space-y-6">
           <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Lock className="h-7 w-7 text-primary" />
@@ -275,7 +275,7 @@ export default function KyronMailPage() {
   );
 
   return (
-    <div className="space-y-8 pb-20 px-4 md:px-10 max-w-6xl mx-auto">
+    <div className="space-y-8 pb-20 px-4 md:px-10 max-w-6xl mx-auto min-h-screen bg-background">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
           <Mail className="h-3 w-3" /> COMUNICACIONES

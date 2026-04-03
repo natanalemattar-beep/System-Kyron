@@ -237,8 +237,8 @@ export default function FaqPage() {
 
     return (
         <PageTransition>
-            <div className="min-h-screen">
-                <div className="bg-gradient-to-b from-[#0c1222] via-[#131b2e] to-transparent">
+            <div className="min-h-screen bg-background">
+                <div className="bg-gradient-to-b from-background via-muted/50 to-transparent">
                     <div className="container mx-auto px-4 md:px-10 max-w-6xl pt-8 pb-16">
                         <Link href="/" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors mb-8 group">
                             <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />

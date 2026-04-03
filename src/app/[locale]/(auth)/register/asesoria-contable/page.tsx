@@ -82,9 +82,9 @@ const MODULES_CONTABILIDAD = [
 ];
 
 const schema = z.object({
-    razonSocial: z.string().min(3, 'Ingrese la razón social'),
-    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
-    tipo_empresa: z.string().min(1, 'Seleccione el tipo'),
+    razonSocial: z.string().min(3, 'Ingrese la razón social').or(z.literal('')),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6').or(z.literal('')),
+    tipo_empresa: z.string().min(1, 'Seleccione el tipo').or(z.literal('')),
     repNombre: z.string().min(2, 'Ingrese el nombre'),
     repEmail: z.string().email('Correo inválido'),
     password: z.string()
@@ -94,10 +94,10 @@ const schema = z.object({
         .regex(/[0-9]/, 'Debe contener un número')
         .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Debe contener un carácter especial'),
     confirmPassword: z.string(),
-    estado_empresa: z.string().min(1, 'Seleccione el estado'),
-    municipio_empresa: z.string().min(2, 'Seleccione el municipio'),
+    estado_empresa: z.string().min(1, 'Seleccione el estado').or(z.literal('')),
+    municipio_empresa: z.string().min(2, 'Seleccione el municipio').or(z.literal('')),
     parroquia: z.string().optional(),
-    telefono: z.string().min(7, 'Teléfono inválido'),
+    telefono: z.string().min(7, 'Teléfono inválido').or(z.literal('')),
     regimen_iva: z.string().optional(),
 }).refine(d => d.password === d.confirmPassword, {
     message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
@@ -262,10 +262,25 @@ export default function RegisterContabilidadPage() {
         if (step === 2) {
             const baseFields: (keyof FormData)[] = ['repNombre', 'repEmail', 'password', 'confirmPassword'];
             const companyFields: (keyof FormData)[] = ['razonSocial', 'rif', 'tipo_empresa', 'estado_empresa', 'municipio_empresa', 'telefono'];
-            const missingPrefillFields = hasPrefill
-                ? companyFields.filter(f => !getValues(f)?.trim())
+            const visibleCompanyFields = hasPrefill
+                ? companyFields.filter(f => {
+                    const prefillMap: Record<string, string> = {
+                        razonSocial: prefillRazon, rif: prefillDoc, tipo_empresa: prefillTipo,
+                        estado_empresa: prefillEstado, municipio_empresa: prefillMunicipio, telefono: prefillTel,
+                    };
+                    return !prefillMap[f];
+                })
                 : companyFields;
-            const requiredFields = [...baseFields, ...missingPrefillFields];
+            const requiredFields = [...baseFields, ...visibleCompanyFields];
+            const manualErrors: string[] = [];
+            for (const f of visibleCompanyFields) {
+                const val = getValues(f)?.trim();
+                if (!val) manualErrors.push(f);
+            }
+            if (manualErrors.length > 0) {
+                toast({ title: 'Campos incompletos', description: 'Por favor revisa los campos marcados en rojo.', variant: 'destructive' });
+                return;
+            }
             const valid = await trigger(requiredFields);
             if (!valid) {
                 toast({ title: 'Campos incompletos', description: 'Por favor revisa los campos marcados en rojo.', variant: 'destructive' });
@@ -555,7 +570,69 @@ export default function RegisterContabilidadPage() {
                                                     </div>
                                                 )}
                                             </div>
-                                            {!prefillParroquia && prefillEstado && (
+                                            {(!prefillRazon || !prefillTipo || !prefillEstado || !prefillMunicipio || !prefillTel) && (
+                                                <div className="space-y-3 mt-3 pt-3 border-t border-emerald-200">
+                                                    <p className="text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                                                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                                        Completa los datos faltantes
+                                                    </p>
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        {!prefillRazon && (
+                                                            <div className="col-span-2 space-y-1.5">
+                                                                <Label htmlFor="razonSocial" className={labelClass}>Razón Social</Label>
+                                                                <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn(inputClass, errors.razonSocial && 'border-red-400')} />
+                                                                {errors.razonSocial && <p className={errorClass}>{errors.razonSocial.message}</p>}
+                                                            </div>
+                                                        )}
+                                                        {!prefillTipo && (
+                                                            <div className="space-y-1.5">
+                                                                <Label className={labelClass}>Tipo de Empresa</Label>
+                                                                <Controller name="tipo_empresa" control={control} render={({ field }) => (
+                                                                    <Select onValueChange={field.onChange} value={field.value}>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.tipo_empresa && 'border-red-400')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                                        <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                                                    </Select>
+                                                                )} />
+                                                                {errors.tipo_empresa && <p className={errorClass}>{errors.tipo_empresa.message}</p>}
+                                                            </div>
+                                                        )}
+                                                        {!prefillTel && (
+                                                            <div className="space-y-1.5">
+                                                                <Label htmlFor="telefono" className={labelClass}>Teléfono</Label>
+                                                                <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn(inputClass, errors.telefono && 'border-red-400')} />
+                                                                {errors.telefono && <p className={errorClass}>{errors.telefono.message}</p>}
+                                                            </div>
+                                                        )}
+                                                        {!prefillEstado && (
+                                                            <div className="space-y-1.5">
+                                                                <Label className={labelClass}>Estado</Label>
+                                                                <Controller name="estado_empresa" control={control} render={({ field }) => (
+                                                                    <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); setValue('parroquia', ''); }} value={field.value}>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.estado_empresa && 'border-red-400')}><SelectValue placeholder="Estado..." /></SelectTrigger>
+                                                                        <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
+                                                                    </Select>
+                                                                )} />
+                                                                {errors.estado_empresa && <p className={errorClass}>{errors.estado_empresa.message}</p>}
+                                                            </div>
+                                                        )}
+                                                        {!prefillMunicipio && (
+                                                            <div className="space-y-1.5">
+                                                                <Label className={labelClass}>Municipio</Label>
+                                                                <Controller name="municipio_empresa" control={control} render={({ field }) => (
+                                                                    <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa && !prefillEstado}>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.municipio_empresa && 'border-red-400')}>
+                                                                            <SelectValue placeholder={estadoEmpresa || prefillEstado ? 'Municipio...' : 'Primero el estado'} />
+                                                                        </SelectTrigger>
+                                                                        <SelectContent>{getMunicipios(estadoEmpresa || prefillEstado || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
+                                                                    </Select>
+                                                                )} />
+                                                                {errors.municipio_empresa && <p className={errorClass}>{errors.municipio_empresa.message}</p>}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {!prefillParroquia && (prefillEstado || estadoEmpresa) && (
                                                 <div className="space-y-1.5 mt-2">
                                                     <Label className={labelClass}>Parroquia / Ciudad</Label>
                                                     <Controller name="parroquia" control={control} render={({ field }) => (
@@ -563,7 +640,7 @@ export default function RegisterContabilidadPage() {
                                                             <SelectTrigger className="h-11 rounded-xl bg-white border-slate-200 shadow-sm">
                                                                 <SelectValue placeholder="Seleccionar parroquia..." />
                                                             </SelectTrigger>
-                                                            <SelectContent>{getCiudades(prefillEstado).map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
+                                                            <SelectContent>{getCiudades(prefillEstado || estadoEmpresa || '').map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
                                                         </Select>
                                                     )} />
                                                 </div>
