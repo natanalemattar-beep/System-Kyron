@@ -107,7 +107,7 @@ function renderMarkdown(text: string) {
       elements.push(
         <Tag key={`list-${elements.length}`} className={cn("my-1.5 space-y-0.5", listType === 'ul' ? "list-disc" : "list-decimal", "pl-4")}>
           {listItems.map((item, i) => (
-            <li key={i} className="text-[11px] leading-relaxed">{renderInline(item)}</li>
+            <li key={i} className="text-[13px] leading-relaxed">{renderInline(item)}</li>
           ))}
         </Tag>
       );
@@ -132,7 +132,7 @@ function renderMarkdown(text: string) {
         if (!firstMatch || candidate.index < firstMatch.index) firstMatch = candidate;
       }
       if (codeMatch && codeMatch.index !== undefined) {
-        const candidate = { index: codeMatch.index, length: codeMatch[0].length, node: <code key={key++} className="px-1 py-0.5 rounded bg-muted text-[10px] font-mono text-primary">{codeMatch[1]}</code> };
+        const candidate = { index: codeMatch.index, length: codeMatch[0].length, node: <code key={key++} className="px-1 py-0.5 rounded bg-muted text-xs font-mono text-primary">{codeMatch[1]}</code> };
         if (!firstMatch || candidate.index < firstMatch.index) firstMatch = candidate;
       }
 
@@ -156,13 +156,13 @@ function renderMarkdown(text: string) {
 
     if (trimmed.startsWith('### ')) {
       flushList();
-      elements.push(<h4 key={i} className="text-xs font-bold text-foreground mt-2 mb-1">{renderInline(trimmed.slice(4))}</h4>);
+      elements.push(<h4 key={i} className="text-sm font-bold text-foreground mt-2 mb-1">{renderInline(trimmed.slice(4))}</h4>);
     } else if (trimmed.startsWith('## ')) {
       flushList();
-      elements.push(<h3 key={i} className="text-[13px] font-bold text-foreground mt-2.5 mb-1">{renderInline(trimmed.slice(3))}</h3>);
+      elements.push(<h3 key={i} className="text-[15px] font-bold text-foreground mt-2.5 mb-1">{renderInline(trimmed.slice(3))}</h3>);
     } else if (trimmed.startsWith('# ')) {
       flushList();
-      elements.push(<h2 key={i} className="text-sm font-bold text-foreground mt-3 mb-1.5">{renderInline(trimmed.slice(2))}</h2>);
+      elements.push(<h2 key={i} className="text-base font-bold text-foreground mt-3 mb-1.5">{renderInline(trimmed.slice(2))}</h2>);
     } else if (/^[-*]\s/.test(trimmed)) {
       if (listType !== 'ul') { flushList(); listType = 'ul'; }
       listItems.push(trimmed.replace(/^[-*]\s+/, ''));
@@ -176,7 +176,7 @@ function renderMarkdown(text: string) {
       }
     } else {
       flushList();
-      elements.push(<p key={i} className="text-[11px] leading-relaxed text-foreground/80">{renderInline(trimmed)}</p>);
+      elements.push(<p key={i} className="text-[13px] leading-relaxed text-foreground/80">{renderInline(trimmed)}</p>);
     }
   }
   flushList();
@@ -337,7 +337,7 @@ export function ChatDialog() {
               </div>
               <div>
                 <SheetTitle className="text-base font-bold text-foreground">{identity.role}</SheetTitle>
-                <SheetDescription className="text-[10px] font-semibold text-muted-foreground">Asistente IA · En línea</SheetDescription>
+                <SheetDescription className="text-xs font-semibold text-muted-foreground">Asistente IA · En línea</SheetDescription>
               </div>
             </div>
             {hasMessages && (
@@ -355,16 +355,16 @@ export function ChatDialog() {
                 <Sparkles className="h-10 w-10 text-primary/40" />
               </div>
               <p className="text-sm font-semibold text-foreground mb-1">{identity.role}</p>
-              <p className="text-xs text-muted-foreground text-center mb-6 max-w-[260px] leading-relaxed">
+              <p className="text-sm text-muted-foreground text-center mb-6 max-w-[260px] leading-relaxed">
                 {identity.greeting}
               </p>
               <div className="w-full space-y-2">
-                <p className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-wider px-1">Preguntas sugeridas</p>
+                <p className="text-xs font-semibold text-muted-foreground/60 uppercase tracking-wider px-1">Preguntas sugeridas</p>
                 {QUICK_PROMPTS.map((prompt, i) => (
                   <button
                     key={i}
                     onClick={() => handleSend(prompt)}
-                    className="w-full text-left px-3.5 py-2.5 rounded-xl border border-border/60 bg-muted/20 hover:bg-muted/40 hover:border-primary/20 transition-all text-[11px] font-medium text-foreground/70 hover:text-foreground"
+                    className="w-full text-left px-3.5 py-2.5 rounded-xl border border-border/60 bg-muted/20 hover:bg-muted/40 hover:border-primary/20 transition-all text-[13px] font-medium text-foreground/70 hover:text-foreground"
                   >
                     {prompt}
                   </button>
@@ -387,7 +387,7 @@ export function ChatDialog() {
                       : 'bg-muted/50 border border-border/50 rounded-bl-md'
                   )}>
                     {msg.role === 'user' ? (
-                      <p className="text-[11px] font-medium leading-relaxed">{msg.content}</p>
+                      <p className="text-sm font-medium leading-relaxed">{msg.content}</p>
                     ) : (
                       renderMarkdown(msg.content)
                     )}
@@ -415,7 +415,7 @@ export function ChatDialog() {
                           <span className="w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                           <span className="w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                         </div>
-                        <span className="text-[10px] text-muted-foreground/60 ml-1">Kyron está pensando...</span>
+                        <span className="text-xs text-muted-foreground/60 ml-1">Kyron está pensando...</span>
                       </div>
                     )}
                   </div>
@@ -428,7 +428,7 @@ export function ChatDialog() {
         <div className="p-4 border-t border-border bg-muted/10">
           {isStreaming && (
             <div className="flex justify-center mb-2">
-              <Button variant="outline" size="sm" onClick={stopStreaming} className="h-7 px-3 text-[10px] font-semibold gap-1.5 rounded-lg">
+              <Button variant="outline" size="sm" onClick={stopStreaming} className="h-7 px-3 text-xs font-semibold gap-1.5 rounded-lg">
                 <StopCircle className="h-3 w-3" /> Detener
               </Button>
             </div>
@@ -439,7 +439,7 @@ export function ChatDialog() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escribe tu mensaje..."
-              className="w-full h-11 pl-4 pr-12 rounded-xl bg-muted/50 border border-border/60 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 text-foreground placeholder:text-muted-foreground/50 transition-all"
+              className="w-full h-11 pl-4 pr-12 rounded-xl bg-muted/50 border border-border/60 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 text-foreground placeholder:text-muted-foreground/50 transition-all"
               disabled={isStreaming}
             />
             <Button
@@ -451,7 +451,7 @@ export function ChatDialog() {
               <Send className="h-3.5 w-3.5" />
             </Button>
           </form>
-          <p className="text-[9px] text-muted-foreground/40 text-center mt-2 font-medium">Kyron puede cometer errores. Verifica la información importante.</p>
+          <p className="text-xs text-muted-foreground/40 text-center mt-2 font-medium">Kyron puede cometer errores. Verifica la información importante.</p>
         </div>
       </SheetContent>
     </Sheet>
