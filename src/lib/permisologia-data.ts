@@ -2982,6 +2982,55 @@ export const tiposPermiso: PermisoTipo[] = [
     aplica: ['alimentos', 'salud', 'comercio'],
   },
 
+  {
+    id: 'MIN-COMERCIO-CERTIFICADO-NOPRODUCCION',
+    nombre: 'Certificado de No Producción Nacional',
+    organismoId: 'MIN-COMERCIO',
+    descripcion: 'Documento emitido por el Ministerio de Comercio que certifica que un producto o bien no se fabrica en Venezuela, requisito previo para la importación de ciertos rubros.',
+    vigencia: 6,
+    requisitosInscripcion: ['Solicitud formal ante el MPPCN', 'Descripción técnica del producto', 'Consulta a la base de datos del Registro Industrial', 'RIF vigente'],
+    requisitosRenovacion: ['Nueva solicitud por cada operación de importación', 'Verificación de actualización del registro industrial'],
+    costoEstimado: '2-5 UT',
+    baseLegal: 'Resoluciones del MPPCN, Decreto 3.969',
+    aplica: ['comercio', 'industria'],
+  },
+  {
+    id: 'MIN-COMERCIO-GUIA-MOVILIZACION',
+    nombre: 'Guía de Movilización de Productos Regulados',
+    organismoId: 'MIN-COMERCIO',
+    descripcion: 'Autorización de tránsito para el transporte de productos sujetos a regulación de precios y distribución controlada dentro del territorio nacional.',
+    vigencia: null,
+    requisitosInscripcion: ['RUPDAE vigente', 'Factura o guía de despacho', 'Datos del vehículo de transporte', 'Destino de la mercancía'],
+    requisitosRenovacion: ['Solicitar por cada despacho de mercancía regulada'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley Orgánica de Precios Justos Art. 29, Providencias SUNDDE',
+    aplica: ['alimentos', 'comercio'],
+  },
+  {
+    id: 'MIN-COMERCIO-REGISTRO-IMPORTADOR',
+    nombre: 'Registro de Importador ante el MPPCN',
+    organismoId: 'MIN-COMERCIO',
+    descripcion: 'Inscripción obligatoria como importador ante el Ministerio de Comercio Nacional para operaciones de comercio interior con productos importados.',
+    vigencia: 12,
+    requisitosInscripcion: ['RIF vigente', 'Acta constitutiva con objeto social', 'Solvencia tributaria SENIAT', 'Solvencia laboral', 'Registro mercantil actualizado'],
+    requisitosRenovacion: ['Actualización anual de datos', 'Solvencia tributaria y laboral vigentes'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Decreto con Rango, Valor y Fuerza de Ley de Comercio Exterior',
+    aplica: ['comercio', 'industria'],
+  },
+  {
+    id: 'MIN-COMERCIO-CONTROL-DISTRIBUCION',
+    nombre: 'Registro de Distribuidores y Comercializadores',
+    organismoId: 'MIN-COMERCIO',
+    descripcion: 'Inscripción obligatoria para distribuidores y comercializadores de productos de primera necesidad y regulados. Incluye reporte de inventarios y precios.',
+    vigencia: 12,
+    requisitosInscripcion: ['RUPDAE vigente', 'Red de distribución detallada', 'Inventario de productos', 'Lista de proveedores y clientes', 'Capacidad de almacenamiento'],
+    requisitosRenovacion: ['Reporte trimestral de inventarios', 'Actualización de red de distribución', 'Cumplimiento de cuotas de abastecimiento'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley Orgánica de Precios Justos, Ley de Abastecimiento',
+    aplica: ['comercio', 'alimentos'],
+  },
+
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP DE COMERCIO EXTERIOR
   // ═══════════════════════════════════════════════════════════════
@@ -3021,6 +3070,42 @@ export const tiposPermiso: PermisoTipo[] = [
     baseLegal: 'Ley Orgánica de Aduanas Art. 12, Resoluciones CENCOEX',
     aplica: ['comercio', 'industria', 'alimentos', 'salud'],
   },
+  {
+    id: 'MIN-COMEXT-CERTIFICADO-FITOSANITARIO',
+    nombre: 'Certificado Fitosanitario de Exportación',
+    organismoId: 'MIN-COMERCIO-EXT',
+    descripcion: 'Certificación de sanidad vegetal para la exportación de productos agrícolas, plantas y derivados. Exigido por países importadores conforme a normas CIPF/FAO.',
+    vigencia: null,
+    requisitosInscripcion: ['Solicitud ante INSAI', 'Inspección de la carga en punto de embarque', 'Análisis de laboratorio fitosanitario', 'Factura de exportación'],
+    requisitosRenovacion: ['Solicitar por cada embarque de exportación'],
+    costoEstimado: '2-5 UT por certificado',
+    baseLegal: 'Convención Internacional de Protección Fitosanitaria (CIPF), Ley de Salud Agrícola Integral',
+    aplica: ['agricultura', 'alimentos'],
+  },
+  {
+    id: 'MIN-COMEXT-REGISTRO-EXPORTADOR',
+    nombre: 'Registro Nacional de Exportadores',
+    organismoId: 'MIN-COMERCIO-EXT',
+    descripcion: 'Inscripción obligatoria de toda empresa que realice operaciones de exportación desde Venezuela. Habilita el acceso a incentivos fiscales y beneficios de comercio exterior.',
+    vigencia: 24,
+    requisitosInscripcion: ['RIF vigente', 'Acta constitutiva', 'RUSAD vigente', 'Descripción de productos a exportar', 'Capacidad productiva instalada', 'Solvencia tributaria y laboral'],
+    requisitosRenovacion: ['Actualización bianual', 'Declaración de exportaciones realizadas', 'Solvencias vigentes'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley de Comercio Exterior, Decreto 2.647',
+    aplica: ['comercio', 'industria', 'agricultura'],
+  },
+  {
+    id: 'MIN-COMEXT-DRAWBACK',
+    nombre: 'Solicitud de Reintegro Aduanero (Draw-Back)',
+    organismoId: 'MIN-COMERCIO-EXT',
+    descripcion: 'Solicitud de devolución de aranceles pagados por insumos importados que fueron incorporados en productos exportados desde Venezuela.',
+    vigencia: null,
+    requisitosInscripcion: ['Registro de exportador vigente', 'Declaración de aduanas de importación', 'Declaración de aduanas de exportación', 'Comprobante de incorporación del insumo al producto exportado'],
+    requisitosRenovacion: ['Solicitar por cada operación que califique'],
+    costoEstimado: 'Gratuito (se recibe reintegro)',
+    baseLegal: 'Ley Orgánica de Aduanas Art. 36, Reglamento de la LOA',
+    aplica: ['industria', 'comercio'],
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP PARA EL PROCESO SOCIAL DEL TRABAJO
@@ -3047,6 +3132,66 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Actualización ante cambios de razón social, dirección o actividad'],
     costoEstimado: 'Gratuito',
     baseLegal: 'LOTTT Art. 521-523',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-TRABAJO-DELEGADOS-PREVENCION',
+    nombre: 'Registro de Delegados de Prevención ante INPSASEL',
+    organismoId: 'MIN-TRABAJO',
+    descripcion: 'Elección y registro formal de los delegados de prevención laboral elegidos por los trabajadores ante el Ministerio del Trabajo e INPSASEL.',
+    vigencia: 24,
+    requisitosInscripcion: ['Acta de elección de delegados de prevención', 'Nómina de trabajadores', 'Registro de la empresa en INPSASEL', 'Constancia de capacitación de los delegados'],
+    requisitosRenovacion: ['Elección cada 2 años', 'Actualización del acta ante INPSASEL'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOPCYMAT Art. 41-45',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-TRABAJO-COMITE-LABORAL',
+    nombre: 'Constitución del Comité de Seguridad y Salud Laboral',
+    organismoId: 'MIN-TRABAJO',
+    descripcion: 'Obligación de constituir un comité bipartito (patrono-trabajadores) de seguridad y salud laboral en empresas con 5 o más trabajadores.',
+    vigencia: 24,
+    requisitosInscripcion: ['Acta de constitución del comité', 'Delegados de prevención electos', 'Representantes del patrono designados', 'Programa de seguridad y salud en el trabajo'],
+    requisitosRenovacion: ['Renovación de miembros cada 2 años', 'Actualización del programa de seguridad', 'Actas de reuniones mensuales'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOPCYMAT Art. 46-52',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-TRABAJO-NOTIFICACION-DESPIDO',
+    nombre: 'Notificación de Despido ante Inspectoría del Trabajo',
+    organismoId: 'MIN-TRABAJO',
+    descripcion: 'Notificación obligatoria a la Inspectoría del Trabajo de toda terminación de relación laboral por despido. El trabajador tiene derecho a la calificación de despido.',
+    vigencia: null,
+    requisitosInscripcion: ['Carta de despido con causas', 'Cálculo de prestaciones sociales', 'Constancia de pago de prestaciones', 'Forma 14-03 (egreso) del IVSS'],
+    requisitosRenovacion: ['No aplica — trámite único por cada despido'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOTTT Art. 87-94, Art. 422 (Inamovilidad)',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-TRABAJO-CONVENCION-COLECTIVA',
+    nombre: 'Depósito de Convención Colectiva de Trabajo',
+    organismoId: 'MIN-TRABAJO',
+    descripcion: 'Depósito obligatorio del contrato colectivo negociado entre la empresa y el sindicato de trabajadores ante la Inspectoría del Trabajo.',
+    vigencia: 24,
+    requisitosInscripcion: ['Convención colectiva suscrita por las partes', 'Acta de asamblea sindical aprobando la convención', 'Nómina de trabajadores beneficiados', 'Copia certificada del registro sindical'],
+    requisitosRenovacion: ['Negociación cada 2-3 años', 'Nuevo depósito ante la Inspectoría'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOTTT Art. 431-447',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-TRABAJO-PERMISOS-MENORES',
+    nombre: 'Autorización de Trabajo para Adolescentes',
+    organismoId: 'MIN-TRABAJO',
+    descripcion: 'Autorización especial para la contratación de adolescentes entre 14 y 17 años, conforme a las restricciones de la LOPNNA y la LOTTT.',
+    vigencia: 12,
+    requisitosInscripcion: ['Solicitud ante el Consejo de Protección de Niños, Niñas y Adolescentes', 'Autorización del representante legal del menor', 'Certificado médico del adolescente', 'Horario de trabajo compatible con estudios', 'Descripción del cargo (sin actividades peligrosas)'],
+    requisitosRenovacion: ['Renovación anual', 'Certificado escolar vigente', 'Certificado médico actualizado'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOTTT Art. 32, LOPNNA Art. 96-116',
     aplica: ['todos'],
   },
   {
@@ -3138,6 +3283,55 @@ export const tiposPermiso: PermisoTipo[] = [
     aplica: ['comercio', 'industria'],
   },
 
+  {
+    id: 'MIN-SALUD-DISPOSITIVOS-MEDICOS',
+    nombre: 'Registro de Dispositivos Médicos y Equipos de Salud',
+    organismoId: 'MIN-SALUD',
+    descripcion: 'Registro obligatorio para fabricar, importar o comercializar dispositivos médicos, equipos biomédicos y material quirúrgico en Venezuela.',
+    vigencia: 60,
+    requisitosInscripcion: ['Ficha técnica del dispositivo', 'Certificado de conformidad del fabricante', 'Registro de clase de riesgo (I, II, III, IV)', 'Ensayos de biocompatibilidad', 'Manual de uso en español'],
+    requisitosRenovacion: ['Actualización ante cambios técnicos', 'Informe de vigilancia post-mercado', 'Eventos adversos reportados'],
+    costoEstimado: '10-50 UT',
+    baseLegal: 'Ley de Medicamentos Art. 75, Resoluciones del MPPS',
+    aplica: ['salud', 'farmaceutico'],
+  },
+  {
+    id: 'MIN-SALUD-BPM',
+    nombre: 'Certificado de Buenas Prácticas de Manufactura (BPM)',
+    organismoId: 'MIN-SALUD',
+    descripcion: 'Certificación de que un laboratorio farmacéutico o planta de alimentos cumple con las normas de Buenas Prácticas de Manufactura.',
+    vigencia: 36,
+    requisitosInscripcion: ['Inspección de planta por funcionarios del MPPS', 'Manual de calidad', 'Procedimientos operativos estándar (POE)', 'Control de áreas limpias', 'Validación de procesos', 'Calificación de equipos'],
+    requisitosRenovacion: ['Inspección de seguimiento cada 3 años', 'Actualización de POE', 'Auditoría interna de calidad'],
+    costoEstimado: '20-100 UT',
+    baseLegal: 'Ley de Medicamentos, Normas OMS de BPM, Resolución del MPPS',
+    aplica: ['farmaceutico', 'alimentos'],
+  },
+  {
+    id: 'MIN-SALUD-IMPORTACION-MEDICAMENTOS',
+    nombre: 'Permiso de Importación de Medicamentos y Productos Farmacéuticos',
+    organismoId: 'MIN-SALUD',
+    descripcion: 'Autorización previa del MPPS para importar medicamentos, vacunas, insumos médicos y productos farmacéuticos.',
+    vigencia: null,
+    requisitosInscripcion: ['Registro sanitario del producto vigente', 'Certificado de BPM del fabricante', 'Factura proforma', 'Certificado de análisis del lote', 'Autorización del titular del registro'],
+    requisitosRenovacion: ['Solicitar por cada importación'],
+    costoEstimado: '5-20 UT por permiso',
+    baseLegal: 'Ley de Medicamentos Art. 31-40, Resolución MPPS',
+    aplica: ['farmaceutico', 'salud'],
+  },
+  {
+    id: 'MIN-SALUD-DROGUERIA',
+    nombre: 'Habilitación de Droguería y Distribuidora Farmacéutica',
+    organismoId: 'MIN-SALUD',
+    descripcion: 'Autorización para operar como droguería (distribución mayorista de medicamentos) con condiciones de almacenamiento y cadena de frío.',
+    vigencia: 24,
+    requisitosInscripcion: ['Farmacéutico regente designado', 'Certificado de BPM de almacenamiento', 'Registro de proveedores autorizados', 'Sistema de trazabilidad de lotes', 'Plan de farmacovigilancia'],
+    requisitosRenovacion: ['Inspección bianual del MPPS', 'Certificado del farmacéutico regente vigente', 'Inventario de productos controlados'],
+    costoEstimado: '15-50 UT',
+    baseLegal: 'Ley de Medicamentos Art. 41-55, Ley de Ejercicio de la Farmacia',
+    aplica: ['farmaceutico'],
+  },
+
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP PARA LA ALIMENTACIÓN
   // ═══════════════════════════════════════════════════════════════
@@ -3164,6 +3358,42 @@ export const tiposPermiso: PermisoTipo[] = [
     costoEstimado: 'Gratuito',
     baseLegal: 'Ley Orgánica de Seguridad y Soberanía Agroalimentaria Art. 15',
     aplica: ['alimentos', 'agricultura'],
+  },
+  {
+    id: 'MIN-ALIM-REGISTRO-SANITARIO',
+    nombre: 'Registro Sanitario de Alimentos Procesados',
+    organismoId: 'MIN-ALIMENTACION',
+    descripcion: 'Registro obligatorio para fabricar, importar o comercializar alimentos procesados y bebidas no alcohólicas en Venezuela.',
+    vigencia: 60,
+    requisitosInscripcion: ['Análisis fisicoquímico y microbiológico del producto', 'Etiqueta con información nutricional aprobada por INN', 'Descripción del proceso de elaboración', 'Certificado de BPM de la planta', 'Ficha técnica del producto'],
+    requisitosRenovacion: ['Actualización ante cambios de formulación', 'Nuevos análisis de laboratorio', 'Etiqueta actualizada'],
+    costoEstimado: '5-20 UT por producto',
+    baseLegal: 'Resoluciones del MPPA, Normas COVENIN de alimentos',
+    aplica: ['alimentos'],
+  },
+  {
+    id: 'MIN-ALIM-HABILITACION-PLANTA',
+    nombre: 'Habilitación de Planta Procesadora de Alimentos',
+    organismoId: 'MIN-ALIMENTACION',
+    descripcion: 'Autorización para operar una planta de procesamiento, transformación o envasado de alimentos. Incluye inspección sanitaria de instalaciones.',
+    vigencia: 24,
+    requisitosInscripcion: ['Planos de la planta con flujo de proceso', 'Certificado de BPM', 'Plan HACCP implementado', 'Permiso sanitario estadal (Corposalud)', 'Sistema de tratamiento de aguas residuales', 'Certificado de fumigación'],
+    requisitosRenovacion: ['Inspección bianual de la planta', 'Auditoría de sistema HACCP', 'Actualización de registros sanitarios de productos'],
+    costoEstimado: '20-80 UT',
+    baseLegal: 'Ley Orgánica de Seguridad y Soberanía Agroalimentaria, Resoluciones MPPA',
+    aplica: ['alimentos', 'agricultura'],
+  },
+  {
+    id: 'MIN-ALIM-FORTIFICACION',
+    nombre: 'Cumplimiento de Normas de Fortificación de Alimentos',
+    organismoId: 'MIN-ALIMENTACION',
+    descripcion: 'Obligación de fortificar harina de trigo (hierro, ácido fólico), harina de maíz y sal (yodo, flúor) conforme a resoluciones del MPPA e INN.',
+    vigencia: null,
+    requisitosInscripcion: ['Certificación de análisis de fortificación por lote', 'Registro ante INN', 'Protocolo de control de calidad de micronutrientes'],
+    requisitosRenovacion: ['Análisis periódicos de contenido de micronutrientes', 'Reportes al INN'],
+    costoEstimado: 'Costo de insumos de fortificación',
+    baseLegal: 'Resolución SG-710 del MPPS, Normas COVENIN 217, 2135',
+    aplica: ['alimentos'],
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -3813,6 +4043,42 @@ export const tiposPermiso: PermisoTipo[] = [
     baseLegal: 'Ley de Vías de Comunicación Terrestres',
     aplica: ['construccion', 'telecomunicaciones', 'energia'],
   },
+  {
+    id: 'MIN-OBRAS-CONCESION-PUENTES',
+    nombre: 'Concesión de Uso de Puentes y Autopistas Nacionales',
+    organismoId: 'MIN-OBRAS-PUBLICAS',
+    descripcion: 'Autorización para uso comercial de infraestructura vial nacional, incluyendo instalación de fibra óptica, tendido eléctrico o publicidad en autopistas.',
+    vigencia: 60,
+    requisitosInscripcion: ['Proyecto de ingeniería', 'Estudio de impacto vial', 'Póliza de responsabilidad civil', 'Garantía de cumplimiento'],
+    requisitosRenovacion: ['Informe de mantenimiento', 'Pago de canon'],
+    costoEstimado: '50-500 UT según proyecto',
+    baseLegal: 'Ley de Vías de Comunicación Terrestres, Decreto de Concesiones',
+    aplica: ['construccion', 'telecomunicaciones'],
+  },
+  {
+    id: 'MIN-OBRAS-PERMISO-CONSTRUCCION-NACIONAL',
+    nombre: 'Permiso de Construcción en Áreas de Competencia Nacional',
+    organismoId: 'MIN-OBRAS-PUBLICAS',
+    descripcion: 'Autorización para ejecutar obras de construcción en zonas de competencia nacional como aeropuertos, puertos, fronteras y zonas de seguridad.',
+    vigencia: null,
+    requisitosInscripcion: ['Proyecto de ingeniería sellado por CIV', 'Permiso de uso de suelo', 'Estudio de impacto ambiental', 'Autorización militar (zonas de seguridad)'],
+    requisitosRenovacion: ['Solicitar por cada obra'],
+    costoEstimado: '20-200 UT',
+    baseLegal: 'Ley Orgánica de Ordenación Urbanística, Decreto de Zonas de Seguridad',
+    aplica: ['construccion'],
+  },
+  {
+    id: 'MIN-OBRAS-RNC',
+    nombre: 'Registro Nacional de Contratistas (RNC)',
+    organismoId: 'MIN-OBRAS-PUBLICAS',
+    descripcion: 'Inscripción obligatoria en el RNC para empresas que deseen participar en licitaciones y contrataciones públicas de obras y servicios.',
+    vigencia: 12,
+    requisitosInscripcion: ['RIF vigente', 'Acta constitutiva', 'Estados financieros auditados', 'Relación de obras ejecutadas', 'Solvencia laboral y tributaria', 'Capacidad técnica documentada'],
+    requisitosRenovacion: ['Actualización anual del RNC', 'Nuevos estados financieros', 'Solvencias vigentes'],
+    costoEstimado: '5-50 UT según categoría',
+    baseLegal: 'Ley de Contrataciones Públicas Art. 34-38',
+    aplica: ['construccion', 'ingenieria'],
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP DE PLANIFICACIÓN
@@ -3827,6 +4093,42 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Responder encuestas y censos económicos del INE'],
     costoEstimado: 'Gratuito',
     baseLegal: 'Ley de la Función Pública de Estadística (G.O. 37.321)',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-PLANIFICACION-CENCOEX',
+    nombre: 'Registro ante CENCOEX / Sistema Cambiario',
+    organismoId: 'MIN-PLANIFICACION',
+    descripcion: 'Inscripción en el sistema de administración de divisas para acceder al mercado cambiario oficial para importaciones y pagos de deuda externa.',
+    vigencia: 12,
+    requisitosInscripcion: ['RIF vigente', 'Acta constitutiva', 'Solvencia tributaria SENIAT', 'Solvencia laboral', 'Relación de importaciones previas'],
+    requisitosRenovacion: ['Actualización anual', 'Solvencias vigentes', 'Declaración de uso de divisas'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley del Régimen Cambiario y sus Ilícitos, Convenios Cambiarios del BCV',
+    aplica: ['comercio', 'industria'],
+  },
+  {
+    id: 'MIN-PLANIFICACION-SIGESIC',
+    nombre: 'Registro en el SIGESIC (Sistema Integral de Gestión Estadística para la Inversión)',
+    organismoId: 'MIN-PLANIFICACION',
+    descripcion: 'Inscripción de empresas en el SIGESIC para el seguimiento de proyectos de inversión pública y privada en el marco del Plan de la Nación.',
+    vigencia: null,
+    requisitosInscripcion: ['RIF vigente', 'Datos de la unidad productiva', 'Plan de inversión o producción', 'Número de trabajadores'],
+    requisitosRenovacion: ['Actualización semestral de datos de producción e inversión'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley de la Función Pública de Estadística, Resoluciones del INE',
+    aplica: ['industria', 'todos'],
+  },
+  {
+    id: 'MIN-PLANIFICACION-PRESUPUESTO',
+    nombre: 'Clasificador Presupuestario para Proveedores del Estado',
+    organismoId: 'MIN-PLANIFICACION',
+    descripcion: 'Registro en el clasificador presupuestario de la ONAPRE como proveedor habilitado para recibir pagos del sector público.',
+    vigencia: 12,
+    requisitosInscripcion: ['RIF vigente', 'RNC vigente', 'Cuenta bancaria', 'Solvencia tributaria y laboral'],
+    requisitosRenovacion: ['Actualización anual de datos bancarios y solvencias'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley Orgánica de Administración Financiera del Sector Público',
     aplica: ['todos'],
   },
 
@@ -3845,6 +4147,30 @@ export const tiposPermiso: PermisoTipo[] = [
     baseLegal: 'Ley Orgánica de Deporte, Actividad Física y Educación Física Art. 68',
     aplica: ['todos'],
   },
+  {
+    id: 'MIN-DEPORTE-REGISTRO-FEDERACION',
+    nombre: 'Registro de Patrocinador Deportivo ante el IND',
+    organismoId: 'MIN-DEPORTE',
+    descripcion: 'Inscripción como patrocinador deportivo para obtener beneficios fiscales por patrocinio de atletas, equipos o eventos deportivos.',
+    vigencia: 12,
+    requisitosInscripcion: ['RIF vigente', 'Contrato de patrocinio', 'Registro ante el IND', 'Plan de patrocinio'],
+    requisitosRenovacion: ['Informe de cumplimiento del patrocinio', 'Renovación del contrato'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Ley Orgánica de Deporte Art. 66-68',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-DEPORTE-INFRAESTRUCTURA',
+    nombre: 'Permiso de Uso de Instalaciones Deportivas Públicas',
+    organismoId: 'MIN-DEPORTE',
+    descripcion: 'Autorización para uso corporativo o comercial de instalaciones deportivas del Estado para eventos empresariales, team-building o actividades recreativas.',
+    vigencia: null,
+    requisitosInscripcion: ['Solicitud ante el IND', 'Descripción del evento', 'Póliza de seguro de responsabilidad civil', 'Compromiso de mantenimiento'],
+    requisitosRenovacion: ['Solicitar por cada evento'],
+    costoEstimado: '5-50 UT según instalación',
+    baseLegal: 'Ley Orgánica de Deporte Art. 80-85',
+    aplica: ['todos'],
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP PARA LA MUJER E IGUALDAD DE GÉNERO
@@ -3861,6 +4187,30 @@ export const tiposPermiso: PermisoTipo[] = [
     baseLegal: 'Ley Orgánica sobre el Derecho de las Mujeres a una Vida Libre de Violencia, LOTTT Art. 164',
     aplica: ['todos'],
   },
+  {
+    id: 'MIN-MUJER-IGUALDAD-SALARIAL',
+    nombre: 'Certificación de Igualdad Salarial de Género',
+    organismoId: 'MIN-MUJER',
+    descripcion: 'Certificación voluntaria que acredita que la empresa cumple con igualdad de remuneración entre hombres y mujeres en posiciones equivalentes.',
+    vigencia: 24,
+    requisitosInscripcion: ['Auditoría salarial interna', 'Informe de brechas de género', 'Plan de acción correctiva', 'Compromiso firmado por la alta dirección'],
+    requisitosRenovacion: ['Nueva auditoría salarial', 'Informe de avances del plan de acción'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'LOTTT Art. 109, Ley de Igualdad de Oportunidades',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-MUJER-LACTANCIA',
+    nombre: 'Adecuación de Sala de Lactancia Materna',
+    organismoId: 'MIN-MUJER',
+    descripcion: 'Obligación de habilitar un espacio digno para la lactancia materna en empresas con más de 20 trabajadoras, conforme a la LOTTT.',
+    vigencia: null,
+    requisitosInscripcion: ['Espacio físico adecuado (mínimo 9 m²)', 'Refrigerador para almacenamiento', 'Lavamanos', 'Silla cómoda', 'Privacidad garantizada'],
+    requisitosRenovacion: ['Mantenimiento del espacio', 'Inspección periódica'],
+    costoEstimado: 'Inversión de adecuación del espacio',
+    baseLegal: 'LOTTT Art. 345, Normas COVENIN 3171',
+    aplica: ['todos'],
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // MINISTERIO DEL PP PARA LAS COMUNAS
@@ -3875,6 +4225,30 @@ export const tiposPermiso: PermisoTipo[] = [
     requisitosRenovacion: ['Participación en asambleas comunitarias', 'Informe de responsabilidad social'],
     costoEstimado: 'Gratuito',
     baseLegal: 'Ley Orgánica de las Comunas Art. 45, Ley de los Consejos Comunales',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-COMUNAS-RESPONSABILIDAD-SOCIAL',
+    nombre: 'Programa de Responsabilidad Social Empresarial Comunitaria',
+    organismoId: 'MIN-COMUNAS',
+    descripcion: 'Registro y ejecución de programas de responsabilidad social en beneficio de las comunas y consejos comunales del área de influencia de la empresa.',
+    vigencia: 12,
+    requisitosInscripcion: ['Programa de RSE aprobado', 'Convenio con el consejo comunal', 'Presupuesto asignado', 'Indicadores de impacto'],
+    requisitosRenovacion: ['Informe anual de ejecución del programa', 'Evaluación de impacto comunitario'],
+    costoEstimado: 'Variable según programa',
+    baseLegal: 'Ley Orgánica de las Comunas, Ley del Plan de la Patria',
+    aplica: ['todos'],
+  },
+  {
+    id: 'MIN-COMUNAS-EMPRESA-PRODUCCION-SOCIAL',
+    nombre: 'Registro de Empresa de Producción Social (EPS)',
+    organismoId: 'MIN-COMUNAS',
+    descripcion: 'Inscripción como Empresa de Producción Social para participar en contrataciones públicas con preferencia y acceso a financiamiento especial.',
+    vigencia: 24,
+    requisitosInscripcion: ['Acta constitutiva con objeto social orientado a producción social', 'Plan de producción', 'Compromiso de reinversión comunitaria', 'Registro ante el Ministerio de Comunas'],
+    requisitosRenovacion: ['Informe de actividades de producción social', 'Estados financieros', 'Verificación de reinversión comunitaria'],
+    costoEstimado: 'Gratuito',
+    baseLegal: 'Decreto 3.895 sobre EPS, Ley de Contrataciones Públicas',
     aplica: ['todos'],
   },
 
@@ -4711,17 +5085,36 @@ export const tiposPermiso: PermisoTipo[] = [
   },
 ];
 
+export const permisosTipos = tiposPermiso;
+
 export function getOrganismoById(id: string): Organismo | undefined {
   return organismos.find(o => o.id === id);
 }
 
 export function getPermisosByOrganismo(organismoId: string): PermisoTipo[] {
-  return tiposPermiso.filter(p => p.organismoId === organismoId);
+  const directos = tiposPermiso.filter(p => p.organismoId === organismoId);
+  if (directos.length > 0) return directos;
+  const org = organismos.find(o => o.id === organismoId);
+  if (org && org.tipo === 'gobernacion') {
+    return tiposPermiso
+      .filter(p => p.organismoId === 'GOB-MIRANDA')
+      .map(p => ({ ...p, organismoId }));
+  }
+  if (org && org.tipo === 'alcaldia') {
+    return tiposPermiso
+      .filter(p => p.organismoId === 'ALC-CHACAO')
+      .map(p => ({ ...p, organismoId }));
+  }
+  return directos;
 }
 
 export function getPermisosByTipo(tipo: Organismo['tipo']): PermisoTipo[] {
-  const orgIds = organismos.filter(o => o.tipo === tipo).map(o => o.id);
-  return tiposPermiso.filter(p => orgIds.includes(p.organismoId));
+  const orgs = organismos.filter(o => o.tipo === tipo);
+  const results: PermisoTipo[] = [];
+  for (const org of orgs) {
+    results.push(...getPermisosByOrganismo(org.id));
+  }
+  return results;
 }
 
 export interface EmpresaCarta {

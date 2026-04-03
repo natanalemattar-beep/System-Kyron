@@ -38,7 +38,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Performance Optimizations:** Utilizes lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS animations, WebP images, adaptive performance, smart loading screens, IntersectionObserver, in-memory TTL cache, and optimized database queries.
 - **Enhanced Audit Trail & Blockchain Integration:** Records field-level changes with SHA-256 hashing and Merkle tree batch anchoring on Polygon/Ethereum/BSC.
 - **RIF/Cédula Validation:** Real Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula.
-- **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion. Permisología Integral includes a comprehensive permits database with auto-generation of solicitation letters.
+- **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion. Permisología Integral includes 400+ permits across SENIAT (214), 20+ Ministerios (expanded to 3-10 each), CONATEL, INAC, CIV, Bomberos, Alcaldías (ALC-CHACAO template), and Gobernaciones (GOB-MIRANDA template replicated to all 24 states + D.C. via `getPermisosByOrganismo()`). Auto-generation of solicitation letters.
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Global Search:** Command palette for instant navigation.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
