@@ -16,7 +16,7 @@ import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, BookOpen, ShieldCheck, Check, Star, Crown, Zap,
     Mail, RefreshCw, Fingerprint, Calculator, FileText, Users, Headphones,
-    TrendingUp, Shield, BarChart3, Lock, Phone, MessageCircle,
+    TrendingUp, Shield, BarChart3, Lock, Phone, MessageCircle, AlertTriangle,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from '@/navigation';
@@ -149,6 +149,7 @@ export default function RegisterContabilidadPage() {
     const [verifSent, setVerifSent] = useState(false);
     const [verifCode, setVerifCode] = useState('');
     const [devCode, setDevCode] = useState<string | null>(null);
+    const [kyronVerification, setKyronVerification] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [verifDestino, setVerifDestino] = useState('');
@@ -213,9 +214,14 @@ export default function RegisterContabilidadPage() {
             startCountdown();
             const returnedCode = json.devCode || json.kyronCode || null;
             setDevCode(returnedCode);
+            setKyronVerification(!!json.kyronVerification);
             if (returnedCode) setVerifCode(returnedCode);
             const channelLabel = useMethod === 'email' ? `correo ${destino}` : useMethod === 'sms' ? `SMS al ${destino}` : `WhatsApp al ${destino}`;
-            toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : `Revisa tu ${channelLabel}` });
+            if (json.kyronVerification && (useMethod === 'sms' || useMethod === 'whatsapp')) {
+                toast({ title: 'Verificación directa', description: 'El código se muestra en pantalla. Haz clic en "Verificar Código" para continuar.' });
+            } else {
+                toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : `Revisa tu ${channelLabel}` });
+            }
         } catch {
             toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
         } finally {
@@ -241,7 +247,8 @@ export default function RegisterContabilidadPage() {
                 return;
             }
             setVerifVerified(true);
-            toast({ title: '¡Verificado!', description: 'Correo electrónico confirmado.' });
+            const verifiedLabel = verifMethod === 'sms' ? 'Número verificado por SMS.' : verifMethod === 'whatsapp' ? 'Número verificado por WhatsApp.' : 'Correo electrónico confirmado.';
+            toast({ title: '¡Verificado!', description: verifiedLabel });
         } catch {
             toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
         } finally {
@@ -897,7 +904,7 @@ export default function RegisterContabilidadPage() {
                                                     </p>
                                                     <p className="text-sm text-slate-500">{verifDestino}</p>
                                                 </div>
-                                                <button type="button" onClick={() => { setVerifSent(false); setVerifCode(''); setVerifMethod(null); }} className="text-xs font-bold text-slate-400 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-white transition-colors">Cambiar</button>
+                                                <button type="button" onClick={() => { setVerifSent(false); setVerifCode(''); setVerifMethod(null); setKyronVerification(false); setDevCode(null); }} className="text-xs font-bold text-slate-400 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-white transition-colors">Cambiar</button>
                                             </div>
 
                                             <div className="space-y-4">
@@ -907,9 +914,20 @@ export default function RegisterContabilidadPage() {
                                                         {devCode ? 'Código generado por System Kyron' : verifMethod === 'email' ? 'Código enviado a tu correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
                                                     </p>
                                                 </div>
+                                                {kyronVerification && (verifMethod === 'sms' || verifMethod === 'whatsapp') && (
+                                                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                                                        <div className="flex items-start gap-2">
+                                                            <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+                                                            <div>
+                                                                <p className="text-xs font-bold text-amber-700">Servicio de {verifMethod === 'sms' ? 'SMS' : 'WhatsApp'} temporalmente no disponible</p>
+                                                                <p className="text-xs text-amber-600 mt-0.5">El código se ha generado directamente. Ya está completado abajo — solo presiona <strong>Verificar Código</strong>.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
                                                 {devCode && (
                                                     <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-2xl text-center">
-                                                        <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
+                                                        <p className="text-xs text-slate-500 uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
                                                         <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
                                                     </div>
                                                 )}
