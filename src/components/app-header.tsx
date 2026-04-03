@@ -60,7 +60,12 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
+
+  const toggleSection = (key: string) => {
+    setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -138,17 +143,55 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                     </div>
 
                     <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-5 custom-scrollbar">
-                        {navGroups?.map((group) => (
+                        {navGroups?.map((group) => {
+                            const filteredGroupItems = group.items.filter(item => 
+                                item.href !== dashboardHref && 
+                                !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
+                            );
+                            const mobileSections = new Map<string, typeof filteredGroupItems>();
+                            filteredGroupItems.forEach(item => {
+                                const sec = item.section || '';
+                                if (!mobileSections.has(sec)) mobileSections.set(sec, []);
+                                mobileSections.get(sec)!.push(item);
+                            });
+                            const mobileSectionEntries = Array.from(mobileSections.entries());
+                            const mobileHasSections = mobileSectionEntries.length > 1 || (mobileSectionEntries.length === 1 && mobileSectionEntries[0][0] !== '');
+                            const mobileIsLarge = filteredGroupItems.length > 12;
+
+                            return (
                             <section key={group.title} className="space-y-1">
                                 <div className="px-3 pt-2 pb-1.5 text-[8px] font-black uppercase text-muted-foreground/35 tracking-[0.3em] flex items-center gap-2">
                                     <group.icon className="h-3 w-3 opacity-30" />
                                     {group.title}
+                                    {mobileIsLarge && <span className="text-[7px] font-medium text-muted-foreground/25 ml-auto">{filteredGroupItems.length}</span>}
                                 </div>
                                 <div className="space-y-0.5">
-                                    {group.items.filter(item => 
-                                        item.href !== dashboardHref && 
-                                        !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
-                                    ).map((item) => {
+                                    {mobileSectionEntries.map(([secTitle, secItems], si) => {
+                                        const mSecKey = `mob-${group.title}-${secTitle || si}`;
+                                        const mIsCollapsed = mobileIsLarge && mobileHasSections && secTitle ? (collapsedSections[mSecKey] ?? si > 0) : false;
+                                        const mHasActive = secItems.some(item => pathname.includes(item.href) && item.href !== '/');
+                                        return (
+                                          <div key={secTitle || si}>
+                                            {mobileHasSections && secTitle && mobileIsLarge && (
+                                              <button
+                                                type="button"
+                                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSection(mSecKey); }}
+                                                className="w-full px-3 pt-2 pb-1 text-[7px] font-black uppercase tracking-[0.2em] text-muted-foreground/40 flex items-center gap-2 hover:text-muted-foreground/70 transition-colors"
+                                              >
+                                                <ChevronRight className={cn("h-2.5 w-2.5 transition-transform duration-200", !mIsCollapsed && "rotate-90")} />
+                                                <span>{secTitle}</span>
+                                                <span className="text-[6px] font-medium text-muted-foreground/25">({secItems.length})</span>
+                                                {mHasActive && mIsCollapsed && <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />}
+                                                <div className="h-[1px] flex-1 bg-border/20" />
+                                              </button>
+                                            )}
+                                            {mobileHasSections && secTitle && !mobileIsLarge && (
+                                              <div className="px-3 pt-2 pb-1 text-[7px] font-black uppercase tracking-[0.2em] text-muted-foreground/30 flex items-center gap-2">
+                                                <span>{secTitle}</span>
+                                                <div className="h-[1px] flex-1 bg-border/20" />
+                                              </div>
+                                            )}
+                                            {!mIsCollapsed && secItems.map((item) => {
                                         const isActive = pathname.includes(item.href) && item.href !== '/';
                                         return (
                                             <SheetClose key={item.label} asChild>
@@ -173,9 +216,13 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                             </SheetClose>
                                         );
                                     })}
+                                          </div>
+                                        );
+                                    })}
                                 </div>
                             </section>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     <div className="p-4 border-t border-border/15 bg-muted/5 space-y-2 shrink-0">
@@ -233,7 +280,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                 const useWideLayout = filteredItems.length > 8;
                 const hasActiveItem = filteredItems.some(item => pathname.includes(item.href) && item.href !== '/');
                 return (
-                <DropdownMenu key={group.title} open={openMenu === group.title} onOpenChange={(isOpen) => setOpenMenu(isOpen ? group.title : null)}>
+                <DropdownMenu key={group.title} open={openMenu === group.title} onOpenChange={(isOpen) => { setOpenMenu(isOpen ? group.title : null); if (isOpen) setCollapsedSections({}); }}>
                     <DropdownMenuTrigger asChild>
                         <Button 
                             variant="ghost" 
@@ -270,17 +317,42 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                             });
                             const sectionEntries = Array.from(sections.entries());
                             const hasSections = sectionEntries.length > 1 || (sectionEntries.length === 1 && sectionEntries[0][0] !== '');
+                            const isLargeMenu = filteredItems.length > 12;
                             return (
-                              <div className="space-y-2">
-                                {sectionEntries.map(([sectionTitle, sectionItems], si) => (
+                              <div className="space-y-1">
+                                {sectionEntries.map(([sectionTitle, sectionItems], si) => {
+                                  const sectionKey = `${group.title}-${sectionTitle || si}`;
+                                  const isCollapsed = isLargeMenu && hasSections && sectionTitle ? (collapsedSections[sectionKey] ?? si > 0) : false;
+                                  const hasActiveItem = sectionItems.some(item => pathname.includes(item.href) && item.href !== '/');
+
+                                  return (
                                   <div key={sectionTitle || si}>
                                     {hasSections && sectionTitle && (
-                                      <div className="px-2.5 pt-1.5 pb-1 text-[7px] font-black uppercase tracking-[0.25em] text-muted-foreground/40 flex items-center gap-2">
-                                        <div className="h-[1px] flex-1 bg-border/30" />
-                                        {sectionTitle}
-                                        <div className="h-[1px] flex-1 bg-border/30" />
-                                      </div>
+                                      isLargeMenu ? (
+                                        <button
+                                          type="button"
+                                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSection(sectionKey); }}
+                                          onPointerDown={(e) => { e.stopPropagation(); }}
+                                          className="w-full px-2.5 pt-2 pb-1 text-[7px] font-black uppercase tracking-[0.25em] text-muted-foreground/50 flex items-center gap-2 hover:text-muted-foreground/80 transition-colors cursor-pointer select-none group/sec"
+                                        >
+                                          <div className="h-[1px] flex-1 bg-border/30" />
+                                          <span className="flex items-center gap-1.5 shrink-0">
+                                            <ChevronRight className={cn("h-2.5 w-2.5 transition-transform duration-200", !isCollapsed && "rotate-90")} />
+                                            {sectionTitle}
+                                            <span className="text-[6px] font-medium text-muted-foreground/30">({sectionItems.length})</span>
+                                            {hasActiveItem && isCollapsed && <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />}
+                                          </span>
+                                          <div className="h-[1px] flex-1 bg-border/30" />
+                                        </button>
+                                      ) : (
+                                        <div className="px-2.5 pt-1.5 pb-1 text-[7px] font-black uppercase tracking-[0.25em] text-muted-foreground/40 flex items-center gap-2">
+                                          <div className="h-[1px] flex-1 bg-border/30" />
+                                          {sectionTitle}
+                                          <div className="h-[1px] flex-1 bg-border/30" />
+                                        </div>
+                                      )
                                     )}
+                                    {!isCollapsed && (
                                     <div className="grid gap-1 grid-cols-2">
                                       {sectionItems.map((item) => {
                                         const isActive = pathname.includes(item.href) && item.href !== '/';
@@ -307,8 +379,10 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                         );
                                       })}
                                     </div>
+                                    )}
                                   </div>
-                                ))}
+                                  );
+                                })}
                               </div>
                             );
                         })()}
