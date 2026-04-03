@@ -6,9 +6,11 @@ import { notifyDocumentReady } from '@/lib/document-notifications';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+
+  const organismoFilter = req.nextUrl.searchParams.get('organismo');
 
   const permisos = await query(
     `SELECT id, tipo, nombre_permiso, numero_permiso, organismo,
@@ -18,9 +20,9 @@ export async function GET() {
                  THEN (fecha_vencimiento - CURRENT_DATE)
                  ELSE NULL END AS dias_para_vencer
      FROM permisos_legales
-     WHERE user_id = $1
+     WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}
      ORDER BY estado ASC, fecha_vencimiento ASC NULLS LAST`,
-    [session.userId]
+    organismoFilter ? [session.userId, organismoFilter] : [session.userId]
   );
 
   const stats = await query(
@@ -31,8 +33,8 @@ export async function GET() {
        COUNT(*) FILTER (WHERE fecha_vencimiento IS NOT NULL
                           AND fecha_vencimiento <= CURRENT_DATE + INTERVAL '30 days'
                           AND estado = 'vigente')::int AS por_vencer
-     FROM permisos_legales WHERE user_id = $1`,
-    [session.userId]
+     FROM permisos_legales WHERE user_id = $1${organismoFilter ? ' AND UPPER(organismo) = UPPER($2)' : ''}`,
+    organismoFilter ? [session.userId, organismoFilter] : [session.userId]
   );
 
   return NextResponse.json({ permisos, stats: stats[0] ?? {} });
