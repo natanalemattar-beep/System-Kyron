@@ -107,24 +107,24 @@ type FormData = z.infer<typeof schema>;
 
 const colorMap: Record<string, { bg: string; bgHover: string; border: string; borderActive: string; text: string; accent: string; ring: string; gradient: string; shadow: string; iconBg: string }> = {
     lightblue: {
-        bg: 'bg-sky-50', bgHover: 'hover:bg-sky-50', border: 'border-sky-200', borderActive: 'border-sky-400',
-        text: 'text-sky-600', accent: 'bg-sky-500', ring: 'ring-sky-300', gradient: 'from-sky-400 to-sky-600',
-        shadow: 'shadow-sky-200/50', iconBg: 'bg-sky-100',
+        bg: 'bg-sky-50 dark:bg-sky-950/50', bgHover: 'hover:bg-sky-50 dark:hover:bg-sky-950/50', border: 'border-sky-200 dark:border-sky-800', borderActive: 'border-sky-400 dark:border-sky-500',
+        text: 'text-sky-600 dark:text-sky-400', accent: 'bg-sky-500', ring: 'ring-sky-300 dark:ring-sky-700', gradient: 'from-sky-400 to-sky-600',
+        shadow: 'shadow-sky-200/50 dark:shadow-sky-900/30', iconBg: 'bg-sky-100 dark:bg-sky-900',
     },
     green: {
-        bg: 'bg-emerald-50', bgHover: 'hover:bg-emerald-50', border: 'border-emerald-200', borderActive: 'border-emerald-400',
-        text: 'text-emerald-600', accent: 'bg-emerald-500', ring: 'ring-emerald-300', gradient: 'from-emerald-400 to-green-600',
-        shadow: 'shadow-emerald-200/50', iconBg: 'bg-emerald-100',
+        bg: 'bg-emerald-50 dark:bg-emerald-950/50', bgHover: 'hover:bg-emerald-50 dark:hover:bg-emerald-950/50', border: 'border-emerald-200 dark:border-emerald-800', borderActive: 'border-emerald-400 dark:border-emerald-500',
+        text: 'text-emerald-600 dark:text-emerald-400', accent: 'bg-emerald-500', ring: 'ring-emerald-300 dark:ring-emerald-700', gradient: 'from-emerald-400 to-green-600',
+        shadow: 'shadow-emerald-200/50 dark:shadow-emerald-900/30', iconBg: 'bg-emerald-100 dark:bg-emerald-900',
     },
     darkblue: {
-        bg: 'bg-blue-50', bgHover: 'hover:bg-blue-50', border: 'border-blue-200', borderActive: 'border-blue-500',
-        text: 'text-blue-700', accent: 'bg-blue-600', ring: 'ring-blue-300', gradient: 'from-blue-500 to-blue-800',
-        shadow: 'shadow-blue-200/50', iconBg: 'bg-blue-100',
+        bg: 'bg-blue-50 dark:bg-blue-950/50', bgHover: 'hover:bg-blue-50 dark:hover:bg-blue-950/50', border: 'border-blue-200 dark:border-blue-800', borderActive: 'border-blue-500 dark:border-blue-400',
+        text: 'text-blue-700 dark:text-blue-400', accent: 'bg-blue-600', ring: 'ring-blue-300 dark:ring-blue-700', gradient: 'from-blue-500 to-blue-800',
+        shadow: 'shadow-blue-200/50 dark:shadow-blue-900/30', iconBg: 'bg-blue-100 dark:bg-blue-900',
     },
     neon: {
-        bg: 'bg-lime-50', bgHover: 'hover:bg-lime-50', border: 'border-lime-300', borderActive: 'border-lime-500',
-        text: 'text-lime-600', accent: 'bg-lime-500', ring: 'ring-lime-300', gradient: 'from-lime-400 to-green-500',
-        shadow: 'shadow-lime-200/50', iconBg: 'bg-lime-100',
+        bg: 'bg-lime-50 dark:bg-lime-950/50', bgHover: 'hover:bg-lime-50 dark:hover:bg-lime-950/50', border: 'border-lime-300 dark:border-lime-800', borderActive: 'border-lime-500 dark:border-lime-400',
+        text: 'text-lime-600 dark:text-lime-400', accent: 'bg-lime-500', ring: 'ring-lime-300 dark:ring-lime-700', gradient: 'from-lime-400 to-green-500',
+        shadow: 'shadow-lime-200/50 dark:shadow-lime-900/30', iconBg: 'bg-lime-100 dark:bg-lime-900',
     },
 };
 
@@ -353,12 +353,12 @@ export default function RegisterContabilidadPage() {
         { label: 'Especial', ok: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(watchedPassword || '') },
     ];
 
-    const inputClass = "h-11 rounded-xl bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400/20 transition-colors shadow-sm";
-    const labelClass = "text-xs font-bold uppercase tracking-widest text-slate-500";
+    const inputClass = "h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:border-blue-400 focus:ring-blue-400/20 transition-colors shadow-sm dark:shadow-none";
+    const labelClass = "text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400";
     const errorClass = "text-xs text-red-500 mt-0.5";
 
     return (
-        <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 30%, #f8fafc 60%, #eff6ff 100%)' }}>
+        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-sky-50 via-emerald-50/30 via-30% to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, #3b82f620 0%, transparent 70%)' }} />
             <div className="absolute bottom-[-200px] right-[-100px] w-[700px] h-[700px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, #10b98120 0%, transparent 70%)' }} />
             <div className="absolute top-[40%] left-[60%] w-[400px] h-[400px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #84cc1620 0%, transparent 70%)' }} />
@@ -372,7 +372,7 @@ export default function RegisterContabilidadPage() {
                         <Calculator className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-black uppercase tracking-[0.12em] text-slate-800">Asesoría Contable</h1>
+                        <h1 className="text-2xl font-black uppercase tracking-[0.12em] text-slate-800 dark:text-slate-100">Asesoría Contable</h1>
                         <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-500">System Kyron</p>
                     </div>
                 </div>
@@ -389,9 +389,9 @@ export default function RegisterContabilidadPage() {
                                     <div className="flex flex-col items-center">
                                         <div className={cn(
                                             "w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-300 border-2",
-                                            isDone && "border-emerald-400 shadow-lg shadow-emerald-100",
-                                            isActive && "border-blue-500 shadow-lg shadow-blue-100",
-                                            !isActive && !isDone && "bg-white border-slate-200"
+                                            isDone && "border-emerald-400 shadow-lg shadow-emerald-100 dark:shadow-emerald-900/30",
+                                            isActive && "border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/30",
+                                            !isActive && !isDone && "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
                                         )} style={isDone ? { background: 'linear-gradient(135deg, #10b981, #059669)' } : isActive ? { background: 'linear-gradient(135deg, #3b82f6, #1e40af)' } : undefined}>
                                             {isDone ? (
                                                 <Check className="h-5 w-5 text-white" />
@@ -401,13 +401,13 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                         <p className={cn(
                                             "text-[11px] font-bold uppercase tracking-wider mt-2 text-center",
-                                            isActive ? "text-blue-600" : isDone ? "text-emerald-600" : "text-slate-300"
+                                            isActive ? "text-blue-600" : isDone ? "text-emerald-600" : "text-slate-300 dark:text-slate-600"
                                         )}>{s.title}</p>
                                     </div>
                                     {i < 2 && (
                                         <div className={cn(
                                             "flex-1 h-0.5 mx-3 rounded-full transition-all duration-500 mt-[-18px]",
-                                            step > stepNum ? "bg-emerald-400" : "bg-slate-200"
+                                            step > stepNum ? "bg-emerald-400" : "bg-slate-200 dark:bg-slate-700"
                                         )} />
                                     )}
                                 </div>
@@ -416,15 +416,15 @@ export default function RegisterContabilidadPage() {
                     </div>
                 )}
 
-                <div className="w-full bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+                <div className="w-full bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-800 overflow-hidden">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={cn("p-7", step === TOTAL_STEPS && "p-8")}>
 
                             {step === 1 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1.5">
-                                        <h2 className="text-xl font-black text-slate-800">Elige tu plan contable</h2>
-                                        <p className="text-sm text-slate-500">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
+                                        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Elige tu plan contable</h2>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         {PLANES.map((plan) => {
@@ -441,7 +441,7 @@ export default function RegisterContabilidadPage() {
                                                         "hover:shadow-xl hover:scale-[1.02]",
                                                         isSelected
                                                             ? `${c.bg} ${c.borderActive} ring-2 ${c.ring} shadow-xl ${c.shadow}`
-                                                            : `bg-white ${c.border} ${c.bgHover}`
+                                                            : `bg-white dark:bg-slate-800 ${c.border} ${c.bgHover}`
                                                     )}
                                                 >
                                                     {plan.popular && (
@@ -461,24 +461,24 @@ export default function RegisterContabilidadPage() {
                                                         </div>
                                                         <div className={cn(
                                                             "w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300",
-                                                            isSelected ? `${c.borderActive} ${c.accent}` : "border-slate-200"
+                                                            isSelected ? `${c.borderActive} ${c.accent}` : "border-slate-200 dark:border-slate-700"
                                                         )}>
                                                             {isSelected && <Check className="h-3 w-3 text-white" />}
                                                         </div>
                                                     </div>
                                                     <p className={cn("text-xs font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
                                                     <div className="flex items-baseline gap-0.5 mt-1">
-                                                        <span className="text-2xl font-black text-slate-800">${plan.precio}</span>
-                                                        <span className="text-xs font-bold text-slate-400">/mes</span>
+                                                        <span className="text-2xl font-black text-slate-800 dark:text-slate-100">${plan.precio}</span>
+                                                        <span className="text-xs font-bold text-slate-400 dark:text-slate-500">/mes</span>
                                                     </div>
-                                                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">{plan.descripcion}</p>
-                                                    <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{plan.descripcion}</p>
+                                                    <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 space-y-2">
                                                         {plan.features.map((f, i) => (
                                                             <div key={i} className="flex items-start gap-2">
-                                                                <div className={cn("mt-0.5 w-4 h-4 rounded-full flex items-center justify-center shrink-0", isSelected ? c.iconBg : "bg-slate-100")}>
-                                                                    <Check className={cn("h-2.5 w-2.5", isSelected ? c.text : "text-slate-300")} />
+                                                                <div className={cn("mt-0.5 w-4 h-4 rounded-full flex items-center justify-center shrink-0", isSelected ? c.iconBg : "bg-slate-100 dark:bg-slate-700")}>
+                                                                    <Check className={cn("h-2.5 w-2.5", isSelected ? c.text : "text-slate-300 dark:text-slate-600")} />
                                                                 </div>
-                                                                <span className={cn("text-xs leading-tight", isSelected ? "text-slate-700" : "text-slate-500")}>{f}</span>
+                                                                <span className={cn("text-xs leading-tight", isSelected ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-400")}>{f}</span>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -494,8 +494,8 @@ export default function RegisterContabilidadPage() {
                                             { icon: Headphones, label: 'Soporte' },
                                         ].map((item, i) => (
                                             <div key={i} className="flex items-center gap-2">
-                                                <item.icon className="h-3.5 w-3.5 text-slate-400" />
-                                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{item.label}</span>
+                                                <item.icon className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{item.label}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -511,65 +511,65 @@ export default function RegisterContabilidadPage() {
                                             </div>
                                             <div className="flex-1">
                                                 <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                <p className="text-xs text-slate-500">${planData.precio}/mes</p>
+                                                <p className="text-xs text-slate-500 dark:text-slate-400">${planData.precio}/mes</p>
                                             </div>
-                                            <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-slate-400 hover:text-slate-700 px-3 py-1.5 rounded-xl hover:bg-white/80 transition-colors border border-transparent hover:border-slate-200">Cambiar</button>
+                                            <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 px-3 py-1.5 rounded-xl hover:bg-white/80 dark:hover:bg-slate-700/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600">Cambiar</button>
                                         </div>
                                     )}
 
                                     {hasPrefill && (
-                                        <div className="p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50 space-y-3">
+                                        <div className="p-4 rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 space-y-3">
                                             <div className="flex items-center gap-2">
-                                                <div className="p-1.5 bg-emerald-100 rounded-lg">
+                                                <div className="p-1.5 bg-emerald-100 dark:bg-emerald-900 rounded-lg">
                                                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                                                 </div>
-                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">Datos de la Empresa (verificados)</p>
+                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-400">Datos de la Empresa (verificados)</p>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2">
                                                 {prefillRazon && (
-                                                    <div className="col-span-2 p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Razón Social</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillRazon}</p>
+                                                    <div className="col-span-2 p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Razón Social</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillRazon}</p>
                                                     </div>
                                                 )}
-                                                <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">RIF</p>
-                                                    <p className="text-sm font-semibold text-slate-800">{prefillDoc}</p>
+                                                <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">RIF</p>
+                                                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillDoc}</p>
                                                 </div>
                                                 {prefillTipo && (
-                                                    <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Tipo</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillTipo}</p>
+                                                    <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Tipo</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillTipo}</p>
                                                     </div>
                                                 )}
                                                 {prefillEstado && (
-                                                    <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Estado</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillEstado}</p>
+                                                    <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Estado</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillEstado}</p>
                                                     </div>
                                                 )}
                                                 {prefillMunicipio && (
-                                                    <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Municipio</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillMunicipio}</p>
+                                                    <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Municipio</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillMunicipio}</p>
                                                     </div>
                                                 )}
                                                 {prefillParroquia && (
-                                                    <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Parroquia</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillParroquia}</p>
+                                                    <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Parroquia</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillParroquia}</p>
                                                     </div>
                                                 )}
                                                 {prefillTel && (
-                                                    <div className="p-3 rounded-xl bg-white border border-emerald-100">
-                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Teléfono</p>
-                                                        <p className="text-sm font-semibold text-slate-800">{prefillTel}</p>
+                                                    <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-emerald-100 dark:border-emerald-900">
+                                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-0.5">Teléfono</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prefillTel}</p>
                                                     </div>
                                                 )}
                                             </div>
                                             {(!prefillRazon || !prefillTipo || !prefillEstado || !prefillMunicipio || !prefillTel) && (
-                                                <div className="space-y-3 mt-3 pt-3 border-t border-emerald-200">
-                                                    <p className="text-xs font-bold text-amber-700 flex items-center gap-1.5">
+                                                <div className="space-y-3 mt-3 pt-3 border-t border-emerald-200 dark:border-emerald-800">
+                                                    <p className="text-xs font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                                                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500" />
                                                         Completa los datos faltantes
                                                     </p>
@@ -586,7 +586,7 @@ export default function RegisterContabilidadPage() {
                                                                 <Label className={labelClass}>Tipo de Empresa</Label>
                                                                 <Controller name="tipo_empresa" control={control} render={({ field }) => (
                                                                     <Select onValueChange={field.onChange} value={field.value}>
-                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.tipo_empresa && 'border-red-400')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.tipo_empresa && 'border-red-400')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                                                                         <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
                                                                     </Select>
                                                                 )} />
@@ -605,7 +605,7 @@ export default function RegisterContabilidadPage() {
                                                                 <Label className={labelClass}>Estado</Label>
                                                                 <Controller name="estado_empresa" control={control} render={({ field }) => (
                                                                     <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); setValue('parroquia', ''); }} value={field.value}>
-                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.estado_empresa && 'border-red-400')}><SelectValue placeholder="Estado..." /></SelectTrigger>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.estado_empresa && 'border-red-400')}><SelectValue placeholder="Estado..." /></SelectTrigger>
                                                                         <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
                                                                     </Select>
                                                                 )} />
@@ -617,7 +617,7 @@ export default function RegisterContabilidadPage() {
                                                                 <Label className={labelClass}>Municipio</Label>
                                                                 <Controller name="municipio_empresa" control={control} render={({ field }) => (
                                                                     <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa && !prefillEstado}>
-                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.municipio_empresa && 'border-red-400')}>
+                                                                        <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.municipio_empresa && 'border-red-400')}>
                                                                             <SelectValue placeholder={estadoEmpresa || prefillEstado ? 'Municipio...' : 'Primero el estado'} />
                                                                         </SelectTrigger>
                                                                         <SelectContent>{getMunicipios(estadoEmpresa || prefillEstado || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
@@ -634,7 +634,7 @@ export default function RegisterContabilidadPage() {
                                                     <Label className={labelClass}>Parroquia / Ciudad</Label>
                                                     <Controller name="parroquia" control={control} render={({ field }) => (
                                                         <Select value={field.value || ''} onValueChange={field.onChange}>
-                                                            <SelectTrigger className="h-11 rounded-xl bg-white border-slate-200 shadow-sm">
+                                                            <SelectTrigger className="h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none">
                                                                 <SelectValue placeholder="Seleccionar parroquia..." />
                                                             </SelectTrigger>
                                                             <SelectContent>{getCiudades(prefillEstado || estadoEmpresa || '').map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
@@ -648,10 +648,10 @@ export default function RegisterContabilidadPage() {
                                     {!hasPrefill && (
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2 mb-3">
-                                                <div className="p-1.5 rounded-lg" style={{ background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' }}>
+                                                <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800">
                                                     <Building className="h-4 w-4 text-blue-600" />
                                                 </div>
-                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">Datos de la Empresa</p>
+                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700 dark:text-blue-400">Datos de la Empresa</p>
                                             </div>
 
                                             <div className="grid grid-cols-2 gap-3">
@@ -671,7 +671,7 @@ export default function RegisterContabilidadPage() {
                                                     <Label className={labelClass}>Tipo de Empresa</Label>
                                                     <Controller name="tipo_empresa" control={control} render={({ field }) => (
                                                         <Select onValueChange={field.onChange} value={field.value}>
-                                                            <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.tipo_empresa && 'border-red-400')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                            <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.tipo_empresa && 'border-red-400')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                                                             <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
                                                         </Select>
                                                     )} />
@@ -686,14 +686,14 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     )}
 
-                                    <div className="h-px" style={{ background: 'linear-gradient(90deg, transparent, #cbd5e1, transparent)' }} />
+                                    <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent" />
 
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 rounded-lg" style={{ background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
+                                            <div className="p-1.5 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800">
                                                 <Users className="h-4 w-4 text-emerald-600" />
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">Representante Legal</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-400">Representante Legal</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
@@ -717,14 +717,14 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     </div>
 
-                                    <div className="h-px" style={{ background: 'linear-gradient(90deg, transparent, #cbd5e1, transparent)' }} />
+                                    <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent" />
 
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <div className="p-1.5 rounded-lg" style={{ background: 'linear-gradient(135deg, #e0e7ff, #c7d2fe)' }}>
-                                                <Lock className="h-4 w-4 text-blue-700" />
+                                            <div className="p-1.5 rounded-lg bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900 dark:to-indigo-800">
+                                                <Lock className="h-4 w-4 text-blue-700 dark:text-blue-400" />
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800">{hasPrefill ? 'Seguridad' : 'Seguridad y Ubicación'}</p>
+                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800 dark:text-blue-400">{hasPrefill ? 'Seguridad' : 'Seguridad y Ubicación'}</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
@@ -732,7 +732,7 @@ export default function RegisterContabilidadPage() {
                                                 <Label htmlFor="password" className={labelClass}>Contraseña</Label>
                                                 <div className="relative">
                                                     <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn(inputClass, 'pr-10', errors.password && 'border-red-400')} />
-                                                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors" tabIndex={-1}>
+                                                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" tabIndex={-1}>
                                                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                     </button>
                                                 </div>
@@ -740,9 +740,9 @@ export default function RegisterContabilidadPage() {
                                                     {passwordChecks.map((c, i) => (
                                                         <span key={i} className={cn(
                                                             "text-[11px] font-bold transition-colors flex items-center gap-1",
-                                                            c.ok ? "text-emerald-500" : "text-slate-300"
+                                                            c.ok ? "text-emerald-500" : "text-slate-300 dark:text-slate-600"
                                                         )}>
-                                                            <span className={cn("w-1.5 h-1.5 rounded-full", c.ok ? "bg-emerald-500" : "bg-slate-200")} />
+                                                            <span className={cn("w-1.5 h-1.5 rounded-full", c.ok ? "bg-emerald-500" : "bg-slate-200 dark:bg-slate-700")} />
                                                             {c.label}
                                                         </span>
                                                     ))}
@@ -759,7 +759,7 @@ export default function RegisterContabilidadPage() {
                                                         <Label className={labelClass}>Estado</Label>
                                                         <Controller name="estado_empresa" control={control} render={({ field }) => (
                                                             <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); setValue('parroquia', ''); }} value={field.value}>
-                                                                <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.estado_empresa && 'border-red-400')}><SelectValue placeholder="Estado..." /></SelectTrigger>
+                                                                <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.estado_empresa && 'border-red-400')}><SelectValue placeholder="Estado..." /></SelectTrigger>
                                                                 <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
                                                             </Select>
                                                         )} />
@@ -769,7 +769,7 @@ export default function RegisterContabilidadPage() {
                                                         <Label className={labelClass}>Municipio</Label>
                                                         <Controller name="municipio_empresa" control={control} render={({ field }) => (
                                                             <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                                                                <SelectTrigger className={cn("h-11 rounded-xl bg-white border-slate-200 shadow-sm", errors.municipio_empresa && 'border-red-400')}>
+                                                                <SelectTrigger className={cn("h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none", errors.municipio_empresa && 'border-red-400')}>
                                                                     <SelectValue placeholder={estadoEmpresa ? 'Municipio...' : 'Primero el estado'} />
                                                                 </SelectTrigger>
                                                                 <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
@@ -781,7 +781,7 @@ export default function RegisterContabilidadPage() {
                                                         <Label className={labelClass}>Parroquia / Ciudad</Label>
                                                         <Controller name="parroquia" control={control} render={({ field }) => (
                                                             <Select value={field.value || ''} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                                                                <SelectTrigger className="h-11 rounded-xl bg-white border-slate-200 shadow-sm">
+                                                                <SelectTrigger className="h-11 rounded-xl bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none">
                                                                     <SelectValue placeholder={estadoEmpresa ? 'Parroquia...' : 'Primero el estado'} />
                                                                 </SelectTrigger>
                                                                 <SelectContent>{getCiudades(estadoEmpresa || '').map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
@@ -793,9 +793,9 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     </div>
 
-                                    <label className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer select-none group hover:bg-blue-50 hover:border-blue-200 transition-all duration-200">
-                                        <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-slate-300 accent-blue-600 shrink-0" />
-                                        <span className="text-sm text-slate-600 leading-relaxed">
+                                    <label className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 cursor-pointer select-none group hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-200">
+                                        <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-slate-300 dark:border-slate-600 accent-blue-600 shrink-0" />
+                                        <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                                             Acepto los{' '}
                                             <a href="/terms" target="_blank" className="text-blue-600 font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos y Condiciones</a>{' '}
                                             y la{' '}
@@ -811,18 +811,18 @@ export default function RegisterContabilidadPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-lg" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }}>
                                             <Fingerprint className="h-8 w-8 text-white" />
                                         </div>
-                                        <h2 className="text-xl font-black text-slate-800">Verifica tu identidad</h2>
-                                        <p className="text-sm text-slate-500">Elige cómo recibir tu código de verificación de 6 dígitos.</p>
+                                        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Verifica tu identidad</h2>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">Elige cómo recibir tu código de verificación de 6 dígitos.</p>
                                     </div>
 
                                     {verifVerified ? (
                                         <div className="text-center py-6 space-y-4">
-                                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-lg shadow-emerald-100" style={{ background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
+                                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-lg shadow-emerald-100 dark:shadow-emerald-900/30 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800">
                                                 <CheckCircle className="h-10 w-10 text-emerald-600" />
                                             </div>
                                             <div>
                                                 <p className="text-lg font-black text-emerald-600 uppercase tracking-widest">¡Verificado!</p>
-                                                <p className="text-sm text-slate-500 mt-1">{verifDestino}</p>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{verifDestino}</p>
                                             </div>
                                         </div>
                                     ) : !verifSent ? (
@@ -831,70 +831,70 @@ export default function RegisterContabilidadPage() {
                                                 type="button"
                                                 onClick={() => sendVerificationCode('email')}
                                                 disabled={verifLoading}
-                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center gap-4 group"
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all duration-200 flex items-center gap-4 group"
                                             >
                                                 <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' }}>
                                                     <Mail className="h-5 w-5 text-blue-600" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800">Correo Electrónico</p>
-                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('repEmail')}</p>
+                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">Correo Electrónico</p>
+                                                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('repEmail')}</p>
                                                 </div>
-                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                                                <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-blue-500 transition-colors" />
                                             </button>
 
                                             <button
                                                 type="button"
                                                 onClick={() => sendVerificationCode('sms')}
                                                 disabled={verifLoading}
-                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-emerald-400 hover:bg-emerald-50 transition-all duration-200 flex items-center gap-4 group"
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-all duration-200 flex items-center gap-4 group"
                                             >
                                                 <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
                                                     <Phone className="h-5 w-5 text-emerald-600" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800">SMS</p>
-                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
+                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">SMS</p>
+                                                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
                                                 </div>
-                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                                                <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 transition-colors" />
                                             </button>
 
                                             <button
                                                 type="button"
                                                 onClick={() => sendVerificationCode('whatsapp')}
                                                 disabled={verifLoading}
-                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-green-500 hover:bg-green-50 transition-all duration-200 flex items-center gap-4 group"
+                                                className="w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all duration-200 flex items-center gap-4 group"
                                             >
                                                 <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #bbf7d0, #86efac)' }}>
                                                     <MessageCircle className="h-5 w-5 text-green-700" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800">WhatsApp</p>
-                                                    <p className="text-xs text-slate-400 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
+                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">WhatsApp</p>
+                                                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
                                                 </div>
-                                                <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-green-600 transition-colors" />
+                                                <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-green-600 transition-colors" />
                                             </button>
 
                                             {verifLoading && (
                                                 <div className="flex items-center justify-center gap-2 py-2">
                                                     <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                                                    <p className="text-xs text-slate-500 font-bold">Enviando código...</p>
+                                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold">Enviando código...</p>
                                                 </div>
                                             )}
                                         </div>
                                     ) : (
-                                        <div className="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-4">
+                                        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 space-y-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="p-2.5 rounded-xl" style={{ background: verifMethod === 'email' ? 'linear-gradient(135deg, #dbeafe, #bfdbfe)' : 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
                                                     {verifMethod === 'email' ? <Mail className="h-5 w-5 text-blue-600" /> : verifMethod === 'whatsapp' ? <MessageCircle className="h-5 w-5 text-green-700" /> : <Phone className="h-5 w-5 text-emerald-600" />}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-700">
+                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-700 dark:text-slate-300">
                                                         {verifMethod === 'email' ? 'Código enviado por correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
                                                     </p>
-                                                    <p className="text-sm text-slate-500">{verifDestino}</p>
+                                                    <p className="text-sm text-slate-500 dark:text-slate-400">{verifDestino}</p>
                                                 </div>
-                                                <button type="button" onClick={() => { setVerifSent(false); setVerifCode(''); setVerifMethod(null); }} className="text-xs font-bold text-slate-400 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-white transition-colors">Cambiar</button>
+                                                <button type="button" onClick={() => { setVerifSent(false); setVerifCode(''); setVerifMethod(null); }} className="text-xs font-bold text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 px-2 py-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition-colors">Cambiar</button>
                                             </div>
 
                                             <div className="space-y-4">
@@ -909,14 +909,14 @@ export default function RegisterContabilidadPage() {
                                                     maxLength={6}
                                                     value={verifCode}
                                                     onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                    className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white border-2 border-slate-200 focus:border-blue-400 text-slate-800 shadow-sm"
+                                                    className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-400 text-slate-800 dark:text-slate-100 shadow-sm dark:shadow-none"
                                                 />
                                                 <Button type="button" className="w-full h-12 rounded-xl font-bold text-white shadow-md" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }} onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
                                                     {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>}
                                                 </Button>
                                                 <div className="text-center">
                                                     {countdown > 0 ? (
-                                                        <p className="text-xs text-slate-500">Reenviar en <span className="font-bold text-blue-600">{countdown}s</span></p>
+                                                        <p className="text-xs text-slate-500 dark:text-slate-400">Reenviar en <span className="font-bold text-blue-600">{countdown}s</span></p>
                                                     ) : (
                                                         <button type="button" onClick={() => sendVerificationCode()} disabled={verifLoading} className="text-xs text-blue-600 font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
                                                             <RefreshCw className="h-3 w-3" /> Reenviar código
@@ -933,13 +933,13 @@ export default function RegisterContabilidadPage() {
                                 <div className="text-center py-4 space-y-6">
                                     <div className="relative inline-flex items-center justify-center">
                                         <div className="absolute inset-0 w-24 h-24 rounded-full blur-xl" style={{ background: 'radial-gradient(circle, #10b98130, #3b82f620)' }} />
-                                        <div className="relative w-20 h-20 rounded-3xl flex items-center justify-center shadow-xl shadow-emerald-100" style={{ background: 'linear-gradient(135deg, #d1fae5, #a7f3d0)' }}>
+                                        <div className="relative w-20 h-20 rounded-3xl flex items-center justify-center shadow-xl shadow-emerald-100 dark:shadow-emerald-900/30 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800">
                                             <CheckCircle className="h-10 w-10 text-emerald-600" />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <h2 className="text-2xl font-black uppercase tracking-tight" style={{ background: 'linear-gradient(135deg, #10b981, #1e40af)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>¡Cuenta Creada!</h2>
-                                        <p className="text-base text-slate-500">Tu empresa ya está registrada en <strong className="text-slate-800">Asesoría Contable</strong>.</p>
+                                        <p className="text-base text-slate-500 dark:text-slate-400">Tu empresa ya está registrada en <strong className="text-slate-800 dark:text-slate-100">Asesoría Contable</strong>.</p>
                                     </div>
 
                                     {planData && (
@@ -950,7 +950,7 @@ export default function RegisterContabilidadPage() {
                                                 </div>
                                                 <div>
                                                     <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                    <p className="text-sm font-black text-slate-800">${planData.precio}/mes</p>
+                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">${planData.precio}/mes</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -962,9 +962,9 @@ export default function RegisterContabilidadPage() {
                                             { icon: FileText, label: 'Facturación' },
                                             { icon: TrendingUp, label: 'Análisis' },
                                         ].map((item, i) => (
-                                            <div key={i} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                            <div key={i} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                                                 <item.icon className="h-5 w-5 text-blue-600" />
-                                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">{item.label}</span>
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{item.label}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -978,7 +978,7 @@ export default function RegisterContabilidadPage() {
 
                         {step < TOTAL_STEPS && (
                             <div className="flex justify-between px-7 pb-5">
-                                <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} className="rounded-xl h-11 px-6 border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800">
+                                <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} className="rounded-xl h-11 px-6 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-200">
                                     <ArrowLeft className="mr-1.5 h-4 w-4" />Anterior
                                 </Button>
                                 {step === 1 && (

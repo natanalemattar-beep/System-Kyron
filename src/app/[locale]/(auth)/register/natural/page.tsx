@@ -430,7 +430,7 @@ export default function RegisterNaturalPage() {
                 {hasSaimeData && (
                   <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
                     <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
-                    <p className="text-[11px] font-bold text-emerald-700">
+                    <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
                       Datos obtenidos del SAIME — los campos verificados no se pueden editar
                     </p>
                   </div>

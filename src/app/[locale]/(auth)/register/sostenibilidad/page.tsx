@@ -334,7 +334,7 @@ export default function RegisterSostenibilidadPage() {
                             <Recycle className="h-6 w-6 text-emerald-500" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600">
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
                                 Registro · Sostenibilidad
                             </CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">
@@ -471,7 +471,7 @@ export default function RegisterSostenibilidadPage() {
                         {step === 2 && (
                             <div className="space-y-4">
                                 <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/10 mb-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-1 flex items-center gap-2">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-2">
                                         <Leaf className="h-3.5 w-3.5" /> Perfil
                                         Ambiental
                                     </p>
@@ -830,7 +830,7 @@ export default function RegisterSostenibilidadPage() {
                                                         className={cn(
                                                             "p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all",
                                                             verifMethod === m
-                                                                ? "border-emerald-500 bg-emerald-500/5 text-emerald-600"
+                                                                ? "border-emerald-500 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400"
                                                                 : "border-border text-muted-foreground",
                                                         )}
                                                     >
@@ -862,7 +862,7 @@ export default function RegisterSostenibilidadPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
                                             <CheckCircle className="h-10 w-10 text-green-500" />
                                         </div>
-                                        <p className="font-black text-green-600 uppercase tracking-widest text-xs">
+                                        <p className="font-black text-green-600 dark:text-green-400 uppercase tracking-widest text-xs">
                                             Identidad Verificada
                                         </p>
                                     </div>
@@ -948,13 +948,13 @@ export default function RegisterSostenibilidadPage() {
                                 <p className="text-muted-foreground text-sm">
                                     Tu organización fue registrada en el módulo
                                     de{" "}
-                                    <strong className="text-emerald-600">
+                                    <strong className="text-emerald-600 dark:text-emerald-400">
                                         Sostenibilidad Ameru IA
                                     </strong>
                                     .
                                 </p>
                                 <div className="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl text-left text-xs space-y-2">
-                                    <p className="font-black text-emerald-600 uppercase tracking-widest">
+                                    <p className="font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
                                         Módulos habilitados:
                                     </p>
                                     {MODULES_SOSTENIBILIDAD.map((m) => (

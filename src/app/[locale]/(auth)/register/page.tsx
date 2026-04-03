@@ -260,8 +260,8 @@ function GlowingCard({ children, className, active }: { children: React.ReactNod
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 style={{ filter: "blur(1px)" }}
             />
-            <div className="relative rounded-2xl bg-white/80 border border-slate-200 backdrop-blur-xl overflow-hidden shadow-lg shadow-slate-200/50">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-transparent to-emerald-50/30 pointer-events-none" />
+            <div className="relative rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 backdrop-blur-xl overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-transparent to-emerald-50/30 dark:from-sky-950/50 dark:to-emerald-950/30 pointer-events-none" />
                 <div className="relative">
                     {children}
                 </div>
@@ -288,7 +288,7 @@ function KyronLogo() {
                     <Cpu className="h-7 w-7 text-white" />
                 </div>
             </div>
-            <p className="text-[11px] font-bold text-slate-400 tracking-[0.25em]">SYSTEM KYRON</p>
+            <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 tracking-[0.25em]">SYSTEM KYRON</p>
         </motion.div>
     );
 }
@@ -625,15 +625,15 @@ export default function RegisterSelectionPage() {
     const currentStepIdx = step === "identify" ? 0 : 1;
 
     return (
-        <div className="min-h-screen flex bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0]">
+        <div className="min-h-screen flex bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
             <div className="hidden lg:block lg:w-[45%] xl:w-[42%]">
                 <div className="sticky top-0 h-screen">
                     <BrandingPanel />
                 </div>
             </div>
 
-            <div className="flex-1 relative overflow-hidden bg-gradient-to-b from-[#e8f0fa] via-[#dce7f5] to-[#d2dff0]">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-100/40 via-transparent to-emerald-100/20" />
+            <div className="flex-1 relative overflow-hidden bg-gradient-to-b from-[#e8f0fa] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-100/40 via-transparent to-emerald-100/20 dark:from-sky-900/20 dark:to-emerald-900/10" />
 
                 <motion.div
                     className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-400/[0.12] blur-[120px] pointer-events-none"
@@ -660,15 +660,15 @@ export default function RegisterSelectionPage() {
                 <div className="relative z-10 min-h-screen flex flex-col">
                     <nav className="flex items-center justify-between px-6 py-5 max-w-2xl mx-auto w-full">
                         {step === "identify" ? (
-                            <Link href="/" className="group flex items-center gap-2 text-slate-400 hover:text-slate-600 transition-all duration-300 text-sm">
-                                <div className="w-7 h-7 rounded-lg bg-white/60 border border-slate-200 flex items-center justify-center group-hover:bg-white group-hover:border-slate-300 transition-all shadow-sm">
+                            <Link href="/" className="group flex items-center gap-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all duration-300 text-sm">
+                                <div className="w-7 h-7 rounded-lg bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:bg-white dark:group-hover:bg-slate-700 group-hover:border-slate-300 dark:group-hover:border-slate-600 transition-all shadow-sm">
                                     <ChevronLeft className="h-3.5 w-3.5 group-hover:-translate-x-0.5 transition-transform" />
                                 </div>
                                 <span className="font-medium hidden sm:block">Inicio</span>
                             </Link>
                         ) : (
-                            <button onClick={() => setStep("identify")} className="group flex items-center gap-2 text-slate-400 hover:text-slate-600 transition-all duration-300 text-sm">
-                                <div className="w-7 h-7 rounded-lg bg-white/60 border border-slate-200 flex items-center justify-center group-hover:bg-white group-hover:border-slate-300 transition-all shadow-sm">
+                            <button onClick={() => setStep("identify")} className="group flex items-center gap-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all duration-300 text-sm">
+                                <div className="w-7 h-7 rounded-lg bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:bg-white dark:group-hover:bg-slate-700 group-hover:border-slate-300 dark:group-hover:border-slate-600 transition-all shadow-sm">
                                     <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-0.5 transition-transform" />
                                 </div>
                                 <span className="font-medium hidden sm:block">Cambiar Documento</span>
@@ -695,23 +695,23 @@ export default function RegisterSelectionPage() {
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.3 }}
-                                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/70 border border-slate-200 mb-6 backdrop-blur-sm shadow-sm"
+                                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/70 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 mb-6 backdrop-blur-sm shadow-sm"
                                 >
                                     <div className="relative">
                                         <div className="absolute inset-0 rounded-full bg-sky-400 blur-[6px] opacity-40" />
                                         <Sparkles className="relative h-3.5 w-3.5 text-sky-400" />
                                     </div>
-                                    <span className="text-[11px] font-semibold text-slate-500 tracking-wide">
+                                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 tracking-wide">
                                         {step === "identify" ? "Paso 1 de 3 — Identificación" : "Paso 2 de 3 — Portal"}
                                     </span>
                                 </motion.div>
 
                                 <h1 className="text-3xl sm:text-[2.5rem] font-bold tracking-tight mb-3 leading-tight">
-                                    <span className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent">
+                                    <span className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 dark:from-slate-100 dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                         {step === "identify" ? "Crea tu cuenta" : "Elige tu portal"}
                                     </span>
                                 </h1>
-                                <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
+                                <p className="text-slate-500 dark:text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">
                                     {step === "identify"
                                         ? "Ingresa tu documento de identidad para comenzar el proceso de registro"
                                         : "Selecciona el módulo que mejor se adapte a tus necesidades"
@@ -731,7 +731,7 @@ export default function RegisterSelectionPage() {
                                                         "w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 transition-all duration-500",
                                                         isDone ? "bg-gradient-to-br from-sky-500 to-emerald-500 text-white shadow-md shadow-sky-500/20" :
                                                         isActive ? "bg-sky-500/15 text-sky-600 ring-2 ring-sky-500/25 shadow-md shadow-sky-500/10" :
-                                                        "bg-white/60 text-slate-300 border border-slate-200"
+                                                        "bg-white/60 dark:bg-slate-800/60 text-slate-300 dark:text-slate-500 border border-slate-200 dark:border-slate-700"
                                                     )}
                                                     animate={isActive ? { scale: [1, 1.08, 1] } : {}}
                                                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -740,12 +740,12 @@ export default function RegisterSelectionPage() {
                                                 </motion.div>
                                                 <span className={cn(
                                                     "text-[10px] font-semibold tracking-[0.1em] uppercase transition-colors hidden sm:block",
-                                                    isActive ? "text-slate-600" : isDone ? "text-emerald-600/70" : "text-slate-300"
+                                                    isActive ? "text-slate-600 dark:text-slate-300" : isDone ? "text-emerald-600/70" : "text-slate-300 dark:text-slate-500"
                                                 )}>
                                                     {label}
                                                 </span>
                                             </div>
-                                            <div className="h-[3px] rounded-full bg-slate-200 overflow-hidden">
+                                            <div className="h-[3px] rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                                                 <motion.div
                                                     className={cn(
                                                         "h-full rounded-full",
@@ -787,8 +787,8 @@ export default function RegisterSelectionPage() {
                                                     "flex items-center gap-2.5 w-full h-11 px-3 rounded-xl border transition-all duration-200 cursor-pointer",
                                                     "hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40",
                                                     prefixOpen
-                                                        ? "border-sky-400/40 bg-sky-50"
-                                                        : "border-slate-200 bg-white/70 hover:bg-white hover:border-slate-300"
+                                                        ? "border-sky-400/40 bg-sky-50 dark:bg-sky-950"
+                                                        : "border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                                                 )}
                                             >
                                                 <div className={cn("flex items-center justify-center w-7 h-7 rounded-lg transition-all", currentPrefix.bg)}>
@@ -808,7 +808,7 @@ export default function RegisterSelectionPage() {
                                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                                         exit={{ opacity: 0, y: -4, scale: 0.97 }}
                                                         transition={{ duration: 0.15, ease: "easeOut" }}
-                                                        className="absolute top-full left-0 right-0 mt-1.5 z-50 rounded-xl border border-slate-200 bg-white/95 backdrop-blur-2xl shadow-xl shadow-slate-200/60"
+                                                        className="absolute top-full left-0 right-0 mt-1.5 z-50 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-800/95 backdrop-blur-2xl shadow-xl shadow-slate-200/60 dark:shadow-slate-900/60"
                                                     >
                                                         <div className="p-1">
                                                             {ALL_PREFIXES.map((p, idx) => {
@@ -824,15 +824,15 @@ export default function RegisterSelectionPage() {
                                                                         onClick={() => { setPrefix(p.value); setPrefixOpen(false); inputRef.current?.focus(); }}
                                                                         className={cn(
                                                                             "flex items-center gap-2.5 w-full px-2.5 py-2 rounded-lg text-left transition-all duration-150 cursor-pointer",
-                                                                            isActive ? "bg-slate-100 border border-slate-200" :
-                                                                            isFocused ? "bg-slate-50" :
-                                                                            "hover:bg-slate-50 border border-transparent"
+                                                                            isActive ? "bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600" :
+                                                                            isFocused ? "bg-slate-50 dark:bg-slate-700/50" :
+                                                                            "hover:bg-slate-50 dark:hover:bg-slate-700/50 border border-transparent"
                                                                         )}
                                                                     >
                                                                         <div className={cn("flex items-center justify-center w-6 h-6 rounded-md", p.bg)}>
                                                                             <OptionIcon className={cn("h-3 w-3", p.color)} />
                                                                         </div>
-                                                                        <span className={cn("text-xs font-bold", isActive ? p.color : "text-slate-700")}>{p.value}</span>
+                                                                        <span className={cn("text-xs font-bold", isActive ? p.color : "text-slate-700 dark:text-slate-200")}>{p.value}</span>
                                                                         <span className="text-[11px] text-slate-400">{p.desc}</span>
                                                                         {isActive && <CheckCircle2 className={cn("h-3.5 w-3.5 shrink-0 ml-auto", p.color)} />}
                                                                     </div>
@@ -852,7 +852,7 @@ export default function RegisterSelectionPage() {
                                                             "w-10 h-10 rounded-xl flex items-center justify-center ring-1 transition-all duration-500",
                                                             isNatural ? "bg-sky-500/10 ring-sky-500/20" :
                                                             isJuridico ? "bg-emerald-500/10 ring-emerald-500/20" :
-                                                            "bg-slate-100 ring-slate-200"
+                                                            "bg-slate-100 dark:bg-slate-700 ring-slate-200 dark:ring-slate-600"
                                                         )}
                                                         animate={isValidDoc ? { scale: [1, 1.05, 1] } : {}}
                                                         transition={{ duration: 1.5, repeat: Infinity }}
@@ -865,8 +865,8 @@ export default function RegisterSelectionPage() {
                                                         )} />
                                                     </motion.div>
                                                     <div>
-                                                        <p className="text-sm font-semibold text-slate-800">Número de documento</p>
-                                                        <p className="text-[11px] text-slate-400">Cédula de identidad o RIF empresarial</p>
+                                                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Número de documento</p>
+                                                        <p className="text-[11px] text-slate-400 dark:text-slate-500">Cédula de identidad o RIF empresarial</p>
                                                     </div>
                                                 </div>
 
@@ -878,7 +878,7 @@ export default function RegisterSelectionPage() {
                                                             onChange={e => handleNumberChange(e.target.value)}
                                                             placeholder={["J", "G", "C", "F"].includes(prefix) ? "50328471-6" : "18745632"}
                                                             ref={inputRef}
-                                                            className="relative h-12 text-lg font-semibold rounded-xl border border-slate-200 tracking-wider focus:border-sky-400/50 transition-all duration-300 pl-4 bg-white/70 text-slate-900 placeholder:text-slate-300 focus:bg-white"
+                                                            className="relative h-12 text-lg font-semibold rounded-xl border border-slate-200 dark:border-slate-700 tracking-wider focus:border-sky-400/50 transition-all duration-300 pl-4 bg-white/70 dark:bg-slate-800/70 text-slate-900 dark:text-slate-100 placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-800"
                                                         />
                                                         {docNumber && (
                                                             <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -898,7 +898,7 @@ export default function RegisterSelectionPage() {
                                                                 disabled={rifSearching}
                                                                 className={cn(
                                                                     "h-12 px-4 rounded-xl font-semibold text-xs tracking-wider shrink-0 transition-all duration-300 border",
-                                                                    "bg-white/70 border-slate-200 text-slate-500 hover:bg-white hover:text-slate-700 hover:border-slate-300"
+                                                                    "bg-white/70 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
                                                                 )}
                                                             >
                                                                 {rifSearching ? (
@@ -920,14 +920,14 @@ export default function RegisterSelectionPage() {
                                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                                     exit={{ opacity: 0, y: -10, scale: 0.98 }}
                                                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                                                    className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 backdrop-blur-sm"
+                                                    className="rounded-2xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/80 dark:bg-emerald-950/80 p-4 backdrop-blur-sm"
                                                 >
                                                     <div className="flex items-start gap-3">
                                                         <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-emerald-500/10">
                                                             <Building2 className="h-4 w-4 text-emerald-400" />
                                                         </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-semibold text-slate-800 truncate">{rifLookup.razonSocial}</p>
+                                                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{rifLookup.razonSocial}</p>
                                                             <p className="text-[11px] text-emerald-400/60 mt-0.5">
                                                                 {rifLookup.tipoEmpresa || 'Empresa registrada'}
                                                                 {rifLookup.estado && ` · ${rifLookup.estado}`}
@@ -950,16 +950,16 @@ export default function RegisterSelectionPage() {
                                         </AnimatePresence>
 
                                         {rifSearched && rifValidationError && !rifSearching && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-red-200 bg-red-50/80 backdrop-blur-sm">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-red-200 dark:border-red-700 bg-red-50/80 dark:bg-red-950/80 backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
                                                 <p className="text-[11px] font-medium text-red-600/70">{rifValidationError}</p>
                                             </motion.div>
                                         )}
 
                                         {rifSearched && !rifLookup && !rifValidationError && !rifSearching && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 bg-amber-50/80 backdrop-blur-sm">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-50/80 dark:bg-amber-950/80 backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
-                                                <p className="text-[11px] font-medium text-amber-600/70">
+                                                <p className="text-[11px] font-medium text-amber-600/70 dark:text-amber-400/70">
                                                     RIF válido pero no encontrado en el sistema. Podrás ingresar los datos manualmente.
                                                 </p>
                                             </motion.div>
@@ -974,8 +974,8 @@ export default function RegisterSelectionPage() {
                                                     transition={{ duration: 0.25 }}
                                                     className={cn(
                                                         "flex items-center gap-3 p-4 rounded-2xl border backdrop-blur-sm transition-all duration-500",
-                                                        isNatural ? "border-sky-200 bg-sky-50/80" :
-                                                        "border-emerald-200 bg-emerald-50/80"
+                                                        isNatural ? "border-sky-200 dark:border-sky-700 bg-sky-50/80 dark:bg-sky-950/80" :
+                                                        "border-emerald-200 dark:border-emerald-700 bg-emerald-50/80 dark:bg-emerald-950/80"
                                                     )}
                                                 >
                                                     {detected.valid ? (
@@ -1004,7 +1004,7 @@ export default function RegisterSelectionPage() {
                                         </AnimatePresence>
 
                                         {isNatural && detected.valid && cedulaSearching && (
-                                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 p-4 rounded-2xl border border-sky-200 bg-sky-50/80 backdrop-blur-sm">
+                                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 p-4 rounded-2xl border border-sky-200 dark:border-sky-700 bg-sky-50/80 dark:bg-sky-950/80 backdrop-blur-sm">
                                                 <Loader2 className="h-4 w-4 text-sky-400 animate-spin shrink-0" />
                                                 <div>
                                                     <p className="text-[11px] font-semibold text-sky-600">Consultando SAIME...</p>
@@ -1020,14 +1020,14 @@ export default function RegisterSelectionPage() {
                                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                                     exit={{ opacity: 0, y: -10, scale: 0.98 }}
                                                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                                                    className="rounded-2xl border border-sky-200 bg-sky-50/80 p-4 backdrop-blur-sm overflow-hidden"
+                                                    className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-sky-50/80 dark:bg-sky-950/80 p-4 backdrop-blur-sm overflow-hidden"
                                                 >
                                                     <div className="flex items-start gap-3">
                                                         <div className="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-sky-500/10">
                                                             <User className="h-4 w-4 text-sky-400" />
                                                         </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-semibold text-slate-800 truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
+                                                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{cedulaLookup.nombre} {cedulaLookup.apellido}</p>
                                                             <p className="text-[11px] text-sky-400/50 mt-0.5">
                                                                 {fullDocument}
                                                                 {cedulaLookup.estado && ` · ${cedulaLookup.estado}`}
@@ -1044,7 +1044,7 @@ export default function RegisterSelectionPage() {
                                                         )}
                                                     </div>
                                                     {(cedulaLookup.fechaNacimiento || cedulaLookup.sexo || cedulaLookup.nacionalidad) && (
-                                                        <div className="mt-3 pt-3 border-t border-slate-200 grid grid-cols-2 gap-x-4 gap-y-2">
+                                                        <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-x-4 gap-y-2">
                                                             {cedulaLookup.nacionalidad && (
                                                                 <p className="text-[10px] text-slate-500"><span className="text-sky-500/60 font-medium">Nac:</span> {cedulaLookup.nacionalidad}</p>
                                                             )}
@@ -1070,7 +1070,7 @@ export default function RegisterSelectionPage() {
                                         </AnimatePresence>
 
                                         {isNatural && detected.valid && !cedulaLookup && !cedulaSearching && cedulaValidInfo && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-emerald-200 bg-emerald-50/80 backdrop-blur-sm">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/80 dark:bg-emerald-950/80 backdrop-blur-sm">
                                                 <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
                                                 <div className="flex-1 min-w-0">
                                                     <p className="text-[11px] font-semibold text-emerald-600">{cedulaValidInfo.nacionalidad || 'Documento válido'}</p>
@@ -1084,10 +1084,10 @@ export default function RegisterSelectionPage() {
                                         )}
 
                                         {existsResult?.exists && (
-                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 bg-amber-50/80 backdrop-blur-sm">
+                                            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-4 rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-50/80 dark:bg-amber-950/80 backdrop-blur-sm">
                                                 <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
                                                 <div className="flex-1">
-                                                    <p className="text-[11px] font-semibold text-amber-600">Documento ya registrado</p>
+                                                    <p className="text-[11px] font-semibold text-amber-600 dark:text-amber-400">Documento ya registrado</p>
                                                     <p className="text-[10px] text-slate-400 mt-0.5">Ya existe una cuenta con este documento</p>
                                                 </div>
                                                 <Button size="sm" variant="outline" asChild className="shrink-0 rounded-lg text-[10px] font-semibold border-amber-500/15 text-amber-400/70 hover:bg-amber-500/10 hover:text-amber-300 bg-transparent">
@@ -1107,7 +1107,7 @@ export default function RegisterSelectionPage() {
                                                 className={cn(
                                                     "relative w-full h-12 rounded-xl text-sm font-semibold tracking-wide transition-all duration-500 overflow-hidden",
                                                     !isValidDoc && !checking
-                                                        ? "bg-slate-100 text-slate-300 border border-slate-200 cursor-not-allowed hover:bg-slate-100"
+                                                        ? "bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-500 border border-slate-200 dark:border-slate-700 cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700"
                                                         : "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:shadow-xl hover:from-sky-400 hover:to-blue-500"
                                                 )}
                                             >
@@ -1126,17 +1126,17 @@ export default function RegisterSelectionPage() {
 
                                         <div className="flex items-center justify-center gap-3 pt-3">
                                             <div className="flex items-center gap-1.5">
-                                                <ShieldCheck className="h-3 w-3 text-slate-300" />
+                                                <ShieldCheck className="h-3 w-3 text-slate-300 dark:text-slate-500" />
                                                 <p className="text-[9px] text-slate-400 tracking-wider font-medium">AES-256</p>
                                             </div>
-                                            <div className="w-px h-3 bg-slate-200" />
+                                            <div className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
                                             <div className="flex items-center gap-1.5">
-                                                <Hexagon className="h-3 w-3 text-slate-300" />
+                                                <Hexagon className="h-3 w-3 text-slate-300 dark:text-slate-500" />
                                                 <p className="text-[9px] text-slate-400 tracking-wider font-medium">SAIME</p>
                                             </div>
-                                            <div className="w-px h-3 bg-slate-200" />
+                                            <div className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
                                             <div className="flex items-center gap-1.5">
-                                                <CircuitBoard className="h-3 w-3 text-slate-300" />
+                                                <CircuitBoard className="h-3 w-3 text-slate-300 dark:text-slate-500" />
                                                 <p className="text-[9px] text-slate-400 tracking-wider font-medium">SENIAT</p>
                                             </div>
                                         </div>
@@ -1158,7 +1158,7 @@ export default function RegisterSelectionPage() {
                                                     <CurrentPrefixIcon className={cn("h-4 w-4", currentPrefix.color)} />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-[11px] font-semibold text-slate-700 truncate">
+                                                    <p className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 truncate">
                                                         {fullDocument} · {detected.label}
                                                     </p>
                                                     {cedulaLookup && (
@@ -1168,7 +1168,7 @@ export default function RegisterSelectionPage() {
                                                         <p className="text-[10px] text-slate-400 truncate">{rifLookup.razonSocial}</p>
                                                     )}
                                                 </div>
-                                                <span className={cn("text-[8px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md shrink-0 ring-1 ring-slate-200", currentPrefix.bg, currentPrefix.color)}>
+                                                <span className={cn("text-[8px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md shrink-0 ring-1 ring-slate-200 dark:ring-slate-700", currentPrefix.bg, currentPrefix.color)}>
                                                     {currentPrefix.desc}
                                                 </span>
                                             </div>
@@ -1188,7 +1188,7 @@ export default function RegisterSelectionPage() {
                                                         animate={{ opacity: 1, y: 0 }}
                                                         transition={{ duration: 0.35, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
                                                         onClick={() => handleSelectModule(mod.route)}
-                                                        className="group relative w-full text-left rounded-2xl border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300 hover:shadow-md transition-all duration-400 overflow-hidden"
+                                                        className="group relative w-full text-left rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md transition-all duration-400 overflow-hidden"
                                                     >
                                                         <div className={cn("absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-600", mod.gradient)} />
                                                         <div className="relative p-4 sm:p-5 flex items-center gap-4">
@@ -1200,17 +1200,17 @@ export default function RegisterSelectionPage() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-0.5">
-                                                                    <h3 className="text-[13px] font-semibold text-slate-800 group-hover:text-slate-900 transition-colors">{mod.title}</h3>
+                                                                    <h3 className="text-[13px] font-semibold text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{mod.title}</h3>
                                                                     {mod.badge && (
-                                                                        <span className={cn("text-[7px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ring-1 ring-slate-200", mod.badgeColor)}>
+                                                                        <span className={cn("text-[7px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ring-1 ring-slate-200 dark:ring-slate-700", mod.badgeColor)}>
                                                                             {mod.badge}
                                                                         </span>
                                                                     )}
                                                                 </div>
-                                                                <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2 group-hover:text-slate-500 transition-colors">{mod.description}</p>
+                                                                <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2 group-hover:text-slate-500 dark:group-hover:text-slate-300 transition-colors">{mod.description}</p>
                                                             </div>
-                                                            <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 group-hover:bg-slate-200 group-hover:border-slate-300 transition-all">
-                                                                <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-600 group-hover:translate-x-0.5 transition-all" />
+                                                            <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex items-center justify-center shrink-0 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 group-hover:border-slate-300 dark:group-hover:border-slate-500 transition-all">
+                                                                <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:translate-x-0.5 transition-all" />
                                                             </div>
                                                         </div>
                                                     </motion.button>

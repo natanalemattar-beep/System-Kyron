@@ -22,7 +22,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
 - Features visually driven landing pages, intuitive mobile sidebar, redesigned Login/Dashboard, and dynamic pricing display.
 - Custom form components include registration (prefix selectors, RIF/Cédula lookup), reusable document upload, and Venezuela geography data for cascading dropdowns.
-- All authentication pages enforce a light theme.
+- All authentication pages support both light and dark themes with proper dark: variant classes.
 - Specific module pages use brand colors (Asesoría Contable) and varied color schemes for plan cards.
 - Implements a dark/light theme system with smooth transitions, defaulting to dark mode, and Apple-style liquid glass effects.
 - Asesoría Contable verification offers Email, SMS, and WhatsApp channels.

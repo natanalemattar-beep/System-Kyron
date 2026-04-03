@@ -478,7 +478,7 @@ export function SpecializedLoginCard({
                             </div>
                           </div>
                           <Link href="/register">
-                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 hover:bg-amber-500/10 hover:text-amber-700">
+                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 hover:text-amber-700 dark:hover:text-amber-300">
                               <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
                             </Button>
                           </Link>
@@ -743,9 +743,9 @@ export function SpecializedLoginCard({
                       <Shield className="h-4 w-4 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-cyan-600">System Kyron — Verificación Segura</p>
+                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
                       <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 mt-2">{devCode}</p>
+                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
                       <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
                     </div>
                   </div>

@@ -341,7 +341,7 @@ export default function RegisterTelecomPage() {
                             <Signal className="h-6 w-6 text-blue-500" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-blue-600">Registro · Mis Líneas</CardTitle>
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Registro · Mis Líneas</CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">Mi Línea 5G · eSIM · Flota Corporativa · Telemetría</CardDescription>
                         </div>
                     </div>
@@ -377,7 +377,7 @@ export default function RegisterTelecomPage() {
                                 {tipoCliente === 'empresarial' && (
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5">
                                         <div className="sm:col-span-2">
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-blue-600 mb-3 flex items-center gap-2">
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3 flex items-center gap-2">
                                                 <Building className="h-3.5 w-3.5" /> Datos de la Empresa
                                             </p>
                                         </div>
@@ -431,7 +431,7 @@ export default function RegisterTelecomPage() {
                                                 <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
                                                 <div className="flex-1">
                                                     <p className="text-sm font-mono font-bold text-foreground">{watch('cedula')}</p>
-                                                    <p className="text-[9px] text-green-600 font-bold uppercase tracking-widest">Detectada automáticamente</p>
+                                                    <p className="text-[9px] text-green-600 dark:text-green-400 font-bold uppercase tracking-widest">Detectada automáticamente</p>
                                                 </div>
                                                 <Button type="button" variant="ghost" size="sm" className="h-7 text-[9px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground" onClick={() => { setDocFromParams(false); setValue('cedula', ''); }}>
                                                     Cambiar
@@ -508,7 +508,7 @@ export default function RegisterTelecomPage() {
                         {step === 2 && (
                             <div className="space-y-5">
                                 <div className="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 mb-1">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1 flex items-center gap-2">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2">
                                         <Smartphone className="h-3.5 w-3.5" /> Selecciona tu Plan
                                     </p>
                                     <p className="text-[9px] text-muted-foreground">Elige el plan que mejor se adapte a tus necesidades. Podrás cambiarlo después.</p>
@@ -553,7 +553,7 @@ export default function RegisterTelecomPage() {
                                                         )}
                                                         <div className="flex items-start justify-between mb-2">
                                                             <div>
-                                                                <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest mb-1.5", selected ? "bg-blue-500/10 text-blue-600" : "bg-muted/30 text-muted-foreground")}>
+                                                                <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-widest mb-1.5", selected ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-muted/30 text-muted-foreground")}>
                                                                     <Zap className="h-2.5 w-2.5" />
                                                                     {plan.nombre}
                                                                 </div>
@@ -673,7 +673,7 @@ export default function RegisterTelecomPage() {
                         {step === 4 && (
                             <div className="space-y-6">
                                 <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-1">Verificación por Correo Electrónico</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1">Verificación por Correo Electrónico</p>
                                     <p className="text-[9px] text-muted-foreground">Enviaremos un código de 6 dígitos a <strong className="text-foreground">{getValues('email')}</strong> para verificar tu identidad.</p>
                                 </div>
                                 {!verifSent ? (
@@ -687,7 +687,7 @@ export default function RegisterTelecomPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
                                             <CheckCircle className="h-10 w-10 text-green-500" />
                                         </div>
-                                        <p className="font-black text-green-600 uppercase tracking-widest text-xs">Identidad Verificada</p>
+                                        <p className="font-black text-green-600 dark:text-green-400 uppercase tracking-widest text-xs">Identidad Verificada</p>
                                     </div>
                                 ) : (
                                     <div className="space-y-4">
@@ -724,13 +724,13 @@ export default function RegisterTelecomPage() {
                                     const planSel = PLANES_TELECOM.find(p => p.id === getValues('tipo_plan'));
                                     return planSel ? (
                                         <div className="p-3 bg-blue-500/5 border border-blue-500/10 rounded-xl text-xs">
-                                            <p className="font-black text-blue-600 uppercase tracking-widest mb-1">Plan seleccionado:</p>
+                                            <p className="font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">Plan seleccionado:</p>
                                             <p className="text-muted-foreground">{planSel.nombre} — ${planSel.precioUsd}/mes{tasaBcv ? ` (Bs. ${(planSel.precioUsd * tasaBcv).toFixed(2)})` : ''}</p>
                                         </div>
                                     ) : null;
                                 })()}
                                 <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-left text-xs space-y-2">
-                                    <p className="font-black text-blue-600 uppercase tracking-widest">Servicios habilitados:</p>
+                                    <p className="font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">Servicios habilitados:</p>
                                     {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
                                     {tipoCliente === 'empresarial' && <p className="text-muted-foreground">✓ Flota Empresarial</p>}
                                 </div>

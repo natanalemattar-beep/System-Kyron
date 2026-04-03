@@ -38,7 +38,7 @@ export default function LoginSelectionPage() {
   const enterpriseOptions = optionKeys.filter(o => o.category === 'corporate');
 
   return (
-    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0]">
+    <div className="min-h-screen flex flex-col items-center w-full relative bg-gradient-to-b from-[#e4edf8] via-[#dce7f5] to-[#d2dff0] dark:from-[#0a0f1a] dark:via-[#111827] dark:to-[#0f172a]">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-blue-400/[0.14] blur-[180px] animate-[pulse_8s_ease-in-out_infinite]" />
         <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] rounded-full bg-emerald-400/[0.12] blur-[160px] animate-[pulse_10s_ease-in-out_infinite]" />
@@ -80,7 +80,7 @@ export default function LoginSelectionPage() {
       </div>
 
       <div className="w-full max-w-5xl px-4 md:px-8 py-6">
-        <Button variant="ghost" asChild className="rounded-xl h-9 px-3 text-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 -ml-3">
+        <Button variant="ghost" asChild className="rounded-xl h-9 px-3 text-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:hover:text-slate-200 dark:hover:bg-slate-800 -ml-3">
           <Link href="/" className="flex items-center"><ChevronLeft className="mr-1.5 h-4 w-4" /> {t('back')}</Link>
         </Button>
       </div>
@@ -100,7 +100,7 @@ export default function LoginSelectionPage() {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-primary/15 blur-2xl rounded-full scale-150 animate-pulse" />
-              <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/15 to-cyan-500/15 border border-blue-200/50 flex items-center justify-center backdrop-blur-sm">
+              <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/15 to-cyan-500/15 border border-blue-200/50 dark:border-blue-700/50 flex items-center justify-center backdrop-blur-sm">
                 <Logo className="h-10 w-10 relative drop-shadow-lg" />
               </div>
             </div>
@@ -110,12 +110,12 @@ export default function LoginSelectionPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.4 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-300/40 bg-cyan-50 text-cyan-700 text-[10px] font-black uppercase tracking-[0.2em] mb-5 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-300/40 dark:border-cyan-700/40 bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-[10px] font-black uppercase tracking-[0.2em] mb-5 backdrop-blur-sm">
               <Lock className="h-3 w-3" /> {t('badge')}
             </div>
           </motion.div>
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-800 leading-[1.1] uppercase"
+            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-800 dark:text-slate-100 leading-[1.1] uppercase"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -140,14 +140,14 @@ export default function LoginSelectionPage() {
           animate="visible"
         >
           <div className="flex items-center gap-3 mb-5">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 border border-blue-200/50 flex items-center justify-center">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 border border-blue-200/50 dark:border-blue-700/50 flex items-center justify-center">
               <User className="h-4 w-4 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-xs font-black text-slate-800 uppercase tracking-[0.15em]">{t('citizen_portal')}</h2>
+              <h2 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('citizen_portal')}</h2>
               <p className="text-[10px] text-slate-400 mt-0.5">Servicios para ciudadanos</p>
             </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {personalOptions.map((option) => (
@@ -155,8 +155,8 @@ export default function LoginSelectionPage() {
                 <Link href={option.href as any} className="group block">
                   <div
                     className={cn(
-                      "relative flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-md shadow-sm",
-                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:bg-white/90",
+                      "relative flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm",
+                      "transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 hover:bg-white/90 dark:hover:bg-slate-800/90",
                       option.borderHover, option.shadow
                     )}
                     style={{ '--card-glow': option.glow } as React.CSSProperties}
@@ -170,11 +170,11 @@ export default function LoginSelectionPage() {
                       <option.icon className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-[13px] font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
+                      <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
                       <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{t(`options.${option.key}.description`)}</p>
                     </div>
-                    <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-50 transition-all shrink-0 relative z-10">
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+                    <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-blue-50 dark:group-hover:bg-blue-950 transition-all shrink-0 relative z-10">
+                      <ArrowRight className="h-3.5 w-3.5 text-slate-300 dark:text-slate-500 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
                     </div>
                   </div>
                 </Link>
@@ -190,14 +190,14 @@ export default function LoginSelectionPage() {
           animate="visible"
         >
           <div className="flex items-center gap-3 mb-5">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 border border-emerald-200/50 flex items-center justify-center">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border border-emerald-200/50 dark:border-emerald-700/50 flex items-center justify-center">
               <Building2 className="h-4 w-4 text-emerald-600" />
             </div>
             <div>
-              <h2 className="text-xs font-black text-slate-800 uppercase tracking-[0.15em]">{t('corporate_portals')}</h2>
+              <h2 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('corporate_portals')}</h2>
               <p className="text-[10px] text-slate-400 mt-0.5">Portales empresariales</p>
             </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {enterpriseOptions.map((option) => (
@@ -205,7 +205,7 @@ export default function LoginSelectionPage() {
                 <Link href={option.href as any} className="group block">
                   <div
                     className={cn(
-                      "relative flex items-center gap-3.5 p-4 rounded-2xl border border-slate-200/80 bg-white/70 backdrop-blur-md",
+                      "relative flex items-center gap-3.5 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md",
                       "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
                       option.borderHover, option.shadow
                     )}
@@ -219,10 +219,10 @@ export default function LoginSelectionPage() {
                       <option.icon className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <p className="text-[13px] font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
+                      <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors">{t(`options.${option.key}.label`)}</p>
                       <p className="text-[11px] text-slate-400 mt-0.5 leading-snug line-clamp-1">{t(`options.${option.key}.description`)}</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0 relative z-10" />
+                    <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-500 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0 relative z-10" />
                   </div>
                 </Link>
               </motion.div>
@@ -231,7 +231,7 @@ export default function LoginSelectionPage() {
         </motion.section>
 
         <motion.div
-          className="rounded-2xl border border-slate-200/80 bg-white/60 backdrop-blur-md p-6 mb-8 relative overflow-hidden"
+          className="rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 mb-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.4 }}
@@ -240,11 +240,11 @@ export default function LoginSelectionPage() {
           <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-cyan-400/[0.06] blur-[60px]" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/10 to-cyan-500/10 flex items-center justify-center border border-blue-200/40 shrink-0">
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/10 to-cyan-500/10 flex items-center justify-center border border-blue-200/40 dark:border-blue-700/40 shrink-0">
                 <Sparkles className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-[13px] font-bold text-slate-800">{t('full_ecosystem')}</p>
+                <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">{t('full_ecosystem')}</p>
                 <p className="text-[11px] text-slate-400">{t('ecosystem_desc')}</p>
               </div>
             </div>
@@ -274,13 +274,13 @@ export default function LoginSelectionPage() {
               { label: "IGTF 3%", icon: ShieldCheck },
               { label: "LOTTT", icon: ShieldCheck },
             ].map((badge, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5 rounded-lg border border-slate-200/60 bg-white/40">
+              <span key={i} className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-800/40">
                 <badge.icon className="h-2.5 w-2.5" />
                 {badge.label}
               </span>
             ))}
           </div>
-          <p className="text-[10px] text-slate-300 uppercase tracking-[0.3em] font-bold">
+          <p className="text-[10px] text-slate-300 dark:text-slate-500 uppercase tracking-[0.3em] font-bold">
             <Globe className="h-3 w-3 inline mr-1.5" />
             {t('footer')}
           </p>

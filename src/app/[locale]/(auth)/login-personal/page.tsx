@@ -405,9 +405,9 @@ export default function LoginPersonalPage() {
                     <Shield className="h-4 w-4 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-cyan-600">System Kyron — Verificación Segura</p>
+                    <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
                     <p className="text-sm text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 mt-2">{devCode}</p>
+                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
                     <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
                   </div>
                 </div>
@@ -429,7 +429,7 @@ export default function LoginPersonalPage() {
                     onChange={e => handleCodeChange(i, e.target.value)}
                     onKeyDown={e => handleCodeKeyDown(i, e)}
                     onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                    className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border/40 focus:border-blue-500")}
+                    className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600 dark:text-blue-400" : "border-border/40 focus:border-blue-500")}
                     disabled={isLoading} autoComplete="one-time-code"
                   />
                 ))}

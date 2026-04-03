@@ -331,7 +331,7 @@ export default function RecuperarCuentaPage() {
 
             {step === 'done' && (
               <div className="text-center py-4 space-y-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
                   <CircleCheck className="h-9 w-9 text-emerald-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">

@@ -735,7 +735,7 @@ export default function RegisterJuridicoPage() {
                 </div>
                 {verifVerified ? (
                   <div className="text-center py-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
                       <CheckCircle className="h-9 w-9 text-green-500" />
                     </div>
                     <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
@@ -826,7 +826,7 @@ export default function RegisterJuridicoPage() {
 
             {step === TOTAL_STEPS && (
               <div className="text-center py-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
                   <CheckCircle className="h-12 w-12 text-green-500" />
                 </div>
                 <h2 className="text-2xl font-bold text-foreground">¡Empresa Registrada!</h2>
