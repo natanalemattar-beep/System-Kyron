@@ -140,10 +140,11 @@ async function registerJuridico(body: Record<string, unknown>) {
     const {
         razonSocial, rif, tipo_empresa, actividad_economica, codigo_ciiu,
         fecha_constitucion, registro_mercantil, capital_social,
-        telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
+        telefono, telefono_alt, estado_empresa, municipio_empresa, direccion, parroquia,
         repNombre, repCedula, rep_cargo, rep_telefono, repEmail, password,
-        modules, plan, plan_monto,
+        modules, plan, plan_monto, regimen_iva,
     } = body as Record<string, unknown>;
+    const resolvedDireccion = direccion || parroquia || '';
 
     if (!repEmail || !password || !razonSocial || !rif) {
         return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
@@ -258,7 +259,7 @@ async function registerJuridico(body: Record<string, unknown>) {
             sanitizeString((telefono_alt ?? '') as string, 20),
             sanitizeString((estado_empresa ?? '') as string, 100),
             sanitizeString((municipio_empresa ?? '') as string, 100),
-            sanitizeString((direccion ?? '') as string, 500),
+            sanitizeString((resolvedDireccion ?? '') as string, 500),
             repNombreStr,
             sanitizeString((repCedula ?? '') as string, 20),
             email,

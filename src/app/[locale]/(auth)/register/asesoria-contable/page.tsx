@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -145,6 +145,18 @@ export default function RegisterContabilidadPage() {
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
+    useEffect(() => {
+        const html = document.documentElement;
+        const wasDark = html.classList.contains('dark');
+        html.classList.remove('dark');
+        html.style.colorScheme = 'light';
+        return () => {
+            if (wasDark) {
+                html.classList.add('dark');
+                html.style.colorScheme = 'dark';
+            }
+        };
+    }, []);
 
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifSent, setVerifSent] = useState(false);
@@ -257,20 +269,29 @@ export default function RegisterContabilidadPage() {
                 return;
             }
             setStep(2);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         if (step === 2) {
-            const fields: (keyof FormData)[] = [
-                'razonSocial', 'rif', 'tipo_empresa', 'repNombre', 'repEmail',
-                'password', 'confirmPassword', 'estado_empresa', 'municipio_empresa', 'telefono',
-            ];
-            const valid = await trigger(fields);
-            if (!valid) return;
+            const baseFields: (keyof FormData)[] = ['repNombre', 'repEmail', 'password', 'confirmPassword'];
+            const companyFields: (keyof FormData)[] = ['razonSocial', 'rif', 'tipo_empresa', 'estado_empresa', 'municipio_empresa', 'telefono'];
+            const missingPrefillFields = hasPrefill
+                ? companyFields.filter(f => !getValues(f)?.trim())
+                : companyFields;
+            const requiredFields = [...baseFields, ...missingPrefillFields];
+            const valid = await trigger(requiredFields);
+            if (!valid) {
+                toast({ title: 'Campos incompletos', description: 'Por favor revisa los campos marcados en rojo.', variant: 'destructive' });
+                const firstError = document.querySelector('[class*="border-red"]');
+                if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
             if (!acceptTerms) {
                 toast({ title: 'Términos requeridos', description: 'Debes aceptar los términos para continuar.', variant: 'destructive' });
                 return;
             }
             setStep(3);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     };
@@ -283,6 +304,7 @@ export default function RegisterContabilidadPage() {
             setVerifMethod(null);
         }
         setStep(s => s - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const planData = PLANES.find(p => p.id === selectedPlan);
@@ -915,7 +937,7 @@ export default function RegisterContabilidadPage() {
                                     </Button>
                                 )}
                                 {step === 3 && (
-                                    <Button type="submit" disabled={isLoading || !verifVerified} className="rounded-xl h-11 px-6 text-white font-bold shadow-md" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }}>
+                                    <Button type="submit" disabled={isLoading || !verifVerified} className={cn("rounded-xl h-11 px-6 text-white font-bold shadow-md", (!verifVerified && !isLoading) && "opacity-50 cursor-not-allowed")} style={{ background: (isLoading || !verifVerified) ? '#94a3b8' : 'linear-gradient(135deg, #3b82f6, #1e40af)' }}>
                                         {isLoading ? <><Loader2 className="mr-1.5 h-4 w-4 animate-spin" />Registrando...</> : <>Finalizar Registro<ArrowRight className="ml-1.5 h-4 w-4" /></>}
                                     </Button>
                                 )}
