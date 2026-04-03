@@ -175,6 +175,7 @@ export default function RegisterJuridicoPage() {
   const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
   const [verifSent, setVerifSent] = useState(false);
   const [verifCode, setVerifCode] = useState('');
+  const [devCode, setDevCode] = useState<string | null>(null);
   const [verifLoading, setVerifLoading] = useState(false);
   const [verifVerified, setVerifVerified] = useState(false);
   const [verifDestino, setVerifDestino] = useState('');
@@ -244,7 +245,10 @@ export default function RegisterJuridicoPage() {
       }
       setVerifSent(true);
       startCountdown();
-      toast({ title: 'Código enviado', description: verifMethod === 'email' ? `Revisa ${email}` : `Enviado al ${telefono}` });
+      const returnedCode = json.devCode || json.kyronCode || null;
+      setDevCode(returnedCode);
+      if (returnedCode) setVerifCode(returnedCode);
+      toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : verifMethod === 'email' ? `Revisa ${email}` : `Enviado al ${telefono}` });
     } catch {
       toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
     } finally {
@@ -776,8 +780,14 @@ export default function RegisterJuridicoPage() {
                     ) : (
                       <div className="space-y-3">
                         <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm text-center">
-                          Código enviado a <strong className="text-primary">{verifDestino}</strong>
+                          {devCode ? 'Ingresa el código mostrado abajo' : <>Código enviado a <strong className="text-primary">{verifDestino}</strong></>}
                         </div>
+                        {devCode && (
+                          <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
+                            <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
+                            <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                          </div>
+                        )}
                         <div className="space-y-2">
                           <label className="text-sm font-medium text-foreground block">Ingresa el código de 6 dígitos</label>
                           <input

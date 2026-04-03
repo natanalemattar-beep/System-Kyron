@@ -26,6 +26,7 @@ export default function RecuperarCuentaPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [error, setError] = useState('');
+  const [devCode, setDevCode] = useState<string | null>(null);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -58,7 +59,10 @@ export default function RecuperarCuentaPage() {
       setAccountInfo({ nombre: data.nombre, tipo: data.tipo, maskedEmail: data.maskedEmail });
       setStep('code-sent');
       startCountdown();
-      toast({ title: 'Código enviado', description: 'Revisa tu correo electrónico.' });
+      const returnedCode = data.devCode || null;
+      setDevCode(returnedCode);
+      if (returnedCode) setCode(returnedCode);
+      toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : 'Revisa tu correo electrónico.' });
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -73,9 +77,13 @@ export default function RecuperarCuentaPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ method: 'email', email: email.trim().toLowerCase() }),
       });
-      if (!res.ok) throw new Error((await res.json()).error);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
       startCountdown();
-      toast({ title: 'Código enviado', description: 'Revisa tu correo electrónico.' });
+      const returnedCode = json.devCode || json.kyronCode || null;
+      setDevCode(returnedCode);
+      if (returnedCode) setCode(returnedCode);
+      toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : 'Revisa tu correo electrónico.' });
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -223,6 +231,13 @@ export default function RecuperarCuentaPage() {
                     <p className="text-xs text-muted-foreground">{accountInfo.maskedEmail} · {accountInfo.tipo === 'juridico' ? 'Empresa' : 'Personal'}</p>
                   </div>
                 </div>
+
+                {devCode && (
+                  <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
+                    <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
+                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                  </div>
+                )}
 
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Código de Verificación</Label>

@@ -149,6 +149,7 @@ export default function RegisterContabilidadPage() {
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifSent, setVerifSent] = useState(false);
     const [verifCode, setVerifCode] = useState('');
+    const [devCode, setDevCode] = useState<string | null>(null);
     const [verifVerified, setVerifVerified] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [verifDestino, setVerifDestino] = useState('');
@@ -211,8 +212,11 @@ export default function RegisterContabilidadPage() {
             }
             setVerifSent(true);
             startCountdown();
+            const returnedCode = json.devCode || json.kyronCode || null;
+            setDevCode(returnedCode);
+            if (returnedCode) setVerifCode(returnedCode);
             const channelLabel = useMethod === 'email' ? `correo ${destino}` : useMethod === 'sms' ? `SMS al ${destino}` : `WhatsApp al ${destino}`;
-            toast({ title: 'Código enviado', description: `Revisa tu ${channelLabel}` });
+            toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : `Revisa tu ${channelLabel}` });
         } catch {
             toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
         } finally {
@@ -814,9 +818,15 @@ export default function RegisterContabilidadPage() {
                                                 <div className="flex items-center justify-center gap-2 py-1">
                                                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                                     <p className="text-xs text-emerald-600 font-black uppercase tracking-widest">
-                                                        {verifMethod === 'email' ? 'Código enviado a tu correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
+                                                        {devCode ? 'Código generado por System Kyron' : verifMethod === 'email' ? 'Código enviado a tu correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
                                                     </p>
                                                 </div>
+                                                {devCode && (
+                                                    <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-2xl text-center">
+                                                        <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
+                                                        <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                                                    </div>
+                                                )}
                                                 <Input
                                                     placeholder="000000"
                                                     maxLength={6}

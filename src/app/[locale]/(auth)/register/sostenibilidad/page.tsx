@@ -130,6 +130,7 @@ export default function RegisterSostenibilidadPage() {
     const [verifCode, setVerifCode] = useState("");
     const [verifSent, setVerifSent] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
+    const [devCode, setDevCode] = useState<string | null>(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
@@ -236,10 +237,14 @@ export default function RegisterSostenibilidadPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ destino, tipo: verifMethod }),
             });
-            if (!res.ok) throw new Error((await res.json()).error);
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error);
             setVerifSent(true);
             startCountdown();
-            toast({ title: "Código enviado" });
+            const returnedCode = json.devCode || json.kyronCode || null;
+            setDevCode(returnedCode);
+            if (returnedCode) setVerifCode(returnedCode);
+            toast({ title: "Código enviado", description: returnedCode ? "Código de verificación generado por System Kyron." : undefined });
         } catch (e: any) {
             toast({
                 title: "Error",
@@ -864,8 +869,14 @@ export default function RegisterSostenibilidadPage() {
                                 ) : (
                                     <div className="space-y-4">
                                         <p className="text-sm text-muted-foreground text-center">
-                                            Ingresa el código de 6 dígitos.
+                                            {devCode ? "Ingresa el código mostrado abajo" : "Ingresa el código de 6 dígitos."}
                                         </p>
+                                        {devCode && (
+                                            <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
+                                                <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
+                                                <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                                            </div>
+                                        )}
                                         <Input
                                             maxLength={6}
                                             value={verifCode}

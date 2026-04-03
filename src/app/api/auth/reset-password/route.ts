@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
         [user.email, codigo, expiresAt]
       );
 
-      await sendEmail({
+      const emailResult = await sendEmail({
         to: user.email,
         subject: `${codigo} — Recuperar contraseña · System Kyron`,
         html: buildKyronEmailTemplate({
@@ -84,13 +84,22 @@ export async function POST(req: NextRequest) {
         }),
         module: 'auth',
         purpose: 'password-reset',
-      }).catch(err => console.error('[reset-password] Email failed:', err));
+      }).catch(err => { console.error('[reset-password] Email failed:', err); return null; });
 
-      return NextResponse.json({
+      const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
+      const response: Record<string, unknown> = {
         success: true,
         found: true,
         maskedEmail: maskEmail(user.email),
-      });
+        nombre: user.nombre,
+        tipo: 'natural',
+      };
+      if (isDev && (!emailResult || !emailResult.success)) {
+        console.log(`[reset-password][DEV] Codigo para ${user.email}: ${codigo}`);
+        response.devCode = codigo;
+      }
+
+      return NextResponse.json(response);
     }
 
     if (action === 'reset') {
