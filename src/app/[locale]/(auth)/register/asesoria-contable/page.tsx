@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from '@/navigation';
 import {
-    Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
+    Card, CardContent, CardHeader, CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,10 +17,10 @@ import {
 import {
     Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
     Building, BookOpen, ShieldCheck, Check, Star, Crown, Zap, Sparkles,
-    Mail, RefreshCw, Fingerprint,
+    Mail, RefreshCw, Fingerprint, Calculator, FileText, Users, Headphones,
+    TrendingUp, Shield, BarChart3,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
@@ -33,6 +33,7 @@ const PLANES = [
         precio: 12,
         icon: BookOpen,
         color: 'blue',
+        popular: false,
         descripcion: 'Contabilidad simple para emprendedores',
         features: ['Libro diario y mayor', 'Balance general', 'Estado de resultados', 'Hasta 200 asientos/mes'],
     },
@@ -42,6 +43,7 @@ const PLANES = [
         precio: 28,
         icon: Zap,
         color: 'emerald',
+        popular: true,
         descripcion: 'Facturación electrónica y cumplimiento fiscal',
         features: ['Todo del Básico', 'Facturación SENIAT', 'Declaración IVA', 'Conciliación bancaria'],
     },
@@ -51,6 +53,7 @@ const PLANES = [
         precio: 52,
         icon: Building,
         color: 'violet',
+        popular: false,
         descripcion: 'Multi-usuario con retenciones y nómina',
         features: ['Todo del Profesional', 'Retenciones IVA/ISLR', 'Multi-usuario (5)', 'Nómina básica'],
     },
@@ -60,6 +63,7 @@ const PLANES = [
         precio: 95,
         icon: Crown,
         color: 'amber',
+        popular: false,
         descripcion: 'Solución completa con IA y asesoría',
         features: ['Todo del Empresarial', 'IA Kyron', 'Usuarios ilimitados', 'Soporte 24/7'],
     },
@@ -102,14 +106,21 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const colorMap: Record<string, { bg: string; border: string; text: string; accent: string; ring: string }> = {
-    blue: { bg: 'bg-blue-500/5', border: 'border-blue-500/20', text: 'text-blue-600', accent: 'bg-blue-500', ring: 'ring-blue-500' },
-    emerald: { bg: 'bg-emerald-500/5', border: 'border-emerald-500/20', text: 'text-emerald-600', accent: 'bg-emerald-500', ring: 'ring-emerald-500' },
-    violet: { bg: 'bg-violet-500/5', border: 'border-violet-500/20', text: 'text-violet-600', accent: 'bg-violet-500', ring: 'ring-violet-500' },
-    amber: { bg: 'bg-amber-500/5', border: 'border-amber-500/20', text: 'text-amber-600', accent: 'bg-amber-500', ring: 'ring-amber-500' },
+const colorMap: Record<string, { bg: string; bgHover: string; border: string; borderActive: string; text: string; accent: string; ring: string; gradient: string; shadow: string }> = {
+    blue: { bg: 'bg-blue-500/5', bgHover: 'hover:bg-blue-500/10', border: 'border-blue-500/15', borderActive: 'border-blue-500/40', text: 'text-blue-500', accent: 'bg-blue-500', ring: 'ring-blue-500/30', gradient: 'from-blue-500 to-blue-600', shadow: 'shadow-blue-500/20' },
+    emerald: { bg: 'bg-emerald-500/5', bgHover: 'hover:bg-emerald-500/10', border: 'border-emerald-500/15', borderActive: 'border-emerald-500/40', text: 'text-emerald-500', accent: 'bg-emerald-500', ring: 'ring-emerald-500/30', gradient: 'from-emerald-500 to-emerald-600', shadow: 'shadow-emerald-500/20' },
+    violet: { bg: 'bg-violet-500/5', bgHover: 'hover:bg-violet-500/10', border: 'border-violet-500/15', borderActive: 'border-violet-500/40', text: 'text-violet-500', accent: 'bg-violet-500', ring: 'ring-violet-500/30', gradient: 'from-violet-500 to-violet-600', shadow: 'shadow-violet-500/20' },
+    amber: { bg: 'bg-amber-500/5', bgHover: 'hover:bg-amber-500/10', border: 'border-amber-500/15', borderActive: 'border-amber-500/40', text: 'text-amber-500', accent: 'bg-amber-500', ring: 'ring-amber-500/30', gradient: 'from-amber-500 to-amber-600', shadow: 'shadow-amber-500/20' },
 };
 
 const TOTAL_STEPS = 4;
+
+const stepConfig = [
+    { title: 'Plan', desc: 'Elige tu plan', icon: Star },
+    { title: 'Empresa', desc: 'Datos del negocio', icon: Building },
+    { title: 'Verificar', desc: 'Confirma tu correo', icon: Fingerprint },
+    { title: 'Completado', desc: 'Tu cuenta está lista', icon: CheckCircle },
+];
 
 export default function RegisterContabilidadPage() {
     const [step, setStep] = useState(1);
@@ -133,7 +144,6 @@ export default function RegisterContabilidadPage() {
         defaultValues: { regimen_iva: 'General' },
     });
 
-    const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
     const estadoEmpresa = watch('estado_empresa');
     const watchedPassword = watch('password');
 
@@ -271,334 +281,454 @@ export default function RegisterContabilidadPage() {
         }
     };
 
-    const stepTitles = [
-        { title: 'Plan', icon: Star },
-        { title: 'Datos', icon: Building },
-        { title: 'Verificación', icon: Fingerprint },
-        { title: '¡Listo!', icon: CheckCircle },
-    ];
-
-    const currentStep = stepTitles[step - 1];
-    const StepIcon = currentStep.icon;
-
     const passwordChecks = [
-        { label: '8+', ok: (watchedPassword || '').length >= 8 },
-        { label: 'A-Z', ok: /[A-Z]/.test(watchedPassword || '') },
-        { label: '0-9', ok: /[0-9]/.test(watchedPassword || '') },
-        { label: '!@#', ok: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(watchedPassword || '') },
+        { label: '8+ chars', ok: (watchedPassword || '').length >= 8 },
+        { label: 'Mayúscula', ok: /[A-Z]/.test(watchedPassword || '') },
+        { label: 'Número', ok: /[0-9]/.test(watchedPassword || '') },
+        { label: 'Especial', ok: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(watchedPassword || '') },
     ];
 
     return (
-        <div className={cn(
-            "container mx-auto px-4 py-8 min-h-screen flex items-start justify-center pt-12",
-            step === 1 ? "max-w-3xl" : "max-w-xl"
-        )}>
-            <Card className="w-full border-none shadow-2xl bg-card/60 backdrop-blur-xl rounded-[2rem] overflow-hidden">
-                <CardHeader className="p-6 pb-4 border-b border-border/50 bg-muted/5">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20">
-                            <BookOpen className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-primary">Asesoría Contable</CardTitle>
-                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">Registro rápido</CardDescription>
-                        </div>
+        <div className="min-h-screen relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/20 dark:from-slate-950 dark:via-blue-950/20 dark:to-emerald-950/10" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-b from-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-emerald-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+            <div className={cn(
+                "relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-screen",
+                step === 1 ? "max-w-4xl pt-8" : "max-w-xl pt-12"
+            )}>
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2.5 bg-gradient-to-br from-primary/20 to-emerald-500/20 rounded-2xl border border-primary/10 shadow-lg shadow-primary/5">
+                        <Calculator className="h-6 w-6 text-primary" />
                     </div>
-                    {step < TOTAL_STEPS && (
-                        <>
-                            <Progress value={progress} className="h-1 mb-3" />
-                            <div className="flex items-center gap-2">
-                                <StepIcon className="h-3.5 w-3.5 text-primary" />
-                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{currentStep.title} · Paso {step} de {TOTAL_STEPS - 1}</p>
-                            </div>
-                        </>
-                    )}
-                </CardHeader>
+                    <div>
+                        <h1 className="text-lg font-black uppercase tracking-[0.15em] text-foreground">Asesoría Contable</h1>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">System Kyron</p>
+                    </div>
+                </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent className="p-6 space-y-5">
+                {step < TOTAL_STEPS && (
+                    <div className="flex items-center gap-0 mb-8 w-full max-w-md mx-auto">
+                        {stepConfig.slice(0, 3).map((s, i) => {
+                            const stepNum = i + 1;
+                            const isActive = step === stepNum;
+                            const isDone = step > stepNum;
+                            const Icon = s.icon;
+                            return (
+                                <div key={i} className="flex items-center flex-1 last:flex-none">
+                                    <div className="flex flex-col items-center">
+                                        <div className={cn(
+                                            "w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-300 border-2",
+                                            isDone && "bg-emerald-500 border-emerald-500 shadow-lg shadow-emerald-500/20",
+                                            isActive && "bg-primary border-primary shadow-lg shadow-primary/20",
+                                            !isActive && !isDone && "bg-muted/50 border-border/50"
+                                        )}>
+                                            {isDone ? (
+                                                <Check className="h-4.5 w-4.5 text-white" />
+                                            ) : (
+                                                <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-muted-foreground/50")} />
+                                            )}
+                                        </div>
+                                        <p className={cn(
+                                            "text-[9px] font-bold uppercase tracking-wider mt-1.5 text-center",
+                                            isActive ? "text-primary" : isDone ? "text-emerald-500" : "text-muted-foreground/50"
+                                        )}>{s.title}</p>
+                                    </div>
+                                    {i < 2 && (
+                                        <div className={cn(
+                                            "flex-1 h-0.5 mx-2 rounded-full transition-all duration-500 mt-[-16px]",
+                                            step > stepNum ? "bg-emerald-500" : "bg-border/30"
+                                        )} />
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
 
-                        {step === 1 && (
-                            <div className="space-y-4">
-                                <p className="text-xs text-muted-foreground text-center">Selecciona el plan que mejor se adapte. Podrás cambiarlo después.</p>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {PLANES.map((plan) => {
-                                        const c = colorMap[plan.color];
-                                        const isSelected = selectedPlan === plan.id;
-                                        const Icon = plan.icon;
-                                        return (
-                                            <button
-                                                key={plan.id}
-                                                type="button"
-                                                onClick={() => setSelectedPlan(plan.id)}
-                                                className={cn(
-                                                    "relative text-left rounded-2xl border-2 p-4 transition-all duration-200",
-                                                    "hover:shadow-lg hover:scale-[1.01]",
-                                                    isSelected
-                                                        ? `${c.bg} ${c.border} ring-2 ${c.ring} shadow-lg`
-                                                        : "bg-card border-border/40 hover:border-border"
-                                                )}
-                                            >
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <div className={cn("p-1.5 rounded-lg", c.bg)}>
-                                                        <Icon className={cn("h-4 w-4", c.text)} />
-                                                    </div>
-                                                    <div className={cn(
-                                                        "w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ml-auto",
-                                                        isSelected ? `${c.border} ${c.accent}` : "border-muted-foreground/30"
-                                                    )}>
-                                                        {isSelected && <Check className="h-2.5 w-2.5 text-white" />}
-                                                    </div>
-                                                </div>
-                                                <p className={cn("text-xs font-black uppercase tracking-wide", c.text)}>{plan.nombre}</p>
-                                                <p className="text-lg font-black text-foreground">${plan.precio}<span className="text-[10px] font-bold text-muted-foreground">/mes</span></p>
-                                                <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{plan.descripcion}</p>
-                                                <div className="mt-2 space-y-1">
-                                                    {plan.features.map((f, i) => (
-                                                        <div key={i} className="flex items-start gap-1.5">
-                                                            <Check className={cn("h-3 w-3 shrink-0 mt-0.5", isSelected ? c.text : "text-muted-foreground/40")} />
-                                                            <span className="text-[10px] text-muted-foreground leading-tight">{f}</span>
+                <Card className="w-full border border-border/40 shadow-2xl shadow-black/5 dark:shadow-black/30 bg-card/80 backdrop-blur-xl rounded-3xl overflow-hidden">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <CardContent className={cn("p-6", step === TOTAL_STEPS && "p-8")}>
+
+                            {step === 1 && (
+                                <div className="space-y-5">
+                                    <div className="text-center space-y-1">
+                                        <h2 className="text-base font-black text-foreground">Elige tu plan contable</h2>
+                                        <p className="text-xs text-muted-foreground">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {PLANES.map((plan) => {
+                                            const c = colorMap[plan.color];
+                                            const isSelected = selectedPlan === plan.id;
+                                            const Icon = plan.icon;
+                                            return (
+                                                <button
+                                                    key={plan.id}
+                                                    type="button"
+                                                    onClick={() => setSelectedPlan(plan.id)}
+                                                    className={cn(
+                                                        "relative text-left rounded-2xl border-2 p-4 transition-all duration-300 group",
+                                                        "hover:shadow-xl hover:scale-[1.02]",
+                                                        isSelected
+                                                            ? `${c.bg} ${c.borderActive} ring-2 ${c.ring} shadow-xl ${c.shadow}`
+                                                            : `bg-card ${c.border} ${c.bgHover}`
+                                                    )}
+                                                >
+                                                    {plan.popular && (
+                                                        <div className={cn(
+                                                            "absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest text-white bg-gradient-to-r",
+                                                            c.gradient, "shadow-md", c.shadow
+                                                        )}>
+                                                            Popular
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
+                                                    )}
+                                                    <div className="flex items-center justify-between mb-3">
+                                                        <div className={cn(
+                                                            "p-2 rounded-xl transition-all duration-300",
+                                                            isSelected ? `bg-gradient-to-br ${c.gradient} shadow-md ${c.shadow}` : c.bg
+                                                        )}>
+                                                            <Icon className={cn("h-4 w-4", isSelected ? "text-white" : c.text)} />
+                                                        </div>
+                                                        <div className={cn(
+                                                            "w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300",
+                                                            isSelected ? `${c.borderActive} ${c.accent}` : "border-muted-foreground/20"
+                                                        )}>
+                                                            {isSelected && <Check className="h-3 w-3 text-white" />}
+                                                        </div>
+                                                    </div>
+                                                    <p className={cn("text-[11px] font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
+                                                    <div className="flex items-baseline gap-0.5 mt-1">
+                                                        <span className="text-2xl font-black text-foreground">${plan.precio}</span>
+                                                        <span className="text-[10px] font-bold text-muted-foreground">/mes</span>
+                                                    </div>
+                                                    <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed">{plan.descripcion}</p>
+                                                    <div className="mt-3 pt-3 border-t border-border/30 space-y-1.5">
+                                                        {plan.features.map((f, i) => (
+                                                            <div key={i} className="flex items-start gap-2">
+                                                                <div className={cn("mt-0.5 w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0", isSelected ? c.bg : "bg-muted/50")}>
+                                                                    <Check className={cn("h-2.5 w-2.5", isSelected ? c.text : "text-muted-foreground/40")} />
+                                                                </div>
+                                                                <span className="text-[10px] text-muted-foreground leading-tight">{f}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
 
-                        {step === 2 && (
-                            <div className="space-y-4">
-                                {planData && (
-                                    <div className={cn("p-2.5 rounded-xl border flex items-center gap-2", colorMap[planData.color].bg, colorMap[planData.color].border)}>
-                                        <planData.icon className={cn("h-3.5 w-3.5", colorMap[planData.color].text)} />
-                                        <p className={cn("text-[10px] font-black uppercase tracking-widest flex-1", colorMap[planData.color].text)}>Plan {planData.nombre} — ${planData.precio}/mes</p>
-                                        <button type="button" onClick={() => setStep(1)} className="text-[9px] text-muted-foreground hover:text-foreground underline">Cambiar</button>
-                                    </div>
-                                )}
-
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="col-span-2 space-y-1.5">
-                                        <Label htmlFor="razonSocial" className="text-[10px] font-black uppercase tracking-widest">Razón Social *</Label>
-                                        <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn("h-9", errors.razonSocial && 'border-destructive')} />
-                                        {errors.razonSocial && <p className="text-[10px] text-destructive">{errors.razonSocial.message}</p>}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">RIF *</Label>
-                                        <Controller name="rif" control={control} render={({ field }) => (
-                                            <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
-                                        )} />
-                                        {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Tipo *</Label>
-                                        <Controller name="tipo_empresa" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn("h-9", errors.tipo_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.tipo_empresa && <p className="text-[10px] text-destructive">{errors.tipo_empresa.message}</p>}
-                                    </div>
-                                </div>
-
-                                <div className="h-px bg-border/30" />
-
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="space-y-1.5">
-                                        <Label htmlFor="repNombre" className="text-[10px] font-black uppercase tracking-widest">Tu Nombre *</Label>
-                                        <Input id="repNombre" placeholder="Juan Pérez" {...register('repNombre')} className={cn("h-9", errors.repNombre && 'border-destructive')} />
-                                        {errors.repNombre && <p className="text-[10px] text-destructive">{errors.repNombre.message}</p>}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label htmlFor="telefono" className="text-[10px] font-black uppercase tracking-widest">Teléfono *</Label>
-                                        <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-9", errors.telefono && 'border-destructive')} />
-                                        {errors.telefono && <p className="text-[10px] text-destructive">{errors.telefono.message}</p>}
-                                    </div>
-                                    <div className="col-span-2 space-y-1.5">
-                                        <Label htmlFor="repEmail" className="text-[10px] font-black uppercase tracking-widest">Correo Electrónico *</Label>
-                                        <Input id="repEmail" type="email" placeholder="tu@empresa.com" {...register('repEmail')} className={cn("h-9", errors.repEmail && 'border-destructive')} />
-                                        {errors.repEmail && <p className="text-[10px] text-destructive">{errors.repEmail.message}</p>}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest">Contraseña *</Label>
-                                        <div className="relative">
-                                            <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-9 h-9', errors.password && 'border-destructive')} />
-                                            <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground" tabIndex={-1}>
-                                                {showPassword ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                                            </button>
-                                        </div>
-                                        <div className="flex gap-2 mt-1">
-                                            {passwordChecks.map((c, i) => (
-                                                <span key={i} className={cn("text-[9px] font-bold", c.ok ? "text-emerald-500" : "text-muted-foreground/40")}>
-                                                    {c.ok ? '✓' : '○'} {c.label}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label htmlFor="confirmPassword" className="text-[10px] font-black uppercase tracking-widest">Confirmar *</Label>
-                                        <Input id="confirmPassword" type={showPassword ? 'text' : 'password'} {...register('confirmPassword')} className={cn("h-9", errors.confirmPassword && 'border-destructive')} />
-                                        {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
+                                    <div className="flex items-center justify-center gap-6 pt-2">
+                                        {[
+                                            { icon: Shield, label: 'SSL Seguro' },
+                                            { icon: BarChart3, label: 'VEN-NIF' },
+                                            { icon: Headphones, label: 'Soporte' },
+                                        ].map((item, i) => (
+                                            <div key={i} className="flex items-center gap-1.5">
+                                                <item.icon className="h-3 w-3 text-muted-foreground/50" />
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground/50">{item.label}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
+                            )}
 
-                                <div className="h-px bg-border/30" />
-
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="space-y-1.5">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Estado *</Label>
-                                        <Controller name="estado_empresa" control={control} render={({ field }) => (
-                                            <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
-                                                <SelectTrigger className={cn("h-9", errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Estado..." /></SelectTrigger>
-                                                <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.estado_empresa && <p className="text-[10px] text-destructive">{errors.estado_empresa.message}</p>}
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Municipio *</Label>
-                                        <Controller name="municipio_empresa" control={control} render={({ field }) => (
-                                            <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                                                <SelectTrigger className={cn("h-9", errors.municipio_empresa && 'border-destructive')}>
-                                                    <SelectValue placeholder={estadoEmpresa ? 'Municipio...' : 'Primero el estado'} />
-                                                </SelectTrigger>
-                                                <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.municipio_empresa && <p className="text-[10px] text-destructive">{errors.municipio_empresa.message}</p>}
-                                    </div>
-                                </div>
-
-                                <label className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors">
-                                    <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
-                                    <span className="text-[11px] text-muted-foreground">
-                                        Acepto los{' '}
-                                        <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos</a>{' '}
-                                        y la{' '}
-                                        <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
-                                    </span>
-                                </label>
-                            </div>
-                        )}
-
-                        {step === 3 && (
-                            <div className="space-y-5">
-                                <div className="p-3 bg-primary/5 rounded-xl border border-primary/10 text-center">
-                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                        <Fingerprint className="h-4 w-4 text-primary" />
-                                        <p className="text-xs font-black text-primary uppercase tracking-widest">Verificación</p>
-                                    </div>
-                                    <p className="text-[11px] text-muted-foreground">Enviaremos un código de 6 dígitos a tu correo.</p>
-                                </div>
-
-                                {verifVerified ? (
-                                    <div className="text-center py-4 space-y-3">
-                                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-                                            <CheckCircle className="h-8 w-8 text-emerald-500" />
-                                        </div>
-                                        <p className="text-sm font-black text-emerald-500 uppercase tracking-widest">¡Verificado!</p>
-                                        <p className="text-xs text-muted-foreground">{verifDestino}</p>
-                                    </div>
-                                ) : (
-                                    <div className="p-4 rounded-xl border border-border/50 bg-muted/5 space-y-3">
-                                        <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-sky-500/10 rounded-lg">
-                                                <Mail className="h-4 w-4 text-sky-400" />
+                            {step === 2 && (
+                                <div className="space-y-5">
+                                    {planData && (
+                                        <div className={cn("p-3 rounded-2xl border flex items-center gap-3", colorMap[planData.color].bg, colorMap[planData.color].borderActive)}>
+                                            <div className={cn("p-2 rounded-xl bg-gradient-to-br", colorMap[planData.color].gradient)}>
+                                                <planData.icon className="h-3.5 w-3.5 text-white" />
                                             </div>
                                             <div className="flex-1">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-foreground">Correo</p>
-                                                <p className="text-xs text-muted-foreground">{getValues('repEmail')}</p>
+                                                <p className={cn("text-[10px] font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
+                                                <p className="text-[10px] text-muted-foreground">${planData.precio}/mes</p>
                                             </div>
+                                            <button type="button" onClick={() => setStep(1)} className="text-[9px] font-bold text-muted-foreground hover:text-foreground px-2 py-1 rounded-lg hover:bg-muted/50 transition-colors">Cambiar</button>
+                                        </div>
+                                    )}
+
+                                    <div className="space-y-1">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="p-1.5 bg-primary/10 rounded-lg">
+                                                <Building className="h-3.5 w-3.5 text-primary" />
+                                            </div>
+                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Datos de la Empresa</p>
                                         </div>
 
-                                        {!verifSent ? (
-                                            <Button type="button" className="w-full" onClick={sendVerificationCode} disabled={verifLoading}>
-                                                {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</> : <><Mail className="mr-2 h-4 w-4" />Enviar Código</>}
-                                            </Button>
-                                        ) : (
-                                            <div className="space-y-3">
-                                                <p className="text-[10px] text-emerald-500 font-bold text-center uppercase tracking-widest">Código enviado</p>
-                                                <Input
-                                                    placeholder="000000"
-                                                    maxLength={6}
-                                                    value={verifCode}
-                                                    onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                    className="text-center text-2xl font-black tracking-[0.5em] h-14"
-                                                />
-                                                <Button type="button" className="w-full" onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
-                                                    {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar</>}
-                                                </Button>
-                                                <div className="text-center">
-                                                    {countdown > 0 ? (
-                                                        <p className="text-[10px] text-muted-foreground">Reenviar en {countdown}s</p>
-                                                    ) : (
-                                                        <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
-                                                            <RefreshCw className="h-3 w-3" /> Reenviar
-                                                        </button>
-                                                    )}
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div className="col-span-2 space-y-1.5">
+                                                <Label htmlFor="razonSocial" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Razón Social</Label>
+                                                <Input id="razonSocial" placeholder="Empresa, C.A." {...register('razonSocial')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.razonSocial && 'border-destructive')} />
+                                                {errors.razonSocial && <p className="text-[10px] text-destructive">{errors.razonSocial.message}</p>}
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">RIF</Label>
+                                                <Controller name="rif" control={control} render={({ field }) => (
+                                                    <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
+                                                )} />
+                                                {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Tipo de Empresa</Label>
+                                                <Controller name="tipo_empresa" control={control} render={({ field }) => (
+                                                    <Select onValueChange={field.onChange} value={field.value}>
+                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.tipo_empresa && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
+                                                        <SelectContent>{TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                                                    </Select>
+                                                )} />
+                                                {errors.tipo_empresa && <p className="text-[10px] text-destructive">{errors.tipo_empresa.message}</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
+                                    <div className="space-y-1">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="p-1.5 bg-sky-500/10 rounded-lg">
+                                                <Users className="h-3.5 w-3.5 text-sky-500" />
+                                            </div>
+                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-sky-500">Representante Legal</p>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div className="space-y-1.5">
+                                                <Label htmlFor="repNombre" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</Label>
+                                                <Input id="repNombre" placeholder="Juan Pérez" {...register('repNombre')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repNombre && 'border-destructive')} />
+                                                {errors.repNombre && <p className="text-[10px] text-destructive">{errors.repNombre.message}</p>}
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label htmlFor="telefono" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
+                                                <Input id="telefono" type="tel" placeholder="0412-1234567" {...register('telefono')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.telefono && 'border-destructive')} />
+                                                {errors.telefono && <p className="text-[10px] text-destructive">{errors.telefono.message}</p>}
+                                            </div>
+                                            <div className="col-span-2 space-y-1.5">
+                                                <Label htmlFor="repEmail" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Correo Electrónico</Label>
+                                                <Input id="repEmail" type="email" placeholder="tu@empresa.com" {...register('repEmail')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.repEmail && 'border-destructive')} />
+                                                {errors.repEmail && <p className="text-[10px] text-destructive">{errors.repEmail.message}</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+
+                                    <div className="space-y-1">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="p-1.5 bg-violet-500/10 rounded-lg">
+                                                <ShieldCheck className="h-3.5 w-3.5 text-violet-500" />
+                                            </div>
+                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-500">Seguridad y Ubicación</p>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div className="space-y-1.5">
+                                                <Label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Contraseña</Label>
+                                                <div className="relative">
+                                                    <Input id="password" type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-10 h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors', errors.password && 'border-destructive')} />
+                                                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                    </button>
+                                                </div>
+                                                <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5">
+                                                    {passwordChecks.map((c, i) => (
+                                                        <span key={i} className={cn(
+                                                            "text-[9px] font-bold transition-colors flex items-center gap-1",
+                                                            c.ok ? "text-emerald-500" : "text-muted-foreground/30"
+                                                        )}>
+                                                            <span className={cn("w-1.5 h-1.5 rounded-full", c.ok ? "bg-emerald-500" : "bg-muted-foreground/20")} />
+                                                            {c.label}
+                                                        </span>
+                                                    ))}
                                                 </div>
                                             </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {step === TOTAL_STEPS && (
-                            <div className="text-center py-6 space-y-4">
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-2">
-                                    <CheckCircle className="h-10 w-10 text-green-500" />
-                                </div>
-                                <h2 className="text-xl font-black uppercase italic tracking-tight">¡Cuenta Creada!</h2>
-                                <p className="text-muted-foreground text-sm">Registrado en <strong className="text-primary">Asesoría Contable</strong>.</p>
-
-                                {planData && (
-                                    <div className={cn("p-3 rounded-xl border", colorMap[planData.color].bg, colorMap[planData.color].border)}>
-                                        <div className="flex items-center justify-center gap-2">
-                                            <planData.icon className={cn("h-4 w-4", colorMap[planData.color].text)} />
-                                            <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre} — ${planData.precio}/mes</p>
+                                            <div className="space-y-1.5">
+                                                <Label htmlFor="confirmPassword" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Confirmar</Label>
+                                                <Input id="confirmPassword" type={showPassword ? 'text' : 'password'} {...register('confirmPassword')} className={cn("h-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background transition-colors", errors.confirmPassword && 'border-destructive')} />
+                                                {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Estado</Label>
+                                                <Controller name="estado_empresa" control={control} render={({ field }) => (
+                                                    <Select onValueChange={(v) => { field.onChange(v); setValue('municipio_empresa', ''); }} value={field.value}>
+                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.estado_empresa && 'border-destructive')}><SelectValue placeholder="Estado..." /></SelectTrigger>
+                                                        <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
+                                                    </Select>
+                                                )} />
+                                                {errors.estado_empresa && <p className="text-[10px] text-destructive">{errors.estado_empresa.message}</p>}
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Municipio</Label>
+                                                <Controller name="municipio_empresa" control={control} render={({ field }) => (
+                                                    <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
+                                                        <SelectTrigger className={cn("h-10 rounded-xl bg-muted/30 border-border/50", errors.municipio_empresa && 'border-destructive')}>
+                                                            <SelectValue placeholder={estadoEmpresa ? 'Municipio...' : 'Primero el estado'} />
+                                                        </SelectTrigger>
+                                                        <SelectContent>{getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
+                                                    </Select>
+                                                )} />
+                                                {errors.municipio_empresa && <p className="text-[10px] text-destructive">{errors.municipio_empresa.message}</p>}
+                                            </div>
                                         </div>
                                     </div>
-                                )}
 
-                                <Button className="w-full mt-4" onClick={() => { router.push('/resumen-negocio' as any); }}>
-                                    Ir al Portal <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            </div>
-                        )}
-                    </CardContent>
+                                    <label className="flex items-start gap-3 p-3.5 rounded-2xl bg-muted/20 border border-border/30 cursor-pointer select-none group hover:bg-muted/40 transition-all duration-200">
+                                        <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
+                                        <span className="text-[11px] text-muted-foreground leading-relaxed">
+                                            Acepto los{' '}
+                                            <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos y Condiciones</a>{' '}
+                                            y la{' '}
+                                            <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                                        </span>
+                                    </label>
+                                </div>
+                            )}
 
-                    {step < TOTAL_STEPS && (
-                        <CardFooter className="flex justify-between p-6 pt-0">
-                            <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} size="sm">
-                                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />Anterior
-                            </Button>
-                            {step === 1 && (
-                                <Button type="button" onClick={nextStep} disabled={!selectedPlan} size="sm">
-                                    Siguiente<ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                                </Button>
-                            )}
-                            {step === 2 && (
-                                <Button type="button" onClick={nextStep} size="sm">
-                                    Verificar<ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                                </Button>
-                            )}
                             {step === 3 && (
-                                <Button type="submit" disabled={isLoading || !verifVerified} size="sm">
-                                    {isLoading ? <><Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />Registrando...</> : <>Finalizar<ArrowRight className="ml-1.5 h-3.5 w-3.5" /></>}
-                                </Button>
+                                <div className="space-y-6">
+                                    <div className="text-center space-y-2">
+                                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-sky-500/20 border border-primary/10">
+                                            <Fingerprint className="h-7 w-7 text-primary" />
+                                        </div>
+                                        <h2 className="text-base font-black text-foreground">Verifica tu correo</h2>
+                                        <p className="text-xs text-muted-foreground">Enviaremos un código de 6 dígitos para confirmar tu identidad.</p>
+                                    </div>
+
+                                    {verifVerified ? (
+                                        <div className="text-center py-6 space-y-4">
+                                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-900/20 shadow-lg shadow-emerald-500/10">
+                                                <CheckCircle className="h-10 w-10 text-emerald-500" />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-black text-emerald-500 uppercase tracking-widest">¡Verificado!</p>
+                                                <p className="text-xs text-muted-foreground mt-1">{verifDestino}</p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="p-5 rounded-2xl border border-border/40 bg-muted/5 space-y-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2.5 bg-sky-500/10 rounded-xl">
+                                                    <Mail className="h-5 w-5 text-sky-400" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-foreground">Correo de destino</p>
+                                                    <p className="text-xs text-muted-foreground">{getValues('repEmail')}</p>
+                                                </div>
+                                            </div>
+
+                                            {!verifSent ? (
+                                                <Button type="button" className="w-full h-11 rounded-xl font-bold" onClick={sendVerificationCode} disabled={verifLoading}>
+                                                    {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</> : <><Mail className="mr-2 h-4 w-4" />Enviar Código de Verificación</>}
+                                                </Button>
+                                            ) : (
+                                                <div className="space-y-4">
+                                                    <div className="flex items-center justify-center gap-2 py-1">
+                                                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                                        <p className="text-[10px] text-emerald-500 font-black uppercase tracking-widest">Código enviado a tu correo</p>
+                                                    </div>
+                                                    <Input
+                                                        placeholder="000000"
+                                                        maxLength={6}
+                                                        value={verifCode}
+                                                        onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                                        className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-muted/30 border-2 border-border/50 focus:border-primary/50"
+                                                    />
+                                                    <Button type="button" className="w-full h-11 rounded-xl font-bold" onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
+                                                        {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>}
+                                                    </Button>
+                                                    <div className="text-center">
+                                                        {countdown > 0 ? (
+                                                            <p className="text-[10px] text-muted-foreground">Reenviar en <span className="font-bold text-foreground">{countdown}s</span></p>
+                                                        ) : (
+                                                            <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
+                                                                <RefreshCw className="h-3 w-3" /> Reenviar código
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
                             )}
-                        </CardFooter>
-                    )}
-                    {step < TOTAL_STEPS && (
-                        <p className="text-center text-xs text-muted-foreground pb-5">
-                            ¿Ya tienes cuenta? <Link href="/login-empresa" className="text-primary font-semibold hover:underline">Iniciar sesión</Link>
-                        </p>
-                    )}
-                </form>
-            </Card>
+
+                            {step === TOTAL_STEPS && (
+                                <div className="text-center py-4 space-y-6">
+                                    <div className="relative inline-flex items-center justify-center">
+                                        <div className="absolute inset-0 w-24 h-24 rounded-full bg-gradient-to-br from-emerald-500/20 to-primary/20 blur-xl" />
+                                        <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-900/20 flex items-center justify-center shadow-xl shadow-emerald-500/10">
+                                            <CheckCircle className="h-10 w-10 text-emerald-500" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h2 className="text-2xl font-black uppercase tracking-tight bg-gradient-to-r from-emerald-500 to-primary bg-clip-text text-transparent">¡Cuenta Creada!</h2>
+                                        <p className="text-sm text-muted-foreground">Tu empresa ya está registrada en <strong className="text-foreground">Asesoría Contable</strong>.</p>
+                                    </div>
+
+                                    {planData && (
+                                        <div className={cn("p-4 rounded-2xl border-2 mx-auto max-w-xs", colorMap[planData.color].bg, colorMap[planData.color].borderActive)}>
+                                            <div className="flex items-center justify-center gap-3">
+                                                <div className={cn("p-2 rounded-xl bg-gradient-to-br", colorMap[planData.color].gradient)}>
+                                                    <planData.icon className="h-4 w-4 text-white" />
+                                                </div>
+                                                <div>
+                                                    <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
+                                                    <p className="text-sm font-black text-foreground">${planData.precio}/mes</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto">
+                                        {[
+                                            { icon: Calculator, label: 'Contabilidad' },
+                                            { icon: FileText, label: 'Facturación' },
+                                            { icon: TrendingUp, label: 'Análisis' },
+                                        ].map((item, i) => (
+                                            <div key={i} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-muted/30 border border-border/30">
+                                                <item.icon className="h-4 w-4 text-primary" />
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <Button className="w-full max-w-xs h-12 rounded-xl font-bold text-sm" onClick={() => { router.push('/resumen-negocio' as any); }}>
+                                        Ir al Portal Contable <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </div>
+                            )}
+                        </CardContent>
+
+                        {step < TOTAL_STEPS && (
+                            <CardFooter className="flex justify-between p-6 pt-0">
+                                <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1} size="sm" className="rounded-xl h-10 px-5">
+                                    <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />Anterior
+                                </Button>
+                                {step === 1 && (
+                                    <Button type="button" onClick={nextStep} disabled={!selectedPlan} size="sm" className="rounded-xl h-10 px-5">
+                                        Siguiente<ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                                    </Button>
+                                )}
+                                {step === 2 && (
+                                    <Button type="button" onClick={nextStep} size="sm" className="rounded-xl h-10 px-5">
+                                        Verificar Correo<ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                                    </Button>
+                                )}
+                                {step === 3 && (
+                                    <Button type="submit" disabled={isLoading || !verifVerified} size="sm" className="rounded-xl h-10 px-5">
+                                        {isLoading ? <><Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />Registrando...</> : <>Finalizar Registro<ArrowRight className="ml-1.5 h-3.5 w-3.5" /></>}
+                                    </Button>
+                                )}
+                            </CardFooter>
+                        )}
+                        {step < TOTAL_STEPS && (
+                            <p className="text-center text-xs text-muted-foreground pb-6">
+                                ¿Ya tienes cuenta? <Link href="/login-empresa" className="text-primary font-bold hover:underline">Iniciar sesión</Link>
+                            </p>
+                        )}
+                    </form>
+                </Card>
+            </div>
         </div>
     );
 }
