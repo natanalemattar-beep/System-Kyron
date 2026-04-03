@@ -64,6 +64,15 @@ export default function PermisosPage() {
                 <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-foreground/60">Directorio de Habilitaciones</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
+                {permisos.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-16 px-8 text-center">
+                        <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
+                            <ShieldCheck className="h-8 w-8 text-primary/40" />
+                        </div>
+                        <p className="text-sm font-black uppercase tracking-widest text-foreground/40 mb-2">Sin permisos registrados</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 max-w-sm">Registre su primer trámite para comenzar a gestionar sus licencias y habilitaciones.</p>
+                    </div>
+                ) : (
                 <Accordion type="single" collapsible className="w-full">
                     {Object.entries(groupedPermisos).map(([emisor, lista]) => (
                         <AccordionItem value={emisor} key={emisor} className="border-border/30">
@@ -96,6 +105,7 @@ export default function PermisosPage() {
                         </AccordionItem>
                     ))}
                 </Accordion>
+                )}
             </CardContent>
         </Card>
 
@@ -109,6 +119,7 @@ export default function PermisosPage() {
                 </Button>
             </Card>
 
+            {permisos.length > 0 && (
             <Card className="glass-card border-none bg-amber-500/5 rounded-2xl p-6 border border-amber-500/10">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 mb-4 flex items-center gap-3 italic">
                     <ShieldCheck className="h-4 w-4" /> Alerta de Vencimiento
@@ -117,9 +128,13 @@ export default function PermisosPage() {
                     El sistema ha detectado {permisos.filter(p => p.estado === 'Por Vencer').length} permisos en ventana de renovación. Verifique el módulo de tareas para evitar la extinción de derechos.
                 </p>
             </Card>
+            )}
 
             <Card className="glass-card border-none bg-card/40 rounded-2xl p-6">
                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/60 mb-4">Entes Emisores</h4>
+                {Object.keys(groupedPermisos).length === 0 ? (
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 text-center py-4">Sin entes registrados</p>
+                ) : (
                 <div className="space-y-2">
                     {Object.entries(groupedPermisos).map(([emisor, lista]) => (
                         <div key={emisor} className="flex items-center justify-between p-2.5 rounded-xl bg-muted/30">
@@ -128,6 +143,7 @@ export default function PermisosPage() {
                         </div>
                     ))}
                 </div>
+                )}
             </Card>
         </div>
       </div>
