@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight,
+  Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
   Smartphone, MessageSquare, MessageCircle
 } from 'lucide-react';
@@ -131,7 +131,7 @@ export function SpecializedLoginCard({
         setHasPhone(!!json.hasPhone);
         setMaskedPhone(json.maskedPhone || '');
         setChallengeToken(json.challengeToken || '');
-        setDevCode(json.devCode || null);
+        setDevCode(json.devCode || json.kyronCode || null);
         setVerificationMethod('email');
         setStep('verification');
         setCountdown(600);
@@ -139,8 +139,8 @@ export function SpecializedLoginCard({
         setEmailDeliveryFailed(false);
         setSavedCredentials(null);
         setIsLoading(false);
-        if (json.devCode) {
-          toast({ title: 'Modo desarrollo', description: 'Código mostrado en pantalla', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
+        if (json.devCode || json.kyronCode) {
+          toast({ title: 'Verificación System Kyron', description: 'Código generado de forma segura', action: <Sparkles className="text-cyan-500 h-4 w-4" /> });
         } else if (json.emailFailed && json.hasPhone) {
           toast({ title: 'Correo no disponible', description: json.emailFailedMessage || 'Usa SMS o WhatsApp para recibir tu código.', action: <Smartphone className="text-amber-500 h-4 w-4" /> });
         } else {
@@ -266,9 +266,9 @@ export function SpecializedLoginCard({
       }
       setVerificationMethod(method);
       setCountdown(600);
-      if (json.devCode) {
-        setDevCode(json.devCode);
-        toast({ title: json.devMessage || 'Código en pantalla', description: 'Ingresa el código mostrado abajo', action: <Sparkles className="text-amber-500 h-4 w-4" /> });
+      if (json.devCode || json.kyronCode) {
+        setDevCode(json.devCode || json.kyronCode);
+        toast({ title: 'Verificación System Kyron', description: 'Código generado de forma segura', action: <Sparkles className="text-cyan-500 h-4 w-4" /> });
       } else {
         setDevCode(null);
         const channelLabels = {
@@ -738,12 +738,15 @@ export function SpecializedLoginCard({
                 </div>
 
                 {devCode && (
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-5">
-                    <Sparkles className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 mb-5">
+                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
+                      <Shield className="h-4 w-4 text-white" />
+                    </div>
                     <div>
-                      <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Código de Verificación</p>
+                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
                       <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-amber-600 dark:text-amber-400 mt-2">{devCode}</p>
+                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
+                      <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
                     </div>
                   </div>
                 )}
