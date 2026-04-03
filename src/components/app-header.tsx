@@ -36,17 +36,20 @@ import { GlobalSearch } from "./global-search";
 import { BcvRateBadge } from "./bcv-rate-badge";
 import { Breadcrumbs } from "./ui/breadcrumbs";
 
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ElementType;
+  badge?: string;
+}
+
 interface AppHeaderProps {
   user: any;
   dashboardHref: string;
   navGroups?: {
     title: string;
     icon: React.ElementType;
-    items: {
-      href: string;
-      label: string;
-      icon: React.ElementType;
-    }[];
+    items: NavItem[];
   }[];
   compact?: boolean;
 }
@@ -159,7 +162,12 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                                 >
                                                     <item.icon className={cn("h-3.5 w-3.5 shrink-0", isActive ? "text-primary" : "opacity-40")} />
                                                     <span className="text-[10px] font-bold uppercase tracking-[0.1em]">{item.label}</span>
-                                                    {isActive && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
+                                                    {item.badge && (
+                                                      <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-black uppercase tracking-wider leading-none animate-pulse ml-auto shrink-0">
+                                                        {item.badge}
+                                                      </span>
+                                                    )}
+                                                    {isActive && !(item.badge) && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary shrink-0" />}
                                                 </Link>
                                             </SheetClose>
                                         );
@@ -270,6 +278,11 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                             <item.icon className={cn("h-3 w-3", isActive ? "text-primary" : "text-muted-foreground/60")} />
                                         </div>
                                         <span>{item.label}</span>
+                                        {item.badge && (
+                                          <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[6px] font-black uppercase tracking-wider leading-none ml-auto shrink-0">
+                                            {item.badge}
+                                          </span>
+                                        )}
                                     </Link>
                                 </DropdownMenuItem>
                                 );

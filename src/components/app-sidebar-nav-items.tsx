@@ -1,5 +1,5 @@
 
-import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet } from "lucide-react";
+import { FileText, Bell, LayoutDashboard, Gavel, User, Heart, Shield, File, File as FileEdit, Receipt, Signature as FileSignature, CreditCard, UserCheck, Users, Briefcase, TabletSmartphone, ChartPie as PieChart, TrendingUp, ShoppingCart, Banknote, Calculator, UserPlus, Smartphone, Phone, Recycle, Coins, Chrome as Home, ShieldCheck, Cpu, Signal, LayoutGrid, Lock, Wand as Wand2, Activity, Leaf, Wallet, Landmark, ChartBar as BarChart3, Scale, History, Percent, BookOpen, Calendar, Building2, Bot, Stethoscope, BookMarked, LifeBuoy, UserCog, FolderArchive, Star, Zap, BrainCircuit, ClipboardList, Target, FileSearch, Hammer, MailOpen, Settings2, School, HeartPulse, Handshake, Church, Building, Flame, Globe, Factory, MapPin, BellRing, FileCheck, Megaphone, ContactRound as IdCard, Sparkles, Palmtree, Trophy, FolderKanban, Server, Gauge, ScanLine, Wifi, CreditCard as CreditCardIcon, SlidersHorizontal, ChartLine, Fingerprint, FileSpreadsheet, Eye, KeyRound, ShieldAlert, MonitorSmartphone, Scan } from "lucide-react";
 
 export const naturalNavGroups = [
     {
@@ -8,7 +8,7 @@ export const naturalNavGroups = [
         items: [
             { href: "/tarjeta-digital", label: "ID Digital 3D", icon: User },
             { href: "/perfil", label: "Datos Maestros", icon: UserCog },
-            { href: "/seguridad", label: "Privacidad", icon: ShieldCheck },
+            { href: "/seguridad-cuenta", label: "Seguridad de Cuenta", icon: ShieldCheck, badge: "NUEVO" },
         ],
     },
     {
@@ -157,6 +157,15 @@ export const asesoriaContableNavGroups = [
     items: [
         { href: "/kyron-chat", label: "Chat Kyron", icon: Sparkles },
         { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
+    ],
+  },
+  {
+    title: "Seguridad",
+    icon: Shield,
+    items: [
+        { href: "/seguridad-empresarial", label: "Centro de Seguridad", icon: Shield, badge: "NUEVO" },
+        { href: "/seguridad-empresarial/auditoria", label: "Auditoría de Accesos", icon: Eye, badge: "NUEVO" },
+        { href: "/seguridad-empresarial/dispositivos", label: "Dispositivos Autorizados", icon: MonitorSmartphone, badge: "NUEVO" },
     ],
   },
   {

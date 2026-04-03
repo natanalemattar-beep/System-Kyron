@@ -55,8 +55,12 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Activity Log Column Mapping:** The `activity_log` DB table uses `created_at` but the API returns it aliased as `creado_en` for all frontend consumers.
 - **Chart THEMES Fix:** `src/components/ui/chart.tsx` THEMES object uses `{ light: "", dark: ".dark" }` — both key and value must be explicit to avoid Turbopack SSR bundling errors.
 - **Financial Toolkit:** Floating calculator panel with USD↔VES converter (live BCV rate), IVA calculator (16%), IGTF calculator (3%), and ISLR retention calculator.
-- **Live BCV Rate:** Always-visible exchange rate badge in the app header, auto-refreshing.
+- **Live BCV Rate:** Always-visible exchange rate badge in the app header, auto-refreshing. DB-first fetch with `fetchTodayFromDb()`, cache validates date matches today, fallback order: PyDolar → ExchangeRate → DolarAPI.
 - **Multi-Currency Display:** `CurrencyContext` provides VES/USD/EUR display conversion across billing and dashboard pages, with amounts stored in VES.
+- **NUEVO Badge System:** Nav items in `app-sidebar-nav-items.tsx` support `badge?: string` property. Sidebar and header render pulsing green "NUEVO" badges in desktop dropdowns and mobile sheet.
+- **Enterprise Security Pages:** `/seguridad-empresarial` (Centro de Seguridad with toggleable protections, threat log, recommendations), `/seguridad-empresarial/auditoria` (full access audit log), `/seguridad-empresarial/dispositivos` (device management with session control).
+- **Personal Account Security:** `/seguridad-cuenta` (2FA toggle, active sessions, security history, quick actions).
+- **Terminology:** Platform uses "CENTRO" instead of "NODO" throughout. "CENTRO DE VENTAS", "Estado del Sistema", "AUTENTICAR ACCESO".
 
 ## External Dependencies
 - **Database:** PostgreSQL
