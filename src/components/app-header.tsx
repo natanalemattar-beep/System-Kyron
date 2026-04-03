@@ -41,6 +41,7 @@ interface NavItem {
   label: string;
   icon: React.ElementType;
   badge?: string;
+  section?: string;
 }
 
 interface AppHeaderProps {
@@ -229,7 +230,7 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                     item.href !== dashboardHref && 
                     !['Inicio', 'Dashboard', 'Resumen General', 'Panel Central'].includes(item.label)
                 );
-                const useWideLayout = filteredItems.length > 6;
+                const useWideLayout = filteredItems.length > 8;
                 const hasActiveItem = filteredItems.some(item => pathname.includes(item.href) && item.href !== '/');
                 return (
                 <DropdownMenu key={group.title} open={openMenu === group.title} onOpenChange={(isOpen) => setOpenMenu(isOpen ? group.title : null)}>
@@ -247,8 +248,8 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="center" className={cn(
-                        "p-3 rounded-2xl border-border/30 bg-card/98 backdrop-blur-3xl shadow-xl overflow-hidden",
-                        useWideLayout ? "w-[580px]" : "w-[460px]"
+                        "p-3 rounded-2xl border-border/30 bg-card/98 backdrop-blur-3xl shadow-xl overflow-hidden max-h-[80vh] overflow-y-auto",
+                        useWideLayout ? "w-[600px]" : "w-[460px]"
                     )}>
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
                         <DropdownMenuLabel className="p-2.5 mb-2.5 bg-primary/[0.04] rounded-xl border border-primary/8">
@@ -260,34 +261,57 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
                                 <span className="text-[8px] font-medium text-muted-foreground/40 ml-auto">{filteredItems.length} módulos</span>
                             </div>
                         </DropdownMenuLabel>
-                        <div className="grid gap-1 grid-cols-2">
-                            {filteredItems.map((item) => {
-                                const isActive = pathname.includes(item.href) && item.href !== '/';
-                                return (
-                                <DropdownMenuItem key={item.href} asChild className={cn(
-                                    "rounded-xl h-9 cursor-pointer transition-all",
-                                    isActive ? "bg-primary/8 text-primary" : "hover:bg-muted/40"
-                                )}>
-                                    <Link href={item.href as any} className="flex items-center px-2.5 text-[8px] font-bold uppercase tracking-[0.1em] gap-2.5">
-                                        <div className={cn(
-                                            "p-1 rounded-md border shrink-0 transition-colors",
-                                            isActive
-                                                ? "bg-primary/10 border-primary/20"
-                                                : "bg-muted/50 border-border/30 group-hover:bg-primary/5"
-                                        )}>
-                                            <item.icon className={cn("h-3 w-3", isActive ? "text-primary" : "text-muted-foreground/60")} />
-                                        </div>
-                                        <span>{item.label}</span>
-                                        {item.badge && (
-                                          <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[6px] font-black uppercase tracking-wider leading-none ml-auto shrink-0">
-                                            {item.badge}
-                                          </span>
-                                        )}
-                                    </Link>
-                                </DropdownMenuItem>
-                                );
-                            })}
-                        </div>
+                        {(() => {
+                            const sections = new Map<string, typeof filteredItems>();
+                            filteredItems.forEach(item => {
+                                const sec = item.section || '';
+                                if (!sections.has(sec)) sections.set(sec, []);
+                                sections.get(sec)!.push(item);
+                            });
+                            const sectionEntries = Array.from(sections.entries());
+                            const hasSections = sectionEntries.length > 1 || (sectionEntries.length === 1 && sectionEntries[0][0] !== '');
+                            return (
+                              <div className="space-y-2">
+                                {sectionEntries.map(([sectionTitle, sectionItems], si) => (
+                                  <div key={sectionTitle || si}>
+                                    {hasSections && sectionTitle && (
+                                      <div className="px-2.5 pt-1.5 pb-1 text-[7px] font-black uppercase tracking-[0.25em] text-muted-foreground/40 flex items-center gap-2">
+                                        <div className="h-[1px] flex-1 bg-border/30" />
+                                        {sectionTitle}
+                                        <div className="h-[1px] flex-1 bg-border/30" />
+                                      </div>
+                                    )}
+                                    <div className="grid gap-1 grid-cols-2">
+                                      {sectionItems.map((item) => {
+                                        const isActive = pathname.includes(item.href) && item.href !== '/';
+                                        return (
+                                          <DropdownMenuItem key={item.href + item.label} asChild className={cn(
+                                            "rounded-xl h-9 cursor-pointer transition-all",
+                                            isActive ? "bg-primary/8 text-primary" : "hover:bg-muted/40"
+                                          )}>
+                                            <Link href={item.href as any} className="flex items-center px-2.5 text-[8px] font-bold uppercase tracking-[0.1em] gap-2.5">
+                                              <div className={cn(
+                                                "p-1 rounded-md border shrink-0 transition-colors",
+                                                isActive ? "bg-primary/10 border-primary/20" : "bg-muted/50 border-border/30 group-hover:bg-primary/5"
+                                              )}>
+                                                <item.icon className={cn("h-3 w-3", isActive ? "text-primary" : "text-muted-foreground/60")} />
+                                              </div>
+                                              <span>{item.label}</span>
+                                              {item.badge && (
+                                                <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[6px] font-black uppercase tracking-wider leading-none ml-auto shrink-0">
+                                                  {item.badge}
+                                                </span>
+                                              )}
+                                            </Link>
+                                          </DropdownMenuItem>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                        })()}
                     </DropdownMenuContent>
                 </DropdownMenu>
                 );
