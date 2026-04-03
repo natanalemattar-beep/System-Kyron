@@ -84,11 +84,33 @@ async function saveToDB(rate: number, fuente: string): Promise<void> {
   } catch {}
 }
 
+async function fetchTodayFromDb(): Promise<{ rate: number; date: string } | null> {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const row = await queryOne<{ tasa_usd_ves: string; fecha: string }>(
+      `SELECT tasa_usd_ves::text, fecha::text FROM tasas_bcv WHERE fecha = $1 LIMIT 1`,
+      [today]
+    );
+    if (row && parseFloat(row.tasa_usd_ves) > 0) {
+      return {
+        rate: parseFloat(row.tasa_usd_ves),
+        date: new Date(row.fecha).toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      };
+    }
+  } catch {}
+  return null;
+}
+
 async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: string }> {
+  const todayDb = await fetchTodayFromDb();
+  if (todayDb) {
+    return { ...todayDb, fuente: 'db-today' };
+  }
+
   const sources: Array<{ fn: () => Promise<{ rate: number; date: string } | null>; name: string }> = [
     { fn: fetchFromPyDolar, name: 'pydolar-bcv' },
-    { fn: fetchFromDolarApi, name: 'dolarapi' },
     { fn: fetchFromExchangeRateApi, name: 'exchangerate-api' },
+    { fn: fetchFromDolarApi, name: 'dolarapi' },
   ];
 
   for (const source of sources) {
@@ -109,7 +131,9 @@ async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: str
 
 export async function GET() {
   try {
-    if (cachedRate && (Date.now() - cachedRate.fetchedAt) < CACHE_DURATION_MS) {
+    const todayStr = new Date().toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    if (cachedRate && (Date.now() - cachedRate.fetchedAt) < CACHE_DURATION_MS && cachedRate.date === todayStr) {
       return NextResponse.json({ rate: cachedRate.rate, date: cachedRate.date, cached: true });
     }
 
