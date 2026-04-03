@@ -27,12 +27,12 @@ const IDENTITIES = [
 ];
 
 const CONTEXTS: Record<string, string> = {
-  master: "Inteligencia Maestra del ecosistema completo System Kyron. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
-  fiscal: "Prioriza respuestas sobre IVA, ISLR, IGTF, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF.",
-  legal: "Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
-  telecom: "Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
-  verde: "Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
-  rrhh: "Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
+  master: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Master. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página ni que está fuera de ningún módulo — puede hacerte cualquier pregunta sobre cualquier módulo desde aquí. Domina todos los módulos: Contabilidad VEN-NIF, RRHH LOTTT, Telecom 5G, Sostenibilidad, Legal, Portal Ciudadano.",
+  fiscal: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Fiscal. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página ni que está fuera del módulo contable — puede hacerte cualquier consulta fiscal desde aquí. Prioriza respuestas sobre IVA 16%, ISLR, IGTF 3%, retenciones, libros fiscales, SENIAT, tasa BCV y normativa VEN-NIF. Tienes acceso completo a todo el conocimiento contable/fiscal.",
+  legal: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Legal. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta legal desde aquí. Prioriza respuestas sobre contratos, SAREN, SAPI, registros mercantiles y normativa venezolana.",
+  telecom: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Telecom. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta telecom desde aquí. Prioriza respuestas sobre líneas 5G, eSIM, flota empresarial, planes y facturación telecom.",
+  verde: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron Verde. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta de sostenibilidad desde aquí. Prioriza respuestas sobre Eco-Créditos, reciclaje tecnológico, economía circular y activos verdes.",
+  rrhh: "El usuario está en el Chat IA de página completa (/kyron-chat) y ha seleccionado la identidad Kyron RRHH. Está DENTRO de la plataforma autenticado. No le digas que vaya a otra página — puede hacerte cualquier consulta de RRHH desde aquí. Prioriza respuestas sobre nómina LOTTT, prestaciones, vacaciones, liquidaciones, IVSS, INCES, BANAVIH.",
 };
 
 const GREETINGS: Record<string, string> = {
