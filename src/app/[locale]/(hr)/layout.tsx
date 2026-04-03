@@ -16,13 +16,13 @@ export default function HRLayout({
     const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(160,16%,93%)] via-background to-[hsl(195,18%,92%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-full h-[800px] bg-secondary/[0.05] rounded-full blur-[200px] opacity-40 animate-pulse" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-secondary/[0.02] rounded-full blur-[180px] opacity-30" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.01] mix-blend-overlay" />
+            <div className="absolute top-[-5%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-emerald-400/[0.06] rounded-full blur-[250px]" />
+            <div className="absolute bottom-[-10%] right-[-5%] w-[700px] h-[700px] bg-teal-300/[0.05] rounded-full blur-[220px]" />
+            <div className="absolute top-[40%] left-[-10%] w-[500px] h-[500px] bg-cyan-300/[0.04] rounded-full blur-[200px]" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">

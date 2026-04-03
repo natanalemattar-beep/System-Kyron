@@ -28,12 +28,13 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,20%,94%)] via-background to-[hsl(210,22%,92%)] text-foreground relative">
           <PageTracker userId={user?.id} />
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.04] hud-grid" />
-            <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.02] rounded-full blur-[300px]" />
-            <div className="absolute -bottom-[20%] -left-[10%] w-[800px] h-[800px] bg-primary/[0.03] rounded-full blur-[200px]" />
+            <div className="absolute inset-0 opacity-[0.03] hud-grid" />
+            <div className="absolute top-0 right-[-10%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[250px]" />
+            <div className="absolute top-[30%] left-[-5%] w-[700px] h-[700px] bg-cyan-400/[0.05] rounded-full blur-[280px]" />
+            <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-blue-400/[0.04] rounded-full blur-[200px]" />
           </div>
 
           {prefs.nav_lateral && (

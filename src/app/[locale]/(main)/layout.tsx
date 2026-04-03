@@ -18,12 +18,13 @@ export default function MainLayout({
     const user = { name: "Operador Maestro", email: "master@kyron.com", fallback: "KY" };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,18%,94%)] via-background to-[hsl(208,20%,92%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/[0.05] rounded-full blur-[250px] opacity-40 animate-pulse" />
-            <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-secondary/5 rounded-full blur-[200px] opacity-30" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
+            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
+            <div className="absolute top-0 right-[-5%] w-[900px] h-[900px] bg-emerald-400/[0.06] rounded-full blur-[280px]" />
+            <div className="absolute bottom-[-10%] left-[-5%] w-[800px] h-[800px] bg-cyan-400/[0.05] rounded-full blur-[250px]" />
+            <div className="absolute top-[30%] left-[40%] w-[600px] h-[600px] bg-teal-300/[0.04] rounded-full blur-[200px]" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">

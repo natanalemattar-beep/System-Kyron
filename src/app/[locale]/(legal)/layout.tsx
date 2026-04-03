@@ -16,12 +16,13 @@ export default function LegalLayout({
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative hud-grid">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(168,18%,93%)] via-background to-[hsl(205,20%,92%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,hsl(var(--primary))_12%,transparent_12.5%,transparent_87%,hsl(var(--primary))_87.5%,hsl(var(--primary)))] [background-size:80px_140px]" />
-            <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.05] rounded-full blur-[250px]" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
+            <div className="absolute top-[-5%] right-[-5%] w-[800px] h-[800px] bg-teal-400/[0.06] rounded-full blur-[250px]" />
+            <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-sky-400/[0.05] rounded-full blur-[220px]" />
+            <div className="absolute bottom-[-5%] right-[30%] w-[500px] h-[500px] bg-emerald-300/[0.04] rounded-full blur-[200px]" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">

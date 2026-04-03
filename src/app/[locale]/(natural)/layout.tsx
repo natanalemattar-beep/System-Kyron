@@ -31,13 +31,13 @@ export default function NaturalLayout({
     };
 
     return (
-      <div className="flex min-h-screen bg-background text-foreground relative">
+      <div className="flex min-h-screen bg-gradient-to-br from-[hsl(165,16%,94%)] via-background to-[hsl(200,18%,93%)] text-foreground relative">
           <PageTracker userId={authUser?.id} />
-          {/* Fondo HUD Ciudadano - Menos agresivo, más elegante */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-primary/[0.03] rounded-full blur-[250px]" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.01] mix-blend-overlay" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-teal-300/[0.06] rounded-full blur-[280px]" />
+            <div className="absolute bottom-[10%] right-[-5%] w-[700px] h-[700px] bg-sky-300/[0.05] rounded-full blur-[250px]" />
+            <div className="absolute top-[50%] left-[-10%] w-[500px] h-[500px] bg-emerald-300/[0.04] rounded-full blur-[200px]" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">

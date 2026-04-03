@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +22,7 @@ import { Logo } from "@/components/logo";
 
 type PermisoRegistrado = {
   id: string;
+  dbId?: number;
   tipo: string;
   emisor: string;
   nombre: string;
@@ -100,6 +101,7 @@ Correo: [CORREO]`;
 
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState<PermisoRegistrado[]>([]);
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const [registroOpen, setRegistroOpen] = useState(false);
   const [detallePermiso, setDetallePermiso] = useState<PermisoRegistrado | null>(null);
@@ -112,6 +114,47 @@ export default function PermisosPage() {
     tipo: "", organismo: "", nombre: "", numero: "",
     fechaEmision: "", fechaVencimiento: "", estado: "Vigente",
   });
+
+  const estadoToDb: Record<string, string> = {
+    "Vigente": "vigente",
+    "Por Vencer": "vigente",
+    "Vencido": "vencido",
+    "En Trámite": "en_tramite",
+    "En Renovación": "en_renovacion",
+  };
+
+  const estadoFromDb: Record<string, string> = {
+    vigente: "Vigente",
+    vencido: "Vencido",
+    en_tramite: "En Trámite",
+    en_renovacion: "En Renovación",
+    denegado: "Vencido",
+    archivado: "Vencido",
+  };
+
+  const fetchPermisos = useCallback(async () => {
+    try {
+      const res = await fetch("/api/permisos-legales");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.permisos) {
+        const mapped: PermisoRegistrado[] = data.permisos.map((p: any) => ({
+          id: `PERM-${String(p.id).padStart(3, "0")}`,
+          dbId: p.id,
+          tipo: p.tipo || "permiso",
+          emisor: p.organismo || "",
+          nombre: p.nombre_permiso || "",
+          numero: p.numero_permiso || "",
+          fechaEmision: p.fecha_emision ? new Date(p.fecha_emision).toISOString().split("T")[0] : "",
+          fechaVencimiento: p.fecha_vencimiento ? new Date(p.fecha_vencimiento).toISOString().split("T")[0] : "Permanente",
+          estado: estadoFromDb[p.estado] || "Vigente",
+        }));
+        setPermisos(mapped);
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => { fetchPermisos(); }, [fetchPermisos]);
 
   const permisosByTipoOrg = useMemo(() => {
     const q = searchQuery.toLowerCase();
@@ -149,7 +192,7 @@ export default function PermisosPage() {
     setFormData({ tipo: "", organismo: "", nombre: "", numero: "", fechaEmision: "", fechaVencimiento: "", estado: "Vigente" });
   };
 
-  const handleRegistrar = () => {
+  const handleRegistrar = async () => {
     if (!formData.nombre.trim()) {
       toast({ title: "Campo requerido", description: "Ingrese el nombre del permiso.", variant: "destructive" });
       return;
@@ -163,22 +206,47 @@ export default function PermisosPage() {
       return;
     }
 
+    setLoading(true);
     const org = getOrganismoById(formData.organismo);
-    const nuevoPermiso: PermisoRegistrado = {
-      id: `PERM-${String(permisos.length + 1).padStart(3, "0")}`,
-      tipo: formData.tipo || "permiso",
-      emisor: org?.siglas || org?.nombre || formData.organismo,
-      nombre: formData.nombre.trim(),
-      numero: formData.numero,
-      fechaEmision: formData.fechaEmision,
-      fechaVencimiento: formData.fechaVencimiento || "Permanente",
-      estado: formData.estado,
-    };
+    const organismoNombre = org?.siglas || org?.nombre || formData.organismo;
 
-    setPermisos(prev => [...prev, nuevoPermiso]);
-    setRegistroOpen(false);
-    resetForm();
-    toast({ title: "REGISTRADO", description: `"${nuevoPermiso.nombre}" agregado al expediente.` });
+    try {
+      const res = await fetch("/api/permisos-legales", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo: formData.tipo || "permiso",
+          nombre_permiso: formData.nombre.trim(),
+          numero_permiso: formData.numero || null,
+          organismo: organismoNombre,
+          fecha_emision: formData.fechaEmision || null,
+          fecha_vencimiento: formData.fechaVencimiento || null,
+          estado: estadoToDb[formData.estado] || "vigente",
+          descripcion: null,
+          responsable: null,
+          costo_tramite: "0",
+          moneda_costo: "USD",
+          alertar_dias_antes: "30",
+          notas: null,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "ERROR", description: err.error || "No se pudo registrar el trámite.", variant: "destructive" });
+        setLoading(false);
+        return;
+      }
+
+      setRegistroOpen(false);
+      resetForm();
+      await fetchPermisos();
+      toast({ title: "REGISTRADO", description: `"${formData.nombre.trim()}" guardado exitosamente en el sistema.` });
+    } catch (e) {
+      toast({ title: "ERROR DE CONEXIÓN", description: "No se pudo conectar con el servidor. Intente nuevamente.", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -372,8 +440,12 @@ export default function PermisosPage() {
                     <SelectItem value="habilitacion">Habilitación</SelectItem>
                     <SelectItem value="solvencia">Solvencia</SelectItem>
                     <SelectItem value="autorizacion">Autorización</SelectItem>
-                    <SelectItem value="inscripcion">Inscripción</SelectItem>
-                    <SelectItem value="constancia">Constancia</SelectItem>
+                    <SelectItem value="municipal">Municipal</SelectItem>
+                    <SelectItem value="ambiental">Ambiental</SelectItem>
+                    <SelectItem value="sanitario">Sanitario</SelectItem>
+                    <SelectItem value="bomberos">Bomberos</SelectItem>
+                    <SelectItem value="trabajo">Trabajo</SelectItem>
+                    <SelectItem value="otro">Otro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -424,8 +496,9 @@ export default function PermisosPage() {
             <Button variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-12 px-6 font-black text-[9px] uppercase tracking-widest">
               CANCELAR
             </Button>
-            <Button onClick={handleRegistrar} className="btn-3d-primary rounded-xl h-12 px-8 font-black text-[9px] uppercase tracking-widest">
-              <Plus className="mr-2 h-4 w-4" /> REGISTRAR
+            <Button onClick={handleRegistrar} disabled={loading} className="btn-3d-primary rounded-xl h-12 px-8 font-black text-[9px] uppercase tracking-widest">
+              {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
+              {loading ? "GUARDANDO..." : "REGISTRAR"}
             </Button>
           </DialogFooter>
         </DialogContent>
