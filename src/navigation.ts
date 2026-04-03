@@ -173,7 +173,7 @@ export const pathnames = {
   '/recover-legal': '/recover-legal',
   '/recuperar-cuenta': '/recuperar-cuenta',
   '/libros-laborales': '/libros-laborales',
-  '/cuentas': '/cuentas',
+  '/cuentas': '/contabilidad/cuentas',
 
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',
