@@ -247,7 +247,7 @@ export default function DashboardEmpresaPage() {
         initial={{ opacity: 0, y: -20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-2xl"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] dark:from-[#1a2a3a] dark:via-[#202d3a] dark:to-[#1d2a35] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-2xl dark:shadow-cyan-500/[0.15]"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.06] blur-[120px]" />
