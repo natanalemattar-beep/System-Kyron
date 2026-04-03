@@ -130,7 +130,13 @@ export function ShowcaseSection() {
   const animate = tier !== 'low';
 
   return (
-    <section className="py-16 md:py-28 relative overflow-hidden">
+    <section className="py-16 md:py-28 relative overflow-hidden bg-gradient-to-br from-cyan-50/60 via-teal-50/40 to-emerald-50/50">
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-300/25 to-transparent" />
+        <div className="absolute top-[15%] left-[5%] w-[500px] h-[500px] rounded-full bg-cyan-400/[0.07] blur-[120px]" />
+        <div className="absolute bottom-[15%] right-[10%] w-[400px] h-[400px] rounded-full bg-emerald-400/[0.06] blur-[100px]" />
+      </div>
       <div className="container mx-auto px-4 md:px-10 max-w-7xl">
         <motion.div
           className="text-center mb-12 md:mb-16"

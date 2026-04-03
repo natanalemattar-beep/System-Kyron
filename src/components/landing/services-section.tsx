@@ -29,6 +29,12 @@ export function ServicesSection() {
 
     return (
         <section id="servicios" className="relative z-10 overflow-hidden">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-indigo-50/80 to-cyan-50/60">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
+                <div className="absolute -top-20 right-[10%] w-[600px] h-[600px] rounded-full bg-blue-400/[0.08] blur-[120px]" />
+                <div className="absolute bottom-0 left-[5%] w-[500px] h-[500px] rounded-full bg-indigo-400/[0.07] blur-[100px]" />
+            </div>
             <div className="py-20 md:py-28">
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"

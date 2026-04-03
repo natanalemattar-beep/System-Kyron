@@ -80,10 +80,12 @@ export function ComplianceSection() {
     const t = useTranslations('ComplianceSection');
 
     return (
-        <section className="py-20 md:py-28 relative overflow-hidden">
+        <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-amber-50/50 via-orange-50/30 to-yellow-50/40">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-blue-500/[0.06] blur-[120px]" />
-                <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-emerald-500/[0.06] blur-[100px]" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-300/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-300/25 to-transparent" />
+                <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-amber-400/[0.08] blur-[120px]" />
+                <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-orange-400/[0.06] blur-[100px]" />
             </div>
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">

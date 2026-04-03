@@ -76,7 +76,13 @@ export function IntegrationsStrip() {
     const t = useTranslations('IntegrationsStrip');
 
     return (
-        <section className="py-16 md:py-24 relative overflow-hidden">
+        <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-lime-50/40 via-green-50/30 to-emerald-50/40">
+            <div className="absolute inset-0 -z-10 pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime-300/25 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-300/25 to-transparent" />
+                <div className="absolute top-[30%] right-[10%] w-[400px] h-[400px] rounded-full bg-lime-400/[0.06] blur-[100px]" />
+                <div className="absolute bottom-[10%] left-[15%] w-[350px] h-[350px] rounded-full bg-emerald-400/[0.05] blur-[90px]" />
+            </div>
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <motion.div
                     className="text-center mb-12 md:mb-16"

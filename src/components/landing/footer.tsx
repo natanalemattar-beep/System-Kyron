@@ -26,10 +26,11 @@ export function Footer() {
     };
 
     return (
-        <footer id="footer" className="relative overflow-hidden border-t border-blue-200/50 bg-gradient-to-b from-transparent via-[#e2ecf9]/30 to-[#dae5f5]/50">
+        <footer id="footer" className="relative overflow-hidden border-t border-slate-200/50 bg-gradient-to-b from-slate-50/80 via-slate-100/60 to-slate-100/80">
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-[#0ea5e9]/4 blur-[100px]" />
-                <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-[#22c55e]/3 blur-[80px]" />
+                <div className="absolute bottom-0 left-1/4 w-[400px] h-[250px] rounded-full bg-blue-400/[0.06] blur-[100px]" />
+                <div className="absolute bottom-0 right-1/4 w-[300px] h-[200px] rounded-full bg-emerald-400/[0.04] blur-[80px]" />
+                <div className="absolute top-0 left-[50%] w-[500px] h-[200px] rounded-full bg-indigo-400/[0.04] blur-[120px]" />
             </div>
 
             <div className="kyron-accent-line opacity-100" />
