@@ -1117,7 +1117,7 @@ export default function RegisterContabilidadPage() {
                                         ))}
                                     </div>
 
-                                    <Button className="w-full max-w-xs h-12 rounded-xl font-bold text-sm text-white shadow-md" style={{ background: variant.gradient }} onClick={() => { router.push('/resumen-negocio' as any); }}>
+                                    <Button className="w-full max-w-xs h-12 rounded-xl font-bold text-sm text-white shadow-md" style={{ background: variant.gradient }} onClick={() => { router.push('/dashboard-empresa' as any); }}>
                                         Ir al {variant.portalLabel} <ArrowRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 </div>
