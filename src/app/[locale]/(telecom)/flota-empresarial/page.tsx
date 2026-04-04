@@ -13,6 +13,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 import { Link } from "@/navigation";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ConatelCompliancePanel } from "@/components/telecom/conatel-compliance-panel";
 
 const lineas = [
   { id: "L1", empleado: "Carlos Pérez", depto: "Ventas", numero: "+58 412-1234567", plan: "Ilimitado", consumo: 12.5, limite: 30, estado: "Activa" },
@@ -405,6 +406,8 @@ export default function FlotaEmpresarialPage() {
                     </Button>
                 </div>
             </section>
+
+            <ConatelCompliancePanel tipo="empresa" />
 
             <footer className="text-center pt-10 border-t border-border/30">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-muted-foreground/40 italic">SYSTEM KYRON • CORPORATE FLEET CONTROL • 2026</p>

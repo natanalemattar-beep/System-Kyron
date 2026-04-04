@@ -14,7 +14,7 @@ import {
 import {
   Signal, Loader2, Phone, Plus, Pencil, Trash2, Power, PowerOff,
   FileText, DollarSign, Wifi, Activity, CircleCheck as CheckCircle, MoreVertical,
-  RefreshCw, User, Building
+  RefreshCw, User, Building, Shield, Smartphone as SmartphoneIcon
 } from "lucide-react";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator
@@ -572,6 +572,41 @@ export default function MiLineaPage() {
             ))}
           </div>
         </CardContent>
+      </Card>
+
+      <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
+        <div className="h-[2px] bg-gradient-to-r from-emerald-500/40 to-emerald-500/0" />
+        <div className="px-5 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-emerald-500/10 rounded-lg ring-1 ring-emerald-500/20">
+              <Shield className="h-4 w-4 text-emerald-500" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-foreground">Homologación de Equipo</p>
+              <p className="text-[10px] text-muted-foreground">CONATEL · Registro Nacional de Equipos</p>
+            </div>
+          </div>
+          <Badge variant="outline" className="text-[10px] px-2.5 py-0.5 font-semibold bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+            <CheckCircle className="h-3 w-3 mr-1" />
+            Equipo Homologado
+          </Badge>
+        </div>
+        <div className="px-5 pb-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { label: "IMEI", val: "356938035643809", icon: SmartphoneIcon },
+            { label: "Modelo", val: "Samsung Galaxy S26", icon: FileText },
+            { label: "Registro", val: "HOM-2025-89123", icon: Shield },
+            { label: "Estado", val: "Verificado", icon: CheckCircle },
+          ].map((item, i) => (
+            <div key={i} className="p-3 rounded-xl bg-muted/10 border border-border/30 space-y-1">
+              <div className="flex items-center gap-1.5">
+                <item.icon className="h-2.5 w-2.5 text-muted-foreground" />
+                <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">{item.label}</span>
+              </div>
+              <p className="text-xs font-bold text-foreground truncate">{item.val}</p>
+            </div>
+          ))}
+        </div>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
