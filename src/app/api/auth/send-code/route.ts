@@ -130,22 +130,23 @@ export async function POST(req: NextRequest) {
       const codigo = generateOTP();
       const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
+      // Store code and magic token under originalEmail so verify-code can find them
+      // by the user's login email, regardless of which address receives the email.
       const [, user] = await Promise.all([
         query(
           `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, $2, $3, $4, 'verification')`,
-          [destino, tipo, codigo, expiresAt]
+          [originalEmail.toLowerCase(), tipo, codigo, expiresAt]
         ),
         queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [originalEmail.toLowerCase()]),
       ]);
 
       const token = generateMagicToken();
-      const baseUrl = process.env.REPLIT_DEPLOYMENT_URL
-        ? `https://${process.env.REPLIT_DEPLOYMENT_URL}`
-        : process.env.REPLIT_DEV_DOMAIN
+      const baseUrl = process.env.REPLIT_DEV_DOMAIN
         ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-        : (process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+        : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
       const magicLink = `${baseUrl}/es/verify-link/${token}`;
-      storeMagicToken(destino, token, user?.id).catch(() => {});
+      // Store magic token under originalEmail so verify-link can find the user account
+      storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => {});
 
       const html = buildKyronEmailTemplate({
         title: 'Verificacion de Identidad',
@@ -155,31 +156,22 @@ export async function POST(req: NextRequest) {
         footer: 'Si no solicitaste este codigo, ignora este correo. El enlace y el codigo expiran en 10 minutos.',
       });
 
-      const emailPromise = sendEmail({
+      const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
+
+      const result = await sendEmail({
         to: destino,
         subject: `${codigo} — Verificacion de Identidad · System Kyron`,
         html,
         module: 'auth',
         purpose: 'verification',
+      }).catch(err => {
+        console.error('[send-code] Email send error:', err);
+        return { success: false, provider: 'none' as const, error: String(err) };
       });
 
-      const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
-
-      const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000));
-      const result = await Promise.race([emailPromise, timeout]);
-
-      if (result === null || (result && !result.success)) {
+      if (!result.success) {
         if (isDev) {
-          console.log(`[send-code][DEV] Codigo para ${destino}: ${codigo}`);
-        }
-        if (result === null) {
-          return NextResponse.json({
-            success: true,
-            message: 'Codigo de verificacion enviado a tu correo electronico',
-            channel: tipo,
-            destination: destino,
-            expiresIn: 600,
-          });
+          console.log(`[send-code][DEV] Codigo para ${originalEmail}: ${codigo}`);
         }
         return NextResponse.json(
           { error: 'No se pudo enviar el correo. Verifica tu direccion e intenta de nuevo.' },

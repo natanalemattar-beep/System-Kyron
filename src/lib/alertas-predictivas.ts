@@ -1004,7 +1004,7 @@ export async function verificarAlertasPredictivas(): Promise<AlertaGenerada[]> {
          WHERE user_id = $1
          AND titulo LIKE $2
          AND created_at > NOW() - INTERVAL '20 hours'`,
-        [empresa.user_id, `%${obligacion.nombre}%${diasRestantes} día%`]
+        [empresa.user_id, `%${obligacion.nombre}%`]
       );
 
       if (parseInt(yaEnviada[0]?.count ?? '0') > 0) continue;
