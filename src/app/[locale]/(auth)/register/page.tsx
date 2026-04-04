@@ -10,7 +10,7 @@ import {
     Search, CheckCircle2, AlertCircle, Fingerprint, Loader2,
     Signal, Gavel, ArrowLeft,
     ChevronDown, Globe, Landmark, FileSignature, Building, UserCircle,
-    ShoppingCart, Sparkles, Lock, Recycle,
+    ShoppingCart, Lock, Recycle,
     Calculator, Brain, Smartphone, Cpu, Shield, BarChart3, Zap,
     Hexagon, CircuitBoard,
 } from "lucide-react";
@@ -691,32 +691,11 @@ export default function RegisterSelectionPage() {
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                 className="text-center mb-8"
                             >
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/70 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 mb-6 backdrop-blur-sm shadow-sm"
-                                >
-                                    <div className="relative">
-                                        <div className="absolute inset-0 rounded-full bg-sky-400 blur-[6px] opacity-40" />
-                                        <Sparkles className="relative h-3.5 w-3.5 text-sky-400" />
-                                    </div>
-                                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 tracking-wide">
-                                        {step === "identify" ? "Paso 1 de 3 — Identificación" : "Paso 2 de 3 — Portal"}
-                                    </span>
-                                </motion.div>
-
-                                <h1 className="text-3xl sm:text-[2.5rem] font-bold tracking-tight mb-3 leading-tight">
-                                    <span className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 dark:from-slate-100 dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
-                                        {step === "identify" ? "Crea tu cuenta" : "Elige tu portal"}
+                                <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1]">
+                                    <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                                        Crear Cuenta
                                     </span>
                                 </h1>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm max-w-sm mx-auto leading-relaxed">
-                                    {step === "identify"
-                                        ? "Ingresa tu documento de identidad para comenzar el proceso de registro"
-                                        : "Selecciona el módulo que mejor se adapte a tus necesidades"
-                                    }
-                                </p>
                             </motion.div>
 
                             <div className="flex items-start gap-3 mb-8 px-1">
