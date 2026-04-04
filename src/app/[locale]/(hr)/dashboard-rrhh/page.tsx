@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useLocale } from "next-intl";
 
 interface Empleado {
   id: number;
@@ -46,6 +47,7 @@ const BAR_COLORS = ["#10b981", "#06b6d4", "#3b82f6", "#8b5cf6", "#f59e0b", "#ef4
 
 export default function RecursosHumanosPage() {
   const { toast } = useToast();
+  const currentLocale = useLocale();
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -64,14 +66,18 @@ export default function RecursosHumanosPage() {
       if (res.ok) {
         const data = await res.json();
         setEmpleados(data.empleados ?? []);
+      } else {
+        toast({ variant: "destructive", title: "Error al cargar empleados", description: "No se pudieron obtener los datos. Intente nuevamente." });
       }
-    } catch {}
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión", description: "No se pudo conectar al servidor." });
+    }
     finally { setLoading(false); }
-  }, []);
+  }, [toast]);
 
   useEffect(() => { fetchEmpleados(); }, [fetchEmpleados]);
 
-  const totalNomina = empleados.reduce((acc, e) => acc + parseFloat(e.salario_base ?? "0"), 0);
+  const totalNomina = empleados.reduce((acc, e) => { const v = parseFloat(e.salario_base ?? "0"); return acc + (isNaN(v) ? 0 : v); }, 0);
   const avgSalario = empleados.length > 0 ? totalNomina / empleados.length : 0;
 
   const distribucion = DEPARTAMENTOS.map(dep => ({
@@ -101,7 +107,7 @@ export default function RecursosHumanosPage() {
           nombre: form.nombre, apellido: form.apellido, cedula: form.cedula,
           cargo: form.cargo, departamento: form.departamento,
           fecha_ingreso: form.fecha_ingreso || undefined,
-          salario_base: parseFloat(form.salario_base || "0"),
+          salario_base: isNaN(parseFloat(form.salario_base)) ? 0 : parseFloat(form.salario_base || "0"),
           tipo_contrato: form.tipo_contrato,
           telefono: form.telefono || undefined,
           email: form.email || undefined,
@@ -161,8 +167,8 @@ export default function RecursosHumanosPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: "Personal Activo", value: loading ? "—" : String(empleados.length), icon: Users, gradient: "from-emerald-500/10 to-emerald-500/[0.02]", iconBg: "bg-emerald-500/15", iconColor: "text-emerald-400", border: "border-emerald-500/10" },
-          { label: "Nómina Mensual", value: loading ? "—" : formatCurrency(totalNomina, "Bs."), icon: DollarSign, gradient: "from-cyan-500/10 to-cyan-500/[0.02]", iconBg: "bg-cyan-500/15", iconColor: "text-cyan-400", border: "border-cyan-500/10" },
-          { label: "Salario Promedio", value: loading ? "—" : formatCurrency(avgSalario, "Bs."), icon: Target, gradient: "from-blue-500/10 to-blue-500/[0.02]", iconBg: "bg-blue-500/15", iconColor: "text-blue-400", border: "border-blue-500/10" },
+          { label: "Nómina Mensual", value: loading ? "—" : formatCurrency(totalNomina, "Bs.", currentLocale), icon: DollarSign, gradient: "from-cyan-500/10 to-cyan-500/[0.02]", iconBg: "bg-cyan-500/15", iconColor: "text-cyan-400", border: "border-cyan-500/10" },
+          { label: "Salario Promedio", value: loading ? "—" : formatCurrency(avgSalario, "Bs.", currentLocale), icon: Target, gradient: "from-blue-500/10 to-blue-500/[0.02]", iconBg: "bg-blue-500/15", iconColor: "text-blue-400", border: "border-blue-500/10" },
           { label: "Departamentos", value: loading ? "—" : String(distribucion.length), icon: Building2, gradient: "from-teal-500/10 to-teal-500/[0.02]", iconBg: "bg-teal-500/15", iconColor: "text-teal-400", border: "border-teal-500/10" },
         ].map((kpi, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.4 }}>
@@ -247,13 +253,13 @@ export default function RecursosHumanosPage() {
             </div>
             <div className="space-y-2">
               <div>
-                <p className="text-lg font-bold text-cyan-400 tracking-tight">{loading ? "—" : formatCurrency(totalNomina, "Bs.")}</p>
+                <p className="text-lg font-bold text-cyan-400 tracking-tight">{loading ? "—" : formatCurrency(totalNomina, "Bs.", currentLocale)}</p>
                 <p className="text-[9px] text-muted-foreground/50">Carga mensual total</p>
               </div>
               <div className="flex items-center gap-3 text-[9px]">
                 <span className="text-muted-foreground/50">{empleados.length} empleados</span>
                 <span className="text-muted-foreground/30">·</span>
-                <span className="text-muted-foreground/50">Prom. {loading ? "—" : formatCurrency(avgSalario, "Bs.")}</span>
+                <span className="text-muted-foreground/50">Prom. {loading ? "—" : formatCurrency(avgSalario, "Bs.", currentLocale)}</span>
               </div>
               <Link href="/nominas">
                 <Button variant="outline" size="sm" className="w-full h-7 mt-1 text-[9px] font-semibold rounded-lg border-cyan-500/15 text-cyan-400 hover:bg-cyan-500/10">
@@ -305,7 +311,7 @@ export default function RecursosHumanosPage() {
                       </div>
                     </div>
                     <div className="text-right shrink-0 hidden sm:block">
-                      <p className="text-[10px] font-semibold text-foreground/70 tabular-nums">{formatCurrency(parseFloat(emp.salario_base ?? "0"), "Bs.")}</p>
+                      <p className="text-[10px] font-semibold text-foreground/70 tabular-nums">{formatCurrency(parseFloat(emp.salario_base ?? "0"), "Bs.", currentLocale)}</p>
                       <p className="text-[8px] text-muted-foreground/40 font-mono">{emp.cedula}</p>
                     </div>
                   </div>

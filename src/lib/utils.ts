@@ -6,10 +6,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency: string = "Bs.") {
+export function formatCurrency(amount: number, currency: string = "Bs.", locale?: string) {
   const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : "Bs.";
   const safe = Number.isFinite(amount) ? amount : 0;
-  const formattedAmount = new Intl.NumberFormat("es-VE", {
+  const loc = locale || "es-VE";
+  const formattedAmount = new Intl.NumberFormat(loc, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(safe);
@@ -17,17 +18,15 @@ export function formatCurrency(amount: number, currency: string = "Bs.") {
   return `${symbol} ${formattedAmount}`;
 }
 
-export function formatDate(date: string | Date | null) {
+export function formatDate(date: string | Date | null, locale?: string) {
   if (!date) return "N/A";
   
   let dateObj: Date;
 
   if (typeof date === 'string') {
-    // Attempt to handle 'DD/MM/YYYY' format if present
     if (date.includes('/')) {
       const parts = date.split('/');
       if (parts.length === 3) {
-        // Assuming DD/MM/YYYY
         dateObj = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);
       } else {
         dateObj = new Date(date);
@@ -43,11 +42,10 @@ export function formatDate(date: string | Date | null) {
     return "Fecha inválida";
   }
 
-   // Add timezone offset to prevent date from changing due to browser's timezone
   const userTimezoneOffset = dateObj.getTimezoneOffset() * 60000;
   const adjustedDate = new Date(dateObj.getTime() + userTimezoneOffset);
 
-  return adjustedDate.toLocaleDateString('es-VE', {
+  return adjustedDate.toLocaleDateString(locale || 'es-VE', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -55,8 +53,8 @@ export function formatDate(date: string | Date | null) {
 }
 
 
-export function formatPercentage(value: number): string {
-  return new Intl.NumberFormat('es-VE', {
+export function formatPercentage(value: number, locale?: string): string {
+  return new Intl.NumberFormat(locale || 'es-VE', {
     style: 'percent',
     minimumFractionDigits: 1,
     maximumFractionDigits: 1

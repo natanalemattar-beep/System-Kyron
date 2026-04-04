@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useLocale } from "next-intl";
 
 type Socio = {
   id: number;
@@ -56,6 +57,7 @@ const modules = [
 
 export default function DashboardSociosPage() {
   const { toast } = useToast();
+  const currentLocale = useLocale();
   const [socios, setSocios] = useState<Socio[]>([]);
   const [actas, setActas] = useState<Acta[]>([]);
   const [stats, setStats] = useState<Stats>({ total_socios: 0, socios_activos: 0, total_actas: 0, actas_registradas: 0 });
@@ -279,7 +281,7 @@ export default function DashboardSociosPage() {
                         <div className="min-w-0">
                           <p className="text-[11px] font-bold text-foreground truncate">Acta #{acta.numero_acta}</p>
                           <p className="text-[9px] text-muted-foreground mt-0.5">
-                            {new Date(acta.fecha_asamblea).toLocaleDateString('es-VE')} · {acta.tipo.charAt(0).toUpperCase() + acta.tipo.slice(1)}
+                            {new Date(acta.fecha_asamblea).toLocaleDateString(currentLocale || 'es')} · {acta.tipo.charAt(0).toUpperCase() + acta.tipo.slice(1)}
                           </p>
                         </div>
                         <Badge variant="outline" className={cn(

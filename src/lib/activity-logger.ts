@@ -1,4 +1,4 @@
-import { query } from '@/lib/db';
+import { query, transaction } from '@/lib/db';
 import { generateProofPayload } from '@/lib/blockchain-service';
 
 export interface LogActivityParams {
@@ -59,9 +59,10 @@ export async function logAudit(params: AuditParams): Promise<void> {
                        BLOCKCHAIN_TABLES.has(params.tablaAfectada);
 
     let blockchainHash: string | null = null;
+    let proof: ReturnType<typeof generateProofPayload> | null = null;
 
     if (shouldHash) {
-      const proof = generateProofPayload({
+      proof = generateProofPayload({
         tablaAfectada: params.tablaAfectada,
         registroId: params.registroId,
         operacion: params.operacion,
@@ -71,11 +72,12 @@ export async function logAudit(params: AuditParams): Promise<void> {
         userId: params.userId,
         riskLevel: params.riskLevel,
       });
-
       blockchainHash = proof.dataHash;
+    }
 
-      try {
-        await query(
+    await transaction(async (client) => {
+      if (proof && blockchainHash) {
+        await client.query(
           `INSERT INTO blockchain_proofs (entity_type, entity_id, data_hash, payload_snapshot, status)
            VALUES ($1, $2, $3, $4, 'pending')`,
           [
@@ -85,31 +87,29 @@ export async function logAudit(params: AuditParams): Promise<void> {
             JSON.stringify(proof.payload),
           ]
         );
-      } catch (proofErr: any) {
-        console.error('[audit-logger] Error storing blockchain proof:', proofErr.message);
       }
-    }
 
-    await query(
-      `INSERT INTO auditoria_detallada 
-       (user_id, tabla_afectada, registro_id, operacion, datos_anteriores, datos_nuevos, campos_modificados, ip_address, user_agent, session_id, risk_level, blockchain_hash, blockchain_verified)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
-      [
-        params.userId ?? null,
-        params.tablaAfectada,
-        params.registroId ?? null,
-        params.operacion,
-        params.datosAnteriores ? JSON.stringify(params.datosAnteriores) : null,
-        params.datosNuevos ? JSON.stringify(params.datosNuevos) : null,
-        params.camposModificados ?? null,
-        params.ipAddress ?? null,
-        params.userAgent ?? null,
-        params.sessionId ?? null,
-        params.riskLevel ?? 'low',
-        blockchainHash,
-        false,
-      ]
-    );
+      await client.query(
+        `INSERT INTO auditoria_detallada 
+         (user_id, tabla_afectada, registro_id, operacion, datos_anteriores, datos_nuevos, campos_modificados, ip_address, user_agent, session_id, risk_level, blockchain_hash, blockchain_verified)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+        [
+          params.userId ?? null,
+          params.tablaAfectada,
+          params.registroId ?? null,
+          params.operacion,
+          params.datosAnteriores ? JSON.stringify(params.datosAnteriores) : null,
+          params.datosNuevos ? JSON.stringify(params.datosNuevos) : null,
+          params.camposModificados ?? null,
+          params.ipAddress ?? null,
+          params.userAgent ?? null,
+          params.sessionId ?? null,
+          params.riskLevel ?? 'low',
+          blockchainHash,
+          false,
+        ]
+      );
+    });
   } catch (err: any) {
     console.error('[audit-logger] Error al registrar auditoría:', err.message);
   }

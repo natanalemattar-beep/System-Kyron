@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Cpu, Server, Shield, LifeBuoy, FolderArchive, FileCheck, Activity, AlertTriangle, CheckCircle, ArrowRight, Clock, HardDrive, Wifi, Users, Monitor, Lock, TrendingUp, Zap, Database, Cloud, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -11,18 +11,13 @@ import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
-const kpis = [
-  { label: "Uptime del Sistema", val: "99.97%", sub: "Último mes", icon: Activity, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-  { label: "Tickets Abiertos", val: "3", sub: "2 alta, 1 media", icon: LifeBuoy, color: "text-amber-500", bg: "bg-amber-500/10" },
-  { label: "Servidores Activos", val: "12/12", sub: "Todos operativos", icon: Server, color: "text-primary", bg: "bg-primary/10" },
-  { label: "Último Respaldo", val: "Hoy 03:00", sub: "100% exitoso", icon: FolderArchive, color: "text-cyan-500", bg: "bg-cyan-500/10" },
-  { label: "Score Seguridad", val: "94/100", sub: "ISO 27001: 72%", icon: Shield, color: "text-rose-500", bg: "bg-rose-500/10" },
-  { label: "Licencias Activas", val: "48", sub: "1 por vencer", icon: FileCheck, color: "text-violet-500", bg: "bg-violet-500/10" },
-  { label: "Usuarios Conectados", val: "42", sub: "Tiempo real", icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
-  { label: "Almacenamiento", val: "52%", sub: "4.2 TB / 8 TB", icon: HardDrive, color: "text-orange-500", bg: "bg-orange-500/10" },
-];
+interface ITDashboardData {
+  tickets: { abiertos: number; en_progreso: number; total: number; sla: number };
+  usuarios_conectados: number;
+  actividad_reciente: Array<{ evento: string; descripcion: string; created_at: string }>;
+}
 
-const modulos = [
+const modulos_static = [
   {
     titulo: "Help Desk / Soporte Técnico",
     desc: "Sistema de tickets, mesa de ayuda, SLA, escalamiento y base de conocimiento.",
@@ -114,6 +109,62 @@ const servidoresQuick = [
 
 export default function DashboardITPage() {
   const { toast } = useToast();
+  const [itData, setItData] = useState<ITDashboardData | null>(null);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/it-dashboard')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => setItData(d))
+      .catch(() => setLoadError(true));
+  }, []);
+
+  const ticketsAbiertos = itData?.tickets.abiertos ?? 3;
+  const ticketsEnProgreso = itData?.tickets.en_progreso ?? 2;
+  const sla = itData?.tickets.sla ?? 94;
+  const usuariosConectados = itData?.usuarios_conectados ?? 42;
+
+  const kpis = [
+    { label: "Uptime del Sistema", val: "99.97%", sub: "Último mes", icon: Activity, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: "Tickets Abiertos", val: String(ticketsAbiertos), sub: `${ticketsEnProgreso} en progreso`, icon: LifeBuoy, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: "Servidores Activos", val: "12/12", sub: "Todos operativos", icon: Server, color: "text-primary", bg: "bg-primary/10" },
+    { label: "Último Respaldo", val: "Hoy 03:00", sub: "100% exitoso", icon: FolderArchive, color: "text-cyan-500", bg: "bg-cyan-500/10" },
+    { label: "Score Seguridad", val: "94/100", sub: "ISO 27001: 72%", icon: Shield, color: "text-rose-500", bg: "bg-rose-500/10" },
+    { label: "Licencias Activas", val: "48", sub: "1 por vencer", icon: FileCheck, color: "text-violet-500", bg: "bg-violet-500/10" },
+    { label: "Usuarios Conectados", val: String(usuariosConectados), sub: "Tiempo real", icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { label: "Almacenamiento", val: "52%", sub: "4.2 TB / 8 TB", icon: HardDrive, color: "text-orange-500", bg: "bg-orange-500/10" },
+  ];
+
+  const modulos = [
+    {
+      titulo: "Help Desk / Soporte Técnico",
+      desc: "Sistema de tickets, mesa de ayuda, SLA, escalamiento y base de conocimiento.",
+      href: "/helpdesk",
+      icon: LifeBuoy,
+      color: "text-primary",
+      bg: "bg-primary/10",
+      border: "border-primary/20",
+      stats: [
+        { label: "Abiertos", val: String(ticketsAbiertos) },
+        { label: "En Progreso", val: String(ticketsEnProgreso) },
+        { label: "SLA", val: `${sla}%` },
+      ],
+    },
+    ...modulos_static.slice(1),
+  ];
+
+  if (loadError) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-3">
+          <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto" />
+          <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
+          <p className="text-xs text-muted-foreground">Error al obtener datos de IT. Intenta de nuevo.</p>
+          <Button size="sm" onClick={() => { setLoadError(false); fetch('/api/it-dashboard').then(r => r.ok ? r.json() : Promise.reject()).then(d => setItData(d)).catch(() => setLoadError(true)); }} className="rounded-lg text-xs mt-2">Reintentar</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
@@ -135,7 +186,7 @@ export default function DashboardITPage() {
         </div>
         <div className="flex gap-3">
           <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2"
-            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'verificacin_iniciada', descripcion: "Verificación Iniciada" }) }); if (res.ok) toast({ title: "Verificación Iniciada", description: "Ejecutando health check en todos los sistemas..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
+            onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'verificación_iniciada', descripcion: "Verificación Iniciada" }) }); if (res.ok) toast({ title: "Verificación Iniciada", description: "Ejecutando health check en todos los sistemas..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
             <RefreshCw className="h-4 w-4" /> HEALTH CHECK
           </Button>
         </div>

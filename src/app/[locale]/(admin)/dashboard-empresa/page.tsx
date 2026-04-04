@@ -26,6 +26,7 @@ import { useCurrency } from "@/lib/currency-context";
 import { CurrencySelector } from "@/components/currency-selector";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { useAuth } from "@/lib/auth/context";
+import { useLocale } from "next-intl";
 import { SeasonalBanner } from "@/components/seasonal-decorations";
 import { useSeasonalTheme } from "@/components/seasonal-theme-provider";
 import { ActivityTimeline } from "@/components/activity-timeline";
@@ -119,6 +120,7 @@ function MiniSparkline({ data, color }: { data: number[]; color: string }) {
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
   const { user } = useAuth();
+  const currentLocale = useLocale();
   const { activeEvent } = useSeasonalTheme();
   const { format: fmtCur, convert, config: curConfig, formatRaw } = useCurrency();
   const [data, setData] = useState<DashboardData | null>(null);
@@ -143,10 +145,11 @@ export default function DashboardEmpresaPage() {
 
   useEffect(() => {
     const now = new Date();
-    setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
-    setClientDateStr(now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+    const loc = currentLocale || 'es';
+    setClientTimeStr(now.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" }));
+    setClientDateStr(now.toLocaleDateString(loc, { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
     setGreeting(getGreeting(now.getHours()));
-    const periodoStr = now.toLocaleString("es-VE", { month: "long", year: "numeric" }).toUpperCase();
+    const periodoStr = now.toLocaleString(loc, { month: "long", year: "numeric" }).toUpperCase();
     const fechaInicio = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
     const fechaFin = now.toISOString().split("T")[0];
     setClientClosingForm({ periodo: periodoStr, fecha_inicio: fechaInicio, fecha_fin: fechaFin });
@@ -161,23 +164,27 @@ export default function DashboardEmpresaPage() {
       { label: "FAOV / BANAVIH", date: new Date(y, m + 1, 5), iconKey: "faov", color: "text-teal-400", bg: "bg-teal-500/8" },
     ].map(d => {
       const diff = Math.ceil((d.date.getTime() - now.getTime()) / 86400000);
-      return { label: d.label, diff, dateStr: d.date.toLocaleDateString("es-VE", { day: "2-digit", month: "short" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
+      return { label: d.label, diff, dateStr: d.date.toLocaleDateString(loc, { day: "2-digit", month: "short" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
     }).sort((a, b) => a.diff - b.diff);
     setFiscalDeadlines(rawDeadlines);
-  }, []);
+  }, [currentLocale]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setClientTimeStr(new Date().toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
+      setClientTimeStr(new Date().toLocaleTimeString(currentLocale || 'es', { hour: "2-digit", minute: "2-digit" }));
     }, 60000);
     return () => clearInterval(interval);
-  }, []);
+  }, [currentLocale]);
 
   const fetchDashboard = useCallback(async (silent = false) => {
     if (!silent) setLoading(true); else setRefreshing(true);
-    try { const res = await fetch("/api/dashboard", { cache: "no-store" }); if (res.ok) setData(await res.json()); }
-    catch {} finally { setLoading(false); setRefreshing(false); }
-  }, []);
+    try {
+      const res = await fetch("/api/dashboard", { cache: "no-store" });
+      if (res.ok) { setData(await res.json()); }
+      else { toast({ variant: "destructive", title: "Error al cargar dashboard", description: "No se pudieron obtener los datos. Intente nuevamente." }); }
+    } catch { toast({ variant: "destructive", title: "Error de conexión", description: "No se pudo conectar al servidor. Verifique su conexión." }); }
+    finally { setLoading(false); setRefreshing(false); }
+  }, [toast]);
 
   useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
 
@@ -773,7 +780,7 @@ export default function DashboardEmpresaPage() {
                     <p className="text-[10px] font-medium truncate">{log.evento}</p>
                     {log.descripcion && <p className="text-[9px] text-muted-foreground/50 mt-0.5 line-clamp-1">{log.descripcion}</p>}
                   </div>
-                  <p className="text-[9px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.creado_en).toLocaleString("es-VE", { dateStyle: "short", timeStyle: "short" })}</p>
+                  <p className="text-[9px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.creado_en).toLocaleString(currentLocale || 'es', { dateStyle: "short", timeStyle: "short" })}</p>
                 </div>
               ))
             )}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,38 +8,36 @@ import {
   LayoutDashboard, TrendingUp, TrendingDown, DollarSign, Users,
   Signal, Shield, Wifi, Zap, AlertTriangle, CircleCheck,
   BarChart3, PieChart, Building, Download, BrainCircuit,
-  ArrowUp, ArrowDown
+  ArrowUp, ArrowDown, Loader2
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 
-const KPI_DATA = [
-  { label: "Líneas Totales", val: "30", sub: "+4 este mes", icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10", trend: "+15%", up: true },
-  { label: "Gasto Mensual", val: "$1,980", sub: "vs $2,050 mes ant.", icon: DollarSign, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10", trend: "-3.4%", up: false },
-  { label: "Consumo Total", val: "412 GB", sub: "Promedio 13.7 GB/línea", icon: Wifi, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10", trend: "+8%", up: true },
-  { label: "Cumplimiento CONATEL", val: "98.5%", sub: "Todos los permisos vigentes", icon: Shield, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10", trend: "+1.2%", up: true },
-];
-
-const DEPTO_RESUMEN = [
-  { depto: "Ventas", lineas: 8, costo: 480, consumo: 125, pct: 30, color: "bg-blue-500" },
-  { depto: "IT", lineas: 6, costo: 360, consumo: 92, pct: 22, color: "bg-emerald-500" },
-  { depto: "Logística", lineas: 5, costo: 300, consumo: 45, pct: 15, color: "bg-amber-500" },
-  { depto: "Marketing", lineas: 4, costo: 240, consumo: 68, pct: 12, color: "bg-pink-500" },
-  { depto: "Dirección", lineas: 4, costo: 420, consumo: 53, pct: 13, color: "bg-violet-500" },
-  { depto: "RR.HH.", lineas: 3, costo: 180, consumo: 29, pct: 8, color: "bg-cyan-500" },
-];
+interface TelecomDashboardData {
+  lineas: {
+    total: number;
+    activas: number;
+    gasto_mensual: number;
+    consumo_gb: number;
+    promedio_por_linea: number;
+  };
+  distribucion: Array<{
+    depto: string;
+    lineas: number;
+    costo: number;
+    consumo: number;
+    pct: number;
+    color: string;
+  }>;
+  tendencia: Array<{ mes: string; costo: number; lineas: number }>;
+}
 
 const ALERTAS_EJECUTIVAS = [
   { tipo: "warning", titulo: "3 permisos por vencer", desc: "Licencia Red Privada vence en 97 días. Iniciar renovación.", fecha: "03/04/2026" },
   { tipo: "info", titulo: "Reporte CONATEL Q1 pendiente", desc: "Generar y enviar reporte trimestral SIT antes del 10/04/2026.", fecha: "01/04/2026" },
   { tipo: "success", titulo: "FIDETEL Q4 pagado", desc: "Contribución de $124.50 procesada exitosamente.", fecha: "28/03/2026" },
   { tipo: "warning", titulo: "1 dispositivo no cumple MDM", desc: "Galaxy A55 — Luis M. sin cifrado, VPN ni antivirus.", fecha: "02/04/2026" },
-];
-
-const TENDENCIA_MENSUAL = [
-  { mes: "Oct", costo: 1850, lineas: 26 }, { mes: "Nov", costo: 1920, lineas: 27 },
-  { mes: "Dic", costo: 2100, lineas: 28 }, { mes: "Ene", costo: 1980, lineas: 28 },
-  { mes: "Feb", costo: 2050, lineas: 29 }, { mes: "Mar", costo: 1980, lineas: 30 },
 ];
 
 const ALERTA_ICON_MAP = {
@@ -54,7 +53,53 @@ const ALERTA_COLOR_MAP = {
 };
 
 export default function DashboardEjecutivoPage() {
-  const maxCosto = Math.max(...TENDENCIA_MENSUAL.map(m => m.costo));
+  const currentLocale = useLocale();
+  const [data, setData] = useState<TelecomDashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/telecom-dashboard')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => { setData(d); setLoading(false); })
+      .catch(() => { setLoadError(true); setLoading(false); });
+  }, []);
+
+  const totalLineas = data?.lineas.total ?? 0;
+  const gastoMensual = data?.lineas.gasto_mensual ?? 0;
+  const consumoTotal = data?.lineas.consumo_gb ?? 0;
+  const promedio = data?.lineas.promedio_por_linea ?? 0;
+
+  const KPI_DATA = [
+    { label: "Líneas Totales", val: loading ? "—" : String(totalLineas), sub: `${data?.lineas.activas ?? 0} activas`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10", trend: totalLineas > 0 ? "Activo" : "—", up: true },
+    { label: "Gasto Mensual", val: loading ? "—" : formatCurrency(gastoMensual, 'USD', currentLocale), sub: "Plan contratado", icon: DollarSign, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10", trend: "Mensual", up: gastoMensual < 2000 },
+    { label: "Consumo Total", val: loading ? "—" : `${consumoTotal.toFixed(1)} GB`, sub: `Promedio ${promedio.toFixed(1)} GB/línea`, icon: Wifi, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10", trend: "+8%", up: true },
+    { label: "Cumplimiento CONATEL", val: "98.5%", sub: "Todos los permisos vigentes", icon: Shield, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10", trend: "+1.2%", up: true },
+  ];
+
+  const tendencia = data?.tendencia && data.tendencia.length > 0 ? data.tendencia : [
+    { mes: "Oct", costo: 0, lineas: 0 }, { mes: "Nov", costo: 0, lineas: 0 },
+    { mes: "Dic", costo: 0, lineas: 0 }, { mes: "Ene", costo: 0, lineas: 0 },
+    { mes: "Feb", costo: 0, lineas: 0 }, { mes: "Mar", costo: 0, lineas: 0 },
+  ];
+  const maxCosto = Math.max(...tendencia.map(m => m.costo), 1);
+
+  const distribucion = data?.distribucion && data.distribucion.length > 0
+    ? data.distribucion
+    : [];
+
+  if (!loading && loadError) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-3">
+          <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto" />
+          <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
+          <p className="text-xs text-muted-foreground">Hubo un error al obtener los datos telecom. Intenta de nuevo.</p>
+          <Button size="sm" onClick={() => { setLoadError(false); setLoading(true); fetch('/api/telecom-dashboard').then(r => r.ok ? r.json() : Promise.reject()).then(d => { setData(d); setLoading(false); }).catch(() => { setLoadError(true); setLoading(false); }); }} className="rounded-lg text-xs mt-2">Reintentar</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
@@ -81,7 +126,11 @@ export default function DashboardEjecutivoPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <div className={cn("p-1.5 rounded-lg", kpi.iconBg)}><kpi.icon className={cn("h-3 w-3", kpi.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              ) : (
+                <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              )}
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[9px] text-muted-foreground">{kpi.sub}</span>
                 <Badge variant="outline" className={cn("text-[8px] px-1", kpi.up ? "text-emerald-500 border-emerald-500/20" : "text-rose-500 border-rose-500/20")}>
@@ -107,17 +156,17 @@ export default function DashboardEjecutivoPage() {
           </CardHeader>
           <CardContent className="p-5">
             <div className="flex items-end justify-between gap-3 h-40">
-              {TENDENCIA_MENSUAL.map((m, i) => (
+              {tendencia.map((m, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-                  <span className="text-[9px] font-bold text-foreground tabular-nums">${m.costo}</span>
+                  <span className="text-[9px] font-bold text-foreground tabular-nums">{m.costo > 0 ? `$${m.costo}` : '—'}</span>
                   <motion.div
                     initial={{ height: 0 }}
                     animate={{ height: `${(m.costo / maxCosto) * 100}%` }}
                     transition={{ delay: i * 0.07, duration: 0.5 }}
-                    className={cn("w-full rounded-t-lg min-h-[4px]", i === TENDENCIA_MENSUAL.length - 1 ? "bg-primary" : "bg-primary/30")}
+                    className={cn("w-full rounded-t-lg min-h-[4px]", i === tendencia.length - 1 ? "bg-primary" : "bg-primary/30")}
                   />
                   <span className="text-[9px] font-semibold text-muted-foreground">{m.mes}</span>
-                  <span className="text-[8px] text-muted-foreground/60">{m.lineas}L</span>
+                  <span className="text-[8px] text-muted-foreground/60">{m.lineas > 0 ? `${m.lineas}L` : '—'}</span>
                 </div>
               ))}
             </div>
@@ -128,21 +177,25 @@ export default function DashboardEjecutivoPage() {
           <CardHeader className="px-5 py-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><PieChart className="h-4 w-4 text-primary" /></div>
-              <CardTitle className="text-sm font-semibold text-foreground">Distribución por Depto.</CardTitle>
+              <CardTitle className="text-sm font-semibold text-foreground">Distribución por Titular</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="p-5 space-y-2">
-            {DEPTO_RESUMEN.map((d, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className={cn("h-2.5 w-2.5 rounded-full", d.color)} />
-                <span className="text-xs text-foreground flex-1">{d.depto}</span>
-                <span className="text-[10px] text-muted-foreground tabular-nums">{d.lineas}L</span>
-                <span className="text-xs font-bold text-foreground tabular-nums">{formatCurrency(d.costo, 'USD')}</span>
-                <div className="h-1.5 w-16 bg-muted/30 rounded-full overflow-hidden">
-                  <div className={cn("h-full rounded-full", d.color)} style={{ width: `${d.pct}%` }} />
+            {distribucion.length === 0 ? (
+              <p className="text-xs text-muted-foreground text-center py-4">{loading ? 'Cargando...' : 'Sin líneas registradas'}</p>
+            ) : (
+              distribucion.map((d, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className={cn("h-2.5 w-2.5 rounded-full", d.color)} />
+                  <span className="text-xs text-foreground flex-1 truncate">{d.depto}</span>
+                  <span className="text-[10px] text-muted-foreground tabular-nums">{d.lineas}L</span>
+                  <span className="text-xs font-bold text-foreground tabular-nums">{formatCurrency(d.costo, 'USD', currentLocale)}</span>
+                  <div className="h-1.5 w-16 bg-muted/30 rounded-full overflow-hidden">
+                    <div className={cn("h-full rounded-full", d.color)} style={{ width: `${d.pct}%` }} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </CardContent>
         </Card>
       </div>
@@ -184,12 +237,12 @@ export default function DashboardEjecutivoPage() {
           <CardContent className="p-5 space-y-3">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg"><BrainCircuit className="h-4 w-4 text-primary" /></div>
-              <p className="text-sm font-bold text-foreground">Resumen IA Ejecutivo</p>
+              <p className="text-sm font-bold text-foreground">Resumen Ejecutivo</p>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              La flota telecom de Kyron opera con <strong>30 líneas activas</strong> distribuidas en 6 departamentos.
-              El gasto mensual se ha reducido <strong>3.4%</strong> respecto al mes anterior a pesar de añadir 1 línea nueva.
-              El cumplimiento regulatorio CONATEL se mantiene en <strong>98.5%</strong> con todos los permisos vigentes.
+              La flota telecom opera con <strong>{totalLineas > 0 ? `${totalLineas} líneas` : 'líneas pendientes de registro'}</strong>.
+              {gastoMensual > 0 && <> El gasto mensual es de <strong>{formatCurrency(gastoMensual, 'USD', currentLocale)}</strong> en planes activos.</>}
+              {' '}El cumplimiento regulatorio CONATEL se mantiene en <strong>98.5%</strong> con todos los permisos vigentes.
               Se recomienda iniciar la renovación de la licencia de Red Privada (97 días restantes) y completar
               la actualización MDM del dispositivo no conforme.
             </p>

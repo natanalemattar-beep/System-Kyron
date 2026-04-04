@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/auth/context";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ActivityTimeline } from "@/components/activity-timeline";
@@ -41,9 +42,11 @@ function getVerificationLevel(docs: number): { level: number; label: string; per
 
 export default function DashboardPersonalPage() {
   const { user } = useAuth();
+  const currentLocale = useLocale();
   const firstName = user?.nombre?.split(" ")[0] ?? "";
   const [data, setData] = useState<NaturalDashboardData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
@@ -51,9 +54,10 @@ export default function DashboardPersonalPage() {
 
   useEffect(() => {
     const now = new Date();
+    const loc = currentLocale || 'es';
     setGreeting(getGreeting(now.getHours()));
-    setClientTimeStr(now.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" }));
-    setClientDateStr(now.toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+    setClientTimeStr(now.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" }));
+    setClientDateStr(now.toLocaleDateString(loc, { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
     const rawDocs = [
       { name: "Cédula de Identidad", expiry: new Date(now.getFullYear() + 3, now.getMonth(), now.getDate()), iconKey: "cedula", color: "text-blue-400", bg: "bg-blue-500/8" },
       { name: "RIF Personal", expiry: new Date(now.getFullYear(), now.getMonth() + 4, 15), iconKey: "rif", color: "text-amber-400", bg: "bg-amber-500/8" },
@@ -61,17 +65,22 @@ export default function DashboardPersonalPage() {
       { name: "Licencia de Conducir", expiry: new Date(now.getFullYear(), now.getMonth() + 8, 10), iconKey: "licencia", color: "text-emerald-400", bg: "bg-emerald-500/8" },
     ].map(d => {
       const diff = Math.ceil((d.expiry.getTime() - now.getTime()) / 86400000);
-      return { name: d.name, diff, dateStr: d.expiry.toLocaleDateString("es-VE", { day: "2-digit", month: "short", year: "numeric" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
+      return { name: d.name, diff, dateStr: d.expiry.toLocaleDateString(loc, { day: "2-digit", month: "short", year: "numeric" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
     }).sort((a, b) => a.diff - b.diff);
     setDocExpiryItems(rawDocs);
+  }, [currentLocale]);
+
+  const fetchData = useCallback(async () => {
+    setLoadError(false);
+    try {
+      const r = await fetch("/api/natural/dashboard");
+      if (r.ok) { setData(await r.json()); }
+      else { setLoadError(true); }
+    } catch { setLoadError(true); }
+    finally { setLoading(false); }
   }, []);
 
-  useEffect(() => {
-    fetch("/api/natural/dashboard")
-      .then(r => (r.ok ? r.json() : null))
-      .then(d => { setData(d); setLoading(false); })
-      .catch(() => setLoading(false));
-  }, []);
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const verif = getVerificationLevel(data?.documentos ?? 0);
   const GreetingIcon = greeting?.icon ?? Sun;
@@ -106,6 +115,19 @@ export default function DashboardPersonalPage() {
       href: "/notificaciones",
     },
   ];
+
+  if (!loading && loadError) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center space-y-3">
+          <AlertCircle className="h-8 w-8 text-rose-500 mx-auto" />
+          <p className="text-sm font-semibold text-foreground">No se pudo cargar el dashboard</p>
+          <p className="text-xs text-muted-foreground">Hubo un error al obtener tus datos. Intenta de nuevo.</p>
+          <Button size="sm" onClick={fetchData} className="rounded-lg text-xs mt-2">Reintentar</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 pb-16 max-w-6xl mx-auto">
