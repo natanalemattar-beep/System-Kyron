@@ -96,7 +96,6 @@ export async function POST(req: NextRequest) {
       };
       if (isDev && (!emailResult || !emailResult.success)) {
         console.log(`[reset-password][DEV] Codigo para ${user.email}: ${codigo}`);
-        response.devCode = codigo;
       }
 
       return NextResponse.json(response);

@@ -142,9 +142,21 @@ export async function upsert<T = Record<string, unknown>>(
     return (result.rows[0] as T) ?? null;
 }
 
-export async function count(table: string, where?: string, params?: unknown[]): Promise<number> {
+export async function count(
+    table: string,
+    filters?: Record<string, unknown>,
+): Promise<number> {
     validateIdentifier(table);
-    const whereClause = where ? `WHERE ${where}` : '';
+    let whereClause = '';
+    const params: unknown[] = [];
+    if (filters && Object.keys(filters).length > 0) {
+        const conditions = Object.entries(filters).map(([col, val], i) => {
+            validateIdentifier(col);
+            params.push(val);
+            return `${col} = $${i + 1}`;
+        });
+        whereClause = `WHERE ${conditions.join(' AND ')}`;
+    }
     const result = await queryOne<{ total: string }>(
         `SELECT COUNT(*)::text AS total FROM ${table} ${whereClause}`, params
     );

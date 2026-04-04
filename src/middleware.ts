@@ -39,13 +39,11 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const COOKIE_NAME = 'sk_session';
 
-if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
-  throw new Error('JWT_SECRET environment variable is required in production');
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
 }
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET ?? 'system-kyron-dev-secret-key-not-for-production'
-);
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
 // Page segments (after locale prefix) that are publicly accessible
 const PUBLIC_SEGMENTS = new Set([
@@ -76,25 +74,33 @@ const PUBLIC_SEGMENTS = new Set([
   'k7r0n-mail',
 ]);
 
-// Public API path prefixes — these routes handle their own logic
+// Public API routes — explicit whitelist (fail-closed)
 const PUBLIC_API_SET = new Set([
   '/api/stats',
   '/api/visits',
   '/api/contact',
+  '/api/ping',
+  '/api/tasas-bcv/auto-fetch',
+  '/api/auth/login',
+  '/api/auth/login-phone',
+  '/api/auth/register',
+  '/api/auth/reset-password',
+  '/api/auth/send-code',
+  '/api/auth/verify-code',
+  '/api/auth/verify-link',
+  '/api/auth/check-document',
+  '/api/auth/access-key',
+  '/api/cedula/consulta',
+  '/api/rif/consulta',
 ]);
 
-const PUBLIC_API_PREFIXES = [
-  '/api/auth/',
-  '/api/cedula/',
-  '/api/rif/',
-];
+// Routes that handle their own header-based auth (e.g. x-admin-key)
+const SELF_AUTH_API_SET = new Set([
+  '/api/db-init',
+]);
 
 function isPublicApi(pathname: string): boolean {
-  if (PUBLIC_API_SET.has(pathname)) return true;
-  for (let i = 0; i < PUBLIC_API_PREFIXES.length; i++) {
-    if (pathname.startsWith(PUBLIC_API_PREFIXES[i])) return true;
-  }
-  return false;
+  return PUBLIC_API_SET.has(pathname) || SELF_AUTH_API_SET.has(pathname);
 }
 
 function isPublicPage(pathname: string): boolean {
@@ -146,6 +152,14 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/api/')) {
+    if (!isPublicApi(pathname)) {
+      const authed = await verifySession(req);
+      if (!authed) {
+        const response = NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+        applySecurityHeaders(response);
+        return response;
+      }
+    }
     const response = NextResponse.next();
     applySecurityHeaders(response);
     return response;

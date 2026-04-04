@@ -171,15 +171,6 @@ export async function POST(req: NextRequest) {
       if (result === null || (result && !result.success)) {
         if (isDev) {
           console.log(`[send-code][DEV] Codigo para ${destino}: ${codigo}`);
-          return NextResponse.json({
-            success: true,
-            message: 'Codigo generado',
-            channel: tipo,
-            destination: destino,
-            expiresIn: 600,
-            devCode: codigo,
-            devMessage: 'Codigo de verificacion generado por System Kyron.',
-          });
         }
         if (result === null) {
           return NextResponse.json({

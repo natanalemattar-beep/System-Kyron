@@ -4,7 +4,10 @@ import { query } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
-const ADMIN_SECRET = process.env.ADMIN_PROMOTE_SECRET || 'kyron-ceo-carlos-2025';
+const ADMIN_SECRET = process.env.ADMIN_PROMOTE_SECRET;
+if (!ADMIN_SECRET) {
+  throw new Error('ADMIN_PROMOTE_SECRET environment variable is required');
+}
 
 export async function POST(req: NextRequest) {
   try {

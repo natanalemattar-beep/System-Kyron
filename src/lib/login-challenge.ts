@@ -1,7 +1,10 @@
 import crypto from 'crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
-const SECRET = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'kyron-challenge-secret-fallback';
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
+const SECRET: string = process.env.JWT_SECRET;
 
 export function createLoginChallenge(email: string, userId: number): string {
   const payload = {
