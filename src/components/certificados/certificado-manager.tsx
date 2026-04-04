@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,16 +15,26 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Logo } from "@/components/logo";
 import Image from "next/image";
 
-const mockEmployees = [
-  { id: "EMP-001", name: "Ana Patricia Velásquez", ci: "V-16.892.437", cargo: "Gerente de Finanzas y Control", ingreso: "2020-01-15", salario: 15000, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
-  { id: "EMP-002", name: "Luis Eduardo Ramírez", ci: "V-19.456.283", cargo: "Analista Senior de Datos", ingreso: "2021-02-10", salario: 8500, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
-  { id: "EMP-003", name: "Carlos Mattar", ci: "V-32.855.496", cargo: "Ingeniero Jefe de Arquitectura", ingreso: "2024-01-01", salario: 25000, empresa: "System Kyron, C.A.", rif: "J-50328471-6", tlf: "0212-267-8490" },
-];
+type Employee = {
+  id: string;
+  name: string;
+  ci: string;
+  cargo: string;
+  ingreso: string;
+  salario: number;
+  empresa: string;
+  rif: string;
+  tlf: string;
+};
 
-const mockHistory = [
-    { id: "CERT-001", fecha: "15/03/2026", tipo: "Trabajador Dependiente", empleado: "Ana Pérez", vigencia: "13/06/2026", status: "Válido" },
-    { id: "CERT-002", fecha: "10/03/2026", tipo: "Profesional Independiente", empleado: "Carlos Mattar", vigencia: "08/06/2026", status: "Válido" },
-];
+type CertHistory = {
+  id: string;
+  fecha: string;
+  tipo: string;
+  empleado: string;
+  vigencia: string;
+  status: string;
+};
 
 type CertMode = 'personal' | 'hr';
 type CertType = 'dependiente' | 'independiente' | 'pensionado' | null;
@@ -34,15 +44,18 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
     const [step, setStep] = useState<'selector' | 'form' | 'preview'>('selector');
     const [type, setType] = useState<CertType>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [employees, setEmployees] = useState<Employee[]>([]);
+    const [certHistory, setCertHistory] = useState<CertHistory[]>([]);
+    const [loadingEmployees, setLoadingEmployees] = useState(false);
     const [formData, setFormData] = useState<any>({
         nombre: "",
         cedula: "",
-        empresa: "System Kyron, C.A.",
-        rif: "J-50328471-6",
+        empresa: "",
+        rif: "",
         cargo: "",
         salario: 0,
         ingreso: "",
-        tlf: "0212-267-8490",
+        tlf: "",
         profesion: "",
         actividad: "",
         fuente: "Honorarios Profesionales",
@@ -53,32 +66,81 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
     const [refId, setRefId] = useState("");
     const [certDateStr, setCertDateStr] = useState("");
 
+    const loadUserData = useCallback(async () => {
+        try {
+            const res = await fetch('/api/auth/me');
+            if (res.ok) {
+                const data = await res.json();
+                const u = data.user;
+                if (u) {
+                    setFormData((prev: any) => ({
+                        ...prev,
+                        nombre: ((u.nombre || '') + ' ' + (u.apellido || '')).trim().toUpperCase(),
+                        cedula: u.cedula || '',
+                        empresa: u.razon_social || '',
+                        rif: u.rif || '',
+                    }));
+                }
+            }
+        } catch {}
+    }, []);
+
+    const loadEmployees = useCallback(async () => {
+        if (mode !== 'hr') return;
+        setLoadingEmployees(true);
+        try {
+            const res = await fetch('/api/empleados');
+            if (res.ok) {
+                const data = await res.json();
+                const mapped = (data.empleados || []).map((e: any) => ({
+                    id: `EMP-${e.id}`,
+                    name: ((e.nombre || '') + ' ' + (e.apellido || '')).trim(),
+                    ci: e.cedula || '',
+                    cargo: e.cargo || '',
+                    ingreso: e.fecha_ingreso || '',
+                    salario: e.salario || 0,
+                    empresa: e.empresa || '',
+                    rif: e.rif_empresa || '',
+                    tlf: e.telefono || '',
+                }));
+                setEmployees(mapped);
+            }
+        } catch {}
+        setLoadingEmployees(false);
+    }, [mode]);
+
+    const loadHistory = useCallback(async () => {
+        try {
+            const res = await fetch('/api/certificados');
+            if (res.ok) {
+                const data = await res.json();
+                setCertHistory((data.certificados || []).map((c: any) => ({
+                    id: c.id || `CERT-${Math.random().toString(36).substr(2, 6)}`,
+                    fecha: c.fecha_emision ? new Date(c.fecha_emision).toLocaleDateString('es-VE') : '',
+                    tipo: c.tipo || '',
+                    empleado: c.nombre_titular || '',
+                    vigencia: c.fecha_vigencia ? new Date(c.fecha_vigencia).toLocaleDateString('es-VE') : '',
+                    status: c.estado || 'Válido',
+                })));
+            }
+        } catch {}
+    }, []);
+
     useEffect(() => {
-        setFormData((prev: any) => ({ ...prev, ingreso: new Date().toISOString().substring(0, 10) }));
         setRefId("KYR-" + Math.random().toString(36).substr(2, 9).toUpperCase());
         setCertDateStr(new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
-    }, []);
+        loadUserData();
+        loadEmployees();
+        loadHistory();
+    }, [loadUserData, loadEmployees, loadHistory]);
 
     const handleSelectType = (selectedType: CertType) => {
         setType(selectedType);
-        if (mode === 'personal') {
-            setFormData({
-                ...formData,
-                nombre: "CARLOS MATTAR",
-                cedula: "V-32.855.496",
-                cargo: "CONSULTOR DE INGENIERÍA E IT",
-                salario: 12000,
-                ingreso: "2024-01-01",
-                profesion: "INGENIERO",
-                actividad: "CONSULTORÍA E IMPLEMENTACIÓN",
-                numCarnet: "12345678"
-            });
-        }
         setStep('form');
     };
 
     const handleEmployeeSelect = (empId: string) => {
-        const emp = mockEmployees.find(e => e.id === empId);
+        const emp = employees.find(e => e.id === empId);
         if (emp) {
             setFormData({
                 ...formData,
@@ -94,8 +156,20 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
         }
     };
 
-    const handleGenerate = () => {
+    const handleGenerate = async () => {
         setIsLoading(true);
+        try {
+            await fetch('/api/certificados', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tipo: type,
+                    nombre_titular: formData.nombre,
+                    cedula_titular: formData.cedula,
+                    datos: formData,
+                }),
+            });
+        } catch {}
         setTimeout(() => {
             setIsLoading(false);
             setStep('preview');
@@ -104,11 +178,12 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                 description: "El documento ha sido validado bajo protocolo digital.",
                 action: <CheckCircle className="text-emerald-500 h-4 w-4" />
             });
+            loadHistory();
         }, 1200);
     };
 
-    const handleAction = (action: string) => {
-        alert(`${action}: Esta función estará disponible próximamente.`);
+    const handlePrint = () => {
+        window.print();
     };
 
     return (
@@ -160,9 +235,9 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                             <div className="space-y-3">
                                 <Label className="text-[9px] font-black uppercase text-primary/60 ml-1">Seleccionar Empleado de Nómina</Label>
                                 <Select onValueChange={handleEmployeeSelect}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder="Buscar en la lista..." /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder={loadingEmployees ? "Cargando empleados..." : employees.length > 0 ? "Buscar en la lista..." : "Ingrese los datos manualmente"} /></SelectTrigger>
                                     <SelectContent className="rounded-xl">
-                                        {mockEmployees.map(e => <SelectItem key={e.id} value={e.id} className="uppercase text-xs font-bold">{e.name} ({e.ci})</SelectItem>)}
+                                        {employees.map(e => <SelectItem key={e.id} value={e.id} className="uppercase text-xs font-bold">{e.name} ({e.ci})</SelectItem>)}
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -239,7 +314,6 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
             {step === 'preview' && (
                 <div className="space-y-10 animate-in fade-in duration-1000">
                     <Card className="max-w-4xl mx-auto bg-white p-12 md:p-20 shadow-2xl border border-slate-100 rounded-sm text-slate-950 font-serif relative overflow-hidden">
-                        {/* Marca de Agua */}
                         <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
                             <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                         </div>
@@ -265,7 +339,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                     ? `se encuentra en condición de JUBILADO / PENSIONADO ante la institución ${formData.ente || 'IVSS'}, portador de la credencial Nro. ${formData.numCarnet || 'N/A'}, desde la fecha ${formatDate(formData.ingreso)}` 
                                     : type === 'independiente'
                                     ? `ejerce de forma libre e independiente la profesión de ${formData.profesion || 'PROFESIONAL'} en el área de ${formData.actividad || 'SERVICIOS'}, realizando estas labores de forma ininterrumpida desde el ${formatDate(formData.ingreso)}, operando bajo su propia estructura de ingresos`
-                                    : `presta sus servicios profesionales en la organización ${formData.empresa || 'SYSTEM KYRON'} (RIF: ${formData.rif || 'J-50328471-6'}), desempeñando el cargo de ${formData.cargo || 'ESPECIALISTA'} desde la fecha de ingreso ${formatDate(formData.ingreso)}`
+                                    : `presta sus servicios profesionales en la organización ${formData.empresa || 'N/A'} (RIF: ${formData.rif || 'N/A'}), desempeñando el cargo de ${formData.cargo || 'N/A'} desde la fecha de ingreso ${formatDate(formData.ingreso)}`
                                 }.
                             </p>
                             
@@ -280,18 +354,15 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
 
                         <footer className="mt-32 grid grid-cols-2 gap-20 relative z-10">
                             <div className="flex flex-col items-center">
-                                <div className="relative mb-4">
-                                    <Image src="https://picsum.photos/seed/signature-kyron/200/100" alt="Firma" width={160} height={80} className="mix-blend-multiply opacity-90 grayscale brightness-75 contrast-125" />
-                                </div>
-                                <div className="w-full h-px bg-slate-900 mb-2" />
+                                <div className="w-40 h-px bg-slate-900 mb-2 mt-16" />
                                 <p className="font-black text-xs uppercase tracking-tight">Firma del Certificador</p>
-                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron v2.8.5</p>
+                                <p className="text-[10px] uppercase font-bold opacity-40">System Kyron</p>
                             </div>
                             <div className="flex flex-col items-end">
                                 <div className="p-4 border-2 border-slate-900 rounded-2xl bg-white shadow-inner">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=CERT-KYRON-${formData.cedula}-${formData.ingreso}&bgcolor=ffffff&color=000000&margin=1`} alt="QR Verification" width={100} height={100} className="grayscale" />
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=CERT-KYRON-${formData.cedula}-${refId}&bgcolor=ffffff&color=000000&margin=1`} alt="QR Verification" width={100} height={100} className="grayscale" />
                                 </div>
-                                <p className="text-[8px] font-black uppercase tracking-[0.3em] mt-4 opacity-40">Validación Blockchain Activa</p>
+                                <p className="text-[8px] font-black uppercase tracking-[0.3em] mt-4 opacity-40">Validación Digital Activa</p>
                             </div>
                         </footer>
 
@@ -302,7 +373,7 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
 
                     <div className="flex flex-wrap justify-center gap-4 no-print">
                         <Button variant="outline" className="rounded-xl h-14 px-8 font-black text-[10px] uppercase tracking-widest border-border bg-card text-foreground" onClick={() => setStep('form')}><ArrowLeft className="mr-3 h-4 w-4" /> REVISAR DATOS</Button>
-                        <Button variant="outline" className="rounded-xl h-14 px-8 font-black text-[10px] uppercase tracking-widest border-border bg-card text-foreground" onClick={() => window.print()}><Printer className="mr-3 h-4 w-4" /> IMPRIMIR</Button>
+                        <Button variant="outline" className="rounded-xl h-14 px-8 font-black text-[10px] uppercase tracking-widest border-border bg-card text-foreground" onClick={handlePrint}><Printer className="mr-3 h-4 w-4" /> IMPRIMIR</Button>
                         <Button className="btn-3d-secondary h-14 px-12 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setStep('selector')}>FINALIZAR TRÁMITE</Button>
                     </div>
                 </div>
@@ -332,13 +403,20 @@ export function CertificadoManager({ mode }: { mode: CertMode }) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {mockHistory.map((h) => (
+                                {certHistory.length === 0 && (
+                                    <TableRow>
+                                        <TableCell colSpan={mode === 'hr' ? 5 : 4} className="text-center py-12 text-muted-foreground text-xs uppercase font-bold">
+                                            No hay certificaciones emitidas aún
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                                {certHistory.map((h) => (
                                     <TableRow key={h.id} className="border-border/50 hover:bg-muted/20 transition-all group">
                                         <TableCell className="pl-10 py-6 text-[10px] font-bold text-muted-foreground uppercase">{h.fecha}</TableCell>
                                         {mode === 'hr' && <TableCell className="py-6 font-black text-xs text-foreground/80 uppercase italic">{h.empleado}</TableCell>}
                                         <TableCell className="py-6 font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{h.tipo}</TableCell>
                                         <TableCell className="py-6">
-                                            <Badge variant="outline" className="text-[8px] font-black uppercase border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-6 px-3 rounded-lg">Hasta {h.vigencia}</Badge>
+                                            <Badge variant="outline" className="text-[8px] font-black uppercase border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-6 px-3 rounded-lg">{h.vigencia ? `Hasta ${h.vigencia}` : 'Sin vencimiento'}</Badge>
                                         </TableCell>
                                         <TableCell className="text-right pr-10 py-6">
                                             <div className="flex items-center justify-end gap-2">
