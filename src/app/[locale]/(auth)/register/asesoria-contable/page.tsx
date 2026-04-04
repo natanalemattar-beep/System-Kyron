@@ -415,11 +415,14 @@ export default function RegisterContabilidadPage() {
 
     const planData = PLANES.find(p => p.id === selectedPlan);
 
+    const submittingRef = useRef(false);
     const onSubmit = async (data: FormData) => {
         if (!verifVerified) {
             toast({ title: 'Verificación requerida', description: 'Debes verificar tu correo electrónico.', variant: 'destructive' });
             return;
         }
+        if (submittingRef.current || isLoading) return;
+        submittingRef.current = true;
         setIsLoading(true);
         try {
             const res = await fetch('/api/auth/register', {
@@ -451,6 +454,7 @@ export default function RegisterContabilidadPage() {
             toast({ title: 'Error de registro', description: e.message, variant: 'destructive' });
         } finally {
             setIsLoading(false);
+            submittingRef.current = false;
         }
     };
 

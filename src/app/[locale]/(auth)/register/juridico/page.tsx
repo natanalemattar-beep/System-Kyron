@@ -325,19 +325,24 @@ export default function RegisterJuridicoPage() {
     setStep(s => s - 1);
   };
 
+  const submittingRef = useRef(false);
   const onSubmit = async (data: FormData) => {
     if (!verifVerified) {
       toast({ title: 'Verificación requerida', description: 'Debes verificar tu identidad antes de completar el registro.', variant: 'destructive' });
       return;
     }
+    if (submittingRef.current || isLoading) return;
+    submittingRef.current = true;
 
     if (data.fileRif instanceof File) {
       if (!ALLOWED_FILE_TYPES.includes(data.fileRif.type)) {
         toast({ title: 'Archivo no permitido', description: 'El RIF debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
+        submittingRef.current = false;
         return;
       }
       if (data.fileRif.size > MAX_FILE_SIZE_BYTES) {
         toast({ title: 'Archivo demasiado grande', description: 'El RIF no puede superar 10 MB.', variant: 'destructive' });
+        submittingRef.current = false;
         return;
       }
     }
@@ -345,10 +350,12 @@ export default function RegisterJuridicoPage() {
     if (data.fileActa instanceof File) {
       if (!ALLOWED_FILE_TYPES.includes(data.fileActa.type)) {
         toast({ title: 'Archivo no permitido', description: 'El Acta Constitutiva debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
+        submittingRef.current = false;
         return;
       }
       if (data.fileActa.size > MAX_FILE_SIZE_BYTES) {
         toast({ title: 'Archivo demasiado grande', description: 'El Acta Constitutiva no puede superar 10 MB.', variant: 'destructive' });
+        submittingRef.current = false;
         return;
       }
     }
@@ -404,6 +411,7 @@ export default function RegisterJuridicoPage() {
       toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
     } finally {
       setIsLoading(false);
+      submittingRef.current = false;
     }
   };
 

@@ -285,8 +285,11 @@ export default function RegisterTelecomPage() {
         }
     }, [verifCode, verifSent, verifVerified, verifyCode]);
 
+    const submittingRef = useRef(false);
     const onSubmit = async (data: FormData) => {
         if (!verifVerified) { toast({ title:'Verificación pendiente', variant:'destructive' }); return; }
+        if (submittingRef.current || isLoading) return;
+        submittingRef.current = true;
         setIsLoading(true);
         const esEmpresa = data.tipo_cliente === 'empresarial';
         try {
@@ -353,7 +356,7 @@ export default function RegisterTelecomPage() {
             if (!res.ok) throw new Error(result.error);
             setStep(TOTAL_STEPS);
         } catch (e: any) { toast({ title: 'Error de registro', description: e.message, variant: 'destructive' }); }
-        finally { setIsLoading(false); }
+        finally { setIsLoading(false); submittingRef.current = false; }
     };
 
     return (

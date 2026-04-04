@@ -300,11 +300,14 @@ export default function RegisterSostenibilidadPage() {
         }
     }, [verifCode, verifSent, verifVerified, verifyCode]);
 
+    const submittingRef = useRef(false);
     const onSubmit = async (data: FormData) => {
         if (!verifVerified) {
             toast({ title: "Verificación pendiente", variant: "destructive" });
             return;
         }
+        if (submittingRef.current || isLoading) return;
+        submittingRef.current = true;
         setIsLoading(true);
         try {
             const res = await fetch("/api/auth/register", {
@@ -343,6 +346,7 @@ export default function RegisterSostenibilidadPage() {
             });
         } finally {
             setIsLoading(false);
+            submittingRef.current = false;
         }
     };
 
