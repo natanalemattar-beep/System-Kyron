@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
@@ -210,6 +210,10 @@ function SolicitudCard({ solicitud, onDownload }: { solicitud: Solicitud; onDown
 export function DocumentRequestTable({ solicitudes: initialSolicitudes, getDocumentContent, docTypeForDownload, docTypeLabel }: DocumentRequestTableProps) {
     const { toast } = useToast();
     const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
+
+    useEffect(() => {
+        setSolicitudes(initialSolicitudes);
+    }, [initialSolicitudes]);
     const [showNewForm, setShowNewForm] = useState(false);
     const [formData, setFormData] = useState({
         nombres: '',
@@ -248,30 +252,57 @@ export function DocumentRequestTable({ solicitudes: initialSolicitudes, getDocum
         }
     };
 
-    const handleNewRequest = () => {
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleNewRequest = async () => {
         if (!formData.nombres || !formData.cedula || !formData.estado) {
             toast({ variant: "destructive", title: "Campos requeridos", description: "Completa nombre, cédula y estado." });
             return;
         }
-        const newId = `${docTypeForDownload.substring(0, 2).toUpperCase()}-${new Date().getFullYear()}-${String(solicitudes.length + 1).padStart(3, '0')}`;
-        const newSolicitud: Solicitud = {
-            id: newId,
-            fecha: new Date().toLocaleDateString('es-VE'),
-            nombres: formData.nombres,
-            estado: "En Proceso",
-            tipo: docTypeForDownload.toLowerCase().replace(/_/g, '-'),
-            detalles: {
-                acta: "Pendiente",
-                folio: "Pendiente",
-                tomo: "Pendiente",
-                registro: formData.registro || `Registro Civil ${formData.municipio}, ${formData.estado}`,
-                ano: new Date().getFullYear(),
-            }
-        };
-        setSolicitudes(prev => [newSolicitud, ...prev]);
-        setShowNewForm(false);
-        setFormData({ nombres: '', cedula: '', estado: '', municipio: '', registro: '', motivo: '' });
-        toast({ title: "Solicitud Enviada", description: `Tu solicitud ${newId} ha sido registrada exitosamente.` });
+        setSubmitting(true);
+        try {
+            const tipoDoc = docTypeForDownload.toLowerCase().includes('judicial') ? 'otro'
+                : docTypeForDownload.toLowerCase().includes('matrimonio') ? 'partida_matrimonio'
+                : 'otro';
+            const res = await fetch('/api/solicitudes-civiles', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tipo: tipoDoc,
+                    nombres: formData.nombres,
+                    cedula: formData.cedula,
+                    estado_ve: formData.estado,
+                    municipio: formData.municipio,
+                    registro: formData.registro || `Registro Civil ${formData.municipio}, ${formData.estado}`,
+                    motivo: formData.motivo,
+                }),
+            });
+            if (!res.ok) throw new Error('Error del servidor');
+            const data = await res.json();
+            const solicitudId = data.id ?? (data.solicitud as Record<string, unknown>)?.id;
+            const newSolicitud: Solicitud = {
+                id: `#${solicitudId}`,
+                fecha: new Date().toLocaleDateString('es-VE'),
+                nombres: formData.nombres,
+                estado: "En Proceso",
+                tipo: docTypeForDownload.toLowerCase().replace(/_/g, '-'),
+                detalles: {
+                    acta: "Pendiente",
+                    folio: "Pendiente",
+                    tomo: "Pendiente",
+                    registro: formData.registro || `Registro Civil ${formData.municipio}, ${formData.estado}`,
+                    ano: new Date().getFullYear(),
+                }
+            };
+            setSolicitudes(prev => [newSolicitud, ...prev]);
+            setShowNewForm(false);
+            setFormData({ nombres: '', cedula: '', estado: '', municipio: '', registro: '', motivo: '' });
+            toast({ title: "Solicitud Enviada", description: `Tu solicitud ha sido registrada exitosamente.` });
+        } catch {
+            toast({ variant: "destructive", title: "Error", description: "No se pudo registrar la solicitud." });
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const label = docTypeLabel || docTypeForDownload.replace(/_/g, ' ');
@@ -364,8 +395,8 @@ export function DocumentRequestTable({ solicitudes: initialSolicitudes, getDocum
 
                     <div className="flex gap-3 justify-end pt-2">
                         <Button variant="outline" className="h-10 rounded-xl text-[10px] font-bold uppercase tracking-widest border-border/30" onClick={() => setShowNewForm(false)}>Cancelar</Button>
-                        <Button className="h-10 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2 bg-primary shadow-lg" onClick={handleNewRequest}>
-                          <Send className="h-3.5 w-3.5" /> Enviar Solicitud
+                        <Button className="h-10 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-2 bg-primary shadow-lg" onClick={handleNewRequest} disabled={submitting}>
+                          <Send className="h-3.5 w-3.5" /> {submitting ? "Enviando..." : "Enviar Solicitud"}
                         </Button>
                     </div>
                   </div>

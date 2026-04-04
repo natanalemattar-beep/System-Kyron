@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,32 +8,20 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  UserCheck, Calculator, CircleCheck, AlertTriangle, Clock,
-  Fingerprint, ShieldCheck, DollarSign, FileText, RefreshCw, Percent
+  UserCheck, Calculator, CircleCheck, Clock,
+  Fingerprint, ShieldCheck, DollarSign, FileText, RefreshCw, Inbox
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
 
-interface TitularLinea {
-  id: string;
-  nombre: string;
-  cedula: string;
-  cargo: string;
-  departamento: string;
-  lineaAsignada: string;
-  ultimaVerificacion: string;
-  estadoVerificacion: "vigente" | "pendiente" | "vencida";
-  proximaVerificacion: string;
+interface LineaTitular {
+  id: number;
+  numero: string;
+  titular: string | null;
+  departamento: string | null;
+  activa: boolean;
+  fecha_activacion: string | null;
 }
-
-const MOCK_TITULARES: TitularLinea[] = [
-  { id: "T1", nombre: "Carlos Pérez", cedula: "V-18.234.567", cargo: "Gerente de Ventas", departamento: "Ventas", lineaAsignada: "+58 412-1234567", ultimaVerificacion: "15/01/2026", estadoVerificacion: "vigente", proximaVerificacion: "15/07/2026" },
-  { id: "T2", nombre: "María Gómez", cedula: "V-20.456.789", cargo: "Coordinadora Marketing", departamento: "Marketing", lineaAsignada: "+58 414-7654321", ultimaVerificacion: "01/10/2025", estadoVerificacion: "pendiente", proximaVerificacion: "01/04/2026" },
-  { id: "T3", nombre: "Juan Rodríguez", cedula: "V-19.876.543", cargo: "Analista IT", departamento: "IT", lineaAsignada: "+58 416-9876543", ultimaVerificacion: "20/02/2026", estadoVerificacion: "vigente", proximaVerificacion: "20/08/2026" },
-  { id: "T4", nombre: "Ana Fernández", cedula: "V-21.345.678", cargo: "Directora RRHH", departamento: "RR.HH.", lineaAsignada: "+58 424-5551234", ultimaVerificacion: "10/08/2025", estadoVerificacion: "vencida", proximaVerificacion: "10/02/2026" },
-  { id: "T5", nombre: "Luis Martínez", cedula: "V-17.654.321", cargo: "Director Comercial", departamento: "Ventas", lineaAsignada: "+58 426-1112223", ultimaVerificacion: "05/12/2025", estadoVerificacion: "vigente", proximaVerificacion: "05/06/2026" },
-];
 
 const ESTADO_VERIF = {
   vigente: { label: "Vigente", color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
@@ -41,24 +29,47 @@ const ESTADO_VERIF = {
   vencida: { label: "Vencida", color: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/20" },
 };
 
+function calcEstado(fechaActivacion: string | null): keyof typeof ESTADO_VERIF {
+  if (!fechaActivacion) return "pendiente";
+  const meses = (Date.now() - new Date(fechaActivacion).getTime()) / (1000 * 60 * 60 * 24 * 30);
+  if (meses > 12) return "vencida";
+  if (meses > 6) return "pendiente";
+  return "vigente";
+}
+
+function fmtDate(d: string | null) {
+  if (!d) return "—";
+  return new Date(d).toLocaleDateString("es-VE");
+}
+
 export function RecertificacionPanel() {
   const { toast } = useToast();
-  const [verificando, setVerificando] = useState<string | null>(null);
+  const [verificando, setVerificando] = useState<number | null>(null);
+  const [lineas, setLineas] = useState<LineaTitular[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleVerificar = async (titular: TitularLinea) => {
-    setVerificando(titular.id);
+  useEffect(() => {
+    fetch("/api/telecom")
+      .then(r => r.json())
+      .then(d => setLineas((d.lineas ?? []).filter((l: LineaTitular) => !!l.titular)))
+      .catch(() => setLineas([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleVerificar = async (linea: LineaTitular) => {
+    setVerificando(linea.id);
     await new Promise(r => setTimeout(r, 1500));
     setVerificando(null);
     toast({
       title: "Verificación Iniciada",
-      description: `Proceso de recertificación iniciado para ${titular.nombre} (${titular.cedula}). Se notificará al titular.`,
+      description: `Proceso de recertificación iniciado para ${linea.titular} (${linea.numero}). Se notificará al titular.`,
       action: <CircleCheck className="h-4 w-4 text-emerald-500" />,
     });
   };
 
-  const vigentes = MOCK_TITULARES.filter(t => t.estadoVerificacion === "vigente").length;
-  const pendientes = MOCK_TITULARES.filter(t => t.estadoVerificacion === "pendiente").length;
-  const vencidas = MOCK_TITULARES.filter(t => t.estadoVerificacion === "vencida").length;
+  const vigentes = lineas.filter(l => calcEstado(l.fecha_activacion) === "vigente").length;
+  const pendientes = lineas.filter(l => calcEstado(l.fecha_activacion) === "pendiente").length;
+  const vencidas = lineas.filter(l => calcEstado(l.fecha_activacion) === "vencida").length;
 
   return (
     <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
@@ -98,42 +109,55 @@ export function RecertificacionPanel() {
           </div>
         </div>
 
-        <div className="space-y-2">
-          {MOCK_TITULARES.map((titular) => {
-            const config = ESTADO_VERIF[titular.estadoVerificacion];
-            return (
-              <div key={titular.id} className="p-3 rounded-xl bg-muted/10 border border-border/30 flex items-center justify-between hover:bg-muted/15 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <UserCheck className="h-4 w-4 text-primary" />
+        {loading ? (
+          <div className="flex items-center justify-center py-8">
+            <RefreshCw className="h-5 w-5 animate-spin text-muted-foreground/40" />
+          </div>
+        ) : lineas.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8 gap-2 text-center">
+            <Inbox className="h-10 w-10 text-muted-foreground/30" />
+            <p className="text-xs text-muted-foreground">No hay líneas con titular asignado</p>
+            <p className="text-[10px] text-muted-foreground/60">Asigna titulares en el módulo de Flota</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {lineas.map((linea) => {
+              const estado = calcEstado(linea.fecha_activacion);
+              const config = ESTADO_VERIF[estado];
+              return (
+                <div key={linea.id} className="p-3 rounded-xl bg-muted/10 border border-border/30 flex items-center justify-between hover:bg-muted/15 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <UserCheck className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">{linea.titular ?? "—"}</p>
+                      <p className="text-[10px] text-muted-foreground">{linea.departamento ?? "Sin departamento"} · {linea.numero}</p>
+                      <p className="text-[9px] text-muted-foreground mt-0.5">
+                        Activación: {fmtDate(linea.fecha_activacion)}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-semibold text-foreground">{titular.nombre}</p>
-                    <p className="text-[10px] text-muted-foreground">{titular.cedula} · {titular.departamento} · {titular.lineaAsignada}</p>
-                    <p className="text-[9px] text-muted-foreground mt-0.5">
-                      Última: {titular.ultimaVerificacion} · Próxima: {titular.proximaVerificacion}
-                    </p>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", config.bg, config.color, config.border)}>
+                      {config.label}
+                    </Badge>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 rounded-lg text-[9px]"
+                      disabled={verificando === linea.id}
+                      onClick={() => handleVerificar(linea)}
+                    >
+                      {verificando === linea.id ? <RefreshCw className="h-3 w-3 animate-spin" /> : <ShieldCheck className="h-3 w-3" />}
+                      <span className="ml-1">{verificando === linea.id ? "Verificando..." : "Verificar"}</span>
+                    </Button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", config.bg, config.color, config.border)}>
-                    {config.label}
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-7 rounded-lg text-[9px]"
-                    disabled={verificando === titular.id}
-                    onClick={() => handleVerificar(titular)}
-                  >
-                    {verificando === titular.id ? <RefreshCw className="h-3 w-3 animate-spin" /> : <ShieldCheck className="h-3 w-3" />}
-                    <span className="ml-1">{verificando === titular.id ? "Verificando..." : "Verificar"}</span>
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -141,7 +165,7 @@ export function RecertificacionPanel() {
 
 export function FIDETELCalculator() {
   const { toast } = useToast();
-  const [ingresosBrutos, setIngresosBrutos] = useState("1500000");
+  const [ingresosBrutos, setIngresosBrutos] = useState("");
   const [porcentaje, setPorcentaje] = useState("1");
   const [periodo, setPeriodo] = useState("2026-Q1");
 
@@ -264,5 +288,21 @@ export function FIDETELCalculator() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+export function RecertificacionInfo() {
+  return (
+    <div className="p-4 rounded-xl bg-muted/10 border border-border/30 space-y-2">
+      <div className="flex items-center gap-2">
+        <Clock className="h-4 w-4 text-primary" />
+        <p className="text-xs font-semibold text-foreground">Cronograma de Recertificación</p>
+      </div>
+      <p className="text-[10px] text-muted-foreground leading-relaxed">
+        La recertificación de titulares de líneas telefónicas es obligatoria cada 6 meses
+        según resolución CONATEL. Los titulares recibirán notificación automática 30 días
+        antes del vencimiento.
+      </p>
+    </div>
   );
 }

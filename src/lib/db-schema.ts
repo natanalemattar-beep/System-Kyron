@@ -1094,9 +1094,91 @@ async function createSectorTables() {
       moneda               TEXT NOT NULL DEFAULT 'USD',
       estado               TEXT NOT NULL DEFAULT 'pendiente'
                            CHECK (estado IN ('pendiente','en_revision','aprobado','rechazado','completado')),
+      metadata             JSONB,
       created_at           TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await query(`ALTER TABLE sector_solicitudes ADD COLUMN IF NOT EXISTS metadata JSONB`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS estrategias_ventas (
+      id          SERIAL PRIMARY KEY,
+      user_id     INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      titulo      TEXT NOT NULL,
+      descripcion TEXT,
+      impacto     TEXT NOT NULL DEFAULT 'Medio' CHECK (impacto IN ('Bajo','Medio','Alto','Crítico')),
+      plazo       TEXT,
+      activa      BOOLEAN NOT NULL DEFAULT FALSE,
+      icono       TEXT,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_estrategias_ventas_user ON estrategias_ventas(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS helpdesk_tickets (
+      id           SERIAL PRIMARY KEY,
+      user_id      INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      titulo       TEXT NOT NULL,
+      descripcion  TEXT,
+      categoria    TEXT NOT NULL DEFAULT 'general',
+      prioridad    TEXT NOT NULL DEFAULT 'media' CHECK (prioridad IN ('baja','media','alta','critica')),
+      estado       TEXT NOT NULL DEFAULT 'abierto' CHECK (estado IN ('abierto','en_proceso','resuelto','cerrado')),
+      asignado_a   TEXT,
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_helpdesk_tickets_user ON helpdesk_tickets(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS respaldos_it (
+      id           SERIAL PRIMARY KEY,
+      user_id      INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre       TEXT NOT NULL,
+      tipo         TEXT NOT NULL DEFAULT 'completo' CHECK (tipo IN ('completo','incremental','diferencial','logs')),
+      destino      TEXT NOT NULL DEFAULT 'local' CHECK (destino IN ('local','nube','externo')),
+      estado       TEXT NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','en_proceso','exitoso','fallido')),
+      tamano_mb    NUMERIC(14,2),
+      notas        TEXT,
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_respaldos_it_user ON respaldos_it(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS solicitudes_civiles (
+      id           SERIAL PRIMARY KEY,
+      user_id      INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo         TEXT NOT NULL CHECK (tipo IN ('acta_matrimonio','acta_nacimiento','acta_defuncion','expediente_judicial','documento_judicial')),
+      nombres      TEXT NOT NULL,
+      cedula       TEXT,
+      estado_ve    TEXT,
+      municipio    TEXT,
+      registro     TEXT,
+      tribunal     TEXT,
+      motivo       TEXT,
+      estado       TEXT NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','en_revision','aprobado','rechazado','completado')),
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_solicitudes_civiles_user ON solicitudes_civiles(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS directorio_medico (
+      id              SERIAL PRIMARY KEY,
+      user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre          TEXT NOT NULL,
+      tipo            TEXT NOT NULL DEFAULT 'Centro Médico',
+      zona            TEXT,
+      telefono        TEXT,
+      especialidades  TEXT[] NOT NULL DEFAULT '{}',
+      disponible      BOOLEAN NOT NULL DEFAULT TRUE,
+      notas           TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_directorio_medico_user ON directorio_medico(user_id)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS alianzas_petroleras (

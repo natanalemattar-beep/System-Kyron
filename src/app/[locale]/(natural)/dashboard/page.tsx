@@ -9,7 +9,7 @@ import {
   Clock, User, FileText, Stethoscope, Scale, History, ChevronRight,
   Search, Lock, LifeBuoy, Bell, CircleCheck as CheckCircle, Fingerprint,
   Shield, Sparkles, Folder, AlertCircle, ArrowRight, Eye, Leaf,
-  Sun, Moon, Sunrise, RefreshCw, MapPin, Heart, BadgeCheck, Trophy
+  Sun, Moon, Sunrise, Heart, BadgeCheck, Trophy
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
@@ -50,7 +50,6 @@ export default function DashboardPersonalPage() {
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
-  const [docExpiryItems, setDocExpiryItems] = useState<Array<{ name: string; diff: number; dateStr: string; iconKey: string; color: string; bg: string }>>([]);
 
   useEffect(() => {
     const now = new Date();
@@ -58,16 +57,6 @@ export default function DashboardPersonalPage() {
     setGreeting(getGreeting(now.getHours()));
     setClientTimeStr(now.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" }));
     setClientDateStr(now.toLocaleDateString(loc, { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
-    const rawDocs = [
-      { name: "Cédula de Identidad", expiry: new Date(now.getFullYear() + 3, now.getMonth(), now.getDate()), iconKey: "cedula", color: "text-blue-400", bg: "bg-blue-500/8" },
-      { name: "RIF Personal", expiry: new Date(now.getFullYear(), now.getMonth() + 4, 15), iconKey: "rif", color: "text-amber-400", bg: "bg-amber-500/8" },
-      { name: "Pasaporte", expiry: new Date(now.getFullYear() + 1, now.getMonth() + 2, 20), iconKey: "pasaporte", color: "text-indigo-400", bg: "bg-indigo-500/8" },
-      { name: "Licencia de Conducir", expiry: new Date(now.getFullYear(), now.getMonth() + 8, 10), iconKey: "licencia", color: "text-emerald-400", bg: "bg-emerald-500/8" },
-    ].map(d => {
-      const diff = Math.ceil((d.expiry.getTime() - now.getTime()) / 86400000);
-      return { name: d.name, diff, dateStr: d.expiry.toLocaleDateString(loc, { day: "2-digit", month: "short", year: "numeric" }), iconKey: d.iconKey, color: d.color, bg: d.bg };
-    }).sort((a, b) => a.diff - b.diff);
-    setDocExpiryItems(rawDocs);
   }, [currentLocale]);
 
   const fetchData = useCallback(async () => {
@@ -380,27 +369,12 @@ export default function DashboardPersonalPage() {
             <AlertCircle className="h-4 w-4 text-amber-400" />
             <span className="text-[11px] font-semibold text-foreground/60">Vencimiento de Documentos</span>
           </div>
-          <div className="space-y-1.5">
-            {docExpiryItems.length === 0 ? (
-              <div className="py-4 text-center"><p className="text-[10px] text-muted-foreground/30">Cargando documentos...</p></div>
-            ) : docExpiryItems.map((d, i) => {
-              const DOC_ICONS: Record<string, typeof Fingerprint> = { cedula: Fingerprint, rif: FileText, pasaporte: MapPin, licencia: BadgeCheck };
-              const IconComp = DOC_ICONS[d.iconKey] ?? FileText;
-              return (
-                <div key={i} className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/5 border border-border/10">
-                  <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center shrink-0", d.bg)}>
-                    <IconComp className={cn("h-3.5 w-3.5", d.color)} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-medium">{d.name}</p>
-                    <p className="text-[9px] text-muted-foreground/40">{d.dateStr}</p>
-                  </div>
-                  <Badge className={cn("text-[8px] font-bold h-5 rounded-md border", d.diff <= 30 ? "bg-rose-500/10 text-rose-400 border-rose-500/15" : d.diff <= 90 ? "bg-amber-500/10 text-amber-400 border-amber-500/15" : "bg-emerald-500/8 text-emerald-400 border-emerald-500/15")}>
-                    {d.diff < 0 ? "VENCIDO" : d.diff === 0 ? "HOY" : d.diff <= 30 ? `${d.diff}d` : d.diff <= 365 ? `${Math.ceil(d.diff / 30)}m` : `${Math.floor(d.diff / 365)}a`}
-                  </Badge>
-                </div>
-              );
-            })}
+          <div className="flex flex-col items-center justify-center py-6 gap-2">
+            <FileText className="h-8 w-8 opacity-15" />
+            <p className="text-[10px] text-muted-foreground/40 text-center">Accede a tu expediente para ver las fechas de vencimiento</p>
+            <Link href="/documentos">
+              <span className="text-[10px] font-medium text-primary/70 hover:text-primary flex items-center gap-1">Ver documentos <ArrowRight className="h-3 w-3" /></span>
+            </Link>
           </div>
         </Card>
 
@@ -412,31 +386,10 @@ export default function DashboardPersonalPage() {
             </div>
             <Link href="/tarjeta-reciclaje"><span className="text-[10px] font-medium text-green-400/70 hover:text-green-300 flex items-center gap-1">Ver <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-2xl font-bold tracking-tight text-foreground">0</span>
-            <span className="text-[10px] text-green-400 font-semibold">créditos</span>
-          </div>
-          <div className="flex items-end gap-0.5 h-12 mb-3">
-            {[15, 22, 18, 30, 25, 35, 28, 40, 32, 45, 38, 50].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t-sm bg-green-500/20 hover:bg-green-500/40 transition-colors" style={{ height: `${h}%` }} />
-            ))}
-          </div>
-          <div className="flex items-center justify-between text-[9px] text-muted-foreground/35">
-            <span>Últimos 12 meses</span>
-            <span className="text-green-400/60 font-medium">Nivel: Bronce</span>
-          </div>
-          <div className="mt-3 pt-3 border-t border-border/15 space-y-1.5">
-            {[
-              { material: "Papel / Cartón", kg: "0 kg", color: "bg-amber-500" },
-              { material: "Plástico", kg: "0 kg", color: "bg-blue-500" },
-              { material: "Vidrio", kg: "0 kg", color: "bg-emerald-500" },
-            ].map((m, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <span className={cn("w-2 h-2 rounded-full shrink-0", m.color)} />
-                <span className="text-[10px] text-foreground/50 flex-1">{m.material}</span>
-                <span className="text-[10px] font-semibold tabular-nums">{m.kg}</span>
-              </div>
-            ))}
+          <div className="flex flex-col items-center justify-center py-6 gap-2">
+            <Leaf className="h-8 w-8 opacity-15 text-green-500" />
+            <p className="text-[11px] font-bold text-foreground/60">0 créditos</p>
+            <p className="text-[10px] text-muted-foreground/40 text-center">Recicla materiales para acumular eco-créditos</p>
           </div>
         </Card>
       </motion.div>
