@@ -8,6 +8,7 @@ import { PageTracker } from "@/components/page-tracker";
 import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { useAuth } from "@/lib/auth/context";
+import { useSetModuleContext } from "@/lib/module-context";
 
 export default function InformaticaLayout({
   children,
@@ -15,6 +16,7 @@ export default function InformaticaLayout({
   children: React.ReactNode;
 }>) {
     const { user: authUser } = useAuth();
+    useSetModuleContext("informatica");
     const displayName = authUser?.tipo === 'juridico'
       ? (authUser?.razon_social || authUser?.nombre || "Empresa")
       : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";

@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { PageTransition } from "@/components/ui/motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
+import { useSetModuleContext } from "@/lib/module-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { PageTracker } from "@/components/page-tracker";
@@ -18,6 +19,7 @@ const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').th
 function AdminLayoutInner({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     const { prefs } = usePreferences();
+    useSetModuleContext("admin");
     const displayName = user?.tipo === 'juridico'
       ? (user?.razon_social || user?.nombre || "Empresa")
       : `${user?.nombre || ""}${user?.apellido ? ' ' + user.apellido : ''}`.trim() || "Usuario";

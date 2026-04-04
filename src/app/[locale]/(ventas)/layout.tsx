@@ -9,9 +9,11 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { useAuth } from "@/lib/auth/context";
+import { useSetModuleContext } from "@/lib/module-context";
 
 export default function VentasLayout({ children }: { children: React.ReactNode }) {
     const { user: authUser } = useAuth();
+    useSetModuleContext("ventas");
     const displayName = authUser?.tipo === 'juridico'
       ? (authUser?.razon_social || authUser?.nombre || "Empresa")
       : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";

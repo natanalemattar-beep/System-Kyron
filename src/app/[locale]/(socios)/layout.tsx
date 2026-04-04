@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
+import { useSetModuleContext } from "@/lib/module-context";
 
 export default function SociosLayout({
   children,
@@ -14,6 +15,7 @@ export default function SociosLayout({
   children: React.ReactNode;
 }>) {
     const { user: authUser } = useAuth();
+    useSetModuleContext("socios");
     const displayName = authUser?.tipo === 'juridico'
       ? (authUser?.razon_social || authUser?.nombre || "Empresa")
       : `${authUser?.nombre || ""}${authUser?.apellido ? ' ' + authUser.apellido : ''}`.trim() || "Usuario";
