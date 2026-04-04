@@ -9,6 +9,7 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
+import { ModuleGuard } from "@/components/module-guard";
 
 export default function TelecomLayout({
   children,
@@ -24,6 +25,7 @@ export default function TelecomLayout({
     const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
+      <ModuleGuard layoutKey="telecom">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(170,15%,93%)] via-background to-[hsl(200,16%,92%)] dark:from-[hsl(170,10%,10%)] dark:via-background dark:to-[hsl(200,10%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
@@ -54,5 +56,6 @@ export default function TelecomLayout({
           <FinancialToolkit />
           <LazyChatDialog />
       </div>
+      </ModuleGuard>
     );
 }

@@ -306,8 +306,8 @@ export default function ContabilidadPage() {
                   </div>
                 </div>
               </div>
-              <Button variant="secondary" onClick={() => toast({ title: "PROTOCOLOS IA", description: "Configuración de protocolos de inteligencia artificial contable. Módulo en desarrollo." })} className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
-                GESTIONAR PROTOCOLOS IA
+              <Button variant="secondary" asChild className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 font-black uppercase text-[10px] tracking-[0.2em] shadow-xl">
+                <a href="/kyron-ai">GESTIONAR PROTOCOLOS IA</a>
               </Button>
             </div>
           </Card>

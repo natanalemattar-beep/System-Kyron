@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Percent, Download, ShieldCheck, Activity, Landmark, FileText, ShieldAlert, Terminal, Zap, Filter, CirclePlus as PlusCircle, ArrowRight, Ban, Coins, CreditCard, History, CircleCheck as CheckCircle, Banknote } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,6 +25,12 @@ const retencionesPracticadas = [
 export default function RetencionesIvaPage() {
     const { toast } = useToast();
     const [selectedTab, setSelectedTab] = useState("practicadas");
+    const [limitesOpen, setLimitesOpen] = useState(false);
+    const [limites, setLimites] = useState({ caja_chica_ut: "20", viaticos_max: "50", excepcion_auto: true });
+    const handleSaveLimites = () => {
+      toast({ title: "LÍMITES ACTUALIZADOS", description: `Caja chica: ${limites.caja_chica_ut} UT, viáticos: ${limites.viaticos_max} UT` });
+      setLimitesOpen(false);
+    };
 
     const handleExportTxt = () => {
         toast({
@@ -161,7 +169,29 @@ export default function RetencionesIvaPage() {
                                 <p className="text-sm font-medium italic text-muted-foreground/60 leading-relaxed text-justify">
                                     El sistema bloquea automáticamente la retención en conceptos marcados como "Excepción", solicitando únicamente la validación del comprobante de pago para el cierre contable.
                                 </p>
-                                <Button onClick={() => toast({ title: "CONFIGURAR LÍMITES", description: "Panel de configuración en desarrollo." })} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl">CONFIGURAR LÍMITES</Button>
+                                <Dialog open={limitesOpen} onOpenChange={setLimitesOpen}>
+                                  <DialogTrigger asChild>
+                                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl">CONFIGURAR LÍMITES</Button>
+                                  </DialogTrigger>
+                                  <DialogContent className="bg-card border-border rounded-2xl max-w-md">
+                                    <DialogHeader><DialogTitle className="text-lg font-black uppercase tracking-tight">Configurar Límites de Excepción</DialogTitle></DialogHeader>
+                                    <div className="space-y-4 py-4">
+                                      <div className="space-y-2">
+                                        <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Límite Caja Chica (UT)</Label>
+                                        <Input type="number" value={limites.caja_chica_ut} onChange={e => setLimites(l => ({ ...l, caja_chica_ut: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                                      </div>
+                                      <div className="space-y-2">
+                                        <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Límite Viáticos (UT)</Label>
+                                        <Input type="number" value={limites.viaticos_max} onChange={e => setLimites(l => ({ ...l, viaticos_max: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                                      </div>
+                                      <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/20 border border-border">
+                                        <Checkbox checked={limites.excepcion_auto} onCheckedChange={c => setLimites(l => ({ ...l, excepcion_auto: !!c }))} />
+                                        <Label className="text-[10px] font-bold">Auto-excluir pagos bajo el límite de UT</Label>
+                                      </div>
+                                      <Button onClick={handleSaveLimites} className="w-full h-12 rounded-xl btn-3d-primary font-black uppercase text-[10px] tracking-widest">GUARDAR CONFIGURACIÓN</Button>
+                                    </div>
+                                  </DialogContent>
+                                </Dialog>
                             </div>
                         </Card>
                     </div>

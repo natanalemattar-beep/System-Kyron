@@ -9,6 +9,7 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
+import { ModuleGuard } from "@/components/module-guard";
 
 export default function InformaticaLayout({
   children,
@@ -24,6 +25,7 @@ export default function InformaticaLayout({
     const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
+      <ModuleGuard layoutKey="informatica">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(175,16%,93%)] via-background to-[hsl(210,18%,92%)] dark:from-[hsl(175,10%,10%)] dark:via-background dark:to-[hsl(210,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
@@ -54,5 +56,6 @@ export default function InformaticaLayout({
           <FinancialToolkit />
           <LazyChatDialog />
       </div>
+      </ModuleGuard>
     );
 }

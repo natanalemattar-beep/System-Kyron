@@ -4,6 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Receipt, CirclePlus as PlusCircle, Eye, CircleCheck as CheckCircle, TrendingUp, FileText, Clock, Send, DollarSign, Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -45,6 +50,35 @@ export default function ProformasPage() {
   const [proformas, setProformas] = useState<Proforma[]>([]);
   const [stats, setStats] = useState<Stats>({ borradores: 0, enviadas: 0, aprobadas: 0, rechazadas: 0, total_aprobado: "0" });
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({ numero_proforma: "", descripcion: "", subtotal: "", porcentaje_iva: "16", moneda: "VES", validez_dias: "30", condiciones_pago: "" });
+
+  const handleCreate = async () => {
+    if (!form.numero_proforma || !form.subtotal) {
+      toast({ variant: "destructive", title: "Campos requeridos", description: "Número y subtotal son obligatorios." });
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch("/api/proformas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, fecha_emision: new Date().toISOString().split("T")[0] }),
+      });
+      if (res.ok) {
+        toast({ title: "PROFORMA CREADA", description: `${form.numero_proforma} registrada correctamente.` });
+        setForm({ numero_proforma: "", descripcion: "", subtotal: "", porcentaje_iva: "16", moneda: "VES", validez_dias: "30", condiciones_pago: "" });
+        setDialogOpen(false);
+        fetchProformas();
+      } else {
+        const err = await res.json();
+        toast({ variant: "destructive", title: "Error", description: err.error ?? "No se pudo crear." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    } finally { setSaving(false); }
+  };
 
   const fetchProformas = useCallback(async () => {
     try {
@@ -108,9 +142,77 @@ export default function ProformasPage() {
         </div>
         <div className="flex items-center gap-3">
           <CurrencySelector />
-          <Button onClick={() => toast({ title: "Próximamente", description: "El formulario de nueva proforma estará disponible pronto." })} className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
-            <PlusCircle className="mr-3 h-4 w-4" /> NUEVA PROFORMA
-          </Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
+                <PlusCircle className="mr-3 h-4 w-4" /> NUEVA PROFORMA
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-card border-border rounded-2xl max-w-lg max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="text-lg font-black uppercase tracking-tight">Nueva Proforma</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">N° Proforma *</Label>
+                    <Input placeholder="PRO-2026-001" value={form.numero_proforma} onChange={e => setForm(f => ({ ...f, numero_proforma: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Moneda</Label>
+                    <Select value={form.moneda} onValueChange={v => setForm(f => ({ ...f, moneda: v }))}>
+                      <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="VES">Bolívares (VES)</SelectItem>
+                        <SelectItem value="USD">Dólares (USD)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Subtotal *</Label>
+                    <Input type="number" placeholder="0.00" value={form.subtotal} onChange={e => setForm(f => ({ ...f, subtotal: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">% IVA</Label>
+                    <Input type="number" value={form.porcentaje_iva} onChange={e => setForm(f => ({ ...f, porcentaje_iva: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Validez (días)</Label>
+                    <Input type="number" value={form.validez_dias} onChange={e => setForm(f => ({ ...f, validez_dias: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Condiciones Pago</Label>
+                    <Input placeholder="Ej: 50% anticipo" value={form.condiciones_pago} onChange={e => setForm(f => ({ ...f, condiciones_pago: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Descripción</Label>
+                  <Textarea placeholder="Detalle de la cotización..." value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} className="rounded-xl bg-muted/30 border-border min-h-[80px]" />
+                </div>
+                {form.subtotal && (
+                  <div className="p-4 rounded-xl bg-violet-500/5 border border-violet-500/10">
+                    <div className="flex justify-between text-[10px] font-bold text-muted-foreground mb-1">
+                      <span>Subtotal</span><span>{form.moneda === "USD" ? "$" : "Bs."} {parseFloat(form.subtotal || "0").toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-[10px] font-bold text-muted-foreground mb-1">
+                      <span>IVA ({form.porcentaje_iva}%)</span><span>{form.moneda === "USD" ? "$" : "Bs."} {(parseFloat(form.subtotal || "0") * parseFloat(form.porcentaje_iva || "0") / 100).toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs font-black text-violet-600 pt-2 border-t border-violet-500/10">
+                      <span>TOTAL</span><span>{form.moneda === "USD" ? "$" : "Bs."} {(parseFloat(form.subtotal || "0") * (1 + parseFloat(form.porcentaje_iva || "0") / 100)).toFixed(2)}</span>
+                    </div>
+                  </div>
+                )}
+                <Button onClick={handleCreate} disabled={saving} className="w-full h-12 rounded-xl font-black uppercase text-[10px] tracking-widest bg-gradient-to-r from-violet-500 to-purple-600">
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <PlusCircle className="h-4 w-4 mr-2" />}
+                  {saving ? "CREANDO..." : "CREAR PROFORMA"}
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </motion.header>
 

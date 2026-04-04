@@ -10,6 +10,7 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
+import { ModuleGuard } from "@/components/module-guard";
 
 export default function VentasLayout({ children }: { children: React.ReactNode }) {
     const { user: authUser } = useAuth();
@@ -21,6 +22,7 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
     const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
+      <ModuleGuard layoutKey="ventas">
       <CurrencyProvider>
         <div className="flex min-h-screen bg-gradient-to-br from-[hsl(162,16%,93%)] via-background to-[hsl(195,18%,92%)] dark:from-[hsl(162,10%,10%)] dark:via-background dark:to-[hsl(195,12%,8%)] text-foreground relative">
             <PageTracker />
@@ -53,5 +55,6 @@ export default function VentasLayout({ children }: { children: React.ReactNode }
             <LazyChatDialog />
         </div>
       </CurrencyProvider>
+      </ModuleGuard>
     );
 }

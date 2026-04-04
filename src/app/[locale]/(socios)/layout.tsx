@@ -8,6 +8,7 @@ import { PageTransition } from "@/components/ui/motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { useAuth } from "@/lib/auth/context";
 import { useSetModuleContext } from "@/lib/module-context";
+import { ModuleGuard } from "@/components/module-guard";
 
 export default function SociosLayout({
   children,
@@ -23,6 +24,7 @@ export default function SociosLayout({
     const user = { name: displayName, email: authUser?.email || "", fallback: initials };
 
     return (
+      <ModuleGuard layoutKey="socios">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(172,14%,93%)] via-background to-[hsl(215,18%,92%)] dark:from-[hsl(172,10%,10%)] dark:via-background dark:to-[hsl(215,12%,8%)] text-foreground relative">
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.02] hud-grid" />
@@ -52,5 +54,6 @@ export default function SociosLayout({
           <FinancialToolkit />
           <LazyChatDialog />
       </div>
+      </ModuleGuard>
     );
 }

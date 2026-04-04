@@ -13,6 +13,7 @@ import { PageTracker } from "@/components/page-tracker";
 import { LazyChatDialog } from "@/components/chat-dialog-lazy";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { FinancialToolkit } from "@/components/financial-toolkit";
+import { ModuleGuard } from "@/components/module-guard";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 
@@ -81,10 +82,12 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
     return (
-      <PreferencesProvider>
-        <CurrencyProvider>
-          <AdminLayoutInner>{children}</AdminLayoutInner>
-        </CurrencyProvider>
-      </PreferencesProvider>
+      <ModuleGuard layoutKey="admin">
+        <PreferencesProvider>
+          <CurrencyProvider>
+            <AdminLayoutInner>{children}</AdminLayoutInner>
+          </CurrencyProvider>
+        </PreferencesProvider>
+      </ModuleGuard>
     );
 }

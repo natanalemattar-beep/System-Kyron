@@ -10,6 +10,7 @@ import { FinancialToolkit } from "@/components/financial-toolkit";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { useAuth } from "@/lib/auth/context";
 import { getModuleContext, useSetModuleContext } from "@/lib/module-context";
+import { ModuleGuard } from "@/components/module-guard";
 
 export default function HRLayout({
   children,
@@ -40,6 +41,7 @@ export default function HRLayout({
     const footerLabel = fromAdmin ? "Portal Empresarial" : "RRHH";
 
     return (
+      <ModuleGuard layoutKey="hr">
       <div className="flex min-h-screen bg-gradient-to-br from-[hsl(160,16%,93%)] via-background to-[hsl(195,18%,92%)] dark:from-[hsl(160,10%,10%)] dark:via-background dark:to-[hsl(195,12%,8%)] text-foreground relative">
           <PageTracker />
           <div className="fixed inset-0 pointer-events-none -z-10">
@@ -70,5 +72,6 @@ export default function HRLayout({
           <FinancialToolkit />
           <LazyChatDialog />
       </div>
+      </ModuleGuard>
     );
 }

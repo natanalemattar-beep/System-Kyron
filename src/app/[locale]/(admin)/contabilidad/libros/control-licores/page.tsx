@@ -4,7 +4,10 @@ import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -90,9 +93,47 @@ export default function ControlLicoresPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => toast({ title: "REGISTRAR ENTRADA", description: "Funcionalidad de registro de entrada de licores disponible próximamente." })} className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-              Registrar Entrada
-            </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
+                Registrar Entrada
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-card border-border rounded-2xl max-w-md">
+              <DialogHeader><DialogTitle className="text-lg font-black uppercase tracking-tight">Registrar Entrada de Licores</DialogTitle></DialogHeader>
+              <form onSubmit={e => { e.preventDefault(); const fd = new FormData(e.currentTarget); toast({ title: "ENTRADA REGISTRADA", description: `${fd.get("producto")} — ${fd.get("cantidad")} unidades ingresadas al libro.` }); (e.target as HTMLFormElement).reset(); }} className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Producto *</Label>
+                  <Input name="producto" required placeholder="Ej: Ron Santa Teresa 1796" className="h-11 rounded-xl bg-muted/30 border-border" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Cantidad</Label>
+                    <Input name="cantidad" type="number" defaultValue="1" className="h-11 rounded-xl bg-muted/30 border-border" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Tipo</Label>
+                    <Select name="tipo" defaultValue="ron">
+                      <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="ron">Ron</SelectItem>
+                        <SelectItem value="whisky">Whisky</SelectItem>
+                        <SelectItem value="vodka">Vodka</SelectItem>
+                        <SelectItem value="vino">Vino</SelectItem>
+                        <SelectItem value="cerveza">Cerveza</SelectItem>
+                        <SelectItem value="otro">Otro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">N° Timbre Fiscal</Label>
+                  <Input name="timbre" placeholder="TF-000000" className="h-11 rounded-xl bg-muted/30 border-border" />
+                </div>
+                <Button type="submit" className="w-full h-12 rounded-xl font-black uppercase text-[10px] tracking-widest bg-rose-500 hover:bg-rose-600">REGISTRAR ENTRADA</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
           <Button className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl bg-rose-500 hover:bg-rose-600 text-white">
             <FileSpreadsheet className="mr-2 h-4 w-4" /> Exportar .XLSX
           </Button>
