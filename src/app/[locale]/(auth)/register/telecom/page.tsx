@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -142,6 +143,7 @@ export default function RegisterTelecomPage() {
     const [verifCode, setVerifCode] = useState('');
     const [verifSent, setVerifSent] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
+    const [verifDestino, setVerifDestino] = useState('');
     const [devCode, setDevCode] = useState<string | null>(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
@@ -151,6 +153,13 @@ export default function RegisterTelecomPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
+
+    const onMagicLinkVerified = useCallback(() => {
+        setVerifVerified(true);
+        toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+    }, [toast]);
+
+    useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
     useEffect(() => {
         fetch('/api/tasas-bcv?limit=1')
@@ -229,6 +238,7 @@ export default function RegisterTelecomPage() {
 
     const sendVerificationCode = async () => {
         const destino = getValues('email');
+        setVerifDestino(destino);
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/send-code', {

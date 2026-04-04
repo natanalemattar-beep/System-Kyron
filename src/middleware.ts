@@ -91,6 +91,7 @@ const PUBLIC_API_SET = new Set([
   '/api/auth/verify-code',
   '/api/auth/verify-link',
   '/api/auth/check-document',
+  '/api/auth/check-verified',
   '/api/auth/access-key',
   '/api/cedula/consulta',
   '/api/rif/consulta',

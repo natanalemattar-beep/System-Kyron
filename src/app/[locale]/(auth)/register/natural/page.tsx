@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -18,6 +18,7 @@ import {
   Lock, Fingerprint, Upload,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { DocumentInput } from '@/components/document-input';
 import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { cn } from '@/lib/utils';
@@ -91,6 +92,13 @@ export default function RegisterNaturalPage() {
 
   const { toast } = useToast();
   const router = useRouter();
+
+  const onMagicLinkVerified = useCallback(() => {
+    setVerifVerified(true);
+    toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+  }, [toast]);
+
+  useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
 
   const prefilledNombre = searchParams.get('nombre') || '';
   const prefilledApellido = searchParams.get('apellido') || '';

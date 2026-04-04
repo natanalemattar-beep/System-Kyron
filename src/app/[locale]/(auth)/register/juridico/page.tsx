@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -23,6 +23,7 @@ import {
   Recycle, Gavel, ShoppingCart, Briefcase, MessageSquare, RefreshCw,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 import { DocumentInput } from '@/components/document-input';
@@ -182,6 +183,13 @@ export default function RegisterJuridicoPage() {
   const [countdown, setCountdown] = useState(0);
   const { toast } = useToast();
   const router = useRouter();
+
+  const onMagicLinkVerified = useCallback(() => {
+    setVerifVerified(true);
+    toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+  }, [toast]);
+
+  useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
 
   const prefilledRazon = searchParams.get('razon') || '';
   const prefilledTipo = searchParams.get('tipo') || '';

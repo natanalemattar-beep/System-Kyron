@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +20,7 @@ import {
     Landmark, ShoppingCart,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
@@ -240,6 +241,13 @@ export default function RegisterContabilidadPage() {
     const [verifDestino, setVerifDestino] = useState('');
     const [verifMethod, setVerifMethod] = useState<'email' | 'sms' | 'whatsapp' | null>(null);
     const [countdown, setCountdown] = useState(0);
+
+    const onMagicLinkVerified = useCallback(() => {
+        setVerifVerified(true);
+        toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+    }, [toast]);
+
+    useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
 
     const prefillDoc = searchParams.get('doc') || '';
     const prefillRazon = searchParams.get('razon') || '';

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -36,6 +36,7 @@ import {
     Leaf,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useVerificationPoll } from "@/hooks/use-verification-poll";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -130,6 +131,7 @@ export default function RegisterSostenibilidadPage() {
     const [verifCode, setVerifCode] = useState("");
     const [verifSent, setVerifSent] = useState(false);
     const [verifVerified, setVerifVerified] = useState(false);
+    const [verifDestino, setVerifDestino] = useState('');
     const [devCode, setDevCode] = useState<string | null>(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifLoading, setVerifLoading] = useState(false);
@@ -137,6 +139,13 @@ export default function RegisterSostenibilidadPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();
+
+    const onMagicLinkVerified = useCallback(() => {
+        setVerifVerified(true);
+        toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+    }, [toast]);
+
+    useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
 
     const prefilledDoc = searchParams.get('doc') || '';
     const prefilledRazon = searchParams.get('razon') || '';
@@ -230,6 +239,7 @@ export default function RegisterSostenibilidadPage() {
 
     const sendVerificationCode = async () => {
         const destino = verifMethod === "email" ? getValues("repEmail") : getValues("rep_telefono");
+        setVerifDestino(destino);
         setVerifLoading(true);
         try {
             const res = await fetch("/api/auth/send-code", {

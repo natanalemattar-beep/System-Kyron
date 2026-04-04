@@ -14,6 +14,7 @@ System Kyron is an integrated technological ecosystem designed for comprehensive
 - CSS utility classes: `hover-lift`, `hover-glow`, `hover-scale`, `btn-press`, `icon-hover` for micro-interactions. Stagger delays: `.stagger-1` through `.stagger-8`. Glow effects: `shadow-glow-emerald`, `shadow-glow-cyan`, `glow-pulse-green`, `glow-pulse-blue`.
 - The system should support both `{destino, tipo}` and `{method, email, phone}` formats for `/api/auth/send-code`.
 - The system should support both `{destino, codigo}` and `{email, code}` formats for `/api/auth/verify-code`. Both paths use the centralized `verifyCode()` helper from `src/lib/verification-codes.ts`.
+- Registration email verification supports both 6-digit OTP code entry AND magic link click (in a new tab). A polling hook (`use-verification-poll.ts`) checks `/api/auth/check-verified` every 3 seconds to auto-detect when the magic link is clicked, only for email verification (not SMS/WhatsApp).
 
 ## System Architecture
 The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopack. It uses `next-intl` for internationalization, Tailwind CSS and shadcn/ui for styling, and PostgreSQL as the database. Authentication uses JWT with HTTP-only cookies.
@@ -22,60 +23,45 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
 - Features visually driven landing pages, intuitive mobile sidebar, redesigned Login/Dashboard, and dynamic pricing display.
 - Custom form components include registration (prefix selectors, RIF/Cédula lookup), reusable document upload, and Venezuela geography data for cascading dropdowns.
-- All authentication pages support both light and dark themes with proper dark: variant classes.
-- Specific module pages use brand colors (Asesoría Contable) and varied color schemes for plan cards.
-- Implements a dark/light theme system with smooth transitions, defaulting to dark mode, and Apple-style liquid glass effects.
-- Asesoría Contable verification offers Email, SMS, and WhatsApp channels.
+- All authentication pages support both light and dark themes, with a dark mode default and Apple-style liquid glass effects.
+- Specific module pages use brand colors and varied color schemes for plan cards.
 - Kyron Chat provides context-aware AI chat with 10+ identity modes, using Gemini Flash for personal portals and Claude Sonnet for business/admin portals.
 - The system includes a comprehensive welcome and per-module tutorial system, and a seasonal theming system for Venezuelan holidays.
+- Consolidated Navigation: Header navigation is reorganized into 5 mega-groups: Finanzas, Talento, Legal, Negocio, and Sistema.
+- Terminology: The platform consistently uses "CENTRO" instead of "NODO."
+- Dark Mode Layouts: All 9 layout groups use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants.
 
 **Technical Implementations:**
 - **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables, GIN indexes for JSONB metadata, and numerous composite/partial indexes, supporting batch operations, upserts, and pagination.
-- **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations, with all action buttons wired to real API persistence.
-- **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification. Includes a development mode fallback for verification codes.
+- **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations.
+- **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification.
 - **Security:** Implements CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Permissions-Policy, rate limiting with brute-force lockout, memory-safe maps, password complexity, input sanitization, and parameterized SQL.
-- **Payment Methods:** Supports 26+ payment gateways and 29 Venezuelan banks.
+- **Payment Methods:** Supports 26+ payment gateways and 29 Venezuelan banks, including SENIAT-compliant pasarelas with direct bank URL integration.
 - **Performance Optimizations:** Utilizes lazy loading, dynamic imports, loading skeletons, Next.js image optimization, CSS animations, WebP images, adaptive performance, smart loading screens, IntersectionObserver, in-memory TTL cache, and optimized database queries.
 - **Enhanced Audit Trail & Blockchain Integration:** Records field-level changes with SHA-256 hashing and Merkle tree batch anchoring on Polygon/Ethereum/BSC.
 - **RIF/Cédula Validation:** Real Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula.
-- **Modules:** Includes Permisología, Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), and HR Module Expansion. Permisología Integral includes 483+ permits across SENIAT (214), 20+ Ministerios (expanded to 3-10 each), CONATEL, INAC, CIV, Bomberos, 40 Alcaldías (ALC-CHACAO template + 30 major municipalities), and Gobernaciones (GOB-MIRANDA template replicated to all 24 states + D.C. via `getPermisosByOrganismo()`). Catalog features category filters (SENIAT/Ministerios/Gobernaciones/Alcaldías/Reguladores) with color-coded badges, live search, sector filters, and auto-generation of solicitation letters.
+- **Modules:** Includes Permisología (with 483+ permits across various organisms), Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), HR Module Expansion, and Viáticos (travel expense management).
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Global Search:** Command palette for instant navigation.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
-- **CSS Utility Classes:** `card-hover-lift`, `shimmer-border`, `glow-text`, `surface-interactive`, `badge-pulse`, `text-balance`, themed `::selection` colors.
 - **Document Authenticity Verification:** AI-powered multi-layer verification using Claude Vision AI.
-- **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard. All queries aligned with actual DB schema (tasas_bcv uses fecha/tasa_usd_ves columns, notificaciones uses valid tipo values, invoice_reminders uses facturas.user_id).
+- **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard.
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, multi-channel delivery, and JSONB metadata.
 - **Alerts:** Expanded Fiscal Alerts monitoring 30+ Venezuelan fiscal obligations and Regulatory Alerts for legislative changes.
-- **Admin Message Endpoint:** `POST /api/admin/send-message` for personalized emails.
 - **Subscription Plans:** Four plans with progressive resource limits.
 - **SENIAT Compliant Billing:** Facturación Homologada SENIAT (Providencia 0071) with fiscal hashes and immutability.
-- **Dashboard Widgets:** Company dashboard includes Tax Calendar, Cuentas por Cobrar/Pagar (real data), and Fiscal Status cards. Natural person dashboard includes Document Expiry Alerts and Eco-Credits chart. Both feature an Activity Timeline.
-- **Activity Log Column Mapping:** The `activity_log` DB table uses `created_at` but the API returns it aliased as `creado_en` for all frontend consumers.
-- **Chart THEMES Fix:** `src/components/ui/chart.tsx` THEMES object uses `{ light: "", dark: ".dark" }` — both key and value must be explicit to avoid Turbopack SSR bundling errors.
+- **Dashboard Widgets:** Company dashboard includes Tax Calendar, Cuentas por Cobrar/Pagar, and Fiscal Status cards. Natural person dashboard includes Document Expiry Alerts and Eco-Credits chart. Both feature an Activity Timeline.
 - **Financial Toolkit:** Floating calculator panel with USD↔VES converter (live BCV rate), IVA calculator (16%), IGTF calculator (3%), and ISLR retention calculator.
-- **Live BCV Rate:** Always-visible exchange rate badge in the app header, auto-refreshing. DB-first fetch with `fetchTodayFromDb()`, cache validates date matches today, fallback order: PyDolar → ExchangeRate → DolarAPI.
+- **Live BCV Rate:** Always-visible exchange rate badge in the app header, auto-refreshing via DB-first fetch with fallbacks (PyDolar → ExchangeRate → DolarAPI).
 - **Multi-Currency Display:** `CurrencyContext` provides VES/USD/EUR display conversion across billing and dashboard pages, with amounts stored in VES.
-- **NUEVO Badge System:** Nav items in `app-sidebar-nav-items.tsx` support `badge?: string` and `section?: string` properties. Sidebar and header render pulsing green "NUEVO" badges in desktop dropdowns and mobile sheet. Sections enable subgroup headers inside dropdown menus.
-- **Consolidated Navigation:** Header nav reorganized from 9 buttons to 5 mega-groups: Finanzas (Contabilidad+Fiscal), Talento (RRHH), Legal (Permisología), Negocio (Marketing+Planificación), Sistema (Kyron IA+Seguridad+Actividad). Each dropdown shows section dividers for subsections.
-- **Internet & Phone Pages:** Personal page at `/mi-internet` (natural portal, Conectividad nav group) with 3 tabs: Internet (register CANTV/Inter/NetUno/Starlink services), Teléfono (register fixed lines from CANTV), Planes Disponibles (comparison of plans with prices and Triple Play info). Enterprise page at `/internet-empresarial` (telecom portal, Mi Línea Empresa) with 4 tabs: Internet (dedicated enterprise plans with SLA), Telefonía (Centrex/SIP/VoIP), Servicios Adicionales (VPN/MPLS/IP Fija/Firewall/NOC/Colocation), Comparador (side-by-side provider comparison table).
-- **Viáticos Module:** Complete travel expense management at `/viaticos` with 3 tabs: Internacional (airline tickets, hotels, restaurants, visas, insurance, etc.), Nacional (same categories for Venezuela travel with city selector), Socios (payments without invoices, bonuses, representation expenses). 15 expense categories, 5 currencies (USD/VES/EUR/COP/BRL), full CRUD via `/api/viaticos`. Status workflow: pendiente→aprobado→pagado→rendido. DB table `viaticos` with indexes on user_id, tipo_viaje, estado. Stats dashboard with totals by type.
-- **Pasarela de Pago SENIAT:** Bank payment pasarelas (BDV, Banesco, Mercantil, Provincial, BNC, Tesoro, Bicentenario) now have `esPasarelaPago: true` and `urlBanco` in `PermisoTipo`. PermisoCard detects pasarela cards and shows: planilla SENIAT input field, "IR AL BANCO" button (opens bank URL directly), and "CONFIRMAR PAGO REALIZADO" button. On confirmation, card shows green "PAGADO" state and related alerts are dismissed from the page. Select z-index globally set to `z-[70]` to fix dropdowns inside dialogs (Dialog overlay is `z-[60]`).
-- **Permisología Integral Restructured:** Centro de Permisología now has 6 tabs: Mis Permisos, Alertas, Guía de Referencia, Directorio Institucional (with phone/email/web/address/reclamaciones for 58 national organisms; gobernaciones/alcaldías without individual contact data), Permisos Requeridos (15 sectors with mandatory permits), and Cláusula Contractual (fiscal responsibility disclaimer template). `Organismo` type extended with `contacto?: OrganismoContacto` field. CONATEL page uses real DB data via `/api/permisos-legales?organismo=CONATEL`. Expanded coverage: IVSS (6 entries: inscripción, cotizaciones, altas/bajas, solvencia, prestaciones, riesgo profesional), INCES (5: registro, declaración trimestral, solvencia, aprendices, retención utilidades), BANAVIH (5: FAOV, declaración mensual, solvencia, altas/bajas, cuenta individual), INPSASEL (7: comité, accidentes, programa SSH, delegados, exámenes, notificación riesgos, servicio SHT), CORPOELEC (6: acometida, medidor, factibilidad, subestación, autogeneración, reclamo).
-- **CONATEL Regulatory Compliance Module:** Reusable `ConatelCompliancePanel` component (`src/components/telecom/conatel-compliance-panel.tsx`) showing homologation status, administrative enablement, permit expiration, and renewal alerts with expandable permit detail view — used only in enterprise context (flota-empresarial, reportes-conatel). Personal line (mi-linea) shows a simplified equipment homologation card (IMEI, model, registration number). `RecertificacionPanel` and `FIDETELCalculator` (`src/components/telecom/recertificacion-fidetel.tsx`) for corporate holder recertification and FIDETEL contribution calculation per LOTEL Art. 148-152. Enterprise-only pages: `/reportes-conatel` (quarterly SIT report generation with historical log), `/solicitudes-legales` (auditable legal request log for judicial interception, traffic data, IMEI blocking per LOTEL Art. 190).
-- **Telecom Personal Innovations:** `/plan-familiar` (family plan with shared data pool, per-member usage tracking, parental controls), `/soporte-tecnico` (ticket-based support center with priority/status tracking), `/mapa-cobertura` (5G/4G/3G coverage map with zone-by-zone quality metrics and latency), `/analitica-consumo` (consumption analytics with AI prediction, per-app breakdown, configurable notification thresholds).
-- **Telecom Enterprise Innovations:** `/geolocalizacion-flota` (real-time GPS fleet map with device status and LOTEL compliance notice), `/mdm-corporativo` (Mobile Device Management with per-device compliance checks: encryption, VPN, antivirus, MDM agent), `/restriccion-apps` (app restriction rules with block/restrict/allow per category and schedule), `/analitica-empresarial` (department-level consumption and cost analytics with AI predictions), `/cotizador-equipos` (equipment catalog with CONATEL homologation badges, bulk quotation cart, stock status), `/dashboard-ejecutivo` (executive KPI dashboard with cost trends, department distribution, AI summary, priority actions).
-- **Reserva de Datos Panel:** Reusable `ReservaDatosPanel` component (`src/components/telecom/reserva-datos-panel.tsx`) shows per-line free 100 MB data reserves exclusive for opening System Kyron and recharging. "Modo Forzoso" toggle converts the entire reserve block to paid general-use data (flat charge for the full 100 MB, not per-MB). Includes confirmation dialog showing exact cost before activation, and deactivation to revert to free app-only mode. Used in both `/mi-linea` (personal, after usage gauges) and `/flota-empresarial` (enterprise, before CONATEL compliance panel). Props: `tipo: 'personal' | 'empresa'`, optional `lineas` array with `costoForzoso` per line.
-- **Telecom Navigation:** `telecomNavGroups` with 2 groups: "Mi Línea Personal" (10 items — personal features), "Mi Línea Empresa" (14 items — enterprise features including CONATEL compliance pages). CONATEL reporting and legal requests placed under enterprise since they involve corporate regulatory obligations.
-- **Enterprise Security Pages:** `/seguridad-empresarial` (Centro de Seguridad with toggleable protections, threat log, recommendations), `/seguridad-empresarial/auditoria` (full access audit log), `/seguridad-empresarial/dispositivos` (device management with session control).
-- **Personal Account Security:** `/seguridad-cuenta` (2FA toggle, active sessions, security history, quick actions).
-- **Terminology:** Platform uses "CENTRO" instead of "NODO" throughout. "CENTRO DE VENTAS", "Estado del Sistema", "AUTENTICAR ACCESO".
-- **Dark Mode Layouts:** All 9 layout groups (admin, natural, main, telecom, informatica, hr, ventas, socios, legal) use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants alongside light HSL values. Auth layout intentionally forces light theme.
-- **Module-Variant Registration:** The `/register/asesoria-contable` page supports a `?modulo=` query param to customize the experience for different module types (asesoria-contable, asesoria-comunal, gestion-publica, ventas). Each variant has its own title, icon, gradient, subtitle, modules list, and success screen. The main `/register` page passes both `mod.route` and `mod.id` to `handleSelectModule`.
-- **Profile Pages:** Natural users use `/perfil` (under `(natural)` layout), empresa/admin users use `/perfil-empresa` (under `(admin)` layout). Both pages use `useAuth()` to display real user data. Header profile link auto-selects the correct route based on `dashboardHref`.
-- **Dynamic User Identity:** All 8 layout groups (admin, main, ventas, legal, telecom, informatica, socios, hr) use `useAuth()` to build the header user object dynamically. For juridico users, `razon_social` is displayed; for natural users, `nombre + apellido`. No hardcoded user names or emails anywhere.
-- **Hydration Safety:** Pages must not use `new Date()` or `Math.random()` in `useState` initializers or direct JSX. Use `useEffect` to set client-only values after mount.
+- **NUEVO Badge System:** Nav items support `badge` and `section` properties for dynamic display of "NUEVO" badges and subgroup headers.
+- **Telecom Module:** Includes personal pages for internet/phone services and enterprise pages for dedicated plans, Centrex/SIP/VoIP, additional services (VPN/MPLS), and a provider comparison tool. Features CONATEL Regulatory Compliance module (homologation status, permit expiration) and advanced enterprise features like fleet geolocation, MDM, app restriction rules, and executive dashboards. `Reserva de Datos Panel` provides a data reserve for app usage.
+- **Enterprise and Personal Security:** Dedicated pages for enterprise security (Centro de Seguridad, audit log, device management) and personal account security (2FA, active sessions).
+- **Module-Variant Registration:** The `/register/asesoria-contable` page supports a `?modulo=` query param to customize the experience for different module types.
+- **Profile Pages:** Natural users use `/perfil`, while empresa/admin users use `/perfil-empresa`, dynamically displaying user data based on authentication.
+- **Dynamic User Identity:** All layout groups dynamically build the header user object, displaying `razon_social` for juridico users and `nombre + apellido` for natural users.
+- **Hydration Safety:** Pages avoid `new Date()` or `Math.random()` in `useState` initializers or direct JSX, using `useEffect` for client-only values.
 
 ## External Dependencies
 - **Database:** PostgreSQL
@@ -83,13 +69,11 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
-- **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend
+- **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend, Replit Google Mail connector
 - **AI Integrations (Replit Managed):**
-  - **Anthropic Claude:** Kyron Chat (corporate), document verification, automated data entry (with fallbacks). Env: `AI_INTEGRATIONS_ANTHROPIC_API_KEY`, `AI_INTEGRATIONS_ANTHROPIC_BASE_URL`.
-  - **Google Gemini:** Personal chat, fiscal chat, legal docs, Gaceta 6952 consultant (with fallbacks). Env: `AI_INTEGRATIONS_GEMINI_API_KEY`, `AI_INTEGRATIONS_GEMINI_BASE_URL`.
-  - **OpenAI:** Dashboard analysis, sales strategies, sentiment analysis, transaction categorization (with fallbacks). Env: `AI_INTEGRATIONS_OPENAI_API_KEY`, `AI_INTEGRATIONS_OPENAI_BASE_URL`.
-  - All three providers are configured via Replit AI Integrations with managed API keys. The client files in `src/ai/` read `AI_INTEGRATIONS_*` vars as primary, falling back to legacy `*_API_KEY` vars.
-- **Email:** Gmail via Replit Google Mail connector (OAuth, connection `conn_google-mail_01KNAMVN9FXXGCJ1GC8JME3DMP`). Client in `src/lib/gmail-client.ts`.
+  - Anthropic Claude (Kyron Chat corporate, document verification)
+  - Google Gemini (Personal chat, fiscal chat, legal docs)
+  - OpenAI (Dashboard analysis, sales strategies, sentiment analysis)
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
