@@ -7,11 +7,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
     MessageSquare, Star, Send, Loader2, User, Building2, Clock,
-    Quote, Sparkles,
+    Quote, Sparkles, LogIn,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
+import { useAuth } from '@/lib/auth/context';
+import { Link } from '@/navigation';
 
 interface Comentario {
     id: number;
@@ -74,6 +76,7 @@ export function CommentsSection() {
     const [submitting, setSubmitting] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const { toast } = useToast();
+    const { user, isLoading: authLoading } = useAuth();
 
     const fetchComentarios = useCallback(async () => {
         try {
@@ -213,7 +216,22 @@ export function CommentsSection() {
                 )}
 
                 <div className="max-w-xl mx-auto">
-                    {!showForm ? (
+                    {!authLoading && !user ? (
+                        <div className="text-center space-y-4">
+                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                                {t('login_required')}
+                            </p>
+                            <Link href="/login">
+                                <Button
+                                    variant="outline"
+                                    className="rounded-2xl h-12 px-8 text-xs font-black uppercase tracking-[0.2em] border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
+                                >
+                                    <LogIn className="h-4 w-4 mr-2 text-violet-500" />
+                                    {t('login_to_comment')}
+                                </Button>
+                            </Link>
+                        </div>
+                    ) : !showForm ? (
                         <div className="text-center">
                             <Button
                                 onClick={() => setShowForm(true)}
@@ -271,7 +289,7 @@ export function CommentsSection() {
                                 </div>
 
                                 <p className="text-[10px] sm:text-[8px] font-bold text-muted-foreground/70 uppercase tracking-[0.2em] text-center">
-                                    {t('login_required')}
+                                    {t('commenting_as', { name: user?.nombre || '' })}
                                 </p>
                             </CardContent>
                         </Card>

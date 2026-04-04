@@ -419,6 +419,8 @@
         "publishing": "Publicando...",
         "publish": "Publicar",
         "login_required": "Debes tener sesión iniciada para comentar",
+        "login_to_comment": "Iniciar Sesión para Comentar",
+        "commenting_as": "Comentando como {name}",
         "empresa": "Empresa",
         "persona": "Persona",
         "time_moment": "Hace un momento",

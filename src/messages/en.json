@@ -419,6 +419,8 @@
         "publishing": "Publishing...",
         "publish": "Publish",
         "login_required": "You must be logged in to comment",
+        "login_to_comment": "Log In to Comment",
+        "commenting_as": "Commenting as {name}",
         "empresa": "Company",
         "persona": "Individual",
         "time_moment": "Just now",
