@@ -82,6 +82,7 @@ const PUBLIC_API_SET = new Set([
   '/api/visits',
   '/api/contact',
   '/api/ping',
+  '/api/integrations-health',
   '/api/tasas-bcv/auto-fetch',
   '/api/auth/login',
   '/api/auth/login-phone',
