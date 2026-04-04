@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleAutomation } from "@/components/module-automation";
 
 interface CuentaBancaria {
   id: number;
@@ -337,6 +338,8 @@ export default function ConciliacionBancariaPage() {
           )}
         </>
       )}
+
+      <ModuleAutomation module="conciliacion_bancaria" />
 
       <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
         <div className="flex items-start gap-3">

@@ -8,6 +8,7 @@ import { Upload, Download, ShieldCheck, CheckCircle, Clock, Lock, ExternalLink, 
 import { cn } from "@/lib/utils";
 import { BackButton } from "@/components/back-button";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleAutomation } from "@/components/module-automation";
 
 interface Declaracion {
   id: number;
@@ -63,6 +64,8 @@ export default function ExportacionSeniatPage() {
           XML · TXT · Providencia 0071/0049 · Portal Fiscal · Declaraciones Tributarias.
         </p>
       </header>
+
+      <ModuleAutomation module="exportacion_seniat" />
 
       {loading ? (
         <div className="flex items-center justify-center py-32 gap-3 text-muted-foreground">

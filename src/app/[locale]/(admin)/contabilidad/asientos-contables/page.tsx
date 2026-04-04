@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleAutomation } from "@/components/module-automation";
 
 interface Partida {
   cuenta: string;
@@ -240,6 +241,8 @@ export default function AsientosContablesPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+
+      <ModuleAutomation module="asientos_contables" />
 
       {loading ? (
         <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { ModuleAutomation } from "@/components/module-automation";
 
 const tributoCategories = [
     {
@@ -114,6 +115,8 @@ export default function TributosHubPage() {
                 </h1>
                 <p className="text-sm text-muted-foreground">Gestión fiscal y cumplimiento tributario venezolano.</p>
             </header>
+
+            <ModuleAutomation module="impuestos_tributos" />
 
             <div className="grid gap-8 lg:grid-cols-12">
                 <div className="lg:col-span-8 space-y-8">

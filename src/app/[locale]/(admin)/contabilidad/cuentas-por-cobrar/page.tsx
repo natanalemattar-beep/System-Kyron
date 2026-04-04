@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import { Landmark, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingUp, Users, Clock, Plus, Trash2, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleAutomation } from "@/components/module-automation";
 
 interface CuentaCobrar {
   id: number;
@@ -246,6 +247,8 @@ export default function CuentasPorCobrarPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+
+      <ModuleAutomation module="cuentas_por_cobrar" />
 
       <Card className="rounded-2xl border shadow-lg overflow-hidden">
         <CardHeader className="p-6 border-b bg-muted/30">

@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
 import { HandCoins, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingDown, Users, Clock, Plus, Trash2, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ModuleAutomation } from "@/components/module-automation";
 
 interface CuentaPagar {
   id: string;
@@ -253,6 +254,8 @@ export default function CuentasPorPagarPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+
+      <ModuleAutomation module="cuentas_por_pagar" />
 
       <Card className="rounded-2xl border shadow-lg overflow-hidden">
         <CardHeader className="p-6 border-b bg-muted/30">

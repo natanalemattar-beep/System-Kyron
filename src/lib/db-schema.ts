@@ -2367,6 +2367,7 @@ async function createAutomationTables(): Promise<void> {
       action_type     TEXT NOT NULL,
       action_config   JSONB NOT NULL DEFAULT '{}',
       enabled         BOOLEAN NOT NULL DEFAULT true,
+      module          TEXT,
       last_run_at     TIMESTAMPTZ,
       next_run_at     TIMESTAMPTZ,
       run_count       INT NOT NULL DEFAULT 0,
@@ -2375,8 +2376,10 @@ async function createAutomationTables(): Promise<void> {
       created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await safeQuery(`ALTER TABLE automation_rules ADD COLUMN IF NOT EXISTS module TEXT`);
   await query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_automation_action_unique ON automation_rules(action_type) WHERE trigger_type = 'schedule'`);
   await query(`CREATE INDEX IF NOT EXISTS idx_automation_enabled ON automation_rules(enabled, next_run_at)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_automation_module ON automation_rules(module) WHERE module IS NOT NULL`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS automation_logs (
@@ -2409,6 +2412,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
       action_type: 'bcv_sync',
+      module: 'conciliacion_bancaria',
     },
     {
       name: 'Alertas Fiscales Predictivas',
@@ -2416,6 +2420,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 4, label: 'Cada 4 horas' },
       action_type: 'fiscal_alerts',
+      module: 'impuestos_tributos,exportacion_seniat',
     },
     {
       name: 'Monitor de Salud del Sistema',
@@ -2423,6 +2428,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 2, label: 'Cada 2 horas' },
       action_type: 'db_health_check',
+      module: 'cierre_contable,sistema',
     },
     {
       name: 'Anclaje Blockchain por Lotes',
@@ -2430,6 +2436,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 12, label: 'Cada 12 horas' },
       action_type: 'blockchain_batch_anchor',
+      module: 'sistema',
     },
     {
       name: 'Limpieza de Sesiones',
@@ -2437,6 +2444,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 24, label: 'Diario' },
       action_type: 'session_cleanup',
+      module: 'sistema',
     },
     {
       name: 'Recordatorio de Facturas',
@@ -2444,6 +2452,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 8, label: 'Cada 8 horas' },
       action_type: 'invoice_reminders',
+      module: 'cuentas_por_cobrar,cuentas_por_pagar',
     },
     {
       name: 'Resumen de Actividad Diario',
@@ -2451,6 +2460,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 24, label: 'Diario' },
       action_type: 'activity_digest',
+      module: 'asientos_contables,cierre_contable',
     },
     {
       name: 'Monitor Regulatorio — Gacetas y Asamblea Nacional',
@@ -2458,6 +2468,7 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
       action_type: 'regulatory_alerts',
+      module: 'exportacion_seniat',
     },
     {
       name: 'Emails Automáticos',
@@ -2465,15 +2476,16 @@ async function seedAutomationRules(): Promise<void> {
       trigger_type: 'schedule',
       trigger_config: { interval_hours: 4, label: 'Cada 4 horas' },
       action_type: 'email_automation',
+      module: 'sistema',
     },
   ];
 
   for (const rule of rules) {
     await query(
-      `INSERT INTO automation_rules (name, description, trigger_type, trigger_config, action_type)
-       VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (action_type) WHERE trigger_type = 'schedule' DO NOTHING`,
-      [rule.name, rule.description, rule.trigger_type, JSON.stringify(rule.trigger_config), rule.action_type]
+      `INSERT INTO automation_rules (name, description, trigger_type, trigger_config, action_type, module)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (action_type) WHERE trigger_type = 'schedule' DO UPDATE SET module = EXCLUDED.module`,
+      [rule.name, rule.description, rule.trigger_type, JSON.stringify(rule.trigger_config), rule.action_type, rule.module]
     );
   }
 }

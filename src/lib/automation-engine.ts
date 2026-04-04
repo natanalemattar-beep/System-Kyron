@@ -13,6 +13,7 @@ export interface AutomationRule {
   action_type: string;
   action_config: Record<string, unknown>;
   enabled: boolean;
+  module: string | null;
   last_run_at: string | null;
   next_run_at: string | null;
   run_count: number;

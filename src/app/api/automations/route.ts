@@ -20,21 +20,39 @@ export async function GET(req: NextRequest) {
 
     if (action === 'logs') {
       const ruleId = searchParams.get('rule_id');
+      const moduleFilter = searchParams.get('module');
       const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '20') || 20, 1), 100);
       let logsQuery = `
         SELECT al.*, ar.name as rule_name, ar.action_type
         FROM automation_logs al
         JOIN automation_rules ar ON al.rule_id = ar.id
       `;
+      const conditions: string[] = [];
       const params: unknown[] = [];
       if (ruleId) {
-        logsQuery += ` WHERE al.rule_id = $1`;
         params.push(ruleId);
+        conditions.push(`al.rule_id = $${params.length}`);
+      }
+      if (moduleFilter) {
+        params.push(moduleFilter);
+        conditions.push(`(ar.module = $${params.length} OR ar.module LIKE $${params.length} || ',%' OR ar.module LIKE '%,' || $${params.length} OR ar.module LIKE '%,' || $${params.length} || ',%')`);
+      }
+      if (conditions.length > 0) {
+        logsQuery += ` WHERE ${conditions.join(' AND ')}`;
       }
       logsQuery += ` ORDER BY al.started_at DESC LIMIT $${params.length + 1}`;
       params.push(limit);
       const logs = await query(logsQuery, params);
       return NextResponse.json({ logs });
+    }
+
+    const moduleFilter = searchParams.get('module');
+    if (moduleFilter) {
+      const rules = await query(
+        `SELECT * FROM automation_rules WHERE (module = $1 OR module LIKE $1 || ',%' OR module LIKE '%,' || $1 OR module LIKE '%,' || $1 || ',%') ORDER BY enabled DESC, last_run_at DESC NULLS LAST`,
+        [moduleFilter]
+      );
+      return NextResponse.json({ rules });
     }
 
     const rules = await query(

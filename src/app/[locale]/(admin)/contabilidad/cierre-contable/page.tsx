@@ -10,6 +10,7 @@ import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Inbox } from "lucide-react";
+import { ModuleAutomation } from "@/components/module-automation";
 
 const pasosPlantilla = [
   { numero: 1, titulo: "Verificación de Asientos Pendientes", desc: "Confirmar que todos los asientos contables del período están registrados y cuadran (Debe = Haber)." },
@@ -96,6 +97,8 @@ export default function CierreContablePage() {
           </div>
         </div>
       </header>
+
+      <ModuleAutomation module="cierre_contable" />
 
       {loading ? (
         <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
