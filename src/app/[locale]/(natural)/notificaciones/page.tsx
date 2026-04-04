@@ -165,8 +165,6 @@ export default function NotificacionesPage() {
           telefono_sms: config.telefono_sms || null,
           notif_vencimientos: config.notif_vencimientos,
           notif_pagos: config.notif_pagos,
-          email_verificacion: config.email_verificacion || null,
-          email_alertas: config.email_alertas || null,
         }),
       });
       if (res.ok) {
@@ -277,35 +275,8 @@ export default function NotificacionesPage() {
                   />
                 </div>
                 {config.notif_email && (
-                  <div className="space-y-3 pl-2 border-t border-border/20 pt-3">
-                    <div className="space-y-1.5">
-                      <Label className="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Mail className="h-3.5 w-3.5" />
-                        Correo Gmail (Verificaciones)
-                      </Label>
-                      <Input
-                        type="email"
-                        placeholder="tucorreo@gmail.com"
-                        value={config.email_verificacion || ''}
-                        onChange={(e) => setConfig({ ...config, email_verificacion: e.target.value })}
-                        className="h-10 rounded-lg text-sm"
-                      />
-                      <p className="text-[10px] text-muted-foreground/60">Los codigos de verificacion y 2FA se enviaran a este correo Gmail</p>
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label className="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Mail className="h-3.5 w-3.5" />
-                        Correo Hotmail / Outlook (Alertas)
-                      </Label>
-                      <Input
-                        type="email"
-                        placeholder="tucorreo@hotmail.com"
-                        value={config.email_alertas || ''}
-                        onChange={(e) => setConfig({ ...config, email_alertas: e.target.value })}
-                        className="h-10 rounded-lg text-sm"
-                      />
-                      <p className="text-[10px] text-muted-foreground/60">Las alertas del sistema, vencimientos y notificaciones fiscales se enviaran a este correo Outlook/Hotmail</p>
-                    </div>
+                  <div className="pl-2 border-t border-border/20 pt-3">
+                    <p className="text-[10px] text-muted-foreground/60">Las alertas, verificaciones y notificaciones fiscales se enviarán automáticamente al correo registrado en tu cuenta.</p>
                   </div>
                 )}
               </div>

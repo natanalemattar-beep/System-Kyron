@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,18 +15,44 @@ import { Badge } from "@/components/ui/badge";
 import { Logo } from "@/components/logo";
 import Image from "next/image";
 
-const empleados = [
-    { id: 1, nombre: "Ana Patricia Velásquez", ci: "V-16.892.437", ingreso: "2020-01-15", salario: 12000, fondo: 45000 },
-    { id: 2, nombre: "Luis Eduardo Ramírez", ci: "V-19.456.283", ingreso: "2021-02-10", salario: 10500, fondo: 32000 },
-    { id: 3, nombre: "Carlos Mattar", ci: "V-32.855.496", ingreso: "2024-01-01", salario: 15000, fondo: 5000 },
-];
+interface Empleado {
+    id: number;
+    nombre: string;
+    ci: string;
+    ingreso: string;
+    salario: number;
+    fondo: number;
+}
 
 export default function PrestacionesSocialesPage() {
     const { toast } = useToast();
+    const [empleados, setEmpleados] = useState<Empleado[]>([]);
+    const [loadingEmpleados, setLoadingEmpleados] = useState(true);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
 
-    const emp = useMemo(() => empleados.find(e => e.id === Number(selectedId)), [selectedId]);
+    const loadEmpleados = useCallback(async () => {
+        try {
+            const res = await fetch('/api/empleados');
+            if (res.ok) {
+                const data = await res.json();
+                const mapped = (data.empleados || []).map((e: any) => ({
+                    id: e.id,
+                    nombre: ((e.nombre || '') + ' ' + (e.apellido || '')).trim(),
+                    ci: e.cedula || '',
+                    ingreso: e.fecha_ingreso || '',
+                    salario: parseFloat(e.salario_base) || 0,
+                    fondo: parseFloat(e.fondo_prestaciones) || 0,
+                }));
+                setEmpleados(mapped);
+            }
+        } catch {}
+        setLoadingEmpleados(false);
+    }, []);
+
+    useEffect(() => { loadEmpleados(); }, [loadEmpleados]);
+
+    const emp = useMemo(() => empleados.find(e => e.id === Number(selectedId)), [selectedId, empleados]);
 
     const handleCalculate = async () => {
         setIsCalculating(true);
@@ -77,7 +103,7 @@ export default function PrestacionesSocialesPage() {
                             <div className="space-y-3">
                                 <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 ml-1">Seleccionar Trabajador</Label>
                                 <Select onValueChange={setSelectedId}>
-                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder="Buscar..." /></SelectTrigger>
+                                    <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue placeholder={loadingEmpleados ? "Cargando empleados..." : empleados.length > 0 ? "Seleccionar empleado..." : "Sin empleados registrados"} /></SelectTrigger>
                                     <SelectContent className="rounded-xl">
                                         {empleados.map(e => <SelectItem key={e.id} value={String(e.id)} className="uppercase text-xs font-bold">{e.nombre} ({e.ci})</SelectItem>)}
                                     </SelectContent>
