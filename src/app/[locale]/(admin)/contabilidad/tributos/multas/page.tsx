@@ -1,11 +1,13 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, Calculator, ShieldAlert, Activity, Terminal, ShieldX, TrendingDown, RefreshCw, Zap, TriangleAlert as AlertTriangle } from "lucide-react";
+import {
+    Calculator, ShieldAlert, ShieldCheck, Scale, AlertTriangle, TrendingDown,
+    Info, ChevronRight, Banknote, FileText, Clock, Percent, Building2, ArrowRight
+} from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
@@ -18,145 +20,410 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
+const TRIBUTOS = [
+    {
+        id: "iva",
+        label: "IVA",
+        fullName: "Impuesto al Valor Agregado",
+        alicuota: "16%",
+        baseArticulo: "Art. 27 LIVA",
+        sancionArticulo: "Art. 111 COT",
+        sancionMin: 1,
+        sancionMax: 3,
+        sancionDefault: 1,
+        interesMensual: 0.04,
+        color: "blue",
+        descripcion: "Omisión de retención, no declaración o declaración extemporánea del IVA.",
+    },
+    {
+        id: "islr",
+        label: "ISLR",
+        fullName: "Impuesto sobre la Renta",
+        alicuota: "15%–34%",
+        baseArticulo: "Art. 52 LISLR",
+        sancionArticulo: "Art. 111 COT",
+        sancionMin: 1,
+        sancionMax: 3,
+        sancionDefault: 1,
+        interesMensual: 0.04,
+        color: "amber",
+        descripcion: "Omisión o disminución ilegítima de ingresos tributables.",
+    },
+    {
+        id: "igtf",
+        label: "IGTF",
+        fullName: "Imp. Grandes Transacciones Financieras",
+        alicuota: "3%",
+        baseArticulo: "Art. 22 LIGTF",
+        sancionArticulo: "Art. 111 COT",
+        sancionMin: 1,
+        sancionMax: 3,
+        sancionDefault: 1,
+        interesMensual: 0.04,
+        color: "violet",
+        descripcion: "No retención o no enteramiento del 3% sobre pagos en divisas.",
+    },
+    {
+        id: "ret_iva",
+        label: "Retención IVA",
+        fullName: "Agente de Retención IVA",
+        alicuota: "75% / 100%",
+        baseArticulo: "Prov. SNAT/2015/0049",
+        sancionArticulo: "Art. 113 COT",
+        sancionMin: 1,
+        sancionMax: 5,
+        sancionDefault: 1,
+        interesMensual: 0.05,
+        color: "rose",
+        descripcion: "Retener y no enterar dentro del plazo. Sanción por cada mes o fracción de retraso.",
+    },
+    {
+        id: "ret_islr",
+        label: "Retención ISLR",
+        fullName: "Agente de Retención ISLR",
+        alicuota: "1%–34%",
+        baseArticulo: "Decreto 1.808",
+        sancionArticulo: "Art. 113 COT",
+        sancionMin: 1,
+        sancionMax: 5,
+        sancionDefault: 1,
+        interesMensual: 0.05,
+        color: "orange",
+        descripcion: "No enterar retenciones de ISLR en los plazos establecidos.",
+    },
+];
+
+const GRAVEDAD_NIVELES = [
+    {
+        nivel: "Leve",
+        factor: "100%",
+        desc: "Primera infracción, cumplimiento voluntario tardío, diferencias menores.",
+        articulo: "Art. 111 COT, num. 1",
+        color: "amber",
+    },
+    {
+        nivel: "Grave",
+        factor: "200%",
+        desc: "Omisión de declaración, defraudación fiscal, monto significativo.",
+        articulo: "Art. 111 COT, num. 2",
+        color: "orange",
+    },
+    {
+        nivel: "Máxima",
+        factor: "300%",
+        desc: "Reincidencia, simulación, ocultamiento de bienes o rentas.",
+        articulo: "Art. 111 COT, num. 3 + Art. 119",
+        color: "rose",
+    },
+];
+
+const ARTICULOS_REF = [
+    { art: "Art. 66 COT", desc: "Intereses moratorios: tasa activa bancaria incrementada en 1.2 veces, aplicable desde el vencimiento." },
+    { art: "Art. 111 COT", desc: "Contravención: multa del 100% al 300% del tributo omitido, según gravedad." },
+    { art: "Art. 113 COT", desc: "Retenciones no enteradas: 50% por cada mes de retraso, hasta el 500% del monto." },
+    { art: "Art. 115 COT", desc: "Defraudación: prisión de 6 meses a 7 años, más multa del 100% al 300%." },
+    { art: "Art. 119 COT", desc: "Agravantes: reincidencia, resistencia, magnitud del perjuicio fiscal." },
+];
+
 export default function MultasFiscalesPage() {
     const { toast } = useToast();
-    const [tributo, setTributo] = useState<number>(0);
     const [tipoTributo, setTipoTributo] = useState("iva");
-    const [multa, setMulta] = useState<number>(0);
-    const [intereses, setIntereses] = useState<number>(0);
-    const [total, setTotal] = useState<number>(0);
+    const [monto, setMonto] = useState("");
+    const [gravedad, setGravedad] = useState<"leve" | "grave" | "maxima">("leve");
+    const [mesesRetraso, setMesesRetraso] = useState("1");
+    const [tasaBcv, setTasaBcv] = useState<number | null>(null);
+    const [resultado, setResultado] = useState<{
+        multa: number;
+        intereses: number;
+        total: number;
+        multaUsd: number;
+        totalUsd: number;
+    } | null>(null);
 
-    const handleCalculate = () => {
-        if (tributo <= 0) {
+    useEffect(() => {
+        fetch("/api/tasas-bcv")
+            .then(r => r.json())
+            .then(d => {
+                if (d.tasas?.usd) setTasaBcv(d.tasas.usd);
+            })
+            .catch(() => {});
+    }, []);
+
+    const tributoActual = TRIBUTOS.find(t => t.id === tipoTributo)!;
+    const factorGravedad = gravedad === "leve" ? 1 : gravedad === "grave" ? 2 : 3;
+
+    const handleCalcular = () => {
+        const montoNum = parseFloat(monto);
+        if (!montoNum || montoNum <= 0) {
             toast({
                 variant: "destructive",
-                title: "VALOR INVÁLIDO",
-                description: "Introduzca el monto del tributo omitido para procesar."
+                title: "Monto inválido",
+                description: "Introduce el monto del tributo omitido.",
             });
             return;
         }
 
-        // Lógica diferenciada para DPP
-        let factorMulta = 2; // 200% por defecto (COT)
-        
-        if (tipoTributo === 'dpp') {
-            // La ley de pensiones establece hasta 1000 veces el TC, pero para el simulador
-            // usamos un factor representativo de sanción máxima.
-            factorMulta = 3; 
+        const meses = parseInt(mesesRetraso) || 1;
+        const esRetencion = tipoTributo.startsWith("ret_");
+
+        let multaCalc: number;
+        if (esRetencion) {
+            const factorMensual = 0.5;
+            multaCalc = Math.min(montoNum * factorMensual * meses, montoNum * tributoActual.sancionMax);
+        } else {
+            multaCalc = montoNum * factorGravedad;
         }
 
-        const calculatedMulta = tributo * factorMulta;
-        const calculatedIntereses = tributo * 0.12; // Interés moratorio estimado
-        
-        setMulta(calculatedMulta);
-        setIntereses(calculatedIntereses);
-        setTotal(tributo + calculatedMulta + calculatedIntereses);
+        const tasaIntMensual = tributoActual.interesMensual;
+        const interesesCalc = montoNum * tasaIntMensual * meses;
 
-        toast({ 
-            title: "SIMULACIÓN COMPLETADA", 
-            description: `Calculado para ${tipoTributo.toUpperCase()} bajo protocolo de contingencia.` 
+        const totalCalc = montoNum + multaCalc + interesesCalc;
+
+        const tasa = tasaBcv || 1;
+
+        setResultado({
+            multa: multaCalc,
+            intereses: interesesCalc,
+            total: totalCalc,
+            multaUsd: multaCalc / tasa,
+            totalUsd: totalCalc / tasa,
+        });
+
+        toast({
+            title: "Simulación completada",
+            description: `${tributoActual.label}: ${gravedad} — ${meses} mes(es) de mora.`,
         });
     };
 
+    const colorMap: Record<string, string> = {
+        blue: "text-blue-500",
+        amber: "text-amber-500",
+        violet: "text-violet-500",
+        rose: "text-rose-500",
+        orange: "text-orange-500",
+    };
+
+    const bgColorMap: Record<string, string> = {
+        blue: "bg-blue-500/10 border-blue-500/20",
+        amber: "bg-amber-500/10 border-amber-500/20",
+        violet: "bg-violet-500/10 border-violet-500/20",
+        rose: "bg-rose-500/10 border-rose-500/20",
+        orange: "bg-orange-500/10 border-orange-500/20",
+    };
+
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10 min-h-screen">
-            <header className="border-l-4 border-rose-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 shadow-sm mb-4">
-                        <ShieldAlert className="h-3 w-3" /> ÁREA DE CONTINGENCIA
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Multas y <span className="text-rose-500 italic">Sanciones</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Código Orgánico Tributario (COT) • Prevención de Riesgos</p>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] mb-3 border", bgColorMap[tributoActual.color], colorMap[tributoActual.color])}>
+                            <ShieldAlert className="h-3.5 w-3.5" /> Simulador de Contingencia
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                            Multas y <span className="text-rose-500">Sanciones</span> Fiscales
+                        </h1>
+                        <p className="text-sm text-muted-foreground mt-1">
+                            Código Orgánico Tributario (COT, 2020) · Cálculo basado en normativa vigente
+                        </p>
+                    </div>
+                    {tasaBcv && (
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                            <Banknote className="h-4 w-4 text-emerald-500" />
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                                Tasa BCV: {tasaBcv.toFixed(2)} Bs/$
+                            </span>
+                        </div>
+                    )}
                 </div>
             </header>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <div className="lg:col-span-7">
-                    <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-rose-500 italic">Calculadora de Contingencia Fiscal</CardTitle>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-4">
+                            <CardTitle className="flex items-center gap-2 text-base font-bold">
+                                <Calculator className="h-5 w-5 text-rose-500" />
+                                Calculadora de Contingencia Fiscal
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-10 space-y-8">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-3">
-                                    <Label className="text-[9px] font-black uppercase text-white/40 ml-1">Tributo Omitido</Label>
-                                    <Select value={tipoTributo} onValueChange={setTipoTributo}>
-                                        <SelectTrigger className="h-14 bg-white/[0.03] border-white/10 rounded-2xl font-bold uppercase text-white">
+                        <CardContent className="space-y-6">
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label className="text-xs font-bold text-muted-foreground">Tipo de Tributo</Label>
+                                    <Select value={tipoTributo} onValueChange={(v) => { setTipoTributo(v); setResultado(null); }}>
+                                        <SelectTrigger className="h-12 rounded-xl font-semibold">
                                             <SelectValue />
                                         </SelectTrigger>
-                                        <SelectContent className="bg-black/95 border-white/10">
-                                            <SelectItem value="iva" className="uppercase text-xs font-bold">IVA (Impuesto al Valor Agregado)</SelectItem>
-                                            <SelectItem value="islr" className="uppercase text-xs font-bold">ISLR (Impuesto sobre la Renta)</SelectItem>
-                                            <SelectItem value="igtf" className="uppercase text-xs font-bold">IGTF (Transacciones Divisas)</SelectItem>
-                                            <SelectItem value="dpp" className="uppercase text-xs font-bold text-emerald-400">DPP (Protección de Pensiones)</SelectItem>
+                                        <SelectContent>
+                                            {TRIBUTOS.map(t => (
+                                                <SelectItem key={t.id} value={t.id} className="font-semibold">
+                                                    <span className={colorMap[t.color]}>{t.label}</span> — {t.fullName}
+                                                </SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-3">
-                                    <Label className="text-[9px] font-black uppercase text-white/40 ml-1">Monto Omitido (Bs.)</Label>
-                                    <Input 
-                                        type="number" 
-                                        placeholder="0.00" 
-                                        onChange={e => setTributo(Number(e.target.value))} 
-                                        className="h-14 rounded-2xl bg-white/[0.03] border-white/10 font-black text-lg text-white" 
+                                <div className="space-y-2">
+                                    <Label className="text-xs font-bold text-muted-foreground">Monto Omitido (Bs.)</Label>
+                                    <Input
+                                        type="number"
+                                        placeholder="0.00"
+                                        value={monto}
+                                        onChange={e => { setMonto(e.target.value); setResultado(null); }}
+                                        className="h-12 rounded-xl font-bold text-lg"
                                     />
                                 </div>
                             </div>
 
-                            {tipoTributo === 'dpp' && (
-                                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl animate-in fade-in zoom-in-95">
-                                    <div className="flex items-start gap-3">
-                                        <AlertTriangle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                                        <p className="text-[10px] font-bold text-white/60 uppercase leading-relaxed">
-                                            Nota DPP: El incumplimiento de este aporte conlleva multas de hasta <span className="text-emerald-400">1.000 veces el tipo de cambio oficial</span> de la moneda de mayor valor (BCV).
-                                        </p>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label className="text-xs font-bold text-muted-foreground">Nivel de Gravedad (Art. 111 COT)</Label>
+                                    <Select value={gravedad} onValueChange={(v: any) => { setGravedad(v); setResultado(null); }}>
+                                        <SelectTrigger className="h-12 rounded-xl font-semibold">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="leve" className="font-semibold">
+                                                <span className="text-amber-500">Leve</span> — 100% del tributo
+                                            </SelectItem>
+                                            <SelectItem value="grave" className="font-semibold">
+                                                <span className="text-orange-500">Grave</span> — 200% del tributo
+                                            </SelectItem>
+                                            <SelectItem value="maxima" className="font-semibold">
+                                                <span className="text-rose-500">Máxima</span> — 300% del tributo
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="text-xs font-bold text-muted-foreground">Meses de Retraso</Label>
+                                    <Input
+                                        type="number"
+                                        min="1"
+                                        max="60"
+                                        value={mesesRetraso}
+                                        onChange={e => { setMesesRetraso(e.target.value); setResultado(null); }}
+                                        className="h-12 rounded-xl font-bold"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={cn("p-3.5 rounded-xl border flex items-start gap-3", bgColorMap[tributoActual.color])}>
+                                <Info className={cn("h-4 w-4 shrink-0 mt-0.5", colorMap[tributoActual.color])} />
+                                <div>
+                                    <p className="text-xs font-bold">{tributoActual.fullName} — Alícuota: {tributoActual.alicuota}</p>
+                                    <p className="text-[11px] text-muted-foreground mt-0.5">{tributoActual.descripcion}</p>
+                                    <p className="text-[10px] font-bold text-muted-foreground mt-1">
+                                        Base legal: {tributoActual.baseArticulo} · Sanción: {tributoActual.sancionArticulo}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <Button
+                                onClick={handleCalcular}
+                                className="w-full h-13 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-bold text-sm shadow-lg"
+                            >
+                                <Scale className="mr-2 h-4 w-4" />
+                                Ejecutar Simulación
+                            </Button>
+
+                            {resultado && (
+                                <div className="space-y-3 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="flex justify-between items-center py-3 border-b">
+                                        <div className="flex items-center gap-2">
+                                            <Percent className="h-3.5 w-3.5 text-muted-foreground" />
+                                            <span className="text-xs font-bold text-muted-foreground">Multa ({gravedad === "leve" ? "100%" : gravedad === "grave" ? "200%" : "300%"} — {tributoActual.sancionArticulo})</span>
+                                        </div>
+                                        <span className="font-black text-rose-500">{formatCurrency(resultado.multa, 'Bs.')}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center py-3 border-b">
+                                        <div className="flex items-center gap-2">
+                                            <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                                            <span className="text-xs font-bold text-muted-foreground">Intereses moratorios ({mesesRetraso} mes(es) — Art. 66 COT)</span>
+                                        </div>
+                                        <span className="font-black text-amber-500">{formatCurrency(resultado.intereses, 'Bs.')}</span>
+                                    </div>
+                                    <div className="p-5 rounded-xl bg-rose-500/5 border border-rose-500/15 dark:bg-rose-500/10">
+                                        <div className="flex justify-between items-center">
+                                            <div>
+                                                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Deuda Total Proyectada</p>
+                                                {tasaBcv && (
+                                                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                                                        ≈ ${resultado.totalUsd.toFixed(2)} USD (Tasa BCV)
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <span className="text-2xl md:text-3xl font-black text-rose-500">
+                                                {formatCurrency(resultado.total, 'Bs.')}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             )}
-
-                            <Button onClick={handleCalculate} className="w-full h-16 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-black uppercase text-xs tracking-widest shadow-2xl border-none">EJECUTAR SIMULACIÓN</Button>
-                            
-                            <div className="space-y-4 pt-6">
-                                <div className="flex justify-between items-center text-sm border-b border-white/5 pb-3">
-                                    <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Multa Estimada {tipoTributo === 'dpp' ? '(Máxima Ley)' : '(COT 200%)'}</span>
-                                    <span className="font-black text-rose-500">{formatCurrency(multa, 'Bs.')}</span>
-                                </div>
-                                <div className="flex justify-between items-center text-sm border-b border-white/5 pb-3">
-                                    <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Intereses Moratorios</span>
-                                    <span className="font-black text-rose-500">{formatCurrency(intereses, 'Bs.')}</span>
-                                </div>
-                                <div className="flex justify-between items-center p-8 bg-rose-500/5 rounded-[2rem] border border-rose-500/10">
-                                    <span className="font-black uppercase text-xs text-rose-600 italic tracking-tight">Deuda Total Proyectada</span>
-                                    <span className="text-3xl font-black italic text-rose-500 tracking-tight shadow-glow-sm">{formatCurrency(total, 'Bs.')}</span>
-                                </div>
-                            </div>
                         </CardContent>
                     </Card>
                 </div>
 
-                <div className="lg:col-span-5 space-y-10">
-                    <Card className="glass-card border-none bg-white/[0.02] p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Calculator className="h-32 w-32 text-white" /></div>
-                        <h3 className="text-xl font-black uppercase italic tracking-tight text-white mb-6">Ajuste por TC</h3>
-                        <p className="text-xs font-bold text-white/40 leading-relaxed uppercase mb-8 text-justify">
-                            De acuerdo al Código Orgánico Tributario, las multas deben ser liquidadas al tipo de cambio oficial de la moneda de mayor valor publicado por el BCV al momento del pago efectivo.
-                        </p>
-                        <div className="flex items-center gap-3 text-[9px] font-black uppercase text-emerald-400 italic">
-                            <RefreshCw className="h-4 w-4 animate-spin-slow" /> Sincronización BCV: Activa
-                        </div>
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <TrendingDown className="h-4 w-4 text-rose-500" />
+                                Escala de Sanciones (COT 2020)
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            {GRAVEDAD_NIVELES.map((g) => (
+                                <div
+                                    key={g.nivel}
+                                    className={cn(
+                                        "p-4 rounded-xl border transition-all",
+                                        gravedad === g.nivel.toLowerCase() ? bgColorMap[g.color] : "bg-muted/30 border-border"
+                                    )}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className={cn("text-sm font-black", gravedad === g.nivel.toLowerCase() ? colorMap[g.color] : "text-foreground")}>{g.nivel}</span>
+                                        <span className={cn("text-lg font-black", colorMap[g.color])}>{g.factor}</span>
+                                    </div>
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{g.desc}</p>
+                                    <p className="text-[10px] font-bold text-muted-foreground/70 mt-1">{g.articulo}</p>
+                                </div>
+                            ))}
+                        </CardContent>
                     </Card>
 
-                    <Card className="glass-card border-none bg-white/[0.01] p-10 rounded-[2.5rem] shadow-xl">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-rose-500 mb-8 flex items-center gap-3 italic">
-                            <ShieldX className="h-4 w-4" /> Protocolo de Gravedad
-                        </h4>
-                        <ul className="space-y-6 text-[10px] font-bold uppercase tracking-widest text-white/30 leading-relaxed">
-                            <li className="flex gap-4"><span className="text-rose-500 font-black">»</span> Leve: 100% del tributo omitido.</li>
-                            <li className="flex gap-4"><span className="text-rose-500 font-black">»</span> Grave: 300% del tributo omitido.</li>
-                            <li className="flex gap-4"><span className="text-rose-500 font-black">»</span> Reincidencia: Agravante del 50%.</li>
-                        </ul>
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-blue-500" />
+                                Base Legal · Referencias
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {ARTICULOS_REF.map((ref) => (
+                                <div key={ref.art} className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                    <ChevronRight className="h-3.5 w-3.5 text-blue-500 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{ref.art}</p>
+                                        <p className="text-[11px] text-muted-foreground leading-relaxed">{ref.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
                     </Card>
+
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <div>
+                                <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Aviso Legal</p>
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                                    Este simulador tiene fines informativos y educativos. Los montos calculados son estimaciones basadas en la normativa vigente (COT 2020, Gaceta Oficial N° 6.507). Para casos reales, consulte con un profesional tributario certificado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
