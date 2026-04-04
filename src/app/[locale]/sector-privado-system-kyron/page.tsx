@@ -656,24 +656,6 @@ export default function ModeloZeduPage() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Movistar Venezuela (Telefónica)</td>
-                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-500-1111</td>
-                                        <td className={cn(tableCellClass, "text-xs")}>atencionclientes@movistar.com.ve</td>
-                                        <td className={tableCellClass}>Operador líder con mayor cobertura nacional 4G/5G. Fortaleza: red consolidada y reconocimiento de marca. Debilidad: tarifas elevadas, sin servicio diferenciado para menores. System Kyron ofrece línea infantil regulada CONATEL que Movistar no tiene.</td>
-                                    </tr>
-                                    <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Digitel (C.A. Corporación Digitel)</td>
-                                        <td className={cn(tableCellClass, "text-center font-mono")}>0212-200-0212</td>
-                                        <td className={cn(tableCellClass, "text-xs")}>contacto@digitel.com.ve</td>
-                                        <td className={tableCellClass}>Segundo operador en participación de mercado. Cobertura 4G en zonas urbanas. Fortaleza: atención corporativa. Debilidad: sin módulos de control parental ni línea infantil certificada. Oportunidad para System Kyron en segmento familia.</td>
-                                    </tr>
-                                    <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Movilnet (CANTV — Estado)</td>
-                                        <td className={cn(tableCellClass, "text-center font-mono")}>0800-666-4638</td>
-                                        <td className={cn(tableCellClass, "text-xs")}>servicioalcliente@movilnet.com.ve</td>
-                                        <td className={tableCellClass}>Operador estatal con las tarifas más bajas del mercado. Amplia cobertura en zonas rurales. Fortaleza: precio. Debilidad: calidad de red limitada, servicio al cliente deficiente. System Kyron compite en calidad de servicio y valor agregado tecnológico.</td>
-                                    </tr>
-                                    <tr>
                                         <td className={cn(tableCellClass, "font-black uppercase")}>Inter (Intercable)</td>
                                         <td className={cn(tableCellClass, "text-center font-mono")}>0212-256-0000</td>
                                         <td className={cn(tableCellClass, "text-xs")}>clientes@inter.com.ve</td>

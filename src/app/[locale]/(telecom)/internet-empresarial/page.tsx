@@ -26,8 +26,6 @@ const PROVEEDORES_CORP = [
   { id: "cantv_empresas", nombre: "CANTV Empresas", tipo: "dsl_fibra", icono: "🔵", servicios: ["Internet ABA Empresarial", "Líneas Fijas Centrex", "VPN Corporativa", "Troncales SIP"] },
   { id: "inter_corp", nombre: "Inter Empresas", tipo: "fibra_cable", icono: "🔴", servicios: ["Fibra Dedicada", "Internet Simétrico", "Colocation", "Cloud Connect"] },
   { id: "netuno_corp", nombre: "NetUno Business", tipo: "fibra", icono: "🟣", servicios: ["Fibra Empresarial", "Enlaces Dedicados", "MPLS", "VoIP Corporativo"] },
-  { id: "movistar_corp", nombre: "Movistar Empresas", tipo: "fibra_movil", icono: "🟢", servicios: ["Fibra Simétrica", "Flota Móvil", "IoT Empresarial", "Cloud PBX"] },
-  { id: "digitel_corp", nombre: "Digitel Corporativo", tipo: "lte_fibra", icono: "🟡", servicios: ["4G LTE Empresarial", "Planes Flotillas", "M2M/IoT", "SMS Masivo"] },
   { id: "starlink_biz", nombre: "Starlink Business", tipo: "satelital", icono: "⚫", servicios: ["Internet Satelital", "Alta Disponibilidad", "IP Fija", "Soporte Prioritario"] },
 ];
 
@@ -36,7 +34,6 @@ const PLANES_EMPRESARIALES = [
   { nombre: "Inter Fibra Dedicada 50M", proveedor: "Inter Empresas", velocidad: "50/50 Mbps", tipo: "Simétrico", precio: 150, garantia: "95%", sla: "4h" },
   { nombre: "Inter Fibra Dedicada 100M", proveedor: "Inter Empresas", velocidad: "100/100 Mbps", tipo: "Simétrico", precio: 280, garantia: "99%", sla: "2h" },
   { nombre: "NetUno Enterprise", proveedor: "NetUno Business", velocidad: "100/100 Mbps", tipo: "Dedicado", precio: 300, garantia: "99.5%", sla: "2h" },
-  { nombre: "Movistar Fibra PRO", proveedor: "Movistar Empresas", velocidad: "200/200 Mbps", tipo: "Simétrico", precio: 400, garantia: "99.5%", sla: "2h" },
   { nombre: "Starlink Business", proveedor: "Starlink Business", velocidad: "200/20 Mbps", tipo: "Satelital", precio: 250, garantia: "99%", sla: "24h" },
 ];
 
@@ -44,8 +41,6 @@ const PLANES_TELEFONIA = [
   { nombre: "Centrex Básico (5 ext)", proveedor: "CANTV Empresas", lineas: 5, precio: 25, incluye: "Llamadas locales ilimitadas, buzón de voz" },
   { nombre: "Centrex Avanzado (20 ext)", proveedor: "CANTV Empresas", lineas: 20, precio: 80, incluye: "LDN incluida, IVR básico, grabación" },
   { nombre: "Troncal SIP (10 canales)", proveedor: "CANTV Empresas", lineas: 10, precio: 60, incluye: "Numeración DID, integración PBX IP" },
-  { nombre: "Cloud PBX Starter", proveedor: "Movistar Empresas", lineas: 10, precio: 45, incluye: "App móvil, extensiones remotas, auto-attendant" },
-  { nombre: "Cloud PBX Enterprise", proveedor: "Movistar Empresas", lineas: 50, precio: 180, incluye: "Grabación, CRM, analítica, soporte 24/7" },
   { nombre: "VoIP Corporativo", proveedor: "NetUno Business", lineas: 15, precio: 70, incluye: "Numeración nacional, QoS dedicado, panel admin" },
 ];
 
@@ -312,8 +307,6 @@ export default function InternetEmpresarialPage() {
                       { prov: "CANTV Empresas", vel: "20 Mbps", tipo: "DSL/Fibra", sla: "70%", sop: "Lun-Vie", precio: "$50", cob: "Nacional" },
                       { prov: "Inter Empresas", vel: "100 Mbps", tipo: "Fibra/HFC", sla: "99%", sop: "24/7", precio: "$150", cob: "Principales" },
                       { prov: "NetUno Business", vel: "100 Mbps", tipo: "Fibra", sla: "99.5%", sop: "24/7", precio: "$300", cob: "Caracas/Valencia" },
-                      { prov: "Movistar Empresas", vel: "200 Mbps", tipo: "Fibra", sla: "99.5%", sop: "24/7", precio: "$400", cob: "Principales" },
-                      { prov: "Digitel Corp.", vel: "50 Mbps", tipo: "LTE/Fibra", sla: "95%", sop: "Lun-Sab", precio: "$80", cob: "Nacional" },
                       { prov: "Starlink Business", vel: "200 Mbps", tipo: "Satelital", sla: "99%", sop: "Online", precio: "$250", cob: "Total" },
                     ].map((row, i) => (
                       <tr key={i} className="border-b hover:bg-muted/30 transition-colors">
@@ -354,7 +347,7 @@ export default function InternetEmpresarialPage() {
                   <Shield className="h-5 w-5 text-green-500" />
                   <h4 className="font-bold text-sm">Mayor Disponibilidad</h4>
                 </div>
-                <p className="text-xs text-muted-foreground">NetUno y Movistar ofrecen SLA de 99.5% con soporte 24/7 y tiempos de respuesta de 2h.</p>
+                <p className="text-xs text-muted-foreground">NetUno ofrece SLA de 99.5% con soporte 24/7 y tiempos de respuesta de 2h.</p>
               </CardContent>
             </Card>
             <Card className="bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-950/20 dark:to-amber-900/10">
@@ -363,7 +356,7 @@ export default function InternetEmpresarialPage() {
                   <Globe className="h-5 w-5 text-amber-500" />
                   <h4 className="font-bold text-sm">Mayor Cobertura</h4>
                 </div>
-                <p className="text-xs text-muted-foreground">CANTV y Digitel tienen cobertura nacional. Starlink llega donde no hay fibra ni cable.</p>
+                <p className="text-xs text-muted-foreground">CANTV tiene cobertura nacional. Starlink llega donde no hay fibra ni cable.</p>
               </CardContent>
             </Card>
           </div>

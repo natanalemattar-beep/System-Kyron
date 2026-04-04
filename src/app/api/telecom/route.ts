@@ -152,7 +152,7 @@ export async function PATCH(req: NextRequest) {
   const dateFields = ['fecha_activacion', 'fecha_vencimiento'];
   const nullableStrings = ['titular', 'cedula_titular', 'plan_contratado', 'notas'];
   const enumFields: Record<string, string[]> = {
-    operadora: ['movistar','digitel','movilnet','inter','cantv','simple','otro'],
+    operadora: ['inter','cantv','simple','otro'],
     tipo_linea: ['prepago','postpago','datos','wan'],
     moneda_plan: ['USD','VES'],
   };

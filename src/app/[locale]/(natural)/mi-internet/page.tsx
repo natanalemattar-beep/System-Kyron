@@ -26,17 +26,12 @@ const PROVEEDORES_INTERNET = [
   { id: "cantv", nombre: "CANTV ABA", tipo: "dsl", color: "text-blue-600", logo: "🔵" },
   { id: "inter", nombre: "Inter", tipo: "cable", color: "text-red-500", logo: "🔴" },
   { id: "netuno", nombre: "NetUno", tipo: "cable", color: "text-purple-500", logo: "🟣" },
-  { id: "movistar_fibra", nombre: "Movistar Fibra", tipo: "fibra", color: "text-green-500", logo: "🟢" },
-  { id: "digitel_lte", nombre: "Digitel LTE Home", tipo: "lte", color: "text-amber-500", logo: "🟡" },
   { id: "supercable", nombre: "Supercable", tipo: "cable", color: "text-orange-500", logo: "🟠" },
   { id: "google_fiber", nombre: "Starlink", tipo: "satelital", color: "text-slate-600", logo: "⚫" },
 ];
 
 const PROVEEDORES_TELEFONO = [
   { id: "cantv_fijo", nombre: "CANTV Línea Fija", tipo: "fijo", color: "text-blue-600" },
-  { id: "movistar", nombre: "Movistar", tipo: "movil", color: "text-green-500" },
-  { id: "digitel", nombre: "Digitel", tipo: "movil", color: "text-amber-500" },
-  { id: "movilnet", nombre: "Movilnet", tipo: "movil", color: "text-red-500" },
 ];
 
 const PLANES_INTERNET = [
@@ -46,8 +41,6 @@ const PLANES_INTERNET = [
   { nombre: "Inter 100", velocidad: "100 Mbps", precio: 40.00, moneda: "USD", proveedor: "Inter" },
   { nombre: "NetUno Hogar", velocidad: "30 Mbps", precio: 20.00, moneda: "USD", proveedor: "NetUno" },
   { nombre: "NetUno Premium", velocidad: "80 Mbps", precio: 35.00, moneda: "USD", proveedor: "NetUno" },
-  { nombre: "Fibra 200", velocidad: "200 Mbps", precio: 45.00, moneda: "USD", proveedor: "Movistar Fibra" },
-  { nombre: "LTE Home 20GB", velocidad: "20 Mbps", precio: 15.00, moneda: "USD", proveedor: "Digitel LTE Home" },
   { nombre: "Starlink Standard", velocidad: "100 Mbps", precio: 65.00, moneda: "USD", proveedor: "Starlink" },
 ];
 
@@ -216,7 +209,7 @@ export default function MiInternetPage() {
                 <h3 className="font-bold text-lg">Sin servicios de Internet registrados</h3>
                 <p className="text-sm text-muted-foreground mt-1 max-w-md">
                   Registra tu servicio de internet para llevar control de pagos, velocidad y consumo.
-                  Compatible con CANTV, Inter, NetUno, Movistar Fibra, Digitel LTE y Starlink.
+                  Compatible con CANTV, Inter, NetUno y Starlink.
                 </p>
                 <Button onClick={() => setShowNuevoInternet(true)} className="mt-4 gap-2" variant="outline">
                   <Plus className="h-4 w-4" /> Registrar Internet
@@ -284,7 +277,7 @@ export default function MiInternetPage() {
                 <h3 className="font-bold text-lg">Sin líneas telefónicas registradas</h3>
                 <p className="text-sm text-muted-foreground mt-1 max-w-md">
                   Registra tus líneas fijas y móviles para monitorear consumo, pagos y contratos.
-                  Compatible con CANTV, Movistar, Digitel y Movilnet.
+                  Compatible con CANTV y otros operadores nacionales.
                 </p>
                 <Button onClick={() => setShowNuevaLinea(true)} className="mt-4 gap-2" variant="outline">
                   <Plus className="h-4 w-4" /> Registrar Línea
@@ -418,7 +411,7 @@ export default function MiInternetPage() {
                     <Smartphone className="h-5 w-5 text-green-500" />
                     <h4 className="font-bold">Líneas Móviles</h4>
                   </div>
-                  <p className="text-xs text-muted-foreground">Movistar, Digitel y Movilnet ofrecen planes prepago y postpago con datos 4G/LTE.</p>
+                  <p className="text-xs text-muted-foreground">Planes prepago y postpago con datos 4G/LTE disponibles con operadores nacionales.</p>
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs"><span>Prepago (desde)</span><span className="font-bold">$3.00/mes</span></div>
                     <div className="flex justify-between text-xs"><span>Postpago (desde)</span><span className="font-bold">$10.00/mes</span></div>

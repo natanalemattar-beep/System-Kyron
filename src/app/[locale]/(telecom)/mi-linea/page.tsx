@@ -57,9 +57,6 @@ type FacturaTelecom = {
 };
 
 const OPERADORAS = [
-  { value: 'movistar', label: 'Movistar' },
-  { value: 'digitel', label: 'Digitel' },
-  { value: 'movilnet', label: 'Movilnet' },
   { value: 'inter', label: 'Inter' },
   { value: 'cantv', label: 'CANTV' },
   { value: 'simple', label: 'Simple' },
@@ -434,9 +431,6 @@ export default function MiLineaPage() {
             const gaugeC = 2 * Math.PI * gaugeR;
             const gaugeDash = (pctUso / 100) * gaugeC;
             const operadoraColors: Record<string, string> = {
-              movistar: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-              digitel:  'bg-rose-500/10 text-rose-400 border-rose-500/20',
-              movilnet: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
               inter:    'bg-violet-500/10 text-violet-400 border-violet-500/20',
               cantv:    'bg-amber-500/10 text-amber-400 border-amber-500/20',
               simple:   'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',

@@ -103,7 +103,7 @@ const serviciosTelecom = [
   },
   {
     label: "Telefonía Corporativa",
-    desc: "Líneas Digitel/Movilnet/Movistar con planes integrados a módulos contables. PBX virtual incluido",
+    desc: "Líneas telefónicas con planes integrados a módulos contables. PBX virtual incluido",
     href: "/contabilidad/telefonia-corporativa",
     icon: Phone,
     color: "text-indigo-500",

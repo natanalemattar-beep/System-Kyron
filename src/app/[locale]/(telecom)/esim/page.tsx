@@ -16,9 +16,9 @@ const ESIMS_ACTIVAS = [
   {
     id: "esim-001",
     nombre: "Línea Principal",
-    numero: "+58 412-1234567",
-    operadora: "Movistar",
-    plan: "Plan Global 40GB",
+    numero: "+58 212-1234567",
+    operadora: "CANTV",
+    plan: "Plan Empresarial 40GB",
     estado: "activa",
     fechaActivacion: "15/01/2026",
     iccid: "8958020000000000001",
@@ -26,8 +26,8 @@ const ESIMS_ACTIVAS = [
   {
     id: "esim-002",
     nombre: "Datos Adicionales",
-    numero: "+58 414-9876543",
-    operadora: "Digitel",
+    numero: "+58 261-9876543",
+    operadora: "Inter",
     plan: "Solo Datos 20GB",
     estado: "activa",
     fechaActivacion: "01/03/2026",

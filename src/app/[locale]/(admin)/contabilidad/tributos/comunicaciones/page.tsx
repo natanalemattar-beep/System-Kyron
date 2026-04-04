@@ -24,7 +24,7 @@ const institutions = [
     { id: "sapi", name: "SAPI", address: "Servicio Autónomo de la Propiedad Intelectual (SAPI)\nDirección de Marcas y Patentes" },
     { id: "conatel", name: "CONATEL", address: "Comisión Nacional de Telecomunicaciones (CONATEL)\nGerencia de Habilitaciones" },
     { id: "ameru", name: "AMERU IA", address: "Ameru IA - Gestión Ambiental\nFundación Kyron para la Sostenibilidad" },
-    { id: "telecom_ops", name: "OPERADORAS TELECOM", address: "Gerencia de Interconexión\nOperadoras de Telefonía (Movistar / Digitel / Movilnet)" },
+    { id: "telecom_ops", name: "OPERADORAS TELECOM", address: "Gerencia de Interconexión\nOperadoras de Telefonía Nacional" },
     { id: "saren", name: "SAREN", address: "Servicio Autónomo de Registros y Notarías (SAREN)\nRegistro Mercantil / Notaría Pública" },
     { id: "minec", name: "MINEC", address: "Ministerio del Poder Popular para el Ecosocialismo (MINEC)\nDirección de Gestión de Residuos" },
     { id: "ivss", name: "IVSS", address: "Instituto Venezolano de los Seguros Sociales (IVSS)\nDirección de Afiliación" },

@@ -44,9 +44,6 @@ const integrationCategories = [
         titleKey: "cat_telecom",
         title: "Telecom & Conectividad",
         items: [
-            { name: "Digitel", icon: Wifi },
-            { name: "Movilnet", icon: Wifi },
-            { name: "Movistar", icon: Wifi },
             { name: "5G/eSIM", icon: Smartphone },
             { name: "PBX Virtual", icon: Server },
             { name: "WhatsApp API", icon: Smartphone },

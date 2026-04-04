@@ -907,7 +907,7 @@ async function createTelecomTables() {
       user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       numero            TEXT NOT NULL,
       operadora         TEXT NOT NULL
-                        CHECK (operadora IN ('movistar','digitel','movilnet','inter','cantv','simple','otro')),
+                        CHECK (operadora IN ('inter','cantv','simple','otro')),
       tipo_linea        TEXT NOT NULL DEFAULT 'postpago'
                         CHECK (tipo_linea IN ('prepago','postpago','datos','wan')),
       titular           TEXT,
