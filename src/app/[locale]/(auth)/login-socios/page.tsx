@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Users, ChartBar as BarChart3, ShieldCheck, Building2 } from "lucide-react";
+import { Users } from "lucide-react";
 
 export default function LoginSociosPage() {
     return (
@@ -12,13 +12,7 @@ export default function LoginSociosPage() {
             redirectPath="/dashboard-socios"
             icon={Users}
             accentColor="indigo-950"
-            bgPattern={
-                <div className="grid grid-cols-3 gap-16 p-16 opacity-5">
-                    <BarChart3 className="h-32 w-32" />
-                    <Building2 className="h-32 w-32" />
-                    <ShieldCheck className="h-32 w-32" />
-                </div>
-            }
+            layoutVariant="minimal"
             features={[
                 "Simulador Gemelo Digital",
                 "Reparto de Dividendos",

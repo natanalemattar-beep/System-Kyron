@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { ShoppingCart, Zap, Tag, TabletSmartphone } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 export default function LoginVentasPage() {
     return (
@@ -12,13 +12,7 @@ export default function LoginVentasPage() {
             redirectPath="/punto-de-venta"
             icon={ShoppingCart}
             accentColor="emerald-600"
-            bgPattern={
-                <div className="grid grid-cols-2 gap-20 p-10 opacity-10">
-                    <Zap className="h-32 w-32" />
-                    <Tag className="h-32 w-32" />
-                    <TabletSmartphone className="h-32 w-32" />
-                </div>
-            }
+            layoutVariant="centered"
             features={[
                 "TPV Multimoneda Instantáneo",
                 "Validación de RIF SENIAT",

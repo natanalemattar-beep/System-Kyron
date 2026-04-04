@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Banknote, Calculator, TrendingUp, Landmark } from "lucide-react";
+import { Calculator } from "lucide-react";
 
 export default function LoginEmpresaPage() {
     return (
@@ -12,14 +12,7 @@ export default function LoginEmpresaPage() {
             redirectPath="/resumen-negocio"
             icon={Calculator}
             accentColor="primary"
-            bgPattern={
-                <div className="grid grid-cols-4 gap-10 p-10 opacity-20">
-                    <Banknote className="h-20 w-20" />
-                    <TrendingUp className="h-20 w-20" />
-                    <Landmark className="h-20 w-20" />
-                    <Calculator className="h-20 w-20" />
-                </div>
-            }
+            layoutVariant="split-left"
             features={[
                 "Auditoría Forense con IA",
                 "Conciliación Bancaria T+0",

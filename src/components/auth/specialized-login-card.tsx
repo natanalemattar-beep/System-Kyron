@@ -1173,7 +1173,7 @@ export function SpecializedLoginCard({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <div className="[&_label]:text-white/70 [&_h2]:text-white [&_p]:text-white/40 [&_.text-foreground]:text-white [&_.text-foreground\\/80]:text-white/70 [&_.text-muted-foreground]:text-white/40 [&_.bg-muted\\/30]:bg-white/[0.05] [&_.bg-muted\\/20]:bg-white/[0.04] [&_.bg-card]:bg-white/[0.06] [&_.border-border\\/30]:border-white/[0.08] [&_.border-border\\/40]:border-white/[0.08] [&_.border-border\\/50]:border-white/[0.1] [&_.hover\\:text-foreground]:hover:text-white/80">
+            <div className="dark-immersive-form" style={{ '--di-fg': 'rgb(255 255 255)', '--di-fg-80': 'rgb(255 255 255 / 0.7)', '--di-muted': 'rgb(255 255 255 / 0.4)', '--di-muted-60': 'rgb(255 255 255 / 0.25)', '--di-bg-subtle': 'rgb(255 255 255 / 0.05)', '--di-bg-card': 'rgb(255 255 255 / 0.06)', '--di-border': 'rgb(255 255 255 / 0.08)', '--di-border-strong': 'rgb(255 255 255 / 0.1)' } as React.CSSProperties}>
               {formContent}
             </div>
           </motion.div>

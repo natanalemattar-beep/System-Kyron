@@ -2,7 +2,7 @@
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
-import { Recycle, Leaf, Coins, Globe } from "lucide-react";
+import { Recycle } from "lucide-react";
 
 export default function LoginSostenibilidadPage() {
     return (
@@ -12,13 +12,7 @@ export default function LoginSostenibilidadPage() {
             redirectPath="/sostenibilidad"
             icon={Recycle}
             accentColor="emerald-800"
-            bgPattern={
-                <div className="flex flex-col gap-12 p-12 opacity-10">
-                    <Leaf className="h-20 w-20 ml-20" />
-                    <Coins className="h-20 w-20" />
-                    <Globe className="h-20 w-20 ml-10" />
-                </div>
-            }
+            layoutVariant="stacked"
             features={[
                 "Telemetría Ameru IA",
                 "Exchange de Eco-Créditos",
