@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -264,31 +264,39 @@ export default function RegisterJuridicoPage() {
     }
   };
 
-  const verifyCode = async () => {
-    if (verifCode.length !== 6) {
-      toast({ title: 'Código inválido', description: 'El código debe tener 6 dígitos.', variant: 'destructive' });
-      return;
-    }
+  const verifyingRef = useRef(false);
+  const verifyCode = useCallback(async (code: string) => {
+    if (code.length !== 6 || verifyingRef.current || verifVerified) return;
+    verifyingRef.current = true;
     setVerifLoading(true);
     try {
       const res = await fetch('/api/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: verifCode }),
+        body: JSON.stringify({ destino: verifDestino, codigo: code }),
       });
       const json = await res.json();
       if (!res.ok) {
         toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
+        setVerifCode('');
         return;
       }
       setVerifVerified(true);
       toast({ title: '¡Verificado!', description: 'Identidad confirmada.' });
     } catch {
       toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
+      setVerifCode('');
     } finally {
       setVerifLoading(false);
+      verifyingRef.current = false;
     }
-  };
+  }, [verifDestino, verifVerified, toast]);
+
+  useEffect(() => {
+    if (verifCode.length === 6 && verifSent && !verifVerified) {
+      verifyCode(verifCode);
+    }
+  }, [verifCode, verifSent, verifVerified, verifyCode]);
 
   const nextStep = async () => {
     if (step === 1) {
@@ -808,14 +816,12 @@ export default function RegisterJuridicoPage() {
                             className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-center text-2xl tracking-[0.5em] font-mono text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           />
                         </div>
-                        <button
-                          type="button"
-                          className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
-                          onClick={verifyCode}
-                          disabled={verifLoading || verifCode.length !== 6}
-                        >
-                          {verifLoading ? <><Loader2 className="h-4 w-4 animate-spin" /> Verificando...</> : <><ShieldCheck className="h-4 w-4" /> Verificar Código</>}
-                        </button>
+                        {verifLoading && (
+                          <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Verificando...
+                          </div>
+                        )}
                         <div className="text-center">
                           {countdown > 0 ? (
                             <p className="text-xs text-muted-foreground">Nuevo código disponible en <strong>{countdown}s</strong></p>

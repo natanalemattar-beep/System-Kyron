@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -317,21 +317,21 @@ export default function RegisterContabilidadPage() {
         }
     };
 
-    const verifyCode = async () => {
-        if (verifCode.length !== 6) {
-            toast({ title: 'Código inválido', description: 'El código debe tener 6 dígitos.', variant: 'destructive' });
-            return;
-        }
+    const verifyingRef = useRef(false);
+    const verifyCode = useCallback(async (code: string) => {
+        if (code.length !== 6 || verifyingRef.current || verifVerified) return;
+        verifyingRef.current = true;
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino: verifDestino, codigo: verifCode }),
+                body: JSON.stringify({ destino: verifDestino, codigo: code }),
             });
             const json = await res.json();
             if (!res.ok) {
                 toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
+                setVerifCode('');
                 return;
             }
             setVerifVerified(true);
@@ -339,10 +339,18 @@ export default function RegisterContabilidadPage() {
             toast({ title: '¡Verificado!', description: verifiedLabel });
         } catch {
             toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
+            setVerifCode('');
         } finally {
             setVerifLoading(false);
+            verifyingRef.current = false;
         }
-    };
+    }, [verifDestino, verifVerified, verifMethod, toast]);
+
+    useEffect(() => {
+        if (verifCode.length === 6 && verifSent && !verifVerified) {
+            verifyCode(verifCode);
+        }
+    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
     const nextStep = async () => {
         if (step === 1) {
@@ -1009,9 +1017,12 @@ export default function RegisterContabilidadPage() {
                                                     onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                                                     className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-400 text-slate-800 dark:text-slate-100 shadow-sm dark:shadow-none"
                                                 />
-                                                <Button type="button" className="w-full h-12 rounded-xl font-bold text-white shadow-md" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }} onClick={verifyCode} disabled={verifLoading || verifCode.length !== 6}>
-                                                    {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Verificando...</> : <><ShieldCheck className="mr-2 h-4 w-4" />Verificar Código</>}
-                                                </Button>
+                                                {verifLoading && (
+                                                    <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
+                                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                                        Verificando...
+                                                    </div>
+                                                )}
                                                 <div className="text-center">
                                                     {countdown > 0 ? (
                                                         <p className="text-xs text-slate-500 dark:text-slate-400">Reenviar en <span className="font-bold text-blue-600">{countdown}s</span></p>

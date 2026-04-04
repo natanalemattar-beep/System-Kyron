@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -266,14 +266,17 @@ export default function RegisterSostenibilidadPage() {
         }
     };
 
-    const verifyCode = async () => {
+    const verifyingRef = useRef(false);
+    const verifyCode = useCallback(async (code: string) => {
+        if (code.length !== 6 || verifyingRef.current || verifVerified) return;
+        verifyingRef.current = true;
         const destino = verifMethod === "email" ? getValues("repEmail") : getValues("rep_telefono");
         setVerifLoading(true);
         try {
             const res = await fetch("/api/auth/verify-code", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ destino, codigo: verifCode }),
+                body: JSON.stringify({ destino, codigo: code }),
             });
             if (!res.ok) throw new Error((await res.json()).error);
             setVerifVerified(true);
@@ -284,10 +287,18 @@ export default function RegisterSostenibilidadPage() {
                 description: e.message,
                 variant: "destructive",
             });
+            setVerifCode('');
         } finally {
             setVerifLoading(false);
+            verifyingRef.current = false;
         }
-    };
+    }, [verifMethod, verifVerified, toast, getValues]);
+
+    useEffect(() => {
+        if (verifCode.length === 6 && verifSent && !verifVerified) {
+            verifyCode(verifCode);
+        }
+    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
     const onSubmit = async (data: FormData) => {
         if (!verifVerified) {
@@ -899,27 +910,12 @@ export default function RegisterSostenibilidadPage() {
                                             }
                                             className="text-center text-2xl tracking-[0.5em] font-mono"
                                         />
-                                        <Button
-                                            type="button"
-                                            className="w-full"
-                                            onClick={verifyCode}
-                                            disabled={
-                                                verifLoading ||
-                                                verifCode.length !== 6
-                                            }
-                                        >
-                                            {verifLoading ? (
-                                                <>
-                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                                    Verificando...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <ShieldCheck className="mr-2 h-4 w-4" />
-                                                    Verificar
-                                                </>
-                                            )}
-                                        </Button>
+                                        {verifLoading && (
+                                            <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                                Verificando...
+                                            </div>
+                                        )}
                                         <div className="text-center">
                                             {countdown > 0 ? (
                                                 <p className="text-xs text-muted-foreground">

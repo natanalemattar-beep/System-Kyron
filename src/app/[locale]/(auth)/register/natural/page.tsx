@@ -227,31 +227,39 @@ export default function RegisterNaturalPage() {
     }
   };
 
-  const verifyCode = async () => {
-    if (verifCode.length !== 6) {
-      toast({ title: 'Código inválido', description: 'El código debe tener 6 dígitos.', variant: 'destructive' });
-      return;
-    }
+  const verifyingRef = useRef(false);
+  const verifyCode = useCallback(async (code: string) => {
+    if (code.length !== 6 || verifyingRef.current || verifVerified) return;
+    verifyingRef.current = true;
     setVerifLoading(true);
     try {
       const res = await fetch('/api/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: verifCode }),
+        body: JSON.stringify({ destino: verifDestino, codigo: code }),
       });
       const json = await res.json();
       if (!res.ok) {
         toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
+        setVerifCode('');
         return;
       }
       setVerifVerified(true);
       toast({ title: '¡Verificado!', description: 'Tu identidad ha sido confirmada.' });
     } catch {
       toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
+      setVerifCode('');
     } finally {
       setVerifLoading(false);
+      verifyingRef.current = false;
     }
-  };
+  }, [verifDestino, verifVerified, toast]);
+
+  useEffect(() => {
+    if (verifCode.length === 6 && verifSent && !verifVerified) {
+      verifyCode(verifCode);
+    }
+  }, [verifCode, verifSent, verifVerified, verifyCode]);
 
   const onSubmit = async (data: FormData) => {
     if (!verifVerified) {
@@ -898,18 +906,12 @@ export default function RegisterNaturalPage() {
                             className="text-center text-2xl tracking-[0.5em] font-mono rounded-2xl bg-muted/30 border-border/50 h-14"
                           />
                         </div>
-                        <Button
-                          type="button"
-                          className="w-full h-12 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-500 hover:opacity-90 text-white font-bold shadow-md"
-                          onClick={verifyCode}
-                          disabled={verifLoading || verifCode.length !== 6}
-                        >
-                          {verifLoading ? (
-                            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verificando...</>
-                          ) : (
-                            <><ShieldCheck className="mr-2 h-4 w-4" /> Verificar Código</>
-                          )}
-                        </Button>
+                        {verifLoading && (
+                          <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Verificando...
+                          </div>
+                        )}
                         <div className="text-center">
                           {countdown > 0 ? (
                             <p className="text-xs text-muted-foreground">
