@@ -229,6 +229,7 @@ export default function RegisterContabilidadPage() {
     const searchParams = useSearchParams();
     const [step, setStep] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const [billingPeriod, setBillingPeriod] = useState<'mensual' | 'anual'>('mensual');
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
@@ -439,7 +440,8 @@ export default function RegisterContabilidadPage() {
                     regimen_iva: data.regimen_iva || 'General',
                     modules: variant.modules,
                     plan: selectedPlan,
-                    plan_monto: planData?.precio ?? 0,
+                    plan_periodo: billingPeriod,
+                    plan_monto: billingPeriod === 'anual' ? Math.round((planData?.precio ?? 0) * 0.8) : (planData?.precio ?? 0),
                 }),
             });
             const result = await res.json();
@@ -532,11 +534,35 @@ export default function RegisterContabilidadPage() {
                                         <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Elige tu plan contable</h2>
                                         <p className="text-sm text-slate-500 dark:text-slate-400">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
                                     </div>
+
+                                    <div className="flex items-center justify-center gap-3">
+                                        <span className={cn("text-sm font-bold transition-colors", billingPeriod === 'mensual' ? "text-slate-800 dark:text-slate-100" : "text-slate-400 dark:text-slate-500")}>Mensual</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => setBillingPeriod(billingPeriod === 'mensual' ? 'anual' : 'mensual')}
+                                            className={cn(
+                                                "relative w-14 h-7 rounded-full transition-all duration-300 shrink-0",
+                                                billingPeriod === 'anual' ? "bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-md shadow-emerald-500/30" : "bg-slate-200 dark:bg-slate-700"
+                                            )}
+                                        >
+                                            <div className={cn(
+                                                "absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-all duration-300",
+                                                billingPeriod === 'anual' ? "left-[calc(100%-1.625rem)]" : "left-0.5"
+                                            )} />
+                                        </button>
+                                        <span className={cn("text-sm font-bold transition-colors", billingPeriod === 'anual' ? "text-slate-800 dark:text-slate-100" : "text-slate-400 dark:text-slate-500")}>Anual</span>
+                                        {billingPeriod === 'anual' && (
+                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/50">-20%</span>
+                                        )}
+                                    </div>
+
                                     <div className="grid grid-cols-2 gap-4">
                                         {PLANES.map((plan) => {
                                             const c = colorMap[plan.color];
                                             const isSelected = selectedPlan === plan.id;
                                             const Icon = plan.icon;
+                                            const displayPrice = billingPeriod === 'anual' ? Math.round(plan.precio * 0.8) : plan.precio;
+                                            const annualTotal = displayPrice * 12;
                                             return (
                                                 <button
                                                     key={plan.id}
@@ -574,9 +600,15 @@ export default function RegisterContabilidadPage() {
                                                     </div>
                                                     <p className={cn("text-xs font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
                                                     <div className="flex items-baseline gap-0.5 mt-1">
-                                                        <span className="text-2xl font-black text-slate-800 dark:text-slate-100">${plan.precio}</span>
+                                                        <span className="text-2xl font-black text-slate-800 dark:text-slate-100">${displayPrice}</span>
                                                         <span className="text-xs font-bold text-slate-400 dark:text-slate-500">/mes</span>
                                                     </div>
+                                                    {billingPeriod === 'anual' && (
+                                                        <div className="flex items-center gap-1.5 mt-1">
+                                                            <span className="text-[11px] font-semibold text-slate-400 line-through">${plan.precio * 12}/año</span>
+                                                            <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">${annualTotal}/año</span>
+                                                        </div>
+                                                    )}
                                                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{plan.descripcion}</p>
                                                     <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 space-y-2">
                                                         {plan.features.map((f, i) => (
@@ -617,7 +649,11 @@ export default function RegisterContabilidadPage() {
                                             </div>
                                             <div className="flex-1">
                                                 <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400">${planData.precio}/mes</p>
+                                                <p className="text-xs text-slate-500 dark:text-slate-400">
+                                                    ${billingPeriod === 'anual' ? Math.round(planData.precio * 0.8) : planData.precio}/mes
+                                                    {billingPeriod === 'anual' && <span className="ml-1 text-emerald-600 dark:text-emerald-400 font-bold">(facturación anual)</span>}
+                                                    {billingPeriod === 'mensual' && <span className="ml-1">(facturación mensual)</span>}
+                                                </p>
                                             </div>
                                             <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 px-3 py-1.5 rounded-xl hover:bg-white/80 dark:hover:bg-slate-700/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600">Cambiar</button>
                                         </div>
@@ -1059,7 +1095,10 @@ export default function RegisterContabilidadPage() {
                                                 </div>
                                                 <div>
                                                     <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">${planData.precio}/mes</p>
+                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">
+                                                        ${billingPeriod === 'anual' ? Math.round(planData.precio * 0.8) : planData.precio}/mes
+                                                        <span className="text-[10px] font-bold text-slate-400 ml-1">({billingPeriod === 'anual' ? 'anual' : 'mensual'})</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
