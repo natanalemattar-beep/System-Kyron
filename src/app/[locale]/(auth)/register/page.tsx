@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { Logo } from "@/components/logo";
 
 type DetectedType = null | "natural" | "juridico";
 
@@ -285,7 +286,7 @@ function KyronLogo() {
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 via-cyan-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
-                    <Cpu className="h-7 w-7 text-white" />
+                    <Logo className="h-7 w-7 text-white" />
                 </div>
             </div>
             <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 tracking-[0.25em]">SYSTEM KYRON</p>
@@ -316,7 +317,7 @@ function BrandingPanel() {
                         <div className="relative">
                             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 blur-lg opacity-40" />
                             <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-sky-500/20">
-                                <Cpu className="h-5 w-5 text-white" />
+                                <Logo className="h-5 w-5 text-white" />
                             </div>
                         </div>
                         <div>
