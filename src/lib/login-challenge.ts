@@ -1,10 +1,11 @@
 import crypto from 'crypto';
 
 const CHALLENGE_EXPIRY_MS = 15 * 60 * 1000;
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required');
+const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
+if (!resolvedSecret && process.env.NODE_ENV === 'production') {
+  throw new Error('JWT_SECRET or SESSION_SECRET environment variable is required in production');
 }
-const SECRET: string = process.env.JWT_SECRET;
+const SECRET: string = resolvedSecret || 'dev-only-insecure-fallback-secret';
 
 export function createLoginChallenge(email: string, userId: number): string {
   const payload = {

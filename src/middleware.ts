@@ -39,11 +39,13 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const COOKIE_NAME = 'sk_session';
 
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required');
+const resolvedSecret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
+if (!resolvedSecret && IS_PRODUCTION) {
+  throw new Error('JWT_SECRET or SESSION_SECRET environment variable is required in production');
 }
-
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+const JWT_SECRET = new TextEncoder().encode(
+  resolvedSecret || 'dev-only-insecure-fallback-secret'
+);
 
 // Page segments (after locale prefix) that are publicly accessible
 const PUBLIC_SEGMENTS = new Set([
