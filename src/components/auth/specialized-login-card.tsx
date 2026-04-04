@@ -16,6 +16,8 @@ import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive';
+
 const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: string; inputRing: string; codeBorder: string; btnBg: string; glowFrom: string }> = {
   'primary':     { gradient: 'from-blue-600 via-primary to-indigo-700',     accent: 'text-blue-500',    ring: 'ring-blue-500/20',    inputRing: 'focus-visible:ring-blue-500/30 focus-visible:border-blue-500/50', codeBorder: 'border-blue-500', btnBg: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500', glowFrom: 'rgba(59,130,246,0.15)' },
   'secondary':   { gradient: 'from-emerald-600 via-secondary to-teal-700',  accent: 'text-emerald-500', ring: 'ring-emerald-500/20', inputRing: 'focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50', codeBorder: 'border-emerald-500', btnBg: 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500', glowFrom: 'rgba(16,185,129,0.15)' },
@@ -26,6 +28,7 @@ const ACCENT_THEMES: Record<string, { gradient: string; accent: string; ring: st
   'blue-900':    { gradient: 'from-blue-900 via-blue-800 to-cyan-800',       accent: 'text-cyan-500',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50', codeBorder: 'border-cyan-500', btnBg: 'bg-gradient-to-r from-blue-800 to-cyan-800 hover:from-blue-700 hover:to-cyan-700', glowFrom: 'rgba(6,182,212,0.15)' },
   'amber-700':   { gradient: 'from-amber-700 via-amber-600 to-orange-700',   accent: 'text-amber-500',   ring: 'ring-amber-500/20',   inputRing: 'focus-visible:ring-amber-500/30 focus-visible:border-amber-500/50', codeBorder: 'border-amber-500', btnBg: 'bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500', glowFrom: 'rgba(245,158,11,0.15)' },
   'rose-800':    { gradient: 'from-rose-800 via-rose-700 to-pink-800',       accent: 'text-rose-500',    ring: 'ring-rose-500/20',    inputRing: 'focus-visible:ring-rose-500/30 focus-visible:border-rose-500/50', codeBorder: 'border-rose-500', btnBg: 'bg-gradient-to-r from-rose-700 to-pink-700 hover:from-rose-600 hover:to-pink-600', glowFrom: 'rgba(244,63,94,0.15)' },
+  'cyan-700':    { gradient: 'from-cyan-700 via-cyan-600 to-sky-700',        accent: 'text-cyan-500',    ring: 'ring-cyan-500/20',    inputRing: 'focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50', codeBorder: 'border-cyan-500', btnBg: 'bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500', glowFrom: 'rgba(6,182,212,0.15)' },
 };
 
 interface SpecializedLoginCardProps {
@@ -36,6 +39,7 @@ interface SpecializedLoginCardProps {
   accentColor?: string;
   bgPattern?: React.ReactNode;
   features?: string[];
+  layoutVariant?: LayoutVariant;
   footerLinks?: {
     primary: { href: string; text: string };
     secondaryLinks?: {
@@ -52,6 +56,7 @@ export function SpecializedLoginCard({
   icon: Icon,
   accentColor = 'primary',
   features = [],
+  layoutVariant = 'split-left',
   footerLinks,
 }: SpecializedLoginCardProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -287,565 +292,913 @@ export function SpecializedLoginCard({
     }
   };
 
-  return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
-        <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-primary/[0.03] to-transparent" />
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[150px] opacity-60" style={{ background: theme.glowFrom }} />
-        <div className="absolute bottom-[20%] right-[10%] w-[300px] h-[300px] rounded-full bg-primary/[0.02] blur-[100px]" />
-        <svg className="absolute inset-0 w-full h-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="lgGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/></pattern></defs>
-          <rect width="100%" height="100%" fill="url(#lgGrid)"/>
-        </svg>
-        {[...Array(5)].map((_, i) => (
+  const formContent = (
+    <>
+      <AnimatePresence mode="wait">
+        {step === 'credentials' ? (
           <motion.div
-            key={i}
-            className="absolute rounded-full"
-            animate={{
-              opacity: [0.15, 0.4, 0.15],
-              y: [0, -15, 0],
-            }}
-            transition={{ duration: 6 + i, repeat: Infinity, delay: i * 1.2, ease: "easeInOut" }}
-            style={{
-              width: 3 + (i % 3) * 2,
-              height: 3 + (i % 3) * 2,
-              left: `${15 + i * 18}%`,
-              top: `${20 + (i % 4) * 20}%`,
-              background: `linear-gradient(135deg, ${theme.glowFrom}, transparent)`,
-            }}
-          />
-        ))}
+            key="credentials"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="mb-6">
+              <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+              <p className="text-[13px] text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
+            </div>
+
+            <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
+              <button
+                type="button"
+                onClick={() => { setLoginMode('email'); setError(null); }}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                  loginMode === 'email'
+                    ? cn("bg-card shadow-sm border border-border/30", theme.accent)
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Mail className="h-3.5 w-3.5" /> Correo
+              </button>
+              <button
+                type="button"
+                onClick={() => { setLoginMode('phone'); setError(null); }}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
+                  loginMode === 'phone'
+                    ? "bg-card shadow-sm border border-border/30 text-emerald-500"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Smartphone className="h-3.5 w-3.5" /> Teléfono
+              </button>
+            </div>
+
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden mb-5"
+                >
+                  {error === 'NO_ACCOUNT' ? (
+                    <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                      <div className="flex items-start gap-3">
+                        <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="text-[13px] font-semibold text-foreground">Credenciales incorrectas</p>
+                          <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva.</p>
+                        </div>
+                      </div>
+                      <Link href="/register">
+                        <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 hover:text-amber-700 dark:hover:text-amber-300">
+                          <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
+                        </Button>
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
+                      <div className="flex items-start gap-3">
+                        <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                        <p className="text-[13px] text-destructive">{error}</p>
+                      </div>
+                      {emailDeliveryFailed && savedCredentials && (
+                        <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
+                          <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
+              {loginMode === 'email' ? (
+                <motion.form
+                  key="email-form"
+                  onSubmit={handleAuth}
+                  className="space-y-5"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="space-y-2">
+                    <Label className="text-[13px] font-semibold text-foreground/80">Correo Electrónico</Label>
+                    <div className="relative group">
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                      <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <Label className="text-[13px] font-semibold text-foreground/80">Contraseña</Label>
+                      <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
+                    </div>
+                    <div className="relative group">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                      <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
+                      <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setUseAccessKey(v => !v)}
+                      className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
+                    >
+                      <KeyRound className="h-3.5 w-3.5" />
+                      {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
+                    </button>
+                    <AnimatePresence>
+                      {useAccessKey && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="overflow-hidden space-y-2"
+                        >
+                          <div className="relative group">
+                            <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
+                            <Input
+                              name="accessKey"
+                              type={showAccessKey ? 'text' : 'password'}
+                              placeholder="Tu llave personal"
+                              autoComplete="off"
+                              minLength={6}
+                              className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)}
+                            />
+                            <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
+                              {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                          <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
+                            Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.btnBg)} disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  </Button>
+                </motion.form>
+              ) : (
+                <motion.form
+                  key="phone-form"
+                  onSubmit={handlePhoneLogin}
+                  className="space-y-5"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+                    <div className="flex items-start gap-2.5">
+                      <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-[12px] font-semibold text-foreground/80">Acceso sin contraseña</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">Recibirás un código de 6 dígitos en tu teléfono para verificar tu identidad.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-[13px] font-semibold text-foreground/80">Número de Teléfono</Label>
+                    <div className="relative group">
+                      <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-emerald-500 transition-colors" />
+                      <Input name="phone" type="tel" placeholder="04XX-XXXXXXX" required autoComplete="tel" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50")} />
+                    </div>
+                    <p className="text-[10px] text-muted-foreground/50">El número debe estar registrado en tu cuenta</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-[13px] font-semibold text-foreground/80">Recibir código por</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPhoneMethod('sms')}
+                        className={cn(
+                          "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          phoneMethod === 'sms'
+                            ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500"
+                            : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                        )}
+                      >
+                        <MessageSquare className="h-4 w-4" /> SMS
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPhoneMethod('whatsapp')}
+                        className={cn(
+                          "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
+                          phoneMethod === 'whatsapp'
+                            ? "border-green-500/50 bg-green-500/5 text-green-500"
+                            : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
+                        )}
+                      >
+                        <MessageCircle className="h-4 w-4" /> WhatsApp
+                      </button>
+                    </div>
+                  </div>
+
+                  <Button type="submit" className="w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  </Button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+
+            <div className="mt-8 pt-6 border-t border-border/30 space-y-4">
+              <Button variant="outline" asChild className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
+                <Link href="/register" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Crear Cuenta</Link>
+              </Button>
+              <p className="text-center text-xs text-muted-foreground/60">
+                <Link href="/recuperar-cuenta" className="hover:text-foreground transition-colors">¿Problemas para acceder? Recuperar cuenta</Link>
+              </p>
+              {footerLinks?.secondaryLinks && (
+                <div className="text-center text-xs text-muted-foreground space-y-1 mt-2">
+                  {footerLinks.secondaryLinks.title && <p className="font-medium">{footerLinks.secondaryLinks.title}</p>}
+                  {footerLinks.secondaryLinks.links.map(link => (
+                    <Link key={link.href} href={link.href as any} className={cn("block font-medium hover:underline", theme.accent)}>{link.text}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="verification"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="mb-8 text-center">
+              <motion.div
+                className={cn("mx-auto w-16 h-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-5")}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3, type: "spring" }}
+              >
+                {verificationMethod === 'whatsapp'
+                  ? <MessageCircle className={cn("h-7 w-7 text-green-500")} />
+                  : verificationMethod === 'sms'
+                    ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
+                    : <KeyRound className={cn("h-7 w-7", theme.accent)} />
+                }
+              </motion.div>
+              <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
+              <p className="text-[13px] text-muted-foreground mt-2">
+                {devCode ? 'Ingresa el código mostrado abajo' : (
+                  <>Código de 6 dígitos enviado a{' '}
+                  <strong className="text-foreground">
+                    {verificationMethod === 'email' ? maskedEmail : maskedPhone}
+                  </strong>
+                  {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
+                  </>
+                )}
+              </p>
+              {!devCode && verificationMethod === 'email' && (
+                <p className="text-[11px] text-muted-foreground/60 mt-1.5">
+                  También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
+                </p>
+              )}
+              {countdown > 0 && (
+                <p className="text-xs text-muted-foreground mt-1.5">
+                  Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
+                </p>
+              )}
+
+              {hasPhone && (
+                <div className="flex items-center justify-center gap-1.5 mt-4 flex-wrap">
+                  {([
+                    { method: 'email' as const, icon: Mail, label: 'Correo', activeColor: theme.accent },
+                    { method: 'sms' as const, icon: Smartphone, label: 'SMS', activeColor: theme.accent },
+                    { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', activeColor: 'text-green-500' },
+                  ]).map(({ method, icon: MethodIcon, label, activeColor }) => (
+                    <button
+                      key={method}
+                      type="button"
+                      onClick={() => handleSwitchMethod(method)}
+                      disabled={switchingMethod || isLoading}
+                      className={cn(
+                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
+                        verificationMethod === method
+                          ? cn("bg-primary/10 border border-primary/20", activeColor)
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
+                      )}
+                    >
+                      <MethodIcon className="h-3.5 w-3.5" />
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {switchingMethod && (
+                <div className="flex items-center justify-center gap-2 mt-3">
+                  <Loader2 className={cn("h-3.5 w-3.5 animate-spin", theme.accent)} />
+                  <span className="text-[11px] text-muted-foreground">Enviando código...</span>
+                </div>
+              )}
+            </div>
+
+            {devCode && (
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 mb-5">
+                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
+                  <Shield className="h-4 w-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
+                  <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
+                  <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
+                  <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
+                </div>
+              </div>
+            )}
+
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden mb-5"
+                >
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
+                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-[13px] text-destructive">{error}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mb-6">
+              {codeDigits.map((digit, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
+                >
+                  <Input
+                    ref={el => { inputRefs.current[i] = el; }}
+                    type="text" inputMode="numeric" maxLength={6} value={digit}
+                    onChange={e => handleCodeChange(i, e.target.value)}
+                    onKeyDown={e => handleCodeKeyDown(i, e)}
+                    onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
+                    className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-black rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
+                    disabled={isLoading} autoComplete="one-time-code"
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            {isLoading && (
+              <div className="flex items-center justify-center gap-2 mb-5">
+                <Loader2 className={cn("h-4 w-4 animate-spin", theme.accent)} />
+                <span className="text-[13px] text-muted-foreground">Verificando...</span>
+              </div>
+            )}
+
+            <div className="space-y-3 mt-4">
+              <Button variant="outline" onClick={handleResendCode} className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40" disabled={isLoading}>
+                <RotateCcw className="mr-2 h-4 w-4" /> Volver a iniciar sesión
+              </Button>
+              <p className="text-center text-xs text-muted-foreground/60">
+                ¿No recibiste el código?{' '}
+                <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading}>Solicitar nuevo</button>
+                {hasPhone && verificationMethod === 'email' && (
+                  <>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                      SMS
+                    </button>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
+                      WhatsApp
+                    </button>
+                  </>
+                )}
+                {verificationMethod === 'sms' && (
+                  <>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                      Correo
+                    </button>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
+                      WhatsApp
+                    </button>
+                  </>
+                )}
+                {verificationMethod === 'whatsapp' && (
+                  <>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                      Correo
+                    </button>
+                    {' · '}
+                    <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
+                      SMS
+                    </button>
+                  </>
+                )}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+
+  const brandPanel = (
+    <div className={cn('hidden md:flex relative overflow-hidden flex-col justify-between text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/[0.07] blur-[80px]" />
+        <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-white/[0.05] blur-[60px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white/[0.02] blur-[100px]" />
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="loginGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.4"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#loginGrid)"/>
+        </svg>
       </div>
 
-      <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
-        <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
-          <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
-        </Link>
-      </Button>
+      <div className="relative z-10 space-y-8">
+        <motion.div
+          className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+        >
+          <Icon className="h-7 w-7 text-white" />
+        </motion.div>
+        <div className="space-y-3">
+          <motion.h1
+            className="text-2xl md:text-3xl font-black tracking-tight leading-tight"
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.25, duration: 0.4 }}
+          >
+            {portalName}
+          </motion.h1>
+          <motion.p
+            className="text-[13px] font-medium text-white/70 leading-relaxed max-w-sm"
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
+            {portalDescription}
+          </motion.p>
+        </div>
+      </div>
 
+      {features.length > 0 && (
+        <motion.div
+          className="relative z-10 mt-10"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.4 }}
+        >
+          <div className="h-px bg-white/10 mb-6" />
+          <ul className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.li
+                key={i}
+                className="flex items-center gap-3 text-[13px] font-medium text-white/80"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.45 + i * 0.06, duration: 0.3 }}
+              >
+                <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
+                </div>
+                {feature}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+
+      <motion.div
+        className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.3 }}
+      >
+        <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Sistema activo · Enlace seguro
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  const mobileHeader = (
+    <div className={cn("flex md:hidden items-center gap-3 mb-6 pb-5 border-b border-border/20")}>
+      <div className={cn("h-10 w-10 rounded-xl bg-gradient-to-br flex items-center justify-center shadow text-white shrink-0", theme.gradient)}>
+        <Icon className="h-5 w-5" />
+      </div>
+      <div>
+        <p className="text-sm font-black tracking-tight text-foreground">{portalName}</p>
+        <p className="text-[11px] text-muted-foreground leading-tight">{portalDescription}</p>
+      </div>
+    </div>
+  );
+
+  const backButton = (
+    <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground z-20">
+      <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
+        <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
+      </Link>
+    </Button>
+  );
+
+  const pageBackground = (
+    <div className="absolute inset-0 -z-10 overflow-hidden bg-gradient-to-br from-background via-background to-muted/30">
+      <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-primary/[0.03] to-transparent" />
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[150px] opacity-60" style={{ background: theme.glowFrom }} />
+      <div className="absolute bottom-[20%] right-[10%] w-[300px] h-[300px] rounded-full bg-primary/[0.02] blur-[100px]" />
+      <svg className="absolute inset-0 w-full h-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
+        <defs><pattern id="lgGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5"/></pattern></defs>
+        <rect width="100%" height="100%" fill="url(#lgGrid)"/>
+      </svg>
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          animate={{ opacity: [0.15, 0.4, 0.15], y: [0, -15, 0] }}
+          transition={{ duration: 6 + i, repeat: Infinity, delay: i * 1.2, ease: "easeInOut" }}
+          style={{
+            width: 3 + (i % 3) * 2,
+            height: 3 + (i % 3) * 2,
+            left: `${15 + i * 18}%`,
+            top: `${20 + (i % 4) * 20}%`,
+            background: `linear-gradient(135deg, ${theme.glowFrom}, transparent)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+
+  if (layoutVariant === 'split-right') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+        {pageBackground}
+        {backButton}
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
+        >
+          <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
+            {mobileHeader}
+            {formContent}
+          </div>
+          {brandPanel}
+        </motion.div>
+        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  if (layoutVariant === 'centered') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className={cn("absolute inset-0 bg-gradient-to-br opacity-[0.06]", theme.gradient)} />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[200px] opacity-40" style={{ background: theme.glowFrom }} />
+          <div className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-background to-transparent" />
+          <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
+            <defs><pattern id="centeredHex" width="56" height="100" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+              <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100" fill="none" stroke="currentColor" strokeWidth="0.3"/>
+            </pattern></defs>
+            <rect width="100%" height="100%" fill="url(#centeredHex)"/>
+          </svg>
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              animate={{ opacity: [0.1, 0.35, 0.1], scale: [1, 1.3, 1] }}
+              transition={{ duration: 5 + i * 0.8, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
+              style={{
+                width: 4 + (i % 4) * 3,
+                height: 4 + (i % 4) * 3,
+                left: `${8 + i * 12}%`,
+                top: `${10 + (i % 5) * 18}%`,
+                background: `radial-gradient(circle, ${theme.glowFrom}, transparent)`,
+              }}
+            />
+          ))}
+        </div>
+        {backButton}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-[480px] relative"
+        >
+          <div className="text-center mb-8">
+            <motion.div
+              className={cn("mx-auto h-16 w-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-xl shadow-black/20 mb-5", theme.gradient)}
+              initial={{ scale: 0.7, opacity: 0, rotate: -10 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              transition={{ delay: 0.15, duration: 0.5, type: "spring" }}
+            >
+              <Icon className="h-8 w-8 text-white" />
+            </motion.div>
+            <motion.h1
+              className={cn("text-3xl font-black tracking-tight bg-gradient-to-r bg-clip-text text-transparent", theme.gradient)}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.4 }}
+            >
+              {portalName}
+            </motion.h1>
+            <motion.p
+              className="text-[13px] text-muted-foreground mt-2 max-w-sm mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.4 }}
+            >
+              {portalDescription}
+            </motion.p>
+            {features.length > 0 && (
+              <motion.div
+                className="flex items-center justify-center gap-4 mt-4 flex-wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
+                {features.map((f, i) => (
+                  <span key={i} className={cn("inline-flex items-center gap-1.5 text-[11px] font-semibold", theme.accent)}>
+                    <ShieldCheck className="h-3 w-3" />
+                    {f}
+                  </span>
+                ))}
+              </motion.div>
+            )}
+          </div>
+          <motion.div
+            className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl shadow-black/[0.08]"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            {formContent}
+          </motion.div>
+        </motion.div>
+        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  if (layoutVariant === 'stacked') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+        {pageBackground}
+        {backButton}
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[540px] rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
+        >
+          <div className={cn('relative overflow-hidden text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/[0.07] blur-[70px]" />
+              <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-white/[0.05] blur-[50px]" />
+              <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+                <defs><pattern id="stackedDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white" opacity="0.5"/></pattern></defs>
+                <rect width="100%" height="100%" fill="url(#stackedDots)"/>
+              </svg>
+            </div>
+            <div className="relative z-10 flex items-center gap-5">
+              <motion.div
+                className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg shrink-0"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+              >
+                <Icon className="h-7 w-7 text-white" />
+              </motion.div>
+              <div>
+                <motion.h1
+                  className="text-2xl font-black tracking-tight"
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.25, duration: 0.4 }}
+                >
+                  {portalName}
+                </motion.h1>
+                <motion.p
+                  className="text-[12px] font-medium text-white/60 mt-1 max-w-sm"
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                >
+                  {portalDescription}
+                </motion.p>
+              </div>
+            </div>
+            {features.length > 0 && (
+              <motion.div
+                className="relative z-10 flex items-center gap-3 mt-6 flex-wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
+                {features.map((f, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 text-[11px] font-semibold text-white/80 border border-white/[0.08]">
+                    <ShieldCheck className="h-3 w-3 text-emerald-300" />
+                    {f}
+                  </span>
+                ))}
+              </motion.div>
+            )}
+          </div>
+          <div className="p-6 md:p-10 bg-card">
+            {formContent}
+          </div>
+        </motion.div>
+        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  if (layoutVariant === 'minimal') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background to-muted/20">
+          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full blur-[180px] opacity-30" style={{ background: theme.glowFrom }} />
+        </div>
+        {backButton}
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[440px]"
+        >
+          <div className="flex items-center gap-4 mb-8">
+            <div className={cn("h-12 w-12 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg text-white shrink-0", theme.gradient)}>
+              <Icon className="h-6 w-6" />
+            </div>
+            <div>
+              <h1 className="text-xl font-black tracking-tight text-foreground">{portalName}</h1>
+              <p className="text-[12px] text-muted-foreground mt-0.5">{portalDescription}</p>
+            </div>
+          </div>
+          {features.length > 0 && (
+            <motion.div
+              className="grid grid-cols-3 gap-2 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+            >
+              {features.map((f, i) => (
+                <div key={i} className="p-3 rounded-xl border border-border/30 bg-card/50 text-center">
+                  <ShieldCheck className={cn("h-4 w-4 mx-auto mb-1.5", theme.accent)} />
+                  <p className="text-[10px] font-semibold text-foreground/70 leading-tight">{f}</p>
+                </div>
+              ))}
+            </motion.div>
+          )}
+          <div className="rounded-2xl border border-border/30 bg-card p-6 md:p-8 shadow-xl shadow-black/[0.06]">
+            {formContent}
+          </div>
+        </motion.div>
+        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  if (layoutVariant === 'dark-immersive') {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 overflow-hidden bg-[#0a0a0f]">
+          <div className={cn("absolute inset-0 bg-gradient-to-br opacity-[0.15]", theme.gradient)} />
+          <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full blur-[250px] opacity-25" style={{ background: theme.glowFrom }} />
+          <div className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full blur-[200px] opacity-15" style={{ background: theme.glowFrom }} />
+          <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="darkCircuit" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M30 0 L30 20 M30 40 L30 60 M0 30 L20 30 M40 30 L60 30" fill="none" stroke="white" strokeWidth="0.5"/>
+                <circle cx="30" cy="30" r="3" fill="none" stroke="white" strokeWidth="0.4"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#darkCircuit)"/>
+          </svg>
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              animate={{ opacity: [0.05, 0.2, 0.05], y: [0, -20, 0] }}
+              transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
+              style={{
+                width: 2 + (i % 3),
+                height: 2 + (i % 3),
+                left: `${5 + i * 8}%`,
+                top: `${10 + (i % 6) * 14}%`,
+                background: theme.glowFrom.replace('0.15', '0.6'),
+              }}
+            />
+          ))}
+        </div>
+        <Button variant="ghost" asChild className="absolute top-6 left-6 md:top-8 md:left-8 h-9 rounded-xl text-xs text-white/40 hover:text-white/80 z-20">
+          <Link href={footerLinks?.primary.href as any ?? '/login'} className="flex items-center">
+            <ChevronLeft className="mr-1.5 h-4 w-4" /> {footerLinks?.primary.text ?? 'Volver'}
+          </Link>
+        </Button>
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-[480px] relative"
+        >
+          <div className="text-center mb-8">
+            <motion.div
+              className={cn("mx-auto h-16 w-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-2xl mb-5 ring-1 ring-white/10", theme.gradient)}
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.15, duration: 0.5, type: "spring" }}
+            >
+              <Icon className="h-8 w-8 text-white" />
+            </motion.div>
+            <motion.h1
+              className="text-3xl font-black tracking-tight text-white"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25, duration: 0.4 }}
+            >
+              {portalName}
+            </motion.h1>
+            <motion.p
+              className="text-[13px] text-white/40 mt-2 max-w-sm mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.4 }}
+            >
+              {portalDescription}
+            </motion.p>
+            {features.length > 0 && (
+              <motion.div
+                className="flex items-center justify-center gap-3 mt-5 flex-wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
+                {features.map((f, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] text-[11px] font-semibold text-white/60 border border-white/[0.08]">
+                    <ShieldCheck className="h-3 w-3 text-emerald-400" />
+                    {f}
+                  </span>
+                ))}
+              </motion.div>
+            )}
+          </div>
+          <motion.div
+            className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 shadow-2xl"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            <div className="[&_label]:text-white/70 [&_h2]:text-white [&_p]:text-white/40 [&_.text-foreground]:text-white [&_.text-foreground\\/80]:text-white/70 [&_.text-muted-foreground]:text-white/40 [&_.bg-muted\\/30]:bg-white/[0.05] [&_.bg-muted\\/20]:bg-white/[0.04] [&_.bg-card]:bg-white/[0.06] [&_.border-border\\/30]:border-white/[0.08] [&_.border-border\\/40]:border-white/[0.08] [&_.border-border\\/50]:border-white/[0.1] [&_.hover\\:text-foreground]:hover:text-white/80">
+              {formContent}
+            </div>
+          </motion.div>
+        </motion.div>
+        <p className="absolute bottom-6 text-[9px] text-white/15 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8 w-full relative overflow-hidden">
+      {pageBackground}
+      {backButton}
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={cn("w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40")}
+        className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
       >
-        <div className={cn('hidden md:flex relative overflow-hidden flex-col justify-between text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/[0.07] blur-[80px]" />
-            <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-white/[0.05] blur-[60px]" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white/[0.02] blur-[100px]" />
-            <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-              <defs><pattern id="loginGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.4"/></pattern></defs>
-              <rect width="100%" height="100%" fill="url(#loginGrid)"/>
-            </svg>
-          </div>
-
-          <div className="relative z-10 space-y-8">
-            <motion.div
-              className="h-14 w-14 rounded-2xl bg-white/[0.12] backdrop-blur-sm border border-white/[0.15] flex items-center justify-center shadow-lg"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-            >
-              <Icon className="h-7 w-7 text-white" />
-            </motion.div>
-            <div className="space-y-3">
-              <motion.h1
-                className="text-2xl md:text-3xl font-black tracking-tight leading-tight"
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25, duration: 0.4 }}
-              >
-                {portalName}
-              </motion.h1>
-              <motion.p
-                className="text-[13px] font-medium text-white/70 leading-relaxed max-w-sm"
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-              >
-                {portalDescription}
-              </motion.p>
-            </div>
-          </div>
-
-          {features.length > 0 && (
-            <motion.div
-              className="relative z-10 mt-10"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.4 }}
-            >
-              <div className="h-px bg-white/10 mb-6" />
-              <ul className="space-y-3">
-                {features.map((feature, i) => (
-                  <motion.li
-                    key={i}
-                    className="flex items-center gap-3 text-[13px] font-medium text-white/80"
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.45 + i * 0.06, duration: 0.3 }}
-                  >
-                    <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" />
-                    </div>
-                    {feature}
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-
-          <motion.div
-            className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.3 }}
-          >
-            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Sistema activo · Enlace seguro
-            </div>
-          </motion.div>
-        </div>
-
+        {brandPanel}
         <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
-          <div className={cn("flex md:hidden items-center gap-3 mb-6 pb-5 border-b border-border/20")}>
-            <div className={cn("h-10 w-10 rounded-xl bg-gradient-to-br flex items-center justify-center shadow text-white shrink-0", theme.gradient)}>
-              <Icon className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-black tracking-tight text-foreground">{portalName}</p>
-              <p className="text-[11px] text-muted-foreground leading-tight">{portalDescription}</p>
-            </div>
-          </div>
-          <AnimatePresence mode="wait">
-            {step === 'credentials' ? (
-              <motion.div
-                key="credentials"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="mb-6">
-                  <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
-                  <p className="text-[13px] text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
-                </div>
-
-                <div className="flex rounded-xl bg-muted/30 border border-border/30 p-1 mb-6">
-                  <button
-                    type="button"
-                    onClick={() => { setLoginMode('email'); setError(null); }}
-                    className={cn(
-                      "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
-                      loginMode === 'email'
-                        ? cn("bg-card shadow-sm border border-border/30", theme.accent)
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <Mail className="h-3.5 w-3.5" /> Correo
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { setLoginMode('phone'); setError(null); }}
-                    className={cn(
-                      "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[12px] font-bold transition-all",
-                      loginMode === 'phone'
-                        ? "bg-card shadow-sm border border-border/30 text-emerald-500"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <Smartphone className="h-3.5 w-3.5" /> Teléfono
-                  </button>
-                </div>
-
-                <AnimatePresence>
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden mb-5"
-                    >
-                      {error === 'NO_ACCOUNT' ? (
-                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
-                          <div className="flex items-start gap-3">
-                            <TriangleAlert className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                            <div className="space-y-1">
-                              <p className="text-[13px] font-semibold text-foreground">Credenciales incorrectas</p>
-                              <p className="text-[12px] text-muted-foreground">Verifica tus datos o crea una cuenta nueva.</p>
-                            </div>
-                          </div>
-                          <Link href="/register">
-                            <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 hover:text-amber-700 dark:hover:text-amber-300">
-                              <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
-                            </Button>
-                          </Link>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col gap-2 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                          <div className="flex items-start gap-3">
-                            <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                            <p className="text-[13px] text-destructive">{error}</p>
-                          </div>
-                          {emailDeliveryFailed && savedCredentials && (
-                            <Button type="button" variant="outline" size="sm" onClick={handleResendEmail} disabled={isLoading} className="self-start h-8 text-xs font-semibold rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10">
-                              <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> {isLoading ? 'Reenviando...' : 'Reenviar código'}
-                            </Button>
-                          )}
-                        </div>
-                      )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <AnimatePresence mode="wait">
-                  {loginMode === 'email' ? (
-                    <motion.form
-                      key="email-form"
-                      onSubmit={handleAuth}
-                      className="space-y-5"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 10 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div className="space-y-2">
-                        <Label className="text-[13px] font-semibold text-foreground/80">Correo Electrónico</Label>
-                        <div className="relative group">
-                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                          <Input name="email" type="email" placeholder="tu@correo.com" required autoComplete="email" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <Label className="text-[13px] font-semibold text-foreground/80">Contraseña</Label>
-                          <Link href="/recuperar-cuenta" className={cn("text-xs font-medium hover:underline", theme.accent)}>¿Olvidaste?</Link>
-                        </div>
-                        <div className="relative group">
-                          <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                          <Input name="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••" required autoComplete="current-password" className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)} />
-                          <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <button
-                          type="button"
-                          onClick={() => setUseAccessKey(v => !v)}
-                          className={cn("flex items-center gap-2 text-xs font-semibold transition-colors", useAccessKey ? theme.accent : "text-muted-foreground hover:text-foreground")}
-                        >
-                          <KeyRound className="h-3.5 w-3.5" />
-                          {useAccessKey ? 'Ocultar llave de acceso' : 'Usar llave de acceso'}
-                        </button>
-                        <AnimatePresence>
-                          {useAccessKey && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="overflow-hidden space-y-2"
-                            >
-                              <div className="relative group">
-                                <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                                <Input
-                                  name="accessKey"
-                                  type={showAccessKey ? 'text' : 'password'}
-                                  placeholder="Tu llave personal"
-                                  autoComplete="off"
-                                  minLength={6}
-                                  className={cn("h-12 pl-10 pr-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all", theme.inputRing)}
-                                />
-                                <button type="button" onClick={() => setShowAccessKey(v => !v)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground transition-colors" tabIndex={-1}>
-                                  {showAccessKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                                </button>
-                              </div>
-                              <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
-                                Si tienes una llave de acceso configurada, puedes saltarte la verificación por correo.
-                              </p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-
-                      <Button type="submit" className={cn("w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99]", theme.btnBg)} disabled={isLoading}>
-                        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Acceder <ArrowRight className="ml-2 h-4 w-4" /></>}
-                      </Button>
-                    </motion.form>
-                  ) : (
-                    <motion.form
-                      key="phone-form"
-                      onSubmit={handlePhoneLogin}
-                      className="space-y-5"
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div className="p-3.5 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
-                        <div className="flex items-start gap-2.5">
-                          <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-[12px] font-semibold text-foreground/80">Acceso sin contraseña</p>
-                            <p className="text-[11px] text-muted-foreground mt-0.5">Recibirás un código de 6 dígitos en tu teléfono para verificar tu identidad.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label className="text-[13px] font-semibold text-foreground/80">Número de Teléfono</Label>
-                        <div className="relative group">
-                          <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-emerald-500 transition-colors" />
-                          <Input name="phone" type="tel" placeholder="04XX-XXXXXXX" required autoComplete="tel" className={cn("h-12 pl-10 rounded-xl border-border/50 bg-muted/20 text-[13px] transition-all focus-visible:ring-emerald-500/30 focus-visible:border-emerald-500/50")} />
-                        </div>
-                        <p className="text-[10px] text-muted-foreground/50">El número debe estar registrado en tu cuenta</p>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label className="text-[13px] font-semibold text-foreground/80">Recibir código por</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setPhoneMethod('sms')}
-                            className={cn(
-                              "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
-                              phoneMethod === 'sms'
-                                ? "border-emerald-500/50 bg-emerald-500/5 text-emerald-500"
-                                : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
-                            )}
-                          >
-                            <MessageSquare className="h-4 w-4" /> SMS
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setPhoneMethod('whatsapp')}
-                            className={cn(
-                              "flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-[12px] font-bold transition-all",
-                              phoneMethod === 'whatsapp'
-                                ? "border-green-500/50 bg-green-500/5 text-green-500"
-                                : "border-border/30 text-muted-foreground hover:border-border/60 hover:text-foreground"
-                            )}
-                          >
-                            <MessageCircle className="h-4 w-4" /> WhatsApp
-                          </button>
-                        </div>
-                      </div>
-
-                      <Button type="submit" className="w-full h-12 rounded-xl font-bold text-[13px] text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500" disabled={isLoading}>
-                        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>Enviar Código <ArrowRight className="ml-2 h-4 w-4" /></>}
-                      </Button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-
-                <div className="mt-8 pt-6 border-t border-border/30 space-y-4">
-                  <Button variant="outline" asChild className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
-                    <Link href="/register" className="flex items-center gap-2"><UserPlus className="h-4 w-4" /> Crear Cuenta</Link>
-                  </Button>
-                  <p className="text-center text-xs text-muted-foreground/60">
-                    <Link href="/recuperar-cuenta" className="hover:text-foreground transition-colors">¿Problemas para acceder? Recuperar cuenta</Link>
-                  </p>
-                  {footerLinks?.secondaryLinks && (
-                    <div className="text-center text-xs text-muted-foreground space-y-1 mt-2">
-                      {footerLinks.secondaryLinks.title && <p className="font-medium">{footerLinks.secondaryLinks.title}</p>}
-                      {footerLinks.secondaryLinks.links.map(link => (
-                        <Link key={link.href} href={link.href as any} className={cn("block font-medium hover:underline", theme.accent)}>{link.text}</Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="verification"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="mb-8 text-center">
-                  <motion.div
-                    className={cn("mx-auto w-16 h-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-5")}
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.3, type: "spring" }}
-                  >
-                    {verificationMethod === 'whatsapp'
-                      ? <MessageCircle className={cn("h-7 w-7 text-green-500")} />
-                      : verificationMethod === 'sms'
-                        ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
-                        : <KeyRound className={cn("h-7 w-7", theme.accent)} />
-                    }
-                  </motion.div>
-                  <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
-                  <p className="text-[13px] text-muted-foreground mt-2">
-                    {devCode ? 'Ingresa el código mostrado abajo' : (
-                      <>Código de 6 dígitos enviado a{' '}
-                      <strong className="text-foreground">
-                        {verificationMethod === 'email' ? maskedEmail : maskedPhone}
-                      </strong>
-                      {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
-                      </>
-                    )}
-                  </p>
-                  {!devCode && verificationMethod === 'email' && (
-                    <p className="text-[11px] text-muted-foreground/60 mt-1.5">
-                      También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
-                    </p>
-                  )}
-                  {countdown > 0 && (
-                    <p className="text-xs text-muted-foreground mt-1.5">
-                      Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
-                    </p>
-                  )}
-
-                  {hasPhone && (
-                    <div className="flex items-center justify-center gap-1.5 mt-4 flex-wrap">
-                      {([
-                        { method: 'email' as const, icon: Mail, label: 'Correo', activeColor: theme.accent },
-                        { method: 'sms' as const, icon: Smartphone, label: 'SMS', activeColor: theme.accent },
-                        { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', activeColor: 'text-green-500' },
-                      ]).map(({ method, icon: MethodIcon, label, activeColor }) => (
-                        <button
-                          key={method}
-                          type="button"
-                          onClick={() => handleSwitchMethod(method)}
-                          disabled={switchingMethod || isLoading}
-                          className={cn(
-                            "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
-                            verificationMethod === method
-                              ? cn("bg-primary/10 border border-primary/20", activeColor)
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-                          )}
-                        >
-                          <MethodIcon className="h-3.5 w-3.5" />
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {switchingMethod && (
-                    <div className="flex items-center justify-center gap-2 mt-3">
-                      <Loader2 className={cn("h-3.5 w-3.5 animate-spin", theme.accent)} />
-                      <span className="text-[11px] text-muted-foreground">Enviando código...</span>
-                    </div>
-                  )}
-                </div>
-
-                {devCode && (
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 mb-5">
-                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
-                      <Shield className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
-                      <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                      <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
-                      <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
-                    </div>
-                  </div>
-                )}
-
-                <AnimatePresence>
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden mb-5"
-                    >
-                      <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                        <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                        <p className="text-[13px] text-destructive">{error}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mb-6">
-                  {codeDigits.map((digit, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
-                    >
-                      <Input
-                        ref={el => { inputRefs.current[i] = el; }}
-                        type="text" inputMode="numeric" maxLength={6} value={digit}
-                        onChange={e => handleCodeChange(i, e.target.value)}
-                        onKeyDown={e => handleCodeKeyDown(i, e)}
-                        onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                        className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-black rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
-                        disabled={isLoading} autoComplete="one-time-code"
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-
-                {isLoading && (
-                  <div className="flex items-center justify-center gap-2 mb-5">
-                    <Loader2 className={cn("h-4 w-4 animate-spin", theme.accent)} />
-                    <span className="text-[13px] text-muted-foreground">Verificando...</span>
-                  </div>
-                )}
-
-                <div className="space-y-3 mt-4">
-                  <Button variant="outline" onClick={handleResendCode} className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40" disabled={isLoading}>
-                    <RotateCcw className="mr-2 h-4 w-4" /> Volver a iniciar sesión
-                  </Button>
-                  <p className="text-center text-xs text-muted-foreground/60">
-                    ¿No recibiste el código?{' '}
-                    <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading}>Solicitar nuevo</button>
-                    {hasPhone && verificationMethod === 'email' && (
-                      <>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          SMS
-                        </button>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
-                          WhatsApp
-                        </button>
-                      </>
-                    )}
-                    {verificationMethod === 'sms' && (
-                      <>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          Correo
-                        </button>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
-                          WhatsApp
-                        </button>
-                      </>
-                    )}
-                    {verificationMethod === 'whatsapp' && (
-                      <>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          Correo
-                        </button>
-                        {' · '}
-                        <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                          SMS
-                        </button>
-                      </>
-                    )}
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {mobileHeader}
+          {formContent}
         </div>
       </motion.div>
-
       <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
     </div>
   );
