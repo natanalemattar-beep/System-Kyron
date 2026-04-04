@@ -1,10 +1,9 @@
 {
     "LandingHeader": {
         "home": "Inicio",
-        "ecosystem": "Ecosistema",
-        "technology": "Tecnología",
+        "platform": "Plataforma",
+        "services": "Servicios",
         "about": "Nosotros",
-        "faq": "FAQ",
         "contact": "Contacto",
         "login": "Acceder",
         "register": "Registrarse",
@@ -204,9 +203,9 @@
         "modules": "Módulos",
         "contact": "Contacto",
         "nav_home": "Inicio",
-        "nav_ecosystem": "Ecosistema",
+        "nav_platform": "Plataforma",
+        "nav_services": "Servicios",
         "nav_about": "Nosotros",
-        "nav_faq": "FAQ",
         "nav_contact": "Contacto",
         "module_list": [
             "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",

@@ -1,10 +1,9 @@
 {
     "LandingHeader": {
         "home": "Home",
-        "ecosystem": "Ecosystem",
-        "technology": "Technology",
+        "platform": "Platform",
+        "services": "Services",
         "about": "About Us",
-        "faq": "FAQ",
         "contact": "Contact",
         "login": "Sign In",
         "register": "Get Started",
@@ -204,9 +203,9 @@
         "modules": "Modules",
         "contact": "Contact",
         "nav_home": "Home",
-        "nav_ecosystem": "Ecosystem",
+        "nav_platform": "Platform",
+        "nav_services": "Services",
         "nav_about": "About Us",
-        "nav_faq": "FAQ",
         "nav_contact": "Contact",
         "module_list": [
             "VEN-NIF Accounting", "HR & Payroll", "My Line 5G / eSIM",

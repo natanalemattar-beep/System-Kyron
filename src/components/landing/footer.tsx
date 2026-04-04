@@ -12,9 +12,9 @@ export function Footer() {
 
     const navItems = [
         { label: t('nav_home'), href: "#inicio" },
-        { label: t('nav_ecosystem'), href: "#servicios" },
+        { label: t('nav_platform'), href: "#caracteristicas" },
+        { label: t('nav_services'), href: "#servicios" },
         { label: t('nav_about'), href: "#nosotros" },
-        { label: t('nav_faq'), href: "#faq" },
         { label: t('nav_contact'), href: "#contacto" },
     ];
 

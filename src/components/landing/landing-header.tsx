@@ -49,9 +49,9 @@ export function LandingHeader() {
 
     const navItems = [
         { labelKey: 'home' as const, href: '#inicio' },
-        { labelKey: 'ecosystem' as const, href: '#servicios' },
+        { labelKey: 'platform' as const, href: '#caracteristicas' },
+        { labelKey: 'services' as const, href: '#servicios' },
         { labelKey: 'about' as const, href: '#nosotros' },
-        { labelKey: 'faq' as const, href: '#faq' },
         { labelKey: 'contact' as const, href: '#contacto' }
     ];
 
