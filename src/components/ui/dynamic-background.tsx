@@ -6,6 +6,7 @@ import { holidays } from "@/lib/holidays";
 import { useDeviceTierContext } from "@/hooks/use-device-tier";
 
 const FestiveEffect = lazy(() => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })));
+const SlowConnectionBanner = lazy(() => import("./slow-connection-banner").then(m => ({ default: m.SlowConnectionBanner })));
 
 export function DynamicBackground() {
   const [isSnow, setIsSnow] = useState(false);
@@ -67,6 +68,11 @@ export function DynamicBackground() {
         <div className={`absolute top-0 left-0 right-0 h-64 pointer-events-none bg-gradient-to-b ${isDark ? 'from-primary/[0.03] via-cyan-400/[0.015] to-transparent' : 'from-primary/[0.06] via-cyan-400/[0.03] to-transparent'}`} />
         <div className={`absolute bottom-0 left-0 right-0 h-64 pointer-events-none bg-gradient-to-t ${isDark ? 'from-primary/[0.02] via-blue-500/[0.01] to-transparent' : 'from-primary/[0.04] via-blue-500/[0.02] to-transparent'}`} />
       </div>
+      {mounted && (
+        <Suspense fallback={null}>
+          <SlowConnectionBanner />
+        </Suspense>
+      )}
     </>
   );
 }
