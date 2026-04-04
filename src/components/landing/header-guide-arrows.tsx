@@ -131,50 +131,56 @@ export function HeaderGuideArrows() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="fixed z-[160] flex flex-col items-end pointer-events-none"
+              className="fixed z-[160] flex flex-col items-center pointer-events-none"
               style={{
-                left: registerPos.x - registerPos.w / 2 - 8,
-                top: registerPos.y + 8,
+                left: registerPos.x,
+                top: registerPos.y + 10,
                 transform: 'translateX(-50%)',
               }}
             >
               <motion.div
-                animate={{ y: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                animate={{ y: [0, 4, 0] }}
+                transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
               >
-                <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+                <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
                   <motion.path
-                    d="M12 0 L12 24"
-                    stroke="#10b981"
-                    strokeWidth="2.5"
+                    d="M10 2 L10 20"
+                    stroke="url(#arrowGradGreen)"
+                    strokeWidth="2"
                     strokeLinecap="round"
-                    strokeDasharray="30"
-                    initial={{ strokeDashoffset: 30 }}
+                    strokeDasharray="24"
+                    initial={{ strokeDashoffset: 24 }}
                     animate={{ strokeDashoffset: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                   />
                   <motion.path
-                    d="M5 18 L12 26 L19 18"
+                    d="M4 16 L10 23 L16 16"
                     stroke="#10b981"
-                    strokeWidth="2.5"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                   />
+                  <defs>
+                    <linearGradient id="arrowGradGreen" x1="10" y1="2" x2="10" y2="20" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#10b981" stopOpacity="0.3" />
+                      <stop offset="1" stopColor="#10b981" />
+                    </linearGradient>
+                  </defs>
                 </svg>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-2 bg-emerald-500/95 backdrop-blur-sm text-white px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-500/30 pointer-events-auto"
+                initial={{ opacity: 0, scale: 0.9, y: -4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 20 }}
+                className="mt-1.5 bg-emerald-500 text-white px-5 py-3 rounded-2xl shadow-xl shadow-emerald-500/25 pointer-events-auto border border-emerald-400/30"
               >
-                <p className="text-[11px] font-bold leading-snug text-center whitespace-nowrap">
+                <p className="text-xs font-bold leading-snug text-center whitespace-nowrap">
                   ¿Nuevo? Crea tu cuenta aquí
                 </p>
-                <p className="text-[9px] font-medium text-emerald-100/80 mt-0.5 text-center">
+                <p className="text-[10px] font-medium text-emerald-100/70 mt-0.5 text-center">
                   Registro rápido en 2 min
                 </p>
               </motion.div>
@@ -187,50 +193,56 @@ export function HeaderGuideArrows() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.4, delay: 0.35 }}
-              className="fixed z-[160] flex flex-col items-start pointer-events-none"
+              className="fixed z-[160] flex flex-col items-center pointer-events-none"
               style={{
-                left: accessPos.x + accessPos.w / 2 + 8,
-                top: accessPos.y + 8,
+                left: accessPos.x,
+                top: accessPos.y + 10,
                 transform: 'translateX(-50%)',
               }}
             >
               <motion.div
-                animate={{ y: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut', delay: 0.3 }}
+                animate={{ y: [0, 4, 0] }}
+                transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut', delay: 0.3 }}
               >
-                <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+                <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
                   <motion.path
-                    d="M12 0 L12 24"
-                    stroke="#3b82f6"
-                    strokeWidth="2.5"
+                    d="M10 2 L10 20"
+                    stroke="url(#arrowGradBlue)"
+                    strokeWidth="2"
                     strokeLinecap="round"
-                    strokeDasharray="30"
-                    initial={{ strokeDashoffset: 30 }}
+                    strokeDasharray="24"
+                    initial={{ strokeDashoffset: 24 }}
                     animate={{ strokeDashoffset: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
                   />
                   <motion.path
-                    d="M5 18 L12 26 L19 18"
+                    d="M4 16 L10 23 L16 16"
                     stroke="#3b82f6"
-                    strokeWidth="2.5"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
                   />
+                  <defs>
+                    <linearGradient id="arrowGradBlue" x1="10" y1="2" x2="10" y2="20" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#3b82f6" stopOpacity="0.3" />
+                      <stop offset="1" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
                 </svg>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 }}
-                className="mt-2 bg-blue-500/95 backdrop-blur-sm text-white px-4 py-2.5 rounded-xl shadow-lg shadow-blue-500/30 pointer-events-auto"
+                initial={{ opacity: 0, scale: 0.9, y: -4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.6, type: 'spring', stiffness: 300, damping: 20 }}
+                className="mt-1.5 bg-blue-500 text-white px-5 py-3 rounded-2xl shadow-xl shadow-blue-500/25 pointer-events-auto border border-blue-400/30"
               >
-                <p className="text-[11px] font-bold leading-snug text-center whitespace-nowrap">
+                <p className="text-xs font-bold leading-snug text-center whitespace-nowrap">
                   ¿Ya tienes cuenta? Accede aquí
                 </p>
-                <p className="text-[9px] font-medium text-blue-100/80 mt-0.5 text-center">
+                <p className="text-[10px] font-medium text-blue-100/70 mt-0.5 text-center">
                   Acceso seguro AES-256
                 </p>
               </motion.div>
@@ -286,29 +298,29 @@ export function HeaderGuideArrows() {
           >
             {registerPos && (
               <motion.div
-                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                animate={{ opacity: [0.3, 0.7, 0.3] }}
                 transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                className="absolute rounded-xl border-2 border-emerald-400/60"
+                className="absolute rounded-xl border-2 border-emerald-400/50"
                 style={{
-                  left: registerPos.x - registerPos.w / 2 - 4,
-                  top: registerPos.y - registerPos.h - 4,
-                  width: registerPos.w + 8,
-                  height: registerPos.h + 8,
-                  boxShadow: '0 0 15px rgba(16,185,129,0.3)',
+                  left: registerPos.x - registerPos.w / 2 - 5,
+                  top: registerPos.y - registerPos.h - 5,
+                  width: registerPos.w + 10,
+                  height: registerPos.h + 10,
+                  boxShadow: '0 0 20px rgba(16,185,129,0.25), inset 0 0 8px rgba(16,185,129,0.1)',
                 }}
               />
             )}
             {accessPos && (
               <motion.div
-                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                animate={{ opacity: [0.3, 0.7, 0.3] }}
                 transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute rounded-xl border-2 border-blue-400/60"
+                className="absolute rounded-xl border-2 border-blue-400/50"
                 style={{
-                  left: accessPos.x - accessPos.w / 2 - 4,
-                  top: accessPos.y - accessPos.h - 4,
-                  width: accessPos.w + 8,
-                  height: accessPos.h + 8,
-                  boxShadow: '0 0 15px rgba(59,130,246,0.3)',
+                  left: accessPos.x - accessPos.w / 2 - 5,
+                  top: accessPos.y - accessPos.h - 5,
+                  width: accessPos.w + 10,
+                  height: accessPos.h + 10,
+                  boxShadow: '0 0 20px rgba(59,130,246,0.25), inset 0 0 8px rgba(59,130,246,0.1)',
                 }}
               />
             )}
