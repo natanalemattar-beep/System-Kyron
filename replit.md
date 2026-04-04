@@ -44,7 +44,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Global Search:** Command palette for instant navigation.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
-- **Document Authenticity Verification:** AI-powered multi-layer verification using Claude Vision AI.
+- **Document Authenticity Verification:** Multi-AI forensic analysis system using Claude, OpenAI, and Gemini Vision in parallel. 6-layer scoring (Integrity, Visual, Quality/Blur, Forensic, Metadata, Content) with AI consensus voting (unanimous/majority/divided). Auto-verifies on upload. Includes JPEG quality estimation, image dimension analysis, and path-traversal security protection.
 - **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard.
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, multi-channel delivery, and JSONB metadata.

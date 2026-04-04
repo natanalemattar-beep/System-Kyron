@@ -19,6 +19,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Datos del archivo incompletos' }, { status: 400 });
     }
 
+    const normalizedPath = String(filePath).replace(/\\/g, '/');
+    if (
+      !normalizedPath.startsWith('/uploads/') ||
+      normalizedPath.includes('..') ||
+      normalizedPath.includes('\0') ||
+      /[^a-zA-Z0-9._\-\/]/.test(normalizedPath.replace('/uploads/', ''))
+    ) {
+      return NextResponse.json({ error: 'Ruta de archivo no válida' }, { status: 400 });
+    }
+
     const existing = await queryOne(
       `SELECT id, veredicto, puntaje_total, resultado FROM verificaciones_documentos
        WHERE user_id = $1 AND archivo_path = $2 AND created_at > NOW() - INTERVAL '24 hours'
