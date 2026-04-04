@@ -28,6 +28,7 @@ import { loginOptions } from "@/lib/login-options";
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTheme } from "next-themes";
+import { useBannerVisible } from "@/components/demo-banner";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,6 +37,7 @@ export function LandingHeader() {
     const t = useTranslations('LandingHeader');
     const { resolvedTheme } = useTheme();
     const isDark = mounted && resolvedTheme === 'dark';
+    const bannerVisible = useBannerVisible();
 
     useEffect(() => {
         setMounted(true);
@@ -67,7 +69,8 @@ export function LandingHeader() {
 
     return (
         <header className={cn(
-            "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
+            "fixed left-0 right-0 z-[150] transition-all duration-500 w-full",
+            bannerVisible ? "top-[36px]" : "top-0",
             isScrolled
                 ? cn(
                     "py-2.5",
