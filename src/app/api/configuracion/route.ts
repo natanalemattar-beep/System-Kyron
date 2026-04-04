@@ -5,6 +5,11 @@ import { query, queryOne } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 
 async function getOrCreateConfig(userId: number) {
+  const user = await queryOne(
+    `SELECT email, telefono FROM users WHERE id = $1`,
+    [userId]
+  );
+
   let config = await queryOne(
     `SELECT id, idioma, moneda_preferida, zona_horaria,
             notif_email, notif_whatsapp, telefono_whatsapp,
@@ -20,8 +25,8 @@ async function getOrCreateConfig(userId: number) {
 
   if (!config) {
     const [row] = await query(
-      `INSERT INTO configuracion_usuario (user_id)
-       VALUES ($1)
+      `INSERT INTO configuracion_usuario (user_id, email_verificacion, email_alertas, telefono_whatsapp, telefono_sms)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING id, idioma, moneda_preferida, zona_horaria,
                  notif_email, notif_whatsapp, telefono_whatsapp,
                  notif_sms, telefono_sms,
@@ -30,9 +35,35 @@ async function getOrCreateConfig(userId: number) {
                  rif_empresa, nombre_comercial, logo_url, pie_factura,
                  email_verificacion, email_alertas,
                  reducir_animaciones, nav_lateral, updated_at`,
-      [userId]
+      [userId, user?.email || null, user?.email || null, user?.telefono || null, user?.telefono || null]
     );
     config = row;
+  } else if (user && (!config.email_verificacion || !config.email_alertas)) {
+    const updatedEmail = config.email_verificacion || user.email || null;
+    const updatedAlerta = config.email_alertas || user.email || null;
+    const updatedTelWa = config.telefono_whatsapp || user.telefono || null;
+    const updatedTelSms = config.telefono_sms || user.telefono || null;
+    if (updatedEmail !== config.email_verificacion || updatedAlerta !== config.email_alertas
+        || updatedTelWa !== config.telefono_whatsapp || updatedTelSms !== config.telefono_sms) {
+      const [row] = await query(
+        `UPDATE configuracion_usuario
+         SET email_verificacion = COALESCE(email_verificacion, $1),
+             email_alertas = COALESCE(email_alertas, $2),
+             telefono_whatsapp = COALESCE(telefono_whatsapp, $3),
+             telefono_sms = COALESCE(telefono_sms, $4)
+         WHERE user_id = $5
+         RETURNING id, idioma, moneda_preferida, zona_horaria,
+                   notif_email, notif_whatsapp, telefono_whatsapp,
+                   notif_sms, telefono_sms,
+                   notif_vencimientos, notif_pagos,
+                   iva_pct::text, igtf_pct::text, islr_pct::text,
+                   rif_empresa, nombre_comercial, logo_url, pie_factura,
+                   email_verificacion, email_alertas,
+                   reducir_animaciones, nav_lateral, updated_at`,
+        [updatedEmail, updatedAlerta, updatedTelWa, updatedTelSms, userId]
+      );
+      config = row;
+    }
   }
 
   return config;
