@@ -228,6 +228,7 @@ export function WelcomeTutorial() {
     localStorage.setItem(STORAGE_KEY, 'true');
     setIsOpen(false);
     setCurrentStep(0);
+    window.dispatchEvent(new CustomEvent('kyron-tutorial-closed'));
   }, []);
 
   const handleStepClick = useCallback((idx: number) => {

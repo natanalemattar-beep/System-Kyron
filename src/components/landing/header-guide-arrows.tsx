@@ -74,16 +74,24 @@ export function HeaderGuideArrows() {
     if (tutorialAlreadySeen) {
       tryShow();
     } else {
-      const poll = setInterval(() => {
-        if (cancelled) { clearInterval(poll); return; }
+      const onTutorialClosed = () => {
+        if (cancelled) return;
+        tryShow();
+      };
+      window.addEventListener('kyron-tutorial-closed', onTutorialClosed, { once: true });
+
+      const maxWait = setTimeout(() => {
+        window.removeEventListener('kyron-tutorial-closed', onTutorialClosed);
         if (localStorage.getItem(TUTORIAL_KEY)) {
-          clearInterval(poll);
           tryShow();
         }
-      }, 500);
-      intervals.push(poll);
-      const maxWait = setTimeout(() => { clearInterval(poll); tryShow(); }, 60000);
+      }, 120000);
       timers.push(maxWait);
+
+      return () => {
+        cleanup();
+        window.removeEventListener('kyron-tutorial-closed', onTutorialClosed);
+      };
     }
 
     return cleanup;
