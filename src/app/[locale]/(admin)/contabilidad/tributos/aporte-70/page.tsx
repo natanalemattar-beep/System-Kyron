@@ -1,82 +1,99 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Landmark, Download, CircleCheck as CheckCircle, Activity, Terminal, ShieldCheck, CirclePlus as PlusCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { formatCurrency } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Landmark, Info, ChevronRight, AlertTriangle, FileText } from "lucide-react";
+
+const INFORMACION = [
+    "Los servicios desconcentrados y entes autónomos deben aportar el 70% de sus ingresos propios al Tesoro Nacional.",
+    "El aporte se calcula sobre los ingresos propios percibidos, excluyendo las transferencias del gobierno central.",
+    "La declaración y pago es mensual, según el calendario SENIAT por terminal de RIF.",
+    "El incumplimiento genera responsabilidad administrativa para la máxima autoridad del ente.",
+];
+
+const REQUISITOS = [
+    "Decreto o resolución de creación del ente",
+    "RIF institucional actualizado",
+    "Designación vigente de la máxima autoridad",
+    "Certificación de ingresos propios del periodo",
+    "Estado de cuenta de la Tesorería Nacional",
+];
 
 export default function Aporte70Page() {
-    const { toast } = useToast();
-
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Landmark className="h-3 w-3" /> CENTRO DE DESCENTRALIZACIÓN
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Aporte <span className="text-primary italic">del 70%</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Servicios Desconcentrados y Entes Autónomos • Providencia 0091</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <Landmark className="h-3.5 w-3.5" /> Aporte 70%
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Aporte del <span className="text-primary">70%</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Servicios Desconcentrados y Entes Autónomos · Tesoro Nacional</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'aporte_70_registro', descripcion: 'Registro de aporte Ley del 70%' }) }); if (res.ok) toast({ title: "SOLICITUD INICIADA", description: "Registro recibido correctamente." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                    <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR APORTE
-                </Button>
             </header>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <div className="lg:col-span-7 space-y-10">
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Inscripción y Renovación de Ente</CardTitle>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-primary" />
+                                Información del Aporte
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-10 space-y-8">
-                            <div className="grid md:grid-cols-2 gap-10">
-                                <div className="space-y-6">
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Requisitos para el Aporte</h4>
-                                    <ul className="space-y-3">
-                                        {["Decreto de Creación del Ente", "RIF Institucional", "Designación de Máxima Autoridad", "Certificación de Ingresos Propios"].map((doc, i) => (
-                                            <li key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-foreground/60">
-                                                <CheckCircle className="h-4 w-4 text-primary" /> {doc}
-                                            </li>
-                                        ))}
-                                    </ul>
+                        <CardContent className="space-y-2.5">
+                            {INFORMACION.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
                                 </div>
-                                <div className="space-y-6">
-                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 mb-2">Estatus de Registro</p>
-                                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase px-3">VERIFICADO</Badge>
-                                        <div className="mt-4 space-y-1">
-                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próxima Conciliación</p>
-                                            <p className="text-xs font-bold text-foreground">Mensual (Según RIF)</p>
-                                        </div>
-                                    </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'tramite_ley_70', descripcion: 'Trámite de registro Ley del 70%' }) }); if (res.ok) toast({ title: "TRÁMITE INICIADO", description: "Solicitud de registro Ley del 70% recibida. Un asesor fiscal le contactará." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>INICIAR TRÁMITE</Button>
-                                </div>
-                            </div>
+                            ))}
                         </CardContent>
                     </Card>
+
+                    <div className="p-5 rounded-xl bg-primary/5 border border-primary/15">
+                        <p className="text-sm font-bold mb-2">Fórmula de Cálculo</p>
+                        <div className="p-4 rounded-lg bg-muted/50 font-mono text-sm text-center">
+                            Aporte = Ingresos Propios del Periodo × 70%
+                        </div>
+                        <p className="text-[11px] text-muted-foreground mt-2">
+                            Se excluyen las transferencias recibidas del gobierno central y los ingresos por operaciones financieras propias del ente.
+                        </p>
+                    </div>
                 </div>
 
-                <div className="lg:col-span-5 space-y-8">
-                    <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-center border-l-4 border-primary">
-                        <div className="flex items-center gap-6 mb-8">
-                            <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-                                <Activity className="h-8 w-8 text-primary" />
-                            </div>
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-blue-500" />
+                                Requisitos
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {REQUISITOS.map((req, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-blue-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{req}</p>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <div>
-                                <h3 className="text-xl font-black uppercase italic text-foreground">Cálculo del 70%</h3>
-                                <Badge className="bg-emerald-500/20 text-emerald-400 border-none mt-2 uppercase text-[8px] font-black">Procesando</Badge>
+                                <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Nota</p>
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                                    Este módulo aplica exclusivamente a entes descentralizados y servicios desconcentrados del sector público. Las empresas privadas no están sujetas a este aporte.
+                                </p>
                             </div>
                         </div>
-                        <p className="text-xs font-bold text-muted-foreground/40 uppercase leading-relaxed text-justify italic">
-                            "El sistema liquida automáticamente el 70% de los ingresos propios percibidos por el ente desconcentrado para su entero al Tesoro Nacional."
-                        </p>
-                    </Card>
+                    </div>
                 </div>
             </div>
         </div>

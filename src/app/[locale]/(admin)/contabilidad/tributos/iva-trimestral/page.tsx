@@ -1,90 +1,83 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FileText, Download, CircleCheck as CheckCircle, Activity, Terminal, ShieldCheck, CirclePlus as PlusCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { formatCurrency } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { FileText, Info, ChevronRight, AlertTriangle } from "lucide-react";
+
+const REQUISITOS = [
+    "Constancia de actividad exenta o exonerada",
+    "RIF corporativo actualizado",
+    "Copia de la Gaceta Oficial que establece la exoneración (si aplica)",
+    "Libro de compras del periodo (sin IVA)",
+    "Registro detallado de ventas exentas del trimestre",
+];
+
+const INFORMACION = [
+    "La declaración informativa trimestral es obligatoria para contribuyentes con actividades exclusivamente exentas o exoneradas del IVA.",
+    "Se declara ante el SENIAT a través del portal fiscal, dentro de los 15 días siguientes al cierre de cada trimestre.",
+    "Los contribuyentes exentos no pueden recuperar créditos fiscales de IVA pagados a sus proveedores.",
+    "Las exoneraciones tienen vigencia definida y deben renovarse periódicamente según la Gaceta que las establece.",
+];
 
 export default function IvaTrimestralPage() {
-    const { toast } = useToast();
-
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <FileText className="h-3 w-3" /> CENTRO INFORMATIVO
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">IVA <span className="text-primary italic">Trimestral</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaración Informativa Exentos/Exonerados • Providencia 0091</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <FileText className="h-3.5 w-3.5" /> IVA Trimestral
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        IVA <span className="text-primary">Trimestral</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Declaración Informativa para Exentos y Exonerados</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => toast({ title: "DECLARACIÓN INFORMATIVA INICIADA" })}>
-                    <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR PERIODO
-                </Button>
             </header>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <div className="lg:col-span-7 space-y-10">
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Dossier de Actividades Exentas</CardTitle>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-primary" />
+                                Requisitos para la Declaración
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-10 space-y-8">
-                            <div className="grid md:grid-cols-2 gap-10">
-                                <div className="space-y-6">
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Requisitos para Exención</h4>
-                                    <ul className="space-y-3">
-                                        {["Constancia de Actividad Exenta", "RIF Corporativo", "Copia de Gaceta de Exoneración", "Registro de Compras Sin IVA"].map((doc, i) => (
-                                            <li key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-foreground/60">
-                                                <CheckCircle className="h-4 w-4 text-primary" /> {doc}
-                                            </li>
-                                        ))}
-                                    </ul>
+                        <CardContent className="space-y-2.5">
+                            {REQUISITOS.map((req, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{req}</p>
                                 </div>
-                                <div className="space-y-6">
-                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[9px] font-black uppercase text-muted-foreground/40">Estatus Informativo</span>
-                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase h-6">AL DÍA</Badge>
-                                        </div>
-                                        <div className="mt-4 space-y-1">
-                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próximo Trimestre</p>
-                                            <p className="text-xs font-bold text-foreground">Abril - Junio 2026</p>
-                                        </div>
-                                    </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
-                                        try {
-                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'iva_trimestral', descripcion: 'Solicitud de declaración IVA trimestral' }) });
-                                            if (res.ok) { toast({ title: "DECLARACIÓN IVA TRIMESTRAL", description: "Solicitud de declaración registrada. Recibirá asistencia fiscal." }); }
-                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
-                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
-                                    }}>INICIAR DECLARACIÓN</Button>
-                                </div>
-                            </div>
+                            ))}
                         </CardContent>
                     </Card>
                 </div>
 
-                <div className="lg:col-span-5 space-y-8">
-                    <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-center border-l-4 border-primary">
-                        <div className="flex items-center gap-6 mb-8">
-                            <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-                                <Activity className="h-8 w-8 text-primary" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-black uppercase italic text-foreground">Control Informativo</h3>
-                                <Badge className="bg-emerald-500/20 text-emerald-400 border-none mt-2 uppercase text-[8px] font-black">Auditado</Badge>
-                            </div>
-                        </div>
-                        <p className="text-xs font-bold text-muted-foreground/40 uppercase leading-relaxed text-justify italic">
-                            "Declaración trimestral para contribuyentes con actividades exclusivamente exentas. El sistema consolida la data informativa para el portal fiscal."
-                        </p>
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-amber-500" />
+                                Información
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {INFORMACION.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
+                            ))}
+                        </CardContent>
                     </Card>
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-[11px] text-muted-foreground leading-relaxed">Este módulo aplica exclusivamente a contribuyentes con actividades 100% exentas o exoneradas del IVA.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

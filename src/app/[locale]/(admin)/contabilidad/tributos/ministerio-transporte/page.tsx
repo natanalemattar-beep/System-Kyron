@@ -1,116 +1,86 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Truck, CirclePlus as PlusCircle, CircleCheck as CheckCircle, FileText, Activity, Terminal, ShieldCheck, Download, Printer } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Logo } from "@/components/logo";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Truck, Info, ChevronRight, FileText, AlertTriangle } from "lucide-react";
+
+const REQUISITOS = [
+    "Certificado de Revisión Técnica vehicular vigente",
+    "Póliza de seguro de responsabilidad civil",
+    "Permiso de carga expedido por el INTT",
+    "Licencia de conducir profesional del operador",
+    "Guía de Movilización (para carga pesada o materiales especiales)",
+    "Constancia de inscripción en el Registro Nacional de Transporte",
+];
+
+const INFORMACION = [
+    "El permiso de transporte de carga es expedido por el Instituto Nacional de Transporte Terrestre (INTT).",
+    "Las empresas de transporte deben renovar anualmente la revisión técnica de sus unidades.",
+    "El transporte de materiales peligrosos requiere permisos especiales del Ministerio del Ambiente.",
+    "Las guías de movilización SICA/SADA son obligatorias para el transporte de productos agrícolas y pecuarios.",
+];
 
 export default function MinisterioTransportePage() {
-    const { toast } = useToast();
-
-    const letterTemplate = `
-Caracas, [Fecha Actual]
-
-Ciudadanos
-Ministerio del Poder Popular para el Transporte
-Instituto Nacional de Transporte Terrestre (INTT)
-Presente.-
-
-Asunto: Solicitud de Permisología de Carga
-
-Yo, [Nombre del Representante], en mi carácter de Representante Legal de la empresa System Kyron, C.A., portadora del RIF J-50328471-6, me dirijo a ustedes para solicitar la emisión de los permisos de transporte de carga para nuestras unidades operativas.
-
-Nuestra flota está destinada al traslado de equipos tecnológicos y suministros industriales, cumpliendo con todas las normas de seguridad vial y revisión técnica exigidas.
-
-Atentamente,
-
-_________________________
-Representante Legal
-System Kyron, C.A.
-    `;
-
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Truck className="h-3 w-3" /> CENTRO LOGÍSTICO
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Ministerio de <span className="text-primary italic">Transporte</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Permisología de Flota y Concesiones Viales • 2026</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <Truck className="h-3.5 w-3.5" /> Transporte
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Ministerio de <span className="text-primary">Transporte</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Permisología de Flota y Transporte Terrestre · INTT</p>
                 </div>
             </header>
 
-            <Tabs defaultValue="flota" className="w-full">
-                <TabsList className="flex h-14 bg-card/50 border border-white/5 rounded-2xl p-1.5 mb-10 shadow-inner max-w-md">
-                    <TabsTrigger value="flota" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Mi Flota</TabsTrigger>
-                    <TabsTrigger value="comunicaciones" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Generar Carta</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="flota" className="animate-in fade-in duration-500">
-                    <div className="grid gap-8 md:grid-cols-2">
-                        <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Truck className="h-32 w-32" /></div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-8">Gestión de Guías de Movilización</h3>
-                            <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
-                                Emisión automatizada de guías SICA/SADA y permisos de transporte terrestre para carga pesada y materiales estratégicos.
-                            </p>
-                            <Button onClick={() => toast({ title: "GENERAR GUÍA", description: "Generando documento..." })} variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Guía</Button>
-                        </Card>
-
-                        <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Cumplimiento de Flota</h3>
-                                <div className="space-y-4">
-                                    <div className="flex justify-between items-center border-b border-border/50 pb-3">
-                                        <span className="text-[9px] font-bold text-slate-500 uppercase">Certificado de Revisión</span>
-                                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase px-3 h-6 rounded-lg">VIGENTE</Badge>
-                                    </div>
-                                    <div className="flex justify-between items-center border-b border-border/50 pb-3">
-                                        <span className="text-[9px] font-bold text-slate-500 uppercase">Seguro de Carga</span>
-                                        <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase px-3 h-6 rounded-lg">ACTIVO</Badge>
-                                    </div>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-primary" />
+                                Requisitos para Permiso de Carga
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {REQUISITOS.map((req, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{req}</p>
                                 </div>
-                            </div>
-                            <div className="pt-8 flex items-center gap-3 text-[9px] font-black uppercase text-primary/40 italic">
-                                <ShieldCheck className="h-4 w-4" /> Auditoría de Unidades s/norma INTT
-                            </div>
-                        </Card>
-                    </div>
-                </TabsContent>
-
-                <TabsContent value="comunicaciones" className="animate-in fade-in duration-500">
-                    <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900">
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
-                            <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
-                        </div>
-                        <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
-                            <Logo className="h-14 w-14" />
-                            <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
-                            </div>
-                        </header>
-                        <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">
-                            {letterTemplate}
-                        </div>
-                        <footer className="mt-20 pt-8 border-t border-slate-100 flex justify-end gap-4 no-print relative z-10">
-                            <Button variant="outline" className="h-12 px-8 rounded-xl border-slate-200 text-slate-600 font-black uppercase text-[10px]" onClick={() => window.print()}>
-                                <Printer className="mr-3 h-4 w-4" /> IMPRIMIR
-                            </Button>
-                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'documento_word_listo', descripcion: "DOCUMENTO WORD LISTO" }) }); if (res.ok) toast({ title: "DOCUMENTO WORD LISTO" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                                <Download className="mr-3 h-4 w-4" /> EXPORTAR .DOC
-                            </Button>
-                        </footer>
+                            ))}
+                        </CardContent>
                     </Card>
-                </TabsContent>
-            </Tabs>
+                </div>
+
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-amber-500" />
+                                Información
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {INFORMACION.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-[11px] text-muted-foreground leading-relaxed">Las comunicaciones al INTT pueden generarse desde el Centro de Comunicaciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

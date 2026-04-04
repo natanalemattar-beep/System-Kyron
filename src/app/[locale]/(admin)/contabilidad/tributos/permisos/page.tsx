@@ -182,7 +182,7 @@ export default function PermisologiaPage() {
     <div className="space-y-8 pb-20 px-4 md:px-10">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-sm mb-4">
             <ShieldCheck className="h-3 w-3" /> CENTRO DE PERMISOLOGÍA 2026
           </div>
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
@@ -197,7 +197,7 @@ export default function PermisologiaPage() {
           <Button variant="outline" className="h-12 px-6 rounded-xl border-white/10 font-black text-[9px] uppercase tracking-widest" onClick={() => setActiveTab('alertas')}>
             <BellRing className="mr-2 h-4 w-4 text-amber-400" /> ALERTAS {alertas.length > 0 && <Badge className="ml-2 bg-red-500 text-white text-[8px]">{alertas.length}</Badge>}
           </Button>
-          <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setRegistroDialog(true)}>
+          <Button className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setRegistroDialog(true)}>
             <Plus className="mr-2 h-4 w-4" /> REGISTRAR PERMISO
           </Button>
         </div>
@@ -211,7 +211,7 @@ export default function PermisologiaPage() {
             { label: "Por Vencer", value: misPermisosStats.por_vencer, icon: Clock, color: "text-amber-400" },
             { label: "Vencidos", value: misPermisosStats.vencidos, icon: XCircle, color: "text-red-400" },
           ].map(stat => (
-            <Card key={stat.label} className="glass-card border-none bg-card/40 rounded-2xl">
+            <Card key={stat.label} className="rounded-2xl shadow-lg bg-card/40 rounded-2xl">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className={`p-2.5 rounded-xl bg-white/5 ${stat.color}`}>
                   <stat.icon className="h-5 w-5" />
@@ -257,7 +257,7 @@ export default function PermisologiaPage() {
         </TabsContent>
 
         <TabsContent value="catalogo" className="mt-6 space-y-6">
-          <Card className="glass-card border-none rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10 mb-4">
+          <Card className="rounded-2xl shadow-lg rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10 mb-4">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-blue-500/10"><FileText className="h-4 w-4 text-blue-400" /></div>
               <div>
@@ -364,7 +364,7 @@ export default function PermisologiaPage() {
                 <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 text-foreground/60 font-black uppercase text-[9px]" onClick={() => window.print()}>
                   <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                 </Button>
-                <Button className="rounded-xl h-12 px-8 btn-3d-primary font-black uppercase text-[9px]" onClick={() => {
+                <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px]" onClick={() => {
                   const blob = new Blob([cartaText], { type: 'text/plain;charset=utf-8' });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
@@ -460,7 +460,7 @@ export default function PermisologiaPage() {
           </div>
           <DialogFooter className="p-6 border-t border-white/5">
             <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 font-black uppercase text-[9px]" onClick={() => setRegistroDialog(false)}>CANCELAR</Button>
-            <Button className="rounded-xl h-12 px-8 btn-3d-primary font-black uppercase text-[9px]" onClick={handleRegistrar}>REGISTRAR</Button>
+            <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px]" onClick={handleRegistrar}>REGISTRAR</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -471,7 +471,7 @@ export default function PermisologiaPage() {
 function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; onRegistrar: () => void }) {
   if (permisos.length === 0) {
     return (
-      <Card className="glass-card border-none rounded-[2rem] bg-card/40 overflow-hidden">
+      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 overflow-hidden">
         <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
           <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-6">
             <ShieldCheck className="h-10 w-10 text-primary/30" />
@@ -480,7 +480,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 max-w-md mb-8 leading-relaxed">
             Su expediente de permisología está vacío. Registre los permisos y licencias de su empresa para activar el sistema de alertas de vencimiento y generar cartas automáticas.
           </p>
-          <Button onClick={onRegistrar} className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest">
+          <Button onClick={onRegistrar} className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest">
             <Plus className="mr-2 h-4 w-4" /> Registrar Primer Permiso
           </Button>
           <p className="text-[9px] font-bold text-muted-foreground/40 mt-6 uppercase tracking-widest">
@@ -508,7 +508,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
         const StatusIcon = config.icon;
 
         return (
-          <Card key={p.id} className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-colors">
+          <Card key={p.id} className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-colors">
             <CardContent className="p-6 flex items-center gap-5">
               <div className={`p-3 rounded-xl ${config.color.split(' ')[0]}`}>
                 <StatusIcon className={`h-5 w-5 ${config.color.split(' ')[1]}`} />
@@ -546,7 +546,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
 function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void; onPagado?: (permisoId: string, planilla: string) => void; pagadoIds?: Set<string> }) {
   if (groups.length === 0) {
     return (
-      <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 p-16 text-center">
         <Search className="h-12 w-12 text-muted-foreground/20 mx-auto mb-4" />
         <p className="text-sm font-bold text-muted-foreground/40 uppercase">No se encontraron permisos con los filtros seleccionados</p>
       </Card>
@@ -557,7 +557,7 @@ function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { gro
     <Accordion type="multiple" className="space-y-4">
       {groups.map(({ org, permisos }) => (
         <AccordionItem key={org.id} value={org.id} className="border-none">
-          <Card className="glass-card border-none rounded-[2rem] bg-card/40 overflow-hidden">
+          <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 overflow-hidden">
             <AccordionTrigger className="px-8 py-6 hover:bg-white/[0.02] transition-all hover:no-underline">
               <div className="flex justify-between items-center w-full pr-4">
                 <div className="flex items-center gap-4">
@@ -693,7 +693,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
                     onClick={e => e.stopPropagation()}
                   />
                   <Button
-                    className="h-12 px-6 rounded-xl btn-3d-primary font-black uppercase text-[9px] shrink-0"
+                    className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 font-black uppercase text-[9px] shrink-0"
                     onClick={e => { e.stopPropagation(); handleIrAlBanco(); }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" /> IR AL BANCO
@@ -762,7 +762,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
 function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
   if (alertas.length === 0) {
     return (
-      <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 p-16 text-center">
         <CheckCircle2 className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
         <p className="text-lg font-black text-foreground/60 uppercase">Sin Alertas Pendientes</p>
         <p className="text-[10px] text-muted-foreground/40 mt-2">Todos los permisos registrados están al día. Registre sus permisos para activar el sistema de alertas.</p>
@@ -781,7 +781,7 @@ function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
         const AlertIcon = config.icon;
 
         return (
-          <Card key={a.id} className={`glass-card border rounded-2xl bg-card/40 overflow-hidden ${config.color}`}>
+          <Card key={a.id} className={`border rounded-2xl shadow-lg bg-card/40 overflow-hidden ${config.color}`}>
             <CardContent className="p-6 flex items-center gap-6">
               <div className="p-3 rounded-xl bg-white/5">
                 <AlertIcon className="h-6 w-6" />
@@ -829,7 +829,7 @@ function DirectorioInstitucional() {
 
   return (
     <div className="space-y-6">
-      <Card className="glass-card border-none rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-blue-500/5 p-5 border border-blue-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-blue-500/10"><Building2 className="h-4 w-4 text-blue-500" /></div>
           <div>
@@ -867,7 +867,7 @@ function DirectorioInstitucional() {
           const tc = tipoConfig[org.tipo] || tipoConfig.instituto;
           const c = org.contacto;
           return (
-            <Card key={org.id} className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-all">
+            <Card key={org.id} className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden hover:bg-card/60 transition-all">
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-4">
@@ -1028,7 +1028,7 @@ function PermisosRequeridosPorSector() {
 
   return (
     <div className="space-y-6">
-      <Card className="glass-card border-none rounded-2xl bg-violet-500/5 p-5 border border-violet-500/10">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-violet-500/5 p-5 border border-violet-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-violet-500/10"><Scale className="h-4 w-4 text-violet-500" /></div>
           <div>
@@ -1053,7 +1053,7 @@ function PermisosRequeridosPorSector() {
       </div>
 
       {sectorData && (
-        <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden">
+        <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
           <div className="p-6 border-b border-white/5 bg-violet-500/5">
             <p className="font-black uppercase text-lg text-foreground/90">Sector: {sectorData.nombre}</p>
             <p className="text-[9px] font-bold text-muted-foreground/50 mt-1 uppercase tracking-widest">{sectorData.permisos.length} permiso(s) obligatorio(s) identificado(s)</p>
@@ -1133,7 +1133,7 @@ Fecha: _____ / _____ / _____`;
 
   return (
     <div className="space-y-6">
-      <Card className="glass-card border-none rounded-2xl bg-rose-500/5 p-5 border border-rose-500/10">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-rose-500/5 p-5 border border-rose-500/10">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-rose-500/10"><FileWarning className="h-4 w-4 text-rose-500" /></div>
           <div>
@@ -1143,7 +1143,7 @@ Fecha: _____ / _____ / _____`;
         </div>
       </Card>
 
-      <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
         <div className="bg-white m-6 rounded-2xl shadow-inner p-10 font-serif text-slate-900 whitespace-pre-wrap text-sm leading-relaxed text-justify">
           {clausulaTexto}
         </div>
@@ -1157,7 +1157,7 @@ Fecha: _____ / _____ / _____`;
           <Button variant="outline" className="rounded-xl h-11 px-6 border-white/10 font-black uppercase text-[9px] tracking-widest" onClick={() => window.print()}>
             <Printer className="mr-2 h-4 w-4" /> Imprimir
           </Button>
-          <Button className="rounded-xl h-11 px-8 btn-3d-primary font-black uppercase text-[9px] tracking-widest" onClick={() => {
+          <Button className="rounded-xl h-11 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px] tracking-widest" onClick={() => {
             const blob = new Blob([clausulaTexto], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1172,13 +1172,13 @@ Fecha: _____ / _____ / _____`;
         </div>
       </Card>
 
-      <Card className="glass-card border-none rounded-2xl bg-amber-500/5 p-5 border border-amber-500/10">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-amber-500/5 p-5 border border-amber-500/10">
         <div className="flex items-start gap-3">
           <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
           <div>
             <p className="text-[9px] font-black uppercase text-amber-600">Aviso Importante</p>
             <p className="text-[9px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
-              Este modelo es referencial y debe ser revisado por un abogado especialista antes de su uso. Cada relación contractual puede requerir ajustes específicos según la naturaleza del servicio prestado, el sector económico del cliente y la normativa vigente. System Kyron no garantiza la validez legal del documento ni se responsabiliza por su uso.
+              Este modelo es referencial y debe ser revisado por un abogado especialista antes de su uso. Cada relación contractual puede requerir ajustes específicos según la naturaleza del servicio prestado, el sector económico del cliente y la normativa vigente. El sistema no garantiza la validez legal del documento ni se responsabiliza por su uso.
             </p>
           </div>
         </div>

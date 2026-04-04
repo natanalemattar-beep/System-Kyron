@@ -1,123 +1,155 @@
-
 "use client";
+
+import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
-
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Gavel, CirclePlus as PlusCircle, CircleCheck as CheckCircle, CreditCard as Edit, Users, Building, Eye, Info, Terminal, Activity, Download, Printer } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { formatCurrency } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Logo } from "@/components/logo";
+import { Gavel, Info, ChevronRight, Inbox, Loader2, FileText, AlertTriangle } from "lucide-react";
 
-const initialPoderes = [
-    { id: "POD-001", tipo: "Poder General de Administración", apoderado: "Ana Pérez", registro: "Reg. Mercantil 1ro, Caracas", estado: "Activo" },
-    { id: "POD-002", tipo: "Apoderado Judicial Especial", apoderado: "Luis Gómez", registro: "Tribunal 4to de Instancia", estado: "Activo" },
+const TIPOS_PODER = [
+    { tipo: "Poder General de Administración", descripcion: "Faculta al apoderado para actos de administración ordinaria de la empresa.", registro: "Registro Mercantil / Notaría" },
+    { tipo: "Poder Especial Judicial", descripcion: "Otorga facultades para representar a la empresa ante tribunales.", registro: "Tribunal competente" },
+    { tipo: "Poder Especial Tributario", descripcion: "Permite al apoderado actuar ante el SENIAT y otros entes tributarios.", registro: "Notaría Pública" },
+    { tipo: "Poder General Amplio", descripcion: "Confiere facultades amplias de disposición y administración.", registro: "Registro Mercantil" },
 ];
 
+const NOTAS = [
+    "Los poderes deben estar inscritos ante el Registro Mercantil o la Notaría correspondiente para ser válidos.",
+    "El poder especial judicial requiere mención expresa de las facultades otorgadas (Art. 154 CPC).",
+    "La revocatoria de un poder debe inscribirse en el mismo registro donde se otorgó.",
+    "Los poderes para actos de disposición (venta de bienes) requieren mención expresa del bien.",
+];
+
+interface Poder {
+    id: number;
+    fecha: string;
+    concepto: string;
+    monto: string;
+    tipo: string;
+    referencia: string | null;
+}
+
 export default function PoderesRepresentacionPage() {
-    const { toast } = useToast();
+    const [rows, setRows] = useState<Poder[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const letterTemplate = `
-Caracas, [Fecha Actual]
-
-Ciudadano
-Registrador Mercantil / Notario Público
-Su Despacho.-
-
-Asunto: Solicitud de Copia Certificada / Inscripción de Poder
-
-Yo, [Nombre del Otorgante], titular de la Cédula de Identidad N° [Cédula], actuando en nombre de System Kyron, C.A. (RIF J-50328471-6), me dirijo a usted para solicitar formalmente la copia certificada/inscripción del instrumento legal referente a la representación de nuestra entidad.
-
-Dicho documento fue registrado originalmente bajo el Nro. [Número], Tomo [Tomo], de fecha [Fecha Original].
-
-Atentamente,
-
-_________________________
-Firma Autorizada
-System Kyron, C.A.
-    `;
+    useEffect(() => {
+        fetch('/api/contabilidad/records?type=poderes')
+            .then(r => r.ok ? r.json() : { rows: [] })
+            .then(d => setRows(d.rows ?? []))
+            .catch(() => {})
+            .finally(() => setLoading(false));
+    }, []);
 
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Gavel className="h-3 w-3" /> CENTRO REGISTRAL
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Registro de <span className="text-primary italic">Comercio (SAREN)</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Control de Poderes y Representación Legal • 2026</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <Gavel className="h-3.5 w-3.5" /> SAREN
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Poderes y <span className="text-primary">Representación</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Control de poderes y representación legal · SAREN</p>
                 </div>
             </header>
 
-            <Tabs defaultValue="poderes" className="w-full">
-                <TabsList className="flex h-14 bg-card/50 border border-white/5 rounded-2xl p-1.5 mb-10 shadow-inner max-w-md">
-                    <TabsTrigger value="poderes" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Poderes</TabsTrigger>
-                    <TabsTrigger value="comunicaciones" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Generar Carta</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="poderes" className="animate-in fade-in duration-500">
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Bóveda de Poderes Vigentes</CardTitle>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-primary" />
+                                Tipos de Poder
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-0">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow className="bg-muted/30 border-none">
-                                        <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Tipo de Poder</TableHead>
-                                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Apoderado</TableHead>
-                                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Datos de Registro</TableHead>
-                                        <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {initialPoderes.map((p) => (
-                                        <TableRow key={p.id} className="border-border/50 hover:bg-muted/20 transition-all">
-                                            <TableCell className="pl-10 py-6 font-black text-xs uppercase italic text-foreground/80">{p.tipo}</TableCell>
-                                            <TableCell className="py-6 text-xs font-bold text-foreground/60">{p.apoderado}</TableCell>
-                                            <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase">{p.registro}</TableCell>
-                                            <TableCell className="text-right pr-10 py-6">
-                                                <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase px-3 h-6 rounded-lg">{p.estado}</Badge>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                        <CardContent className="space-y-3">
+                            {TIPOS_PODER.map((p, i) => (
+                                <div key={i} className="p-3.5 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                    <p className="text-xs font-bold">{p.tipo}</p>
+                                    <p className="text-[11px] text-muted-foreground mt-0.5">{p.descripcion}</p>
+                                    <p className="text-[10px] font-bold text-muted-foreground/60 mt-1">Registro: {p.registro}</p>
+                                </div>
+                            ))}
                         </CardContent>
                     </Card>
-                </TabsContent>
 
-                <TabsContent value="comunicaciones" className="animate-in fade-in duration-500">
-                    <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900">
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
-                            <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
-                        </div>
-                        <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
-                            <Logo className="h-14 w-14" />
-                            <div className="text-right">
-                                <h4 className="text-lg font-black italic uppercase tracking-tight">System Kyron, C.A.</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-50328471-6</p>
-                            </div>
-                        </header>
-                        <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">
-                            {letterTemplate}
-                        </div>
-                        <footer className="mt-20 pt-8 border-t border-slate-100 flex justify-end gap-4 no-print relative z-10">
-                            <Button variant="outline" className="h-12 px-8 rounded-xl border-slate-200 text-slate-600 font-black uppercase text-[10px]" onClick={() => window.print()}>
-                                <Printer className="mr-3 h-4 w-4" /> IMPRIMIR
-                            </Button>
-                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'carta_saren_lista', descripcion: "CARTA SAREN LISTA" }) }); if (res.ok) toast({ title: "CARTA SAREN LISTA" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                                <Download className="mr-3 h-4 w-4" /> EXPORTAR .DOC
-                            </Button>
-                        </footer>
+                    <Card className="rounded-2xl shadow-lg border overflow-hidden">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Gavel className="h-4 w-4 text-primary" />
+                                Poderes Registrados
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0">
+                            {loading ? (
+                                <div className="flex items-center justify-center py-16 gap-3 text-muted-foreground">
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    <span className="text-sm font-bold">Cargando...</span>
+                                </div>
+                            ) : rows.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-3">
+                                    <Inbox className="h-10 w-10 opacity-40" />
+                                    <p className="text-sm font-bold">Sin poderes registrados</p>
+                                    <p className="text-xs text-muted-foreground/60">Los poderes aparecerán aquí al ser registrados en el sistema.</p>
+                                </div>
+                            ) : (
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead className="pl-6 text-xs font-bold">Fecha</TableHead>
+                                            <TableHead className="text-xs font-bold">Tipo</TableHead>
+                                            <TableHead className="text-xs font-bold">Referencia</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {rows.map((r) => (
+                                            <TableRow key={r.id}>
+                                                <TableCell className="pl-6 text-xs">{r.fecha}</TableCell>
+                                                <TableCell className="text-xs font-bold">{r.concepto}</TableCell>
+                                                <TableCell className="text-xs font-mono text-muted-foreground">{r.referencia ?? '—'}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </CardContent>
                     </Card>
-                </TabsContent>
-            </Tabs>
+                </div>
+
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-amber-500" />
+                                Notas Legales
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {NOTAS.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <div>
+                                <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Nota</p>
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                                    Las cartas de solicitud al SAREN pueden generarse desde el Centro de Comunicaciones del módulo Tributario.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

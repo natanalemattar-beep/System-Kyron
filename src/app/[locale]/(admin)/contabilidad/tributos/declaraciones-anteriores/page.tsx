@@ -1,85 +1,103 @@
-
 "use client";
+
+import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
-
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { FolderArchive, Download, FileSearch, Search, ShieldCheck, Activity, Terminal, Eye } from "lucide-react";
+import { FolderArchive, Inbox, Loader2, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 
-const declarations = [
-    { date: "20/02/2026", tax: "IVA", period: "Enero 2026", amount: 45678, ref: "S-2026-X1" },
-    { date: "15/02/2026", tax: "ISLR", period: "4to Trim 2025", amount: 12345, ref: "ISLR-9988" },
-    { date: "28/02/2026", tax: "DPP (Pensiones)", period: "Enero 2026", amount: 4050, ref: "DPP-001" },
-];
+interface Declaracion {
+    id: number;
+    fecha: string;
+    concepto: string;
+    monto: string;
+    tipo: string;
+    referencia: string | null;
+}
 
 export default function DeclaracionesAnterioresPage() {
-    const { toast } = useToast();
+    const [rows, setRows] = useState<Declaracion[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/contabilidad/records?type=declaraciones')
+            .then(r => r.ok ? r.json() : { rows: [] })
+            .then(d => setRows(d.rows ?? []))
+            .catch(() => {})
+            .finally(() => setLoading(false));
+    }, []);
 
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <FolderArchive className="h-3 w-3" /> CENTRO DE ARCHIVO
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Archivo de <span className="text-primary italic">Declaraciones</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Dossier Histórico Inmutable • Auditoría Kyron 2026</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <FolderArchive className="h-3.5 w-3.5" /> Archivo
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Archivo de <span className="text-primary">Declaraciones</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Historial de declaraciones tributarias presentadas.</p>
                 </div>
             </header>
 
-            <div className="mb-10">
-                <div className="relative max-w-lg">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40" />
-                    <Input placeholder="Buscar por periodo o impuesto..." className="pl-12 h-14 rounded-2xl bg-white/5 border-border text-xs font-bold uppercase tracking-widest shadow-inner" />
-                </div>
-            </div>
-
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row justify-between items-center">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Historial de Cumplimiento Certificado</CardTitle>
-                    <Button variant="outline" size="sm" className="h-9 px-4 rounded-xl text-[9px] font-black uppercase border-border" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'sincronizar_declaraciones', descripcion: 'Sincronización de archivo de declaraciones anteriores' }) }); if (res.ok) toast({ title: "SINCRONIZANDO ARCHIVO", description: "Actualización registrada." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>ACTUALIZAR</Button>
+            <Card className="rounded-2xl shadow-lg border overflow-hidden">
+                <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                        <FolderArchive className="h-4 w-4 text-primary" />
+                        Declaraciones Registradas
+                    </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-muted/30 border-none">
-                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha Presentación</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Impuesto / Tributo</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Periodo</TableHead>
-                                <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Declarado</TableHead>
-                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Comprobante</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {declarations.map((row, i) => (
-                                <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
-                                    <TableCell className="pl-10 py-6 text-[10px] font-bold text-muted-foreground/60 uppercase">{row.date}</TableCell>
-                                    <TableCell className="py-6 font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{row.tax}</TableCell>
-                                    <TableCell className="py-6 text-center text-[10px] font-bold text-muted-foreground uppercase">{row.period}</TableCell>
-                                    <TableCell className="text-right py-6 font-mono text-sm font-black text-foreground/70 italic">{formatCurrency(row.amount, 'Bs.')}</TableCell>
-                                    <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'comprobante_declaracion', descripcion: 'Visualización de comprobante de declaración' }) }); if (res.ok) toast({ title: "COMPROBANTE DIGITAL", description: "Visualizando comprobante de declaración." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                                            <Eye className="h-4 w-4" />
-                                        </Button>
-                                    </TableCell>
+                    {loading ? (
+                        <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+                            <Loader2 className="h-5 w-5 animate-spin" />
+                            <span className="text-sm font-bold">Cargando...</span>
+                        </div>
+                    ) : rows.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+                            <Inbox className="h-10 w-10 opacity-40" />
+                            <p className="text-sm font-bold">Sin declaraciones registradas</p>
+                            <p className="text-xs text-muted-foreground/60">Las declaraciones tributarias aparecerán aquí al ser registradas en el sistema.</p>
+                        </div>
+                    ) : (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="pl-6 text-xs font-bold">Fecha</TableHead>
+                                    <TableHead className="text-xs font-bold">Tributo</TableHead>
+                                    <TableHead className="text-xs font-bold">Referencia</TableHead>
+                                    <TableHead className="text-right pr-6 text-xs font-bold">Monto</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {rows.map((r) => (
+                                    <TableRow key={r.id}>
+                                        <TableCell className="pl-6 text-xs">{r.fecha}</TableCell>
+                                        <TableCell className="text-xs font-bold">{r.concepto}</TableCell>
+                                        <TableCell className="text-xs font-mono text-muted-foreground">{r.referencia ?? '—'}</TableCell>
+                                        <TableCell className="text-right pr-6 font-bold text-xs">{formatCurrency(parseFloat(r.monto), 'Bs.')}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
                 </CardContent>
-                <CardFooter className="p-10 border-t border-border bg-primary/5 flex justify-between items-center">
-                    <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                        <ShieldCheck className="h-4 w-4 text-primary" /> Sellado de Tiempo Inmutable RFC 3161
-                    </div>
-                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'exportacion_xml', descripcion: 'Exportación lote declaraciones anteriores en XML' }) }); if (res.ok) toast({ title: "EXPORTACIÓN XML", description: "Lote de declaraciones anteriores exportado en formato XML." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>DESCARGAR LOTE XML</Button>
-                </CardFooter>
             </Card>
+
+            <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                <div className="flex items-start gap-3">
+                    <Info className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                    <div>
+                        <p className="text-xs font-bold text-blue-600 dark:text-blue-400">Nota</p>
+                        <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                            Este archivo muestra las declaraciones registradas en el sistema. Para consultar declaraciones presentadas directamente en el portal SENIAT, acceda a su cuenta en seniat.gob.ve.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

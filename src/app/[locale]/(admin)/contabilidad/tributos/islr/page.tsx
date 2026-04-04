@@ -1,161 +1,239 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Banknote, Download, Calculator, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Activity, Terminal, Copy, Landmark, Search, History, Zap, ShieldCheck, CirclePlus as PlusCircle } from "lucide-react";
-import { formatCurrency, cn } from "@/lib/utils";
+import { Banknote, Calculator, Info, ChevronRight, FileText } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "@/navigation";
+
+const CONCEPTOS_RETENCION = [
+    { id: "honorarios", label: "Honorarios Profesionales", tasa: 3, base: "Art. 9, Decreto 1.808", sustraendo: true },
+    { id: "arrendamiento", label: "Arrendamiento de Inmuebles", tasa: 3, base: "Art. 12, Decreto 1.808", sustraendo: false },
+    { id: "comision", label: "Comisiones Mercantiles", tasa: 3, base: "Art. 9, Decreto 1.808", sustraendo: false },
+    { id: "publicidad", label: "Publicidad y Propaganda", tasa: 3, base: "Art. 12, Decreto 1.808", sustraendo: false },
+    { id: "servicios", label: "Servicios Profesionales (PJ)", tasa: 2, base: "Art. 9, Decreto 1.808", sustraendo: false },
+    { id: "transporte", label: "Transporte de Carga", tasa: 1, base: "Art. 12, Decreto 1.808", sustraendo: false },
+];
+
+const TARIFAS_ISLR = [
+    { rango: "Hasta 1.000 UT", tarifa: "6%", sustraendo: "0 UT", tipo: "Persona Natural" },
+    { rango: "1.000 – 1.500 UT", tarifa: "9%", sustraendo: "30 UT", tipo: "Persona Natural" },
+    { rango: "1.500 – 2.000 UT", tarifa: "12%", sustraendo: "75 UT", tipo: "Persona Natural" },
+    { rango: "2.000 – 3.000 UT", tarifa: "16%", sustraendo: "155 UT", tipo: "Persona Natural" },
+    { rango: "3.000 – 4.000 UT", tarifa: "20%", sustraendo: "275 UT", tipo: "Persona Natural" },
+    { rango: "4.000 – 6.000 UT", tarifa: "24%", sustraendo: "435 UT", tipo: "Persona Natural" },
+    { rango: "Más de 6.000 UT", tarifa: "34%", sustraendo: "1.035 UT", tipo: "Persona Natural" },
+    { rango: "Hasta 2.000 UT", tarifa: "15%", sustraendo: "0 UT", tipo: "Persona Jurídica" },
+    { rango: "2.000 – 3.000 UT", tarifa: "22%", sustraendo: "140 UT", tipo: "Persona Jurídica" },
+    { rango: "Más de 3.000 UT", tarifa: "34%", sustraendo: "500 UT", tipo: "Persona Jurídica" },
+];
+
+const NOTAS = [
+    "La declaración definitiva de ISLR vence el último día de marzo de cada año (personas naturales y jurídicas con cierre 31/dic).",
+    "Los SPE enteras retenciones según el calendario SENIAT por terminal de RIF.",
+    "El sustraendo se aplica solo a personas naturales residentes, según la tarifa progresiva del Art. 50 LISLR.",
+    "Personas jurídicas aplican tarifa del Art. 52 LISLR: 15%, 22% o 34%.",
+];
 
 export default function IslrPage() {
     const { toast } = useToast();
-    const [base, setBase] = useState<number>(0);
-    const [retencion, setRetencion] = useState<number>(0);
+    const [base, setBase] = useState("");
+    const [concepto, setConcepto] = useState("honorarios");
+    const [retencion, setRetencion] = useState<number | null>(null);
+
+    const conceptoActual = CONCEPTOS_RETENCION.find(c => c.id === concepto)!;
 
     const handleCalculate = () => {
-        setRetencion(base * 0.03); // Tasa honorarios base
-        toast({ title: "CÁLCULO COMPLETADO", description: "Retención estimada según tasa del 3% (Honorarios Prof.)." });
+        const baseNum = parseFloat(base);
+        if (!baseNum || baseNum <= 0) {
+            toast({ variant: "destructive", title: "Monto inválido", description: "Introduce el monto de la factura." });
+            return;
+        }
+        const result = baseNum * (conceptoActual.tasa / 100);
+        setRetencion(result);
+        toast({ title: "Cálculo completado", description: `Retención ${conceptoActual.tasa}%: ${formatCurrency(result, 'Bs.')}` });
     };
 
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-indigo-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-indigo-500 shadow-glow mb-4">
-                        <Banknote className="h-3 w-3" /> CENTRO ISLR
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Renta y <span className="text-indigo-500 italic">Retenciones</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Declaraciones Definitivas y Estimadas • Decreto 1.800</p>
-                </div>
-                <div className="flex gap-2">
-                    <Button onClick={() => toast({ title: "PLANILLA ARI", description: "Procesando planilla ari..." })} variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-                        PLANILLA ARI
-                    </Button>
-                    <Button onClick={() => toast({ title: "DECLARACIÓN ANUAL", description: "Procesando declaración anual..." })} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-[#0A2472]">
-                        DECLARACIÓN ANUAL
-                    </Button>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-3">
+                        <Banknote className="h-3.5 w-3.5" /> ISLR
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Impuesto sobre la <span className="text-indigo-500">Renta</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Ley de ISLR (Decreto 2.163) · Retenciones (Decreto 1.808)</p>
                 </div>
             </header>
 
             <Tabs defaultValue="calculadora" className="w-full">
-                <TabsList className="flex h-14 bg-card/50 border border-border rounded-2xl p-1.5 mb-10 shadow-inner max-w-md">
-                    <TabsTrigger value="calculadora" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Calculadora</TabsTrigger>
-                    <TabsTrigger value="requisitos" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Inscripción</TabsTrigger>
-                    <TabsTrigger value="tarifas" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Tarifas</TabsTrigger>
+                <TabsList className="flex h-12 bg-muted/50 border rounded-xl p-1 mb-8 max-w-md">
+                    <TabsTrigger value="calculadora" className="flex-1 rounded-lg font-bold text-xs data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Calculadora</TabsTrigger>
+                    <TabsTrigger value="tarifas" className="flex-1 rounded-lg font-bold text-xs data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Tarifas</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="calculadora" className="animate-in fade-in duration-500">
-                    <div className="grid gap-10 lg:grid-cols-12">
-                        <div className="lg:col-span-7 space-y-10">
-                            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl">
-                                <div className="space-y-8">
-                                    <div className="space-y-3">
-                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Monto de la Factura (Base Imponible)</Label>
-                                        <Input type="number" placeholder="0.00" onChange={e => setBase(Number(e.target.value))} className="h-14 rounded-2xl bg-white/5 border-border font-black text-lg" />
+                    <div className="grid gap-6 lg:grid-cols-12">
+                        <div className="lg:col-span-7">
+                            <Card className="rounded-2xl shadow-lg border">
+                                <CardHeader className="pb-4">
+                                    <CardTitle className="flex items-center gap-2 text-base font-bold">
+                                        <Calculator className="h-5 w-5 text-indigo-500" />
+                                        Simulador de Retención ISLR
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label className="text-xs font-bold text-muted-foreground">Monto de la Factura (Bs.)</Label>
+                                        <Input type="number" placeholder="0.00" value={base} onChange={e => { setBase(e.target.value); setRetencion(null); }} className="h-12 rounded-xl font-bold text-lg" />
                                     </div>
-                                    <div className="space-y-3">
-                                        <Label className="text-[9px] font-black uppercase text-muted-foreground/40 ml-1">Concepto de Retención</Label>
-                                        <Select defaultValue="honorarios">
-                                            <SelectTrigger className="h-12 rounded-xl bg-white/5 border-border font-bold uppercase"><SelectValue /></SelectTrigger>
-                                            <SelectContent className="rounded-xl">
-                                                <SelectItem value="honorarios" className="uppercase text-xs font-bold">Honorarios Profesionales (3%)</SelectItem>
-                                                <SelectItem value="arrendamiento" className="uppercase text-xs font-bold">Arrendamiento Inmuebles (3%)</SelectItem>
-                                                <SelectItem value="comision" className="uppercase text-xs font-bold">Comisiones Mercantiles (3%)</SelectItem>
-                                                <SelectItem value="publicidad" className="uppercase text-xs font-bold">Publicidad y Propaganda (3%)</SelectItem>
+
+                                    <div className="space-y-2">
+                                        <Label className="text-xs font-bold text-muted-foreground">Concepto de Retención</Label>
+                                        <Select value={concepto} onValueChange={(v) => { setConcepto(v); setRetencion(null); }}>
+                                            <SelectTrigger className="h-12 rounded-xl font-semibold"><SelectValue /></SelectTrigger>
+                                            <SelectContent>
+                                                {CONCEPTOS_RETENCION.map(c => (
+                                                    <SelectItem key={c.id} value={c.id} className="font-semibold">
+                                                        {c.label} ({c.tasa}%)
+                                                    </SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
-                                    <Button onClick={handleCalculate} className="w-full h-16 rounded-2xl btn-3d-primary bg-indigo-600 hover:bg-indigo-700 font-black uppercase text-xs tracking-widest shadow-xl">SIMULAR RETENCIÓN</Button>
-                                    
-                                    <div className="p-8 bg-indigo-500/10 border border-indigo-500/30 rounded-[2rem] flex justify-between items-center">
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-black uppercase text-indigo-400">Monto a Retener</p>
-                                            <p className="text-3xl font-black italic text-indigo-400">{formatCurrency(retencion, 'Bs.')}</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-[10px] font-black uppercase text-muted-foreground/40">Neto a Pagar</p>
-                                            <p className="text-xl font-bold text-foreground/60">{formatCurrency(base - retencion, 'Bs.')}</p>
+
+                                    <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-start gap-3">
+                                        <Info className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="text-xs font-bold">{conceptoActual.label} — Tasa: {conceptoActual.tasa}%</p>
+                                            <p className="text-[10px] text-muted-foreground mt-0.5">{conceptoActual.base}</p>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <Button onClick={handleCalculate} className="w-full h-12 rounded-xl font-bold text-sm bg-indigo-600 hover:bg-indigo-700">
+                                        <Calculator className="mr-2 h-4 w-4" />
+                                        Simular Retención
+                                    </Button>
+
+                                    {retencion !== null && (
+                                        <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                            <div className="flex justify-between items-center py-3 border-b">
+                                                <span className="text-xs font-bold text-muted-foreground">Monto a Retener ({conceptoActual.tasa}%)</span>
+                                                <span className="font-black text-indigo-500">{formatCurrency(retencion, 'Bs.')}</span>
+                                            </div>
+                                            <div className="p-5 rounded-xl bg-indigo-500/5 border border-indigo-500/15">
+                                                <div className="flex justify-between items-center">
+                                                    <div>
+                                                        <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Neto a Pagar al Proveedor</p>
+                                                    </div>
+                                                    <span className="text-2xl font-black text-indigo-500">{formatCurrency(parseFloat(base) - retencion, 'Bs.')}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </CardContent>
                             </Card>
                         </div>
 
-                        <div className="lg:col-span-5 space-y-10">
-                            <Card className="glass-card border-none bg-indigo-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-8 opacity-10"><Zap className="h-32 w-32" /></div>
-                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-6">Aviso SPE</h3>
-                                <p className="text-xs font-bold text-white/60 leading-relaxed uppercase text-justify">
-                                    Los Sujetos Pasivos Especiales deben enterar las retenciones de ISLR según el calendario de pagos de IVA. System Kyron automatiza el archivo XML de carga masiva para el portal SENIAT.
-                                </p>
+                        <div className="lg:col-span-5 space-y-6">
+                            <Card className="rounded-2xl shadow-lg border">
+                                <CardHeader className="pb-3">
+                                    <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                        <FileText className="h-4 w-4 text-indigo-500" />
+                                        Conceptos de Retención
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-2.5">
+                                    {CONCEPTOS_RETENCION.map(c => (
+                                        <div key={c.id} className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                            <div>
+                                                <p className="text-xs font-bold">{c.label}</p>
+                                                <p className="text-[10px] text-muted-foreground">{c.base}</p>
+                                            </div>
+                                            <span className="text-sm font-black text-indigo-500">{c.tasa}%</span>
+                                        </div>
+                                    ))}
+                                </CardContent>
                             </Card>
-                            
-                            <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-400 mb-6 flex items-center gap-3">
-                                    <ShieldCheck className="h-4 w-4" /> Blindaje Fiscal
-                                </h4>
-                                <ul className="space-y-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
-                                    <li>• Validación de RIF contra base SENIAT.</li>
-                                    <li>• Verificación de sustraendo acumulado.</li>
-                                    <li>• Generación automática de comprobantes.</li>
-                                </ul>
+
+                            <Card className="rounded-2xl shadow-lg border">
+                                <CardHeader className="pb-3">
+                                    <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                        <Info className="h-4 w-4 text-amber-500" />
+                                        Notas Importantes
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-2.5">
+                                    {NOTAS.map((nota, i) => (
+                                        <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                            <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                            <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                        </div>
+                                    ))}
+                                </CardContent>
                             </Card>
+
+                            <Button variant="outline" asChild className="w-full h-11 rounded-xl text-xs font-bold">
+                                <Link href="/contabilidad/tributos/retenciones-islr">
+                                    Gestionar Retenciones ISLR <ChevronRight className="ml-1 h-3.5 w-3.5" />
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </TabsContent>
 
-                <TabsContent value="requisitos" className="animate-in fade-in duration-500">
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl max-w-4xl mx-auto">
-                        <CardHeader className="p-0 mb-10">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
-                                <CheckCircle className="text-indigo-500 h-6 w-6" /> Dossier de Inscripción y Renovación
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-0 space-y-10">
-                            <div className="grid md:grid-cols-2 gap-10">
-                                <div className="space-y-6">
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-500">Recaudos Obligatorios</h4>
-                                    <ul className="space-y-3">
-                                        {["Copia del RIF actualizado", "Libros Contables Foliados", "Declaraciones Definitivas Anteriores", "Registro Mercantil Original"].map((doc, i) => (
-                                            <li key={i} className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground uppercase">
-                                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-500/40" /> {doc}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="space-y-6">
-                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl space-y-4">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[9px] font-black uppercase text-muted-foreground/40">Estado Fiscal</span>
-                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none h-6 px-3 text-[8px] font-black uppercase">VIGENTE</Badge>
+                <TabsContent value="tarifas" className="animate-in fade-in duration-500">
+                    <div className="grid gap-6 lg:grid-cols-2">
+                        <Card className="rounded-2xl shadow-lg border">
+                            <CardHeader className="pb-3">
+                                <CardTitle className="text-sm font-bold">Tarifa N° 1 — Personas Naturales (Art. 50 LISLR)</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                                {TARIFAS_ISLR.filter(t => t.tipo === "Persona Natural").map((t, i) => (
+                                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-muted/30">
+                                        <div>
+                                            <p className="text-xs font-bold">{t.rango}</p>
+                                            <p className="text-[10px] text-muted-foreground">Sustraendo: {t.sustraendo}</p>
                                         </div>
-                                        <div className="space-y-1">
-                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próximo Cierre Fiscal</p>
-                                            <p className="text-xs font-bold text-foreground">31 de Marzo, 2026</p>
-                                        </div>
+                                        <span className="text-lg font-black text-indigo-500">{t.tarifa}</span>
                                     </div>
-                                    <Button className="w-full h-12 rounded-xl border border-indigo-500/20 bg-indigo-500/5 text-indigo-500 font-black uppercase text-[10px] tracking-widest hover:bg-indigo-500/10" onClick={async () => {
-                                        try {
-                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'islr_asesoria', descripcion: 'Solicitud de asesoría fiscal ISLR' }) });
-                                            if (res.ok) { toast({ title: "ASESORÍA FISCAL ISLR", description: "Solicitud de asesoría fiscal registrada. Un especialista le contactará." }); }
-                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
-                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
-                                    }}>
-                                        INICIAR AUDITORÍA DE CIERRE
-                                    </Button>
+                                ))}
+                            </CardContent>
+                        </Card>
+
+                        <Card className="rounded-2xl shadow-lg border">
+                            <CardHeader className="pb-3">
+                                <CardTitle className="text-sm font-bold">Tarifa N° 2 — Personas Jurídicas (Art. 52 LISLR)</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                                {TARIFAS_ISLR.filter(t => t.tipo === "Persona Jurídica").map((t, i) => (
+                                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-muted/30">
+                                        <div>
+                                            <p className="text-xs font-bold">{t.rango}</p>
+                                            <p className="text-[10px] text-muted-foreground">Sustraendo: {t.sustraendo}</p>
+                                        </div>
+                                        <span className="text-lg font-black text-indigo-500">{t.tarifa}</span>
+                                    </div>
+                                ))}
+                                <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 mt-4">
+                                    <div className="flex items-start gap-2.5">
+                                        <Info className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                                        <p className="text-[11px] text-muted-foreground">Los valores están expresados en Unidades Tributarias (UT). El valor de la UT es fijado por el SENIAT anualmente.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>

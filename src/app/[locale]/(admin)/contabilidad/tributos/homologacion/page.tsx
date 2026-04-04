@@ -1,88 +1,133 @@
-
 "use client";
+
+import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
-
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { ShieldCheck, Printer, CirclePlus as PlusCircle, Activity, Terminal, ShieldAlert, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { Printer, Info, ChevronRight, Inbox, Loader2, AlertTriangle } from "lucide-react";
 
-const equipos = [
-    { type: "Impresora Fiscal", model: "HP / 2000", serial: "FIS-12345", date: "15/01/2025", status: "Vigente" },
-    { type: "Caja Registradora", model: "Sam4s / 500", serial: "CAJ-67890", date: "10/02/2025", status: "Vigente" },
-    { type: "Sistema TPV", model: "Kyron POS", serial: "LIC-001", date: "01/03/2026", status: "Por Vencer" },
+const NOTAS = [
+    "Toda máquina o equipo fiscal debe estar homologado por el SENIAT antes de su uso (Providencia SNAT/2011/0071).",
+    "La autorización de impresoras fiscales es otorgada por la Gerencia de Fiscalización del SENIAT.",
+    "Los equipos no homologados generan la sanción del Art. 101 del COT: clausura temporal del establecimiento.",
+    "Las memorias fiscales deben ser resguardadas por un mínimo de 4 años después del cierre del ejercicio.",
+    "Al sustituir un equipo fiscal, debe notificarse al SENIAT dentro de los 15 días hábiles siguientes.",
 ];
 
+interface Equipo {
+    id: number;
+    fecha: string;
+    concepto: string;
+    monto: string;
+    tipo: string;
+    referencia: string | null;
+}
+
 export default function HomologacionPage() {
-    const { toast } = useToast();
+    const [rows, setRows] = useState<Equipo[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/contabilidad/records?type=homologacion')
+            .then(r => r.ok ? r.json() : { rows: [] })
+            .then(d => setRows(d.rows ?? []))
+            .catch(() => {})
+            .finally(() => setLoading(false));
+    }, []);
 
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Printer className="h-3 w-3" /> CENTRO DE HARDWARE FISCAL
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Homologación <span className="text-primary italic">SENIAT</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Providencia SNAT/2011/0071 • Control de Máquinas Fiscales</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <Printer className="h-3.5 w-3.5" /> Homologación
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Homologación <span className="text-primary">SENIAT</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Providencia SNAT/2011/0071 · Control de Máquinas Fiscales</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR EQUIPO
-                </Button>
             </header>
 
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Registro de Dispositivos de Facturación</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-muted/30 border-none">
-                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Equipo / Modelo</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Serial Fiscal</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Fecha Homologación</TableHead>
-                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {equipos.map((e, i) => (
-                                <TableRow key={i} className={cn(
-                                    "border-border/50 hover:bg-muted/20 transition-all group",
-                                    e.status === "Por Vencer" && "bg-amber-500/5"
-                                )}>
-                                    <TableCell className="pl-10 py-6">
-                                        <div className="flex items-center gap-4">
-                                            {e.status === "Por Vencer" && <AlertTriangle className="h-4 w-4 text-amber-500" />}
-                                            <div>
-                                                <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{e.type}</p>
-                                                <p className="text-[8px] font-bold text-muted-foreground uppercase">{e.model}</p>
-                                            </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="py-6 text-center font-mono text-xs font-bold text-foreground/40">{e.serial}</TableCell>
-                                    <TableCell className="py-6 text-center text-[10px] font-bold text-muted-foreground uppercase">{e.date}</TableCell>
-                                    <TableCell className="text-right pr-10 py-6">
-                                        <Badge variant={e.status === 'Vigente' ? 'default' : 'secondary'} className={cn(
-                                            "text-[8px] font-black uppercase tracking-widest h-6 px-3 rounded-lg",
-                                            e.status === "Por Vencer" && "bg-amber-500/20 text-amber-600 border-none"
-                                        )}>{e.status}</Badge>
-                                    </TableCell>
-                                </TableRow>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7">
+                    <Card className="rounded-2xl shadow-lg border overflow-hidden">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Printer className="h-4 w-4 text-primary" />
+                                Equipos Fiscales Registrados
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0">
+                            {loading ? (
+                                <div className="flex items-center justify-center py-16 gap-3 text-muted-foreground">
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    <span className="text-sm font-bold">Cargando...</span>
+                                </div>
+                            ) : rows.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-3">
+                                    <Inbox className="h-10 w-10 opacity-40" />
+                                    <p className="text-sm font-bold">Sin equipos registrados</p>
+                                    <p className="text-xs text-muted-foreground/60">Los equipos fiscales homologados aparecerán aquí al ser registrados.</p>
+                                </div>
+                            ) : (
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead className="pl-6 text-xs font-bold">Fecha</TableHead>
+                                            <TableHead className="text-xs font-bold">Equipo</TableHead>
+                                            <TableHead className="text-xs font-bold">Referencia</TableHead>
+                                            <TableHead className="text-right pr-6 text-xs font-bold">Serial</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {rows.map((r) => (
+                                            <TableRow key={r.id}>
+                                                <TableCell className="pl-6 text-xs">{r.fecha}</TableCell>
+                                                <TableCell className="text-xs font-bold">{r.concepto}</TableCell>
+                                                <TableCell className="text-xs font-mono text-muted-foreground">{r.referencia ?? '—'}</TableCell>
+                                                <TableCell className="text-right pr-6 text-xs">{r.tipo}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-amber-500" />
+                                Normativa
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {NOTAS.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
                             ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardFooter className="p-8 border-t border-border bg-primary/5 flex justify-center">
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic flex items-center gap-3">
-                        <Terminal className="h-4 w-4" /> Sincronización con Memoria Fiscal: 100%
-                    </p>
-                </CardFooter>
-            </Card>
+                        </CardContent>
+                    </Card>
+
+                    <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                            <div>
+                                <p className="text-xs font-bold text-rose-600 dark:text-rose-400">Sanción</p>
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                                    El uso de equipos fiscales no homologados puede resultar en clausura temporal del establecimiento (Art. 101 COT) y multas de 150 a 200 UT.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

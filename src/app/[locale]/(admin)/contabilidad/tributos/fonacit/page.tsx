@@ -1,90 +1,116 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Microscope, Download, CircleCheck as CheckCircle, Activity, Terminal, ShieldCheck, CirclePlus as PlusCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { formatCurrency } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Microscope, Info, ChevronRight, AlertTriangle, FileText } from "lucide-react";
+
+const INFORMACION = [
+    "La LOCTI establece que empresas con ingresos brutos anuales superiores a 100.000 UT deben aportar entre 0.5% y 2% de sus ingresos a actividades de ciencia y tecnología.",
+    "El aporte puede realizarse mediante: inversión directa en proyectos propios, aportes al FONACIT, o financiamiento de proyectos de terceros inscritos en el SIDCA.",
+    "Las empresas deben inscribirse en el Sistema para la Declaración y Control del Aporte (SIDCA) del Ministerio de Ciencia y Tecnología.",
+    "La declaración es anual y debe presentarse dentro de los 60 días siguientes al cierre del ejercicio fiscal.",
+    "Los aportes en inversión directa deben estar vinculados a proyectos previamente aprobados por el organismo competente.",
+];
+
+const REQUISITOS = [
+    "Registro en el SIDCA (sidca.fonacit.gob.ve)",
+    "RIF corporativo actualizado",
+    "Declaración estimada de ingresos brutos",
+    "Proyecto de inversión tecnológica (si aplica inversión directa)",
+    "Constancia de solvencia del ejercicio anterior",
+];
+
+const TASAS = [
+    { tipo: "Gran Empresa (> 100.000 UT)", tasa: "2%", base: "Ingresos brutos anuales" },
+    { tipo: "Mediana Empresa (50.000 – 100.000 UT)", tasa: "1%", base: "Ingresos brutos anuales" },
+    { tipo: "Empresa Pública", tasa: "0.5%", base: "Ingresos brutos anuales" },
+];
 
 export default function FonacitPage() {
-    const { toast } = useToast();
-
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <Microscope className="h-3 w-3" /> CENTRO TECNOLÓGICO
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Aporte <span className="text-primary italic">FONACIT (LOCTI)</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Ley Orgánica de Ciencia, Tecnología e Innovación • 2026</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-purple-600 dark:text-purple-400 mb-3">
+                        <Microscope className="h-3.5 w-3.5" /> FONACIT
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Aporte <span className="text-purple-600 dark:text-purple-400">FONACIT (LOCTI)</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">Ley Orgánica de Ciencia, Tecnología e Innovación · Aporte anual</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'registro_locti_iniciado', descripcion: "REGISTRO LOCTI INICIADO" }) }); if (res.ok) toast({ title: "REGISTRO LOCTI INICIADO" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                    <PlusCircle className="mr-3 h-4 w-4" /> DECLARAR APORTE
-                </Button>
             </header>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <div className="lg:col-span-7 space-y-10">
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Inscripción y Renovación SIDCA</CardTitle>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Microscope className="h-4 w-4 text-purple-500" />
+                                Tasas de Aporte
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-10 space-y-8">
-                            <div className="grid md:grid-cols-2 gap-10">
-                                <div className="space-y-6">
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Requisitos del Sistema</h4>
-                                    <ul className="space-y-3">
-                                        {["Registro en SIDCA", "RIF Corporativo", "Declaración Estimada de Ingresos", "Proyecto de Inversión Tecnológica"].map((doc, i) => (
-                                            <li key={i} className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-foreground/60">
-                                                <CheckCircle className="h-4 w-4 text-primary" /> {doc}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="space-y-6">
-                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-[9px] font-black uppercase text-muted-foreground/40">Estatus SIDCA</span>
-                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase h-6">VIGENTE</Badge>
-                                        </div>
-                                        <div className="mt-4 space-y-1">
-                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próxima Declaración</p>
-                                            <p className="text-xs font-bold text-foreground">Anual (Junio 2026)</p>
-                                        </div>
+                        <CardContent className="space-y-3">
+                            {TASAS.map((t, i) => (
+                                <div key={i} className="flex items-center justify-between p-3.5 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                    <div>
+                                        <p className="text-xs font-bold">{t.tipo}</p>
+                                        <p className="text-[10px] text-muted-foreground">{t.base}</p>
                                     </div>
-                                    <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
-                                        try {
-                                            const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'tributos', subcategoria: 'fonacit', descripcion: 'Solicitud de trámite FONACIT' }) });
-                                            if (res.ok) { toast({ title: "TRÁMITE FONACIT", description: "Solicitud de trámite FONACIT registrada. Un asesor le contactará." }); }
-                                            else { toast({ title: "Error", description: "No se pudo registrar", variant: "destructive" }); }
-                                        } catch { toast({ title: "Error de conexión", variant: "destructive" }); }
-                                    }}>INICIAR TRÁMITE</Button>
+                                    <span className="text-lg font-black text-purple-600 dark:text-purple-400">{t.tasa}</span>
                                 </div>
-                            </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-purple-500" />
+                                Información Legal
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {INFORMACION.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-purple-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
+                            ))}
                         </CardContent>
                     </Card>
                 </div>
 
-                <div className="lg:col-span-5 space-y-8">
-                    <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-center border-l-4 border-primary">
-                        <div className="flex items-center gap-6 mb-8">
-                            <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-                                <Activity className="h-8 w-8 text-primary" />
-                            </div>
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <FileText className="h-4 w-4 text-blue-500" />
+                                Requisitos
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {REQUISITOS.map((req, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-blue-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{req}</p>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                             <div>
-                                <h3 className="text-xl font-black uppercase italic text-foreground">Incentivos LOCTI</h3>
-                                <Badge className="bg-emerald-500/20 text-emerald-400 border-none mt-2 uppercase text-[8px] font-black">Aplicables</Badge>
+                                <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Nota</p>
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                                    Las tasas y requisitos están basados en la LOCTI vigente. La inscripción en el SIDCA se realiza directamente en el portal del FONACIT (sidca.fonacit.gob.ve).
+                                </p>
                             </div>
                         </div>
-                        <p className="text-xs font-bold text-muted-foreground/40 uppercase leading-relaxed text-justify italic">
-                            "System Kyron detecta automáticamente los proyectos de I+D internos que pueden ser acreditados como inversión LOCTI ante el ministerio."
-                        </p>
-                    </Card>
+                    </div>
                 </div>
             </div>
         </div>

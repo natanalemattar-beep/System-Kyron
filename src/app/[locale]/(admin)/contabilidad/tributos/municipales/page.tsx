@@ -1,92 +1,101 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { BackButton } from "@/components/back-button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Landmark, MapPin, Download, CirclePlus as PlusCircle, Activity, Target, ShieldCheck, Scale, Terminal, Zap, Calculator } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+import { Landmark, Info, ChevronRight, AlertTriangle } from "lucide-react";
+
+const ALICUOTAS = [
+    { rubro: "Minería y Canteras", tipo: "Especial", ali: "6.50%" },
+    { rubro: "Hidrocarburos y Derivados", tipo: "Especial", ali: "6.50%" },
+    { rubro: "Publicidad y Propaganda", tipo: "Servicios", ali: "5.00%" },
+    { rubro: "Bebidas Alcohólicas y Tabaco", tipo: "Especial", ali: "6.00%" },
+    { rubro: "Telecomunicaciones e Informática", tipo: "Tecnología", ali: "3.50%" },
+    { rubro: "Comercio al Mayor", tipo: "Comercial", ali: "2.00%" },
+    { rubro: "Comercio al Detal", tipo: "Comercial", ali: "1.50%" },
+];
+
+const NOTAS = [
+    "La Licencia de Actividades Económicas (antes Patente de Industria y Comercio) es emitida por cada alcaldía.",
+    "La alícuota general varía según la ordenanza de cada municipio, generalmente entre 0.5% y 3% sobre ingresos brutos.",
+    "El mínimo tributario se calcula en base al tipo de cambio oficial de la moneda de mayor valor del BCV.",
+    "La licencia tiene vigencia de 3 años y debe renovarse antes de su vencimiento.",
+    "La base legal general es la Ley Orgánica del Poder Público Municipal (LOPPM).",
+];
 
 export default function ImpuestosMunicipalesPage() {
-    const { toast } = useToast();
-
     return (
-        <div className="space-y-12 pb-20 px-4 md:px-10 bg-[#f5f7fa] min-h-screen">
-            <header className="border-l-4 border-[#0A2472] pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] shadow-sm mb-4">
-                        <Landmark className="h-3 w-3" /> CENTRO MUNICIPAL
-                    </div>
+        <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+            <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Impuestos <span className="text-[#00A86B] italic">Municipales</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">LOCAPTEM (Agosto 2023) • Patentes y Tasas Locales</p>
+                <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                        <Landmark className="h-3.5 w-3.5" /> Municipales
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        Impuestos <span className="text-primary">Municipales</span>
+                    </h1>
+                    <p className="text-sm text-muted-foreground mt-1">LOPPM · Licencia de Actividades Económicas · Patentes Locales</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-                    <PlusCircle className="mr-3 h-4 w-4" /> PAGAR TASA
-                </Button>
             </header>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-16 w-16" /></div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Alícuota General</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tight">Hasta 3%</p>
-                    <p className="text-[8px] font-bold uppercase text-[#00A86B] mt-4 italic">Sobre Ingresos Brutos</p>
-                </Card>
-                <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl border-l-4 border-[#0A2472] group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-16 w-16" /></div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0A2472]/60 mb-4">Mínimo Tributario</p>
-                    <p className="text-4xl font-black italic text-[#0A2472] tracking-tight shadow-sm">240 TC</p>
-                    <p className="text-[8px] font-bold uppercase text-slate-400 mt-4 italic">Moneda Mayor Valor BCV</p>
-                </Card>
-                <Card className="glass-card border-none bg-white p-8 rounded-[2.5rem] shadow-xl relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><ShieldCheck className="h-16 w-16" /></div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Vigencia Licencia</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tight">3 AÑOS</p>
-                    <p className="text-[8px] font-bold uppercase text-emerald-500 mt-4 italic">Renovación Automática</p>
-                </Card>
-            </div>
+            <div className="grid gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-7">
+                    <Card className="rounded-2xl shadow-lg border overflow-hidden">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Landmark className="h-4 w-4 text-primary" />
+                                Alícuotas por Actividad Económica
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className="pl-6 text-xs font-bold">Rubro Económico</TableHead>
+                                        <TableHead className="text-xs font-bold text-center">Tipo</TableHead>
+                                        <TableHead className="text-right pr-6 text-xs font-bold">Alícuota Máxima</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {ALICUOTAS.map((row, i) => (
+                                        <TableRow key={i}>
+                                            <TableCell className="pl-6 text-xs font-bold">{row.rubro}</TableCell>
+                                            <TableCell className="text-xs text-center text-muted-foreground">{row.tipo}</TableCell>
+                                            <TableCell className="text-right pr-6 text-sm font-black text-primary">{row.ali}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                </div>
 
-            <Card className="glass-card border-none rounded-[3rem] bg-white overflow-hidden shadow-2xl mt-10">
-                <CardHeader className="p-10 border-b border-slate-100 bg-slate-50/50">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Alícuotas por Actividades Especiales</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-slate-50 border-none">
-                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Rubro Económico</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Tipo Actividad</TableHead>
-                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Alícuota Máxima</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {[
-                                { rubro: "Minería y Canteras", tipo: "Especial", ali: "6.50%" },
-                                { rubro: "Hidrocarburos y Derivados", tipo: "Especial", ali: "6.50%" },
-                                { rubro: "Publicidad y Propaganda", tipo: "Servicios", ali: "5.00%" },
-                                { rubro: "Bebidas Alcohólicas y Tabaco", tipo: "Especial", ali: "6.00%" },
-                                { rubro: "Telecomunicaciones e Informática", tipo: "Tecnología", ali: "3.50%" },
-                            ].map((row, i) => (
-                                <TableRow key={i} className="border-slate-100 hover:bg-slate-50 transition-all">
-                                    <TableCell className="pl-10 py-6 font-black text-xs uppercase italic text-slate-700">{row.rubro}</TableCell>
-                                    <TableCell className="py-6 text-center text-[10px] font-bold text-slate-400 uppercase">{row.tipo}</TableCell>
-                                    <TableCell className="text-right pr-10 py-6 font-black text-sm text-[#00A86B] italic">{row.ali}</TableCell>
-                                </TableRow>
+                <div className="lg:col-span-5 space-y-6">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Info className="h-4 w-4 text-amber-500" />
+                                Notas Importantes
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2.5">
+                            {NOTAS.map((nota, i) => (
+                                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/30">
+                                    <ChevronRight className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-muted-foreground leading-relaxed">{nota}</p>
+                                </div>
                             ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardFooter className="p-10 bg-[#0A2472]/5 border-t border-slate-100 flex justify-between items-center">
-                    <div className="flex items-center gap-3 text-[9px] font-black uppercase text-slate-400 italic">
-                        <Terminal className="h-4 w-4 text-[#0A2472]" /> Sincronizado con LOCAPTEM 2023
+                        </CardContent>
+                    </Card>
+                    <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <div className="flex items-start gap-3">
+                            <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-[11px] text-muted-foreground leading-relaxed">Las alícuotas varían según la ordenanza de cada municipio. Consulte la ordenanza vigente de su jurisdicción.</p>
+                        </div>
                     </div>
-                    <Button onClick={() => toast({ title: "DESCARGAR SOLVENCIA MUNICIPAL", description: "Preparando descarga..." })} variant="outline" className="h-10 px-6 rounded-xl border-slate-200 bg-white text-[9px] font-black uppercase tracking-widest">Descargar Solvencia Municipal</Button>
-                </CardFooter>
-            </Card>
+                </div>
+            </div>
         </div>
     );
 }
