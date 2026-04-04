@@ -3,6 +3,17 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 
+export interface AnalysisSection {
+  puntaje: number;
+  estado: 'ok' | 'advertencia' | 'critico';
+  detalles: string[];
+}
+
+export interface CalidadImagenSection extends AnalysisSection {
+  es_borrosa: boolean;
+  nivel_nitidez: 'alta' | 'media' | 'baja' | 'ilegible';
+}
+
 export interface VerificationResult {
   veredicto: 'autentico' | 'sospechoso' | 'fraudulento' | 'no_determinado';
   confianza: number;
@@ -10,6 +21,7 @@ export interface VerificationResult {
   analisis: {
     integridad_archivo: AnalysisSection;
     consistencia_visual: AnalysisSection;
+    calidad_imagen: CalidadImagenSection;
     metadatos: AnalysisSection;
     contenido: AnalysisSection;
   };
@@ -18,12 +30,6 @@ export interface VerificationResult {
   resumen: string;
   hash_sha256: string;
   verificado_at: string;
-}
-
-interface AnalysisSection {
-  puntaje: number;
-  estado: 'ok' | 'advertencia' | 'critico';
-  detalles: string[];
 }
 
 const MAGIC_BYTES: Record<string, Buffer[]> = {
@@ -44,9 +50,7 @@ function extractPdfMetadata(buffer: Buffer): Record<string, string> {
   const meta: Record<string, string> = {};
 
   const infoMatch = text.match(/\/Info\s+(\d+\s+\d+\s+R)/);
-  if (infoMatch) {
-    meta._hasInfo = 'true';
-  }
+  if (infoMatch) meta._hasInfo = 'true';
 
   for (const key of ['Producer', 'Creator', 'Author', 'CreationDate', 'ModDate', 'Title']) {
     const re = new RegExp(`\\/${key}\\s*\\(([^)]{0,200})\\)`, 'i');
@@ -142,11 +146,9 @@ function analyzeMetadata(buffer: Buffer, mimeType: string): AnalysisSection {
       detalles.push('El PDF contiene firma digital — indicador positivo de autenticidad');
       puntaje = Math.min(100, puntaje + 5);
     }
-
     if (meta.has_form === 'true') {
       detalles.push('Contiene formularios AcroForm — típico de documentos oficiales');
     }
-
     if (producer) detalles.push(`Productor: ${meta.producer}`);
     if (creator) detalles.push(`Creador: ${meta.creator}`);
     if (meta.creationdate) detalles.push(`Fecha creación: ${meta.creationdate}`);
@@ -156,7 +158,6 @@ function analyzeMetadata(buffer: Buffer, mimeType: string): AnalysisSection {
       detalles.push('Creado con software de edición de imágenes — requiere mayor escrutinio');
       puntaje -= 20;
     }
-
     if (meta.moddate && meta.creationdate && meta.moddate !== meta.creationdate) {
       detalles.push('La fecha de modificación difiere de la creación — el documento fue editado después de crearse');
       puntaje -= 10;
@@ -170,9 +171,7 @@ function analyzeMetadata(buffer: Buffer, mimeType: string): AnalysisSection {
       detalles.push('Imagen procesada con GIMP — posible edición');
       puntaje -= 15;
     }
-    if (meta.software) {
-      detalles.push(`Software detectado: ${meta.software}`);
-    }
+    if (meta.software) detalles.push(`Software detectado: ${meta.software}`);
     if (meta.has_exif === 'true') {
       detalles.push('Datos EXIF presentes — indica foto original de cámara');
     } else if (mimeType === 'image/jpeg') {
@@ -195,13 +194,35 @@ async function analyzeWithVision(
   mimeType: string,
   docCategory: string,
   fileName: string
-): Promise<{ visual: AnalysisSection; contenido: AnalysisSection; alertas: string[]; recomendaciones: string[]; resumen: string }> {
+): Promise<{
+  visual: AnalysisSection;
+  calidad_imagen: CalidadImagenSection;
+  contenido: AnalysisSection;
+  alertas: string[];
+  recomendaciones: string[];
+  resumen: string;
+}> {
   const isImage = mimeType.startsWith('image/');
 
   if (!isImage) {
     return {
-      visual: { puntaje: 70, estado: 'advertencia', detalles: ['Análisis visual no disponible para archivos PDF — solo se analizaron metadatos'] },
-      contenido: { puntaje: 70, estado: 'advertencia', detalles: ['Se recomienda convertir a imagen para un análisis más profundo'] },
+      visual: {
+        puntaje: 70,
+        estado: 'advertencia',
+        detalles: ['Análisis visual no disponible para archivos PDF — solo se analizaron metadatos'],
+      },
+      calidad_imagen: {
+        puntaje: 70,
+        estado: 'advertencia',
+        es_borrosa: false,
+        nivel_nitidez: 'media',
+        detalles: ['No aplica para archivos PDF'],
+      },
+      contenido: {
+        puntaje: 70,
+        estado: 'advertencia',
+        detalles: ['Se recomienda convertir a imagen para un análisis más profundo'],
+      },
       alertas: [],
       recomendaciones: ['Suba una imagen escaneada del documento para un análisis visual completo'],
       resumen: 'Análisis limitado a metadatos. Para una verificación visual completa, suba el documento como imagen escaneada.',
@@ -215,22 +236,41 @@ async function analyzeWithVision(
 
     const response = await client.messages.create({
       model: CLAUDE_MODEL,
-      max_tokens: 2000,
+      max_tokens: 2400,
       temperature: 0,
-      system: `Eres un perito forense digital especializado en documentos venezolanos. Analizas imágenes de documentos para detectar signos de falsificación o alteración.
+      system: `Eres un perito forense digital especializado en documentos venezolanos. Analizas imágenes de documentos para detectar falsificaciones, alteraciones y problemas de calidad.
 
-Conoces perfectamente los documentos oficiales venezolanos: cédulas (SAIME), RIF (SENIAT), pasaportes, licencias de conducir, constancias de residencia, títulos universitarios, partidas de nacimiento (registro civil), actas de matrimonio, certificados laborales, etc.
+Conoces perfectamente los documentos oficiales venezolanos: cédulas (SAIME), RIF (SENIAT), pasaportes, licencias, constancias, títulos, partidas de nacimiento, etc.
 
-Tu análisis debe ser PRECISO y TÉCNICO. Busca:
-1. CONSISTENCIA TIPOGRÁFICA: Fuentes inconsistentes, tamaños irregulares, alineación incorrecta
-2. SELLOS Y FIRMAS: Presencia, calidad, posición correcta para el tipo de documento
-3. FORMATO OFICIAL: ¿Sigue el formato estándar del organismo emisor?
-4. CALIDAD DE IMAGEN: Artefactos de edición, bordes irregulares, zonas borrosas sospechosas, diferencias de resolución entre áreas
-5. DATOS VISIBLES: Coherencia de fechas, números de serie, códigos
-6. MARCAS DE SEGURIDAD: Hologramas, marcas de agua, fondos de seguridad (si aplica al tipo de doc)
+CRITERIOS DE ANÁLISIS:
+
+1. CALIDAD DE IMAGEN (prioritario):
+   - BORROSIDAD: ¿Está borroso o desenfocado? ¿Es legible el texto principal?
+   - NITIDEZ: alta (todo legible y nítido), media (legible con leve pérdida), baja (difícil lectura), ilegible
+   - Si está borroso o ilegible, es un problema grave — puede indicar intento de ocultar datos falsos o simplemente mala foto
+   - RESOLUCIÓN: ¿Es suficiente para leer los datos clave?
+
+2. CONSISTENCIA VISUAL:
+   - Fuentes inconsistentes, tamaños irregulares, alineación incorrecta
+   - Artefactos de edición, bordes irregulares, diferencias de resolución entre áreas
+   - Corte-pega evidente, sombras artificiales, iluminación inconsistente
+
+3. SELLOS Y FIRMAS: Presencia, calidad, posición correcta para el tipo de documento
+
+4. FORMATO OFICIAL: ¿Sigue el estándar del organismo emisor?
+
+5. DATOS Y MARCAS:
+   - Coherencia de fechas, números de serie, códigos QR/barras
+   - Hologramas, marcas de agua, fondos de seguridad
 
 Responde SOLO con JSON válido (sin markdown):
 {
+  "calidad_imagen": {
+    "puntaje": <0-100>,
+    "es_borrosa": <true/false>,
+    "nivel_nitidez": <"alta"|"media"|"baja"|"ilegible">,
+    "detalles": ["detalle1", "detalle2"]
+  },
   "consistencia_visual": {
     "puntaje": <0-100>,
     "detalles": ["detalle1", "detalle2"]
@@ -241,7 +281,7 @@ Responde SOLO con JSON válido (sin markdown):
   },
   "alertas": ["alerta1"],
   "recomendaciones": ["rec1"],
-  "resumen": "resumen en 2-3 oraciones"
+  "resumen": "resumen en 2-3 oraciones mencionando si está borroso, si es auténtico y cualquier hallazgo clave"
 }`,
       messages: [{
         role: 'user',
@@ -252,7 +292,9 @@ Responde SOLO con JSON válido (sin markdown):
           },
           {
             type: 'text',
-            text: `Analiza este documento. Categoría declarada: "${docCategory}". Nombre del archivo: "${fileName}". Determina si parece auténtico o si hay señales de alteración/falsificación.`,
+            text: `Analiza este documento. Categoría declarada: "${docCategory}". Nombre: "${fileName}".
+            
+IMPORTANTE: Evalúa primero si la imagen está borrosa o desenfocada. Luego determina si parece auténtico o hay señales de alteración.`,
           },
         ],
       }],
@@ -262,15 +304,26 @@ Responde SOLO con JSON válido (sin markdown):
     const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
     const parsed = JSON.parse(cleaned);
 
+    const calidadPuntaje = Math.min(100, Math.max(0, parsed.calidad_imagen?.puntaje ?? 50));
+    const visualPuntaje  = Math.min(100, Math.max(0, parsed.consistencia_visual?.puntaje ?? 50));
+    const contenidoPuntaje = Math.min(100, Math.max(0, parsed.contenido?.puntaje ?? 50));
+
     return {
       visual: {
-        puntaje: Math.min(100, Math.max(0, parsed.consistencia_visual?.puntaje ?? 50)),
-        estado: (parsed.consistencia_visual?.puntaje ?? 50) >= 80 ? 'ok' : (parsed.consistencia_visual?.puntaje ?? 50) >= 50 ? 'advertencia' : 'critico',
+        puntaje: visualPuntaje,
+        estado: visualPuntaje >= 80 ? 'ok' : visualPuntaje >= 50 ? 'advertencia' : 'critico',
         detalles: parsed.consistencia_visual?.detalles ?? ['Análisis visual completado'],
       },
+      calidad_imagen: {
+        puntaje: calidadPuntaje,
+        estado: calidadPuntaje >= 80 ? 'ok' : calidadPuntaje >= 50 ? 'advertencia' : 'critico',
+        es_borrosa: parsed.calidad_imagen?.es_borrosa ?? false,
+        nivel_nitidez: parsed.calidad_imagen?.nivel_nitidez ?? 'media',
+        detalles: parsed.calidad_imagen?.detalles ?? [],
+      },
       contenido: {
-        puntaje: Math.min(100, Math.max(0, parsed.contenido?.puntaje ?? 50)),
-        estado: (parsed.contenido?.puntaje ?? 50) >= 80 ? 'ok' : (parsed.contenido?.puntaje ?? 50) >= 50 ? 'advertencia' : 'critico',
+        puntaje: contenidoPuntaje,
+        estado: contenidoPuntaje >= 80 ? 'ok' : contenidoPuntaje >= 50 ? 'advertencia' : 'critico',
         detalles: parsed.contenido?.detalles ?? ['Análisis de contenido completado'],
       },
       alertas: parsed.alertas ?? [],
@@ -281,6 +334,13 @@ Responde SOLO con JSON válido (sin markdown):
     console.error('[document-verifier] Vision analysis error:', err);
     return {
       visual: { puntaje: 50, estado: 'advertencia', detalles: ['No se pudo completar el análisis visual por IA'] },
+      calidad_imagen: {
+        puntaje: 50,
+        estado: 'advertencia',
+        es_borrosa: false,
+        nivel_nitidez: 'media',
+        detalles: ['Análisis de calidad no disponible'],
+      },
       contenido: { puntaje: 50, estado: 'advertencia', detalles: ['Análisis de contenido no disponible'] },
       alertas: ['El análisis por IA no se pudo completar — se usaron solo verificaciones técnicas'],
       recomendaciones: ['Intente nuevamente o solicite verificación manual'],
@@ -289,17 +349,27 @@ Responde SOLO con JSON válido (sin markdown):
   }
 }
 
-function computeVerdict(scores: { integridad: number; visual: number; metadatos: number; contenido: number }): {
-  veredicto: VerificationResult['veredicto'];
-  confianza: number;
-  puntaje_total: number;
-} {
-  const weights = { integridad: 0.30, visual: 0.35, metadatos: 0.15, contenido: 0.20 };
+function computeVerdict(scores: {
+  integridad: number;
+  visual: number;
+  calidad: number;
+  metadatos: number;
+  contenido: number;
+}): { veredicto: VerificationResult['veredicto']; confianza: number; puntaje_total: number } {
+  const weights = {
+    integridad: 0.25,
+    visual:     0.30,
+    calidad:    0.15,
+    metadatos:  0.15,
+    contenido:  0.15,
+  };
+
   const puntaje_total = Math.round(
     scores.integridad * weights.integridad +
-    scores.visual * weights.visual +
-    scores.metadatos * weights.metadatos +
-    scores.contenido * weights.contenido
+    scores.visual     * weights.visual +
+    scores.calidad    * weights.calidad +
+    scores.metadatos  * weights.metadatos +
+    scores.contenido  * weights.contenido
   );
 
   let veredicto: VerificationResult['veredicto'];
@@ -335,18 +405,34 @@ export async function verifyDocument(
 
   const integridad_archivo = computeFileIntegrity(buffer, mimeType, originalName);
   const metadatos = analyzeMetadata(buffer, mimeType);
-  const { visual: consistencia_visual, contenido, alertas, recomendaciones, resumen } =
-    await analyzeWithVision(buffer, mimeType, docCategory, originalName);
+  const {
+    visual: consistencia_visual,
+    calidad_imagen,
+    contenido,
+    alertas,
+    recomendaciones,
+    resumen,
+  } = await analyzeWithVision(buffer, mimeType, docCategory, originalName);
 
   const { veredicto, confianza, puntaje_total } = computeVerdict({
     integridad: integridad_archivo.puntaje,
-    visual: consistencia_visual.puntaje,
-    metadatos: metadatos.puntaje,
-    contenido: contenido.puntaje,
+    visual:     consistencia_visual.puntaje,
+    calidad:    calidad_imagen.puntaje,
+    metadatos:  metadatos.puntaje,
+    contenido:  contenido.puntaje,
   });
 
   if (integridad_archivo.estado === 'critico') {
     alertas.unshift('La integridad del archivo está comprometida — tipo MIME no coincide con contenido real');
+  }
+
+  if (calidad_imagen.es_borrosa) {
+    alertas.unshift('La imagen está borrosa o desenfocada — los datos podrían no ser verificables con precisión');
+  }
+
+  if (calidad_imagen.nivel_nitidez === 'ilegible') {
+    alertas.unshift('La imagen es ilegible — se requiere volver a subir con mejor calidad');
+    recomendaciones.unshift('Capture el documento con mejor iluminación y sin movimiento para evitar el desenfoque');
   }
 
   return {
@@ -356,6 +442,7 @@ export async function verifyDocument(
     analisis: {
       integridad_archivo,
       consistencia_visual,
+      calidad_imagen,
       metadatos,
       contenido,
     },
@@ -365,4 +452,34 @@ export async function verifyDocument(
     hash_sha256: hash,
     verificado_at: new Date().toISOString(),
   };
+}
+
+export function buildAnalysisSummaryText(result: VerificationResult, fileName: string): string {
+  const veredictosLabel: Record<string, string> = {
+    autentico: 'AUTÉNTICO',
+    sospechoso: 'SOSPECHOSO',
+    fraudulento: 'FRAUDULENTO',
+    no_determinado: 'NO DETERMINADO',
+  };
+
+  const nitidezLabel: Record<string, string> = {
+    alta: 'Alta',
+    media: 'Media',
+    baja: 'Baja',
+    ilegible: 'Ilegible',
+  };
+
+  const lines = [
+    `Archivo: ${fileName}`,
+    `Veredicto: ${veredictosLabel[result.veredicto]} (${result.puntaje_total}/100, confianza ${result.confianza}%)`,
+    `Calidad de imagen: ${nitidezLabel[result.analisis.calidad_imagen.nivel_nitidez]}${result.analisis.calidad_imagen.es_borrosa ? ' — BORROSA' : ''}`,
+    `Integridad: ${result.analisis.integridad_archivo.puntaje}% | Visual: ${result.analisis.consistencia_visual.puntaje}% | Metadatos: ${result.analisis.metadatos.puntaje}% | Contenido: ${result.analisis.contenido.puntaje}%`,
+    result.resumen,
+  ];
+
+  if (result.alertas.length > 0) {
+    lines.push(`Alertas: ${result.alertas.join('; ')}`);
+  }
+
+  return lines.join('\n');
 }
