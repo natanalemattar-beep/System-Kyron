@@ -6,34 +6,44 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
-import { HandCoins, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingDown, Users, Clock } from "lucide-react";
+import { HandCoins, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingDown, Users, Clock, Plus, Trash2, Pencil } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CuentaPagar {
   id: string;
   proveedor: string;
   rif: string;
   factura: string;
+  fecha: string;
   fechaVencimiento: string;
-  monto: number;
-  saldo: number;
+  monto: string;
+  saldo: string;
   estado: string;
 }
 
 export default function CuentasPorPagarPage() {
+  const { toast } = useToast();
   const [rows, setRows] = useState<CuentaPagar[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [formData, setFormData] = useState({ concepto: '', monto_original: '', fecha_emision: '', fecha_vencimiento: '', numero_factura_proveedor: '' });
 
-  useEffect(() => {
+  const loadData = () => {
+    setLoading(true);
     fetch('/api/contabilidad/records?type=cuentas_pagar')
       .then(r => r.ok ? r.json() : { rows: [] })
       .then(d => setRows(d.rows ?? []))
       .catch(() => setRows([]))
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(() => { loadData(); }, []);
 
   const filtered = useMemo(() => {
     return rows.filter(r =>
@@ -42,11 +52,107 @@ export default function CuentasPorPagarPage() {
   }, [rows, search]);
 
   const summary = useMemo(() => {
-    const totalSaldo = rows.reduce((s, r) => s + (r.saldo || 0), 0);
-    const vencidas = rows.filter(r => r.estado === 'Vencida');
-    const totalVencido = vencidas.reduce((s, r) => s + (r.saldo || 0), 0);
+    const totalSaldo = rows.reduce((s, r) => s + (parseFloat(r.saldo) || 0), 0);
+    const vencidas = rows.filter(r => r.estado === 'vencida');
+    const totalVencido = vencidas.reduce((s, r) => s + (parseFloat(r.saldo) || 0), 0);
     return { totalSaldo, totalVencido, proveedores: new Set(rows.map(r => r.proveedor)).size, vencidas: vencidas.length };
   }, [rows]);
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('¿Está seguro de eliminar esta cuenta por pagar?')) return;
+    try {
+      const res = await fetch(`/api/contabilidad/records?type=cuentas_pagar&id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        toast({ title: "Eliminado", description: "Cuenta por pagar eliminada." });
+        loadData();
+      } else {
+        toast({ variant: "destructive", title: "Error", description: "No se pudo eliminar." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    }
+  };
+
+  const handleEdit = (row: CuentaPagar) => {
+    setEditingId(row.id);
+    setFormData({
+      concepto: row.proveedor || '',
+      monto_original: row.monto || '',
+      fecha_emision: row.fecha || '',
+      fecha_vencimiento: row.fechaVencimiento || '',
+      numero_factura_proveedor: row.factura || '',
+    });
+    setShowForm(true);
+  };
+
+  const resetForm = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setFormData({ concepto: '', monto_original: '', fecha_emision: '', fecha_vencimiento: '', numero_factura_proveedor: '' });
+  };
+
+  const handleAdd = async () => {
+    try {
+      const monto = parseFloat(formData.monto_original);
+      if (!formData.concepto || isNaN(monto) || monto <= 0) {
+        toast({ variant: "destructive", title: "Datos incompletos", description: "Ingrese concepto y monto válidos." });
+        return;
+      }
+
+      if (editingId) {
+        const res = await fetch('/api/contabilidad/records', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'cuentas_pagar',
+            id: editingId,
+            data: {
+              concepto: formData.concepto,
+              monto_original: monto,
+              monto_pendiente: monto,
+              fecha_emision: formData.fecha_emision || new Date().toISOString().split('T')[0],
+              fecha_vencimiento: formData.fecha_vencimiento || null,
+              numero_factura_proveedor: formData.numero_factura_proveedor || null,
+            },
+          }),
+        });
+        if (res.ok) {
+          toast({ title: "Actualizado", description: "Cuenta por pagar actualizada." });
+          resetForm();
+          loadData();
+        } else {
+          toast({ variant: "destructive", title: "Error al actualizar" });
+        }
+        return;
+      }
+
+      const res = await fetch('/api/contabilidad/records', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'cuentas_pagar',
+          data: {
+            concepto: formData.concepto,
+            monto_original: monto,
+            monto_pendiente: monto,
+            fecha_emision: formData.fecha_emision || new Date().toISOString().split('T')[0],
+            fecha_vencimiento: formData.fecha_vencimiento || null,
+            numero_factura_proveedor: formData.numero_factura_proveedor || null,
+            estado: 'pendiente',
+          },
+        }),
+      });
+      if (res.ok) {
+        toast({ title: "Obligación registrada", description: "Se ha registrado la cuenta por pagar." });
+        resetForm();
+        loadData();
+      } else {
+        toast({ variant: "destructive", title: "Error" });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Error de conexión" });
+    }
+  };
 
   return (
     <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
@@ -62,11 +168,48 @@ export default function CuentasPorPagarPage() {
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Gestión de proveedores · Compromisos de pago · Control de vencimientos</p>
           </div>
-          <Button variant="outline" onClick={() => window.print()} className="rounded-xl">
-            <Printer className="mr-2 h-4 w-4" /> Imprimir
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => { if (showForm) resetForm(); else setShowForm(true); }} className="rounded-xl">
+              <Plus className="mr-2 h-4 w-4" /> Nueva Obligación
+            </Button>
+            <Button variant="outline" onClick={() => window.print()} className="rounded-xl">
+              <Printer className="mr-2 h-4 w-4" /> Imprimir
+            </Button>
+          </div>
         </div>
       </header>
+
+      {showForm && (
+        <Card className="rounded-2xl border p-6">
+          <h3 className="text-sm font-bold mb-4">{editingId ? 'Editar Cuenta por Pagar' : 'Registrar Cuenta por Pagar'}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-muted-foreground">Concepto</Label>
+              <Input placeholder="Descripción de la obligación" value={formData.concepto} onChange={e => setFormData({ ...formData, concepto: e.target.value })} className="rounded-xl" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-muted-foreground">Monto (Bs.)</Label>
+              <Input type="number" placeholder="0.00" value={formData.monto_original} onChange={e => setFormData({ ...formData, monto_original: e.target.value })} className="rounded-xl" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-muted-foreground">Nro. Factura Proveedor</Label>
+              <Input placeholder="Número de factura" value={formData.numero_factura_proveedor} onChange={e => setFormData({ ...formData, numero_factura_proveedor: e.target.value })} className="rounded-xl" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-muted-foreground">Fecha Emisión</Label>
+              <Input type="date" value={formData.fecha_emision} onChange={e => setFormData({ ...formData, fecha_emision: e.target.value })} className="rounded-xl" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs font-bold text-muted-foreground">Fecha Vencimiento</Label>
+              <Input type="date" value={formData.fecha_vencimiento} onChange={e => setFormData({ ...formData, fecha_vencimiento: e.target.value })} className="rounded-xl" />
+            </div>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <Button onClick={handleAdd} className="rounded-xl">{editingId ? 'Actualizar' : 'Guardar'}</Button>
+            <Button variant="ghost" onClick={resetForm} className="rounded-xl">Cancelar</Button>
+          </div>
+        </Card>
+      )}
 
       {rows.length > 0 && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -126,8 +269,11 @@ export default function CuentasPorPagarPage() {
           ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
               <Inbox className="h-10 w-10" />
-              <p className="text-sm font-bold">Sin cuentas por pagar</p>
-              <p className="text-xs text-muted-foreground/70">Las obligaciones aparecerán al registrar facturas de compra a crédito.</p>
+              <p className="text-sm font-bold">No tiene cuentas por pagar registradas</p>
+              <p className="text-xs text-muted-foreground/70">Registre obligaciones de pago para controlar sus compromisos.</p>
+              <Button variant="outline" className="rounded-xl mt-2" onClick={() => setShowForm(true)}>
+                <Plus className="mr-2 h-4 w-4" /> Registrar Primera Obligación
+              </Button>
             </div>
           ) : (
             <Table>
@@ -138,7 +284,8 @@ export default function CuentasPorPagarPage() {
                   <TableHead className="py-4 text-xs font-semibold">Vencimiento</TableHead>
                   <TableHead className="text-right py-4 text-xs font-semibold">Monto</TableHead>
                   <TableHead className="text-right py-4 text-xs font-semibold">Saldo</TableHead>
-                  <TableHead className="text-right pr-6 py-4 text-xs font-semibold">Estado</TableHead>
+                  <TableHead className="text-right py-4 text-xs font-semibold">Estado</TableHead>
+                  <TableHead className="text-right pr-6 py-4 text-xs font-semibold">Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -146,18 +293,28 @@ export default function CuentasPorPagarPage() {
                   <TableRow key={r.id} className="hover:bg-muted/10">
                     <TableCell className="pl-6 py-4">
                       <p className="text-xs font-semibold">{r.proveedor}</p>
-                      <p className="text-[11px] font-mono text-muted-foreground mt-0.5">{r.id}</p>
+                      <p className="text-[11px] font-mono text-muted-foreground mt-0.5">{r.rif || '—'}</p>
                     </TableCell>
-                    <TableCell className="py-4 font-mono text-xs text-muted-foreground">{r.factura}</TableCell>
-                    <TableCell className="py-4 text-xs text-muted-foreground">{r.fechaVencimiento}</TableCell>
-                    <TableCell className="text-right py-4 font-mono text-sm">{formatCurrency(r.monto, 'Bs.')}</TableCell>
-                    <TableCell className="text-right py-4 font-mono text-sm font-bold">{formatCurrency(r.saldo, 'Bs.')}</TableCell>
-                    <TableCell className="text-right pr-6 py-4">
+                    <TableCell className="py-4 font-mono text-xs text-muted-foreground">{r.factura || '—'}</TableCell>
+                    <TableCell className="py-4 text-xs text-muted-foreground">{r.fechaVencimiento || '—'}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm font-bold">{formatCurrency(parseFloat(r.saldo) || 0, 'Bs.')}</TableCell>
+                    <TableCell className="text-right py-4">
                       <Badge className={cn("text-[10px] font-semibold border-none",
-                        r.estado === 'Pagada' ? 'bg-emerald-500/10 text-emerald-500' :
-                        r.estado === 'Vencida' ? 'bg-rose-500/10 text-rose-500' :
+                        r.estado === 'pagada' ? 'bg-emerald-500/10 text-emerald-500' :
+                        r.estado === 'vencida' ? 'bg-rose-500/10 text-rose-500' :
                         'bg-amber-500/10 text-amber-500'
                       )}>{r.estado}</Badge>
+                    </TableCell>
+                    <TableCell className="text-right pr-6 py-4">
+                      <div className="flex items-center justify-end gap-1">
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-primary" onClick={() => handleEdit(r)}>
+                          <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-rose-500" onClick={() => handleDelete(r.id)}>
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

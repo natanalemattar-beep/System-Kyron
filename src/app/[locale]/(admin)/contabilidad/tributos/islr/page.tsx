@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Banknote, Calculator, Info, ChevronRight, FileText } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Banknote, Calculator, Info, ChevronRight, FileText, Loader2, Inbox, Clock } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
@@ -12,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "@/navigation";
+import { cn } from "@/lib/utils";
 
 const CONCEPTOS_RETENCION = [
     { id: "honorarios", label: "Honorarios Profesionales", tasa: 3, base: "Art. 9, Decreto 1.808", sustraendo: true },
@@ -42,13 +44,52 @@ const NOTAS = [
     "Personas jurídicas aplican tarifa del Art. 52 LISLR: 15%, 22% o 34%.",
 ];
 
+interface DeclaracionIslr {
+    id: number;
+    periodo: string;
+    fecha: string;
+    enriquecimiento: string;
+    impuesto: string;
+    anticipo: string;
+    a_pagar: string;
+    estado: string;
+}
+
+interface Retencion {
+    id: number;
+    fecha: string;
+    proveedor: string;
+    rif: string;
+    base: string;
+    pct: string;
+    monto: string;
+    comprobante: string;
+}
+
 export default function IslrPage() {
     const { toast } = useToast();
     const [base, setBase] = useState("");
     const [concepto, setConcepto] = useState("honorarios");
     const [retencion, setRetencion] = useState<number | null>(null);
+    const [declaraciones, setDeclaraciones] = useState<DeclaracionIslr[]>([]);
+    const [retenciones, setRetenciones] = useState<Retencion[]>([]);
+    const [loadingDecl, setLoadingDecl] = useState(true);
 
     const conceptoActual = CONCEPTOS_RETENCION.find(c => c.id === concepto)!;
+
+    useEffect(() => {
+        Promise.all([
+            fetch('/api/contabilidad/records?type=declaraciones_islr').then(r => r.ok ? r.json() : { rows: [] }),
+            fetch('/api/contabilidad/records?type=retenciones').then(r => r.ok ? r.json() : { rows: [] }),
+        ])
+            .then(([d, r]) => {
+                setDeclaraciones(d.rows ?? []);
+                const allRetenciones: Array<Retencion & { tipo?: string }> = r.rows ?? [];
+                setRetenciones(allRetenciones.filter(ret => ret.tipo === 'islr'));
+            })
+            .catch(() => {})
+            .finally(() => setLoadingDecl(false));
+    }, []);
 
     const handleCalculate = () => {
         const baseNum = parseFloat(base);
@@ -77,8 +118,9 @@ export default function IslrPage() {
             </header>
 
             <Tabs defaultValue="calculadora" className="w-full">
-                <TabsList className="flex h-12 bg-muted/50 border rounded-xl p-1 mb-8 max-w-md">
+                <TabsList className="flex h-12 bg-muted/50 border rounded-xl p-1 mb-8 max-w-lg">
                     <TabsTrigger value="calculadora" className="flex-1 rounded-lg font-bold text-xs data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Calculadora</TabsTrigger>
+                    <TabsTrigger value="declaraciones" className="flex-1 rounded-lg font-bold text-xs data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Declaraciones</TabsTrigger>
                     <TabsTrigger value="tarifas" className="flex-1 rounded-lg font-bold text-xs data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Tarifas</TabsTrigger>
                 </TabsList>
 
@@ -166,6 +208,28 @@ export default function IslrPage() {
                                 </CardContent>
                             </Card>
 
+                            {retenciones.length > 0 && (
+                                <Card className="rounded-2xl shadow-lg border">
+                                    <CardHeader className="pb-3">
+                                        <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                            <Banknote className="h-4 w-4 text-indigo-500" />
+                                            Retenciones ISLR Registradas
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-2">
+                                        {retenciones.slice(0, 5).map(r => (
+                                            <div key={r.id} className="flex items-center justify-between p-2.5 rounded-lg bg-indigo-500/5">
+                                                <div>
+                                                    <p className="text-[11px] font-semibold">{r.proveedor || 'Proveedor'}</p>
+                                                    <p className="text-[10px] text-muted-foreground">{r.fecha} · {r.comprobante || 'Sin comprobante'}</p>
+                                                </div>
+                                                <span className="text-xs font-black text-indigo-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            )}
+
                             <Card className="rounded-2xl shadow-lg border">
                                 <CardHeader className="pb-3">
                                     <CardTitle className="flex items-center gap-2 text-sm font-bold">
@@ -190,6 +254,67 @@ export default function IslrPage() {
                             </Button>
                         </div>
                     </div>
+                </TabsContent>
+
+                <TabsContent value="declaraciones" className="animate-in fade-in duration-500">
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Clock className="h-4 w-4 text-indigo-500" />
+                                Declaraciones de ISLR
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            {loadingDecl ? (
+                                <div className="flex items-center justify-center py-12 gap-2 text-muted-foreground">
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    <span className="text-xs">Cargando declaraciones...</span>
+                                </div>
+                            ) : declaraciones.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center py-12 text-muted-foreground gap-2">
+                                    <Inbox className="h-8 w-8" />
+                                    <p className="text-xs font-bold">No tiene declaraciones de ISLR registradas</p>
+                                    <p className="text-[10px] text-muted-foreground/70">Las declaraciones aparecerán al registrarlas en el sistema.</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-3">
+                                    {declaraciones.map(d => (
+                                        <div key={d.id} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <div>
+                                                    <p className="text-sm font-bold">Ejercicio Fiscal: {d.periodo}</p>
+                                                    <p className="text-[10px] text-muted-foreground">{d.fecha || 'Sin fecha de declaración'}</p>
+                                                </div>
+                                                <Badge className={cn("text-[9px] font-bold border-none",
+                                                    d.estado === 'pagado' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                    d.estado === 'declarado' ? 'bg-blue-500/10 text-blue-500' :
+                                                    'bg-amber-500/10 text-amber-500'
+                                                )}>{d.estado}</Badge>
+                                            </div>
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+                                                <div>
+                                                    <p className="text-[10px] text-muted-foreground">Enriquecimiento</p>
+                                                    <p className="text-xs font-bold">{formatCurrency(parseFloat(d.enriquecimiento) || 0, 'Bs.')}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] text-muted-foreground">Impuesto</p>
+                                                    <p className="text-xs font-bold">{formatCurrency(parseFloat(d.impuesto) || 0, 'Bs.')}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] text-muted-foreground">Anticipo</p>
+                                                    <p className="text-xs font-bold">{formatCurrency(parseFloat(d.anticipo) || 0, 'Bs.')}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] text-muted-foreground">A Pagar</p>
+                                                    <p className="text-xs font-black text-indigo-500">{formatCurrency(parseFloat(d.a_pagar) || 0, 'Bs.')}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
                 </TabsContent>
 
                 <TabsContent value="tarifas" className="animate-in fade-in duration-500">

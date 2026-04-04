@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { BackButton } from "@/components/back-button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Calculator, Info, Banknote, Percent, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { FileText, Calculator, Info, Banknote, Percent, ChevronRight, Loader2, Inbox, Plus, Clock } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/navigation";
+import { cn } from "@/lib/utils";
 
 const ALICUOTAS = [
     { tipo: "General", tasa: 16, descripcion: "Aplicable a la mayoría de bienes y servicios.", base: "Art. 27 LIVA" },
@@ -31,18 +33,55 @@ const FECHAS_REF = [
     "La factura electrónica es obligatoria desde la Providencia SNAT/2024/000013.",
 ];
 
+interface DeclaracionIva {
+    id: number;
+    periodo: string;
+    fecha: string;
+    base: string;
+    iva: string;
+    credito: string;
+    debito: string;
+    estado: string;
+}
+
+interface Retencion {
+    id: number;
+    fecha: string;
+    proveedor: string;
+    rif: string;
+    base: string;
+    pct: string;
+    monto: string;
+    comprobante: string;
+}
+
 export default function IvaPage() {
     const { toast } = useToast();
     const [base, setBase] = useState("");
     const [alicuota, setAlicuota] = useState(16);
     const [iva, setIva] = useState<number | null>(null);
     const [tasaBcv, setTasaBcv] = useState<number | null>(null);
+    const [declaraciones, setDeclaraciones] = useState<DeclaracionIva[]>([]);
+    const [retenciones, setRetenciones] = useState<Retencion[]>([]);
+    const [loadingDecl, setLoadingDecl] = useState(true);
 
     useEffect(() => {
         fetch("/api/tasas-bcv")
             .then(r => r.json())
             .then(d => { if (d.tasas?.usd) setTasaBcv(d.tasas.usd); })
             .catch(() => {});
+
+        Promise.all([
+            fetch('/api/contabilidad/records?type=declaraciones_iva').then(r => r.ok ? r.json() : { rows: [] }),
+            fetch('/api/contabilidad/records?type=retenciones').then(r => r.ok ? r.json() : { rows: [] }),
+        ])
+            .then(([d, r]) => {
+                setDeclaraciones(d.rows ?? []);
+                const allRetenciones: Array<Retencion & { tipo?: string }> = r.rows ?? [];
+                setRetenciones(allRetenciones.filter(ret => ret.tipo === 'iva'));
+            })
+            .catch(() => {})
+            .finally(() => setLoadingDecl(false));
     }, []);
 
     const handleCalculate = () => {
@@ -128,6 +167,51 @@ export default function IvaPage() {
                     <Card className="rounded-2xl shadow-lg border">
                         <CardHeader className="pb-3">
                             <CardTitle className="flex items-center gap-2 text-sm font-bold">
+                                <Clock className="h-4 w-4 text-primary" />
+                                Declaraciones de IVA
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            {loadingDecl ? (
+                                <div className="flex items-center justify-center py-8 gap-2 text-muted-foreground">
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    <span className="text-xs">Cargando declaraciones...</span>
+                                </div>
+                            ) : declaraciones.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center py-8 text-muted-foreground gap-2">
+                                    <Inbox className="h-8 w-8" />
+                                    <p className="text-xs font-bold">No tiene declaraciones de IVA registradas</p>
+                                    <p className="text-[10px] text-muted-foreground/70">Las declaraciones aparecerán al registrarlas en el sistema.</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-2">
+                                    {declaraciones.map(d => (
+                                        <div key={d.id} className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                                            <div>
+                                                <p className="text-xs font-bold">{d.periodo}</p>
+                                                <p className="text-[10px] text-muted-foreground">{d.fecha || 'Sin fecha'}</p>
+                                            </div>
+                                            <div className="text-right flex items-center gap-3">
+                                                <div>
+                                                    <p className="text-xs font-black">{formatCurrency(parseFloat(d.iva) || 0, 'Bs.')}</p>
+                                                    <p className="text-[10px] text-muted-foreground">IVA Neto</p>
+                                                </div>
+                                                <Badge className={cn("text-[9px] font-bold border-none",
+                                                    d.estado === 'pagado' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                    d.estado === 'declarado' ? 'bg-blue-500/10 text-blue-500' :
+                                                    'bg-amber-500/10 text-amber-500'
+                                                )}>{d.estado}</Badge>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+
+                    <Card className="rounded-2xl shadow-lg border">
+                        <CardHeader className="pb-3">
+                            <CardTitle className="flex items-center gap-2 text-sm font-bold">
                                 <Percent className="h-4 w-4 text-primary" />
                                 Alícuotas Vigentes (Ley de IVA)
                             </CardTitle>
@@ -165,6 +249,22 @@ export default function IvaPage() {
                                     <span className="text-lg font-black text-blue-500">{r.porcentaje}</span>
                                 </div>
                             ))}
+
+                            {retenciones.length > 0 && (
+                                <div className="mt-4 pt-4 border-t space-y-2">
+                                    <p className="text-[10px] font-bold text-muted-foreground uppercase">Retenciones Registradas</p>
+                                    {retenciones.slice(0, 5).map(r => (
+                                        <div key={r.id} className="flex items-center justify-between p-2.5 rounded-lg bg-blue-500/5">
+                                            <div>
+                                                <p className="text-[11px] font-semibold">{r.proveedor || 'Proveedor'}</p>
+                                                <p className="text-[10px] text-muted-foreground">{r.fecha} · {r.comprobante || 'Sin comprobante'}</p>
+                                            </div>
+                                            <span className="text-xs font-black text-blue-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
                             <Button variant="outline" asChild className="w-full h-11 rounded-xl text-xs font-bold mt-2">
                                 <Link href="/contabilidad/tributos/retenciones-iva">
                                     Gestionar Retenciones IVA <ChevronRight className="ml-1 h-3.5 w-3.5" />
