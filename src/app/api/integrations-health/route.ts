@@ -29,10 +29,10 @@ export async function GET() {
   try {
     const { getUncachableGmailClient, getGmailSenderAddress } = await import('@/lib/gmail-client');
     const gmail = await getUncachableGmailClient();
-    const profile = await gmail.users.getProfile({ userId: 'me' });
+    const labels = await gmail.users.labels.list({ userId: 'me' });
     const sender = await getGmailSenderAddress();
     gmailStatus = 'connected';
-    results.gmail_live = { status: gmailStatus, email: profile.data.emailAddress, sender };
+    results.gmail_live = { status: gmailStatus, sender, labels_count: labels.data.labels?.length ?? 0 };
   } catch (err) {
     gmailStatus = 'error';
     results.gmail_live = { status: gmailStatus, error: String(err).substring(0, 200) };
