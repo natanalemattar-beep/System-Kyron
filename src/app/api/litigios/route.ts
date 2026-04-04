@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
   import { query } from "@/lib/db";
   import { getSession } from "@/lib/session";
 
-  const ALLOWED_FIELDS = new Set(["razon_social", "rif", "tipo", "contacto_nombre", "contacto_email", "contacto_telefono", "direccion", "ciudad", "estado_ubicacion", "condiciones_pago", "cuenta_bancaria", "banco", "calificacion", "estado", "notas"]);
+  const ALLOWED_FIELDS = new Set(["numero_expediente", "tribunal", "tipo", "demandante", "demandado", "materia", "abogado_responsable", "monto_demanda", "moneda", "estado", "fecha_inicio", "proxima_audiencia", "ultima_actuacion", "fecha_ultima_actuacion", "prioridad", "notas"]);
 
   export async function GET() {
     try {
       const session = await getSession();
       if (!session?.userId) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-      const rows = await query(`SELECT * FROM proveedores WHERE user_id = $1 ORDER BY created_at DESC`, [session.userId]);
-      const statsResult = await query(`SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE estado='activo') as activos, COUNT(*) FILTER (WHERE calificacion >= 4) as top_proveedores, COUNT(DISTINCT tipo) as tipos FROM proveedores WHERE user_id = $1`, [session.userId]);
+      const rows = await query(`SELECT * FROM litigios WHERE user_id = $1 ORDER BY created_at DESC`, [session.userId]);
+      const statsResult = await query(`SELECT COUNT(*) FILTER (WHERE estado='en_curso') as en_curso, COUNT(*) FILTER (WHERE estado='ganado') as ganados, COUNT(*) FILTER (WHERE estado='perdido') as perdidos, COUNT(*) as total FROM litigios WHERE user_id = $1`, [session.userId]);
       return NextResponse.json({ rows: rows.rows, stats: statsResult.rows[0] || {} });
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Error desconocido";
@@ -23,8 +23,8 @@ import { NextRequest, NextResponse } from "next/server";
       if (!session?.userId) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
       const body = await req.json();
       const result = await query(
-        `INSERT INTO proveedores (user_id, razon_social, rif, tipo, contacto_nombre, contacto_email, contacto_telefono, direccion, ciudad, estado_ubicacion, condiciones_pago, cuenta_bancaria, banco, notas) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
-        [session.userId, body.razon_social, body.rif, body.tipo, body.contacto_nombre, body.contacto_email, body.contacto_telefono, body.direccion, body.ciudad, body.estado_ubicacion, body.condiciones_pago, body.cuenta_bancaria, body.banco, body.notas]
+        `INSERT INTO litigios (user_id, numero_expediente, tribunal, tipo, demandante, demandado, materia, abogado_responsable, monto_demanda, moneda, fecha_inicio, proxima_audiencia, prioridad, notas) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
+        [session.userId, body.numero_expediente, body.tribunal, body.tipo, body.demandante, body.demandado, body.materia, body.abogado_responsable, body.monto_demanda, body.moneda, body.fecha_inicio, body.proxima_audiencia, body.prioridad, body.notas]
       );
       return NextResponse.json({ row: result.rows[0] }, { status: 201 });
     } catch (e: unknown) {
@@ -38,7 +38,7 @@ import { NextRequest, NextResponse } from "next/server";
       const session = await getSession();
       if (!session?.userId) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
       const { id } = await req.json();
-      await query(`DELETE FROM proveedores WHERE id = $1 AND user_id = $2`, [id, session.userId]);
+      await query(`DELETE FROM litigios WHERE id = $1 AND user_id = $2`, [id, session.userId]);
       return NextResponse.json({ ok: true });
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Error desconocido";
@@ -56,7 +56,7 @@ import { NextRequest, NextResponse } from "next/server";
       const sets = safeKeys.map((k, i) => `${k} = $${i + 3}`).join(', ');
       const vals = safeKeys.map(k => updates[k]);
       const result = await query(
-        `UPDATE proveedores SET ${sets}, updated_at = NOW() WHERE id = $1 AND user_id = $2 RETURNING *`,
+        `UPDATE litigios SET ${sets}, updated_at = NOW() WHERE id = $1 AND user_id = $2 RETURNING *`,
         [id, session.userId, ...vals]
       );
       return NextResponse.json({ row: result.rows[0] });

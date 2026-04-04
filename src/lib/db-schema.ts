@@ -35,7 +35,8 @@ export async function initializeDatabase(): Promise<void> {
     await createPlanUsageTables();
     await createPerformanceOptimizations();
     await createMarketingTables();
-    console.log('[db-schema] Base de datos inicializada correctamente — v3.2.0');
+    await createNewModulesTables();
+    console.log('[db-schema] Base de datos inicializada correctamente — v3.3.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -3024,6 +3025,381 @@ async function createMarketingTables() {
     )
   `);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_redes_sociales_user ON redes_sociales(user_id)`);
+}
+
+async function createNewModulesTables(): Promise<void> {
+  await query(`
+    CREATE TABLE IF NOT EXISTS poderes_notariados (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo TEXT NOT NULL DEFAULT 'general',
+      titulo TEXT NOT NULL,
+      otorgante TEXT NOT NULL,
+      apoderado TEXT NOT NULL,
+      cedula_otorgante TEXT,
+      cedula_apoderado TEXT,
+      notaria TEXT,
+      numero_documento TEXT,
+      tomo TEXT,
+      folio TEXT,
+      facultades TEXT,
+      fecha_otorgamiento DATE,
+      fecha_vencimiento DATE,
+      estado TEXT NOT NULL DEFAULT 'vigente',
+      archivo_url TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_poderes_user ON poderes_notariados(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS litigios (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      numero_expediente TEXT NOT NULL,
+      tribunal TEXT NOT NULL,
+      tipo TEXT NOT NULL DEFAULT 'civil',
+      demandante TEXT NOT NULL,
+      demandado TEXT NOT NULL,
+      materia TEXT,
+      abogado_responsable TEXT,
+      monto_demanda NUMERIC(18,2),
+      moneda TEXT DEFAULT 'VES',
+      estado TEXT NOT NULL DEFAULT 'en_curso',
+      fecha_inicio DATE,
+      proxima_audiencia DATE,
+      ultima_actuacion TEXT,
+      fecha_ultima_actuacion DATE,
+      prioridad TEXT DEFAULT 'media',
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_litigios_user ON litigios(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS cumplimiento_normativo (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      norma TEXT NOT NULL,
+      organismo TEXT NOT NULL,
+      categoria TEXT NOT NULL DEFAULT 'fiscal',
+      descripcion TEXT,
+      estado TEXT NOT NULL DEFAULT 'pendiente',
+      nivel_riesgo TEXT DEFAULT 'medio',
+      fecha_limite DATE,
+      fecha_cumplimiento DATE,
+      responsable TEXT,
+      evidencia_url TEXT,
+      acciones_correctivas TEXT,
+      multa_estimada NUMERIC(18,2),
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_cumplimiento_user ON cumplimiento_normativo(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS historial_medico (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo TEXT NOT NULL DEFAULT 'consulta',
+      especialidad TEXT,
+      medico TEXT,
+      centro_medico TEXT,
+      diagnostico TEXT,
+      tratamiento TEXT,
+      medicamentos TEXT,
+      fecha_cita DATE NOT NULL,
+      proxima_cita DATE,
+      archivo_url TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_historial_medico_user ON historial_medico(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS seguros_personales (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo TEXT NOT NULL DEFAULT 'salud',
+      aseguradora TEXT NOT NULL,
+      numero_poliza TEXT NOT NULL,
+      titular TEXT NOT NULL,
+      beneficiarios TEXT,
+      cobertura TEXT,
+      prima_mensual NUMERIC(18,2),
+      moneda TEXT DEFAULT 'USD',
+      fecha_inicio DATE,
+      fecha_vencimiento DATE,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      contacto_emergencia TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_seguros_user ON seguros_personales(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS vehiculos (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      marca TEXT NOT NULL,
+      modelo TEXT NOT NULL,
+      anio INTEGER,
+      color TEXT,
+      placa TEXT,
+      serial_carroceria TEXT,
+      serial_motor TEXT,
+      tipo TEXT DEFAULT 'sedan',
+      titulo_propiedad TEXT,
+      fecha_registro DATE,
+      seguro_poliza TEXT,
+      seguro_vencimiento DATE,
+      revision_tecnica DATE,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_vehiculos_user ON vehiculos(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS portabilidad_numerica (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      numero TEXT NOT NULL,
+      operadora_origen TEXT NOT NULL,
+      operadora_destino TEXT NOT NULL,
+      tipo_linea TEXT DEFAULT 'movil',
+      estado TEXT NOT NULL DEFAULT 'solicitada',
+      fecha_solicitud DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_estimada DATE,
+      fecha_completada DATE,
+      codigo_portabilidad TEXT,
+      motivo TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_portabilidad_user ON portabilidad_numerica(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS roaming_internacional (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      linea_id INTEGER,
+      numero TEXT NOT NULL,
+      pais_destino TEXT NOT NULL,
+      fecha_inicio DATE NOT NULL,
+      fecha_fin DATE,
+      plan_roaming TEXT,
+      costo_diario NUMERIC(18,2),
+      moneda TEXT DEFAULT 'USD',
+      datos_incluidos_mb INTEGER,
+      minutos_incluidos INTEGER,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      activacion_automatica BOOLEAN DEFAULT false,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_roaming_user ON roaming_internacional(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS paquetes_adicionales (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      linea_id INTEGER,
+      numero TEXT,
+      nombre_paquete TEXT NOT NULL,
+      tipo TEXT NOT NULL DEFAULT 'datos',
+      cantidad TEXT,
+      precio NUMERIC(18,2),
+      moneda TEXT DEFAULT 'USD',
+      fecha_activacion DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_expiracion DATE,
+      renovacion_automatica BOOLEAN DEFAULT false,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_paquetes_user ON paquetes_adicionales(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS proveedores (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      razon_social TEXT NOT NULL,
+      rif TEXT NOT NULL,
+      tipo TEXT DEFAULT 'servicios',
+      contacto_nombre TEXT,
+      contacto_email TEXT,
+      contacto_telefono TEXT,
+      direccion TEXT,
+      ciudad TEXT,
+      estado_ubicacion TEXT,
+      condiciones_pago TEXT DEFAULT '30 días',
+      cuenta_bancaria TEXT,
+      banco TEXT,
+      calificacion INTEGER DEFAULT 3,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_proveedores_user ON proveedores(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS directorio_corporativo (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre TEXT NOT NULL,
+      apellido TEXT NOT NULL,
+      cedula TEXT,
+      cargo TEXT NOT NULL,
+      departamento TEXT NOT NULL,
+      email TEXT,
+      telefono TEXT,
+      extension TEXT,
+      ubicacion TEXT,
+      fecha_ingreso DATE,
+      tipo_contrato TEXT DEFAULT 'fijo',
+      supervisor TEXT,
+      estado TEXT NOT NULL DEFAULT 'activo',
+      foto_url TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_directorio_user ON directorio_corporativo(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS flujo_aprobaciones (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo TEXT NOT NULL DEFAULT 'gasto',
+      titulo TEXT NOT NULL,
+      descripcion TEXT,
+      solicitante TEXT NOT NULL,
+      departamento TEXT,
+      monto NUMERIC(18,2),
+      moneda TEXT DEFAULT 'VES',
+      aprobador TEXT,
+      estado TEXT NOT NULL DEFAULT 'pendiente',
+      prioridad TEXT DEFAULT 'normal',
+      fecha_solicitud DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_respuesta DATE,
+      comentario_aprobador TEXT,
+      documento_url TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_aprobaciones_user ON flujo_aprobaciones(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS cotizaciones (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      numero_cotizacion TEXT NOT NULL,
+      cliente_nombre TEXT NOT NULL,
+      cliente_rif TEXT,
+      cliente_email TEXT,
+      cliente_telefono TEXT,
+      fecha_emision DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_validez DATE,
+      subtotal NUMERIC(18,2) DEFAULT 0,
+      iva NUMERIC(18,2) DEFAULT 0,
+      total NUMERIC(18,2) DEFAULT 0,
+      moneda TEXT DEFAULT 'VES',
+      estado TEXT NOT NULL DEFAULT 'borrador',
+      condiciones TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`
+    CREATE TABLE IF NOT EXISTS cotizacion_items (
+      id SERIAL PRIMARY KEY,
+      cotizacion_id INTEGER NOT NULL REFERENCES cotizaciones(id) ON DELETE CASCADE,
+      descripcion TEXT NOT NULL,
+      cantidad NUMERIC(18,2) DEFAULT 1,
+      precio_unitario NUMERIC(18,2) DEFAULT 0,
+      subtotal NUMERIC(18,2) DEFAULT 0
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_cotizaciones_user ON cotizaciones(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS ordenes_compra (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      numero_orden TEXT NOT NULL,
+      proveedor_nombre TEXT NOT NULL,
+      proveedor_rif TEXT,
+      fecha_emision DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_entrega_esperada DATE,
+      subtotal NUMERIC(18,2) DEFAULT 0,
+      iva NUMERIC(18,2) DEFAULT 0,
+      total NUMERIC(18,2) DEFAULT 0,
+      moneda TEXT DEFAULT 'VES',
+      estado TEXT NOT NULL DEFAULT 'borrador',
+      aprobado_por TEXT,
+      departamento TEXT,
+      condiciones TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`
+    CREATE TABLE IF NOT EXISTS orden_compra_items (
+      id SERIAL PRIMARY KEY,
+      orden_id INTEGER NOT NULL REFERENCES ordenes_compra(id) ON DELETE CASCADE,
+      descripcion TEXT NOT NULL,
+      cantidad NUMERIC(18,2) DEFAULT 1,
+      precio_unitario NUMERIC(18,2) DEFAULT 0,
+      subtotal NUMERIC(18,2) DEFAULT 0
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_ordenes_compra_user ON ordenes_compra(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS cobros (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      factura_ref TEXT,
+      cliente_nombre TEXT NOT NULL,
+      cliente_rif TEXT,
+      monto_original NUMERIC(18,2) NOT NULL,
+      monto_cobrado NUMERIC(18,2) DEFAULT 0,
+      saldo_pendiente NUMERIC(18,2),
+      moneda TEXT DEFAULT 'VES',
+      fecha_vencimiento DATE,
+      fecha_ultimo_pago DATE,
+      metodo_pago TEXT,
+      referencia_pago TEXT,
+      estado TEXT NOT NULL DEFAULT 'pendiente',
+      dias_mora INTEGER DEFAULT 0,
+      intentos_cobro INTEGER DEFAULT 0,
+      proximo_contacto DATE,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_cobros_user ON cobros(user_id)`);
 }
 
 async function seedEmailAutomaticos(): Promise<void> {
