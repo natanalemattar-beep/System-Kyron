@@ -1,19 +1,9 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { WifiOff, CheckCircle2, X, SignalLow, Wifi } from 'lucide-react';
+import { WifiOff, X, SignalLow, Wifi } from 'lucide-react';
 
 type ConnectionState = 'good' | 'slow' | 'offline' | 'recovered';
-
-function detectSlowConnection(): boolean {
-  if (typeof navigator === 'undefined') return false;
-  const conn = (navigator as any).connection;
-  if (!conn) return false;
-  if (conn.effectiveType === 'slow-2g') return true;
-  if (typeof conn.downlink === 'number' && conn.downlink <= 0.25) return true;
-  if (typeof conn.rtt === 'number' && conn.rtt > 10000) return true;
-  return false;
-}
 
 const STATE_TOKENS = {
   offline: {
@@ -63,132 +53,168 @@ const STATE_TOKENS = {
   },
 };
 
-const SLOW_THRESHOLD_MS = 20000;
-const CONSECUTIVE_SLOW_REQUIRED = 3;
-const INITIAL_DELAY_MS = 45000;
-const CHECK_INTERVAL_MS = 120000;
-const PING_TIMEOUT_MS = 25000;
+// Tiempo que debe tardar un ping para considerarse "lento" (ms)
+const SLOW_THRESHOLD_MS    = 4000;
+// Cuántos pings lentos consecutivos antes de mostrar el aviso
+const CONSECUTIVE_SLOW     = 2;
+// Primera verificación: 30 segundos tras cargar la página (evita falsos positivos de carga)
+const INITIAL_DELAY_MS     = 30000;
+// Verificación periódica cada 90 segundos
+const CHECK_INTERVAL_MS    = 90000;
+// Timeout máximo del ping
+const PING_TIMEOUT_MS      = 8000;
+// Cuánto tiempo se muestra el banner "Conexión restaurada" antes de desaparecer
+const RECOVERED_SHOW_MS    = 4500;
 
 export function SlowConnectionBanner() {
-  const [state, setState] = useState<ConnectionState>('good');
+  const [state, setState]       = useState<ConnectionState>('good');
   const [dismissed, setDismissed] = useState(false);
-  const [show, setShow] = useState(false);
-  const mountedRef = useRef(true);
-  const prevStateRef = useRef<ConnectionState>('good');
+  const [show, setShow]         = useState(false);
+
+  const mountedRef       = useRef(true);
+  const hadIssueRef      = useRef(false);   // true si alguna vez hubo offline o slow
+  const slowCountRef     = useRef(0);
   const recoveryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const slowCountRef = useRef(0);
-  const checkCountRef = useRef(0);
+  const initializedRef   = useRef(false);   // true después del primer check periódico
 
-  const checkConnection = useCallback(() => {
+  const setGood = useCallback(() => {
     if (!mountedRef.current) return;
-    const wasOfflineOrSlow = prevStateRef.current === 'offline' || prevStateRef.current === 'slow';
+    if (hadIssueRef.current) {
+      // Solo muestra "restaurada" si realmente hubo un problema antes
+      hadIssueRef.current = false;
+      slowCountRef.current = 0;
+      setState('recovered');
+      setDismissed(false);
+      if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
+      recoveryTimerRef.current = setTimeout(() => {
+        if (mountedRef.current) setState('good');
+      }, RECOVERED_SHOW_MS);
+    } else {
+      slowCountRef.current = Math.max(0, slowCountRef.current - 1);
+      setState('good');
+    }
+  }, []);
 
+  const checkConnection = useCallback(async () => {
+    if (!mountedRef.current) return;
+
+    // Sin internet según el navegador → banner rojo inmediato
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
-      prevStateRef.current = 'offline';
+      hadIssueRef.current = true;
       setState('offline');
       setDismissed(false);
       return;
     }
 
-    if (detectSlowConnection()) {
+    // Comprueba también la API network information
+    const conn = (navigator as any).connection;
+    if (conn?.effectiveType === 'slow-2g' || (typeof conn?.downlink === 'number' && conn.downlink <= 0.15)) {
       slowCountRef.current++;
-      if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED) {
-        prevStateRef.current = 'slow';
+      if (slowCountRef.current >= CONSECUTIVE_SLOW) {
+        hadIssueRef.current = true;
         setState('slow');
         setDismissed(false);
       }
       return;
     }
 
-    const start = performance.now();
+    // Ping real al servidor
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), PING_TIMEOUT_MS);
+    const timeoutId  = setTimeout(() => controller.abort(), PING_TIMEOUT_MS);
+    const start      = performance.now();
 
-    fetch('/api/ping', { method: 'HEAD', cache: 'no-store', signal: controller.signal })
-      .then(() => {
-        clearTimeout(timeout);
-        const elapsed = performance.now() - start;
-        if (!mountedRef.current) return;
-        checkCountRef.current++;
+    try {
+      await fetch('/api/ping', { method: 'HEAD', cache: 'no-store', signal: controller.signal });
+      clearTimeout(timeoutId);
+      const elapsed = performance.now() - start;
 
-        if (elapsed > SLOW_THRESHOLD_MS && checkCountRef.current > 1) {
-          slowCountRef.current++;
-          if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED) {
-            prevStateRef.current = 'slow';
-            setState('slow');
-            setDismissed(false);
-          }
-        } else {
-          if (slowCountRef.current > 0) slowCountRef.current = Math.max(0, slowCountRef.current - 1);
+      if (!mountedRef.current) return;
 
-          if (wasOfflineOrSlow && checkCountRef.current > 1) {
-            setState('recovered');
-            setDismissed(false);
-            if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
-            recoveryTimerRef.current = setTimeout(() => {
-              if (mountedRef.current) { prevStateRef.current = 'good'; setState('good'); }
-            }, 4000);
-          } else {
-            prevStateRef.current = 'good';
-            setState('good');
-          }
+      if (elapsed > SLOW_THRESHOLD_MS) {
+        slowCountRef.current++;
+        if (slowCountRef.current >= CONSECUTIVE_SLOW) {
+          hadIssueRef.current = true;
+          setState('slow');
+          setDismissed(false);
         }
-      })
-      .catch((err: unknown) => {
-        clearTimeout(timeout);
-        if (!mountedRef.current) return;
-        checkCountRef.current++;
+      } else {
+        setGood();
+      }
+    } catch {
+      clearTimeout(timeoutId);
+      if (!mountedRef.current) return;
 
-        if (typeof navigator !== 'undefined' && !navigator.onLine) {
-          prevStateRef.current = 'offline'; setState('offline'); setDismissed(false);
-        } else {
-          slowCountRef.current++;
-          if (slowCountRef.current >= CONSECUTIVE_SLOW_REQUIRED && checkCountRef.current > 1) {
-            prevStateRef.current = 'slow'; setState('slow'); setDismissed(false);
-          }
+      if (!navigator.onLine) {
+        hadIssueRef.current = true;
+        setState('offline');
+        setDismissed(false);
+      } else {
+        // El ping fue abortado (timeout) → conexión muy lenta
+        slowCountRef.current++;
+        if (slowCountRef.current >= CONSECUTIVE_SLOW) {
+          hadIssueRef.current = true;
+          setState('slow');
+          setDismissed(false);
         }
-      });
-  }, []);
+      }
+    }
+  }, [setGood]);
 
   useEffect(() => {
     mountedRef.current = true;
-    const initialDelay = setTimeout(checkConnection, INITIAL_DELAY_MS);
-    const interval = setInterval(checkConnection, CHECK_INTERVAL_MS);
-    const handleOnline = () => {
-      if (!mountedRef.current) return;
-      slowCountRef.current = 0;
-      setTimeout(() => { if (mountedRef.current) checkConnection(); }, 2000);
-    };
+
     const handleOffline = () => {
       if (!mountedRef.current) return;
-      prevStateRef.current = 'offline';
+      hadIssueRef.current = true;
       setState('offline');
       setDismissed(false);
     };
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    const conn = (navigator as any).connection;
-    const handleChange = () => {
+
+    const handleOnline = () => {
+      if (!mountedRef.current) return;
+      slowCountRef.current = 0;
+      // Espera 1.5s para que la conexión se estabilice y verifica
+      setTimeout(() => {
+        if (mountedRef.current) checkConnection();
+      }, 1500);
+    };
+
+    const handleNetworkChange = () => {
       if (!mountedRef.current) return;
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
       debounceTimerRef.current = setTimeout(() => {
         if (mountedRef.current) checkConnection();
-      }, 3000);
+      }, 2000);
     };
-    conn?.addEventListener?.('change', handleChange);
+
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
+    const conn = (navigator as any).connection;
+    conn?.addEventListener?.('change', handleNetworkChange);
+
+    // Primer chequeo después del delay inicial (evita falsos positivos durante la carga)
+    const initialTimer = setTimeout(() => {
+      initializedRef.current = true;
+      checkConnection();
+    }, INITIAL_DELAY_MS);
+
+    // Chequeos periódicos
+    const interval = setInterval(checkConnection, CHECK_INTERVAL_MS);
+
     return () => {
       mountedRef.current = false;
-      clearTimeout(initialDelay);
+      clearTimeout(initialTimer);
       clearInterval(interval);
       if (recoveryTimerRef.current) clearTimeout(recoveryTimerRef.current);
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-      window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
-      conn?.removeEventListener?.('change', handleChange);
+      window.removeEventListener('online', handleOnline);
+      conn?.removeEventListener?.('change', handleNetworkChange);
     };
   }, [checkConnection]);
 
+  // Controla la animación de entrada/salida
   useEffect(() => {
     if (state !== 'good' && !dismissed) {
       requestAnimationFrame(() => setShow(true));
@@ -198,14 +224,14 @@ export function SlowConnectionBanner() {
   }, [state, dismissed]);
 
   if (state === 'good') return null;
-  if (dismissed && state !== 'recovered') return null;
+  if (dismissed) return null;
 
   const isOffline   = state === 'offline';
   const isRecovered = state === 'recovered';
   const isSlow      = state === 'slow';
   const t = isOffline ? STATE_TOKENS.offline : isRecovered ? STATE_TOKENS.recovered : STATE_TOKENS.slow;
 
-  const label = isOffline ? 'Sin conexión' : isRecovered ? 'Conexión restaurada' : 'Conexión lenta';
+  const label = isOffline ? 'Sin conexión a internet' : isRecovered ? 'Conexión restaurada' : 'Conexión lenta';
   const sub   = isOffline ? 'Verifica tu red o Wi-Fi' : isRecovered ? 'Todo vuelve a la normalidad' : 'La red está respondiendo despacio';
 
   return (
@@ -218,12 +244,10 @@ export function SlowConnectionBanner() {
       style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
     >
       <div className="pointer-events-auto mt-3 mx-4 max-w-md w-full relative">
-
         <div
           className="absolute inset-0 rounded-2xl blur-xl opacity-60 pointer-events-none -z-10"
           style={{ background: t.glow, transform: 'scale(1.08) translateY(4px)' }}
         />
-
         <div
           className="relative overflow-hidden rounded-2xl"
           style={{
@@ -244,9 +268,7 @@ export function SlowConnectionBanner() {
             className="absolute top-0 left-0 right-0 h-px"
             style={{ background: `linear-gradient(90deg, transparent, ${t.shine}, rgba(255,255,255,0.14), ${t.shine}, transparent)` }}
           />
-
           <div className="relative flex items-center gap-3 px-4 py-3">
-
             <div
               className="flex-shrink-0"
               style={{
@@ -258,11 +280,10 @@ export function SlowConnectionBanner() {
                 boxShadow: `0 2px 8px ${t.glow}, inset 0 1px 0 rgba(255,255,255,0.1)`,
               }}
             >
-              {isOffline   && <WifiOff    className="h-4 w-4 animate-pulse" style={{ color: t.icon }} />}
-              {isRecovered && <Wifi       className="h-4 w-4" style={{ color: t.icon }} />}
-              {isSlow      && <SignalLow  className="h-4 w-4" style={{ color: t.icon }} />}
+              {isOffline   && <WifiOff   className="h-4 w-4 animate-pulse" style={{ color: t.icon }} />}
+              {isRecovered && <Wifi      className="h-4 w-4"               style={{ color: t.icon }} />}
+              {isSlow      && <SignalLow className="h-4 w-4"               style={{ color: t.icon }} />}
             </div>
-
             <div className="flex-1 min-w-0">
               <p className="text-[13px] font-bold leading-tight truncate" style={{ color: t.label }}>
                 {label}
@@ -271,7 +292,6 @@ export function SlowConnectionBanner() {
                 {sub}
               </p>
             </div>
-
             {!isRecovered && (
               <button
                 onClick={() => setDismissed(true)}
@@ -285,7 +305,6 @@ export function SlowConnectionBanner() {
               </button>
             )}
           </div>
-
           <div
             className="absolute bottom-0 left-0 right-0 overflow-hidden"
             style={{ height: 2, background: t.barBg }}
