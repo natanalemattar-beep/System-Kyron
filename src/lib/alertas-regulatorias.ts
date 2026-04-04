@@ -1,4 +1,4 @@
-import { query } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
 import { sendSmsNotification } from '@/lib/sms-service';
@@ -514,13 +514,20 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
         footer: 'Alerta regulatoria generada por el Monitor Legal de System Kyron.',
       });
 
-      sendEmail({
-        to: empresa.email,
-        subject: `[Kyron Legal] ${titulo}`,
-        html,
-        module: 'legal',
-        purpose: 'alert',
-      }).catch(() => {});
+      const userConfig = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
+        `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
+        [empresa.user_id]
+      );
+      if (!userConfig || userConfig.notif_email !== false) {
+        const alertEmail = userConfig?.email_alertas || empresa.email;
+        sendEmail({
+          to: alertEmail,
+          subject: `[Kyron Legal] ${titulo}`,
+          html,
+          module: 'legal',
+          purpose: 'alert',
+        }).catch(() => {});
+      }
 
       sendWhatsAppNotification(empresa.user_id, {
         tipo: 'regulatorio',

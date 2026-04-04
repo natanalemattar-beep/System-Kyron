@@ -193,18 +193,24 @@ registerAction('email_automation', async () => {
             );
             if (u.email) {
               try {
-                const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
-                await sendEmail({
-                  to: u.email,
-                  subject: `${cnt} factura(s) vencida(s) — Acción requerida`,
-                  html: buildKyronEmailTemplate({
-                    title: `Facturas Vencidas`,
-                    body: `<p>Hola ${u.nombre || ''},</p><p>Tienes <strong>${cnt}</strong> factura(s) con fecha de vencimiento pasada que requieren atención inmediata.</p><p>Ingresa a System Kyron para gestionar tus pagos pendientes.</p>`,
-                    footer: 'Este es un recordatorio automático de System Kyron.',
-                  }),
-                  module: 'contabilidad',
-                  purpose: 'general',
-                });
+                const uc = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
+                  `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
+                  [u.user_id]
+                );
+                if (!uc || uc.notif_email !== false) {
+                  const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
+                  await sendEmail({
+                    to: uc?.email_alertas || u.email,
+                    subject: `${cnt} factura(s) vencida(s) — Acción requerida`,
+                    html: buildKyronEmailTemplate({
+                      title: `Facturas Vencidas`,
+                      body: `<p>Hola ${u.nombre || ''},</p><p>Tienes <strong>${cnt}</strong> factura(s) con fecha de vencimiento pasada que requieren atención inmediata.</p><p>Ingresa a System Kyron para gestionar tus pagos pendientes.</p>`,
+                      footer: 'Este es un recordatorio automático de System Kyron.',
+                    }),
+                    module: 'contabilidad',
+                    purpose: 'general',
+                  });
+                }
               } catch { /* email delivery failure is non-fatal */ }
             }
           }
@@ -226,18 +232,24 @@ registerAction('email_automation', async () => {
           );
           if (u.email) {
             try {
-              const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
-              await sendEmail({
-                to: u.email,
-                subject: 'Tu resumen semanal — System Kyron',
-                html: buildKyronEmailTemplate({
-                  title: 'Resumen Semanal',
-                  body: `<p>Hola ${u.nombre || ''},</p><p>Tu resumen de actividad semanal está listo: <strong>${total}</strong> eventos registrados en los últimos 7 días.</p>`,
-                  footer: 'Resumen automático generado por System Kyron.',
-                }),
-                module: 'sistema',
-                purpose: 'general',
-              });
+              const uc = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
+                `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
+                [u.id]
+              );
+              if (!uc || uc.notif_email !== false) {
+                const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
+                await sendEmail({
+                  to: uc?.email_alertas || u.email,
+                  subject: 'Tu resumen semanal — System Kyron',
+                  html: buildKyronEmailTemplate({
+                    title: 'Resumen Semanal',
+                    body: `<p>Hola ${u.nombre || ''},</p><p>Tu resumen de actividad semanal está listo: <strong>${total}</strong> eventos registrados en los últimos 7 días.</p>`,
+                    footer: 'Resumen automático generado por System Kyron.',
+                  }),
+                  module: 'sistema',
+                  purpose: 'general',
+                });
+              }
             } catch { /* email delivery failure is non-fatal */ }
           }
         }

@@ -7,6 +7,11 @@ const TIPO_LABELS: Record<string, { emoji: string; label: string }> = {
   exito: { emoji: '✅', label: 'Éxito' },
   advertencia: { emoji: '⚠️', label: 'Advertencia' },
   fiscal: { emoji: '📋', label: 'Notificación Fiscal' },
+  parafiscal: { emoji: '🏛️', label: 'Obligación Parafiscal' },
+  laboral: { emoji: '👷', label: 'Obligación Laboral' },
+  regulatorio: { emoji: '⚖️', label: 'Regulatorio' },
+  municipal: { emoji: '🏢', label: 'Obligación Municipal' },
+  ambiental: { emoji: '🌿', label: 'Obligación Ambiental' },
   vencimiento: { emoji: '📅', label: 'Vencimiento' },
 };
 
@@ -38,25 +43,26 @@ export async function sendNotificationEmail(
   }
 ) {
   try {
-    const config = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
-      `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
-      [userId]
-    );
+    const [config, user] = await Promise.all([
+      queryOne<{ notif_email: boolean; email_alertas: string | null }>(
+        `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
+        [userId]
+      ),
+      queryOne<{ email: string; nombre: string }>(
+        `SELECT email, nombre FROM users WHERE id = $1`,
+        [userId]
+      ),
+    ]);
 
-    if (!config || !config.notif_email) {
+    if (config?.notif_email === false) {
       return;
     }
-
-    const user = await queryOne<{ email: string; nombre: string }>(
-      `SELECT email, nombre FROM users WHERE id = $1`,
-      [userId]
-    );
 
     if (!user?.email) {
       return;
     }
 
-    const alertEmail = config.email_alertas || user.email;
+    const alertEmail = config?.email_alertas || user.email;
 
     const tipoInfo = TIPO_LABELS[notification.tipo] || TIPO_LABELS.info;
     const safeTitulo = escapeHtml(notification.titulo);

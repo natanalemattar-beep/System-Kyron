@@ -14,6 +14,11 @@ const TIPO_LABELS: Record<string, string> = {
   exito: 'EXITO',
   advertencia: 'ADVERTENCIA',
   fiscal: 'FISCAL',
+  parafiscal: 'PARAFISCAL',
+  laboral: 'LABORAL',
+  regulatorio: 'REGULATORIO',
+  municipal: 'MUNICIPAL',
+  ambiental: 'AMBIENTAL',
   vencimiento: 'VENCIMIENTO',
 };
 
