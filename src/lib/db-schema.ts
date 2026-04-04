@@ -34,7 +34,8 @@ export async function initializeDatabase(): Promise<void> {
     await createAutomationTables();
     await createPlanUsageTables();
     await createPerformanceOptimizations();
-    console.log('[db-schema] Base de datos inicializada correctamente — v3.1.0');
+    await createMarketingTables();
+    console.log('[db-schema] Base de datos inicializada correctamente — v3.2.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -2814,6 +2815,121 @@ async function createPerformanceOptimizations(): Promise<void> {
     FOR EACH ROW
     EXECUTE FUNCTION bloquear_modificar_factura_items()
   `);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MARKETING — Campañas, Email Marketing, Embudos, Redes Sociales
+// ─────────────────────────────────────────────────────────────────────────────
+async function createMarketingTables() {
+  await safeQuery(`ALTER TABLE clientes ADD COLUMN IF NOT EXISTS segmento TEXT`);
+  await safeQuery(`ALTER TABLE clientes ADD COLUMN IF NOT EXISTS valor_estimado NUMERIC(18,2) DEFAULT 0`);
+  await safeQuery(`ALTER TABLE clientes ADD COLUMN IF NOT EXISTS satisfaccion SMALLINT CHECK (satisfaccion BETWEEN 1 AND 5)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS campanas_marketing (
+      id               SERIAL PRIMARY KEY,
+      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre           TEXT NOT NULL,
+      tipo             TEXT NOT NULL DEFAULT 'Digital',
+      canales          TEXT[] DEFAULT '{}',
+      estado           TEXT NOT NULL DEFAULT 'borrador'
+                       CHECK (estado IN ('borrador','programada','activa','pausada','completada')),
+      fecha_inicio     DATE,
+      fecha_fin        DATE,
+      presupuesto      NUMERIC(18,2) DEFAULT 0,
+      gastado          NUMERIC(18,2) DEFAULT 0,
+      alcance          INT DEFAULT 0,
+      impresiones      INT DEFAULT 0,
+      clicks           INT DEFAULT 0,
+      conversiones     INT DEFAULT 0,
+      roi              NUMERIC(8,2) DEFAULT 0,
+      notas            TEXT,
+      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_campanas_mkt_user ON campanas_marketing(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS email_campaigns (
+      id               SERIAL PRIMARY KEY,
+      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre           TEXT NOT NULL,
+      estado           TEXT NOT NULL DEFAULT 'borrador'
+                       CHECK (estado IN ('borrador','programada','enviada','automatizada')),
+      fecha            TEXT,
+      destinatarios    INT DEFAULT 0,
+      entregados       INT DEFAULT 0,
+      abiertos         INT DEFAULT 0,
+      clicks           INT DEFAULT 0,
+      bajas            INT DEFAULT 0,
+      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_email_campaigns_user ON email_campaigns(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS email_lists (
+      id               SERIAL PRIMARY KEY,
+      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre           TEXT NOT NULL,
+      total            INT DEFAULT 0,
+      activos          INT DEFAULT 0,
+      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS embudos_ventas (
+      id                  SERIAL PRIMARY KEY,
+      user_id             INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre              TEXT NOT NULL,
+      estado              TEXT NOT NULL DEFAULT 'activo'
+                          CHECK (estado IN ('activo','inactivo','archivado')),
+      leads               INT DEFAULT 0,
+      conversion_global   NUMERIC(5,2) DEFAULT 0,
+      ticket_promedio     NUMERIC(18,2) DEFAULT 0,
+      ingreso_estimado    NUMERIC(18,2) DEFAULT 0,
+      created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_embudos_user ON embudos_ventas(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS etapas_embudo (
+      id          SERIAL PRIMARY KEY,
+      embudo_id   INT NOT NULL REFERENCES embudos_ventas(id) ON DELETE CASCADE,
+      nombre      TEXT NOT NULL,
+      total       INT DEFAULT 0,
+      orden       INT NOT NULL DEFAULT 0,
+      color       TEXT DEFAULT 'text-primary',
+      bg          TEXT DEFAULT 'bg-primary/10',
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS redes_sociales (
+      id               SERIAL PRIMARY KEY,
+      user_id          INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      nombre           TEXT NOT NULL,
+      handle           TEXT,
+      seguidores       INT DEFAULT 0,
+      crecimiento      NUMERIC(5,2) DEFAULT 0,
+      alcance          INT DEFAULT 0,
+      engagement       NUMERIC(5,2) DEFAULT 0,
+      publicaciones    INT DEFAULT 0,
+      mejor_post       TEXT,
+      color            TEXT DEFAULT 'text-primary',
+      bg               TEXT DEFAULT 'bg-primary/10',
+      border_color     TEXT DEFAULT 'border-primary/20',
+      created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_redes_sociales_user ON redes_sociales(user_id)`);
 }
 
 async function seedEmailAutomaticos(): Promise<void> {

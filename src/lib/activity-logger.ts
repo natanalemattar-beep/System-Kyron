@@ -4,7 +4,7 @@ import { generateProofPayload } from '@/lib/blockchain-service';
 export interface LogActivityParams {
   userId?: number | null;
   evento: string;
-  categoria: 'auth' | 'contabilidad' | 'rrhh' | 'banco' | 'clientes' | 'documentos' | 'ia' | 'sistema' | 'telecom' | 'eco' | 'legal' | 'nomina' | 'inventario' | 'ventas' | 'config';
+  categoria: 'auth' | 'contabilidad' | 'rrhh' | 'banco' | 'clientes' | 'documentos' | 'ia' | 'sistema' | 'telecom' | 'eco' | 'legal' | 'nomina' | 'inventario' | 'ventas' | 'config' | 'marketing';
   descripcion?: string;
   entidadTipo?: string;
   entidadId?: number | null;

@@ -32,8 +32,8 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Dark Mode Layouts: All 9 layout groups use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants.
 
 **Technical Implementations:**
-- **Database Layer:** PostgreSQL schema v3.1.0 with 80+ tables (including `desarrollo_personal` for career plans), GIN indexes for JSONB metadata, and numerous composite/partial indexes, supporting batch operations, upserts, and pagination. Employee seed data has been removed — the system starts without fictitious employees.
-- **API Routes:** Over 60 API routes for authentication, KPIs, and CRUD operations. HR modules (Reclutamiento, Clima Organizacional, Desarrollo Personal) use real API data instead of hardcoded arrays.
+- **Database Layer:** PostgreSQL schema v3.2.0 with 80+ tables (including marketing: `campanas_marketing`, `email_campaigns`, `email_lists`, `embudos_ventas`, `etapas_embudo`, `redes_sociales` and `desarrollo_personal` for career plans), GIN indexes for JSONB metadata, and numerous composite/partial indexes, supporting batch operations, upserts, and pagination. The `clientes` table includes marketing fields: `segmento`, `valor_estimado`, `satisfaccion`. Employee seed data has been removed — the system starts without fictitious employees.
+- **API Routes:** Over 65 API routes for authentication, KPIs, and CRUD operations. HR modules (Reclutamiento, Clima Organizacional, Desarrollo Personal) and Marketing module (campanas, email-campaigns, embudos, redes-sociales, dashboard) use real API data instead of hardcoded arrays.
 - **Authentication:** JWT utilities with 2FA (email, SMS, WhatsApp), challenge tokens, optional "access key," and magic link verification.
 - **Security:** Implements CSP, HSTS, X-Content-Type-Options, X-Frame-Options, Permissions-Policy, rate limiting with brute-force lockout, memory-safe maps, password complexity, input sanitization, and parameterized SQL.
 - **Payment Methods:** Supports 26+ payment gateways and 29 Venezuelan banks, including SENIAT-compliant pasarelas with direct bank URL integration.

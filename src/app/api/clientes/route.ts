@@ -12,7 +12,8 @@ export async function GET() {
     try {
         const clientes = await query(
             `SELECT id, tipo, razon_social, rif, nombre_contacto, cedula_contacto,
-                    telefono, email, direccion, estado, municipio, activo, created_at
+                    telefono, email, direccion, estado, municipio, activo,
+                    segmento, valor_estimado, satisfaccion, created_at
              FROM clientes WHERE user_id = $1 ORDER BY razon_social ASC NULLS LAST`,
             [session.userId]
         );
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const { tipo, razon_social, rif, nombre_contacto, cedula_contacto, telefono, email, direccion, estado, municipio } = body;
+        const { tipo, razon_social, rif, nombre_contacto, cedula_contacto, telefono, email, direccion, estado, municipio, segmento, valor_estimado, satisfaccion } = body;
 
         if (!razon_social && !nombre_contacto) {
             return NextResponse.json({ error: 'Se requiere razón social o nombre del contacto' }, { status: 400 });
@@ -42,9 +43,9 @@ export async function POST(req: NextRequest) {
         }
 
         const [cliente] = await query(
-            `INSERT INTO clientes (user_id, tipo, razon_social, rif, nombre_contacto, cedula_contacto, telefono, email, direccion, estado, municipio)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-             RETURNING id, razon_social, rif, nombre_contacto`,
+            `INSERT INTO clientes (user_id, tipo, razon_social, rif, nombre_contacto, cedula_contacto, telefono, email, direccion, estado, municipio, segmento, valor_estimado, satisfaccion)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+             RETURNING *`,
             [
                 session.userId,
                 tipo ?? 'juridico',
@@ -57,6 +58,9 @@ export async function POST(req: NextRequest) {
                 direccion ?? null,
                 estado ?? null,
                 municipio ?? null,
+                segmento ?? null,
+                valor_estimado ?? 0,
+                satisfaccion ?? null,
             ]
         );
 
