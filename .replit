@@ -45,6 +45,7 @@ NEXT_PUBLIC_BASE_URL = "http://localhost:5000"
 NODE_ENV = "development"
 ADMIN_ALERT_EMAIL = "natanalemattar@gmail.com"
 GMAIL_USER = "noreplysystemkyron@gmail.com"
+JWT_SECRET = "J3tlIIfTP5DK6sv7rtcoo0kgWcRrZfoHUhwATpWASxyKjcSCo-Oob_HIV8PCkXvR"
 
 [deployment]
 run = ["npm", "run", "start"]
