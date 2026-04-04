@@ -1,72 +1,174 @@
-
 "use client";
 
-import { IntelligentPortfolioManager } from "@/components/cobranza/intelligent-portfolio-manager";
-import { AutomatedCollectionSystem } from "@/components/cobranza/automated-collection-system";
-import { PaymentReconciliation } from "@/components/cobranza/payment-reconciliation";
-import { Landmark, ArrowLeft, Activity, Terminal, ShieldCheck } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/navigation";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { BackButton } from "@/components/back-button";
+import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
+import { Landmark, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingUp, Users, Clock } from "lucide-react";
 
-/**
- * @fileOverview Gestión de Cuentas por Cobrar (Localizada y Activada).
- */
-
-export default function CuentasPorCobrarPage() {
-  return (
-    <div className="space-y-12 pb-20 px-4 md:px-10">
-        <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-            <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <Landmark className="h-3 w-3" /> CENTRO DE ACTIVOS
-                </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Cuentas <span className="text-primary italic">por Cobrar</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Clientes • Conciliación de Ingresos 2026</p>
-            </div>
-            <div className="flex gap-3">
-                <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-                    <Link href="/contabilidad/cuentas"><ArrowLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
-                </Button>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    <ShieldCheck className="mr-3 h-4 w-4" /> AUDITAR CARTERA
-                </Button>
-            </div>
-        </header>
-
-        <div className="grid gap-10">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <IntelligentPortfolioManager />
-            </motion.div>
-            
-            <div className="grid lg:grid-cols-2 gap-10">
-                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                    <AutomatedCollectionSystem />
-                </motion.div>
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                    <PaymentReconciliation />
-                </motion.div>
-            </div>
-        </div>
-
-        <Card className="glass-card border-none bg-white/[0.02] p-10 rounded-[3rem] mt-10 flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="flex items-center gap-6">
-                <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-                    <Terminal className="h-8 w-8 text-primary" />
-                </div>
-                <div className="space-y-1">
-                    <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground">Estado de Sincronización</h3>
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">Conexión activa con el Libro Mayor y Ledger de Ventas</p>
-                </div>
-            </div>
-            <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] font-black px-6 py-2 rounded-xl uppercase tracking-[0.2em] shadow-glow-secondary">ONLINE</Badge>
-        </Card>
-    </div>
-  );
+interface CuentaCobrar {
+  id: number;
+  cliente: string;
+  rif: string;
+  factura: string;
+  fecha: string;
+  vencimiento: string;
+  monto: number;
+  saldo: number;
+  estado: string;
 }
 
-function Card({ children, className }: { children: React.ReactNode, className?: string }) {
-    return <div className={cn("rounded-xl border bg-card text-card-foreground shadow-sm", className)}>{children}</div>;
+export default function CuentasPorCobrarPage() {
+  const [rows, setRows] = useState<CuentaCobrar[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch('/api/contabilidad/records?type=cuentas_cobrar')
+      .then(r => r.ok ? r.json() : { rows: [] })
+      .then(d => setRows(d.rows ?? []))
+      .catch(() => setRows([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const filtered = useMemo(() => {
+    return rows.filter(r =>
+      !search || r.cliente?.toLowerCase().includes(search.toLowerCase()) || r.factura?.includes(search) || r.rif?.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [rows, search]);
+
+  const summary = useMemo(() => {
+    const totalSaldo = rows.reduce((s, r) => s + (r.saldo || 0), 0);
+    const vencidas = rows.filter(r => r.estado === 'vencida');
+    const totalVencido = vencidas.reduce((s, r) => s + (r.saldo || 0), 0);
+    return { totalSaldo, totalVencido, clientes: new Set(rows.map(r => r.cliente)).size, vencidas: vencidas.length };
+  }, [rows]);
+
+  return (
+    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+      <header className="pt-8 space-y-4">
+        <BackButton href="/contabilidad" label="Contabilidad" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+              <Landmark className="h-3.5 w-3.5" /> Activos Corrientes
+            </div>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+              Cuentas <span className="text-primary">por Cobrar</span>
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">Gestión de cartera · Seguimiento de cobros · Conciliación de ingresos</p>
+          </div>
+          <Button variant="outline" onClick={() => window.print()} className="rounded-xl">
+            <Printer className="mr-2 h-4 w-4" /> Imprimir
+          </Button>
+        </div>
+      </header>
+
+      {rows.length > 0 && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Total por Cobrar</span>
+              <TrendingUp className="h-4 w-4 text-primary" />
+            </div>
+            <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalSaldo, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Monto Vencido</span>
+              <AlertTriangle className="h-4 w-4 text-rose-500" />
+            </div>
+            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.totalVencido, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Clientes</span>
+              <Users className="h-4 w-4 text-emerald-500" />
+            </div>
+            <p className="text-2xl font-black">{summary.clientes}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Facturas Vencidas</span>
+              <Clock className="h-4 w-4 text-amber-500" />
+            </div>
+            <p className={cn("text-2xl font-black", summary.vencidas > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.vencidas}</p>
+          </Card>
+        </div>
+      )}
+
+      <div className="relative max-w-lg">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Buscar por cliente, RIF o factura..."
+          className="pl-12 h-12 rounded-xl"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <Card className="rounded-2xl border shadow-lg overflow-hidden">
+        <CardHeader className="p-6 border-b bg-muted/30">
+          <CardTitle className="text-sm font-bold flex items-center gap-2">
+            <Landmark className="h-4 w-4 text-primary" /> Cartera de Cuentas por Cobrar
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          {loading ? (
+            <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm font-semibold">Cargando cartera...</span>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+              <Inbox className="h-10 w-10" />
+              <p className="text-sm font-bold">Sin cuentas por cobrar</p>
+              <p className="text-xs text-muted-foreground/70">Las cuentas aparecerán al registrar facturas de venta a crédito.</p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/20">
+                  <TableHead className="pl-6 py-4 text-xs font-semibold">Cliente / RIF</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Factura</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Fecha</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Vencimiento</TableHead>
+                  <TableHead className="text-right py-4 text-xs font-semibold">Monto</TableHead>
+                  <TableHead className="text-right py-4 text-xs font-semibold">Saldo</TableHead>
+                  <TableHead className="text-right pr-6 py-4 text-xs font-semibold">Estado</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filtered.map((r) => (
+                  <TableRow key={r.id} className="hover:bg-muted/10">
+                    <TableCell className="pl-6 py-4">
+                      <p className="text-xs font-semibold">{r.cliente}</p>
+                      <p className="text-[11px] font-mono text-primary mt-0.5">{r.rif || '—'}</p>
+                    </TableCell>
+                    <TableCell className="py-4 font-mono text-xs text-muted-foreground">{r.factura}</TableCell>
+                    <TableCell className="py-4 text-xs text-muted-foreground">{r.fecha}</TableCell>
+                    <TableCell className="py-4 text-xs text-muted-foreground">{r.vencimiento}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm">{formatCurrency(r.monto, 'Bs.')}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm font-bold">{formatCurrency(r.saldo, 'Bs.')}</TableCell>
+                    <TableCell className="text-right pr-6 py-4">
+                      <Badge className={cn("text-[10px] font-semibold border-none",
+                        r.estado === 'cobrada' ? 'bg-emerald-500/10 text-emerald-500' :
+                        r.estado === 'vencida' ? 'bg-rose-500/10 text-rose-500' :
+                        'bg-amber-500/10 text-amber-500'
+                      )}>{r.estado}</Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

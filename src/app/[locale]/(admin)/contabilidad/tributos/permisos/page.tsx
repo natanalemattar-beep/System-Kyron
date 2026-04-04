@@ -329,7 +329,7 @@ export default function PermisologiaPage() {
       </Tabs>
 
       <Dialog open={!!cartaDialog} onOpenChange={open => !open && setCartaDialog(null)}>
-        <DialogContent className="max-w-4xl rounded-[2rem] bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-hidden max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl rounded-2xl bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-hidden max-h-[90vh] overflow-y-auto">
           {cartaDialog && (
             <>
               <div className="p-8 border-b border-white/5 bg-primary/5">
@@ -383,7 +383,7 @@ export default function PermisologiaPage() {
       </Dialog>
 
       <Dialog open={registroDialog} onOpenChange={setRegistroDialog}>
-        <DialogContent className="max-w-2xl max-h-[90vh] rounded-[2rem] bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90vh] rounded-2xl bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-y-auto">
           <div className="p-8 border-b border-white/5 bg-primary/5">
             <DialogHeader>
               <DialogTitle className="text-xl font-black uppercase text-foreground">Registrar Nuevo Permiso</DialogTitle>
@@ -471,7 +471,7 @@ export default function PermisologiaPage() {
 function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; onRegistrar: () => void }) {
   if (permisos.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 overflow-hidden">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
         <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
           <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-6">
             <ShieldCheck className="h-10 w-10 text-primary/30" />
@@ -546,7 +546,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
 function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void; onPagado?: (permisoId: string, planilla: string) => void; pagadoIds?: Set<string> }) {
   if (groups.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
         <Search className="h-12 w-12 text-muted-foreground/20 mx-auto mb-4" />
         <p className="text-sm font-bold text-muted-foreground/40 uppercase">No se encontraron permisos con los filtros seleccionados</p>
       </Card>
@@ -557,7 +557,7 @@ function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { gro
     <Accordion type="multiple" className="space-y-4">
       {groups.map(({ org, permisos }) => (
         <AccordionItem key={org.id} value={org.id} className="border-none">
-          <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 overflow-hidden">
+          <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
             <AccordionTrigger className="px-8 py-6 hover:bg-white/[0.02] transition-all hover:no-underline">
               <div className="flex justify-between items-center w-full pr-4">
                 <div className="flex items-center gap-4">
@@ -762,7 +762,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
 function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
   if (alertas.length === 0) {
     return (
-      <Card className="rounded-2xl shadow-lg rounded-[2rem] bg-card/40 p-16 text-center">
+      <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
         <CheckCircle2 className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
         <p className="text-lg font-black text-foreground/60 uppercase">Sin Alertas Pendientes</p>
         <p className="text-[10px] text-muted-foreground/40 mt-2">Todos los permisos registrados están al día. Registre sus permisos para activar el sistema de alertas.</p>

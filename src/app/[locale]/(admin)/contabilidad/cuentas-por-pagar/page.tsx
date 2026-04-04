@@ -1,121 +1,171 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useMemo } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
-import { HandCoins, TriangleAlert as AlertTriangle, ShieldCheck, Activity, ArrowLeft, CirclePlus as PlusCircle, Terminal, History } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { Link } from "@/navigation";
-import { motion } from "framer-motion";
+import { Input } from "@/components/ui/input";
+import { BackButton } from "@/components/back-button";
+import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
+import { HandCoins, Search, Loader2, Inbox, Printer, AlertTriangle, TrendingDown, Users, Clock } from "lucide-react";
 
-const facturasPendientes = [
-    { id: "FAC-001", proveedor: "OficinaTech C.A.", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
-    { id: "FAC-002", proveedor: "Suministros Globales", fechaVencimiento: "2024-07-15", monto: 986, estado: "Vencida" },
-    { id: "FAC-003", proveedor: "Papelería Mundial", fechaVencimiento: "2024-08-10", monto: 550, estado: "Pendiente" },
-];
-
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
-  Pagada: "default",
-  Pendiente: "secondary",
-  Vencida: "destructive",
-};
+interface CuentaPagar {
+  id: string;
+  proveedor: string;
+  rif: string;
+  factura: string;
+  fechaVencimiento: string;
+  monto: number;
+  saldo: number;
+  estado: string;
+}
 
 export default function CuentasPorPagarPage() {
-    const { toast } = useToast();
+  const [rows, setRows] = useState<CuentaPagar[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
-    return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <HandCoins className="h-3 w-3" /> CENTRO DE PASIVOS
-                    </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Cuentas <span className="text-primary italic">por Pagar</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Proveedores • Compromisos de Pago 2026</p>
-                </div>
-                <div className="flex gap-3">
-                    <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-                        <Link href="/contabilidad/cuentas"><ArrowLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
-                    </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                        <PlusCircle className="mr-3 h-4 w-4" /> REGISTRAR FACTURA
-                    </Button>
-                </div>
-            </header>
+  useEffect(() => {
+    fetch('/api/contabilidad/records?type=cuentas_pagar')
+      .then(r => r.ok ? r.json() : { rows: [] })
+      .then(d => setRows(d.rows ?? []))
+      .catch(() => setRows([]))
+      .finally(() => setLoading(false));
+  }, []);
 
-            <div className="grid gap-6 md:grid-cols-3">
-                <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem] shadow-xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><HandCoins className="h-16 w-16" /></div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Total Deuda Acumulada</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">{formatCurrency(2928, 'Bs.')}</p>
-                </Card>
-                <Card className="glass-card border-none bg-rose-500/5 p-8 rounded-[2rem] shadow-xl border-l-4 border-rose-500">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-rose-500 mb-4">Monto en Mora</p>
-                    <p className="text-4xl font-black italic text-rose-500 tracking-tight leading-none">{formatCurrency(986, 'Bs.')}</p>
-                </Card>
-                <Card className="glass-card border-none bg-card/40 p-8 rounded-[2rem] shadow-xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-16 w-16" /></div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-4">Días Promedio Pago</p>
-                    <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">32 DÍAS</p>
-                </Card>
-            </div>
-
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row justify-between items-center">
-                    <div>
-                        <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Ledger de Obligaciones Pendientes</CardTitle>
-                    </div>
-                    <Button variant="ghost" size="sm" className="h-9 px-4 rounded-xl text-[9px] font-black uppercase border border-border">
-                        <History className="mr-2 h-3.5 w-3.5" /> VER HISTORIAL
-                    </Button>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-muted/30 border-none">
-                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Proveedor / Cuenta</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Vencimiento</TableHead>
-                                <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
-                                <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
-                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {facturasPendientes.map((factura) => (
-                                <TableRow key={factura.id} className="border-border/50 hover:bg-muted/20 transition-all group">
-                                    <TableCell className="pl-10 py-6">
-                                        <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{factura.proveedor}</p>
-                                        <p className="text-[8px] font-mono text-muted-foreground font-bold uppercase">{factura.id}</p>
-                                    </TableCell>
-                                    <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase">{factura.fechaVencimiento}</TableCell>
-                                    <TableCell className="text-right py-6 font-mono text-sm font-black italic text-foreground/70">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
-                                    <TableCell className="text-center py-6">
-                                        <Badge variant={statusVariant[factura.estado]} className={cn(
-                                            "text-[8px] font-black uppercase tracking-widest h-6 px-3 rounded-lg",
-                                            factura.estado === 'Vencida' && "bg-rose-100 text-rose-600 border-none"
-                                        )}>{factura.estado}</Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="outline" size="sm" className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Liquidar</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardFooter className="p-10 border-t border-border bg-primary/5 flex justify-between items-center">
-                    <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                        <Terminal className="h-4 w-4" /> Auditado por System Kyron v2.8.5
-                    </div>
-                    <div className="flex gap-3">
-                        <Button variant="outline" className="h-10 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-white/5">EXCEL</Button>
-                        <Button variant="outline" className="h-10 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-white/5">PDF</Button>
-                    </div>
-                </CardFooter>
-            </Card>
-        </div>
+  const filtered = useMemo(() => {
+    return rows.filter(r =>
+      !search || r.proveedor?.toLowerCase().includes(search.toLowerCase()) || r.factura?.includes(search)
     );
+  }, [rows, search]);
+
+  const summary = useMemo(() => {
+    const totalSaldo = rows.reduce((s, r) => s + (r.saldo || 0), 0);
+    const vencidas = rows.filter(r => r.estado === 'Vencida');
+    const totalVencido = vencidas.reduce((s, r) => s + (r.saldo || 0), 0);
+    return { totalSaldo, totalVencido, proveedores: new Set(rows.map(r => r.proveedor)).size, vencidas: vencidas.length };
+  }, [rows]);
+
+  return (
+    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+      <header className="pt-8 space-y-4">
+        <BackButton href="/contabilidad" label="Contabilidad" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+              <HandCoins className="h-3.5 w-3.5" /> Pasivos Corrientes
+            </div>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+              Cuentas <span className="text-primary">por Pagar</span>
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">Gestión de proveedores · Compromisos de pago · Control de vencimientos</p>
+          </div>
+          <Button variant="outline" onClick={() => window.print()} className="rounded-xl">
+            <Printer className="mr-2 h-4 w-4" /> Imprimir
+          </Button>
+        </div>
+      </header>
+
+      {rows.length > 0 && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Deuda Total</span>
+              <TrendingDown className="h-4 w-4 text-primary" />
+            </div>
+            <p className="text-2xl font-black">{formatCurrency(summary.totalSaldo, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Monto en Mora</span>
+              <AlertTriangle className="h-4 w-4 text-rose-500" />
+            </div>
+            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.totalVencido, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Proveedores</span>
+              <Users className="h-4 w-4 text-emerald-500" />
+            </div>
+            <p className="text-2xl font-black">{summary.proveedores}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Facturas Vencidas</span>
+              <Clock className="h-4 w-4 text-amber-500" />
+            </div>
+            <p className={cn("text-2xl font-black", summary.vencidas > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.vencidas}</p>
+          </Card>
+        </div>
+      )}
+
+      <div className="relative max-w-lg">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Buscar por proveedor o factura..."
+          className="pl-12 h-12 rounded-xl"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <Card className="rounded-2xl border shadow-lg overflow-hidden">
+        <CardHeader className="p-6 border-b bg-muted/30">
+          <CardTitle className="text-sm font-bold flex items-center gap-2">
+            <HandCoins className="h-4 w-4 text-primary" /> Obligaciones Pendientes
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          {loading ? (
+            <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm font-semibold">Cargando obligaciones...</span>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+              <Inbox className="h-10 w-10" />
+              <p className="text-sm font-bold">Sin cuentas por pagar</p>
+              <p className="text-xs text-muted-foreground/70">Las obligaciones aparecerán al registrar facturas de compra a crédito.</p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/20">
+                  <TableHead className="pl-6 py-4 text-xs font-semibold">Proveedor</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Factura</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Vencimiento</TableHead>
+                  <TableHead className="text-right py-4 text-xs font-semibold">Monto</TableHead>
+                  <TableHead className="text-right py-4 text-xs font-semibold">Saldo</TableHead>
+                  <TableHead className="text-right pr-6 py-4 text-xs font-semibold">Estado</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filtered.map((r) => (
+                  <TableRow key={r.id} className="hover:bg-muted/10">
+                    <TableCell className="pl-6 py-4">
+                      <p className="text-xs font-semibold">{r.proveedor}</p>
+                      <p className="text-[11px] font-mono text-muted-foreground mt-0.5">{r.id}</p>
+                    </TableCell>
+                    <TableCell className="py-4 font-mono text-xs text-muted-foreground">{r.factura}</TableCell>
+                    <TableCell className="py-4 text-xs text-muted-foreground">{r.fechaVencimiento}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm">{formatCurrency(r.monto, 'Bs.')}</TableCell>
+                    <TableCell className="text-right py-4 font-mono text-sm font-bold">{formatCurrency(r.saldo, 'Bs.')}</TableCell>
+                    <TableCell className="text-right pr-6 py-4">
+                      <Badge className={cn("text-[10px] font-semibold border-none",
+                        r.estado === 'Pagada' ? 'bg-emerald-500/10 text-emerald-500' :
+                        r.estado === 'Vencida' ? 'bg-rose-500/10 text-rose-500' :
+                        'bg-amber-500/10 text-amber-500'
+                      )}>{r.estado}</Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

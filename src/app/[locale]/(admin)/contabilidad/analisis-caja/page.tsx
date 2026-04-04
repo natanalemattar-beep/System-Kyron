@@ -1,88 +1,150 @@
-
 "use client";
 
-import { CashFlowAnalysis } from "@/components/finanzas/cash-flow-analysis";
-import { CashPosition } from "@/components/finanzas/cash-position";
-import { CollectionForecast } from "@/components/finanzas/collection-forecast";
-import { Activity, Wallet, TrendingUp, Download, Terminal, ArrowLeft, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Wallet, Download, Loader2, Inbox } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/navigation";
+import { BackButton } from "@/components/back-button";
 
-/**
- * @fileOverview Análisis de Caja y Tesorería (Localizada).
- */
+interface CajaData {
+  posicion: {
+    saldoBs: string;
+    saldoUsd: string;
+    cuentas: number;
+  } | null;
+  flujo: {
+    ingresos: string;
+    egresos: string;
+    neto: string;
+    periodo: string;
+  } | null;
+  indicadores: {
+    label: string;
+    valor: string;
+    estado: string;
+  }[];
+}
 
 export default function AnalisisCajaPage() {
-  return (
-    <div className="space-y-12 pb-20 px-4 md:px-10">
-        <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-            <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                    <Wallet className="h-3 w-3" /> CENTRO DE LIQUIDEZ
-                </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Análisis de <span className="text-primary italic">Caja y Flujo</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Proyección de Tesorería • Monitoreo de Solvencia 2026</p>
-            </div>
-            <div className="flex gap-3">
-                <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50">
-                    <Link href="/contabilidad/cuentas"><ArrowLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
-                </Button>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    <Download className="mr-3 h-4 w-4" /> EXPORTAR DATA
-                </Button>
-            </div>
-        </header>
+  const [data, setData] = useState<CajaData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <CashPosition />
-        </motion.div>
+  useEffect(() => {
+    fetch("/api/contabilidad/records?type=analisis_caja")
+      .then((r) => (r.ok ? r.json() : { rows: [] }))
+      .then((d) => {
+        if (d.rows && d.rows.length > 0) {
+          setData(d.rows[0]);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <div className="lg:col-span-7 space-y-10">
-                <CashFlowAnalysis />
-                <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 shadow-2xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><TrendingUp className="h-32 w-32" /></div>
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tight text-foreground flex items-center gap-4">
-                            <TrendingUp className="text-primary h-6 w-6" /> Estrategia de Liquidez
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 space-y-6">
-                        <p className="text-lg font-bold italic text-muted-foreground/60 leading-relaxed text-justify">
-                            El análisis predictivo sugiere un excedente de liquidez de **Bs. 12.500** para el cierre del trimestre. Se recomienda la diversificación de activos para proteger el capital ante la inflación.
-                        </p>
-                        <Button className="h-14 px-8 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl w-full">OPTIMIZAR CARTERA</Button>
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="lg:col-span-5 space-y-10">
-                <CollectionForecast />
-                <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] p-8 border border-white/5 shadow-2xl">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3 italic">
-                        <Terminal className="h-4 w-4" /> Telemetría de Tesorería
-                    </h4>
-                    <div className="space-y-6">
-                        {[
-                            { label: "Ratio Solvencia", val: "2.45", status: "ÓPTIMO", color: "text-emerald-500" },
-                            { label: "Periodo Cobro", val: "32 DÍAS", status: "NORMAL", color: "text-blue-500" },
-                            { label: "Cobertura Caja", val: "4.2 MESES", status: "ÓPTIMO", color: "text-emerald-500" }
-                        ].map(stat => (
-                            <div key={stat.label} className="flex justify-between items-end border-b border-border/50 pb-4">
-                                <div className="space-y-1">
-                                    <p className="text-[9px] font-bold text-muted-foreground/40 uppercase">{stat.label}</p>
-                                    <p className="text-xl font-black italic text-foreground tracking-tight">{stat.val}</p>
-                                </div>
-                                <Badge variant="outline" className={cn("text-[8px] font-black uppercase h-5", stat.color)}>{stat.status}</Badge>
-                            </div>
-                        ))}
-                    </div>
-                </Card>
-            </div>
+  if (loading) {
+    return (
+      <div className="p-6 md:p-10 space-y-8 min-h-screen bg-background">
+        <BackButton href="/contabilidad" label="Volver al Centro Contable" />
+        <div className="flex items-center justify-center py-32 gap-3 text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span className="text-sm font-bold uppercase tracking-widest">Cargando análisis de caja...</span>
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 md:p-10 space-y-8 min-h-screen bg-background">
+      <BackButton href="/contabilidad" label="Volver al Centro Contable" />
+
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+            <Wallet className="h-8 w-8 text-primary" />
+            Análisis de Caja y Flujo
+          </h1>
+          <p className="text-muted-foreground text-sm font-medium">
+            Proyección de Tesorería — Monitoreo de Solvencia y Liquidez.
+          </p>
+        </div>
+        <Button variant="outline" className="rounded-xl">
+          <Download className="mr-2 h-4 w-4" /> Exportar
+        </Button>
+      </header>
+
+      {!data ? (
+        <Card className="border rounded-2xl shadow-sm">
+          <CardContent className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+            <Inbox className="h-10 w-10" />
+            <p className="text-sm font-bold uppercase tracking-widest">Sin datos de tesorería</p>
+            <p className="text-xs text-muted-foreground/70">Los datos de análisis de caja y flujo aparecerán aquí al ser generados.</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          {data.posicion && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Card className="border rounded-2xl shadow-sm p-6 text-center">
+                <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Saldo en Bs</p>
+                <p className="text-2xl font-black text-primary">{data.posicion.saldoBs}</p>
+              </Card>
+              <Card className="border rounded-2xl shadow-sm p-6 text-center">
+                <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Saldo en USD</p>
+                <p className="text-2xl font-black text-emerald-600">{data.posicion.saldoUsd}</p>
+              </Card>
+              <Card className="border rounded-2xl shadow-sm p-6 text-center">
+                <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Cuentas Activas</p>
+                <p className="text-2xl font-black text-foreground">{data.posicion.cuentas}</p>
+              </Card>
+            </div>
+          )}
+
+          {data.flujo && (
+            <Card className="border rounded-2xl shadow-sm p-6">
+              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground mb-4">
+                Flujo de Caja — {data.flujo.periodo}
+              </h3>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Ingresos</p>
+                  <p className="text-lg font-black text-emerald-600">{data.flujo.ingresos}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Egresos</p>
+                  <p className="text-lg font-black text-rose-600">{data.flujo.egresos}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Neto</p>
+                  <p className={cn("text-lg font-black", data.flujo.neto.startsWith("-") ? "text-rose-600" : "text-emerald-600")}>
+                    {data.flujo.neto}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {data.indicadores && data.indicadores.length > 0 && (
+            <Card className="border rounded-2xl shadow-sm p-6">
+              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground mb-4">
+                Indicadores de Tesorería
+              </h3>
+              <div className="space-y-4">
+                {data.indicadores.map((ind, i) => (
+                  <div key={i} className="flex justify-between items-end border-b border-border/50 pb-4 last:border-none">
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-bold text-muted-foreground/60 uppercase">{ind.label}</p>
+                      <p className="text-xl font-black tracking-tight">{ind.valor}</p>
+                    </div>
+                    <Badge variant="outline" className="text-[8px] font-bold uppercase">{ind.estado}</Badge>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+        </>
+      )}
     </div>
   );
 }

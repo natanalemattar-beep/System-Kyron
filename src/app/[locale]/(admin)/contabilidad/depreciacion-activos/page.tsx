@@ -1,214 +1,175 @@
 "use client";
 
-import React from "react";
-import { HardDrive, TrendingDown, Calendar, Download, Plus, Calculator, ShieldCheck, AlertTriangle, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useMemo } from "react";
+import { HardDrive, TrendingDown, Calendar, Loader2, Inbox, Printer, ShieldCheck } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { formatCurrency } from "@/lib/utils";
 
-const activos = [
-  {
-    codigo: "AF-001",
-    nombre: "Servidor Dell PowerEdge R750",
-    categoria: "Equipo de Computación",
-    fechaAdquisicion: "15/01/2024",
-    costoOriginal: "Bs. 450.000,00",
-    vidaUtil: "5 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 202.500,00",
-    depMensual: "Bs. 7.500,00",
-    valorLibros: "Bs. 247.500,00",
-    porcentajeDepreciado: 45,
-  },
-  {
-    codigo: "AF-002",
-    nombre: "Estación de Trabajo HP Z8 (x8)",
-    categoria: "Equipo de Computación",
-    fechaAdquisicion: "01/03/2024",
-    costoOriginal: "Bs. 800.000,00",
-    vidaUtil: "5 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 326.666,67",
-    depMensual: "Bs. 13.333,33",
-    valorLibros: "Bs. 473.333,33",
-    porcentajeDepreciado: 41,
-  },
-  {
-    codigo: "AF-003",
-    nombre: "Mobiliario de Oficina Premium",
-    categoria: "Mobiliario",
-    fechaAdquisicion: "01/06/2023",
-    costoOriginal: "Bs. 350.000,00",
-    vidaUtil: "10 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 99.166,67",
-    depMensual: "Bs. 2.916,67",
-    valorLibros: "Bs. 250.833,33",
-    porcentajeDepreciado: 28,
-  },
-  {
-    codigo: "AF-004",
-    nombre: "Vehículo Toyota Hilux 2024",
-    categoria: "Vehículos",
-    fechaAdquisicion: "15/04/2024",
-    costoOriginal: "Bs. 1.200.000,00",
-    vidaUtil: "5 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 480.000,00",
-    depMensual: "Bs. 20.000,00",
-    valorLibros: "Bs. 720.000,00",
-    porcentajeDepreciado: 40,
-  },
-  {
-    codigo: "AF-005",
-    nombre: "Sistema de Aire Acondicionado Central",
-    categoria: "Instalaciones",
-    fechaAdquisicion: "01/01/2024",
-    costoOriginal: "Bs. 280.000,00",
-    vidaUtil: "15 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 42.000,00",
-    depMensual: "Bs. 1.555,56",
-    valorLibros: "Bs. 238.000,00",
-    porcentajeDepreciado: 15,
-  },
-  {
-    codigo: "AF-006",
-    nombre: "Software ERP Licencia Perpetua",
-    categoria: "Intangibles",
-    fechaAdquisicion: "01/07/2024",
-    costoOriginal: "Bs. 420.000,00",
-    vidaUtil: "3 años",
-    metodo: "Línea Recta",
-    depAcumulada: "Bs. 126.000,00",
-    depMensual: "Bs. 11.666,67",
-    valorLibros: "Bs. 294.000,00",
-    porcentajeDepreciado: 30,
-  },
-];
+interface Activo {
+  codigo: string;
+  nombre: string;
+  categoria: string;
+  fechaAdquisicion: string;
+  costoOriginal: number;
+  vidaUtil: string;
+  metodo: string;
+  depAcumulada: number;
+  depMensual: number;
+  valorLibros: number;
+  porcentajeDepreciado: number;
+}
 
 export default function DepreciacionActivosPage() {
-  const { toast } = useToast();
+  const [activos, setActivos] = useState<Activo[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/contabilidad/records?type=activos_fijos')
+      .then(r => r.ok ? r.json() : { rows: [] })
+      .then(d => setActivos(d.rows ?? []))
+      .catch(() => setActivos([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const summary = useMemo(() => {
+    const costoTotal = activos.reduce((s, a) => s + (a.costoOriginal || 0), 0);
+    const depTotal = activos.reduce((s, a) => s + (a.depAcumulada || 0), 0);
+    const valorLibros = activos.reduce((s, a) => s + (a.valorLibros || 0), 0);
+    const depMensual = activos.reduce((s, a) => s + (a.depMensual || 0), 0);
+    return { costoTotal, depTotal, valorLibros, depMensual };
+  }, [activos]);
 
   return (
-    <div className="space-y-10 pb-20 px-4 md:px-10 bg-background min-h-screen">
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
-      >
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
-            <HardDrive className="h-3 w-3" /> ACTIVOS FIJOS
+    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+      <header className="pt-8 space-y-4">
+        <BackButton href="/contabilidad" label="Contabilidad" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+              <HardDrive className="h-3.5 w-3.5" /> Activos Fijos
+            </div>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+              Depreciación de <span className="text-primary">Activos</span>
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">VEN-NIF · Línea recta / Doble saldo · Valores fiscales · ISLR Art. 27</p>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
-            Depreciación de <span className="text-primary italic">Activos</span>
-          </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
-            VEN-NIF • Línea Recta / Doble Saldo • Valores Fiscales • ISLR Art. 27
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2">
-            <Download className="h-4 w-4" /> EXPORTAR
-          </Button>
-          <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
-            <Plus className="h-4 w-4" /> NUEVO ACTIVO
+          <Button variant="outline" onClick={() => window.print()} className="rounded-xl">
+            <Printer className="mr-2 h-4 w-4" /> Imprimir
           </Button>
         </div>
-      </motion.header>
+      </header>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {[
-          { label: "Costo Total Activos", val: "Bs. 3.500.000", icon: HardDrive, color: "text-primary" },
-          { label: "Dep. Acumulada", val: "Bs. 1.276.334", icon: TrendingDown, color: "text-rose-500" },
-          { label: "Valor en Libros", val: "Bs. 2.223.666", icon: Calculator, color: "text-emerald-500" },
-          { label: "Dep. Mensual", val: "Bs. 56.972", icon: Calendar, color: "text-amber-500" },
-        ].map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-            <Card className="bg-card/60 border-border/50 p-5 rounded-xl">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
-                <kpi.icon className={cn("h-4 w-4", kpi.color)} />
-              </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+      {activos.length > 0 && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Costo Total</span>
+              <HardDrive className="h-4 w-4 text-primary" />
+            </div>
+            <p className="text-2xl font-black text-primary">{formatCurrency(summary.costoTotal, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Dep. Acumulada</span>
+              <TrendingDown className="h-4 w-4 text-rose-500" />
+            </div>
+            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.depTotal, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Valor en Libros</span>
+              <HardDrive className="h-4 w-4 text-emerald-500" />
+            </div>
+            <p className="text-2xl font-black text-emerald-500">{formatCurrency(summary.valorLibros, 'Bs.')}</p>
+          </Card>
+          <Card className="rounded-2xl border p-5">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-muted-foreground">Dep. Mensual</span>
+              <Calendar className="h-4 w-4 text-amber-500" />
+            </div>
+            <p className="text-2xl font-black text-amber-500">{formatCurrency(summary.depMensual, 'Bs.')}</p>
+          </Card>
+        </div>
+      )}
 
-      <Card className="rounded-2xl overflow-hidden">
-        <CardHeader className="p-5 border-b bg-muted/20">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-xs font-black uppercase tracking-widest">Cuadro de Depreciación</CardTitle>
-            <Button size="sm" className="rounded-lg text-[10px] font-bold gap-1.5"
-              onClick={() => toast({ title: "Calculando", description: "Procesando depreciación del mes..." })}>
-              <Zap className="h-3 w-3" /> Calcular Mes Actual
-            </Button>
-          </div>
+      <Card className="rounded-2xl border shadow-lg overflow-hidden">
+        <CardHeader className="p-6 border-b bg-muted/30">
+          <CardTitle className="text-sm font-bold flex items-center gap-2">
+            <HardDrive className="h-4 w-4 text-primary" /> Cuadro de Depreciación
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="text-[9px] uppercase tracking-widest">
-                <TableHead>Código</TableHead>
-                <TableHead>Activo</TableHead>
-                <TableHead>Categoría</TableHead>
-                <TableHead>Costo Original</TableHead>
-                <TableHead>Vida Útil</TableHead>
-                <TableHead>Dep. Acumulada</TableHead>
-                <TableHead>Dep. Mensual</TableHead>
-                <TableHead>Valor Libros</TableHead>
-                <TableHead>%</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {activos.map((activo) => (
-                <TableRow key={activo.codigo} className="hover:bg-muted/20">
-                  <TableCell className="font-mono text-[11px] font-bold text-primary">{activo.codigo}</TableCell>
-                  <TableCell className="text-xs font-medium max-w-[200px]">
-                    <p className="truncate">{activo.nombre}</p>
-                    <p className="text-[9px] text-muted-foreground">{activo.metodo} • Desde: {activo.fechaAdquisicion}</p>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className="text-[8px] font-bold bg-muted/50">{activo.categoria}</Badge>
-                  </TableCell>
-                  <TableCell className="text-xs font-mono">{activo.costoOriginal}</TableCell>
-                  <TableCell className="text-xs text-center">{activo.vidaUtil}</TableCell>
-                  <TableCell className="text-xs font-mono text-rose-500">{activo.depAcumulada}</TableCell>
-                  <TableCell className="text-xs font-mono text-amber-500">{activo.depMensual}</TableCell>
-                  <TableCell className="text-xs font-mono font-bold">{activo.valorLibros}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Progress value={activo.porcentajeDepreciado} className="h-1.5 w-16" />
-                      <span className="text-[10px] font-mono">{activo.porcentajeDepreciado}%</span>
-                    </div>
-                  </TableCell>
+          {loading ? (
+            <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm font-semibold">Cargando activos...</span>
+            </div>
+          ) : activos.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+              <Inbox className="h-10 w-10" />
+              <p className="text-sm font-bold">Sin activos fijos registrados</p>
+              <p className="text-xs text-muted-foreground/70">Los activos aparecerán aquí al ser registrados en el módulo contable.</p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/20">
+                  <TableHead className="pl-6 text-xs font-semibold">Código</TableHead>
+                  <TableHead className="text-xs font-semibold">Activo</TableHead>
+                  <TableHead className="text-xs font-semibold">Categoría</TableHead>
+                  <TableHead className="text-xs font-semibold">Costo Original</TableHead>
+                  <TableHead className="text-xs font-semibold">Vida Útil</TableHead>
+                  <TableHead className="text-xs font-semibold">Dep. Acumulada</TableHead>
+                  <TableHead className="text-xs font-semibold">Dep. Mensual</TableHead>
+                  <TableHead className="text-xs font-semibold">Valor Libros</TableHead>
+                  <TableHead className="pr-6 text-xs font-semibold">%</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {activos.map((a) => (
+                  <TableRow key={a.codigo} className="hover:bg-muted/10">
+                    <TableCell className="pl-6 font-mono text-[11px] font-bold text-primary">{a.codigo}</TableCell>
+                    <TableCell className="text-xs max-w-[200px]">
+                      <p className="truncate font-semibold">{a.nombre}</p>
+                      <p className="text-[10px] text-muted-foreground">{a.metodo} · Desde: {a.fechaAdquisicion}</p>
+                    </TableCell>
+                    <TableCell><Badge className="text-[9px] font-semibold bg-muted/50 border-none">{a.categoria}</Badge></TableCell>
+                    <TableCell className="text-xs font-mono">{formatCurrency(a.costoOriginal, 'Bs.')}</TableCell>
+                    <TableCell className="text-xs text-center">{a.vidaUtil}</TableCell>
+                    <TableCell className="text-xs font-mono text-rose-500">{formatCurrency(a.depAcumulada, 'Bs.')}</TableCell>
+                    <TableCell className="text-xs font-mono text-amber-500">{formatCurrency(a.depMensual, 'Bs.')}</TableCell>
+                    <TableCell className="text-xs font-mono font-bold">{formatCurrency(a.valorLibros, 'Bs.')}</TableCell>
+                    <TableCell className="pr-6">
+                      <div className="flex items-center gap-2">
+                        <Progress value={a.porcentajeDepreciado} className="h-1.5 w-16" />
+                        <span className="text-[10px] font-mono">{a.porcentajeDepreciado}%</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
 
-      <Card className="border-primary/20 bg-primary/[0.03] rounded-2xl p-6">
+      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
         <div className="flex items-start gap-3">
-          <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+          <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
           <div>
-            <p className="text-xs font-black text-primary uppercase tracking-wider">Cumplimiento Fiscal — ISLR Art. 27</p>
-            <p className="text-[11px] text-muted-foreground mt-1">
-              Las tasas y métodos de depreciación cumplen con lo establecido en el Art. 27 de la Ley de ISLR y el Reglamento de la LISLR.
-              Equipos de computación: 5 años (20%). Mobiliario: 10 años (10%). Vehículos: 5 años (20%). Edificaciones: 20 años (5%).
-              Los activos intangibles se amortizan según su vida útil estimada o duración de la licencia.
+            <p className="text-xs font-bold text-primary">Cumplimiento Fiscal — ISLR Art. 27</p>
+            <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+              Equipos de computación: 5 años (20%). Mobiliario: 10 años (10%). Vehículos: 5 años (20%). Edificaciones: 20 años (5%). Los activos intangibles se amortizan según su vida útil estimada.
             </p>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

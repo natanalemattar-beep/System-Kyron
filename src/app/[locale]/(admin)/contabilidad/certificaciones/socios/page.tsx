@@ -1,99 +1,128 @@
-
 "use client";
-import { BackButton } from "@/components/back-button";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { UserCheck, Download, Eye, ShieldCheck, Activity, Terminal, Users, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
+import { BackButton } from "@/components/back-button";
+import { cn } from "@/lib/utils";
+import { UserCheck, Search, Loader2, Inbox, AlertTriangle, Users } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-const socios = [
-    { id: "S-001", nombre: "Carlos Mattar", cargo: "Presidente", participacion: "40%", estatus: "Verificado", lastAudit: "Hoy" },
-    { id: "S-002", nombre: "Sebastián Garrido", cargo: "Director de Operaciones", participacion: "30%", estatus: "Verificado", lastAudit: "Hace 2 días" },
-    { id: "S-003", nombre: "Marcos Sousa", cargo: "Director de Ingeniería", participacion: "30%", estatus: "Verificado", lastAudit: "Hace 1 semana" },
-];
+interface Socio {
+  id: string;
+  nombre: string;
+  cargo: string;
+  participacion: string;
+  estatus: string;
+}
 
 export default function CertificacionesSociosPage() {
-    const { toast } = useToast();
+  const { toast } = useToast();
+  const [socios, setSocios] = useState<Socio[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
-    return (
-        <div className="space-y-12 pb-20 px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
-                <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                        <UserCheck className="h-3 w-3" /> CENTRO DE IDENTIDAD
-                    </div>
-                <BackButton href="/contabilidad" label="Contabilidad" />
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Certificaciones <span className="text-primary italic">de Socios</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Registro de Accionistas • Validación Biométrica 2026</p>
-                </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    AUDITAR JUNTA
-                </Button>
-            </header>
+  useEffect(() => {
+    fetch('/api/contabilidad/records?type=socios')
+      .then(r => r.ok ? r.json() : { rows: [] })
+      .then(d => setSocios(d.rows ?? []))
+      .catch(() => setSocios([]))
+      .finally(() => setLoading(false));
+  }, []);
 
-            <div className="mb-10">
-                <div className="relative max-w-lg">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40" />
-                    <Input placeholder="Buscar por nombre o número de cédula..." className="pl-12 h-14 rounded-2xl bg-white/5 border-border text-xs font-bold uppercase tracking-widest" />
-                </div>
-            </div>
+  const filtered = socios.filter(s =>
+    !search || s.nombre?.toLowerCase().includes(search.toLowerCase()) || s.cargo?.toLowerCase().includes(search.toLowerCase())
+  );
 
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Relación de Accionistas y Directivos</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-muted/30 border-none">
-                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Socio / Perfil</TableHead>
-                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Cargo Institucional</TableHead>
-                                <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Participación</TableHead>
-                                <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus ID</TableHead>
-                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {socios.map(socio => (
-                                <TableRow key={socio.id} className="border-border/50 hover:bg-muted/20 transition-all group">
-                                    <TableCell className="pl-10 py-6">
-                                        <div className="flex items-center gap-4">
-                                            <Avatar className="h-10 w-10 border-2 border-primary/20 shadow-sm">
-                                                <AvatarFallback className="font-black text-[10px] bg-primary text-white">{socio.nombre.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                                            </Avatar>
-                                            <div>
-                                                <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{socio.nombre}</p>
-                                                <p className="text-[8px] font-mono text-muted-foreground font-bold uppercase">{socio.id}</p>
-                                            </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase">{socio.cargo}</TableCell>
-                                    <TableCell className="text-center py-6 font-black text-sm text-foreground/70 italic">{socio.participacion}</TableCell>
-                                    <TableCell className="text-center py-6">
-                                        <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-6 px-3 rounded-lg">{socio.estatus}</Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right pr-10 py-6">
-                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary" onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'admin', subcategoria: 'expediente_abierto', descripcion: "EXPEDIENTE ABIERTO" }) }); if (res.ok) toast({ title: "EXPEDIENTE ABIERTO" }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
-                                            <Eye className="h-4 w-4" />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardFooter className="p-10 border-t border-border bg-primary/5 flex justify-between items-center">
-                    <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40 italic">
-                        <Terminal className="h-4 w-4" /> Protocolo KYC (Know Your Customer) Activo
-                    </div>
-                    <Button variant="outline" className="h-10 px-6 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Descargar Registro de Accionistas</Button>
-                </CardFooter>
-            </Card>
+  return (
+    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+      <header className="pt-8 space-y-4">
+        <BackButton href="/contabilidad" label="Contabilidad" />
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <UserCheck className="h-3.5 w-3.5" /> Registro de Accionistas
+          </div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            Certificaciones <span className="text-primary">de Socios</span>
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">Registro de accionistas y directivos · Validación de identidad</p>
         </div>
-    );
+      </header>
+
+      <div className="relative max-w-lg">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Buscar por nombre o cargo..."
+          className="pl-12 h-12 rounded-xl"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <Card className="rounded-2xl border shadow-lg overflow-hidden">
+        <CardHeader className="p-6 border-b bg-muted/30">
+          <CardTitle className="text-sm font-bold flex items-center gap-2">
+            <Users className="h-4 w-4 text-primary" /> Relación de Accionistas y Directivos
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          {loading ? (
+            <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm font-semibold">Cargando socios...</span>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+              <Inbox className="h-10 w-10" />
+              <p className="text-sm font-bold">Sin socios registrados</p>
+              <p className="text-xs text-muted-foreground/70">Los socios y accionistas aparecerán aquí al ser registrados en el acta constitutiva.</p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/20">
+                  <TableHead className="pl-6 py-4 text-xs font-semibold">Socio</TableHead>
+                  <TableHead className="py-4 text-xs font-semibold">Cargo</TableHead>
+                  <TableHead className="text-center py-4 text-xs font-semibold">Participación</TableHead>
+                  <TableHead className="text-center pr-6 py-4 text-xs font-semibold">Estatus</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filtered.map(socio => (
+                  <TableRow key={socio.id} className="hover:bg-muted/10">
+                    <TableCell className="pl-6 py-4">
+                      <p className="text-xs font-semibold">{socio.nombre}</p>
+                      <p className="text-[11px] font-mono text-muted-foreground mt-0.5">{socio.id}</p>
+                    </TableCell>
+                    <TableCell className="py-4 text-xs text-muted-foreground">{socio.cargo}</TableCell>
+                    <TableCell className="text-center py-4 font-mono text-sm font-semibold">{socio.participacion}</TableCell>
+                    <TableCell className="text-center pr-6 py-4">
+                      <Badge className={cn("text-[10px] font-semibold border-none",
+                        socio.estatus === 'Verificado' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'
+                      )}>{socio.estatus}</Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs font-bold text-amber-600 dark:text-amber-400">Nota Legal</p>
+            <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+              El registro de accionistas debe estar acorde con el Acta Constitutiva y las Asambleas de Accionistas inscritas en el Registro Mercantil correspondiente. Código de Comercio Arts. 200-341.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

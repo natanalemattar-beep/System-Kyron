@@ -1,109 +1,135 @@
 "use client";
 
-import { Link } from "@/navigation";
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Calendar as CalendarIcon, ArrowLeft, Bell, Clock, TriangleAlert as AlertTriangle } from "lucide-react";
+import { Calendar as CalendarIcon, Loader2, Inbox, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import { BackButton } from "@/components/back-button";
 
-const calendarEvents = [
-  { id: 1, title: "Declaración Mensual IVA", date: "15/04/2026", urgency: "high", desc: "Para RIF terminados en 0, 1, 2 y 3." },
-  { id: 2, title: "Cierre Trimestral ISLR", date: "31/03/2026", urgency: "critical", desc: "Declaración definitiva del ejercicio anterior." },
-  { id: 3, title: "Pago IGTF (Quincenal)", date: "20/03/2026", urgency: "medium", desc: "Consolidado de transacciones en divisas." },
-  { id: 4, title: "Impuesto Actividad Económica", date: "05/04/2026", urgency: "medium", desc: "Municipio Vargas / Libertador." },
-  { id: 5, title: "Aporte Protección Pensiones", date: "10/04/2026", urgency: "high", desc: "Nueva contribución especial 2025." },
-];
+interface EventoFiscal {
+  id: number;
+  titulo: string;
+  fecha: string;
+  urgencia: string;
+  descripcion: string;
+}
 
 export default function CalendarioFiscalPage() {
-  const { toast } = useToast();
-  const handleAction = (msg: string) => toast({ title: "CALENDARIO FISCAL", description: msg });
+  const [rows, setRows] = useState<EventoFiscal[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/contabilidad/records?type=calendario_fiscal")
+      .then((r) => (r.ok ? r.json() : { rows: [] }))
+      .then((d) => setRows(d.rows ?? []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const urgencyColor = (u: string) => {
+    if (u === "critical") return "bg-rose-500";
+    if (u === "high") return "bg-amber-500";
+    return "bg-blue-500";
+  };
 
   return (
-    <div className="p-6 md:p-12 bg-[#f5f7fa] min-h-screen space-y-8">
+    <div className="p-6 md:p-10 space-y-8 min-h-screen bg-background">
+      <BackButton href="/contabilidad" label="Volver al Centro Contable" />
+
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] hover:bg-transparent mb-2">
-            <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro Contable</Link>
-          </Button>
-          <h1 className="text-3xl font-black text-[#0A2472] uppercase tracking-tight flex items-center gap-3">
-            <CalendarIcon className="h-8 w-8 text-[#00A86B]" />
+          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+            <CalendarIcon className="h-8 w-8 text-emerald-600" />
             Calendario Fiscal
           </h1>
-          <p className="text-slate-500 font-medium text-sm">Cronograma de vencimientos y obligaciones tributarias.</p>
+          <p className="text-muted-foreground text-sm font-medium">
+            Cronograma de vencimientos y obligaciones tributarias.
+          </p>
         </div>
-        <Button className="bg-[#0A2472] hover:bg-blue-900 rounded-xl" onClick={() => handleAction("Sincronizando con calendarios oficiales...")}>
-          <Bell className="mr-2 h-4 w-4" /> Activar Alertas
+        <Button variant="outline" className="rounded-xl">
+          <Download className="mr-2 h-4 w-4" /> Exportar
         </Button>
       </header>
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          {calendarEvents.map((event) => (
-            <Card key={event.id} className="border-none shadow-sm rounded-2xl bg-white hover:shadow-md transition-all group overflow-hidden">
-              <div className="flex">
-                <div className={cn(
-                  "w-2 transition-all group-hover:w-4",
-                  event.urgency === 'critical' ? "bg-rose-500" : event.urgency === 'high' ? "bg-amber-500" : "bg-blue-500"
-                )} />
-                <div className="flex-1 p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-lg font-black uppercase text-[#0A2472]">{event.title}</h3>
-                      <Badge variant={event.urgency === 'critical' ? 'destructive' : 'secondary'} className="text-[8px] font-black uppercase tracking-widest">
-                        {event.urgency}
-                      </Badge>
+      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 flex items-start gap-4">
+        <CalendarIcon className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
+        <p className="text-sm text-amber-800">
+          Los vencimientos fiscales están sujetos a las fechas establecidas por el
+          SENIAT y los entes municipales. Verifique siempre con la Gaceta Oficial
+          las modificaciones al calendario tributario.
+        </p>
+      </div>
+
+      {loading ? (
+        <div className="flex items-center justify-center py-20 gap-3 text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span className="text-sm font-bold uppercase tracking-widest">Cargando calendario...</span>
+        </div>
+      ) : rows.length === 0 ? (
+        <Card className="border rounded-2xl shadow-sm">
+          <CardContent className="p-0">
+            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
+              <Inbox className="h-10 w-10" />
+              <p className="text-sm font-bold uppercase tracking-widest">Sin eventos fiscales programados</p>
+              <p className="text-xs text-muted-foreground/70">Los vencimientos y obligaciones tributarias aparecerán aquí al ser configurados.</p>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-4">
+            {rows.map((event) => (
+              <Card key={event.id} className="border rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-all">
+                <div className="flex">
+                  <div className={cn("w-2", urgencyColor(event.urgencia))} />
+                  <div className="flex-1 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-sm font-black uppercase tracking-tight">{event.titulo}</h3>
+                        <Badge
+                          variant={event.urgencia === "critical" ? "destructive" : "secondary"}
+                          className="text-[8px] font-bold uppercase"
+                        >
+                          {event.urgencia}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{event.descripcion}</p>
                     </div>
-                    <p className="text-sm text-slate-500 font-medium uppercase tracking-tight">{event.desc}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="flex items-center gap-2 text-slate-400 mb-1">
-                      <Clock className="h-3 w-3" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">Fecha Límite</span>
+                    <div className="text-right shrink-0">
+                      <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Fecha Límite</p>
+                      <p className="text-lg font-black">{event.fecha}</p>
                     </div>
-                    <p className="text-xl font-black text-slate-800 italic">{event.date}</p>
                   </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="space-y-6">
+            <Card className="border rounded-2xl shadow-sm p-6">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4">
+                Guía de Prioridad
+              </h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-3 w-3 rounded-full bg-rose-500" />
+                  <span className="text-xs text-muted-foreground">Crítico: Menos de 48h</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-3 w-3 rounded-full bg-amber-500" />
+                  <span className="text-xs text-muted-foreground">Alto: Próxima semana</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-3 w-3 rounded-full bg-blue-500" />
+                  <span className="text-xs text-muted-foreground">Normal: En agenda</span>
                 </div>
               </div>
             </Card>
-          ))}
+          </div>
         </div>
-
-        <div className="space-y-8">
-          <Card className="border-none shadow-sm rounded-[2.5rem] bg-[#0A2472] p-10 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-8 opacity-10"><AlertTriangle className="h-32 w-32" /></div>
-            <div className="relative z-10 space-y-6">
-              <h3 className="text-xl font-black uppercase italic text-[#00A86B]">Próximo Vencimiento</h3>
-              <div className="space-y-1">
-                <p className="text-4xl font-black tracking-tight italic">12 DÍAS</p>
-                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Restantes para ISLR 2025</p>
-              </div>
-              <Button variant="secondary" className="w-full bg-white text-[#0A2472] hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest h-12 rounded-xl shadow-lg">PREPARAR DECLARACIÓN</Button>
-            </div>
-          </Card>
-
-          <Card className="border-none shadow-sm rounded-[2.5rem] bg-white p-10">
-            <CardHeader className="p-0 mb-6">
-              <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Guía de Prioridad</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0 space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="h-3 w-3 rounded-full bg-rose-500" />
-                <span className="text-[10px] font-bold uppercase text-slate-600">Crítico: Menos de 48h</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="h-3 w-3 rounded-full bg-amber-500" />
-                <span className="text-[10px] font-bold uppercase text-slate-600">Alto: Próxima semana</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="h-3 w-3 rounded-full bg-blue-500" />
-                <span className="text-[10px] font-bold uppercase text-slate-600">Normal: En agenda</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

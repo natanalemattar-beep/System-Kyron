@@ -1,133 +1,109 @@
-
 "use client";
 
 import React, { useState } from "react";
 import { Link } from "@/navigation";
-import { Book, ArrowLeft, Search, FileText, BookOpen, Scale, Receipt, HandCoins, Banknote, Calculator, Landmark, Coins, CircleCheck as CheckCircle, Building2, Activity, Wallet, Users, Timer, Zap, Clock, Box, TrendingUp, Gavel, ShieldCheck, FileSearch, LayoutDashboard, ChartPie as PieChart, ChartBar as BarChart3, ArrowRight, Terminal } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Book, Search, FileText, BookOpen, Receipt, HandCoins, Banknote, Calculator, Landmark, Coins, Users, Timer, Box, ArrowRight } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
+import { BackButton } from "@/components/back-button";
 import { cn } from "@/lib/utils";
-import { MotionContainer, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 
 const libraryCategories = [
   {
     title: "Contables Maestros",
     icon: Book,
     items: [
-      { label: "Libro Diario", href: "/contabilidad/libros/diario", kpi: "Asientos: Ok", icon: FileText, color: "text-primary" },
-      { label: "Libro Mayor", href: "/contabilidad/libros/mayor", kpi: "Saldos síncronos", icon: BookOpen, color: "text-primary" },
-      { label: "Inventario de Bienes", href: "/contabilidad/libros/inventario", kpi: "Stock auditado", icon: Box, color: "text-amber-600" },
+      { label: "Libro Diario", href: "/contabilidad/libros/diario", desc: "Art. 32 Código de Comercio", icon: FileText, color: "text-primary" },
+      { label: "Libro Mayor", href: "/contabilidad/libros/mayor", desc: "Art. 34 Código de Comercio", icon: BookOpen, color: "text-primary" },
+      { label: "Inventario de Bienes", href: "/contabilidad/libros/inventario", desc: "Art. 35 Código de Comercio", icon: Box, color: "text-amber-600" },
     ]
   },
   {
     title: "Especializados IVA",
     icon: Landmark,
     items: [
-      { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", kpi: "Dossier Completo", icon: Receipt, color: "text-primary" },
-      { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", kpi: "75%/100% Sync", icon: HandCoins, color: "text-emerald-500" },
-      { label: "Prorrateo Fiscal", href: "/contabilidad/libros/compra-venta", kpi: "Cálculo Activo", icon: Calculator, color: "text-primary" },
+      { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", desc: "Providencia SNAT/2011/0071", icon: Receipt, color: "text-primary" },
+      { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", desc: "Providencia 0049", icon: HandCoins, color: "text-emerald-500" },
     ]
   },
   {
     title: "Especies y Otros",
     icon: Landmark,
     items: [
-      { label: "Control de Licores", href: "/contabilidad/libros/control-licores", kpi: "Ley Alcohólicas", icon: Landmark, color: "text-rose-600" },
-      { label: "Grandes Patrimonios", href: "/contabilidad/tributos/igp", kpi: "Base Anual", icon: Coins, color: "text-amber-600" },
+      { label: "Control de Licores", href: "/contabilidad/libros/control-licores", desc: "Ley de Impuesto sobre Alcohol", icon: Landmark, color: "text-rose-600" },
+      { label: "Grandes Patrimonios", href: "/contabilidad/tributos/igp", desc: "Ley de Impuesto a Grandes Patrimonios", icon: Coins, color: "text-amber-600" },
     ]
   },
   {
     title: "Laborales LOTTT",
     icon: Users,
     items: [
-      { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", kpi: "Auditoría Ok", icon: Users, color: "text-primary" },
-      { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", kpi: "Control Diario", icon: Timer, color: "text-amber-600" },
-      { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", kpi: "Beneficio Alim.", icon: Banknote, color: "text-emerald-500" },
+      { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", desc: "LOTTT Arts. 98-105", icon: Users, color: "text-primary" },
+      { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", desc: "LOTTT Arts. 178-183", icon: Timer, color: "text-amber-600" },
+      { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", desc: "Ley de Alimentación para Trabajadores", icon: Banknote, color: "text-emerald-500" },
     ]
   }
 ];
 
 export default function TodosLosLibrosPage() {
-  const { toast } = useToast();
   const [search, setSearch] = useState("");
 
-  const handleItemClick = (e: React.MouseEvent, item: any) => {
-    if (item.href === "#") {
-      e.preventDefault();
-      toast({
-        title: "ÁREA EN DESARROLLO",
-        description: `El registro "${item.label}" está siendo sincronizado con el motor central.`,
-      });
-    }
-  };
-
   return (
-    <div className="p-6 md:p-12 bg-background min-h-screen space-y-12">
-      <MotionContainer variant="fade-left" className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="space-y-1">
-          <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
-            <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
-          </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight flex items-center gap-4 italic leading-none italic-shadow">
-            <Book className="h-10 w-10 text-primary" />
-            Bóveda de <span className="text-primary">Registros</span>
+    <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
+      <header className="pt-8 space-y-4">
+        <BackButton href="/contabilidad" label="Contabilidad" />
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <Book className="h-3.5 w-3.5" /> Biblioteca de Registros
+          </div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            Libros <span className="text-primary">Contables</span>
           </h1>
-          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca Central de Libros Digitales 2026</p>
+          <p className="text-sm text-muted-foreground mt-1">Registros obligatorios según el Código de Comercio y legislación vigente</p>
         </div>
-      </MotionContainer>
+      </header>
 
-      <MotionContainer variant="fade-up" delay={0.15} className="relative max-w-2xl">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 h-5 w-5" />
-        <Input 
-            placeholder="Buscar libro por nombre o categoría..." 
-            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300 text-foreground"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+      <div className="relative max-w-lg">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+        <Input
+          placeholder="Buscar libro por nombre..."
+          className="pl-12 h-12 rounded-xl"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-      </MotionContainer>
+      </div>
 
-      <div className="space-y-16">
+      <div className="space-y-10">
         {libraryCategories.map((category, idx) => (
-          <div key={idx} className="space-y-8">
-            <MotionContainer variant="fade-left" delay={idx * 0.05} className="flex items-center gap-4 ml-2">
-              <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
-                <category.icon className="h-6 w-6 text-primary" />
+          <div key={idx} className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20">
+                <category.icon className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
-              <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-            </MotionContainer>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{category.title}</h3>
+              <div className="h-px flex-1 bg-border" />
+            </div>
 
-            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.07}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {category.items
                 .filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
                 .map((item, i) => (
-                <StaggerItem key={i} variant="scale-in">
-                  <Link href={item.href as any} onClick={(e) => handleItemClick(e, item)}>
-                    <Card className="glass-card border-none bg-card hover:bg-white/[0.05] transition-all rounded-[2.5rem] p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg hover-lift min-h-[160px] relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500">
-                          <item.icon className="h-12 w-12" />
+                <Link key={i} href={item.href as any}>
+                  <Card className="rounded-2xl border p-5 hover:bg-muted/30 transition-colors group cursor-pointer">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-muted border border-border group-hover:bg-primary/10 group-hover:border-primary/20 transition-colors">
+                        <item.icon className={cn("h-5 w-5", item.color)} />
                       </div>
-                      <div className="flex items-center gap-5">
-                        <div className="p-4 bg-muted rounded-2xl group-hover:bg-primary/10 transition-all duration-300 border border-transparent group-hover:border-primary/20 shadow-inner group-hover:scale-110">
-                          <item.icon className={cn("h-6 w-6 transition-all duration-300", item.color)} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors duration-300 leading-tight">{item.label}</p>
-                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
-                        </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{item.label}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{item.desc}</p>
                       </div>
-                      <div className="flex justify-end mt-4">
-                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-glow-sm">
-                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                </StaggerItem>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-colors shrink-0 mt-1" />
+                    </div>
+                  </Card>
+                </Link>
               ))}
-            </StaggerContainer>
+            </div>
           </div>
         ))}
       </div>
