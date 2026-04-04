@@ -554,14 +554,11 @@ export async function verificarAlertasPredictivas(): Promise<AlertaGenerada[]> {
       });
 
       const ext = obligacion as ObligacionExtendida;
-      const riesgoInfo = ext.riesgoMulta
-        ? `\n⚖️ Riesgo: ${ext.riesgoMulta.descripcion}. Multa: ${ext.riesgoMulta.montoMulta}. Base Legal: ${ext.riesgoMulta.baseLegal}`
-        : '';
       const enteInfo = ext.siglas ? ` (${ext.siglas})` : ' del SENIAT';
 
       const mensaje = diasRestantes <= 3
-        ? `URGENTE: Tu ${obligacion.nombre} vence el ${fechaStr}. RIF: ${empresa.rif}. Presenta tu declaración lo antes posible para evitar multas y sanciones${enteInfo}.${riesgoInfo}`
-        : `Recordatorio: Tu ${obligacion.nombre} vence el ${fechaStr}. RIF: ${empresa.rif}. Tienes ${diasRestantes} días para preparar y presentar tu declaración ante ${ext.ente || 'el SENIAT'}.${riesgoInfo}`;
+        ? `URGENTE: Tu ${obligacion.nombre} vence el ${fechaStr}. RIF: ${empresa.rif}. Presenta tu declaración lo antes posible para evitar multas y sanciones${enteInfo}.`
+        : `Recordatorio: Tu ${obligacion.nombre} vence el ${fechaStr}. RIF: ${empresa.rif}. Tienes ${diasRestantes} días para preparar y presentar tu declaración ante ${ext.ente || 'el SENIAT'}.`;
 
       await query(
         `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, metadata)
@@ -580,6 +577,7 @@ export async function verificarAlertasPredictivas(): Promise<AlertaGenerada[]> {
             rif: empresa.rif,
             predictiva: true,
             riesgo_multa: ext.riesgoMulta ? {
+              descripcion: ext.riesgoMulta.descripcion,
               monto: ext.riesgoMulta.montoMulta,
               base_legal: ext.riesgoMulta.baseLegal,
             } : null,

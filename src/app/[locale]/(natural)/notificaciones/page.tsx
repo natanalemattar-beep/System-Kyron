@@ -46,6 +46,11 @@ const iconMap: Record<string, React.ReactNode> = {
   advertencia: <AlertTriangle className="h-5 w-5 text-amber-500" />,
   info: <Info className="h-5 w-5 text-blue-500" />,
   fiscal: <FileText className="h-5 w-5 text-indigo-500" />,
+  parafiscal: <ShieldCheck className="h-5 w-5 text-violet-500" />,
+  laboral: <CreditCard className="h-5 w-5 text-teal-500" />,
+  regulatorio: <ShieldCheck className="h-5 w-5 text-rose-500" />,
+  municipal: <FileText className="h-5 w-5 text-cyan-500" />,
+  ambiental: <ShieldCheck className="h-5 w-5 text-green-500" />,
   vencimiento: <CalendarClock className="h-5 w-5 text-orange-500" />,
 };
 
@@ -55,6 +60,11 @@ const tipoBadge: Record<string, { label: string; color: string }> = {
   advertencia: { label: "Advertencia", color: "bg-amber-500/15 text-amber-400 border-amber-500/20" },
   info: { label: "Información", color: "bg-blue-500/15 text-blue-400 border-blue-500/20" },
   fiscal: { label: "Fiscal", color: "bg-indigo-500/15 text-indigo-400 border-indigo-500/20" },
+  parafiscal: { label: "Parafiscal", color: "bg-violet-500/15 text-violet-400 border-violet-500/20" },
+  laboral: { label: "Laboral", color: "bg-teal-500/15 text-teal-400 border-teal-500/20" },
+  regulatorio: { label: "Regulatorio", color: "bg-rose-500/15 text-rose-400 border-rose-500/20" },
+  municipal: { label: "Municipal", color: "bg-cyan-500/15 text-cyan-400 border-cyan-500/20" },
+  ambiental: { label: "Ambiental", color: "bg-green-500/15 text-green-400 border-green-500/20" },
   vencimiento: { label: "Vencimiento", color: "bg-orange-500/15 text-orange-400 border-orange-500/20" },
 };
 
@@ -445,7 +455,47 @@ export default function NotificacionesPage() {
                       {timeAgo(noti.created_at)}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{noti.mensaje}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {noti.mensaje?.replace(/\n⚖️\s*Riesgo:.*$/s, '').trim()}
+                  </p>
+                  {noti.metadata?.riesgo_multa && (
+                    <div className="mt-2 p-3 bg-muted/30 rounded-lg border border-border/30 space-y-2">
+                      {(noti.metadata.riesgo_multa as { descripcion?: string; monto?: string; base_legal?: string }).descripcion && (
+                        <div className="flex items-start gap-2">
+                          <AlertTriangle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
+                          <p className="text-[11px] text-amber-400/90 font-semibold leading-snug">
+                            {(noti.metadata.riesgo_multa as { descripcion: string }).descripcion}
+                          </p>
+                        </div>
+                      )}
+                      {(noti.metadata.riesgo_multa as { monto?: string }).monto && (
+                        <div className="flex items-start gap-2">
+                          <CreditCard className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
+                          <p className="text-[11px] text-muted-foreground leading-snug">
+                            <span className="font-semibold text-red-400/80">Multa:</span>{' '}
+                            {(noti.metadata.riesgo_multa as { monto: string }).monto}
+                          </p>
+                        </div>
+                      )}
+                      {(noti.metadata.riesgo_multa as { base_legal?: string }).base_legal && (
+                        <div className="flex items-start gap-2">
+                          <FileText className="h-3.5 w-3.5 text-blue-400 mt-0.5 shrink-0" />
+                          <p className="text-[11px] text-muted-foreground leading-snug">
+                            <span className="font-semibold text-blue-400/80">Base Legal:</span>{' '}
+                            {(noti.metadata.riesgo_multa as { base_legal: string }).base_legal}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {noti.metadata?.ente && (
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <ShieldCheck className="h-3 w-3 text-muted-foreground/50" />
+                      <span className="text-[10px] text-muted-foreground/60 font-medium">
+                        {(noti.metadata.ente_nombre as string) || (noti.metadata.ente as string)}
+                      </span>
+                    </div>
+                  )}
                   {noti.accion_url && (
                     <Link
                       href={noti.accion_url}
