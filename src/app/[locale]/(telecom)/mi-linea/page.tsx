@@ -22,6 +22,7 @@ import {
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { ReservaDatosPanel } from "@/components/telecom/reserva-datos-panel";
 
 type LineaTelecom = {
   id: number;
@@ -512,6 +513,8 @@ export default function MiLineaPage() {
           })}
         </div>
       )}
+
+      <ReservaDatosPanel tipo="personal" />
 
       <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
         <CardHeader className="px-5 py-4 border-b border-border/50">

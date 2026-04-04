@@ -14,6 +14,7 @@ import { Link } from "@/navigation";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ConatelCompliancePanel } from "@/components/telecom/conatel-compliance-panel";
+import { ReservaDatosPanel } from "@/components/telecom/reserva-datos-panel";
 
 const lineas = [
   { id: "L1", empleado: "Carlos Pérez", depto: "Ventas", numero: "+58 412-1234567", plan: "Ilimitado", consumo: 12.5, limite: 30, estado: "Activa" },
@@ -406,6 +407,8 @@ export default function FlotaEmpresarialPage() {
                     </Button>
                 </div>
             </section>
+
+            <ReservaDatosPanel tipo="empresa" />
 
             <ConatelCompliancePanel tipo="empresa" />
 
