@@ -41,6 +41,13 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Enhanced Audit Trail & Blockchain Integration:** Records field-level changes with SHA-256 hashing and Merkle tree batch anchoring on Polygon/Ethereum/BSC.
 - **RIF/Cédula Validation:** Real Venezuelan modulo-11 check digit algorithm for RIF and strict format validation for Cédula.
 - **Modules:** Includes Permisología (with 483+ permits across various organisms), Carnets & Tarjetas, Telecom, Marketing, Informática/IT, Marco Legal Venezuela, Contabilidad Avanzada (10 sub-modules), HR Module Expansion, and Viáticos (travel expense management).
+- **Tool-Based Modules (v3.4.0):** 12 interactive calculator/simulator/analysis tools (no CRUD tables — all local useState, no DB):
+  - **Legal:** Calculadora de Honorarios (fee calculator by case type/complexity/baremo), Calendario Legal (visual calendar with SENIAT/IVSS/FAOV deadlines by RIF digit)
+  - **Personal:** Calculadora de Prestaciones LOTTT (antigüedad Art.142, vacaciones Art.190, bono vacacional Art.192, utilidades, intereses), Presupuesto Personal (income/expense tracker with categories and tips)
+  - **Telecom:** Comparador de Planes (Movistar/Digitel/Movilnet side-by-side comparison), Diagnóstico de Red (speed test simulation with quality assessment)
+  - **Empresa:** Organigrama Interactivo (visual org chart with add/remove/search), Calculadora de Costos Operativos (break-even analysis, fixed vs variable costs, margins)
+  - **Facturación:** Simulador Fiscal (IVA 16%, IGTF 3%, ISLR retentions, IVA retentions, 5-tab all-in-one tax calculator), Análisis de Clientes (ABC classification, Pareto analysis, profitability ranking)
+  - **Asesoría Contable:** Calendario Fiscal SENIAT (all deadlines by RIF terminal digit, 4 tabs), Ratios Financieros (liquidity, solvency, profitability, efficiency ratios with visual gauges)
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
 - **Global Search:** Command palette for instant navigation.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
