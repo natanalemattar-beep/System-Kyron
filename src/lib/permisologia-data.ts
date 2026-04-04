@@ -104,71 +104,71 @@ export const organismos: Organismo[] = [
   { id: 'MIN-MUJER', nombre: 'Ministerio del Poder Popular para la Mujer y la Igualdad de Género', tipo: 'ministerio', siglas: 'MPPIG', contacto: { telefono: '(0212) 860-1100 / 0800-MUJERES', web: 'https://www.minmujer.gob.ve', direccion: 'Av. Urdaneta, Edif. MinMujer, Caracas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: '0800-MUJERES — Línea de atención contra violencia de género' } },
   { id: 'MIN-PENITENCIARIO', nombre: 'Ministerio del Poder Popular para el Servicio Penitenciario', tipo: 'ministerio', siglas: 'MPPSP', contacto: { telefono: '(0212) 506-1500', web: 'https://www.mppsp.gob.ve', direccion: 'Caracas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
 
-  { id: 'GOB-MIRANDA', nombre: 'Gobernación del Estado Miranda', tipo: 'gobernacion' },
-  { id: 'GOB-CARABOBO', nombre: 'Gobernación del Estado Carabobo', tipo: 'gobernacion' },
-  { id: 'GOB-ZULIA', nombre: 'Gobernación del Estado Zulia', tipo: 'gobernacion' },
-  { id: 'GOB-ARAGUA', nombre: 'Gobernación del Estado Aragua', tipo: 'gobernacion' },
-  { id: 'GOB-LARA', nombre: 'Gobernación del Estado Lara', tipo: 'gobernacion' },
-  { id: 'GOB-BOLIVAR', nombre: 'Gobernación del Estado Bolívar', tipo: 'gobernacion' },
-  { id: 'GOB-DTOCAPITAL', nombre: 'Gobierno del Distrito Capital', tipo: 'gobernacion' },
-  { id: 'GOB-ANZOATEGUI', nombre: 'Gobernación del Estado Anzoátegui', tipo: 'gobernacion' },
-  { id: 'GOB-TACHIRA', nombre: 'Gobernación del Estado Táchira', tipo: 'gobernacion' },
-  { id: 'GOB-FALCON', nombre: 'Gobernación del Estado Falcón', tipo: 'gobernacion' },
-  { id: 'GOB-MERIDA', nombre: 'Gobernación del Estado Mérida', tipo: 'gobernacion' },
-  { id: 'GOB-NUEVA-ESPARTA', nombre: 'Gobernación del Estado Nueva Esparta', tipo: 'gobernacion' },
-  { id: 'GOB-MONAGAS', nombre: 'Gobernación del Estado Monagas', tipo: 'gobernacion' },
-  { id: 'GOB-VARGAS', nombre: 'Gobernación del Estado La Guaira', tipo: 'gobernacion' },
-  { id: 'GOB-SUCRE', nombre: 'Gobernación del Estado Sucre', tipo: 'gobernacion' },
-  { id: 'GOB-BARINAS', nombre: 'Gobernación del Estado Barinas', tipo: 'gobernacion' },
-  { id: 'GOB-PORTUGUESA', nombre: 'Gobernación del Estado Portuguesa', tipo: 'gobernacion' },
-  { id: 'GOB-GUARICO', nombre: 'Gobernación del Estado Guárico', tipo: 'gobernacion' },
-  { id: 'GOB-YARACUY', nombre: 'Gobernación del Estado Yaracuy', tipo: 'gobernacion' },
-  { id: 'GOB-TRUJILLO', nombre: 'Gobernación del Estado Trujillo', tipo: 'gobernacion' },
-  { id: 'GOB-COJEDES', nombre: 'Gobernación del Estado Cojedes', tipo: 'gobernacion' },
-  { id: 'GOB-APURE', nombre: 'Gobernación del Estado Apure', tipo: 'gobernacion' },
-  { id: 'GOB-DELTA-AMACURO', nombre: 'Gobernación del Estado Delta Amacuro', tipo: 'gobernacion' },
-  { id: 'GOB-AMAZONAS', nombre: 'Gobernación del Estado Amazonas', tipo: 'gobernacion' },
-  { id: 'GOB-ESEQUIBA', nombre: 'Gobernación del Estado Guayana Esequiba', tipo: 'gobernacion' },
+  { id: 'GOB-DTOCAPITAL', nombre: 'Gobierno del Distrito Capital', tipo: 'gobernacion', siglas: 'GDC', contacto: { telefono: '(0212) 860-1111', web: 'https://www.gfrdc.gob.ve', direccion: 'Esq. Principal, Edif. Gobierno del Distrito Capital, Caracas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@gfrdc.gob.ve' } },
+  { id: 'GOB-MIRANDA', nombre: 'Gobernación del Estado Miranda', tipo: 'gobernacion', siglas: 'GOB-MIR', contacto: { telefono: '(0212) 321-6811', web: 'https://www.miranda.gob.ve', direccion: 'Calle Bolívar, Edif. Gobernación, Los Teques, Miranda', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@miranda.gob.ve' } },
+  { id: 'GOB-CARABOBO', nombre: 'Gobernación del Estado Carabobo', tipo: 'gobernacion', siglas: 'GOB-CAR', contacto: { telefono: '(0241) 824-1111', web: 'https://www.carabobo.gob.ve', direccion: 'Av. Bolívar Norte, Edif. Gobernación, Valencia, Carabobo', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@carabobo.gob.ve' } },
+  { id: 'GOB-ZULIA', nombre: 'Gobernación del Estado Zulia', tipo: 'gobernacion', siglas: 'GOB-ZUL', contacto: { telefono: '(0261) 723-1111', web: 'https://www.zulia.gob.ve', direccion: 'Calle 77, Edif. Gobernación, Maracaibo, Zulia', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@zulia.gob.ve' } },
+  { id: 'GOB-ARAGUA', nombre: 'Gobernación del Estado Aragua', tipo: 'gobernacion', siglas: 'GOB-ARA', contacto: { telefono: '(0243) 246-1111', web: 'https://www.aragua.gob.ve', direccion: 'Av. Bolívar, Edif. Gobernación, Maracay, Aragua', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@aragua.gob.ve' } },
+  { id: 'GOB-LARA', nombre: 'Gobernación del Estado Lara', tipo: 'gobernacion', siglas: 'GOB-LAR', contacto: { telefono: '(0251) 252-1111', web: 'https://www.lara.gob.ve', direccion: 'Carrera 19 con Calle 25, Edif. Gobernación, Barquisimeto, Lara', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@lara.gob.ve' } },
+  { id: 'GOB-BOLIVAR', nombre: 'Gobernación del Estado Bolívar', tipo: 'gobernacion', siglas: 'GOB-BOL', contacto: { telefono: '(0285) 632-1111', web: 'https://www.bolivar.gob.ve', direccion: 'Av. Germán Forest, Edif. Gobernación, Ciudad Bolívar, Bolívar', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@bolivar.gob.ve' } },
+  { id: 'GOB-ANZOATEGUI', nombre: 'Gobernación del Estado Anzoátegui', tipo: 'gobernacion', siglas: 'GOB-ANZ', contacto: { telefono: '(0281) 277-1111', web: 'https://www.anzoategui.gob.ve', direccion: 'Av. Intercomunal, Edif. Gobernación, Barcelona, Anzoátegui', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@anzoategui.gob.ve' } },
+  { id: 'GOB-TACHIRA', nombre: 'Gobernación del Estado Táchira', tipo: 'gobernacion', siglas: 'GOB-TAC', contacto: { telefono: '(0276) 341-1111', web: 'https://www.tachira.gob.ve', direccion: 'Calle 5, Edif. Gobernación, San Cristóbal, Táchira', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@tachira.gob.ve' } },
+  { id: 'GOB-FALCON', nombre: 'Gobernación del Estado Falcón', tipo: 'gobernacion', siglas: 'GOB-FAL', contacto: { telefono: '(0268) 251-1111', web: 'https://www.falcon.gob.ve', direccion: 'Calle Zamora, Edif. Gobernación, Coro, Falcón', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@falcon.gob.ve' } },
+  { id: 'GOB-MERIDA', nombre: 'Gobernación del Estado Mérida', tipo: 'gobernacion', siglas: 'GOB-MER', contacto: { telefono: '(0274) 263-1111', web: 'https://www.merida.gob.ve', direccion: 'Av. 4, Plaza Bolívar, Edif. Gobernación, Mérida', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@merida.gob.ve' } },
+  { id: 'GOB-NUEVA-ESPARTA', nombre: 'Gobernación del Estado Nueva Esparta', tipo: 'gobernacion', siglas: 'GOB-NE', contacto: { telefono: '(0295) 263-1111', web: 'https://www.nuevaesparta.gob.ve', direccion: 'Calle Fajardo, Edif. Gobernación, La Asunción, Nueva Esparta', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@nuevaesparta.gob.ve' } },
+  { id: 'GOB-MONAGAS', nombre: 'Gobernación del Estado Monagas', tipo: 'gobernacion', siglas: 'GOB-MON', contacto: { telefono: '(0291) 641-1111', web: 'https://www.monagas.gob.ve', direccion: 'Calle Bolívar, Edif. Gobernación, Maturín, Monagas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@monagas.gob.ve' } },
+  { id: 'GOB-VARGAS', nombre: 'Gobernación del Estado La Guaira', tipo: 'gobernacion', siglas: 'GOB-VAR', contacto: { telefono: '(0212) 332-1111', web: 'https://www.laguaira.gob.ve', direccion: 'Av. Soublette, Edif. Gobernación, La Guaira', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@laguaira.gob.ve' } },
+  { id: 'GOB-SUCRE', nombre: 'Gobernación del Estado Sucre', tipo: 'gobernacion', siglas: 'GOB-SUC', contacto: { telefono: '(0293) 431-1111', web: 'https://www.sucre.gob.ve', direccion: 'Calle Sucre, Edif. Gobernación, Cumaná, Sucre', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@sucre.gob.ve' } },
+  { id: 'GOB-BARINAS', nombre: 'Gobernación del Estado Barinas', tipo: 'gobernacion', siglas: 'GOB-BAR', contacto: { telefono: '(0273) 533-1111', web: 'https://www.barinas.gob.ve', direccion: 'Av. Marqués del Pumar, Edif. Gobernación, Barinas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@barinas.gob.ve' } },
+  { id: 'GOB-PORTUGUESA', nombre: 'Gobernación del Estado Portuguesa', tipo: 'gobernacion', siglas: 'GOB-POR', contacto: { telefono: '(0257) 251-1111', web: 'https://www.portuguesa.gob.ve', direccion: 'Calle 7, Edif. Gobernación, Guanare, Portuguesa', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@portuguesa.gob.ve' } },
+  { id: 'GOB-GUARICO', nombre: 'Gobernación del Estado Guárico', tipo: 'gobernacion', siglas: 'GOB-GUA', contacto: { telefono: '(0246) 431-1111', web: 'https://www.guarico.gob.ve', direccion: 'Calle Urdaneta, Edif. Gobernación, San Juan de los Morros, Guárico', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@guarico.gob.ve' } },
+  { id: 'GOB-YARACUY', nombre: 'Gobernación del Estado Yaracuy', tipo: 'gobernacion', siglas: 'GOB-YAR', contacto: { telefono: '(0254) 231-1111', web: 'https://www.yaracuy.gob.ve', direccion: 'Av. Libertador, Edif. Gobernación, San Felipe, Yaracuy', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@yaracuy.gob.ve' } },
+  { id: 'GOB-TRUJILLO', nombre: 'Gobernación del Estado Trujillo', tipo: 'gobernacion', siglas: 'GOB-TRU', contacto: { telefono: '(0272) 236-1111', web: 'https://www.trujillo.gob.ve', direccion: 'Av. Independencia, Edif. Gobernación, Trujillo', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@trujillo.gob.ve' } },
+  { id: 'GOB-COJEDES', nombre: 'Gobernación del Estado Cojedes', tipo: 'gobernacion', siglas: 'GOB-COJ', contacto: { telefono: '(0258) 433-1111', web: 'https://www.cojedes.gob.ve', direccion: 'Calle Bolívar, Edif. Gobernación, San Carlos, Cojedes', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@cojedes.gob.ve' } },
+  { id: 'GOB-APURE', nombre: 'Gobernación del Estado Apure', tipo: 'gobernacion', siglas: 'GOB-APU', contacto: { telefono: '(0247) 342-1111', web: 'https://www.apure.gob.ve', direccion: 'Av. Bolívar, Edif. Gobernación, San Fernando de Apure', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@apure.gob.ve' } },
+  { id: 'GOB-DELTA-AMACURO', nombre: 'Gobernación del Estado Delta Amacuro', tipo: 'gobernacion', siglas: 'GOB-DEL', contacto: { telefono: '(0287) 721-1111', web: 'https://www.deltaamacuro.gob.ve', direccion: 'Calle Mariño, Edif. Gobernación, Tucupita, Delta Amacuro', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Oficina de Atención al Ciudadano — atencion@deltaamacuro.gob.ve' } },
+  { id: 'GOB-AMAZONAS', nombre: 'Gobernación del Estado Amazonas', tipo: 'gobernacion', siglas: 'GOB-AMA', contacto: { telefono: '(0248) 521-1111', web: 'https://www.amazonas.gob.ve', direccion: 'Av. Orinoco, Edif. Gobernación, Puerto Ayacucho, Amazonas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Atención al Ciudadano — atencion@amazonas.gob.ve' } },
+  { id: 'GOB-ESEQUIBA', nombre: 'Gobernación del Estado Guayana Esequiba', tipo: 'gobernacion', siglas: 'GOB-ESE', contacto: { telefono: 'No disponible — Territorio en reclamación', direccion: 'Territorio Esequibo — En proceso de administración', horario: 'No disponible' } },
 
-  { id: 'ALC-CHACAO', nombre: 'Alcaldía del Municipio Chacao', tipo: 'alcaldia' },
-  { id: 'ALC-BARUTA', nombre: 'Alcaldía del Municipio Baruta', tipo: 'alcaldia' },
-  { id: 'ALC-SUCRE', nombre: 'Alcaldía del Municipio Sucre (Petare)', tipo: 'alcaldia' },
-  { id: 'ALC-LIBERTADOR', nombre: 'Alcaldía del Municipio Libertador', tipo: 'alcaldia' },
-  { id: 'ALC-HATILLO', nombre: 'Alcaldía del Municipio El Hatillo', tipo: 'alcaldia' },
-  { id: 'ALC-VALENCIA', nombre: 'Alcaldía del Municipio Valencia', tipo: 'alcaldia' },
-  { id: 'ALC-MARACAIBO', nombre: 'Alcaldía del Municipio Maracaibo', tipo: 'alcaldia' },
-  { id: 'ALC-IRIBARREN', nombre: 'Alcaldía del Municipio Iribarren (Barquisimeto)', tipo: 'alcaldia' },
-  { id: 'ALC-SAN-CRISTOBAL', nombre: 'Alcaldía del Municipio San Cristóbal', tipo: 'alcaldia' },
-  { id: 'ALC-MATURIN', nombre: 'Alcaldía del Municipio Maturín', tipo: 'alcaldia' },
-  { id: 'ALC-GIRARDOT', nombre: 'Alcaldía del Municipio Girardot (Maracay)', tipo: 'alcaldia' },
-  { id: 'ALC-CARONI', nombre: 'Alcaldía del Municipio Caroní (Puerto Ordaz / Ciudad Guayana)', tipo: 'alcaldia' },
-  { id: 'ALC-HERES', nombre: 'Alcaldía del Municipio Heres (Ciudad Bolívar)', tipo: 'alcaldia' },
-  { id: 'ALC-SOTILLO', nombre: 'Alcaldía del Municipio Juan Antonio Sotillo (Puerto La Cruz)', tipo: 'alcaldia' },
-  { id: 'ALC-SIMON-BOLIVAR', nombre: 'Alcaldía del Municipio Simón Bolívar (Barcelona)', tipo: 'alcaldia' },
-  { id: 'ALC-GUANARE', nombre: 'Alcaldía del Municipio Guanare', tipo: 'alcaldia' },
-  { id: 'ALC-ACARIGUA', nombre: 'Alcaldía del Municipio Páez (Acarigua)', tipo: 'alcaldia' },
-  { id: 'ALC-CABIMAS', nombre: 'Alcaldía del Municipio Cabimas', tipo: 'alcaldia' },
-  { id: 'ALC-PUNTO-FIJO', nombre: 'Alcaldía del Municipio Carirubana (Punto Fijo)', tipo: 'alcaldia' },
-  { id: 'ALC-CUMANA', nombre: 'Alcaldía del Municipio Sucre (Cumaná)', tipo: 'alcaldia' },
-  { id: 'ALC-MERIDA', nombre: 'Alcaldía del Municipio Libertador (Mérida)', tipo: 'alcaldia' },
-  { id: 'ALC-VALERA', nombre: 'Alcaldía del Municipio Valera', tipo: 'alcaldia' },
-  { id: 'ALC-BARINAS', nombre: 'Alcaldía del Municipio Barinas', tipo: 'alcaldia' },
-  { id: 'ALC-SAN-FERNANDO', nombre: 'Alcaldía del Municipio San Fernando de Apure', tipo: 'alcaldia' },
-  { id: 'ALC-SAN-FELIPE', nombre: 'Alcaldía del Municipio San Felipe (Yaracuy)', tipo: 'alcaldia' },
-  { id: 'ALC-LAGUNILLAS', nombre: 'Alcaldía del Municipio Lagunillas (Ciudad Ojeda)', tipo: 'alcaldia' },
-  { id: 'ALC-MARACAY-LINARES', nombre: 'Alcaldía del Municipio Santiago Mariño (Turmero)', tipo: 'alcaldia' },
-  { id: 'ALC-GUARENAS', nombre: 'Alcaldía del Municipio Plaza (Guarenas)', tipo: 'alcaldia' },
-  { id: 'ALC-GUATIRE', nombre: 'Alcaldía del Municipio Zamora (Guatire)', tipo: 'alcaldia' },
-  { id: 'ALC-LOS-TEQUES', nombre: 'Alcaldía del Municipio Guaicaipuro (Los Teques)', tipo: 'alcaldia' },
-  { id: 'ALC-CORO', nombre: 'Alcaldía del Municipio Miranda (Coro)', tipo: 'alcaldia' },
-  { id: 'ALC-SAN-JUAN', nombre: 'Alcaldía del Municipio San Juan de los Morros (Guárico)', tipo: 'alcaldia' },
-  { id: 'ALC-TUCUPITA', nombre: 'Alcaldía del Municipio Tucupita (Delta Amacuro)', tipo: 'alcaldia' },
-  { id: 'ALC-PUERTO-AYACUCHO', nombre: 'Alcaldía del Municipio Atures (Puerto Ayacucho)', tipo: 'alcaldia' },
-  { id: 'ALC-PORLAMAR', nombre: 'Alcaldía del Municipio Mariño (Porlamar)', tipo: 'alcaldia' },
-  { id: 'ALC-LA-GUAIRA', nombre: 'Alcaldía del Municipio Vargas (La Guaira)', tipo: 'alcaldia' },
-  { id: 'ALC-COJEDES', nombre: 'Alcaldía del Municipio Ezequiel Zamora (San Carlos, Cojedes)', tipo: 'alcaldia' },
-  { id: 'ALC-CATIA-LA-MAR', nombre: 'Alcaldía del Municipio Catia La Mar', tipo: 'alcaldia' },
-  { id: 'ALC-HIGUEROTE', nombre: 'Alcaldía del Municipio Brión (Higuerote)', tipo: 'alcaldia' },
+  { id: 'ALC-LIBERTADOR', nombre: 'Alcaldía del Municipio Libertador (Caracas)', tipo: 'alcaldia', siglas: 'ALC-LIB', contacto: { telefono: '(0212) 860-3111', web: 'https://www.alcaldialibertador.gob.ve', direccion: 'Esq. Municipal, Edif. Alcaldía de Caracas, Municipio Libertador', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda Municipal — hacienda@alcaldialibertador.gob.ve' } },
+  { id: 'ALC-CHACAO', nombre: 'Alcaldía del Municipio Chacao', tipo: 'alcaldia', siglas: 'ALC-CHA', contacto: { telefono: '(0212) 902-7111', web: 'https://www.chacao.gob.ve', direccion: 'Av. Francisco de Miranda, Edif. Alcaldía de Chacao, Caracas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'SEMAT Chacao — semat@chacao.gob.ve — Trámites de patente e impuestos municipales' } },
+  { id: 'ALC-BARUTA', nombre: 'Alcaldía del Municipio Baruta', tipo: 'alcaldia', siglas: 'ALC-BAR', contacto: { telefono: '(0212) 945-1111', web: 'https://www.baruta.gob.ve', direccion: 'Calle Bolívar, Edif. Alcaldía de Baruta, Municipio Baruta', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@baruta.gob.ve' } },
+  { id: 'ALC-SUCRE', nombre: 'Alcaldía del Municipio Sucre (Petare)', tipo: 'alcaldia', siglas: 'ALC-SUC', contacto: { telefono: '(0212) 234-1111', web: 'https://www.alcaldiasucre.gob.ve', direccion: 'Av. Francisco de Miranda, Petare, Municipio Sucre', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Rentas Municipales — rentas@alcaldiasucre.gob.ve' } },
+  { id: 'ALC-HATILLO', nombre: 'Alcaldía del Municipio El Hatillo', tipo: 'alcaldia', siglas: 'ALC-HAT', contacto: { telefono: '(0212) 963-1111', web: 'https://www.elhatillo.gob.ve', direccion: 'Calle Bolívar, Plaza Bolívar de El Hatillo, Municipio El Hatillo', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@elhatillo.gob.ve' } },
+  { id: 'ALC-VALENCIA', nombre: 'Alcaldía del Municipio Valencia', tipo: 'alcaldia', siglas: 'ALC-VAL', contacto: { telefono: '(0241) 858-1111', web: 'https://www.alcaldiavalencia.gob.ve', direccion: 'Av. Bolívar Norte, Edif. Municipal, Valencia, Carabobo', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda Municipal — hacienda@alcaldiavalencia.gob.ve' } },
+  { id: 'ALC-MARACAIBO', nombre: 'Alcaldía del Municipio Maracaibo', tipo: 'alcaldia', siglas: 'ALC-MAR', contacto: { telefono: '(0261) 200-1111', web: 'https://www.alcaldiamcbo.gob.ve', direccion: 'Calle 96, Edif. Municipal, Maracaibo, Zulia', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'SAMAT Maracaibo — samat@alcaldiamcbo.gob.ve — Impuestos y patentes municipales' } },
+  { id: 'ALC-IRIBARREN', nombre: 'Alcaldía del Municipio Iribarren (Barquisimeto)', tipo: 'alcaldia', siglas: 'ALC-IRI', contacto: { telefono: '(0251) 252-2111', web: 'https://www.alcaldiairibarren.gob.ve', direccion: 'Carrera 19, Edif. Municipal, Barquisimeto, Lara', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'SEMAT Iribarren — semat@alcaldiairibarren.gob.ve' } },
+  { id: 'ALC-SAN-CRISTOBAL', nombre: 'Alcaldía del Municipio San Cristóbal', tipo: 'alcaldia', siglas: 'ALC-SC', contacto: { telefono: '(0276) 356-1111', web: 'https://www.alcaldiasancristobal.gob.ve', direccion: 'Calle 5, Edif. Municipal, San Cristóbal, Táchira', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiasancristobal.gob.ve' } },
+  { id: 'ALC-MATURIN', nombre: 'Alcaldía del Municipio Maturín', tipo: 'alcaldia', siglas: 'ALC-MAT', contacto: { telefono: '(0291) 641-2111', web: 'https://www.alcaldiamaturin.gob.ve', direccion: 'Calle Bolívar, Edif. Municipal, Maturín, Monagas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiamaturin.gob.ve' } },
+  { id: 'ALC-GIRARDOT', nombre: 'Alcaldía del Municipio Girardot (Maracay)', tipo: 'alcaldia', siglas: 'ALC-GIR', contacto: { telefono: '(0243) 246-2111', web: 'https://www.alcaldiagirardot.gob.ve', direccion: 'Av. Bolívar, Edif. Municipal, Maracay, Aragua', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'SEMAT Girardot — semat@alcaldiagirardot.gob.ve' } },
+  { id: 'ALC-CARONI', nombre: 'Alcaldía del Municipio Caroní (Puerto Ordaz / Ciudad Guayana)', tipo: 'alcaldia', siglas: 'ALC-CAR', contacto: { telefono: '(0286) 961-1111', web: 'https://www.alcaldiacaroni.gob.ve', direccion: 'Av. Guayana, Edif. Municipal, Puerto Ordaz, Bolívar', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiacaroni.gob.ve' } },
+  { id: 'ALC-HERES', nombre: 'Alcaldía del Municipio Heres (Ciudad Bolívar)', tipo: 'alcaldia', siglas: 'ALC-HER', contacto: { telefono: '(0285) 632-2111', web: 'https://www.alcaldiaheres.gob.ve', direccion: 'Paseo Orinoco, Edif. Municipal, Ciudad Bolívar, Bolívar', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiaheres.gob.ve' } },
+  { id: 'ALC-SOTILLO', nombre: 'Alcaldía del Municipio Juan Antonio Sotillo (Puerto La Cruz)', tipo: 'alcaldia', siglas: 'ALC-SOT', contacto: { telefono: '(0281) 268-1111', web: 'https://www.alcaldiasotillo.gob.ve', direccion: 'Av. Municipal, Edif. Alcaldía, Puerto La Cruz, Anzoátegui', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiasotillo.gob.ve' } },
+  { id: 'ALC-SIMON-BOLIVAR', nombre: 'Alcaldía del Municipio Simón Bolívar (Barcelona)', tipo: 'alcaldia', siglas: 'ALC-SB', contacto: { telefono: '(0281) 277-2111', web: 'https://www.alcaldiasimonbolivar.gob.ve', direccion: 'Calle Bolívar, Edif. Municipal, Barcelona, Anzoátegui', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiasimonbolivar.gob.ve' } },
+  { id: 'ALC-GUANARE', nombre: 'Alcaldía del Municipio Guanare', tipo: 'alcaldia', siglas: 'ALC-GUA', contacto: { telefono: '(0257) 251-2111', direccion: 'Calle 12, Edif. Municipal, Guanare, Portuguesa', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-ACARIGUA', nombre: 'Alcaldía del Municipio Páez (Acarigua)', tipo: 'alcaldia', siglas: 'ALC-ACA', contacto: { telefono: '(0255) 661-1111', direccion: 'Av. Libertador, Edif. Municipal, Acarigua, Portuguesa', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-CABIMAS', nombre: 'Alcaldía del Municipio Cabimas', tipo: 'alcaldia', siglas: 'ALC-CAB', contacto: { telefono: '(0264) 241-1111', direccion: 'Av. Intercomunal, Edif. Municipal, Cabimas, Zulia', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-PUNTO-FIJO', nombre: 'Alcaldía del Municipio Carirubana (Punto Fijo)', tipo: 'alcaldia', siglas: 'ALC-PF', contacto: { telefono: '(0269) 245-1111', direccion: 'Calle Comercio, Edif. Municipal, Punto Fijo, Falcón', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-CUMANA', nombre: 'Alcaldía del Municipio Sucre (Cumaná)', tipo: 'alcaldia', siglas: 'ALC-CUM', contacto: { telefono: '(0293) 431-2111', direccion: 'Calle Sucre, Edif. Municipal, Cumaná, Sucre', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-MERIDA', nombre: 'Alcaldía del Municipio Libertador (Mérida)', tipo: 'alcaldia', siglas: 'ALC-MER', contacto: { telefono: '(0274) 252-1111', web: 'https://www.alcaldiamerida.gob.ve', direccion: 'Av. 3, Plaza Bolívar, Edif. Municipal, Mérida', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM', reclamaciones: 'Dirección de Hacienda — hacienda@alcaldiamerida.gob.ve' } },
+  { id: 'ALC-VALERA', nombre: 'Alcaldía del Municipio Valera', tipo: 'alcaldia', siglas: 'ALC-VALE', contacto: { telefono: '(0271) 225-1111', direccion: 'Av. Bolívar, Edif. Municipal, Valera, Trujillo', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-BARINAS', nombre: 'Alcaldía del Municipio Barinas', tipo: 'alcaldia', siglas: 'ALC-BNS', contacto: { telefono: '(0273) 533-2111', direccion: 'Av. Marqués del Pumar, Edif. Municipal, Barinas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-SAN-FERNANDO', nombre: 'Alcaldía del Municipio San Fernando de Apure', tipo: 'alcaldia', siglas: 'ALC-SF', contacto: { telefono: '(0247) 342-2111', direccion: 'Av. Bolívar, Edif. Municipal, San Fernando de Apure', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-SAN-FELIPE', nombre: 'Alcaldía del Municipio San Felipe (Yaracuy)', tipo: 'alcaldia', siglas: 'ALC-SFE', contacto: { telefono: '(0254) 231-2111', direccion: 'Av. Libertador, Edif. Municipal, San Felipe, Yaracuy', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-LAGUNILLAS', nombre: 'Alcaldía del Municipio Lagunillas (Ciudad Ojeda)', tipo: 'alcaldia', siglas: 'ALC-LAG', contacto: { telefono: '(0265) 631-1111', direccion: 'Av. Intercomunal, Edif. Municipal, Ciudad Ojeda, Zulia', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-MARACAY-LINARES', nombre: 'Alcaldía del Municipio Santiago Mariño (Turmero)', tipo: 'alcaldia', siglas: 'ALC-TUR', contacto: { telefono: '(0244) 663-1111', direccion: 'Av. Bermúdez, Edif. Municipal, Turmero, Aragua', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-GUARENAS', nombre: 'Alcaldía del Municipio Plaza (Guarenas)', tipo: 'alcaldia', siglas: 'ALC-GNS', contacto: { telefono: '(0212) 362-1111', direccion: 'Calle Real, Edif. Municipal, Guarenas, Miranda', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-GUATIRE', nombre: 'Alcaldía del Municipio Zamora (Guatire)', tipo: 'alcaldia', siglas: 'ALC-GTR', contacto: { telefono: '(0212) 342-1111', direccion: 'Calle Zamora, Edif. Municipal, Guatire, Miranda', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-LOS-TEQUES', nombre: 'Alcaldía del Municipio Guaicaipuro (Los Teques)', tipo: 'alcaldia', siglas: 'ALC-LT', contacto: { telefono: '(0212) 321-5111', direccion: 'Calle Miranda, Edif. Municipal, Los Teques, Miranda', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-CORO', nombre: 'Alcaldía del Municipio Miranda (Coro)', tipo: 'alcaldia', siglas: 'ALC-COR', contacto: { telefono: '(0268) 252-1111', direccion: 'Calle Zamora, Edif. Municipal, Coro, Falcón', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-SAN-JUAN', nombre: 'Alcaldía del Municipio San Juan de los Morros (Guárico)', tipo: 'alcaldia', siglas: 'ALC-SJM', contacto: { telefono: '(0246) 431-2111', direccion: 'Calle Bolívar, Edif. Municipal, San Juan de los Morros, Guárico', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-TUCUPITA', nombre: 'Alcaldía del Municipio Tucupita (Delta Amacuro)', tipo: 'alcaldia', siglas: 'ALC-TUC', contacto: { telefono: '(0287) 721-2111', direccion: 'Calle Bolívar, Edif. Municipal, Tucupita, Delta Amacuro', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-PUERTO-AYACUCHO', nombre: 'Alcaldía del Municipio Atures (Puerto Ayacucho)', tipo: 'alcaldia', siglas: 'ALC-PA', contacto: { telefono: '(0248) 521-2111', direccion: 'Av. Orinoco, Edif. Municipal, Puerto Ayacucho, Amazonas', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-PORLAMAR', nombre: 'Alcaldía del Municipio Mariño (Porlamar)', tipo: 'alcaldia', siglas: 'ALC-POR', contacto: { telefono: '(0295) 263-2111', web: 'https://www.alcaldiamarino.gob.ve', direccion: 'Calle Igualdad, Edif. Municipal, Porlamar, Nueva Esparta', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-LA-GUAIRA', nombre: 'Alcaldía del Municipio Vargas (La Guaira)', tipo: 'alcaldia', siglas: 'ALC-LG', contacto: { telefono: '(0212) 332-2111', direccion: 'Av. Soublette, Edif. Municipal, La Guaira', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-COJEDES', nombre: 'Alcaldía del Municipio Ezequiel Zamora (San Carlos, Cojedes)', tipo: 'alcaldia', siglas: 'ALC-SCJ', contacto: { telefono: '(0258) 433-2111', direccion: 'Calle Bolívar, Edif. Municipal, San Carlos, Cojedes', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-CATIA-LA-MAR', nombre: 'Alcaldía del Municipio Catia La Mar', tipo: 'alcaldia', siglas: 'ALC-CLM', contacto: { telefono: '(0212) 352-1111', direccion: 'Calle Principal, Edif. Municipal, Catia La Mar, La Guaira', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
+  { id: 'ALC-HIGUEROTE', nombre: 'Alcaldía del Municipio Brión (Higuerote)', tipo: 'alcaldia', siglas: 'ALC-HIG', contacto: { telefono: '(0234) 411-1111', direccion: 'Calle Bolívar, Edif. Municipal, Higuerote, Miranda', horario: 'Lunes a Viernes 8:00 AM - 4:00 PM' } },
 ];
 
 export const tiposPermiso: PermisoTipo[] = [
@@ -4720,12 +4720,12 @@ export const tiposPermiso: PermisoTipo[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // ALCALDÍAS — PERMISOS MUNICIPALES
+  // ALCALDÍAS — PERMISOS MUNICIPALES (Aplican en TODOS los municipios del país)
   // ═══════════════════════════════════════════════════════════════
   {
     id: 'ALC-LICENCIA-ACT',
     nombre: 'Licencia de Actividades Económicas (Patente de Industria y Comercio)',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Permiso municipal obligatorio para ejercer actividades económicas en el municipio. Se renueva anualmente.',
     vigencia: 12,
     requisitosInscripcion: ['RIF vigente', 'Acta constitutiva', 'Conformidad de uso (zonificación)', 'Permiso de bomberos', 'Solvencia municipal', 'Contrato de arrendamiento o título de propiedad'],
@@ -4737,7 +4737,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-CONFORMIDAD-USO',
     nombre: 'Conformidad de Uso (Zonificación)',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Certificación de que el inmueble puede ser utilizado para la actividad comercial declarada según el plan de zonificación.',
     vigencia: null,
     requisitosInscripcion: ['Copia de documento de propiedad o contrato de arrendamiento', 'Croquis de ubicación', 'Descripción de actividad a realizar'],
@@ -4749,7 +4749,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-BOMBEROS',
     nombre: 'Permiso del Cuerpo de Bomberos (Municipal)',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Inspección y certificación de cumplimiento de normas de seguridad contra incendios del establecimiento comercial a nivel municipal.',
     vigencia: 12,
     requisitosInscripcion: ['Planos del local', 'Extintores vigentes', 'Señalización de emergencia', 'Plan de evacuación'],
@@ -4761,7 +4761,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-PUBLICIDAD',
     nombre: 'Permiso de Publicidad Comercial y Propaganda',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización para instalar avisos, vallas o publicidad exterior en fachadas o áreas públicas del municipio.',
     vigencia: 12,
     requisitosInscripcion: ['Diseño del aviso a escala', 'Fotografía de fachada actual', 'Licencia de actividades vigente'],
@@ -4773,7 +4773,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-SOLVENCIA',
     nombre: 'Solvencia Municipal',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Constancia de estar al día con los impuestos municipales. Necesaria para trámites bancarios, licitaciones y renovaciones.',
     vigencia: 3,
     requisitosInscripcion: ['Pago de impuestos municipales al día', 'Licencia de actividades vigente'],
@@ -4785,7 +4785,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-INMUEBLES-URBANOS',
     nombre: 'Impuesto sobre Inmuebles Urbanos',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Pago del impuesto anual sobre el valor de los inmuebles urbanos (derecho de frente).',
     vigencia: 12,
     requisitosInscripcion: ['Documento de propiedad del inmueble', 'Cédula catastral', 'Pago anual del impuesto'],
@@ -4797,7 +4797,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-VEHICULOS',
     nombre: 'Impuesto sobre Vehículos',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Pago del impuesto municipal sobre vehículos automotores registrados en el municipio.',
     vigencia: 12,
     requisitosInscripcion: ['Certificado de registro vehicular', 'Domicilio fiscal en el municipio'],
@@ -4813,7 +4813,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-CONSTRUCCION',
     nombre: 'Permiso de Construcción Municipal',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización municipal para ejecutar obras de construcción, remodelación o ampliación de inmuebles.',
     vigencia: 24,
     requisitosInscripcion: ['Proyecto firmado por profesional inscrito en CIV', 'Permiso de Ingeniería Municipal', 'Conformidad de uso', 'Estudio de suelos', 'Planos arquitectónicos y estructurales'],
@@ -4825,7 +4825,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-HABITABILIDAD',
     nombre: 'Certificado de Habitabilidad Municipal',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Constancia de que la edificación cumple las condiciones para ser habitada o utilizada según las normas de construcción.',
     vigencia: null,
     requisitosInscripcion: ['Permiso de construcción otorgado', 'Acta de terminación de obra', 'Inspección final aprobada', 'Planos conforme a obra'],
@@ -4837,7 +4837,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-ESPECTACULOS',
     nombre: 'Permiso para Espectáculos Públicos y Eventos',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización municipal para realizar eventos, espectáculos públicos, ferias comerciales o actividades masivas.',
     vigencia: null,
     requisitosInscripcion: ['Solicitud con 15 días de anticipación', 'Plan de seguridad y evacuación', 'Póliza de responsabilidad civil', 'Autorización de bomberos', 'Permiso de SAIME si hay artistas extranjeros'],
@@ -4849,7 +4849,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-HORARIO-EXTENDIDO',
     nombre: 'Permiso de Horario Nocturno/Extendido',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización para operar establecimientos comerciales fuera del horario ordinario (después de las 10 PM).',
     vigencia: 12,
     requisitosInscripcion: ['Licencia de actividades vigente', 'Autorización de bomberos', 'Plan de seguridad nocturna', 'Consulta vecinal (si aplica)'],
@@ -4861,7 +4861,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-ASEO-URBANO',
     nombre: 'Tasa de Aseo Urbano y Domiciliario',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Pago de la tasa por servicio de recolección de desechos sólidos comerciales e industriales.',
     vigencia: 12,
     requisitosInscripcion: ['Inscripción como contribuyente comercial del servicio', 'Clasificación del volumen de desechos'],
@@ -4873,7 +4873,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-CATASTRO',
     nombre: 'Inscripción Catastral Municipal',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Registro del inmueble en el catastro municipal para efectos tributarios y urbanísticos.',
     vigencia: null,
     requisitosInscripcion: ['Documento de propiedad del inmueble', 'Plano de mensura', 'Cédula del propietario o representante legal', 'Pago de tasa de inscripción'],
@@ -4885,7 +4885,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-OCUPACION-VIA',
     nombre: 'Permiso de Ocupación de Vía Pública',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización para uso temporal del espacio público (terrazas de restaurantes, obras, ferias, food trucks).',
     vigencia: null,
     requisitosInscripcion: ['Solicitud indicando ubicación, área y período', 'Croquis del área a ocupar', 'Licencia de actividades vigente', 'Póliza de responsabilidad civil'],
@@ -4897,7 +4897,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'ALC-VERTIDOS',
     nombre: 'Permiso de Descarga de Aguas Residuales (Municipal)',
-    organismoId: 'ALC-CHACAO',
+    organismoId: 'ALC-GENERICO',
     descripcion: 'Autorización para descarga de efluentes industriales o comerciales al sistema de alcantarillado municipal.',
     vigencia: 12,
     requisitosInscripcion: ['Análisis de efluentes', 'Descripción del proceso productivo', 'Plan de tratamiento de aguas residuales'],
@@ -4908,12 +4908,12 @@ export const tiposPermiso: PermisoTipo[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // GOBERNACIONES — PERMISOS ESTADALES (GENÉRICOS, APLICAN EN TODOS LOS 24 ESTADOS + D.C.)
+  // GOBERNACIONES — PERMISOS ESTADALES (Aplican en TODOS los 24 estados + Distrito Capital)
   // ═══════════════════════════════════════════════════════════════
   {
     id: 'GOB-SANIDAD',
     nombre: 'Permiso Sanitario (Corposalud)',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Certificación sanitaria obligatoria para establecimientos que manipulen alimentos, productos farmacéuticos o presten servicios de salud. Se tramita ante la Dirección de Salud Ambiental de la Gobernación correspondiente.',
     vigencia: 12,
     requisitosInscripcion: ['RIF vigente', 'Permiso de bomberos', 'Certificados de salud del personal (exámenes médicos)', 'Fumigación vigente (contrato con empresa certificada)', 'Análisis de agua potable', 'Licencia de actividades económicas vigente', 'Fotografías del establecimiento'],
@@ -4925,7 +4925,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-AMBIENTE',
     nombre: 'Autorización de Ocupación del Territorio (AOT)',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Evaluación de impacto ambiental para proyectos de construcción, industriales o que afecten recursos naturales. Tramitada ante la Dirección Estadal Ambiental.',
     vigencia: 24,
     requisitosInscripcion: ['Estudio de impacto ambiental y sociocultural', 'Planos del proyecto', 'Medidas de mitigación propuestas', 'Constancia de consulta pública', 'Memoria descriptiva del proyecto'],
@@ -4937,7 +4937,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-TASA-LICORES',
     nombre: 'Licencia para Expendio de Bebidas Alcohólicas',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Permiso estadal para la venta de bebidas alcohólicas al público (bares, restaurantes, licorerías, abastos). Obligatorio en todos los estados.',
     vigencia: 12,
     requisitosInscripcion: ['Licencia municipal vigente', 'RIF vigente', 'Permiso de bomberos', 'Ubicación fuera de zona restringida (escuelas, hospitales, iglesias)', 'Certificado de fumigación', 'Plano del local con área de exhibición de licores'],
@@ -4949,7 +4949,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-ESTAMPILLAS',
     nombre: 'Timbres y Estampillas Estadales',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Pago de timbres fiscales estadales requeridos para trámites ante gobernaciones (licencias, solvencias, certificaciones). Cada estado fija su valor en UT estadales.',
     vigencia: null,
     requisitosInscripcion: ['Documento que requiera timbre estadal', 'Planilla de pago', 'Identificación del contribuyente'],
@@ -4961,7 +4961,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-CONTRIBUYENTE-ESTADAL',
     nombre: 'Registro de Contribuyente Estadal',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Inscripción como contribuyente del tesoro estadal para el pago de impuestos, tasas y contribuciones establecidas por la gobernación.',
     vigencia: null,
     requisitosInscripcion: ['RIF vigente', 'Acta constitutiva', 'Licencia de actividades económicas municipal', 'Dirección fiscal dentro del estado'],
@@ -4973,7 +4973,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-SOLVENCIA-ESTADAL',
     nombre: 'Solvencia de Impuestos Estadales',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Constancia de estar al día con todos los tributos estadales. Requerida para licitaciones públicas, trámites bancarios y contrataciones con el Estado.',
     vigencia: 3,
     requisitosInscripcion: ['Estar inscrito como contribuyente estadal', 'Tener pagos de impuestos al día', 'Solicitud formal'],
@@ -4985,7 +4985,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-CERTIFICADO-SALUD',
     nombre: 'Certificado de Salud del Personal (Manipuladores)',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Certificación médica obligatoria para empleados que manipulen alimentos, medicamentos o atiendan al público en establecimientos de salud.',
     vigencia: 6,
     requisitosInscripcion: ['Examen médico completo (heces, orina, pulmones)', 'Fotografía tipo carnet', 'Cédula de identidad'],
@@ -4997,7 +4997,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-FUMIGACION',
     nombre: 'Certificado de Fumigación y Control de Plagas',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Constancia de control de plagas y fumigación del establecimiento, emitida por empresa certificada por la gobernación.',
     vigencia: 3,
     requisitosInscripcion: ['Contrato con empresa fumigadora certificada por Corposalud', 'Informe de fumigación con productos utilizados'],
@@ -5009,7 +5009,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-TRANSPORTE-ESCOLAR',
     nombre: 'Permiso de Transporte Escolar y Especial',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización estadal para prestar servicio de transporte escolar o transporte especial de personas.',
     vigencia: 12,
     requisitosInscripcion: ['Licencia de conducir vigente (4ta o 5ta)', 'Certificado médico del conductor', 'Revisión técnica vehicular aprobada', 'Póliza de responsabilidad civil', 'Antecedentes penales'],
@@ -5021,7 +5021,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-MINERIA-NOMET',
     nombre: 'Permiso de Extracción de Minerales No Metálicos (Estadal)',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización estadal para extracción de arena, grava, piedra y otros minerales no metálicos para construcción.',
     vigencia: 12,
     requisitosInscripcion: ['Estudio de impacto ambiental', 'Plano de ubicación del yacimiento', 'Plan de explotación y restauración', 'Pago de regalías estadales'],
@@ -5033,7 +5033,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-TURISMO-ESTADAL',
     nombre: 'Registro Turístico Estadal',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Inscripción de prestadores de servicios turísticos ante la Corporación de Turismo Estadal o la Dirección de Turismo de la Gobernación.',
     vigencia: 12,
     requisitosInscripcion: ['RTN vigente (Registro Turístico Nacional)', 'RIF vigente', 'Licencia de actividades económicas', 'Descripción de servicios turísticos ofrecidos'],
@@ -5045,7 +5045,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-FUNCIONAMIENTO-ESTADAL',
     nombre: 'Permiso de Funcionamiento Estadal',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización general de funcionamiento emitida por la gobernación para ciertos tipos de establecimientos regulados a nivel estadal (educación privada, salud, transporte).',
     vigencia: 12,
     requisitosInscripcion: ['Licencia municipal vigente', 'RIF vigente', 'Permiso de bomberos', 'Certificado sanitario (si aplica)', 'Cumplimiento de normativa sectorial específica'],
@@ -5057,7 +5057,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-DEPORTE-ESTADAL',
     nombre: 'Registro de Establecimientos Deportivos y Recreativos',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Inscripción de gimnasios, academias deportivas, parques recreativos y centros de esparcimiento ante la Dirección de Deportes estadal.',
     vigencia: 12,
     requisitosInscripcion: ['Licencia municipal vigente', 'Permiso de bomberos', 'Certificación de instructores (si aplica)', 'Plan de seguridad del establecimiento'],
@@ -5069,7 +5069,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-CULTURA-ESTADAL',
     nombre: 'Permiso para Actividades Culturales y Artísticas',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización de la Dirección de Cultura estadal para realizar eventos culturales, festivales, exposiciones y actividades artísticas.',
     vigencia: null,
     requisitosInscripcion: ['Descripción del evento o actividad cultural', 'Plan de logística y seguridad', 'Solicitud con 15 días de anticipación'],
@@ -5081,7 +5081,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-EDUCACION-PRIVADA',
     nombre: 'Autorización de Funcionamiento de Institución Educativa Privada',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Permiso de la Zona Educativa (adscrita a la gobernación) para operar centros de educación privada (preescolar, primaria, secundaria, técnica).',
     vigencia: 12,
     requisitosInscripcion: ['Proyecto educativo institucional', 'Nómina de docentes con títulos y permisos', 'Certificado de habitabilidad del local', 'Permiso de bomberos', 'Permiso sanitario', 'Contrato de arrendamiento o título de propiedad'],
@@ -5093,7 +5093,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-PUBLICIDAD-ESTADAL',
     nombre: 'Permiso de Publicidad en Vías Estadales',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización para instalar vallas, avisos publicitarios y señalización comercial en vías estadales y carreteras.',
     vigencia: 12,
     requisitosInscripcion: ['Diseño del aviso a escala', 'Ubicación propuesta con coordenadas', 'RIF vigente', 'Pago de tasa estadal de publicidad'],
@@ -5105,7 +5105,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-PESCA-ARTESANAL',
     nombre: 'Permiso de Pesca Artesanal Estadal',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización de la gobernación para actividades de pesca artesanal en aguas interiores del estado (ríos, lagos, embalses).',
     vigencia: 12,
     requisitosInscripcion: ['Cédula de identidad', 'Inscripción en el registro de pescadores artesanales', 'Descripción de artes de pesca'],
@@ -5117,7 +5117,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-FORESTAL-ESTADAL',
     nombre: 'Permiso de Aprovechamiento Forestal Estadal',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización estadal para tala, deforestación o aprovechamiento de recursos forestales en tierras del estado.',
     vigencia: 12,
     requisitosInscripcion: ['Plan de manejo forestal', 'Estudio de impacto ambiental', 'Permiso del MinAmb nacional', 'Garantía de reforestación'],
@@ -5129,7 +5129,7 @@ export const tiposPermiso: PermisoTipo[] = [
   {
     id: 'GOB-AGUAS-ESTADAL',
     nombre: 'Permiso de Uso de Aguas Estadales',
-    organismoId: 'GOB-MIRANDA',
+    organismoId: 'GOB-GENERICO',
     descripcion: 'Autorización para el aprovechamiento de fuentes de agua superficiales o subterráneas dentro del estado para uso comercial, industrial o agrícola.',
     vigencia: 24,
     requisitosInscripcion: ['Estudio hidrogeológico', 'Plan de uso del recurso hídrico', 'Autorización de MinAguas nacional', 'Compromiso de conservación'],
@@ -5152,12 +5152,12 @@ export function getPermisosByOrganismo(organismoId: string): PermisoTipo[] {
   const org = organismos.find(o => o.id === organismoId);
   if (org && org.tipo === 'gobernacion') {
     return tiposPermiso
-      .filter(p => p.organismoId === 'GOB-MIRANDA')
+      .filter(p => p.organismoId === 'GOB-GENERICO')
       .map(p => ({ ...p, organismoId }));
   }
   if (org && org.tipo === 'alcaldia') {
     return tiposPermiso
-      .filter(p => p.organismoId === 'ALC-CHACAO')
+      .filter(p => p.organismoId === 'ALC-GENERICO')
       .map(p => ({ ...p, organismoId }));
   }
   return directos;
