@@ -17,6 +17,7 @@ import {
     Building, BookOpen, ShieldCheck, Check, Star, Crown, Zap,
     Mail, RefreshCw, Fingerprint, Calculator, FileText, Users, Headphones,
     TrendingUp, Shield, BarChart3, Lock, Phone, MessageCircle,
+    Landmark, ShoppingCart,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from '@/navigation';
@@ -80,6 +81,92 @@ const MODULES_CONTABILIDAD = [
     { id: 'analisis-caja', label: 'Análisis de Caja' },
     { id: 'inventario', label: 'Inventario' },
 ];
+
+interface ModuleVariant {
+    title: string;
+    subtitle: string;
+    icon: React.ElementType;
+    gradient: string;
+    portalLabel: string;
+    successLabel: string;
+    modules: { id: string; label: string }[];
+    summaryIcons: { icon: React.ElementType; label: string }[];
+}
+
+const MODULE_VARIANTS: Record<string, ModuleVariant> = {
+    'asesoria-contable': {
+        title: 'Asesoría Contable',
+        subtitle: 'System Kyron',
+        icon: Calculator,
+        gradient: 'linear-gradient(135deg, #1e3a5f, #2563eb)',
+        portalLabel: 'Portal Contable',
+        successLabel: 'Asesoría Contable',
+        modules: MODULES_CONTABILIDAD,
+        summaryIcons: [
+            { icon: Calculator, label: 'Contabilidad' },
+            { icon: FileText, label: 'Facturación' },
+            { icon: TrendingUp, label: 'Análisis' },
+        ],
+    },
+    'asesoria-comunal': {
+        title: 'Gestión Comunal',
+        subtitle: 'Contraloría Social',
+        icon: Building,
+        gradient: 'linear-gradient(135deg, #c2410c, #ea580c)',
+        portalLabel: 'Portal Comunal',
+        successLabel: 'Gestión Comunal',
+        modules: [
+            { id: 'contabilidad-comunal', label: 'Contabilidad Comunal' },
+            { id: 'rendicion-cuentas', label: 'Rendición de Cuentas' },
+            { id: 'presupuesto-participativo', label: 'Presupuesto Participativo' },
+            { id: 'contraloria-social', label: 'Contraloría Social' },
+        ],
+        summaryIcons: [
+            { icon: Building, label: 'Comunal' },
+            { icon: FileText, label: 'Rendición' },
+            { icon: Shield, label: 'Contraloría' },
+        ],
+    },
+    'gestion-publica': {
+        title: 'Gestión Pública',
+        subtitle: 'Presupuesto & SIGECOF',
+        icon: Landmark,
+        gradient: 'linear-gradient(135deg, #b45309, #d97706)',
+        portalLabel: 'Portal Gobierno',
+        successLabel: 'Gestión Pública',
+        modules: [
+            { id: 'presupuesto-publico', label: 'Presupuesto Público' },
+            { id: 'sigecof', label: 'SIGECOF' },
+            { id: 'rendicion-cgr', label: 'Rendición CGR' },
+            { id: 'onapre', label: 'ONAPRE' },
+            { id: 'transparencia', label: 'Transparencia Fiscal' },
+        ],
+        summaryIcons: [
+            { icon: Landmark, label: 'Gobierno' },
+            { icon: FileText, label: 'SIGECOF' },
+            { icon: Shield, label: 'CGR' },
+        ],
+    },
+    'ventas': {
+        title: 'Punto de Venta',
+        subtitle: 'Ventas & Inventario',
+        icon: ShoppingCart,
+        gradient: 'linear-gradient(135deg, #9f1239, #e11d48)',
+        portalLabel: 'Portal de Ventas',
+        successLabel: 'Punto de Venta',
+        modules: [
+            { id: 'tpv', label: 'Terminal Punto de Venta' },
+            { id: 'inventario', label: 'Control de Inventario' },
+            { id: 'ventas-estrategia', label: 'Estrategia de Ventas' },
+            { id: 'fidelizacion', label: 'Fidelización de Clientes' },
+        ],
+        summaryIcons: [
+            { icon: ShoppingCart, label: 'Ventas' },
+            { icon: BarChart3, label: 'Inventario' },
+            { icon: TrendingUp, label: 'Análisis' },
+        ],
+    },
+};
 
 const schema = z.object({
     razonSocial: z.string().min(3, 'Ingrese la razón social').or(z.literal('')),
@@ -162,6 +249,9 @@ export default function RegisterContabilidadPage() {
     const prefillTel = searchParams.get('tel') || '';
     const prefillParroquia = searchParams.get('parroquia') || '';
     const hasPrefill = !!prefillDoc;
+    const moduloParam = searchParams.get('modulo') || 'asesoria-contable';
+    const variant = MODULE_VARIANTS[moduloParam] || MODULE_VARIANTS['asesoria-contable'];
+    const VariantIcon = variant.icon;
 
     const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -331,7 +421,7 @@ export default function RegisterContabilidadPage() {
                     repEmail: data.repEmail,
                     password: data.password,
                     regimen_iva: data.regimen_iva || 'General',
-                    modules: MODULES_CONTABILIDAD,
+                    modules: variant.modules,
                     plan: selectedPlan,
                     plan_monto: planData?.precio ?? 0,
                 }),
@@ -368,12 +458,12 @@ export default function RegisterContabilidadPage() {
                 step === 1 ? "max-w-4xl pt-8" : "max-w-xl pt-10"
             )}>
                 <div className="flex items-center gap-4 mb-7">
-                    <div className="p-3 rounded-2xl shadow-lg" style={{ background: 'linear-gradient(135deg, #1e3a5f, #2563eb)' }}>
-                        <Calculator className="h-7 w-7 text-white" />
+                    <div className="p-3 rounded-2xl shadow-lg" style={{ background: variant.gradient }}>
+                        <VariantIcon className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-black uppercase tracking-[0.12em] text-slate-800 dark:text-slate-100">Asesoría Contable</h1>
-                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-500">System Kyron</p>
+                        <h1 className="text-2xl font-black uppercase tracking-[0.12em] text-slate-800 dark:text-slate-100">{variant.title}</h1>
+                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-500">{variant.subtitle}</p>
                     </div>
                 </div>
 
@@ -939,7 +1029,7 @@ export default function RegisterContabilidadPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <h2 className="text-2xl font-black uppercase tracking-tight" style={{ background: 'linear-gradient(135deg, #10b981, #1e40af)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>¡Cuenta Creada!</h2>
-                                        <p className="text-base text-slate-500 dark:text-slate-400">Tu empresa ya está registrada en <strong className="text-slate-800 dark:text-slate-100">Asesoría Contable</strong>.</p>
+                                        <p className="text-base text-slate-500 dark:text-slate-400">Tu empresa ya está registrada en <strong className="text-slate-800 dark:text-slate-100">{variant.successLabel}</strong>.</p>
                                     </div>
 
                                     {planData && (
@@ -957,11 +1047,7 @@ export default function RegisterContabilidadPage() {
                                     )}
 
                                     <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto">
-                                        {[
-                                            { icon: Calculator, label: 'Contabilidad' },
-                                            { icon: FileText, label: 'Facturación' },
-                                            { icon: TrendingUp, label: 'Análisis' },
-                                        ].map((item, i) => (
+                                        {variant.summaryIcons.map((item, i) => (
                                             <div key={i} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                                                 <item.icon className="h-5 w-5 text-blue-600" />
                                                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{item.label}</span>
@@ -969,8 +1055,8 @@ export default function RegisterContabilidadPage() {
                                         ))}
                                     </div>
 
-                                    <Button className="w-full max-w-xs h-12 rounded-xl font-bold text-sm text-white shadow-md" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }} onClick={() => { router.push('/resumen-negocio' as any); }}>
-                                        Ir al Portal Contable <ArrowRight className="ml-2 h-4 w-4" />
+                                    <Button className="w-full max-w-xs h-12 rounded-xl font-bold text-sm text-white shadow-md" style={{ background: variant.gradient }} onClick={() => { router.push('/resumen-negocio' as any); }}>
+                                        Ir al {variant.portalLabel} <ArrowRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 </div>
                             )}

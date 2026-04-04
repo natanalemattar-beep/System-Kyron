@@ -595,8 +595,9 @@ export default function RegisterSelectionPage() {
         setStep("modules");
     }, [detected, prefix, fullDocument]);
 
-    const handleSelectModule = useCallback((moduleRoute: string) => {
+    const handleSelectModule = useCallback((moduleRoute: string, moduleId: string) => {
         const params = new URLSearchParams({ doc: fullDocument });
+        if (moduleId !== moduleRoute) params.set('modulo', moduleId);
         if (rifLookup?.razonSocial) params.set('razon', rifLookup.razonSocial);
         if (rifLookup?.tipoEmpresa) params.set('tipo', rifLookup.tipoEmpresa);
         if (rifLookup?.actividadEconomica) params.set('actividad', rifLookup.actividadEconomica);
@@ -1166,7 +1167,7 @@ export default function RegisterSelectionPage() {
                                                         initial={{ opacity: 0, y: 12 }}
                                                         animate={{ opacity: 1, y: 0 }}
                                                         transition={{ duration: 0.35, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                                                        onClick={() => handleSelectModule(mod.route)}
+                                                        onClick={() => handleSelectModule(mod.route, mod.id)}
                                                         className="group relative w-full text-left rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md transition-all duration-400 overflow-hidden"
                                                     >
                                                         <div className={cn("absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-600", mod.gradient)} />
