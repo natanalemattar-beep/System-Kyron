@@ -1512,6 +1512,32 @@ async function createRRHHExtendedTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_clima_user_id ON clima_organizacional(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS desarrollo_personal (
+      id                SERIAL PRIMARY KEY,
+      user_id           INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      empleado_id       INT REFERENCES empleados(id) ON DELETE SET NULL,
+      nombre_plan       TEXT NOT NULL,
+      categoria         TEXT NOT NULL DEFAULT 'tecnico'
+                        CHECK (categoria IN ('tecnico','liderazgo','administrativo','legal','comunicacion','otro')),
+      nivel_actual      TEXT NOT NULL DEFAULT 'iniciacion'
+                        CHECK (nivel_actual IN ('iniciacion','junior','intermedio','senior','especialista','principal')),
+      nivel_objetivo    TEXT NOT NULL DEFAULT 'junior'
+                        CHECK (nivel_objetivo IN ('iniciacion','junior','intermedio','senior','especialista','principal')),
+      progreso          SMALLINT NOT NULL DEFAULT 0 CHECK (progreso BETWEEN 0 AND 100),
+      descripcion       TEXT,
+      competencias      TEXT[],
+      fecha_inicio      DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_objetivo    DATE,
+      estado            TEXT NOT NULL DEFAULT 'activo'
+                        CHECK (estado IN ('activo','completado','pausado','cancelado')),
+      notas             TEXT,
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_desarrollo_personal_user_id ON desarrollo_personal(user_id)`);
 }
 
 async function createRRHHLibrosLaboralesTables() {

@@ -32,6 +32,13 @@ export async function GET(req: NextRequest) {
     params
   );
 
+  const resumenParams: unknown[] = [session.userId];
+  let resumenCondition = '';
+  if (periodo) {
+    resumenParams.push(periodo);
+    resumenCondition = ` AND periodo = $${resumenParams.length}`;
+  }
+
   const resumen = await query(
     `SELECT dimension,
             ROUND(AVG(puntuacion), 2)::text AS promedio,
@@ -39,10 +46,10 @@ export async function GET(req: NextRequest) {
             MIN(puntuacion) AS min_puntaje,
             MAX(puntuacion) AS max_puntaje
      FROM clima_organizacional
-     WHERE user_id = $1 ${periodo ? `AND periodo = '${periodo}'` : ''}
+     WHERE user_id = $1${resumenCondition}
      GROUP BY dimension
      ORDER BY AVG(puntuacion) ASC`,
-    [session.userId]
+    resumenParams
   );
 
   return NextResponse.json({ encuestas, resumen });

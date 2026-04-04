@@ -19,7 +19,6 @@ export async function seedDemoData(userId: number): Promise<{ seeded: string[]; 
   await safeSeed('cuentas_bancarias', () => seedCuentasBancarias(userId));
   await safeSeed('inventario', () => seedInventario(userId));
   await safeSeed('facturas', () => seedFacturas(userId));
-  await safeSeed('empleados', () => seedEmpleados(userId));
   await safeSeed('tasas_bcv', () => seedTasasBCV());
   await safeSeed('plan_cuentas', () => seedPlanCuentas(userId));
   await safeSeed('movimientos_bancarios', () => seedMovimientos(userId));
@@ -137,27 +136,6 @@ async function seedFacturas(userId: number) {
      'moneda','subtotal','monto_iva','porcentaje_iva','monto_igtf','porcentaje_igtf','total','tasa_bcv','total_usd',
      'estado','descripcion'],
     factData
-  );
-}
-
-async function seedEmpleados(userId: number) {
-  const existing = await query(`SELECT id FROM empleados WHERE user_id = $1 LIMIT 1`, [userId]);
-  if (existing.length > 0) return;
-
-  await batchInsert('empleados',
-    ['user_id','nombre','apellido','cedula','cargo','departamento','fecha_ingreso','salario_base','tipo_contrato','telefono','email'],
-    [
-      [userId,'Carlos','Mendoza','V-18234567','Director General','Dirección','2020-01-15',4500.00,'tiempo_indeterminado','0414-1234567','cmendoza@kyron.com.ve'],
-      [userId,'María','González','V-20345678','Gerente de Finanzas','Finanzas','2020-03-01',3800.00,'tiempo_indeterminado','0412-2345678','mgonzalez@kyron.com.ve'],
-      [userId,'Pedro','Ramírez','V-22456789','Desarrollador Senior','Tecnología','2021-06-15',3200.00,'tiempo_indeterminado','0416-3456789','pramirez@kyron.com.ve'],
-      [userId,'Ana','Herrera','V-24567890','Diseñadora UX/UI','Tecnología','2022-01-10',2800.00,'tiempo_indeterminado','0424-4567890','aherrera@kyron.com.ve'],
-      [userId,'Roberto','Silva','V-19678901','Ejecutivo de Ventas','Comercial','2021-09-01',2500.00,'tiempo_indeterminado','0412-5678901','rsilva@kyron.com.ve'],
-      [userId,'Luisa','Martínez','V-21789012','Contadora','Finanzas','2020-07-20',3000.00,'tiempo_indeterminado','0414-6789012','lmartinez@kyron.com.ve'],
-      [userId,'Fernando','Costa','V-23890123','Soporte Técnico','Tecnología','2022-04-05',2200.00,'tiempo_indeterminado','0416-7890123','fcosta@kyron.com.ve'],
-      [userId,'Diana','Morales','V-25901234','Coordinadora RRHH','Recursos Humanos','2021-02-15',2800.00,'tiempo_indeterminado','0424-8901234','dmorales@kyron.com.ve'],
-      [userId,'Jorge','Blanco','V-20012345','Analista Legal','Legal','2022-08-01',2600.00,'tiempo_indeterminado','0414-9012345','jblanco@kyron.com.ve'],
-      [userId,'Andrea','Ruiz','V-26123456','Pasante Marketing','Comercial','2025-09-01',800.00,'pasante','0412-0123456','aruiz@kyron.com.ve'],
-    ]
   );
 }
 
@@ -291,7 +269,7 @@ async function seedNotificaciones(userId: number) {
       [userId,'fiscal','Declaración IVA pendiente','La declaración de IVA del período actual vence en 5 días. Revise su libro de ventas y compras.',false,'/es/admin/impuestos'],
       [userId,'alerta','Factura vencida','La factura FAC-2026-0008 de Marketing Digital Caracas está vencida desde hace 15 días.',false,'/es/admin/facturas'],
       [userId,'info','Nueva tasa BCV publicada','La tasa USD/VES del BCV se actualizó a Bs. 36.52. Sus facturas en divisas se han recalculado.',true,'/es/admin/contabilidad'],
-      [userId,'exito','Nómina procesada','La nómina quincenal de Marzo 2026 fue procesada exitosamente para 10 empleados.',true,'/es/rrhh/nomina'],
+      [userId,'exito','Nómina procesada','La nómina quincenal fue procesada exitosamente.',true,'/es/rrhh/nominas'],
       [userId,'advertencia','Stock bajo','El inventario de "Tóner HP LaserJet" está por debajo del mínimo (3 unidades restantes).',false,'/es/admin/inventario'],
       [userId,'vencimiento','Permiso municipal por vencer','El permiso municipal de funcionamiento vence en 30 días. Inicie el proceso de renovación.',false,'/es/admin/permisos'],
       [userId,'info','Respaldo automático completado','Se realizó un respaldo completo de la base de datos. 245 MB almacenados correctamente.',true,null],

@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       moneda_salario ?? 'USD',
       ubicacion ?? null,
       prioridad ?? 'normal',
-      fecha_limite ?? null,
+      fecha_limite || null,
     ]
   );
 
