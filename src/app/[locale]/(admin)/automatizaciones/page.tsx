@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Zap, Bot, Activity, Play, Pause, History, RefreshCw,
   CheckCircle2, XCircle, Clock, Loader2, ChevronDown, ChevronUp,
-  Timer, AlertTriangle, Database, Shield, FileText, Bell, Trash2, BarChart3
+  Timer, AlertTriangle, Database, Shield, FileText, Bell, Trash2, BarChart3,
+  Mail, Scale
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -54,11 +55,13 @@ interface AutomationStats {
 const ACTION_ICONS: Record<string, typeof Zap> = {
   bcv_sync: RefreshCw,
   fiscal_alerts: Bell,
+  regulatory_alerts: Scale,
   db_health_check: Database,
   blockchain_batch_anchor: Shield,
   session_cleanup: Trash2,
   invoice_reminders: FileText,
   activity_digest: BarChart3,
+  email_automation: Mail,
 };
 
 function formatDuration(ms: number | null): string {
@@ -96,13 +99,24 @@ export default function AutomatizacionesPage() {
         fetch('/api/automations?action=stats'),
         fetch('/api/automations?action=logs&limit=30'),
       ]);
+
+      if (!rulesRes.ok || !statsRes.ok || !logsRes.ok) {
+        const failedRes = [rulesRes, statsRes, logsRes].find(r => !r.ok);
+        if (failedRes?.status === 401) {
+          toast({ title: "Sesión expirada", description: "Inicia sesión nuevamente", variant: "destructive" });
+          return;
+        }
+        throw new Error(`Error del servidor: ${failedRes?.status}`);
+      }
+
       const rulesData = await rulesRes.json();
       const statsData = await statsRes.json();
       const logsData = await logsRes.json();
       setRules(rulesData.rules || []);
       setStats(statsData);
       setLogs(logsData.logs || []);
-    } catch {
+    } catch (err) {
+      console.error('[automatizaciones] Error loading data:', err);
       toast({ title: "Error", description: "No se pudieron cargar las automatizaciones", variant: "destructive" });
     } finally {
       setLoading(false);
@@ -474,11 +488,13 @@ export default function AutomatizacionesPage() {
             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50 mb-4">Tipos de Automatización</h3>
             <div className="space-y-2">
               {[
-                { label: 'Tasas de Cambio', icon: RefreshCw, color: 'text-blue-400' },
+                { label: 'Tasas de Cambio BCV', icon: RefreshCw, color: 'text-blue-400' },
                 { label: 'Alertas Fiscales', icon: Bell, color: 'text-yellow-400' },
+                { label: 'Monitor Regulatorio', icon: Scale, color: 'text-amber-400' },
                 { label: 'Salud del Sistema', icon: Database, color: 'text-emerald-400' },
                 { label: 'Blockchain', icon: Shield, color: 'text-violet-400' },
                 { label: 'Cobranza', icon: FileText, color: 'text-orange-400' },
+                { label: 'Emails Automáticos', icon: Mail, color: 'text-pink-400' },
                 { label: 'Limpieza', icon: Trash2, color: 'text-red-400' },
                 { label: 'Reportes', icon: BarChart3, color: 'text-cyan-400' },
               ].map(t => (

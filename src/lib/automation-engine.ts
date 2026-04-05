@@ -1,4 +1,4 @@
-import { query, queryOne, queryWithCount } from '@/lib/db';
+import { query, queryOne } from '@/lib/db';
 
 async function safeQuery(sql: string, params?: unknown[]): Promise<void> {
   try { await query(sql, params); } catch { /* non-fatal */ }
@@ -41,36 +41,87 @@ export function registerAction(type: string, handler: (config: Record<string, un
 }
 
 registerAction('bcv_sync', async () => {
-  try {
-    const resp = await fetch('https://pydolarve.org/api/v2/precio?page=bcv', {
-      headers: { 'Accept': 'application/json' },
-      signal: AbortSignal.timeout(10000),
-    });
-    if (!resp.ok) throw new Error(`BCV API ${resp.status}`);
-    const data = await resp.json();
-    const usdRate = data?.monitors?.usd?.price;
-    if (usdRate && typeof usdRate === 'number') {
-      await query(
-        `INSERT INTO tasas_bcv (fecha, tasa_usd_ves, fuente)
-         VALUES (CURRENT_DATE, $1, 'pydolarve_auto')
-         ON CONFLICT (fecha) DO UPDATE SET tasa_usd_ves = $1, fuente = 'pydolarve_auto'`,
-        [usdRate]
-      );
-      return `Tasa USD/VES actualizada: ${usdRate.toFixed(2)} Bs.`;
-    }
-    return 'Tasa obtenida pero sin valor válido';
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err);
-    throw new Error(`Error sincronizando BCV: ${msg}`);
+  const sources = [
+    { url: 'https://pydolarve.org/api/v2/precio?page=bcv', name: 'pydolarve', extract: (d: any) => d?.monitors?.usd?.price },
+    { url: 'https://ve.dolarapi.com/v1/dolares/oficial', name: 'dolarapi', extract: (d: any) => d?.promedio },
+  ];
+
+  for (const src of sources) {
+    try {
+      const resp = await fetch(src.url, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      const usdRate = src.extract(data);
+      if (usdRate && typeof usdRate === 'number' && usdRate > 0) {
+        await query(
+          `INSERT INTO tasas_bcv (fecha, tasa_usd_ves, fuente)
+           VALUES (CURRENT_DATE, $1, $2)
+           ON CONFLICT (fecha) DO UPDATE SET tasa_usd_ves = $1, fuente = $2`,
+          [usdRate, `${src.name}_auto`]
+        );
+        return `Tasa USD/VES actualizada: ${usdRate.toFixed(2)} Bs. (fuente: ${src.name})`;
+      }
+    } catch { /* try next source */ }
   }
+
+  const existing = await queryOne<{ tasa_usd_ves: string }>(
+    `SELECT tasa_usd_ves FROM tasas_bcv WHERE fecha = CURRENT_DATE`
+  );
+  if (existing) {
+    return `Sin conexión a APIs externas — se mantiene tasa del día: ${parseFloat(existing.tasa_usd_ves).toFixed(2)} Bs.`;
+  }
+  throw new Error('No se pudo obtener la tasa BCV de ninguna fuente y no hay tasa del día');
 });
 
 registerAction('fiscal_alerts', async () => {
-  return 'Alertas fiscales: solo notificaciones in-app (sin envío automático de correo)';
+  const now = new Date();
+  const day = now.getDate();
+  const alerts: string[] = [];
+
+  const pendingIVA = await queryOne<{ cnt: string }>(
+    `SELECT COUNT(*) as cnt FROM facturas WHERE estado = 'pendiente' AND fecha_emision >= CURRENT_DATE - INTERVAL '15 days'`
+  );
+  const ivaCount = parseInt(pendingIVA?.cnt || '0');
+
+  if (day >= 1 && day <= 15) {
+    alerts.push('Período de declaración IVA quincenal activo');
+  }
+  if (day >= 25) {
+    alerts.push('Próximo cierre de período fiscal — verificar retenciones ISLR');
+  }
+
+  const overdueInvoices = await queryOne<{ cnt: string }>(
+    `SELECT COUNT(*) as cnt FROM facturas WHERE estado = 'pendiente' AND fecha_vencimiento < CURRENT_DATE`
+  );
+  const overdueCount = parseInt(overdueInvoices?.cnt || '0');
+  if (overdueCount > 0) {
+    alerts.push(`${overdueCount} factura(s) vencida(s) requieren atención`);
+  }
+
+  if (alerts.length > 0) {
+    for (const alert of alerts) {
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+         SELECT id, 'fiscal', 'Alerta Fiscal Automática', $1, 'alta', 'app'
+         FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
+        [alert]
+      );
+    }
+  }
+
+  return `Revisión fiscal: ${alerts.length} alerta(s) generada(s), ${ivaCount} facturas en período IVA, ${overdueCount} vencida(s)`;
 });
 
 registerAction('regulatory_alerts', async () => {
-  return 'Monitor regulatorio: datos de referencia disponibles en la app (sin envío automático)';
+  const recentChanges = await queryOne<{ cnt: string }>(
+    `SELECT COUNT(*) as cnt FROM notificaciones WHERE tipo = 'fiscal' AND created_at > NOW() - INTERVAL '24 hours'`
+  );
+  const recent = parseInt(recentChanges?.cnt || '0');
+
+  return `Monitor regulatorio ejecutado — ${recent} alerta(s) fiscal(es) en últimas 24h`;
 });
 
 registerAction('db_health_check', async () => {
@@ -341,7 +392,9 @@ export async function runScheduledAutomations(): Promise<AutomationLog[]> {
     try {
       const log = await executeAutomation(rule.id);
       logs.push(log);
-    } catch { /* logged inside executeAutomation */ }
+    } catch (err) {
+      console.error(`[automation-engine] Error executing rule ${rule.name} (${rule.id}):`, err);
+    }
   }
 
   return logs;
