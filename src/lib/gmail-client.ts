@@ -84,6 +84,7 @@ export async function getUncachableGmailClient() {
 
 export async function getGmailSenderAddress(): Promise<string> {
   try {
+    if (process.env.GMAIL_USER) return process.env.GMAIL_USER;
     await getAccessToken();
     const email = connectionSettings?.settings?.email || connectionSettings?.metadata?.email;
     if (email) return email;
