@@ -120,8 +120,7 @@ export const asesoriaContableNavGroups = [
     title: "Legal",
     icon: Shield,
     items: [
-        { href: "/contabilidad/tributos/permisos", label: "Centro de Permisología", icon: ShieldCheck, section: "Permisología" },
-        { href: "/permisos", label: "Licencias Vigentes", icon: FileCheck, section: "Permisología" },
+        { href: "/contabilidad/tributos/permisos", label: "Licencias y Permisología", icon: ShieldCheck, section: "Permisología" },
         { href: "/autorizaciones", label: "Autorizaciones", icon: UserCheck, section: "Permisología" },
         { href: "/contabilidad/conatel", label: "Permiso CONATEL", icon: Signal, section: "Permisología" },
         { href: "/contabilidad/tributos/proteccion-pensiones", label: "Protección Pensiones", icon: ShieldCheck, section: "Permisología" },
