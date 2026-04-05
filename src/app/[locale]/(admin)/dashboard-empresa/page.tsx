@@ -776,7 +776,6 @@ export default function DashboardEmpresaPage() {
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-2">
           {[
-            { label: "Contabilidad", href: "/contabilidad", icon: Calculator, color: "text-blue-500", bg: "bg-blue-500/8" },
             { label: "Facturación", href: "/facturacion", icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8" },
             { label: "Legal", href: "/escritorio-juridico", icon: Gavel, color: "text-purple-500", bg: "bg-purple-500/8" },
             { label: "Inventario", href: "/inventario", icon: Briefcase, color: "text-amber-600", bg: "bg-amber-600/8" },

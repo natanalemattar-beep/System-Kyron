@@ -68,7 +68,6 @@ export const asesoriaContableNavGroups = [
     title: "Finanzas",
     icon: Calculator,
     items: [
-        { href: "/contabilidad", label: "Centro Contable", icon: BrainCircuit, section: "Contabilidad" },
         { href: "/contabilidad/libros", label: "Libros Consolidados", icon: BookOpen, section: "Contabilidad" },
         { href: "/contabilidad/plan-cuentas", label: "Plan de Cuentas", icon: FolderArchive, section: "Contabilidad" },
         { href: "/contabilidad/asientos-contables", label: "Asientos Contables", icon: FileEdit, section: "Contabilidad" },
