@@ -706,7 +706,7 @@ export default function DashboardEmpresaPage() {
               <Calendar className="h-4 w-4 text-amber-400" />
               <span className="text-[11px] font-semibold text-foreground/60">Calendario Fiscal SENIAT</span>
             </div>
-            <Link href="/contabilidad"><span className="text-[10px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3 w-3" /></span></Link>
+            <Link href="/contabilidad/tributos/calendario-fiscal"><span className="text-[10px] font-medium text-amber-400/70 hover:text-amber-300 flex items-center gap-1">Ver todo <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
           <div className="space-y-1.5">
             {fiscalDeadlines.length === 0 ? (
