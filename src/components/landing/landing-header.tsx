@@ -75,37 +75,45 @@ export function LandingHeader() {
     };
 
     return (
-        <motion.header
+        <motion.div
             initial={false}
             animate={{
-                paddingTop: isScrolled ? 10 : 24,
-                paddingBottom: isScrolled ? 10 : 24,
-                top: bannerVisible ? 36 : 0,
+                top: bannerVisible
+                    ? (isScrolled ? 44 : 36)
+                    : (isScrolled ? 12 : 0),
+                paddingTop: isScrolled ? 6 : 24,
+                paddingBottom: isScrolled ? 6 : 24,
+                borderRadius: isScrolled ? 20 : 0,
+                marginLeft: isScrolled ? 12 : 0,
+                marginRight: isScrolled ? 12 : 0,
             }}
             transition={{
-                paddingTop: { type: "spring", stiffness: 300, damping: 30 },
-                paddingBottom: { type: "spring", stiffness: 300, damping: 30 },
-                top: { type: "spring", stiffness: 200, damping: 28, mass: 0.8 },
+                type: "spring",
+                stiffness: 220,
+                damping: 26,
+                mass: 0.9,
             }}
             className={cn(
-                "fixed left-0 right-0 z-[150] w-full transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out",
+                "fixed left-0 right-0 z-[150] transition-[background-color,box-shadow,backdrop-filter,border-color] duration-500 ease-out",
                 isScrolled
                     ? cn(
+                        "border",
                         isDark
-                            ? "bg-[hsl(224,28%,8%)]/75 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.08),0_4px_16px_-8px_rgba(0,0,0,0.3)]"
-                            : "bg-background/80 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
+                            ? "bg-[hsl(224,28%,8%)]/80 backdrop-blur-2xl border-white/[0.08] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),0_2px_12px_-4px_rgba(14,165,233,0.12),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                            : "bg-white/75 backdrop-blur-2xl border-black/[0.06] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.12),0_2px_12px_-4px_rgba(14,165,233,0.08),inset_0_1px_0_rgba(255,255,255,0.8)]"
                       )
-                    : "bg-transparent shadow-none backdrop-blur-0 landing-hero-header"
+                    : "bg-transparent shadow-none backdrop-blur-0 border-transparent landing-hero-header"
             )}
+            role="banner"
         >
             <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{
                     scaleX: isScrolled ? 1 : 0,
-                    opacity: isScrolled ? 1 : 0,
+                    opacity: isScrolled ? 0.6 : 0,
                 }}
-                transition={{ type: "spring", stiffness: 200, damping: 25, delay: isScrolled ? 0.1 : 0 }}
-                className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent origin-center"
+                transition={{ type: "spring", stiffness: 200, damping: 25, delay: isScrolled ? 0.15 : 0 }}
+                className="absolute -bottom-[1px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent origin-center rounded-full"
             />
             <div className="container mx-auto px-5 md:px-10">
                 <div className="flex items-center justify-between h-11 w-full">
@@ -293,6 +301,6 @@ export function LandingHeader() {
                     </div>
                 </div>
             </div>
-        </motion.header>
+        </motion.div>
     )
 }
