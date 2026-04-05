@@ -74,15 +74,15 @@ export default function FacturacionCreditoPage() {
         transition={{ duration: 0.5 }}
       >
         <div>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-600 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold uppercase tracking-wide text-emerald-600 mb-4">
             <CreditCard className="h-3 w-3" /> CENTRO DE FINANCIAMIENTO
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
             Ventas{' '}
             <span className="bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 bg-clip-text text-transparent italic">a Crédito</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Gestión BNPL • Cuentas por Cobrar 2026</p>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Gestión BNPL • Cuentas por Cobrar 2026</p>
         </div>
         <div className="flex items-center gap-3">
           <CurrencySelector />
@@ -99,7 +99,7 @@ export default function FacturacionCreditoPage() {
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 * i + 0.2, duration: 0.4 }}>
             <Card className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.02] transition-all duration-300">
               <div className="flex justify-between items-start mb-3">
-                <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
                 <div className={cn("p-2 rounded-xl border transition-transform group-hover:scale-110",
                   kpi.color === "text-amber-500" ? "bg-amber-500/10 border-amber-500/15" :
                   kpi.color === "text-rose-500" ? "bg-rose-500/10 border-rose-500/15" :
@@ -109,7 +109,7 @@ export default function FacturacionCreditoPage() {
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </div>
               </div>
-              <p className="text-2xl font-black text-foreground tracking-tight">{kpi.val}</p>
+              <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
               <p className="text-[10px] text-muted-foreground/50 font-bold mt-1">{kpi.change}</p>
             </Card>
           </motion.div>
@@ -143,11 +143,11 @@ export default function FacturacionCreditoPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/10 border-none">
-                  <TableHead className="pl-6 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Cliente</TableHead>
-                  <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Factura</TableHead>
-                  <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Vencimiento</TableHead>
-                  <TableHead className="text-right py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Saldo</TableHead>
-                  <TableHead className="text-center pr-6 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
+                  <TableHead className="pl-6 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Cliente</TableHead>
+                  <TableHead className="py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Factura</TableHead>
+                  <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Vencimiento</TableHead>
+                  <TableHead className="text-right py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Saldo</TableHead>
+                  <TableHead className="text-center pr-6 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -155,13 +155,13 @@ export default function FacturacionCreditoPage() {
                   <TableRow key={c.id} className="border-border/20 hover:bg-muted/10 transition-all">
                     <TableCell className="pl-6 py-4">
                       <p className="font-bold text-xs text-foreground">{c.cliente}</p>
-                      <p className="text-[9px] text-muted-foreground">{c.rif}</p>
+                      <p className="text-[11px] text-muted-foreground">{c.rif}</p>
                     </TableCell>
                     <TableCell className="text-xs font-mono text-primary font-bold">{c.factura}</TableCell>
                     <TableCell className="text-center text-xs text-muted-foreground">{c.vencimiento}</TableCell>
                     <TableCell className="text-right font-mono text-xs font-bold text-foreground">{fmtCur(parseFloat(c.saldo || c.monto))}</TableCell>
                     <TableCell className="text-center pr-6">
-                      <Badge className={cn("text-[8px] font-bold capitalize", estadoBadge[c.estado] ?? "bg-muted/30")}>
+                      <Badge className={cn("text-[10px] font-bold capitalize", estadoBadge[c.estado] ?? "bg-muted/30")}>
                         {c.estado}
                       </Badge>
                     </TableCell>

@@ -44,11 +44,11 @@ export default function AnalisisMercadoPage() {
   return (
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
           <Activity className="h-3 w-3" /> CENTRO ESTRATÉGICO
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Análisis <span className="text-primary italic">de Mercado</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Business Intelligence • Telemetría Comercial 2026</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Análisis <span className="text-primary italic">de Mercado</span></h1>
+        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Business Intelligence • Telemetría Comercial 2026</p>
       </header>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -58,20 +58,20 @@ export default function AnalisisMercadoPage() {
           { title: "Ingreso Promedio / Cliente", value: loading ? "—" : formatCurrency(ingresoPromedioCliente, 'Bs.'), icon: TrendingUp, description: "Ticket promedio por cliente activo." },
         ].map((kpi, i) => (
           <motion.div key={kpi.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-            <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+            <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-lg relative overflow-hidden">
               <div className="absolute top-0 right-0 p-6 opacity-5"><kpi.icon className="h-16 w-16" /></div>
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">{kpi.title}</p>
-              <p className="text-3xl font-black italic text-foreground tracking-tight mb-2">{kpi.value}</p>
-              <p className="text-[9px] font-bold uppercase text-primary/60">{kpi.description}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40 mb-4">{kpi.title}</p>
+              <p className="text-3xl font-bold text-foreground tracking-tight mb-2">{kpi.value}</p>
+              <p className="text-[11px] font-bold uppercase text-primary/60">{kpi.description}</p>
             </Card>
           </motion.div>
         ))}
       </div>
 
       <div className="grid gap-10 lg:grid-cols-12 mt-10">
-        <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
           <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Ingresos Mensuales</CardTitle>
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Ingresos Mensuales</CardTitle>
           </CardHeader>
           <CardContent className="p-10 h-[400px]">
             {loading ? (
@@ -101,16 +101,16 @@ export default function AnalisisMercadoPage() {
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
+        <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-2xl p-10 flex flex-col justify-between relative overflow-hidden border-none group">
           <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Lightbulb className="h-32 w-32" /></div>
           <div>
-            <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6">Insight Maestro</h3>
+            <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-6">Insight Maestro</h3>
             <p className="text-sm font-bold opacity-80 leading-relaxed uppercase mb-8">
               Los datos de mercado reflejan el comportamiento real de tus clientes y facturas. 
               Registra más transacciones para obtener tendencias precisas y recomendaciones IA.
             </p>
           </div>
-          <Button asChild variant="secondary" className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">
+          <Button asChild variant="secondary" className="w-full h-12 bg-white text-primary font-semibold uppercase text-[10px] tracking-widest rounded-xl shadow-lg">
             <Link href="/estrategias-ventas">ESTRATEGIAS IA</Link>
           </Button>
         </Card>

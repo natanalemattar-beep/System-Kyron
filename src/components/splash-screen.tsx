@@ -49,7 +49,7 @@ export function SplashScreen() {
                 </motion.div>
             </motion.div>
             <motion.p 
-                className="mt-8 text-sm font-black uppercase tracking-[0.5em] text-muted-foreground/50"
+                className="mt-8 text-sm font-semibold uppercase tracking-wider text-muted-foreground/50"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

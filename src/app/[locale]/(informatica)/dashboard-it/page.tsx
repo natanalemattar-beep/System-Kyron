@@ -117,18 +117,18 @@ export default function DashboardITPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-cyan-500 pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-cyan-500 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-semibold uppercase tracking-wider text-cyan-500 mb-3">
             <Cpu className="h-3 w-3" /> DEPARTAMENTO DE INFORMÁTICA
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Dashboard <span className="text-cyan-500 italic">IT</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Centro de Control • Infraestructura • Seguridad • Soporte • Respaldos
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2"
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2"
             onClick={() => { load(); toast({ title: "Actualizando dashboard", description: "Recargando métricas de IT..." }); }}>
             <RefreshCw className="h-4 w-4" /> ACTUALIZAR
           </Button>
@@ -146,9 +146,9 @@ export default function DashboardITPage() {
                 </div>
               </div>
               {loading ? <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /> : (
-                <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+                <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
               )}
-              <p className="text-[9px] text-muted-foreground mt-1">{kpi.sub}</p>
+              <p className="text-[11px] text-muted-foreground mt-1">{kpi.sub}</p>
             </Card>
           </motion.div>
         ))}
@@ -159,7 +159,7 @@ export default function DashboardITPage() {
           <Card className="rounded-2xl">
             <CardHeader className="p-5 border-b bg-muted/10">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xs font-black uppercase tracking-widest">Actividad Reciente</CardTitle>
+                <CardTitle className="text-xs font-semibold uppercase tracking-widest">Actividad Reciente</CardTitle>
                 <Link href="/helpdesk" className="text-[10px] text-primary font-bold hover:underline flex items-center gap-1">
                   Helpdesk <ArrowRight className="h-3 w-3" />
                 </Link>
@@ -183,7 +183,7 @@ export default function DashboardITPage() {
                     <p className="text-[11px] font-semibold">{ev.evento}</p>
                     <p className="text-[10px] text-muted-foreground">{ev.descripcion}</p>
                   </div>
-                  <span className="text-[9px] text-muted-foreground whitespace-nowrap">
+                  <span className="text-[11px] text-muted-foreground whitespace-nowrap">
                     {new Date(ev.created_at).toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit' })}
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export default function DashboardITPage() {
 
         <Card className="rounded-2xl">
           <CardHeader className="p-5 border-b bg-muted/10">
-            <CardTitle className="text-xs font-black uppercase tracking-widest">Estado de Tickets</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-widest">Estado de Tickets</CardTitle>
           </CardHeader>
           <CardContent className="p-5 space-y-4">
             {loading ? (
@@ -206,14 +206,14 @@ export default function DashboardITPage() {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[10px] font-semibold text-amber-500">Abiertos</span>
-                    <span className="text-xs font-black text-amber-500">{ticketsAbiertos}</span>
+                    <span className="text-xs font-bold text-amber-500">{ticketsAbiertos}</span>
                   </div>
                   <Progress value={itData?.tickets.total ? (ticketsAbiertos / itData.tickets.total) * 100 : 0} className="h-1.5" />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[10px] font-semibold text-primary">En Progreso</span>
-                    <span className="text-xs font-black text-primary">{ticketsEnProgreso}</span>
+                    <span className="text-xs font-bold text-primary">{ticketsEnProgreso}</span>
                   </div>
                   <Progress value={itData?.tickets.total ? (ticketsEnProgreso / itData.tickets.total) * 100 : 0} className="h-1.5" />
                 </div>
@@ -230,7 +230,7 @@ export default function DashboardITPage() {
 
       <div>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground">Módulos IT</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Módulos IT</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {MODULOS.map((mod, i) => (

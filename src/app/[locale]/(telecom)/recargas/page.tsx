@@ -195,7 +195,7 @@ export default function RecargasPage() {
                 <Star className="h-4 w-4" />
                 <span className="text-xs font-bold uppercase tracking-wider">Saldo Kyron</span>
               </div>
-              <p className="text-3xl font-black tracking-tight">$42.50</p>
+              <p className="text-3xl font-bold tracking-tight">$42.50</p>
               <p className="text-[10px] opacity-70">Disponible para recargas inmediatas</p>
             </CardContent>
           </Card>
@@ -216,7 +216,7 @@ export default function RecargasPage() {
                   </div>
                   <div className="text-right space-y-0.5">
                     <p className="text-[10px] text-muted-foreground">{h.fecha}</p>
-                    <Badge variant="outline" className="text-[9px] px-1.5 py-0 bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+                    <Badge variant="outline" className="text-[11px] px-1.5 py-0 bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
                       Completada
                     </Badge>
                   </div>

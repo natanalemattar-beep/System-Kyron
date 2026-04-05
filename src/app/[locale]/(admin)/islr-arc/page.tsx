@@ -43,18 +43,18 @@ export default function IslrArcPage() {
         animate={{ opacity: 1, y: 0 }}
         className="border-l-4 border-primary pl-6 md:pl-8 py-2 mt-10"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
           <Banknote className="h-3 w-3" /> CENTRO DE PERSONAL
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Retenciones <span className="text-primary italic">AR-C</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Comprobantes de Retención de ISLR • Ejercicio Fiscal 2026</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Retenciones <span className="text-primary italic">AR-C</span></h1>
+        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Comprobantes de Retención de ISLR • Ejercicio Fiscal 2026</p>
       </motion.header>
 
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
-          <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+          <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
             <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-              <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Relación de Comprobantes AR-C</CardTitle>
+              <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Relación de Comprobantes AR-C</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {loading ? (
@@ -72,26 +72,26 @@ export default function IslrArcPage() {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-muted/30 border-none">
-                      <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Empleado / C.I.</TableHead>
-                      <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Cargo</TableHead>
-                      <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Ingreso Anual</TableHead>
-                      <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
-                      <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
+                      <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Empleado / C.I.</TableHead>
+                      <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Cargo</TableHead>
+                      <TableHead className="text-right py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Ingreso Anual</TableHead>
+                      <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Estado</TableHead>
+                      <TableHead className="text-right pr-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Acción</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {data.map(row => (
                       <TableRow key={row.id} className="border-border/50 hover:bg-muted/20 transition-all group">
                         <TableCell className="pl-10 py-6">
-                          <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{row.nombre} {row.apellido}</p>
-                          <p className="text-[8px] font-mono text-muted-foreground font-bold">{row.cedula}</p>
+                          <p className="font-semibold text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{row.nombre} {row.apellido}</p>
+                          <p className="text-[10px] font-mono text-muted-foreground font-bold">{row.cedula}</p>
                         </TableCell>
                         <TableCell className="text-center py-6 text-xs text-muted-foreground">{row.cargo ?? row.departamento ?? '—'}</TableCell>
                         <TableCell className="text-right py-6 font-mono text-sm font-bold text-foreground/70">
                           {formatCurrency(parseFloat(row.salario) * 12 || 0, 'Bs.')}
                         </TableCell>
                         <TableCell className="text-center py-6">
-                          <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest h-6 px-3">Pendiente</Badge>
+                          <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest h-6 px-3">Pendiente</Badge>
                         </TableCell>
                         <TableCell className="text-right pr-10 py-6">
                           <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary" onClick={() => toast({ title: "Generando AR-C", description: `Comprobante de ${row.nombre} ${row.apellido} en proceso.` })}>
@@ -105,29 +105,29 @@ export default function IslrArcPage() {
               )}
             </CardContent>
             <CardFooter className="p-10 border-t border-border bg-primary/5 flex justify-between items-center">
-              <div className="flex items-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40">
+              <div className="flex items-center gap-3 text-[11px] font-semibold uppercase text-muted-foreground/40">
                 <ShieldCheck className="h-4 w-4 text-primary" /> VALIDACIÓN DE CARGA FAMILIAR ACTIVA
               </div>
-              <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px] tracking-widest" onClick={() => toast({ title: "Procesando lote...", description: "Generando AR-C para todos los empleados activos." })}>PROCESAR LOTE MASIVO</Button>
+              <Button className="h-12 px-8 rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => toast({ title: "Procesando lote...", description: "Generando AR-C para todos los empleados activos." })}>PROCESAR LOTE MASIVO</Button>
             </CardFooter>
           </Card>
         </div>
 
         <div className="lg:col-span-4 space-y-8">
-          <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 relative overflow-hidden group shadow-2xl">
+          <Card className="glass-card border-none p-10 rounded-2xl bg-card/40 relative overflow-hidden group shadow-lg">
             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000">
               <Terminal className="h-32 w-32" />
             </div>
-            <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground mb-6">Guía de Retención</h3>
+            <h3 className="text-xl font-semibold uppercase italic tracking-tight text-foreground mb-6">Guía de Retención</h3>
             <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase mb-8 text-justify">
               El comprobante AR-C es obligatorio según el Reglamento de la Ley de ISLR. El sistema consolida los pagos de nómina y calcula el porcentaje de retención basado en la planilla ARI de cada trabajador.
             </p>
             <div className="space-y-4 border-t border-border pt-6">
-              <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest opacity-40">
+              <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest opacity-40">
                 <span>Periodo de Carga:</span>
                 <span className="text-foreground">Enero - Diciembre</span>
               </div>
-              <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest opacity-40">
+              <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest opacity-40">
                 <span>Próximo Cierre:</span>
                 <span className="text-primary">31 de Marzo</span>
               </div>

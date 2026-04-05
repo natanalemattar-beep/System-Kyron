@@ -145,10 +145,10 @@ export function ShowcaseSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-[9px] font-black uppercase tracking-[0.3em] text-primary mx-auto mb-5">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-wide text-primary mx-auto mb-5">
             <Monitor className="h-3 w-3" /> Vista Previa de la Plataforma
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.1] mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground uppercase leading-[1.1] mb-4">
             Conoce{' '}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">
               System Kyron

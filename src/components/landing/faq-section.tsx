@@ -30,11 +30,11 @@ export function FaqSection() {
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-semibold uppercase tracking-[0.35em] text-primary mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1]">
+                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight text-foreground uppercase leading-[1.1]">
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">
                             {t('title_rest')}
@@ -61,9 +61,9 @@ export function FaqSection() {
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">
                                             <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/15 flex items-center justify-center shrink-0">
-                                                <span className="text-[10px] font-black text-primary">{String(index + 1).padStart(2, '0')}</span>
+                                                <span className="text-[10px] font-bold text-primary">{String(index + 1).padStart(2, '0')}</span>
                                             </div>
-                                            <span className="text-xs md:text-sm font-black uppercase tracking-tight text-foreground/90 leading-snug">
+                                            <span className="text-xs md:text-sm font-semibold uppercase tracking-tight text-foreground/90 leading-snug">
                                                 {item.question}
                                             </span>
                                         </div>
@@ -80,7 +80,7 @@ export function FaqSection() {
                         <Link href="/faq">
                             <Button
                                 variant="outline"
-                                className="group h-12 px-8 rounded-2xl border-primary/20 bg-primary/5 hover:bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
+                                className="group h-12 px-8 rounded-2xl border-primary/20 bg-primary/5 hover:bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wide transition-all hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
                             >
                                 <span>{t('view_more')}</span>
                                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

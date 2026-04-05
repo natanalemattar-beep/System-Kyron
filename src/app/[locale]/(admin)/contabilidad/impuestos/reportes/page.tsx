@@ -33,7 +33,7 @@ export default function ReportesPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <FileText className="h-8 w-8 text-emerald-600" />
             Reportes Tributarios
           </h1>
@@ -60,28 +60,28 @@ export default function ReportesPage() {
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Ingresos del Período</p>
-            <p className="text-3xl font-black text-foreground">{formatCurrency(data.ingresos, "Bs.")}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Ingresos del Período</p>
+            <p className="text-3xl font-bold text-foreground">{formatCurrency(data.ingresos, "Bs.")}</p>
           </Card>
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Gastos del Período</p>
-            <p className="text-3xl font-black text-rose-600">{formatCurrency(data.gastos, "Bs.")}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Gastos del Período</p>
+            <p className="text-3xl font-bold text-rose-600">{formatCurrency(data.gastos, "Bs.")}</p>
           </Card>
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Utilidad Neta</p>
-            <p className="text-3xl font-black text-emerald-600">{formatCurrency(data.utilidadNeta, "Bs.")}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Utilidad Neta</p>
+            <p className="text-3xl font-bold text-emerald-600">{formatCurrency(data.utilidadNeta, "Bs.")}</p>
           </Card>
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Liquidez Total</p>
-            <p className="text-3xl font-black text-foreground">{formatCurrency(data.liquidezTotal, "Bs.")}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Liquidez Total</p>
+            <p className="text-3xl font-bold text-foreground">{formatCurrency(data.liquidezTotal, "Bs.")}</p>
           </Card>
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Facturas Emitidas</p>
-            <p className="text-3xl font-black text-amber-600">{data.facturas.emitidas}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Facturas Emitidas</p>
+            <p className="text-3xl font-bold text-amber-600">{data.facturas.emitidas}</p>
           </Card>
           <Card className="border rounded-2xl shadow-sm p-8">
-            <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Facturas Vencidas</p>
-            <p className="text-3xl font-black text-rose-600">{data.facturas.vencidas}</p>
+            <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Facturas Vencidas</p>
+            <p className="text-3xl font-bold text-rose-600">{data.facturas.vencidas}</p>
           </Card>
         </div>
       )}

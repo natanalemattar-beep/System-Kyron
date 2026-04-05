@@ -126,9 +126,9 @@ export default function ModeloZeduPage() {
         });
     };
 
-    const tableHeaderClass = "header-cell bg-[#0A2472] text-white font-black uppercase p-5 text-[12px] border border-black tracking-[0.2em] text-center";
+    const tableHeaderClass = "header-cell bg-[#0A2472] text-white font-semibold uppercase p-5 text-[12px] border border-black tracking-wide text-center";
     const tableCellClass = "p-5 text-[13px] border border-black text-slate-900 bg-white leading-relaxed font-medium text-justify";
-    const tableLabelClass = "label-cell bg-slate-50 p-5 text-[10px] font-black uppercase border border-black text-slate-500 w-1/3 border-r-2";
+    const tableLabelClass = "label-cell bg-slate-50 p-5 text-[10px] font-semibold uppercase border border-black text-slate-500 w-1/3 border-r-2";
 
     return (
         <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100" style={{ colorScheme: 'light' }}>
@@ -140,7 +140,7 @@ export default function ModeloZeduPage() {
                     <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-xs uppercase h-12 px-8 shadow-sm">
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
-                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-black text-xs uppercase h-12 px-10 shadow-xl">
+                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-semibold text-xs uppercase h-12 px-10 shadow-xl">
                         <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD (.DOC)
                     </Button>
                 </div>
@@ -149,13 +149,13 @@ export default function ModeloZeduPage() {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
+                className="max-w-5xl mx-auto bg-white shadow-lg p-12 md:p-20 text-slate-950 border border-slate-200"
             >
                 <div className="flex items-start justify-start border-b-4 border-slate-100 mb-16 pb-10 gap-12">
                     <Logo id="main-logo-zedu" className="h-28 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg rounded-2xl shrink-0" />
                     <div className="pt-2 space-y-2">
-                        <h1 className="text-4xl md:text-5xl font-black text-[#0A2472] uppercase tracking-tight italic leading-none">MODELO ZEDU</h1>
-                        <h2 className="text-2xl md:text-3xl font-black text-slate-400 uppercase tracking-tight italic leading-none">SYSTEM KYRON</h2>
+                        <h1 className="text-4xl md:text-5xl font-bold text-[#0A2472] uppercase tracking-tight italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-400 uppercase tracking-tight italic leading-none">SYSTEM KYRON</h2>
                         <p className="text-sm text-slate-400 font-bold uppercase tracking-widest pt-1">U.E.P. Gabriela Mistral · Caracas, Venezuela</p>
                     </div>
                 </div>
@@ -164,28 +164,28 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 1 — INFORMACIÓN DEL EQUIPO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Users className="h-7 w-7" /> 1. INFORMACIÓN DEL EQUIPO
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Nombre del Proyecto</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase text-xl py-6 col-span-3")} colSpan={3}>System Kyron</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase text-xl py-6 col-span-3")} colSpan={3}>System Kyron</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Integrantes del Equipo</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Carlos Mattar</td>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Sebastian Garrido</td>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")}>Marcos Sousa</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase py-6")}>Carlos Mattar</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase py-6")}>Sebastian Garrido</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase py-6")}>Marcos Sousa</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Institución Educativa</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>U.E.P. Gabriela Mistral</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase py-6")} colSpan={3}>U.E.P. Gabriela Mistral</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>País / Ciudad</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black uppercase py-6")} colSpan={3}>Venezuela, Caracas</td>
+                                    <td className={cn(tableCellClass, "text-center font-semibold uppercase py-6")} colSpan={3}>Venezuela, Caracas</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -195,7 +195,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 2 — POBLACIÓN A TRABAJAR */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <MapPin className="h-7 w-7" /> 2. POBLACIÓN A TRABAJAR
                         </h2>
                         <table className="w-full border-collapse">
@@ -261,7 +261,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 3 — ANÁLISIS DEL PROBLEMA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <AlertTriangle className="h-7 w-7" /> 3. ANÁLISIS DEL PROBLEMA
                         </h2>
                         <table className="w-full border-collapse">
@@ -327,7 +327,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 4 — SOLUCIÓN PROPUESTA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Lightbulb className="h-7 w-7" /> 4. SOLUCIÓN PROPUESTA — SYSTEM KYRON
                         </h2>
                         <table className="w-full border-collapse">
@@ -415,7 +415,7 @@ export default function ModeloZeduPage() {
                         </table>
 
                         <div className="mt-12">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-semibold uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <ShieldCheck className="h-6 w-6" /> Propuestas Existentes y Diferenciadores
                             </h3>
                             <table className="w-full border-collapse">
@@ -461,7 +461,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 5 — PRESUPUESTO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Zap className="h-7 w-7" /> 5. PRESUPUESTO (INVERSIÓN REQUERIDA)
                         </h2>
                         <table className="w-full border-collapse">
@@ -477,111 +477,111 @@ export default function ModeloZeduPage() {
                                 <tr>
                                     <td className={tableCellClass}>Suscripción Kyron AI — Claude de Anthropic (IA generativa para módulos legales, fiscal y eco-créditos) — plan anual</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 480,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 480,00</td>
                                     <td className={tableCellClass}>Kyron AI Cloud — Claude (Anthropic) en línea</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Hosting cloud en Vercel / AWS — servidor Next.js, base de datos PostgreSQL y almacenamiento de documentos (plan anual)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 360,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 360,00</td>
                                     <td className={tableCellClass}>Vercel Pro / Amazon AWS</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Dominio web systemkyron.com y certificado SSL/TLS (1 año)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 35,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 35,00</td>
                                     <td className={tableCellClass}>Namecheap (en línea)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Laptops de desarrollo para el equipo (2 unidades — uso compartido en fases de desarrollo)</td>
                                     <td className={cn(tableCellClass, "text-center")}>2</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 800,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 800,00</td>
                                     <td className={tableCellClass}>Centro de tecnología, Caracas</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Suscripción herramientas de desarrollo: GitHub Pro, Figma y suite de diseño UI/UX (plan anual)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 144,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 144,00</td>
                                     <td className={tableCellClass}>GitHub / Figma (en línea)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Consultoría con contador público certificado en VEN-NIF para validación del módulo fiscal</td>
                                     <td className={cn(tableCellClass, "text-center")}>5 sesiones</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 200,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 200,00</td>
                                     <td className={tableCellClass}>Contador independiente, Caracas</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Consultoría con abogado mercantilista para validación del módulo legal y generación de documentos</td>
                                     <td className={cn(tableCellClass, "text-center")}>3 sesiones</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 150,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 150,00</td>
                                     <td className={tableCellClass}>Abogado independiente, Caracas</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Diseño de identidad visual corporativa System Kyron: logo definitivo, manual de marca y materiales de pitch</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 180,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 180,00</td>
                                     <td className={tableCellClass}>Diseñador gráfico local / Freelancer</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Acceso a datos SENIAT y BCV (suscripción a fuentes oficiales de actualización fiscal y cambiaria)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 60,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 60,00</td>
                                     <td className={tableCellClass}>APIs SENIAT / Banco Central de Venezuela</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Logística, traslados y gastos operativos del equipo (visitas a empresas piloto, material de presentación)</td>
                                     <td className={cn(tableCellClass, "text-center")}>—</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 91,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 91,00</td>
                                     <td className={tableCellClass}>Transporte urbano / Imprentas, Caracas</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={4}>Gastos Operativos del Local y Permisología</td></tr>
                                 <tr>
                                     <td className={tableCellClass}>Alquiler mensual de local comercial (sede operativa System Kyron / punto de venta de telefonía) — incluye servicios básicos</td>
                                     <td className={cn(tableCellClass, "text-center")}>12 meses</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 4.800,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 4.800,00</td>
                                     <td className={tableCellClass}>Local comercial, Área Metropolitana de Caracas</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Permisología operativa: inscripción SENIAT (RIF empresarial), habilitación municipal, permiso CONATEL concesión telefonía personal, certificado de solvencia laboral INPSASEL y bomberos</td>
                                     <td className={cn(tableCellClass, "text-center")}>1 conjunto</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 850,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 850,00</td>
                                     <td className={tableCellClass}>SENIAT / Alcaldía / CONATEL / INPSASEL</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}>Acondicionamiento inmobiliario del local: adecuación eléctrica, rótulo corporativo, mobiliario de atención al cliente (escritorios, sillas, counter, estantes de exhibición de equipos)</td>
                                     <td className={cn(tableCellClass, "text-center")}>1</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.200,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 2.200,00</td>
                                     <td className={tableCellClass}>Proveedores locales, Caracas</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={4}>Bienes Muebles — Flota de Despacho y Logística</td></tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>Motocicleta Bera Carguera DT-200</strong> — para logística de distribución de SIM Cards, papeleras Ameru y equipos de telefonía. Capacidad de carga 200 kg, motor 200cc, incluye caja de carga metálica lateral y central.</td>
                                     <td className={cn(tableCellClass, "text-center")}>1 unidad</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.800,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 2.800,00</td>
                                     <td className={tableCellClass}>Distribuidora Bera Venezuela / Casa Bera, Caracas</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>Motocicleta de Despacho</strong> — para entregas urgentes, activación de líneas a domicilio y traslado de documentación entre puntos operativos. Motor 150cc, ágil para entorno urbano.</td>
                                     <td className={cn(tableCellClass, "text-center")}>1 unidad</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.650,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 1.650,00</td>
                                     <td className={tableCellClass}>Distribuidora de motos, Caracas</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={4}>Compra Inicial de Inventario</td></tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>Papeleras Inteligentes Ameru.AI</strong> — unidades con sensores de inducción magnética para clasificación de residuos, generación de eco-créditos y conectividad IoT. Destino: puntos de venta aliados y sede operativa.</td>
                                     <td className={cn(tableCellClass, "text-center")}>10 unidades</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 683,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 683,00</td>
                                     <td className={tableCellClass}>Ameru.AI Venezuela</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>Inventario inicial de teléfonos</strong> — lote mixto de smartphones para comercialización en el punto de venta: gama económica (Xiaomi Redmi, Samsung Galaxy A-series), gama media (Samsung Galaxy M-series, Huawei Nova) y accesorios (fundas, protectores, cargadores).</td>
                                     <td className={cn(tableCellClass, "text-center")}>30 equipos</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 4.500,00</td>
                                     <td className={tableCellClass}>Mayoristas de electrónica, Caracas / La Guaira</td>
                                 </tr>
                                 <tr className="bg-slate-50">
-                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")} colSpan={2}>INVERSIÓN TOTAL DEL PROYECTO</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 18.574,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-semibold uppercase text-slate-500 py-6")} colSpan={2}>INVERSIÓN TOTAL DEL PROYECTO</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold text-3xl text-[#0A2472] italic")}>$ 18.574,00</td>
                                     <td className={tableCellClass}></td>
                                 </tr>
                             </tbody>
@@ -593,7 +593,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 6 — ALIADOS */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Handshake className="h-7 w-7" /> 6. ALIADOS ESTRATÉGICOS
                         </h2>
                         <table className="w-full border-collapse">
@@ -605,27 +605,27 @@ export default function ModeloZeduPage() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Google Cloud for Education</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>Google Cloud for Education</td>
                                     <td className={tableCellClass}>Acceso a créditos de IA y la API de Kyron AI (Claude de Anthropic) bajo el programa educativo. Documentación técnica, recursos de formación en inteligencia artificial y soporte en la arquitectura de sistemas basados en IA generativa para equipos estudiantiles emprendedores.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Colegio Santa Rosa de Lima</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>Colegio Santa Rosa de Lima</td>
                                     <td className={tableCellClass}>Espacio institucional y aval académico para el desarrollo del proyecto. Acceso a la red de empresas vinculadas a la comunidad de representantes para las pruebas piloto. Participación del profesorado especializado en las áreas de Computación, Economía y Ciencias Sociales como asesores académicos del equipo.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Empresas Piloto del Sector Privado</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>Empresas Piloto del Sector Privado</td>
                                     <td className={tableCellClass}>Tres empresas PYME del Área Metropolitana de Caracas (sectores comercio, servicios y tecnología) comprometidas a participar como usuarios beta de la plataforma durante la fase de validación. Retroalimentación directa sobre la usabilidad, precisión fiscal y eficiencia de los módulos en entorno de producción real.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Contador Público Certificado (VEN-NIF)</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>Contador Público Certificado (VEN-NIF)</td>
                                     <td className={tableCellClass}>Validación técnica del módulo de Contabilidad VEN-NIF y del módulo de Declaraciones Tributarias. Revisión de los algoritmos de cálculo de IVA, ISLR, IGTF y retenciones SENIAT. Certificación de la exactitud de los libros contables generados por la plataforma conforme a las Normas Internacionales de Información Financiera adaptadas a Venezuela.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>Abogado Mercantilista / Laboralista</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>Abogado Mercantilista / Laboralista</td>
                                     <td className={tableCellClass}>Validación jurídica de los documentos generados por el módulo de IA Legal: contratos, poderes, actas de asamblea y permisos. Verificación del cumplimiento de la LOTTT en el módulo de RRHH. Orientación sobre la normativa CONATEL para el módulo de telecomunicaciones corporativas.</td>
                                 </tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "font-black uppercase")}>ZEDU (Organización Promotora)</td>
+                                    <td className={cn(tableCellClass, "font-semibold uppercase")}>ZEDU (Organización Promotora)</td>
                                     <td className={tableCellClass}>Marco metodológico para el desarrollo del Modelo Zedu. Plataforma de visibilidad, difusión y presentación ante jurados evaluadores nacionales e internacionales. Conexión con la red de proyectos emprendedores estudiantiles. Certificación académica y reconocimiento del equipo System Kyron.</td>
                                 </tr>
                             </tbody>
@@ -636,13 +636,13 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 6B — COMPETENCIA Y FABRICANTES DE TELEFONÍA */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Globe className="h-7 w-7" /> 6B. COMPETENCIA Y FABRICANTES DE TELEFONÍA
                         </h2>
 
                         {/* Operadores competidores */}
                         <div className="mb-10">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-semibold uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Activity className="h-6 w-6" /> Operadores de Telefonía — Competencia Directa en Venezuela
                             </h3>
                             <table className="w-full border-collapse">
@@ -656,13 +656,13 @@ export default function ModeloZeduPage() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Inter (Intercable)</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Inter (Intercable)</td>
                                         <td className={cn(tableCellClass, "text-center font-mono")}>0212-256-0000</td>
                                         <td className={cn(tableCellClass, "text-xs")}>clientes@inter.com.ve</td>
                                         <td className={tableCellClass}>Operador convergente (internet + telefonía fija). Fortaleza: bundle residencial. Debilidad: sin oferta de telefonía móvil personal robusta. System Kyron se diferencia con telefonía móvil 5G personal y línea infantil regulada.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>NetUno</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>NetUno</td>
                                         <td className={cn(tableCellClass, "text-center font-mono")}>0212-202-2000</td>
                                         <td className={cn(tableCellClass, "text-xs")}>atencion@netuno.com.ve</td>
                                         <td className={tableCellClass}>Proveedor de internet y telefonía IP fija para empresas. Sin oferta móvil personal. Fortaleza: empresas medianas y grandes en Caracas. Oportunidad de alianza con System Kyron para ofrecer complementariedad de servicios al segmento corporativo.</td>
@@ -673,7 +673,7 @@ export default function ModeloZeduPage() {
 
                         {/* Fabricantes de telefonía */}
                         <div>
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-semibold uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Smartphone className="h-6 w-6" /> Fabricantes de Telefonía — Proveedores de Inventario y Aliados Tecnológicos
                             </h3>
                             <table className="w-full border-collapse">
@@ -687,37 +687,37 @@ export default function ModeloZeduPage() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Samsung Electronics Venezuela</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Samsung Electronics Venezuela</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0800-726-7864</td>
                                         <td className={cn(tableCellClass, "text-xs")}>samsung.ve@samsung.com / samsung.com/ve</td>
                                         <td className={tableCellClass}>Proveedor principal del inventario inicial. Galaxy A-series y M-series para gama media. Soporte técnico oficial, garantía de 1 año y homologación CONATEL vigente. Condiciones de distribuidor disponibles para volumen mínimo de 20 equipos.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Huawei Venezuela</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Huawei Venezuela</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-953-3333</td>
                                         <td className={cn(tableCellClass, "text-xs")}>venezuela@huawei.com / huawei.com/ve</td>
                                         <td className={tableCellClass}>Equipos con soporte de eSIM y conectividad 5G. Línea Nova para gama media. Infraestructura de red 5G y radiobases compatibles con el módulo Telecom de System Kyron. Aliado estratégico potencial para despliegue de red en Venezuela.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Xiaomi / Redmi Venezuela</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Xiaomi / Redmi Venezuela</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-763-4500</td>
                                         <td className={cn(tableCellClass, "text-xs")}>ventas@xiaomi-ve.com / xiaomi.com/ve</td>
                                         <td className={tableCellClass}>Gama económica con mejor relación precio-rendimiento del mercado. Redmi series para el segmento popular. Ideal para el plan de línea infantil CONATEL por precio accesible ($80–$150). Alta disponibilidad en el mercado venezolano.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Nokia Venezuela (HMD Global)</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Nokia Venezuela (HMD Global)</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-285-7100</td>
                                         <td className={cn(tableCellClass, "text-xs")}>venezuela@nokia.com / nokia.com/phones</td>
                                         <td className={tableCellClass}>Equipos robustos con Android One puro, ideal para línea infantil por seguridad del sistema operativo no modificado. Actualización de seguridad garantizada por 3 años. Precio accesible en gama básica ($60–$120). Homologados CONATEL.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>TCL / Alcatel Venezuela</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>TCL / Alcatel Venezuela</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-793-2255</td>
                                         <td className={cn(tableCellClass, "text-xs")}>ventas@tcl-venezuela.com / tcl.com</td>
                                         <td className={tableCellClass}>Marca de volumen para gama básica. Alcatel 1-series y 3-series para segmento popular y línea infantil. Precios desde $45. Amplia disponibilidad a través de distribuidores nacionales. Condiciones comerciales favorables para nuevos distribuidores con bajo MOQ.</td>
                                     </tr>
                                     <tr>
-                                        <td className={cn(tableCellClass, "font-black uppercase")}>Motorola Venezuela (Lenovo)</td>
+                                        <td className={cn(tableCellClass, "font-semibold uppercase")}>Motorola Venezuela (Lenovo)</td>
                                         <td className={cn(tableCellClass, "text-center font-mono text-xs")}>0212-906-5000</td>
                                         <td className={cn(tableCellClass, "text-xs")}>venezuela@motorola.com / motorola.com/ve</td>
                                         <td className={tableCellClass}>Moto E-series para gama económica, Moto G-series para gama media. Reconocimiento de marca sólido en Venezuela. Baterías de larga duración adecuadas para usuarios que no tienen acceso frecuente a carga. Compatible con planes de telefonía personal System Kyron.</td>
@@ -731,7 +731,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 7 — PLAN DE ACCIÓN */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <ClipboardList className="h-7 w-7" /> 7. PLAN DE ACCIÓN
                         </h2>
                         <table className="w-full border-collapse">
@@ -745,52 +745,52 @@ export default function ModeloZeduPage() {
                             <tbody>
                                 <tr>
                                     <td className={tableCellClass}><strong>1.</strong> Investigación de mercado y validación del problema: entrevistas a 10 empresas PYME venezolanas para confirmar las necesidades de automatización fiscal, laboral y legal.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Análisis y Comunicación)</span></td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Joaquin de Barros<br /><span className="font-normal text-slate-500 text-xs">(Análisis y Comunicación)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 1 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>2.</strong> Diseño de arquitectura técnica: definición de módulos, esquema de base de datos PostgreSQL (32 tablas), APIs REST y flujos de usuario para los 12 portales de System Kyron.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo Técnico)</span></td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Angel Goites<br /><span className="font-normal text-slate-500 text-xs">(Desarrollo Técnico)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 2–3 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>3.</strong> Gestión de aliados: firma de acuerdos con contador certificado VEN-NIF, abogado laboralista y empresas piloto. Activación de créditos Google Cloud for Education.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br /><span className="font-normal text-slate-500 text-xs">(Líder de Proyecto)</span></td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Uzcategui<br /><span className="font-normal text-slate-500 text-xs">(Líder de Proyecto)</span></td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 4 (Octubre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>4.</strong> Desarrollo del Módulo de Telefonía Personal y Línea Infantil CONATEL: implementación de activación de líneas, control parental biométrico, integración con CONATEL para homologación de IMEI, sistema de recarga y gestión de planes infantiles con tarifa regulada.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 1–4 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>5.</strong> Desarrollo del Módulo RRHH y Nómina: cálculo automático con SSO, FAOV, LPH, utilidades, prestaciones LOTTT y generación de recibos de nómina auditables.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites<br />Joaquin de Barros</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Angel Goites<br />Joaquin de Barros</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 3–6 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>6.</strong> Integración de Kyron AI (Claude de Anthropic): implementación de generación de contratos, análisis fiscal predictivo, clasificación de residuos para eco-créditos y asistente de documentos legales con IA.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 5–7 (Noviembre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>7.</strong> Pruebas piloto con empresas beta: despliegue de los módulos Contabilidad y RRHH en 3 empresas seleccionadas. Validación técnica con contador y abogado. Corrección de bugs y ajuste de algoritmos fiscales.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Equipo Completo</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semanas 1–3 (Diciembre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>8.</strong> Lanzamiento de la plataforma v1.0: despliegue en producción con autenticación segura, dominio propio, SSL y onboarding de los primeros clientes de pago. Activación del plan de suscripción mensual.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Miguel Uzcategui<br />Miguel Angel Goites</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Miguel Uzcategui<br />Miguel Angel Goites</td>
                                     <td className={cn(tableCellClass, "text-center")}>Semana 4 (Diciembre 2025)</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>9.</strong> Presentación ante ZEDU y jurados evaluadores: preparación del pitch ejecutivo, demo en vivo de la plataforma y presentación de métricas de impacto, empresas activas y validaciones técnicas obtenidas.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Equipo Completo</td>
                                     <td className={cn(tableCellClass, "text-center")}>Enero 2026</td>
                                 </tr>
                                 <tr>
                                     <td className={tableCellClass}><strong>10.</strong> Expansión post-ZEDU: activación de módulos Telecom 5G/eSIM y Ameru Eco-Créditos, apertura de nuevas cuentas empresariales y desarrollo de la versión mobile de la plataforma.</td>
-                                    <td className={cn(tableCellClass, "text-center font-black")}>Equipo Completo</td>
+                                    <td className={cn(tableCellClass, "text-center font-bold")}>Equipo Completo</td>
                                     <td className={cn(tableCellClass, "text-center")}>Febrero – Junio 2026</td>
                                 </tr>
                             </tbody>
@@ -801,7 +801,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 8 — IMPACTO */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <TrendingUp className="h-7 w-7" /> 8. IMPACTO ESPERADO
                         </h2>
                         <table className="w-full border-collapse">
@@ -843,7 +843,7 @@ export default function ModeloZeduPage() {
 
                     {/* SECCIÓN 9 — PUBLICIDAD WEB */}
                     <div className="mb-20">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
+                        <h2 className="text-2xl font-semibold uppercase mb-8 tracking-tight flex items-center gap-4 text-[#0A2472]">
                             <Megaphone className="h-7 w-7" /> 9. ESTRATEGIA PUBLICITARIA — PLATAFORMA WEB
                         </h2>
                         <table className="w-full border-collapse">
@@ -915,34 +915,34 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableHeaderClass} colSpan={2}>Presupuesto Publicitario Digital (Primer Año)</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Google Ads (SEM)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 2.400,00 / año</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 2.400,00 / año</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Publicidad en Redes Sociales (Instagram + LinkedIn + TikTok Ads)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.800,00 / año</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 1.800,00 / año</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Creación de Contenido (diseño gráfico, videos, redacción SEO)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 1.200,00 / año</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 1.200,00 / año</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Email Marketing (Resend Pro + automatización)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 240,00 / año</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 240,00 / año</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Herramientas SEO y Analítica (Google Analytics, Search Console, Ahrefs)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black")}>$ 360,00 / año</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold")}>$ 360,00 / año</td>
                                 </tr>
                                 <tr className="bg-slate-50">
-                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500 py-6")}>INVERSIÓN PUBLICITARIA TOTAL (AÑO 1)</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-2xl text-[#0A2472] italic")}>$ 6.000,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-semibold uppercase text-slate-500 py-6")}>INVERSIÓN PUBLICITARIA TOTAL (AÑO 1)</td>
+                                    <td className={cn(tableCellClass, "text-right font-bold text-2xl text-[#0A2472] italic")}>$ 6.000,00</td>
                                 </tr>
                             </tbody>
                         </table>
                         <p className="text-xs text-slate-400 mt-3 italic">Nota: El presupuesto publicitario se autofinancia a partir del mes 4 con los ingresos de suscripción de las primeras 15 empresas cliente. El ROI publicitario proyectado es de 340% anual, considerando un costo de adquisición de cliente (CAC) de $40 y un valor de vida del cliente (LTV) de $588.</p>
 
                         <div className="mt-12">
-                            <h3 className="text-xl font-black uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
+                            <h3 className="text-xl font-semibold uppercase mb-6 tracking-tight flex items-center gap-3 text-[#0A2472]">
                                 <Target className="h-6 w-6" /> Métricas de Rendimiento Web (KPIs Publicitarios)
                             </h3>
                             <table className="w-full border-collapse">
@@ -957,39 +957,39 @@ export default function ModeloZeduPage() {
                                 <tbody>
                                     <tr>
                                         <td className={tableCellClass}>Visitantes únicos mensuales (web)</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>2.000</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>8.000</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>25.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>2.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>8.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>25.000</td>
                                     </tr>
                                     <tr>
                                         <td className={tableCellClass}>Tasa de conversión (visitante → registro)</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>3%</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>5%</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>8%</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>3%</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>5%</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>8%</td>
                                     </tr>
                                     <tr>
                                         <td className={tableCellClass}>Registros empresariales acumulados</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>60</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>400</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>2.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>60</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>400</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>2.000</td>
                                     </tr>
                                     <tr>
                                         <td className={tableCellClass}>Suscripciones activas de pago</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>15</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>80</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>420</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>15</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>80</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>420</td>
                                     </tr>
                                     <tr>
                                         <td className={tableCellClass}>Posición promedio Google (keywords principales)</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 20</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 10</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>Top 3</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>Top 20</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>Top 10</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>Top 3</td>
                                     </tr>
                                     <tr>
                                         <td className={tableCellClass}>Seguidores redes sociales (total combinado)</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>1.500</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>5.000</td>
-                                        <td className={cn(tableCellClass, "text-center font-black")}>15.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>1.500</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>5.000</td>
+                                        <td className={cn(tableCellClass, "text-center font-bold")}>15.000</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1006,13 +1006,13 @@ export default function ModeloZeduPage() {
                             ].map((member) => (
                                 <div key={member.name} className="space-y-3">
                                     <div className="h-px w-48 bg-slate-300 mx-auto mt-16" />
-                                    <p className="font-black uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
+                                    <p className="font-semibold uppercase text-sm text-slate-700 tracking-widest">{member.name}</p>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">{member.role}</p>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">U.E.P. Gabriela Mistral</p>
                                 </div>
                             ))}
                         </div>
-                        <p className="text-center text-xs text-slate-300 font-black uppercase tracking-[0.5em] mt-16">System Kyron v2.8.5 · Caracas, Venezuela · 2026</p>
+                        <p className="text-center text-xs text-slate-300 font-semibold uppercase tracking-wider mt-16">System Kyron v2.8.5 · Caracas, Venezuela · 2026</p>
                     </div>
                 </div>
             </motion.div>

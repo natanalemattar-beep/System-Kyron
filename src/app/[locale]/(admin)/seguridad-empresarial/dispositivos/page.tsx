@@ -35,21 +35,21 @@ export default function DispositivosPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-violet-500 pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-violet-500 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-[11px] font-semibold uppercase tracking-wider text-violet-500 mb-3">
             <MonitorSmartphone className="h-3 w-3" /> DISPOSITIVOS AUTORIZADOS
-            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-black ml-1 animate-pulse">NUEVO</span>
+            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-bold ml-1 animate-pulse">NUEVO</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Dispositivos <span className="text-violet-500 italic">Autorizados</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Control de Equipos • Acceso Seguro • Gestión de Sesiones
           </p>
         </div>
         <Button
           onClick={() => toast({ title: "Sesiones cerradas", description: "Se cerraron todas las sesiones excepto la actual" })}
           variant="outline"
-          className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest gap-2 border-red-500/20 text-red-500 hover:bg-red-500/5"
+          className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest gap-2 border-red-500/20 text-red-500 hover:bg-red-500/5"
         >
           <XCircle className="h-4 w-4" /> Cerrar Todas las Sesiones
         </Button>
@@ -68,8 +68,8 @@ export default function DispositivosPage() {
                   <m.icon className={cn("h-5 w-5", m.color)} />
                 </div>
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">{m.label}</p>
-                  <p className={cn("text-2xl font-black", m.color)}>{m.valor}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/50">{m.label}</p>
+                  <p className={cn("text-2xl font-bold", m.color)}>{m.valor}</p>
                 </div>
               </CardContent>
             </Card>
@@ -80,7 +80,7 @@ export default function DispositivosPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <Card className="rounded-2xl border border-border/30 bg-card">
           <CardHeader className="pb-4">
-            <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+            <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
               <Shield className="h-4 w-4 text-violet-500" /> Todos los Dispositivos
             </CardTitle>
           </CardHeader>
@@ -116,12 +116,12 @@ export default function DispositivosPage() {
                         <Badge variant="outline" className="text-[7px] text-muted-foreground/40 border-border/30">Inactivo</Badge>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 mt-1 text-[9px] text-muted-foreground/50">
+                    <div className="flex items-center gap-3 mt-1 text-[11px] text-muted-foreground/50">
                       <span>{d.navegador}</span>
                       <span className="flex items-center gap-1"><MapPin className="h-2.5 w-2.5" /> {d.ubicacion}</span>
                       <span>IP: {d.ip}</span>
                     </div>
-                    <p className="text-[9px] text-muted-foreground/30 mt-0.5 flex items-center gap-1">
+                    <p className="text-[11px] text-muted-foreground/30 mt-0.5 flex items-center gap-1">
                       <Clock className="h-2.5 w-2.5" /> Último acceso: {d.ultimoAcceso}
                     </p>
                   </div>

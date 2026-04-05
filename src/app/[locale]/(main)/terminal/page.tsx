@@ -102,17 +102,17 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
 
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
                 <div className="space-y-3">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary">
                         <Lock className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase leading-none">Bóveda <span className="text-primary italic">Kyron</span></h1>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 hover:bg-card text-foreground transition-all" onClick={() => window.print()}>
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 hover:bg-card text-foreground transition-all" onClick={() => window.print()}>
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl" onClick={handleDownloadExpediente}>
+                    <Button className="h-12 px-10 rounded-xl text-[10px] font-semibold uppercase tracking-widest shadow-lg" onClick={handleDownloadExpediente}>
                         <Download className="mr-2 h-4 w-4" /> EXPORTAR EXPEDIENTE
                     </Button>
                 </div>
@@ -120,8 +120,8 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
 
             <Tabs defaultValue="zedu" className="w-full relative z-10">
                 <TabsList className="flex h-14 bg-card/50 border border-border rounded-2xl p-1.5 mb-16 shadow-inner">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Matriz ZEDU</TabsTrigger>
-                    <TabsTrigger value="budget" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Presupuesto CapEx</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-semibold uppercase text-[11px] tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Matriz ZEDU</TabsTrigger>
+                    <TabsTrigger value="budget" className="flex-1 rounded-xl font-semibold uppercase text-[11px] tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Presupuesto CapEx</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -133,19 +133,19 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                             >
-                                <Card className={cn("glass-card p-10 rounded-[3rem] h-full flex flex-col items-center text-center border-2 bg-card group hover:scale-[1.02]", m.border)}>
-                                    <div className={cn("p-6 rounded-[2rem] mb-10 shadow-inner border border-border transition-all duration-500 group-hover:scale-110", m.color, m.glow)}>
+                                <Card className={cn("glass-card p-10 rounded-2xl h-full flex flex-col items-center text-center border-2 bg-card group hover:scale-[1.02]", m.border)}>
+                                    <div className={cn("p-6 rounded-xl mb-10 shadow-inner border border-border transition-all duration-500 group-hover:scale-110", m.color, m.glow)}>
                                         <m.icon className="h-12 w-12" />
                                     </div>
-                                    <h4 className="font-black uppercase text-base tracking-widest mb-4 text-foreground italic underline decoration-primary/20 underline-offset-8">{m.title}</h4>
+                                    <h4 className="font-semibold uppercase text-base tracking-widest mb-4 text-foreground italic underline decoration-primary/20 underline-offset-8">{m.title}</h4>
                                     <p className="text-[11px] font-bold text-muted-foreground leading-relaxed uppercase max-w-[200px]">{m.desc}</p>
                                     
                                     <div className="mt-auto pt-10 w-full flex justify-between items-center border-t border-border">
                                         <div className="flex items-center gap-2">
                                             <Activity className="h-3 w-3 text-primary animate-pulse" />
-                                            <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">ÁREA {m.id}</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ÁREA {m.id}</span>
                                         </div>
-                                        <div className={cn("text-[8px] font-black uppercase tracking-widest px-3 h-6 flex items-center bg-muted rounded-full", m.color)}>
+                                        <div className={cn("text-[10px] font-semibold uppercase tracking-widest px-3 h-6 flex items-center bg-muted rounded-full", m.color)}>
                                             {m.status}
                                         </div>
                                     </div>
@@ -156,13 +156,13 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                 </TabsContent>
 
                 <TabsContent value="budget" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card overflow-hidden rounded-[3rem] border-border shadow-2xl bg-card p-1 md:p-2">
+                    <Card className="glass-card overflow-hidden rounded-2xl border-border shadow-lg bg-card p-1 md:p-2">
                         <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-muted/50 border-none hover:bg-muted/50">
-                                        <TableHead className="pl-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Componente de Inversión</TableHead>
-                                        <TableHead className="text-right pr-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Monto (USD)</TableHead>
+                                        <TableHead className="pl-12 py-8 font-semibold uppercase text-primary text-[11px] tracking-wider">Componente de Inversión</TableHead>
+                                        <TableHead className="text-right pr-12 py-8 font-semibold uppercase text-primary text-[11px] tracking-wider">Monto (USD)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -174,17 +174,17 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                                     {d.item}
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="text-right pr-12 font-mono font-black text-foreground text-lg italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                                            <TableCell className="text-right pr-12 font-mono font-bold text-foreground text-lg italic">{formatCurrency(d.cost, 'USD')}</TableCell>
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none hover:bg-primary/15 transition-all">
-                                        <TableCell className="pl-12 py-12 text-2xl font-black text-foreground italic uppercase tracking-tight">
+                                        <TableCell className="pl-12 py-12 text-2xl font-bold text-foreground italic uppercase tracking-tight">
                                             <div className="flex items-center gap-4">
                                                 <TerminalIcon className="h-8 w-8 text-primary" />
                                                 TOTAL INVERSIÓN ESTRATÉGICA
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-right pr-12 text-3xl font-mono font-black text-primary italic shadow-glow-text">
+                                        <TableCell className="text-right pr-12 text-3xl font-mono font-bold text-primary italic">
                                             {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
                                         </TableCell>
                                     </TableRow>
@@ -196,7 +196,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             </Tabs>
 
             <div className="mt-20 flex justify-center pb-10">
-                <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground italic">
+                <div className="flex items-center gap-10 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground italic">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-256</span>
                     <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Engine: Active</span>
                     <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Verified</span>

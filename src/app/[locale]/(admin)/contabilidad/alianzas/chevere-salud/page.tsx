@@ -35,7 +35,7 @@ export default function ChevereSaludPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Heart className="h-8 w-8 text-rose-500" />
           Chévere Salud
         </h1>
@@ -93,7 +93,7 @@ export default function ChevereSaludPage() {
                     <TableCell className="text-center text-xs">{e.beneficiarios}</TableCell>
                     <TableCell className="text-xs">{e.vencimiento}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={e.estado === "ACTIVO" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={e.estado === "ACTIVO" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {e.estado}
                       </Badge>
                     </TableCell>

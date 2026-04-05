@@ -117,11 +117,11 @@ export default function DashboardEjecutivoPage() {
               {loading ? (
                 <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               ) : (
-                <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+                <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
               )}
               <div className="flex items-center justify-between mt-2">
-                <span className="text-[9px] text-muted-foreground">{kpi.sub}</span>
-                <span className={cn("text-[9px] font-semibold", kpi.up ? "text-emerald-500" : "text-rose-500")}>
+                <span className="text-[11px] text-muted-foreground">{kpi.sub}</span>
+                <span className={cn("text-[11px] font-semibold", kpi.up ? "text-emerald-500" : "text-rose-500")}>
                   {kpi.trend}
                 </span>
               </div>
@@ -145,15 +145,15 @@ export default function DashboardEjecutivoPage() {
             <div className="flex items-end justify-between gap-3 h-40">
               {tendencia.map((m, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-                  <span className="text-[9px] font-bold text-foreground tabular-nums">{m.costo > 0 ? `$${m.costo}` : '—'}</span>
+                  <span className="text-[11px] font-bold text-foreground tabular-nums">{m.costo > 0 ? `$${m.costo}` : '—'}</span>
                   <motion.div
                     initial={{ height: 0 }}
                     animate={{ height: `${(m.costo / maxCosto) * 100}%` }}
                     transition={{ delay: i * 0.07, duration: 0.5 }}
                     className={cn("w-full rounded-t-lg min-h-[4px]", i === tendencia.length - 1 ? "bg-primary" : "bg-primary/30")}
                   />
-                  <span className="text-[9px] font-semibold text-muted-foreground">{m.mes}</span>
-                  <span className="text-[8px] text-muted-foreground/60">{m.lineas > 0 ? `${m.lineas}L` : '—'}</span>
+                  <span className="text-[11px] font-semibold text-muted-foreground">{m.mes}</span>
+                  <span className="text-[10px] text-muted-foreground/60">{m.lineas > 0 ? `${m.lineas}L` : '—'}</span>
                 </div>
               ))}
             </div>

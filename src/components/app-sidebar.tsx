@@ -52,11 +52,11 @@ export function AppSidebar() {
       >
         <div className="flex items-center gap-3 relative z-10">
           <item.icon className={cn("h-3.5 w-3.5 transition-all", isActive ? "text-primary" : "opacity-40 group-hover:opacity-100")} />
-          <span className={cn("text-[9px] font-black uppercase tracking-[0.2em]", isActive ? "text-foreground" : "text-muted-foreground")}>
+          <span className={cn("text-[11px] font-semibold uppercase tracking-wide", isActive ? "text-foreground" : "text-muted-foreground")}>
             {item.label}
           </span>
           {item.badge && (
-            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[6px] font-black uppercase tracking-wider leading-none animate-pulse">
+            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[6px] font-semibold uppercase tracking-wider leading-none animate-pulse">
               {item.badge}
             </span>
           )}
@@ -80,15 +80,15 @@ export function AppSidebar() {
         <div className="absolute bottom-0 left-0 right-0 kyron-accent-line opacity-20" />
         <Logo className="h-10 w-10 drop-shadow-glow" /> 
         <div className="text-center">
-            <span className="text-[10px] font-black tracking-[0.4em] text-foreground uppercase italic leading-none">System Kyron</span>
-            <p className="text-[7px] font-bold uppercase tracking-[0.2em] mt-1 kyron-gradient-text">Control Corporativo</p>
+            <span className="text-[10px] font-bold tracking-wider text-foreground uppercase italic leading-none">System Kyron</span>
+            <p className="text-[7px] font-bold uppercase tracking-wide mt-1 kyron-gradient-text">Control Corporativo</p>
         </div>
       </div>
       
       <div className="flex-grow py-8 px-4 space-y-10 overflow-y-auto custom-scrollbar">
         {currentGroups.map((group) => (
           <section key={group.title} className="space-y-3">
-            <div className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] flex items-center gap-2 italic">
+            <div className="px-4 text-[10px] font-semibold uppercase text-primary/40 tracking-wider flex items-center gap-2 italic">
               <Hexagon className="h-2 w-2 text-primary/20" /> {group.title}
             </div>
             <div className="space-y-1">
@@ -105,11 +105,11 @@ export function AppSidebar() {
         <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex flex-col gap-3">
             <div className="flex items-center gap-3">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest leading-none">Protocolo Activo</span>
+                <span className="text-[10px] font-bold text-foreground/60 uppercase tracking-widest leading-none">Protocolo Activo</span>
             </div>
             <div className="flex items-center gap-3">
                 <span className="kyron-dot animate-pulse shrink-0" />
-                <span className="text-[8px] font-black text-foreground/60 uppercase tracking-widest leading-none">Sync: T+0</span>
+                <span className="text-[10px] font-bold text-foreground/60 uppercase tracking-widest leading-none">Sync: T+0</span>
             </div>
         </div>
       </div>

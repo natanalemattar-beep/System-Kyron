@@ -386,7 +386,7 @@ export default function ComparadorPlanesPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="absolute top-3 right-3 z-10"
                     >
-                      <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 text-[9px] font-bold gap-1 px-2 py-0.5">
+                      <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 text-[11px] font-bold gap-1 px-2 py-0.5">
                         <Crown className="h-3 w-3" /> Mejor Valor
                       </Badge>
                     </motion.div>
@@ -423,7 +423,7 @@ export default function ComparadorPlanesPage() {
                         <Smartphone className={cn("h-4 w-4", style.text)} />
                       </div>
                       <div>
-                        <Badge variant="outline" className={cn("text-[9px] font-semibold px-2 py-0 rounded-md", style.bg, style.text, style.border)}>
+                        <Badge variant="outline" className={cn("text-[11px] font-semibold px-2 py-0 rounded-md", style.bg, style.text, style.border)}>
                           {plan.operator}
                         </Badge>
                         <p className="text-sm font-bold text-foreground mt-0.5">{plan.name}</p>
@@ -433,7 +433,7 @@ export default function ComparadorPlanesPage() {
 
                   <CardContent className="px-4 pb-4 space-y-4">
                     <div className="text-center py-3 bg-muted/10 rounded-lg border border-border/30">
-                      <p className="text-3xl font-black text-foreground tabular-nums">
+                      <p className="text-3xl font-bold text-foreground tabular-nums">
                         ${plan.price}
                         <span className="text-xs font-normal text-muted-foreground">/mes</span>
                       </p>
@@ -529,7 +529,7 @@ export default function ComparadorPlanesPage() {
                       }}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <Badge variant="outline" className={cn("text-[9px] px-1.5 py-0 rounded-md", style.bg, style.text, style.border)}>
+                        <Badge variant="outline" className={cn("text-[11px] px-1.5 py-0 rounded-md", style.bg, style.text, style.border)}>
                           {plan.operator}
                         </Badge>
                         <span className="text-sm font-bold text-foreground tabular-nums">${plan.price}</span>
@@ -541,7 +541,7 @@ export default function ComparadorPlanesPage() {
                         {plan.has5G && <span className="flex items-center gap-1 text-cyan-400"><Zap className="h-3 w-3" />5G</span>}
                       </div>
                       {isSelected && (
-                        <Badge className="mt-2 bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[9px]">
+                        <Badge className="mt-2 bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[11px]">
                           En comparación
                         </Badge>
                       )}

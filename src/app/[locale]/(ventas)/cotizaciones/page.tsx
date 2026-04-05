@@ -114,23 +114,23 @@
           </Link>
           <motion.header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div>
-              <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-blue-500 mb-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
+              <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[11px] font-semibold uppercase tracking-wide text-blue-500 mb-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
                 <Activity className="h-3 w-3 animate-pulse" /> COTIZACIONES
               </motion.div>
-              <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
                 <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent italic">Cotizaciones</span>
               </h1>
-              <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Creación y Seguimiento de Presupuestos para Clientes</p>
+              <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Creación y Seguimiento de Presupuestos para Clientes</p>
             </div>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="rounded-2xl h-12 px-8 font-black uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90 shadow-lg">
+                <Button className="rounded-2xl h-12 px-8 font-semibold uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90 shadow-lg">
                   <Plus className="mr-2 h-4 w-4" /> Nuevo Registro
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle className="text-xl font-black uppercase">Nuevo — Cotizaciones</DialogTitle>
+                  <DialogTitle className="text-xl font-semibold uppercase">Nuevo — Cotizaciones</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 md:grid-cols-2 py-4">
                     <div>
@@ -200,7 +200,7 @@
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{kpi.label}</p>
-                      <p className="text-2xl font-black mt-1">{typeof kpi.val === 'number' ? kpi.val.toLocaleString('es-VE') : kpi.val}</p>
+                      <p className="text-2xl font-bold mt-1">{typeof kpi.val === 'number' ? kpi.val.toLocaleString('es-VE') : kpi.val}</p>
                     </div>
                     <kpi.icon className={`h-8 w-8 ${kpi.color} opacity-60`} />
                   </div>
@@ -212,7 +212,7 @@
 
         <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
-            <CardTitle className="text-sm font-black uppercase tracking-wider">Registros</CardTitle>
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider">Registros</CardTitle>
             <div className="relative w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar..." className="pl-10 h-10 rounded-xl bg-muted/30 border-border text-xs" />
@@ -232,13 +232,13 @@
                 <Table>
                   <TableHeader>
                     <TableRow>
-                        <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Nro.</TableHead>
-                      <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Cliente</TableHead>
-                      <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">RIF</TableHead>
-                      <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Total</TableHead>
-                      <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Estado</TableHead>
-                      <TableHead className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Validez</TableHead>
-                      <TableHead className="text-right text-[10px] font-black uppercase tracking-wider text-muted-foreground">Acciones</TableHead>
+                        <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Nro.</TableHead>
+                      <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Cliente</TableHead>
+                      <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">RIF</TableHead>
+                      <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Total</TableHead>
+                      <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Estado</TableHead>
+                      <TableHead className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Validez</TableHead>
+                      <TableHead className="text-right text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Acciones</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

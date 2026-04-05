@@ -36,7 +36,7 @@ export function BcvRateBadge() {
       <span className="text-[10px] font-bold text-emerald-500">
         {rate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </span>
-      <span className="text-[8px] text-emerald-500/60 font-medium">Bs/$</span>
+      <span className="text-[10px] text-emerald-500/60 font-medium">Bs/$</span>
     </div>
   );
 }

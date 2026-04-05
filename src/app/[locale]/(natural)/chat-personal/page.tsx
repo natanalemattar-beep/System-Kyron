@@ -440,7 +440,7 @@ export default function KyronChatPersonalPage() {
               <Send className="h-4 w-4" />
             </Button>
           </form>
-          <p className="text-[9px] text-muted-foreground/40 text-center mt-2 font-medium">
+          <p className="text-[11px] text-muted-foreground/40 text-center mt-2 font-medium">
             Kyron puede cometer errores. Verifica la información importante.
           </p>
         </div>

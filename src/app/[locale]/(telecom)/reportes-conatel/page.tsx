@@ -146,7 +146,7 @@ export default function ReportesConatelPage() {
                 <span className="text-xs text-muted-foreground">{item.label}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-foreground tabular-nums">{item.val}</span>
-                  <Badge variant="outline" className={cn("text-[8px] px-1.5", item.up ? "text-emerald-500 border-emerald-500/20" : "text-rose-500 border-rose-500/20")}>
+                  <Badge variant="outline" className={cn("text-[10px] px-1.5", item.up ? "text-emerald-500 border-emerald-500/20" : "text-rose-500 border-rose-500/20")}>
                     {item.up ? <TrendingUp className="h-2 w-2 mr-0.5" /> : null}
                     {item.trend}
                   </Badge>
@@ -192,13 +192,13 @@ export default function ReportesConatelPage() {
                   <TableRow key={r.id} className="border-border/30 hover:bg-muted/5 transition-colors">
                     <TableCell className="pl-5 py-3 text-xs font-semibold text-foreground">{r.periodo}</TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="text-[9px] px-1.5">{r.formato}</Badge>
+                      <Badge variant="outline" className="text-[11px] px-1.5">{r.formato}</Badge>
                     </TableCell>
                     <TableCell className="text-center text-xs text-muted-foreground">{r.lineasReportadas}</TableCell>
                     <TableCell className="text-right text-xs font-bold text-foreground tabular-nums">{r.ingresosBrutos}</TableCell>
                     <TableCell className="text-right text-xs font-bold text-amber-500 tabular-nums">{r.contribucionFIDETEL}</TableCell>
                     <TableCell className="text-center">
-                      <Badge variant="outline" className="text-[9px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+                      <Badge variant="outline" className="text-[11px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
                         <CircleCheck className="h-2.5 w-2.5 mr-0.5" /> Enviado
                       </Badge>
                     </TableCell>

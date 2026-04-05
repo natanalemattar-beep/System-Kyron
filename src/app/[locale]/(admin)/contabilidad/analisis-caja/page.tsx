@@ -61,7 +61,7 @@ export default function AnalisisCajaPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Wallet className="h-8 w-8 text-primary" />
             Análisis de Caja y Flujo
           </h1>
@@ -88,36 +88,36 @@ export default function AnalisisCajaPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Card className="border rounded-2xl shadow-sm p-6 text-center">
                 <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Saldo en Bs</p>
-                <p className="text-2xl font-black text-primary">{data.posicion.saldoBs}</p>
+                <p className="text-2xl font-bold text-primary">{data.posicion.saldoBs}</p>
               </Card>
               <Card className="border rounded-2xl shadow-sm p-6 text-center">
                 <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Saldo en USD</p>
-                <p className="text-2xl font-black text-emerald-600">{data.posicion.saldoUsd}</p>
+                <p className="text-2xl font-bold text-emerald-600">{data.posicion.saldoUsd}</p>
               </Card>
               <Card className="border rounded-2xl shadow-sm p-6 text-center">
                 <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2">Cuentas Activas</p>
-                <p className="text-2xl font-black text-foreground">{data.posicion.cuentas}</p>
+                <p className="text-2xl font-bold text-foreground">{data.posicion.cuentas}</p>
               </Card>
             </div>
           )}
 
           {data.flujo && (
             <Card className="border rounded-2xl shadow-sm p-6">
-              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground mb-4">
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                 Flujo de Caja — {data.flujo.periodo}
               </h3>
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <p className="text-[10px] font-bold uppercase text-muted-foreground">Ingresos</p>
-                  <p className="text-lg font-black text-emerald-600">{data.flujo.ingresos}</p>
+                  <p className="text-lg font-bold text-emerald-600">{data.flujo.ingresos}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase text-muted-foreground">Egresos</p>
-                  <p className="text-lg font-black text-rose-600">{data.flujo.egresos}</p>
+                  <p className="text-lg font-bold text-rose-600">{data.flujo.egresos}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase text-muted-foreground">Neto</p>
-                  <p className={cn("text-lg font-black", data.flujo.neto.startsWith("-") ? "text-rose-600" : "text-emerald-600")}>
+                  <p className={cn("text-lg font-bold", data.flujo.neto.startsWith("-") ? "text-rose-600" : "text-emerald-600")}>
                     {data.flujo.neto}
                   </p>
                 </div>
@@ -127,7 +127,7 @@ export default function AnalisisCajaPage() {
 
           {data.indicadores && data.indicadores.length > 0 && (
             <Card className="border rounded-2xl shadow-sm p-6">
-              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground mb-4">
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                 Indicadores de Tesorería
               </h3>
               <div className="space-y-4">
@@ -135,9 +135,9 @@ export default function AnalisisCajaPage() {
                   <div key={i} className="flex justify-between items-end border-b border-border/50 pb-4 last:border-none">
                     <div className="space-y-1">
                       <p className="text-[10px] font-bold text-muted-foreground/60 uppercase">{ind.label}</p>
-                      <p className="text-xl font-black tracking-tight">{ind.valor}</p>
+                      <p className="text-xl font-bold tracking-tight">{ind.valor}</p>
                     </div>
-                    <Badge variant="outline" className="text-[8px] font-bold uppercase">{ind.estado}</Badge>
+                    <Badge variant="outline" className="text-[10px] font-bold uppercase">{ind.estado}</Badge>
                   </div>
                 ))}
               </div>

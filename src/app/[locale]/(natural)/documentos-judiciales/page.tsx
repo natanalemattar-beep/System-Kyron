@@ -44,7 +44,7 @@ export default function DocumentosJudicialesPage() {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
         <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
       </Link>
 
@@ -60,18 +60,18 @@ export default function DocumentosJudicialesPage() {
             <Scale className="h-7 w-7 text-amber-500" />
           </div>
           <div className="space-y-2 min-w-0">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">Expedientes Judiciales</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Expedientes Judiciales</h1>
             <p className="text-sm text-muted-foreground font-medium max-w-lg">
               Seguimiento de causas activas, sentencias y documentos judiciales con registro inmutable en blockchain.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[11px] font-bold uppercase tracking-widest text-emerald-500">
                 <ShieldCheck className="h-3 w-3" /> Registro Inmutable
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                 <Gavel className="h-3 w-3" /> TSJ Venezuela
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                 <Clock className="h-3 w-3" /> Seguimiento en tiempo real
               </span>
             </div>

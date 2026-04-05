@@ -49,10 +49,10 @@ function FeatureRow({ feature, meta, index, animate }: {
                             <div className={cn("p-2.5 rounded-xl border border-border/20 group-hover:scale-110 transition-transform duration-300", `bg-gradient-to-br ${meta.accent}`)}>
                                 <meta.icon className={cn("h-5 w-5", meta.color)} />
                             </div>
-                            <h3 className={cn("text-sm font-black uppercase tracking-tight flex items-center gap-2", meta.color)}>
+                            <h3 className={cn("text-sm font-semibold uppercase tracking-tight flex items-center gap-2", meta.color)}>
                                 {feature.title}
                                 {meta.featured && (
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-black uppercase tracking-widest text-rose-400">
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-semibold uppercase tracking-widest text-rose-400">
                                         <Sparkles className="h-2 w-2" /> IA
                                     </span>
                                 )}
@@ -122,10 +122,10 @@ export function FeaturesSection() {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-subtle text-[9px] font-black uppercase tracking-[0.3em] text-secondary mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-wide text-secondary mx-auto">
                         <Sparkles className="h-3 w-3" /> {t('badge')}
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.2]">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground uppercase leading-[1.2]">
                         <span className="liquid-glass-highlight">{t('title_highlight')}</span> <br className="hidden sm:block" />
                         <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
@@ -172,8 +172,8 @@ export function FeaturesSection() {
                                 key={i}
                                 className="flex flex-col items-center text-center gap-2 p-5 rounded-2xl liquid-glass hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-1.5 hover:shadow-lg"
                             >
-                                <p className={cn("text-lg font-black uppercase tracking-tight", colors[i % colors.length])}>{r.val}</p>
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
+                                <p className={cn("text-lg font-semibold uppercase tracking-tight", colors[i % colors.length])}>{r.val}</p>
+                                <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
                             </div>
                         );
                     })}

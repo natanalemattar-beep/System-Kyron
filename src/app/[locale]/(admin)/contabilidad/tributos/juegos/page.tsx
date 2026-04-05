@@ -25,10 +25,10 @@ export default function JuegosAzarPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-purple-600 dark:text-purple-400 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-[10px] font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 mb-3">
                         <Zap className="h-3.5 w-3.5" /> Juegos de Azar
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Actividades de <span className="text-purple-600 dark:text-purple-400">Juegos</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Ley de Impuesto a las Actividades de Juego · Liquidación Mensual</p>
@@ -51,7 +51,7 @@ export default function JuegosAzarPage() {
                                         <p className="text-xs font-bold">{a.actividad}</p>
                                         <p className="text-[10px] text-muted-foreground">{a.base}</p>
                                     </div>
-                                    <span className="text-lg font-black text-purple-600 dark:text-purple-400">{a.tasa}</span>
+                                    <span className="text-lg font-bold text-purple-600 dark:text-purple-400">{a.tasa}</span>
                                 </div>
                             ))}
                         </CardContent>

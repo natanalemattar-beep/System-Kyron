@@ -38,7 +38,7 @@ export default function HomologacionPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Scale className="h-8 w-8 text-emerald-600" />
             Homologación de Equipos
           </h1>
@@ -85,7 +85,7 @@ export default function HomologacionPage() {
                     <TableCell className="text-right font-mono text-xs text-emerald-600">{formatCurrency(parseFloat(d.credito), "Bs.")}</TableCell>
                     <TableCell className="text-right font-mono text-xs text-rose-600">{formatCurrency(parseFloat(d.debito), "Bs.")}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={d.estado === "declarada" ? "default" : "secondary"} className="text-[9px] uppercase">{d.estado}</Badge>
+                      <Badge variant={d.estado === "declarada" ? "default" : "secondary"} className="text-[11px] uppercase">{d.estado}</Badge>
                     </TableCell>
                   </TableRow>
                 ))}

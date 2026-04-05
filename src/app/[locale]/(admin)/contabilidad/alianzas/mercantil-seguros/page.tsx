@@ -36,7 +36,7 @@ export default function MercantilSegurosPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Shield className="h-8 w-8 text-blue-600" />
           Mercantil Seguros
         </h1>
@@ -94,7 +94,7 @@ export default function MercantilSegurosPage() {
                     <TableCell className="text-right font-mono text-xs">{p.prima}</TableCell>
                     <TableCell className="text-xs">{p.vencimiento}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={p.estado === "VIGENTE" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={p.estado === "VIGENTE" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {p.estado}
                       </Badge>
                     </TableCell>

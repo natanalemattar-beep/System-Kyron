@@ -62,10 +62,10 @@ export default function LibroInventarioPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Box className="h-3.5 w-3.5" /> Libro Obligatorio · Art. 35 C. Comercio
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Libro de <span className="text-primary">Inventario</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Control de existencias · Valoración de activos · VEN-NIF</p>
@@ -83,7 +83,7 @@ export default function LibroInventarioPage() {
               <span className="text-xs font-semibold text-muted-foreground">Productos</span>
               <Package className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black">{rows.length}</p>
+            <p className="text-2xl font-bold">{rows.length}</p>
             <p className="text-[11px] text-muted-foreground mt-1">{summary.categorias} categorías</p>
           </Card>
           <Card className="rounded-2xl border p-5">
@@ -91,21 +91,21 @@ export default function LibroInventarioPage() {
               <span className="text-xs font-semibold text-muted-foreground">Unidades Total</span>
               <BarChart3 className="h-4 w-4 text-emerald-500" />
             </div>
-            <p className="text-2xl font-black text-emerald-500">{summary.totalItems}</p>
+            <p className="text-2xl font-bold text-emerald-500">{summary.totalItems}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Valoración Total</span>
               <TrendingUp className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Stock Bajo</span>
               <AlertTriangle className="h-4 w-4 text-amber-500" />
             </div>
-            <p className={cn("text-2xl font-black", summary.lowStock > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.lowStock}</p>
+            <p className={cn("text-2xl font-bold", summary.lowStock > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.lowStock}</p>
           </Card>
         </div>
       )}

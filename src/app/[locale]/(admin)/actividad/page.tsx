@@ -110,28 +110,28 @@ export default function ActividadPage() {
 
   return (
     <div className="space-y-8 pb-20 px-4 md:px-8 bg-background min-h-screen">
-      <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l-4 border-primary pl-6 py-2 mt-8">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pt-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
-            <Activity className="h-3 w-3" /> REGISTRO DE ACTIVIDAD — SISTEMA
+          <div className="flex items-center gap-2 mb-1">
+            <Activity className="h-5 w-5 text-primary" />
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              Actividad del sistema
+            </h1>
           </div>
-          <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground uppercase leading-none">
-            ACTIVIDAD <span className="text-primary italic">DEL SISTEMA</span>
-          </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.5em] mt-1.5 italic">
-            Auditoría · Eventos · Trazabilidad completa
+          <p className="text-sm text-muted-foreground">
+            Registro de eventos, auditoría y trazabilidad
           </p>
         </div>
         <div className="flex items-center gap-3">
           {ultimaActualizacion && (
-            <p className="text-[9px] text-muted-foreground font-bold uppercase hidden md:block">
+            <p className="text-[11px] text-muted-foreground font-bold uppercase hidden md:block">
               Actualizado: {ultimaActualizacion.toLocaleTimeString('es-VE')}
             </p>
           )}
           <Button
             variant="outline"
             size="sm"
-            className={cn("rounded-xl gap-2 text-[10px] font-black uppercase", autoRefresh && "border-emerald-500 text-emerald-600")}
+            className={cn("rounded-xl gap-2 text-[10px] font-semibold uppercase", autoRefresh && "border-emerald-500 text-emerald-600")}
             onClick={() => setAutoRefresh(!autoRefresh)}
           >
             <Activity className={cn("h-3.5 w-3.5", autoRefresh && "animate-pulse text-emerald-500")} />
@@ -140,7 +140,7 @@ export default function ActividadPage() {
           <Button
             variant="outline"
             size="sm"
-            className="rounded-xl gap-2 text-[10px] font-black uppercase"
+            className="rounded-xl gap-2 text-[10px] font-semibold uppercase"
             onClick={() => cargar()}
             disabled={cargando}
           >
@@ -159,8 +159,8 @@ export default function ActividadPage() {
         ].map((stat, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 rounded-2xl p-6 flex items-center justify-between">
             <div>
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-1">{stat.label}</p>
-              <p className={cn("text-2xl font-black italic", stat.color)}>{cargando ? '—' : stat.val}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-1">{stat.label}</p>
+              <p className={cn("text-2xl font-bold", stat.color)}>{cargando ? '—' : stat.val}</p>
             </div>
             <div className="p-2.5 rounded-xl bg-muted border border-border">
               <stat.icon className={cn("h-4 w-4", stat.color)} />
@@ -179,7 +179,7 @@ export default function ActividadPage() {
               key={cat.id}
               onClick={() => handleCategoria(cat.id)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
+                "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-semibold uppercase tracking-widest border transition-all",
                 activa
                   ? "bg-primary/10 border-primary/40 text-primary"
                   : "bg-card/40 border-border text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground"
@@ -188,7 +188,7 @@ export default function ActividadPage() {
               <Icon className={cn("h-3 w-3", activa && cat.color)} />
               {cat.label}
               {count > 0 && (
-                <span className={cn("px-1.5 py-0.5 rounded-md text-[9px]", activa ? "bg-primary/20" : "bg-muted")}>
+                <span className={cn("px-1.5 py-0.5 rounded-md text-[11px]", activa ? "bg-primary/20" : "bg-muted")}>
                   {count}
                 </span>
               )}
@@ -210,7 +210,7 @@ export default function ActividadPage() {
               className="py-20 flex flex-col items-center gap-3 text-muted-foreground"
             >
               <Activity className="h-12 w-12 opacity-20" />
-              <p className="text-sm font-black uppercase tracking-widest">Sin actividad registrada</p>
+              <p className="text-sm font-semibold uppercase tracking-widest">Sin actividad registrada</p>
               <p className="text-[10px] font-bold opacity-60">Los eventos aparecerán aquí en tiempo real</p>
             </motion.div>
           ) : (
@@ -235,18 +235,18 @@ export default function ActividadPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <Badge variant="outline" className={cn("text-[9px] font-black uppercase border rounded-lg", meta.color)}>
+                          <Badge variant="outline" className={cn("text-[11px] font-semibold uppercase border rounded-lg", meta.color)}>
                             {meta.label}
                           </Badge>
-                          <span className="text-[9px] font-bold text-muted-foreground/60 uppercase">
+                          <span className="text-[11px] font-bold text-muted-foreground/60 uppercase">
                             {log.categoria}
                           </span>
                           {log.entidad_tipo && (
                             <>
                               <ChevronRight className="h-2.5 w-2.5 text-muted-foreground/40" />
-                              <span className="text-[9px] font-bold text-muted-foreground/60 uppercase">{log.entidad_tipo}</span>
+                              <span className="text-[11px] font-bold text-muted-foreground/60 uppercase">{log.entidad_tipo}</span>
                               {log.entidad_id && (
-                                <span className="text-[9px] text-muted-foreground/40">#{log.entidad_id}</span>
+                                <span className="text-[11px] text-muted-foreground/40">#{log.entidad_id}</span>
                               )}
                             </>
                           )}
@@ -256,10 +256,10 @@ export default function ActividadPage() {
                         </p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-[10px] font-black text-muted-foreground/70 whitespace-nowrap">
+                        <p className="text-[10px] font-bold text-muted-foreground/70 whitespace-nowrap">
                           {tiempoRelativo(log.creado_en)}
                         </p>
-                        <p className="text-[9px] text-muted-foreground/40 whitespace-nowrap hidden md:block">
+                        <p className="text-[11px] text-muted-foreground/40 whitespace-nowrap hidden md:block">
                           {formatFecha(log.creado_en)}
                         </p>
                       </div>

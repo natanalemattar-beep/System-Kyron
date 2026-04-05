@@ -51,10 +51,10 @@ export default function EstadosFinancierosPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <FileText className="h-3.5 w-3.5" /> Estados Financieros
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Estados <span className="text-primary">Financieros</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">VEN-NIF · NIIF PYMES · NIC 1 / NIC 7 · Providencia 0071</p>
@@ -94,22 +94,22 @@ export default function EstadosFinancierosPage() {
                     <p className="text-[11px] text-muted-foreground mt-0.5">Estado de Situación Financiera</p>
                   </div>
                 </div>
-                <Badge className="text-[9px] font-bold border-none bg-primary/10 text-primary">VEN-NIF</Badge>
+                <Badge className="text-[11px] font-bold border-none bg-primary/10 text-primary">VEN-NIF</Badge>
               </div>
             </CardHeader>
             <CardContent className="p-6 pt-2 space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
                   <p className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Total Activos</p>
-                  <p className="text-xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{formatNum(activos)} Bs.</p>
+                  <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">{formatNum(activos)} Bs.</p>
                 </div>
                 <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20">
                   <p className="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase">Total Pasivos</p>
-                  <p className="text-xl font-black text-rose-600 dark:text-rose-400 mt-1">{formatNum(pasivos)} Bs.</p>
+                  <p className="text-xl font-bold text-rose-600 dark:text-rose-400 mt-1">{formatNum(pasivos)} Bs.</p>
                 </div>
                 <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
                   <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Patrimonio</p>
-                  <p className="text-xl font-black text-blue-600 dark:text-blue-400 mt-1">{formatNum(patrimonio)} Bs.</p>
+                  <p className="text-xl font-bold text-blue-600 dark:text-blue-400 mt-1">{formatNum(patrimonio)} Bs.</p>
                 </div>
               </div>
               <div className="p-3 rounded-xl bg-muted/30 text-xs text-muted-foreground">
@@ -130,22 +130,22 @@ export default function EstadosFinancierosPage() {
                     <p className="text-[11px] text-muted-foreground mt-0.5">Ganancias y Pérdidas del Período</p>
                   </div>
                 </div>
-                <Badge className="text-[9px] font-bold border-none bg-emerald-500/10 text-emerald-500">PERÍODO</Badge>
+                <Badge className="text-[11px] font-bold border-none bg-emerald-500/10 text-emerald-500">PERÍODO</Badge>
               </div>
             </CardHeader>
             <CardContent className="p-6 pt-2 space-y-3">
               <div className="space-y-2">
                 <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30">
                   <span className="text-xs font-semibold">Ingresos Totales</span>
-                  <span className="text-sm font-black text-emerald-600">{formatNum(ingresos)} Bs.</span>
+                  <span className="text-sm font-bold text-emerald-600">{formatNum(ingresos)} Bs.</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30">
                   <span className="text-xs font-semibold">Gastos y Costos Totales</span>
-                  <span className="text-sm font-black text-rose-500">({formatNum(gastos)}) Bs.</span>
+                  <span className="text-sm font-bold text-rose-500">({formatNum(gastos)}) Bs.</span>
                 </div>
                 <div className={cn("flex justify-between items-center p-4 rounded-xl border-2", utilidad >= 0 ? "bg-emerald-500/10 border-emerald-500/30" : "bg-rose-500/10 border-rose-500/30")}>
                   <span className="text-xs font-bold uppercase">{utilidad >= 0 ? 'Utilidad Neta' : 'Pérdida Neta'}</span>
-                  <span className={cn("text-xl font-black", utilidad >= 0 ? "text-emerald-600" : "text-rose-500")}>{formatNum(utilidad)} Bs.</span>
+                  <span className={cn("text-xl font-bold", utilidad >= 0 ? "text-emerald-600" : "text-rose-500")}>{formatNum(utilidad)} Bs.</span>
                 </div>
               </div>
             </CardContent>
@@ -184,7 +184,7 @@ export default function EstadosFinancierosPage() {
               <CardContent className="p-6 pt-2">
                 <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30">
                   <span className="text-xs font-semibold">Patrimonio Actual</span>
-                  <span className="text-sm font-black text-violet-500">{formatNum(patrimonio)} Bs.</span>
+                  <span className="text-sm font-bold text-violet-500">{formatNum(patrimonio)} Bs.</span>
                 </div>
               </CardContent>
             </Card>

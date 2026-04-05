@@ -121,14 +121,14 @@ export default function CotizadorEquiposPage() {
                 <Smartphone className="h-14 w-14 text-primary/20" />
                 <div className="absolute top-2 left-2 flex gap-1">
                   {eq.homologado && (
-                    <Badge className="text-[8px] px-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                    <Badge className="text-[10px] px-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                       <Shield className="h-2 w-2 mr-0.5" /> CONATEL
                     </Badge>
                   )}
-                  {eq.red5G && <Badge className="text-[8px] px-1.5 bg-primary/10 text-primary border border-primary/20">5G</Badge>}
+                  {eq.red5G && <Badge className="text-[10px] px-1.5 bg-primary/10 text-primary border border-primary/20">5G</Badge>}
                 </div>
                 {eq.precioDescuento && (
-                  <Badge className="absolute top-2 right-2 text-[8px] px-1.5 bg-rose-500 text-white">
+                  <Badge className="absolute top-2 right-2 text-[10px] px-1.5 bg-rose-500 text-white">
                     -{Math.round(((eq.precio - eq.precioDescuento) / eq.precio) * 100)}%
                   </Badge>
                 )}
@@ -141,11 +141,11 @@ export default function CotizadorEquiposPage() {
                     {Array.from({ length: 5 }).map((_, si) => (
                       <Star key={si} className={cn("h-2.5 w-2.5", si < Math.floor(eq.rating) ? "text-amber-500 fill-amber-500" : "text-muted-foreground/30")} />
                     ))}
-                    <span className="text-[9px] text-muted-foreground ml-1">{eq.rating}</span>
+                    <span className="text-[11px] text-muted-foreground ml-1">{eq.rating}</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-1.5 text-[9px]">
+                <div className="grid grid-cols-2 gap-1.5 text-[11px]">
                   <div className="p-1.5 rounded bg-muted/10 text-center"><span className="text-muted-foreground">RAM</span><br /><span className="font-bold text-foreground">{eq.ram}</span></div>
                   <div className="p-1.5 rounded bg-muted/10 text-center"><span className="text-muted-foreground">Storage</span><br /><span className="font-bold text-foreground">{eq.almacenamiento}</span></div>
                   <div className="p-1.5 rounded bg-muted/10 text-center"><span className="text-muted-foreground">Pantalla</span><br /><span className="font-bold text-foreground">{eq.pantalla}</span></div>
@@ -156,14 +156,14 @@ export default function CotizadorEquiposPage() {
                   <div>
                     {eq.precioDescuento ? (
                       <div className="flex items-center gap-1.5">
-                        <span className="text-lg font-black text-primary">{formatCurrency(eq.precioDescuento, 'USD')}</span>
+                        <span className="text-lg font-bold text-primary">{formatCurrency(eq.precioDescuento, 'USD')}</span>
                         <span className="text-xs text-muted-foreground line-through">{formatCurrency(eq.precio, 'USD')}</span>
                       </div>
                     ) : (
-                      <span className="text-lg font-black text-primary">{formatCurrency(eq.precio, 'USD')}</span>
+                      <span className="text-lg font-bold text-primary">{formatCurrency(eq.precio, 'USD')}</span>
                     )}
                   </div>
-                  <Badge variant="outline" className={cn("text-[9px]", eq.stock > 0 ? "text-emerald-500 border-emerald-500/20" : "text-rose-500 border-rose-500/20")}>
+                  <Badge variant="outline" className={cn("text-[11px]", eq.stock > 0 ? "text-emerald-500 border-emerald-500/20" : "text-rose-500 border-rose-500/20")}>
                     {eq.stock > 0 ? `${eq.stock} en stock` : "Agotado"}
                   </Badge>
                 </div>

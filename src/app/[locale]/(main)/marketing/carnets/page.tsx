@@ -86,42 +86,42 @@ export default function CarnetsPage() {
     <div className="space-y-8 pb-20 px-4 md:px-10">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
             <CreditCard className="h-3 w-3" /> DISEÑADOR DE CARNETS
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Carnets & <span className="text-primary italic">Tarjetas</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">
             Presentación • Personal • Servicios • Seguros
           </p>
         </div>
-        <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={handlePrint}>
+        <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg" onClick={handlePrint}>
           <Printer className="mr-2 h-4 w-4" /> IMPRIMIR CARNET
         </Button>
       </header>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="bg-white/5 border border-white/10 rounded-2xl p-1.5 h-auto flex-wrap gap-1">
-          <TabsTrigger value="presentacion" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="presentacion" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <CreditCard className="mr-2 h-3.5 w-3.5" /> Tarjeta de Presentación
           </TabsTrigger>
-          <TabsTrigger value="personal" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="personal" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <Users className="mr-2 h-3.5 w-3.5" /> Carnet de Personal
           </TabsTrigger>
-          <TabsTrigger value="servicio" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="servicio" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <Building2 className="mr-2 h-3.5 w-3.5" /> Solicitud de Servicio
           </TabsTrigger>
-          <TabsTrigger value="seguro" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="seguro" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <ShieldCheck className="mr-2 h-3.5 w-3.5" /> Carnet de Seguro
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="presentacion" className="mt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40">
+            <Card className="glass-card border-none rounded-xl bg-card/40">
               <CardHeader className="p-8 border-b border-white/5">
-                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Datos de la Tarjeta</CardTitle>
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Datos de la Tarjeta</CardTitle>
               </CardHeader>
               <CardContent className="p-8 space-y-4">
                 {[
@@ -132,7 +132,7 @@ export default function CarnetsPage() {
                   { label: "Email", key: "email" as const, icon: Mail },
                 ].map(field => (
                   <div key={field.key} className="space-y-1.5">
-                    <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 flex items-center gap-2">
+                    <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 flex items-center gap-2">
                       <field.icon className="h-3 w-3" /> {field.label}
                     </label>
                     <Input className="h-11 rounded-xl bg-white/5 border-white/10" value={businessCardData[field.key]} onChange={e => setBusinessCardData(p => ({ ...p, [field.key]: e.target.value }))} />
@@ -142,9 +142,9 @@ export default function CarnetsPage() {
             </Card>
 
             <div className="space-y-6">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center">VISTA PREVIA — FRENTE</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center">VISTA PREVIA — FRENTE</p>
               <BusinessCardFront data={businessCardData} />
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center mt-8">VISTA PREVIA — REVERSO</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center mt-8">VISTA PREVIA — REVERSO</p>
               <BusinessCardBack data={businessCardData} />
             </div>
           </div>
@@ -152,30 +152,30 @@ export default function CarnetsPage() {
 
         <TabsContent value="personal" className="mt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40">
+            <Card className="glass-card border-none rounded-xl bg-card/40">
               <CardHeader className="p-8 border-b border-white/5">
-                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Seleccionar Empleado</CardTitle>
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Seleccionar Empleado</CardTitle>
               </CardHeader>
               <CardContent className="p-8 space-y-3">
                 {employees.map(emp => (
                   <button key={emp.id} onClick={() => setSelectedEmployee(emp)} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all text-left ${selectedEmployee.id === emp.id ? 'bg-primary/10 border border-primary/30' : 'bg-white/[0.02] border border-white/5 hover:bg-white/[0.05]'}`}>
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-black text-xs ${selectedEmployee.id === emp.id ? 'bg-primary text-white' : 'bg-white/10 text-foreground/60'}`}>
+                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold text-xs ${selectedEmployee.id === emp.id ? 'bg-primary text-white' : 'bg-white/10 text-foreground/60'}`}>
                       {getInitials(emp.nombre, emp.apellido)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-sm text-foreground truncate">{emp.nombre} {emp.apellido}</p>
-                      <p className="text-[9px] text-muted-foreground/60 uppercase">{emp.cargo}</p>
+                      <p className="text-[11px] text-muted-foreground/60 uppercase">{emp.cargo}</p>
                     </div>
-                    <Badge variant="outline" className="text-[7px] font-black uppercase shrink-0">{emp.departamento}</Badge>
+                    <Badge variant="outline" className="text-[7px] font-semibold uppercase shrink-0">{emp.departamento}</Badge>
                   </button>
                 ))}
               </CardContent>
             </Card>
 
             <div className="space-y-6">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE IDENTIFICACIÓN — FRENTE</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE IDENTIFICACIÓN — FRENTE</p>
               <EmployeeCardFront employee={selectedEmployee} />
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE IDENTIFICACIÓN — REVERSO</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE IDENTIFICACIÓN — REVERSO</p>
               <EmployeeCardBack employee={selectedEmployee} />
             </div>
           </div>
@@ -183,9 +183,9 @@ export default function CarnetsPage() {
 
         <TabsContent value="servicio" className="mt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40">
+            <Card className="glass-card border-none rounded-xl bg-card/40">
               <CardHeader className="p-8 border-b border-white/5">
-                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Información del Servicio</CardTitle>
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Información del Servicio</CardTitle>
               </CardHeader>
               <CardContent className="p-8">
                 <div className="space-y-4 text-sm text-muted-foreground/80">
@@ -198,7 +198,7 @@ export default function CarnetsPage() {
                       { label: "Categoría", value: "Proveedor Premium Clase A" },
                     ].map(item => (
                       <div key={item.label} className="p-3 rounded-xl bg-white/5 border border-white/5">
-                        <p className="text-[8px] font-black uppercase text-muted-foreground/40">{item.label}</p>
+                        <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">{item.label}</p>
                         <p className="text-xs font-bold text-foreground/80 mt-1">{item.value}</p>
                       </div>
                     ))}
@@ -208,9 +208,9 @@ export default function CarnetsPage() {
             </Card>
 
             <div className="space-y-6">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE SOLICITUD DE SERVICIO — FRENTE</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE SOLICITUD DE SERVICIO — FRENTE</p>
               <ServiceCardFront />
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE SOLICITUD DE SERVICIO — REVERSO</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE SOLICITUD DE SERVICIO — REVERSO</p>
               <ServiceCardBack />
             </div>
           </div>
@@ -218,9 +218,9 @@ export default function CarnetsPage() {
 
         <TabsContent value="seguro" className="mt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40">
+            <Card className="glass-card border-none rounded-xl bg-card/40">
               <CardHeader className="p-8 border-b border-white/5">
-                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Datos del Seguro</CardTitle>
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Datos del Seguro</CardTitle>
               </CardHeader>
               <CardContent className="p-8 space-y-4">
                 {[
@@ -233,7 +233,7 @@ export default function CarnetsPage() {
                   { label: "Servicios Aprobados", key: "serviciosAprobados" as const },
                 ].map(field => (
                   <div key={field.key} className="space-y-1.5">
-                    <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{field.label}</label>
+                    <label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{field.label}</label>
                     <Input className="h-11 rounded-xl bg-white/5 border-white/10" value={insuranceData[field.key]} onChange={e => setInsuranceData(p => ({ ...p, [field.key]: e.target.value }))} />
                   </div>
                 ))}
@@ -241,9 +241,9 @@ export default function CarnetsPage() {
             </Card>
 
             <div className="space-y-6">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE SEGURO — FRENTE</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center">CARNET DE SEGURO — FRENTE</p>
               <InsuranceCardFront data={insuranceData} />
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE SEGURO — REVERSO (QR AUTORIZACIÓN)</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40 text-center mt-8">CARNET DE SEGURO — REVERSO (QR AUTORIZACIÓN)</p>
               <InsuranceCardBack data={insuranceData} />
             </div>
           </div>
@@ -255,22 +255,22 @@ export default function CarnetsPage() {
 
 function BusinessCardFront({ data }: { data: { nombre: string; cargo: string; telefono: string; email: string; departamento: string } }) {
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.75/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 40%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.75/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 40%, #0f2847 100%)' }}>
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
       <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-primary/10 blur-3xl -translate-y-10 translate-x-10" />
       <div className="relative h-full flex flex-col justify-between p-7">
         <div className="flex items-center gap-3">
           <Logo className="h-8 w-8" />
           <div>
-            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/90">System Kyron</p>
-            <p className="text-[6px] font-bold uppercase tracking-[0.5em] text-primary/60">Inteligencia Corporativa</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-white/90">System Kyron</p>
+            <p className="text-[6px] font-bold uppercase tracking-wider text-primary/60">Inteligencia Corporativa</p>
           </div>
         </div>
         <div>
-          <h2 className="text-xl font-black text-white uppercase tracking-tight">{data.nombre}</h2>
-          <p className="text-[9px] font-bold text-primary uppercase tracking-widest mt-1">{data.cargo}</p>
+          <h2 className="text-xl font-bold text-white uppercase tracking-tight">{data.nombre}</h2>
+          <p className="text-[11px] font-bold text-primary uppercase tracking-widest mt-1">{data.cargo}</p>
           <div className="h-[1px] bg-gradient-to-r from-primary/40 to-transparent my-3 w-24" />
-          <div className="flex gap-6 text-[8px] text-white/50 font-bold">
+          <div className="flex gap-6 text-[10px] text-white/50 font-bold">
             <span className="flex items-center gap-1.5"><Phone className="h-2.5 w-2.5 text-primary/60" />{data.telefono}</span>
             <span className="flex items-center gap-1.5"><Mail className="h-2.5 w-2.5 text-primary/60" />{data.email}</span>
           </div>
@@ -283,13 +283,13 @@ function BusinessCardFront({ data }: { data: { nombre: string; cargo: string; te
 function BusinessCardBack({ data }: { data: { nombre: string; email: string } }) {
   const qrData = `MECARD:N:${data.nombre};EMAIL:${data.email};ORG:${companyInfo.nombre};URL:${companyInfo.web};;`;
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.75/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 40%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.75/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 40%, #0f2847 100%)' }}>
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
       <div className="relative h-full flex items-center justify-between p-7">
         <div className="flex-1 space-y-3">
           <Logo className="h-10 w-10 mb-4" />
           <p className="text-[7px] font-bold text-white/40 uppercase tracking-widest leading-relaxed max-w-[200px]">{companyInfo.direccion}</p>
-          <div className="space-y-1.5 text-[8px] text-white/50 font-bold">
+          <div className="space-y-1.5 text-[10px] text-white/50 font-bold">
             <p className="flex items-center gap-2"><Phone className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.telefono}</p>
             <p className="flex items-center gap-2"><Globe className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.web}</p>
             <p className="flex items-center gap-2"><Mail className="h-2.5 w-2.5 text-primary/50" /> {companyInfo.email}</p>
@@ -299,7 +299,7 @@ function BusinessCardBack({ data }: { data: { nombre: string; email: string } })
           <div className="p-2 bg-white rounded-xl shadow-lg">
             <Image src={getQrUrl(qrData, 120)} alt="QR" width={120} height={120} className="rounded-lg" unoptimized />
           </div>
-          <p className="text-[6px] font-black uppercase tracking-widest text-primary/40">Escanear contacto</p>
+          <p className="text-[6px] font-semibold uppercase tracking-widest text-primary/40">Escanear contacto</p>
         </div>
       </div>
     </div>
@@ -309,25 +309,25 @@ function BusinessCardBack({ data }: { data: { nombre: string; email: string } })
 function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }) {
   const qrData = `KYRON-EMP:${employee.id}|${employee.cedula}|${employee.nombre} ${employee.apellido}|${employee.cargo}`;
   return (
-    <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
+    <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-br from-primary/20 to-primary/5" />
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex flex-col items-center p-6 pt-5">
         <div className="flex items-center gap-2 mb-4">
           <Logo className="h-7 w-7" />
           <div>
-            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-white/90">System Kyron</p>
-            <p className="text-[5px] font-bold uppercase tracking-[0.5em] text-primary/60">Identificación Corporativa</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-white/90">System Kyron</p>
+            <p className="text-[5px] font-bold uppercase tracking-wider text-primary/60">Identificación Corporativa</p>
           </div>
         </div>
 
         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 border-2 border-primary/30 flex items-center justify-center mb-3 shadow-lg">
-          <span className="text-2xl font-black text-white">{getInitials(employee.nombre, employee.apellido)}</span>
+          <span className="text-2xl font-bold text-white">{getInitials(employee.nombre, employee.apellido)}</span>
         </div>
 
-        <h3 className="text-base font-black text-white text-center uppercase tracking-tight">{employee.nombre}</h3>
-        <p className="text-base font-black text-white text-center uppercase tracking-tight -mt-0.5">{employee.apellido}</p>
-        <Badge className="mt-2 bg-primary/20 text-primary border-primary/30 text-[7px] font-black uppercase px-3">{employee.cargo}</Badge>
+        <h3 className="text-base font-bold text-white text-center uppercase tracking-tight">{employee.nombre}</h3>
+        <p className="text-base font-bold text-white text-center uppercase tracking-tight -mt-0.5">{employee.apellido}</p>
+        <Badge className="mt-2 bg-primary/20 text-primary border-primary/30 text-[7px] font-semibold uppercase px-3">{employee.cargo}</Badge>
 
         <div className="w-full mt-4 space-y-2">
           {[
@@ -339,7 +339,7 @@ function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }
             <div key={item.label} className="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/[0.03]">
               <item.icon className="h-3 w-3 text-primary/50 shrink-0" />
               <p className="text-[7px] font-bold text-white/30 uppercase w-20">{item.label}</p>
-              <p className="text-[9px] font-black text-white/80 flex-1 text-right">{item.value}</p>
+              <p className="text-[11px] font-bold text-white/80 flex-1 text-right">{item.value}</p>
             </div>
           ))}
         </div>
@@ -349,7 +349,7 @@ function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }
             <Image src={getQrUrl(qrData, 60)} alt="QR" width={60} height={60} className="rounded" unoptimized />
           </div>
           <div>
-            <p className="text-[6px] font-black uppercase tracking-widest text-primary/40">ID: {employee.id}</p>
+            <p className="text-[6px] font-semibold uppercase tracking-widest text-primary/40">ID: {employee.id}</p>
             <p className="text-[5px] font-bold text-white/20 uppercase">Escanear para verificar</p>
           </div>
         </div>
@@ -360,18 +360,18 @@ function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }
 
 function EmployeeCardBack({ employee }: { employee: typeof sampleEmployees[0] }) {
   return (
-    <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
+    <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex flex-col p-6">
         <div className="flex items-center gap-2 mb-6">
           <Logo className="h-6 w-6" />
-          <p className="text-[7px] font-black uppercase tracking-[0.3em] text-white/60">System Kyron, C.A.</p>
+          <p className="text-[7px] font-semibold uppercase tracking-wide text-white/60">System Kyron, C.A.</p>
         </div>
 
         <div className="space-y-3 flex-1">
           <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
-            <p className="text-[7px] font-black uppercase tracking-widest text-primary/50">Contacto</p>
-            <div className="space-y-1.5 text-[8px] text-white/60 font-bold">
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-primary/50">Contacto</p>
+            <div className="space-y-1.5 text-[10px] text-white/60 font-bold">
               <p className="flex items-center gap-2"><Phone className="h-2.5 w-2.5 text-primary/40" /> {employee.telefono}</p>
               <p className="flex items-center gap-2"><Mail className="h-2.5 w-2.5 text-primary/40" /> {employee.email}</p>
               <p className="flex items-center gap-2"><MapPin className="h-2.5 w-2.5 text-primary/40" /> {companyInfo.direccion}</p>
@@ -379,13 +379,13 @@ function EmployeeCardBack({ employee }: { employee: typeof sampleEmployees[0] })
           </div>
 
           <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
-            <p className="text-[7px] font-black uppercase tracking-widest text-primary/50">En caso de emergencia</p>
-            <p className="text-[8px] text-white/50 font-bold">Comunicarse con RRHH: {companyInfo.telefono}</p>
-            <p className="text-[8px] text-white/50 font-bold">Tipo de Sangre: {employee.tipoSangre}</p>
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-primary/50">En caso de emergencia</p>
+            <p className="text-[10px] text-white/50 font-bold">Comunicarse con RRHH: {companyInfo.telefono}</p>
+            <p className="text-[10px] text-white/50 font-bold">Tipo de Sangre: {employee.tipoSangre}</p>
           </div>
 
           <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 space-y-2">
-            <p className="text-[7px] font-black uppercase tracking-widest text-primary/50">Aviso Legal</p>
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-primary/50">Aviso Legal</p>
             <p className="text-[7px] text-white/30 leading-relaxed">Este documento es propiedad de {companyInfo.nombre}. Su uso indebido será sancionado conforme a las leyes vigentes. En caso de extravío, notificar a RRHH inmediatamente.</p>
           </div>
         </div>
@@ -402,7 +402,7 @@ function EmployeeCardBack({ employee }: { employee: typeof sampleEmployees[0] })
 function ServiceCardFront() {
   const qrData = `KYRON-SVC:CONTABILIDAD|${companyInfo.rif}|PROVEEDOR-PREMIUM|2026`;
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #0b2040 60%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #0b2040 60%, #0f2847 100%)' }}>
       <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-emerald-500/5 blur-3xl" />
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex flex-col justify-between p-7">
@@ -410,17 +410,17 @@ function ServiceCardFront() {
           <div className="flex items-center gap-3">
             <Logo className="h-8 w-8" />
             <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/90">System Kyron</p>
-              <p className="text-[5px] font-bold uppercase tracking-[0.5em] text-emerald-400/60">Asesoría Contable Integral</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-white/90">System Kyron</p>
+              <p className="text-[5px] font-bold uppercase tracking-wider text-emerald-400/60">Asesoría Contable Integral</p>
             </div>
           </div>
-          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[6px] font-black uppercase px-2">Premium</Badge>
+          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[6px] font-semibold uppercase px-2">Premium</Badge>
         </div>
 
         <div>
-          <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400/50 mb-1">Carnet de Solicitud de Servicio</p>
-          <h3 className="text-lg font-black text-white uppercase tracking-tight">Asesoría Contable</h3>
-          <p className="text-[8px] text-white/40 font-bold uppercase tracking-wider">Fiscal • Tributario • Nómina • Legal</p>
+          <p className="text-[7px] font-semibold uppercase tracking-widest text-emerald-400/50 mb-1">Carnet de Solicitud de Servicio</p>
+          <h3 className="text-lg font-bold text-white uppercase tracking-tight">Asesoría Contable</h3>
+          <p className="text-[10px] text-white/40 font-bold uppercase tracking-wider">Fiscal • Tributario • Nómina • Legal</p>
         </div>
 
         <div className="flex items-end justify-between">
@@ -439,16 +439,16 @@ function ServiceCardFront() {
 
 function ServiceCardBack() {
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #0b2040 60%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #0b2040 60%, #0f2847 100%)' }}>
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex flex-col p-7">
         <div className="flex items-center gap-2 mb-5">
           <Logo className="h-6 w-6" />
-          <p className="text-[7px] font-black uppercase tracking-[0.3em] text-white/60">{companyInfo.nombre}</p>
+          <p className="text-[7px] font-semibold uppercase tracking-wide text-white/60">{companyInfo.nombre}</p>
         </div>
 
         <div className="flex-1 space-y-3">
-          <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400/50 mb-2">Servicios Incluidos</p>
+          <p className="text-[7px] font-semibold uppercase tracking-widest text-emerald-400/50 mb-2">Servicios Incluidos</p>
           <div className="grid grid-cols-2 gap-2">
             {[
               "Contabilidad General", "Declaraciones SENIAT",
@@ -476,7 +476,7 @@ function ServiceCardBack() {
 
 function InsuranceCardFront({ data }: { data: { poliza: string; aseguradora: string; tipoCobertura: string; titular: string; cedula: string; vigencia: string; serviciosAprobados: string } }) {
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #1a0a28 60%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #1a0a28 60%, #0f2847 100%)' }}>
       <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-violet-500/5 blur-3xl" />
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex flex-col justify-between p-7">
@@ -486,19 +486,19 @@ function InsuranceCardFront({ data }: { data: { poliza: string; aseguradora: str
               <ShieldCheck className="h-5 w-5 text-violet-400" />
             </div>
             <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/90">{data.aseguradora}</p>
-              <p className="text-[5px] font-bold uppercase tracking-[0.5em] text-violet-400/60">Servicio de Seguro Corporativo</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-white/90">{data.aseguradora}</p>
+              <p className="text-[5px] font-bold uppercase tracking-wider text-violet-400/60">Servicio de Seguro Corporativo</p>
             </div>
           </div>
-          <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[6px] font-black uppercase px-2">{data.tipoCobertura}</Badge>
+          <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[6px] font-semibold uppercase px-2">{data.tipoCobertura}</Badge>
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center gap-4">
             <div>
-              <p className="text-[7px] font-black uppercase tracking-widest text-violet-400/50 mb-1">Titular</p>
-              <h3 className="text-lg font-black text-white uppercase tracking-tight">{data.titular}</h3>
-              <p className="text-[9px] text-white/40 font-bold">{data.cedula}</p>
+              <p className="text-[7px] font-semibold uppercase tracking-widest text-violet-400/50 mb-1">Titular</p>
+              <h3 className="text-lg font-bold text-white uppercase tracking-tight">{data.titular}</h3>
+              <p className="text-[11px] text-white/40 font-bold">{data.cedula}</p>
             </div>
           </div>
         </div>
@@ -510,7 +510,7 @@ function InsuranceCardFront({ data }: { data: { poliza: string; aseguradora: str
           </div>
           <div className="flex items-center gap-2">
             <Logo className="h-6 w-6 opacity-30" />
-            <p className="text-[5px] font-black uppercase tracking-widest text-white/20">Powered by Kyron</p>
+            <p className="text-[5px] font-semibold uppercase tracking-widest text-white/20">Powered by Kyron</p>
           </div>
         </div>
       </div>
@@ -523,14 +523,14 @@ function InsuranceCardBack({ data }: { data: { poliza: string; aseguradora: stri
   const servicios = data.serviciosAprobados.split(',').map(s => s.trim());
 
   return (
-    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-2xl relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #1a0a28 60%, #0f2847 100%)' }}>
+    <div className="mx-auto w-full max-w-[420px] aspect-[1.5/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(135deg, #020810 0%, #0a1628 30%, #1a0a28 60%, #0f2847 100%)' }}>
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />
       <div className="relative h-full flex p-7 gap-5">
         <div className="flex-1 flex flex-col">
-          <p className="text-[7px] font-black uppercase tracking-widest text-violet-400/50 mb-3">Servicios Autorizados</p>
+          <p className="text-[7px] font-semibold uppercase tracking-widest text-violet-400/50 mb-3">Servicios Autorizados</p>
           <div className="space-y-1.5 flex-1">
             {servicios.map(svc => (
-              <div key={svc} className="flex items-center gap-1.5 text-[8px] text-white/60 font-bold">
+              <div key={svc} className="flex items-center gap-1.5 text-[10px] text-white/60 font-bold">
                 <CheckCircle2 className="h-2.5 w-2.5 text-violet-400/50 shrink-0" />
                 {svc}
               </div>
@@ -543,14 +543,14 @@ function InsuranceCardBack({ data }: { data: { poliza: string; aseguradora: stri
         </div>
 
         <div className="flex flex-col items-center justify-center gap-3">
-          <div className="p-3 bg-white rounded-2xl shadow-2xl">
+          <div className="p-3 bg-white rounded-2xl shadow-lg">
             <Image src={getQrUrl(qrData, 140)} alt="QR Autorización" width={140} height={140} className="rounded-xl" unoptimized />
           </div>
           <div className="text-center">
-            <p className="text-[7px] font-black uppercase tracking-widest text-violet-400/60">QR de Autorización</p>
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-violet-400/60">QR de Autorización</p>
             <p className="text-[5px] text-white/20 font-bold uppercase mt-0.5">Escanear para aprobar servicio</p>
           </div>
-          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[7px] font-black uppercase px-3 py-1">
+          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[7px] font-semibold uppercase px-3 py-1">
             <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> ACTIVO
           </Badge>
         </div>

@@ -17,7 +17,7 @@ export function CurrencySelector({ className }: { className?: string }) {
             key={code}
             onClick={() => setCurrency(code)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300",
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-wider transition-all duration-300",
               isActive
                 ? "bg-primary/15 text-primary border border-primary/20 shadow-[0_0_12px_-3px_rgba(14,165,233,0.3)]"
                 : "text-muted-foreground/40 hover:text-muted-foreground/60 hover:bg-muted/20"
@@ -45,7 +45,7 @@ export function CurrencySelectorCompact({ className }: { className?: string }) {
     <button
       onClick={nextCurrency}
       className={cn(
-        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/20 bg-card/50 backdrop-blur-sm text-[10px] font-black uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/20 transition-all duration-300",
+        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border/20 bg-card/50 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/20 transition-all duration-300",
         className
       )}
     >

@@ -304,7 +304,7 @@ export function SpecializedLoginCard({
             transition={{ duration: 0.3 }}
           >
             <div className="mb-6">
-              <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+              <h2 className="text-xl font-bold tracking-tight text-foreground">Iniciar Sesión</h2>
               <p className="text-[13px] text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
             </div>
 
@@ -556,7 +556,7 @@ export function SpecializedLoginCard({
                     : <KeyRound className={cn("h-7 w-7", theme.accent)} />
                 }
               </motion.div>
-              <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
+              <h2 className="text-xl font-bold tracking-tight text-foreground">Verificación</h2>
               <p className="text-[13px] text-muted-foreground mt-2">
                 {devCode ? 'Ingresa el código mostrado abajo' : (
                   <>Código de 6 dígitos enviado a{' '}
@@ -620,7 +620,7 @@ export function SpecializedLoginCard({
                 <div>
                   <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
                   <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                  <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
+                  <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
                   <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
                 </div>
               </div>
@@ -656,7 +656,7 @@ export function SpecializedLoginCard({
                     onChange={e => handleCodeChange(i, e.target.value)}
                     onKeyDown={e => handleCodeKeyDown(i, e)}
                     onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                    className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-black rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
+                    className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-bold rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
                     disabled={isLoading} autoComplete="one-time-code"
                   />
                 </motion.div>
@@ -744,7 +744,7 @@ export function SpecializedLoginCard({
         </motion.div>
         <div className="space-y-3">
           <motion.h1
-            className="text-2xl md:text-3xl font-black tracking-tight leading-tight"
+            className="text-2xl md:text-3xl font-bold tracking-tight leading-tight"
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
@@ -795,7 +795,7 @@ export function SpecializedLoginCard({
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.3 }}
       >
-        <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-white/30">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Sistema activo · Enlace seguro
         </div>
@@ -809,7 +809,7 @@ export function SpecializedLoginCard({
         <Icon className="h-5 w-5" />
       </div>
       <div>
-        <p className="text-sm font-black tracking-tight text-foreground">{portalName}</p>
+        <p className="text-sm font-bold tracking-tight text-foreground">{portalName}</p>
         <p className="text-[11px] text-muted-foreground leading-tight">{portalDescription}</p>
       </div>
     </div>
@@ -859,7 +859,7 @@ export function SpecializedLoginCard({
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
+          className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
         >
           <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
             {mobileHeader}
@@ -867,7 +867,7 @@ export function SpecializedLoginCard({
           </div>
           {brandPanel}
         </motion.div>
-        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+        <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
     );
   }
@@ -919,7 +919,7 @@ export function SpecializedLoginCard({
               <Icon className="h-8 w-8 text-white" />
             </motion.div>
             <motion.h1
-              className={cn("text-3xl font-black tracking-tight bg-gradient-to-r bg-clip-text text-transparent", theme.gradient)}
+              className={cn("text-3xl font-bold tracking-tight bg-gradient-to-r bg-clip-text text-transparent", theme.gradient)}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.4 }}
@@ -951,7 +951,7 @@ export function SpecializedLoginCard({
             )}
           </div>
           <motion.div
-            className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl shadow-black/[0.08]"
+            className="rounded-2xl border border-border/40 bg-card/80 backdrop-blur-xl p-6 md:p-8 shadow-lg shadow-black/[0.08]"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -959,7 +959,7 @@ export function SpecializedLoginCard({
             {formContent}
           </motion.div>
         </motion.div>
-        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+        <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
     );
   }
@@ -973,7 +973,7 @@ export function SpecializedLoginCard({
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-[540px] rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
+          className="w-full max-w-[540px] rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
         >
           <div className={cn('relative overflow-hidden text-white bg-gradient-to-br p-8 md:p-10', theme.gradient)}>
             <div className="absolute inset-0 overflow-hidden">
@@ -995,7 +995,7 @@ export function SpecializedLoginCard({
               </motion.div>
               <div>
                 <motion.h1
-                  className="text-2xl font-black tracking-tight"
+                  className="text-2xl font-bold tracking-tight"
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.25, duration: 0.4 }}
@@ -1032,7 +1032,7 @@ export function SpecializedLoginCard({
             {formContent}
           </div>
         </motion.div>
-        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+        <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
     );
   }
@@ -1055,7 +1055,7 @@ export function SpecializedLoginCard({
               <Icon className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tight text-foreground">{portalName}</h1>
+              <h1 className="text-xl font-bold tracking-tight text-foreground">{portalName}</h1>
               <p className="text-[12px] text-muted-foreground mt-0.5">{portalDescription}</p>
             </div>
           </div>
@@ -1078,7 +1078,7 @@ export function SpecializedLoginCard({
             {formContent}
           </div>
         </motion.div>
-        <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+        <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
     );
   }
@@ -1128,7 +1128,7 @@ export function SpecializedLoginCard({
         >
           <div className="text-center mb-8">
             <motion.div
-              className={cn("mx-auto h-16 w-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-2xl mb-5 ring-1 ring-white/10", theme.gradient)}
+              className={cn("mx-auto h-16 w-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg mb-5 ring-1 ring-white/10", theme.gradient)}
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.15, duration: 0.5, type: "spring" }}
@@ -1136,7 +1136,7 @@ export function SpecializedLoginCard({
               <Icon className="h-8 w-8 text-white" />
             </motion.div>
             <motion.h1
-              className="text-3xl font-black tracking-tight text-white"
+              className="text-3xl font-bold tracking-tight text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25, duration: 0.4 }}
@@ -1168,7 +1168,7 @@ export function SpecializedLoginCard({
             )}
           </div>
           <motion.div
-            className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 shadow-2xl"
+            className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-6 md:p-8 shadow-lg"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -1178,7 +1178,7 @@ export function SpecializedLoginCard({
             </div>
           </motion.div>
         </motion.div>
-        <p className="absolute bottom-6 text-[9px] text-white/15 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+        <p className="absolute bottom-6 text-[11px] text-white/15 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
       </div>
     );
   }
@@ -1191,7 +1191,7 @@ export function SpecializedLoginCard({
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.12] overflow-hidden border border-border/40"
+        className="w-full max-w-[1040px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.12] overflow-hidden border border-border/40"
       >
         {brandPanel}
         <div className="p-6 md:p-10 flex flex-col justify-center bg-card">
@@ -1199,7 +1199,7 @@ export function SpecializedLoginCard({
           {formContent}
         </div>
       </motion.div>
-      <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
+      <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Enlace Seguro</p>
     </div>
   );
 }

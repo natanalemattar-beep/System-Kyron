@@ -74,7 +74,7 @@ export default function ReportesFlotaPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -95,14 +95,14 @@ export default function ReportesFlotaPage() {
             <div className="flex items-end justify-between gap-3 h-44">
               {MESES.map((m, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-                  <span className="text-[9px] font-bold text-foreground tabular-nums">${m.gasto}</span>
+                  <span className="text-[11px] font-bold text-foreground tabular-nums">${m.gasto}</span>
                   <motion.div
                     initial={{ height: 0 }}
                     animate={{ height: `${(m.gasto / maxGasto) * 100}%` }}
                     transition={{ delay: i * 0.07, duration: 0.5 }}
                     className={cn("w-full rounded-t-lg min-h-[4px]", i === MESES.length - 1 ? "bg-primary" : "bg-primary/30")}
                   />
-                  <span className="text-[9px] font-semibold text-muted-foreground">{m.mes}</span>
+                  <span className="text-[11px] font-semibold text-muted-foreground">{m.mes}</span>
                 </div>
               ))}
             </div>
@@ -120,7 +120,7 @@ export default function ReportesFlotaPage() {
             {DEPTOS.sort((a, b) => b.gastoUSD - a.gastoUSD).map((d, i) => (
               <div key={i} className="flex items-center justify-between px-5 py-3 border-b border-border/30 last:border-0 hover:bg-muted/5 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-[10px] font-black text-primary">{i + 1}</div>
+                  <div className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">{i + 1}</div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">{d.nombre}</p>
                     <p className="text-[10px] text-muted-foreground">{d.lineas} líneas · {d.consumoGB} GB</p>
@@ -157,7 +157,7 @@ export default function ReportesFlotaPage() {
                 <div key={i} className="p-4 rounded-xl bg-muted/10 border border-border/40 space-y-3 hover:border-primary/20 transition-colors">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-bold text-foreground">{d.nombre}</p>
-                    <Badge variant="outline" className="text-[9px] px-1.5">{d.lineas} líneas</Badge>
+                    <Badge variant="outline" className="text-[11px] px-1.5">{d.lineas} líneas</Badge>
                   </div>
                   <div className="space-y-1">
                     <div className="flex justify-between text-[10px]">

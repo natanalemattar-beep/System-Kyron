@@ -52,10 +52,10 @@ export default function RetencionesIslrPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-semibold uppercase tracking-wide text-indigo-500 mb-3">
                         <Banknote className="h-3.5 w-3.5" /> Retenciones ISLR
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Retenciones de <span className="text-indigo-500">ISLR</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Decreto N° 1.808 · Reglamento Parcial de Retenciones</p>
@@ -78,7 +78,7 @@ export default function RetencionesIslrPage() {
                                         <p className="text-xs font-bold">{c.name}</p>
                                         <p className="text-[10px] text-muted-foreground">Base: {c.base} · {c.articulo}</p>
                                     </div>
-                                    <span className="text-lg font-black text-indigo-500">{c.rate}</span>
+                                    <span className="text-lg font-bold text-indigo-500">{c.rate}</span>
                                 </div>
                             ))}
                         </CardContent>

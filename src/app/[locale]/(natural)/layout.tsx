@@ -89,7 +89,7 @@ export default function NaturalLayout({
               </main>
               
               <footer className="p-8 md:p-12 border-t border-border/20 bg-card/60 text-center mt-20 relative z-20">
-                <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
+                <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
                   System Kyron • {config.footerLabel} • 2026
                 </p>
               </footer>

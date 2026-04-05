@@ -215,7 +215,7 @@ export default function CalculadoraPrestacionesPage() {
             </div>
             <div className="space-y-1 flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Badge className="text-[8px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20 font-bold uppercase tracking-wider">
+                <Badge className="text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20 font-bold uppercase tracking-wider">
                   PRESTACIONES LOTTT
                 </Badge>
               </div>
@@ -312,7 +312,7 @@ export default function CalculadoraPrestacionesPage() {
                     </div>
                     <div>
                       <p className="text-[11px] font-bold text-foreground">Incluir Alícuota de Utilidades</p>
-                      <p className="text-[9px] text-muted-foreground/60">Art. 131-132 LOTTT (15 a 120 días)</p>
+                      <p className="text-[11px] text-muted-foreground/60">Art. 131-132 LOTTT (15 a 120 días)</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -348,7 +348,7 @@ export default function CalculadoraPrestacionesPage() {
                     </div>
                     <div>
                       <p className="text-[11px] font-bold text-foreground">Incluir Alícuota de Bono Vacacional</p>
-                      <p className="text-[9px] text-muted-foreground/60">Art. 192 LOTTT (15 días base + 1 por año)</p>
+                      <p className="text-[11px] text-muted-foreground/60">Art. 192 LOTTT (15 días base + 1 por año)</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -392,7 +392,7 @@ export default function CalculadoraPrestacionesPage() {
                     className="h-11 rounded-xl bg-muted/10 border-border/20 text-foreground w-32"
                     placeholder="12"
                   />
-                  <p className="text-[9px] text-muted-foreground/50 flex items-center gap-1">
+                  <p className="text-[11px] text-muted-foreground/50 flex items-center gap-1">
                     <Info className="h-3 w-3" /> Tasa de referencia del Banco Central de Venezuela
                   </p>
                 </div>
@@ -450,46 +450,46 @@ export default function CalculadoraPrestacionesPage() {
                         </div>
                         <div>
                           <p className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider">Total Prestaciones</p>
-                          <p className="text-2xl sm:text-3xl font-black text-emerald-500">
+                          <p className="text-2xl sm:text-3xl font-bold text-emerald-500">
                             <AnimatedNumber value={resultado.totalPrestaciones} />
                           </p>
                         </div>
                       </div>
-                      <Badge className="text-[8px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20 font-bold">
+                      <Badge className="text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20 font-bold">
                         LOTTT
                       </Badge>
                     </div>
 
                     <div className="grid grid-cols-3 gap-3 mt-4">
                       <div className="p-3 rounded-xl bg-muted/10 border border-border/15 text-center">
-                        <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Años</p>
+                        <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Años</p>
                         <motion.p
                           key={resultado.anosServicio}
                           initial={{ scale: 0.8 }}
                           animate={{ scale: 1 }}
-                          className="text-xl font-black text-foreground"
+                          className="text-xl font-bold text-foreground"
                         >
                           {resultado.anosServicio}
                         </motion.p>
                       </div>
                       <div className="p-3 rounded-xl bg-muted/10 border border-border/15 text-center">
-                        <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Meses</p>
+                        <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Meses</p>
                         <motion.p
                           key={resultado.mesesServicio}
                           initial={{ scale: 0.8 }}
                           animate={{ scale: 1 }}
-                          className="text-xl font-black text-foreground"
+                          className="text-xl font-bold text-foreground"
                         >
                           {resultado.mesesServicio}
                         </motion.p>
                       </div>
                       <div className="p-3 rounded-xl bg-muted/10 border border-border/15 text-center">
-                        <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Días</p>
+                        <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Días</p>
                         <motion.p
                           key={resultado.diasServicio}
                           initial={{ scale: 0.8 }}
                           animate={{ scale: 1 }}
-                          className="text-xl font-black text-foreground"
+                          className="text-xl font-bold text-foreground"
                         >
                           {resultado.diasServicio}
                         </motion.p>
@@ -510,21 +510,21 @@ export default function CalculadoraPrestacionesPage() {
                             <p className="text-[11px] font-bold text-foreground">Salario Diario</p>
                           </div>
                         </div>
-                        <p className="text-lg font-black text-emerald-500">
+                        <p className="text-lg font-bold text-emerald-500">
                           <AnimatedNumber value={resultado.salarioDiario} />
                         </p>
                         <div className="space-y-1 border-t border-border/15 pt-2">
-                          <div className="flex justify-between text-[9px]">
+                          <div className="flex justify-between text-[11px]">
                             <span className="text-muted-foreground/50">Alícuota Utilidades</span>
                             <span className="text-foreground font-bold">Bs. {formatBs(resultado.alicuotaUtilidades)}</span>
                           </div>
-                          <div className="flex justify-between text-[9px]">
+                          <div className="flex justify-between text-[11px]">
                             <span className="text-muted-foreground/50">Alícuota Bono Vac.</span>
                             <span className="text-foreground font-bold">Bs. {formatBs(resultado.alicuotaBonoVacacional)}</span>
                           </div>
                           <div className="flex justify-between text-[10px] border-t border-border/15 pt-1 mt-1">
                             <span className="text-muted-foreground/70 font-bold">Salario Integral</span>
-                            <span className="text-emerald-500 font-black">Bs. {formatBs(resultado.salarioIntegralDiario)}</span>
+                            <span className="text-emerald-500 font-bold">Bs. {formatBs(resultado.salarioIntegralDiario)}</span>
                           </div>
                         </div>
                       </CardContent>
@@ -543,21 +543,21 @@ export default function CalculadoraPrestacionesPage() {
                           </div>
                           <Badge variant="outline" className="text-[7px] border-emerald-500/20 text-emerald-500">Art. 142</Badge>
                         </div>
-                        <p className="text-lg font-black text-emerald-500">
+                        <p className="text-lg font-bold text-emerald-500">
                           <AnimatedNumber value={resultado.montoAntiguedad} />
                         </p>
                         <div className="space-y-1">
-                          <div className="flex justify-between text-[9px]">
+                          <div className="flex justify-between text-[11px]">
                             <span className="text-muted-foreground/50">Trimestres × 15 días</span>
                             <span className="text-foreground font-bold">{resultado.diasAntiguedad} días</span>
                           </div>
                           {resultado.diasAntiguedadAdicional > 0 && (
                             <>
-                              <div className="flex justify-between text-[9px]">
+                              <div className="flex justify-between text-[11px]">
                                 <span className="text-muted-foreground/50">Días adicionales</span>
                                 <span className="text-amber-500 font-bold">+{resultado.diasAntiguedadAdicional} días</span>
                               </div>
-                              <div className="flex justify-between text-[9px]">
+                              <div className="flex justify-between text-[11px]">
                                 <span className="text-muted-foreground/50">Monto adicional</span>
                                 <span className="text-amber-500 font-bold">Bs. {formatBs(resultado.montoAntiguedadAdicional)}</span>
                               </div>
@@ -580,10 +580,10 @@ export default function CalculadoraPrestacionesPage() {
                           </div>
                           <Badge variant="outline" className="text-[7px] border-emerald-500/20 text-emerald-500">Art. 190</Badge>
                         </div>
-                        <p className="text-lg font-black text-emerald-500">
+                        <p className="text-lg font-bold text-emerald-500">
                           <AnimatedNumber value={resultado.montoVacaciones} />
                         </p>
-                        <div className="flex justify-between text-[9px]">
+                        <div className="flex justify-between text-[11px]">
                           <span className="text-muted-foreground/50">Días correspondientes</span>
                           <span className="text-foreground font-bold">{resultado.diasVacaciones} días</span>
                         </div>
@@ -603,10 +603,10 @@ export default function CalculadoraPrestacionesPage() {
                           </div>
                           <Badge variant="outline" className="text-[7px] border-emerald-500/20 text-emerald-500">Art. 192</Badge>
                         </div>
-                        <p className="text-lg font-black text-emerald-500">
+                        <p className="text-lg font-bold text-emerald-500">
                           <AnimatedNumber value={resultado.montoBonoVacacional} />
                         </p>
-                        <div className="flex justify-between text-[9px]">
+                        <div className="flex justify-between text-[11px]">
                           <span className="text-muted-foreground/50">Días correspondientes</span>
                           <span className="text-foreground font-bold">{resultado.diasBonoVacacional} días</span>
                         </div>
@@ -626,10 +626,10 @@ export default function CalculadoraPrestacionesPage() {
                           </div>
                           <Badge variant="outline" className="text-[7px] border-amber-500/20 text-amber-500">Art. 131-132</Badge>
                         </div>
-                        <p className="text-lg font-black text-amber-500">
+                        <p className="text-lg font-bold text-amber-500">
                           <AnimatedNumber value={resultado.montoUtilidades} />
                         </p>
-                        <div className="flex justify-between text-[9px]">
+                        <div className="flex justify-between text-[11px]">
                           <span className="text-muted-foreground/50">Días de utilidades</span>
                           <span className="text-foreground font-bold">{resultado.diasUtilidades} días</span>
                         </div>
@@ -649,10 +649,10 @@ export default function CalculadoraPrestacionesPage() {
                           </div>
                           <Badge variant="outline" className="text-[7px] border-amber-500/20 text-amber-500">BCV {tasaInteres}%</Badge>
                         </div>
-                        <p className="text-lg font-black text-amber-500">
+                        <p className="text-lg font-bold text-amber-500">
                           <AnimatedNumber value={resultado.interesesPrestaciones} />
                         </p>
-                        <div className="flex justify-between text-[9px]">
+                        <div className="flex justify-between text-[11px]">
                           <span className="text-muted-foreground/50">Tasa anual aplicada</span>
                           <span className="text-foreground font-bold">{tasaInteres}%</span>
                         </div>
@@ -690,12 +690,12 @@ export default function CalculadoraPrestacionesPage() {
                               <div>
                                 <p className="text-[10px] font-bold text-foreground">{item.label}</p>
                                 {item.dias !== null && (
-                                  <p className="text-[8px] text-muted-foreground/40">{item.dias} días</p>
+                                  <p className="text-[10px] text-muted-foreground/40">{item.dias} días</p>
                                 )}
                               </div>
                             </div>
                             <p className={cn(
-                              "text-sm font-black",
+                              "text-sm font-bold",
                               item.color === "emerald" ? "text-emerald-500" : "text-amber-500"
                             )}>
                               Bs. {formatBs(item.value)}
@@ -706,9 +706,9 @@ export default function CalculadoraPrestacionesPage() {
                         <div className="flex items-center justify-between p-4 rounded-xl bg-emerald-500/[0.05] border border-emerald-500/20 mt-2">
                           <div className="flex items-center gap-3">
                             <Clock className="h-4 w-4 text-emerald-500" />
-                            <p className="text-sm font-black text-foreground">TOTAL PRESTACIONES</p>
+                            <p className="text-sm font-bold text-foreground">TOTAL PRESTACIONES</p>
                           </div>
-                          <p className="text-lg font-black text-emerald-500">
+                          <p className="text-lg font-bold text-emerald-500">
                             Bs. {formatBs(resultado.totalPrestaciones)}
                           </p>
                         </div>

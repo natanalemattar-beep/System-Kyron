@@ -138,7 +138,7 @@ export default function ConatelPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Signal className="h-8 w-8 text-primary" />
             Permisos CONATEL
           </h1>
@@ -158,14 +158,14 @@ export default function ConatelPage() {
           { label: "Total Registros", value: permisos.length, color: "text-primary" },
         ].map((s, i) => (
           <Card key={i} className="border rounded-2xl shadow-sm p-5 text-center">
-            <p className={cn("text-3xl font-black", s.color)}>{s.value}</p>
-            <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 mt-1">{s.label}</p>
+            <p className={cn("text-3xl font-bold", s.color)}>{s.value}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 mt-1">{s.label}</p>
           </Card>
         ))}
       </div>
 
       <section className="space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
+        <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
           Mis Permisos CONATEL
         </h3>
 
@@ -198,16 +198,16 @@ export default function ConatelPage() {
                     </div>
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <Badge className={cn("text-[8px] font-black uppercase tracking-widest border h-6", estadoStyle[p.estado] ?? estadoStyle.en_tramite)}>
+                        <Badge className={cn("text-[10px] font-semibold uppercase tracking-widest border h-6", estadoStyle[p.estado] ?? estadoStyle.en_tramite)}>
                           {p.estado === "vigente" ? <CheckCircle className="mr-1 h-2.5 w-2.5" /> : p.estado === "vencido" ? <AlertTriangle className="mr-1 h-2.5 w-2.5" /> : <Clock className="mr-1 h-2.5 w-2.5" />}
                           {estadoLabels[p.estado] || p.estado}
                         </Badge>
-                        <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest h-6">CONATEL</Badge>
+                        <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest h-6">CONATEL</Badge>
                       </div>
-                      <p className="text-sm font-black uppercase tracking-tight">{p.nombre}</p>
+                      <p className="text-sm font-semibold uppercase tracking-tight">{p.nombre}</p>
                       {p.numero && <p className="text-[10px] text-muted-foreground/50 font-mono">N° {p.numero}</p>}
                       {p.descripcion && <p className="text-[10px] text-muted-foreground/60 font-medium">{p.descripcion}</p>}
-                      <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                      <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-widest">
                         Emisión: {p.fechaEmision} · Vence: {p.fechaVencimiento}
                       </p>
                     </div>
@@ -220,13 +220,13 @@ export default function ConatelPage() {
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
+        <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
           Guía de Trámites CONATEL
         </h3>
         <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5 flex items-start gap-4 mb-4">
           <BookOpen className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" />
           <div>
-            <p className="text-xs font-black uppercase tracking-widest text-blue-700">Referencia Informativa</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-blue-700">Referencia Informativa</p>
             <p className="text-xs text-blue-800/70 mt-0.5">
               Tipos de habilitaciones y permisos que otorga CONATEL. Use el botón "Registrar Permiso" para agregar los suyos.
             </p>
@@ -243,9 +243,9 @@ export default function ConatelPage() {
                   <t.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-black uppercase tracking-tight">{t.label}</p>
+                  <p className="text-xs font-semibold uppercase tracking-tight">{t.label}</p>
                   <p className="text-[10px] text-muted-foreground/60 font-medium mt-0.5">{t.desc}</p>
-                  <p className="text-[9px] font-bold text-primary/60 uppercase tracking-widest mt-1">Plazo estimado: {t.plazo}</p>
+                  <p className="text-[11px] font-bold text-primary/60 uppercase tracking-widest mt-1">Plazo estimado: {t.plazo}</p>
                 </div>
                 <Plus className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary transition-colors shrink-0" />
               </CardContent>
@@ -257,7 +257,7 @@ export default function ConatelPage() {
       <Dialog open={solicitudOpen} onOpenChange={setSolicitudOpen}>
         <DialogContent className="max-w-lg rounded-2xl max-h-[90vh] flex flex-col overflow-hidden">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase text-foreground flex items-center gap-3">
+            <DialogTitle className="text-lg font-semibold uppercase text-foreground flex items-center gap-3">
               <Signal className="h-5 w-5 text-primary" />
               Registrar Permiso CONATEL
             </DialogTitle>

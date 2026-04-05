@@ -137,7 +137,7 @@ function ScoreBar({ label, puntaje, estado }: { label: string; puntaje: number; 
     <div className="space-y-1">
       <div className="flex justify-between items-center">
         <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{label}</span>
-        <span className={cn('text-[11px] font-black tabular-nums', textColor)}>{puntaje}%</span>
+        <span className={cn('text-[11px] font-bold tabular-nums', textColor)}>{puntaje}%</span>
       </div>
       <div className="h-1.5 rounded-full bg-muted/20 overflow-hidden">
         <div className={cn('h-full rounded-full transition-all duration-1000 ease-out', barColor)} style={{ width: `${puntaje}%` }} />
@@ -155,7 +155,7 @@ function DetailsList({ section, label }: { section: AnalysisSection; label: stri
       <button onClick={() => setOpen(!open)} className="w-full flex items-center gap-2.5 px-3 py-2 text-left hover:bg-muted/10 transition-colors">
         <StatusIcon className={cn('h-3.5 w-3.5 shrink-0', statusColor)} />
         <span className="flex-1 text-[11px] font-semibold text-foreground/80">{label}</span>
-        <span className={cn('text-[10px] font-black tabular-nums', statusColor)}>{section.puntaje}%</span>
+        <span className={cn('text-[10px] font-bold tabular-nums', statusColor)}>{section.puntaje}%</span>
         {open ? <ChevronUp className="h-3 w-3 text-muted-foreground/30" /> : <ChevronDown className="h-3 w-3 text-muted-foreground/30" />}
       </button>
       {open && (
@@ -220,7 +220,7 @@ function AIConsensusPanel({ consenso }: { consenso: VerificationResult['consenso
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Brain className={cn('h-3.5 w-3.5', cfg.color)} />
-          <span className={cn('text-[10px] font-black uppercase tracking-widest', cfg.color)}>{cfg.label}</span>
+          <span className={cn('text-[10px] font-semibold uppercase tracking-widest', cfg.color)}>{cfg.label}</span>
         </div>
         <span className={cn('text-[10px] font-bold tabular-nums', cfg.color)}>
           {consenso.ias_coinciden}/{consenso.total_ias} IAs
@@ -241,16 +241,16 @@ function AIConsensusPanel({ consenso }: { consenso: VerificationResult['consenso
               <span className="text-[10px] font-bold text-foreground/70 w-12">{ai.name}</span>
               {p.disponible ? (
                 <>
-                  <div className={cn('flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase', vCfg.bg, vCfg.color)}>
+                  <div className={cn('flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold uppercase', vCfg.bg, vCfg.color)}>
                     {p.veredicto_individual === 'autentico' ? '✓' : p.veredicto_individual === 'fraudulento' ? '✗' : '?'} {p.veredicto_individual}
                   </div>
                   <div className="flex-1" />
-                  <span className="text-[9px] text-muted-foreground/50 tabular-nums">
+                  <span className="text-[11px] text-muted-foreground/50 tabular-nums">
                     V:{p.visual_puntaje} C:{p.calidad_puntaje} T:{p.contenido_puntaje}
                   </span>
                 </>
               ) : (
-                <span className="text-[9px] text-red-400/50">No disponible</span>
+                <span className="text-[11px] text-red-400/50">No disponible</span>
               )}
             </div>
           );
@@ -338,7 +338,7 @@ export function DocumentVerification({
         <button onClick={() => setExpanded(true)}
           className={cn('flex items-center gap-2 px-3 py-1.5 rounded-xl border transition-all hover:shadow-lg', config.bg, config.border)}>
           <VerdictIcon className={cn('h-4 w-4', config.color)} />
-          <span className={cn('text-[10px] font-black uppercase tracking-wider', config.color)}>{config.label}</span>
+          <span className={cn('text-[10px] font-semibold uppercase tracking-wider', config.color)}>{config.label}</span>
           <span className="text-[10px] font-bold text-muted-foreground/50 tabular-nums">{result.puntaje_total}%</span>
         </button>
         {calidad && (
@@ -369,7 +369,7 @@ export function DocumentVerification({
               <VerdictIcon className={cn('h-5.5 w-5.5', config.color)} />
             </div>
             <div>
-              <p className={cn('text-sm font-black uppercase tracking-tight', config.color)}>{config.label}</p>
+              <p className={cn('text-sm font-semibold uppercase tracking-tight', config.color)}>{config.label}</p>
               <p className="text-[10px] text-muted-foreground/50 tabular-nums">
                 Confianza: {result.confianza}% · Puntaje: {result.puntaje_total}/100
               </p>
@@ -385,7 +385,7 @@ export function DocumentVerification({
             <div className={cn('flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border', nitidezCfg.bg, nitidezCfg.border)}>
               <NitidezIcon className={cn('h-3.5 w-3.5', nitidezCfg.color)} />
               <span className={cn('text-[10px] font-bold', nitidezCfg.color)}>{nitidezCfg.label}</span>
-              <span className={cn('text-[10px] font-black tabular-nums', nitidezCfg.color)}>{calidad.puntaje}%</span>
+              <span className={cn('text-[10px] font-bold tabular-nums', nitidezCfg.color)}>{calidad.puntaje}%</span>
             </div>
           )}
           {result.consenso_ia.total_ias > 0 && (() => {
@@ -416,7 +416,7 @@ export function DocumentVerification({
           <>
             {result.alertas.length > 0 && (
               <div className="space-y-1.5">
-                <p className="text-[9px] font-black uppercase tracking-widest text-amber-400/60">Alertas</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-400/60">Alertas</p>
                 {result.alertas.map((a, i) => (
                   <div key={i} className="flex items-start gap-2 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/10">
                     <AlertTriangle className="h-3 w-3 text-amber-400 mt-0.5 shrink-0" />
@@ -439,7 +439,7 @@ export function DocumentVerification({
 
             {result.recomendaciones.length > 0 && (
               <div className="space-y-1.5">
-                <p className="text-[9px] font-black uppercase tracking-widest text-primary/40">Recomendaciones</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-primary/40">Recomendaciones</p>
                 {result.recomendaciones.map((r, i) => (
                   <p key={i} className="text-[10px] text-muted-foreground/55 flex items-start gap-2">
                     <CheckCircle2 className="h-3 w-3 text-primary/35 mt-0.5 shrink-0" /> {r}
@@ -450,8 +450,8 @@ export function DocumentVerification({
 
             <div className="pt-2 border-t border-border/10 flex items-center justify-between">
               <div>
-                <p className="text-[8px] text-muted-foreground/25 font-mono">SHA-256: {result.hash_sha256.substring(0, 32)}...</p>
-                <p className="text-[8px] text-muted-foreground/25">
+                <p className="text-[10px] text-muted-foreground/25 font-mono">SHA-256: {result.hash_sha256.substring(0, 32)}...</p>
+                <p className="text-[10px] text-muted-foreground/25">
                   {new Date(result.verificado_at).toLocaleString('es-VE')}
                 </p>
               </div>
@@ -474,7 +474,7 @@ export function VerificationBadge({ veredicto, puntaje }: { veredicto: string; p
   const config = VERDICT_CONFIG[veredicto as keyof typeof VERDICT_CONFIG] || VERDICT_CONFIG.no_determinado;
   const Icon = config.icon;
   return (
-    <div className={cn('inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[9px] font-black uppercase tracking-wider', config.bg, config.border, config.color)}>
+    <div className={cn('inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[11px] font-semibold uppercase tracking-wider', config.bg, config.border, config.color)}>
       <Icon className="h-3 w-3" />
       {config.label} ({puntaje}%)
     </div>

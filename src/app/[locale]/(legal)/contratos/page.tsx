@@ -153,33 +153,33 @@ export default function ContratosPage() {
         className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
       >
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <FileSignature className="h-3 w-3" /> ARCHIVO JURÍDICO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Archivo de <span className="text-primary italic">Contratos</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">
             Gestión Documental • Escritorio Jurídico 2026
           </p>
         </div>
         <div className="flex gap-3">
-          <Button asChild variant="outline" className="h-12 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest">
+          <Button asChild variant="outline" className="h-12 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest">
             <Link href="/generador-documentos"><FileSignature className="mr-2 h-4 w-4" /> GENERAR CON IA</Link>
           </Button>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest">
+              <Button className="btn-3d-primary h-12 px-8 rounded-xl font-bold text-[11px] uppercase tracking-widest">
                 <Plus className="mr-2 h-4 w-4" /> NUEVO CONTRATO
               </Button>
             </DialogTrigger>
             <DialogContent className="bg-card border-border rounded-2xl max-w-lg max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="text-lg font-black uppercase tracking-tight">Registrar Documento Jurídico</DialogTitle>
+                <DialogTitle className="text-lg font-semibold uppercase tracking-tight">Registrar Documento Jurídico</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Tipo *</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Tipo *</Label>
                   <Select value={form.tipo} onValueChange={v => setForm(f => ({ ...f, tipo: v }))}>
                     <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -190,35 +190,35 @@ export default function ContratosPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Título *</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Título *</Label>
                   <Input placeholder="Ej: Contrato de Arrendamiento Local C-1" value={form.titulo} onChange={e => setForm(f => ({ ...f, titulo: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Partes Involucradas (separadas por coma)</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Partes Involucradas (separadas por coma)</Label>
                   <Input placeholder="TechSolutions C.A., Juan Pérez" value={form.partes} onChange={e => setForm(f => ({ ...f, partes: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Fecha Documento</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Fecha Documento</Label>
                     <Input type="date" value={form.fecha_documento} onChange={e => setForm(f => ({ ...f, fecha_documento: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Fecha Vencimiento</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Fecha Vencimiento</Label>
                     <Input type="date" value={form.fecha_vencimiento} onChange={e => setForm(f => ({ ...f, fecha_vencimiento: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Notaría</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Notaría</Label>
                   <Input placeholder="Ej: Notaría Pública 3ra Caracas" value={form.notaria} onChange={e => setForm(f => ({ ...f, notaria: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Descripción / Notas</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Descripción / Notas</Label>
                   <Textarea placeholder="Cláusulas relevantes, montos, condiciones..." value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} className="rounded-xl bg-muted/30 border-border min-h-[80px]" />
                 </div>
               </div>
               <DialogFooter>
                 <DialogClose asChild><Button variant="outline" className="rounded-xl">Cancelar</Button></DialogClose>
-                <Button onClick={handleCreate} disabled={saving} className="btn-3d-primary rounded-xl font-black uppercase text-[9px] tracking-widest">
+                <Button onClick={handleCreate} disabled={saving} className="btn-3d-primary rounded-xl font-semibold uppercase text-[11px] tracking-widest">
                   {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
                   REGISTRAR
                 </Button>
@@ -237,8 +237,8 @@ export default function ContratosPage() {
         ].map((s, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
             <Card className="glass-card border-none bg-card/40 p-5 rounded-2xl text-center">
-              <p className={`text-3xl font-black italic ${s.color}`}>{s.value}</p>
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 mt-1">{s.label}</p>
+              <p className={`text-3xl font-bold ${s.color}`}>{s.value}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 mt-1">{s.label}</p>
             </Card>
           </motion.div>
         ))}
@@ -276,17 +276,17 @@ export default function ContratosPage() {
                         <FileSignature className="h-5 w-5 text-primary" />
                       </div>
                       <div className="space-y-1">
-                        <p className="text-sm font-black uppercase tracking-tight text-foreground/90">{contrato.titulo}</p>
+                        <p className="text-sm font-semibold uppercase tracking-tight text-foreground/90">{contrato.titulo}</p>
                         <p className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
                           {contrato.tipo?.toUpperCase()} • {formatDate(contrato.fecha_documento ?? contrato.created_at)}
                           {contrato.notaria && ` • ${contrato.notaria}`}
                         </p>
                         <div className="flex items-center gap-2 flex-wrap mt-1">
-                          <Badge className={`text-[8px] font-black uppercase tracking-widest border h-6 ${estadoColor[contrato.estado] ?? "bg-muted/20 text-muted-foreground"}`}>
+                          <Badge className={`text-[10px] font-semibold uppercase tracking-widest border h-6 ${estadoColor[contrato.estado] ?? "bg-muted/20 text-muted-foreground"}`}>
                             <Icon className="mr-1 h-2.5 w-2.5" /> {estadoLabel[contrato.estado] ?? contrato.estado}
                           </Badge>
                           {contrato.fecha_vencimiento && (
-                            <span className="text-[8px] text-muted-foreground/40 font-bold uppercase tracking-widest">
+                            <span className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest">
                               Vence: {formatDate(contrato.fecha_vencimiento)}
                             </span>
                           )}
@@ -297,14 +297,14 @@ export default function ContratosPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest"
+                        className="h-9 px-4 rounded-xl text-[11px] font-semibold uppercase tracking-widest"
                         onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'legal', subcategoria: 'descarga_iniciada', descripcion: "DESCARGA INICIADA" }) }); if (res.ok) toast({ title: "DESCARGA INICIADA", description: `${contrato.titulo} — PDF generado.` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                       >
                         <Download className="mr-1.5 h-3 w-3" /> PDF
                       </Button>
                       <Button
                         size="sm"
-                        className="h-9 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest btn-3d-primary"
+                        className="h-9 px-4 rounded-xl text-[11px] font-semibold uppercase tracking-widest btn-3d-primary"
                         onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'legal', subcategoria: 'vista_previa', descripcion: "VISTA PREVIA" }) }); if (res.ok) toast({ title: "VISTA PREVIA", description: `Abriendo ${contrato.titulo}` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                       >
                         <Eye className="mr-1.5 h-3 w-3" /> VER
@@ -326,7 +326,7 @@ export default function ContratosPage() {
           {filtered.length === 0 && (
             <div className="text-center py-16">
               <FileSignature className="h-12 w-12 text-muted-foreground/20 mx-auto mb-4" />
-              <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/40">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">
                 {documentos.length === 0 ? "Sin documentos jurídicos — registre su primer contrato" : "No se encontraron contratos"}
               </p>
             </div>

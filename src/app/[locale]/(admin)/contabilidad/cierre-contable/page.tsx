@@ -87,10 +87,10 @@ export default function CierreContablePage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Lock className="h-3.5 w-3.5" /> Cierre Contable
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Cierre <span className="text-primary">Contable</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Asistente guiado · 9 pasos · Validación automática · Sellado de período</p>
@@ -113,7 +113,7 @@ export default function CierreContablePage() {
                 <p className="text-sm font-bold">Progreso del Cierre</p>
                 <p className="text-[11px] text-muted-foreground">{completados} de {pasos.length} pasos completados</p>
               </div>
-              <span className="text-2xl font-black text-primary">{progreso.toFixed(0)}%</span>
+              <span className="text-2xl font-bold text-primary">{progreso.toFixed(0)}%</span>
             </div>
             <Progress value={progreso} className="h-3 rounded-full" />
           </Card>
@@ -132,7 +132,7 @@ export default function CierreContablePage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] font-mono font-bold text-muted-foreground">PASO {paso.numero}</span>
-                      <Badge className={cn("text-[9px] font-bold border-none", estadoBadge[paso.estado] || estadoBadge.pendiente)}>
+                      <Badge className={cn("text-[11px] font-bold border-none", estadoBadge[paso.estado] || estadoBadge.pendiente)}>
                         {paso.estado === "completado" ? "Completado" : paso.estado === "en_progreso" ? "En Progreso" : "Pendiente"}
                       </Badge>
                     </div>

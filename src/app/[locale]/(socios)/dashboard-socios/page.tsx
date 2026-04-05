@@ -157,11 +157,11 @@ export default function DashboardSociosPage() {
     <div className="space-y-10 pb-20">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-semibold uppercase tracking-wide text-indigo-500 mb-4">
             <Briefcase className="h-3 w-3" /> CENTRO SOCIETARIO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase">Gestión de <span className="text-indigo-500 italic">Socios</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Estructura Accionaria • Gobernanza Corporativa 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase">Gestión de <span className="text-indigo-500 italic">Socios</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Estructura Accionaria • Gobernanza Corporativa 2026</p>
         </div>
         <Button onClick={() => { setEditId(null); setForm(emptySocio); setShowForm(true); }} size="sm" className="h-9 px-4 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white">
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Registrar Socio
@@ -177,12 +177,12 @@ export default function DashboardSociosPage() {
         ].map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.01] transition-all">
             <div className="flex justify-between items-start mb-4">
-              <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
               <div className={cn("p-1.5 rounded-lg border", kpi.bgColor)}>
                 <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
               </div>
             </div>
-            <p className="text-2xl font-black text-foreground tracking-tight">{kpi.val}</p>
+            <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
             <p className="text-[10px] text-muted-foreground/50 font-bold mt-1">{kpi.sub}</p>
           </Card>
         ))}
@@ -193,12 +193,12 @@ export default function DashboardSociosPage() {
           <CardHeader className="p-6 border-b border-border/30">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground">Composición Accionaria</CardTitle>
+                <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground">Composición Accionaria</CardTitle>
                 <CardDescription className="text-[10px] mt-1">
                   {socios.length === 0 ? 'Sin socios registrados' : `${socios.length} socio${socios.length !== 1 ? 's' : ''} registrado${socios.length !== 1 ? 's' : ''}`}
                 </CardDescription>
               </div>
-              <Badge variant="outline" className="text-[8px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
+              <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
                 <ShieldCheck className="h-2.5 w-2.5 mr-1" /> Reg. Mercantil
               </Badge>
             </div>
@@ -222,7 +222,7 @@ export default function DashboardSociosPage() {
                   return (
                     <div key={socio.id} className="px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/20 transition-colors group">
                       <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className="h-10 w-10 rounded-xl bg-indigo-500/10 border border-indigo-500/15 flex items-center justify-center text-indigo-500 font-black text-sm shrink-0">
+                        <div className="h-10 w-10 rounded-xl bg-indigo-500/10 border border-indigo-500/15 flex items-center justify-center text-indigo-500 font-semibold text-sm shrink-0">
                           {socio.nombre.charAt(0)}
                         </div>
                         <div className="min-w-0">
@@ -234,14 +234,14 @@ export default function DashboardSociosPage() {
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
                         <div className="text-right hidden sm:block">
-                          <p className="text-[9px] text-muted-foreground/40 uppercase">{socio.cedula_rif || '—'}</p>
+                          <p className="text-[11px] text-muted-foreground/40 uppercase">{socio.cedula_rif || '—'}</p>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center gap-2">
                             <div className="w-16 h-1.5 bg-muted/30 rounded-full overflow-hidden">
                               <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${Math.min(pct, 100)}%` }} />
                             </div>
-                            <span className="text-sm font-black text-indigo-500 tabular-nums w-14 text-right">{pct.toFixed(2)}%</span>
+                            <span className="text-sm font-bold text-indigo-500 tabular-nums w-14 text-right">{pct.toFixed(2)}%</span>
                           </div>
                         </div>
                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -264,7 +264,7 @@ export default function DashboardSociosPage() {
         <div className="lg:col-span-4 space-y-6">
           <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
             <CardHeader className="p-5 border-b border-border/30">
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
                 <Activity className="h-3.5 w-3.5 text-indigo-500" /> Actas Recientes
               </CardTitle>
             </CardHeader>
@@ -280,12 +280,12 @@ export default function DashboardSociosPage() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <p className="text-[11px] font-bold text-foreground truncate">Acta #{acta.numero_acta}</p>
-                          <p className="text-[9px] text-muted-foreground mt-0.5">
+                          <p className="text-[11px] text-muted-foreground mt-0.5">
                             {new Date(acta.fecha_asamblea).toLocaleDateString(currentLocale || 'es')} · {acta.tipo.charAt(0).toUpperCase() + acta.tipo.slice(1)}
                           </p>
                         </div>
                         <Badge variant="outline" className={cn(
-                          "text-[8px] font-bold uppercase shrink-0",
+                          "text-[10px] font-bold uppercase shrink-0",
                           acta.estado === "registrada" ? "border-emerald-500/20 text-emerald-500 bg-emerald-500/5" :
                           acta.estado === "firmada" ? "border-amber-500/20 text-amber-500 bg-amber-500/5" :
                           acta.estado === "archivada" ? "border-blue-500/20 text-blue-500 bg-blue-500/5" :
@@ -302,7 +302,7 @@ export default function DashboardSociosPage() {
           <Card className="bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-2xl p-6 border-none relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10"><Handshake className="h-24 w-24" /></div>
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <h3 className="text-sm font-black uppercase tracking-tight mb-2">Pacto Parasocial</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-tight mb-2">Pacto Parasocial</h3>
             <p className="text-[11px] opacity-80 leading-relaxed mb-5">Gestione cláusulas de prelación, derecho de tag-along, drag-along y resolución de conflictos.</p>
             <Button variant="secondary" size="sm" className="bg-white text-indigo-700 font-bold text-[10px] uppercase tracking-wider rounded-xl h-9 px-5 hover:bg-white/90">
               Ver Documento
@@ -320,11 +320,11 @@ export default function DashboardSociosPage() {
                   <module.icon className={cn("h-4 w-4", module.color)} />
                 </div>
                 <div>
-                  <CardTitle className="text-xs font-black uppercase tracking-tight text-foreground mb-1.5 group-hover:text-indigo-500 transition-colors">{module.title}</CardTitle>
+                  <CardTitle className="text-xs font-semibold uppercase tracking-tight text-foreground mb-1.5 group-hover:text-indigo-500 transition-colors">{module.title}</CardTitle>
                   <CardDescription className="text-[10px] text-muted-foreground leading-relaxed">{module.description}</CardDescription>
                 </div>
               </div>
-              <div className="pt-4 mt-auto flex items-center justify-between text-[9px] font-bold text-muted-foreground/30 group-hover:text-indigo-500 transition-colors uppercase tracking-wider">
+              <div className="pt-4 mt-auto flex items-center justify-between text-[11px] font-bold text-muted-foreground/30 group-hover:text-indigo-500 transition-colors uppercase tracking-wider">
                 <span>Acceder</span>
                 <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -336,7 +336,7 @@ export default function DashboardSociosPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="sm:max-w-lg rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="text-sm font-black uppercase tracking-wider">
+            <DialogTitle className="text-sm font-semibold uppercase tracking-wider">
               {editId ? 'Editar Socio' : 'Registrar Socio'}
             </DialogTitle>
           </DialogHeader>

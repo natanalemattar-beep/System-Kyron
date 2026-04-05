@@ -228,22 +228,22 @@ export default function PermisologiaPage() {
     <div className="space-y-8 pb-20 px-4 md:px-10">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-sm mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-sm mb-4">
             <ShieldCheck className="h-3 w-3" /> CENTRO DE PERMISOLOGÍA 2026
           </div>
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Permisología <span className="text-primary italic">Integral</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">
             SENIAT • Ministerios • Alcaldías • Gobernaciones • Entes Autónomos
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl border-white/10 font-black text-[9px] uppercase tracking-widest" onClick={() => setActiveTab('alertas')}>
-            <BellRing className="mr-2 h-4 w-4 text-amber-400" /> ALERTAS {alertas.length > 0 && <Badge className="ml-2 bg-red-500 text-white text-[8px]">{alertas.length}</Badge>}
+          <Button variant="outline" className="h-12 px-6 rounded-xl border-white/10 font-bold text-[11px] uppercase tracking-widest" onClick={() => setActiveTab('alertas')}>
+            <BellRing className="mr-2 h-4 w-4 text-amber-400" /> ALERTAS {alertas.length > 0 && <Badge className="ml-2 bg-red-500 text-white text-[10px]">{alertas.length}</Badge>}
           </Button>
-          <Button className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setRegistroDialog(true)}>
+          <Button className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg" onClick={() => setRegistroDialog(true)}>
             <Plus className="mr-2 h-4 w-4" /> REGISTRAR PERMISO
           </Button>
         </div>
@@ -263,8 +263,8 @@ export default function PermisologiaPage() {
                   <stat.icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-2xl font-black text-foreground">{stat.value}</p>
-                  <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
+                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
                 </div>
               </CardContent>
             </Card>
@@ -274,22 +274,22 @@ export default function PermisologiaPage() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="bg-white/5 border border-white/10 rounded-2xl p-1.5 h-auto flex-wrap gap-1">
-          <TabsTrigger value="mis-permisos" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="mis-permisos" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <ClipboardList className="mr-2 h-3.5 w-3.5" /> Mis Permisos
           </TabsTrigger>
-          <TabsTrigger value="alertas" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-amber-600 data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="alertas" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-amber-600 data-[state=active]:text-white px-5 py-2.5">
             <Bell className="mr-2 h-3.5 w-3.5" /> Alertas {alertas.length > 0 && <Badge className="ml-1.5 bg-red-500 text-white text-[7px] px-1.5">{alertas.length}</Badge>}
           </TabsTrigger>
-          <TabsTrigger value="catalogo" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="catalogo" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
             <FileText className="mr-2 h-3.5 w-3.5" /> Guía de Referencia
           </TabsTrigger>
-          <TabsTrigger value="directorio" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-blue-600 data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="directorio" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-blue-600 data-[state=active]:text-white px-5 py-2.5">
             <Building2 className="mr-2 h-3.5 w-3.5" /> Directorio Institucional
           </TabsTrigger>
-          <TabsTrigger value="obligaciones" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-violet-600 data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="obligaciones" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-violet-600 data-[state=active]:text-white px-5 py-2.5">
             <Scale className="mr-2 h-3.5 w-3.5" /> Permisos Requeridos
           </TabsTrigger>
-          <TabsTrigger value="clausula" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-rose-600 data-[state=active]:text-white px-5 py-2.5">
+          <TabsTrigger value="clausula" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-rose-600 data-[state=active]:text-white px-5 py-2.5">
             <FileWarning className="mr-2 h-3.5 w-3.5" /> Cláusula Contractual
           </TabsTrigger>
         </TabsList>
@@ -307,8 +307,8 @@ export default function PermisologiaPage() {
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-blue-500/10"><FileText className="h-4 w-4 text-blue-400" /></div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-blue-400">Guía de Referencia — {totalOrganismos} Organismos · {totalPermisosCatalogo} Permisos · Catálogo Completo Venezuela</p>
-                <p className="text-[9px] font-bold text-muted-foreground/60 mt-0.5">Este catálogo es informativo. Los permisos aquí listados no están registrados en su cuenta. Use &quot;Registrar Permiso&quot; para agregar los que apliquen a su empresa.</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-400">Guía de Referencia — {totalOrganismos} Organismos · {totalPermisosCatalogo} Permisos · Catálogo Completo Venezuela</p>
+                <p className="text-[11px] font-bold text-muted-foreground/60 mt-0.5">Este catálogo es informativo. Los permisos aquí listados no están registrados en su cuenta. Use &quot;Registrar Permiso&quot; para agregar los que apliquen a su empresa.</p>
               </div>
             </div>
           </Card>
@@ -332,9 +332,9 @@ export default function PermisologiaPage() {
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <cat.icon className={cn("h-3.5 w-3.5", isActive ? cat.color : "text-foreground/30")} />
-                    <span className={cn("text-[8px] font-black uppercase tracking-widest", isActive ? cat.color : "text-foreground/50")}>{cat.label}</span>
+                    <span className={cn("text-[10px] font-semibold uppercase tracking-widest", isActive ? cat.color : "text-foreground/50")}>{cat.label}</span>
                   </div>
-                  <p className={cn("text-lg font-black", isActive ? cat.color : "text-foreground/60")}>{count}</p>
+                  <p className={cn("text-lg font-bold", isActive ? cat.color : "text-foreground/60")}>{count}</p>
                   <p className="text-[7px] font-bold uppercase text-foreground/30">{orgCount} organismos</p>
                 </button>
               );
@@ -387,12 +387,12 @@ export default function PermisologiaPage() {
           </div>
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
+            <div className="flex items-center gap-3 text-[11px] font-bold text-foreground/40 uppercase tracking-widest">
               <FileText className="h-3.5 w-3.5" />
               {permisosByTipoOrg.reduce((sum, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
             </div>
             {(filterTipoOrg !== 'todos' || filterOrg !== 'todos' || filterSector !== 'todos' || searchQuery) && (
-              <Button variant="ghost" size="sm" className="text-[8px] font-black uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
+              <Button variant="ghost" size="sm" className="text-[10px] font-semibold uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
                 Limpiar filtros
               </Button>
             )}
@@ -420,7 +420,7 @@ export default function PermisologiaPage() {
             <>
               <div className="p-8 border-b border-white/5 bg-primary/5">
                 <DialogHeader>
-                  <DialogTitle className="text-xl font-black uppercase text-foreground">
+                  <DialogTitle className="text-xl font-semibold uppercase text-foreground">
                     {cartaDialog.tipo === 'inscripcion' ? 'Carta de Solicitud de Inscripción' : 'Carta de Solicitud de Renovación'}
                   </DialogTitle>
                   <DialogDescription className="text-[10px] font-bold uppercase text-primary/60">
@@ -435,8 +435,8 @@ export default function PermisologiaPage() {
                 <header className="flex justify-between items-center mb-8 border-b border-slate-200 pb-6 relative z-10">
                   <Logo className="h-12 w-12" />
                   <div className="text-right">
-                    <p className="font-black text-xs uppercase italic">{user?.razon_social || `${user?.nombre || ''} ${user?.apellido || ''}`.trim() || 'Mi Empresa'}</p>
-                    <p className="text-[8px] font-bold uppercase text-slate-500">RIF: {user?.rif || 'Sin RIF'}</p>
+                    <p className="font-semibold text-xs uppercase italic">{user?.razon_social || `${user?.nombre || ''} ${user?.apellido || ''}`.trim() || 'Mi Empresa'}</p>
+                    <p className="text-[10px] font-bold uppercase text-slate-500">RIF: {user?.rif || 'Sin RIF'}</p>
                   </div>
                 </header>
                 <div className="whitespace-pre-wrap text-sm leading-relaxed relative z-10 text-justify">
@@ -444,13 +444,13 @@ export default function PermisologiaPage() {
                 </div>
               </div>
               <DialogFooter className="p-6 border-t border-white/5 bg-white/[0.01] gap-3 flex-wrap">
-                <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 text-foreground/60 font-black uppercase text-[9px]" onClick={() => handleCopyCarta(cartaText)}>
+                <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 text-foreground/60 font-semibold uppercase text-[11px]" onClick={() => handleCopyCarta(cartaText)}>
                   <Copy className="mr-2 h-4 w-4" /> COPIAR
                 </Button>
-                <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 text-foreground/60 font-black uppercase text-[9px]" onClick={() => window.print()}>
+                <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 text-foreground/60 font-semibold uppercase text-[11px]" onClick={() => window.print()}>
                   <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                 </Button>
-                <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px]" onClick={() => {
+                <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-semibold uppercase text-[11px]" onClick={() => {
                   const blob = new Blob([cartaText], { type: 'text/plain;charset=utf-8' });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
@@ -472,14 +472,14 @@ export default function PermisologiaPage() {
         <DialogContent className="max-w-2xl max-h-[90vh] rounded-2xl bg-card/95 backdrop-blur-3xl border-white/10 p-0 overflow-y-auto">
           <div className="p-8 border-b border-white/5 bg-primary/5">
             <DialogHeader>
-              <DialogTitle className="text-xl font-black uppercase text-foreground">Registrar Nuevo Permiso</DialogTitle>
+              <DialogTitle className="text-xl font-semibold uppercase text-foreground">Registrar Nuevo Permiso</DialogTitle>
               <DialogDescription className="text-[10px] font-bold uppercase text-primary/60">Agregar permiso al expediente de la empresa</DialogDescription>
             </DialogHeader>
           </div>
           <div className="p-8 space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">Tipo</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">Tipo</label>
                 <Select value={formData.tipo} onValueChange={v => setFormData(p => ({ ...p, tipo: v }))}>
                   <SelectTrigger className="h-11 rounded-xl bg-white/5 border-white/10"><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                   <SelectContent>
@@ -494,7 +494,7 @@ export default function PermisologiaPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">Organismo</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">Organismo</label>
                 <Select value={formData.organismo} onValueChange={v => setFormData(p => ({ ...p, organismo: v }))}>
                   <SelectTrigger className="h-11 rounded-xl bg-white/5 border-white/10"><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                   <SelectContent>
@@ -504,16 +504,16 @@ export default function PermisologiaPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-muted-foreground">Nombre del permiso</label>
+              <label className="text-[11px] font-semibold uppercase text-muted-foreground">Nombre del permiso</label>
               <Input className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.nombre_permiso} onChange={e => setFormData(p => ({ ...p, nombre_permiso: e.target.value }))} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">N° Expediente</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">N° Expediente</label>
                 <Input className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.numero_permiso} onChange={e => setFormData(p => ({ ...p, numero_permiso: e.target.value }))} />
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">Estado</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">Estado</label>
                 <Select value={formData.estado} onValueChange={v => setFormData(p => ({ ...p, estado: v }))}>
                   <SelectTrigger className="h-11 rounded-xl bg-white/5 border-white/10"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -527,26 +527,26 @@ export default function PermisologiaPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">Fecha de Emisión</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">Fecha de Emisión</label>
                 <Input type="date" className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.fecha_emision} onChange={e => setFormData(p => ({ ...p, fecha_emision: e.target.value }))} />
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-muted-foreground">Fecha de Vencimiento</label>
+                <label className="text-[11px] font-semibold uppercase text-muted-foreground">Fecha de Vencimiento</label>
                 <Input type="date" className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.fecha_vencimiento} onChange={e => setFormData(p => ({ ...p, fecha_vencimiento: e.target.value }))} />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-muted-foreground">Alertar (días antes del vencimiento)</label>
+              <label className="text-[11px] font-semibold uppercase text-muted-foreground">Alertar (días antes del vencimiento)</label>
               <Input type="number" className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.alertar_dias_antes} onChange={e => setFormData(p => ({ ...p, alertar_dias_antes: e.target.value }))} />
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-muted-foreground">Descripción / Notas</label>
+              <label className="text-[11px] font-semibold uppercase text-muted-foreground">Descripción / Notas</label>
               <Input className="h-11 rounded-xl bg-white/5 border-white/10" value={formData.descripcion} onChange={e => setFormData(p => ({ ...p, descripcion: e.target.value }))} />
             </div>
           </div>
           <DialogFooter className="p-6 border-t border-white/5">
-            <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 font-black uppercase text-[9px]" onClick={() => setRegistroDialog(false)}>CANCELAR</Button>
-            <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px]" onClick={handleRegistrar}>REGISTRAR</Button>
+            <Button variant="outline" className="rounded-xl h-12 px-6 border-white/10 font-semibold uppercase text-[11px]" onClick={() => setRegistroDialog(false)}>CANCELAR</Button>
+            <Button className="rounded-xl h-12 px-8 bg-primary hover:bg-primary/90 font-semibold uppercase text-[11px]" onClick={handleRegistrar}>REGISTRAR</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -562,14 +562,14 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
           <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-6">
             <ShieldCheck className="h-10 w-10 text-primary/30" />
           </div>
-          <p className="text-lg font-black uppercase tracking-tight text-foreground/50 mb-2">Sin Permisos Registrados</p>
+          <p className="text-lg font-semibold uppercase tracking-tight text-foreground/50 mb-2">Sin Permisos Registrados</p>
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 max-w-md mb-8 leading-relaxed">
             Su expediente de permisología está vacío. Registre los permisos y licencias de su empresa para activar el sistema de alertas de vencimiento y generar cartas automáticas.
           </p>
-          <Button onClick={onRegistrar} className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest">
+          <Button onClick={onRegistrar} className="bg-primary hover:bg-primary/90 h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
             <Plus className="mr-2 h-4 w-4" /> Registrar Primer Permiso
           </Button>
-          <p className="text-[9px] font-bold text-muted-foreground/40 mt-6 uppercase tracking-widest">
+          <p className="text-[11px] font-bold text-muted-foreground/40 mt-6 uppercase tracking-widest">
             Consulte la pestaña "Guía de Referencia" para ver todos los permisos disponibles en Venezuela
           </p>
         </div>
@@ -600,7 +600,7 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
                 <StatusIcon className={`h-5 w-5 ${config.color.split(' ')[1]}`} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-black uppercase text-sm text-foreground/80 truncate">{p.nombre_permiso}</p>
+                <p className="font-semibold uppercase text-sm text-foreground/80 truncate">{p.nombre_permiso}</p>
                 <p className="text-[10px] text-muted-foreground/60 mt-0.5 flex items-center gap-2">
                   <Landmark className="h-3 w-3" /> {p.organismo}
                   {p.numero_permiso && <span className="text-primary/50">· N° {p.numero_permiso}</span>}
@@ -609,18 +609,18 @@ function MisPermisosSection({ permisos, onRegistrar }: { permisos: MiPermiso[]; 
               <div className="text-right shrink-0">
                 {p.fecha_vencimiento ? (
                   <>
-                    <p className={`text-lg font-black ${p.dias_para_vencer !== null && p.dias_para_vencer < 0 ? 'text-red-400' : p.dias_para_vencer !== null && p.dias_para_vencer <= 30 ? 'text-amber-400' : 'text-foreground/60'}`}>
+                    <p className={`text-lg font-bold ${p.dias_para_vencer !== null && p.dias_para_vencer < 0 ? 'text-red-400' : p.dias_para_vencer !== null && p.dias_para_vencer <= 30 ? 'text-amber-400' : 'text-foreground/60'}`}>
                       {p.dias_para_vencer !== null ? (p.dias_para_vencer < 0 ? `${Math.abs(p.dias_para_vencer)}d vencido` : `${p.dias_para_vencer}d`) : '—'}
                     </p>
-                    <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
                       Vence: {new Date(p.fecha_vencimiento).toLocaleDateString('es-VE')}
                     </p>
                   </>
                 ) : (
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/30">Permanente</p>
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/30">Permanente</p>
                 )}
               </div>
-              <Badge className={`${config.color} text-[7px] font-black uppercase px-3 py-1 border shrink-0`}>{config.label}</Badge>
+              <Badge className={`${config.color} text-[7px] font-semibold uppercase px-3 py-1 border shrink-0`}>{config.label}</Badge>
             </CardContent>
           </Card>
         );
@@ -656,15 +656,15 @@ function PermisosCatalogo({ groups, onGenerarCarta, onPagado, pagadoIds }: { gro
                     </div>
                     <div className="text-left">
                       <div className="flex items-center gap-2">
-                        <p className="font-black uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
-                        <Badge variant="outline" className={cn("text-[6px] font-black uppercase px-1.5 py-0 h-4 border", tipoCfg.bg, tipoCfg.color)}>
+                        <p className="font-semibold uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
+                        <Badge variant="outline" className={cn("text-[6px] font-semibold uppercase px-1.5 py-0 h-4 border", tipoCfg.bg, tipoCfg.color)}>
                           {tipoCfg.label}
                         </Badge>
                       </div>
-                      <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40">{org.nombre}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{org.nombre}</p>
                     </div>
                   </div>
-                  <Badge className="bg-muted/50 border-border/30 text-[8px] font-black uppercase px-3 text-foreground/60">{permisos.length} {permisos.length === 1 ? 'permiso' : 'permisos'}</Badge>
+                  <Badge className="bg-muted/50 border-border/30 text-[10px] font-semibold uppercase px-3 text-foreground/60">{permisos.length} {permisos.length === 1 ? 'permiso' : 'permisos'}</Badge>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-0 pb-0">
@@ -713,8 +713,8 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-1">
               <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-              <p className="font-black text-sm text-emerald-400/80 uppercase truncate">{permiso.nombre}</p>
-              <Badge className="text-[7px] font-black uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
+              <p className="font-semibold text-sm text-emerald-400/80 uppercase truncate">{permiso.nombre}</p>
+              <Badge className="text-[7px] font-semibold uppercase bg-emerald-500/15 text-emerald-400 border-emerald-500/20 px-2 shrink-0">
                 PAGADO
               </Badge>
             </div>
@@ -730,14 +730,14 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
       <div className="px-8 py-5 flex items-center gap-6 cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1">
-            <p className="font-black text-sm text-foreground/90 uppercase truncate">{permiso.nombre}</p>
+            <p className="font-semibold text-sm text-foreground/90 uppercase truncate">{permiso.nombre}</p>
             {esPasarela && (
-              <Badge variant="outline" className="text-[7px] font-black uppercase border-emerald-500/20 text-emerald-400 px-2 shrink-0">
+              <Badge variant="outline" className="text-[7px] font-semibold uppercase border-emerald-500/20 text-emerald-400 px-2 shrink-0">
                 <Landmark className="mr-1 h-2.5 w-2.5" /> PAGO DIRECTO
               </Badge>
             )}
             {permiso.vigencia && (
-              <Badge variant="outline" className="text-[7px] font-black uppercase border-white/10 px-2 shrink-0">
+              <Badge variant="outline" className="text-[7px] font-semibold uppercase border-white/10 px-2 shrink-0">
                 <Calendar className="mr-1 h-2.5 w-2.5" /> {permiso.vigencia} MESES
               </Badge>
             )}
@@ -747,18 +747,18 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
         <div className="flex items-center gap-2 shrink-0">
           {!esPasarela && (
             <>
-              <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-primary text-[8px] font-black uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
+              <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-primary text-[10px] font-semibold uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
                 <FileSignature className="mr-1.5 h-3 w-3" /> Inscripción
               </Button>
               {permiso.requisitosRenovacion.length > 0 && (
-                <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-amber-400 text-[8px] font-black uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
+                <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-amber-400 text-[10px] font-semibold uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
                   <RefreshCw className="mr-1.5 h-3 w-3" /> Renovación
                 </Button>
               )}
             </>
           )}
           {esPasarela && (
-            <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-emerald-400 text-[8px] font-black uppercase hover:bg-emerald-500/10" onClick={e => { e.stopPropagation(); setExpanded(true); }}>
+            <Button variant="ghost" size="sm" className="h-9 px-3 rounded-lg text-emerald-400 text-[10px] font-semibold uppercase hover:bg-emerald-500/10" onClick={e => { e.stopPropagation(); setExpanded(true); }}>
               <Landmark className="mr-1.5 h-3 w-3" /> Pagar
             </Button>
           )}
@@ -774,12 +774,12 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
                   <Landmark className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-primary">Pagar Tributo SENIAT</p>
-                  <p className="text-[8px] text-muted-foreground/50">Ingrese su número de planilla y vaya directamente al banco</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">Pagar Tributo SENIAT</p>
+                  <p className="text-[10px] text-muted-foreground/50">Ingrese su número de planilla y vaya directamente al banco</p>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase tracking-widest text-foreground/60">N° de Planilla SENIAT</label>
+                <label className="text-[11px] font-semibold uppercase tracking-widest text-foreground/60">N° de Planilla SENIAT</label>
                 <div className="flex gap-3">
                   <Input
                     placeholder="Ej: 2090012345678"
@@ -789,7 +789,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
                     onClick={e => e.stopPropagation()}
                   />
                   <Button
-                    className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 font-black uppercase text-[9px] shrink-0"
+                    className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 font-semibold uppercase text-[11px] shrink-0"
                     onClick={e => { e.stopPropagation(); handleIrAlBanco(); }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" /> IR AL BANCO
@@ -799,18 +799,18 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
               <div className="flex items-center gap-3 pt-2 border-t border-white/5">
                 <Button
                   variant="outline"
-                  className="h-10 px-5 rounded-xl border-emerald-500/20 text-emerald-400 font-black uppercase text-[8px] hover:bg-emerald-500/10"
+                  className="h-10 px-5 rounded-xl border-emerald-500/20 text-emerald-400 font-semibold uppercase text-[10px] hover:bg-emerald-500/10"
                   onClick={e => { e.stopPropagation(); handleConfirmarPago(); }}
                 >
                   <CheckCircle2 className="mr-2 h-3.5 w-3.5" /> CONFIRMAR PAGO REALIZADO
                 </Button>
-                <p className="text-[8px] text-muted-foreground/40 italic">Al confirmar, las alertas de pago de este banco se desactivarán</p>
+                <p className="text-[10px] text-muted-foreground/40 italic">Al confirmar, las alertas de pago de este banco se desactivarán</p>
               </div>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <p className="text-[8px] font-black uppercase tracking-widest text-primary/60">Requisitos de Inscripción</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-primary/60">Requisitos de Inscripción</p>
               <ul className="space-y-2">
                 {permiso.requisitosInscripcion.map((r, i) => (
                   <li key={i} className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
@@ -822,7 +822,7 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
             </div>
             {permiso.requisitosRenovacion.length > 0 && (
               <div className="space-y-3">
-                <p className="text-[8px] font-black uppercase tracking-widest text-amber-400/60">Requisitos de Renovación</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-400/60">Requisitos de Renovación</p>
                 <ul className="space-y-2">
                   {permiso.requisitosRenovacion.map((r, i) => (
                     <li key={i} className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
@@ -836,16 +836,16 @@ function PermisoCard({ permiso, onGenerarCarta, onPagado, inicioPagado }: { perm
           </div>
           <div className="flex flex-wrap gap-4 pt-2 border-t border-white/5">
             {permiso.baseLegal && (
-              <div className="flex items-center gap-2 text-[9px] text-muted-foreground/40">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground/40">
                 <Zap className="h-3 w-3" /> <span className="font-bold">Base legal:</span> {permiso.baseLegal}
               </div>
             )}
             {permiso.costoEstimado && (
-              <div className="flex items-center gap-2 text-[9px] text-muted-foreground/40">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground/40">
                 <Landmark className="h-3 w-3" /> <span className="font-bold">Costo:</span> {permiso.costoEstimado}
               </div>
             )}
-            <div className="flex items-center gap-2 text-[9px] text-muted-foreground/40">
+            <div className="flex items-center gap-2 text-[11px] text-muted-foreground/40">
               <Clock className="h-3 w-3" /> <span className="font-bold">Vigencia:</span> {permiso.vigencia ? `${permiso.vigencia} meses` : 'Permanente'}
             </div>
           </div>
@@ -860,7 +860,7 @@ function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
     return (
       <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 p-16 text-center">
         <CheckCircle2 className="h-12 w-12 text-emerald-400/30 mx-auto mb-4" />
-        <p className="text-lg font-black text-foreground/60 uppercase">Sin Alertas Pendientes</p>
+        <p className="text-lg font-bold text-foreground/60 uppercase">Sin Alertas Pendientes</p>
         <p className="text-[10px] text-muted-foreground/40 mt-2">Todos los permisos registrados están al día. Registre sus permisos para activar el sistema de alertas.</p>
       </Card>
     );
@@ -883,16 +883,16 @@ function AlertasSection({ alertas }: { alertas: AlertaDB[] }) {
                 <AlertIcon className="h-6 w-6" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-black uppercase text-sm truncate">{a.nombre_permiso}</p>
+                <p className="font-semibold uppercase text-sm truncate">{a.nombre_permiso}</p>
                 <p className="text-[10px] text-muted-foreground/60 mt-0.5">{a.organismo}</p>
               </div>
               <div className="text-right shrink-0">
-                <p className="text-2xl font-black">{a.dias_restantes < 0 ? `${Math.abs(a.dias_restantes)}d vencido` : `${a.dias_restantes}d`}</p>
-                <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                <p className="text-2xl font-bold">{a.dias_restantes < 0 ? `${Math.abs(a.dias_restantes)}d vencido` : `${a.dias_restantes}d`}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
                   Vence: {new Date(a.fecha_vencimiento).toLocaleDateString('es-VE')}
                 </p>
               </div>
-              <Badge className={`${config.color} text-[7px] font-black uppercase px-3 py-1`}>{config.label}</Badge>
+              <Badge className={`${config.color} text-[7px] font-semibold uppercase px-3 py-1`}>{config.label}</Badge>
             </CardContent>
           </Card>
         );
@@ -929,8 +929,8 @@ function DirectorioInstitucional() {
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-blue-500/10"><Building2 className="h-4 w-4 text-blue-500" /></div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-blue-500">Directorio de Instituciones Venezolanas</p>
-            <p className="text-[9px] font-bold text-muted-foreground/60 mt-0.5">Datos de contacto, correo para reclamos y horarios de atención de cada organismo. Use esta información para comunicarse directamente con las instituciones.</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-500">Directorio de Instituciones Venezolanas</p>
+            <p className="text-[11px] font-bold text-muted-foreground/60 mt-0.5">Datos de contacto, correo para reclamos y horarios de atención de cada organismo. Use esta información para comunicarse directamente con las instituciones.</p>
           </div>
         </div>
       </Card>
@@ -956,7 +956,7 @@ function DirectorioInstitucional() {
         </Select>
       </div>
 
-      <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">{filtered.length} institución(es) encontrada(s)</p>
+      <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-widest">{filtered.length} institución(es) encontrada(s)</p>
 
       <div className="space-y-4">
         {filtered.map(org => {
@@ -972,8 +972,8 @@ function DirectorioInstitucional() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <p className="font-black uppercase text-sm text-foreground/90">{org.siglas || org.nombre}</p>
-                        <Badge className={`${tc.color} text-[7px] font-black uppercase px-2 py-0.5 border`}>{tc.label}</Badge>
+                        <p className="font-semibold uppercase text-sm text-foreground/90">{org.siglas || org.nombre}</p>
+                        <Badge className={`${tc.color} text-[7px] font-semibold uppercase px-2 py-0.5 border`}>{tc.label}</Badge>
                       </div>
                       <p className="text-[10px] text-muted-foreground/60">{org.nombre}</p>
                     </div>
@@ -986,7 +986,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5">
                         <Phone className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-muted-foreground/40">Teléfono</p>
+                          <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Teléfono</p>
                           <p className="text-[10px] font-bold text-foreground/80">{c.telefono}</p>
                         </div>
                       </div>
@@ -995,7 +995,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5">
                         <Mail className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-muted-foreground/40">Correo</p>
+                          <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Correo</p>
                           <p className="text-[10px] font-bold text-foreground/80">{c.email}</p>
                         </div>
                       </div>
@@ -1004,7 +1004,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5">
                         <Globe className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-muted-foreground/40">Sitio Web</p>
+                          <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Sitio Web</p>
                           <a href={c.web} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1">
                             {c.web.replace('https://', '')} <ExternalLink className="h-2.5 w-2.5" />
                           </a>
@@ -1015,7 +1015,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5">
                         <MapPin className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-muted-foreground/40">Dirección</p>
+                          <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Dirección</p>
                           <p className="text-[10px] font-bold text-foreground/80">{c.direccion}</p>
                         </div>
                       </div>
@@ -1024,7 +1024,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5">
                         <Clock className="h-3.5 w-3.5 text-primary/50 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-muted-foreground/40">Horario</p>
+                          <p className="text-[10px] font-semibold uppercase text-muted-foreground/40">Horario</p>
                           <p className="text-[10px] font-bold text-foreground/80">{c.horario}</p>
                         </div>
                       </div>
@@ -1033,7 +1033,7 @@ function DirectorioInstitucional() {
                       <div className="flex items-start gap-2.5 md:col-span-2 p-3 rounded-xl bg-amber-500/5 border border-amber-500/10">
                         <MessageCircle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
                         <div>
-                          <p className="text-[8px] font-black uppercase text-amber-600">Reclamos y Denuncias</p>
+                          <p className="text-[10px] font-semibold uppercase text-amber-600">Reclamos y Denuncias</p>
                           <p className="text-[10px] font-bold text-foreground/80 mt-0.5">{c.reclamaciones}</p>
                         </div>
                       </div>
@@ -1043,7 +1043,7 @@ function DirectorioInstitucional() {
 
                 {!c && (
                   <div className="pl-[52px]">
-                    <p className="text-[9px] font-bold text-muted-foreground/30 italic">Datos de contacto no disponibles — Consulte directamente la sede del organismo</p>
+                    <p className="text-[11px] font-bold text-muted-foreground/30 italic">Datos de contacto no disponibles — Consulte directamente la sede del organismo</p>
                   </div>
                 )}
               </CardContent>
@@ -1128,8 +1128,8 @@ function PermisosRequeridosPorSector() {
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-violet-500/10"><Scale className="h-4 w-4 text-violet-500" /></div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-violet-500">Permisos Requeridos por Sector Económico</p>
-            <p className="text-[9px] font-bold text-muted-foreground/60 mt-0.5">Seleccione el sector de su empresa para ver los permisos y licencias obligatorios que debe tramitar. Esta guía le alerta sobre requisitos que puede estar omitiendo.</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-violet-500">Permisos Requeridos por Sector Económico</p>
+            <p className="text-[11px] font-bold text-muted-foreground/60 mt-0.5">Seleccione el sector de su empresa para ver los permisos y licencias obligatorios que debe tramitar. Esta guía le alerta sobre requisitos que puede estar omitiendo.</p>
           </div>
         </div>
       </Card>
@@ -1140,7 +1140,7 @@ function PermisosRequeridosPorSector() {
             key={key}
             variant={selectedSector === key ? 'default' : 'outline'}
             size="sm"
-            className={`rounded-xl text-[9px] font-black uppercase tracking-widest h-9 px-4 ${selectedSector === key ? 'bg-violet-600 hover:bg-violet-700 text-white' : 'border-white/10 hover:bg-white/5'}`}
+            className={`rounded-xl text-[11px] font-semibold uppercase tracking-widest h-9 px-4 ${selectedSector === key ? 'bg-violet-600 hover:bg-violet-700 text-white' : 'border-white/10 hover:bg-white/5'}`}
             onClick={() => setSelectedSector(key)}
           >
             {val.nombre}
@@ -1151,19 +1151,19 @@ function PermisosRequeridosPorSector() {
       {sectorData && (
         <Card className="rounded-2xl shadow-lg rounded-2xl bg-card/40 overflow-hidden">
           <div className="p-6 border-b border-white/5 bg-violet-500/5">
-            <p className="font-black uppercase text-lg text-foreground/90">Sector: {sectorData.nombre}</p>
-            <p className="text-[9px] font-bold text-muted-foreground/50 mt-1 uppercase tracking-widest">{sectorData.permisos.length} permiso(s) obligatorio(s) identificado(s)</p>
+            <p className="font-semibold uppercase text-lg text-foreground/90">Sector: {sectorData.nombre}</p>
+            <p className="text-[11px] font-bold text-muted-foreground/50 mt-1 uppercase tracking-widest">{sectorData.permisos.length} permiso(s) obligatorio(s) identificado(s)</p>
           </div>
           <div className="divide-y divide-white/5">
             {sectorData.permisos.map((permiso, i) => (
               <div key={i} className="px-6 py-4 flex items-center gap-4 hover:bg-white/[0.02] transition-all">
                 <div className="h-8 w-8 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
-                  <span className="text-[10px] font-black text-violet-500">{i + 1}</span>
+                  <span className="text-[10px] font-bold text-violet-500">{i + 1}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-black uppercase text-foreground/80">{permiso}</p>
+                  <p className="text-[11px] font-semibold uppercase text-foreground/80">{permiso}</p>
                 </div>
-                <Badge variant="outline" className="text-[7px] font-black uppercase border-amber-500/20 text-amber-600 shrink-0">Obligatorio</Badge>
+                <Badge variant="outline" className="text-[7px] font-semibold uppercase border-amber-500/20 text-amber-600 shrink-0">Obligatorio</Badge>
               </div>
             ))}
           </div>
@@ -1171,8 +1171,8 @@ function PermisosRequeridosPorSector() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
               <div>
-                <p className="text-[9px] font-black uppercase text-amber-600">Advertencia Legal</p>
-                <p className="text-[9px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
+                <p className="text-[11px] font-semibold uppercase text-amber-600">Advertencia Legal</p>
+                <p className="text-[11px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
                   El incumplimiento de estas obligaciones puede generar multas, sanciones administrativas, clausura temporal o definitiva del establecimiento, e inhabilitación para contratar con el Estado. Consulte con un abogado especialista para verificar obligaciones adicionales según su actividad específica.
                 </p>
               </div>
@@ -1233,8 +1233,8 @@ Fecha: _____ / _____ / _____`;
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-rose-500/10"><FileWarning className="h-4 w-4 text-rose-500" /></div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-rose-500">Cláusula Contractual de Responsabilidad Fiscal</p>
-            <p className="text-[9px] font-bold text-muted-foreground/60 mt-0.5">Modelo de cláusula para incluir en contratos de asesoría contable. Establece que la empresa asesora NO se hace responsable por el pago de impuestos del cliente. Copie, descargue o imprima según necesite.</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-rose-500">Cláusula Contractual de Responsabilidad Fiscal</p>
+            <p className="text-[11px] font-bold text-muted-foreground/60 mt-0.5">Modelo de cláusula para incluir en contratos de asesoría contable. Establece que la empresa asesora NO se hace responsable por el pago de impuestos del cliente. Copie, descargue o imprima según necesite.</p>
           </div>
         </div>
       </Card>
@@ -1244,16 +1244,16 @@ Fecha: _____ / _____ / _____`;
           {clausulaTexto}
         </div>
         <div className="p-6 border-t border-white/5 flex flex-wrap gap-3">
-          <Button variant="outline" className="rounded-xl h-11 px-6 border-white/10 font-black uppercase text-[9px] tracking-widest" onClick={() => {
+          <Button variant="outline" className="rounded-xl h-11 px-6 border-white/10 font-semibold uppercase text-[11px] tracking-widest" onClick={() => {
             navigator.clipboard.writeText(clausulaTexto);
             toast({ title: "COPIADO", description: "Cláusula copiada al portapapeles" });
           }}>
             <Copy className="mr-2 h-4 w-4" /> Copiar
           </Button>
-          <Button variant="outline" className="rounded-xl h-11 px-6 border-white/10 font-black uppercase text-[9px] tracking-widest" onClick={() => window.print()}>
+          <Button variant="outline" className="rounded-xl h-11 px-6 border-white/10 font-semibold uppercase text-[11px] tracking-widest" onClick={() => window.print()}>
             <Printer className="mr-2 h-4 w-4" /> Imprimir
           </Button>
-          <Button className="rounded-xl h-11 px-8 bg-primary hover:bg-primary/90 font-black uppercase text-[9px] tracking-widest" onClick={() => {
+          <Button className="rounded-xl h-11 px-8 bg-primary hover:bg-primary/90 font-semibold uppercase text-[11px] tracking-widest" onClick={() => {
             const blob = new Blob([clausulaTexto], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1272,8 +1272,8 @@ Fecha: _____ / _____ / _____`;
         <div className="flex items-start gap-3">
           <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
           <div>
-            <p className="text-[9px] font-black uppercase text-amber-600">Aviso Importante</p>
-            <p className="text-[9px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
+            <p className="text-[11px] font-semibold uppercase text-amber-600">Aviso Importante</p>
+            <p className="text-[11px] font-bold text-muted-foreground/60 mt-1 leading-relaxed">
               Este modelo es referencial y debe ser revisado por un abogado especialista antes de su uso. Cada relación contractual puede requerir ajustes específicos según la naturaleza del servicio prestado, el sector económico del cliente y la normativa vigente. El sistema no garantiza la validez legal del documento ni se responsabiliza por su uso.
             </p>
           </div>

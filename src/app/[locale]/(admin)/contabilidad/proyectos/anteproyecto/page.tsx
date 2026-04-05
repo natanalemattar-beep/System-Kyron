@@ -35,7 +35,7 @@ export default function AnteproyectoPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <FileText className="h-8 w-8 text-primary" />
           Gestión de Anteproyectos
         </h1>
@@ -52,7 +52,7 @@ export default function AnteproyectoPage() {
 
       <Card className="border rounded-2xl shadow-sm overflow-hidden">
         <CardHeader className="border-b bg-muted/30 px-8 py-6">
-          <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground">
+          <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground">
             Legajo de Anteproyectos
           </CardTitle>
         </CardHeader>
@@ -84,7 +84,7 @@ export default function AnteproyectoPage() {
                     <TableCell className="pl-8">
                       <div className="flex flex-col">
                         <span className="font-bold text-xs">{ant.titulo}</span>
-                        <span className="text-[9px] font-mono text-muted-foreground">{ant.codigo}</span>
+                        <span className="text-[11px] font-mono text-muted-foreground">{ant.codigo}</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-xs">{ant.fecha}</TableCell>
@@ -92,7 +92,7 @@ export default function AnteproyectoPage() {
                       {formatCurrency(ant.presupuesto, "USD")}
                     </TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={ant.estado === "Aprobado" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={ant.estado === "Aprobado" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {ant.estado}
                       </Badge>
                     </TableCell>

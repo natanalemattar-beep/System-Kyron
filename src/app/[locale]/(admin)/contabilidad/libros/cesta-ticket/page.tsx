@@ -55,10 +55,10 @@ export default function CestaTicketPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Wallet className="h-3.5 w-3.5" /> LOTTT Art. 105 · Beneficio de Alimentación
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Cesta Ticket / <span className="text-primary">Alimentación</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Beneficio de alimentación · 0.25 UT por jornada · No salarial</p>
@@ -75,35 +75,35 @@ export default function CestaTicketPage() {
             <span className="text-[10px] font-semibold text-muted-foreground uppercase">UT Vigente</span>
             <Calculator className="h-4 w-4 text-primary" />
           </div>
-          <p className="text-2xl font-black">{formatCurrency(UT, 'Bs.')}</p>
+          <p className="text-2xl font-bold">{formatCurrency(UT, 'Bs.')}</p>
         </Card>
         <Card className="rounded-2xl border p-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase">Diario (0.25 UT)</span>
             <Banknote className="h-4 w-4 text-emerald-500" />
           </div>
-          <p className="text-2xl font-black text-emerald-500">{formatCurrency(cestaTicketDiario, 'Bs.')}</p>
+          <p className="text-2xl font-bold text-emerald-500">{formatCurrency(cestaTicketDiario, 'Bs.')}</p>
         </Card>
         <Card className="rounded-2xl border p-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase">Empleados</span>
             <Users className="h-4 w-4 text-primary" />
           </div>
-          <p className="text-2xl font-black">{summary.empleados}</p>
+          <p className="text-2xl font-bold">{summary.empleados}</p>
         </Card>
         <Card className="rounded-2xl border p-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase">Días Totales</span>
             <Calendar className="h-4 w-4 text-amber-500" />
           </div>
-          <p className="text-2xl font-black text-amber-500">{summary.totalDias}</p>
+          <p className="text-2xl font-bold text-amber-500">{summary.totalDias}</p>
         </Card>
         <Card className="rounded-2xl border p-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-semibold text-muted-foreground uppercase">Costo Mensual</span>
             <Wallet className="h-4 w-4 text-primary" />
           </div>
-          <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalMensual, 'Bs.')}</p>
+          <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalMensual, 'Bs.')}</p>
         </Card>
       </div>
 

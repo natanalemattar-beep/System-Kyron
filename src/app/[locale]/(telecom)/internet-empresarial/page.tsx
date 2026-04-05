@@ -87,7 +87,7 @@ export default function InternetEmpresarialPage() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">INTERNET Y TELEFONÍA EMPRESARIAL</h1>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">INTERNET Y TELEFONÍA EMPRESARIAL</h1>
             <p className="text-sm text-muted-foreground mt-1">
               Conectividad corporativa — enlaces dedicados, telefonía IP, VPN y servicios gestionados
             </p>
@@ -105,7 +105,7 @@ export default function InternetEmpresarialPage() {
               <CardContent className="p-3 text-center">
                 <span className="text-2xl">{p.icono}</span>
                 <p className="text-xs font-bold mt-1 group-hover:text-primary transition-colors">{p.nombre}</p>
-                <Badge variant="outline" className="text-[8px] mt-1">{p.tipo.replace("_", "/").toUpperCase()}</Badge>
+                <Badge variant="outline" className="text-[10px] mt-1">{p.tipo.replace("_", "/").toUpperCase()}</Badge>
               </CardContent>
             </Card>
           </motion.div>
@@ -153,21 +153,21 @@ export default function InternetEmpresarialPage() {
                           <h4 className="font-bold text-sm">{plan.nombre}</h4>
                           <p className="text-xs text-muted-foreground">{plan.proveedor}</p>
                           <div className="flex gap-2 mt-1">
-                            <Badge variant="outline" className="text-[9px]">
+                            <Badge variant="outline" className="text-[11px]">
                               <Gauge className="h-2.5 w-2.5 mr-0.5" /> {plan.velocidad}
                             </Badge>
-                            <Badge variant="outline" className="text-[9px]">{plan.tipo}</Badge>
+                            <Badge variant="outline" className="text-[11px]">{plan.tipo}</Badge>
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-xl font-black">${plan.precio}</p>
+                        <p className="text-xl font-bold">${plan.precio}</p>
                         <p className="text-[10px] text-muted-foreground">/mes + IVA</p>
                         <div className="flex gap-1 mt-1 justify-end">
-                          <Badge variant="secondary" className="text-[8px] bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+                          <Badge variant="secondary" className="text-[10px] bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">
                             SLA: {plan.garantia}
                           </Badge>
-                          <Badge variant="secondary" className="text-[8px] bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                          <Badge variant="secondary" className="text-[10px] bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
                             Resp: {plan.sla}
                           </Badge>
                         </div>
@@ -177,10 +177,10 @@ export default function InternetEmpresarialPage() {
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-2 ml-16 p-3 rounded-lg bg-muted/30 border-l-2 border-primary">
                         <p className="text-xs text-muted-foreground mb-2">Incluye:</p>
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline" className="text-[9px]"><Shield className="h-2.5 w-2.5 mr-0.5" /> IP Fija</Badge>
-                          <Badge variant="outline" className="text-[9px]"><Activity className="h-2.5 w-2.5 mr-0.5" /> Monitoreo</Badge>
-                          <Badge variant="outline" className="text-[9px]"><Headphones className="h-2.5 w-2.5 mr-0.5" /> Soporte {plan.sla}</Badge>
-                          <Badge variant="outline" className="text-[9px]"><Router className="h-2.5 w-2.5 mr-0.5" /> Router Incluido</Badge>
+                          <Badge variant="outline" className="text-[11px]"><Shield className="h-2.5 w-2.5 mr-0.5" /> IP Fija</Badge>
+                          <Badge variant="outline" className="text-[11px]"><Activity className="h-2.5 w-2.5 mr-0.5" /> Monitoreo</Badge>
+                          <Badge variant="outline" className="text-[11px]"><Headphones className="h-2.5 w-2.5 mr-0.5" /> Soporte {plan.sla}</Badge>
+                          <Badge variant="outline" className="text-[11px]"><Router className="h-2.5 w-2.5 mr-0.5" /> Router Incluido</Badge>
                         </div>
                         <Button size="sm" className="mt-3 gap-1.5" onClick={() => { setFormSolicitud({ ...formSolicitud, proveedor: plan.proveedor, plan: plan.nombre, servicio_tipo: "internet" }); setShowSolicitud(true); }}>
                           <Plus className="h-3.5 w-3.5" /> Solicitar Este Plan
@@ -217,14 +217,14 @@ export default function InternetEmpresarialPage() {
                             <h4 className="font-bold text-sm">{plan.nombre}</h4>
                             <p className="text-xs text-muted-foreground">{plan.proveedor}</p>
                             <div className="flex gap-2 mt-1">
-                              <Badge variant="outline" className="text-[9px]">
+                              <Badge variant="outline" className="text-[11px]">
                                 <Users className="h-2.5 w-2.5 mr-0.5" /> {plan.lineas} líneas
                               </Badge>
                             </div>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-xl font-black">${plan.precio}</p>
+                          <p className="text-xl font-bold">${plan.precio}</p>
                           <p className="text-[10px] text-muted-foreground">/mes + IVA</p>
                         </div>
                       </div>
@@ -265,7 +265,7 @@ export default function InternetEmpresarialPage() {
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
                               <h4 className="font-bold text-sm">{serv.nombre}</h4>
-                              <Badge variant="outline" className="text-[9px] shrink-0">{serv.precio}</Badge>
+                              <Badge variant="outline" className="text-[11px] shrink-0">{serv.precio}</Badge>
                             </div>
                             <p className="text-xs text-muted-foreground mt-1">{serv.descripcion}</p>
                           </div>
@@ -311,10 +311,10 @@ export default function InternetEmpresarialPage() {
                     ].map((row, i) => (
                       <tr key={i} className="border-b hover:bg-muted/30 transition-colors">
                         <td className="p-3 font-bold">{row.prov}</td>
-                        <td className="p-3 text-center"><Badge variant="outline" className="text-[9px]">{row.vel}</Badge></td>
+                        <td className="p-3 text-center"><Badge variant="outline" className="text-[11px]">{row.vel}</Badge></td>
                         <td className="p-3 text-center text-xs">{row.tipo}</td>
                         <td className="p-3 text-center">
-                          <Badge variant="secondary" className={cn("text-[9px]",
+                          <Badge variant="secondary" className={cn("text-[11px]",
                             parseFloat(row.sla) >= 99 ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300" :
                             parseFloat(row.sla) >= 95 ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" :
                             "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"

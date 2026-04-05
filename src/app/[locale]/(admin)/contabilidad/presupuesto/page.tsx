@@ -43,10 +43,10 @@ export default function PresupuestoPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Target className="h-3.5 w-3.5" /> Planificación Financiera
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Presupuesto <span className="text-primary">Empresarial</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Planificación · Ejecución vs. real · Desviaciones · Proyecciones</p>
@@ -80,28 +80,28 @@ export default function PresupuestoPage() {
                 <span className="text-xs font-semibold text-muted-foreground">Presupuestado</span>
                 <Target className="h-4 w-4 text-primary" />
               </div>
-              <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalPresupuestado, 'Bs.')}</p>
+              <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalPresupuestado, 'Bs.')}</p>
             </Card>
             <Card className="rounded-2xl border p-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-muted-foreground">Ejecutado</span>
                 <Calculator className="h-4 w-4 text-emerald-500" />
               </div>
-              <p className="text-2xl font-black text-emerald-500">{formatCurrency(summary.totalEjecutado, 'Bs.')}</p>
+              <p className="text-2xl font-bold text-emerald-500">{formatCurrency(summary.totalEjecutado, 'Bs.')}</p>
             </Card>
             <Card className="rounded-2xl border p-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-muted-foreground">Desviación</span>
                 {summary.desviacion > 0 ? <ArrowUpRight className="h-4 w-4 text-rose-500" /> : <ArrowDownRight className="h-4 w-4 text-emerald-500" />}
               </div>
-              <p className={cn("text-2xl font-black", summary.desviacion > 5 ? "text-rose-500" : "text-emerald-500")}>{summary.desviacion.toFixed(1)}%</p>
+              <p className={cn("text-2xl font-bold", summary.desviacion > 5 ? "text-rose-500" : "text-emerald-500")}>{summary.desviacion.toFixed(1)}%</p>
             </Card>
             <Card className="rounded-2xl border p-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-muted-foreground">Ejecución</span>
                 <TrendingUp className="h-4 w-4 text-cyan-500" />
               </div>
-              <p className="text-2xl font-black text-cyan-500">{summary.ejecucion.toFixed(0)}%</p>
+              <p className="text-2xl font-bold text-cyan-500">{summary.ejecucion.toFixed(0)}%</p>
             </Card>
           </div>
 
@@ -122,14 +122,14 @@ export default function PresupuestoPage() {
                         </p>
                       </div>
                     </div>
-                    <Badge className={cn("text-[9px] font-bold border-none", esExceso ? "bg-rose-500/10 text-rose-500" : "bg-emerald-500/10 text-emerald-500")}>
+                    <Badge className={cn("text-[11px] font-bold border-none", esExceso ? "bg-rose-500/10 text-rose-500" : "bg-emerald-500/10 text-emerald-500")}>
                       {esExceso ? "+" : ""}{desviacion.toFixed(1)}%
                     </Badge>
                   </div>
                   <Progress value={Math.min(pct, 100)} className="h-2" />
                   <div className="flex justify-between mt-1.5">
-                    <span className="text-[9px] text-muted-foreground">{pct.toFixed(0)}% ejecutado</span>
-                    <span className="text-[9px] text-muted-foreground font-mono">
+                    <span className="text-[11px] text-muted-foreground">{pct.toFixed(0)}% ejecutado</span>
+                    <span className="text-[11px] text-muted-foreground font-mono">
                       {esExceso ? `Exceso: ${formatCurrency(cat.ejecutado - cat.presupuestado, 'Bs.')}` : `Disponible: ${formatCurrency(cat.presupuestado - cat.ejecutado, 'Bs.')}`}
                     </span>
                   </div>

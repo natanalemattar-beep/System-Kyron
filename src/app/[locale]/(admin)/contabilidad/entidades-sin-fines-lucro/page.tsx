@@ -49,7 +49,7 @@ export default function EntidadesSinFinesLucroPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Handshake className="h-8 w-8 text-emerald-500" />
             Entidades Sin Fines de Lucro
           </h1>
@@ -114,7 +114,7 @@ export default function EntidadesSinFinesLucroPage() {
                           <TableCell className="pl-8 text-xs font-medium">{e.nombre}</TableCell>
                           <TableCell className="text-xs font-mono">{e.rif}</TableCell>
                           <TableCell>
-                            <Badge variant={e.estado === "ACTIVA" ? "default" : "secondary"} className="text-[8px] uppercase">
+                            <Badge variant={e.estado === "ACTIVA" ? "default" : "secondary"} className="text-[10px] uppercase">
                               {e.estado}
                             </Badge>
                           </TableCell>

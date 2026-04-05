@@ -215,10 +215,10 @@ export default function AsientosContablesPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <ArrowRightLeft className="h-3.5 w-3.5" /> Partida Doble
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Asientos <span className="text-primary">Contables</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registros de partida doble · Debe = Haber · Auditoría integrada</p>
@@ -230,7 +230,7 @@ export default function AsientosContablesPage() {
             >
               <Zap className="mr-2 h-4 w-4" /> Generar Automáticamente
               {pendientes && (pendientes.movimientos + pendientes.facturas) > 0 && (
-                <Badge className="ml-2 bg-white/20 text-white text-[9px] h-5 border-none">
+                <Badge className="ml-2 bg-white/20 text-white text-[11px] h-5 border-none">
                   {pendientes.movimientos + pendientes.facturas}
                 </Badge>
               )}
@@ -490,7 +490,7 @@ export default function AsientosContablesPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-xs font-bold text-primary">{asiento.numero}</span>
-                      <Badge className={cn("text-[9px] font-bold border-none", tipoColor[asiento.tipo] || 'bg-muted text-muted-foreground')}>{asiento.tipo}</Badge>
+                      <Badge className={cn("text-[11px] font-bold border-none", tipoColor[asiento.tipo] || 'bg-muted text-muted-foreground')}>{asiento.tipo}</Badge>
                     </div>
                     <p className="text-xs text-foreground font-medium mt-0.5 truncate">{asiento.descripcion}</p>
                   </div>
@@ -498,7 +498,7 @@ export default function AsientosContablesPage() {
                     <p className="text-[11px] text-muted-foreground">{asiento.fecha}</p>
                     <p className="text-xs font-bold text-foreground">{parseFloat(asiento.totalDebe || '0').toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs.</p>
                   </div>
-                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold border-none">{asiento.estado}</Badge>
+                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[11px] font-bold border-none">{asiento.estado}</Badge>
                   <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-rose-500 shrink-0" onClick={(e) => { e.stopPropagation(); handleDelete(asiento.id); }}>
                     <Trash2 className="h-3.5 w-3.5" />
                   </Button>

@@ -42,7 +42,7 @@ export function OverviewChart() {
       <CardHeader className="p-10 border-b border-white/5">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-[11px] font-black uppercase tracking-[0.6em] text-primary">Pulso Financiero Anual</CardTitle>
+            <CardTitle className="text-[11px] font-semibold uppercase tracking-wider text-primary">Pulso Financiero Anual</CardTitle>
             <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40">Análisis comparativo de ingresos y egresos</CardDescription>
           </div>
           <Activity className="h-5 w-5 text-primary/30" />

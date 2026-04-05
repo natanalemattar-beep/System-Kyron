@@ -50,17 +50,17 @@ export default function AnalisisVentasPage() {
     <div className="space-y-12 pb-20 px-4 md:px-10">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
             <Activity className="h-3 w-3" /> CENTRO COMERCIAL
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Análisis <span className="text-primary italic">Comercial</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Business Intelligence • Telemetría de Ventas 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Análisis <span className="text-primary italic">Comercial</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Business Intelligence • Telemetría de Ventas 2026</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50" onClick={() => toast({ title: "REPORTE EXPORTADO" })}>
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50" onClick={() => toast({ title: "REPORTE EXPORTADO" })}>
             <Download className="mr-2 h-4 w-4" /> DESCARGAR DATA
           </Button>
-          <Button asChild className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
+          <Button asChild className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg">
             <Link href="/estrategias-ventas">ESTRATEGIA IA <ArrowRight className="ml-2 h-4 w-4"/></Link>
           </Button>
         </div>
@@ -73,19 +73,19 @@ export default function AnalisisVentasPage() {
           { label: "Ticket Promedio", val: loading ? "—" : formatCurrency(ticketPromedio, 'Bs.'), icon: TrendingUp },
           { label: "Top Productos", val: loading ? "—" : String(topProductos.length), icon: RefreshCw },
         ].map((kpi, i) => (
-          <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
+          <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
               <kpi.icon className="h-4 w-4 text-primary/40" />
             </div>
-            <p className="text-2xl font-black italic text-foreground tracking-tight">{kpi.val}</p>
+            <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
           </Card>
         ))}
       </div>
 
-      <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+      <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
         <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-          <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Flujo de Ingresos Mensual</CardTitle>
+          <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Flujo de Ingresos Mensual</CardTitle>
         </CardHeader>
         <CardContent className="p-10 h-[400px]">
           {loading ? (
@@ -122,9 +122,9 @@ export default function AnalisisVentasPage() {
       </Card>
 
       <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden">
+        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/40 overflow-hidden">
           <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Ranking de Productos del Inventario</CardTitle>
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Ranking de Productos del Inventario</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {loading ? (
@@ -142,17 +142,17 @@ export default function AnalisisVentasPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30 border-none">
-                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Producto</TableHead>
-                    <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Ventas</TableHead>
-                    <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Ingresos</TableHead>
+                    <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Producto</TableHead>
+                    <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Ventas</TableHead>
+                    <TableHead className="text-right pr-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Ingresos</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {topProductos.map((p, i) => (
                     <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all">
-                      <TableCell className="pl-10 py-6 font-black text-xs text-foreground/80 uppercase italic">{p.nombre}</TableCell>
-                      <TableCell className="text-center py-6 font-black text-sm text-foreground/60">{p.ventas}</TableCell>
-                      <TableCell className="text-right pr-10 py-6 font-mono text-sm font-black text-primary">{formatCurrency(parseFloat(p.ingresos), 'Bs.')}</TableCell>
+                      <TableCell className="pl-10 py-6 font-semibold text-xs text-foreground/80 uppercase italic">{p.nombre}</TableCell>
+                      <TableCell className="text-center py-6 font-semibold text-sm text-foreground/60">{p.ventas}</TableCell>
+                      <TableCell className="text-right pr-10 py-6 font-mono text-sm font-bold text-primary">{formatCurrency(parseFloat(p.ingresos), 'Bs.')}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -163,9 +163,9 @@ export default function AnalisisVentasPage() {
 
         <Card className="lg:col-span-4 bg-[#050505] border border-white/10 rounded-[2.5rem] p-10 flex flex-col justify-center items-center text-center group">
           <Star className="h-16 w-16 text-yellow-400 fill-yellow-400 mb-6 group-hover:scale-110 transition-transform" />
-          <h3 className="text-2xl font-black uppercase italic tracking-tight text-white mb-2">Análisis IA</h3>
-          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">Motor de Recomendaciones</p>
-          <Button asChild variant="outline" className="w-full h-12 rounded-xl font-black text-[9px] uppercase tracking-widest border-white/10 text-white/60">
+          <h3 className="text-2xl font-semibold uppercase italic tracking-tight text-white mb-2">Análisis IA</h3>
+          <p className="text-[10px] font-bold text-white/30 uppercase tracking-wide mb-8">Motor de Recomendaciones</p>
+          <Button asChild variant="outline" className="w-full h-12 rounded-xl font-bold text-[11px] uppercase tracking-widest border-white/10 text-white/60">
             <Link href="/estrategias-ventas">Ver Estrategias</Link>
           </Button>
         </Card>

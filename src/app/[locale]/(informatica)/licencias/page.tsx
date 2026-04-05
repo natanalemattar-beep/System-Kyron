@@ -36,21 +36,21 @@ export default function LicenciasPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <FileCheck className="h-3 w-3" /> GESTIÓN DE LICENCIAS
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Licencias de <span className="text-primary italic">Software</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Inventario • Vencimientos • Costos • Cumplimiento Legal
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2">
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Download className="h-4 w-4" /> EXPORTAR
           </Button>
-          <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+          <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
             <Plus className="h-4 w-4" /> NUEVA LICENCIA
           </Button>
         </div>
@@ -69,7 +69,7 @@ export default function LicenciasPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -77,12 +77,12 @@ export default function LicenciasPage() {
 
       <Card className="rounded-2xl overflow-hidden">
         <CardHeader className="p-5 border-b bg-muted/10">
-          <CardTitle className="text-xs font-black uppercase tracking-widest">Inventario de Licencias</CardTitle>
+          <CardTitle className="text-xs font-semibold uppercase tracking-widest">Inventario de Licencias</CardTitle>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="text-[9px] uppercase tracking-widest">
+              <TableRow className="text-[11px] uppercase tracking-widest">
                 <TableHead>Software</TableHead>
                 <TableHead>Proveedor</TableHead>
                 <TableHead>Tipo</TableHead>
@@ -99,11 +99,11 @@ export default function LicenciasPage() {
                   <TableRow key={i} className="hover:bg-muted/20">
                     <TableCell className="text-xs font-bold">{lic.software}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{lic.proveedor}</TableCell>
-                    <TableCell><Badge className="text-[8px] font-bold bg-muted/30">{lic.tipo}</Badge></TableCell>
+                    <TableCell><Badge className="text-[10px] font-bold bg-muted/30">{lic.tipo}</Badge></TableCell>
                     <TableCell className="text-center text-xs font-bold">{lic.cantidad}</TableCell>
                     <TableCell className="text-xs font-mono">{lic.costoMensual}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">{lic.vencimiento}</TableCell>
-                    <TableCell><Badge className={cn("text-[8px] font-bold", est.badge)}>{est.label}</Badge></TableCell>
+                    <TableCell><Badge className={cn("text-[10px] font-bold", est.badge)}>{est.label}</Badge></TableCell>
                   </TableRow>
                 );
               })}
@@ -117,7 +117,7 @@ export default function LicenciasPage() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs font-black text-amber-600 uppercase tracking-wider">Licencias por Vencer</p>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Licencias por Vencer</p>
               <p className="text-[11px] text-muted-foreground mt-1">
                 {licencias.filter(l => l.estado === "por_vencer").map(l => l.software).join(", ")} — vence pronto.
                 Se recomienda iniciar el proceso de renovación con antelación para evitar interrupciones del servicio.

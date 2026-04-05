@@ -130,10 +130,10 @@ export function CommentsSection() {
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="text-center mb-10 md:mb-14">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-700 text-[9px] font-black uppercase tracking-[0.35em] mb-5">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-700 text-[11px] font-semibold uppercase tracking-[0.35em] mb-5">
                         <MessageSquare className="h-3 w-3" /> {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight uppercase leading-[1.1] mb-4">
+                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight uppercase leading-[1.1] mb-4">
                         <span className="text-foreground">{t('title_prefix')} </span>
                         <span className="liquid-glass-text italic">{t('title_highlight')}</span>
                     </h2>
@@ -152,7 +152,7 @@ export function CommentsSection() {
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/15 to-violet-500/5 border border-violet-500/15 mb-4">
                             <Quote className="h-7 w-7 text-violet-500/60" />
                         </div>
-                        <h3 className="text-lg font-black uppercase tracking-tight text-foreground mb-2">{t('empty_title')}</h3>
+                        <h3 className="text-lg font-semibold uppercase tracking-tight text-foreground mb-2">{t('empty_title')}</h3>
                         <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider max-w-sm mx-auto">
                             {t('empty_subtitle')}
                         </p>
@@ -166,7 +166,7 @@ export function CommentsSection() {
                                         <div className="flex items-start justify-between">
                                             <StarRating value={c.calificacion} readonly />
                                             {c.modulo && (
-                                                <span className="text-[9px] sm:text-[7px] font-black uppercase tracking-[0.2em] text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+                                                <span className="text-[11px] sm:text-[7px] font-semibold uppercase tracking-wide text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
                                                     {c.modulo}
                                                 </span>
                                             )}
@@ -179,7 +179,7 @@ export function CommentsSection() {
                                         <div className="flex items-center gap-3 pt-3 border-t border-border/20">
                                             <Avatar className="h-9 w-9 border border-primary/15 shadow-sm">
                                                 <AvatarFallback className={cn(
-                                                    "text-[10px] font-black",
+                                                    "text-[10px] font-bold",
                                                     c.tipo === 'juridico'
                                                         ? "bg-emerald-500/10 text-emerald-600"
                                                         : "bg-blue-500/10 text-blue-600"
@@ -188,7 +188,7 @@ export function CommentsSection() {
                                                 </AvatarFallback>
                                             </Avatar>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-black uppercase tracking-wide text-foreground truncate">
+                                                <p className="text-xs font-semibold uppercase tracking-wide text-foreground truncate">
                                                     {c.autor}
                                                 </p>
                                                 <div className="flex items-center gap-2">
@@ -197,12 +197,12 @@ export function CommentsSection() {
                                                     ) : (
                                                         <User className="h-2.5 w-2.5 text-blue-500/60" />
                                                     )}
-                                                    <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
+                                                    <span className="text-[10px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {c.tipo === 'juridico' ? t('empresa') : t('persona')}
                                                     </span>
                                                     <span className="text-foreground/30">·</span>
                                                     <Clock className="h-2.5 w-2.5 text-foreground/40" />
-                                                    <span className="text-[10px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
+                                                    <span className="text-[10px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                                                         {timeAgo(c.created_at)}
                                                     </span>
                                                 </div>
@@ -224,7 +224,7 @@ export function CommentsSection() {
                             <Link href="/login">
                                 <Button
                                     variant="outline"
-                                    className="rounded-2xl h-12 px-8 text-xs font-black uppercase tracking-[0.2em] border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
+                                    className="rounded-2xl h-12 px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
                                 >
                                     <LogIn className="h-4 w-4 mr-2 text-violet-500" />
                                     {t('login_to_comment')}
@@ -236,7 +236,7 @@ export function CommentsSection() {
                             <Button
                                 onClick={() => setShowForm(true)}
                                 variant="outline"
-                                className="rounded-2xl h-12 px-8 text-xs font-black uppercase tracking-[0.2em] border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
+                                className="rounded-2xl h-12 px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
                             >
                                 <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
                                 {t('leave_comment')}
@@ -246,7 +246,7 @@ export function CommentsSection() {
                         <Card className="rounded-3xl border-2 border-primary/20 bg-card/80 shadow-xl overflow-hidden">
                             <CardContent className="p-6 space-y-5">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="text-sm font-black uppercase tracking-tight">
+                                    <h3 className="text-sm font-semibold uppercase tracking-tight">
                                         {t('your_opinion')}
                                     </h3>
                                     <StarRating value={calificacion} onChange={setCalificacion} />
@@ -261,7 +261,7 @@ export function CommentsSection() {
                                 />
 
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">
+                                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                                         {texto.length}/500
                                     </span>
                                     <div className="flex gap-2">
@@ -269,7 +269,7 @@ export function CommentsSection() {
                                             variant="ghost"
                                             size="sm"
                                             onClick={() => { setShowForm(false); setTexto(''); setCalificacion(5); }}
-                                            className="rounded-xl text-[10px] font-black uppercase tracking-wider"
+                                            className="rounded-xl text-[10px] font-semibold uppercase tracking-wider"
                                         >
                                             {t('cancel')}
                                         </Button>
@@ -277,7 +277,7 @@ export function CommentsSection() {
                                             onClick={handleSubmit}
                                             disabled={submitting || texto.trim().length < 10}
                                             size="sm"
-                                            className="rounded-xl text-[10px] font-black uppercase tracking-wider shadow-lg"
+                                            className="rounded-xl text-[10px] font-semibold uppercase tracking-wider shadow-lg"
                                         >
                                             {submitting ? (
                                                 <><Loader2 className="h-3 w-3 mr-1.5 animate-spin" /> {t('publishing')}</>
@@ -288,7 +288,7 @@ export function CommentsSection() {
                                     </div>
                                 </div>
 
-                                <p className="text-[10px] sm:text-[8px] font-bold text-muted-foreground/70 uppercase tracking-[0.2em] text-center">
+                                <p className="text-[10px] sm:text-[10px] font-bold text-muted-foreground/70 uppercase tracking-wide text-center">
                                     {t('commenting_as', { name: user?.nombre || '' })}
                                 </p>
                             </CardContent>

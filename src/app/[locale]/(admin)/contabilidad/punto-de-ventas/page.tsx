@@ -36,7 +36,7 @@ export default function PuntoDeVentasPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Store className="h-8 w-8 text-emerald-500" />
             Punto de Ventas
           </h1>

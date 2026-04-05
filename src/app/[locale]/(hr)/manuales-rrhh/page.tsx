@@ -118,12 +118,12 @@ function OrgTreeNode({ nodo, children, isRoot }: { nodo: NodoOrganigrama; childr
             <div className={cn("h-10 w-10 rounded-full mx-auto flex items-center justify-center text-white shadow-lg", tipoInfo.color)}>
               <tipoInfo.icon className="h-5 w-5" />
             </div>
-            <p className="font-black text-[11px] text-foreground uppercase tracking-wide leading-tight">{nodo.nombre_cargo}</p>
+            <p className="font-bold text-[11px] text-foreground uppercase tracking-wide leading-tight">{nodo.nombre_cargo}</p>
             <Badge variant="outline" className="text-[7px] mt-0.5">{nodo.departamento}</Badge>
             <p className="text-[10px] text-muted-foreground font-bold">
               {nodo.empleado_nombre || nodo.titular || <span className="italic text-muted-foreground/40">Vacante</span>}
             </p>
-            <Badge className="text-[7px] font-black bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
+            <Badge className="text-[7px] font-bold bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
           </CardContent>
         </Card>
       </motion.div>
@@ -346,11 +346,11 @@ export default function ManualesRRHHPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-indigo-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-indigo-500 shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-semibold uppercase tracking-wider text-indigo-500 shadow-glow mb-4">
             <BookOpen className="h-3 w-3" /> NORMATIVA LABORAL
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Manuales y <span className="text-indigo-500 italic">Contratos</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Procedimientos • Organigrama • Contratos Laborales 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Manuales y <span className="text-indigo-500 italic">Contratos</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Procedimientos • Organigrama • Contratos Laborales 2026</p>
         </div>
       </header>
 
@@ -364,13 +364,13 @@ export default function ManualesRRHHPage() {
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
             <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl group hover:bg-indigo-500/5 transition-all">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
                 <div className={cn("h-8 w-8 rounded-xl flex items-center justify-center", m.bg)}>
                   <m.icon className={cn("h-4 w-4", m.color)} />
                 </div>
               </div>
-              <p className="text-4xl font-black text-foreground tracking-tight leading-none">{m.val}</p>
-              <p className="text-[9px] text-muted-foreground/50 mt-2 font-bold">{m.sub}</p>
+              <p className="text-4xl font-bold text-foreground tracking-tight leading-none">{m.val}</p>
+              <p className="text-[11px] text-muted-foreground/50 mt-2 font-bold">{m.sub}</p>
             </Card>
           </motion.div>
         ))}
@@ -378,13 +378,13 @@ export default function ManualesRRHHPage() {
 
       <Tabs defaultValue="manuales" className="space-y-8">
         <TabsList className="bg-card/40 rounded-xl p-1 border border-border/30 flex-wrap h-auto">
-          <TabsTrigger value="manuales" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="manuales" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <BookOpen className="h-3 w-3" /> Manuales de Procedimientos
           </TabsTrigger>
-          <TabsTrigger value="organigrama" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="organigrama" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Users className="h-3 w-3" /> Organigrama
           </TabsTrigger>
-          <TabsTrigger value="contratos" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="contratos" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <FileSignature className="h-3 w-3" /> Contratos Laborales
           </TabsTrigger>
         </TabsList>
@@ -392,8 +392,8 @@ export default function ManualesRRHHPage() {
         {/* ==================== MANUALES DE PROCEDIMIENTOS ==================== */}
         <TabsContent value="manuales" className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Manuales de Procedimientos</h2>
-            <Button onClick={() => setShowManualDialog(true)} className="bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 px-8">
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Manuales de Procedimientos</h2>
+            <Button onClick={() => setShowManualDialog(true)} className="bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-10 px-8">
               <Plus className="mr-2 h-4 w-4" /> Nuevo Manual
             </Button>
           </div>
@@ -423,16 +423,16 @@ export default function ManualesRRHHPage() {
           )}
 
           {filteredManuales.length === 0 && manuales.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <BookOpen className="h-16 w-16 mx-auto text-indigo-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin manuales registrados</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin manuales registrados</h3>
               <p className="text-muted-foreground text-sm mt-2 max-w-md mx-auto">Crea manuales de procedimientos para cada área y cargo, incluyendo responsabilidades y prohibiciones del puesto de trabajo</p>
-              <Button onClick={() => setShowManualDialog(true)} className="mt-8 bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+              <Button onClick={() => setShowManualDialog(true)} className="mt-8 bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
                 <Plus className="mr-2 h-4 w-4" /> Crear Manual
               </Button>
             </Card>
           ) : filteredManuales.length === 0 ? (
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-12 text-center">
+            <Card className="glass-card border-none rounded-xl bg-card/40 p-12 text-center">
               <Search className="h-10 w-10 mx-auto text-muted-foreground/20 mb-4" />
               <p className="text-muted-foreground text-sm">No se encontraron manuales con los filtros aplicados</p>
             </Card>
@@ -453,14 +453,14 @@ export default function ManualesRRHHPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <h3 className="font-black text-sm text-foreground">{m.titulo}</h3>
-                              <Badge variant="outline" className="text-[7px] font-black">v{m.version}</Badge>
-                              <Badge className={cn("text-[7px] font-black border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                              <h3 className="font-semibold text-sm text-foreground">{m.titulo}</h3>
+                              <Badge variant="outline" className="text-[7px] font-bold">v{m.version}</Badge>
+                              <Badge className={cn("text-[7px] font-bold border", estadoInfo.color)}>{estadoInfo.label}</Badge>
                             </div>
                             <div className="flex items-center gap-2 mt-1">
                               <Badge variant="outline" className="text-[7px]">{m.departamento}</Badge>
-                              {m.cargo_destino && <span className="text-[9px] text-muted-foreground">Cargo: {m.cargo_destino}</span>}
-                              <span className="text-[8px] text-muted-foreground/40 ml-2">{procs.length} procedimientos • {prohs.length} prohibiciones</span>
+                              {m.cargo_destino && <span className="text-[11px] text-muted-foreground">Cargo: {m.cargo_destino}</span>}
+                              <span className="text-[10px] text-muted-foreground/40 ml-2">{procs.length} procedimientos • {prohs.length} prohibiciones</span>
                             </div>
                           </div>
                           <div className="flex items-center gap-3 shrink-0">
@@ -471,7 +471,7 @@ export default function ManualesRRHHPage() {
                             >
                               <Eye className="h-4 w-4 text-muted-foreground" />
                             </Button>
-                            <span className="text-[9px] text-muted-foreground">{new Date(m.created_at).toLocaleDateString("es-VE")}</span>
+                            <span className="text-[11px] text-muted-foreground">{new Date(m.created_at).toLocaleDateString("es-VE")}</span>
                             {isExpanded ? <ChevronDown className="h-4 w-4 text-muted-foreground" /> : <ChevronRight className="h-4 w-4 text-muted-foreground" />}
                           </div>
                         </div>
@@ -487,18 +487,18 @@ export default function ManualesRRHHPage() {
                           >
                             <div className="px-6 pb-6 border-t border-border/30 pt-4 space-y-4">
                               <div>
-                                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-2">Descripción General</p>
+                                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-2">Descripción General</p>
                                 <p className="text-sm text-muted-foreground whitespace-pre-wrap">{m.contenido}</p>
                               </div>
                               {procs.length > 0 && (
                                 <div className="bg-emerald-500/5 rounded-2xl p-5 border border-emerald-500/10">
-                                  <p className="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-3 flex items-center gap-2">
+                                  <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-500 mb-3 flex items-center gap-2">
                                     <CheckCircle className="h-3 w-3" /> Procedimientos y Responsabilidades ({procs.length})
                                   </p>
                                   <ul className="space-y-2">
                                     {procs.map((p: string, j: number) => (
                                       <li key={j} className="flex items-start gap-3 text-xs text-foreground/80">
-                                        <span className="h-6 w-6 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-500 text-[9px] font-black shrink-0 mt-0.5">{j + 1}</span>
+                                        <span className="h-6 w-6 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-500 text-[11px] font-bold shrink-0 mt-0.5">{j + 1}</span>
                                         <span className="pt-0.5">{p}</span>
                                       </li>
                                     ))}
@@ -507,7 +507,7 @@ export default function ManualesRRHHPage() {
                               )}
                               {prohs.length > 0 && (
                                 <div className="bg-red-500/5 rounded-2xl p-5 border border-red-500/10">
-                                  <p className="text-[9px] font-black uppercase tracking-widest text-red-500 mb-3 flex items-center gap-2">
+                                  <p className="text-[11px] font-semibold uppercase tracking-widest text-red-500 mb-3 flex items-center gap-2">
                                     <Ban className="h-3 w-3" /> Prohibiciones en el Área de Trabajo ({prohs.length})
                                   </p>
                                   <ul className="space-y-2">
@@ -537,36 +537,36 @@ export default function ManualesRRHHPage() {
         {/* ==================== ORGANIGRAMA ==================== */}
         <TabsContent value="organigrama" className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Organigrama Corporativo</h2>
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Organigrama Corporativo</h2>
             <div className="flex items-center gap-3">
               <div className="flex items-center bg-card/40 rounded-xl border border-border/30 p-1">
                 <Button
                   variant="ghost" size="sm"
-                  className={cn("rounded-lg h-8 px-3 text-[9px] font-black uppercase", orgViewMode === "tree" && "bg-blue-500/10 text-blue-500")}
+                  className={cn("rounded-lg h-8 px-3 text-[11px] font-semibold uppercase", orgViewMode === "tree" && "bg-blue-500/10 text-blue-500")}
                   onClick={() => setOrgViewMode("tree")}
                 >
                   <LayoutGrid className="h-3 w-3 mr-1" /> Árbol
                 </Button>
                 <Button
                   variant="ghost" size="sm"
-                  className={cn("rounded-lg h-8 px-3 text-[9px] font-black uppercase", orgViewMode === "grid" && "bg-blue-500/10 text-blue-500")}
+                  className={cn("rounded-lg h-8 px-3 text-[11px] font-semibold uppercase", orgViewMode === "grid" && "bg-blue-500/10 text-blue-500")}
                   onClick={() => setOrgViewMode("grid")}
                 >
                   <List className="h-3 w-3 mr-1" /> Grid
                 </Button>
               </div>
-              <Button onClick={() => setShowNodoDialog(true)} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 px-8">
+              <Button onClick={() => setShowNodoDialog(true)} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-10 px-8">
                 <Plus className="mr-2 h-4 w-4" /> Nuevo Cargo
               </Button>
             </div>
           </div>
 
           {nodos.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <Users className="h-16 w-16 mx-auto text-blue-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Organigrama vacío</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Organigrama vacío</h3>
               <p className="text-muted-foreground text-sm mt-2 max-w-md mx-auto">Define la estructura jerárquica de la organización agregando cargos por nivel (Dirección, Gerencia, Coordinación, etc.)</p>
-              <Button onClick={() => setShowNodoDialog(true)} className="mt-8 bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+              <Button onClick={() => setShowNodoDialog(true)} className="mt-8 bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
                 <Plus className="mr-2 h-4 w-4" /> Agregar Primer Cargo
               </Button>
             </Card>
@@ -578,7 +578,7 @@ export default function ManualesRRHHPage() {
                     <div key={nivel} className="relative">
                       {nivelIdx > 0 && (
                         <div className="flex justify-center py-2">
-                          <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-muted-foreground/30">
+                          <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/30">
                             <ArrowDown className="h-3 w-3" />
                             <span>Reporta a Nivel {Number(nivel) - 1}</span>
                             <ArrowDown className="h-3 w-3" />
@@ -589,7 +589,7 @@ export default function ManualesRRHHPage() {
                       <div className="flex items-center gap-3 px-2 mb-3">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border/40 to-transparent" />
                         <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-card/60 border border-border/30">
-                          <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">Nivel {nivel}</span>
+                          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">Nivel {nivel}</span>
                           <Badge variant="outline" className="text-[7px]">{items.length} {items.length === 1 ? "cargo" : "cargos"}</Badge>
                         </div>
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border/40 to-transparent" />
@@ -611,14 +611,14 @@ export default function ManualesRRHHPage() {
                                     <tipoInfo.icon className="h-5 w-5" />
                                   </div>
                                   <div>
-                                    <p className="font-black text-[11px] text-foreground uppercase tracking-wide leading-tight">{nodo.nombre_cargo}</p>
+                                    <p className="font-bold text-[11px] text-foreground uppercase tracking-wide leading-tight">{nodo.nombre_cargo}</p>
                                     <Badge variant="outline" className="text-[7px] mt-1">{nodo.departamento}</Badge>
                                   </div>
                                   <p className="text-[10px] text-muted-foreground font-bold">
                                     {nodo.empleado_nombre || nodo.titular || <span className="italic text-muted-foreground/40">Vacante</span>}
                                   </p>
                                   <div className="flex items-center justify-center gap-2">
-                                    <Badge className="text-[7px] font-black bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
+                                    <Badge className="text-[7px] font-bold bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
                                     {childCount > 0 && (
                                       <Badge variant="outline" className="text-[7px] text-blue-400 border-blue-400/30">{childCount} subordinado{childCount > 1 ? "s" : ""}</Badge>
                                     )}
@@ -634,19 +634,19 @@ export default function ManualesRRHHPage() {
                 </div>
               </Card>
 
-              <Card className="glass-card border-none rounded-[2rem] bg-gradient-to-br from-blue-500/10 to-indigo-500/10 p-8">
+              <Card className="glass-card border-none rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 p-8">
                 <div className="flex items-start gap-4">
                   <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
                     <Users className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <h3 className="font-black text-sm text-foreground uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
+                    <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider mb-2">Estructura Jerárquica</h3>
                     <p className="text-xs text-muted-foreground">El organigrama refleja la cadena de mando conforme a la LOTTT. Los niveles van desde Dirección (nivel 0) hasta cargos operativos. Cada cargo puede vincularse a un empleado registrado en el sistema.</p>
                     <div className="flex flex-wrap gap-3 mt-4">
                       {Object.entries(TIPOS_NODO).map(([key, info]) => (
                         <div key={key} className="flex items-center gap-2">
                           <div className={cn("h-3 w-3 rounded-full", info.color)} />
-                          <span className="text-[9px] font-bold text-muted-foreground">{info.label}</span>
+                          <span className="text-[11px] font-bold text-muted-foreground">{info.label}</span>
                         </div>
                       ))}
                     </div>
@@ -670,10 +670,10 @@ export default function ManualesRRHHPage() {
                               <tipoInfo.icon className="h-5 w-5" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="font-black text-sm text-foreground">{nodo.nombre_cargo}</p>
+                              <p className="font-semibold text-sm text-foreground">{nodo.nombre_cargo}</p>
                               <div className="flex items-center gap-2 mt-1">
                                 <Badge variant="outline" className="text-[7px]">{nodo.departamento}</Badge>
-                                <Badge className="text-[7px] font-black bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
+                                <Badge className="text-[7px] font-bold bg-muted/50 text-muted-foreground">{tipoInfo.label}</Badge>
                               </div>
                             </div>
                           </div>
@@ -688,7 +688,7 @@ export default function ManualesRRHHPage() {
                             </div>
                           </div>
                           {parentNode && (
-                            <div className="pt-2 border-t border-border/20 text-[9px] text-muted-foreground/50">
+                            <div className="pt-2 border-t border-border/20 text-[11px] text-muted-foreground/50">
                               Reporta a: <span className="font-bold text-foreground/60">{parentNode.nombre_cargo}</span>
                             </div>
                           )}
@@ -705,8 +705,8 @@ export default function ManualesRRHHPage() {
         {/* ==================== CONTRATOS LABORALES ==================== */}
         <TabsContent value="contratos" className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Contratos Laborales</h2>
-            <Button onClick={() => setShowContratoDialog(true)} className="bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 px-8">
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Contratos Laborales</h2>
+            <Button onClick={() => setShowContratoDialog(true)} className="bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-10 px-8">
               <Plus className="mr-2 h-4 w-4" /> Nuevo Contrato
             </Button>
           </div>
@@ -745,16 +745,16 @@ export default function ManualesRRHHPage() {
           )}
 
           {filteredContratos.length === 0 && contratos.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <FileSignature className="h-16 w-16 mx-auto text-emerald-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin contratos registrados</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin contratos registrados</h3>
               <p className="text-muted-foreground text-sm mt-2 max-w-md mx-auto">Registra contratos laborales con beneficios, prohibiciones en el área de trabajo y cláusulas conforme a la LOTTT</p>
-              <Button onClick={() => setShowContratoDialog(true)} className="mt-8 bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+              <Button onClick={() => setShowContratoDialog(true)} className="mt-8 bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
                 <Plus className="mr-2 h-4 w-4" /> Crear Contrato
               </Button>
             </Card>
           ) : filteredContratos.length === 0 ? (
-            <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-12 text-center">
+            <Card className="glass-card border-none rounded-xl bg-card/40 p-12 text-center">
               <Search className="h-10 w-10 mx-auto text-muted-foreground/20 mb-4" />
               <p className="text-muted-foreground text-sm">No se encontraron contratos con los filtros aplicados</p>
             </Card>
@@ -767,13 +767,13 @@ export default function ManualesRRHHPage() {
                 const isExpanded = expandedContrato === c.id;
                 return (
                   <motion.div key={c.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-                    <Card className="glass-card border-none bg-card/40 rounded-[2rem] shadow-xl overflow-hidden hover:shadow-2xl transition-all">
+                    <Card className="glass-card border-none bg-card/40 rounded-xl shadow-xl overflow-hidden hover:shadow-lg transition-all">
                       <div className="h-2 bg-gradient-to-r from-emerald-500 to-blue-500" />
                       <CardContent className="p-6 space-y-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
-                              <h3 className="font-black text-sm text-foreground">{c.titulo}</h3>
+                              <h3 className="font-semibold text-sm text-foreground">{c.titulo}</h3>
                               <Button
                                 variant="ghost" size="sm"
                                 className="h-7 w-7 p-0 rounded-lg"
@@ -783,8 +783,8 @@ export default function ManualesRRHHPage() {
                               </Button>
                             </div>
                             <div className="flex flex-wrap gap-2 mt-1">
-                              <Badge variant="outline" className="text-[7px] font-black">{TIPOS_CONTRATO[c.tipo_contrato] || c.tipo_contrato}</Badge>
-                              <Badge className={cn("text-[7px] font-black border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                              <Badge variant="outline" className="text-[7px] font-bold">{TIPOS_CONTRATO[c.tipo_contrato] || c.tipo_contrato}</Badge>
+                              <Badge className={cn("text-[7px] font-bold border", estadoInfo.color)}>{estadoInfo.label}</Badge>
                               {c.empleado_nombre && <Badge variant="outline" className="text-[7px] text-blue-400 border-blue-400/30">{c.empleado_nombre}</Badge>}
                             </div>
                           </div>
@@ -793,36 +793,36 @@ export default function ManualesRRHHPage() {
 
                         <div className="grid grid-cols-2 gap-3 text-xs">
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Cargo</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Cargo</p>
                             <p className="font-bold text-foreground">{c.cargo}</p>
                           </div>
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Departamento</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Departamento</p>
                             <p className="font-bold text-foreground">{c.departamento}</p>
                           </div>
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Salario</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Salario</p>
                             <p className="font-bold text-foreground">Bs. {parseFloat(c.salario).toLocaleString()}</p>
                           </div>
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Horario</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Horario</p>
                             <p className="font-bold text-foreground text-[10px]">{c.horario}</p>
                           </div>
                         </div>
 
                         {bens.length > 0 && (
                           <div className="pt-3 border-t border-border/30">
-                            <p className="text-[8px] font-black uppercase tracking-widest text-emerald-500 mb-2 flex items-center gap-1">
+                            <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-500 mb-2 flex items-center gap-1">
                               <Gift className="h-3 w-3" /> Beneficios ({bens.length})
                             </p>
                             <div className="flex flex-wrap gap-1.5">
                               {bens.slice(0, isExpanded ? bens.length : 4).map((b: string, j: number) => (
-                                <Badge key={j} variant="outline" className="text-[8px] bg-emerald-500/5 text-emerald-400 border-emerald-500/20">{b}</Badge>
+                                <Badge key={j} variant="outline" className="text-[10px] bg-emerald-500/5 text-emerald-400 border-emerald-500/20">{b}</Badge>
                               ))}
                               {!isExpanded && bens.length > 4 && (
                                 <Badge
                                   variant="outline"
-                                  className="text-[8px] cursor-pointer hover:bg-emerald-500/10"
+                                  className="text-[10px] cursor-pointer hover:bg-emerald-500/10"
                                   onClick={() => setExpandedContrato(c.id)}
                                 >
                                   +{bens.length - 4} más
@@ -834,17 +834,17 @@ export default function ManualesRRHHPage() {
 
                         {prohs.length > 0 && (
                           <div className="pt-3 border-t border-border/30">
-                            <p className="text-[8px] font-black uppercase tracking-widest text-red-500 mb-2 flex items-center gap-1">
+                            <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-2 flex items-center gap-1">
                               <Ban className="h-3 w-3" /> Prohibiciones ({prohs.length})
                             </p>
                             <div className="flex flex-wrap gap-1.5">
                               {prohs.slice(0, isExpanded ? prohs.length : 4).map((p: string, j: number) => (
-                                <Badge key={j} variant="outline" className="text-[8px] bg-red-500/5 text-red-400 border-red-500/20">{p}</Badge>
+                                <Badge key={j} variant="outline" className="text-[10px] bg-red-500/5 text-red-400 border-red-500/20">{p}</Badge>
                               ))}
                               {!isExpanded && prohs.length > 4 && (
                                 <Badge
                                   variant="outline"
-                                  className="text-[8px] cursor-pointer hover:bg-red-500/10"
+                                  className="text-[10px] cursor-pointer hover:bg-red-500/10"
                                   onClick={() => setExpandedContrato(c.id)}
                                 >
                                   +{prohs.length - 4} más
@@ -855,7 +855,7 @@ export default function ManualesRRHHPage() {
                         )}
 
                         {isExpanded && (
-                          <Button variant="ghost" size="sm" className="w-full text-[8px]" onClick={() => setExpandedContrato(null)}>
+                          <Button variant="ghost" size="sm" className="w-full text-[10px]" onClick={() => setExpandedContrato(null)}>
                             Mostrar menos
                           </Button>
                         )}
@@ -863,13 +863,13 @@ export default function ManualesRRHHPage() {
                         <div className="flex items-center gap-4 pt-3 border-t border-border/30">
                           <div className="flex items-center gap-1">
                             <div className={cn("h-2 w-2 rounded-full", c.firmado_empresa ? "bg-emerald-500" : "bg-muted")} />
-                            <span className="text-[8px] text-muted-foreground font-bold">Empresa</span>
+                            <span className="text-[10px] text-muted-foreground font-bold">Empresa</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <div className={cn("h-2 w-2 rounded-full", c.firmado_empleado ? "bg-emerald-500" : "bg-muted")} />
-                            <span className="text-[8px] text-muted-foreground font-bold">Empleado</span>
+                            <span className="text-[10px] text-muted-foreground font-bold">Empleado</span>
                           </div>
-                          <span className="ml-auto text-[8px] text-muted-foreground">
+                          <span className="ml-auto text-[10px] text-muted-foreground">
                             {new Date(c.fecha_inicio).toLocaleDateString("es-VE")}
                             {c.fecha_fin && ` — ${new Date(c.fecha_fin).toLocaleDateString("es-VE")}`}
                           </span>
@@ -882,28 +882,28 @@ export default function ManualesRRHHPage() {
             </div>
           )}
 
-          <Card className="glass-card border-none rounded-[2rem] bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-8">
+          <Card className="glass-card border-none rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-8">
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-xl bg-emerald-500/20 flex items-center justify-center shrink-0">
                 <Scale className="h-5 w-5 text-emerald-500" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-black text-sm text-foreground uppercase tracking-wider">Marco Legal LOTTT</h3>
+                <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider">Marco Legal LOTTT</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Los contratos de trabajo cumplen con la Ley Orgánica del Trabajo, Los Trabajadores y Las Trabajadoras (LOTTT 2012). Incluyen: jornada laboral (Art. 173), salario mínimo vigente, prestaciones sociales, vacaciones (Art. 190), utilidades (Art. 131), y derechos irrenunciables del trabajador.
                 </p>
                 <div className="grid grid-cols-3 gap-4 pt-3">
                   <div>
-                    <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Jornada Diurna</p>
-                    <p className="text-lg font-black text-foreground">8h/día</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Jornada Diurna</p>
+                    <p className="text-lg font-bold text-foreground">8h/día</p>
                   </div>
                   <div>
-                    <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Jornada Semanal</p>
-                    <p className="text-lg font-black text-foreground">40h/sem</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Jornada Semanal</p>
+                    <p className="text-lg font-bold text-foreground">40h/sem</p>
                   </div>
                   <div>
-                    <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Descanso</p>
-                    <p className="text-lg font-black text-foreground">2 días</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Descanso</p>
+                    <p className="text-lg font-bold text-foreground">2 días</p>
                   </div>
                 </div>
               </div>
@@ -928,11 +928,11 @@ export default function ManualesRRHHPage() {
                       <BookOpen className="h-6 w-6 text-indigo-500" />
                     </div>
                     <div>
-                      <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">{m.titulo}</DialogTitle>
+                      <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">{m.titulo}</DialogTitle>
                       <div className="flex items-center gap-2 mt-1">
                         <Badge variant="outline" className="text-[7px]">{m.departamento}</Badge>
-                        <Badge variant="outline" className="text-[7px] font-black">v{m.version}</Badge>
-                        <Badge className={cn("text-[7px] font-black border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                        <Badge variant="outline" className="text-[7px] font-bold">v{m.version}</Badge>
+                        <Badge className={cn("text-[7px] font-bold border", estadoInfo.color)}>{estadoInfo.label}</Badge>
                         {m.cargo_destino && <Badge variant="outline" className="text-[7px]">Cargo: {m.cargo_destino}</Badge>}
                       </div>
                     </div>
@@ -940,19 +940,19 @@ export default function ManualesRRHHPage() {
                 </DialogHeader>
                 <div className="space-y-6 py-4">
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-2">Descripción del Manual</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-2">Descripción del Manual</p>
                     <div className="bg-muted/30 rounded-2xl p-5 text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap">{m.contenido}</div>
                   </div>
 
                   {procs.length > 0 && (
                     <div className="bg-emerald-500/5 rounded-2xl p-6 border border-emerald-500/10">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 flex items-center gap-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-500 mb-4 flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" /> Procedimientos y Responsabilidades del Trabajador
                       </p>
                       <div className="space-y-3">
                         {procs.map((p: string, j: number) => (
                           <div key={j} className="flex items-start gap-3">
-                            <span className="h-7 w-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-500 text-[10px] font-black shrink-0">{j + 1}</span>
+                            <span className="h-7 w-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-500 text-[10px] font-bold shrink-0">{j + 1}</span>
                             <p className="text-sm text-foreground/80 pt-1">{p}</p>
                           </div>
                         ))}
@@ -962,7 +962,7 @@ export default function ManualesRRHHPage() {
 
                   {prohs.length > 0 && (
                     <div className="bg-red-500/5 rounded-2xl p-6 border border-red-500/10">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-4 flex items-center gap-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-4 flex items-center gap-2">
                         <Shield className="h-4 w-4" /> Lo Que NO Debe Hacer en Su Área de Trabajo
                       </p>
                       <div className="space-y-3">
@@ -980,12 +980,12 @@ export default function ManualesRRHHPage() {
 
                   <div className="grid grid-cols-2 gap-4 text-xs pt-2 border-t border-border/20">
                     <div>
-                      <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/50">Fecha de Creación</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Fecha de Creación</p>
                       <p className="font-bold text-foreground mt-1">{new Date(m.created_at).toLocaleDateString("es-VE", { day: "numeric", month: "long", year: "numeric" })}</p>
                     </div>
                     {m.aprobado_por && (
                       <div>
-                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/50">Aprobado por</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Aprobado por</p>
                         <p className="font-bold text-foreground mt-1">{m.aprobado_por}</p>
                       </div>
                     )}
@@ -1014,10 +1014,10 @@ export default function ManualesRRHHPage() {
                       <FileSignature className="h-6 w-6 text-emerald-500" />
                     </div>
                     <div>
-                      <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">{c.titulo}</DialogTitle>
+                      <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">{c.titulo}</DialogTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge variant="outline" className="text-[7px] font-black">{TIPOS_CONTRATO[c.tipo_contrato] || c.tipo_contrato}</Badge>
-                        <Badge className={cn("text-[7px] font-black border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                        <Badge variant="outline" className="text-[7px] font-bold">{TIPOS_CONTRATO[c.tipo_contrato] || c.tipo_contrato}</Badge>
+                        <Badge className={cn("text-[7px] font-bold border", estadoInfo.color)}>{estadoInfo.label}</Badge>
                         {c.empleado_nombre && <Badge variant="outline" className="text-[7px] text-blue-400">{c.empleado_nombre}</Badge>}
                       </div>
                     </div>
@@ -1026,37 +1026,37 @@ export default function ManualesRRHHPage() {
                 <div className="space-y-6 py-4">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-muted/30 rounded-xl p-4 text-center">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Cargo</p>
-                      <p className="text-sm font-black text-foreground mt-1">{c.cargo}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Cargo</p>
+                      <p className="text-sm font-bold text-foreground mt-1">{c.cargo}</p>
                     </div>
                     <div className="bg-muted/30 rounded-xl p-4 text-center">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Departamento</p>
-                      <p className="text-sm font-black text-foreground mt-1">{c.departamento}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Departamento</p>
+                      <p className="text-sm font-bold text-foreground mt-1">{c.departamento}</p>
                     </div>
                     <div className="bg-muted/30 rounded-xl p-4 text-center">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Salario Mensual</p>
-                      <p className="text-sm font-black text-foreground mt-1">Bs. {parseFloat(c.salario).toLocaleString()}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Salario Mensual</p>
+                      <p className="text-sm font-bold text-foreground mt-1">Bs. {parseFloat(c.salario).toLocaleString()}</p>
                     </div>
                     <div className="bg-muted/30 rounded-xl p-4 text-center">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Horario</p>
-                      <p className="text-[10px] font-black text-foreground mt-1">{c.horario}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Horario</p>
+                      <p className="text-[10px] font-bold text-foreground mt-1">{c.horario}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-muted/30 rounded-xl p-4">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Fecha de Inicio</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Fecha de Inicio</p>
                       <p className="text-sm font-bold text-foreground mt-1">{new Date(c.fecha_inicio).toLocaleDateString("es-VE", { day: "numeric", month: "long", year: "numeric" })}</p>
                     </div>
                     <div className="bg-muted/30 rounded-xl p-4">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">Fecha de Fin</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Fecha de Fin</p>
                       <p className="text-sm font-bold text-foreground mt-1">{c.fecha_fin ? new Date(c.fecha_fin).toLocaleDateString("es-VE", { day: "numeric", month: "long", year: "numeric" }) : "Indefinido"}</p>
                     </div>
                   </div>
 
                   {bens.length > 0 && (
                     <div className="bg-emerald-500/5 rounded-2xl p-6 border border-emerald-500/10">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 flex items-center gap-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-500 mb-4 flex items-center gap-2">
                         <Gift className="h-4 w-4" /> Beneficios del Contrato ({bens.length})
                       </p>
                       <div className="space-y-2">
@@ -1074,7 +1074,7 @@ export default function ManualesRRHHPage() {
 
                   {prohs.length > 0 && (
                     <div className="bg-red-500/5 rounded-2xl p-6 border border-red-500/10">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-4 flex items-center gap-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-4 flex items-center gap-2">
                         <Shield className="h-4 w-4" /> Lo Que NO Debe Hacer en Su Área de Trabajo ({prohs.length})
                       </p>
                       <div className="space-y-2">
@@ -1092,13 +1092,13 @@ export default function ManualesRRHHPage() {
 
                   {claus.length > 0 && (
                     <div className="bg-amber-500/5 rounded-2xl p-6 border border-amber-500/10">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-amber-500 mb-4 flex items-center gap-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-4 flex items-center gap-2">
                         <Scale className="h-4 w-4" /> Cláusulas Especiales
                       </p>
                       <div className="space-y-2">
                         {claus.map((cl: string, j: number) => (
                           <div key={j} className="flex items-start gap-3">
-                            <span className="text-[10px] font-black text-amber-500 mt-0.5">§{j + 1}</span>
+                            <span className="text-[10px] font-bold text-amber-500 mt-0.5">§{j + 1}</span>
                             <p className="text-sm text-foreground/80">{cl}</p>
                           </div>
                         ))}
@@ -1127,48 +1127,48 @@ export default function ManualesRRHHPage() {
       <Dialog open={showManualDialog} onOpenChange={setShowManualDialog}>
         <DialogContent className="sm:max-w-[700px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50 max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nuevo Manual de Procedimientos</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nuevo Manual de Procedimientos</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Título *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Título *</Label>
                 <Input value={manualForm.titulo} onChange={e => setManualForm(f => ({ ...f, titulo: e.target.value }))} placeholder="Manual de Procedimientos - Ventas" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Versión</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Versión</Label>
                 <Input value={manualForm.version} onChange={e => setManualForm(f => ({ ...f, version: e.target.value }))} placeholder="1.0" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Departamento *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Departamento *</Label>
                 <Select value={manualForm.departamento} onValueChange={v => setManualForm(f => ({ ...f, departamento: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{DEPARTAMENTOS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Cargo Destino</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Cargo Destino</Label>
                 <Input value={manualForm.cargo_destino} onChange={e => setManualForm(f => ({ ...f, cargo_destino: e.target.value }))} placeholder="Asesor Comercial" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Contenido General *</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Contenido General *</Label>
               <Textarea value={manualForm.contenido} onChange={e => setManualForm(f => ({ ...f, contenido: e.target.value }))} placeholder="Descripción general del manual, alcance y objetivos..." className="mt-2 rounded-xl bg-muted/50 min-h-[100px]" />
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-emerald-500">Procedimientos y responsabilidades (uno por línea)</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-emerald-500">Procedimientos y responsabilidades (uno por línea)</Label>
               <Textarea value={manualForm.procedimientos} onChange={e => setManualForm(f => ({ ...f, procedimientos: e.target.value }))} placeholder={"Registrar asistencia al inicio de jornada\nReportar al supervisor inmediato\nCompletar formulario de actividades diarias\nMantener el área de trabajo limpia y ordenada\nCumplir con las normas de seguridad industrial"} className="mt-2 rounded-xl bg-muted/50 min-h-[120px]" />
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-red-500">Lo que NO debe hacer en el área de trabajo (una por línea)</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-red-500">Lo que NO debe hacer en el área de trabajo (una por línea)</Label>
               <Textarea value={manualForm.prohibiciones} onChange={e => setManualForm(f => ({ ...f, prohibiciones: e.target.value }))} placeholder={"Uso de teléfono personal en horario laboral\nCompartir información confidencial de la empresa\nAusentarse sin autorización del supervisor\nConsumo de alimentos en el área de trabajo\nIngresar en estado de ebriedad o bajo sustancias\nUtilizar equipos de la empresa para fines personales"} className="mt-2 rounded-xl bg-muted/50 min-h-[120px]" />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowManualDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSaveManual} disabled={saving} className="bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest">
+            <Button onClick={handleSaveManual} disabled={saving} className="bg-indigo-500 hover:bg-indigo-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Crear Manual
             </Button>
@@ -1179,16 +1179,16 @@ export default function ManualesRRHHPage() {
       <Dialog open={showNodoDialog} onOpenChange={setShowNodoDialog}>
         <DialogContent className="sm:max-w-[600px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nuevo Cargo en Organigrama</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nuevo Cargo en Organigrama</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Nombre del Cargo *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Nombre del Cargo *</Label>
                 <Input value={nodoForm.nombre_cargo} onChange={e => setNodoForm(f => ({ ...f, nombre_cargo: e.target.value }))} placeholder="Gerente de Tecnología" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Departamento *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Departamento *</Label>
                 <Select value={nodoForm.departamento} onValueChange={v => setNodoForm(f => ({ ...f, departamento: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{DEPARTAMENTOS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
@@ -1197,7 +1197,7 @@ export default function ManualesRRHHPage() {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Tipo</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Tipo</Label>
                 <Select value={nodoForm.tipo} onValueChange={v => setNodoForm(f => ({ ...f, tipo: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -1210,17 +1210,17 @@ export default function ManualesRRHHPage() {
                 </Select>
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Nivel Jerárquico</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Nivel Jerárquico</Label>
                 <Input type="number" value={nodoForm.nivel} onChange={e => setNodoForm(f => ({ ...f, nivel: e.target.value }))} placeholder="0" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Titular</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Titular</Label>
                 <Input value={nodoForm.titular} onChange={e => setNodoForm(f => ({ ...f, titular: e.target.value }))} placeholder="Nombre del titular" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             {nodos.length > 0 && (
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Reporta a (Superior)</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Reporta a (Superior)</Label>
                 <Select value={nodoForm.padre_id} onValueChange={v => setNodoForm(f => ({ ...f, padre_id: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue placeholder="Sin superior directo" /></SelectTrigger>
                   <SelectContent>
@@ -1233,7 +1233,7 @@ export default function ManualesRRHHPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowNodoDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSaveNodo} disabled={saving} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest">
+            <Button onClick={handleSaveNodo} disabled={saving} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Agregar al Organigrama
             </Button>
@@ -1244,16 +1244,16 @@ export default function ManualesRRHHPage() {
       <Dialog open={showContratoDialog} onOpenChange={setShowContratoDialog}>
         <DialogContent className="sm:max-w-[700px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50 max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nuevo Contrato Laboral</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nuevo Contrato Laboral</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Título del Contrato *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Título del Contrato *</Label>
                 <Input value={contratoForm.titulo} onChange={e => setContratoForm(f => ({ ...f, titulo: e.target.value }))} placeholder="Contrato de Trabajo - Desarrollador" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Tipo de Contrato</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Tipo de Contrato</Label>
                 <Select value={contratoForm.tipo_contrato} onValueChange={v => setContratoForm(f => ({ ...f, tipo_contrato: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -1264,11 +1264,11 @@ export default function ManualesRRHHPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Cargo *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Cargo *</Label>
                 <Input value={contratoForm.cargo} onChange={e => setContratoForm(f => ({ ...f, cargo: e.target.value }))} placeholder="Desarrollador Full-Stack" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Departamento *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Departamento *</Label>
                 <Select value={contratoForm.departamento} onValueChange={v => setContratoForm(f => ({ ...f, departamento: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{DEPARTAMENTOS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
@@ -1277,34 +1277,34 @@ export default function ManualesRRHHPage() {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
                 <Input type="date" value={contratoForm.fecha_inicio} onChange={e => setContratoForm(f => ({ ...f, fecha_inicio: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Fin</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Fin</Label>
                 <Input type="date" value={contratoForm.fecha_fin} onChange={e => setContratoForm(f => ({ ...f, fecha_fin: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Salario (Bs)</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Salario (Bs)</Label>
                 <Input type="number" value={contratoForm.salario} onChange={e => setContratoForm(f => ({ ...f, salario: e.target.value }))} placeholder="0.00" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Horario</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Horario</Label>
               <Input value={contratoForm.horario} onChange={e => setContratoForm(f => ({ ...f, horario: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-emerald-500">Beneficios del cargo (uno por línea)</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-emerald-500">Beneficios del cargo (uno por línea)</Label>
               <Textarea value={contratoForm.beneficios} onChange={e => setContratoForm(f => ({ ...f, beneficios: e.target.value }))} placeholder={"Seguro HCM familiar\nBono de alimentación mensual\nDías libres adicionales por antigüedad\nCapacitación y desarrollo profesional\nPlan vacacional preferencial con alianzas\nBono de productividad trimestral\nSeguro de vida"} className="mt-2 rounded-xl bg-muted/50 min-h-[120px]" />
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-red-500">Lo que NO debe hacer en su área de trabajo (una por línea)</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-red-500">Lo que NO debe hacer en su área de trabajo (una por línea)</Label>
               <Textarea value={contratoForm.prohibiciones} onChange={e => setContratoForm(f => ({ ...f, prohibiciones: e.target.value }))} placeholder={"Uso de dispositivos personales en horario laboral\nDivulgación de información confidencial de la empresa\nAusentarse sin permiso escrito del supervisor\nConsumo de alimentos en el área de trabajo\nIngresar en estado de ebriedad o bajo sustancias\nUtilizar equipos de la empresa para fines personales\nRecibir visitas personales sin autorización"} className="mt-2 rounded-xl bg-muted/50 min-h-[120px]" />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowContratoDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSaveContrato} disabled={saving} className="bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest">
+            <Button onClick={handleSaveContrato} disabled={saving} className="bg-emerald-500 hover:bg-emerald-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Crear Contrato
             </Button>

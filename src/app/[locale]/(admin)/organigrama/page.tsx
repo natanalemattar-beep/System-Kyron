@@ -176,7 +176,7 @@ export default function OrganigramaPage() {
         >
           <div>
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-4"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wide text-primary mb-4"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.3 }}
@@ -184,13 +184,13 @@ export default function OrganigramaPage() {
               <Activity className="h-3 w-3 animate-pulse" /> ORGANIGRAMA
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </motion.div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Estructura{" "}
               <span className="bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent italic">
                 Organizacional
               </span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">
               Estructura Organizacional Interactiva de tu Empresa
             </p>
           </div>
@@ -203,21 +203,21 @@ export default function OrganigramaPage() {
             <Button
               onClick={handleExport}
               variant="outline"
-              className="rounded-2xl h-10 px-6 font-black uppercase text-[10px] tracking-[0.15em] border-primary/20 text-primary hover:bg-primary/10 transition-all"
+              className="rounded-2xl h-10 px-6 font-semibold uppercase text-[10px] tracking-[0.15em] border-primary/20 text-primary hover:bg-primary/10 transition-all"
             >
               <Building className="mr-2 h-4 w-4" />
               Guardar
             </Button>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="rounded-2xl h-10 px-6 font-black uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-[0_8px_30px_-5px_rgba(14,165,233,0.4)] transition-all duration-300 hover:shadow-[0_12px_40px_-5px_rgba(14,165,233,0.5)] hover:-translate-y-0.5">
+                <Button className="rounded-2xl h-10 px-6 font-semibold uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-[0_8px_30px_-5px_rgba(14,165,233,0.4)] transition-all duration-300 hover:shadow-[0_12px_40px_-5px_rgba(14,165,233,0.5)] hover:-translate-y-0.5">
                   <UserPlus className="mr-2 h-4 w-4" />
                   Agregar Persona
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                  <DialogTitle className="text-lg font-black uppercase tracking-tight">
+                  <DialogTitle className="text-lg font-semibold uppercase tracking-tight">
                     Agregar Persona
                   </DialogTitle>
                 </DialogHeader>
@@ -309,12 +309,12 @@ export default function OrganigramaPage() {
             <Badge
               key={d.id}
               variant="outline"
-              className={cn("text-[9px] font-bold uppercase tracking-wider cursor-default", d.bgColor, d.borderColor, d.color)}
+              className={cn("text-[11px] font-bold uppercase tracking-wider cursor-default", d.bgColor, d.borderColor, d.color)}
             >
               {d.name}: {people.filter((p) => p.department === d.id).length}
             </Badge>
           ))}
-          <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider bg-primary/10 border-primary/20 text-primary cursor-default">
+          <Badge variant="outline" className="text-[11px] font-bold uppercase tracking-wider bg-primary/10 border-primary/20 text-primary cursor-default">
             Total: {people.length + 1}
           </Badge>
         </div>
@@ -332,17 +332,17 @@ export default function OrganigramaPage() {
                 <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center mb-4 shadow-lg">
                   <Crown className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-base font-black text-foreground uppercase tracking-tight">{ceo.name}</h3>
+                <h3 className="text-base font-bold text-foreground uppercase tracking-tight">{ceo.name}</h3>
                 <p className="text-[11px] text-primary font-bold mt-1">{ceo.cargo}</p>
                 <div className="flex items-center justify-center gap-3 mt-3">
                   {ceo.email && (
-                    <span className="text-[9px] text-muted-foreground flex items-center gap-1">
+                    <span className="text-[11px] text-muted-foreground flex items-center gap-1">
                       <Mail className="h-3 w-3" /> {ceo.email}
                     </span>
                   )}
                 </div>
                 {ceo.phone && (
-                  <span className="text-[9px] text-muted-foreground flex items-center justify-center gap-1 mt-1">
+                  <span className="text-[11px] text-muted-foreground flex items-center justify-center gap-1 mt-1">
                     <Phone className="h-3 w-3" /> {ceo.phone}
                   </span>
                 )}
@@ -391,9 +391,9 @@ export default function OrganigramaPage() {
                       <div className={cn("mx-auto w-10 h-10 rounded-xl flex items-center justify-center mb-2 border", dept.bgColor, dept.borderColor)}>
                         <Briefcase className={cn("h-5 w-5", dept.color)} />
                       </div>
-                      <h4 className="text-xs font-black uppercase tracking-tight text-foreground">{dept.name}</h4>
+                      <h4 className="text-xs font-semibold uppercase tracking-tight text-foreground">{dept.name}</h4>
                       <div className="flex items-center justify-center gap-2 mt-2">
-                        <Badge variant="outline" className={cn("text-[8px] font-bold", dept.bgColor, dept.borderColor, dept.color)}>
+                        <Badge variant="outline" className={cn("text-[10px] font-bold", dept.bgColor, dept.borderColor, dept.color)}>
                           <Users className="h-2.5 w-2.5 mr-1" />
                           {people.filter((p) => p.department === dept.id).length}
                         </Badge>
@@ -432,19 +432,19 @@ export default function OrganigramaPage() {
                               <Card className="rounded-xl border border-border/30 bg-card/50 hover:bg-card/80 transition-all group/person relative overflow-hidden">
                                 <CardContent className="p-3">
                                   <div className="flex items-start gap-3">
-                                    <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center text-[10px] font-black shrink-0", dept.bgColor, dept.color)}>
+                                    <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0", dept.bgColor, dept.color)}>
                                       {getInitials(person.name)}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                       <p className="text-[11px] font-bold text-foreground truncate">{person.name}</p>
-                                      <p className="text-[9px] text-muted-foreground truncate">{person.cargo}</p>
+                                      <p className="text-[11px] text-muted-foreground truncate">{person.cargo}</p>
                                       {person.email && (
-                                        <p className="text-[8px] text-muted-foreground/60 flex items-center gap-1 mt-1 truncate">
+                                        <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1 mt-1 truncate">
                                           <Mail className="h-2.5 w-2.5 shrink-0" /> {person.email}
                                         </p>
                                       )}
                                       {person.phone && (
-                                        <p className="text-[8px] text-muted-foreground/60 flex items-center gap-1 truncate">
+                                        <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1 truncate">
                                           <Phone className="h-2.5 w-2.5 shrink-0" /> {person.phone}
                                         </p>
                                       )}
@@ -464,7 +464,7 @@ export default function OrganigramaPage() {
                                       </DialogTrigger>
                                       <DialogContent className="sm:max-w-sm">
                                         <DialogHeader>
-                                          <DialogTitle className="text-base font-black">¿Eliminar persona?</DialogTitle>
+                                          <DialogTitle className="text-base font-bold">¿Eliminar persona?</DialogTitle>
                                         </DialogHeader>
                                         <p className="text-sm text-muted-foreground">
                                           ¿Estás seguro de eliminar a <strong>{person.name}</strong> del organigrama?
@@ -504,7 +504,7 @@ export default function OrganigramaPage() {
                       <div className="w-px h-4 bg-border/20" />
                       <div className="w-full max-w-[220px] rounded-xl border border-dashed border-border/20 p-3 text-center">
                         <User className="h-4 w-4 mx-auto text-muted-foreground/30 mb-1" />
-                        <p className="text-[9px] text-muted-foreground/40 font-bold uppercase tracking-wider">Sin miembros</p>
+                        <p className="text-[11px] text-muted-foreground/40 font-bold uppercase tracking-wider">Sin miembros</p>
                       </div>
                     </motion.div>
                   )}

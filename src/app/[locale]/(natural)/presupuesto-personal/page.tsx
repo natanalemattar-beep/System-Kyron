@@ -201,7 +201,7 @@ export default function PresupuestoPersonalPage() {
                   className="flex items-end gap-3 p-3 rounded-xl bg-muted/20 border border-border/15"
                 >
                   <div className="flex-1 space-y-1.5">
-                    <Label className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-wider">Fuente</Label>
+                    <Label className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-wider">Fuente</Label>
                     <Select value={income.source} onValueChange={(v) => updateIncome(income.id, "source", v)}>
                       <SelectTrigger className="h-9 rounded-lg text-xs">
                         <SelectValue />
@@ -214,7 +214,7 @@ export default function PresupuestoPersonalPage() {
                     </Select>
                   </div>
                   <div className="flex-1 space-y-1.5">
-                    <Label className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-wider">Monto (Bs.)</Label>
+                    <Label className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-wider">Monto (Bs.)</Label>
                     <Input
                       type="number"
                       min={0}
@@ -264,7 +264,7 @@ export default function PresupuestoPersonalPage() {
                       <CatIcon className="h-4 w-4 text-muted-foreground/60" />
                     </div>
                     <div className="flex-1 space-y-1.5">
-                      <Label className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-wider">Categoría</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-wider">Categoría</Label>
                       <Select value={expense.category} onValueChange={(v) => updateExpense(expense.id, "category", v)}>
                         <SelectTrigger className="h-9 rounded-lg text-xs">
                           <SelectValue />
@@ -282,7 +282,7 @@ export default function PresupuestoPersonalPage() {
                       </Select>
                     </div>
                     <div className="flex-1 space-y-1.5">
-                      <Label className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-wider">Descripción</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-wider">Descripción</Label>
                       <Input
                         placeholder="Ej: Alquiler"
                         value={expense.description}
@@ -291,7 +291,7 @@ export default function PresupuestoPersonalPage() {
                       />
                     </div>
                     <div className="w-28 space-y-1.5 shrink-0">
-                      <Label className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-wider">Monto (Bs.)</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground/60 uppercase tracking-wider">Monto (Bs.)</Label>
                       <Input
                         type="number"
                         min={0}
@@ -336,7 +336,7 @@ export default function PresupuestoPersonalPage() {
                     <TrendingUp className="h-4 w-4 text-emerald-500" />
                     <span className="text-[11px] font-bold text-foreground">Total Ingresos</span>
                   </div>
-                  <span className="text-sm font-black text-emerald-500">
+                  <span className="text-sm font-bold text-emerald-500">
                     Bs. {totalIncome.toLocaleString("es-VE", { minimumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -346,7 +346,7 @@ export default function PresupuestoPersonalPage() {
                     <TrendingDown className="h-4 w-4 text-red-500" />
                     <span className="text-[11px] font-bold text-foreground">Total Gastos</span>
                   </div>
-                  <span className="text-sm font-black text-red-500">
+                  <span className="text-sm font-bold text-red-500">
                     Bs. {totalExpenses.toLocaleString("es-VE", { minimumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -359,7 +359,7 @@ export default function PresupuestoPersonalPage() {
                     <DollarSign className={cn("h-4 w-4", balance >= 0 ? "text-emerald-500" : "text-red-500")} />
                     <span className="text-[11px] font-bold text-foreground">Balance</span>
                   </div>
-                  <span className={cn("text-sm font-black", balance >= 0 ? "text-emerald-500" : "text-red-500")}>
+                  <span className={cn("text-sm font-bold", balance >= 0 ? "text-emerald-500" : "text-red-500")}>
                     Bs. {balance.toLocaleString("es-VE", { minimumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -369,7 +369,7 @@ export default function PresupuestoPersonalPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-wider">Tasa de Ahorro</span>
                   <span className={cn(
-                    "text-sm font-black",
+                    "text-sm font-bold",
                     savingsRate >= 20 ? "text-emerald-500" : savingsRate >= 10 ? "text-amber-500" : "text-red-500"
                   )}>
                     {savingsRate.toFixed(1)}%
@@ -388,7 +388,7 @@ export default function PresupuestoPersonalPage() {
                   value={expenseRatio}
                   className="h-2.5 rounded-full"
                 />
-                <p className="text-[9px] text-muted-foreground/40">
+                <p className="text-[11px] text-muted-foreground/40">
                   {expenseRatio <= 70
                     ? "Buen control de gastos"
                     : expenseRatio <= 90
@@ -417,7 +417,7 @@ export default function PresupuestoPersonalPage() {
                           <span className="text-[10px] font-bold text-foreground">{cat.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[9px] text-muted-foreground/50">{cat.percentage.toFixed(1)}%</span>
+                          <span className="text-[11px] text-muted-foreground/50">{cat.percentage.toFixed(1)}%</span>
                           <span className="text-[10px] font-bold text-foreground">
                             Bs. {cat.total.toLocaleString("es-VE", { minimumFractionDigits: 2 })}
                           </span>

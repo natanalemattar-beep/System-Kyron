@@ -246,11 +246,11 @@ export default function FaqPage() {
                         </Link>
 
                         <div className="text-center space-y-4 mb-10">
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-black uppercase tracking-[0.35em] text-primary mx-auto">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-semibold uppercase tracking-[0.35em] text-primary mx-auto">
                                 <MessageCircle className="h-3.5 w-3.5" />
                                 Centro de Ayuda
                             </div>
-                            <h1 className="text-[clamp(1.75rem,5vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1]">
+                            <h1 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight text-foreground uppercase leading-[1.1]">
                                 Preguntas{' '}
                                 <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent italic">
                                     Frecuentes
@@ -277,7 +277,7 @@ export default function FaqPage() {
                         <div className="flex flex-wrap justify-center gap-2">
                             <button
                                 onClick={() => setActiveCategory(null)}
-                                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
+                                className={`px-4 py-2 rounded-xl text-[10px] font-semibold uppercase tracking-wider transition-all border ${
                                     activeCategory === null
                                         ? 'bg-primary/10 border-primary/30 text-primary'
                                         : 'bg-card/30 border-border/20 text-muted-foreground hover:border-primary/20 hover:text-foreground'
@@ -291,7 +291,7 @@ export default function FaqPage() {
                                     <button
                                         key={cat.id}
                                         onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
-                                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border ${
+                                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-semibold uppercase tracking-wider transition-all border ${
                                             activeCategory === cat.id
                                                 ? 'bg-primary/10 border-primary/30 text-primary'
                                                 : 'bg-card/30 border-border/20 text-muted-foreground hover:border-primary/20 hover:text-foreground'
@@ -329,7 +329,7 @@ export default function FaqPage() {
                                                 <Icon className={`h-4.5 w-4.5 ${category.textColor}`} />
                                             </div>
                                             <div>
-                                                <h2 className="text-sm font-black uppercase tracking-tight text-foreground">
+                                                <h2 className="text-sm font-semibold uppercase tracking-tight text-foreground">
                                                     {category.title}
                                                 </h2>
                                                 <p className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
@@ -365,7 +365,7 @@ export default function FaqPage() {
                     <div className="mt-16 text-center">
                         <div className="inline-block p-8 rounded-3xl border border-border/20 bg-card/30">
                             <Headphones className="h-8 w-8 text-primary/60 mx-auto mb-3" />
-                            <h3 className="text-sm font-black uppercase tracking-tight text-foreground mb-1">
+                            <h3 className="text-sm font-semibold uppercase tracking-tight text-foreground mb-1">
                                 ¿No encontraste tu respuesta?
                             </h3>
                             <p className="text-xs text-muted-foreground mb-4 max-w-sm mx-auto">
@@ -373,12 +373,12 @@ export default function FaqPage() {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                 <Link href="/login">
-                                    <Button className="h-10 px-6 rounded-xl text-[10px] font-black uppercase tracking-wider">
+                                    <Button className="h-10 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-wider">
                                         Contactar Soporte
                                     </Button>
                                 </Link>
                                 <Link href="/">
-                                    <Button variant="outline" className="h-10 px-6 rounded-xl text-[10px] font-black uppercase tracking-wider border-border/30">
+                                    <Button variant="outline" className="h-10 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-wider border-border/30">
                                         Volver al inicio
                                     </Button>
                                 </Link>

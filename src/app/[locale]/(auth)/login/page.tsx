@@ -110,12 +110,12 @@ export default function LoginSelectionPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.4 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-300/40 dark:border-cyan-700/40 bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-[10px] font-black uppercase tracking-[0.2em] mb-5 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-300/40 dark:border-cyan-700/40 bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-[10px] font-semibold uppercase tracking-wide mb-5 backdrop-blur-sm">
               <Lock className="h-3 w-3" /> {t('badge')}
             </div>
           </motion.div>
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-800 dark:text-slate-100 leading-[1.1] uppercase"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 text-slate-800 dark:text-slate-100 leading-[1.1] uppercase"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -144,7 +144,7 @@ export default function LoginSelectionPage() {
               <User className="h-4 w-4 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('citizen_portal')}</h2>
+              <h2 className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('citizen_portal')}</h2>
               <p className="text-[10px] text-slate-400 mt-0.5">Servicios para ciudadanos</p>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
@@ -194,7 +194,7 @@ export default function LoginSelectionPage() {
               <Building2 className="h-4 w-4 text-emerald-600" />
             </div>
             <div>
-              <h2 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('corporate_portals')}</h2>
+              <h2 className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-[0.15em]">{t('corporate_portals')}</h2>
               <p className="text-[10px] text-slate-400 mt-0.5">Portales empresariales</p>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent dark:to-transparent" />
@@ -274,13 +274,13 @@ export default function LoginSelectionPage() {
               { label: "IGTF 3%", icon: ShieldCheck },
               { label: "LOTTT", icon: ShieldCheck },
             ].map((badge, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-800/40">
+              <span key={i} className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-800/40">
                 <badge.icon className="h-2.5 w-2.5" />
                 {badge.label}
               </span>
             ))}
           </div>
-          <p className="text-[10px] text-slate-300 dark:text-slate-500 uppercase tracking-[0.3em] font-bold">
+          <p className="text-[10px] text-slate-300 dark:text-slate-500 uppercase tracking-wide font-bold">
             <Globe className="h-3 w-3 inline mr-1.5" />
             {t('footer')}
           </p>

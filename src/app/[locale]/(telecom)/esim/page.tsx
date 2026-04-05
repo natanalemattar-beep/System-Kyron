@@ -112,7 +112,7 @@ export default function ESimPage() {
                           <p className="text-[10px] text-muted-foreground font-mono">{esim.numero}</p>
                         </div>
                       </div>
-                      <Badge className={cn("text-[9px] font-bold", esim.activa ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-muted/50 text-muted-foreground")}>
+                      <Badge className={cn("text-[11px] font-bold", esim.activa ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-muted/50 text-muted-foreground")}>
                         {esim.activa ? "ACTIVA" : "INACTIVA"}
                       </Badge>
                     </div>
@@ -135,7 +135,7 @@ export default function ESimPage() {
                     <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border/30">
                       <Signal className="h-3.5 w-3.5 text-emerald-500" />
                       <Wifi className="h-3.5 w-3.5 text-primary" />
-                      <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground ml-auto">
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground ml-auto">
                         <Shield className="h-3 w-3 inline mr-1 text-primary" /> Perfil Cifrado
                       </span>
                     </div>
@@ -161,7 +161,7 @@ export default function ESimPage() {
               { paso: 4, titulo: "Activar Línea", desc: "Tu eSIM estará operativa en menos de 5 minutos." },
             ].map((paso) => (
               <div key={paso.paso} className="flex flex-col gap-3 p-4 rounded-xl bg-muted/20 border border-border/30">
-                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-black">
+                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">
                   {paso.paso}
                 </div>
                 <div>

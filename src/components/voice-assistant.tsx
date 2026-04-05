@@ -258,7 +258,7 @@ export function VoiceAssistant() {
           title="Mostrar Kyron Chat"
         >
           <MessageCircle className="h-4 w-4 text-white" />
-          <span className="text-[9px] font-black uppercase tracking-wider text-white/90">Chat</span>
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">Chat</span>
         </button>
       </div>
     );
@@ -276,8 +276,8 @@ export function VoiceAssistant() {
             <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <div className="flex flex-col items-start leading-none">
-            <span className="text-[11px] font-black tracking-wider text-white uppercase">Kyron Chat</span>
-            <span className="text-[8px] font-semibold tracking-wide text-white/50 uppercase">AI Assistant</span>
+            <span className="text-[11px] font-bold tracking-wider text-white uppercase">Kyron Chat</span>
+            <span className="text-[10px] font-semibold tracking-wide text-white/50 uppercase">AI Assistant</span>
           </div>
         </button>
       </div>
@@ -286,16 +286,16 @@ export function VoiceAssistant() {
 
   return (
     <div className="fixed bottom-6 left-6 z-[9990]">
-      <div className="mb-4 w-[min(420px,calc(100vw-3rem))] h-[min(600px,calc(100vh-8rem))] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
+      <div className="mb-4 w-[min(420px,calc(100vw-3rem))] h-[min(600px,calc(100vh-8rem))] flex flex-col rounded-3xl border border-white/10 shadow-lg overflow-hidden bg-zinc-950/95 backdrop-blur-2xl animate-in slide-in-from-bottom-2 fade-in duration-200">
         <header className="px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl border bg-primary/10 border-primary/20">
               <BrainCircuit className="h-4 w-4 text-primary" />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white">Kyron Chat</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white">Kyron Chat</p>
               <p className={cn(
-                'text-[8px] font-bold uppercase tracking-widest transition-colors',
+                'text-[10px] font-bold uppercase tracking-widest transition-colors',
                 streaming ? 'text-amber-400' : processing ? 'text-amber-400' : 'text-emerald-500/60'
               )}>
                 {streaming ? 'Generando respuesta...' : processing ? 'Procesando...' : 'Kyron AI · Listo'}
@@ -340,12 +340,12 @@ export function VoiceAssistant() {
               {messages.length === 0 && (
                 <div className="py-14 text-center space-y-3 opacity-30">
                   <Sparkles className="h-8 w-8 mx-auto text-primary" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] px-6 leading-relaxed text-white/80">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide px-6 leading-relaxed text-white/80">
                     {isLanding
                       ? 'Inicia sesión para chatear con Kyron.'
                       : 'Kyron Chat listo. Escribe un mensaje.'}
                   </p>
-                  <p className="text-[8px] uppercase tracking-wider text-white/40 px-4">
+                  <p className="text-[10px] uppercase tracking-wider text-white/40 px-4">
                     Inteligencia corporativa venezolana
                   </p>
                 </div>

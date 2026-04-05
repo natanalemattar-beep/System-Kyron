@@ -136,7 +136,7 @@ export function FinancialToolkit() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', duration: 0.35 }}
-            className="fixed bottom-[7rem] right-6 z-50 w-[340px] rounded-2xl border border-border/40 bg-background/95 backdrop-blur-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-[7rem] right-6 z-50 w-[340px] rounded-2xl border border-border/40 bg-background/95 backdrop-blur-2xl shadow-lg overflow-hidden"
           >
             <div className="px-4 py-3 border-b border-border/30 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -144,8 +144,8 @@ export function FinancialToolkit() {
                   <Calculator className="h-3.5 w-3.5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-foreground">Herramientas</p>
-                  <p className="text-[9px] text-muted-foreground/60 font-medium">Calculadora Financiera VE</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-foreground">Herramientas</p>
+                  <p className="text-[11px] text-muted-foreground/60 font-medium">Calculadora Financiera VE</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -198,7 +198,7 @@ export function FinancialToolkit() {
                       </label>
                       <button
                         onClick={() => setDirection(d => d === 'usd-ves' ? 'ves-usd' : 'usd-ves')}
-                        className="flex items-center gap-1 text-[9px] text-primary font-bold hover:underline"
+                        className="flex items-center gap-1 text-[11px] text-primary font-bold hover:underline"
                       >
                         <ArrowRightLeft className="h-3 w-3" />
                         Invertir
@@ -221,13 +221,13 @@ export function FinancialToolkit() {
                   {!rateAvailable && !bcv.loading ? (
                     <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-center space-y-1">
                       <p className="text-[10px] font-bold text-amber-500">Tasa BCV no disponible</p>
-                      <p className="text-[9px] text-muted-foreground/60">Presiona el botón de actualizar para reintentar</p>
+                      <p className="text-[11px] text-muted-foreground/60">Presiona el botón de actualizar para reintentar</p>
                     </div>
                   ) : (
                     <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-500/10 to-cyan-600/10 border border-emerald-500/20 space-y-1">
-                      <p className="text-[9px] text-muted-foreground/60 font-medium uppercase tracking-wider">Resultado</p>
+                      <p className="text-[11px] text-muted-foreground/60 font-medium uppercase tracking-wider">Resultado</p>
                       <div className="flex items-center justify-between">
-                        <p className="text-lg font-black text-foreground">
+                        <p className="text-lg font-bold text-foreground">
                           {direction === 'usd-ves' ? 'Bs. ' : '$ '}
                           {formatNumber(convertedUsd)}
                         </p>
@@ -239,7 +239,7 @@ export function FinancialToolkit() {
                         </button>
                       </div>
                       {bcv.date && (
-                        <p className="text-[9px] text-muted-foreground/50">Tasa BCV: {formatNumber(bcv.rate)} Bs/$ · {bcv.date}</p>
+                        <p className="text-[11px] text-muted-foreground/50">Tasa BCV: {formatNumber(bcv.rate)} Bs/$ · {bcv.date}</p>
                       )}
                     </div>
                   )}
@@ -273,7 +273,7 @@ export function FinancialToolkit() {
                     <div className="border-t border-border/20 pt-2 flex justify-between items-center">
                       <span className="text-xs font-bold text-foreground">Total</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-black text-foreground">Bs. {formatNumber(ivaGrandTotal)}</span>
+                        <span className="text-lg font-bold text-foreground">Bs. {formatNumber(ivaGrandTotal)}</span>
                         <button onClick={() => copyToClipboard(formatNumber(ivaGrandTotal), 'iva')} className="p-1 rounded-lg hover:bg-white/10">
                           {copied === 'iva' ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3 text-muted-foreground" />}
                         </button>
@@ -310,7 +310,7 @@ export function FinancialToolkit() {
                     <div className="border-t border-border/20 pt-2 flex justify-between items-center">
                       <span className="text-xs font-bold">Total con IGTF</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-black">$ {formatNumber(igtfGrandTotal)}</span>
+                        <span className="text-lg font-bold">$ {formatNumber(igtfGrandTotal)}</span>
                         <button onClick={() => copyToClipboard(formatNumber(igtfGrandTotal), 'igtf')} className="p-1 rounded-lg hover:bg-white/10">
                           {copied === 'igtf' ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3 text-muted-foreground" />}
                         </button>
@@ -368,7 +368,7 @@ export function FinancialToolkit() {
                     <div className="border-t border-border/20 pt-2 flex justify-between items-center">
                       <span className="text-xs font-bold">Neto a Pagar</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-lg font-black">Bs. {formatNumber(islrNet)}</span>
+                        <span className="text-lg font-bold">Bs. {formatNumber(islrNet)}</span>
                         <button onClick={() => copyToClipboard(formatNumber(islrNet), 'islr')} className="p-1 rounded-lg hover:bg-white/10">
                           {copied === 'islr' ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3 text-muted-foreground" />}
                         </button>
@@ -380,10 +380,10 @@ export function FinancialToolkit() {
             </div>
 
             <div className="px-4 py-2 border-t border-border/20 bg-muted/5 flex items-center justify-between">
-              <span className="text-[9px] text-muted-foreground/40 font-medium">
-                <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[8px]">Ctrl+J</kbd> abrir/cerrar
+              <span className="text-[11px] text-muted-foreground/40 font-medium">
+                <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[10px]">Ctrl+J</kbd> abrir/cerrar
               </span>
-              <span className="text-[9px] text-muted-foreground/30 italic">System Kyron</span>
+              <span className="text-[11px] text-muted-foreground/30 italic">System Kyron</span>
             </div>
           </motion.div>
         )}

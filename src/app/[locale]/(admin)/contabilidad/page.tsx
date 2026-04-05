@@ -264,15 +264,14 @@ export default function ContabilidadPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-widest text-primary mb-3">
-            <BrainCircuit className="h-3 w-3" />
-            ÁREA CONTABLE INTEGRAL · VEN-NIF · SENIAT
+          <div className="flex items-center gap-2 mb-1">
+            <Calculator className="h-5 w-5 text-primary" />
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              Contabilidad
+            </h1>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase">
-            Centro de Contabilidad
-          </h1>
-          <p className="text-muted-foreground text-sm font-medium">
-            Normas VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
+          <p className="text-sm text-muted-foreground">
+            VEN-NIF · IVA 16% · IGTF 3% · ISLR 34%
           </p>
         </div>
         <div className="flex gap-3">
@@ -297,10 +296,10 @@ export default function ContabilidadPage() {
         {kpiCards.map((k, i) => (
           <Card key={i} className="border rounded-2xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{k.label}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{k.label}</p>
               <k.icon className={cn("h-4 w-4", k.color)} />
             </div>
-            <p className={cn("text-2xl font-black tracking-tight", k.color)}>
+            <p className={cn("text-2xl font-bold tracking-tight", k.color)}>
               {kpiLoading ? "..." : k.val}
             </p>
           </Card>
@@ -313,7 +312,7 @@ export default function ContabilidadPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Bot className="h-6 w-6 text-primary" />
-                <h3 className="text-lg font-black uppercase tracking-tight">Asistente IA</h3>
+                <h3 className="text-lg font-semibold uppercase tracking-tight">Asistente IA</h3>
               </div>
               <p className="text-xs text-muted-foreground">
                 Análisis contable automatizado con inteligencia artificial sobre los datos reales del período actual.
@@ -331,7 +330,7 @@ export default function ContabilidadPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <Activity className="h-5 w-5 text-primary" />
-              <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">Accesos Directos</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Accesos Directos</h3>
               <div className="h-px flex-1 bg-border" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -358,7 +357,7 @@ export default function ContabilidadPage() {
       <section className="space-y-4">
         <div className="flex items-center gap-4">
           <Banknote className="h-5 w-5 text-blue-500" />
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground">Servicios Bancarios y Pagos</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Servicios Bancarios y Pagos</h2>
           <div className="h-px flex-1 bg-border" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -384,7 +383,7 @@ export default function ContabilidadPage() {
       <section className="space-y-4">
         <div className="flex items-center gap-4">
           <Globe className="h-5 w-5 text-cyan-500" />
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground">Línea Corporativa</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Línea Corporativa</h2>
           <div className="h-px flex-1 bg-border" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -410,7 +409,7 @@ export default function ContabilidadPage() {
       <section className="space-y-4">
         <div className="flex items-center gap-4">
           <Handshake className="h-5 w-5 text-rose-500" />
-          <h2 className="text-sm font-black uppercase tracking-widest text-foreground">Alianzas Estratégicas</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-foreground">Alianzas Estratégicas</h2>
           <div className="h-px flex-1 bg-border" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -421,7 +420,7 @@ export default function ContabilidadPage() {
                   <div className={cn("p-3 rounded-xl", a.bg)}>
                     <a.icon className={cn("h-5 w-5", a.color)} />
                   </div>
-                  <span className={cn("text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-widest border", a.bg, a.color, a.border)}>{a.tag}</span>
+                  <span className={cn("text-[10px] font-semibold px-2 py-1 rounded-full uppercase tracking-wide border", a.bg, a.color, a.border)}>{a.tag}</span>
                 </div>
                 <div className="space-y-1 flex-1">
                   <p className={cn("text-sm font-bold uppercase tracking-tight group-hover:text-primary transition-colors", a.color)}>{a.label}</p>
@@ -445,7 +444,7 @@ export default function ContabilidadPage() {
               </div>
               <div>
                 <span>KYRON Analytics — Contabilidad</span>
-                <p className="text-[9px] font-normal text-muted-foreground/50 mt-0.5">Análisis contable VEN-NIF en tiempo real</p>
+                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Análisis contable VEN-NIF en tiempo real</p>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -460,15 +459,15 @@ export default function ContabilidadPage() {
                 <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
                   <div className="flex items-center gap-2 mb-3">
                     <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                    <span className="text-[9px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
-                    {aiStreaming && <span className="text-[9px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
+                    {aiStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
                   </div>
                   <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
                     <MarkdownRenderer content={aiAnalysis} />
                   </div>
                 </div>
                 {!aiLoading && !aiStreaming && (
-                  <p className="text-[9px] text-muted-foreground/30 px-1">Powered by KYRON AI</p>
+                  <p className="text-[11px] text-muted-foreground/30 px-1">Powered by KYRON AI</p>
                 )}
               </div>
             ) : (

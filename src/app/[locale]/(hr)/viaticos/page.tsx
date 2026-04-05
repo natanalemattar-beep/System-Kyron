@@ -325,7 +325,7 @@ export default function ViaticosPage() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">CENTRO DE VIÁTICOS</h1>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">CENTRO DE VIÁTICOS</h1>
             <p className="text-sm text-muted-foreground mt-1">
               Gestión integral de gastos de viaje — pasajes, hoteles, alimentación y más
             </p>
@@ -344,7 +344,7 @@ export default function ViaticosPage() {
               <Globe className="h-4 w-4 text-blue-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Internacional</span>
             </div>
-            <p className="text-lg font-black mt-1">{formatMonto(stats?.total_internacional || "0", "USD")}</p>
+            <p className="text-lg font-bold mt-1">{formatMonto(stats?.total_internacional || "0", "USD")}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/20 border-emerald-200/50 dark:border-emerald-800/30">
@@ -353,7 +353,7 @@ export default function ViaticosPage() {
               <Flag className="h-4 w-4 text-emerald-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Nacional</span>
             </div>
-            <p className="text-lg font-black mt-1">{formatMonto(stats?.total_nacional || "0", "USD")}</p>
+            <p className="text-lg font-bold mt-1">{formatMonto(stats?.total_nacional || "0", "USD")}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-violet-50 to-violet-100/50 dark:from-violet-950/30 dark:to-violet-900/20 border-violet-200/50 dark:border-violet-800/30">
@@ -362,7 +362,7 @@ export default function ViaticosPage() {
               <Users className="h-4 w-4 text-violet-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Socios</span>
             </div>
-            <p className="text-lg font-black mt-1">{formatMonto(stats?.total_socios || "0", "USD")}</p>
+            <p className="text-lg font-bold mt-1">{formatMonto(stats?.total_socios || "0", "USD")}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/20 border-amber-200/50 dark:border-amber-800/30">
@@ -371,7 +371,7 @@ export default function ViaticosPage() {
               <Clock className="h-4 w-4 text-amber-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Pendientes</span>
             </div>
-            <p className="text-lg font-black mt-1">{stats?.pendientes || 0}</p>
+            <p className="text-lg font-bold mt-1">{stats?.pendientes || 0}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-red-50 to-red-100/50 dark:from-red-950/30 dark:to-red-900/20 border-red-200/50 dark:border-red-800/30">
@@ -380,7 +380,7 @@ export default function ViaticosPage() {
               <AlertTriangle className="h-4 w-4 text-red-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Sin Factura</span>
             </div>
-            <p className="text-lg font-black mt-1">{stats?.sin_factura || 0}</p>
+            <p className="text-lg font-bold mt-1">{stats?.sin_factura || 0}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-pink-50 to-pink-100/50 dark:from-pink-950/30 dark:to-pink-900/20 border-pink-200/50 dark:border-pink-800/30">
@@ -389,7 +389,7 @@ export default function ViaticosPage() {
               <Gift className="h-4 w-4 text-pink-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Bonos</span>
             </div>
-            <p className="text-lg font-black mt-1">{stats?.total_bonos || 0}</p>
+            <p className="text-lg font-bold mt-1">{stats?.total_bonos || 0}</p>
           </CardContent>
         </Card>
       </div>
@@ -504,7 +504,7 @@ export default function ViaticosPage() {
                                   </p>
                                 </div>
                                 <div className="text-right shrink-0">
-                                  <p className="font-black text-sm">{formatMonto(v.monto, v.moneda)}</p>
+                                  <p className="font-semibold text-sm">{formatMonto(v.monto, v.moneda)}</p>
                                   <Badge variant="secondary" className={cn("text-[10px] mt-1", estInfo.color)}>
                                     <EstIcon className="h-3 w-3 mr-1" />
                                     {estInfo.label}
@@ -776,7 +776,7 @@ export default function ViaticosPage() {
                     <Badge variant="secondary" className={cn("text-xs", estInfo.color)}>
                       {estInfo.label}
                     </Badge>
-                    <span className="text-2xl font-black">{formatMonto(v.monto, v.moneda)}</span>
+                    <span className="text-2xl font-bold">{formatMonto(v.monto, v.moneda)}</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-sm">

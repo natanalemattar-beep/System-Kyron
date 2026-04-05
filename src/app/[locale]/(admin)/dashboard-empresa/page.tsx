@@ -337,7 +337,7 @@ export default function DashboardEmpresaPage() {
         initial={{ opacity: 0, y: -20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] dark:from-[#1a2a3a] dark:via-[#202d3a] dark:to-[#1d2a35] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-2xl dark:shadow-cyan-500/[0.15]"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] dark:from-[#1a2a3a] dark:via-[#202d3a] dark:to-[#1d2a35] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-lg dark:shadow-cyan-500/[0.15]"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.06] blur-[120px]" />
@@ -451,7 +451,7 @@ export default function DashboardEmpresaPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-1.5">
                     <p className="text-base font-bold tracking-tight">{loading ? "—" : stat.value}</p>
-                    {stat.extra && !loading && <span className="text-[9px] text-muted-foreground/35">{stat.extra}</span>}
+                    {stat.extra && !loading && <span className="text-[11px] text-muted-foreground/35">{stat.extra}</span>}
                   </div>
                   <p className="text-[10px] font-medium text-muted-foreground/50 truncate">{stat.label}</p>
                 </div>
@@ -559,7 +559,7 @@ export default function DashboardEmpresaPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-xs font-bold text-emerald-400">{loading ? "—" : fmtCur(data?.cuentasCobrar.total ?? 0)}</p>
-                    <p className="text-[9px] text-muted-foreground/35">{data?.cuentasCobrar.count ?? 0} pendientes</p>
+                    <p className="text-[11px] text-muted-foreground/35">{data?.cuentasCobrar.count ?? 0} pendientes</p>
                   </div>
                 </div>
               </Link>
@@ -571,7 +571,7 @@ export default function DashboardEmpresaPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-xs font-bold text-rose-400">{loading ? "—" : fmtCur(data?.cuentasPagar.total ?? 0)}</p>
-                    <p className="text-[9px] text-muted-foreground/35">{data?.cuentasPagar.count ?? 0} pendientes</p>
+                    <p className="text-[11px] text-muted-foreground/35">{data?.cuentasPagar.count ?? 0} pendientes</p>
                   </div>
                 </div>
               </Link>
@@ -611,7 +611,7 @@ export default function DashboardEmpresaPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[11px] font-medium truncate text-foreground/70">{mov.concepto}</p>
-                      <p className="text-[9px] text-muted-foreground/35">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
+                      <p className="text-[11px] text-muted-foreground/35">{mov.fecha_operacion}{mov.categoria ? ` · ${mov.categoria}` : ""}</p>
                     </div>
                     <span className={cn("text-[11px] font-bold tabular-nums shrink-0", mov.tipo === "credito" ? "text-emerald-400" : "text-rose-400")}>
                       {mov.tipo === "credito" ? "+" : "-"}{fmtCur(parseFloat(mov.monto))}
@@ -634,7 +634,7 @@ export default function DashboardEmpresaPage() {
             <div className="flex items-center gap-2 mb-3">
               <Shield className="h-4 w-4 text-emerald-400" />
               <span className="text-[11px] font-semibold text-foreground/60">Fiscal</span>
-              <Badge className="ml-auto bg-emerald-500/8 text-emerald-400 border-emerald-500/15 text-[9px] font-semibold h-5 rounded-md">OK</Badge>
+              <Badge className="ml-auto bg-emerald-500/8 text-emerald-400 border-emerald-500/15 text-[11px] font-semibold h-5 rounded-md">OK</Badge>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {[
@@ -647,7 +647,7 @@ export default function DashboardEmpresaPage() {
                   <CheckCircle className="h-3 w-3 text-emerald-400 shrink-0" />
                   <div className="min-w-0">
                     <p className="text-[10px] font-medium text-foreground/60">{item.label}</p>
-                    <p className="text-[8px] text-emerald-400/60">{item.status}</p>
+                    <p className="text-[10px] text-emerald-400/60">{item.status}</p>
                   </div>
                 </div>
               ))}
@@ -661,7 +661,7 @@ export default function DashboardEmpresaPage() {
                   <a.icon className={cn("h-3.5 w-3.5 shrink-0", a.color)} />
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-medium truncate">{a.text}</p>
-                    <p className={cn("text-[8px] font-medium", a.color)}>{a.date}</p>
+                    <p className={cn("text-[10px] font-medium", a.color)}>{a.date}</p>
                   </div>
                 </div>
               ))}
@@ -674,7 +674,7 @@ export default function DashboardEmpresaPage() {
             <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-cyan-500/[0.06] blur-[40px]" />
             <div className="relative z-10">
               <h3 className="text-sm font-bold mb-1 text-white/90">Escenarios IA</h3>
-              <p className="text-[9px] text-white/30 mb-3">Modelado predictivo</p>
+              <p className="text-[11px] text-white/30 mb-3">Modelado predictivo</p>
               <div className="space-y-1.5">
                 <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/15 hover:text-emerald-300 justify-start"
                   onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Ventas +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
@@ -721,9 +721,9 @@ export default function DashboardEmpresaPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-medium truncate">{d.label}</p>
-                    <p className="text-[9px] text-muted-foreground/40">{d.dateStr}</p>
+                    <p className="text-[11px] text-muted-foreground/40">{d.dateStr}</p>
                   </div>
-                  <Badge className={cn("text-[8px] font-bold h-5 rounded-md border", d.diff <= 5 ? "bg-rose-500/10 text-rose-400 border-rose-500/15" : d.diff <= 15 ? "bg-amber-500/10 text-amber-400 border-amber-500/15" : "bg-emerald-500/8 text-emerald-400 border-emerald-500/15")}>
+                  <Badge className={cn("text-[10px] font-bold h-5 rounded-md border", d.diff <= 5 ? "bg-rose-500/10 text-rose-400 border-rose-500/15" : d.diff <= 15 ? "bg-amber-500/10 text-amber-400 border-amber-500/15" : "bg-emerald-500/8 text-emerald-400 border-emerald-500/15")}>
                     {d.diff < 0 ? "VENCIDO" : d.diff === 0 ? "HOY" : d.diff === 1 ? "Mañana" : `${d.diff}d`}
                   </Badge>
                 </div>
@@ -745,14 +745,14 @@ export default function DashboardEmpresaPage() {
                 <span className="text-[10px] font-medium text-foreground/60">Por cobrar</span>
                 <div className="text-right">
                   <span className="text-sm font-bold text-emerald-400">{fmtCur(data.cuentasCobrar.total)}</span>
-                  <span className="text-[9px] text-muted-foreground/40 ml-2">{data.cuentasCobrar.count} pendientes</span>
+                  <span className="text-[11px] text-muted-foreground/40 ml-2">{data.cuentasCobrar.count} pendientes</span>
                 </div>
               </div>
               <div className="flex items-center justify-between p-3 rounded-xl bg-rose-500/5 border border-rose-500/10">
                 <span className="text-[10px] font-medium text-foreground/60">Por pagar</span>
                 <div className="text-right">
                   <span className="text-sm font-bold text-rose-400">{fmtCur(data.cuentasPagar.total)}</span>
-                  <span className="text-[9px] text-muted-foreground/40 ml-2">{data.cuentasPagar.count} pendientes</span>
+                  <span className="text-[11px] text-muted-foreground/40 ml-2">{data.cuentasPagar.count} pendientes</span>
                 </div>
               </div>
             </div>
@@ -763,7 +763,7 @@ export default function DashboardEmpresaPage() {
             </div>
           )}
           <div className="mt-3 pt-2.5 border-t border-border/15 flex items-center justify-between">
-            <span className="text-[9px] text-muted-foreground/35">Datos en tiempo real</span>
+            <span className="text-[11px] text-muted-foreground/35">Datos en tiempo real</span>
             <Link href="/cuentas-por-cobrar"><span className="text-[10px] font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1">Detalle <ChevronRight className="h-3 w-3" /></span></Link>
           </div>
         </Card>
@@ -810,10 +810,10 @@ export default function DashboardEmpresaPage() {
               <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-amber-500">Resumen: {closingData.periodo}</p>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><p className="text-[9px] text-muted-foreground">Ingresos</p><p className="text-base font-bold text-emerald-400">{fmtCur(closingData.ingresos)}</p></div>
-                  <div><p className="text-[9px] text-muted-foreground">Gastos</p><p className="text-base font-bold text-rose-400">{fmtCur(closingData.gastos)}</p></div>
-                  <div><p className="text-[9px] text-muted-foreground">Utilidad</p><p className={cn("text-lg font-bold", closingData.utilidad >= 0 ? "text-amber-400" : "text-rose-400")}>{fmtCur(closingData.utilidad)}</p></div>
-                  <div><p className="text-[9px] text-muted-foreground">Facturas</p><p className="text-base font-bold">{closingData.facturas_emitidas} / {closingData.facturas_cobradas}</p></div>
+                  <div><p className="text-[11px] text-muted-foreground">Ingresos</p><p className="text-base font-bold text-emerald-400">{fmtCur(closingData.ingresos)}</p></div>
+                  <div><p className="text-[11px] text-muted-foreground">Gastos</p><p className="text-base font-bold text-rose-400">{fmtCur(closingData.gastos)}</p></div>
+                  <div><p className="text-[11px] text-muted-foreground">Utilidad</p><p className={cn("text-lg font-bold", closingData.utilidad >= 0 ? "text-amber-400" : "text-rose-400")}>{fmtCur(closingData.utilidad)}</p></div>
+                  <div><p className="text-[11px] text-muted-foreground">Facturas</p><p className="text-base font-bold">{closingData.facturas_emitidas} / {closingData.facturas_cobradas}</p></div>
                 </div>
               </div>
             </div>
@@ -857,18 +857,18 @@ export default function DashboardEmpresaPage() {
             ) : (
               filteredLogs.map(log => (
                 <div key={log.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/5 border border-border/10 hover:bg-muted/10 transition-all">
-                  <Badge variant="outline" className={cn("text-[8px] font-semibold border-border/15 shrink-0", CAT_COLOR[log.categoria] ?? "text-muted-foreground")}>{log.categoria}</Badge>
+                  <Badge variant="outline" className={cn("text-[10px] font-semibold border-border/15 shrink-0", CAT_COLOR[log.categoria] ?? "text-muted-foreground")}>{log.categoria}</Badge>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-medium truncate">{log.evento}</p>
-                    {log.descripcion && <p className="text-[9px] text-muted-foreground/50 mt-0.5 line-clamp-1">{log.descripcion}</p>}
+                    {log.descripcion && <p className="text-[11px] text-muted-foreground/50 mt-0.5 line-clamp-1">{log.descripcion}</p>}
                   </div>
-                  <p className="text-[9px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.creado_en).toLocaleString(currentLocale || 'es', { dateStyle: "short", timeStyle: "short" })}</p>
+                  <p className="text-[11px] text-muted-foreground/30 shrink-0 tabular-nums">{new Date(log.creado_en).toLocaleString(currentLocale || 'es', { dateStyle: "short", timeStyle: "short" })}</p>
                 </div>
               ))
             )}
           </div>
           <DialogFooter className="mt-3">
-            <p className="text-[9px] text-muted-foreground/30 mr-auto">{filteredLogs.length} eventos</p>
+            <p className="text-[11px] text-muted-foreground/30 mr-auto">{filteredLogs.length} eventos</p>
             <Button variant="outline" onClick={() => setShowAuditoria(false)} className="rounded-xl text-xs h-8">Cerrar</Button>
           </DialogFooter>
         </DialogContent>
@@ -883,7 +883,7 @@ export default function DashboardEmpresaPage() {
               </div>
               <div>
                 <span>KYRON Analytics</span>
-                <p className="text-[9px] font-normal text-muted-foreground/50 mt-0.5">Inteligencia financiera en tiempo real</p>
+                <p className="text-[11px] font-normal text-muted-foreground/50 mt-0.5">Inteligencia financiera en tiempo real</p>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -903,7 +903,7 @@ export default function DashboardEmpresaPage() {
                       <div className="h-1.5 flex-1 bg-muted/10 rounded-full overflow-hidden">
                         <div className="h-full bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full animate-pulse" style={{ width: `${85 - n * 15}%`, animationDelay: `${n * 200}ms` }} />
                       </div>
-                      <span className="text-[9px] text-muted-foreground/30 w-36 text-left">{label}</span>
+                      <span className="text-[11px] text-muted-foreground/30 w-36 text-left">{label}</span>
                     </div>
                   ))}
                 </div>
@@ -913,8 +913,8 @@ export default function DashboardEmpresaPage() {
                 <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
                   <div className="flex items-center gap-2 mb-3">
                     <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                    <span className="text-[9px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
-                    {aiStreaming && <span className="text-[9px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
+                    {aiStreaming && <span className="text-[11px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
                   </div>
                   <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
                     <MarkdownRenderer content={aiAnalysis} />
@@ -922,10 +922,10 @@ export default function DashboardEmpresaPage() {
                 </div>
                 {!aiLoading && !aiStreaming && (
                   <div className="flex items-center justify-between px-1">
-                    <p className="text-[9px] text-muted-foreground/30 flex items-center gap-1.5">
+                    <p className="text-[11px] text-muted-foreground/30 flex items-center gap-1.5">
                       <CheckCircle className="h-3 w-3" /> Análisis completado · {clientDateStr ?? ""}
                     </p>
-                    <p className="text-[9px] text-muted-foreground/20">Powered by KYRON AI</p>
+                    <p className="text-[11px] text-muted-foreground/20">Powered by KYRON AI</p>
                   </div>
                 )}
               </div>

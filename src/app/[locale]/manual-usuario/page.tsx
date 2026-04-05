@@ -662,7 +662,7 @@ export default function ManualUsuarioPage() {
         <div className="p-6 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
             <BookOpen className="h-4 w-4 text-primary" />
-            <span className="text-xs font-black uppercase tracking-widest text-foreground">Indice</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Indice</span>
           </div>
           <button onClick={() => setTocOpen(false)} className="p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer" aria-label="Cerrar indice">
             <X className="h-5 w-5 text-muted-foreground" />
@@ -695,7 +695,7 @@ export default function ManualUsuarioPage() {
                 )}
               >
                 <span className={cn(
-                  "w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-black shrink-0 transition-all",
+                  "w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0 transition-all",
                   activeChapter === ch.id ? "bg-primary text-white" : "bg-muted text-muted-foreground group-hover:bg-muted-foreground/20"
                 )}>
                   {String(i + 1).padStart(2, "0")}
@@ -727,14 +727,14 @@ export default function ManualUsuarioPage() {
               <Button
                 variant="outline"
                 onClick={() => window.print()}
-                className="h-11 px-5 rounded-xl border-border bg-card/50 text-foreground text-[9px] font-black uppercase tracking-widest hover:bg-card/80 transition-all"
+                className="h-11 px-5 rounded-xl border-border bg-card/50 text-foreground text-[11px] font-semibold uppercase tracking-widest hover:bg-card/80 transition-all"
               >
                 <Printer className="mr-2 h-4 w-4" /> Imprimir
               </Button>
               <Button
                 onClick={handleDownloadWord}
                 disabled={isExporting}
-                className="h-11 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-lg shadow-primary/20"
+                className="h-11 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest shadow-lg shadow-primary/20"
               >
                 {isExporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
                 Descargar Word
@@ -743,10 +743,10 @@ export default function ManualUsuarioPage() {
           </div>
 
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.3em] text-primary">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wide text-primary">
               <BookOpen className="h-3 w-3" /> Manual de Usuario v3.0
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.9]">
               <span className="text-foreground">Manual de</span>
               <br />
               <span className="bg-gradient-to-r from-primary via-cyan-400 to-primary bg-clip-text text-transparent">
@@ -761,21 +761,21 @@ export default function ManualUsuarioPage() {
 
             <div className="flex flex-wrap gap-3 pt-4">
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">Cap&iacute;tulos</span>
-                <span className="text-xl font-black text-foreground">{chapters.length}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Cap&iacute;tulos</span>
+                <span className="text-xl font-bold text-foreground">{chapters.length}</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">Versi&oacute;n</span>
-                <span className="text-xl font-black text-foreground">3.0</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Versi&oacute;n</span>
+                <span className="text-xl font-bold text-foreground">3.0</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">Motor IA</span>
-                <span className="text-xl font-black text-primary">Claude</span>
-                <span className="text-[8px] font-bold text-muted-foreground/60 block">by Anthropic</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Motor IA</span>
+                <span className="text-xl font-bold text-primary">Claude</span>
+                <span className="text-[10px] font-bold text-muted-foreground/60 block">by Anthropic</span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-card/60 border border-border">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block">Actualizado</span>
-                <span className="text-xl font-black text-foreground">Abr 2026</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground block">Actualizado</span>
+                <span className="text-xl font-bold text-foreground">Abr 2026</span>
               </div>
             </div>
           </div>
@@ -810,10 +810,10 @@ export default function ManualUsuarioPage() {
                       <chapter.icon className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/50 block mb-1">
+                      <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/50 block mb-1">
                         Cap&iacute;tulo {num}
                       </span>
-                      <h2 className="text-xl md:text-2xl font-black tracking-tight text-foreground">
+                      <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
                         {chapter.title}
                       </h2>
                     </div>
@@ -828,7 +828,7 @@ export default function ManualUsuarioPage() {
 
                     <div className="lg:col-span-2">
                       <div className="p-6 rounded-xl bg-muted/30 border border-border/50">
-                        <h4 className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-5 flex items-center gap-2">
+                        <h4 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/60 mb-5 flex items-center gap-2">
                           <CheckCircle className="h-3 w-3 text-emerald-500" /> Puntos clave
                         </h4>
                         <ul className="space-y-3.5">
@@ -841,7 +841,7 @@ export default function ManualUsuarioPage() {
                         </ul>
                         {chapter.id === "modelo-zedu" && (
                           <div className="mt-6 pt-4 border-t border-border/50">
-                            <Button asChild size="sm" className="w-full rounded-xl text-[10px] font-black uppercase tracking-widest gap-2">
+                            <Button asChild size="sm" className="w-full rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2">
                               <Link href="/login">
                                 <ExternalLink className="h-3 w-3" /> Ver documento completo
                               </Link>
@@ -874,16 +874,16 @@ export default function ManualUsuarioPage() {
               { initials: "MS", name: "Marcos Sousa" },
             ].map((p) => (
               <div key={p.initials} className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-foreground/10 border border-border flex items-center justify-center text-[9px] font-black text-foreground/60">
+                <div className="w-8 h-8 rounded-full bg-foreground/10 border border-border flex items-center justify-center text-[11px] font-bold text-foreground/60">
                   {p.initials}
                 </div>
-                <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground hidden md:block">{p.name}</span>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground hidden md:block">{p.name}</span>
               </div>
             ))}
           </div>
           <div className="flex items-center gap-4">
             <Logo className="h-8 w-8 opacity-20" />
-            <p className="text-[9px] font-black text-foreground/15 uppercase tracking-[0.3em]">
+            <p className="text-[11px] font-bold text-foreground/15 uppercase tracking-wide">
               System Kyron v3.0
             </p>
           </div>

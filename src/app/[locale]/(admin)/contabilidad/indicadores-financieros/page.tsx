@@ -48,7 +48,7 @@ export default function IndicadoresFinancierosPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <BarChart3 className="h-8 w-8 text-primary" />
           Indicadores Financieros
         </h1>
@@ -77,7 +77,7 @@ export default function IndicadoresFinancierosPage() {
           {grupos.map((grupo, gi) => (
             <Card key={gi} className={cn("rounded-2xl overflow-hidden border", grupo.border)}>
               <CardHeader className={cn("p-5 border-b", grupo.bg)}>
-                <CardTitle className={cn("text-sm font-black uppercase tracking-[0.2em]", grupo.color)}>
+                <CardTitle className={cn("text-sm font-semibold uppercase tracking-wide", grupo.color)}>
                   {grupo.categoria}
                 </CardTitle>
               </CardHeader>
@@ -90,14 +90,14 @@ export default function IndicadoresFinancierosPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
                           <p className="text-sm font-bold">{ratio.nombre}</p>
-                          <Badge className={cn("text-[8px] font-bold uppercase", est.badge)}>{ratio.estado}</Badge>
+                          <Badge className={cn("text-[10px] font-bold uppercase", est.badge)}>{ratio.estado}</Badge>
                         </div>
                         <p className="text-[10px] text-muted-foreground font-mono">{ratio.formula}</p>
                         <p className="text-[11px] text-muted-foreground mt-1">{ratio.interpretacion}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className={cn("text-lg font-black", grupo.color)}>{ratio.valor}</p>
-                        <p className="text-[9px] text-muted-foreground">Óptimo: {ratio.optimo}</p>
+                        <p className={cn("text-lg font-bold", grupo.color)}>{ratio.valor}</p>
+                        <p className="text-[11px] text-muted-foreground">Óptimo: {ratio.optimo}</p>
                       </div>
                     </div>
                   );

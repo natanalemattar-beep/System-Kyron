@@ -265,7 +265,7 @@ export function HeaderGuideArrows() {
               transition={{ duration: 0.4, delay: 0.3 }}
               className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[160]"
             >
-              <div className="bg-card/95 backdrop-blur-xl border border-border/30 rounded-2xl p-4 shadow-2xl max-w-[300px] text-center">
+              <div className="bg-card/95 backdrop-blur-xl border border-border/30 rounded-2xl p-4 shadow-lg max-w-[300px] text-center">
                 <p className="text-sm font-bold text-foreground mb-1">Comienza aquí</p>
                 <p className="text-xs text-muted-foreground mb-3">
                   Usa el menú para registrarte o acceder a tu portal

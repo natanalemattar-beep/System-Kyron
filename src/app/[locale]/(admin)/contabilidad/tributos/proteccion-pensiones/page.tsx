@@ -52,10 +52,10 @@ export default function ProteccionPensionesPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 mb-3">
                         <ShieldCheck className="h-3.5 w-3.5" /> DPP
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Protección de <span className="text-emerald-500">Pensiones</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Ley de Protección de Pensiones (G.O. N° 6.806) · Aporte del 9%</p>
@@ -97,7 +97,7 @@ export default function ProteccionPensionesPage() {
                                                 100% deducible del ISLR
                                             </p>
                                         </div>
-                                        <span className="text-2xl md:text-3xl font-black text-emerald-500">{formatCurrency(total, 'Bs.')}</span>
+                                        <span className="text-2xl md:text-3xl font-bold text-emerald-500">{formatCurrency(total, 'Bs.')}</span>
                                     </div>
                                 </div>
                             )}

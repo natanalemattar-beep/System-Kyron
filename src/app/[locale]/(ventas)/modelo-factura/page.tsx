@@ -78,15 +78,15 @@ export default function ModeloFacturaPage() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wide text-primary mb-4">
               <Shield className="h-3 w-3" /> SENIAT HOMOLOGADO
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Modelo de{' '}
               <span className="bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent italic">Factura</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Providencia Administrativa SNAT/2011/00071 • Art. 13</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Providencia Administrativa SNAT/2011/00071 • Art. 13</p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" className="rounded-xl text-[10px] font-bold uppercase tracking-wider h-10 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all" onClick={() => setShowPreview(!showPreview)}>
@@ -115,7 +115,7 @@ export default function ModeloFacturaPage() {
               <req.icon className="h-4 w-4 text-emerald-500" />
             </div>
             <div>
-              <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">{req.label}</p>
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">{req.label}</p>
               <p className="text-[11px] text-muted-foreground mt-0.5">{req.desc}</p>
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function ModeloFacturaPage() {
           <Card className="max-w-4xl mx-auto border-2 border-foreground/10 rounded-2xl print:border print:shadow-none bg-white text-black overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
             <CardContent className="p-8 space-y-6">
               <div className="text-center border-b-2 border-black pb-4">
-                <p className="text-2xl font-black tracking-tight">{inv.razon_social_emisor}</p>
+                <p className="text-2xl font-bold tracking-tight">{inv.razon_social_emisor}</p>
                 <p className="text-xs mt-1">{inv.domicilio_fiscal_emisor}</p>
                 <p className="text-xs">Teléfono: {inv.telefono_emisor}</p>
                 <p className="text-sm font-bold mt-1">RIF: {inv.rif_emisor}</p>
@@ -141,7 +141,7 @@ export default function ModeloFacturaPage() {
 
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-2xl font-black text-center border-2 border-black px-6 py-2">{inv.tipo_documento}</p>
+                  <p className="text-2xl font-bold text-center border-2 border-black px-6 py-2">{inv.tipo_documento}</p>
                 </div>
                 <div className="text-right text-sm space-y-1">
                   <p><span className="font-bold">N° Factura:</span> <span className="font-mono">{inv.numero_factura}</span></p>
@@ -220,14 +220,14 @@ export default function ModeloFacturaPage() {
               <div className="border-2 border-emerald-700 rounded-lg p-3 mt-4 bg-emerald-50">
                 <div className="flex items-center gap-2 mb-1">
                   <Shield className="h-4 w-4 text-emerald-700" />
-                  <p className="text-xs font-black text-emerald-800 uppercase tracking-wider">Documento Fiscal Inmutable</p>
+                  <p className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Documento Fiscal Inmutable</p>
                 </div>
-                <p className="text-[9px] text-emerald-700 leading-relaxed">
+                <p className="text-[11px] text-emerald-700 leading-relaxed">
                   Este documento fue generado electrónicamente y sellado con hash criptográfico SHA-256.
                   No puede ser modificado ni eliminado conforme a la Providencia SNAT/2011/00071.
                   Para correcciones emita Nota de Crédito (Art. 18) o Nota de Débito (Art. 18).
                 </p>
-                <p className="text-[8px] font-mono text-emerald-600 mt-1 break-all">
+                <p className="text-[10px] font-mono text-emerald-600 mt-1 break-all">
                   Hash: a3f8c1...{'{verificación digital}'}
                 </p>
               </div>
@@ -248,7 +248,7 @@ export default function ModeloFacturaPage() {
                 <FileCheck className="h-4 w-4 text-emerald-500" />
               </div>
               <div>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Requisitos Obligatorios — Art. 13 Providencia 0071</CardTitle>
+                <CardTitle className="text-xs font-semibold uppercase tracking-wide">Requisitos Obligatorios — Art. 13 Providencia 0071</CardTitle>
                 <p className="text-[10px] text-muted-foreground mt-0.5">Todos los numerales cumplidos</p>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function ModeloFacturaPage() {
                     <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">Numeral {r.num}</p>
+                    <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Numeral {r.num}</p>
                     <p className="text-[11px] text-foreground">{r.req}</p>
                   </div>
                 </div>
@@ -297,7 +297,7 @@ export default function ModeloFacturaPage() {
             <div className="p-2 rounded-xl bg-blue-500/10 border border-blue-500/15">
               <Info className="h-4 w-4 text-blue-500" />
             </div>
-            <p className="text-xs font-black uppercase tracking-wider">Notas de Débito / Crédito (Art. 18)</p>
+            <p className="text-xs font-semibold uppercase tracking-wider">Notas de Débito / Crédito (Art. 18)</p>
           </div>
           <ul className="text-[11px] text-muted-foreground space-y-1.5 list-none pl-0">
             {[
@@ -321,7 +321,7 @@ export default function ModeloFacturaPage() {
             <div className="p-2 rounded-xl bg-blue-500/10 border border-blue-500/15">
               <Info className="h-4 w-4 text-blue-500" />
             </div>
-            <p className="text-xs font-black uppercase tracking-wider">Guías de Despacho (Art. 16)</p>
+            <p className="text-xs font-semibold uppercase tracking-wider">Guías de Despacho (Art. 16)</p>
           </div>
           <ul className="text-[11px] text-muted-foreground space-y-1.5 list-none pl-0">
             {[

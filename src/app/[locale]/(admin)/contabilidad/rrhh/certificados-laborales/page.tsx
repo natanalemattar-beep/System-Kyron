@@ -10,7 +10,7 @@ export default function CertificadosLaboralesRRHHPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Briefcase className="h-8 w-8 text-primary" />
           Certificados Laborales
         </h1>

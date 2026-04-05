@@ -77,10 +77,10 @@ export default function CalendarioFiscalPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-3">
                         <Calendar className="h-3.5 w-3.5" /> Calendario
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Calendario <span className="text-amber-600 dark:text-amber-400">Fiscal</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Obligaciones tributarias y parafiscales · Vencimientos según normativa vigente</p>

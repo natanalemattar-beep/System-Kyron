@@ -494,8 +494,8 @@ export default function RegisterContabilidadPage() {
                         <VariantIcon className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-black uppercase tracking-[0.12em] text-slate-800 dark:text-slate-100">{variant.title}</h1>
-                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-500">{variant.subtitle}</p>
+                        <h1 className="text-2xl font-semibold uppercase tracking-[0.12em] text-slate-800 dark:text-slate-100">{variant.title}</h1>
+                        <p className="text-xs font-bold uppercase tracking-wide text-blue-500">{variant.subtitle}</p>
                     </div>
                 </div>
 
@@ -545,7 +545,7 @@ export default function RegisterContabilidadPage() {
                             {step === 1 && (
                                 <div className="space-y-6">
                                     <div className="text-center space-y-1.5">
-                                        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Elige tu plan contable</h2>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Elige tu plan contable</h2>
                                         <p className="text-sm text-slate-500 dark:text-slate-400">Todos incluyen soporte VEN-NIF y SENIAT. Podrás cambiarlo después.</p>
                                     </div>
 
@@ -566,7 +566,7 @@ export default function RegisterContabilidadPage() {
                                         </button>
                                         <span className={cn("text-sm font-bold transition-colors", billingPeriod === 'anual' ? "text-slate-800 dark:text-slate-100" : "text-slate-400 dark:text-slate-500")}>Anual</span>
                                         {billingPeriod === 'anual' && (
-                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/50">-20%</span>
+                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-widest text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/50">-20%</span>
                                         )}
                                     </div>
 
@@ -592,7 +592,7 @@ export default function RegisterContabilidadPage() {
                                                 >
                                                     {plan.popular && (
                                                         <div className={cn(
-                                                            "absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white bg-gradient-to-r shadow-md",
+                                                            "absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest text-white bg-gradient-to-r shadow-md",
                                                             c.gradient, c.shadow
                                                         )}>
                                                             Popular
@@ -612,9 +612,9 @@ export default function RegisterContabilidadPage() {
                                                             {isSelected && <Check className="h-3 w-3 text-white" />}
                                                         </div>
                                                     </div>
-                                                    <p className={cn("text-xs font-black uppercase tracking-wider", c.text)}>{plan.nombre}</p>
+                                                    <p className={cn("text-xs font-semibold uppercase tracking-wider", c.text)}>{plan.nombre}</p>
                                                     <div className="flex items-baseline gap-0.5 mt-1">
-                                                        <span className="text-2xl font-black text-slate-800 dark:text-slate-100">${displayPrice}</span>
+                                                        <span className="text-2xl font-bold text-slate-800 dark:text-slate-100">${displayPrice}</span>
                                                         <span className="text-xs font-bold text-slate-400 dark:text-slate-500">/mes</span>
                                                     </div>
                                                     {billingPeriod === 'anual' && (
@@ -662,7 +662,7 @@ export default function RegisterContabilidadPage() {
                                                 <planData.icon className="h-4 w-4 text-white" />
                                             </div>
                                             <div className="flex-1">
-                                                <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
+                                                <p className={cn("text-xs font-semibold uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
                                                 <p className="text-xs text-slate-500 dark:text-slate-400">
                                                     ${billingPeriod === 'anual' ? Math.round(planData.precio * 0.8) : planData.precio}/mes
                                                     {billingPeriod === 'anual' && <span className="ml-1 text-emerald-600 dark:text-emerald-400 font-bold">(facturación anual)</span>}
@@ -679,7 +679,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="p-1.5 bg-emerald-100 dark:bg-emerald-900 rounded-lg">
                                                     <CheckCircle className="h-4 w-4 text-emerald-600" />
                                                 </div>
-                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-400">Datos de la Empresa (verificados)</p>
+                                                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Datos de la Empresa (verificados)</p>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2">
                                                 {prefillRazon && (
@@ -807,7 +807,7 @@ export default function RegisterContabilidadPage() {
                                                 <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800">
                                                     <Building className="h-4 w-4 text-blue-600" />
                                                 </div>
-                                                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700 dark:text-blue-400">Datos de la Empresa</p>
+                                                <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-400">Datos de la Empresa</p>
                                             </div>
 
                                             <div className="grid grid-cols-2 gap-3">
@@ -849,7 +849,7 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800">
                                                 <Users className="h-4 w-4 text-emerald-600" />
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-400">Representante Legal</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Representante Legal</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
@@ -880,7 +880,7 @@ export default function RegisterContabilidadPage() {
                                             <div className="p-1.5 rounded-lg bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900 dark:to-indigo-800">
                                                 <Lock className="h-4 w-4 text-blue-700 dark:text-blue-400" />
                                             </div>
-                                            <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-800 dark:text-blue-400">{hasPrefill ? 'Seguridad' : 'Seguridad y Ubicación'}</p>
+                                            <p className="text-xs font-semibold uppercase tracking-wide text-blue-800 dark:text-blue-400">{hasPrefill ? 'Seguridad' : 'Seguridad y Ubicación'}</p>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
@@ -967,7 +967,7 @@ export default function RegisterContabilidadPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-lg" style={{ background: 'linear-gradient(135deg, #3b82f6, #1e40af)' }}>
                                             <Fingerprint className="h-8 w-8 text-white" />
                                         </div>
-                                        <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Verifica tu identidad</h2>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Verifica tu identidad</h2>
                                         <p className="text-sm text-slate-500 dark:text-slate-400">Elige cómo recibir tu código de verificación de 6 dígitos.</p>
                                     </div>
 
@@ -977,7 +977,7 @@ export default function RegisterContabilidadPage() {
                                                 <CheckCircle className="h-10 w-10 text-emerald-600" />
                                             </div>
                                             <div>
-                                                <p className="text-lg font-black text-emerald-600 uppercase tracking-widest">¡Verificado!</p>
+                                                <p className="text-lg font-bold text-emerald-600 uppercase tracking-widest">¡Verificado!</p>
                                                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{verifDestino}</p>
                                             </div>
                                         </div>
@@ -993,7 +993,7 @@ export default function RegisterContabilidadPage() {
                                                     <Mail className="h-5 w-5 text-blue-600" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">Correo Electrónico</p>
+                                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Correo Electrónico</p>
                                                     <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('repEmail')}</p>
                                                 </div>
                                                 <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-blue-500 transition-colors" />
@@ -1009,7 +1009,7 @@ export default function RegisterContabilidadPage() {
                                                     <Phone className="h-5 w-5 text-emerald-600" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">SMS</p>
+                                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">SMS</p>
                                                     <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
                                                 </div>
                                                 <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 transition-colors" />
@@ -1025,7 +1025,7 @@ export default function RegisterContabilidadPage() {
                                                     <MessageCircle className="h-5 w-5 text-green-700" />
                                                 </div>
                                                 <div className="flex-1 text-left">
-                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">WhatsApp</p>
+                                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">WhatsApp</p>
                                                     <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{getValues('telefono') || 'Teléfono registrado'}</p>
                                                 </div>
                                                 <ArrowRight className="h-4 w-4 text-slate-300 dark:text-slate-600 group-hover:text-green-600 transition-colors" />
@@ -1045,7 +1045,7 @@ export default function RegisterContabilidadPage() {
                                                     {verifMethod === 'email' ? <Mail className="h-5 w-5 text-blue-600" /> : verifMethod === 'whatsapp' ? <MessageCircle className="h-5 w-5 text-green-700" /> : <Phone className="h-5 w-5 text-emerald-600" />}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-700 dark:text-slate-300">
+                                                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-700 dark:text-slate-300">
                                                         {verifMethod === 'email' ? 'Código enviado por correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
                                                     </p>
                                                     <p className="text-sm text-slate-500 dark:text-slate-400">{verifDestino}</p>
@@ -1056,7 +1056,7 @@ export default function RegisterContabilidadPage() {
                                             <div className="space-y-4">
                                                 <div className="flex items-center justify-center gap-2 py-1">
                                                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                                    <p className="text-xs text-emerald-600 font-black uppercase tracking-widest">
+                                                    <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest">
                                                         {verifMethod === 'email' ? 'Código enviado a tu correo' : verifMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
                                                     </p>
                                                 </div>
@@ -1065,7 +1065,7 @@ export default function RegisterContabilidadPage() {
                                                     maxLength={6}
                                                     value={verifCode}
                                                     onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                    className="text-center text-3xl font-black tracking-[0.6em] h-16 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-400 text-slate-800 dark:text-slate-100 shadow-sm dark:shadow-none"
+                                                    className="text-center text-3xl font-bold tracking-wider h-16 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-400 text-slate-800 dark:text-slate-100 shadow-sm dark:shadow-none"
                                                 />
                                                 {verifLoading && (
                                                     <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
@@ -1097,7 +1097,7 @@ export default function RegisterContabilidadPage() {
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-2xl font-black uppercase tracking-tight" style={{ background: 'linear-gradient(135deg, #10b981, #1e40af)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>¡Cuenta Creada!</h2>
+                                        <h2 className="text-2xl font-semibold uppercase tracking-tight" style={{ background: 'linear-gradient(135deg, #10b981, #1e40af)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>¡Cuenta Creada!</h2>
                                         <p className="text-base text-slate-500 dark:text-slate-400">Tu empresa ya está registrada en <strong className="text-slate-800 dark:text-slate-100">{variant.successLabel}</strong>.</p>
                                     </div>
 
@@ -1108,8 +1108,8 @@ export default function RegisterContabilidadPage() {
                                                     <planData.icon className="h-4 w-4 text-white" />
                                                 </div>
                                                 <div>
-                                                    <p className={cn("text-xs font-black uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
-                                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">
+                                                    <p className={cn("text-xs font-semibold uppercase tracking-widest", colorMap[planData.color].text)}>Plan {planData.nombre}</p>
+                                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
                                                         ${billingPeriod === 'anual' ? Math.round(planData.precio * 0.8) : planData.precio}/mes
                                                         <span className="text-[10px] font-bold text-slate-400 ml-1">({billingPeriod === 'anual' ? 'anual' : 'mensual'})</span>
                                                     </p>

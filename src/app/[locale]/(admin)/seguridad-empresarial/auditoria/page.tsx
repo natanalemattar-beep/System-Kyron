@@ -54,20 +54,20 @@ export default function AuditoriaPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-blue-500 pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-blue-500 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-[11px] font-semibold uppercase tracking-wider text-blue-500 mb-3">
             <Eye className="h-3 w-3" /> AUDITORÍA DE ACCESOS
-            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-black ml-1 animate-pulse">NUEVO</span>
+            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-bold ml-1 animate-pulse">NUEVO</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Auditoría de <span className="text-blue-500 italic">Accesos</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Quién entra • Qué hace • Desde dónde • Cuándo
           </p>
         </div>
         <Button
           onClick={() => toast({ title: "Reporte generado", description: "El reporte de auditoría se descargó correctamente" })}
-          className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2 bg-blue-500 hover:bg-blue-600 text-white"
+          className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2 bg-blue-500 hover:bg-blue-600 text-white"
         >
           <FileText className="h-4 w-4" /> Exportar Reporte
         </Button>
@@ -83,8 +83,8 @@ export default function AuditoriaPage() {
           <motion.div key={m.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <Card className="rounded-2xl border border-border/30 bg-card">
               <CardContent className="p-5 space-y-2">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">{m.label}</p>
-                <p className={cn("text-3xl font-black", m.color)}>{m.valor}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/50">{m.label}</p>
+                <p className={cn("text-3xl font-bold", m.color)}>{m.valor}</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -94,7 +94,7 @@ export default function AuditoriaPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <Card className="rounded-2xl border border-border/30 bg-card">
           <CardHeader className="pb-4">
-            <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+            <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
               <Clock className="h-4 w-4 text-blue-500" /> Registro Completo de Actividades
             </CardTitle>
           </CardHeader>
@@ -127,15 +127,15 @@ export default function AuditoriaPage() {
                         {r.estado === "exitoso" ? "OK" : r.estado === "bloqueado" ? "Bloqueado" : r.estado === "fallido" ? "Fallido" : "Info"}
                       </Badge>
                     </div>
-                    <div className="flex items-center gap-3 mt-0.5 text-[9px] text-muted-foreground/50">
+                    <div className="flex items-center gap-3 mt-0.5 text-[11px] text-muted-foreground/50">
                       <span className="flex items-center gap-1"><User className="h-2.5 w-2.5" /> {r.nombre}</span>
                       <span className="flex items-center gap-1"><MapPin className="h-2.5 w-2.5" /> {r.ubicacion}</span>
                       <span className="flex items-center gap-1"><Monitor className="h-2.5 w-2.5" /> {r.dispositivo}</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-[9px] text-muted-foreground/40 font-mono">{r.fecha}</p>
-                    <p className="text-[8px] text-muted-foreground/30 font-mono">{r.ip}</p>
+                    <p className="text-[11px] text-muted-foreground/40 font-mono">{r.fecha}</p>
+                    <p className="text-[10px] text-muted-foreground/30 font-mono">{r.ip}</p>
                   </div>
                 </motion.div>
               );

@@ -83,10 +83,10 @@ export default function LibroCompraVentaPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Landmark className="h-3.5 w-3.5" /> Providencia SNAT/2011/0071 · SENIAT
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Libros de <span className="text-primary">Compra y Venta</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registro de IVA 16% · IGTF 3% · Control Fiscal Integrado</p>
@@ -111,7 +111,7 @@ export default function LibroCompraVentaPage() {
                 <span className="text-[10px] font-semibold text-muted-foreground uppercase">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-lg font-black", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-lg font-bold", kpi.color)}>{kpi.val}</p>
             </Card>
           ))}
         </div>

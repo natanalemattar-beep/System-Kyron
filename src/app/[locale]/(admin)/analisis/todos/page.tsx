@@ -167,7 +167,7 @@ export default function TodasLasAnalisisPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
             <Link href="/analisis"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tight flex items-center gap-4 italic leading-none">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-4 italic leading-none">
             <Sparkles className="h-10 w-10 text-primary animate-pulse" />
             Directorio de Inteligencia
           </h1>
@@ -201,14 +201,14 @@ export default function TodasLasAnalisisPage() {
                 <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
                   <category.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
+                <h3 className="text-lg font-semibold uppercase tracking-wider text-foreground italic">{category.title}</h3>
                 <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {filteredItems.map((item, i) => (
                   <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)}>
-                    <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-[2rem] p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
+                    <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
                           <item.icon className="h-12 w-12" />
                       </div>
@@ -217,8 +217,8 @@ export default function TodasLasAnalisisPage() {
                           <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                         </div>
                         <div>
-                          <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
-                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
+                          <p className="text-xs font-semibold uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
+                          <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
                         </div>
                       </div>
                       <div className="flex justify-end mt-4">
@@ -236,7 +236,7 @@ export default function TodasLasAnalisisPage() {
       </div>
 
       <footer className="pt-20 pb-10 text-center opacity-20 border-t border-border">
-        <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground italic">SYSTEM KYRON • ANALYTICS HUB • 2026</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[1em] text-foreground italic">SYSTEM KYRON • ANALYTICS HUB • 2026</p>
       </footer>
     </div>
   );

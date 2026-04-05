@@ -108,8 +108,8 @@ function CuentaRow({ cuenta, depth = 0, onEdit, onDelete, onAddSub }: {
           )}
         </button>
         <span className="font-mono text-[11px] text-muted-foreground w-20 shrink-0">{cuenta.codigo}</span>
-        <span className={cn("flex-1 text-xs min-w-0 truncate", depth === 0 ? "font-black uppercase tracking-wide" : "font-medium")}>{cuenta.nombre}</span>
-        <Badge className={cn("text-[8px] font-bold uppercase border-none shrink-0", tc.bg, tc.text)}>{cuenta.tipo}</Badge>
+        <span className={cn("flex-1 text-xs min-w-0 truncate", depth === 0 ? "font-semibold uppercase tracking-wide" : "font-medium")}>{cuenta.nombre}</span>
+        <Badge className={cn("text-[10px] font-bold uppercase border-none shrink-0", tc.bg, tc.text)}>{cuenta.tipo}</Badge>
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
           <button type="button" onClick={() => onAddSub(cuenta.id, cuenta.codigo, cuenta.tipo)} className="p-1 rounded-md hover:bg-primary/10 text-primary" title="Agregar subcuenta">
             <FolderPlus className="h-3.5 w-3.5" />
@@ -245,10 +245,10 @@ export default function PlanCuentasPage() {
         <BackButton label="Dashboard" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <BookOpen className="h-3.5 w-3.5" /> Catálogo Contable
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Plan de <span className="text-primary">Cuentas</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">VEN-NIF · Catálogo configurable · Partida doble</p>
@@ -277,17 +277,17 @@ export default function PlanCuentasPage() {
           <CardContent className="p-5 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Código *</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-widest">Código *</Label>
                 <Input
                   value={form.codigo}
                   onChange={e => setForm(f => ({ ...f, codigo: e.target.value }))}
                   placeholder="1.1.01"
                   className="h-10 rounded-xl font-mono"
                 />
-                <p className="text-[9px] text-muted-foreground">Ej: 1 (Activo), 1.1 (Activo Corriente), 1.1.01 (Caja)</p>
+                <p className="text-[11px] text-muted-foreground">Ej: 1 (Activo), 1.1 (Activo Corriente), 1.1.01 (Caja)</p>
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Nombre *</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-widest">Nombre *</Label>
                 <Input
                   value={form.nombre}
                   onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))}
@@ -296,7 +296,7 @@ export default function PlanCuentasPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Tipo</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-widest">Tipo</Label>
                 <Select value={form.tipo} onValueChange={v => setForm(f => ({ ...f, tipo: v }))}>
                   <SelectTrigger className="h-10 rounded-xl">
                     <SelectValue />
@@ -311,7 +311,7 @@ export default function PlanCuentasPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Cuenta Padre (opcional)</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-widest">Cuenta Padre (opcional)</Label>
                 <Select
                   value={form.cuenta_padre ? String(form.cuenta_padre) : "none"}
                   onValueChange={v => setForm(f => ({ ...f, cuenta_padre: v === "none" ? null : Number(v) }))}
@@ -330,7 +330,7 @@ export default function PlanCuentasPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest">Descripción (opcional)</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-widest">Descripción (opcional)</Label>
                 <Input
                   value={form.descripcion}
                   onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))}
@@ -396,7 +396,7 @@ export default function PlanCuentasPage() {
             </div>
           ) : (
             <>
-              <div className="flex items-center gap-2 px-4 py-2 bg-muted/10 border-b text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+              <div className="flex items-center gap-2 px-4 py-2 bg-muted/10 border-b text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                 <span className="w-5" />
                 <span className="w-20">Código</span>
                 <span className="flex-1">Nombre de la Cuenta</span>

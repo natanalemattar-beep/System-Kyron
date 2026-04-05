@@ -711,7 +711,7 @@ export default function RegisterJuridicoPage() {
                 <div className="space-y-5 max-h-[400px] overflow-y-auto pr-1">
                   {moduleGroups.map(group => (
                     <div key={group.group}>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 mb-2">{group.group}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-2">{group.group}</p>
                       <div className="grid grid-cols-2 gap-2">
                         {group.modules.map(mod => {
                           const selected = selectedModules.has(mod.id);
@@ -817,7 +817,7 @@ export default function RegisterJuridicoPage() {
                         {devCode && (
                           <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
                             <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                            <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                            <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
                           </div>
                         )}
                         <div className="space-y-2">
@@ -829,7 +829,7 @@ export default function RegisterJuridicoPage() {
                             placeholder="_ _ _ _ _ _"
                             value={verifCode}
                             onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-center text-2xl tracking-[0.5em] font-mono text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-center text-2xl tracking-wider font-mono text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           />
                         </div>
                         {verifLoading && (

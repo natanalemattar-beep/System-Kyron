@@ -85,7 +85,7 @@ export default function RestriccionAppsPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -112,16 +112,16 @@ export default function RestriccionAppsPage() {
                     <div className="flex items-center gap-2">
                       <AccionIcon className={cn("h-3.5 w-3.5", config.color)} />
                       <span className="text-xs font-semibold text-foreground">{r.nombre}</span>
-                      <Badge variant="outline" className="text-[8px] px-1.5 text-muted-foreground border-border">{r.categoria}</Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 text-muted-foreground border-border">{r.categoria}</Badge>
                     </div>
-                    <Badge variant="outline" className={cn("text-[9px] px-2", config.bg, config.color, config.border)}>
+                    <Badge variant="outline" className={cn("text-[11px] px-2", config.bg, config.color, config.border)}>
                       {config.label}
                     </Badge>
                   </div>
                   <div className="pl-5.5 space-y-0.5">
                     <p className="text-[10px] text-muted-foreground">{r.motivo}</p>
-                    {r.horario && <p className="text-[9px] text-amber-500">Horario: {r.horario}</p>}
-                    <p className="text-[9px] text-muted-foreground/60">Aplica a: {r.aplicaA}</p>
+                    {r.horario && <p className="text-[11px] text-amber-500">Horario: {r.horario}</p>}
+                    <p className="text-[11px] text-muted-foreground/60">Aplica a: {r.aplicaA}</p>
                   </div>
                 </div>
               );
@@ -142,17 +142,17 @@ export default function RestriccionAppsPage() {
                 </div>
                 <div className="flex gap-2">
                   {c.bloqueadas > 0 && (
-                    <Badge variant="outline" className="text-[8px] bg-rose-500/10 text-rose-500 border-rose-500/20">
+                    <Badge variant="outline" className="text-[10px] bg-rose-500/10 text-rose-500 border-rose-500/20">
                       {c.bloqueadas} bloqueadas
                     </Badge>
                   )}
                   {c.restringidas > 0 && (
-                    <Badge variant="outline" className="text-[8px] bg-amber-500/10 text-amber-500 border-amber-500/20">
+                    <Badge variant="outline" className="text-[10px] bg-amber-500/10 text-amber-500 border-amber-500/20">
                       {c.restringidas} restringidas
                     </Badge>
                   )}
                   {c.bloqueadas === 0 && c.restringidas === 0 && (
-                    <Badge variant="outline" className="text-[8px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+                    <Badge variant="outline" className="text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
                       Sin restricciones
                     </Badge>
                   )}

@@ -188,7 +188,7 @@ export default function ConfiguracionPage() {
               <Settings className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-tight uppercase">Configuración</h1>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase">Configuración</h1>
               <p className="text-xs text-muted-foreground/50 mt-0.5">
                 Personaliza tu experiencia en System Kyron
               </p>
@@ -357,12 +357,12 @@ export default function ConfiguracionPage() {
         <div className="flex items-center justify-between pt-4 pb-8">
           <div className="flex items-center gap-2 text-muted-foreground/30">
             <Logo className="h-4 w-4 opacity-40" />
-            <span className="text-[8px] font-bold uppercase tracking-[0.3em]">System Kyron v2.8.5</span>
+            <span className="text-[10px] font-bold uppercase tracking-wide">System Kyron v2.8.5</span>
           </div>
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="rounded-xl h-11 px-8 text-[10px] font-black uppercase tracking-[0.2em] bg-primary hover:bg-primary/90 shadow-md shadow-primary/15"
+            className="rounded-xl h-11 px-8 text-[10px] font-semibold uppercase tracking-wide bg-primary hover:bg-primary/90 shadow-md shadow-primary/15"
           >
             {saving ? (
               <><Loader2 className="h-3.5 w-3.5 mr-2 animate-spin" /> Guardando</>

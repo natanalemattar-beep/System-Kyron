@@ -167,7 +167,7 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
             <Zap className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-primary">
               MODO AUTOMATIZACIÓN
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -177,11 +177,11 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
         </div>
         <div className="flex items-center gap-2">
           {rules.every(r => r.enabled) ? (
-            <Badge className="text-[8px] font-black px-2 border-none bg-emerald-500/20 text-emerald-400">ACTIVAS</Badge>
+            <Badge className="text-[10px] font-bold px-2 border-none bg-emerald-500/20 text-emerald-400">ACTIVAS</Badge>
           ) : rules.some(r => r.enabled) ? (
-            <Badge className="text-[8px] font-black px-2 border-none bg-amber-500/20 text-amber-400">PARCIAL</Badge>
+            <Badge className="text-[10px] font-bold px-2 border-none bg-amber-500/20 text-amber-400">PARCIAL</Badge>
           ) : (
-            <Badge className="text-[8px] font-black px-2 border-none bg-red-500/20 text-red-400">PAUSADAS</Badge>
+            <Badge className="text-[10px] font-bold px-2 border-none bg-red-500/20 text-red-400">PAUSADAS</Badge>
           )}
           {collapsed ? <ChevronDown className="h-4 w-4 text-muted-foreground" /> : <ChevronUp className="h-4 w-4 text-muted-foreground" />}
         </div>
@@ -212,21 +212,21 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
                           <Icon className={`h-4 w-4 ${rule.enabled ? 'text-primary' : 'text-muted-foreground'}`} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-black text-xs uppercase text-foreground/90">{rule.name}</h4>
+                          <h4 className="font-semibold text-xs uppercase text-foreground/90">{rule.name}</h4>
                           <p className="text-[10px] text-muted-foreground truncate">{rule.description}</p>
                           <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                            <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
+                            <span className="text-[10px] font-bold text-muted-foreground/60 uppercase">
                               <Clock className="h-2.5 w-2.5 inline mr-0.5" />
                               {rule.trigger_config?.label || rule.trigger_type}
                             </span>
-                            <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
+                            <span className="text-[10px] font-bold text-muted-foreground/60 uppercase">
                               Último: {formatRelativeTime(rule.last_run_at)}
                             </span>
-                            <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
+                            <span className="text-[10px] font-bold text-muted-foreground/60 uppercase">
                               Éxito: {ruleSuccessRate}%
                             </span>
                             {rule.fail_count > 0 && (
-                              <span className="text-[8px] font-bold text-red-400/80 uppercase">
+                              <span className="text-[10px] font-bold text-red-400/80 uppercase">
                                 <AlertTriangle className="h-2.5 w-2.5 inline mr-0.5" />
                                 {rule.fail_count} fallo(s)
                               </span>
@@ -236,7 +236,7 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
                       </div>
 
                       <div className="flex items-center gap-1.5">
-                        <Badge className={`text-[8px] font-black px-2 border-none ${rule.enabled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                        <Badge className={`text-[10px] font-bold px-2 border-none ${rule.enabled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
                           {rule.enabled ? 'ACTIVA' : 'PAUSADA'}
                         </Badge>
                         <Button
@@ -278,7 +278,7 @@ export function ModuleAutomation({ module }: ModuleAutomationProps) {
                           className="overflow-hidden"
                         >
                           <div className="mt-3 pt-3 border-t border-border/30">
-                            <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-2">
+                            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 mb-2">
                               Últimas Ejecuciones
                             </p>
                             {ruleLogs.length === 0 ? (

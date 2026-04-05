@@ -35,7 +35,7 @@ export default function MainLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-primary shadow-glow"}} dashboardHref="/resumen-negocio" navGroups={adminNavGroups} />
+              <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/resumen-negocio" navGroups={adminNavGroups} />
               
               <main className="flex-1 w-full pt-20 relative z-10">
                   <PageTransition>
@@ -44,7 +44,7 @@ export default function MainLayout({
               </main>
               
               <footer className="p-8 border-t border-border bg-card/80 text-center backdrop-blur-3xl relative z-20">
-                <p className="text-[9px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
+                <p className="text-[11px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
                   System Kyron • 2026
                 </p>
               </footer>

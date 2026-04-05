@@ -190,7 +190,7 @@ function buildSteps(): TutorialStep[] {
                             </div>
                             <div className="flex-1 h-10 px-3 rounded-lg border border-sky-500/30 bg-sky-500/5 flex items-center">
                                 <span className="text-sm font-semibold text-foreground/70 tracking-wider">00000000</span>
-                                <span className="ml-auto text-[9px] text-muted-foreground/30 font-semibold">CI</span>
+                                <span className="ml-auto text-[11px] text-muted-foreground/30 font-semibold">CI</span>
                             </div>
                         </div>
                         <div className="flex items-center gap-2 p-2.5 rounded-lg border border-sky-500/15 bg-sky-500/[0.03]">
@@ -238,7 +238,7 @@ function buildSteps(): TutorialStep[] {
                             </div>
                             <div className="flex-1 h-10 px-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 flex items-center">
                                 <span className="text-sm font-semibold text-foreground/70 tracking-wider">00000000-0</span>
-                                <span className="ml-auto text-[9px] text-muted-foreground/30 font-semibold">RIF</span>
+                                <span className="ml-auto text-[11px] text-muted-foreground/30 font-semibold">RIF</span>
                             </div>
                             <div className="flex items-center gap-1 h-10 px-3 rounded-lg border border-border/40 bg-muted/30">
                                 <span className="text-[10px] font-semibold text-muted-foreground">Buscar</span>

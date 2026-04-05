@@ -96,7 +96,7 @@ export default function MDMCorporativoPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -128,10 +128,10 @@ export default function MDMCorporativoPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={cn("text-[9px] px-2", config.bg, config.color, config.border)}>
+                    <Badge variant="outline" className={cn("text-[11px] px-2", config.bg, config.color, config.border)}>
                       {config.label}
                     </Badge>
-                    <span className="text-[9px] text-muted-foreground flex items-center gap-1">
+                    <span className="text-[11px] text-muted-foreground flex items-center gap-1">
                       <Clock className="h-2.5 w-2.5" /> {d.ultimoCheckIn}
                     </span>
                   </div>
@@ -143,7 +143,7 @@ export default function MDMCorporativoPage() {
                     { label: "Antivirus", ok: d.antivirus, icon: Key },
                     { label: "MDM", ok: d.mdmActivo, icon: Settings },
                   ].map((check, ci) => (
-                    <div key={ci} className={cn("flex items-center gap-1.5 p-1.5 rounded-lg text-[9px] font-semibold", check.ok ? "text-emerald-500 bg-emerald-500/5" : "text-rose-500 bg-rose-500/5")}>
+                    <div key={ci} className={cn("flex items-center gap-1.5 p-1.5 rounded-lg text-[11px] font-semibold", check.ok ? "text-emerald-500 bg-emerald-500/5" : "text-rose-500 bg-rose-500/5")}>
                       <check.icon className="h-2.5 w-2.5" />
                       {check.label}
                       {check.ok ? <CircleCheck className="h-2.5 w-2.5 ml-auto" /> : <AlertTriangle className="h-2.5 w-2.5 ml-auto" />}
@@ -152,7 +152,7 @@ export default function MDMCorporativoPage() {
                 </div>
                 <div className="pl-11 mt-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-[9px] text-muted-foreground">Políticas: {d.politicasAplicadas}/{d.politicas}</span>
+                    <span className="text-[11px] text-muted-foreground">Políticas: {d.politicasAplicadas}/{d.politicas}</span>
                     <div className="h-1 flex-1 bg-muted/30 rounded-full overflow-hidden">
                       <div className={cn("h-full rounded-full", d.politicasAplicadas === d.politicas ? "bg-emerald-500" : d.politicasAplicadas >= d.politicas * 0.8 ? "bg-amber-500" : "bg-rose-500")}
                         style={{ width: `${(d.politicasAplicadas / d.politicas) * 100}%` }} />
@@ -180,7 +180,7 @@ export default function MDMCorporativoPage() {
             <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-muted/10 border border-border/30">
               <div className="flex-1">
                 <p className="text-xs font-semibold text-foreground">{p.nombre}</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5">{p.descripcion}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{p.descripcion}</p>
               </div>
               <div className="flex items-center gap-3">
                 <span className={cn("text-xs font-bold tabular-nums", p.activos === p.total ? "text-emerald-500" : "text-amber-500")}>

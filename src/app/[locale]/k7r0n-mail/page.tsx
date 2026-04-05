@@ -186,7 +186,7 @@ export default function KyronMailPage() {
   if (!authenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4 bg-background">
-        <Card className="w-full max-w-sm p-10 bg-card/60 border-none rounded-3xl shadow-2xl text-center space-y-6">
+        <Card className="w-full max-w-sm p-10 bg-card/60 border-none rounded-3xl shadow-lg text-center space-y-6">
           <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Lock className="h-7 w-7 text-primary" />
           </div>
@@ -212,7 +212,7 @@ export default function KyronMailPage() {
   const draftEditor = (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Para</label>
+        <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Para</label>
         {(draft?.to || ['']).map((r, i) => (
           <div key={i} className="flex gap-2">
             <Input
@@ -239,11 +239,11 @@ export default function KyronMailPage() {
       </div>
       <div className="grid sm:grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre</label>
+          <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Nombre</label>
           <Input placeholder="Nombre del destinatario" value={draft?.nombre || ''} onChange={e => setDraft(prev => prev ? { ...prev, nombre: e.target.value || null } : null)} className="h-10 rounded-xl text-sm" />
         </div>
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Remitente</label>
+          <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Remitente</label>
           <Select value={draft?.sender || 'auto'} onValueChange={v => setDraft(prev => prev ? { ...prev, sender: v } : null)}>
             <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
             <SelectContent>
@@ -254,11 +254,11 @@ export default function KyronMailPage() {
       </div>
       <div className="grid sm:grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Asunto</label>
+          <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Asunto</label>
           <Input placeholder="Asunto del correo" value={draft?.subject || ''} onChange={e => setDraft(prev => prev ? { ...prev, subject: e.target.value } : null)} className="h-10 rounded-xl text-sm" />
         </div>
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Plantilla</label>
+          <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Plantilla</label>
           <Select value={draft?.template || 'personalizado'} onValueChange={v => setDraft(prev => prev ? { ...prev, template: v } : null)}>
             <SelectTrigger className="h-10 rounded-xl text-sm"><SelectValue /></SelectTrigger>
             <SelectContent>
@@ -268,7 +268,7 @@ export default function KyronMailPage() {
         </div>
       </div>
       <div className="space-y-1">
-        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Mensaje</label>
+        <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Mensaje</label>
         <Textarea placeholder="Escribe el contenido del correo..." value={draft?.message || ''} onChange={e => setDraft(prev => prev ? { ...prev, message: e.target.value } : null)} rows={8} className="rounded-xl resize-none text-sm" />
       </div>
     </div>
@@ -277,13 +277,13 @@ export default function KyronMailPage() {
   return (
     <div className="space-y-8 pb-20 px-4 md:px-10 max-w-6xl mx-auto min-h-screen bg-background">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
           <Mail className="h-3 w-3" /> COMUNICACIONES
         </div>
-        <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground uppercase leading-none">
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
           CORREO <span className="text-primary italic">KYRON</span>
         </h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.5em] mt-1 italic">
+        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-1 italic">
           noreplysystemkyron@gmail.com · alertas_systemkyron@hotmail.com
         </p>
       </header>
@@ -312,7 +312,7 @@ export default function KyronMailPage() {
               <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl">
                 <div className="flex items-center gap-2 mb-4">
                   <Sparkles className="h-4 w-4 text-amber-500" />
-                  <span className="text-xs font-black uppercase tracking-widest text-foreground">Dime qué enviar</span>
+                  <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Dime qué enviar</span>
                 </div>
                 <Textarea
                   ref={promptRef}
@@ -337,7 +337,7 @@ export default function KyronMailPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Eye className="h-4 w-4 text-primary" />
-                      <span className="text-xs font-black uppercase tracking-widest text-foreground">Borrador</span>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Borrador</span>
                     </div>
                     <Button variant="ghost" size="sm" onClick={() => setEditing(!editing)} className="text-xs rounded-lg">
                       <Pencil className="mr-1 h-3 w-3" /> {editing ? 'Vista previa' : 'Editar'}
@@ -363,7 +363,7 @@ export default function KyronMailPage() {
                     </div>
                   )}
 
-                  <Button onClick={handleSend} disabled={sending} className="w-full h-12 rounded-xl font-black text-sm uppercase tracking-widest" size="lg">
+                  <Button onClick={handleSend} disabled={sending} className="w-full h-12 rounded-xl font-semibold text-sm uppercase tracking-widest" size="lg">
                     {sending ? (
                       <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
                     ) : (
@@ -379,7 +379,7 @@ export default function KyronMailPage() {
             <Card className="p-6 bg-card/50 border-none rounded-2xl shadow-xl space-y-4">
               <div className="flex items-center gap-2 mb-2">
                 <FileEdit className="h-4 w-4 text-primary" />
-                <span className="text-xs font-black uppercase tracking-widest text-foreground">Redactar correo</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-foreground">Redactar correo</span>
               </div>
 
               {!draft ? (
@@ -399,7 +399,7 @@ export default function KyronMailPage() {
                     <Button variant="outline" onClick={() => { setDraft(null); setEditing(false); }} className="flex-1 h-12 rounded-xl font-bold text-xs uppercase tracking-widest">
                       Descartar
                     </Button>
-                    <Button onClick={handleSend} disabled={sending} className="flex-[2] h-12 rounded-xl font-black text-sm uppercase tracking-widest" size="lg">
+                    <Button onClick={handleSend} disabled={sending} className="flex-[2] h-12 rounded-xl font-semibold text-sm uppercase tracking-widest" size="lg">
                       {sending ? (
                         <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...</>
                       ) : (
@@ -415,23 +415,23 @@ export default function KyronMailPage() {
 
         <div className="space-y-5">
           <Card className="p-5 bg-card/50 border-none rounded-2xl shadow-xl">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-foreground mb-3 flex items-center gap-2">
+            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-foreground mb-3 flex items-center gap-2">
               <Mail className="h-3.5 w-3.5 text-primary" /> Cuentas
             </h3>
             <div className="space-y-2">
               <div className="p-2.5 rounded-xl bg-primary/5 border border-primary/10">
                 <p className="text-[11px] font-bold text-foreground">noreplysystemkyron@gmail.com</p>
-                <p className="text-[9px] text-muted-foreground">Gmail</p>
+                <p className="text-[11px] text-muted-foreground">Gmail</p>
               </div>
               <div className="p-2.5 rounded-xl bg-blue-500/5 border border-blue-500/10">
                 <p className="text-[11px] font-bold text-foreground">alertas_systemkyron@hotmail.com</p>
-                <p className="text-[9px] text-muted-foreground">Outlook</p>
+                <p className="text-[11px] text-muted-foreground">Outlook</p>
               </div>
             </div>
           </Card>
 
           <Card className="p-5 bg-card/50 border-none rounded-2xl shadow-xl">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-foreground mb-3">Historial</h3>
+            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-foreground mb-3">Historial</h3>
             {history.length === 0 ? (
               <p className="text-[11px] text-muted-foreground italic">Sin envíos aún.</p>
             ) : (

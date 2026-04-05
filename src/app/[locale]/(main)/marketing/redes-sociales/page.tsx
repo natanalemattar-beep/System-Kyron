@@ -104,19 +104,19 @@ export default function RedesSocialesPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Globe className="h-3 w-3" /> SOCIAL MEDIA
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Redes <span className="text-primary italic">Sociales</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Multi-plataforma • Analítica • Engagement • Publicaciones IA • Calendario
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+            <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
               <Plus className="h-4 w-4" /> AÑADIR RED SOCIAL
             </Button>
           </DialogTrigger>
@@ -181,7 +181,7 @@ export default function RedesSocialesPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -194,16 +194,16 @@ export default function RedesSocialesPage() {
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Globe className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">Error al cargar datos</p>
-          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar datos</p>
+          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             Reintentar
           </Button>
         </div>
       ) : redes.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Globe className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">No hay redes sociales configuradas</p>
-          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">No hay redes sociales configuradas</p>
+          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             <Plus className="h-3 w-3 mr-1" /> Añadir primera red social
           </Button>
         </div>
@@ -218,7 +218,7 @@ export default function RedesSocialesPage() {
                       <CardTitle className={cn("text-sm font-bold", red.color || "text-primary")}>{red.nombre}</CardTitle>
                       <p className="text-[10px] text-muted-foreground">{red.handle ?? "—"}</p>
                     </div>
-                    <Badge className="text-[9px] font-bold bg-emerald-500/10 text-emerald-500">
+                    <Badge className="text-[11px] font-bold bg-emerald-500/10 text-emerald-500">
                       {Number(red.crecimiento) > 0 ? "+" : ""}{Number(red.crecimiento).toFixed(1)}%
                     </Badge>
                   </div>
@@ -226,12 +226,12 @@ export default function RedesSocialesPage() {
                 <CardContent className="p-5 pt-2 space-y-3">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="p-2.5 rounded-lg bg-muted/20 text-center">
-                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Seguidores</p>
-                      <p className={cn("text-lg font-black", red.color || "text-primary")}>{Number(red.seguidores).toLocaleString()}</p>
+                      <p className="text-[11px] text-muted-foreground uppercase tracking-widest">Seguidores</p>
+                      <p className={cn("text-lg font-bold", red.color || "text-primary")}>{Number(red.seguidores).toLocaleString()}</p>
                     </div>
                     <div className="p-2.5 rounded-lg bg-muted/20 text-center">
-                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Alcance</p>
-                      <p className="text-lg font-black">{(Number(red.alcance) / 1000).toFixed(1)}K</p>
+                      <p className="text-[11px] text-muted-foreground uppercase tracking-widest">Alcance</p>
+                      <p className="text-lg font-bold">{(Number(red.alcance) / 1000).toFixed(1)}K</p>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
@@ -241,7 +241,7 @@ export default function RedesSocialesPage() {
                   <Progress value={Number(red.engagement) * 10} className="h-1.5" />
                   {red.mejor_post && (
                     <div className="p-2.5 rounded-lg bg-muted/10 border border-border/30">
-                      <p className="text-[9px] text-muted-foreground uppercase tracking-widest mb-0.5">Mejor Post</p>
+                      <p className="text-[11px] text-muted-foreground uppercase tracking-widest mb-0.5">Mejor Post</p>
                       <p className="text-[11px] font-medium">{red.mejor_post}</p>
                     </div>
                   )}

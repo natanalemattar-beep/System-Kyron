@@ -174,15 +174,15 @@ export default function MisDocumentosPage() {
           </DialogTrigger>
           <DialogContent className="bg-card border-border rounded-2xl max-w-lg">
             <DialogHeader>
-              <DialogTitle className="text-lg font-black uppercase tracking-tight">Registrar Documento</DialogTitle>
+              <DialogTitle className="text-lg font-semibold uppercase tracking-tight">Registrar Documento</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Nombre del Documento *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Nombre del Documento *</Label>
                 <Input placeholder="Ej: Cédula V-18745632" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
               </div>
               <div className="space-y-2">
-                <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Categoría *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Categoría *</Label>
                 <Select value={form.categoria} onValueChange={v => setForm(f => ({ ...f, categoria: v }))}>
                   <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                   <SelectContent>
@@ -192,7 +192,7 @@ export default function MisDocumentosPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Tipo de Archivo</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Tipo de Archivo</Label>
                   <Select value={form.tipo_archivo} onValueChange={v => setForm(f => ({ ...f, tipo_archivo: v }))}>
                     <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -201,26 +201,26 @@ export default function MisDocumentosPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Tamaño (KB)</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Tamaño (KB)</Label>
                   <Input type="number" placeholder="Ej: 1200" value={form.tamano_kb} onChange={e => setForm(f => ({ ...f, tamano_kb: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Fecha Emisión</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Fecha Emisión</Label>
                   <Input type="date" value={form.fecha_emision} onChange={e => setForm(f => ({ ...f, fecha_emision: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Fecha Vencimiento</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Fecha Vencimiento</Label>
                   <Input type="date" value={form.fecha_vencimiento} onChange={e => setForm(f => ({ ...f, fecha_vencimiento: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Organismo Emisor</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Organismo Emisor</Label>
                 <Input placeholder="Ej: SAIME, SENIAT, Universidad" value={form.organismo} onChange={e => setForm(f => ({ ...f, organismo: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
               </div>
               <div className="space-y-2">
-                <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Descripción</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Descripción</Label>
                 <Input placeholder="Nota opcional..." value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
               </div>
             </div>
@@ -270,7 +270,7 @@ export default function MisDocumentosPage() {
                       {formatDate(doc.created_at)} · {formatSize(doc.tamano_kb)} · {doc.tipo_archivo}
                     </CardDescription>
                     {doc.categoria && (
-                      <span className="inline-block mt-1 text-[9px] font-bold uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-lg border border-primary/10">{doc.categoria}</span>
+                      <span className="inline-block mt-1 text-[11px] font-bold uppercase tracking-widest text-primary/60 bg-primary/5 px-2 py-0.5 rounded-lg border border-primary/10">{doc.categoria}</span>
                     )}
                   </div>
                 </CardHeader>

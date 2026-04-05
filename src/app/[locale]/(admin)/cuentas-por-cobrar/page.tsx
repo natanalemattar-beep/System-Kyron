@@ -17,11 +17,11 @@ export default function CuentasPorCobrarPage() {
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10">
         <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                 <Landmark className="h-3 w-3" /> CENTRO DE ACTIVOS
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Cuentas <span className="text-primary italic">por Cobrar</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Clientes • Conciliación de Ingresos 2026</p>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Cuentas <span className="text-primary italic">por Cobrar</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Gestión de Clientes • Conciliación de Ingresos 2026</p>
         </header>
 
         <motion.div 

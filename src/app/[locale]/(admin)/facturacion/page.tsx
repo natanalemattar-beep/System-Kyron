@@ -164,7 +164,7 @@ export default function FacturacionPage() {
         >
           <div>
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-4"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wide text-primary mb-4"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.3 }}
@@ -172,11 +172,11 @@ export default function FacturacionPage() {
               <Activity className="h-3 w-3 animate-pulse" /> CENTRO DE VENTAS
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </motion.div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Centro de{' '}
               <span className="bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent italic">Facturación</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Ciclo de Vida Documental • Control de Ingresos</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Ciclo de Vida Documental • Control de Ingresos</p>
           </div>
           <motion.div
             className="flex items-center gap-3"
@@ -188,7 +188,7 @@ export default function FacturacionPage() {
             <Button
               onClick={handleAutoCorrect}
               disabled={isCorrecting}
-              className="rounded-2xl h-12 px-8 font-black uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-[0_8px_30px_-5px_rgba(14,165,233,0.4)] transition-all duration-300 hover:shadow-[0_12px_40px_-5px_rgba(14,165,233,0.5)] hover:-translate-y-0.5"
+              className="rounded-2xl h-12 px-8 font-semibold uppercase text-[10px] tracking-[0.15em] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-[0_8px_30px_-5px_rgba(14,165,233,0.4)] transition-all duration-300 hover:shadow-[0_12px_40px_-5px_rgba(14,165,233,0.5)] hover:-translate-y-0.5"
             >
               {isCorrecting ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <ShieldAlert className="mr-2 h-4 w-4" />}
               AUDITORÍA FISCAL IA
@@ -211,7 +211,7 @@ export default function FacturacionPage() {
             )}>
               <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-gradient-to-br from-transparent to-current opacity-[0.03] group-hover:opacity-[0.06] transition-opacity" />
               <div className="flex justify-between items-start mb-4">
-                <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
                 <div className={cn("p-2 rounded-xl border transition-all duration-300 group-hover:scale-110",
                   kpi.color === "text-emerald-500" ? "bg-emerald-500/10 border-emerald-500/15" :
                   kpi.color === "text-blue-500" ? "bg-blue-500/10 border-blue-500/15" :
@@ -221,7 +221,7 @@ export default function FacturacionPage() {
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </div>
               </div>
-              <p className="text-3xl font-black text-foreground tracking-tight">
+              <p className="text-3xl font-bold text-foreground tracking-tight">
                 {loading ? <span className="text-muted-foreground/30">—</span> : kpi.isCurrency ? fmtCur(kpi.val) : kpi.val.toLocaleString('es-VE')}
               </p>
             </Card>
@@ -242,14 +242,14 @@ export default function FacturacionPage() {
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-black text-foreground uppercase tracking-wide">Motor de Auditoría Inteligente</p>
+              <p className="text-xs font-bold text-foreground uppercase tracking-wide">Motor de Auditoría Inteligente</p>
               <p className="text-[10px] text-muted-foreground mt-0.5">IA analiza cada documento fiscal en tiempo real contra la Providencia SNAT/2011/00071</p>
             </div>
           </div>
           <div className="flex items-center gap-3 ml-auto">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
               <Shield className="h-3.5 w-3.5 text-primary" />
-              <span className="text-[9px] font-black text-primary uppercase tracking-wider">SHA-256</span>
+              <span className="text-[11px] font-bold text-primary uppercase tracking-wider">SHA-256</span>
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ export default function FacturacionPage() {
                     </div>
                   </div>
                   <div>
-                    <CardTitle className="text-sm font-black uppercase tracking-tight text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{module.title}</CardTitle>
+                    <CardTitle className="text-sm font-semibold uppercase tracking-tight text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{module.title}</CardTitle>
                     <CardDescription className="text-[11px] text-muted-foreground leading-relaxed">{module.description}</CardDescription>
                   </div>
                 </div>
@@ -304,7 +304,7 @@ export default function FacturacionPage() {
           <CardHeader className="p-6 border-b border-border/30">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
                   <Clock className="h-3.5 w-3.5 text-primary" />
                   Actividad Reciente
                 </CardTitle>
@@ -361,17 +361,17 @@ export default function FacturacionPage() {
                     </div>
                     <div className="text-right shrink-0 flex items-center gap-4">
                       <div>
-                        <p className={cn("text-sm font-black tabular-nums", item.amount < 0 ? "text-rose-500" : "text-foreground")}>{item.amount < 0 ? '-' : ''}{fmtCur(Math.abs(item.amount))}</p>
+                        <p className={cn("text-sm font-bold tabular-nums", item.amount < 0 ? "text-rose-500" : "text-foreground")}>{item.amount < 0 ? '-' : ''}{fmtCur(Math.abs(item.amount))}</p>
                         <div className="flex items-center gap-2 justify-end mt-0.5">
                           <span className={cn(
-                            "text-[9px] font-bold uppercase px-2 py-0.5 rounded-md",
+                            "text-[11px] font-bold uppercase px-2 py-0.5 rounded-md",
                             item.status === "Pagada" ? "bg-emerald-500/10 text-emerald-500" :
                             item.status === "Pendiente" ? "bg-amber-500/10 text-amber-500" :
                             item.status === "Procesada" ? "bg-blue-500/10 text-blue-500" :
                             item.status === "Emitida" ? "bg-cyan-500/10 text-cyan-500" :
                             "bg-violet-500/10 text-violet-500"
                           )}>{item.status}</span>
-                          <span className="text-[9px] text-muted-foreground/40">{item.date}</span>
+                          <span className="text-[11px] text-muted-foreground/40">{item.date}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover/row:text-primary group-hover/row:translate-x-1 transition-all" />
@@ -420,8 +420,8 @@ export default function FacturacionPage() {
               <info.icon className={cn("h-4 w-4", info.color)} />
             </div>
             <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/40 mb-1">{info.label}</p>
-              <p className="text-sm font-black text-foreground">{info.value}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40 mb-1">{info.label}</p>
+              <p className="text-sm font-bold text-foreground">{info.value}</p>
             </div>
           </div>
         ))}

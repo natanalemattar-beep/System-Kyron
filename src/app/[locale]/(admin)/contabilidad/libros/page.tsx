@@ -53,10 +53,10 @@ export default function TodosLosLibrosPage() {
       <header className="pt-8 space-y-4">
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
             <Book className="h-3.5 w-3.5" /> Biblioteca de Registros
           </div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             Libros <span className="text-primary">Contables</span>
           </h1>
           <p className="text-sm text-muted-foreground mt-1">Registros obligatorios según el Código de Comercio y legislación vigente</p>

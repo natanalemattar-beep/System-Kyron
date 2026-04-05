@@ -189,7 +189,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Cuenta Bancaria (opcional)</label>
+                <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Cuenta Bancaria (opcional)</label>
                 <Select value={cuentaId} onValueChange={setCuentaId}>
                   <SelectTrigger className="h-10 rounded-xl">
                     <SelectValue placeholder="Asociar a cuenta..." />
@@ -239,7 +239,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
                 <div className="max-h-40 overflow-y-auto rounded-lg border border-border/30">
                   {result.detalle_errores.map((e, i) => (
                     <div key={i} className="flex items-center gap-2 px-3 py-1.5 text-[11px] border-b border-border/20 last:border-0">
-                      <Badge variant="outline" className="text-[9px] h-5 shrink-0">Fila {e.fila}</Badge>
+                      <Badge variant="outline" className="text-[11px] h-5 shrink-0">Fila {e.fila}</Badge>
                       <span className="text-muted-foreground">{e.error}</span>
                     </div>
                   ))}
@@ -265,7 +265,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
                     <p className="text-[10px] font-bold text-muted-foreground mb-1">Columnas encontradas en el archivo:</p>
                     <div className="flex flex-wrap gap-1">
                       {error.columnas_detectadas.map((c, i) => (
-                        <Badge key={i} variant="outline" className="text-[9px] h-5">{c}</Badge>
+                        <Badge key={i} variant="outline" className="text-[11px] h-5">{c}</Badge>
                       ))}
                     </div>
                   </div>
@@ -276,7 +276,7 @@ export function ImportMovimientos({ cuentas, onImportComplete }: { cuentas: Cuen
               <div className="max-h-40 overflow-y-auto rounded-lg border border-border/30">
                 {error.errores.map((e, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5 text-[11px] border-b border-border/20 last:border-0">
-                    <Badge variant="outline" className="text-[9px] h-5 shrink-0">Fila {e.fila}</Badge>
+                    <Badge variant="outline" className="text-[11px] h-5 shrink-0">Fila {e.fila}</Badge>
                     <span className="text-muted-foreground">{e.error}</span>
                   </div>
                 ))}

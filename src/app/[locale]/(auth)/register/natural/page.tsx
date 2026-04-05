@@ -323,7 +323,7 @@ export default function RegisterNaturalPage() {
   if (step === TOTAL_STEPS) {
     return (
       <div className="w-full max-w-lg mx-auto">
-        <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-lg">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5" />
           <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-emerald-400/10 to-transparent rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
@@ -335,7 +335,7 @@ export default function RegisterNaturalPage() {
 
             <div className="space-y-2 mb-8">
               <p className="text-sm font-bold text-emerald-500 uppercase tracking-widest">Registro Exitoso</p>
-              <h2 className="text-3xl font-black text-foreground leading-tight">
+              <h2 className="text-3xl font-bold text-foreground leading-tight">
                 ¡Bienvenido a<br />
                 <span className="bg-gradient-to-r from-primary via-blue-500 to-emerald-500 bg-clip-text text-transparent">
                   System Kyron!
@@ -379,7 +379,7 @@ export default function RegisterNaturalPage() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-lg">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/8 via-blue-500/5 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-tr from-emerald-500/6 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
 
@@ -388,9 +388,9 @@ export default function RegisterNaturalPage() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-1 rounded-full bg-gradient-to-r from-primary to-blue-500" />
-                <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">System Kyron</span>
+                <span className="text-xs font-bold text-primary uppercase tracking-wide">System Kyron</span>
               </div>
-              <h1 className="text-2xl font-black text-foreground leading-tight">
+              <h1 className="text-2xl font-bold text-foreground leading-tight">
                 Crear tu Cuenta
               </h1>
               <p className="text-muted-foreground text-sm mt-1">
@@ -825,7 +825,7 @@ export default function RegisterNaturalPage() {
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 mb-5 shadow-lg shadow-emerald-500/20">
                       <CheckCircle className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="text-lg font-black text-foreground">¡Identidad Verificada!</h3>
+                    <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
                     <p className="text-muted-foreground text-sm mt-1">
                       Tu {verifMethod === 'email' ? 'correo electrónico' : 'número de teléfono'} ha sido confirmado.
                     </p>
@@ -903,7 +903,7 @@ export default function RegisterNaturalPage() {
                         {devCode && (
                           <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-2xl text-center">
                             <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                            <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                            <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
                           </div>
                         )}
                         <div className="space-y-2">
@@ -916,7 +916,7 @@ export default function RegisterNaturalPage() {
                             placeholder="000000"
                             value={verifCode}
                             onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="text-center text-2xl tracking-[0.5em] font-mono rounded-2xl bg-muted/30 border-border/50 h-14"
+                            className="text-center text-2xl tracking-wider font-mono rounded-2xl bg-muted/30 border-border/50 h-14"
                           />
                         </div>
                         {verifLoading && (

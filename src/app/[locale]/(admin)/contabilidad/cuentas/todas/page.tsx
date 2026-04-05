@@ -59,7 +59,7 @@ export default function TodasLasCuentasPage() {
       <header className="pt-8 space-y-4">
         <BackButton href="/contabilidad/cuentas" label="Cuentas" />
         <div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             Gestión de <span className="text-primary">Cuentas</span>
           </h1>
           <p className="text-sm text-muted-foreground mt-1">Repositorio central de tesorería y bancos</p>

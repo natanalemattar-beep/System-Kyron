@@ -61,10 +61,10 @@ export default function ControlLicoresPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-rose-500 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-semibold uppercase tracking-wide text-rose-500 mb-3">
               <Wine className="h-3.5 w-3.5" /> Ley de Impuesto sobre Alcohol y Especies Alcohólicas
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Control de <span className="text-rose-500">Licores</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registro obligatorio SENIAT · Especies alcohólicas · Timbres fiscales</p>
@@ -82,7 +82,7 @@ export default function ControlLicoresPage() {
               <span className="text-xs font-semibold text-muted-foreground">Total Unidades</span>
               <Package className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black">{summary.totalUnidades}</p>
+            <p className="text-2xl font-bold">{summary.totalUnidades}</p>
             <p className="text-[11px] text-muted-foreground mt-1">{summary.tipos} tipos de bebida</p>
           </Card>
           <Card className="rounded-2xl border p-5">
@@ -90,21 +90,21 @@ export default function ControlLicoresPage() {
               <span className="text-xs font-semibold text-muted-foreground">Valoración</span>
               <BarChart3 className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalValor, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Productos</span>
               <Wine className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black">{rows.length}</p>
+            <p className="text-2xl font-bold">{rows.length}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Stock Bajo</span>
               <AlertTriangle className="h-4 w-4 text-amber-500" />
             </div>
-            <p className={cn("text-2xl font-black", summary.stockBajo > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.stockBajo}</p>
+            <p className={cn("text-2xl font-bold", summary.stockBajo > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.stockBajo}</p>
           </Card>
         </div>
       )}

@@ -38,7 +38,7 @@ export default function RegistroRifPage() {
                     <div className="space-y-1">
                         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Registro RIF — Carga Familiar</h1>
                         <p className="text-sm text-muted-foreground font-medium">Inscripción SENIAT para menores de edad</p>
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500 mt-1">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[11px] font-bold uppercase tracking-widest text-emerald-500 mt-1">
                             <ShieldCheck className="h-3 w-3" /> Trámite gratuito
                         </span>
                     </div>

@@ -63,7 +63,7 @@ export default function Consumo5GPage() {
                   <stat.icon className={cn("h-3 w-3", stat.color)} />
                 </div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -96,7 +96,7 @@ export default function Consumo5GPage() {
                       d.gb === maxDia ? "bg-primary" : "bg-primary/30"
                     )}
                   />
-                  <span className="text-[9px] font-semibold text-muted-foreground">{d.dia}</span>
+                  <span className="text-[11px] font-semibold text-muted-foreground">{d.dia}</span>
                 </div>
               ))}
             </div>
@@ -117,7 +117,7 @@ export default function Consumo5GPage() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-2xl font-black text-foreground">{pctUso.toFixed(0)}%</span>
+                <span className="text-2xl font-bold text-foreground">{pctUso.toFixed(0)}%</span>
                 <span className="text-[10px] text-muted-foreground">consumido</span>
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function Consumo5GPage() {
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-2">
                     <p className="text-xs font-bold text-foreground tabular-nums">{s.hora}</p>
-                    <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-emerald-500/20 bg-emerald-500/10 text-emerald-500">{s.tipo}</Badge>
+                    <Badge variant="outline" className="text-[11px] px-1.5 py-0 border-emerald-500/20 bg-emerald-500/10 text-emerald-500">{s.tipo}</Badge>
                   </div>
                   <p className="text-[10px] text-muted-foreground">{s.duracion} · {s.datos}</p>
                 </div>

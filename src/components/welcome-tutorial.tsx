@@ -259,7 +259,7 @@ export function WelcomeTutorial() {
           aria-hidden="true"
         />
         <DialogPrimitive.Content
-          className="fixed left-[50%] top-[50%] z-[60] grid w-[calc(100vw-2rem)] max-w-[700px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-2xl sm:rounded-[2rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200 max-h-[90vh] overflow-y-auto"
+          className="fixed left-[50%] top-[50%] z-[60] grid w-[calc(100vw-2rem)] max-w-[700px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/90 backdrop-blur-3xl rounded-2xl sm:rounded-xl shadow-lg animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200 max-h-[90vh] overflow-y-auto"
           onPointerDownOutside={() => {}}
           onInteractOutside={() => {}}
         >
@@ -281,14 +281,14 @@ export function WelcomeTutorial() {
           <div className="pt-6 sm:pt-8 pb-4 sm:pb-5 px-5 sm:px-8">
             <div className="flex items-center justify-between mb-4 sm:mb-5">
               <span className={cn(
-                  "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
+                  "inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider border",
                   step.bg, step.color, step.border
                 )}>
                   {step.tag}
               </span>
               <div className="flex items-center gap-2">
                 {isLastStep && <PartyPopper className="h-4 w-4 text-amber-400 animate-bounce" />}
-                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40">
                   {currentStep + 1} / {steps.length}
                 </span>
               </div>
@@ -326,10 +326,10 @@ export function WelcomeTutorial() {
                     <Icon className={cn("h-5 w-5 sm:h-7 sm:w-7", step.color)} />
                   </div>
                   <div className="space-y-0.5 sm:space-y-1 min-w-0">
-                    <h2 className="text-sm sm:text-xl font-black tracking-tight uppercase italic leading-tight">
+                    <h2 className="text-sm sm:text-xl font-bold tracking-tight uppercase italic leading-tight">
                       {step.title}
                     </h2>
-                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                    <p className="text-[11px] sm:text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40">
                       System Kyron
                     </p>
                   </div>
@@ -387,7 +387,7 @@ export function WelcomeTutorial() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="text-lg sm:text-2xl font-black uppercase tracking-widest text-foreground/80"
+                        className="text-lg sm:text-2xl font-semibold uppercase tracking-widest text-foreground/80"
                       >
                         ¡A explorar!
                       </motion.p>
@@ -445,7 +445,7 @@ export function WelcomeTutorial() {
                   </Button>
                   <Button
                     onClick={handleNext}
-                    className="btn-3d-primary rounded-xl px-4 sm:px-7 h-9 sm:h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                    className="btn-3d-primary rounded-xl px-4 sm:px-7 h-9 sm:h-11 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                   >
                     Siguiente <ChevronRight className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
                   </Button>
@@ -453,7 +453,7 @@ export function WelcomeTutorial() {
               ) : (
                 <Button
                   onClick={handleClose}
-                  className="btn-3d-primary rounded-xl px-5 sm:px-8 h-9 sm:h-11 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                  className="btn-3d-primary rounded-xl px-5 sm:px-8 h-9 sm:h-11 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                 >
                   Comenzar <CheckCircle2 className="ml-1 sm:ml-1.5 h-3.5 w-3.5" />
                 </Button>
@@ -464,7 +464,7 @@ export function WelcomeTutorial() {
           <div className="px-5 sm:px-8 pb-3 sm:pb-5 pt-0">
             <div className="flex items-center gap-2 pt-3 sm:pt-4 border-t border-border/30">
               <Logo className="h-3.5 w-3.5 opacity-30" />
-              <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/30 italic">
                 System Kyron • Venezuela
               </span>
             </div>

@@ -26,10 +26,10 @@ export default function MinisterioTransportePage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
                         <Truck className="h-3.5 w-3.5" /> Transporte
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Ministerio de <span className="text-primary">Transporte</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Permisología de Flota y Transporte Terrestre · INTT</p>

@@ -117,19 +117,19 @@ export default function EmailMarketingPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Mail className="h-3 w-3" /> EMAIL MARKETING
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Email <span className="text-primary italic">Marketing</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Campañas • Automatización • Listas • A/B Testing • Analítica
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+            <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
               <Plus className="h-4 w-4" /> NUEVA CAMPAÑA
             </Button>
           </DialogTrigger>
@@ -186,7 +186,7 @@ export default function EmailMarketingPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -197,7 +197,7 @@ export default function EmailMarketingPage() {
           {lists.map((lista, i) => (
             <Card key={i} className="p-4 rounded-xl">
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">{lista.nombre}</p>
-              <p className="text-lg font-black text-foreground">{lista.total.toLocaleString()}</p>
+              <p className="text-lg font-bold text-foreground">{lista.total.toLocaleString()}</p>
               <p className="text-[10px] text-emerald-500 font-medium">{lista.activos.toLocaleString()} activos</p>
             </Card>
           ))}
@@ -211,16 +211,16 @@ export default function EmailMarketingPage() {
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Mail className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">Error al cargar datos</p>
-          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar datos</p>
+          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             Reintentar
           </Button>
         </div>
       ) : campaigns.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Mail className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">No hay campañas de email</p>
-          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">No hay campañas de email</p>
+          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             <Plus className="h-3 w-3 mr-1" /> Crear primera campaña
           </Button>
         </div>
@@ -240,7 +240,7 @@ export default function EmailMarketingPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <p className="text-sm font-bold truncate">{camp.nombre}</p>
-                        <Badge className={cn("text-[8px] font-bold", est.badge)}>{est.label}</Badge>
+                        <Badge className={cn("text-[10px] font-bold", est.badge)}>{est.label}</Badge>
                       </div>
                       <p className="text-[10px] text-muted-foreground">{camp.fecha ?? "—"} • {camp.destinatarios.toLocaleString()} destinatarios</p>
                       {(camp.estado === "enviada" || camp.estado === "automatizada") && (
@@ -252,7 +252,7 @@ export default function EmailMarketingPage() {
                             { label: "Bajas", val: camp.bajas.toString() },
                           ].map((m, j) => (
                             <div key={j} className="text-center p-2 rounded-lg bg-muted/20">
-                              <p className="text-[9px] text-muted-foreground uppercase">{m.label}</p>
+                              <p className="text-[11px] text-muted-foreground uppercase">{m.label}</p>
                               <p className="text-xs font-bold">{m.val}</p>
                             </div>
                           ))}

@@ -130,36 +130,36 @@ export default function ProformasPage() {
         transition={{ duration: 0.5 }}
       >
         <div>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-violet-600 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[11px] font-semibold uppercase tracking-wide text-violet-600 mb-4">
             <Receipt className="h-3 w-3" /> CENTRO COMERCIAL
             <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
             Gestión de{' '}
             <span className="bg-gradient-to-r from-violet-500 via-purple-400 to-violet-500 bg-clip-text text-transparent italic">Proformas</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Cotizaciones y Presupuestos • Ciclo de Venta 2026</p>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Cotizaciones y Presupuestos • Ciclo de Venta 2026</p>
         </div>
         <div className="flex items-center gap-3">
           <CurrencySelector />
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="rounded-2xl h-12 px-8 font-black text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
+              <Button className="rounded-2xl h-12 px-8 font-semibold text-[10px] uppercase tracking-widest bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] transition-all hover:shadow-[0_12px_40px_-5px_rgba(139,92,246,0.5)] hover:-translate-y-0.5">
                 <PlusCircle className="mr-3 h-4 w-4" /> NUEVA PROFORMA
               </Button>
             </DialogTrigger>
             <DialogContent className="bg-card border-border rounded-2xl max-w-lg max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="text-lg font-black uppercase tracking-tight">Nueva Proforma</DialogTitle>
+                <DialogTitle className="text-lg font-semibold uppercase tracking-tight">Nueva Proforma</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">N° Proforma *</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">N° Proforma *</Label>
                     <Input placeholder="PRO-2026-001" value={form.numero_proforma} onChange={e => setForm(f => ({ ...f, numero_proforma: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Moneda</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Moneda</Label>
                     <Select value={form.moneda} onValueChange={v => setForm(f => ({ ...f, moneda: v }))}>
                       <SelectTrigger className="h-11 rounded-xl bg-muted/30 border-border"><SelectValue /></SelectTrigger>
                       <SelectContent>
@@ -171,26 +171,26 @@ export default function ProformasPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Subtotal *</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Subtotal *</Label>
                     <Input type="number" placeholder="0.00" value={form.subtotal} onChange={e => setForm(f => ({ ...f, subtotal: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">% IVA</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">% IVA</Label>
                     <Input type="number" value={form.porcentaje_iva} onChange={e => setForm(f => ({ ...f, porcentaje_iva: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Validez (días)</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Validez (días)</Label>
                     <Input type="number" value={form.validez_dias} onChange={e => setForm(f => ({ ...f, validez_dias: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Condiciones Pago</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Condiciones Pago</Label>
                     <Input placeholder="Ej: 50% anticipo" value={form.condiciones_pago} onChange={e => setForm(f => ({ ...f, condiciones_pago: e.target.value }))} className="h-11 rounded-xl bg-muted/30 border-border" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Descripción</Label>
+                  <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Descripción</Label>
                   <Textarea placeholder="Detalle de la cotización..." value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} className="rounded-xl bg-muted/30 border-border min-h-[80px]" />
                 </div>
                 {form.subtotal && (
@@ -201,12 +201,12 @@ export default function ProformasPage() {
                     <div className="flex justify-between text-[10px] font-bold text-muted-foreground mb-1">
                       <span>IVA ({form.porcentaje_iva}%)</span><span>{form.moneda === "USD" ? "$" : "Bs."} {(parseFloat(form.subtotal || "0") * parseFloat(form.porcentaje_iva || "0") / 100).toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-xs font-black text-violet-600 pt-2 border-t border-violet-500/10">
+                    <div className="flex justify-between text-xs font-bold text-violet-600 pt-2 border-t border-violet-500/10">
                       <span>TOTAL</span><span>{form.moneda === "USD" ? "$" : "Bs."} {(parseFloat(form.subtotal || "0") * (1 + parseFloat(form.porcentaje_iva || "0") / 100)).toFixed(2)}</span>
                     </div>
                   </div>
                 )}
-                <Button onClick={handleCreate} disabled={saving} className="w-full h-12 rounded-xl font-black uppercase text-[10px] tracking-widest bg-gradient-to-r from-violet-500 to-purple-600">
+                <Button onClick={handleCreate} disabled={saving} className="w-full h-12 rounded-xl font-semibold uppercase text-[10px] tracking-widest bg-gradient-to-r from-violet-500 to-purple-600">
                   {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <PlusCircle className="h-4 w-4 mr-2" />}
                   {saving ? "CREANDO..." : "CREAR PROFORMA"}
                 </Button>
@@ -231,7 +231,7 @@ export default function ProformasPage() {
           >
             <Card className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.02] transition-all duration-300">
               <div className="flex justify-between items-start mb-3">
-                <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
                 <div className={cn("p-2 rounded-xl border transition-transform group-hover:scale-110",
                   kpi.color === "text-violet-500" ? "bg-violet-500/10 border-violet-500/15" :
                   kpi.color === "text-emerald-500" ? "bg-emerald-500/10 border-emerald-500/15" :
@@ -241,7 +241,7 @@ export default function ProformasPage() {
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </div>
               </div>
-              <p className="text-2xl font-black text-foreground tracking-tight">{kpi.val}</p>
+              <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
               <p className="text-[10px] text-muted-foreground/50 font-bold mt-1">{kpi.change}</p>
             </Card>
           </motion.div>
@@ -261,7 +261,7 @@ export default function ProformasPage() {
                   <FileText className="h-4 w-4 text-violet-500" />
                 </div>
                 <div>
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Archivo de Cotizaciones</CardTitle>
+                  <CardTitle className="text-xs font-semibold uppercase tracking-wide">Archivo de Cotizaciones</CardTitle>
                   <p className="text-[10px] text-muted-foreground mt-0.5">Proformas con estado de seguimiento</p>
                 </div>
               </div>
@@ -278,19 +278,19 @@ export default function ProformasPage() {
             ) : proformas.length === 0 ? (
               <div className="text-center py-20 text-muted-foreground/40">
                 <Receipt className="h-10 w-10 mx-auto mb-4 opacity-30" />
-                <p className="text-[10px] font-black uppercase tracking-widest">Sin proformas registradas</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest">Sin proformas registradas</p>
               </div>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/10 border-none">
-                    <TableHead className="pl-6 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">N° Proforma</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Fecha</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Cliente</TableHead>
-                    <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Items</TableHead>
-                    <TableHead className="text-right py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Total</TableHead>
-                    <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
-                    <TableHead className="text-right pr-6 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Acción</TableHead>
+                    <TableHead className="pl-6 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">N° Proforma</TableHead>
+                    <TableHead className="py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Fecha</TableHead>
+                    <TableHead className="py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Cliente</TableHead>
+                    <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Items</TableHead>
+                    <TableHead className="text-right py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Total</TableHead>
+                    <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
+                    <TableHead className="text-right pr-6 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Acción</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -303,22 +303,22 @@ export default function ProformasPage() {
                       transition={{ delay: 0.05 * idx + 0.6 }}
                     >
                       <TableCell className="pl-6 py-5">
-                        <span className="font-mono text-[11px] font-black text-violet-500">{p.numero_proforma}</span>
+                        <span className="font-mono text-[11px] font-bold text-violet-500">{p.numero_proforma}</span>
                       </TableCell>
                       <TableCell className="py-5 text-[11px] font-bold text-muted-foreground">
                         {p.fecha_emision ? new Date(p.fecha_emision).toLocaleDateString("es-VE") : "—"}
                       </TableCell>
                       <TableCell className="py-5">
                         <p className="font-bold text-xs text-foreground">{p.cliente_nombre || "Sin cliente"}</p>
-                        <p className="text-[9px] text-muted-foreground/50">Validez: {p.validez_dias || 15} días</p>
+                        <p className="text-[11px] text-muted-foreground/50">Validez: {p.validez_dias || 15} días</p>
                       </TableCell>
                       <TableCell className="text-center py-5">
                         <span className="text-[10px] font-bold text-muted-foreground">{p.num_items}</span>
                       </TableCell>
-                      <TableCell className="text-right py-5 font-mono text-sm font-black text-foreground">{fmtCur(parseFloat(p.total || "0"))}</TableCell>
+                      <TableCell className="text-right py-5 font-mono text-sm font-bold text-foreground">{fmtCur(parseFloat(p.total || "0"))}</TableCell>
                       <TableCell className="text-center py-5">
                         <span className={cn(
-                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider border",
+                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider border",
                           statusConfig[p.estado]?.bgColor || "bg-muted/20 border-border/30",
                           statusConfig[p.estado]?.color || "text-muted-foreground"
                         )}>
@@ -332,19 +332,19 @@ export default function ProformasPage() {
                         {p.estado === "borrador" && (
                           <Button variant="ghost" size="sm" className="h-8 px-3 rounded-xl hover:bg-violet-500/10 hover:text-violet-500 transition-all" onClick={() => handleUpdateEstado(p.id, "enviada")}>
                             <Send className="h-3.5 w-3.5 mr-1.5" />
-                            <span className="text-[9px] font-bold uppercase">Enviar</span>
+                            <span className="text-[11px] font-bold uppercase">Enviar</span>
                           </Button>
                         )}
                         {p.estado === "enviada" && (
                           <Button variant="ghost" size="sm" className="h-8 px-3 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-500 transition-all" onClick={() => handleUpdateEstado(p.id, "aprobada")}>
                             <CheckCircle className="h-3.5 w-3.5 mr-1.5" />
-                            <span className="text-[9px] font-bold uppercase">Aprobar</span>
+                            <span className="text-[11px] font-bold uppercase">Aprobar</span>
                           </Button>
                         )}
                         {p.estado === "aprobada" && (
                           <Button variant="ghost" size="sm" className="h-8 px-3 rounded-xl hover:bg-violet-500/10 hover:text-violet-500 transition-all">
                             <Eye className="h-3.5 w-3.5 mr-1.5" />
-                            <span className="text-[9px] font-bold uppercase">Ver</span>
+                            <span className="text-[11px] font-bold uppercase">Ver</span>
                           </Button>
                         )}
                       </TableCell>

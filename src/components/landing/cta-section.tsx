@@ -9,7 +9,7 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
     loading: () => (
-        <div className="space-y-4 p-6 md:p-10 rounded-[2.5rem] md:rounded-[3rem] shadow-xl animate-pulse min-h-[500px] bg-card/50 border border-border/20" />
+        <div className="space-y-4 p-6 md:p-10 rounded-[2.5rem] md:rounded-2xl shadow-xl animate-pulse min-h-[500px] bg-card/50 border border-border/20" />
     ),
 });
 
@@ -39,10 +39,10 @@ export function CtaSection() {
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-black uppercase tracking-[0.35em] text-foreground/80 mx-auto lg:ml-0">
+                            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-semibold uppercase tracking-[0.35em] text-foreground/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> {t('badge')}
                             </div>
-                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight leading-[1.05] text-foreground uppercase">
+                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight leading-[1.05] text-foreground uppercase">
                                 {t('title_highlight')}{' '}
                                 <span className="liquid-glass-text italic">
                                     {t('title_rest')}

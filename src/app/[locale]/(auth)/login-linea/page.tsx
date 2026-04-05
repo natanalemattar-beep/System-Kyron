@@ -167,7 +167,7 @@ export default function LoginLineaUnifiedPage() {
         <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4" /> Volver</Link>
       </Button>
 
-      <div className="w-full max-w-5xl bg-card border border-border/40 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-5xl bg-card border border-border/40 rounded-3xl shadow-lg overflow-hidden">
         <div className="grid grid-cols-2 border-b border-border/40">
           {(Object.keys(ACCESS_TYPES) as AccessType[]).map((key) => {
             const opt = ACCESS_TYPES[key];
@@ -200,7 +200,7 @@ export default function LoginLineaUnifiedPage() {
                 <Icon className="h-8 w-8 text-white" />
               </div>
               <div className="space-y-2">
-                <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">{current.label}</h1>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">{current.label}</h1>
                 <p className="text-sm font-medium opacity-80 leading-relaxed max-w-xs">{current.description}</p>
               </div>
             </div>
@@ -220,7 +220,7 @@ export default function LoginLineaUnifiedPage() {
             {step === 'credentials' ? (
               <>
                 <div className="mb-8">
-                  <h2 className="text-xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+                  <h2 className="text-xl font-bold tracking-tight text-foreground">Iniciar Sesión</h2>
                   <p className="text-sm text-muted-foreground mt-1">Accede a tu portal {current.label}</p>
                 </div>
 
@@ -311,7 +311,7 @@ export default function LoginLineaUnifiedPage() {
                   <div className="mx-auto w-16 h-16 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-center mb-5">
                     <KeyRound className="h-7 w-7 text-blue-500" />
                   </div>
-                  <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
+                  <h2 className="text-xl font-bold tracking-tight text-foreground">Verificación</h2>
                   <p className="text-sm text-muted-foreground mt-2">
                     Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong>
                   </p>
@@ -338,7 +338,7 @@ export default function LoginLineaUnifiedPage() {
                       onChange={e => handleCodeChange(i, e.target.value)}
                       onKeyDown={e => handleCodeKeyDown(i, e)}
                       onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                      className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border/40 focus:border-blue-500")}
+                      className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-bold rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600" : "border-border/40 focus:border-blue-500")}
                       disabled={isLoading} autoComplete="one-time-code"
                     />
                   ))}
@@ -366,7 +366,7 @@ export default function LoginLineaUnifiedPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-[9px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.5 · Mi Línea 5G</p>
+      <p className="mt-8 text-[11px] text-muted-foreground/60 uppercase tracking-widest font-bold">System Kyron v2.8.5 · Mi Línea 5G</p>
     </div>
   );
 }

@@ -89,11 +89,11 @@ export function TransactionsTable({
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/30 border-none">
-                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
-                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
-                <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
-                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Categoría</TableHead>
-                <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Acciones</TableHead>
+                <TableHead className="text-[10px] font-semibold uppercase tracking-widest opacity-30">Fecha</TableHead>
+                <TableHead className="text-[10px] font-semibold uppercase tracking-widest opacity-30">Descripción</TableHead>
+                <TableHead className="text-right text-[10px] font-semibold uppercase tracking-widest opacity-30">Monto</TableHead>
+                <TableHead className="text-[10px] font-semibold uppercase tracking-widest opacity-30">Categoría</TableHead>
+                <TableHead className="text-right text-[10px] font-semibold uppercase tracking-widest opacity-30">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -114,27 +114,27 @@ export function TransactionsTable({
   }
 
   return (
-    <Card className="glass-card border-none bg-card/40 overflow-hidden shadow-2xl">
+    <Card className="glass-card border-none bg-card/40 overflow-hidden shadow-lg">
       <CardContent className="p-0">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/30 border-none">
-              <TableHead className="pl-8 text-[10px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
-              <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Categoría</TableHead>
-              <TableHead className="text-right pr-8 text-[10px] font-black uppercase tracking-widest opacity-30">Acciones</TableHead>
+              <TableHead className="pl-8 text-[10px] font-semibold uppercase tracking-widest opacity-30">Fecha</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest opacity-30">Descripción</TableHead>
+              <TableHead className="text-right text-[10px] font-semibold uppercase tracking-widest opacity-30">Monto</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest opacity-30">Categoría</TableHead>
+              <TableHead className="text-right pr-8 text-[10px] font-semibold uppercase tracking-widest opacity-30">Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {transactions.map((transaction) => (
               <TableRow key={transaction.id} className="border-border/50 hover:bg-muted/20 transition-all">
                 <TableCell className="pl-8 py-6 text-xs font-bold text-muted-foreground uppercase">{formatDate(transaction.date)}</TableCell>
-                <TableCell className="py-6 font-black uppercase text-xs italic text-white/80">
+                <TableCell className="py-6 font-semibold uppercase text-xs italic text-white/80">
                   {transaction.description}
                 </TableCell>
                 <TableCell
-                  className={`text-right py-6 font-mono text-sm font-black italic ${
+                  className={`text-right py-6 font-mono text-sm font-bold ${
                     transaction.amount > 0
                       ? "text-emerald-500"
                       : "text-rose-500"
@@ -166,7 +166,7 @@ export function TransactionsTable({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="rounded-xl h-10 px-4 hover:bg-primary/10 hover:text-primary transition-all font-black text-[9px] uppercase tracking-widest"
+                      className="rounded-xl h-10 px-4 hover:bg-primary/10 hover:text-primary transition-all font-bold text-[11px] uppercase tracking-widest"
                       onClick={() => handleAutoCategorize(transaction)}
                       disabled={categorizingId === transaction.id}
                     >

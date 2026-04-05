@@ -47,7 +47,7 @@ export function ServicesSection() {
                         <Zap className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight text-foreground uppercase leading-[1.05] mb-4">
+                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4">
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">
                             {t('title_rest')}
@@ -79,7 +79,7 @@ export function ServicesSection() {
                                             <meta.icon className="h-3.5 w-3.5" />
                                             {feat.subtitle}
                                         </div>
-                                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase text-foreground leading-[1.1]">
+                                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight uppercase text-foreground leading-[1.1]">
                                             {feat.title}
                                         </h3>
                                         <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed max-w-lg">
@@ -94,8 +94,8 @@ export function ServicesSection() {
                                         </div>
                                     </div>
                                     <div className={cn("relative", idx % 2 === 1 && "lg:order-1")}>
-                                        <div className={cn("absolute -inset-4 rounded-[2rem] blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
-                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-border/30 shadow-2xl bg-card/60 backdrop-blur-sm hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500">
+                                        <div className={cn("absolute -inset-4 rounded-xl blur-xl opacity-20", `bg-gradient-to-br ${meta.color}`)} />
+                                        <div className="relative rounded-[1.5rem] overflow-hidden border border-border/30 shadow-lg bg-card/60 backdrop-blur-sm hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500">
                                             <ThemeImage
                                                 darkSrc={meta.darkImage}
                                                 lightSrc={meta.lightImage}
@@ -127,7 +127,7 @@ export function ServicesSection() {
                             <Globe className="h-3.5 w-3.5" />
                             {t('platform_badge')}
                         </div>
-                        <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase text-foreground mb-3">
+                        <h3 className="text-2xl sm:text-3xl font-bold tracking-tight uppercase text-foreground mb-3">
                             {t('platform_title')} <span className="kyron-gradient-text italic">{t('platform_highlight')}</span>
                         </h3>
                         <p className="text-sm text-muted-foreground max-w-xl mx-auto font-medium">
@@ -146,7 +146,7 @@ export function ServicesSection() {
                                     <div className="flex items-center justify-center w-10 h-10 rounded-xl liquid-glass-subtle group-hover:scale-110 transition-transform duration-300">
                                         <stat.icon className={cn("h-4.5 w-4.5", stat.color)} />
                                     </div>
-                                    <div className={cn("text-lg sm:text-2xl font-black tracking-tight", stat.color)}>
+                                    <div className={cn("text-lg sm:text-2xl font-bold tracking-tight", stat.color)}>
                                         {stat.value}
                                     </div>
                                     <div className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-foreground/60 leading-tight">

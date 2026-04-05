@@ -104,7 +104,7 @@ export default function FacturasLineaPage() {
                   <stat.icon className={cn("h-3 w-3", stat.color)} />
                 </div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}

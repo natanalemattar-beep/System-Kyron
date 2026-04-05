@@ -107,10 +107,10 @@ export default function AportesParafiscalesPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
                         <Building2 className="h-3.5 w-3.5" /> Seguridad Social
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Aportes <span className="text-primary">Parafiscales</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">IVSS · FAOV · INCES · Paro Forzoso · LOPCYMAT</p>
@@ -149,11 +149,11 @@ export default function AportesParafiscalesPage() {
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30">
                                                         <span className="text-xs font-semibold text-muted-foreground">Patronal</span>
-                                                        <span className={cn("text-sm font-black", p.color)}>{p.rates.patronal}</span>
+                                                        <span className={cn("text-sm font-bold", p.color)}>{p.rates.patronal}</span>
                                                     </div>
                                                     <div className="flex justify-between items-center p-3 rounded-xl bg-muted/30">
                                                         <span className="text-xs font-semibold text-muted-foreground">Empleado</span>
-                                                        <span className={cn("text-sm font-black", p.color)}>{p.rates.empleado}</span>
+                                                        <span className={cn("text-sm font-bold", p.color)}>{p.rates.empleado}</span>
                                                     </div>
                                                     <div className="p-3 rounded-xl bg-muted/30">
                                                         <p className="text-[10px] font-bold text-muted-foreground/60 uppercase mb-1">Base de Cálculo</p>

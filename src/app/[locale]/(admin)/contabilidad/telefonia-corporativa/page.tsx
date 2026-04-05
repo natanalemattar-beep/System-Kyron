@@ -37,7 +37,7 @@ export default function TelefoniaCorporativaPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Phone className="h-8 w-8 text-indigo-500" />
             Telefonía Corporativa
           </h1>
@@ -84,7 +84,7 @@ export default function TelefoniaCorporativaPage() {
                     <TableCell className="text-right text-xs">{l.minutos} min</TableCell>
                     <TableCell className="text-xs">{l.plan}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={l.estado === "ACTIVA" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={l.estado === "ACTIVA" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {l.estado}
                       </Badge>
                     </TableCell>

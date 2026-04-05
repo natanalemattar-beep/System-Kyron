@@ -129,7 +129,7 @@ export default function LimitesCorporativosPage() {
                   <stat.icon className={cn("h-3 w-3", stat.color)} />
                 </div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -156,11 +156,11 @@ export default function LimitesCorporativosPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/10 border-none">
-                  <TableHead className="pl-5 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Titular / Número</TableHead>
-                  <TableHead className="py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Operadora</TableHead>
-                  <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Uso Actual</TableHead>
-                  <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Límite (GB)</TableHead>
-                  <TableHead className="text-center pr-5 py-4 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
+                  <TableHead className="pl-5 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Titular / Número</TableHead>
+                  <TableHead className="py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Operadora</TableHead>
+                  <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Uso Actual</TableHead>
+                  <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Límite (GB)</TableHead>
+                  <TableHead className="text-center pr-5 py-4 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Estado</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -172,7 +172,7 @@ export default function LimitesCorporativosPage() {
                     <TableRow key={l.id} className="border-border/20 hover:bg-muted/10 transition-all">
                       <TableCell className="pl-5 py-4">
                         <p className="font-bold text-xs text-foreground">{l.titular ?? 'Sin asignar'}</p>
-                        <p className="text-[9px] text-muted-foreground font-mono">{l.numero}</p>
+                        <p className="text-[11px] text-muted-foreground font-mono">{l.numero}</p>
                       </TableCell>
                       <TableCell className="text-xs text-muted-foreground">{l.operadora}</TableCell>
                       <TableCell className="text-center text-xs font-bold">
@@ -189,15 +189,15 @@ export default function LimitesCorporativosPage() {
                       </TableCell>
                       <TableCell className="text-center pr-5">
                         {excedido ? (
-                          <Badge className="text-[8px] font-bold bg-rose-500/10 text-rose-500 border-rose-500/20">
+                          <Badge className="text-[10px] font-bold bg-rose-500/10 text-rose-500 border-rose-500/20">
                             <AlertTriangle className="h-2.5 w-2.5 mr-1" /> EXCEDIDO
                           </Badge>
                         ) : l.activa ? (
-                          <Badge className="text-[8px] font-bold bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                          <Badge className="text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
                             <CircleCheck className="h-2.5 w-2.5 mr-1" /> NORMAL
                           </Badge>
                         ) : (
-                          <Badge variant="outline" className="text-[8px] font-bold">INACTIVA</Badge>
+                          <Badge variant="outline" className="text-[10px] font-bold">INACTIVA</Badge>
                         )}
                       </TableCell>
                     </TableRow>

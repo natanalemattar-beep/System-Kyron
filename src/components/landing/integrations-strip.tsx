@@ -90,7 +90,7 @@ export function IntegrationsStrip() {
                         <Shield className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-black tracking-tight text-foreground uppercase leading-[1.1] mb-4">
+                    <h2 className="text-[clamp(1.5rem,4vw,3rem)] font-bold tracking-tight text-foreground uppercase leading-[1.1] mb-4">
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
@@ -109,7 +109,7 @@ export function IntegrationsStrip() {
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.5, delay: catIdx * 0.1 }}
                         >
-                            <h3 className={cn("text-xs font-black uppercase tracking-wider", cat.color)}>
+                            <h3 className={cn("text-xs font-semibold uppercase tracking-wider", cat.color)}>
                                 {t(cat.titleKey)}
                             </h3>
                             <div className="grid grid-cols-2 gap-2">
@@ -121,7 +121,7 @@ export function IntegrationsStrip() {
                                         <div className={cn("p-1.5 rounded-lg bg-gradient-to-br to-transparent", cat.accent)}>
                                             <item.icon className={cn("h-3 w-3", cat.color)} />
                                         </div>
-                                        <span className="text-[9px] font-bold uppercase tracking-wide text-muted-foreground truncate">
+                                        <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground truncate">
                                             {item.name}
                                         </span>
                                     </div>

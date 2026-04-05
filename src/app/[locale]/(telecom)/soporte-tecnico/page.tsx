@@ -90,7 +90,7 @@ export default function SoporteTecnicoPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -169,10 +169,10 @@ export default function SoporteTecnicoPage() {
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-mono text-muted-foreground">{ticket.id}</span>
-                    <Badge variant="outline" className={cn("text-[8px] px-1.5", prioConf.bg, prioConf.color, prioConf.border)}>
+                    <Badge variant="outline" className={cn("text-[10px] px-1.5", prioConf.bg, prioConf.color, prioConf.border)}>
                       {prioConf.label}
                     </Badge>
-                    <Badge variant="outline" className={cn("text-[8px] px-1.5", estadoConf.bg, estadoConf.color, estadoConf.border)}>
+                    <Badge variant="outline" className={cn("text-[10px] px-1.5", estadoConf.bg, estadoConf.color, estadoConf.border)}>
                       {estadoConf.label}
                     </Badge>
                   </div>

@@ -204,7 +204,7 @@ export default function SeguridadCuentaPage() {
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm font-bold text-foreground">Nivel de Protección</p>
               <span className={cn(
-                "text-lg font-black",
+                "text-lg font-bold",
                 nivelSeguridad >= 80 ? "text-emerald-500" : nivelSeguridad >= 50 ? "text-amber-500" : "text-red-500"
               )}>{nivelSeguridad}%</span>
             </div>
@@ -252,7 +252,7 @@ export default function SeguridadCuentaPage() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[11px] font-bold text-foreground">{o.nombre}</p>
-                      <p className="text-[9px] text-muted-foreground/60">{o.descripcion}</p>
+                      <p className="text-[11px] text-muted-foreground/60">{o.descripcion}</p>
                     </div>
                   </div>
                   <Switch checked={opciones[o.id]} onCheckedChange={() => toggleOpcion(o.id)} />
@@ -294,7 +294,7 @@ export default function SeguridadCuentaPage() {
                           <p className="text-[11px] font-bold text-foreground">{s.dispositivo}</p>
                           {s.actual && <Badge className="text-[7px] bg-emerald-500 text-white border-0">Esta sesión</Badge>}
                         </div>
-                        <p className="text-[9px] text-muted-foreground/50">{s.ip} • {tiempoRelativo(s.creada)}</p>
+                        <p className="text-[11px] text-muted-foreground/50">{s.ip} • {tiempoRelativo(s.creada)}</p>
                       </div>
                       {!s.actual && (
                         <Badge variant="outline" className="text-[7px] text-muted-foreground/50 border-border/20">
@@ -332,10 +332,10 @@ export default function SeguridadCuentaPage() {
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-[10px] font-bold text-foreground">{h.accion}</p>
-                        <p className="text-[8px] text-muted-foreground/40">{h.ip}</p>
+                        <p className="text-[10px] text-muted-foreground/40">{h.ip}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="text-[8px] text-muted-foreground/30 block">{formatFecha(h.fecha)}</span>
+                        <span className="text-[10px] text-muted-foreground/30 block">{formatFecha(h.fecha)}</span>
                         {h.riesgo === 'high' && <Badge variant="outline" className="text-[6px] border-amber-500/30 text-amber-500 mt-0.5">Riesgo alto</Badge>}
                         {h.riesgo === 'critical' && <Badge variant="outline" className="text-[6px] border-red-500/30 text-red-500 mt-0.5">Crítico</Badge>}
                       </div>
@@ -390,7 +390,7 @@ export default function SeguridadCuentaPage() {
               <p className="text-sm font-bold text-foreground mb-4">Información de la Cuenta</p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Correo electrónico</p>
+                  <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Correo electrónico</p>
                   <p className="text-[12px] font-medium text-foreground flex items-center gap-1.5">
                     {datos.usuario.email}
                     {datos.usuario.emailVerificado ? (
@@ -401,7 +401,7 @@ export default function SeguridadCuentaPage() {
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Teléfono</p>
+                  <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Teléfono</p>
                   <p className="text-[12px] font-medium text-foreground flex items-center gap-1.5">
                     {datos.usuario.telefono || 'No registrado'}
                     {datos.usuario.telefono && datos.usuario.telefonoVerificado && (
@@ -410,11 +410,11 @@ export default function SeguridadCuentaPage() {
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Cuenta creada</p>
+                  <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Cuenta creada</p>
                   <p className="text-[12px] font-medium text-foreground">{formatFecha(datos.usuario.creado)}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-wider">Último inicio de sesión</p>
+                  <p className="text-[11px] font-bold text-muted-foreground/50 uppercase tracking-wider">Último inicio de sesión</p>
                   <p className="text-[12px] font-medium text-foreground">
                     {datos.usuario.ultimoLogin ? formatFecha(datos.usuario.ultimoLogin) : 'Esta sesión'}
                   </p>

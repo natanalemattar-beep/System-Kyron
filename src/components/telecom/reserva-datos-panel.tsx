@@ -91,19 +91,19 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
                 <Shield className="h-5 w-5 text-amber-500" />
               </div>
               <div>
-                <h2 className="text-lg font-black tracking-tight text-foreground uppercase">Reserva de Datos</h2>
-                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground mt-0.5">
+                <h2 className="text-lg font-bold tracking-tight text-foreground uppercase">Reserva de Datos</h2>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mt-0.5">
                   {tipo === 'personal' ? 'Datos de emergencia · Mi Línea' : 'Reserva corporativa · Flota'}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+              <Badge variant="outline" className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
                 <Wifi className="h-3 w-3 mr-1.5" />
                 {totalReservaMB} MB reservados
               </Badge>
               {lineasForzosas.length > 0 && (
-                <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider px-3 py-1.5 bg-amber-500/10 text-amber-500 border-amber-500/20">
+                <Badge variant="outline" className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 bg-amber-500/10 text-amber-500 border-amber-500/20">
                   <Zap className="h-3 w-3 mr-1.5" />
                   {lineasForzosas.length} forzosa{lineasForzosas.length > 1 ? 's' : ''}
                 </Badge>
@@ -162,36 +162,36 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
                       <div className="flex items-center gap-2">
                         <p className="text-xs font-bold text-foreground font-mono tracking-wide truncate">{linea.numero}</p>
                         {linea.modoForzoso && (
-                          <Badge className="text-[7px] font-black uppercase px-1.5 py-0 bg-amber-500/15 text-amber-500 border-amber-500/25 tracking-wider">
+                          <Badge className="text-[7px] font-semibold uppercase px-1.5 py-0 bg-amber-500/15 text-amber-500 border-amber-500/25 tracking-wider">
                             Forzoso
                           </Badge>
                         )}
                       </div>
-                      <p className="text-[9px] text-muted-foreground mt-0.5">{linea.plan}</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">{linea.plan}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4 sm:gap-6">
                     <div className="flex items-center gap-3">
                       <div className="text-center px-3">
-                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Reserva</p>
-                        <p className="text-sm font-black text-foreground mt-0.5">{linea.reservaMB} MB</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Reserva</p>
+                        <p className="text-sm font-bold text-foreground mt-0.5">{linea.reservaMB} MB</p>
                       </div>
 
                       <div className="h-8 w-px bg-border/50" />
 
                       <div className="text-center px-3">
-                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Uso</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Uso</p>
                         <div className="flex items-center gap-1.5 mt-0.5">
                           {linea.modoForzoso ? (
                             <>
                               <Globe className="h-3 w-3 text-amber-500" />
-                              <span className="text-[10px] font-black text-amber-500">General</span>
+                              <span className="text-[10px] font-bold text-amber-500">General</span>
                             </>
                           ) : (
                             <>
                               <AppWindow className="h-3 w-3 text-emerald-500" />
-                              <span className="text-[10px] font-black text-emerald-500">Solo App</span>
+                              <span className="text-[10px] font-bold text-emerald-500">Solo App</span>
                             </>
                           )}
                         </div>
@@ -200,9 +200,9 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
                       <div className="h-8 w-px bg-border/50" />
 
                       <div className="text-center px-3">
-                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Costo</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Costo</p>
                         <p className={cn(
-                          "text-sm font-black mt-0.5",
+                          "text-sm font-bold mt-0.5",
                           linea.modoForzoso ? "text-amber-500" : "text-emerald-500"
                         )}>
                           {linea.modoForzoso ? `$${linea.costoForzoso.toFixed(2)}` : 'Gratis'}
@@ -241,16 +241,16 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
           <div className="mt-4 p-3 rounded-xl bg-muted/20 border border-border/30">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Total Reservado</p>
-                <p className="text-sm font-black text-emerald-500 mt-1">{totalReservaMB} MB</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Total Reservado</p>
+                <p className="text-sm font-bold text-emerald-500 mt-1">{totalReservaMB} MB</p>
               </div>
               <div>
-                <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Líneas Forzosas</p>
-                <p className="text-sm font-black text-foreground mt-1">{lineasForzosas.length} / {lineas.length}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Líneas Forzosas</p>
+                <p className="text-sm font-bold text-foreground mt-1">{lineasForzosas.length} / {lineas.length}</p>
               </div>
               <div>
-                <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">Cargo Total</p>
-                <p className="text-sm font-black text-amber-500 mt-1">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Cargo Total</p>
+                <p className="text-sm font-bold text-amber-500 mt-1">
                   {costoForzadoTotal > 0 ? `$${costoForzadoTotal.toFixed(2)}` : '$0.00'}
                 </p>
               </div>
@@ -265,7 +265,7 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
             <div className="mx-auto h-14 w-14 rounded-2xl bg-amber-500/15 flex items-center justify-center mb-3">
               <TriangleAlert className="h-7 w-7 text-amber-500" />
             </div>
-            <DialogTitle className="text-center text-lg font-black tracking-tight">Activar Modo Forzoso</DialogTitle>
+            <DialogTitle className="text-center text-lg font-bold tracking-tight">Activar Modo Forzoso</DialogTitle>
             <DialogDescription className="text-center text-[13px] text-muted-foreground mt-2">
               Al activar el modo forzoso, los <strong className="text-foreground">{lineaConfirm?.reservaMB} MB</strong> de reserva
               dejan de ser gratuitos y se te cobra el paquete completo.
@@ -279,7 +279,7 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
               </div>
               <div className="flex items-center gap-1.5">
                 <DollarSign className="h-3.5 w-3.5 text-amber-500" />
-                <span className="text-sm font-black text-amber-500">${lineaConfirm?.costoForzoso.toFixed(2)}</span>
+                <span className="text-sm font-bold text-amber-500">${lineaConfirm?.costoForzoso.toFixed(2)}</span>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -313,7 +313,7 @@ export function ReservaDatosPanel({ tipo, lineas: initialLineas }: ReservaDatosP
             <div className="mx-auto h-14 w-14 rounded-2xl bg-emerald-500/15 flex items-center justify-center mb-3">
               <Shield className="h-7 w-7 text-emerald-500" />
             </div>
-            <DialogTitle className="text-center text-lg font-black tracking-tight">Desactivar Modo Forzoso</DialogTitle>
+            <DialogTitle className="text-center text-lg font-bold tracking-tight">Desactivar Modo Forzoso</DialogTitle>
             <DialogDescription className="text-center text-[13px] text-muted-foreground mt-2">
               La reserva volverá a ser gratuita y exclusiva para abrir System Kyron y recargar.
               Ya no podrás usarla para navegación general.

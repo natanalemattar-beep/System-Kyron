@@ -362,14 +362,14 @@ export default function RegisterSostenibilidadPage() {
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-2xl min-h-screen flex items-start justify-center pt-16">
-            <Card className="w-full border-none shadow-2xl bg-card/60 backdrop-blur-xl rounded-[2rem] overflow-hidden">
+            <Card className="w-full border-none shadow-lg bg-card/60 backdrop-blur-xl rounded-xl overflow-hidden">
                 <CardHeader className="p-8 border-b border-border/50 bg-muted/5">
                     <div className="flex items-center gap-4 mb-6">
                         <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
                             <Recycle className="h-6 w-6 text-emerald-500" />
                         </div>
                         <div>
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">
+                            <CardTitle className="text-sm font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
                                 Registro · Sostenibilidad
                             </CardTitle>
                             <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">
@@ -378,7 +378,7 @@ export default function RegisterSostenibilidadPage() {
                         </div>
                     </div>
                     <Progress value={progress} className="h-1 mb-4" />
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
                         Paso {step} de {TOTAL_STEPS}
                     </p>
                 </CardHeader>
@@ -388,7 +388,7 @@ export default function RegisterSostenibilidadPage() {
                         {step === 1 && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Razón Social / Nombre Organización *
                                     </Label>
                                     <Input
@@ -406,7 +406,7 @@ export default function RegisterSostenibilidadPage() {
                                     )}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         RIF *
                                     </Label>
                                     <Controller
@@ -428,7 +428,7 @@ export default function RegisterSostenibilidadPage() {
                                     )}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Teléfono *
                                     </Label>
                                     <Input
@@ -442,7 +442,7 @@ export default function RegisterSostenibilidadPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Estado *
                                     </Label>
                                     <Controller
@@ -476,7 +476,7 @@ export default function RegisterSostenibilidadPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Municipio *
                                     </Label>
                                     <Controller name="municipio_empresa" control={control} render={({ field }) => (
@@ -489,7 +489,7 @@ export default function RegisterSostenibilidadPage() {
                                     )} />
                                 </div>
                                 <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Dirección *
                                     </Label>
                                     <Input
@@ -506,11 +506,11 @@ export default function RegisterSostenibilidadPage() {
                         {step === 2 && (
                             <div className="space-y-4">
                                 <div className="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/10 mb-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-2">
+                                    <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-2">
                                         <Leaf className="h-3.5 w-3.5" /> Perfil
                                         Ambiental
                                     </p>
-                                    <p className="text-[9px] text-muted-foreground">
+                                    <p className="text-[11px] text-muted-foreground">
                                         Esta información configura los módulos
                                         de gestión de residuos, Eco-Créditos y
                                         la IA de clasificación Ameru.
@@ -518,7 +518,7 @@ export default function RegisterSostenibilidadPage() {
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Tipo de Residuos Principales *
                                         </Label>
                                         <Controller
@@ -561,7 +561,7 @@ export default function RegisterSostenibilidadPage() {
                                         )}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Capacidad Mensual (Toneladas) *
                                         </Label>
                                         <Input
@@ -585,7 +585,7 @@ export default function RegisterSostenibilidadPage() {
                                         )}
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Certificación Ambiental *
                                         </Label>
                                         <Controller
@@ -623,7 +623,7 @@ export default function RegisterSostenibilidadPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Área de Impacto *
                                         </Label>
                                         <Controller
@@ -661,7 +661,7 @@ export default function RegisterSostenibilidadPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Tecnología de Clasificación *
                                         </Label>
                                         <Controller
@@ -699,7 +699,7 @@ export default function RegisterSostenibilidadPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             Objetivo Eco-Créditos/Mes
                                         </Label>
                                         <Input
@@ -734,7 +734,7 @@ export default function RegisterSostenibilidadPage() {
                                     },
                                 ].map((f) => (
                                     <div key={f.id} className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                             {f.label}
                                         </Label>
                                         <Input
@@ -756,7 +756,7 @@ export default function RegisterSostenibilidadPage() {
                                     </div>
                                 ))}
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Cédula *
                                     </Label>
                                     <Controller
@@ -778,7 +778,7 @@ export default function RegisterSostenibilidadPage() {
                                     )}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Contraseña *
                                     </Label>
                                     <div className="relative">
@@ -816,7 +816,7 @@ export default function RegisterSostenibilidadPage() {
                                     )}
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">
                                         Confirmar Contraseña *
                                     </Label>
                                     <Input
@@ -863,7 +863,7 @@ export default function RegisterSostenibilidadPage() {
                                                             setVerifMethod(m)
                                                         }
                                                         className={cn(
-                                                            "p-4 rounded-xl border text-xs font-black uppercase tracking-widest transition-all",
+                                                            "p-4 rounded-xl border text-xs font-semibold uppercase tracking-widest transition-all",
                                                             verifMethod === m
                                                                 ? "border-emerald-500 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400"
                                                                 : "border-border text-muted-foreground",
@@ -897,7 +897,7 @@ export default function RegisterSostenibilidadPage() {
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
                                             <CheckCircle className="h-10 w-10 text-green-500" />
                                         </div>
-                                        <p className="font-black text-green-600 dark:text-green-400 uppercase tracking-widest text-xs">
+                                        <p className="font-bold text-green-600 dark:text-green-400 uppercase tracking-widest text-xs">
                                             Identidad Verificada
                                         </p>
                                     </div>
@@ -909,7 +909,7 @@ export default function RegisterSostenibilidadPage() {
                                         {devCode && (
                                             <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
                                                 <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                                                <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                                                <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
                                             </div>
                                         )}
                                         <Input
@@ -922,7 +922,7 @@ export default function RegisterSostenibilidadPage() {
                                                         .slice(0, 6),
                                                 )
                                             }
-                                            className="text-center text-2xl tracking-[0.5em] font-mono"
+                                            className="text-center text-2xl tracking-wider font-mono"
                                         />
                                         {verifLoading && (
                                             <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
@@ -962,7 +962,7 @@ export default function RegisterSostenibilidadPage() {
                                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-2">
                                     <CheckCircle className="h-12 w-12 text-green-500" />
                                 </div>
-                                <h2 className="text-2xl font-black uppercase italic tracking-tight">
+                                <h2 className="text-2xl font-semibold uppercase italic tracking-tight">
                                     ¡Perfil Ambiental Creado!
                                 </h2>
                                 <p className="text-muted-foreground text-sm">
@@ -974,7 +974,7 @@ export default function RegisterSostenibilidadPage() {
                                     .
                                 </p>
                                 <div className="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl text-left text-xs space-y-2">
-                                    <p className="font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+                                    <p className="font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
                                         Módulos habilitados:
                                     </p>
                                     {MODULES_SOSTENIBILIDAD.map((m) => (

@@ -321,7 +321,7 @@ function BrandingPanel() {
                             </div>
                         </div>
                         <div>
-                            <p className="text-sm font-bold text-white tracking-[0.2em]">SYSTEM KYRON</p>
+                            <p className="text-sm font-bold text-white tracking-wide">SYSTEM KYRON</p>
                             <p className="text-[10px] text-white/25 tracking-[0.15em] uppercase">Inteligencia Corporativa</p>
                         </div>
                     </motion.div>
@@ -333,7 +333,7 @@ function BrandingPanel() {
                     >
                         <div className="flex items-center gap-2 mb-5">
                             <div className="h-px flex-1 max-w-[40px] bg-gradient-to-r from-sky-500/50 to-transparent" />
-                            <span className="text-[10px] font-semibold text-sky-400/60 tracking-[0.2em] uppercase">Crear Cuenta</span>
+                            <span className="text-[10px] font-semibold text-sky-400/60 tracking-wide uppercase">Crear Cuenta</span>
                         </div>
                         <h2 className="text-3xl xl:text-[2.5rem] font-bold text-white leading-[1.15] mb-5">
                             Tu ecosistema{" "}
@@ -371,7 +371,7 @@ function BrandingPanel() {
                                     </div>
                                     <div className="min-w-0">
                                         <span className="text-[11px] font-medium text-white/50 group-hover:text-white/70 transition-colors block truncate">{feat.label}</span>
-                                        <span className="text-[9px] text-white/20 block truncate">{feat.desc}</span>
+                                        <span className="text-[11px] text-white/20 block truncate">{feat.desc}</span>
                                     </div>
                                 </motion.div>
                             );
@@ -392,7 +392,7 @@ function BrandingPanel() {
                         ].map(b => (
                             <div key={b.label} className="flex items-center gap-1.5">
                                 <b.icon className={cn("h-3 w-3", b.color)} />
-                                <span className="text-[9px] text-white/20 tracking-wider font-medium">{b.label}</span>
+                                <span className="text-[11px] text-white/20 tracking-wider font-medium">{b.label}</span>
                             </div>
                         ))}
                     </motion.div>
@@ -693,7 +693,7 @@ export default function RegisterSelectionPage() {
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                 className="text-center mb-8"
                             >
-                                <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1]">
+                                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
                                     <span className="bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                         Crear Cuenta
                                     </span>
@@ -919,7 +919,7 @@ export default function RegisterSelectionPage() {
                                                         </div>
                                                         {rifLookup.statusFiscal && (
                                                             <span className={cn(
-                                                                "text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0",
+                                                                "text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0",
                                                                 rifLookup.statusFiscal === 'ACTIVO' ? "text-emerald-400 bg-emerald-500/10 ring-1 ring-emerald-500/10" : "text-amber-400 bg-amber-500/10 ring-1 ring-amber-500/10"
                                                             )}>
                                                                 {rifLookup.statusFiscal}
@@ -1017,7 +1017,7 @@ export default function RegisterSelectionPage() {
                                                         </div>
                                                         {cedulaLookup.estatus && (
                                                             <span className={cn(
-                                                                "text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0 ring-1",
+                                                                "text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shrink-0 ring-1",
                                                                 cedulaLookup.estatus === 'VIGENTE' ? "text-emerald-400 bg-emerald-500/10 ring-emerald-500/10" : "text-amber-400 bg-amber-500/10 ring-amber-500/10"
                                                             )}>
                                                                 {cedulaLookup.estatus}
@@ -1108,17 +1108,17 @@ export default function RegisterSelectionPage() {
                                         <div className="flex items-center justify-center gap-3 pt-3">
                                             <div className="flex items-center gap-1.5">
                                                 <ShieldCheck className="h-3 w-3 text-slate-300 dark:text-slate-500" />
-                                                <p className="text-[9px] text-slate-400 tracking-wider font-medium">AES-256</p>
+                                                <p className="text-[11px] text-slate-400 tracking-wider font-medium">AES-256</p>
                                             </div>
                                             <div className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
                                             <div className="flex items-center gap-1.5">
                                                 <Hexagon className="h-3 w-3 text-slate-300 dark:text-slate-500" />
-                                                <p className="text-[9px] text-slate-400 tracking-wider font-medium">SAIME</p>
+                                                <p className="text-[11px] text-slate-400 tracking-wider font-medium">SAIME</p>
                                             </div>
                                             <div className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
                                             <div className="flex items-center gap-1.5">
                                                 <CircuitBoard className="h-3 w-3 text-slate-300 dark:text-slate-500" />
-                                                <p className="text-[9px] text-slate-400 tracking-wider font-medium">SENIAT</p>
+                                                <p className="text-[11px] text-slate-400 tracking-wider font-medium">SENIAT</p>
                                             </div>
                                         </div>
                                     </motion.div>
@@ -1149,7 +1149,7 @@ export default function RegisterSelectionPage() {
                                                         <p className="text-[10px] text-slate-400 truncate">{rifLookup.razonSocial}</p>
                                                     )}
                                                 </div>
-                                                <span className={cn("text-[8px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md shrink-0 ring-1 ring-slate-200 dark:ring-slate-700", currentPrefix.bg, currentPrefix.color)}>
+                                                <span className={cn("text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md shrink-0 ring-1 ring-slate-200 dark:ring-slate-700", currentPrefix.bg, currentPrefix.color)}>
                                                     {currentPrefix.desc}
                                                 </span>
                                             </div>

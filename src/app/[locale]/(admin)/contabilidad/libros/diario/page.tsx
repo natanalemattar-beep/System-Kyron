@@ -65,10 +65,10 @@ export default function LibroDiarioPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <BookOpen className="h-3.5 w-3.5" /> Libro Obligatorio · Art. 32 C. Comercio
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Libro <span className="text-primary">Diario</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registro cronológico de operaciones · Partida doble · VEN-NIF</p>
@@ -86,28 +86,28 @@ export default function LibroDiarioPage() {
               <span className="text-xs font-semibold text-muted-foreground">Total Asientos</span>
               <FileText className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black">{rows.length}</p>
+            <p className="text-2xl font-bold">{rows.length}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Total Debe</span>
               <TrendingDown className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black text-rose-500">{formatCurrency(totals.debe, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-rose-500">{formatCurrency(totals.debe, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Total Haber</span>
               <TrendingUp className="h-4 w-4 text-emerald-500" />
             </div>
-            <p className="text-2xl font-black text-emerald-500">{formatCurrency(totals.haber, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-emerald-500">{formatCurrency(totals.haber, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Balance</span>
               <Scale className="h-4 w-4 text-primary" />
             </div>
-            <p className={cn("text-2xl font-black", totals.balance >= 0 ? "text-emerald-500" : "text-rose-500")}>
+            <p className={cn("text-2xl font-bold", totals.balance >= 0 ? "text-emerald-500" : "text-rose-500")}>
               {formatCurrency(Math.abs(totals.balance), 'Bs.')}
             </p>
           </Card>

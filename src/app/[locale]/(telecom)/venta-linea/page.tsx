@@ -50,7 +50,7 @@ export default function VentaLineaPage() {
     return (
         <div className="space-y-8 w-full px-4 md:px-10 pb-20">
             <header className="mb-8 border-l-4 border-primary pl-6 md:pl-8 py-2">
-                <h1 className="text-2xl md:text-4xl font-black tracking-tight flex items-center gap-3 italic text-foreground uppercase">
+                <h1 className="text-2xl md:text-4xl font-bold tracking-tight flex items-center gap-3 italic text-foreground uppercase">
                     <Radio className="h-8 w-8 text-primary" />
                     Activación de Líneas Kyron
                 </h1>
@@ -62,28 +62,28 @@ export default function VentaLineaPage() {
             <form onSubmit={handleActivate} className="w-full">
                 <div className="grid lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
-                        <Card className="bg-white/[0.02] border-white/5 rounded-[2rem] shadow-sm overflow-hidden">
+                        <Card className="bg-white/[0.02] border-white/5 rounded-xl shadow-sm overflow-hidden">
                             <CardHeader className="p-6 md:p-8 pb-4 bg-white/[0.01]">
-                                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Registro de Titular</CardTitle>
+                                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Registro de Titular</CardTitle>
                             </CardHeader>
                             <CardContent className="p-6 md:p-8 pt-6 space-y-6">
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-3">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Nombre Completo</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Nombre Completo</Label>
                                         <Input placeholder="Ej: Juan Pérez" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                     <div className="space-y-3">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Identificación (V/E/J)</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Identificación (V/E/J)</Label>
                                         <Input placeholder="Número de Documento" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                      <div className="space-y-3">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Email para Activación</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Email para Activación</Label>
                                         <Input type="email" placeholder="cliente@kyron.com" required className="h-11 rounded-xl bg-white/[0.03] border-white/10 focus-visible:ring-primary text-xs text-white" />
                                     </div>
                                     <div className="space-y-3">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Número a Asignar</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Número a Asignar</Label>
                                         <div className="flex gap-2">
                                             <Input placeholder="Asignación Automática" className="h-11 rounded-xl bg-white/[0.03] border-white/10 text-xs text-white" readOnly />
                                             <Button type="button" variant="outline" className="h-11 w-11 p-0 rounded-xl border-white/10 hover:bg-white/5"><Search className="h-4 w-4"/></Button>
@@ -94,14 +94,14 @@ export default function VentaLineaPage() {
                         </Card>
 
                         <div className="space-y-4">
-                            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-foreground/40 pl-4 italic">Medio de Conexión</h3>
+                            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/40 pl-4 italic">Medio de Conexión</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {simTypes.map(sim => (
                                     <Card 
                                         key={sim.id}
                                         onClick={() => setSelectedSim(selectedSim?.id === sim.id ? null : sim)}
                                         className={cn(
-                                            "cursor-pointer transition-all duration-500 rounded-[2rem] overflow-hidden group border-2 bg-white/[0.02]",
+                                            "cursor-pointer transition-all duration-500 rounded-xl overflow-hidden group border-2 bg-white/[0.02]",
                                             selectedSim?.id === sim.id ? "border-primary shadow-xl ring-4 ring-primary/5" : "border-white/5 hover:border-primary/20"
                                         )}
                                     >
@@ -110,9 +110,9 @@ export default function VentaLineaPage() {
                                                 <Image src={sim.image} alt={sim.name} fill className="object-cover group-hover:scale-110 transition-transform duration-1000" />
                                             </div>
                                             <div>
-                                                <h4 className="font-black text-sm uppercase tracking-tight text-white">{sim.name}</h4>
-                                                <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1 opacity-50">{sim.description}</p>
-                                                <p className="text-primary font-black text-lg mt-2 italic">{formatCurrency(sim.price, 'USD')}</p>
+                                                <h4 className="font-semibold text-sm uppercase tracking-tight text-white">{sim.name}</h4>
+                                                <p className="text-[11px] text-muted-foreground font-bold uppercase mt-1 opacity-50">{sim.description}</p>
+                                                <p className="text-primary font-bold text-lg mt-2 italic">{formatCurrency(sim.price, 'USD')}</p>
                                             </div>
                                         </CardContent>
                                     </Card>
@@ -122,9 +122,9 @@ export default function VentaLineaPage() {
                     </div>
 
                     <div className="lg:col-span-1">
-                        <Card className="bg-white/[0.02] border-white/5 rounded-[2rem] shadow-xl sticky top-24">
+                        <Card className="bg-white/[0.02] border-white/5 rounded-xl shadow-xl sticky top-24">
                             <CardHeader className="p-6 md:p-8 pb-4">
-                                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary">Resumen</CardTitle>
+                                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary">Resumen</CardTitle>
                             </CardHeader>
                             <CardContent className="p-6 md:p-8 pt-0 space-y-4">
                                 <div className="space-y-2">
@@ -138,10 +138,10 @@ export default function VentaLineaPage() {
                                             )}
                                         >
                                             <div className="flex-1">
-                                                <p className="font-black text-[10px] uppercase tracking-tight text-white/90">{plan.nombre}</p>
-                                                <p className="text-[8px] text-muted-foreground font-bold uppercase opacity-40">{plan.descripcion}</p>
+                                                <p className="font-semibold text-[10px] uppercase tracking-tight text-white/90">{plan.nombre}</p>
+                                                <p className="text-[10px] text-muted-foreground font-bold uppercase opacity-40">{plan.descripcion}</p>
                                             </div>
-                                            <p className="font-black text-primary italic text-xs">{formatCurrency(plan.precio, 'USD')}</p>
+                                            <p className="font-bold text-primary italic text-xs">{formatCurrency(plan.precio, 'USD')}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -149,10 +149,10 @@ export default function VentaLineaPage() {
                                 <Separator className="my-6 border-white/5" />
                                 
                                 <div className="space-y-4">
-                                    <div className="space-y-2 text-[10px] font-black uppercase tracking-widest text-white/30">
+                                    <div className="space-y-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
                                         {selectedPlan && <div className="flex justify-between"><span>Mensualidad:</span><span className="text-white/60">{formatCurrency(selectedPlan.precio, 'USD')}</span></div>}
                                         {selectedSim && <div className="flex justify-between"><span>Costo SIM:</span><span className="text-white/60">{formatCurrency(selectedSim.price, 'USD')}</span></div>}
-                                        <div className="flex justify-between text-base font-black pt-4 border-t border-white/5 text-primary italic">
+                                        <div className="flex justify-between text-base font-bold pt-4 border-t border-white/5 text-primary italic">
                                             <span>Total:</span>
                                             <span>{formatCurrency(totalPrice, 'USD')}</span>
                                         </div>
@@ -160,7 +160,7 @@ export default function VentaLineaPage() {
                                 </div>
                             </CardContent>
                             <CardFooter className="p-6 md:p-8 pt-0">
-                                <Button className="w-full text-[10px] font-black h-12 rounded-xl shadow-xl btn-3d-primary" type="submit" disabled={!selectedPlan || !selectedSim}>
+                                <Button className="w-full text-[10px] font-bold h-12 rounded-xl shadow-xl btn-3d-primary" type="submit" disabled={!selectedPlan || !selectedSim}>
                                     <Zap className="mr-2 h-4 w-4"/>
                                     ACTIVAR LÍNEA
                                 </Button>

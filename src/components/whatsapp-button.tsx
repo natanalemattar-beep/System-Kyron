@@ -114,7 +114,7 @@ export function WhatsAppButton() {
               initial={{ width: 'auto', opacity: 1 }}
               exit={{ width: 0, opacity: 0, marginLeft: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[12px] font-black uppercase tracking-widest whitespace-nowrap overflow-hidden"
+              className="text-[12px] font-semibold uppercase tracking-widest whitespace-nowrap overflow-hidden"
             >
               Escríbenos
             </motion.span>

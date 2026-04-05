@@ -243,11 +243,11 @@ export default function BienestarLaboralPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-rose-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] font-semibold uppercase tracking-wider text-rose-500 shadow-glow mb-4">
             <Heart className="h-3 w-3" /> BIENESTAR INTEGRAL
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Bienestar <span className="text-rose-500 italic">Laboral</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Motivación • Vacaciones • Alianzas Vacacionales 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Bienestar <span className="text-rose-500 italic">Laboral</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Motivación • Vacaciones • Alianzas Vacacionales 2026</p>
         </div>
       </header>
 
@@ -262,10 +262,10 @@ export default function BienestarLaboralPage() {
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
             <Card className="glass-card border-none bg-card/40 p-6 rounded-[2.5rem] shadow-xl group hover:bg-rose-500/5 transition-all">
               <div className="flex justify-between items-center mb-4">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
                 <m.icon className={cn("h-4 w-4", m.color)} />
               </div>
-              <p className="text-3xl font-black text-foreground tracking-tight leading-none">{m.val}</p>
+              <p className="text-3xl font-bold text-foreground tracking-tight leading-none">{m.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -273,31 +273,31 @@ export default function BienestarLaboralPage() {
 
       <Tabs defaultValue="motivacion" className="space-y-8">
         <TabsList className="bg-card/40 rounded-xl p-1 border border-border/30 flex-wrap h-auto">
-          <TabsTrigger value="motivacion" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="motivacion" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Trophy className="h-3 w-3" /> Sistema Motivacional
           </TabsTrigger>
-          <TabsTrigger value="vacaciones" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="vacaciones" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Palmtree className="h-3 w-3" /> Planes Vacacionales
           </TabsTrigger>
-          <TabsTrigger value="alianzas" className="rounded-lg text-[10px] font-black uppercase tracking-widest gap-2">
+          <TabsTrigger value="alianzas" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Building2 className="h-3 w-3" /> Alianzas Resort
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="motivacion" className="space-y-10">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Programas de Motivación</h2>
-            <Button onClick={() => setShowProgramaDialog(true)} className="bg-rose-500 hover:bg-rose-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 px-8">
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Programas de Motivación</h2>
+            <Button onClick={() => setShowProgramaDialog(true)} className="bg-rose-500 hover:bg-rose-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-10 px-8">
               <Plus className="mr-2 h-4 w-4" /> Nuevo Programa
             </Button>
           </div>
 
           {programas.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <PartyPopper className="h-16 w-16 mx-auto text-rose-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin programas activos</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin programas activos</h3>
               <p className="text-muted-foreground text-sm mt-2">Crea tu primer programa motivacional para impulsar el equipo</p>
-              <Button onClick={() => setShowProgramaDialog(true)} className="mt-8 bg-rose-500 hover:bg-rose-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+              <Button onClick={() => setShowProgramaDialog(true)} className="mt-8 bg-rose-500 hover:bg-rose-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
                 <Plus className="mr-2 h-4 w-4" /> Crear Programa
               </Button>
             </Card>
@@ -307,7 +307,7 @@ export default function BienestarLaboralPage() {
                 const catInfo = CATEGORIAS_PROGRAMA.find(c => c.value === prog.categoria) || CATEGORIAS_PROGRAMA[0];
                 return (
                   <motion.div key={prog.id} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }}>
-                    <Card className="glass-card border-none bg-card/40 rounded-[2rem] shadow-xl overflow-hidden hover:shadow-2xl transition-all group">
+                    <Card className="glass-card border-none bg-card/40 rounded-xl shadow-xl overflow-hidden hover:shadow-lg transition-all group">
                       <div className="h-2 bg-gradient-to-r from-rose-500 to-amber-500" />
                       <CardContent className="p-6 space-y-4">
                         <div className="flex items-start justify-between">
@@ -316,23 +316,23 @@ export default function BienestarLaboralPage() {
                               <catInfo.icon className={cn("h-5 w-5", catInfo.color)} />
                             </div>
                             <div>
-                              <h3 className="font-black text-sm text-foreground">{prog.nombre}</h3>
-                              <Badge variant="outline" className="text-[7px] font-black uppercase mt-1">{catInfo.label}</Badge>
+                              <h3 className="font-semibold text-sm text-foreground">{prog.nombre}</h3>
+                              <Badge variant="outline" className="text-[7px] font-semibold uppercase mt-1">{catInfo.label}</Badge>
                             </div>
                           </div>
-                          <Badge className={cn("text-[7px] font-black", prog.activo ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400")}>
+                          <Badge className={cn("text-[7px] font-bold", prog.activo ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400")}>
                             {prog.activo ? "Activo" : "Inactivo"}
                           </Badge>
                         </div>
                         {prog.descripcion && <p className="text-xs text-muted-foreground line-clamp-2">{prog.descripcion}</p>}
                         <div className="grid grid-cols-2 gap-4 pt-2 border-t border-border/30">
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Puntos Reward</p>
-                            <p className="text-lg font-black text-foreground">{prog.puntos_reward}</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Puntos Reward</p>
+                            <p className="text-lg font-bold text-foreground">{prog.puntos_reward}</p>
                           </div>
                           <div>
-                            <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Participantes</p>
-                            <p className="text-lg font-black text-foreground">{prog.participantes}</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Participantes</p>
+                            <p className="text-lg font-bold text-foreground">{prog.participantes}</p>
                           </div>
                         </div>
                       </CardContent>
@@ -345,7 +345,7 @@ export default function BienestarLaboralPage() {
 
           {reconocimientos.length > 0 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Reconocimientos Recientes</h2>
+              <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Reconocimientos Recientes</h2>
               <div className="space-y-3">
                 {reconocimientos.slice(0, 10).map((r, i) => (
                   <motion.div key={r.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
@@ -357,13 +357,13 @@ export default function BienestarLaboralPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
                             <h4 className="font-bold text-sm text-foreground">{r.titulo}</h4>
-                            <Badge variant="outline" className="text-[7px] font-black">{TIPOS_RECONOCIMIENTO.find(t => t.value === r.tipo)?.label || r.tipo}</Badge>
+                            <Badge variant="outline" className="text-[7px] font-bold">{TIPOS_RECONOCIMIENTO.find(t => t.value === r.tipo)?.label || r.tipo}</Badge>
                           </div>
                           <p className="text-xs text-muted-foreground">{r.empleado_nombre} — {r.departamento}</p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="text-lg font-black text-amber-500">+{r.puntos}</p>
-                          <p className="text-[9px] text-muted-foreground font-bold">{new Date(r.fecha).toLocaleDateString("es-VE")}</p>
+                          <p className="text-lg font-bold text-amber-500">+{r.puntos}</p>
+                          <p className="text-[11px] text-muted-foreground font-bold">{new Date(r.fecha).toLocaleDateString("es-VE")}</p>
                         </div>
                       </div>
                     </Card>
@@ -376,13 +376,13 @@ export default function BienestarLaboralPage() {
 
         <TabsContent value="vacaciones" className="space-y-10">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Planes Vacacionales</h2>
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Planes Vacacionales</h2>
           </div>
 
           {planes.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <Sun className="h-16 w-16 mx-auto text-amber-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin planes registrados</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin planes registrados</h3>
               <p className="text-muted-foreground text-sm mt-2 max-w-md mx-auto">Los planes vacacionales de los empleados aparecerán aquí. Programa descanso para tu equipo y vincula con alianzas de resorts.</p>
             </Card>
           ) : (
@@ -399,27 +399,27 @@ export default function BienestarLaboralPage() {
                               <Palmtree className="h-6 w-6 text-emerald-500" />
                             </div>
                             <div>
-                              <h3 className="font-black text-sm text-foreground">{plan.empleado_nombre}</h3>
+                              <h3 className="font-semibold text-sm text-foreground">{plan.empleado_nombre}</h3>
                               <p className="text-xs text-muted-foreground">{plan.destino || plan.resort_nombre || "Sin destino"} — {plan.dias_solicitados} días</p>
                               <div className="flex gap-2 mt-1">
-                                <Badge className={cn("text-[7px] font-black border", estadoInfo.color)}>{estadoInfo.label}</Badge>
-                                {plan.incluye_familia && <Badge variant="outline" className="text-[7px] font-black text-rose-400">Familiar ({plan.num_familiares})</Badge>}
+                                <Badge className={cn("text-[7px] font-bold border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                                {plan.incluye_familia && <Badge variant="outline" className="text-[7px] font-bold text-rose-400">Familiar ({plan.num_familiares})</Badge>}
                               </div>
                             </div>
                           </div>
                           <div className="flex items-center gap-6 shrink-0">
                             <div className="text-center">
-                              <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Salida</p>
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Salida</p>
                               <p className="text-xs font-bold text-foreground">{new Date(plan.fecha_salida).toLocaleDateString("es-VE")}</p>
                             </div>
                             <div className="text-center">
-                              <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Retorno</p>
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Retorno</p>
                               <p className="text-xs font-bold text-foreground">{new Date(plan.fecha_retorno).toLocaleDateString("es-VE")}</p>
                             </div>
                             {parseFloat(plan.subsidio_empresa) > 0 && (
                               <div className="text-center">
-                                <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Subsidio</p>
-                                <p className="text-xs font-black text-emerald-500">${parseFloat(plan.subsidio_empresa).toFixed(2)}</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Subsidio</p>
+                                <p className="text-xs font-bold text-emerald-500">${parseFloat(plan.subsidio_empresa).toFixed(2)}</p>
                               </div>
                             )}
                           </div>
@@ -432,28 +432,28 @@ export default function BienestarLaboralPage() {
             </div>
           )}
 
-          <Card className="glass-card border-none rounded-[3rem] bg-gradient-to-br from-emerald-500/10 to-blue-500/10 p-10 shadow-2xl">
+          <Card className="glass-card border-none rounded-2xl bg-gradient-to-br from-emerald-500/10 to-blue-500/10 p-10 shadow-lg">
             <div className="flex items-start gap-6">
               <div className="h-14 w-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center shrink-0">
                 <Calendar className="h-7 w-7 text-emerald-500" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-lg font-black text-foreground uppercase tracking-wider">Política Vacacional LOTTT</h3>
+                <h3 className="text-lg font-bold text-foreground uppercase tracking-wider">Política Vacacional LOTTT</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Conforme al Art. 190 de la LOTTT, todo trabajador tiene derecho a 15 días hábiles de vacaciones anuales, más 1 día adicional por cada año de servicio (hasta 15 días extra). El bono vacacional es de 15 días de salario, más 1 día adicional por año.
                 </p>
                 <div className="grid grid-cols-3 gap-6 pt-4">
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">Mínimo Legal</p>
-                    <p className="text-2xl font-black text-foreground">15 días</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">Mínimo Legal</p>
+                    <p className="text-2xl font-bold text-foreground">15 días</p>
                   </div>
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">Máximo (15+ años)</p>
-                    <p className="text-2xl font-black text-foreground">30 días</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">Máximo (15+ años)</p>
+                    <p className="text-2xl font-bold text-foreground">30 días</p>
                   </div>
                   <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">Bono Base</p>
-                    <p className="text-2xl font-black text-foreground">15 días</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">Bono Base</p>
+                    <p className="text-2xl font-bold text-foreground">15 días</p>
                   </div>
                 </div>
               </div>
@@ -463,18 +463,18 @@ export default function BienestarLaboralPage() {
 
         <TabsContent value="alianzas" className="space-y-10">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-black uppercase tracking-wider text-foreground">Alianzas con Complejos Vacacionales</h2>
-            <Button onClick={() => setShowAlianzaDialog(true)} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 px-8">
+            <h2 className="text-xl font-semibold uppercase tracking-wider text-foreground">Alianzas con Complejos Vacacionales</h2>
+            <Button onClick={() => setShowAlianzaDialog(true)} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-10 px-8">
               <Plus className="mr-2 h-4 w-4" /> Nueva Alianza
             </Button>
           </div>
 
           {alianzas.length === 0 ? (
-            <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+            <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
               <Building2 className="h-16 w-16 mx-auto text-blue-500/30 mb-6" />
-              <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin alianzas registradas</h3>
+              <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin alianzas registradas</h3>
               <p className="text-muted-foreground text-sm mt-2 max-w-md mx-auto">Registra convenios con resorts, hoteles y posadas para ofrecer descanso de calidad a tus empleados y sus familias</p>
-              <Button onClick={() => setShowAlianzaDialog(true)} className="mt-8 bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+              <Button onClick={() => setShowAlianzaDialog(true)} className="mt-8 bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
                 <Plus className="mr-2 h-4 w-4" /> Registrar Alianza
               </Button>
             </Card>
@@ -482,7 +482,7 @@ export default function BienestarLaboralPage() {
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {alianzas.map((a, i) => (
                 <motion.div key={a.id} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}>
-                  <Card className="glass-card border-none bg-card/40 rounded-[2rem] shadow-xl overflow-hidden hover:shadow-2xl transition-all group">
+                  <Card className="glass-card border-none bg-card/40 rounded-xl shadow-xl overflow-hidden hover:shadow-lg transition-all group">
                     <div className="h-40 bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-emerald-500/20 relative flex items-center justify-center">
                       <Palmtree className="h-20 w-20 text-blue-500/20" />
                       <div className="absolute top-4 right-4 flex gap-1">
@@ -492,14 +492,14 @@ export default function BienestarLaboralPage() {
                       </div>
                       {parseFloat(a.descuento_pct) > 0 && (
                         <div className="absolute top-4 left-4">
-                          <Badge className="bg-emerald-500 text-white font-black text-xs px-3 py-1">-{parseFloat(a.descuento_pct)}%</Badge>
+                          <Badge className="bg-emerald-500 text-white font-semibold text-xs px-3 py-1">-{parseFloat(a.descuento_pct)}%</Badge>
                         </div>
                       )}
                     </div>
                     <CardContent className="p-6 space-y-4">
                       <div>
-                        <Badge variant="outline" className="text-[7px] font-black uppercase mb-2">{TIPOS_COMPLEJO.find(t => t.value === a.tipo)?.label || a.tipo}</Badge>
-                        <h3 className="font-black text-lg text-foreground">{a.nombre_complejo}</h3>
+                        <Badge variant="outline" className="text-[7px] font-semibold uppercase mb-2">{TIPOS_COMPLEJO.find(t => t.value === a.tipo)?.label || a.tipo}</Badge>
+                        <h3 className="font-bold text-lg text-foreground">{a.nombre_complejo}</h3>
                         <div className="flex items-center gap-1 mt-1">
                           <MapPin className="h-3 w-3 text-muted-foreground" />
                           <p className="text-xs text-muted-foreground">{a.ubicacion}, {a.estado_ve}</p>
@@ -508,17 +508,17 @@ export default function BienestarLaboralPage() {
 
                       <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/30">
                         <div>
-                          <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Precio Base</p>
-                          <p className="text-lg font-black text-foreground">${parseFloat(a.precio_base_usd).toFixed(0)}<span className="text-[9px] text-muted-foreground font-bold">/noche</span></p>
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Precio Base</p>
+                          <p className="text-lg font-bold text-foreground">${parseFloat(a.precio_base_usd).toFixed(0)}<span className="text-[11px] text-muted-foreground font-bold">/noche</span></p>
                         </div>
                         <div>
-                          <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/60">Capacidad</p>
-                          <p className="text-lg font-black text-foreground">{a.max_personas} <span className="text-[9px] text-muted-foreground font-bold">personas</span></p>
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Capacidad</p>
+                          <p className="text-lg font-bold text-foreground">{a.max_personas} <span className="text-[11px] text-muted-foreground font-bold">personas</span></p>
                         </div>
                       </div>
 
                       {a.incluye_familia && (
-                        <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/20 text-[8px] font-black">
+                        <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/20 text-[10px] font-bold">
                           <Heart className="h-3 w-3 mr-1" /> Incluye Familia
                         </Badge>
                       )}
@@ -526,10 +526,10 @@ export default function BienestarLaboralPage() {
                       <div className="flex items-center gap-3 pt-3 border-t border-border/30">
                         {a.contacto_telefono && <Phone className="h-3 w-3 text-muted-foreground" />}
                         {a.contacto_email && <Mail className="h-3 w-3 text-muted-foreground" />}
-                        <p className="text-[9px] text-muted-foreground font-bold truncate">{a.contacto_nombre}</p>
+                        <p className="text-[11px] text-muted-foreground font-bold truncate">{a.contacto_nombre}</p>
                       </div>
 
-                      <div className="text-[8px] text-muted-foreground/50 font-bold uppercase tracking-widest">
+                      <div className="text-[10px] text-muted-foreground/50 font-bold uppercase tracking-widest">
                         Vigencia: {new Date(a.vigencia_inicio).toLocaleDateString("es-VE")} — {new Date(a.vigencia_fin).toLocaleDateString("es-VE")}
                       </div>
                     </CardContent>
@@ -539,13 +539,13 @@ export default function BienestarLaboralPage() {
             </div>
           )}
 
-          <Card className="glass-card border-none rounded-[3rem] bg-gradient-to-br from-blue-500/10 to-violet-500/10 p-10 shadow-2xl">
+          <Card className="glass-card border-none rounded-2xl bg-gradient-to-br from-blue-500/10 to-violet-500/10 p-10 shadow-lg">
             <div className="flex items-start gap-6">
               <div className="h-14 w-14 rounded-2xl bg-blue-500/20 flex items-center justify-center shrink-0">
                 <Globe className="h-7 w-7 text-blue-500" />
               </div>
               <div className="space-y-3">
-                <h3 className="text-lg font-black text-foreground uppercase tracking-wider">Programa de Alianzas Corporativas</h3>
+                <h3 className="text-lg font-bold text-foreground uppercase tracking-wider">Programa de Alianzas Corporativas</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Kyron negocia tarifas preferenciales con los mejores resorts, hoteles y posadas de Venezuela para garantizar el bienestar y descanso de calidad de nuestros colaboradores y sus familias. Los convenios incluyen descuentos exclusivos, planes familiares y opciones todo incluido.
                 </p>
@@ -560,7 +560,7 @@ export default function BienestarLaboralPage() {
                       <div className="h-10 w-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
                         <s.icon className="h-5 w-5 text-blue-500" />
                       </div>
-                      <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground text-center">{s.label}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground text-center">{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -573,16 +573,16 @@ export default function BienestarLaboralPage() {
       <Dialog open={showProgramaDialog} onOpenChange={setShowProgramaDialog}>
         <DialogContent className="sm:max-w-[600px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nuevo Programa Motivacional</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nuevo Programa Motivacional</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Nombre *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Nombre *</Label>
                 <Input value={programaForm.nombre} onChange={e => setProgramaForm(f => ({ ...f, nombre: e.target.value }))} placeholder="Empleado del Mes" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Categoría</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Categoría</Label>
                 <Select value={programaForm.categoria} onValueChange={v => setProgramaForm(f => ({ ...f, categoria: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{CATEGORIAS_PROGRAMA.map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}</SelectContent>
@@ -590,31 +590,31 @@ export default function BienestarLaboralPage() {
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Descripción</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Descripción</Label>
               <Textarea value={programaForm.descripcion} onChange={e => setProgramaForm(f => ({ ...f, descripcion: e.target.value }))} placeholder="Detalle del programa motivacional..." className="mt-2 rounded-xl bg-muted/50 min-h-[80px]" />
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Puntos Reward</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Puntos Reward</Label>
                 <Input type="number" value={programaForm.puntos_reward} onChange={e => setProgramaForm(f => ({ ...f, puntos_reward: e.target.value }))} placeholder="100" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
                 <Input type="date" value={programaForm.fecha_inicio} onChange={e => setProgramaForm(f => ({ ...f, fecha_inicio: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Fin</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Fin</Label>
                 <Input type="date" value={programaForm.fecha_fin} onChange={e => setProgramaForm(f => ({ ...f, fecha_fin: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Presupuesto (Bs)</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Presupuesto (Bs)</Label>
               <Input type="number" value={programaForm.presupuesto} onChange={e => setProgramaForm(f => ({ ...f, presupuesto: e.target.value }))} placeholder="0.00" className="mt-2 rounded-xl bg-muted/50" />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowProgramaDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSavePrograma} disabled={saving} className="bg-rose-500 hover:bg-rose-500/90 rounded-xl font-black text-[10px] uppercase tracking-widest">
+            <Button onClick={handleSavePrograma} disabled={saving} className="bg-rose-500 hover:bg-rose-500/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Crear Programa
             </Button>
@@ -625,16 +625,16 @@ export default function BienestarLaboralPage() {
       <Dialog open={showAlianzaDialog} onOpenChange={setShowAlianzaDialog}>
         <DialogContent className="sm:max-w-[750px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50 max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nueva Alianza Vacacional</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nueva Alianza Vacacional</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Nombre del Complejo *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Nombre del Complejo *</Label>
                 <Input value={alianzaForm.nombre_complejo} onChange={e => setAlianzaForm(f => ({ ...f, nombre_complejo: e.target.value }))} placeholder="Resort Paradise Island" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Tipo</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Tipo</Label>
                 <Select value={alianzaForm.tipo} onValueChange={v => setAlianzaForm(f => ({ ...f, tipo: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{TIPOS_COMPLEJO.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}</SelectContent>
@@ -643,11 +643,11 @@ export default function BienestarLaboralPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Ubicación *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Ubicación *</Label>
                 <Input value={alianzaForm.ubicacion} onChange={e => setAlianzaForm(f => ({ ...f, ubicacion: e.target.value }))} placeholder="Isla de Margarita, Playa El Agua" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Estado *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Estado *</Label>
                 <Select value={alianzaForm.estado_ve} onValueChange={v => setAlianzaForm(f => ({ ...f, estado_ve: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
@@ -656,7 +656,7 @@ export default function BienestarLaboralPage() {
             </div>
             <div className="grid grid-cols-4 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Estrellas</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Estrellas</Label>
                 <Select value={alianzaForm.estrellas} onValueChange={v => setAlianzaForm(f => ({ ...f, estrellas: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -665,50 +665,50 @@ export default function BienestarLaboralPage() {
                 </Select>
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Descuento %</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Descuento %</Label>
                 <Input type="number" value={alianzaForm.descuento_pct} onChange={e => setAlianzaForm(f => ({ ...f, descuento_pct: e.target.value }))} placeholder="20" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Precio USD/noche</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Precio USD/noche</Label>
                 <Input type="number" value={alianzaForm.precio_base_usd} onChange={e => setAlianzaForm(f => ({ ...f, precio_base_usd: e.target.value }))} placeholder="85" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Máx. Personas</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Máx. Personas</Label>
                 <Input type="number" value={alianzaForm.max_personas} onChange={e => setAlianzaForm(f => ({ ...f, max_personas: e.target.value }))} placeholder="4" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Contacto</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Contacto</Label>
                 <Input value={alianzaForm.contacto_nombre} onChange={e => setAlianzaForm(f => ({ ...f, contacto_nombre: e.target.value }))} placeholder="Nombre del contacto" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Teléfono</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Teléfono</Label>
                 <Input value={alianzaForm.contacto_telefono} onChange={e => setAlianzaForm(f => ({ ...f, contacto_telefono: e.target.value }))} placeholder="+58 412..." className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Email</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Email</Label>
                 <Input value={alianzaForm.contacto_email} onChange={e => setAlianzaForm(f => ({ ...f, contacto_email: e.target.value }))} placeholder="reservas@resort.com" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Vigencia Desde *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Vigencia Desde *</Label>
                 <Input type="date" value={alianzaForm.vigencia_inicio} onChange={e => setAlianzaForm(f => ({ ...f, vigencia_inicio: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Vigencia Hasta *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Vigencia Hasta *</Label>
                 <Input type="date" value={alianzaForm.vigencia_fin} onChange={e => setAlianzaForm(f => ({ ...f, vigencia_fin: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Notas</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Notas</Label>
               <Textarea value={alianzaForm.notas} onChange={e => setAlianzaForm(f => ({ ...f, notas: e.target.value }))} placeholder="Condiciones especiales, temporada alta, etc." className="mt-2 rounded-xl bg-muted/50 min-h-[60px]" />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowAlianzaDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSaveAlianza} disabled={saving} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-black text-[10px] font-black uppercase tracking-widest">
+            <Button onClick={handleSaveAlianza} disabled={saving} className="bg-blue-500 hover:bg-blue-500/90 rounded-xl font-semibold text-[10px] font-semibold uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Registrar Alianza
             </Button>

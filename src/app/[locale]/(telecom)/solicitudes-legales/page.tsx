@@ -138,7 +138,7 @@ export default function SolicitudesLegalesPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -181,10 +181,10 @@ export default function SolicitudesLegalesPage() {
                     <TableRow key={s.id} className="border-border/30 hover:bg-muted/5 transition-colors">
                       <TableCell className="pl-5 py-3">
                         <p className="text-xs font-mono font-semibold text-foreground">{s.numeroOficio}</p>
-                        <p className="text-[9px] text-muted-foreground">{s.id}</p>
+                        <p className="text-[11px] text-muted-foreground">{s.id}</p>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", tipoConf.bg, tipoConf.color)}>
+                        <Badge variant="outline" className={cn("text-[11px] px-2 py-0.5", tipoConf.bg, tipoConf.color)}>
                           {tipoConf.label}
                         </Badge>
                       </TableCell>
@@ -193,7 +193,7 @@ export default function SolicitudesLegalesPage() {
                       <TableCell className="text-center text-[11px] text-muted-foreground">{s.fechaRecepcion}</TableCell>
                       <TableCell className="text-center text-[11px] text-muted-foreground">{s.fechaRespuesta || "—"}</TableCell>
                       <TableCell className="text-center">
-                        <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", estadoConf.bg, estadoConf.color, estadoConf.border)}>
+                        <Badge variant="outline" className={cn("text-[11px] px-2 py-0.5", estadoConf.bg, estadoConf.color, estadoConf.border)}>
                           {estadoConf.label}
                         </Badge>
                       </TableCell>

@@ -127,9 +127,9 @@ export function ConatelCompliancePanel({
             <div key={i} className="p-3 rounded-xl bg-muted/10 border border-border/30 space-y-1">
               <div className="flex items-center gap-1.5">
                 <stat.icon className={cn("h-3 w-3", stat.color)} />
-                <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
               </div>
-              <p className={cn("text-lg font-black", stat.color)}>{stat.val}</p>
+              <p className={cn("text-lg font-bold", stat.color)}>{stat.val}</p>
             </div>
           ))}
         </div>
@@ -169,18 +169,18 @@ export function ConatelCompliancePanel({
                       <p className="text-xs font-semibold text-foreground">{permiso.nombre}</p>
                       <p className="text-[10px] text-muted-foreground font-mono">{permiso.numero}</p>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-[9px] text-muted-foreground">
+                        <span className="text-[11px] text-muted-foreground">
                           <Calendar className="h-2.5 w-2.5 inline mr-0.5" /> {permiso.fechaEmision} — {permiso.fechaVencimiento}
                         </span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       {permiso.diasRestantes > 0 && permiso.diasRestantes <= 90 && (
-                        <Badge variant="outline" className="text-[9px] bg-amber-500/10 text-amber-500 border-amber-500/20">
+                        <Badge variant="outline" className="text-[11px] bg-amber-500/10 text-amber-500 border-amber-500/20">
                           <Bell className="h-2.5 w-2.5 mr-0.5" /> {permiso.diasRestantes}d
                         </Badge>
                       )}
-                      <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", config.bg, config.color, config.border)}>
+                      <Badge variant="outline" className={cn("text-[11px] px-2 py-0.5", config.bg, config.color, config.border)}>
                         {config.label}
                       </Badge>
                     </div>

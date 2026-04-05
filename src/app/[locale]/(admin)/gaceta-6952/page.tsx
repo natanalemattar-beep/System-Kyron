@@ -170,13 +170,13 @@ export default function Gaceta6952Page() {
                 animate={{ opacity: 1, y: 0 }}
                 className="border-l-4 border-primary pl-8 py-2 mt-10"
             >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
                     <Bot className="h-3 w-3" /> ASISTENTE FISCAL IA
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
                     Gaceta <span className="text-primary italic">N° 6.952</span>
                 </h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
+                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">
                     Código Orgánico Tributario • SENIAT • Normativa Fiscal 2025
                 </p>
             </motion.header>
@@ -186,7 +186,7 @@ export default function Gaceta6952Page() {
                 <div className="lg:col-span-7 space-y-6">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-primary/10 rounded-xl"><BookOpen className="h-5 w-5 text-primary" /></div>
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/60">Artículos Clave</h3>
+                        <h3 className="text-[10px] font-semibold uppercase tracking-wider text-foreground/60">Artículos Clave</h3>
                     </div>
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40" />
@@ -210,10 +210,10 @@ export default function Gaceta6952Page() {
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
-                                                    <Badge className={`text-[8px] font-black uppercase tracking-widest border ${art.border} bg-black/20 ${art.color} h-5`}>{art.numero}</Badge>
-                                                    <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest h-5 border-border/40">{art.impacto}</Badge>
+                                                    <Badge className={`text-[10px] font-semibold uppercase tracking-widest border ${art.border} bg-black/20 ${art.color} h-5`}>{art.numero}</Badge>
+                                                    <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest h-5 border-border/40">{art.impacto}</Badge>
                                                 </div>
-                                                <p className="text-[11px] font-black uppercase tracking-tight text-foreground/90 mb-1">{art.titulo}</p>
+                                                <p className="text-[11px] font-semibold uppercase tracking-tight text-foreground/90 mb-1">{art.titulo}</p>
                                                 <p className="text-[10px] text-muted-foreground/60 font-medium leading-relaxed">{art.resumen}</p>
                                             </div>
                                             <Button
@@ -238,7 +238,7 @@ export default function Gaceta6952Page() {
                 <div className="lg:col-span-5">
                     <Card className="glass-card border-none bg-[#050505] rounded-2xl overflow-hidden sticky top-24">
                         <CardHeader className="p-6 border-b border-white/5">
-                            <CardTitle className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em]">
+                            <CardTitle className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-wider">
                                 <div className="p-2 bg-primary/10 rounded-xl"><Bot className="h-4 w-4 text-primary" /></div>
                                 Consulta Fiscal IA
                             </CardTitle>
@@ -278,7 +278,7 @@ export default function Gaceta6952Page() {
                                 />
                                 <Button
                                     size="icon"
-                                    className="h-10 w-10 rounded-xl btn-3d-primary shrink-0"
+                                    className="h-10 w-10 rounded-xl shrink-0"
                                     onClick={sendMessage}
                                     disabled={loading || !input.trim()}
                                 >

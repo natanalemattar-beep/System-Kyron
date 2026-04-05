@@ -145,13 +145,13 @@ export function GlobalSearch() {
       >
         <Search className="h-3.5 w-3.5 opacity-50 group-hover:opacity-80 transition-opacity" />
         <span className="hidden md:inline text-[10px] font-medium">Buscar...</span>
-        <kbd className="hidden md:inline-flex h-5 items-center gap-0.5 rounded border border-border/60 bg-background/80 px-1.5 font-mono text-[9px] font-bold text-muted-foreground/60">
+        <kbd className="hidden md:inline-flex h-5 items-center gap-0.5 rounded border border-border/60 bg-background/80 px-1.5 font-mono text-[11px] font-bold text-muted-foreground/60">
           ⌘K
         </kbd>
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[560px] p-0 rounded-2xl border-border/30 bg-background/95 backdrop-blur-xl shadow-2xl overflow-hidden gap-0">
+        <DialogContent className="max-w-[560px] p-0 rounded-2xl border-border/30 bg-background/95 backdrop-blur-xl shadow-lg overflow-hidden gap-0">
           <DialogTitle className="sr-only">Búsqueda global</DialogTitle>
           <div className="flex items-center gap-3 px-4 border-b border-border/30">
             <Search className="h-4 w-4 text-muted-foreground/50 shrink-0" />
@@ -163,7 +163,7 @@ export function GlobalSearch() {
               onKeyDown={handleKeyDown}
               className="h-12 border-0 bg-transparent text-sm font-medium placeholder:text-muted-foreground/40 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
-            <kbd className="shrink-0 h-5 flex items-center rounded border border-border/50 bg-muted/30 px-1.5 font-mono text-[9px] text-muted-foreground/50">
+            <kbd className="shrink-0 h-5 flex items-center rounded border border-border/50 bg-muted/30 px-1.5 font-mono text-[11px] text-muted-foreground/50">
               ESC
             </kbd>
           </div>
@@ -177,7 +177,7 @@ export function GlobalSearch() {
             ) : (
               Object.entries(grouped).map(([category, items]) => (
                 <div key={category}>
-                  <p className="px-4 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">{category}</p>
+                  <p className="px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/40">{category}</p>
                   {items.map(item => {
                     globalIndex++;
                     const idx = globalIndex;
@@ -205,7 +205,7 @@ export function GlobalSearch() {
                           <p className="text-[10px] text-muted-foreground/60 truncate">{item.description}</p>
                         </div>
                         {idx === selectedIndex && (
-                          <kbd className="shrink-0 text-[9px] text-primary/50 font-mono">↵</kbd>
+                          <kbd className="shrink-0 text-[11px] text-primary/50 font-mono">↵</kbd>
                         )}
                       </button>
                     );
@@ -216,14 +216,14 @@ export function GlobalSearch() {
           </div>
 
           <div className="flex items-center gap-4 px-4 py-2 border-t border-border/20 bg-muted/5">
-            <span className="flex items-center gap-1 text-[9px] text-muted-foreground/40">
-              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[8px]">↑↓</kbd> navegar
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/40">
+              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[10px]">↑↓</kbd> navegar
             </span>
-            <span className="flex items-center gap-1 text-[9px] text-muted-foreground/40">
-              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[8px]">↵</kbd> abrir
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/40">
+              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[10px]">↵</kbd> abrir
             </span>
-            <span className="flex items-center gap-1 text-[9px] text-muted-foreground/40">
-              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[8px]">esc</kbd> cerrar
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground/40">
+              <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[10px]">esc</kbd> cerrar
             </span>
           </div>
         </DialogContent>

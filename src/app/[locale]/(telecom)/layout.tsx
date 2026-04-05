@@ -47,7 +47,7 @@ export default function TelecomLayout({
                   </PageTransition>
               </main>
               <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
-                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron • Telecom Central • 2026
                 </p>
               </footer>

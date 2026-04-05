@@ -100,7 +100,7 @@ export function ComplianceSection() {
                         <ShieldCheck className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight text-foreground uppercase leading-[1.05] mb-4">
+                    <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4">
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
@@ -129,7 +129,7 @@ export function ComplianceSection() {
                                     <reg.icon className={cn("h-6 w-6", reg.color)} />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className={cn("text-lg font-black uppercase tracking-tight mb-1", reg.color)}>
+                                    <h3 className={cn("text-lg font-semibold uppercase tracking-tight mb-1", reg.color)}>
                                         {reg.name}
                                     </h3>
                                     <p className="text-[10px] font-medium text-muted-foreground leading-snug mb-3">
@@ -137,7 +137,7 @@ export function ComplianceSection() {
                                     </p>
                                     <div className="flex flex-wrap gap-1.5">
                                         {reg.badges.map(b => (
-                                            <span key={b} className="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider liquid-glass-subtle text-muted-foreground">
+                                            <span key={b} className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider liquid-glass-subtle text-muted-foreground">
                                                 {b}
                                             </span>
                                         ))}
@@ -149,7 +149,7 @@ export function ComplianceSection() {
                 </div>
 
                 <motion.div
-                    className="rounded-[2rem] liquid-glass p-8 md:p-10"
+                    className="rounded-xl liquid-glass p-8 md:p-10"
                     initial={animate ? { opacity: 0, y: 30, scale: 0.97, filter: 'blur(6px)' } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
@@ -157,11 +157,11 @@ export function ComplianceSection() {
                 >
                     <div className="flex flex-col md:flex-row items-center gap-8">
                         <div className="flex-1 text-center md:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[9px] font-black uppercase tracking-widest mb-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[11px] font-semibold uppercase tracking-widest mb-4">
                                 <Globe className="h-3 w-3" />
                                 {t('security_badge')}
                             </div>
-                            <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-foreground mb-2">
+                            <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight text-foreground mb-2">
                                 {t('security_title_1')}{' '}
                                 <span className="text-emerald-600 italic">{t('security_title_2')}</span>
                             </h3>
@@ -180,8 +180,8 @@ export function ComplianceSection() {
                                         <feat.icon className="h-4 w-4 text-emerald-500" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-black uppercase tracking-tight text-foreground">{feat.label}</p>
-                                        <p className="text-[9px] font-medium text-muted-foreground">{feat.desc}</p>
+                                        <p className="text-xs font-semibold uppercase tracking-tight text-foreground">{feat.label}</p>
+                                        <p className="text-[11px] font-medium text-muted-foreground">{feat.desc}</p>
                                     </div>
                                 </div>
                             ))}

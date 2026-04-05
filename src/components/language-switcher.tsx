@@ -95,7 +95,7 @@ export function LanguageSwitcher({
               <Globe className="h-4 w-4 text-muted-foreground" />
             )}
             {variant !== "icon-only" && (
-              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hidden sm:inline">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hidden sm:inline">
                 {currentLang?.displayCode ?? "LANG"}
               </span>
             )}
@@ -119,7 +119,7 @@ export function LanguageSwitcher({
         <DropdownMenuLabel className="px-3 py-2 mb-1">
           <div className="flex items-center gap-2">
             <Globe className="h-3 w-3 text-primary/60" />
-            <span className="text-[9px] font-black uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
               {t("label")}
             </span>
           </div>
@@ -163,7 +163,7 @@ export function LanguageSwitcher({
                     >
                       {lang.nativeName}
                     </span>
-                    <span className="text-[9px] text-muted-foreground/60 font-medium truncate mt-0.5">
+                    <span className="text-[11px] text-muted-foreground/60 font-medium truncate mt-0.5">
                       {lang.region}
                     </span>
                   </div>
@@ -201,7 +201,7 @@ export function LanguageSwitcher({
         </div>
 
         <div className="mt-2 pt-2 border-t border-border/30 px-3 pb-1">
-          <p className="text-[8px] font-medium text-muted-foreground/40 uppercase tracking-widest">
+          <p className="text-[10px] font-medium text-muted-foreground/40 uppercase tracking-widest">
             {SUPPORTED_LANGUAGES.length} {t("available")}
           </p>
         </div>

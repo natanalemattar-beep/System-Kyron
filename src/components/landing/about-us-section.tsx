@@ -118,7 +118,7 @@ export function AboutUsSection() {
                                 {t('badge')}
                             </div>
                         </motion.div>
-                        <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.75rem,5vw,3.75rem)] font-black tracking-tight uppercase leading-[1.05] text-foreground">
+                        <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight uppercase leading-[1.05] text-foreground">
                             {t('title_highlight')}{' '}
                             <span className="liquid-glass-text italic">
                                 {t('title_rest')}
@@ -145,13 +145,13 @@ export function AboutUsSection() {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.25 + i * 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                             >
-                                <Card className="relative overflow-hidden rounded-[2rem] liquid-glass p-8 text-center group cursor-default transition-all duration-300">
+                                <Card className="relative overflow-hidden rounded-xl liquid-glass p-8 text-center group cursor-default transition-all duration-300">
                                     <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
                                     <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-all duration-500">
                                         <stat.icon className="h-16 w-16 text-foreground" />
                                     </div>
                                     <div className="relative">
-                                        <p className={cn("text-4xl font-black italic tracking-tight mb-2", stat.text)}>
+                                        <p className={cn("text-4xl font-bold tracking-tight mb-2", stat.text)}>
                                             <Counter from={0} to={stat.val} />
                                         </p>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>

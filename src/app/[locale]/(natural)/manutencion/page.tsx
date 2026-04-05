@@ -80,7 +80,7 @@ export default function ManutencionPage() {
                                             <TableCell className="py-4 text-sm font-medium text-foreground/80">{dep.concepto}</TableCell>
                                             <TableCell className="text-right py-4 font-mono text-sm font-semibold text-primary">{formatCurrency(dep.monto, 'Bs.')}</TableCell>
                                             <TableCell className="text-center py-4">
-                                                <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5 h-6 px-3 rounded-lg">{dep.estado}</Badge>
+                                                <Badge variant="outline" className="text-[11px] font-bold uppercase tracking-wider border-emerald-500/20 text-emerald-500 bg-emerald-500/5 h-6 px-3 rounded-lg">{dep.estado}</Badge>
                                             </TableCell>
                                         </TableRow>
                                     ))}

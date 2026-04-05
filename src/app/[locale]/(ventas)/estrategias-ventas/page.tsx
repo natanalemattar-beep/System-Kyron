@@ -112,19 +112,19 @@ export default function EstrategiasVentasPage() {
         className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
       >
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Zap className="h-3 w-3" /> MOTOR ESTRATÉGICO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Estrategias <span className="text-primary italic">Comerciales</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">
             Optimización de Ventas 2026
           </p>
         </div>
         <Button
           variant="outline"
-          className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-border bg-card/50"
+          className="h-12 px-6 rounded-xl text-[11px] font-semibold uppercase tracking-widest border-border bg-card/50"
           onClick={handleRegenerarIA}
         >
           <RefreshCw className="mr-2 h-4 w-4" /> REGENERAR CON IA
@@ -141,10 +141,10 @@ export default function EstrategiasVentasPage() {
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
             <Card className="glass-card border-none bg-card/40 p-4 rounded-2xl">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{kpi.label}</p>
                 <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
               </div>
-              <p className={`text-2xl font-black italic tracking-tight ${kpi.color}`}>{kpi.value}</p>
+              <p className={`text-2xl font-bold tracking-tight ${kpi.color}`}>{kpi.value}</p>
             </Card>
           </motion.div>
         ))}
@@ -179,26 +179,26 @@ export default function EstrategiasVentasPage() {
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge className={`text-[8px] font-black uppercase tracking-widest border ${IMPACTO_COLOR[s.impacto] ?? ""} h-6`}>
+                        <Badge className={`text-[10px] font-semibold uppercase tracking-widest border ${IMPACTO_COLOR[s.impacto] ?? ""} h-6`}>
                           {s.impacto}
                         </Badge>
                         {s.activa && (
-                          <Badge className="text-[8px] font-black uppercase tracking-widest bg-primary/20 text-primary border-primary/30 h-6">
+                          <Badge className="text-[10px] font-semibold uppercase tracking-widest bg-primary/20 text-primary border-primary/30 h-6">
                             ACTIVA
                           </Badge>
                         )}
                       </div>
                     </div>
-                    <CardTitle className="text-sm font-black uppercase tracking-tight text-foreground/90 mt-3">{s.titulo}</CardTitle>
+                    <CardTitle className="text-sm font-semibold uppercase tracking-tight text-foreground/90 mt-3">{s.titulo}</CardTitle>
                   </CardHeader>
                   <CardContent className="p-6 pt-0 flex-1 flex flex-col justify-between gap-4">
                     <p className="text-[11px] text-muted-foreground/70 font-medium leading-relaxed">{s.descripcion}</p>
                     <div className="flex items-center justify-between">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">{s.plazo ? `Plazo: ${s.plazo}` : ''}</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">{s.plazo ? `Plazo: ${s.plazo}` : ''}</p>
                       <Button
                         size="sm"
                         variant={s.activa ? "outline" : "default"}
-                        className="h-8 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest btn-3d-primary"
+                        className="h-8 px-4 rounded-xl text-[11px] font-semibold uppercase tracking-widest btn-3d-primary"
                         onClick={() => handleActivar(s)}
                         disabled={activating === s.id}
                       >

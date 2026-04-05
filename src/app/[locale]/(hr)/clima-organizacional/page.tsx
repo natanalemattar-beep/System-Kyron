@@ -134,23 +134,23 @@ export default function ClimaOrganizacionalPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow mb-4">
             <Activity className="h-3 w-3" /> CENTRO PSICOLÓGICO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Clima y <span className="text-primary italic">Desarrollo Humano</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Cultura Organizacional • Liderazgo</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Clima y <span className="text-primary italic">Desarrollo Humano</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Cultura Organizacional • Liderazgo</p>
         </div>
-        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setShowDialog(true)}>
+        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg" onClick={() => setShowDialog(true)}>
           <Plus className="mr-3 h-4 w-4" /> REGISTRAR ENCUESTA
         </Button>
       </header>
 
       {resumen.length === 0 && encuestas.length === 0 ? (
-        <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 shadow-2xl text-center">
+        <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 shadow-lg text-center">
           <BarChart3 className="h-16 w-16 text-muted-foreground/20 mx-auto mb-6" />
-          <h3 className="text-lg font-black uppercase text-muted-foreground/50 tracking-widest mb-2">Sin datos de clima organizacional</h3>
+          <h3 className="text-lg font-semibold uppercase text-muted-foreground/50 tracking-widest mb-2">Sin datos de clima organizacional</h3>
           <p className="text-xs text-muted-foreground/40 mb-8">Registre encuestas de clima para ver métricas y tendencias del equipo.</p>
-          <Button className="btn-3d-primary rounded-xl font-black uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(true)}>
+          <Button className="btn-3d-primary rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(true)}>
             <Plus className="mr-2 h-4 w-4" /> Registrar primera encuesta
           </Button>
         </Card>
@@ -164,13 +164,13 @@ export default function ClimaOrganizacionalPage() {
               return (
                 <Card key={i} className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl group hover:bg-primary/5 transition-all">
                   <div className="flex justify-between items-center mb-6">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{dimensionLabels[r.dimension] ?? r.dimension}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{dimensionLabels[r.dimension] ?? r.dimension}</p>
                     <Icon className={cn("h-4 w-4", colors[i % colors.length])} />
                   </div>
                   <div className="space-y-4">
-                    <p className="text-4xl font-black italic text-foreground tracking-tight leading-none">{prom.toFixed(0)}/<span className="text-lg">10</span></p>
+                    <p className="text-4xl font-bold text-foreground tracking-tight leading-none">{prom.toFixed(0)}/<span className="text-lg">10</span></p>
                     <Progress value={prom * 10} className="h-1.5 bg-muted" />
-                    <p className="text-[8px] text-muted-foreground/50 font-bold uppercase">{r.total} evaluaciones</p>
+                    <p className="text-[10px] text-muted-foreground/50 font-bold uppercase">{r.total} evaluaciones</p>
                   </div>
                 </Card>
               );
@@ -178,19 +178,19 @@ export default function ClimaOrganizacionalPage() {
           </div>
 
           <div className="grid gap-10 lg:grid-cols-12">
-            <Card className="lg:col-span-7 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl relative">
+            <Card className="lg:col-span-7 glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg relative">
               <div className="absolute top-0 right-0 p-10 opacity-5"><Users className="h-48 w-48 text-primary" /></div>
               <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Historial de Encuestas</CardTitle>
+                <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Historial de Encuestas</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-muted/30 border-none">
-                      <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Empleado</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Dimensión</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Puntuación</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Período</TableHead>
+                      <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Empleado</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Dimensión</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30 text-center">Puntuación</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Período</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -198,15 +198,15 @@ export default function ClimaOrganizacionalPage() {
                       <TableRow key={e.id} className="border-border/50 hover:bg-muted/20 transition-all">
                         <TableCell className="pl-10 py-4">
                           <p className="text-xs font-bold text-foreground/80">{e.empleado}</p>
-                          {e.cargo && <p className="text-[8px] text-muted-foreground">{e.cargo}</p>}
+                          {e.cargo && <p className="text-[10px] text-muted-foreground">{e.cargo}</p>}
                         </TableCell>
                         <TableCell className="py-4">
-                          <Badge variant="outline" className="text-[8px] font-bold uppercase tracking-wider rounded-lg">{dimensionLabels[e.dimension] ?? e.dimension}</Badge>
+                          <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider rounded-lg">{dimensionLabels[e.dimension] ?? e.dimension}</Badge>
                         </TableCell>
                         <TableCell className="py-4 text-center">
-                          <span className={cn("text-sm font-black italic", e.puntuacion >= 7 ? "text-emerald-500" : e.puntuacion >= 4 ? "text-amber-500" : "text-rose-500")}>{e.puntuacion}/10</span>
+                          <span className={cn("text-sm font-bold", e.puntuacion >= 7 ? "text-emerald-500" : e.puntuacion >= 4 ? "text-amber-500" : "text-rose-500")}>{e.puntuacion}/10</span>
                         </TableCell>
-                        <TableCell className="py-4 text-[9px] text-muted-foreground font-bold uppercase">{e.periodo}</TableCell>
+                        <TableCell className="py-4 text-[11px] text-muted-foreground font-bold uppercase">{e.periodo}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -215,25 +215,25 @@ export default function ClimaOrganizacionalPage() {
             </Card>
 
             <div className="lg:col-span-5 space-y-8">
-              <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
+              <Card className="bg-primary text-primary-foreground rounded-2xl p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Award className="h-32 w-32" /></div>
                 <div>
-                  <h3 className="text-2xl font-black uppercase italic tracking-tight mb-6 leading-tight">Promedio <br/> General</h3>
-                  <p className="text-6xl font-black italic mb-2">{promedioGeneral ?? "—"}<span className="text-2xl">/10</span></p>
+                  <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-6 leading-tight">Promedio <br/> General</h3>
+                  <p className="text-6xl font-bold mb-2">{promedioGeneral ?? "—"}<span className="text-2xl">/10</span></p>
                   <p className="text-xs font-bold opacity-80 uppercase mt-4">{resumen.length} dimensiones evaluadas</p>
                   <p className="text-xs font-bold opacity-60 uppercase mt-1">{encuestas.length} encuestas totales</p>
                 </div>
               </Card>
 
               <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-8 border border-white/5">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-6 flex items-center gap-3 italic">
+                <h4 className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-6 flex items-center gap-3 italic">
                   <Terminal className="h-4 w-4" /> Dimensiones
                 </h4>
                 <div className="space-y-4">
                   {resumen.map((r, i) => (
-                    <div key={i} className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40 border-b border-border pb-2">
+                    <div key={i} className="flex justify-between items-center text-[11px] font-bold uppercase tracking-widest text-muted-foreground/40 border-b border-border pb-2">
                       <span>{dimensionLabels[r.dimension] ?? r.dimension}</span>
-                      <span className={cn("font-black", parseFloat(r.promedio) >= 7 ? "text-emerald-500" : parseFloat(r.promedio) >= 4 ? "text-amber-500" : "text-rose-500")}>{parseFloat(r.promedio).toFixed(1)}</span>
+                      <span className={cn("font-bold", parseFloat(r.promedio) >= 7 ? "text-emerald-500" : parseFloat(r.promedio) >= 4 ? "text-amber-500" : "text-rose-500")}>{parseFloat(r.promedio).toFixed(1)}</span>
                     </div>
                   ))}
                 </div>
@@ -246,7 +246,7 @@ export default function ClimaOrganizacionalPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-lg rounded-3xl">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase tracking-widest">Registrar Encuesta de Clima</DialogTitle>
+            <DialogTitle className="text-lg font-semibold uppercase tracking-widest">Registrar Encuesta de Clima</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
@@ -281,7 +281,7 @@ export default function ClimaOrganizacionalPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSubmit} disabled={saving} className="btn-3d-primary rounded-xl font-black uppercase text-[10px] tracking-widest">
+            <Button onClick={handleSubmit} disabled={saving} className="btn-3d-primary rounded-xl font-semibold uppercase text-[10px] tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />} Registrar
             </Button>
           </DialogFooter>

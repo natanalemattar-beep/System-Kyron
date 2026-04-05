@@ -136,7 +136,7 @@ export default function RecuperarCuentaPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 mb-4">
             {step === 'done' ? <CircleCheck className="h-7 w-7 text-emerald-500" /> : <KeyRound className="h-7 w-7 text-primary" />}
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-foreground">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
             {step === 'choose' && 'Recuperar Cuenta'}
             {step === 'find-account' && 'Buscar tu Cuenta'}
             {step === 'code-sent' && 'Verificar Identidad'}
@@ -235,7 +235,7 @@ export default function RecuperarCuentaPage() {
                 {devCode && (
                   <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
                     <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600">{devCode}</p>
+                    <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
                   </div>
                 )}
 
@@ -246,7 +246,7 @@ export default function RecuperarCuentaPage() {
                     value={code}
                     onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                     onKeyDown={e => e.key === 'Enter' && code.length === 6 && verifyAndProceed()}
-                    className="h-14 text-center text-2xl tracking-[0.5em] font-mono rounded-xl"
+                    className="h-14 text-center text-2xl tracking-wider font-mono rounded-xl"
                     placeholder="000000"
                   />
                 </div>

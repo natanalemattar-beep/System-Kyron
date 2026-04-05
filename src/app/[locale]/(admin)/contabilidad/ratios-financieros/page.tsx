@@ -355,13 +355,13 @@ export default function RatiosFinancierosPage() {
                 <p className="text-sm font-bold text-foreground">{ratio.name}</p>
                 <p className="text-[10px] text-muted-foreground font-mono">{ratio.formula}</p>
               </div>
-              <Badge className={cn("text-[9px] font-bold border", colors.badge)}>
+              <Badge className={cn("text-[11px] font-bold border", colors.badge)}>
                 {statusIcon(ratio.status)}
                 <span className="ml-1">{ratio.status}</span>
               </Badge>
             </div>
             <div className="flex items-end justify-between">
-              <p className={cn("text-2xl font-black tracking-tight", ratio.value !== null ? colors.text : "text-muted-foreground")}>
+              <p className={cn("text-2xl font-bold tracking-tight", ratio.value !== null ? colors.text : "text-muted-foreground")}>
                 {ratio.displayValue}
               </p>
               <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
@@ -403,11 +403,11 @@ export default function RatiosFinancierosPage() {
       </motion.div>
 
       <motion.header initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[9px] font-black uppercase tracking-widest text-cyan-400">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-semibold uppercase tracking-widest text-cyan-400">
           <BarChart3 className="h-3 w-3" />
           RATIOS FINANCIEROS
         </div>
-        <h1 className="text-2xl md:text-4xl font-black tracking-tight uppercase bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl md:text-4xl font-bold tracking-tight uppercase bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Ratios Financieros
         </h1>
         <p className="text-muted-foreground text-sm font-medium">
@@ -419,7 +419,7 @@ export default function RatiosFinancierosPage() {
         <Card className="border border-border/50 rounded-2xl bg-card/50 backdrop-blur-sm">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+              <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
                 <Calculator className="h-4 w-4 text-cyan-400" />
                 Datos Financieros (Bs.)
               </CardTitle>
@@ -457,11 +457,11 @@ export default function RatiosFinancierosPage() {
             <Card className="border border-border/50 rounded-2xl bg-card/50 backdrop-blur-sm h-full">
               <CardContent className="p-6 space-y-4 flex flex-col items-center justify-center text-center">
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Salud Financiera General</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Salud Financiera General</p>
                 </div>
                 <div className="relative">
                   <div className="w-28 h-28 rounded-full border-4 border-muted/30 flex items-center justify-center">
-                    <p className={cn("text-3xl font-black", healthColor)}>
+                    <p className={cn("text-3xl font-bold", healthColor)}>
                       {healthScore !== null ? `${healthScore}%` : "—"}
                     </p>
                   </div>
@@ -490,7 +490,7 @@ export default function RatiosFinancierosPage() {
           <motion.div className="lg:col-span-2" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, delay: 0.3 }}>
             <Card className="border border-border/50 rounded-2xl bg-card/50 backdrop-blur-sm h-full">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
                   <Target className="h-4 w-4 text-cyan-400" />
                   Recomendaciones
                 </CardTitle>

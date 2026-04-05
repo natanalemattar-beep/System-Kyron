@@ -191,10 +191,10 @@ export default function ConciliacionBancariaPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[10px] font-semibold uppercase tracking-wide text-blue-500 mb-3">
               <RefreshCw className="h-3.5 w-3.5" /> Conciliación Bancaria
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Gestión y <span className="text-blue-500">Conciliación</span> Bancaria
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Sincronización de cuentas bancarias · Control de movimientos</p>
@@ -302,7 +302,7 @@ export default function ConciliacionBancariaPage() {
                         {b.match >= 80 ? 'CONCILIADO' : 'PENDIENTE'}
                       </Badge>
                     </div>
-                    <p className="text-lg font-black">{formatNum(b.saldo)} Bs.</p>
+                    <p className="text-lg font-bold">{formatNum(b.saldo)} Bs.</p>
                     <div className="flex items-center justify-between">
                       <p className="text-xs text-muted-foreground">{b.movimientos} movimientos · {b.match}% conciliado</p>
                       <div className="flex gap-1">
@@ -335,7 +335,7 @@ export default function ConciliacionBancariaPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        {m.conciliado && <Badge className="bg-emerald-500/10 text-emerald-500 text-[9px] border-none">Conciliado</Badge>}
+                        {m.conciliado && <Badge className="bg-emerald-500/10 text-emerald-500 text-[11px] border-none">Conciliado</Badge>}
                         <p className={cn("text-sm font-bold", m.tipo === "credito" ? "text-emerald-500" : "text-rose-500")}>
                           {m.tipo === "credito" ? "+" : "-"} {formatNum(m.monto)} Bs.
                         </p>

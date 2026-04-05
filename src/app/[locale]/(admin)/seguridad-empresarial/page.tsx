@@ -62,20 +62,20 @@ export default function SeguridadEmpresarialPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-emerald-500 pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold uppercase tracking-wider text-emerald-500 mb-3">
             <Shield className="h-3 w-3" /> CENTRO DE SEGURIDAD
-            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-black ml-1 animate-pulse">NUEVO</span>
+            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[7px] font-bold ml-1 animate-pulse">NUEVO</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Seguridad <span className="text-emerald-500 italic">Empresarial</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Protección Total • Cifrado • Monitoreo • Control de Accesos
           </p>
         </div>
         <Button
           onClick={() => toast({ title: "Análisis completado", description: "Todos los sistemas están protegidos" })}
-          className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2 bg-emerald-500 hover:bg-emerald-600 text-white"
+          className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2 bg-emerald-500 hover:bg-emerald-600 text-white"
         >
           <RefreshCw className="h-4 w-4" /> Analizar Seguridad
         </Button>
@@ -86,8 +86,8 @@ export default function SeguridadEmpresarialPage() {
           <motion.div key={m.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
             <Card className="rounded-2xl border border-border/30 bg-card overflow-hidden">
               <CardContent className="p-5 space-y-3">
-                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">{m.label}</p>
-                <p className={cn("text-2xl font-black", m.color)}>{m.valor}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/50">{m.label}</p>
+                <p className={cn("text-2xl font-bold", m.color)}>{m.valor}</p>
                 <Progress value={m.progreso} className="h-1.5" />
               </CardContent>
             </Card>
@@ -99,7 +99,7 @@ export default function SeguridadEmpresarialPage() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
           <Card className="rounded-2xl border border-border/30 bg-card">
             <CardHeader className="pb-4">
-              <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+              <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-500" /> Protecciones Activas
               </CardTitle>
             </CardHeader>
@@ -112,7 +112,7 @@ export default function SeguridadEmpresarialPage() {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[11px] font-bold text-foreground truncate">{p.nombre}</p>
-                      <p className="text-[9px] text-muted-foreground/60 truncate">{p.descripcion}</p>
+                      <p className="text-[11px] text-muted-foreground/60 truncate">{p.descripcion}</p>
                     </div>
                   </div>
                   <Switch checked={proteccionesState[i]} onCheckedChange={() => toggleProteccion(i)} />
@@ -125,7 +125,7 @@ export default function SeguridadEmpresarialPage() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
           <Card className="rounded-2xl border border-border/30 bg-card">
             <CardHeader className="pb-4">
-              <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+              <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
                 <Activity className="h-4 w-4 text-blue-500" /> Actividad Reciente
               </CardTitle>
             </CardHeader>
@@ -142,10 +142,10 @@ export default function SeguridadEmpresarialPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-bold text-foreground">{e.tipo}</p>
-                    <p className="text-[9px] text-muted-foreground/60">{e.usuario} • {e.ip}</p>
+                    <p className="text-[11px] text-muted-foreground/60">{e.usuario} • {e.ip}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-[9px] text-muted-foreground/40">{e.fecha}</p>
+                    <p className="text-[11px] text-muted-foreground/40">{e.fecha}</p>
                     <Badge variant="outline" className={cn(
                       "text-[7px] mt-0.5",
                       e.estado === "ok" ? "text-emerald-500 border-emerald-500/20" :
@@ -165,7 +165,7 @@ export default function SeguridadEmpresarialPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <Card className="rounded-2xl border border-border/30 bg-card">
           <CardHeader className="pb-4">
-            <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
+            <CardTitle className="text-sm font-semibold uppercase tracking-widest flex items-center gap-2">
               <FileText className="h-4 w-4 text-violet-500" /> Recomendaciones de Seguridad
             </CardTitle>
           </CardHeader>
@@ -174,17 +174,17 @@ export default function SeguridadEmpresarialPage() {
               <div className="p-4 rounded-xl border border-amber-500/20 bg-amber-500/5">
                 <Badge variant="outline" className="text-[7px] mb-2 text-amber-500 border-amber-500/20">Pendiente</Badge>
                 <p className="text-[11px] font-bold text-foreground">Activar bloqueo por ubicación</p>
-                <p className="text-[9px] text-muted-foreground/60 mt-1">Restringe el acceso solo desde Venezuela para mayor protección</p>
+                <p className="text-[11px] text-muted-foreground/60 mt-1">Restringe el acceso solo desde Venezuela para mayor protección</p>
               </div>
               <div className="p-4 rounded-xl border border-blue-500/20 bg-blue-500/5">
                 <Badge variant="outline" className="text-[7px] mb-2 text-blue-500 border-blue-500/20">En progreso</Badge>
                 <p className="text-[11px] font-bold text-foreground">Capacitación del equipo</p>
-                <p className="text-[9px] text-muted-foreground/60 mt-1">Programa trimestral de seguridad para todos los empleados</p>
+                <p className="text-[11px] text-muted-foreground/60 mt-1">Programa trimestral de seguridad para todos los empleados</p>
               </div>
               <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
                 <Badge variant="outline" className="text-[7px] mb-2 text-emerald-500 border-emerald-500/20">72% completado</Badge>
                 <p className="text-[11px] font-bold text-foreground">Certificación ISO 27001</p>
-                <p className="text-[9px] text-muted-foreground/60 mt-1">Proceso de certificación en seguridad de la información</p>
+                <p className="text-[11px] text-muted-foreground/60 mt-1">Proceso de certificación en seguridad de la información</p>
               </div>
             </div>
           </CardContent>

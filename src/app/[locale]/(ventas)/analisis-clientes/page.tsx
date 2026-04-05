@@ -165,17 +165,17 @@ export default function AnalisisClientesPage() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-violet-400 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-[11px] font-semibold uppercase tracking-wide text-violet-400 mb-4">
               <Users className="h-3 w-3" /> ANÁLISIS DE CLIENTES
               <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Análisis de{" "}
               <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent italic">
                 Clientes
               </span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">
               Rentabilidad, Clasificación ABC y Distribución de Ingresos
             </p>
           </div>
@@ -195,7 +195,7 @@ export default function AnalisisClientesPage() {
                   <Plus className="h-4 w-4 text-violet-400" />
                 </div>
                 <div>
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos de Clientes</CardTitle>
+                  <CardTitle className="text-xs font-semibold uppercase tracking-wide">Datos de Clientes</CardTitle>
                   <p className="text-[10px] text-muted-foreground mt-0.5">Ingresa los datos de tus clientes para analizar</p>
                 </div>
               </div>
@@ -290,9 +290,9 @@ export default function AnalisisClientesPage() {
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{stat.label}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{stat.label}</p>
                       <p className={cn(
-                        "text-xl font-black mt-2 truncate",
+                        "text-xl font-bold mt-2 truncate",
                         stat.color === "emerald" && "text-emerald-400",
                         stat.color === "rose" && "text-rose-400",
                         stat.color === "violet" && "text-violet-400",
@@ -353,8 +353,8 @@ export default function AnalisisClientesPage() {
                   )} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">{cls.label}</p>
-                  <p className="text-2xl font-black">{cls.count}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{cls.label}</p>
+                  <p className="text-2xl font-bold">{cls.count}</p>
                 </div>
                 <p className="text-[10px] text-muted-foreground">{cls.desc}</p>
               </div>
@@ -373,7 +373,7 @@ export default function AnalisisClientesPage() {
                     <Award className="h-4 w-4 text-violet-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Ranking de Clientes</CardTitle>
+                    <CardTitle className="text-xs font-semibold uppercase tracking-wide">Ranking de Clientes</CardTitle>
                     <p className="text-[10px] text-muted-foreground mt-0.5">Ordenados por ingreso de mayor a menor</p>
                   </div>
                 </div>
@@ -383,13 +383,13 @@ export default function AnalisisClientesPage() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-border/20">
-                        <th className="text-left p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">#</th>
-                        <th className="text-left p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Cliente</th>
-                        <th className="text-right p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Ingreso</th>
-                        <th className="text-right p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Costo</th>
-                        <th className="text-right p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Margen</th>
-                        <th className="text-center p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Clase</th>
-                        <th className="text-center p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Plazo</th>
+                        <th className="text-left p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">#</th>
+                        <th className="text-left p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Cliente</th>
+                        <th className="text-right p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Ingreso</th>
+                        <th className="text-right p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Costo</th>
+                        <th className="text-right p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Margen</th>
+                        <th className="text-center p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Clase</th>
+                        <th className="text-center p-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Plazo</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -411,7 +411,7 @@ export default function AnalisisClientesPage() {
                           </td>
                           <td className="p-4 text-center">
                             <Badge className={cn(
-                              "text-[9px] font-black uppercase tracking-wider",
+                              "text-[11px] font-semibold uppercase tracking-wider",
                               c.abcClass === "A" && "bg-emerald-500/15 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20",
                               c.abcClass === "B" && "bg-amber-500/15 text-amber-400 border-amber-500/20 hover:bg-amber-500/20",
                               c.abcClass === "C" && "bg-rose-500/15 text-rose-400 border-rose-500/20 hover:bg-rose-500/20"
@@ -446,7 +446,7 @@ export default function AnalisisClientesPage() {
                     <PieChart className="h-4 w-4 text-violet-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Distribución de Ingresos</CardTitle>
+                    <CardTitle className="text-xs font-semibold uppercase tracking-wide">Distribución de Ingresos</CardTitle>
                     <p className="text-[10px] text-muted-foreground mt-0.5">Participación de cada cliente en el ingreso total</p>
                   </div>
                 </div>
@@ -490,8 +490,8 @@ export default function AnalisisClientesPage() {
                 <Activity className="h-5 w-5 text-violet-400" />
               </div>
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-400">Indicador Pareto (80/20)</p>
-                <p className="text-lg font-black mt-1">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-violet-400">Indicador Pareto (80/20)</p>
+                <p className="text-lg font-bold mt-1">
                   El <span className="text-violet-400">{analysis.paretoRevenuePct}%</span> de tus ingresos proviene del <span className="text-violet-400">{analysis.pareto80Pct}%</span> de tus clientes
                 </p>
               </div>
@@ -510,7 +510,7 @@ export default function AnalisisClientesPage() {
                     <AlertTriangle className="h-4 w-4 text-amber-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Recomendaciones</CardTitle>
+                    <CardTitle className="text-xs font-semibold uppercase tracking-wide">Recomendaciones</CardTitle>
                     <p className="text-[10px] text-muted-foreground mt-0.5">Insights basados en tu cartera de clientes</p>
                   </div>
                 </div>

@@ -91,7 +91,7 @@ export default function VerifyLinkPage() {
 
         {status === 'verifying' && (
           <div className="space-y-2">
-            <h1 className="text-xl font-black tracking-tight text-foreground uppercase">
+            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Verificando...
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -106,7 +106,7 @@ export default function VerifyLinkPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-2"
           >
-            <h1 className="text-xl font-black tracking-tight text-foreground uppercase">
+            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Identidad verificada
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -121,7 +121,7 @@ export default function VerifyLinkPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            <h1 className="text-xl font-black tracking-tight text-foreground uppercase">
+            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Correo verificado
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -142,7 +142,7 @@ export default function VerifyLinkPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            <h1 className="text-xl font-black tracking-tight text-foreground uppercase">
+            <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Enlace no válido
             </h1>
             <p className="text-sm text-muted-foreground">{errorMsg}</p>
@@ -157,7 +157,7 @@ export default function VerifyLinkPage() {
 
         <div className="flex items-center justify-center gap-2 pt-4">
           <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground/30" />
-          <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/30 italic">
             System Kyron · Enlace Seguro
           </span>
         </div>

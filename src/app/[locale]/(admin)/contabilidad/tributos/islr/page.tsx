@@ -107,10 +107,10 @@ export default function IslrPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-semibold uppercase tracking-wide text-indigo-500 mb-3">
                         <Banknote className="h-3.5 w-3.5" /> ISLR
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Impuesto sobre la <span className="text-indigo-500">Renta</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Ley de ISLR (Decreto 2.163) · Retenciones (Decreto 1.808)</p>
@@ -171,14 +171,14 @@ export default function IslrPage() {
                                         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                             <div className="flex justify-between items-center py-3 border-b">
                                                 <span className="text-xs font-bold text-muted-foreground">Monto a Retener ({conceptoActual.tasa}%)</span>
-                                                <span className="font-black text-indigo-500">{formatCurrency(retencion, 'Bs.')}</span>
+                                                <span className="font-bold text-indigo-500">{formatCurrency(retencion, 'Bs.')}</span>
                                             </div>
                                             <div className="p-5 rounded-xl bg-indigo-500/5 border border-indigo-500/15">
                                                 <div className="flex justify-between items-center">
                                                     <div>
                                                         <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Neto a Pagar al Proveedor</p>
                                                     </div>
-                                                    <span className="text-2xl font-black text-indigo-500">{formatCurrency(parseFloat(base) - retencion, 'Bs.')}</span>
+                                                    <span className="text-2xl font-bold text-indigo-500">{formatCurrency(parseFloat(base) - retencion, 'Bs.')}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@ export default function IslrPage() {
                                                 <p className="text-xs font-bold">{c.label}</p>
                                                 <p className="text-[10px] text-muted-foreground">{c.base}</p>
                                             </div>
-                                            <span className="text-sm font-black text-indigo-500">{c.tasa}%</span>
+                                            <span className="text-sm font-bold text-indigo-500">{c.tasa}%</span>
                                         </div>
                                     ))}
                                 </CardContent>
@@ -223,7 +223,7 @@ export default function IslrPage() {
                                                     <p className="text-[11px] font-semibold">{r.proveedor || 'Proveedor'}</p>
                                                     <p className="text-[10px] text-muted-foreground">{r.fecha} · {r.comprobante || 'Sin comprobante'}</p>
                                                 </div>
-                                                <span className="text-xs font-black text-indigo-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
+                                                <span className="text-xs font-bold text-indigo-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
                                             </div>
                                         ))}
                                     </CardContent>
@@ -285,7 +285,7 @@ export default function IslrPage() {
                                                     <p className="text-sm font-bold">Ejercicio Fiscal: {d.periodo}</p>
                                                     <p className="text-[10px] text-muted-foreground">{d.fecha || 'Sin fecha de declaración'}</p>
                                                 </div>
-                                                <Badge className={cn("text-[9px] font-bold border-none",
+                                                <Badge className={cn("text-[11px] font-bold border-none",
                                                     d.estado === 'pagado' ? 'bg-emerald-500/10 text-emerald-500' :
                                                     d.estado === 'declarado' ? 'bg-blue-500/10 text-blue-500' :
                                                     'bg-amber-500/10 text-amber-500'
@@ -306,7 +306,7 @@ export default function IslrPage() {
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] text-muted-foreground">A Pagar</p>
-                                                    <p className="text-xs font-black text-indigo-500">{formatCurrency(parseFloat(d.a_pagar) || 0, 'Bs.')}</p>
+                                                    <p className="text-xs font-bold text-indigo-500">{formatCurrency(parseFloat(d.a_pagar) || 0, 'Bs.')}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -330,7 +330,7 @@ export default function IslrPage() {
                                             <p className="text-xs font-bold">{t.rango}</p>
                                             <p className="text-[10px] text-muted-foreground">Sustraendo: {t.sustraendo}</p>
                                         </div>
-                                        <span className="text-lg font-black text-indigo-500">{t.tarifa}</span>
+                                        <span className="text-lg font-bold text-indigo-500">{t.tarifa}</span>
                                     </div>
                                 ))}
                             </CardContent>
@@ -347,7 +347,7 @@ export default function IslrPage() {
                                             <p className="text-xs font-bold">{t.rango}</p>
                                             <p className="text-[10px] text-muted-foreground">Sustraendo: {t.sustraendo}</p>
                                         </div>
-                                        <span className="text-lg font-black text-indigo-500">{t.tarifa}</span>
+                                        <span className="text-lg font-bold text-indigo-500">{t.tarifa}</span>
                                     </div>
                                 ))}
                                 <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 mt-4">

@@ -428,7 +428,7 @@ function GatewayCard({ gateway, index }: { gateway: Gateway; index: number }) {
       )}>
         {gateway.popular && (
           <div className="absolute top-3 right-3 z-10">
-            <Badge className="bg-primary/15 text-primary border-primary/20 text-[7px] font-black uppercase px-2 py-0.5">Popular</Badge>
+            <Badge className="bg-primary/15 text-primary border-primary/20 text-[7px] font-semibold uppercase px-2 py-0.5">Popular</Badge>
           </div>
         )}
         <div className="absolute top-0 right-0 p-5 opacity-[0.03] group-hover:opacity-[0.06] group-hover:rotate-6 transition-all duration-700">
@@ -441,9 +441,9 @@ function GatewayCard({ gateway, index }: { gateway: Gateway; index: number }) {
               <gateway.icon className={cn("h-5 w-5", gateway.color)} />
             </div>
             <div className="min-w-0">
-              <CardTitle className="text-sm font-black tracking-tight leading-tight">{gateway.name}</CardTitle>
+              <CardTitle className="text-sm font-bold tracking-tight leading-tight">{gateway.name}</CardTitle>
               {gateway.network && (
-                <p className={cn("text-[9px] font-bold mt-0.5", gateway.color)}>{gateway.network}</p>
+                <p className={cn("text-[11px] font-bold mt-0.5", gateway.color)}>{gateway.network}</p>
               )}
             </div>
           </div>
@@ -454,7 +454,7 @@ function GatewayCard({ gateway, index }: { gateway: Gateway; index: number }) {
 
           <div className="flex flex-wrap gap-1">
             {gateway.currencies.map(c => (
-              <span key={c} className={cn("text-[8px] font-bold px-1.5 py-0.5 rounded-md", gateway.bg, gateway.color)}>{c}</span>
+              <span key={c} className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded-md", gateway.bg, gateway.color)}>{c}</span>
             ))}
           </div>
 
@@ -481,11 +481,11 @@ function GatewayCard({ gateway, index }: { gateway: Gateway; index: number }) {
           <div className="pt-3 border-t border-border/20">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[8px] font-bold uppercase text-muted-foreground/40 tracking-wider">Comisión</p>
+                <p className="text-[10px] font-bold uppercase text-muted-foreground/40 tracking-wider">Comisión</p>
                 <p className="text-[11px] font-mono font-bold text-foreground/80 mt-0.5">{gateway.fees}</p>
               </div>
               <Badge variant="outline" className={cn(
-                "text-[7px] font-black uppercase border-none px-2",
+                "text-[7px] font-semibold uppercase border-none px-2",
                 gateway.status === "Activo" && "bg-emerald-500/10 text-emerald-500",
                 gateway.status === "Configurado" && "bg-amber-500/10 text-amber-500",
                 gateway.status === "Pendiente" && "bg-muted text-muted-foreground",
@@ -545,10 +545,10 @@ export default function PasarelasDePagoPage() {
   return (
     <div className="space-y-10 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
           <CreditCard className="h-3 w-3" /> CENTRO DE LIQUIDACIÓN
         </div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground leading-none">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-none">
           Pasarelas <span className="text-primary">de Pago</span>
         </h1>
         <p className="text-muted-foreground text-xs mt-2 max-w-2xl">
@@ -570,7 +570,7 @@ export default function PasarelasDePagoPage() {
                   <stat.icon className={cn("h-5 w-5", stat.color)} />
                 </div>
                 <div>
-                  <p className="text-2xl font-black tracking-tight">{stat.value}</p>
+                  <p className="text-2xl font-bold tracking-tight">{stat.value}</p>
                   <p className="text-[10px] font-medium text-muted-foreground">{stat.label}</p>
                 </div>
               </div>
@@ -612,11 +612,11 @@ export default function PasarelasDePagoPage() {
                 <Landmark className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-base font-black tracking-tight">Bancos Venezolanos Conectados</CardTitle>
+                <CardTitle className="text-base font-bold tracking-tight">Bancos Venezolanos Conectados</CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">Red de {bancosVenezuela.length} entidades bancarias — Pago Móvil, transferencias ACH y LBTR</p>
               </div>
             </div>
-            <Badge className="bg-emerald-500/10 text-emerald-500 border-none text-[9px] font-bold">
+            <Badge className="bg-emerald-500/10 text-emerald-500 border-none text-[11px] font-bold">
               {bancosVenezuela.filter(b => b.pago_movil).length} con Pago Móvil
             </Badge>
           </div>
@@ -638,10 +638,10 @@ export default function PasarelasDePagoPage() {
                         <Smartphone className="h-3 w-3 text-emerald-500/60" />
                       )}
                     </div>
-                    <span className="text-[8px] font-mono font-bold text-muted-foreground/40">{banco.codigo}</span>
+                    <span className="text-[10px] font-mono font-bold text-muted-foreground/40">{banco.codigo}</span>
                   </div>
                   <p className="text-[10px] font-bold text-foreground/80 leading-tight">{banco.nombre}</p>
-                  <p className="text-[8px] font-medium text-muted-foreground/50 mt-1">{banco.tipo}</p>
+                  <p className="text-[10px] font-medium text-muted-foreground/50 mt-1">{banco.tipo}</p>
                 </div>
               </motion.div>
             ))}
@@ -656,7 +656,7 @@ export default function PasarelasDePagoPage() {
               <ShieldCheck className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="text-base font-black tracking-tight">Seguridad Financiera</h3>
+              <h3 className="text-base font-bold tracking-tight">Seguridad Financiera</h3>
               <p className="text-xs text-muted-foreground">Protección de grado bancario</p>
             </div>
           </div>
@@ -685,7 +685,7 @@ export default function PasarelasDePagoPage() {
               <Terminal className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="text-base font-black tracking-tight">Protocolo de Liquidación</h3>
+              <h3 className="text-base font-bold tracking-tight">Protocolo de Liquidación</h3>
               <p className="text-xs text-muted-foreground">Flujo automático de fondos</p>
             </div>
           </div>
@@ -698,7 +698,7 @@ export default function PasarelasDePagoPage() {
               { step: "05", label: "Reporte SENIAT", desc: "Generación automática de reportes fiscales" },
             ].map(item => (
               <div key={item.step} className="flex items-start gap-4">
-                <span className="text-sm font-black text-primary font-mono shrink-0">[{item.step}]</span>
+                <span className="text-sm font-bold text-primary font-mono shrink-0">[{item.step}]</span>
                 <div>
                   <p className="text-xs font-bold text-foreground">{item.label}</p>
                   <p className="text-[10px] text-muted-foreground">{item.desc}</p>

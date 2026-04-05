@@ -138,7 +138,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
             </div>
 
             <div className="space-y-3">
-              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Seleccione su banco</label>
+              <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Seleccione su banco</label>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                 {BANCOS_VE.map(banco => (
                   <button
@@ -152,11 +152,11 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
                         : "border-border/30 hover:border-blue-500/30 bg-card"
                     )}
                   >
-                    <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-black", banco.color)}>
+                    <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-bold", banco.color)}>
                       {banco.nombre.charAt(0)}
                     </div>
                     <span className="text-[10px] font-bold text-center leading-tight">{banco.nombre}</span>
-                    <span className="text-[8px] text-muted-foreground font-mono">{banco.codigo}</span>
+                    <span className="text-[10px] text-muted-foreground font-mono">{banco.codigo}</span>
                   </button>
                 ))}
               </div>
@@ -164,7 +164,7 @@ export function BankConnect({ cuentas, onSyncComplete }: { cuentas: CuentaBancar
 
             {selectedBank && (
               <div className="space-y-3 pt-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Asociar a cuenta bancaria (opcional)</label>
+                <label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Asociar a cuenta bancaria (opcional)</label>
                 <Select value={selectedCuenta} onValueChange={setSelectedCuenta}>
                   <SelectTrigger className="h-10 rounded-xl">
                     <SelectValue placeholder="Seleccionar cuenta..." />

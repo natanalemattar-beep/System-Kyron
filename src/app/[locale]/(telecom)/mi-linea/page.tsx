@@ -272,7 +272,7 @@ export default function MiLineaPage() {
                   <stat.icon className={cn("h-3 w-3", stat.color)} />
                 </div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -458,10 +458,10 @@ export default function MiLineaPage() {
                       </div>
                       <div>
                         <p className="text-xs font-bold text-foreground font-mono tracking-wide">{linea.numero}</p>
-                        <p className="text-[9px] text-muted-foreground mt-0.5">{linea.plan_contratado || 'Sin plan'}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{linea.plan_contratado || 'Sin plan'}</p>
                       </div>
                     </div>
-                    <Badge variant="outline" className={cn("text-[8px] font-semibold px-2 py-0.5 rounded-md border", opColor)}>
+                    <Badge variant="outline" className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-md border", opColor)}>
                       {operadoraLabel}
                     </Badge>
                   </div>
@@ -481,14 +481,14 @@ export default function MiLineaPage() {
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-sm font-black" style={{ color: gaugeColor }}>{Math.round(pctUso)}%</p>
-                        <p className="text-[8px] text-muted-foreground font-medium leading-none">uso</p>
+                        <p className="text-sm font-bold" style={{ color: gaugeColor }}>{Math.round(pctUso)}%</p>
+                        <p className="text-[10px] text-muted-foreground font-medium leading-none">uso</p>
                       </div>
                     </div>
 
                     <div className="flex-1 space-y-2">
                       <div>
-                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">Datos usados</p>
+                        <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-0.5">Datos usados</p>
                         <p className="text-xs font-bold" style={{ color: gaugeColor }}>
                           {usoGB.toFixed(1)} <span className="text-muted-foreground font-normal">/ {limiteGB} GB</span>
                         </p>
@@ -500,8 +500,8 @@ export default function MiLineaPage() {
                           { label: 'Red', val: '5G', color: 'text-kyron-cyan' },
                         ].map(item => (
                           <div key={item.label} className="text-center p-1.5 rounded-lg bg-muted/10 border border-border/30">
-                            <p className="text-[8px] text-muted-foreground">{item.label}</p>
-                            <p className={cn("text-[10px] font-black", item.color)}>{item.val}</p>
+                            <p className="text-[10px] text-muted-foreground">{item.label}</p>
+                            <p className={cn("text-[10px] font-bold", item.color)}>{item.val}</p>
                           </div>
                         ))}
                       </div>
@@ -549,11 +549,11 @@ export default function MiLineaPage() {
               >
                 {plan.highlight && (
                   <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
-                    <span className="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Popular</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Popular</span>
                   </div>
                 )}
-                <p className="text-lg font-black text-foreground mb-0.5">{plan.name}</p>
-                <p className="text-2xl font-black text-primary mb-1">{plan.price}<span className="text-xs text-muted-foreground font-medium">/mes</span></p>
+                <p className="text-lg font-bold text-foreground mb-0.5">{plan.name}</p>
+                <p className="text-2xl font-bold text-primary mb-1">{plan.price}<span className="text-xs text-muted-foreground font-medium">/mes</span></p>
                 <p className="text-xs font-bold text-cyan-500 mb-3">{plan.data} · {plan.speed}</p>
                 <div className="space-y-1.5">
                   {plan.features.map((f) => (
@@ -604,7 +604,7 @@ export default function MiLineaPage() {
             <div key={i} className="p-3 rounded-xl bg-muted/10 border border-border/30 space-y-1">
               <div className="flex items-center gap-1.5">
                 <item.icon className="h-2.5 w-2.5 text-muted-foreground" />
-                <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">{item.label}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{item.label}</span>
               </div>
               <p className="text-xs font-bold text-foreground truncate">{item.val}</p>
             </div>
@@ -619,7 +619,7 @@ export default function MiLineaPage() {
               <Activity className="h-3.5 w-3.5 text-emerald-500" />
             </div>
             <span className="text-xs font-semibold text-foreground">Estado de Red</span>
-            <Badge className="ml-auto text-[8px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">Operativa</Badge>
+            <Badge className="ml-auto text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">Operativa</Badge>
           </div>
           <div className="space-y-2">
             {[
@@ -659,8 +659,8 @@ export default function MiLineaPage() {
           </div>
           <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/15">
             <p className="text-[10px] font-bold text-cyan-500 mb-1">Recarga Automática</p>
-            <p className="text-[9px] text-muted-foreground">Activa la recarga automática cuando tu saldo llegue a $2</p>
-            <Button size="sm" variant="outline" className="mt-2 h-7 text-[9px] rounded-lg border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/10">
+            <p className="text-[11px] text-muted-foreground">Activa la recarga automática cuando tu saldo llegue a $2</p>
+            <Button size="sm" variant="outline" className="mt-2 h-7 text-[11px] rounded-lg border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/10">
               Activar Auto-Recarga
             </Button>
           </div>

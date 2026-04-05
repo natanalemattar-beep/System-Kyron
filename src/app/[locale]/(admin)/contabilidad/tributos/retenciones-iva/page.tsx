@@ -57,10 +57,10 @@ export default function RetencionesIvaPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
                         <Percent className="h-3.5 w-3.5" /> Retenciones IVA
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Retenciones de <span className="text-primary">IVA</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Providencia SNAT/2015/0049 · Agentes de Retención</p>
@@ -81,7 +81,7 @@ export default function RetencionesIvaPage() {
                                 <div key={i} className="p-3.5 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="text-sm font-bold">{p.concepto}</span>
-                                        <span className="text-lg font-black text-primary">{p.porcentaje}</span>
+                                        <span className="text-lg font-bold text-primary">{p.porcentaje}</span>
                                     </div>
                                     <p className="text-[11px] text-muted-foreground">{p.descripcion}</p>
                                     <p className="text-[10px] font-bold text-muted-foreground/60 mt-1">{p.base}</p>

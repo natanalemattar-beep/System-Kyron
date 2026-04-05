@@ -150,7 +150,7 @@ export default function RecursosHumanosPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 mt-1">
-              <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Activo</span>
+              <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Activo</span>
             </div>
           </div>
           <div className="flex gap-2">
@@ -175,7 +175,7 @@ export default function RecursosHumanosPage() {
             <Card className={cn("border rounded-xl overflow-hidden h-full bg-gradient-to-b transition-all hover:shadow-lg", kpi.gradient, kpi.border)}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60">{kpi.label}</span>
                   <div className={cn("h-7 w-7 rounded-lg flex items-center justify-center", kpi.iconBg)}>
                     <kpi.icon className={cn("h-3.5 w-3.5", kpi.iconColor)} />
                   </div>
@@ -196,7 +196,7 @@ export default function RecursosHumanosPage() {
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-foreground/80">Distribución por Departamento</CardTitle>
               <CardDescription className="text-[10px] text-muted-foreground/50 font-medium mt-0.5">Balance de fuerza laboral · Datos en vivo</CardDescription>
             </div>
-            <Link href="/nominas"><Button variant="ghost" size="sm" className="h-7 text-[9px] font-semibold text-muted-foreground/60">Nómina</Button></Link>
+            <Link href="/nominas"><Button variant="ghost" size="sm" className="h-7 text-[11px] font-semibold text-muted-foreground/60">Nómina</Button></Link>
           </CardHeader>
           <CardContent className="p-4 pt-0">
             <div className="h-[260px]">
@@ -229,7 +229,7 @@ export default function RecursosHumanosPage() {
             <div className="flex items-center gap-2 mb-3">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">LOPCYMAT</span>
-              <Badge className="ml-auto bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[8px] font-semibold h-5">Al día</Badge>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] font-semibold h-5">Al día</Badge>
             </div>
             <div className="space-y-3">
               <div>
@@ -241,7 +241,7 @@ export default function RecursosHumanosPage() {
               </div>
               <div className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/[0.04] border border-emerald-500/[0.06]">
                 <Stethoscope className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                <p className="text-[9px] font-medium text-foreground/60">Delegados de prevención activos</p>
+                <p className="text-[11px] font-medium text-foreground/60">Delegados de prevención activos</p>
               </div>
             </div>
           </Card>
@@ -254,15 +254,15 @@ export default function RecursosHumanosPage() {
             <div className="space-y-2">
               <div>
                 <p className="text-lg font-bold text-cyan-400 tracking-tight">{loading ? "—" : formatCurrency(totalNomina, "Bs.", currentLocale)}</p>
-                <p className="text-[9px] text-muted-foreground/50">Carga mensual total</p>
+                <p className="text-[11px] text-muted-foreground/50">Carga mensual total</p>
               </div>
-              <div className="flex items-center gap-3 text-[9px]">
+              <div className="flex items-center gap-3 text-[11px]">
                 <span className="text-muted-foreground/50">{empleados.length} empleados</span>
                 <span className="text-muted-foreground/30">·</span>
                 <span className="text-muted-foreground/50">Prom. {loading ? "—" : formatCurrency(avgSalario, "Bs.", currentLocale)}</span>
               </div>
               <Link href="/nominas">
-                <Button variant="outline" size="sm" className="w-full h-7 mt-1 text-[9px] font-semibold rounded-lg border-cyan-500/15 text-cyan-400 hover:bg-cyan-500/10">
+                <Button variant="outline" size="sm" className="w-full h-7 mt-1 text-[11px] font-semibold rounded-lg border-cyan-500/15 text-cyan-400 hover:bg-cyan-500/10">
                   Ver Libro de Nómina
                 </Button>
               </Link>
@@ -304,7 +304,7 @@ export default function RecursosHumanosPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[11px] font-semibold truncate">{emp.nombre} {emp.apellido}</p>
-                      <div className="flex items-center gap-2 text-[9px] text-muted-foreground/50">
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground/50">
                         <span>{emp.cargo || "Sin cargo"}</span>
                         <span className="text-muted-foreground/20">·</span>
                         <span>{emp.departamento}</span>
@@ -312,7 +312,7 @@ export default function RecursosHumanosPage() {
                     </div>
                     <div className="text-right shrink-0 hidden sm:block">
                       <p className="text-[10px] font-semibold text-foreground/70 tabular-nums">{formatCurrency(parseFloat(emp.salario_base ?? "0"), "Bs.", currentLocale)}</p>
-                      <p className="text-[8px] text-muted-foreground/40 font-mono">{emp.cedula}</p>
+                      <p className="text-[10px] text-muted-foreground/40 font-mono">{emp.cedula}</p>
                     </div>
                   </div>
                 ))}
@@ -331,18 +331,18 @@ export default function RecursosHumanosPage() {
               {empleados.length > 0 && (
                 <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-500/[0.04] border border-blue-500/[0.06]">
                   <FileWarning className="h-3.5 w-3.5 text-blue-400 shrink-0" />
-                  <p className="text-[9px] font-medium text-foreground/60">{empleados.length} empleado(s) en nómina</p>
+                  <p className="text-[11px] font-medium text-foreground/60">{empleados.length} empleado(s) en nómina</p>
                 </div>
               )}
               {distribucion.length > 0 && (
                 <div className="flex items-center gap-2 p-2 rounded-lg bg-emerald-500/[0.04] border border-emerald-500/[0.06]">
                   <CalendarCheck2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                  <p className="text-[9px] font-medium text-foreground/60">{distribucion.length} departamento(s) activos</p>
+                  <p className="text-[11px] font-medium text-foreground/60">{distribucion.length} departamento(s) activos</p>
                 </div>
               )}
               {empleados.length === 0 && (
                 <div className="py-4 text-center text-muted-foreground/30">
-                  <p className="text-[9px] font-semibold">Sin alertas activas</p>
+                  <p className="text-[11px] font-semibold">Sin alertas activas</p>
                 </div>
               )}
             </div>
@@ -352,7 +352,7 @@ export default function RecursosHumanosPage() {
             <div className="absolute top-0 right-0 w-20 h-20 rounded-full bg-emerald-500/[0.06] blur-[30px]" />
             <div className="relative z-10">
               <h3 className="text-sm font-bold text-emerald-300 mb-1">Protocolos</h3>
-              <p className="text-[9px] text-white/40 mb-3">Accesos rápidos</p>
+              <p className="text-[11px] text-white/40 mb-3">Accesos rápidos</p>
               <div className="space-y-1.5">
                 {[
                   { label: "Nómina y Beneficios", href: "/nominas", icon: Calculator, color: "text-emerald-400" },
@@ -367,7 +367,7 @@ export default function RecursosHumanosPage() {
                   { label: "Manuales y Contratos", href: "/manuales-rrhh", icon: Briefcase, color: "text-indigo-400" },
                 ].map(item => (
                   <Link key={item.label} href={item.href as never}>
-                    <Button variant="ghost" size="sm" className="w-full h-8 justify-between text-[9px] font-semibold text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg group/btn">
+                    <Button variant="ghost" size="sm" className="w-full h-8 justify-between text-[11px] font-semibold text-white/60 hover:text-white hover:bg-white/[0.05] rounded-lg group/btn">
                       <span className="flex items-center gap-2">
                         <item.icon className={cn("h-3.5 w-3.5", item.color)} />
                         {item.label}
@@ -388,7 +388,7 @@ export default function RecursosHumanosPage() {
             <DialogTitle className="text-sm font-bold flex items-center gap-2">
               <UserPlus className="h-4 w-4 text-emerald-400" /> Nuevo Empleado
             </DialogTitle>
-            <p className="text-[9px] text-muted-foreground/50 font-medium">LOTTT 2026 · Campos con * son obligatorios</p>
+            <p className="text-[11px] text-muted-foreground/50 font-medium">LOTTT 2026 · Campos con * son obligatorios</p>
           </DialogHeader>
           <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto">
             <div className="space-y-1.5">

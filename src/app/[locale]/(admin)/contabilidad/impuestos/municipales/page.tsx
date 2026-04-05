@@ -39,7 +39,7 @@ export default function MunicipalesPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Landmark className="h-8 w-8 text-emerald-600" />
             Impuestos Municipales
           </h1>
@@ -54,16 +54,16 @@ export default function MunicipalesPage() {
 
       <div className="grid md:grid-cols-3 gap-6">
         <Card className="border rounded-2xl shadow-sm p-8">
-          <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Ingresos Brutos</p>
-          <p className="text-3xl font-black text-foreground">{loading ? "..." : formatCurrency(totalIngresos, "Bs.")}</p>
+          <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Ingresos Brutos</p>
+          <p className="text-3xl font-bold text-foreground">{loading ? "..." : formatCurrency(totalIngresos, "Bs.")}</p>
         </Card>
         <Card className="border rounded-2xl shadow-sm p-8">
-          <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Alícuota Municipal</p>
-          <p className="text-3xl font-black text-amber-600">{(alicuota * 100).toFixed(1)}%</p>
+          <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Alícuota Municipal</p>
+          <p className="text-3xl font-bold text-amber-600">{(alicuota * 100).toFixed(1)}%</p>
         </Card>
         <Card className="border rounded-2xl shadow-sm p-8">
-          <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Impuesto Estimado</p>
-          <p className="text-3xl font-black text-emerald-600">{loading ? "..." : formatCurrency(totalIngresos * alicuota, "Bs.")}</p>
+          <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Impuesto Estimado</p>
+          <p className="text-3xl font-bold text-emerald-600">{loading ? "..." : formatCurrency(totalIngresos * alicuota, "Bs.")}</p>
         </Card>
       </div>
 
@@ -99,7 +99,7 @@ export default function MunicipalesPage() {
                     <TableCell className="text-xs font-medium">{f.cliente}</TableCell>
                     <TableCell className="text-right font-mono text-xs font-bold">{formatCurrency(parseFloat(f.total), "Bs.")}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={f.estado === "cobrada" ? "default" : "secondary"} className="text-[9px] uppercase">{f.estado}</Badge>
+                      <Badge variant={f.estado === "cobrada" ? "default" : "secondary"} className="text-[11px] uppercase">{f.estado}</Badge>
                     </TableCell>
                   </TableRow>
                 ))}

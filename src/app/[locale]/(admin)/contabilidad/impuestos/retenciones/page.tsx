@@ -40,7 +40,7 @@ export default function RetencionesPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <ShieldCheck className="h-8 w-8 text-emerald-600" />
             Retenciones (IVA e ISLR)
           </h1>
@@ -60,14 +60,14 @@ export default function RetencionesPage() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card className="border rounded-2xl shadow-sm p-8">
-          <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Total Retenido IVA (Mes)</p>
-          <p className="text-3xl font-black text-foreground">
+          <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Total Retenido IVA (Mes)</p>
+          <p className="text-3xl font-bold text-foreground">
             {loading ? "..." : formatCurrency(parseFloat(summary?.total_iva ?? "0"), "Bs.")}
           </p>
         </Card>
         <Card className="border rounded-2xl shadow-sm p-8">
-          <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Total Retenido ISLR (Mes)</p>
-          <p className="text-3xl font-black text-emerald-600">
+          <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Total Retenido ISLR (Mes)</p>
+          <p className="text-3xl font-bold text-emerald-600">
             {loading ? "..." : formatCurrency(parseFloat(summary?.total_islr ?? "0"), "Bs.")}
           </p>
         </Card>
@@ -75,7 +75,7 @@ export default function RetencionesPage() {
 
       <Card className="border rounded-2xl shadow-sm overflow-hidden">
         <CardHeader className="border-b bg-muted/30 px-8 py-6">
-          <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground">
+          <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground">
             Relación de Retenciones Practicadas
           </CardTitle>
         </CardHeader>
@@ -111,14 +111,14 @@ export default function RetencionesPage() {
                     <TableCell>
                       <div className="flex flex-col">
                         <span className="font-bold text-xs">{r.proveedor}</span>
-                        <span className="text-[9px] text-muted-foreground">{r.rif}</span>
+                        <span className="text-[11px] text-muted-foreground">{r.rif}</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-center">
-                      <Badge variant={r.tipo === "IVA" ? "default" : "secondary"} className="text-[9px] uppercase">{r.tipo}</Badge>
+                      <Badge variant={r.tipo === "IVA" ? "default" : "secondary"} className="text-[11px] uppercase">{r.tipo}</Badge>
                     </TableCell>
                     <TableCell className="text-right font-mono text-xs">{formatCurrency(parseFloat(r.base), "Bs.")}</TableCell>
-                    <TableCell className="text-center font-black text-xs">{String(r.pct).replace("%", "")}%</TableCell>
+                    <TableCell className="text-center font-semibold text-xs">{String(r.pct).replace("%", "")}%</TableCell>
                     <TableCell className="text-right font-mono text-xs font-bold text-emerald-600">{formatCurrency(parseFloat(r.monto), "Bs.")}</TableCell>
                     <TableCell className="text-right pr-8">
                       <Button variant="ghost" size="sm" className="h-8 w-8 text-muted-foreground hover:text-foreground">

@@ -114,19 +114,19 @@ export default function EmbudosPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <TrendingUp className="h-3 w-3" /> EMBUDO DE VENTAS
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Embudos de <span className="text-primary italic">Conversión</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Pipeline • Etapas • Tasa de Conversión • Automatización IA
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+            <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
               <Plus className="h-4 w-4" /> NUEVO EMBUDO
             </Button>
           </DialogTrigger>
@@ -171,7 +171,7 @@ export default function EmbudosPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -184,16 +184,16 @@ export default function EmbudosPage() {
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <TrendingUp className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">Error al cargar datos</p>
-          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar datos</p>
+          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             Reintentar
           </Button>
         </div>
       ) : embudos.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <TrendingUp className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">No hay embudos configurados</p>
-          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">No hay embudos configurados</p>
+          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             <Plus className="h-3 w-3 mr-1" /> Crear primer embudo
           </Button>
         </div>
@@ -212,7 +212,7 @@ export default function EmbudosPage() {
                       <span>Ingreso: <strong className="text-primary">USD {Number(embudo.ingreso_estimado).toLocaleString()}</strong></span>
                     </div>
                   </div>
-                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[8px] font-bold">{embudo.estado}</Badge>
+                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold">{embudo.estado}</Badge>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
@@ -231,7 +231,7 @@ export default function EmbudosPage() {
                           {j > 0 && (
                             <div className="flex items-center justify-center py-1">
                               <ArrowDown className="h-4 w-4 text-muted-foreground/30" />
-                              <span className="text-[9px] font-bold text-muted-foreground ml-1">{convPct} conversión</span>
+                              <span className="text-[11px] font-bold text-muted-foreground ml-1">{convPct} conversión</span>
                             </div>
                           )}
                           <div
@@ -244,7 +244,7 @@ export default function EmbudosPage() {
                             <div className="flex-1">
                               <p className="text-xs font-bold">{etapa.nombre}</p>
                             </div>
-                            <p className={cn("text-lg font-black", etapa.color)}>{Number(etapa.total).toLocaleString()}</p>
+                            <p className={cn("text-lg font-bold", etapa.color)}>{Number(etapa.total).toLocaleString()}</p>
                           </div>
                         </div>
                       );

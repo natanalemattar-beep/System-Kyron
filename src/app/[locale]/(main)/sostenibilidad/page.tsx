@@ -125,11 +125,11 @@ export default function SostenibilidadPage() {
       <ModuleTutorial config={moduleTutorials["sostenibilidad"]} />
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.3em] text-secondary mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wide text-secondary mb-4">
             <Leaf className="h-3 w-3" /> ÁREA SUSTENTABLE
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase">Impacto <span className="text-secondary italic">Ambiental</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase">Impacto <span className="text-secondary italic">Ambiental</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">Gestión de Activos Verdes • Ameru IA Ecosystem 2026</p>
         </div>
         <div className="flex gap-3">
           <Button onClick={() => { setForm(emptyForm); setShowForm(true); }} size="sm" className="h-9 px-4 rounded-xl text-xs font-semibold bg-secondary hover:bg-secondary/90 text-white">
@@ -145,8 +145,8 @@ export default function SostenibilidadPage() {
         <div className="p-6 md:p-10 grid lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <div className="space-y-2">
-              <Badge className="bg-secondary text-white border-none text-[8px] font-black px-3 py-1 uppercase tracking-[0.3em]">Hardware 3ra Gen</Badge>
-              <h2 className="text-2xl md:text-4xl font-black tracking-tight uppercase text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
+              <Badge className="bg-secondary text-white border-none text-[10px] font-bold px-3 py-1 uppercase tracking-wide">Hardware 3ra Gen</Badge>
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight uppercase text-foreground leading-none">AMERU <span className="text-secondary">IA</span></h2>
               <p className="text-sm text-muted-foreground leading-relaxed">La papelera inteligente definitiva para el sector privado. Clasificación autónoma con IA edge.</p>
             </div>
 
@@ -158,9 +158,9 @@ export default function SostenibilidadPage() {
                 <div key={i} className="space-y-1.5">
                   <div className="flex items-center gap-2 text-secondary">
                     <feat.icon className="h-3.5 w-3.5" />
-                    <span className="text-[10px] font-black uppercase tracking-wider">{feat.label}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider">{feat.label}</span>
                   </div>
-                  <p className="text-[9px] text-muted-foreground/50 leading-snug">{feat.desc}</p>
+                  <p className="text-[11px] text-muted-foreground/50 leading-snug">{feat.desc}</p>
                 </div>
               ))}
             </div>
@@ -182,7 +182,7 @@ export default function SostenibilidadPage() {
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-            <div className="relative z-10 flex gap-6 text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 bg-background/60 backdrop-blur-md px-5 py-2 rounded-full border border-border/20">
+            <div className="relative z-10 flex gap-6 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70 bg-background/60 backdrop-blur-md px-5 py-2 rounded-full border border-border/20">
               <span className="flex items-center gap-2"><Battery className="h-3 w-3 text-secondary" /> 100% SOLAR</span>
               <span className="flex items-center gap-2"><Wifi className="h-3 w-3 text-secondary" /> 5G NATIVE</span>
             </div>
@@ -199,12 +199,12 @@ export default function SostenibilidadPage() {
         ].map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.01] transition-all">
             <div className="flex justify-between items-start mb-4">
-              <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">{kpi.label}</p>
               <div className={cn("p-1.5 rounded-lg border", kpi.bgColor)}>
                 <kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} />
               </div>
             </div>
-            <p className="text-2xl font-black text-foreground tracking-tight">{kpi.val}</p>
+            <p className="text-2xl font-bold text-foreground tracking-tight">{kpi.val}</p>
             <p className="text-[10px] text-muted-foreground/50 font-bold mt-1">{kpi.desc}</p>
           </Card>
         ))}
@@ -213,7 +213,7 @@ export default function SostenibilidadPage() {
       <div className="grid gap-6 lg:grid-cols-12">
         <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/50 overflow-hidden">
           <CardHeader className="p-6 border-b border-border/30">
-            <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+            <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
               <Activity className="h-3.5 w-3.5 text-secondary" /> Historial de Reciclaje
             </CardTitle>
           </CardHeader>
@@ -233,10 +233,10 @@ export default function SostenibilidadPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/20 border-none">
-                    <TableHead className="pl-6 py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Fecha / Origen</TableHead>
-                    <TableHead className="py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Material</TableHead>
-                    <TableHead className="text-center py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Peso</TableHead>
-                    <TableHead className="text-right pr-6 py-4 text-[9px] font-black uppercase tracking-wider opacity-30">Recompensa</TableHead>
+                    <TableHead className="pl-6 py-4 text-[11px] font-semibold uppercase tracking-wider opacity-30">Fecha / Origen</TableHead>
+                    <TableHead className="py-4 text-[11px] font-semibold uppercase tracking-wider opacity-30">Material</TableHead>
+                    <TableHead className="text-center py-4 text-[11px] font-semibold uppercase tracking-wider opacity-30">Peso</TableHead>
+                    <TableHead className="text-right pr-6 py-4 text-[11px] font-semibold uppercase tracking-wider opacity-30">Recompensa</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -244,15 +244,15 @@ export default function SostenibilidadPage() {
                     <TableRow key={row.id} className="border-border/20 hover:bg-muted/20 transition-colors group">
                       <TableCell className="pl-6 py-4">
                         <p className="font-bold text-xs text-foreground/80 group-hover:text-secondary transition-colors">{row.punto_ameru || 'Punto Ameru'}</p>
-                        <p className="text-[9px] text-muted-foreground">{new Date(row.fecha_reciclaje).toLocaleDateString('es-VE')}</p>
+                        <p className="text-[11px] text-muted-foreground">{new Date(row.fecha_reciclaje).toLocaleDateString('es-VE')}</p>
                       </TableCell>
                       <TableCell className="py-4">
-                        <Badge variant="outline" className="text-[8px] font-bold uppercase border-secondary/20 text-secondary bg-secondary/5">
+                        <Badge variant="outline" className="text-[10px] font-bold uppercase border-secondary/20 text-secondary bg-secondary/5">
                           {MATERIALES.find(m => m.value === row.tipo_material)?.label || row.tipo_material}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-center py-4 font-mono text-xs font-bold text-foreground/60">{parseFloat(row.peso_kg).toFixed(1)} kg</TableCell>
-                      <TableCell className="text-right pr-6 py-4 font-black text-lg text-secondary tracking-tight">+{parseFloat(row.eco_creditos).toFixed(0)}</TableCell>
+                      <TableCell className="text-right pr-6 py-4 font-bold text-lg text-secondary tracking-tight">+{parseFloat(row.eco_creditos).toFixed(0)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -261,10 +261,10 @@ export default function SostenibilidadPage() {
           </CardContent>
           {transacciones.length > 0 && (
             <CardFooter className="p-5 bg-muted/10 border-t border-border/20 flex justify-between items-center">
-              <div className="flex items-center gap-2 text-[9px] font-bold uppercase text-muted-foreground/40">
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase text-muted-foreground/40">
                 <Terminal className="h-3.5 w-3.5" /> Sello Blockchain RFC 3161
               </div>
-              <Button variant="outline" size="sm" className="h-8 px-4 rounded-xl text-[9px] font-bold uppercase tracking-wider">Ver Ledger</Button>
+              <Button variant="outline" size="sm" className="h-8 px-4 rounded-xl text-[11px] font-bold uppercase tracking-wider">Ver Ledger</Button>
             </CardFooter>
           )}
         </Card>
@@ -273,13 +273,13 @@ export default function SostenibilidadPage() {
           <Card className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-6 border-none relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10"><Coins className="h-24 w-24" /></div>
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <h3 className="text-sm font-black uppercase tracking-tight mb-2">Canje de Activos</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-tight mb-2">Canje de Activos</h3>
             <p className="text-[11px] opacity-80 leading-relaxed mb-5">Utilice sus Eco-Créditos para liquidar facturas de telecomunicaciones o inyectar liquidez.</p>
             <Button variant="secondary" size="sm" className="bg-white text-emerald-700 font-bold text-[10px] uppercase tracking-wider rounded-xl h-9 px-5 hover:bg-white/90">ACCEDER AL EXCHANGE</Button>
           </Card>
 
           <Card className="glass-card border-none p-5 rounded-2xl bg-card/50">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-secondary mb-6 flex items-center gap-2">
+            <h4 className="text-[10px] font-semibold uppercase tracking-wide text-secondary mb-6 flex items-center gap-2">
               <Activity className="h-3.5 w-3.5" /> Resumen de Cuenta
             </h4>
             <div className="space-y-4">
@@ -290,7 +290,7 @@ export default function SostenibilidadPage() {
               ].map((stat, i) => (
                 <div key={i} className="flex justify-between items-center border-b border-border/15 pb-3 last:border-none last:pb-0">
                   <span className="text-[10px] font-bold text-muted-foreground">{stat.label}</span>
-                  <span className={cn("text-xs font-black uppercase", stat.color)}>{stat.val}</span>
+                  <span className={cn("text-xs font-semibold uppercase", stat.color)}>{stat.val}</span>
                 </div>
               ))}
             </div>
@@ -301,7 +301,7 @@ export default function SostenibilidadPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="sm:max-w-md rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="text-sm font-black uppercase tracking-wider">Registrar Reciclaje</DialogTitle>
+            <DialogTitle className="text-sm font-semibold uppercase tracking-wider">Registrar Reciclaje</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="space-y-1.5">

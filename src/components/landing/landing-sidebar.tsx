@@ -44,16 +44,16 @@ export function LandingSidebar() {
                     <Logo className="h-16 w-16 relative z-10" />
                 </div>
                 <div className="text-center relative z-10">
-                    <span className="text-[11px] font-black tracking-[0.4em] text-primary uppercase italic">System Kyron</span>
+                    <span className="text-[11px] font-bold tracking-wider text-primary uppercase italic">System Kyron</span>
                     <div className="flex items-center justify-center gap-1.5 mt-1">
                         <span className="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                        <p className="text-[8px] font-black text-muted-foreground uppercase tracking-widest opacity-60">Status: Operational</p>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Status: Operational</p>
                     </div>
                 </div>
             </div>
 
             <nav className="flex-grow py-8 px-4 space-y-1.5 overflow-y-auto custom-scrollbar">
-                <p className="text-[9px] font-black uppercase text-muted-foreground/70 tracking-[0.3em] mb-6 px-4 italic">Navegación Maestro</p>
+                <p className="text-[11px] font-semibold uppercase text-muted-foreground/70 tracking-wide mb-6 px-4 italic">Navegación Maestro</p>
                 {navLinks.map((link) => (
                     <Link 
                         key={link.label} 
@@ -63,12 +63,12 @@ export function LandingSidebar() {
                     >
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform"></div>
                         <link.icon className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:rotate-3" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">{link.label}</span>
+                        <span className="text-[10px] font-semibold uppercase tracking-widest">{link.label}</span>
                     </Link>
                 ))}
                 
                 <div className="pt-8 px-4 space-y-4">
-                    <p className="text-[9px] font-black uppercase text-muted-foreground/70 tracking-[0.3em] mb-4 italic">Comercialización</p>
+                    <p className="text-[11px] font-semibold uppercase text-muted-foreground/70 tracking-wide mb-4 italic">Comercialización</p>
                     <Link href="/venta-linea" className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground hover:text-primary transition-colors">
                         <div className="p-1.5 bg-secondary/10 rounded-lg"><Magnet className="h-3.5 w-3.5 text-secondary" /></div>
                         Smart Bins (Magnet)
@@ -91,7 +91,7 @@ export function LandingSidebar() {
                 
                 <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full space-y-2">
                     <CollapsibleTrigger asChild>
-                        <Button variant="outline" className="w-full justify-center h-12 rounded-xl gap-2 font-black uppercase text-[10px] tracking-widest border-primary/10 hover:bg-primary/5 shadow-inner">
+                        <Button variant="outline" className="w-full justify-center h-12 rounded-xl gap-2 font-semibold uppercase text-[10px] tracking-widest border-primary/10 hover:bg-primary/5 shadow-inner">
                             ACCESO 
                             <ChevronDown className={cn("h-3.5 w-3.5 text-primary transition-transform", isAccesoOpen && "rotate-180")} />
                         </Button>
@@ -105,15 +105,15 @@ export function LandingSidebar() {
                                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center"
                                 >
                                     <option.icon className="h-3.5 w-3.5 text-primary mb-1" />
-                                    <span className="text-[7px] font-black uppercase tracking-tight leading-none">{option.label}</span>
+                                    <span className="text-[7px] font-semibold uppercase tracking-tight leading-none">{option.label}</span>
                                 </Link>
                             ))}
-                            <Link href="/login" className="col-span-2 text-[8px] font-black uppercase text-center py-1 hover:text-primary transition-colors">Ver todos los portales</Link>
+                            <Link href="/login" className="col-span-2 text-[10px] font-semibold uppercase text-center py-1 hover:text-primary transition-colors">Ver todos los portales</Link>
                         </div>
                     </CollapsibleContent>
                 </Collapsible>
 
-                <Button asChild className="w-full justify-center h-12 rounded-xl btn-3d-primary text-[10px] uppercase tracking-[0.2em] shadow-xl group">
+                <Button asChild className="w-full justify-center h-12 rounded-xl btn-3d-primary text-[10px] uppercase tracking-wide shadow-xl group">
                     <Link href="/register">REGISTRO <Zap className="ml-2 h-3.5 w-3.5 text-yellow-400 fill-yellow-400 group-hover:scale-125 transition-transform"/></Link>
                 </Button>
             </div>

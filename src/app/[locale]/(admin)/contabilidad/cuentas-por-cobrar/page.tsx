@@ -158,10 +158,10 @@ export default function CuentasPorCobrarPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Landmark className="h-3.5 w-3.5" /> Activos Corrientes
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Cuentas <span className="text-primary">por Cobrar</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Gestión de cartera · Seguimiento de cobros · Conciliación de ingresos</p>
@@ -212,28 +212,28 @@ export default function CuentasPorCobrarPage() {
               <span className="text-xs font-semibold text-muted-foreground">Total por Cobrar</span>
               <TrendingUp className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black text-primary">{formatCurrency(summary.totalSaldo, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-primary">{formatCurrency(summary.totalSaldo, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Monto Vencido</span>
               <AlertTriangle className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.totalVencido, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-rose-500">{formatCurrency(summary.totalVencido, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Clientes</span>
               <Users className="h-4 w-4 text-emerald-500" />
             </div>
-            <p className="text-2xl font-black">{summary.clientes}</p>
+            <p className="text-2xl font-bold">{summary.clientes}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Facturas Vencidas</span>
               <Clock className="h-4 w-4 text-amber-500" />
             </div>
-            <p className={cn("text-2xl font-black", summary.vencidas > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.vencidas}</p>
+            <p className={cn("text-2xl font-bold", summary.vencidas > 0 ? "text-amber-500" : "text-emerald-500")}>{summary.vencidas}</p>
           </Card>
         </div>
       )}

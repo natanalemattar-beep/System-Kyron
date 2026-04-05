@@ -69,15 +69,15 @@ export default function EcosistemaKyron() {
             >
               <div className="flex flex-col md:flex-row justify-between md:items-end gap-6 border-l-4 md:border-l-8 border-primary pl-4 md:pl-10 py-2">
                 <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow mb-4">
                         <Lock className="h-3 w-3" /> ACCESO DE AUTORIDAD TOTAL
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic italic-shadow leading-none">Ecosistema <span className="text-primary italic">Kyron</span></h2>
-                    <p className="text-[8px] md:text-[10px] font-black text-primary uppercase tracking-[0.4em] md:tracking-[0.6em] mt-3 md:mt-4 opacity-80">Terminal de Operaciones Globales • 2026</p>
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic leading-none">Ecosistema <span className="text-primary italic">Kyron</span></h2>
+                    <p className="text-[10px] md:text-[10px] font-bold text-primary uppercase tracking-wider md:tracking-wider mt-3 md:mt-4 opacity-80">Terminal de Operaciones Globales • 2026</p>
                 </div>
                 <div className="flex gap-2 md:gap-3">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[8px] md:text-[9px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground/60 hover:bg-muted transition-all">Sincronización</Button>
-                    <Button className="btn-3d-primary h-12 px-8 text-[9px] font-bold uppercase tracking-widest">CONTROL GLOBAL</Button>
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] md:text-[11px] font-semibold uppercase tracking-widest border-border bg-card/50 text-foreground/60 hover:bg-muted transition-all">Sincronización</Button>
+                    <Button className="btn-3d-primary h-12 px-8 text-[11px] font-bold uppercase tracking-widest">CONTROL GLOBAL</Button>
                 </div>
               </div>
 
@@ -90,15 +90,15 @@ export default function EcosistemaKyron() {
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
                 <Card className="lg:col-span-2 glass-card border-none rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden relative group">
-                  <div className="absolute top-4 md:top-6 right-4 md:right-8 flex items-center gap-2 md:gap-3 text-[8px] md:text-[9px] font-black text-primary animate-pulse uppercase tracking-widest">
+                  <div className="absolute top-4 md:top-6 right-4 md:right-8 flex items-center gap-2 md:gap-3 text-[10px] md:text-[11px] font-bold text-primary animate-pulse uppercase tracking-widest">
                     <Activity className="h-3 md:h-3.5 w-3 md:w-3.5" /> Transmisión Activa
                   </div>
                   <CardHeader className="p-6 md:p-10 pb-0">
-                    <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tight flex items-center gap-3 md:gap-4 text-foreground">
+                    <CardTitle className="text-xl md:text-2xl font-semibold uppercase tracking-tight flex items-center gap-3 md:gap-4 text-foreground">
                         <BarChart3 className="text-primary h-5 w-5 md:h-6 md:w-6" />
                         Flujo de Red IA
                     </CardTitle>
-                    <CardDescription className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-muted-foreground/40 mt-1 md:mt-2">Métricas vectoriales de rendimiento</CardDescription>
+                    <CardDescription className="text-[10px] md:text-[10px] font-bold uppercase tracking-wide md:tracking-wider text-muted-foreground/40 mt-1 md:mt-2">Métricas vectoriales de rendimiento</CardDescription>
                   </CardHeader>
                   <CardContent className="h-[250px] md:h-[400px] p-4 md:p-10">
                     <ResponsiveContainer width="100%" height="100%">
@@ -125,45 +125,45 @@ export default function EcosistemaKyron() {
                 
                 <div className="space-y-6 md:space-y-8">
                     <Card className="glass-card border-none rounded-[1.5rem] md:rounded-[2.5rem] border-l-4 border-rose-500 bg-card/40 shadow-xl">
-                        <CardHeader className="p-6 md:p-8 pb-3 md:pb-4"><CardTitle className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-primary italic">Notificaciones del Sistema</CardTitle></CardHeader>
+                        <CardHeader className="p-6 md:p-8 pb-3 md:pb-4"><CardTitle className="text-[11px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-primary italic">Notificaciones del Sistema</CardTitle></CardHeader>
                         <CardContent className="px-6 md:px-8 pb-6 md:pb-8 space-y-4">
                             <div className="group flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-rose-500/5 border border-rose-500/10 hover:bg-rose-500/10 transition-colors">
                                 <ShieldAlert className="h-5 w-5 md:h-6 md:w-6 text-rose-500 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tight text-rose-600">Alerta de Seguridad</p>
-                                    <p className="text-[9px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Inconsistencia detectada en protocolo fiscal Marzo.</p>
+                                    <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-tight text-rose-600">Alerta de Seguridad</p>
+                                    <p className="text-[11px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Inconsistencia detectada en protocolo fiscal Marzo.</p>
                                 </div>
                             </div>
                             <div className="group flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 hover:bg-amber-500/10 transition-colors">
                                 <Calendar className="h-5 w-5 md:h-6 md:w-6 text-amber-500 shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-[10px] md:text-[11px] font-black uppercase tracking-tight text-amber-600">Mantenimiento</p>
-                                    <p className="text-[9px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Habilitación CONATEL vence en 48h.</p>
+                                    <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-tight text-amber-600">Mantenimiento</p>
+                                    <p className="text-[11px] md:text-[10px] text-muted-foreground leading-tight mt-1 font-medium">Habilitación CONATEL vence en 48h.</p>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
                     
-                    <Card className="bg-[#050505] text-white border border-white/5 shadow-2xl overflow-hidden relative rounded-[1.5rem] md:rounded-[2.5rem] group">
+                    <Card className="bg-[#050505] text-white border border-white/5 shadow-lg overflow-hidden relative rounded-[1.5rem] md:rounded-[2.5rem] group">
                         <div className="absolute top-0 right-0 p-6 md:p-8 opacity-5 group-hover:opacity-10 transition-all duration-700"><Fingerprint className="h-24 w-24 md:h-32 md:w-32" /></div>
                         <CardHeader className="p-6 md:p-8 relative z-10 text-white">
-                            <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tight italic text-white">ID Digital 3D</CardTitle>
-                            <CardDescription className="text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] mt-1">Sello Inmutable</CardDescription>
+                            <CardTitle className="text-xl md:text-2xl font-semibold uppercase tracking-tight italic text-white">ID Digital 3D</CardTitle>
+                            <CardDescription className="text-primary text-[10px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider mt-1">Sello Inmutable</CardDescription>
                         </CardHeader>
                         <CardFooter className="p-6 md:p-8 pt-0 relative z-10">
-                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-xl bg-white text-black hover:bg-slate-100">AUTENTICAR ACCESO</Button>
+                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[10px] md:text-[11px] font-semibold uppercase tracking-widest rounded-xl bg-white text-black hover:bg-slate-100">AUTENTICAR ACCESO</Button>
                         </CardFooter>
                     </Card>
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-center py-10 md:py-16 space-y-6 md:space-y-8 bg-card/40 backdrop-blur-sm rounded-[2rem] md:rounded-[3rem] border border-border mx-2 shadow-inner">
-                  <div className="flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-muted-foreground/40 px-4 text-center italic">
+              <div className="flex flex-col items-center justify-center py-10 md:py-16 space-y-6 md:space-y-8 bg-card/40 backdrop-blur-sm rounded-xl md:rounded-2xl border border-border mx-2 shadow-inner">
+                  <div className="flex items-center gap-4 md:gap-6 text-[10px] md:text-[10px] font-semibold uppercase tracking-wider md:tracking-wider text-muted-foreground/40 px-4 text-center italic">
                     <div className="h-[1px] w-10 md:w-16 bg-border hidden xs:block" />
                     Protocolo de Inyección de Trazabilidad
                     <div className="h-[1px] w-10 md:w-16 bg-border hidden xs:block" />
                   </div>
-                  <Button onClick={simulateRecycling} size="lg" className="h-16 md:h-24 px-8 md:px-12 rounded-2xl btn-3d-secondary shadow-[0_0_60px_-20px_rgba(34,197,94,0.3)] text-sm md:text-xl font-black group relative overflow-hidden">
+                  <Button onClick={simulateRecycling} size="lg" className="h-16 md:h-24 px-8 md:px-12 rounded-2xl btn-3d-secondary shadow-[0_0_60px_-20px_rgba(34,197,94,0.3)] text-sm md:text-xl font-bold group relative overflow-hidden">
                       <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                       <Recycle className="mr-3 md:mr-4 h-5 w-5 md:h-8 md:w-8 group-hover:rotate-180 transition-transform duration-1000 relative z-10" />
                       <span className="relative z-10">INYECTAR DATA AMBIENTAL</span>
@@ -175,16 +175,16 @@ export default function EcosistemaKyron() {
         <footer className="h-14 md:h-16 border-t border-border bg-card/40 backdrop-blur-2xl flex items-center justify-between px-4 md:px-12 shrink-0">
           <div className="flex items-center gap-4 md:gap-8">
             <div className="flex flex-col">
-                <span className="text-[7px] md:text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] md:tracking-[0.4em]">Latencia</span>
-                <span className="text-[8px] md:text-[10px] font-mono font-bold text-secondary italic leading-none">14ms</span>
+                <span className="text-[7px] md:text-[11px] font-bold text-muted-foreground/40 uppercase tracking-wide md:tracking-wider">Latencia</span>
+                <span className="text-[10px] md:text-[10px] font-mono font-bold text-secondary italic leading-none">14ms</span>
             </div>
             <div className="h-6 w-px bg-border" />
             <div className="flex flex-col">
-                <span className="text-[7px] md:text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] md:tracking-[0.4em]">Cifrado</span>
-                <span className="text-[8px] md:text-[10px] font-mono font-bold text-primary italic leading-none">AES-256</span>
+                <span className="text-[7px] md:text-[11px] font-bold text-muted-foreground/40 uppercase tracking-wide md:tracking-wider">Cifrado</span>
+                <span className="text-[10px] md:text-[10px] font-mono font-bold text-primary italic leading-none">AES-256</span>
             </div>
           </div>
-          <p className="text-[7px] md:text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.4em] md:tracking-[0.8em] text-right italic">
+          <p className="text-[7px] md:text-[11px] font-bold text-muted-foreground/20 uppercase tracking-wider md:tracking-[0.8em] text-right italic">
             Kyron Master OS v2.8.5
           </p>
         </footer>
@@ -198,20 +198,20 @@ function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any)
   const bgClass = variant === 'accent' ? 'bg-secondary/10' : 'bg-primary/10';
   
   return (
-    <Card className="glass-card group relative overflow-hidden rounded-[1.2rem] md:rounded-[2.5rem] bg-card/40 hover:bg-card transition-all duration-500 shadow-2xl border-none">
+    <Card className="glass-card group relative overflow-hidden rounded-[1.2rem] md:rounded-[2.5rem] bg-card/40 hover:bg-card transition-all duration-500 shadow-lg border-none">
       <div className="absolute top-0 right-0 p-4 md:p-6 opacity-[0.02] group-hover:opacity-[0.05] transition-all duration-700"><Icon className="h-12 w-12 md:h-16 md:w-16" /></div>
       <CardContent className="p-4 md:p-8">
         <div className="flex items-center justify-between mb-4 md:mb-8">
-          <p className="text-[7px] md:text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.3em] md:tracking-[0.4em]">{title}</p>
+          <p className="text-[7px] md:text-[11px] font-bold text-muted-foreground/40 uppercase tracking-wide md:tracking-wider">{title}</p>
           <div className={cn("p-1.5 md:p-3 rounded-lg md:rounded-xl border transition-all duration-500 group-hover:-rotate-6 shadow-inner", bgClass, colorClass, variant === 'accent' ? 'border-secondary/20' : 'border-primary/20')}>
             <Icon className="h-3.5 w-3.5 md:h-5 md:w-5" />
           </div>
         </div>
         <div className="flex flex-wrap items-end gap-2 md:gap-4">
-            <h4 className={cn("text-lg md:text-3xl font-black tracking-tight leading-none italic", colorClass)}>{value}</h4>
+            <h4 className={cn("text-lg md:text-3xl font-bold tracking-tight leading-none italic", colorClass)}>{value}</h4>
             {trend && (
                 <div className={cn(
-                    "flex items-center text-[6px] md:text-[8px] font-black px-1.5 py-0.5 rounded-md border",
+                    "flex items-center text-[6px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-md border",
                     trend.startsWith('+') ? 'bg-secondary/10 text-secondary border-secondary/20' : 'bg-rose-500/10 text-rose-600 border-rose-500/20'
                 )}>
                     {trend}

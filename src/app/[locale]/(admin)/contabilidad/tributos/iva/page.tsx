@@ -100,10 +100,10 @@ export default function IvaPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
                         <FileText className="h-3.5 w-3.5" /> IVA
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Impuesto al <span className="text-primary">Valor Agregado</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Ley de IVA (G.O. 6.507 Extraordinario) · Alícuota general 16%</p>
@@ -134,7 +134,7 @@ export default function IvaPage() {
                                             onClick={() => { setAlicuota(a.tasa); setIva(null); }}
                                             className={`p-3 rounded-xl border text-center transition-all ${alicuota === a.tasa ? 'bg-primary/10 border-primary/30 text-primary' : 'bg-muted/30 hover:bg-muted/50'}`}
                                         >
-                                            <span className="text-lg font-black">{a.tasa}%</span>
+                                            <span className="text-lg font-bold">{a.tasa}%</span>
                                             <span className="block text-[10px] font-bold text-muted-foreground mt-0.5">{a.tipo}</span>
                                         </button>
                                     ))}
@@ -157,7 +157,7 @@ export default function IvaPage() {
                                                 </p>
                                             )}
                                         </div>
-                                        <span className="text-2xl md:text-3xl font-black text-primary">{formatCurrency(iva, 'Bs.')}</span>
+                                        <span className="text-2xl md:text-3xl font-bold text-primary">{formatCurrency(iva, 'Bs.')}</span>
                                     </div>
                                 </div>
                             )}
@@ -193,10 +193,10 @@ export default function IvaPage() {
                                             </div>
                                             <div className="text-right flex items-center gap-3">
                                                 <div>
-                                                    <p className="text-xs font-black">{formatCurrency(parseFloat(d.iva) || 0, 'Bs.')}</p>
+                                                    <p className="text-xs font-bold">{formatCurrency(parseFloat(d.iva) || 0, 'Bs.')}</p>
                                                     <p className="text-[10px] text-muted-foreground">IVA Neto</p>
                                                 </div>
-                                                <Badge className={cn("text-[9px] font-bold border-none",
+                                                <Badge className={cn("text-[11px] font-bold border-none",
                                                     d.estado === 'pagado' ? 'bg-emerald-500/10 text-emerald-500' :
                                                     d.estado === 'declarado' ? 'bg-blue-500/10 text-blue-500' :
                                                     'bg-amber-500/10 text-amber-500'
@@ -221,7 +221,7 @@ export default function IvaPage() {
                                 <div key={a.tipo} className="p-3.5 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="text-sm font-bold">{a.tipo}</span>
-                                        <span className="text-lg font-black text-primary">{a.tasa}%</span>
+                                        <span className="text-lg font-bold text-primary">{a.tasa}%</span>
                                     </div>
                                     <p className="text-[11px] text-muted-foreground">{a.descripcion}</p>
                                     <p className="text-[10px] font-bold text-muted-foreground/60 mt-1">{a.base}</p>
@@ -246,7 +246,7 @@ export default function IvaPage() {
                                         <p className="text-xs font-bold">{r.concepto}</p>
                                         <p className="text-[10px] text-muted-foreground">{r.nota}</p>
                                     </div>
-                                    <span className="text-lg font-black text-blue-500">{r.porcentaje}</span>
+                                    <span className="text-lg font-bold text-blue-500">{r.porcentaje}</span>
                                 </div>
                             ))}
 
@@ -259,7 +259,7 @@ export default function IvaPage() {
                                                 <p className="text-[11px] font-semibold">{r.proveedor || 'Proveedor'}</p>
                                                 <p className="text-[10px] text-muted-foreground">{r.fecha} · {r.comprobante || 'Sin comprobante'}</p>
                                             </div>
-                                            <span className="text-xs font-black text-blue-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
+                                            <span className="text-xs font-bold text-blue-500">{formatCurrency(parseFloat(r.monto) || 0, 'Bs.')}</span>
                                         </div>
                                     ))}
                                 </div>

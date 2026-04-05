@@ -96,16 +96,16 @@ export function RecertificacionPanel() {
       <CardContent className="p-5 space-y-4">
         <div className="grid grid-cols-3 gap-3">
           <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/15 text-center">
-            <p className="text-lg font-black text-emerald-500">{vigentes}</p>
-            <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Vigentes</p>
+            <p className="text-lg font-bold text-emerald-500">{vigentes}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Vigentes</p>
           </div>
           <div className="p-3 rounded-xl bg-amber-500/5 border border-amber-500/15 text-center">
-            <p className="text-lg font-black text-amber-500">{pendientes}</p>
-            <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Pendientes</p>
+            <p className="text-lg font-bold text-amber-500">{pendientes}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Pendientes</p>
           </div>
           <div className="p-3 rounded-xl bg-rose-500/5 border border-rose-500/15 text-center">
-            <p className="text-lg font-black text-rose-500">{vencidas}</p>
-            <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Vencidas</p>
+            <p className="text-lg font-bold text-rose-500">{vencidas}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Vencidas</p>
           </div>
         </div>
 
@@ -133,19 +133,19 @@ export function RecertificacionPanel() {
                     <div>
                       <p className="text-xs font-semibold text-foreground">{linea.titular ?? "—"}</p>
                       <p className="text-[10px] text-muted-foreground">{linea.departamento ?? "Sin departamento"} · {linea.numero}</p>
-                      <p className="text-[9px] text-muted-foreground mt-0.5">
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
                         Activación: {fmtDate(linea.fecha_activacion)}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={cn("text-[9px] px-2 py-0.5", config.bg, config.color, config.border)}>
+                    <Badge variant="outline" className={cn("text-[11px] px-2 py-0.5", config.bg, config.color, config.border)}>
                       {config.label}
                     </Badge>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="h-7 rounded-lg text-[9px]"
+                      className="h-7 rounded-lg text-[11px]"
                       disabled={verificando === linea.id}
                       onClick={() => handleVerificar(linea)}
                     >
@@ -266,7 +266,7 @@ export function FIDETELCalculator() {
           <div className="h-px bg-border/50" />
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-foreground">Contribución FIDETEL</span>
-            <span className="text-lg font-black text-primary tabular-nums">{formatCurrency(contribucion, 'VES')}</span>
+            <span className="text-lg font-bold text-primary tabular-nums">{formatCurrency(contribucion, 'VES')}</span>
           </div>
         </div>
 
@@ -280,7 +280,7 @@ export function FIDETELCalculator() {
         </div>
 
         <div className="p-3 rounded-xl bg-muted/10 border border-border/30">
-          <p className="text-[9px] text-muted-foreground leading-relaxed">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
             <strong>Base Legal:</strong> Art. 148-152 LOTEL (G.O. 39.610). La contribución especial al FIDETEL
             se calcula sobre los ingresos brutos del operador. El porcentaje es fijado por CONATEL
             según el tipo de servicio (0.5% - 2%). El pago es trimestral.

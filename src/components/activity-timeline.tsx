@@ -76,7 +76,7 @@ export function ActivityTimeline({ limit = 8 }: { limit?: number }) {
             <Activity className="h-4 w-4 text-white" />
           </div>
           <div>
-            <h3 className="text-sm font-black uppercase tracking-wider text-foreground">Actividad Reciente</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">Actividad Reciente</h3>
             <p className="text-[10px] text-muted-foreground/60">Timeline de tu cuenta</p>
           </div>
         </div>
@@ -120,7 +120,7 @@ export function ActivityTimeline({ limit = 8 }: { limit?: number }) {
                   <p className="text-xs font-bold text-foreground truncate">{item.descripcion}</p>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="text-[10px] text-muted-foreground/50 font-medium">{timeAgo(item.creado_en)}</span>
-                    <span className="text-[8px] text-muted-foreground/30">•</span>
+                    <span className="text-[10px] text-muted-foreground/30">•</span>
                     <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-bold">{item.categoria}</span>
                   </div>
                 </div>

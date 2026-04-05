@@ -246,7 +246,7 @@ function ObligationCard({ ob }: { ob: Obligation }) {
                 <CardTitle className="text-sm font-bold uppercase tracking-tight">
                   {ob.name}
                 </CardTitle>
-                <Badge variant="outline" className="mt-1 text-[9px] font-black uppercase tracking-widest">
+                <Badge variant="outline" className="mt-1 text-[11px] font-semibold uppercase tracking-widest">
                   {ob.frequency}
                 </Badge>
               </div>
@@ -257,21 +257,21 @@ function ObligationCard({ ob }: { ob: Obligation }) {
           <div className="flex items-start gap-2">
             <Clock className="h-3.5 w-3.5 text-muted-foreground mt-0.5 shrink-0" />
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Vencimiento</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Vencimiento</p>
               <p className="text-xs text-foreground">{ob.deadline}</p>
             </div>
           </div>
           <div className="flex items-start gap-2">
             <AlertTriangle className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Sanción por Incumplimiento</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Sanción por Incumplimiento</p>
               <p className="text-xs text-foreground">{ob.penalty}</p>
             </div>
           </div>
           <div className="flex items-start gap-2">
             <Info className="h-3.5 w-3.5 text-blue-400 mt-0.5 shrink-0" />
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Base Legal</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Base Legal</p>
               <p className="text-xs text-foreground">{ob.legalBasis}</p>
             </div>
           </div>
@@ -372,7 +372,7 @@ export default function CalendarioFiscalPage() {
               <div
                 key={i}
                 className={cn(
-                  "text-[8px] font-bold uppercase tracking-wider truncate px-1 py-0.5 rounded",
+                  "text-[10px] font-bold uppercase tracking-wider truncate px-1 py-0.5 rounded",
                   dl.type === "fiscal"
                     ? "bg-amber-500/10 text-amber-400"
                     : dl.type === "labor"
@@ -384,7 +384,7 @@ export default function CalendarioFiscalPage() {
               </div>
             ))}
             {dayDeadlines.length > 3 && (
-              <span className="text-[8px] text-muted-foreground">+{dayDeadlines.length - 3} más</span>
+              <span className="text-[10px] text-muted-foreground">+{dayDeadlines.length - 3} más</span>
             )}
           </div>
         )}
@@ -408,11 +408,11 @@ export default function CalendarioFiscalPage() {
         </Link>
 
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-widest text-amber-500">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] font-semibold uppercase tracking-widest text-amber-500">
             <Landmark className="h-3 w-3" />
             CALENDARIO FISCAL SENIAT
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight uppercase bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight uppercase bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 bg-clip-text text-transparent">
             Calendario Fiscal
           </h1>
           <p className="text-muted-foreground text-sm font-medium">
@@ -428,7 +428,7 @@ export default function CalendarioFiscalPage() {
         className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
       >
         <div className="flex items-center gap-3">
-          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             Dígito Terminal RIF
           </span>
           <Select
@@ -449,10 +449,10 @@ export default function CalendarioFiscalPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className={cn("text-[9px] font-black uppercase tracking-widest", status.text, status.bg)}>
+          <Badge variant="outline" className={cn("text-[11px] font-semibold uppercase tracking-widest", status.text, status.bg)}>
             {status.label}
           </Badge>
-          <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest text-amber-400">
+          <Badge variant="outline" className="text-[11px] font-semibold uppercase tracking-widest text-amber-400">
             IVA: Día {IVA_DAYS[rifDigit]}
           </Badge>
         </div>
@@ -497,7 +497,7 @@ export default function CalendarioFiscalPage() {
                   <Button variant="ghost" size="icon" className="rounded-xl" onClick={prevMonth}>
                     <ChevronLeft className="h-5 w-5" />
                   </Button>
-                  <CardTitle className="text-lg font-black uppercase tracking-tight">
+                  <CardTitle className="text-lg font-semibold uppercase tracking-tight">
                     {MONTH_NAMES[currentMonth]} {currentYear}
                   </CardTitle>
                   <Button variant="ghost" size="icon" className="rounded-xl" onClick={nextMonth}>
@@ -510,7 +510,7 @@ export default function CalendarioFiscalPage() {
                   {DAY_NAMES.map((d) => (
                     <div
                       key={d}
-                      className="text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground py-2"
+                      className="text-center text-[10px] font-semibold uppercase tracking-widest text-muted-foreground py-2"
                     >
                       {d}
                     </div>
@@ -535,7 +535,7 @@ export default function CalendarioFiscalPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="h-6 w-6 rounded-full bg-amber-500 flex items-center justify-center">
-                      <span className="text-[8px] font-bold text-black">H</span>
+                      <span className="text-[10px] font-bold text-black">H</span>
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Hoy</span>
                   </div>
@@ -547,7 +547,7 @@ export default function CalendarioFiscalPage() {
               <Card className={cn("border rounded-2xl shadow-sm p-5", "border-red-500/20")}>
                 <div className="flex items-center gap-3 mb-2">
                   <AlertTriangle className="h-4 w-4 text-red-400" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-red-400">Vencido</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-red-400">Vencido</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Obligaciones cuyo plazo ya transcurrió. Sujetas a multas e intereses moratorios.
@@ -556,7 +556,7 @@ export default function CalendarioFiscalPage() {
               <Card className={cn("border rounded-2xl shadow-sm p-5", "border-amber-500/20")}>
                 <div className="flex items-center gap-3 mb-2">
                   <Clock className="h-4 w-4 text-amber-400" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400">Este Mes</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-amber-400">Este Mes</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Obligaciones vigentes del período actual. Atención inmediata requerida.
@@ -565,7 +565,7 @@ export default function CalendarioFiscalPage() {
               <Card className={cn("border rounded-2xl shadow-sm p-5", "border-emerald-500/20")}>
                 <div className="flex items-center gap-3 mb-2">
                   <CheckCircle className="h-4 w-4 text-emerald-400" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Próximo</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400">Próximo</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Obligaciones futuras. Planifique con anticipación para evitar sanciones.

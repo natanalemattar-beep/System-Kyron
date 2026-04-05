@@ -37,7 +37,7 @@ export default function FacturacionTelecomPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <Wifi className="h-8 w-8 text-cyan-500" />
             Facturación Electrónica
           </h1>
@@ -89,12 +89,12 @@ export default function FacturacionTelecomPage() {
                     <TableCell className="pl-8 font-mono text-xs font-bold">{f.numero}</TableCell>
                     <TableCell className="text-xs font-medium">{f.cliente}</TableCell>
                     <TableCell>
-                      <Badge variant="secondary" className="text-[8px] uppercase">{f.tipo}</Badge>
+                      <Badge variant="secondary" className="text-[10px] uppercase">{f.tipo}</Badge>
                     </TableCell>
                     <TableCell className="text-xs">{f.fecha}</TableCell>
                     <TableCell className="text-right font-mono text-xs font-bold">{f.monto}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={f.estado === "COBRADA" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={f.estado === "COBRADA" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {f.estado}
                       </Badge>
                     </TableCell>

@@ -121,10 +121,10 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                 </div>
 
                 <div className="text-center space-y-1 animate-[fadeSlideUp_0.4s_0.2s_both]">
-                    <h1 className="text-base font-black uppercase tracking-[0.5em] text-foreground">
+                    <h1 className="text-base font-semibold uppercase tracking-wider text-foreground">
                         System Kyron
                     </h1>
-                    <p className="text-[7px] font-bold uppercase tracking-[0.6em] text-primary/60">
+                    <p className="text-[7px] font-bold uppercase tracking-wider text-primary/60">
                         {t('subtitle')}
                     </p>
                 </div>
@@ -141,17 +141,17 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                         />
                     </div>
                     <div className="flex items-center justify-between">
-                        <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-all duration-200">
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground transition-all duration-200">
                             {statusText}
                         </span>
-                        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground tabular-nums">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground tabular-nums">
                             {Math.round(progress)}%
                         </span>
                     </div>
                 </div>
             </div>
 
-            <p className="absolute bottom-8 text-[7px] font-bold uppercase tracking-[0.5em] text-muted-foreground/50 animate-[fadeIn_0.3s_0.5s_both]">
+            <p className="absolute bottom-8 text-[7px] font-bold uppercase tracking-wider text-muted-foreground/50 animate-[fadeIn_0.3s_0.5s_both]">
                 Inteligencia Corporativa
             </p>
         </div>

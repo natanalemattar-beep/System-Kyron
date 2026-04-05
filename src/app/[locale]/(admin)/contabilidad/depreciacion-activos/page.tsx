@@ -51,10 +51,10 @@ export default function DepreciacionActivosPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <HardDrive className="h-3.5 w-3.5" /> Activos Fijos
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Depreciación de <span className="text-primary">Activos</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">VEN-NIF · Línea recta / Doble saldo · Valores fiscales · ISLR Art. 27</p>
@@ -72,28 +72,28 @@ export default function DepreciacionActivosPage() {
               <span className="text-xs font-semibold text-muted-foreground">Costo Total</span>
               <HardDrive className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black text-primary">{formatCurrency(summary.costoTotal, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-primary">{formatCurrency(summary.costoTotal, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Dep. Acumulada</span>
               <TrendingDown className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.depTotal, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-rose-500">{formatCurrency(summary.depTotal, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Valor en Libros</span>
               <HardDrive className="h-4 w-4 text-emerald-500" />
             </div>
-            <p className="text-2xl font-black text-emerald-500">{formatCurrency(summary.valorLibros, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-emerald-500">{formatCurrency(summary.valorLibros, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Dep. Mensual</span>
               <Calendar className="h-4 w-4 text-amber-500" />
             </div>
-            <p className="text-2xl font-black text-amber-500">{formatCurrency(summary.depMensual, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-amber-500">{formatCurrency(summary.depMensual, 'Bs.')}</p>
           </Card>
         </div>
       )}
@@ -139,7 +139,7 @@ export default function DepreciacionActivosPage() {
                       <p className="truncate font-semibold">{a.nombre}</p>
                       <p className="text-[10px] text-muted-foreground">{a.metodo} · Desde: {a.fechaAdquisicion}</p>
                     </TableCell>
-                    <TableCell><Badge className="text-[9px] font-semibold bg-muted/50 border-none">{a.categoria}</Badge></TableCell>
+                    <TableCell><Badge className="text-[11px] font-semibold bg-muted/50 border-none">{a.categoria}</Badge></TableCell>
                     <TableCell className="text-xs font-mono">{formatCurrency(a.costoOriginal, 'Bs.')}</TableCell>
                     <TableCell className="text-xs text-center">{a.vidaUtil}</TableCell>
                     <TableCell className="text-xs font-mono text-rose-500">{formatCurrency(a.depAcumulada, 'Bs.')}</TableCell>

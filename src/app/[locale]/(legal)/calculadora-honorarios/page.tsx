@@ -110,30 +110,30 @@ export default function CalculadoraHonorariosPage() {
         className="border-l-4 border-amber-500 pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
       >
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-400 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] font-semibold uppercase tracking-wider text-amber-400 mb-3">
             <Scale className="h-3 w-3" /> HONORARIOS PROFESIONALES
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Calculadora de{" "}
             <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent italic">
               Honorarios
             </span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">
             Calculadora basada en el Baremo del Colegio de Abogados de Venezuela
           </p>
         </div>
-        <Button asChild variant="outline" className="h-12 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest border-amber-500/20 text-amber-400 hover:bg-amber-500/10">
+        <Button asChild variant="outline" className="h-12 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest border-amber-500/20 text-amber-400 hover:bg-amber-500/10">
           <Link href="/escritorio-juridico"><ArrowLeft className="mr-2 h-4 w-4" /> ESCRITORIO JURÍDICO</Link>
         </Button>
       </motion.header>
 
       <Tabs defaultValue="calculadora" className="w-full">
         <TabsList className="bg-card/50 border border-border/40 rounded-xl p-1 h-auto">
-          <TabsTrigger value="calculadora" className="rounded-lg text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-6 py-3">
+          <TabsTrigger value="calculadora" className="rounded-lg text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-6 py-3">
             <Calculator className="mr-2 h-3.5 w-3.5" /> Calculadora
           </TabsTrigger>
-          <TabsTrigger value="baremo" className="rounded-lg text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-6 py-3">
+          <TabsTrigger value="baremo" className="rounded-lg text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-6 py-3">
             <FileText className="mr-2 h-3.5 w-3.5" /> Tabla de Baremo
           </TabsTrigger>
         </TabsList>
@@ -148,14 +148,14 @@ export default function CalculadoraHonorariosPage() {
             >
               <Card className="glass-card border-none bg-card/40 rounded-2xl">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground/80 flex items-center gap-2">
+                  <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground/80 flex items-center gap-2">
                     <Calculator className="h-4 w-4 text-amber-400" />
                     Datos del Caso
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Tipo de Caso *</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Tipo de Caso *</Label>
                     <Select value={caseType} onValueChange={setCaseType}>
                       <SelectTrigger className="h-12 rounded-xl bg-muted/30 border-border">
                         <SelectValue placeholder="Seleccione el tipo de caso" />
@@ -175,7 +175,7 @@ export default function CalculadoraHonorariosPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Monto en Litigio *</Label>
+                      <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Monto en Litigio *</Label>
                       <div className="relative">
                         <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-amber-400/60" />
                         <Input
@@ -192,7 +192,7 @@ export default function CalculadoraHonorariosPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Moneda *</Label>
+                      <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Moneda *</Label>
                       <Select value={currency} onValueChange={setCurrency}>
                         <SelectTrigger className="h-12 rounded-xl bg-muted/30 border-border">
                           <SelectValue />
@@ -207,7 +207,7 @@ export default function CalculadoraHonorariosPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[9px] font-black uppercase tracking-widest opacity-60">Complejidad del Caso *</Label>
+                    <Label className="text-[11px] font-semibold uppercase tracking-widest opacity-60">Complejidad del Caso *</Label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       {COMPLEXITY_LEVELS.map(cl => (
                         <button
@@ -220,10 +220,10 @@ export default function CalculadoraHonorariosPage() {
                               : "border-border/40 bg-muted/20 hover:border-border"
                           )}
                         >
-                          <p className={cn("text-lg font-black", complexity === cl.value ? "text-amber-400" : "text-foreground/60")}>
+                          <p className={cn("text-lg font-bold", complexity === cl.value ? "text-amber-400" : "text-foreground/60")}>
                             {cl.multiplier}x
                           </p>
-                          <p className={cn("text-[9px] font-black uppercase tracking-widest mt-1", complexity === cl.value ? cl.color : "text-muted-foreground/50")}>
+                          <p className={cn("text-[11px] font-semibold uppercase tracking-widest mt-1", complexity === cl.value ? cl.color : "text-muted-foreground/50")}>
                             {cl.label}
                           </p>
                         </button>
@@ -235,14 +235,14 @@ export default function CalculadoraHonorariosPage() {
                     <Button
                       onClick={handleGenerate}
                       disabled={!calculation}
-                      className="flex-1 h-12 rounded-xl font-black text-[9px] uppercase tracking-widest bg-amber-500 hover:bg-amber-600 text-black"
+                      className="flex-1 h-12 rounded-xl font-bold text-[11px] uppercase tracking-widest bg-amber-500 hover:bg-amber-600 text-black"
                     >
                       <FileText className="mr-2 h-4 w-4" /> Generar Presupuesto
                     </Button>
                     <Button
                       variant="outline"
                       onClick={handleReset}
-                      className="h-12 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest border-border/40"
+                      className="h-12 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest border-border/40"
                     >
                       Limpiar
                     </Button>
@@ -259,7 +259,7 @@ export default function CalculadoraHonorariosPage() {
             >
               <Card className="glass-card border-none bg-card/40 rounded-2xl sticky top-6">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground/80 flex items-center gap-2">
+                  <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground/80 flex items-center gap-2">
                     <Receipt className="h-4 w-4 text-amber-400" />
                     Desglose de Honorarios
                   </CardTitle>
@@ -275,10 +275,10 @@ export default function CalculadoraHonorariosPage() {
                         className="space-y-4"
                       >
                         <div className="flex items-center gap-2 mb-4">
-                          <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[8px] font-black uppercase tracking-widest">
+                          <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[10px] font-semibold uppercase tracking-widest">
                             {calculation.caseLabel}
                           </Badge>
-                          <Badge className="bg-muted/30 text-muted-foreground border-border/40 text-[8px] font-black uppercase tracking-widest">
+                          <Badge className="bg-muted/30 text-muted-foreground border-border/40 text-[10px] font-semibold uppercase tracking-widest">
                             {calculation.complexityLabel} ({calculation.complexityMultiplier}x)
                           </Badge>
                         </div>
@@ -317,12 +317,12 @@ export default function CalculadoraHonorariosPage() {
                             animate={{ scale: 1 }}
                             className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center"
                           >
-                            <p className="text-[9px] font-black uppercase tracking-widest text-amber-400/60 mb-1">Total Estimado</p>
+                            <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-400/60 mb-1">Total Estimado</p>
                             <motion.p
                               key={calculation.total}
                               initial={{ opacity: 0, y: 5 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="text-3xl font-black text-amber-400"
+                              className="text-3xl font-bold text-amber-400"
                             >
                               {formatCurrency(calculation.total, currency)}
                             </motion.p>
@@ -331,7 +331,7 @@ export default function CalculadoraHonorariosPage() {
 
                         <div className="flex items-start gap-2 mt-4 p-3 rounded-xl bg-muted/20 border border-border/20">
                           <Info className="h-3.5 w-3.5 text-muted-foreground/50 mt-0.5 shrink-0" />
-                          <p className="text-[9px] text-muted-foreground/50 leading-relaxed">
+                          <p className="text-[11px] text-muted-foreground/50 leading-relaxed">
                             Cálculo referencial basado en el Baremo del Colegio de Abogados de Venezuela. Los montos finales pueden variar según acuerdo entre las partes.
                           </p>
                         </div>
@@ -345,10 +345,10 @@ export default function CalculadoraHonorariosPage() {
                         className="text-center py-12"
                       >
                         <Calculator className="h-12 w-12 text-muted-foreground/20 mx-auto mb-4" />
-                        <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/40">
+                        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">
                           Complete los datos del caso para ver el desglose
                         </p>
-                        <p className="text-[9px] text-muted-foreground/30 mt-2">
+                        <p className="text-[11px] text-muted-foreground/30 mt-2">
                           Tipo de caso • Monto • Complejidad
                         </p>
                       </motion.div>
@@ -367,11 +367,11 @@ export default function CalculadoraHonorariosPage() {
           >
             <Card className="glass-card border-none bg-card/40 rounded-2xl">
               <CardHeader className="pb-4">
-                <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground/80 flex items-center gap-2">
+                <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground/80 flex items-center gap-2">
                   <Percent className="h-4 w-4 text-amber-400" />
                   Baremo de Honorarios — Colegio de Abogados de Venezuela
                 </CardTitle>
-                <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">
                   Porcentajes aplicables según tipo de procedimiento y complejidad
                 </p>
               </CardHeader>
@@ -380,10 +380,10 @@ export default function CalculadoraHonorariosPage() {
                   <table className="w-full text-left">
                     <thead>
                       <tr className="border-b border-border/30">
-                        <th className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 py-3 px-4">Tipo de Caso</th>
-                        <th className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Mínimo</th>
-                        <th className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Máximo</th>
-                        <th className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Promedio</th>
+                        <th className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 py-3 px-4">Tipo de Caso</th>
+                        <th className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Mínimo</th>
+                        <th className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Máximo</th>
+                        <th className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 py-3 px-4 text-center">% Promedio</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -402,13 +402,13 @@ export default function CalculadoraHonorariosPage() {
                             </span>
                           </td>
                           <td className="py-3 px-4 text-center">
-                            <span className="text-sm font-black text-emerald-400">{ct.minPct}%</span>
+                            <span className="text-sm font-bold text-emerald-400">{ct.minPct}%</span>
                           </td>
                           <td className="py-3 px-4 text-center">
-                            <span className="text-sm font-black text-rose-400">{ct.maxPct}%</span>
+                            <span className="text-sm font-bold text-rose-400">{ct.maxPct}%</span>
                           </td>
                           <td className="py-3 px-4 text-center">
-                            <span className="text-sm font-black text-amber-400">{(ct.minPct + ct.maxPct) / 2}%</span>
+                            <span className="text-sm font-bold text-amber-400">{(ct.minPct + ct.maxPct) / 2}%</span>
                           </td>
                         </motion.tr>
                       ))}
@@ -417,7 +417,7 @@ export default function CalculadoraHonorariosPage() {
                 </div>
 
                 <div className="mt-8 space-y-4">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-foreground/60">Multiplicadores por Complejidad</h3>
+                  <h3 className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Multiplicadores por Complejidad</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {COMPLEXITY_LEVELS.map((cl, i) => (
                       <motion.div
@@ -427,15 +427,15 @@ export default function CalculadoraHonorariosPage() {
                         transition={{ delay: 0.3 + i * 0.05 }}
                         className="p-4 rounded-xl bg-muted/20 border border-border/20 text-center"
                       >
-                        <p className={cn("text-2xl font-black", cl.color)}>{cl.multiplier}x</p>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 mt-1">{cl.label}</p>
+                        <p className={cn("text-2xl font-bold", cl.color)}>{cl.multiplier}x</p>
+                        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 mt-1">{cl.label}</p>
                       </motion.div>
                     ))}
                   </div>
                 </div>
 
                 <div className="mt-8 space-y-3">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-foreground/60">Cargos Adicionales</h3>
+                  <h3 className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Cargos Adicionales</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {[
                       { label: "Gastos Estimados", pct: "15%", desc: "Gastos de gestión, notaría, traslados" },
@@ -450,10 +450,10 @@ export default function CalculadoraHonorariosPage() {
                         className="p-4 rounded-xl bg-muted/20 border border-border/20"
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-foreground/60">{item.label}</p>
-                          <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[9px] font-black">{item.pct}</Badge>
+                          <p className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">{item.label}</p>
+                          <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[11px] font-bold">{item.pct}</Badge>
                         </div>
-                        <p className="text-[9px] text-muted-foreground/50">{item.desc}</p>
+                        <p className="text-[11px] text-muted-foreground/50">{item.desc}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -471,14 +471,14 @@ function ResultRow({ label, value, sublabel, highlight }: { label: string; value
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
-        <p className={cn("text-[10px] font-black uppercase tracking-widest", highlight ? "text-amber-400" : "text-muted-foreground/60")}>
+        <p className={cn("text-[10px] font-semibold uppercase tracking-widest", highlight ? "text-amber-400" : "text-muted-foreground/60")}>
           {label}
         </p>
         {sublabel && (
-          <p className="text-[8px] text-muted-foreground/40 mt-0.5">{sublabel}</p>
+          <p className="text-[10px] text-muted-foreground/40 mt-0.5">{sublabel}</p>
         )}
       </div>
-      <p className={cn("text-sm font-black tabular-nums", highlight ? "text-amber-400" : "text-foreground/80")}>
+      <p className={cn("text-sm font-bold tabular-nums", highlight ? "text-amber-400" : "text-foreground/80")}>
         {value}
       </p>
     </div>

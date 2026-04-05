@@ -230,17 +230,17 @@ export default function ReclutamientoPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-secondary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wider text-secondary shadow-glow-secondary mb-4">
             <UserPlus className="h-3 w-3" /> CENTRO DE ATRACCIÓN
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Embudo de <span className="text-secondary italic">Atracción</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Selección • Contratación • Inducción</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Embudo de <span className="text-secondary italic">Atracción</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Selección • Contratación • Inducción</p>
         </div>
         <div className="flex gap-3">
-          <Button className="btn-3d-secondary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setShowVacanteDialog(true)}>
+          <Button className="btn-3d-secondary h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg" onClick={() => setShowVacanteDialog(true)}>
             <PlusCircle className="mr-3 h-4 w-4" /> PUBLICAR VACANTE
           </Button>
-          <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest" onClick={() => setShowCandidatoDialog(true)} disabled={vacantes.length === 0}>
+          <Button variant="outline" className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest" onClick={() => setShowCandidatoDialog(true)} disabled={vacantes.length === 0}>
             <Plus className="mr-3 h-4 w-4" /> REGISTRAR CANDIDATO
           </Button>
         </div>
@@ -248,21 +248,21 @@ export default function ReclutamientoPage() {
 
       <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
         {funnelStats.map((stat, i) => (
-          <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl group hover:border-secondary/30 transition-all">
+          <Card key={i} className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl group hover:border-secondary/30 transition-all">
             <div className="flex justify-between items-start mb-4">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
               <stat.icon className={cn("h-4 w-4", stat.color)} />
             </div>
-            <p className="text-3xl font-black italic text-foreground tracking-tight">{stat.val}</p>
+            <p className="text-3xl font-bold text-foreground tracking-tight">{stat.val}</p>
           </Card>
         ))}
       </div>
 
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
-          <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+          <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
             <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-              <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Pipeline de Candidatos Activos</CardTitle>
+              <CardTitle className="text-sm font-semibold uppercase tracking-wider text-secondary italic">Pipeline de Candidatos Activos</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {candidatos.length === 0 ? (
@@ -280,24 +280,24 @@ export default function ReclutamientoPage() {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-muted/30 border-none">
-                      <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Candidato</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Vacante</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Fase</TableHead>
-                      <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Puntuación</TableHead>
-                      <TableHead className="pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30 text-right">Acción</TableHead>
+                      <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Candidato</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Vacante</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30 text-center">Fase</TableHead>
+                      <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30 text-center">Puntuación</TableHead>
+                      <TableHead className="pr-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30 text-right">Acción</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {candidatos.map(c => (
                       <TableRow key={c.id} className="border-border/50 hover:bg-muted/20 transition-all group">
                         <TableCell className="pl-10 py-6">
-                          <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-secondary transition-colors">{c.nombre} {c.apellido}</p>
-                          <p className="text-[8px] font-mono text-muted-foreground font-bold">{c.email}</p>
+                          <p className="font-semibold text-xs text-foreground/80 uppercase italic group-hover:text-secondary transition-colors">{c.nombre} {c.apellido}</p>
+                          <p className="text-[10px] font-mono text-muted-foreground font-bold">{c.email}</p>
                         </TableCell>
                         <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase">{c.vacante_titulo}</TableCell>
                         <TableCell className="py-6 text-center">
                           <Select value={c.etapa} onValueChange={v => handleUpdateCandidatoEtapa(c.id, v)}>
-                            <SelectTrigger className="h-7 text-[8px] font-black uppercase tracking-widest rounded-lg border-secondary/20 text-secondary bg-secondary/5 w-[130px] mx-auto">
+                            <SelectTrigger className="h-7 text-[10px] font-semibold uppercase tracking-widest rounded-lg border-secondary/20 text-secondary bg-secondary/5 w-[130px] mx-auto">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -308,10 +308,10 @@ export default function ReclutamientoPage() {
                           </Select>
                         </TableCell>
                         <TableCell className="py-6 text-center">
-                          <span className="text-sm font-black italic text-foreground">{c.puntuacion ?? "—"}</span>
+                          <span className="text-sm font-bold text-foreground">{c.puntuacion ?? "—"}</span>
                         </TableCell>
                         <TableCell className="pr-10 py-6 text-right">
-                          <Button variant="ghost" size="sm" className="h-7 px-3 rounded-lg text-[8px] font-bold uppercase text-secondary hover:bg-secondary/10" onClick={() => handleUpdateCandidatoEtapa(c.id, "descartado")} disabled={c.etapa === "descartado"}>
+                          <Button variant="ghost" size="sm" className="h-7 px-3 rounded-lg text-[10px] font-bold uppercase text-secondary hover:bg-secondary/10" onClick={() => handleUpdateCandidatoEtapa(c.id, "descartado")} disabled={c.etapa === "descartado"}>
                             Descartar
                           </Button>
                         </TableCell>
@@ -325,9 +325,9 @@ export default function ReclutamientoPage() {
         </div>
 
         <div className="lg:col-span-4 space-y-8">
-          <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+          <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
             <CardHeader className="p-8 border-b border-border/50 bg-muted/10">
-              <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Vacantes</CardTitle>
+              <CardTitle className="text-sm font-semibold uppercase tracking-wider text-secondary italic">Vacantes</CardTitle>
             </CardHeader>
             <CardContent className="p-4">
               {vacantes.length === 0 ? (
@@ -343,9 +343,9 @@ export default function ReclutamientoPage() {
                   {vacantes.map(v => (
                     <div key={v.id} className="p-4 rounded-2xl bg-white/5 border border-border hover:border-secondary/30 transition-all">
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-xs font-black uppercase text-foreground">{v.titulo}</h4>
+                        <h4 className="text-xs font-semibold uppercase text-foreground">{v.titulo}</h4>
                         <Select value={v.estado} onValueChange={val => handleUpdateVacanteEstado(v.id, val)}>
-                          <SelectTrigger className="h-5 w-[100px] text-[7px] font-black uppercase tracking-wider rounded-md border-secondary/20 text-secondary bg-transparent">
+                          <SelectTrigger className="h-5 w-[100px] text-[7px] font-semibold uppercase tracking-wider rounded-md border-secondary/20 text-secondary bg-transparent">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -356,8 +356,8 @@ export default function ReclutamientoPage() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <p className="text-[9px] text-muted-foreground font-bold uppercase">{v.departamento}</p>
-                      <div className="flex gap-4 mt-2 text-[8px] text-muted-foreground/60">
+                      <p className="text-[11px] text-muted-foreground font-bold uppercase">{v.departamento}</p>
+                      <div className="flex gap-4 mt-2 text-[10px] text-muted-foreground/60">
                         <span>{v.num_candidatos} candidatos</span>
                         <span>{v.contratados} contratados</span>
                       </div>
@@ -369,17 +369,17 @@ export default function ReclutamientoPage() {
           </Card>
 
           <Card className="glass-card border-none bg-white/[0.02] p-8 rounded-[2.5rem] shadow-xl">
-            <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-secondary mb-6 flex items-center gap-3 italic">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-secondary mb-6 flex items-center gap-3 italic">
               <Activity className="h-4 w-4" /> Resumen Pipeline
             </h4>
             <div className="space-y-6">
               <div className="flex justify-between items-end border-b border-border pb-4">
-                <span className="text-[9px] font-bold text-muted-foreground uppercase">Total Vacantes</span>
-                <span className="text-xl font-black text-foreground italic">{vacantes.length}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase">Total Vacantes</span>
+                <span className="text-xl font-bold text-foreground italic">{vacantes.length}</span>
               </div>
               <div className="flex justify-between items-end">
-                <span className="text-[9px] font-bold text-muted-foreground uppercase">Total Candidatos</span>
-                <span className="text-xl font-black text-emerald-500 italic">{stats.total_candidatos}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase">Total Candidatos</span>
+                <span className="text-xl font-bold text-emerald-500 italic">{stats.total_candidatos}</span>
               </div>
             </div>
           </Card>
@@ -389,7 +389,7 @@ export default function ReclutamientoPage() {
       <Dialog open={showVacanteDialog} onOpenChange={setShowVacanteDialog}>
         <DialogContent className="max-w-2xl rounded-3xl">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase tracking-widest">Publicar Nueva Vacante</DialogTitle>
+            <DialogTitle className="text-lg font-semibold uppercase tracking-widest">Publicar Nueva Vacante</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
             <div className="grid grid-cols-2 gap-4">
@@ -477,7 +477,7 @@ export default function ReclutamientoPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowVacanteDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleCreateVacante} disabled={saving} className="btn-3d-secondary rounded-xl font-black uppercase text-[10px] tracking-widest">
+            <Button onClick={handleCreateVacante} disabled={saving} className="btn-3d-secondary rounded-xl font-semibold uppercase text-[10px] tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <PlusCircle className="h-4 w-4 mr-2" />} Publicar Vacante
             </Button>
           </DialogFooter>
@@ -487,7 +487,7 @@ export default function ReclutamientoPage() {
       <Dialog open={showCandidatoDialog} onOpenChange={setShowCandidatoDialog}>
         <DialogContent className="max-w-2xl rounded-3xl">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase tracking-widest">Registrar Candidato</DialogTitle>
+            <DialogTitle className="text-lg font-semibold uppercase tracking-widest">Registrar Candidato</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
             <div>
@@ -558,7 +558,7 @@ export default function ReclutamientoPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCandidatoDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleCreateCandidato} disabled={saving} className="btn-3d-secondary rounded-xl font-black uppercase text-[10px] tracking-widest">
+            <Button onClick={handleCreateCandidato} disabled={saving} className="btn-3d-secondary rounded-xl font-semibold uppercase text-[10px] tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />} Registrar Candidato
             </Button>
           </DialogFooter>

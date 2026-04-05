@@ -116,10 +116,10 @@ export default function TarjetaDigitalPage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.2em] mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wide mb-3">
                     <Sparkles className="h-3 w-3" /> Identidad Digital
                 </div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 text-foreground">ID Digital Interactiva</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 text-foreground">ID Digital Interactiva</h1>
                 <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Pulsa la tarjeta para girar</p>
             </motion.div>
 
@@ -134,7 +134,7 @@ export default function TarjetaDigitalPage() {
                     transition={{ duration: 0.6, type: "spring", stiffness: 100, damping: 20 }}
                 >
                     {/* FRENTE */}
-                    <Card className="absolute inset-0 backface-hidden shadow-2xl border bg-card/95 backdrop-blur-3xl flex flex-col print-card rounded-[2rem] border-primary/5">
+                    <Card className="absolute inset-0 backface-hidden shadow-lg border bg-card/95 backdrop-blur-3xl flex flex-col print-card rounded-xl border-primary/5">
                         <div className="h-32 relative overflow-hidden bg-[#050505]">
                             <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)),transparent_75%)]"></div>
                         </div>
@@ -142,15 +142,15 @@ export default function TarjetaDigitalPage() {
                         <CardContent className="flex-grow flex flex-col items-center -mt-16 relative z-10 px-6">
                             <Avatar className="h-28 w-28 border-[4px] border-background shadow-xl mb-4">
                                 {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt={userData.name} />}
-                                <AvatarFallback className="text-2xl bg-secondary font-black">{userData.name.charAt(0)}</AvatarFallback>
+                                <AvatarFallback className="text-2xl bg-secondary font-bold">{userData.name.charAt(0)}</AvatarFallback>
                             </Avatar>
                             
-                            <h2 className="text-xl font-black text-center mb-1 tracking-tight leading-none text-white">{userData.name}</h2>
-                            <p className="text-primary font-black text-center text-[9px] uppercase tracking-[0.2em] mb-4">{userData.position}</p>
+                            <h2 className="text-xl font-bold text-center mb-1 tracking-tight leading-none text-white">{userData.name}</h2>
+                            <p className="text-primary font-bold text-center text-[11px] uppercase tracking-wide mb-4">{userData.position}</p>
                             
                             <div className="flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-secondary/50 border border-border/50">
                                 <Briefcase className="h-3 w-3 text-primary" /> 
-                                <span className="text-[9px] font-bold tracking-tight text-white">{userData.company}</span>
+                                <span className="text-[11px] font-bold tracking-tight text-white">{userData.company}</span>
                             </div>
 
                             <div className="w-full space-y-3">
@@ -178,17 +178,17 @@ export default function TarjetaDigitalPage() {
                         </CardContent>
                         
                         <div className="p-3 border-t border-primary/5 bg-primary/[0.02] text-center no-print">
-                            <span className="text-[8px] uppercase font-black tracking-[0.3em] text-muted-foreground/40">Kyron Ecosystem · 2025</span>
+                            <span className="text-[10px] uppercase font-bold tracking-wide text-muted-foreground/40">Kyron Ecosystem · 2025</span>
                         </div>
                     </Card>
 
                     {/* REVERSO */}
-                    <Card className="absolute inset-0 backface-hidden shadow-2xl border rotate-y-180 bg-card/98 backdrop-blur-3xl flex flex-col items-center justify-center p-8 text-center rounded-[2rem] border-primary/5">
+                    <Card className="absolute inset-0 backface-hidden shadow-lg border rotate-y-180 bg-card/98 backdrop-blur-3xl flex flex-col items-center justify-center p-8 text-center rounded-xl border-primary/5">
                         <div className="mb-8">
                             <div className="p-4 bg-primary/10 rounded-2xl w-fit mx-auto mb-4 shadow-inner border border-primary/5">
                                 <QrCode className="h-10 w-10 text-primary"/>
                             </div>
-                            <h3 className="font-black text-xl tracking-tight mb-1 text-white uppercase italic">Acceso Digital</h3>
+                            <h3 className="font-bold text-xl tracking-tight mb-1 text-white uppercase italic">Acceso Digital</h3>
                             <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-widest">Escanea para conectar</p>
                         </div>
 
@@ -201,10 +201,10 @@ export default function TarjetaDigitalPage() {
                         </div>
                         
                         <div className="mt-8 space-y-3 w-full">
-                            <Button variant="outline" className="w-full rounded-xl h-10 border-primary/10 hover:bg-primary/5 text-[9px] font-black uppercase tracking-widest" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
+                            <Button variant="outline" className="w-full rounded-xl h-10 border-primary/10 hover:bg-primary/5 text-[11px] font-semibold uppercase tracking-widest" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
                                 <Globe className="mr-2 h-3.5 w-3.5" /> Visitar Website
                             </Button>
-                            <Button variant="ghost" className="no-print rounded-lg font-black uppercase text-[8px] tracking-[0.2em] opacity-50 hover:opacity-100" onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}>
+                            <Button variant="ghost" className="no-print rounded-lg font-semibold uppercase text-[10px] tracking-wide opacity-50 hover:opacity-100" onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}>
                                 <RefreshCcw className="mr-2 h-3 w-3" /> Volver al frente
                             </Button>
                         </div>

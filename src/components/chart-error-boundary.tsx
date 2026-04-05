@@ -35,7 +35,7 @@ export class ChartErrorBoundary extends React.Component<Props, State> {
           <p className="text-[10px] font-semibold uppercase">
             {this.props.fallbackLabel ?? 'Error al cargar el gráfico'}
           </p>
-          <p className="text-[9px]">Actualiza la página para intentar de nuevo</p>
+          <p className="text-[11px]">Actualiza la página para intentar de nuevo</p>
         </div>
       );
     }

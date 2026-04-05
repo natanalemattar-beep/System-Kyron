@@ -47,31 +47,31 @@ export default function AnalisisRiesgoPage() {
   return (
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-rose-500 pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 shadow-glow mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] font-semibold uppercase tracking-wider text-rose-500 mb-4">
           <ShieldAlert className="h-3 w-3" /> CENTRO DE MITIGACIÓN
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión <span className="text-rose-500 italic">de Riesgo</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Mapa de Calor • Protocolos de Contingencia 2026</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Gestión <span className="text-rose-500 italic">de Riesgo</span></h1>
+        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Mapa de Calor • Protocolos de Contingencia 2026</p>
       </header>
 
       <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-4 glass-card border-none bg-rose-500/5 p-10 rounded-[3rem] text-center shadow-2xl flex flex-col justify-center border-l-4 border-rose-500">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-500/60 mb-6">Nivel de Exposición Global</p>
+        <Card className="lg:col-span-4 glass-card border-none bg-rose-500/5 p-10 rounded-2xl text-center shadow-lg flex flex-col justify-center border-l-4 border-rose-500">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-rose-500/60 mb-6">Nivel de Exposición Global</p>
           <div className="relative inline-block mb-6">
-            <p className="text-4xl md:text-5xl font-black italic text-rose-500 tracking-tight leading-none">
+            <p className="text-4xl md:text-5xl font-bold text-rose-500 tracking-tight leading-none">
               {loading ? "—" : scoreGlobal.toFixed(1)}
             </p>
-            <p className="text-[9px] font-bold uppercase opacity-40 mt-2">Sobre 10 Puntos</p>
+            <p className="text-[11px] font-bold uppercase opacity-40 mt-2">Sobre 10 Puntos</p>
           </div>
           <Progress value={loading ? 0 : scoreGlobal * 10} className="h-3 bg-rose-500/10" />
-          <p className="mt-6 text-xs font-black uppercase tracking-widest text-rose-600">
+          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-rose-600">
             {scoreGlobal === 0 ? "SIN RIESGOS DETECTADOS" : scoreGlobal < 5 ? "RIESGO BAJO" : scoreGlobal < 7.5 ? "RIESGO MODERADO" : "RIESGO ALTO"}
           </p>
         </Card>
 
-        <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+        <Card className="lg:col-span-8 glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
           <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Matriz de Riesgos Identificados</CardTitle>
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Matriz de Riesgos Identificados</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {loading ? (
@@ -91,28 +91,28 @@ export default function AnalisisRiesgoPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30 border-none">
-                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Área / ID</TableHead>
-                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
-                    <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Impacto</TableHead>
-                    <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Probabilidad</TableHead>
-                    <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Score</TableHead>
+                    <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Área / ID</TableHead>
+                    <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Descripción</TableHead>
+                    <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Impacto</TableHead>
+                    <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Probabilidad</TableHead>
+                    <TableHead className="text-right pr-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Score</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {allRiesgos.map((r, idx) => (
                     <TableRow key={idx} className="border-border/50 hover:bg-muted/20 transition-all">
                       <TableCell className="pl-10 py-6">
-                        <p className="font-black text-xs text-foreground/80 uppercase italic">{r.area}</p>
-                        <p className="text-[8px] font-mono text-primary font-bold uppercase tracking-widest">{r.id}</p>
+                        <p className="font-semibold text-xs text-foreground/80 uppercase italic">{r.area}</p>
+                        <p className="text-[10px] font-mono text-primary font-bold uppercase tracking-widest">{r.id}</p>
                       </TableCell>
                       <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase leading-tight max-w-[200px]">{r.desc}</TableCell>
                       <TableCell className="text-center py-6">
-                        <Badge variant={r.impacto === 'Alto' ? 'destructive' : 'default'} className="text-[8px] font-black uppercase">{r.impacto}</Badge>
+                        <Badge variant={r.impacto === 'Alto' ? 'destructive' : 'default'} className="text-[10px] font-semibold uppercase">{r.impacto}</Badge>
                       </TableCell>
                       <TableCell className="text-center py-6">
-                        <Badge variant="outline" className="text-[8px] font-black uppercase">{r.prob}</Badge>
+                        <Badge variant="outline" className="text-[10px] font-semibold uppercase">{r.prob}</Badge>
                       </TableCell>
-                      <TableCell className="text-right pr-10 py-6 font-black text-lg text-rose-500 italic">{r.score}</TableCell>
+                      <TableCell className="text-right pr-10 py-6 font-bold text-lg text-rose-500 italic">{r.score}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -123,8 +123,8 @@ export default function AnalisisRiesgoPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        <Card className="glass-card border-none p-10 rounded-[3rem] bg-emerald-500/5 border-l-4 border-emerald-500">
-          <h3 className="text-xl font-black uppercase italic tracking-tight text-emerald-500 mb-6 flex items-center gap-4">
+        <Card className="glass-card border-none p-10 rounded-2xl bg-emerald-500/5 border-l-4 border-emerald-500">
+          <h3 className="text-xl font-semibold uppercase italic tracking-tight text-emerald-500 mb-6 flex items-center gap-4">
             <ShieldCheck className="h-6 w-6" /> Plan de Mitigación
           </h3>
           <p className="text-sm font-bold uppercase italic text-muted-foreground/60 leading-relaxed text-justify mb-8">
@@ -132,28 +132,28 @@ export default function AnalisisRiesgoPage() {
               ? "No hay riesgos activos. Mantén tus facturas al día, gestiona tus cuentas por cobrar y diversifica tus proveedores para mantener un perfil de riesgo bajo."
               : "Diversifica proveedores para reducir dependencia operativa. Implementa cobertura cambiaria para facturas en mora. Gestiona las cuentas vencidas identificadas."}
           </p>
-          <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-emerald-600">
+          <div className="flex justify-between items-center text-[11px] font-semibold uppercase tracking-widest text-emerald-600">
             <span>Riesgos Activos:</span>
             <span>{allRiesgos.length} DETECTADOS</span>
           </div>
           <Progress value={allRiesgos.length === 0 ? 100 : Math.max(0, 100 - allRiesgos.length * 15)} className="h-2 mt-2 bg-emerald-500/10" />
         </Card>
 
-        <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02] shadow-2xl">
-          <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-10 flex items-center gap-3">
+        <Card className="glass-card border-none p-10 rounded-2xl bg-white/[0.02] shadow-lg">
+          <h4 className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-10 flex items-center gap-3">
             <Terminal className="h-4 w-4" /> Recomendación IA
           </h4>
           <div className="text-xs font-bold italic text-muted-foreground space-y-6">
             <div className="flex gap-6 items-start">
-              <span className="font-black text-xs text-primary">»</span>
+              <span className="font-semibold text-xs text-primary">»</span>
               <span>Implementar cobertura cambiaria (Forward) para facturas en mora de proveedores internacionales.</span>
             </div>
             <div className="flex gap-6 items-start">
-              <span className="font-black text-xs text-primary">»</span>
+              <span className="font-semibold text-xs text-primary">»</span>
               <span>Sincronizar el arqueo de caja con el ledger blockchain para eliminar riesgo de merma.</span>
             </div>
             <div className="flex gap-6 items-start">
-              <span className="font-black text-xs text-primary">»</span>
+              <span className="font-semibold text-xs text-primary">»</span>
               <span>Monitorear semanalmente las cuentas por cobrar vencidas para mitigar riesgo de incobrabilidad.</span>
             </div>
           </div>

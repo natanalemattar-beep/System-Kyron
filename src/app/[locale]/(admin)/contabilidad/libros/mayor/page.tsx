@@ -63,10 +63,10 @@ export default function LibroMayorPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <BookOpen className="h-3.5 w-3.5" /> Libro Obligatorio · Art. 34 C. Comercio
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Libro <span className="text-primary">Mayor</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Mayores analíticos por cuenta · Saldos en tiempo real · VEN-NIF</p>

@@ -46,20 +46,20 @@ export default function EstudioPoblacionPage() {
     return (
         <div className="space-y-12 w-full px-6 md:px-16">
             <header className="border-l-4 border-secondary pl-8 py-2">
-                <h1 className="text-4xl font-black tracking-tight uppercase italic text-foreground">Análisis de <span className="text-secondary">Población y Demografía</span></h1>
+                <h1 className="text-4xl font-bold tracking-tight uppercase italic text-foreground">Análisis de <span className="text-secondary">Población y Demografía</span></h1>
                 <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Herramienta de Inteligencia de Mercado</p>
             </header>
 
             <div className="grid lg:grid-cols-12 gap-12">
                 <Card className="lg:col-span-4 glass-card p-10 rounded-[2.5rem] border-white/5">
                     <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-sm font-black uppercase tracking-widest text-secondary flex items-center gap-3">
+                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-secondary flex items-center gap-3">
                             <MapPin className="h-4 w-4" /> Parámetros Geográficos
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 space-y-8">
                         <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Localidad / Región</Label>
+                            <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Localidad / Región</Label>
                             <Input 
                                 placeholder="Ej: La Guaira, Venezuela" 
                                 value={location}
@@ -68,7 +68,7 @@ export default function EstudioPoblacionPage() {
                             />
                         </div>
                         <Button 
-                            className="w-full h-16 rounded-2xl btn-3d-secondary font-black text-xs uppercase tracking-widest" 
+                            className="w-full h-16 rounded-2xl btn-3d-secondary font-semibold text-xs uppercase tracking-widest" 
                             disabled={isAnalyzing || !location}
                             onClick={handleAnalyze}
                         >
@@ -92,16 +92,16 @@ export default function EstudioPoblacionPage() {
                                         <item.icon className="h-6 w-6 text-secondary" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-white/20 mb-1">{item.label}</p>
-                                        <p className="text-2xl font-black italic text-white">{item.val}</p>
+                                        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/20 mb-1">{item.label}</p>
+                                        <p className="text-2xl font-bold text-white">{item.val}</p>
                                     </div>
                                 </Card>
                             ))}
                         </div>
                     ) : (
-                        <div className="h-[400px] rounded-[3rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center text-center p-12 bg-white/[0.01]">
+                        <div className="h-[400px] rounded-2xl border-2 border-dashed border-white/5 flex flex-col items-center justify-center text-center p-12 bg-white/[0.01]">
                             <Users className="h-20 w-20 text-white/5 mb-6" />
-                            <p className="text-white/20 font-black uppercase tracking-[0.4em] text-sm italic">Esperando coordenadas demográficas...</p>
+                            <p className="text-white/20 font-semibold uppercase tracking-wider text-sm italic">Esperando coordenadas demográficas...</p>
                         </div>
                     )}
                 </div>

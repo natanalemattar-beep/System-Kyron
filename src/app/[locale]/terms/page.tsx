@@ -123,7 +123,7 @@ export default function TermsPage() {
               <FileText className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">Terminos de Servicio</h1>
+              <h1 className="text-3xl font-semibold uppercase tracking-tight text-foreground">Terminos de Servicio</h1>
               <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">System Kyron v3.0 &bull; Ultima actualizacion: Abril 2026</p>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function TermsPage() {
           <div className="prose prose-sm max-w-none space-y-4 text-muted-foreground">
             {sections.map((section, i) => (
               <div key={i} className="p-6 rounded-2xl border border-border/50 bg-card/30 space-y-2">
-                <h2 className="text-sm font-black uppercase tracking-wide text-foreground">{section.title}</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">{section.title}</h2>
                 <p className="text-sm leading-relaxed">{section.body}</p>
               </div>
             ))}

@@ -182,7 +182,7 @@ export default function DiagnosticoRedPage() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Wifi className="h-4 w-4 text-blue-400" />
-              <Badge variant="outline" className="text-[9px] font-bold tracking-widest border-blue-500/30 text-blue-400 bg-blue-500/10">
+              <Badge variant="outline" className="text-[11px] font-bold tracking-widest border-blue-500/30 text-blue-400 bg-blue-500/10">
                 DIAGNÓSTICO DE RED
               </Badge>
             </div>
@@ -259,7 +259,7 @@ export default function DiagnosticoRedPage() {
                       )}
                       {phase === "testing" && (
                         <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="text-center">
-                          <p className="text-3xl font-black tabular-nums text-foreground">
+                          <p className="text-3xl font-bold tabular-nums text-foreground">
                             {Math.round(progress)}%
                           </p>
                           <p className="text-[10px] text-muted-foreground mt-1">Analizando...</p>
@@ -272,7 +272,7 @@ export default function DiagnosticoRedPage() {
                           transition={{ type: "spring", damping: 15 }}
                           className="text-center"
                         >
-                          <p className="text-3xl font-black tabular-nums text-foreground">
+                          <p className="text-3xl font-bold tabular-nums text-foreground">
                             <AnimatedCounter value={currentResult.download} suffix="" />
                           </p>
                           <p className="text-xs text-muted-foreground mt-0.5">Mbps ↓</p>
@@ -328,7 +328,7 @@ export default function DiagnosticoRedPage() {
                                 {metric.label}
                               </span>
                             </div>
-                            <p className={cn("text-lg font-black tabular-nums", metric.color)}>
+                            <p className={cn("text-lg font-bold tabular-nums", metric.color)}>
                               <AnimatedCounter value={metric.value} duration={1200} suffix={` ${metric.unit}`} />
                             </p>
                           </motion.div>
@@ -476,10 +476,10 @@ export default function DiagnosticoRedPage() {
                             className="kyron-surface p-3 rounded-xl ring-1 ring-border/30"
                           >
                             <div className="flex items-center justify-between mb-2">
-                              <Badge variant="outline" className={cn("text-[9px] font-bold", qc.bg, qc.border, qc.color)}>
+                              <Badge variant="outline" className={cn("text-[11px] font-bold", qc.bg, qc.border, qc.color)}>
                                 {qc.label}
                               </Badge>
-                              <span className="text-[9px] text-muted-foreground tabular-nums">
+                              <span className="text-[11px] text-muted-foreground tabular-nums">
                                 {result.timestamp.toLocaleTimeString("es-VE", { hour: "2-digit", minute: "2-digit" })}
                               </span>
                             </div>
@@ -491,9 +491,9 @@ export default function DiagnosticoRedPage() {
                                 { label: "Jit", value: `${result.jitter}`, unit: "ms" },
                               ].map((m) => (
                                 <div key={m.label} className="text-center">
-                                  <p className="text-[9px] text-muted-foreground">{m.label}</p>
+                                  <p className="text-[11px] text-muted-foreground">{m.label}</p>
                                   <p className="text-[11px] font-bold tabular-nums text-foreground">{m.value}</p>
-                                  <p className="text-[8px] text-muted-foreground/50">{m.unit}</p>
+                                  <p className="text-[10px] text-muted-foreground/50">{m.unit}</p>
                                 </div>
                               ))}
                             </div>
@@ -506,7 +506,7 @@ export default function DiagnosticoRedPage() {
                                     <ArrowDown className="h-2.5 w-2.5 text-rose-400" />
                                   )}
                                   <span className={cn(
-                                    "text-[9px] font-medium",
+                                    "text-[11px] font-medium",
                                     result.download > history[1].download ? "text-emerald-400" : "text-rose-400"
                                   )}>
                                     {Math.abs(result.download - history[1].download).toFixed(1)} Mbps vs anterior

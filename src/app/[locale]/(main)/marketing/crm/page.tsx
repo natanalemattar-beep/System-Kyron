@@ -118,23 +118,23 @@ export default function CRMPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Users className="h-3 w-3" /> CRM EMPRESARIAL
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             CRM de <span className="text-primary italic">Clientes</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Base de Datos • Segmentación • Seguimiento • Fidelización • IA
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2">
+          <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2">
             <Download className="h-4 w-4" /> EXPORTAR
           </Button>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+              <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
                 <Plus className="h-4 w-4" /> NUEVO CLIENTE
               </Button>
             </DialogTrigger>
@@ -217,7 +217,7 @@ export default function CRMPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -240,19 +240,19 @@ export default function CRMPage() {
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Users className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">Error al cargar datos</p>
-          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchClientes(); }} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar datos</p>
+          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchClientes(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             Reintentar
           </Button>
         </div>
       ) : filteredClients.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Users className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">
             {clientes.length === 0 ? "No hay clientes registrados" : "Sin resultados para la búsqueda"}
           </p>
           {clientes.length === 0 && (
-            <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+            <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
               <Plus className="h-3 w-3 mr-1" /> Crear primer cliente
             </Button>
           )}
@@ -263,16 +263,16 @@ export default function CRMPage() {
             <motion.div key={cliente.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
               <Card className="rounded-xl overflow-hidden hover:border-primary/30 transition-colors">
                 <div className="flex items-start gap-4 p-5">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-black text-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm shrink-0">
                     {(cliente.razon_social ?? cliente.nombre_contacto ?? "?").split(' ').map(w => w[0]).slice(0, 2).join('')}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <p className="text-sm font-bold truncate">{cliente.razon_social ?? cliente.nombre_contacto ?? "Sin nombre"}</p>
-                      <Badge className={cn("text-[8px] font-bold", cliente.activo ? "bg-emerald-500/10 text-emerald-500" : "bg-muted/50 text-muted-foreground")}>
+                      <Badge className={cn("text-[10px] font-bold", cliente.activo ? "bg-emerald-500/10 text-emerald-500" : "bg-muted/50 text-muted-foreground")}>
                         {cliente.activo ? "activo" : "inactivo"}
                       </Badge>
-                      {cliente.segmento && <Badge className="text-[8px] font-bold bg-muted/30">{cliente.segmento}</Badge>}
+                      {cliente.segmento && <Badge className="text-[10px] font-bold bg-muted/30">{cliente.segmento}</Badge>}
                     </div>
                     <p className="text-[10px] text-muted-foreground">{cliente.nombre_contacto ?? ""}{cliente.rif ? ` • ${cliente.rif}` : ""}</p>
                     <div className="flex gap-4 mt-2 text-[10px] text-muted-foreground">
@@ -281,10 +281,10 @@ export default function CRMPage() {
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-lg font-black text-primary">
+                    <p className="text-lg font-bold text-primary">
                       {Number(cliente.valor_estimado) > 0 ? `USD ${Number(cliente.valor_estimado).toLocaleString()}` : "—"}
                     </p>
-                    <p className="text-[9px] text-muted-foreground">
+                    <p className="text-[11px] text-muted-foreground">
                       {new Date(cliente.created_at).toLocaleDateString("es-VE")}
                     </p>
                     {cliente.satisfaccion && (

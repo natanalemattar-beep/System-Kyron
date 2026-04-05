@@ -201,15 +201,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Nombre</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Cédula</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Cargo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Depto.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Ingreso</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Contrato</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Salario</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">RIF</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Nombre</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Cédula</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Cargo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Depto.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Ingreso</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Contrato</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Salario</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">RIF</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -231,13 +231,13 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Fecha</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Horas</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Sal./Hora</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Recargo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Total</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Fecha</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Horas</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Sal./Hora</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Recargo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Total</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -257,15 +257,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Período</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Inicio</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Fin</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Corresp.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Disfrutados</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Pendientes</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Bono Vac.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Período</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Inicio</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Fin</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Corresp.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Disfrutados</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Pendientes</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Bono Vac.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -287,14 +287,14 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Año</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Días Trab.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Días Util.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Sal. Diario</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Monto</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Pago</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Año</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Días Trab.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Días Util.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Sal. Diario</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Monto</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Pago</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -315,14 +315,14 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Período</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Sal. Integral</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Días Antig.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Garantía</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Intereses</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Total</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Período</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Sal. Integral</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Días Antig.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Garantía</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Intereses</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Total</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -343,15 +343,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Período</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Base</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">% Patron.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Mto. Patron.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">% Empl.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Mto. Empl.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Pagado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Período</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Base</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">% Patron.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Mto. Patron.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">% Empl.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Mto. Empl.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Pagado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -373,12 +373,12 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">N° Solvencia</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Organismo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Emisión</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Vencimiento</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">N° Solvencia</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Organismo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Emisión</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Vencimiento</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -397,15 +397,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Fecha</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Causa</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Salario</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Liq. Prest.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Liq. Vac.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Liq. Util.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Total</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Fecha</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Causa</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Salario</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Liq. Prest.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Liq. Vac.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Liq. Util.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Total</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -427,15 +427,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Período</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Ingreso Grav.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Desgravamen</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Base Imp.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Tarifa</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Causado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Retenido</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Planilla</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Período</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Ingreso Grav.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Desgravamen</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Base Imp.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Tarifa</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Causado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Retenido</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Planilla</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -457,15 +457,15 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleada</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Parto Est.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Pre-natal</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Post-natal</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Sem. Pre</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Sem. Post</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Lactancia</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Reintegro</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleada</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Parto Est.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Pre-natal</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Post-natal</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Sem. Pre</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Sem. Post</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Lactancia</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Reintegro</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -487,14 +487,14 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Causa</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Desde</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">% Incap.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Sal. Ref.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Indemnización</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Causa</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Desde</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">% Incap.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Sal. Ref.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Indemnización</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -515,16 +515,16 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Empleado</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Tipo</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Inicio</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Fin</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Otorgados</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Consumidos</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest text-right">Pendientes</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Médico</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">IVSS</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Empleado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Tipo</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Inicio</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Fin</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Otorgados</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Consumidos</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest text-right">Pendientes</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Médico</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">IVSS</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -547,14 +547,14 @@ export default function LibrosLaboralesPage() {
         return (
           <Table>
             <TableHeader><TableRow className="bg-muted/30">
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Nombre</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Cédula</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">RIF Anterior</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Fecha Canc.</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Causa</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Notificación</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Bloqueo ISLR</TableHead>
-              <TableHead className="text-[10px] font-black uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Nombre</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Cédula</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">RIF Anterior</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Fecha Canc.</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Causa</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Notificación</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Bloqueo ISLR</TableHead>
+              <TableHead className="text-[10px] font-semibold uppercase tracking-widest">Estado</TableHead>
             </TableRow></TableHeader>
             <TableBody>{filtered.map((r: any) => (
               <TableRow key={r.id} className="hover:bg-muted/20">
@@ -587,7 +587,7 @@ export default function LibrosLaboralesPage() {
               <BookOpen className="h-6 w-6 text-[#0A2472]" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground">Libros Laborales Digitalizados</h1>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Libros Laborales Digitalizados</h1>
               <p className="text-xs text-muted-foreground mt-0.5">LOTTT · LOPCYMAT · IVSS · SENIAT · MPPST</p>
             </div>
           </div>
@@ -602,7 +602,7 @@ export default function LibrosLaboralesPage() {
             <Bell className="h-3.5 w-3.5" />
             Alertas
             {alertas.length > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center">{alertas.length}</span>
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center">{alertas.length}</span>
             )}
           </Button>
           <Button variant="outline" size="sm" className="h-9 rounded-xl text-xs font-bold gap-2" onClick={() => window.print()}>
@@ -616,12 +616,12 @@ export default function LibrosLaboralesPage() {
 
       {showAlertas && alertas.length > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
-          <h3 className="text-xs font-black uppercase tracking-widest text-amber-800 flex items-center gap-2">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-amber-800 flex items-center gap-2">
             <Bell className="h-3.5 w-3.5" /> Alertas Activas ({alertas.length})
           </h3>
           {alertas.map((a, i) => (
             <div key={i} className="flex items-center gap-3 text-xs py-1.5 border-b border-amber-200/50 last:border-0">
-              <span className={cn('px-2 py-0.5 rounded-full text-[9px] font-bold uppercase', a.urgencia === 'alta' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700')}>
+              <span className={cn('px-2 py-0.5 rounded-full text-[11px] font-bold uppercase', a.urgencia === 'alta' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700')}>
                 {a.tipo}
               </span>
               <span className="text-foreground">{a.mensaje}</span>
@@ -651,7 +651,7 @@ export default function LibrosLaboralesPage() {
           <div className="p-4 border-b border-border/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <currentLibro.icon className="h-5 w-5 text-[#0A2472]" />
-              <h2 className="text-sm font-black text-foreground">Libro de {currentLibro.label}</h2>
+              <h2 className="text-sm font-bold text-foreground">Libro de {currentLibro.label}</h2>
               <span className="text-xs text-muted-foreground">({filtered.length} registros)</span>
             </div>
             <div className="relative w-full sm:w-64">
@@ -675,7 +675,7 @@ export default function LibrosLaboralesPage() {
       </Tabs>
 
       <footer className="text-center pt-4">
-        <p className="text-[9px] text-muted-foreground/30 uppercase tracking-widest font-bold">
+        <p className="text-[11px] text-muted-foreground/30 uppercase tracking-widest font-bold">
           System Kyron v2.8.5 · Libros Laborales · LOTTT Art. 58, 131 · LOPCYMAT · IVSS · SENIAT
         </p>
       </footer>

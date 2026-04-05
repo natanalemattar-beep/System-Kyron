@@ -130,7 +130,7 @@ export default function CalculadoraCostosPage() {
         >
           <div>
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-amber-500 mb-4"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-semibold uppercase tracking-wide text-amber-500 mb-4"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.3 }}
@@ -138,13 +138,13 @@ export default function CalculadoraCostosPage() {
               <Activity className="h-3 w-3 animate-pulse" /> COSTOS OPERATIVOS
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             </motion.div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Calculadora de{" "}
               <span className="bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 bg-clip-text text-transparent italic">
                 Costos
               </span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">
               Análisis de Punto de Equilibrio y Márgenes de Ganancia
             </p>
           </div>
@@ -154,7 +154,7 @@ export default function CalculadoraCostosPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Badge variant="outline" className="rounded-full border-amber-500/20 text-amber-500 text-[9px] font-black uppercase tracking-wider px-3 py-1.5">
+            <Badge variant="outline" className="rounded-full border-amber-500/20 text-amber-500 text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5">
               <Calculator className="h-3 w-3 mr-1.5" /> Tiempo Real
             </Badge>
           </motion.div>
@@ -186,12 +186,12 @@ export default function CalculadoraCostosPage() {
             <Card className="glass-card border-none bg-card/50 p-5 rounded-2xl group hover:scale-[1.02] transition-all duration-300 relative overflow-hidden h-full">
               <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-gradient-to-br from-transparent to-current opacity-[0.03] group-hover:opacity-[0.06] transition-opacity" />
               <div className="flex justify-between items-start mb-3">
-                <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">{kpi.label}</p>
                 <div className={cn("p-2 rounded-xl border transition-all duration-300 group-hover:scale-110", kpi.bg)}>
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </div>
               </div>
-              <p className={cn("text-2xl lg:text-3xl font-black tracking-tight", kpi.color)}>
+              <p className={cn("text-2xl lg:text-3xl font-bold tracking-tight", kpi.color)}>
                 {kpi.isPercent
                   ? `${margin.toFixed(1)}%`
                   : kpi.isUnits
@@ -211,13 +211,13 @@ export default function CalculadoraCostosPage() {
         >
           <Card className="glass-card border-none bg-card/50 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50">Costos vs Ingresos</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/50">Costos vs Ingresos</p>
               <p className="text-[10px] font-bold text-muted-foreground">{costRevenueRatio.toFixed(1)}% utilizado</p>
             </div>
             <Progress value={costRevenueRatio} className="h-3 rounded-full" />
             <div className="flex justify-between mt-2">
-              <span className="text-[9px] text-muted-foreground">Costos: {formatBs(totalCost)}</span>
-              <span className="text-[9px] text-muted-foreground">Ingresos: {formatBs(revenue)}</span>
+              <span className="text-[11px] text-muted-foreground">Costos: {formatBs(totalCost)}</span>
+              <span className="text-[11px] text-muted-foreground">Ingresos: {formatBs(revenue)}</span>
             </div>
           </Card>
         </motion.div>
@@ -232,7 +232,7 @@ export default function CalculadoraCostosPage() {
         >
           <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
             <CardHeader className="p-6 border-b border-border/30">
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
                 <PieChart className="h-3.5 w-3.5 text-amber-500" />
                 Estructura de Costos
               </CardTitle>
@@ -240,10 +240,10 @@ export default function CalculadoraCostosPage() {
             <CardContent className="p-6">
               <Tabs defaultValue="fijos" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-6 rounded-xl bg-muted/30">
-                  <TabsTrigger value="fijos" className="rounded-lg text-[10px] font-black uppercase tracking-wider data-[state=active]:bg-blue-500/10 data-[state=active]:text-blue-500">
+                  <TabsTrigger value="fijos" className="rounded-lg text-[10px] font-semibold uppercase tracking-wider data-[state=active]:bg-blue-500/10 data-[state=active]:text-blue-500">
                     <Building className="h-3.5 w-3.5 mr-1.5" /> Costos Fijos
                   </TabsTrigger>
-                  <TabsTrigger value="variables" className="rounded-lg text-[10px] font-black uppercase tracking-wider data-[state=active]:bg-amber-500/10 data-[state=active]:text-amber-500">
+                  <TabsTrigger value="variables" className="rounded-lg text-[10px] font-semibold uppercase tracking-wider data-[state=active]:bg-amber-500/10 data-[state=active]:text-amber-500">
                     <Truck className="h-3.5 w-3.5 mr-1.5" /> Costos Variables
                   </TabsTrigger>
                 </TabsList>
@@ -268,7 +268,7 @@ export default function CalculadoraCostosPage() {
                             placeholder="0.00"
                             className="h-10 rounded-xl bg-muted/20 border-border/30 text-xs font-bold pr-16 text-right focus:border-blue-500/40"
                           />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-muted-foreground/40">Bs/mes</span>
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-muted-foreground/40">Bs/mes</span>
                         </div>
                       </div>
                       <Button
@@ -290,8 +290,8 @@ export default function CalculadoraCostosPage() {
                     <Plus className="h-3.5 w-3.5 mr-1.5" /> Agregar Costo Fijo
                   </Button>
                   <div className="flex justify-between items-center pt-3 border-t border-border/20">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-blue-500">Total Costos Fijos</span>
-                    <span className="text-sm font-black text-blue-500">{formatBs(totalFixed)}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-500">Total Costos Fijos</span>
+                    <span className="text-sm font-bold text-blue-500">{formatBs(totalFixed)}</span>
                   </div>
                 </TabsContent>
 
@@ -315,7 +315,7 @@ export default function CalculadoraCostosPage() {
                             placeholder="0.00"
                             className="h-10 rounded-xl bg-muted/20 border-border/30 text-xs font-bold pr-16 text-right focus:border-amber-500/40"
                           />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-muted-foreground/40">Bs/mes</span>
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-muted-foreground/40">Bs/mes</span>
                         </div>
                       </div>
                       <Button
@@ -337,8 +337,8 @@ export default function CalculadoraCostosPage() {
                     <Plus className="h-3.5 w-3.5 mr-1.5" /> Agregar Costo Variable
                   </Button>
                   <div className="flex justify-between items-center pt-3 border-t border-border/20">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-amber-500">Total Costos Variables</span>
-                    <span className="text-sm font-black text-amber-500">{formatBs(totalVariable)}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-500">Total Costos Variables</span>
+                    <span className="text-sm font-bold text-amber-500">{formatBs(totalVariable)}</span>
                   </div>
                 </TabsContent>
               </Tabs>
@@ -354,14 +354,14 @@ export default function CalculadoraCostosPage() {
         >
           <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
             <CardHeader className="p-6 border-b border-border/30">
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
                 <DollarSign className="h-3.5 w-3.5 text-emerald-500" />
                 Ingresos Estimados
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground/60">Ingreso Mensual Estimado</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">Ingreso Mensual Estimado</Label>
                 <div className="relative">
                   <Input
                     type="number"
@@ -370,11 +370,11 @@ export default function CalculadoraCostosPage() {
                     placeholder="0.00"
                     className="h-11 rounded-xl bg-muted/20 border-border/30 text-sm font-bold pr-10 text-right focus:border-emerald-500/40"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-muted-foreground/40">Bs</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-muted-foreground/40">Bs</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground/60">Precio Promedio de Venta</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">Precio Promedio de Venta</Label>
                 <div className="relative">
                   <Input
                     type="number"
@@ -383,11 +383,11 @@ export default function CalculadoraCostosPage() {
                     placeholder="0.00"
                     className="h-11 rounded-xl bg-muted/20 border-border/30 text-sm font-bold pr-10 text-right focus:border-emerald-500/40"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-muted-foreground/40">Bs</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-muted-foreground/40">Bs</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground/60">Unidades Vendidas / Mes</Label>
+                <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">Unidades Vendidas / Mes</Label>
                 <Input
                   type="number"
                   value={unitsSold || ""}
@@ -407,7 +407,7 @@ export default function CalculadoraCostosPage() {
             >
               <Card className="rounded-2xl border-amber-500/20 bg-gradient-to-br from-amber-500/[0.06] to-orange-500/[0.04] overflow-hidden">
                 <CardHeader className="p-5 pb-0">
-                  <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-amber-500 flex items-center gap-2">
+                  <CardTitle className="text-xs font-semibold uppercase tracking-wide text-amber-500 flex items-center gap-2">
                     <Zap className="h-3.5 w-3.5" />
                     Recomendaciones
                   </CardTitle>
@@ -450,7 +450,7 @@ export default function CalculadoraCostosPage() {
         >
           <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden">
             <CardHeader className="p-6 border-b border-border/30">
-              <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-foreground flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-wide text-foreground flex items-center gap-2">
                 <BarChart3 className="h-3.5 w-3.5 text-amber-500" />
                 Distribución de Costos
               </CardTitle>
@@ -466,7 +466,7 @@ export default function CalculadoraCostosPage() {
                         <Badge
                           variant="outline"
                           className={cn(
-                            "text-[8px] font-black uppercase tracking-wider px-1.5 py-0 rounded-md border",
+                            "text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0 rounded-md border",
                             cost.type === "fijo"
                               ? "border-blue-500/20 text-blue-500"
                               : "border-amber-500/20 text-amber-500"
@@ -477,7 +477,7 @@ export default function CalculadoraCostosPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="text-[10px] font-bold text-muted-foreground">{formatBs(cost.amount)}</span>
-                        <span className="text-[10px] font-black text-foreground w-12 text-right">{pct.toFixed(1)}%</span>
+                        <span className="text-[10px] font-bold text-foreground w-12 text-right">{pct.toFixed(1)}%</span>
                       </div>
                     </div>
                     <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">

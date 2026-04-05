@@ -175,7 +175,7 @@ export default function LoginPersonalPage() {
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-[1000px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-2xl shadow-black/[0.08] overflow-hidden border border-border/40"
+        className="w-full max-w-[1000px] grid md:grid-cols-2 gap-0 rounded-3xl shadow-lg shadow-black/[0.08] overflow-hidden border border-border/40"
       >
         <div className="relative overflow-hidden flex flex-col justify-between text-white bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 p-8 md:p-10">
           <div className="absolute inset-0 overflow-hidden">
@@ -192,7 +192,7 @@ export default function LoginPersonalPage() {
               <Fingerprint className="h-7 w-7 text-white" />
             </div>
             <div className="space-y-3">
-              <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">Mi Cuenta Personal</h1>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">Mi Cuenta Personal</h1>
               <p className="text-sm font-medium text-white/70 leading-relaxed max-w-sm">Gestión de identidad, trámites civiles y bóveda digital ciudadana.</p>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function LoginPersonalPage() {
           </div>
 
           <div className="relative z-10 mt-8 pt-4 border-t border-white/[0.06]">
-            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">
+            <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-white/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Portal ciudadano activo
             </div>
@@ -223,7 +223,7 @@ export default function LoginPersonalPage() {
           {step === 'credentials' ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
               <div className="mb-6">
-                <h2 className="text-2xl font-black tracking-tight text-foreground">Iniciar Sesión</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-foreground">Iniciar Sesión</h2>
                 <p className="text-sm text-muted-foreground mt-1.5">Elige cómo quieres acceder</p>
               </div>
 
@@ -388,7 +388,7 @@ export default function LoginPersonalPage() {
                 <div className="mx-auto w-16 h-16 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-center mb-5">
                   <KeyRound className="h-7 w-7 text-blue-500" />
                 </div>
-                <h2 className="text-xl font-black tracking-tight text-foreground">Verificación</h2>
+                <h2 className="text-xl font-bold tracking-tight text-foreground">Verificación</h2>
                 <p className="text-sm text-muted-foreground mt-2">
                   {devCode ? 'Ingresa el código mostrado abajo' : <>Código de 6 dígitos enviado a <strong className="text-foreground">{maskedEmail}</strong></>}
                 </p>
@@ -407,7 +407,7 @@ export default function LoginPersonalPage() {
                   <div>
                     <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
                     <p className="text-sm text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                    <p className="text-3xl font-black font-mono tracking-[0.3em] text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
+                    <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
                     <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
                   </div>
                 </div>
@@ -429,7 +429,7 @@ export default function LoginPersonalPage() {
                     onChange={e => handleCodeChange(i, e.target.value)}
                     onKeyDown={e => handleCodeKeyDown(i, e)}
                     onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                    className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-black rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600 dark:text-blue-400" : "border-border/40 focus:border-blue-500")}
+                    className={cn("w-12 h-14 sm:w-13 sm:h-16 text-center text-2xl font-bold rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? "border-blue-500 bg-blue-500/5 text-blue-600 dark:text-blue-400" : "border-border/40 focus:border-blue-500")}
                     disabled={isLoading} autoComplete="one-time-code"
                   />
                 ))}
@@ -456,7 +456,7 @@ export default function LoginPersonalPage() {
         </div>
       </motion.div>
 
-      <p className="absolute bottom-6 text-[9px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Ciudadanía Digital</p>
+      <p className="absolute bottom-6 text-[11px] text-muted-foreground/25 uppercase tracking-widest font-semibold">System Kyron · Ciudadanía Digital</p>
     </div>
   );
 }

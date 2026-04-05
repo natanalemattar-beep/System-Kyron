@@ -89,17 +89,17 @@ export default function HelpdeskPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <LifeBuoy className="h-3 w-3" /> MESA DE AYUDA
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Help <span className="text-primary italic">Desk</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Tickets • SLA • Escalamiento • Base de Conocimiento
           </p>
         </div>
-        <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2" onClick={handleNuevoTicket}>
+        <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2" onClick={handleNuevoTicket}>
           <Plus className="h-4 w-4" /> NUEVO TICKET
         </Button>
       </motion.header>
@@ -117,7 +117,7 @@ export default function HelpdeskPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -141,7 +141,7 @@ export default function HelpdeskPage() {
       ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-4">
           <Inbox className="h-12 w-12 opacity-30" />
-          <p className="text-sm font-black uppercase tracking-widest">Sin tickets registrados</p>
+          <p className="text-sm font-semibold uppercase tracking-widest">Sin tickets registrados</p>
           <p className="text-xs text-center max-w-sm text-muted-foreground/60">
             {searchTerm ? "Ningún ticket coincide con la búsqueda." : "No hay tickets de soporte IT registrados. Crea el primero."}
           </p>
@@ -163,9 +163,9 @@ export default function HelpdeskPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <span className="font-mono text-[10px] font-bold text-primary">IT-{String(ticket.id).padStart(4, '0')}</span>
-                        <Badge className={cn("text-[8px] font-bold gap-1", est.badge)}>{est.icon} {est.label}</Badge>
-                        <Badge className="text-[8px] font-bold bg-muted/30">{ticket.categoria}</Badge>
-                        <Badge className="text-[8px] font-bold bg-muted/20">{ticket.prioridad}</Badge>
+                        <Badge className={cn("text-[10px] font-bold gap-1", est.badge)}>{est.icon} {est.label}</Badge>
+                        <Badge className="text-[10px] font-bold bg-muted/30">{ticket.categoria}</Badge>
+                        <Badge className="text-[10px] font-bold bg-muted/20">{ticket.prioridad}</Badge>
                       </div>
                       <p className="text-sm font-bold">{ticket.titulo}</p>
                       {ticket.descripcion && <p className="text-xs text-muted-foreground mt-0.5">{ticket.descripcion}</p>}

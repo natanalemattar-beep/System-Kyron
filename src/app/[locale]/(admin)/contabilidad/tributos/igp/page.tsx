@@ -49,10 +49,10 @@ export default function IgpPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-3">
                         <Coins className="h-3.5 w-3.5" /> IGP
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Impuesto a Grandes <span className="text-amber-600 dark:text-amber-400">Patrimonios</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Ley del IGP (G.O. 41.667) · Declaración Anual</p>
@@ -89,7 +89,7 @@ export default function IgpPage() {
                                                 Alícuota mínima aplicada. Ajuste según tabla progresiva.
                                             </p>
                                         </div>
-                                        <span className="text-2xl md:text-3xl font-black text-amber-600 dark:text-amber-400">{formatCurrency(cuota, 'Bs.')}</span>
+                                        <span className="text-2xl md:text-3xl font-bold text-amber-600 dark:text-amber-400">{formatCurrency(cuota, 'Bs.')}</span>
                                     </div>
                                 </div>
                             )}
@@ -107,7 +107,7 @@ export default function IgpPage() {
                             {ALICUOTAS_IGP.map((a, i) => (
                                 <div key={i} className="flex items-center justify-between p-3.5 rounded-xl bg-muted/30">
                                     <span className="text-xs font-bold">{a.rango}</span>
-                                    <span className="text-lg font-black text-amber-600 dark:text-amber-400">{a.tasa}</span>
+                                    <span className="text-lg font-bold text-amber-600 dark:text-amber-400">{a.tasa}</span>
                                 </div>
                             ))}
                         </CardContent>

@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Zap, Bot, Activity, Play, Pause, History, RefreshCw,
+  Zap, Activity, Play, Pause, History, RefreshCw,
   CheckCircle2, XCircle, Clock, Loader2, ChevronDown, ChevronUp,
-  Timer, AlertTriangle, Database, Shield, FileText, Bell, Trash2, BarChart3,
+  AlertTriangle, Database, Shield, FileText, Bell, Trash2, BarChart3,
   Mail, Scale
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -139,9 +139,9 @@ export default function AutomatizacionesPage() {
       });
       const data = await res.json();
       if (data.log?.status === 'success') {
-        toast({ title: "EJECUTADO", description: data.log.result_summary || 'Automatización completada' });
+        toast({ title: "Ejecutado", description: data.log.result_summary || 'Automatización completada' });
       } else {
-        toast({ title: "ERROR", description: data.log?.error_message || 'Error en ejecución', variant: "destructive" });
+        toast({ title: "Error", description: data.log?.error_message || 'Error en ejecución', variant: "destructive" });
       }
       await fetchData();
     } catch {
@@ -159,7 +159,7 @@ export default function AutomatizacionesPage() {
         body: JSON.stringify({ action: 'toggle', rule_id: ruleId }),
       });
       await fetchData();
-      toast({ title: "ACTUALIZADO", description: "Estado de automatización actualizado" });
+      toast({ title: "Actualizado", description: "Estado de automatización actualizado" });
     } catch {
       toast({ title: "Error", description: "No se pudo cambiar el estado", variant: "destructive" });
     }
@@ -174,7 +174,7 @@ export default function AutomatizacionesPage() {
         body: JSON.stringify({ action: 'run_scheduled' }),
       });
       const data = await res.json();
-      toast({ title: "CICLO COMPLETO", description: `${data.executed || 0} automatización(es) ejecutada(s)` });
+      toast({ title: "Ciclo completo", description: `${data.executed || 0} automatización(es) ejecutada(s)` });
       await fetchData();
     } catch {
       toast({ title: "Error", description: "Fallo en ejecución masiva", variant: "destructive" });
@@ -196,112 +196,94 @@ export default function AutomatizacionesPage() {
     : 100;
 
   return (
-    <div className="space-y-12 pb-20">
-      <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-          <Zap className="h-3 w-3" /> MOTOR DE AUTOMATIZACIÓN
+    <div className="space-y-8 pb-16">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pt-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Zap className="h-5 w-5 text-primary" />
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              Automatizaciones
+            </h1>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Reglas programadas que se ejecutan automáticamente en el sistema
+          </p>
         </div>
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
-          Automatizaciones <span className="text-primary italic">REALES</span>
-        </h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
-          Ejecución en Vivo • Base de Datos • System Kyron v2.9
-        </p>
+        <Button
+          size="sm"
+          onClick={runAll}
+          disabled={executing === 'all'}
+        >
+          {executing === 'all' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Play className="h-4 w-4 mr-2" />}
+          Ejecutar todas
+        </Button>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-4">
-        <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><Bot className="h-20 w-20" /></div>
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-2">Reglas Activas</p>
-          <p className="text-3xl font-black italic text-primary tracking-tight">{stats?.activeRules || 0}</p>
-          <p className="text-[8px] text-muted-foreground mt-1">de {stats?.totalRules || 0} totales</p>
-        </Card>
-
-        <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-20 w-20" /></div>
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-2">Ejecuciones Totales</p>
-          <p className="text-3xl font-black italic text-foreground tracking-tight">{stats?.totalExecutions || 0}</p>
-          <p className="text-[8px] text-muted-foreground mt-1">{stats?.totalRuns || 0} desde reglas</p>
-        </Card>
-
-        <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><Timer className="h-20 w-20" /></div>
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-2">Tiempo Procesado</p>
-          <p className="text-3xl font-black italic text-foreground tracking-tight">
-            {stats?.minutesSaved ? `${stats.minutesSaved.toFixed(1)}` : '0'}
-          </p>
-          <p className="text-[8px] text-muted-foreground mt-1">minutos de ejecución</p>
-        </Card>
-
-        <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><CheckCircle2 className="h-20 w-20" /></div>
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-2">Tasa de Éxito</p>
-          <p className={`text-3xl font-black italic tracking-tight ${successRate >= 90 ? 'text-emerald-400' : successRate >= 70 ? 'text-yellow-400' : 'text-red-400'}`}>
-            {successRate}%
-          </p>
-          <p className="text-[8px] text-muted-foreground mt-1">{stats?.totalFailures || 0} fallo(s)</p>
-        </Card>
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+        {[
+          { label: "Reglas activas", value: `${stats?.activeRules || 0}`, sub: `de ${stats?.totalRules || 0}`, color: "text-primary" },
+          { label: "Ejecuciones", value: `${stats?.totalExecutions || 0}`, sub: `${stats?.totalRuns || 0} programadas`, color: "text-foreground" },
+          { label: "Tiempo total", value: stats?.minutesSaved ? `${stats.minutesSaved.toFixed(1)} min` : '0 min', sub: "de procesamiento", color: "text-foreground" },
+          { label: "Tasa de éxito", value: `${successRate}%`, sub: `${stats?.totalFailures || 0} fallo(s)`, color: successRate >= 90 ? 'text-emerald-500' : successRate >= 70 ? 'text-amber-500' : 'text-red-500' },
+        ].map((m) => (
+          <Card key={m.label} className="p-5">
+            <p className="text-xs font-medium text-muted-foreground mb-1">{m.label}</p>
+            <p className={`text-2xl font-bold ${m.color}`}>{m.value}</p>
+            <p className="text-xs text-muted-foreground/60 mt-0.5">{m.sub}</p>
+          </Card>
+        ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-6">
+      <div className="grid gap-8 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Reglas de Automatización</h2>
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-[9px] font-black uppercase tracking-wider"
-                onClick={() => setShowLogs(!showLogs)}
-              >
-                <History className="h-3 w-3 mr-2" />
-                {showLogs ? 'Reglas' : 'Historial'}
-              </Button>
-              <Button
-                size="sm"
-                className="text-[9px] font-black uppercase tracking-wider bg-primary"
-                onClick={runAll}
-                disabled={executing === 'all'}
-              >
-                {executing === 'all' ? <Loader2 className="h-3 w-3 mr-2 animate-spin" /> : <Play className="h-3 w-3 mr-2" />}
-                Ejecutar Todas
-              </Button>
-            </div>
+            <h2 className="text-sm font-semibold text-foreground">
+              {showLogs ? 'Historial de ejecuciones' : 'Reglas de automatización'}
+            </h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs"
+              onClick={() => setShowLogs(!showLogs)}
+            >
+              <History className="h-3.5 w-3.5 mr-1.5" />
+              {showLogs ? 'Ver reglas' : 'Ver historial'}
+            </Button>
           </div>
 
           <AnimatePresence mode="wait">
             {!showLogs ? (
-              <motion.div key="rules" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+              <motion.div key="rules" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-3">
                 {rules.map(rule => {
                   const Icon = ACTION_ICONS[rule.action_type] || Zap;
                   const isExpanded = expandedRule === rule.id;
                   const ruleLogs = logs.filter(l => l.rule_id === rule.id).slice(0, 5);
 
                   return (
-                    <Card key={rule.id} className={`glass-card border-none rounded-[2rem] overflow-hidden shadow-xl transition-all ${!rule.enabled ? 'opacity-50' : ''}`}>
-                      <div className="p-6">
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                          <div className="flex items-center gap-4 flex-1">
-                            <div className={`p-3 rounded-xl ${rule.enabled ? 'bg-primary/10' : 'bg-muted/20'}`}>
-                              <Icon className={`h-5 w-5 ${rule.enabled ? 'text-primary' : 'text-muted-foreground'}`} />
+                    <Card key={rule.id} className={`overflow-hidden transition-opacity ${!rule.enabled ? 'opacity-50' : ''}`}>
+                      <div className="p-4 md:p-5">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div className={`p-2.5 rounded-lg shrink-0 ${rule.enabled ? 'bg-primary/10' : 'bg-muted'}`}>
+                              <Icon className={`h-4 w-4 ${rule.enabled ? 'text-primary' : 'text-muted-foreground'}`} />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-black text-sm uppercase text-foreground/90">{rule.name}</h3>
-                              <p className="text-[10px] text-muted-foreground mt-0.5 truncate">{rule.description}</p>
-                              <div className="flex items-center gap-4 mt-2">
-                                <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
-                                  <Clock className="h-2.5 w-2.5 inline mr-1" />
+                              <h3 className="font-semibold text-sm text-foreground">{rule.name}</h3>
+                              <p className="text-xs text-muted-foreground mt-0.5 truncate">{rule.description}</p>
+                              <div className="flex flex-wrap items-center gap-3 mt-1.5">
+                                <span className="text-[11px] text-muted-foreground/70 flex items-center gap-1">
+                                  <Clock className="h-3 w-3" />
                                   {(rule.trigger_config as { label?: string })?.label || rule.trigger_type}
                                 </span>
-                                <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
+                                <span className="text-[11px] text-muted-foreground/70">
                                   Último: {formatRelativeTime(rule.last_run_at)}
                                 </span>
-                                <span className="text-[8px] font-bold text-muted-foreground/60 uppercase">
-                                  Runs: {rule.run_count}
+                                <span className="text-[11px] text-muted-foreground/70">
+                                  {rule.run_count} ejecuciones
                                 </span>
                                 {rule.fail_count > 0 && (
-                                  <span className="text-[8px] font-bold text-red-400/80 uppercase">
-                                    <AlertTriangle className="h-2.5 w-2.5 inline mr-0.5" />
+                                  <span className="text-[11px] text-red-500 flex items-center gap-0.5">
+                                    <AlertTriangle className="h-3 w-3" />
                                     {rule.fail_count} fallo(s)
                                   </span>
                                 )}
@@ -309,14 +291,14 @@ export default function AutomatizacionesPage() {
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2">
-                            {rule.avg_duration_ms && (
-                              <Badge variant="outline" className="text-[8px] font-bold px-2 py-0.5">
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            {rule.avg_duration_ms != null && rule.avg_duration_ms > 0 && (
+                              <Badge variant="outline" className="text-[10px] px-2 py-0.5 font-normal">
                                 ~{formatDuration(rule.avg_duration_ms)}
                               </Badge>
                             )}
-                            <Badge className={`text-[8px] font-black px-3 border-none ${rule.enabled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
-                              {rule.enabled ? 'ACTIVA' : 'PAUSADA'}
+                            <Badge variant={rule.enabled ? 'default' : 'secondary'} className="text-[10px] px-2">
+                              {rule.enabled ? 'Activa' : 'Pausada'}
                             </Badge>
                             <Button
                               variant="ghost"
@@ -357,30 +339,30 @@ export default function AutomatizacionesPage() {
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden"
                           >
-                            <div className="px-6 pb-6 border-t border-border/30 pt-4">
-                              <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-3">
-                                Últimas Ejecuciones
+                            <div className="px-5 pb-4 border-t pt-3">
+                              <p className="text-xs font-medium text-muted-foreground mb-2">
+                                Últimas ejecuciones
                               </p>
                               {ruleLogs.length === 0 ? (
-                                <p className="text-[10px] text-muted-foreground/40 italic">Sin ejecuciones registradas</p>
+                                <p className="text-xs text-muted-foreground/60">Sin ejecuciones registradas</p>
                               ) : (
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
                                   {ruleLogs.map(log => (
-                                    <div key={log.id} className="flex items-center gap-3 text-[10px] p-2 rounded-lg bg-white/5">
+                                    <div key={log.id} className="flex items-center gap-2.5 text-xs p-2 rounded-md bg-muted/50">
                                       {log.status === 'success' ? (
-                                        <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
                                       ) : log.status === 'error' ? (
-                                        <XCircle className="h-3 w-3 text-red-400 shrink-0" />
+                                        <XCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
                                       ) : (
-                                        <Loader2 className="h-3 w-3 text-yellow-400 animate-spin shrink-0" />
+                                        <Loader2 className="h-3.5 w-3.5 text-amber-500 animate-spin shrink-0" />
                                       )}
-                                      <span className="text-muted-foreground/60 shrink-0">
+                                      <span className="text-muted-foreground shrink-0">
                                         {new Date(log.started_at).toLocaleString('es-VE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                                       </span>
-                                      <span className="flex-1 truncate">
+                                      <span className="flex-1 truncate text-foreground/80">
                                         {log.status === 'success' ? log.result_summary : log.error_message || 'En ejecución...'}
                                       </span>
-                                      <span className="text-muted-foreground/40 shrink-0">{formatDuration(log.duration_ms)}</span>
+                                      <span className="text-muted-foreground/60 shrink-0">{formatDuration(log.duration_ms)}</span>
                                     </div>
                                   ))}
                                 </div>
@@ -395,35 +377,35 @@ export default function AutomatizacionesPage() {
               </motion.div>
             ) : (
               <motion.div key="logs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Card className="glass-card border-none rounded-[2rem] overflow-hidden shadow-xl">
-                  <CardHeader className="p-6 border-b border-border/30">
-                    <CardTitle className="text-xs font-black uppercase tracking-[0.3em] text-primary italic">
-                      Historial de Ejecuciones — Últimas 30
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm font-semibold">
+                      Historial — Últimas 30 ejecuciones
                     </CardTitle>
                   </CardHeader>
-                  <div className="p-6 space-y-2 max-h-[600px] overflow-y-auto">
+                  <div className="px-6 pb-6 space-y-1.5 max-h-[600px] overflow-y-auto">
                     {logs.length === 0 ? (
-                      <p className="text-center text-muted-foreground/40 text-sm py-10">Sin ejecuciones registradas</p>
+                      <p className="text-center text-muted-foreground text-sm py-10">Sin ejecuciones registradas</p>
                     ) : logs.map(log => (
-                      <div key={log.id} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                      <div key={log.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/40 hover:bg-muted/60 transition-colors">
                         {log.status === 'success' ? (
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                          <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
                         ) : log.status === 'error' ? (
-                          <XCircle className="h-4 w-4 text-red-400 shrink-0" />
+                          <XCircle className="h-4 w-4 text-red-500 shrink-0" />
                         ) : (
-                          <Loader2 className="h-4 w-4 text-yellow-400 animate-spin shrink-0" />
+                          <Loader2 className="h-4 w-4 text-amber-500 animate-spin shrink-0" />
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-bold text-foreground/80">{log.rule_name}</p>
-                          <p className="text-[9px] text-muted-foreground/50 truncate">
+                          <p className="text-xs font-medium text-foreground">{log.rule_name}</p>
+                          <p className="text-[11px] text-muted-foreground truncate">
                             {log.status === 'success' ? log.result_summary : log.error_message || 'En ejecución...'}
                           </p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="text-[9px] text-muted-foreground/60">
+                          <p className="text-[11px] text-muted-foreground">
                             {new Date(log.started_at).toLocaleString('es-VE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                           </p>
-                          <p className="text-[8px] text-muted-foreground/40">{formatDuration(log.duration_ms)}</p>
+                          <p className="text-[10px] text-muted-foreground/60">{formatDuration(log.duration_ms)}</p>
                         </div>
                       </div>
                     ))}
@@ -434,73 +416,68 @@ export default function AutomatizacionesPage() {
           </AnimatePresence>
         </div>
 
-        <div className="lg:col-span-4 space-y-6">
-          <Card className="bg-primary text-primary-foreground rounded-[2rem] p-8 relative overflow-hidden shadow-glow border-none">
-            <div className="absolute top-0 right-0 p-6 opacity-10"><Zap className="h-24 w-24" /></div>
-            <h3 className="text-xl font-black uppercase italic tracking-tight mb-4">Motor Activo</h3>
-            <p className="text-xs font-bold opacity-80 leading-relaxed mb-6">
-              El motor de automatización ejecuta reglas programadas cada hora. Cada ejecución se registra en la base de datos con su resultado, duración y estado.
+        <div className="lg:col-span-4 space-y-4">
+          <Card className="bg-primary text-primary-foreground p-6">
+            <h3 className="text-base font-semibold mb-2">Estado del motor</h3>
+            <p className="text-xs opacity-80 leading-relaxed mb-5">
+              Las reglas programadas se ejecutan automáticamente cada hora. Cada ejecución queda registrada con su resultado y duración.
             </p>
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between text-[10px] font-bold opacity-70">
-                <span>Intervalo del motor</span><span>1 hora</span>
+            <div className="space-y-2.5 mb-5">
+              <div className="flex justify-between text-xs opacity-80">
+                <span>Intervalo</span><span>1 hora</span>
               </div>
-              <div className="flex justify-between text-[10px] font-bold opacity-70">
+              <div className="flex justify-between text-xs opacity-80">
                 <span>Reglas registradas</span><span>{rules.length}</span>
               </div>
-              <div className="flex justify-between text-[10px] font-bold opacity-70">
-                <span>Velocidad promedio</span><span>{formatDuration(stats?.avgDurationMs || 0)}</span>
+              <div className="flex justify-between text-xs opacity-80">
+                <span>Duración promedio</span><span>{formatDuration(stats?.avgDurationMs || 0)}</span>
               </div>
             </div>
             <Button
               variant="secondary"
-              className="w-full h-11 bg-white text-primary font-black uppercase text-[9px] tracking-widest rounded-xl shadow-xl"
+              className="w-full"
               onClick={runAll}
               disabled={executing === 'all'}
             >
               {executing === 'all' ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Play className="h-4 w-4 mr-2" />}
-              Ejecutar Ciclo Manual
+              Ejecutar ciclo manual
             </Button>
           </Card>
 
-          <Card className="glass-card border-none rounded-[2rem] p-6 shadow-xl">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50 mb-4">Último Ciclo</h3>
+          <Card className="p-5">
+            <h3 className="text-xs font-medium text-muted-foreground mb-3">Últimas ejecuciones</h3>
             {logs.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {logs.slice(0, 5).map(log => (
                   <div key={log.id} className="flex items-center gap-2">
-                    {log.status === 'success' ? (
-                      <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                    ) : (
-                      <div className="h-2 w-2 rounded-full bg-red-400" />
-                    )}
-                    <span className="text-[10px] font-bold text-foreground/70 flex-1 truncate">{log.rule_name}</span>
-                    <span className="text-[8px] text-muted-foreground/40">{formatDuration(log.duration_ms)}</span>
+                    <div className={`h-2 w-2 rounded-full shrink-0 ${log.status === 'success' ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                    <span className="text-xs text-foreground/80 flex-1 truncate">{log.rule_name}</span>
+                    <span className="text-[10px] text-muted-foreground">{formatDuration(log.duration_ms)}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-[10px] text-muted-foreground/40 italic">Sin ejecuciones aún</p>
+              <p className="text-xs text-muted-foreground">Sin ejecuciones aún</p>
             )}
           </Card>
 
-          <Card className="glass-card border-none rounded-[2rem] p-6 shadow-xl">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50 mb-4">Tipos de Automatización</h3>
-            <div className="space-y-2">
+          <Card className="p-5">
+            <h3 className="text-xs font-medium text-muted-foreground mb-3">Tipos de automatización</h3>
+            <div className="space-y-1">
               {[
-                { label: 'Tasas de Cambio BCV', icon: RefreshCw, color: 'text-blue-400' },
-                { label: 'Alertas Fiscales', icon: Bell, color: 'text-yellow-400' },
-                { label: 'Monitor Regulatorio', icon: Scale, color: 'text-amber-400' },
-                { label: 'Salud del Sistema', icon: Database, color: 'text-emerald-400' },
-                { label: 'Blockchain', icon: Shield, color: 'text-violet-400' },
-                { label: 'Cobranza', icon: FileText, color: 'text-orange-400' },
-                { label: 'Emails Automáticos', icon: Mail, color: 'text-pink-400' },
-                { label: 'Limpieza', icon: Trash2, color: 'text-red-400' },
-                { label: 'Reportes', icon: BarChart3, color: 'text-cyan-400' },
+                { label: 'Tasas de cambio BCV', icon: RefreshCw, color: 'text-blue-500' },
+                { label: 'Alertas fiscales', icon: Bell, color: 'text-amber-500' },
+                { label: 'Monitor regulatorio', icon: Scale, color: 'text-amber-600' },
+                { label: 'Salud del sistema', icon: Database, color: 'text-emerald-500' },
+                { label: 'Blockchain', icon: Shield, color: 'text-violet-500' },
+                { label: 'Cobranza', icon: FileText, color: 'text-orange-500' },
+                { label: 'Emails automáticos', icon: Mail, color: 'text-pink-500' },
+                { label: 'Limpieza', icon: Trash2, color: 'text-red-500' },
+                { label: 'Reportes', icon: BarChart3, color: 'text-cyan-500' },
               ].map(t => (
-                <div key={t.label} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors">
+                <div key={t.label} className="flex items-center gap-2.5 py-1.5 px-2 rounded-md hover:bg-muted/50 transition-colors">
                   <t.icon className={`h-3.5 w-3.5 ${t.color}`} />
-                  <span className="text-[10px] font-bold text-foreground/60">{t.label}</span>
+                  <span className="text-xs text-foreground/70">{t.label}</span>
                 </div>
               ))}
             </div>

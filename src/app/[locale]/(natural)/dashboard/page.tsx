@@ -330,7 +330,7 @@ export default function DashboardPersonalPage() {
               <Bell className="h-4 w-4 text-muted-foreground/35" />
               <span className="text-[11px] font-semibold text-foreground/60">Notificaciones</span>
               {data && data.notificaciones > 0 && (
-                <Badge className="ml-auto bg-rose-500/8 text-rose-400 border-rose-500/15 text-[9px] font-semibold h-5 rounded-md">{data.notificaciones}</Badge>
+                <Badge className="ml-auto bg-rose-500/8 text-rose-400 border-rose-500/15 text-[11px] font-semibold h-5 rounded-md">{data.notificaciones}</Badge>
               )}
             </div>
             {loading ? (
@@ -343,7 +343,7 @@ export default function DashboardPersonalPage() {
                   <Bell className="h-4 w-4 text-rose-400 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-semibold">{data.notificaciones} sin leer</p>
-                    <p className="text-[9px] text-muted-foreground/40">Revisa tu bandeja</p>
+                    <p className="text-[11px] text-muted-foreground/40">Revisa tu bandeja</p>
                   </div>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/20" />
                 </div>
@@ -414,7 +414,7 @@ export default function DashboardPersonalPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-semibold text-foreground/70 group-hover:text-foreground transition-colors">{item.title}</p>
-                  <p className="text-[9px] text-muted-foreground/35">{item.desc}</p>
+                  <p className="text-[11px] text-muted-foreground/35">{item.desc}</p>
                 </div>
                 <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/10 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
@@ -478,7 +478,7 @@ export default function DashboardPersonalPage() {
         </div>
         <div className="flex items-center gap-2">
           {["VEN-NIF", "SAIME", "SENIAT"].map((b, i) => (
-            <span key={i} className="text-[9px] font-semibold text-muted-foreground/25 px-2 py-0.5 rounded-md border border-border/15 bg-muted/10">{b}</span>
+            <span key={i} className="text-[11px] font-semibold text-muted-foreground/25 px-2 py-0.5 rounded-md border border-border/15 bg-muted/10">{b}</span>
           ))}
         </div>
       </motion.div>

@@ -88,7 +88,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
           aria-hidden="true"
         />
         <DialogPrimitive.Content
-          className="fixed left-[50%] top-[50%] z-[60] grid w-[calc(100vw-2rem)] max-w-[560px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/95 backdrop-blur-3xl rounded-2xl sm:rounded-[1.5rem] shadow-2xl animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200 max-h-[85vh] overflow-y-auto"
+          className="fixed left-[50%] top-[50%] z-[60] grid w-[calc(100vw-2rem)] max-w-[560px] translate-x-[-50%] translate-y-[-50%] p-0 overflow-hidden border border-border/50 bg-background/95 backdrop-blur-3xl rounded-2xl sm:rounded-[1.5rem] shadow-lg animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] duration-200 max-h-[85vh] overflow-y-auto"
           onPointerDownOutside={() => {}}
           onInteractOutside={() => {}}
         >
@@ -109,7 +109,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
             <div className="flex items-center justify-between mb-4 sm:mb-5">
               <div className="flex items-center gap-2">
                 <span className={cn(
-                  "inline-flex items-center px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.4em] border",
+                  "inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider border",
                   step.bg, step.color, step.border
                 )}>
                   {config.moduleTag}
@@ -117,7 +117,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
               </div>
               <div className="flex items-center gap-2">
                 {isLastStep && <PartyPopper className="h-3.5 w-3.5 text-amber-400 animate-bounce" />}
-                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40">
                   {currentStep + 1} / {config.steps.length}
                 </span>
               </div>
@@ -142,10 +142,10 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
                     <Icon className={cn("h-5 w-5 sm:h-6 sm:w-6", step.color)} />
                   </div>
                   <div className="space-y-0.5 min-w-0">
-                    <h2 className="text-sm sm:text-lg font-black tracking-tight uppercase italic leading-tight">
+                    <h2 className="text-sm sm:text-lg font-bold tracking-tight uppercase italic leading-tight">
                       {step.title}
                     </h2>
-                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                    <p className="text-[11px] sm:text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40">
                       {config.moduleName}
                     </p>
                   </div>
@@ -216,7 +216,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
                   </Button>
                   <Button
                     onClick={handleNext}
-                    className="btn-3d-primary rounded-xl px-4 sm:px-6 h-9 sm:h-10 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                    className="btn-3d-primary rounded-xl px-4 sm:px-6 h-9 sm:h-10 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                   >
                     Siguiente <ChevronRight className="ml-1 h-3.5 w-3.5" />
                   </Button>
@@ -224,7 +224,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
               ) : (
                 <Button
                   onClick={handleClose}
-                  className="btn-3d-primary rounded-xl px-4 sm:px-6 h-9 sm:h-10 text-[10px] font-black uppercase tracking-widest shadow-glow"
+                  className="btn-3d-primary rounded-xl px-4 sm:px-6 h-9 sm:h-10 text-[10px] font-semibold uppercase tracking-widest shadow-glow"
                 >
                   Entendido <CheckCircle2 className="ml-1 h-3.5 w-3.5" />
                 </Button>
@@ -235,7 +235,7 @@ export function ModuleTutorial({ config }: { config: ModuleTutorialConfig | unde
           <div className="px-5 sm:px-7 pb-3 sm:pb-4 pt-0">
             <div className="flex items-center gap-2 pt-2.5 border-t border-border/30">
               <Logo className="h-3 w-3 opacity-30" />
-              <span className="text-[7px] font-black uppercase tracking-[0.4em] text-muted-foreground/30 italic">
+              <span className="text-[7px] font-semibold uppercase tracking-wider text-muted-foreground/30 italic">
                 System Kyron • {config.moduleName}
               </span>
             </div>

@@ -148,7 +148,7 @@ export function HeroSection() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-[clamp(1.75rem,6vw,4.5rem)] font-black tracking-tight uppercase leading-[1.02]"
+                            className="text-[clamp(1.75rem,6vw,4.5rem)] font-bold tracking-tight uppercase leading-[1.02]"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"

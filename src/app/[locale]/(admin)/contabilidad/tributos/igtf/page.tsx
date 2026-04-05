@@ -40,7 +40,7 @@ export default function IGTFPage() {
 
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
                         <DollarSign className="h-8 w-8 text-emerald-500" />
                         IGTF — Impuesto a Grandes Transacciones Financieras
                     </h1>
@@ -51,22 +51,22 @@ export default function IGTFPage() {
 
             <div className="grid md:grid-cols-3 gap-6">
                 <Card className="border rounded-2xl shadow-sm p-8">
-                    <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Total Débitos del Período</p>
-                    <p className="text-3xl font-black text-primary">{loading ? '...' : formatCurrency(totalDebitos, 'Bs.')}</p>
+                    <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Total Débitos del Período</p>
+                    <p className="text-3xl font-bold text-primary">{loading ? '...' : formatCurrency(totalDebitos, 'Bs.')}</p>
                 </Card>
                 <Card className="border rounded-2xl shadow-sm p-8">
-                    <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">Alícuota IGTF</p>
-                    <p className="text-3xl font-black text-amber-600">{(igtfRate * 100).toFixed(0)}%</p>
+                    <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">Alícuota IGTF</p>
+                    <p className="text-3xl font-bold text-amber-600">{(igtfRate * 100).toFixed(0)}%</p>
                 </Card>
                 <Card className="border rounded-2xl shadow-sm p-8">
-                    <p className="text-[10px] font-black uppercase text-muted-foreground mb-1">IGTF Estimado</p>
-                    <p className="text-3xl font-black text-rose-600">{loading ? '...' : formatCurrency(totalDebitos * igtfRate, 'Bs.')}</p>
+                    <p className="text-[10px] font-semibold uppercase text-muted-foreground mb-1">IGTF Estimado</p>
+                    <p className="text-3xl font-bold text-rose-600">{loading ? '...' : formatCurrency(totalDebitos * igtfRate, 'Bs.')}</p>
                 </Card>
             </div>
 
             <Card className="border rounded-2xl shadow-sm overflow-hidden">
                 <CardHeader className="p-6 border-b bg-muted/30">
-                    <CardTitle className="text-sm font-black uppercase tracking-widest text-foreground">Movimientos Financieros</CardTitle>
+                    <CardTitle className="text-sm font-semibold uppercase tracking-widest text-foreground">Movimientos Financieros</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     {loading ? (

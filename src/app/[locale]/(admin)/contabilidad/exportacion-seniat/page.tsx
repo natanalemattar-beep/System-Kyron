@@ -56,7 +56,7 @@ export default function ExportacionSeniatPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Upload className="h-8 w-8 text-primary" />
           Exportación SENIAT
         </h1>
@@ -87,15 +87,15 @@ export default function ExportacionSeniatPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Card className="border rounded-2xl shadow-sm p-5 text-center">
               <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Listas para Enviar</p>
-              <p className="text-3xl font-black text-emerald-600">{listos}</p>
+              <p className="text-3xl font-bold text-emerald-600">{listos}</p>
             </Card>
             <Card className="border rounded-2xl shadow-sm p-5 text-center">
               <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Pendientes</p>
-              <p className="text-3xl font-black text-amber-600">{pendientes}</p>
+              <p className="text-3xl font-bold text-amber-600">{pendientes}</p>
             </Card>
             <Card className="border rounded-2xl shadow-sm p-5 text-center">
               <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Total Formatos</p>
-              <p className="text-3xl font-black text-primary">{rows.length}</p>
+              <p className="text-3xl font-bold text-primary">{rows.length}</p>
             </Card>
           </div>
 
@@ -108,8 +108,8 @@ export default function ExportacionSeniatPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <p className="text-sm font-bold">{dec.nombre}</p>
-                        <Badge variant="secondary" className="text-[8px] font-bold uppercase">{dec.formato}</Badge>
-                        <Badge className={cn("text-[8px] font-bold", est.badge)}>{est.label}</Badge>
+                        <Badge variant="secondary" className="text-[10px] font-bold uppercase">{dec.formato}</Badge>
+                        <Badge className={cn("text-[10px] font-bold", est.badge)}>{est.label}</Badge>
                       </div>
                       <p className="text-[10px] text-muted-foreground font-medium mb-1">{dec.norma} · {dec.periodo}</p>
                       <p className="text-[11px] text-muted-foreground">{dec.descripcion}</p>
@@ -145,7 +145,7 @@ export default function ExportacionSeniatPage() {
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 flex items-start gap-4">
             <ShieldCheck className="h-5 w-5 text-emerald-600 mt-0.5 shrink-0" />
             <div>
-              <p className="text-xs font-black text-emerald-700 uppercase tracking-wider">Compatibilidad Garantizada</p>
+              <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Compatibilidad Garantizada</p>
               <p className="text-xs text-emerald-800/70 mt-1">
                 Todos los archivos generados son 100% compatibles con el Portal Fiscal del SENIAT,
                 el sistema de retenciones en línea y los formatos de declaración vigentes.

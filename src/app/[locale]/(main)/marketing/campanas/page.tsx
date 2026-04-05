@@ -118,19 +118,19 @@ export default function CampanasPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Target className="h-3 w-3" /> CAMPAÑAS MARKETING
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Gestión de <span className="text-primary italic">Campañas</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Multi-canal • Automatización IA • ROI en Tiempo Real • A/B Testing
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2">
+            <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2">
               <Plus className="h-4 w-4" /> NUEVA CAMPAÑA
             </Button>
           </DialogTrigger>
@@ -202,7 +202,7 @@ export default function CampanasPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -215,16 +215,16 @@ export default function CampanasPage() {
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Target className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">Error al cargar datos</p>
-          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">Error al cargar datos</p>
+          <Button variant="outline" size="sm" onClick={() => { setLoading(true); fetchData(); }} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             Reintentar
           </Button>
         </div>
       ) : campanas.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground/40">
           <Target className="h-12 w-12" />
-          <p className="text-xs font-black uppercase tracking-widest">No hay campañas de marketing</p>
-          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <p className="text-xs font-semibold uppercase tracking-widest">No hay campañas de marketing</p>
+          <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)} className="rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             <Plus className="h-3 w-3 mr-1" /> Crear primera campaña
           </Button>
         </div>
@@ -242,13 +242,13 @@ export default function CampanasPage() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-mono text-[10px] text-muted-foreground">CMP-{String(camp.id).padStart(3, "0")}</span>
-                          <Badge className={cn("text-[8px] font-bold gap-1", est.badge)}>{est.icon} {est.label}</Badge>
-                          <Badge className="text-[8px] font-bold bg-primary/10 text-primary">{camp.tipo}</Badge>
+                          <Badge className={cn("text-[10px] font-bold gap-1", est.badge)}>{est.icon} {est.label}</Badge>
+                          <Badge className="text-[10px] font-bold bg-primary/10 text-primary">{camp.tipo}</Badge>
                         </div>
                         <CardTitle className="text-sm font-bold">{camp.nombre}</CardTitle>
                         <div className="flex gap-2 mt-1.5">
                           {(camp.canales ?? []).map(c => (
-                            <span key={c} className="text-[8px] font-bold uppercase bg-muted/50 px-2 py-0.5 rounded">{c}</span>
+                            <span key={c} className="text-[10px] font-bold uppercase bg-muted/50 px-2 py-0.5 rounded">{c}</span>
                           ))}
                         </div>
                       </div>
@@ -268,7 +268,7 @@ export default function CampanasPage() {
                         { label: "ROI", val: roiStr },
                       ].map((m, j) => (
                         <div key={j} className="p-3 rounded-lg bg-muted/20 border border-border/30 text-center">
-                          <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">{m.label}</p>
+                          <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">{m.label}</p>
                           <p className="text-sm font-bold">{m.val}</p>
                         </div>
                       ))}

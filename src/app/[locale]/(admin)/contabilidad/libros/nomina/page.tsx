@@ -50,10 +50,10 @@ export default function LibroNominaPage() {
         <BackButton href="/contabilidad/libros" label="Libros Contables" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Users className="h-3.5 w-3.5" /> LOTTT · Arts. 98-105 · SSO · FAOV · INCES
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Libro de <span className="text-primary">Nómina</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registro quincenal · Deducciones legales · LOTTT / LOPCYMAT</p>
@@ -71,28 +71,28 @@ export default function LibroNominaPage() {
               <span className="text-xs font-semibold text-muted-foreground">Total Bruto</span>
               <Banknote className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black">{formatCurrency(summary.totalBruto, 'Bs.')}</p>
+            <p className="text-2xl font-bold">{formatCurrency(summary.totalBruto, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Deducciones</span>
               <TrendingDown className="h-4 w-4 text-rose-500" />
             </div>
-            <p className="text-2xl font-black text-rose-500">{formatCurrency(summary.totalDeducciones, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-rose-500">{formatCurrency(summary.totalDeducciones, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Neto Pagado</span>
               <Wallet className="h-4 w-4 text-emerald-500" />
             </div>
-            <p className="text-2xl font-black text-emerald-500">{formatCurrency(summary.totalNeto, 'Bs.')}</p>
+            <p className="text-2xl font-bold text-emerald-500">{formatCurrency(summary.totalNeto, 'Bs.')}</p>
           </Card>
           <Card className="rounded-2xl border p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-muted-foreground">Nóminas Pagadas</span>
               <Calendar className="h-4 w-4 text-primary" />
             </div>
-            <p className="text-2xl font-black">{summary.pagadas} / {rows.length}</p>
+            <p className="text-2xl font-bold">{summary.pagadas} / {rows.length}</p>
           </Card>
         </div>
       )}

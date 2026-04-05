@@ -177,52 +177,52 @@ export default function DesarrolloPersonalPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow mb-4">
             <School className="h-3 w-3" /> CENTRO EDUCATIVO
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Desarrollo y <span className="text-primary italic">Carrera Personal</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Plan de Vida Profesional</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Desarrollo y <span className="text-primary italic">Carrera Personal</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Plan de Vida Profesional</p>
         </div>
-        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={() => setShowDialog(true)}>
+        <Button className="btn-3d-primary h-12 px-10 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg" onClick={() => setShowDialog(true)}>
           <PlusCircle className="mr-3 h-4 w-4" /> CREAR PLAN
         </Button>
       </header>
 
       {planes.length === 0 ? (
-        <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 shadow-2xl text-center">
+        <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 shadow-lg text-center">
           <School className="h-16 w-16 text-muted-foreground/20 mx-auto mb-6" />
-          <h3 className="text-lg font-black uppercase text-muted-foreground/50 tracking-widest mb-2">Sin planes de desarrollo</h3>
+          <h3 className="text-lg font-semibold uppercase text-muted-foreground/50 tracking-widest mb-2">Sin planes de desarrollo</h3>
           <p className="text-xs text-muted-foreground/40 mb-8">Cree planes de carrera y competencias para gestionar el crecimiento profesional del equipo.</p>
-          <Button className="btn-3d-primary rounded-xl font-black uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(true)}>
+          <Button className="btn-3d-primary rounded-xl font-semibold uppercase text-[10px] tracking-widest" onClick={() => setShowDialog(true)}>
             <Plus className="mr-2 h-4 w-4" /> Crear primer plan
           </Button>
         </Card>
       ) : (
         <>
           <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
-            <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-4">Planes Activos</p>
-              <p className="text-3xl font-black italic text-foreground tracking-tight">{stats.activos}</p>
+            <Card className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-4">Planes Activos</p>
+              <p className="text-3xl font-bold text-foreground tracking-tight">{stats.activos}</p>
             </Card>
-            <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-4">Completados</p>
-              <p className="text-3xl font-black italic text-emerald-500 tracking-tight">{stats.completados}</p>
+            <Card className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-4">Completados</p>
+              <p className="text-3xl font-bold text-emerald-500 tracking-tight">{stats.completados}</p>
             </Card>
-            <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-4">Total Planes</p>
-              <p className="text-3xl font-black italic text-foreground tracking-tight">{stats.total}</p>
+            <Card className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-4">Total Planes</p>
+              <p className="text-3xl font-bold text-foreground tracking-tight">{stats.total}</p>
             </Card>
-            <Card className="glass-card border-none bg-card/40 p-6 rounded-[2rem] shadow-xl">
-              <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 mb-4">Progreso Promedio</p>
-              <p className="text-3xl font-black italic text-primary tracking-tight">{stats.progreso_promedio ?? 0}%</p>
+            <Card className="glass-card border-none bg-card/40 p-6 rounded-xl shadow-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-4">Progreso Promedio</p>
+              <p className="text-3xl font-bold text-primary tracking-tight">{stats.progreso_promedio ?? 0}%</p>
             </Card>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-8 space-y-10">
-              <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+              <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
                 <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Pipeline de Crecimiento Profesional</CardTitle>
+                  <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Pipeline de Crecimiento Profesional</CardTitle>
                 </CardHeader>
                 <CardContent className="p-10 space-y-10">
                   {planes.map((plan) => {
@@ -235,25 +235,25 @@ export default function DesarrolloPersonalPage() {
                               <Icon className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                              <h3 className="text-xl font-black uppercase italic tracking-tight text-foreground">{plan.nombre_plan}</h3>
-                              <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
+                              <h3 className="text-xl font-semibold uppercase italic tracking-tight text-foreground">{plan.nombre_plan}</h3>
+                              <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">
                                 Nivel: {nivelLabels[plan.nivel_actual] ?? plan.nivel_actual} → {nivelLabels[plan.nivel_objetivo] ?? plan.nivel_objetivo}
                               </p>
                               {plan.empleado_nombre && (
-                                <p className="text-[8px] text-muted-foreground/60 mt-1">{plan.empleado_nombre} • {plan.empleado_cargo}</p>
+                                <p className="text-[10px] text-muted-foreground/60 mt-1">{plan.empleado_nombre} • {plan.empleado_cargo}</p>
                               )}
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
                             <Badge variant="outline" className={cn(
-                              "text-[8px] font-black uppercase border-primary/20 px-4 h-6 rounded-lg",
+                              "text-[10px] font-semibold uppercase border-primary/20 px-4 h-6 rounded-lg",
                               plan.estado === "completado" ? "text-emerald-500 border-emerald-500/20 bg-emerald-500/5" :
                               plan.estado === "pausado" ? "text-amber-500 border-amber-500/20 bg-amber-500/5" :
                               plan.estado === "cancelado" ? "text-rose-500 border-rose-500/20 bg-rose-500/5" :
                               "text-primary bg-primary/5"
                             )}>{plan.progreso}%</Badge>
                             {plan.estado === "activo" && plan.progreso < 100 && (
-                              <Button variant="outline" size="sm" className="rounded-xl text-[8px] h-6 px-3 font-bold uppercase" onClick={() => handleUpdateProgreso(plan.id, plan.progreso)}>
+                              <Button variant="outline" size="sm" className="rounded-xl text-[10px] h-6 px-3 font-bold uppercase" onClick={() => handleUpdateProgreso(plan.id, plan.progreso)}>
                                 +10%
                               </Button>
                             )}
@@ -288,15 +288,15 @@ export default function DesarrolloPersonalPage() {
             <div className="lg:col-span-4 space-y-8">
               <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group h-[300px]">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32" /></div>
-                <h3 className="text-2xl font-black uppercase italic tracking-tight mb-4 leading-none">Progreso <br/> General</h3>
-                <p className="text-6xl font-black italic">{stats.progreso_promedio ?? 0}%</p>
+                <h3 className="text-2xl font-semibold uppercase italic tracking-tight mb-4 leading-none">Progreso <br/> General</h3>
+                <p className="text-6xl font-bold">{stats.progreso_promedio ?? 0}%</p>
                 <p className="text-xs font-bold opacity-80 uppercase mt-4">{stats.activos} planes activos de {stats.total} totales</p>
               </Card>
 
               <Card className="glass-card border-none rounded-[2.5rem] bg-card/40 p-8 shadow-xl">
                 <div className="flex items-center gap-4 mb-8">
                   <Activity className="h-6 w-6 text-primary" />
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-foreground">Resumen por Categoría</h4>
+                  <h4 className="text-[10px] font-semibold uppercase tracking-widest text-foreground">Resumen por Categoría</h4>
                 </div>
                 <div className="space-y-6">
                   {Object.entries(
@@ -306,7 +306,7 @@ export default function DesarrolloPersonalPage() {
                     }, {} as Record<string, number>)
                   ).map(([cat, count], i) => (
                     <div key={i} className="space-y-2">
-                      <div className="flex justify-between text-[8px] font-black uppercase tracking-widest opacity-40">
+                      <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest opacity-40">
                         <span>{categoriaLabels[cat] ?? cat}</span>
                         <span>{count} {count === 1 ? "plan" : "planes"}</span>
                       </div>
@@ -323,7 +323,7 @@ export default function DesarrolloPersonalPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-lg rounded-3xl">
           <DialogHeader>
-            <DialogTitle className="text-lg font-black uppercase tracking-widest">Crear Plan de Desarrollo</DialogTitle>
+            <DialogTitle className="text-lg font-semibold uppercase tracking-widest">Crear Plan de Desarrollo</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
             <div>
@@ -382,7 +382,7 @@ export default function DesarrolloPersonalPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSubmit} disabled={saving} className="btn-3d-primary rounded-xl font-black uppercase text-[10px] tracking-widest">
+            <Button onClick={handleSubmit} disabled={saving} className="btn-3d-primary rounded-xl font-semibold uppercase text-[10px] tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />} Crear Plan
             </Button>
           </DialogFooter>

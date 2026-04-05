@@ -69,7 +69,7 @@ export default function FacturacionCorporativaPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -79,7 +79,7 @@ export default function FacturacionCorporativaPage() {
         <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="space-y-1">
             <p className="text-xs font-bold uppercase tracking-wider opacity-70">Factura Consolidada — Marzo 2026</p>
-            <p className="text-3xl font-black tracking-tight">{formatCurrency(totalPendiente, 'USD')}</p>
+            <p className="text-3xl font-bold tracking-tight">{formatCurrency(totalPendiente, 'USD')}</p>
             <p className="text-[10px] opacity-60">Vencimiento: 15/04/2026 · {facturasPendientes} departamento(s)</p>
           </div>
           <div className="flex gap-3">

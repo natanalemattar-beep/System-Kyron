@@ -24,37 +24,37 @@ export default function LibroLicoresPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-8">
         <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                 <Landmark className="h-3 w-3" /> ÁREA DE ESPECIES
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Libro de <span className="text-primary italic">Licores</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Control de Especies Alcohólicas • Impuestos Especiales 2026</p>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Libro de <span className="text-primary italic">Licores</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Control de Especies Alcohólicas • Impuestos Especiales 2026</p>
         </div>
         <div className="flex gap-2">
-            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={() => toast({ title: "REPORTE GENERADO" })}>
+            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-semibold uppercase tracking-widest border-border bg-card/50 text-foreground" onClick={() => toast({ title: "REPORTE GENERADO" })}>
                 <Download className="mr-2 h-4 w-4" /> EXPORTAR LIBRO
             </Button>
-            <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
+            <Button className="h-12 px-10 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg">
                 <PlusCircle className="mr-2 h-4 w-4" /> NUEVA ENTRADA
             </Button>
         </div>
       </header>
 
       <div className="grid gap-6 md:grid-cols-3">
-        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Zap className="h-24 w-24" /></div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Impuesto Acumulado (Mes)</p>
-            <p className="text-4xl font-black italic text-primary tracking-tight shadow-glow-text">{formatCurrency(465.50, 'Bs.')}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40 mb-4">Impuesto Acumulado (Mes)</p>
+            <p className="text-4xl font-bold text-primary tracking-tight">{formatCurrency(465.50, 'Bs.')}</p>
         </Card>
-        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Activity className="h-24 w-24" /></div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Total Especies en Almacén</p>
-            <p className="text-4xl font-black italic text-foreground tracking-tight">458 Uds.</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40 mb-4">Total Especies en Almacén</p>
+            <p className="text-4xl font-bold text-foreground tracking-tight">458 Uds.</p>
         </Card>
-        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+        <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Landmark className="h-24 w-24" /></div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-4">Estatus Fiscal</p>
-            <p className="text-4xl font-black italic text-emerald-500 tracking-tight uppercase">AL DÍA</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground/40 mb-4">Estatus Fiscal</p>
+            <p className="text-4xl font-bold text-emerald-500 tracking-tight uppercase">AL DÍA</p>
         </Card>
       </div>
 
@@ -65,41 +65,41 @@ export default function LibroLicoresPage() {
         </div>
       </div>
 
-      <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+      <Card className="glass-card border-none rounded-2xl bg-card/40 overflow-hidden shadow-lg">
         <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Relación de Movimientos Mensuales</CardTitle>
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider text-primary italic">Relación de Movimientos Mensuales</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
             <Table>
                 <TableHeader>
                     <TableRow className="bg-muted/30 border-none">
-                        <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Producto / ID</TableHead>
-                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Categoría</TableHead>
-                        <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Alícuota</TableHead>
-                        <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Base Imponible</TableHead>
-                        <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Impuesto Calculado</TableHead>
+                        <TableHead className="pl-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Producto / ID</TableHead>
+                        <TableHead className="py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Categoría</TableHead>
+                        <TableHead className="text-center py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Alícuota</TableHead>
+                        <TableHead className="text-right py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Base Imponible</TableHead>
+                        <TableHead className="text-right pr-10 py-5 text-[11px] font-semibold uppercase tracking-widest opacity-30">Impuesto Calculado</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {registros.map(reg => (
                         <TableRow key={reg.id} className="border-border/50 hover:bg-muted/20 transition-all group">
                             <TableCell className="pl-10 py-6">
-                                <p className="font-black text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{reg.producto}</p>
-                                <p className="text-[8px] font-mono text-muted-foreground font-bold uppercase tracking-widest">{reg.id} • {reg.fecha}</p>
+                                <p className="font-semibold text-xs text-foreground/80 uppercase italic group-hover:text-primary transition-colors">{reg.producto}</p>
+                                <p className="text-[10px] font-mono text-muted-foreground font-bold uppercase tracking-widest">{reg.id} • {reg.fecha}</p>
                             </TableCell>
                             <TableCell className="py-6">
-                                <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-border text-foreground/60">{reg.tipo}</Badge>
+                                <Badge variant="outline" className="text-[10px] font-semibold uppercase tracking-widest border-border text-foreground/60">{reg.tipo}</Badge>
                             </TableCell>
-                            <TableCell className="text-center py-6 font-black text-sm text-primary italic">{reg.alicuota}</TableCell>
+                            <TableCell className="text-center py-6 font-semibold text-sm text-primary italic">{reg.alicuota}</TableCell>
                             <TableCell className="text-right py-6 font-mono text-sm font-bold text-foreground/70">{formatCurrency(reg.base, 'Bs.')}</TableCell>
-                            <TableCell className="text-right pr-10 py-6 font-mono text-sm font-black italic text-primary">{formatCurrency(reg.impuesto, 'Bs.')}</TableCell>
+                            <TableCell className="text-right pr-10 py-6 font-mono text-sm font-bold text-primary">{formatCurrency(reg.impuesto, 'Bs.')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
         </CardContent>
         <CardFooter className="p-10 bg-primary/5 border-t border-border flex justify-center">
-            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">Sistema de Control de Especies • Generado por System Kyron</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40 italic">Sistema de Control de Especies • Generado por System Kyron</p>
         </CardFooter>
       </Card>
     </div>

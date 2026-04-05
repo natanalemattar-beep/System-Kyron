@@ -40,7 +40,7 @@ export default function CalendarioFiscalPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <CalendarIcon className="h-8 w-8 text-emerald-600" />
             Calendario Fiscal
           </h1>
@@ -87,10 +87,10 @@ export default function CalendarioFiscalPage() {
                   <div className="flex-1 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-3">
-                        <h3 className="text-sm font-black uppercase tracking-tight">{event.titulo}</h3>
+                        <h3 className="text-sm font-semibold uppercase tracking-tight">{event.titulo}</h3>
                         <Badge
                           variant={event.urgencia === "critical" ? "destructive" : "secondary"}
-                          className="text-[8px] font-bold uppercase"
+                          className="text-[10px] font-bold uppercase"
                         >
                           {event.urgencia}
                         </Badge>
@@ -99,7 +99,7 @@ export default function CalendarioFiscalPage() {
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Fecha Límite</p>
-                      <p className="text-lg font-black">{event.fecha}</p>
+                      <p className="text-lg font-bold">{event.fecha}</p>
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ export default function CalendarioFiscalPage() {
 
           <div className="space-y-6">
             <Card className="border rounded-2xl shadow-sm p-6">
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4">
+              <h4 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                 Guía de Prioridad
               </h4>
               <div className="space-y-3">

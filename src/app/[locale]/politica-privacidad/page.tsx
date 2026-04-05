@@ -20,7 +20,7 @@ export default function PrivacyPage() {
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">Política de Privacidad</h1>
+              <h1 className="text-3xl font-semibold uppercase tracking-tight text-foreground">Política de Privacidad</h1>
               <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest mt-1">System Kyron • Última actualización: Marzo 2026</p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function PrivacyPage() {
               },
             ].map((section, i) => (
               <div key={i} className="p-6 rounded-2xl border border-border/50 bg-card/30 space-y-2">
-                <h2 className="text-sm font-black uppercase tracking-wide text-foreground">{section.title}</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">{section.title}</h2>
                 <p className="text-sm leading-relaxed">{section.body}</p>
               </div>
             ))}

@@ -37,7 +37,7 @@ export default function ProyectoMaestroPage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Hammer className="h-8 w-8 text-primary" />
           Gestión de Proyectos
         </h1>
@@ -72,17 +72,17 @@ export default function ProyectoMaestroPage() {
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-3">
-                        <Badge variant={pro.estado === "Completado" ? "default" : "secondary"} className="text-[9px] uppercase">
+                        <Badge variant={pro.estado === "Completado" ? "default" : "secondary"} className="text-[11px] uppercase">
                           {pro.estado}
                         </Badge>
                         <span className="font-mono text-[10px] text-muted-foreground">{pro.codigo}</span>
                       </div>
-                      <h3 className="text-lg font-black uppercase tracking-tight">{pro.nombre}</h3>
+                      <h3 className="text-lg font-semibold uppercase tracking-tight">{pro.nombre}</h3>
                       <p className="text-xs text-muted-foreground">Fecha límite: {pro.fecha_limite}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Presupuesto</p>
-                      <p className="text-2xl font-black text-primary">{formatCurrency(pro.presupuesto, "USD")}</p>
+                      <p className="text-2xl font-bold text-primary">{formatCurrency(pro.presupuesto, "USD")}</p>
                     </div>
                   </div>
                   <div className="space-y-2">

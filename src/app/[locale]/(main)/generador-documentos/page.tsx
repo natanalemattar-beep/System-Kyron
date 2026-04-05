@@ -43,10 +43,10 @@ export default function GeneradorDocumentosPage() {
         <div className="space-y-12 w-full px-6 md:px-16 pb-20">
             <ModuleTutorial config={moduleTutorials["legal"]} />
             <header className="border-l-4 border-primary pl-8 py-2 mt-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                     <Scale className="h-3 w-3" /> CENTRO JURÍDICO IA
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase italic text-foreground">Generador de <span className="text-primary">Contratos</span></h1>
                 <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Redacción Automatizada de Grado Legal • 2026</p>
             </header>
 
@@ -54,13 +54,13 @@ export default function GeneradorDocumentosPage() {
                 <div className="lg:col-span-2 space-y-8">
                     <Card className="glass-card border-none p-8 rounded-[2.5rem] bg-white/[0.02]">
                         <CardHeader className="p-0 mb-8">
-                            <CardTitle className="text-sm font-black uppercase tracking-widest text-primary flex items-center gap-3">
+                            <CardTitle className="text-sm font-semibold uppercase tracking-widest text-primary flex items-center gap-3">
                                 <Gavel className="h-4 w-4" /> Parámetros de Redacción
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0 space-y-6">
                             <div className="space-y-3">
-                                <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Tipo de Instrumento Legal</Label>
+                                <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Tipo de Instrumento Legal</Label>
                                 <Select onValueChange={setDocumentType}>
                                     <SelectTrigger className="h-12 rounded-xl bg-white/5 border-white/10 font-bold">
                                         <SelectValue placeholder="Seleccione..." />
@@ -75,7 +75,7 @@ export default function GeneradorDocumentosPage() {
                                 </Select>
                             </div>
                             <div className="space-y-3">
-                                <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Partes Involucradas (Nombres, C.I., RIF)</Label>
+                                <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Partes Involucradas (Nombres, C.I., RIF)</Label>
                                 <Textarea 
                                     className="bg-white/5 border-white/10 rounded-xl font-medium min-h-[100px]" 
                                     placeholder="Ej: Inversiones Kyron (RIF: J-50328471-6) y Juan Pérez (V-18745632)"
@@ -83,7 +83,7 @@ export default function GeneradorDocumentosPage() {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Cláusulas Específicas / Montos / Fechas</Label>
+                                <Label className="text-[10px] font-semibold uppercase tracking-widest opacity-40">Cláusulas Específicas / Montos / Fechas</Label>
                                 <Textarea 
                                     className="bg-white/5 border-white/10 rounded-xl font-medium min-h-[80px]" 
                                     placeholder="Ej: Canon de $500 mensuales, duración 1 año..."
@@ -93,7 +93,7 @@ export default function GeneradorDocumentosPage() {
                         </CardContent>
                         <CardFooter className="p-0 pt-8">
                             <Button 
-                                className="w-full h-14 rounded-2xl btn-3d-primary font-black text-xs uppercase tracking-widest shadow-2xl"
+                                className="w-full h-14 rounded-2xl font-semibold text-xs uppercase tracking-widest shadow-lg"
                                 onClick={handleGenerate}
                                 disabled={isLoading}
                             >
@@ -106,9 +106,9 @@ export default function GeneradorDocumentosPage() {
 
                 <div className="lg:col-span-3">
                     {result ? (
-                        <Card className="glass-card border-none rounded-[3rem] bg-white/[0.01] h-full flex flex-col overflow-hidden">
+                        <Card className="glass-card border-none rounded-2xl bg-white/[0.01] h-full flex flex-col overflow-hidden">
                             <CardHeader className="p-10 border-b border-white/5 flex flex-row justify-between items-center bg-white/[0.01]">
-                                <CardTitle className="text-xl font-black uppercase italic tracking-tight text-white">Vista Previa del Instrumento</CardTitle>
+                                <CardTitle className="text-xl font-semibold uppercase italic tracking-tight text-white">Vista Previa del Instrumento</CardTitle>
                                 <div className="flex gap-2">
                                     <Button variant="outline" size="icon" className="rounded-xl" onClick={() => window.print()}><Printer className="h-4 w-4"/></Button>
                                     <Button variant="outline" size="icon" className="rounded-xl" onClick={() => {
@@ -129,10 +129,10 @@ export default function GeneradorDocumentosPage() {
                                 </div>
                             </CardContent>
                             <CardFooter className="p-8 bg-primary/5 border-t border-white/5 flex justify-between items-center">
-                                <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-widest text-primary">
+                                <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-widest text-primary">
                                     <ShieldCheck className="h-4 w-4" /> Validado por Protocolo Legal IA
                                 </div>
-                                <Button className="rounded-xl h-10 px-8 text-[9px] font-black uppercase tracking-widest" onClick={async () => {
+                                <Button className="rounded-xl h-10 px-8 text-[11px] font-semibold uppercase tracking-widest" onClick={async () => {
                                     try {
                                         const res = await fetch("/api/documentos-juridicos", {
                                             method: "POST",
@@ -157,9 +157,9 @@ export default function GeneradorDocumentosPage() {
                             </CardFooter>
                         </Card>
                     ) : (
-                        <div className="h-full rounded-[3rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center text-center p-12 bg-white/[0.01]">
+                        <div className="h-full rounded-2xl border-2 border-dashed border-white/5 flex flex-col items-center justify-center text-center p-12 bg-white/[0.01]">
                             <FileText className="h-20 w-20 text-white/5 mb-6" />
-                            <p className="text-white/20 font-black uppercase tracking-[0.4em] text-sm italic">Esperando inyección de parámetros legales...</p>
+                            <p className="text-white/20 font-semibold uppercase tracking-wider text-sm italic">Esperando inyección de parámetros legales...</p>
                         </div>
                     )}
                 </div>

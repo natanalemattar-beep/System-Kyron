@@ -47,17 +47,17 @@ export default function SeguridadPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-500 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] font-semibold uppercase tracking-wider text-rose-500 mb-3">
             <Shield className="h-3 w-3" /> CIBERSEGURIDAD
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Centro de <span className="text-primary italic">Ciberseguridad</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Firewall • IDS/IPS • Auditoría • ISO 27001 • Zero Trust
           </p>
         </div>
-        <Button className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg gap-2"
+        <Button className="h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg gap-2"
           onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'informatica', subcategoria: 'escaneo_seguridad', descripcion: 'Escaneo de seguridad infraestructura completa' }) }); if (res.ok) toast({ title: "Escaneo Iniciado", description: "Ejecutando análisis de vulnerabilidades en toda la infraestructura..." }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}>
           <Zap className="h-4 w-4" /> ESCANEO DE SEGURIDAD
         </Button>
@@ -76,7 +76,7 @@ export default function SeguridadPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -84,7 +84,7 @@ export default function SeguridadPage() {
 
       <Card className="rounded-2xl overflow-hidden">
         <CardHeader className="p-5 border-b bg-rose-500/[0.03]">
-          <CardTitle className="text-xs font-black uppercase tracking-widest text-rose-500">Amenazas Detectadas (Últimos 30 días)</CardTitle>
+          <CardTitle className="text-xs font-semibold uppercase tracking-widest text-rose-500">Amenazas Detectadas (Últimos 30 días)</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {amenazas.map((amenaza, i) => (
@@ -96,7 +96,7 @@ export default function SeguridadPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <p className="text-xs font-bold">{amenaza.tipo}</p>
-                  <Badge className={cn("text-[8px] font-bold",
+                  <Badge className={cn("text-[10px] font-bold",
                     amenaza.severidad === "alta" ? "bg-rose-500/10 text-rose-500" :
                     amenaza.severidad === "media" ? "bg-amber-500/10 text-amber-500" :
                     "bg-muted/50 text-muted-foreground"
@@ -105,8 +105,8 @@ export default function SeguridadPage() {
                 <p className="text-[10px] text-muted-foreground">Origen: {amenaza.origen}</p>
               </div>
               <div className="text-right shrink-0">
-                <p className="text-sm font-black">{amenaza.cantidad}</p>
-                <p className="text-[9px] text-emerald-500 font-medium">{amenaza.accion}</p>
+                <p className="text-sm font-bold">{amenaza.cantidad}</p>
+                <p className="text-[11px] text-emerald-500 font-medium">{amenaza.accion}</p>
               </div>
             </div>
           ))}
@@ -116,7 +116,7 @@ export default function SeguridadPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="rounded-2xl">
           <CardHeader className="p-5 border-b">
-            <CardTitle className="text-xs font-black uppercase tracking-widest">Políticas de Seguridad</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-widest">Políticas de Seguridad</CardTitle>
           </CardHeader>
           <CardContent className="p-5">
             <div className="space-y-2.5">
@@ -136,14 +136,14 @@ export default function SeguridadPage() {
 
         <Card className="rounded-2xl">
           <CardHeader className="p-5 border-b">
-            <CardTitle className="text-xs font-black uppercase tracking-widest">Certificaciones</CardTitle>
+            <CardTitle className="text-xs font-semibold uppercase tracking-widest">Certificaciones</CardTitle>
           </CardHeader>
           <CardContent className="p-5 space-y-4">
             {certificaciones.map((cert, i) => (
               <div key={i} className="p-4 rounded-xl border border-border/30">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-sm font-bold">{cert.nombre}</p>
-                  <Badge className="text-[8px] font-bold bg-muted/30">{cert.estado}</Badge>
+                  <Badge className="text-[10px] font-bold bg-muted/30">{cert.estado}</Badge>
                 </div>
                 <Progress value={cert.progreso} className="h-2" />
                 <p className="text-[10px] text-muted-foreground mt-1">{cert.progreso}% completado</p>

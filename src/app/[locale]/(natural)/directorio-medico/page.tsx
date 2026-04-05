@@ -132,7 +132,7 @@ export default function DirectorioMedicoPage() {
                       <p className="font-bold text-sm text-foreground group-hover:text-rose-600 transition-colors truncate">{centro.nombre}</p>
                       <p className="text-[10px] text-muted-foreground font-medium mt-0.5">{centro.tipo}</p>
                     </div>
-                    <Badge className={cn("text-[8px] font-bold shrink-0", centro.disponible ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-muted/50 text-muted-foreground")}>
+                    <Badge className={cn("text-[10px] font-bold shrink-0", centro.disponible ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-muted/50 text-muted-foreground")}>
                       {centro.disponible ? "Disponible" : "Consultar"}
                     </Badge>
                   </div>
@@ -146,7 +146,7 @@ export default function DirectorioMedicoPage() {
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/30">
                     {centro.especialidades.map(esp => (
-                      <span key={esp} className="text-[9px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 font-bold border border-rose-500/20">{esp}</span>
+                      <span key={esp} className="text-[11px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 font-bold border border-rose-500/20">{esp}</span>
                     ))}
                   </div>
                   <Button

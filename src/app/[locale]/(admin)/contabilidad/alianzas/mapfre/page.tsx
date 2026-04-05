@@ -36,7 +36,7 @@ export default function MapfrePage() {
       <BackButton href="/contabilidad" label="Volver al Centro Contable" />
 
       <header className="space-y-1">
-        <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
           <Car className="h-8 w-8 text-red-600" />
           Mapfre Seguros
         </h1>
@@ -95,7 +95,7 @@ export default function MapfrePage() {
                     <TableCell className="text-right font-mono text-xs">{v.valor}</TableCell>
                     <TableCell className="text-xs">{v.vencimiento}</TableCell>
                     <TableCell className="text-right pr-8">
-                      <Badge variant={v.estado === "VIGENTE" ? "default" : "secondary"} className="text-[9px] uppercase">
+                      <Badge variant={v.estado === "VIGENTE" ? "default" : "secondary"} className="text-[11px] uppercase">
                         {v.estado}
                       </Badge>
                     </TableCell>

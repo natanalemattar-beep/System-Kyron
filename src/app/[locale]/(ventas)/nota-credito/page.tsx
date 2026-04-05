@@ -137,16 +137,16 @@ export default function NotaCreditoPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-rose-600 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[11px] font-semibold uppercase tracking-wide text-rose-600 mb-4">
             <FilePlus className="h-3 w-3" /> NOTA DE CRÉDITO
             <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
             Nota de{' '}
             <span className="bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500 bg-clip-text text-transparent italic">Crédito</span>
           </h1>
           <div className="flex items-center gap-3 mt-2">
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40">Art. 18 — Providencia Administrativa SNAT/2011/00071</p>
             <CurrencySelectorCompact />
           </div>
         </motion.header>
@@ -183,8 +183,8 @@ export default function NotaCreditoPage() {
                 )}
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black uppercase tracking-wider leading-none">{step.label}</p>
-                <p className="text-[8px] font-medium opacity-60 mt-0.5">{step.desc}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider leading-none">{step.label}</p>
+                <p className="text-[10px] font-medium opacity-60 mt-0.5">{step.desc}</p>
               </div>
             </button>
             {i < steps.length - 1 && (
@@ -206,7 +206,7 @@ export default function NotaCreditoPage() {
                         <Building2 className="h-4 w-4 text-rose-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Emisor</CardTitle>
+                        <CardTitle className="text-xs font-semibold uppercase tracking-wide">Datos del Emisor</CardTitle>
                         <CardDescription className="text-[10px]">Art. 18 num. 4 — RIF, razón social y domicilio fiscal</CardDescription>
                       </div>
                     </div>
@@ -214,16 +214,16 @@ export default function NotaCreditoPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">RIF Emisor *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">RIF Emisor *</label>
                         <Input placeholder="J-12345678-0" value={rifEmisor} onChange={e => setRifEmisor(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Razón Social *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Razón Social *</label>
                         <Input placeholder="Mi Empresa C.A." value={razonSocialEmisor} onChange={e => setRazonSocialEmisor(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Domicilio Fiscal *</label>
+                      <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Domicilio Fiscal *</label>
                       <Input placeholder="Av. Principal, Edif. Centro, Caracas" value={domicilioFiscalEmisor} onChange={e => setDomicilioFiscalEmisor(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                     </div>
                   </CardContent>
@@ -240,7 +240,7 @@ export default function NotaCreditoPage() {
                         <UserCheck className="h-4 w-4 text-rose-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Datos del Receptor</CardTitle>
+                        <CardTitle className="text-xs font-semibold uppercase tracking-wide">Datos del Receptor</CardTitle>
                         <CardDescription className="text-[10px]">Art. 18 num. 5 — Datos del cliente receptor</CardDescription>
                       </div>
                     </div>
@@ -248,11 +248,11 @@ export default function NotaCreditoPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">RIF Receptor *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">RIF Receptor *</label>
                         <Input placeholder="V-12345678-0" value={clienteRif} onChange={e => setClienteRif(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Nombre / Razón Social *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Nombre / Razón Social *</label>
                         <Input placeholder="Cliente S.R.L." value={clienteNombre} onChange={e => setClienteNombre(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                     </div>
@@ -270,7 +270,7 @@ export default function NotaCreditoPage() {
                         <Link2 className="h-4 w-4 text-rose-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Referencia a Factura Original</CardTitle>
+                        <CardTitle className="text-xs font-semibold uppercase tracking-wide">Referencia a Factura Original</CardTitle>
                         <CardDescription className="text-[10px]">Art. 18 num. 7 — Número y fecha de la factura que se modifica</CardDescription>
                       </div>
                     </div>
@@ -278,11 +278,11 @@ export default function NotaCreditoPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">N° Factura Original *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">N° Factura Original *</label>
                         <Input placeholder="FAC-000001" value={facturaRef} onChange={e => setFacturaRef(e.target.value)} className="font-mono h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">Motivo del Ajuste *</label>
+                        <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Motivo del Ajuste *</label>
                         <Input placeholder="Devolución, descuento, anulación parcial" value={motivo} onChange={e => setMotivo(e.target.value)} className="h-11 rounded-xl border-border/30 focus:border-rose-500/50 focus:ring-rose-500/20 transition-all" />
                       </div>
                     </div>
@@ -300,7 +300,7 @@ export default function NotaCreditoPage() {
                         <ListChecks className="h-4 w-4 text-rose-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Items del Ajuste</CardTitle>
+                        <CardTitle className="text-xs font-semibold uppercase tracking-wide">Items del Ajuste</CardTitle>
                         <CardDescription className="text-[10px]">Detalle de las devoluciones o descuentos</CardDescription>
                       </div>
                     </div>
@@ -315,7 +315,7 @@ export default function NotaCreditoPage() {
                         transition={{ delay: 0.05 * i }}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-[9px] font-black text-rose-500 uppercase tracking-widest">Item {i + 1}</span>
+                          <span className="text-[11px] font-bold text-rose-500 uppercase tracking-widest">Item {i + 1}</span>
                           {items.length > 1 && (
                             <Button type="button" variant="ghost" size="sm" onClick={() => removeItem(i)} className="h-7 px-2 text-rose-500 hover:bg-rose-500/10 rounded-lg">
                               <Trash2 className="h-3.5 w-3.5" />
@@ -324,7 +324,7 @@ export default function NotaCreditoPage() {
                         </div>
                         <div className="grid grid-cols-12 gap-3">
                           <div className="col-span-5 space-y-1">
-                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Descripción</label>
+                            <label className="text-[11px] font-bold text-muted-foreground uppercase">Descripción</label>
                             <Input
                               placeholder="Devolución de mercancía"
                               value={item.descripcion}
@@ -333,7 +333,7 @@ export default function NotaCreditoPage() {
                             />
                           </div>
                           <div className="col-span-2 space-y-1">
-                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Cantidad</label>
+                            <label className="text-[11px] font-bold text-muted-foreground uppercase">Cantidad</label>
                             <Input
                               type="number" placeholder="1"
                               value={item.cantidad}
@@ -342,7 +342,7 @@ export default function NotaCreditoPage() {
                             />
                           </div>
                           <div className="col-span-3 space-y-1">
-                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Precio Unit.</label>
+                            <label className="text-[11px] font-bold text-muted-foreground uppercase">Precio Unit.</label>
                             <Input
                               type="number" step="0.01" placeholder="0.00"
                               value={item.precio_unitario}
@@ -351,7 +351,7 @@ export default function NotaCreditoPage() {
                             />
                           </div>
                           <div className="col-span-2 space-y-1">
-                            <label className="text-[9px] font-bold text-muted-foreground uppercase">Gravamen</label>
+                            <label className="text-[11px] font-bold text-muted-foreground uppercase">Gravamen</label>
                             <select
                               value={item.tipo_gravamen}
                               onChange={e => { const n = [...items]; n[i].tipo_gravamen = e.target.value as any; setItems(n); }}
@@ -381,7 +381,7 @@ export default function NotaCreditoPage() {
                         <Calculator className="h-4 w-4 text-rose-500" />
                       </div>
                       <div>
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resumen de Emisión</CardTitle>
+                        <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resumen de Emisión</CardTitle>
                         <CardDescription className="text-[10px]">Verifique los totales antes de emitir</CardDescription>
                       </div>
                     </div>
@@ -389,23 +389,23 @@ export default function NotaCreditoPage() {
                   <CardContent className="p-6 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
-                        <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Emisor</p>
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 mb-1">Emisor</p>
                         <p className="text-sm font-bold text-foreground">{razonSocialEmisor || '—'}</p>
                         <p className="text-[10px] text-muted-foreground font-mono">{rifEmisor || '—'}</p>
                       </div>
                       <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
-                        <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Receptor</p>
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 mb-1">Receptor</p>
                         <p className="text-sm font-bold text-foreground">{clienteNombre || '—'}</p>
                         <p className="text-[10px] text-muted-foreground font-mono">{clienteRif || '—'}</p>
                       </div>
                     </div>
                     <div className="p-4 rounded-xl bg-muted/20 border border-border/20">
-                      <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-1">Referencia</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 mb-1">Referencia</p>
                       <p className="text-sm font-bold text-foreground">Factura: <span className="font-mono text-rose-500">{facturaRef || '—'}</span></p>
                       <p className="text-[10px] text-muted-foreground mt-1">{motivo || '—'}</p>
                     </div>
                     <div className="p-4 rounded-xl bg-muted/20 border border-border/20 space-y-2">
-                      <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground/50 mb-2">Detalle Items ({items.length})</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 mb-2">Detalle Items ({items.length})</p>
                       {items.filter(it => it.descripcion).map((it, i) => (
                         <div key={i} className="flex justify-between text-sm">
                           <span className="text-muted-foreground">{it.descripcion}</span>
@@ -457,7 +457,7 @@ export default function NotaCreditoPage() {
           >
             <Card className="glass-card border-none bg-card/50 rounded-2xl overflow-hidden sticky top-4">
               <CardHeader className="p-5 border-b border-border/20 bg-gradient-to-r from-rose-500/[0.05] to-pink-500/[0.05]">
-                <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
+                <CardTitle className="text-[10px] font-semibold uppercase tracking-wide flex items-center gap-2">
                   <Calculator className="h-3.5 w-3.5 text-rose-500" />
                   Cálculo en Vivo
                 </CardTitle>
@@ -485,8 +485,8 @@ export default function NotaCreditoPage() {
                 </div>
                 <div className="h-px bg-border/20 my-2" />
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-black uppercase">Total ({curConfig.symbol})</span>
-                  <span className="text-xl font-black bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent tabular-nums">
+                  <span className="text-xs font-semibold uppercase">Total ({curConfig.symbol})</span>
+                  <span className="text-xl font-bold bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent tabular-nums">
                     {fmtCur(total)}
                   </span>
                 </div>
@@ -502,7 +502,7 @@ export default function NotaCreditoPage() {
             <div className="rounded-2xl border border-rose-500/15 bg-rose-500/[0.03] p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-rose-500" />
-                <p className="text-[10px] font-black uppercase tracking-wider text-rose-600">Requisitos Art. 18</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-rose-600">Requisitos Art. 18</p>
               </div>
               <div className="space-y-2">
                 {[

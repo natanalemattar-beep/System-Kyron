@@ -62,7 +62,7 @@ function StatusBadge({ estado }: { estado: string }) {
   const config = statusConfig[estado] || statusConfig.Activo;
   const Icon = config.icon;
   return (
-    <span className={cn("inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border", config.bg, config.color, config.border)}>
+    <span className={cn("inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-widest border", config.bg, config.color, config.border)}>
       <Icon className="h-3 w-3" />
       {config.label}
     </span>
@@ -77,7 +77,7 @@ function DetailItem({ icon: Icon, label, value }: { icon: typeof Calendar; label
         <Icon className="h-3.5 w-3.5 text-primary/60" />
       </div>
       <div className="min-w-0">
-        <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">{label}</p>
+        <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/50">{label}</p>
         <p className="text-sm font-semibold text-foreground/80 mt-0.5">{value}</p>
       </div>
     </div>
@@ -106,7 +106,7 @@ function SolicitudCard({ solicitud, onDownload }: { solicitud: Solicitud; onDown
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="space-y-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 tabular-nums">{solicitud.id}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40 tabular-nums">{solicitud.id}</span>
             </div>
             <h3 className="text-base font-bold text-foreground/90 truncate">{solicitud.nombres}</h3>
           </div>
@@ -177,7 +177,7 @@ function SolicitudCard({ solicitud, onDownload }: { solicitud: Solicitud; onDown
                 <div className="flex justify-center pt-3">
                   <div className="p-3 rounded-xl bg-muted/20 border border-border/20">
                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=doc-${solicitud.tipo}-${solicitud.id}`} alt={`QR ${solicitud.id}`} width={80} height={80} className="rounded-lg" />
-                    <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/30 text-center mt-2">Verificación QR</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/30 text-center mt-2">Verificación QR</p>
                   </div>
                 </div>
               </div>
@@ -332,7 +332,7 @@ export function DocumentRequestTable({ solicitudes: initialSolicitudes, getDocum
                 <Button
                   onClick={() => setShowNewForm(!showNewForm)}
                   className={cn(
-                    "h-10 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2 transition-all",
+                    "h-10 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2 transition-all",
                     showNewForm ? "bg-muted text-muted-foreground hover:bg-muted/80" : "bg-primary text-primary-foreground shadow-lg hover:shadow-xl"
                   )}
                 >

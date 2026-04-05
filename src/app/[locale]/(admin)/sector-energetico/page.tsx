@@ -164,7 +164,7 @@ function LicenciaCard({ code, desc }: { code: string; desc: string }) {
         <div className="border border-amber-500/30 bg-amber-500/5 rounded-2xl p-4 md:p-5 flex gap-4 items-start">
             <div className="p-2 rounded-xl bg-amber-500/20 shrink-0"><Zap className="h-5 w-5 text-amber-400" /></div>
             <div>
-                <p className="text-xs font-black uppercase tracking-widest text-amber-400">{code}</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-amber-400">{code}</p>
                 <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{desc}</p>
             </div>
         </div>
@@ -180,8 +180,8 @@ function ServicioCard({ s }: { s: typeof SERVICIOS_KYRON[0] }) {
                     <s.icon className={cn("h-6 w-6", s.color)} />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm font-black uppercase italic tracking-tight text-foreground">{s.titulo}</p>
-                    <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-muted-foreground">{s.subtitulo}</p>
+                    <p className="text-sm font-semibold uppercase italic tracking-tight text-foreground">{s.titulo}</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">{s.subtitulo}</p>
                 </div>
                 {open ? <ChevronUp className="h-4 w-4 text-muted-foreground shrink-0" /> : <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />}
             </button>
@@ -285,13 +285,13 @@ export default function SectorEnergeticoPage() {
 
             {/* ─── HEADER ─── */}
             <header className="border-l-4 border-amber-500 pl-6 py-2 mt-6 md:mt-10 space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 mb-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] font-semibold uppercase tracking-wider text-amber-500 mb-2">
                     <AlertTriangle className="h-3 w-3" /> OPORTUNIDAD ESTRATÉGICA ACTIVA
                 </div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight uppercase leading-none text-foreground italic-shadow">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight uppercase leading-none text-foreground">
                     SECTOR <span className="text-amber-500 italic">ENERGÉTICO</span>
                 </h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.5em] italic">
+                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider italic">
                     PDVSA · Petróleo · Minería · Turismo · Agroindustria · GL 46 / GL 48 / GL 49
                 </p>
             </header>
@@ -304,8 +304,8 @@ export default function SectorEnergeticoPage() {
             >
                 <div className="p-3 rounded-2xl bg-amber-500/20 shrink-0 mt-0.5"><Flame className="h-7 w-7 text-amber-400" /></div>
                 <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-amber-400 mb-1">ALERTA — MARZO 2026</p>
-                    <p className="font-black uppercase italic text-base md:text-lg text-foreground leading-snug">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-amber-400 mb-1">ALERTA — MARZO 2026</p>
+                    <p className="font-semibold uppercase italic text-base md:text-lg text-foreground leading-snug">
                         EE.UU. amplía sanciones petroleras: Venezuela abre paso a Chevron, Repsol, Eni, BP y Shell
                     </p>
                     <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed max-w-3xl">
@@ -326,7 +326,7 @@ export default function SectorEnergeticoPage() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
-                            "flex items-center gap-2 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border",
+                            "flex items-center gap-2 px-4 py-2.5 rounded-xl text-[10px] font-semibold uppercase tracking-widest transition-all border",
                             activeTab === tab.id
                                 ? "bg-amber-500 border-amber-500 text-white shadow-lg"
                                 : "bg-card/40 border-border/50 text-muted-foreground hover:text-foreground hover:border-amber-500/30"
@@ -347,18 +347,18 @@ export default function SectorEnergeticoPage() {
                     <section className="space-y-4">
                         <div className="flex items-center gap-3 ml-1">
                             <Globe className="h-5 w-5 text-amber-500" />
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-foreground/70">Empresas Internacionales Habilitadas</h2>
+                            <h2 className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Empresas Internacionales Habilitadas</h2>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                             {MAJORS.map((m, i) => (
                                 <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.06 }}>
                                     <Card className="glass-card border-none bg-card/40 rounded-2xl p-4 text-center hover:shadow-md transition-all group">
-                                        <div className={cn("w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center text-white text-[10px] font-black", m.color)}>
+                                        <div className={cn("w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center text-white text-[10px] font-bold", m.color)}>
                                             {m.nombre.substring(0, 2).toUpperCase()}
                                         </div>
-                                        <p className="text-[10px] font-black uppercase">{m.nombre}</p>
-                                        <p className="text-[9px] text-muted-foreground">{m.pais}</p>
-                                        <p className="text-[8px] text-muted-foreground/60 mt-1">{m.area}</p>
+                                        <p className="text-[10px] font-semibold uppercase">{m.nombre}</p>
+                                        <p className="text-[11px] text-muted-foreground">{m.pais}</p>
+                                        <p className="text-[10px] text-muted-foreground/60 mt-1">{m.area}</p>
                                     </Card>
                                 </motion.div>
                             ))}
@@ -369,7 +369,7 @@ export default function SectorEnergeticoPage() {
                     <section className="space-y-4">
                         <div className="flex items-center gap-3 ml-1">
                             <Zap className="h-5 w-5 text-amber-500" />
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-foreground/70">Servicios System Kyron para el Sector</h2>
+                            <h2 className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Servicios System Kyron para el Sector</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                             {SERVICIOS_KYRON.map((s, i) => <ServicioCard key={i} s={s} />)}
@@ -379,7 +379,7 @@ export default function SectorEnergeticoPage() {
                     {/* CTA */}
                     <Card className="glass-card border-none bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-transparent rounded-3xl p-8 md:p-10 text-center space-y-5">
                         <Flame className="h-12 w-12 text-amber-400 mx-auto" />
-                        <h3 className="text-2xl font-black uppercase italic tracking-tight text-foreground">
+                        <h3 className="text-2xl font-semibold uppercase italic tracking-tight text-foreground">
                             ¿Tu empresa opera en el sector energético?
                         </h3>
                         <p className="text-sm text-muted-foreground max-w-lg mx-auto">
@@ -387,7 +387,7 @@ export default function SectorEnergeticoPage() {
                             papeleras inteligentes, ingeniería, legal y seguros para el sector petrolero, minero, turístico y agroindustrial venezolano.
                         </p>
                         <Button
-                            className="btn-3d-primary h-12 px-8 rounded-2xl font-black uppercase text-[10px] tracking-widest"
+                            className="h-12 px-8 rounded-2xl font-semibold uppercase text-[10px] tracking-widest"
                             onClick={() => setActiveTab("alianza")}
                         >
                             <Handshake className="mr-2 h-4 w-4" /> SOLICITAR ALIANZA AHORA
@@ -402,7 +402,7 @@ export default function SectorEnergeticoPage() {
                     {submitted ? (
                         <Card className="glass-card border-none bg-emerald-500/10 border-emerald-500/20 rounded-3xl p-12 text-center space-y-5">
                             <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto" />
-                            <h3 className="text-2xl font-black uppercase italic text-foreground">¡Solicitud Registrada!</h3>
+                            <h3 className="text-2xl font-semibold uppercase italic text-foreground">¡Solicitud Registrada!</h3>
                             <p className="text-muted-foreground">Su solicitud de alianza ha sido guardada en el sistema. Un especialista de System Kyron se comunicará en 48 horas hábiles.</p>
                             <Button variant="outline" className="rounded-2xl" onClick={() => { setSubmitted(false); setAlianzaForm({ empresa_solicitante: "", rif_solicitante: "", nombre_contacto: "", cargo_contacto: "", email_contacto: "", telefono: "", tipo_alianza: TIPOS_ALIANZA[0], area_operacion: AREAS_OP[0], descripcion: "" }); }}>
                                 Nueva Solicitud
@@ -414,15 +414,15 @@ export default function SectorEnergeticoPage() {
                                 <div className="flex items-center gap-3">
                                     <div className="p-2.5 bg-amber-500/10 rounded-xl"><Handshake className="h-6 w-6 text-amber-500" /></div>
                                     <div>
-                                        <h2 className="text-xl font-black uppercase italic tracking-tight">Formulario de Alianza Estratégica</h2>
-                                        <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Sector Energético · PDVSA · Minería · Turismo · GL 46/48/49</p>
+                                        <h2 className="text-xl font-semibold uppercase italic tracking-tight">Formulario de Alianza Estratégica</h2>
+                                        <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Sector Energético · PDVSA · Minería · Turismo · GL 46/48/49</p>
                                     </div>
                                 </div>
                             </div>
                             <form onSubmit={handleAlianzaSubmit} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Empresa Solicitante</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Empresa Solicitante</Label>
                                         <Input
                                             value={alianzaForm.empresa_solicitante}
                                             onChange={e => setAlianzaForm(f => ({ ...f, empresa_solicitante: e.target.value }))}
@@ -431,7 +431,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">RIF / Cédula</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">RIF / Cédula</Label>
                                         <Input
                                             value={alianzaForm.rif_solicitante}
                                             onChange={e => setAlianzaForm(f => ({ ...f, rif_solicitante: e.target.value }))}
@@ -440,7 +440,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Nombre del Contacto *</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Nombre del Contacto *</Label>
                                         <Input
                                             required
                                             value={alianzaForm.nombre_contacto}
@@ -450,7 +450,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Cargo</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Cargo</Label>
                                         <Input
                                             value={alianzaForm.cargo_contacto}
                                             onChange={e => setAlianzaForm(f => ({ ...f, cargo_contacto: e.target.value }))}
@@ -459,7 +459,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Correo Electrónico *</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Correo Electrónico *</Label>
                                         <Input
                                             required
                                             type="email"
@@ -470,7 +470,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Teléfono / WhatsApp</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Teléfono / WhatsApp</Label>
                                         <Input
                                             value={alianzaForm.telefono}
                                             onChange={e => setAlianzaForm(f => ({ ...f, telefono: e.target.value }))}
@@ -479,7 +479,7 @@ export default function SectorEnergeticoPage() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Tipo de Alianza *</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Tipo de Alianza *</Label>
                                         <select
                                             required
                                             value={alianzaForm.tipo_alianza}
@@ -490,7 +490,7 @@ export default function SectorEnergeticoPage() {
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest">Área de Operación</Label>
+                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Área de Operación</Label>
                                         <select
                                             value={alianzaForm.area_operacion}
                                             onChange={e => setAlianzaForm(f => ({ ...f, area_operacion: e.target.value }))}
@@ -501,7 +501,7 @@ export default function SectorEnergeticoPage() {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Descripción de la Propuesta</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Descripción de la Propuesta</Label>
                                     <Textarea
                                         rows={4}
                                         value={alianzaForm.descripcion}
@@ -510,7 +510,7 @@ export default function SectorEnergeticoPage() {
                                         className="rounded-xl resize-none"
                                     />
                                 </div>
-                                <Button type="submit" disabled={submitting} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest">
+                                <Button type="submit" disabled={submitting} className="w-full h-14 rounded-2xl font-semibold uppercase text-[10px] tracking-widest">
                                     {submitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
                                     {submitting ? "ENVIANDO..." : "ENVIAR SOLICITUD DE ALIANZA"}
                                 </Button>
@@ -537,8 +537,8 @@ export default function SectorEnergeticoPage() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <p className="text-sm font-black uppercase italic truncate">{s.sector}</p>
-                                                <Badge variant="outline" className="text-[8px] font-black tracking-widest shrink-0">{s.ciiu}</Badge>
+                                                <p className="text-sm font-semibold uppercase italic truncate">{s.sector}</p>
+                                                <Badge variant="outline" className="text-[10px] font-bold tracking-widest shrink-0">{s.ciiu}</Badge>
                                             </div>
                                             <p className="text-[10px] text-muted-foreground leading-relaxed">{s.desc}</p>
                                         </div>
@@ -560,14 +560,14 @@ export default function SectorEnergeticoPage() {
                         <div className="mb-8 flex items-center gap-3">
                             <div className="p-2.5 bg-primary/10 rounded-xl"><FileText className="h-6 w-6 text-primary" /></div>
                             <div>
-                                <h2 className="text-xl font-black uppercase italic tracking-tight">Solicitud por Sector Industrial</h2>
-                                <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Reclutamiento · Ingeniería · Legal · Seguros · Automatización</p>
+                                <h2 className="text-xl font-semibold uppercase italic tracking-tight">Solicitud por Sector Industrial</h2>
+                                <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Reclutamiento · Ingeniería · Legal · Seguros · Automatización</p>
                             </div>
                         </div>
                         <form onSubmit={handleSolSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Sector / Categoría *</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Sector / Categoría *</Label>
                                     <select
                                         required
                                         value={solForm.categoria}
@@ -579,7 +579,7 @@ export default function SectorEnergeticoPage() {
                                     </select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Servicio Requerido</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Servicio Requerido</Label>
                                     <select
                                         value={solForm.subcategoria}
                                         onChange={e => setSolForm(f => ({ ...f, subcategoria: e.target.value }))}
@@ -590,19 +590,19 @@ export default function SectorEnergeticoPage() {
                                     </select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Empresa</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Empresa</Label>
                                     <Input value={solForm.empresa_solicitante} onChange={e => setSolForm(f => ({ ...f, empresa_solicitante: e.target.value }))} placeholder="Nombre empresa o proyecto" className="rounded-xl h-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">RIF</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">RIF</Label>
                                     <Input value={solForm.rif} onChange={e => setSolForm(f => ({ ...f, rif: e.target.value }))} placeholder="J-XXXXXXXX-X" className="rounded-xl h-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Código CIIU</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Código CIIU</Label>
                                     <Input value={solForm.ciiu_codigo} onChange={e => setSolForm(f => ({ ...f, ciiu_codigo: e.target.value }))} placeholder="Ej: 0610" className="rounded-xl h-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Estado / Región</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Estado / Región</Label>
                                     <select
                                         value={solForm.estado_operacion}
                                         onChange={e => setSolForm(f => ({ ...f, estado_operacion: e.target.value }))}
@@ -612,16 +612,16 @@ export default function SectorEnergeticoPage() {
                                     </select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Personal Requerido</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Personal Requerido</Label>
                                     <Input type="number" min="1" value={solForm.personal_requerido} onChange={e => setSolForm(f => ({ ...f, personal_requerido: e.target.value }))} placeholder="Nro. de personas" className="rounded-xl h-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest">Presupuesto Estimado (USD)</Label>
+                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Presupuesto Estimado (USD)</Label>
                                     <Input type="number" min="0" step="0.01" value={solForm.presupuesto_estimado} onChange={e => setSolForm(f => ({ ...f, presupuesto_estimado: e.target.value }))} placeholder="0.00" className="rounded-xl h-12" />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <Label className="text-[10px] font-black uppercase tracking-widest">Descripción del Requerimiento</Label>
+                                <Label className="text-[10px] font-semibold uppercase tracking-widest">Descripción del Requerimiento</Label>
                                 <Textarea
                                     rows={4}
                                     value={solForm.descripcion}
@@ -630,7 +630,7 @@ export default function SectorEnergeticoPage() {
                                     className="rounded-xl resize-none"
                                 />
                             </div>
-                            <Button type="submit" disabled={solSubmitting} className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest">
+                            <Button type="submit" disabled={solSubmitting} className="w-full h-14 rounded-2xl font-semibold uppercase text-[10px] tracking-widest">
                                 {solSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
                                 {solSubmitting ? "REGISTRANDO..." : "REGISTRAR SOLICITUD SECTORIAL"}
                             </Button>
@@ -650,9 +650,9 @@ export default function SectorEnergeticoPage() {
                 ].map((m, i) => (
                     <Card key={i} className="glass-card border-none bg-card/40 rounded-2xl p-4 text-center">
                         <m.icon className={cn("h-6 w-6 mx-auto mb-2", m.color)} />
-                        <p className="text-xl font-black italic text-foreground">{m.value}</p>
-                        <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
-                        <p className={cn("text-[8px] font-bold uppercase mt-1", m.color)}>{m.sub}</p>
+                        <p className="text-xl font-bold text-foreground">{m.value}</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
+                        <p className={cn("text-[10px] font-bold uppercase mt-1", m.color)}>{m.sub}</p>
                     </Card>
                 ))}
             </div>

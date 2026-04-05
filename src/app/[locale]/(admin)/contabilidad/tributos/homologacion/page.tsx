@@ -40,10 +40,10 @@ export default function HomologacionPage() {
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
                         <Printer className="h-3.5 w-3.5" /> Homologación
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Homologación <span className="text-primary">SENIAT</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">Providencia SNAT/2011/0071 · Control de Máquinas Fiscales</p>

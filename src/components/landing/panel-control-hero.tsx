@@ -37,7 +37,7 @@ export function PanelControlHero() {
       <div
         className="relative z-10 w-full max-w-2xl mx-auto"
       >
-        <div className="rounded-[2rem] border border-border/30 bg-card/60 backdrop-blur-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+        <div className="rounded-xl border border-border/30 bg-card/60 backdrop-blur-2xl overflow-hidden shadow-lg ring-1 ring-black/5">
 
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/30 bg-muted/20">
             <div className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export function PanelControlHero() {
                 <div className="h-3 w-3 rounded-full bg-amber-500/80" />
                 <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
               </div>
-              <span className="text-[9px] font-black uppercase tracking-[0.35em] text-muted-foreground">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.35em] text-muted-foreground">
                 Panel de Control — System Kyron
               </span>
             </div>
@@ -55,7 +55,7 @@ export function PanelControlHero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span className="text-[8px] font-black uppercase tracking-widest text-emerald-600">Live</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-600">Live</span>
             </div>
           </div>
 
@@ -66,9 +66,9 @@ export function PanelControlHero() {
                 className="p-5 space-y-1 hover:bg-white/[0.02] transition-colors"
               >
                 <kpi.icon className={cn("h-4 w-4 mb-2", kpi.color)} />
-                <p className="text-lg font-black text-foreground leading-none">{kpi.value}</p>
-                <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">{kpi.label}</p>
-                <span className={cn("text-[8px] font-black uppercase tracking-wide", kpi.color)}>{kpi.delta}</span>
+                <p className="text-lg font-bold text-foreground leading-none">{kpi.value}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{kpi.label}</p>
+                <span className={cn("text-[10px] font-semibold uppercase tracking-wide", kpi.color)}>{kpi.delta}</span>
               </div>
             ))}
           </div>
@@ -87,7 +87,7 @@ export function PanelControlHero() {
                   <div className={cn("p-2 rounded-xl bg-muted/50 w-fit", mod.color)}>
                     <mod.icon className="h-4 w-4" />
                   </div>
-                  <p className="text-[9px] font-black uppercase tracking-tight text-muted-foreground leading-tight">
+                  <p className="text-[11px] font-semibold uppercase tracking-tight text-muted-foreground leading-tight">
                     {mod.label}
                   </p>
                 </NextLink>
@@ -100,8 +100,8 @@ export function PanelControlHero() {
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-4 w-4 text-primary" />
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary leading-none">Activar Portal</p>
-                  <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-primary leading-none">Activar Portal</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
                 </div>
               </div>
               <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
@@ -110,7 +110,7 @@ export function PanelControlHero() {
         </div>
 
         <p
-          className="text-center text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/70 mt-6"
+          className="text-center text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70 mt-6"
         >
           Ecosistema Corporativo Venezuela
         </p>

@@ -296,7 +296,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="rounded-xl border border-primary/20 bg-primary/[0.03] p-4 space-y-3">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Datos del Emisor (Art. 13 num. 5)</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-primary">Datos del Emisor (Art. 13 num. 5)</p>
               <div className="grid grid-cols-2 gap-3">
                 <FormField control={form.control} name="rif_emisor" render={({ field }) => (
                   <FormItem>
@@ -330,7 +330,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.03] p-4 space-y-3">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600">Datos del Adquirente (Art. 13 num. 7)</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-emerald-600">Datos del Adquirente (Art. 13 num. 7)</p>
               <div className="grid grid-cols-2 gap-3">
                 <FormField control={form.control} name="cliente_rif" render={({ field }) => (
                   <FormItem>
@@ -426,7 +426,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
 
             {isNcNd && (
               <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-4 space-y-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-600">Referencia Factura Original (Art. 18)</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-600">Referencia Factura Original (Art. 18)</p>
                 <div className="grid grid-cols-2 gap-3">
                   <FormField control={form.control} name="factura_referencia_num" render={({ field }) => (
                     <FormItem>
@@ -447,7 +447,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
             )}
 
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-3">Items del Documento (Art. 13 num. 8, 9, 10)</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-3">Items del Documento (Art. 13 num. 8, 9, 10)</p>
               <div className="space-y-3">
                 {fields.map((field, index) => (
                   <div key={field.id} className="rounded-lg border bg-card/50 p-3 space-y-2">
@@ -544,7 +544,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
             )} />
 
             <div className="rounded-xl border bg-card p-4 space-y-2 text-sm">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Resumen Fiscal</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-2">Resumen Fiscal</p>
               <div className="space-y-1">
                 {baseImponible > 0 && (
                   <div className="flex justify-between"><span className="text-muted-foreground">Base Imponible:</span><span className="font-mono">{monedaSymbol} {baseImponible.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span></div>
@@ -568,7 +568,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
                   <div className="flex justify-between text-amber-600"><span>(-) Ret. ISLR ({watchedRetIslr}%):</span><span className="font-mono">-{monedaSymbol} {retIslr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span></div>
                 )}
                 {(retIva > 0 || retIslr > 0) && (
-                  <div className="flex justify-between font-black text-lg border-t pt-1"><span>Total a Pagar:</span><span className="font-mono text-primary">{monedaSymbol} {totalAPagar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span></div>
+                  <div className="flex justify-between font-bold text-lg border-t pt-1"><span>Total a Pagar:</span><span className="font-mono text-primary">{monedaSymbol} {totalAPagar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span></div>
                 )}
                 {watchedMoneda !== 'VES' && watchedTasaBcv && watchedTasaBcv > 0 && (
                   <div className="flex justify-between text-xs text-muted-foreground border-t pt-1 mt-1">
@@ -599,7 +599,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
               <Button type="submit" className="w-full h-11 font-bold" disabled={isSubmitting}>
                 {isSubmitting ? 'Procesando...' : `Emitir ${watchedTipoDoc === 'NOTA_DEBITO' ? 'Nota de Débito' : watchedTipoDoc === 'NOTA_CREDITO' ? 'Nota de Crédito' : 'Factura'}`}
               </Button>
-              <p className="text-[9px] text-muted-foreground text-center">
+              <p className="text-[11px] text-muted-foreground text-center">
                 Documento fiscal conforme a la Providencia Administrativa SNAT/2011/00071 — Gaceta Oficial N° 39.795
               </p>
             </SheetFooter>

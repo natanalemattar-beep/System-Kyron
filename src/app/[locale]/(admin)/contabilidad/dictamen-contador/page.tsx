@@ -72,10 +72,10 @@ export default function DictamenContadorPage() {
         <BackButton href="/contabilidad" label="Contabilidad" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary mb-3">
               <Award className="h-3.5 w-3.5" /> Dictamen Profesional
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Dictamen del <span className="text-primary">Contador</span>
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Opinión CPC · Informes de auditoría · Certificaciones · Cumplimiento FCCPV</p>
@@ -114,7 +114,7 @@ export default function DictamenContadorPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <p className="text-sm font-bold">{informe.tipo}</p>
-                      <Badge className={cn("text-[9px] font-bold border-none", est.badge)}>{est.label}</Badge>
+                      <Badge className={cn("text-[11px] font-bold border-none", est.badge)}>{est.label}</Badge>
                     </div>
                     <p className="text-[11px] font-medium text-primary mb-1">{informe.subtipo}</p>
                     <p className="text-[11px] text-muted-foreground">{informe.desc}</p>

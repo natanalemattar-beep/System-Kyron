@@ -17,7 +17,7 @@ export default function AntecedentesPenalesPage() {
 
     return (
         <div className="space-y-8 max-w-5xl mx-auto">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
                 <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
             </Link>
 
@@ -34,24 +34,24 @@ export default function AntecedentesPenalesPage() {
                             <Shield className="h-7 w-7 text-violet-500" />
                         </div>
                         <div className="space-y-2 min-w-0">
-                            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">Antecedentes Penales</h1>
+                            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Antecedentes Penales</h1>
                             <p className="text-sm text-muted-foreground font-medium max-w-lg">
                                 Certificaciones emitidas por el MPPRIJP para trámites migratorios, laborales e internacionales.
                             </p>
                             <div className="flex flex-wrap items-center gap-3 pt-1">
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[11px] font-bold uppercase tracking-widest text-emerald-500">
                                     <ShieldCheck className="h-3 w-3" /> MPPRIJP
                                 </span>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                                     <Globe className="h-3 w-3" /> Validez Internacional
                                 </span>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                                     <Clock className="h-3 w-3" /> Vigencia 90 días
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <Button className="h-11 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2 bg-violet-600 hover:bg-violet-500 text-white shadow-lg shrink-0" onClick={() => toast({ title: "Protocolo Iniciado", description: "Iniciando trámite ante el Ministerio." })}>
+                    <Button className="h-11 rounded-xl text-[10px] font-semibold uppercase tracking-widest gap-2 bg-violet-600 hover:bg-violet-500 text-white shadow-lg shrink-0" onClick={() => toast({ title: "Protocolo Iniciado", description: "Iniciando trámite ante el Ministerio." })}>
                         <FileText className="h-3.5 w-3.5" /> Nueva Solicitud
                     </Button>
                 </div>
@@ -71,9 +71,9 @@ export default function AntecedentesPenalesPage() {
                             <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 tabular-nums">{cert.id}</span>
+                                        <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40 tabular-nums">{cert.id}</span>
                                         <span className={cn(
-                                            "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border",
+                                            "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-widest border",
                                             "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
                                         )}>
                                             <CircleCheck className="h-3 w-3" /> {cert.estado}
@@ -86,15 +86,15 @@ export default function AntecedentesPenalesPage() {
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                                 <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Emitido</p>
+                                    <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/50">Emitido</p>
                                     <p className="text-sm font-semibold text-foreground/80 mt-1">{cert.fecha}</p>
                                 </div>
                                 <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Vencimiento</p>
+                                    <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/50">Vencimiento</p>
                                     <p className="text-sm font-semibold text-amber-500 mt-1">{cert.vence}</p>
                                 </div>
                                 <div className="p-3 rounded-xl bg-muted/30 border border-border/20">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50">Organismo</p>
+                                    <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/50">Organismo</p>
                                     <p className="text-sm font-semibold text-foreground/80 mt-1">MPPRIJP</p>
                                 </div>
                             </div>

@@ -270,7 +270,7 @@ export function NotificacionesPageContent() {
       {showSettings && config && (
         <Card className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-black uppercase tracking-wider flex items-center gap-2">
+            <CardTitle className="text-sm font-semibold uppercase tracking-wider flex items-center gap-2">
               <Settings className="h-4 w-4 text-primary" />
               Canales de Notificación
             </CardTitle>
@@ -432,11 +432,11 @@ export function NotificacionesPageContent() {
                 <div className="flex-1 space-y-2 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <CardTitle className="text-sm font-black tracking-tight text-foreground">
+                      <CardTitle className="text-sm font-bold tracking-tight text-foreground">
                         {noti.titulo}
                       </CardTitle>
                       {tipoBadge[noti.tipo] && (
-                        <Badge variant="outline" className={cn("text-[9px] font-bold uppercase px-2 py-0", tipoBadge[noti.tipo].color)}>
+                        <Badge variant="outline" className={cn("text-[11px] font-bold uppercase px-2 py-0", tipoBadge[noti.tipo].color)}>
                           {tipoBadge[noti.tipo].label}
                         </Badge>
                       )}

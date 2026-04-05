@@ -154,13 +154,13 @@ export default function ProyectosPersonalPage() {
     <div className="space-y-12 pb-20">
       <header className="border-l-4 border-secondary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-end gap-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[11px] font-semibold uppercase tracking-wider text-secondary shadow-glow mb-4">
             <Target className="h-3 w-3" /> GESTIÓN ESTRATÉGICA
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">Proyectos y <span className="text-secondary italic">Estrategias</span></h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Capital Humano • Planificación por Área 2026</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">Proyectos y <span className="text-secondary italic">Estrategias</span></h1>
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">Capital Humano • Planificación por Área 2026</p>
         </div>
-        <Button onClick={() => setShowDialog(true)} className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-secondary hover:bg-secondary/90">
+        <Button onClick={() => setShowDialog(true)} className="btn-3d-primary h-12 px-10 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg bg-secondary hover:bg-secondary/90">
           <Plus className="mr-3 h-4 w-4" /> NUEVO PROYECTO
         </Button>
       </header>
@@ -175,10 +175,10 @@ export default function ProyectosPersonalPage() {
           <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
             <Card className="glass-card border-none bg-card/40 p-8 rounded-[2.5rem] shadow-xl group hover:bg-secondary/5 transition-all">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">{m.label}</p>
                 <m.icon className={cn("h-4 w-4", m.color)} />
               </div>
-              <p className="text-4xl font-black text-foreground tracking-tight leading-none">{m.val}</p>
+              <p className="text-4xl font-bold text-foreground tracking-tight leading-none">{m.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -191,11 +191,11 @@ export default function ProyectosPersonalPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <Briefcase className="h-4 w-4 text-muted-foreground" />
-                  <Badge variant="outline" className="text-[8px] font-black">{d.activos} activos</Badge>
+                  <Badge variant="outline" className="text-[10px] font-bold">{d.activos} activos</Badge>
                 </div>
-                <p className="font-black text-sm uppercase tracking-wide text-foreground">{d.nombre}</p>
-                <p className="text-2xl font-black text-foreground mt-1">{d.count}</p>
-                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest mt-1">proyectos</p>
+                <p className="font-semibold text-sm uppercase tracking-wide text-foreground">{d.nombre}</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{d.count}</p>
+                <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">proyectos</p>
               </CardContent>
             </Card>
           ))}
@@ -232,19 +232,19 @@ export default function ProyectosPersonalPage() {
           <Loader2 className="h-8 w-8 animate-spin text-secondary" />
         </div>
       ) : filtered.length === 0 ? (
-        <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-16 text-center">
+        <Card className="glass-card border-none rounded-2xl bg-card/40 p-16 text-center">
           <Lightbulb className="h-16 w-16 mx-auto text-secondary/30 mb-6" />
-          <h3 className="text-xl font-black text-foreground uppercase tracking-wider">Sin proyectos registrados</h3>
+          <h3 className="text-xl font-bold text-foreground uppercase tracking-wider">Sin proyectos registrados</h3>
           <p className="text-muted-foreground text-sm mt-2">Crea el primer proyecto o estrategia de personal para tu organización</p>
-          <Button onClick={() => setShowDialog(true)} className="mt-8 bg-secondary hover:bg-secondary/90 rounded-xl font-black text-[10px] uppercase tracking-widest h-12 px-10">
+          <Button onClick={() => setShowDialog(true)} className="mt-8 bg-secondary hover:bg-secondary/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest h-12 px-10">
             <Plus className="mr-2 h-4 w-4" /> Crear Proyecto
           </Button>
         </Card>
       ) : (
         <Tabs defaultValue="lista" className="space-y-6">
           <TabsList className="bg-card/40 rounded-xl p-1 border border-border/30">
-            <TabsTrigger value="lista" className="rounded-lg text-[10px] font-black uppercase tracking-widest">Vista Lista</TabsTrigger>
-            <TabsTrigger value="kanban" className="rounded-lg text-[10px] font-black uppercase tracking-widest">Vista Kanban</TabsTrigger>
+            <TabsTrigger value="lista" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest">Vista Lista</TabsTrigger>
+            <TabsTrigger value="kanban" className="rounded-lg text-[10px] font-semibold uppercase tracking-widest">Vista Kanban</TabsTrigger>
           </TabsList>
 
           <TabsContent value="lista" className="space-y-4">
@@ -261,31 +261,31 @@ export default function ProyectosPersonalPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-2">
                             <tipoInfo.icon className={cn("h-4 w-4 shrink-0", tipoInfo.color)} />
-                            <h3 className="font-black text-foreground text-sm uppercase tracking-wide truncate">{p.titulo}</h3>
+                            <h3 className="font-bold text-foreground text-sm uppercase tracking-wide truncate">{p.titulo}</h3>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-3">
-                            <Badge variant="outline" className="text-[8px] font-black uppercase">{p.departamento}</Badge>
-                            <Badge className={cn("text-[8px] font-black uppercase border", estadoInfo.color)}>{estadoInfo.label}</Badge>
-                            <Badge className={cn("text-[8px] font-black uppercase border", prioridadInfo.color)}>{prioridadInfo.label}</Badge>
+                            <Badge variant="outline" className="text-[10px] font-semibold uppercase">{p.departamento}</Badge>
+                            <Badge className={cn("text-[10px] font-semibold uppercase border", estadoInfo.color)}>{estadoInfo.label}</Badge>
+                            <Badge className={cn("text-[10px] font-semibold uppercase border", prioridadInfo.color)}>{prioridadInfo.label}</Badge>
                           </div>
                           {p.descripcion && <p className="text-xs text-muted-foreground line-clamp-2">{p.descripcion}</p>}
                         </div>
                         <div className="flex items-center gap-6 shrink-0">
                           {p.responsable && (
                             <div className="text-right">
-                              <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">Responsable</p>
+                              <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">Responsable</p>
                               <p className="text-xs font-bold text-foreground">{p.responsable}</p>
                             </div>
                           )}
                           <div className="w-32">
                             <div className="flex justify-between items-center mb-1">
-                              <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">Progreso</p>
-                              <p className="text-xs font-black text-foreground">{p.progreso}%</p>
+                              <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">Progreso</p>
+                              <p className="text-xs font-bold text-foreground">{p.progreso}%</p>
                             </div>
                             <Progress value={p.progreso} className="h-2 bg-muted" />
                           </div>
                           <div className="text-right">
-                            <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">Inicio</p>
+                            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60">Inicio</p>
                             <p className="text-xs font-bold text-foreground">{new Date(p.fecha_inicio).toLocaleDateString("es-VE")}</p>
                           </div>
                           <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-secondary transition-colors" />
@@ -306,8 +306,8 @@ export default function ProyectosPersonalPage() {
                   <div key={key} className="space-y-4">
                     <div className="flex items-center gap-2 px-2">
                       <info.icon className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{info.label}</span>
-                      <Badge variant="outline" className="ml-auto text-[9px]">{items.length}</Badge>
+                      <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{info.label}</span>
+                      <Badge variant="outline" className="ml-auto text-[11px]">{items.length}</Badge>
                     </div>
                     <div className="space-y-3 min-h-[200px]">
                       {items.map(p => {
@@ -321,15 +321,15 @@ export default function ProyectosPersonalPage() {
                             <p className="font-bold text-xs text-foreground mb-2">{p.titulo}</p>
                             <Progress value={p.progreso} className="h-1 bg-muted mb-2" />
                             <div className="flex justify-between">
-                              <span className="text-[8px] text-muted-foreground font-bold">{p.responsable || "Sin asignar"}</span>
-                              <span className="text-[8px] font-black text-foreground">{p.progreso}%</span>
+                              <span className="text-[10px] text-muted-foreground font-bold">{p.responsable || "Sin asignar"}</span>
+                              <span className="text-[10px] font-bold text-foreground">{p.progreso}%</span>
                             </div>
                           </Card>
                         );
                       })}
                       {items.length === 0 && (
                         <div className="border border-dashed border-border/30 rounded-xl p-8 text-center">
-                          <p className="text-[9px] text-muted-foreground/40 font-bold uppercase tracking-widest">Sin proyectos</p>
+                          <p className="text-[11px] text-muted-foreground/40 font-bold uppercase tracking-widest">Sin proyectos</p>
                         </div>
                       )}
                     </div>
@@ -344,36 +344,36 @@ export default function ProyectosPersonalPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="sm:max-w-[700px] rounded-3xl bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
-            <DialogTitle className="text-xl font-black uppercase tracking-wider text-foreground">Nuevo Proyecto de Personal</DialogTitle>
+            <DialogTitle className="text-xl font-semibold uppercase tracking-wider text-foreground">Nuevo Proyecto de Personal</DialogTitle>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Título *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Título *</Label>
                 <Input value={form.titulo} onChange={e => setForm(f => ({ ...f, titulo: e.target.value }))} placeholder="Plan de capacitación técnica" className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Responsable</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Responsable</Label>
                 <Input value={form.responsable} onChange={e => setForm(f => ({ ...f, responsable: e.target.value }))} placeholder="Nombre del líder" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Departamento *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Departamento *</Label>
                 <Select value={form.departamento} onValueChange={v => setForm(f => ({ ...f, departamento: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{DEPARTAMENTOS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Tipo</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Tipo</Label>
                 <Select value={form.tipo} onValueChange={v => setForm(f => ({ ...f, tipo: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>{TIPOS_PROYECTO.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Prioridad</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Prioridad</Label>
                 <Select value={form.prioridad} onValueChange={v => setForm(f => ({ ...f, prioridad: v }))}>
                   <SelectTrigger className="mt-2 rounded-xl bg-muted/50"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -385,31 +385,31 @@ export default function ProyectosPersonalPage() {
               </div>
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Objetivo</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Objetivo</Label>
               <Input value={form.objetivo} onChange={e => setForm(f => ({ ...f, objetivo: e.target.value }))} placeholder="Mejorar las competencias del equipo en un 40%" className="mt-2 rounded-xl bg-muted/50" />
             </div>
             <div>
-              <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Descripción</Label>
+              <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Descripción</Label>
               <Textarea value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} placeholder="Detalle del proyecto o estrategia..." className="mt-2 rounded-xl bg-muted/50 min-h-[80px]" />
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Inicio *</Label>
                 <Input type="date" value={form.fecha_inicio} onChange={e => setForm(f => ({ ...f, fecha_inicio: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Fecha Fin Estimada</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Fecha Fin Estimada</Label>
                 <Input type="date" value={form.fecha_fin_est} onChange={e => setForm(f => ({ ...f, fecha_fin_est: e.target.value }))} className="mt-2 rounded-xl bg-muted/50" />
               </div>
               <div>
-                <Label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Presupuesto (Bs)</Label>
+                <Label className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Presupuesto (Bs)</Label>
                 <Input type="number" value={form.presupuesto} onChange={e => setForm(f => ({ ...f, presupuesto: e.target.value }))} placeholder="0.00" className="mt-2 rounded-xl bg-muted/50" />
               </div>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDialog(false)} className="rounded-xl">Cancelar</Button>
-            <Button onClick={handleSave} disabled={saving} className="bg-secondary hover:bg-secondary/90 rounded-xl font-black text-[10px] uppercase tracking-widest">
+            <Button onClick={handleSave} disabled={saving} className="bg-secondary hover:bg-secondary/90 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Registrar Proyecto
             </Button>

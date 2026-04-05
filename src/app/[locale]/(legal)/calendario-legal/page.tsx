@@ -269,18 +269,18 @@ export default function CalendarioLegalPage() {
         className="border-l-4 border-rose-500 pl-8 py-2 mt-10"
       >
         <div className="flex items-center gap-3 mb-4">
-          <Button asChild variant="outline" size="sm" className="h-8 px-3 rounded-xl text-[9px] font-black uppercase tracking-widest">
+          <Button asChild variant="outline" size="sm" className="h-8 px-3 rounded-xl text-[11px] font-semibold uppercase tracking-widest">
             <Link href="/escritorio-juridico"><ArrowLeft className="mr-1.5 h-3 w-3" /> Escritorio Jurídico</Link>
           </Button>
         </div>
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-rose-400 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] font-semibold uppercase tracking-wider text-rose-400 mb-3">
             <Calendar className="h-3 w-3" /> CALENDARIO LEGAL
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-none">
             Calendario <span className="bg-gradient-to-r from-rose-400 to-rose-600 bg-clip-text text-transparent italic">Legal</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2 italic">
             Vencimientos Fiscales, Laborales y Regulatorios — Venezuela
           </p>
         </div>
@@ -294,7 +294,7 @@ export default function CalendarioLegalPage() {
       >
         <div className="flex items-center gap-2">
           <Activity className="h-4 w-4 text-rose-400" />
-          <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">RIF Terminal:</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/60">RIF Terminal:</span>
         </div>
         <Select value={String(rifDigit)} onValueChange={v => setRifDigit(Number(v))}>
           <SelectTrigger className="w-[140px] h-10 rounded-xl bg-card/50 border-border/40 text-sm font-bold">
@@ -308,7 +308,7 @@ export default function CalendarioLegalPage() {
             ))}
           </SelectContent>
         </Select>
-        <Button variant="outline" size="sm" onClick={goToToday} className="h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-widest">
+        <Button variant="outline" size="sm" onClick={goToToday} className="h-10 px-4 rounded-xl text-[11px] font-semibold uppercase tracking-widest">
           <Calendar className="mr-1.5 h-3 w-3" /> Hoy
         </Button>
       </motion.div>
@@ -326,7 +326,7 @@ export default function CalendarioLegalPage() {
                 <Button variant="ghost" size="icon" onClick={prevMonth} className="h-10 w-10 rounded-xl hover:bg-rose-500/10">
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
-                <CardTitle className="text-lg md:text-2xl font-black uppercase tracking-tight text-center">
+                <CardTitle className="text-lg md:text-2xl font-semibold uppercase tracking-tight text-center">
                   {MESES[currentMonth]} <span className="text-rose-400">{currentYear}</span>
                 </CardTitle>
                 <Button variant="ghost" size="icon" onClick={nextMonth} className="h-10 w-10 rounded-xl hover:bg-rose-500/10">
@@ -337,7 +337,7 @@ export default function CalendarioLegalPage() {
             <CardContent className="p-3 md:p-6">
               <div className="grid grid-cols-7 gap-1 mb-2">
                 {DIAS_SEMANA.map(dia => (
-                  <div key={dia} className="text-center text-[9px] font-black uppercase tracking-widest text-muted-foreground/50 py-2">
+                  <div key={dia} className="text-center text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 py-2">
                     {dia}
                   </div>
                 ))}
@@ -417,15 +417,15 @@ export default function CalendarioLegalPage() {
               <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border/20">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/50">Vencido</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Vencido</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/50">Esta semana</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Esta semana</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/50">Futuro</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Futuro</span>
                 </div>
               </div>
             </CardContent>
@@ -441,10 +441,10 @@ export default function CalendarioLegalPage() {
               >
                 <Card className="bg-card/40 border-border/30 rounded-2xl">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-black uppercase tracking-tight flex items-center gap-2">
+                    <CardTitle className="text-sm font-semibold uppercase tracking-tight flex items-center gap-2">
                       <Calendar className="h-4 w-4 text-rose-400" />
                       {selectedDay} de {MESES[currentMonth]} {currentYear}
-                      <Badge className="ml-2 text-[8px] font-black uppercase tracking-widest bg-rose-500/20 text-rose-400 border-rose-500/30">
+                      <Badge className="ml-2 text-[10px] font-semibold uppercase tracking-widest bg-rose-500/20 text-rose-400 border-rose-500/30">
                         {selectedObligaciones.length} {selectedObligaciones.length === 1 ? "obligación" : "obligaciones"}
                       </Badge>
                     </CardTitle>
@@ -453,7 +453,7 @@ export default function CalendarioLegalPage() {
                     {selectedObligaciones.length === 0 ? (
                       <div className="text-center py-8">
                         <Calendar className="h-10 w-10 text-muted-foreground/20 mx-auto mb-3" />
-                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/40">
                           Sin obligaciones fiscales o laborales este día
                         </p>
                       </div>
@@ -481,8 +481,8 @@ export default function CalendarioLegalPage() {
                             )}
                           </div>
                           <div className="space-y-1 min-w-0">
-                            <p className="text-xs font-black uppercase tracking-tight text-foreground/90">{ob.nombre}</p>
-                            <Badge className={cn("text-[7px] font-black uppercase tracking-widest border h-5", TIPO_COLORES[ob.tipo])}>
+                            <p className="text-xs font-semibold uppercase tracking-tight text-foreground/90">{ob.nombre}</p>
+                            <Badge className={cn("text-[7px] font-semibold uppercase tracking-widest border h-5", TIPO_COLORES[ob.tipo])}>
                               {ob.tipo}
                             </Badge>
                             <p className="text-[10px] text-muted-foreground/60 leading-relaxed mt-1">{ob.descripcion}</p>
@@ -505,11 +505,11 @@ export default function CalendarioLegalPage() {
         >
           <Card className="bg-card/40 border-border/30 rounded-2xl sticky top-6">
             <CardHeader className="pb-3">
-              <CardTitle className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
                 <Bell className="h-3.5 w-3.5 text-rose-400" />
                 Próximos Vencimientos
               </CardTitle>
-              <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground/40">Siguientes 7 eventos</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Siguientes 7 eventos</p>
             </CardHeader>
             <CardContent className="space-y-2">
               {upcomingEvents.map((ev, i) => {
@@ -530,12 +530,12 @@ export default function CalendarioLegalPage() {
                     }}
                   >
                     <div className="text-center shrink-0 w-10">
-                      <p className="text-lg font-black text-rose-400 leading-none">{dayStr}</p>
-                      <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground/40">{monthStr}</p>
+                      <p className="text-lg font-bold text-rose-400 leading-none">{dayStr}</p>
+                      <p className="text-[7px] font-semibold uppercase tracking-widest text-muted-foreground/40">{monthStr}</p>
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[9px] font-black uppercase tracking-tight text-foreground/80 leading-tight truncate">{ev.obligacion.nombre}</p>
-                      <Badge className={cn("text-[6px] font-black uppercase tracking-widest border h-4 mt-1", TIPO_COLORES[ev.obligacion.tipo])}>
+                      <p className="text-[11px] font-semibold uppercase tracking-tight text-foreground/80 leading-tight truncate">{ev.obligacion.nombre}</p>
+                      <Badge className={cn("text-[6px] font-semibold uppercase tracking-widest border h-4 mt-1", TIPO_COLORES[ev.obligacion.tipo])}>
                         {ev.obligacion.tipo}
                       </Badge>
                     </div>
@@ -546,7 +546,7 @@ export default function CalendarioLegalPage() {
               {upcomingEvents.length === 0 && (
                 <div className="text-center py-6">
                   <Clock className="h-8 w-8 text-muted-foreground/20 mx-auto mb-2" />
-                  <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Sin eventos próximos</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/40">Sin eventos próximos</p>
                 </div>
               )}
             </CardContent>
@@ -554,7 +554,7 @@ export default function CalendarioLegalPage() {
 
           <Card className="bg-card/40 border-border/30 rounded-2xl mt-4">
             <CardHeader className="pb-3">
-              <CardTitle className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
+              <CardTitle className="text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
                 <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
                 Leyenda
               </CardTitle>
@@ -566,10 +566,10 @@ export default function CalendarioLegalPage() {
                 { color: "bg-purple-500/20 text-purple-400 border-purple-500/30", label: "Regulatorio", desc: "Permisos, Municipal" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <Badge className={cn("text-[7px] font-black uppercase tracking-widest border h-5", item.color)}>
+                  <Badge className={cn("text-[7px] font-semibold uppercase tracking-widest border h-5", item.color)}>
                     {item.label}
                   </Badge>
-                  <span className="text-[8px] text-muted-foreground/40 font-bold">{item.desc}</span>
+                  <span className="text-[10px] text-muted-foreground/40 font-bold">{item.desc}</span>
                 </div>
               ))}
             </CardContent>

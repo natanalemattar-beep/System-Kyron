@@ -148,13 +148,13 @@ export default function SimuladorFiscalPage() {
     )}>
       <div className="flex items-center gap-2">
         {Icon && <Icon className={cn("h-3.5 w-3.5", accent ? "text-emerald-400" : "text-muted-foreground")} />}
-        <span className={cn("text-xs", bold ? "font-black uppercase tracking-wider" : "text-muted-foreground font-medium")}>{label}</span>
+        <span className={cn("text-xs", bold ? "font-semibold uppercase tracking-wider" : "text-muted-foreground font-medium")}>{label}</span>
       </div>
       <button
         onClick={() => handleCopy(label, value)}
         className={cn(
           "font-mono text-sm tabular-nums hover:text-emerald-400 transition-colors cursor-pointer",
-          bold ? "font-black text-base" : "font-semibold",
+          bold ? "font-bold text-base" : "font-semibold",
           accent && "text-emerald-400"
         )}
       >
@@ -179,15 +179,15 @@ export default function SimuladorFiscalPage() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black uppercase tracking-[0.3em] text-emerald-400 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold uppercase tracking-wide text-emerald-400 mb-4">
               <ShieldCheck className="h-3 w-3" /> SIMULADOR FISCAL
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-[1.05]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground uppercase leading-[1.05]">
               Simulador{" "}
               <span className="bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent italic">Fiscal</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider opacity-40 mt-2">
               IVA • IGTF • ISLR • Retenciones — Cálculo Integral de Impuestos Venezuela
             </p>
           </div>
@@ -211,8 +211,8 @@ export default function SimuladorFiscalPage() {
               <item.icon className="h-4 w-4 text-emerald-500" />
             </div>
             <div>
-              <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">{item.label}</p>
-              <p className="text-lg font-black text-foreground">{item.value}</p>
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">{item.label}</p>
+              <p className="text-lg font-bold text-foreground">{item.value}</p>
             </div>
           </div>
         ))}
@@ -251,7 +251,7 @@ export default function SimuladorFiscalPage() {
                       <Calculator className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Calculadora IVA</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Calculadora IVA</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Alícuota General 16% • Reducida 8%</p>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function SimuladorFiscalPage() {
 
                   {ivaReverse ? (
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Total con IVA (Bs.)</Label>
+                      <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Total con IVA (Bs.)</Label>
                       <Input
                         type="number"
                         placeholder="0.00"
@@ -278,7 +278,7 @@ export default function SimuladorFiscalPage() {
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Monto Base sin IVA (Bs.)</Label>
+                      <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Monto Base sin IVA (Bs.)</Label>
                       <Input
                         type="number"
                         placeholder="0.00"
@@ -316,7 +316,7 @@ export default function SimuladorFiscalPage() {
                       <CheckCircle className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resultado IVA</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado IVA</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         Tasa aplicada: {ivaExento ? "Exento" : ivaReducido ? "8% Reducida" : "16% General"}
                       </p>
@@ -341,14 +341,14 @@ export default function SimuladorFiscalPage() {
                       <DollarSign className="h-4 w-4 text-amber-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Calculadora IGTF</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Calculadora IGTF</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Impuesto a Grandes Transacciones Financieras — 3%</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Monto de la Operación (Bs.)</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Monto de la Operación (Bs.)</Label>
                     <Input
                       type="number"
                       placeholder="0.00"
@@ -359,7 +359,7 @@ export default function SimuladorFiscalPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Método de Pago</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Método de Pago</Label>
                     <Select value={igtfMetodo} onValueChange={setIgtfMetodo}>
                       <SelectTrigger className="h-12 bg-white/[0.03] border-border/30 rounded-xl font-medium">
                         <SelectValue />
@@ -395,7 +395,7 @@ export default function SimuladorFiscalPage() {
                       <CheckCircle className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resultado IGTF</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado IGTF</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         {igtfCalc.aplica ? "IGTF 3% aplicable" : "Sin IGTF (pago en Bs.)"}
                       </p>
@@ -420,14 +420,14 @@ export default function SimuladorFiscalPage() {
                       <Landmark className="h-4 w-4 text-purple-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Retención ISLR</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Retención ISLR</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Decreto 1.808 — Retenciones en la fuente</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Monto del Pago (Bs.)</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Monto del Pago (Bs.)</Label>
                     <Input
                       type="number"
                       placeholder="0.00"
@@ -438,7 +438,7 @@ export default function SimuladorFiscalPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Tipo de Actividad</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Tipo de Actividad</Label>
                     <Select value={islrActividad} onValueChange={setIslrActividad}>
                       <SelectTrigger className="h-12 bg-white/[0.03] border-border/30 rounded-xl font-medium">
                         <SelectValue />
@@ -454,7 +454,7 @@ export default function SimuladorFiscalPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Valor de la Unidad Tributaria (Bs.)</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Valor de la Unidad Tributaria (Bs.)</Label>
                     <Input
                       type="number"
                       placeholder="9.00"
@@ -483,7 +483,7 @@ export default function SimuladorFiscalPage() {
                       <CheckCircle className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resultado ISLR</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado ISLR</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         Tasa: {((ISLR_ACTIVITIES.find(a => a.value === islrActividad)?.rate || 0) * 100).toFixed(0)}% • UT: Bs. {islrUT}
                       </p>
@@ -511,14 +511,14 @@ export default function SimuladorFiscalPage() {
                       <Receipt className="h-4 w-4 text-blue-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Retención IVA</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Retención IVA</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Providencia SNAT/2015/0049</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Monto IVA de la Factura (Bs.)</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Monto IVA de la Factura (Bs.)</Label>
                     <Input
                       type="number"
                       placeholder="0.00"
@@ -529,7 +529,7 @@ export default function SimuladorFiscalPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Tipo de Agente de Retención</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Tipo de Agente de Retención</Label>
                     <Select value={retIvaAgente} onValueChange={setRetIvaAgente}>
                       <SelectTrigger className="h-12 bg-white/[0.03] border-border/30 rounded-xl font-medium">
                         <SelectValue />
@@ -559,7 +559,7 @@ export default function SimuladorFiscalPage() {
                       <CheckCircle className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resultado Retención IVA</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resultado Retención IVA</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         Retención: {retIvaAgente === "especial" ? "75%" : "100%"}
                       </p>
@@ -584,14 +584,14 @@ export default function SimuladorFiscalPage() {
                       <TrendingUp className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Resumen Completo</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Resumen Completo</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Desglose integral de impuestos</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Monto de la Operación (Bs.)</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Monto de la Operación (Bs.)</Label>
                     <Input
                       type="number"
                       placeholder="0.00"
@@ -602,7 +602,7 @@ export default function SimuladorFiscalPage() {
                   </div>
 
                   <div className="space-y-3">
-                    <Label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Impuestos Aplicables</Label>
+                    <Label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Impuestos Aplicables</Label>
 
                     <div className="flex items-center justify-between p-3 rounded-lg border border-border/20 bg-white/[0.02]">
                       <div className="flex items-center gap-2">
@@ -686,7 +686,7 @@ export default function SimuladorFiscalPage() {
                       <ShieldCheck className="h-4 w-4 text-emerald-500" />
                     </div>
                     <div>
-                      <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Desglose Total</CardTitle>
+                      <CardTitle className="text-xs font-semibold uppercase tracking-wide">Desglose Total</CardTitle>
                       <p className="text-[10px] text-muted-foreground mt-0.5">Resultado integral de la operación</p>
                     </div>
                   </div>
@@ -737,7 +737,7 @@ export default function SimuladorFiscalPage() {
                 <Info className="h-4 w-4 text-emerald-500" />
               </div>
               <div>
-                <CardTitle className="text-xs font-black uppercase tracking-[0.2em]">Referencia Legal</CardTitle>
+                <CardTitle className="text-xs font-semibold uppercase tracking-wide">Referencia Legal</CardTitle>
                 <p className="text-[10px] text-muted-foreground mt-0.5">Base normativa de los cálculos</p>
               </div>
             </div>
@@ -755,7 +755,7 @@ export default function SimuladorFiscalPage() {
                     <item.icon className="h-4 w-4 text-emerald-500" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">{item.title}</p>
+                    <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">{item.title}</p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">{item.desc}</p>
                   </div>
                 </div>

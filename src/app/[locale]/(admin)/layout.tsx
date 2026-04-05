@@ -29,7 +29,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
         name: displayName,
         email: user?.email || "",
         fallback: initials,
-        color: "bg-primary shadow-glow"
+        color: "bg-primary"
     };
 
     return (
@@ -63,7 +63,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
               </main>
               
               <footer className="p-8 md:p-12 border-t border-white/5 bg-card/40 text-center backdrop-blur-3xl mt-20 relative z-20">
-                <p className="text-[10px] font-black uppercase tracking-[1.2em] text-foreground/10 italic">
+                <p className="text-[10px] font-semibold uppercase tracking-[1.2em] text-foreground/10 italic">
                   System Kyron • Portal Empresarial • 2026
                 </p>
               </footer>

@@ -59,7 +59,7 @@ export default function CarnetPersonalPage() {
                 <div className="rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-rose-500/15 via-card to-card border border-rose-500/15 p-6 space-y-5">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-[9px] font-bold uppercase tracking-widest text-rose-400/70">República Bolivariana de Venezuela</p>
+                            <p className="text-[11px] font-bold uppercase tracking-widest text-rose-400/70">República Bolivariana de Venezuela</p>
                             <p className="text-[10px] font-medium text-muted-foreground/50 mt-0.5">Carnet de Salud Digital</p>
                         </div>
                         <Heart className="h-7 w-7 text-rose-500/40" />
@@ -70,16 +70,16 @@ export default function CarnetPersonalPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="p-3 rounded-xl bg-muted/20 border border-border/20">
-                            <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">Tipo Sanguíneo</p>
+                            <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-widest">Tipo Sanguíneo</p>
                             <p className="text-xl font-bold text-rose-400 mt-1">O+</p>
                         </div>
                         <div className="p-3 rounded-xl bg-muted/20 border border-border/20">
-                            <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">Estado</p>
-                            <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[9px] font-bold uppercase mt-1.5">Activo</Badge>
+                            <p className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-widest">Estado</p>
+                            <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[11px] font-bold uppercase mt-1.5">Activo</Badge>
                         </div>
                     </div>
                     <div className="flex items-center justify-between border-t border-border/20 pt-4">
-                        <p className="text-[9px] font-medium text-muted-foreground/30 uppercase tracking-widest">Válido 2026</p>
+                        <p className="text-[11px] font-medium text-muted-foreground/30 uppercase tracking-widest">Válido 2026</p>
                         <QrCode className="h-7 w-7 text-muted-foreground/20" />
                     </div>
                 </div>
@@ -137,7 +137,7 @@ export default function CarnetPersonalPage() {
                                 <div key={c.nombre} className="p-3 rounded-lg bg-muted/20 border border-border/15 space-y-1">
                                     <p className="text-sm font-medium text-foreground/90">{c.nombre}</p>
                                     <p className="text-[11px] text-muted-foreground">{c.tel}</p>
-                                    <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-400">{c.relacion}</span>
+                                    <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-400">{c.relacion}</span>
                                 </div>
                             ))}
                         </CardContent>

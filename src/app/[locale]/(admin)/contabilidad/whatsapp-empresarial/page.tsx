@@ -68,7 +68,7 @@ export default function WhatsappEmpresarialPage() {
 
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black text-foreground uppercase tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground uppercase tracking-tight flex items-center gap-3">
             <MessageSquare className="h-8 w-8 text-green-500" />
             WhatsApp Empresarial
           </h1>
@@ -90,7 +90,7 @@ export default function WhatsappEmpresarialPage() {
       </div>
 
       <section className="space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
+        <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
           Respuestas Automáticas
         </h3>
         <Card className="border rounded-2xl shadow-sm overflow-hidden">
@@ -113,14 +113,14 @@ export default function WhatsappEmpresarialPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-3">
-                          <Badge variant="secondary" className="text-[8px] uppercase">Trigger</Badge>
+                          <Badge variant="secondary" className="text-[10px] uppercase">Trigger</Badge>
                           <p className="text-xs font-bold">{r.trigger}</p>
                         </div>
                         <p className="text-xs text-muted-foreground border-l-2 border-green-500/30 pl-3">{r.respuesta}</p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <div className={cn("w-2 h-2 rounded-full", r.activa ? "bg-emerald-500" : "bg-muted-foreground/30")} />
-                        <span className="text-[9px] font-bold uppercase text-muted-foreground">{r.activa ? "Activa" : "Inactiva"}</span>
+                        <span className="text-[11px] font-bold uppercase text-muted-foreground">{r.activa ? "Activa" : "Inactiva"}</span>
                       </div>
                     </div>
                   </div>
@@ -132,7 +132,7 @@ export default function WhatsappEmpresarialPage() {
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
+        <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
           Conversaciones Recientes
         </h3>
         <Card className="border rounded-2xl shadow-sm overflow-hidden">
@@ -161,7 +161,7 @@ export default function WhatsappEmpresarialPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant={m.respondido ? "default" : "secondary"} className="text-[8px] uppercase">
+                      <Badge variant={m.respondido ? "default" : "secondary"} className="text-[10px] uppercase">
                         {m.respondido ? "Respondido" : "Pendiente"}
                       </Badge>
                     </div>

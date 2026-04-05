@@ -87,7 +87,7 @@ export default function GeolocalizacionFlotaPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -140,9 +140,9 @@ export default function GeolocalizacionFlotaPage() {
                       "absolute -top-12 left-1/2 -translate-x-1/2 bg-card border border-border rounded-lg px-2.5 py-1.5 whitespace-nowrap z-10 shadow-lg transition-opacity",
                       selectedDevice === d.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                     )}>
-                      <p className="text-[9px] font-bold text-foreground">{d.nombre}</p>
-                      <p className="text-[8px] text-muted-foreground">{d.ubicacion.split(',')[0]}</p>
-                      <p className="text-[8px] text-muted-foreground">{d.ultimaPosicion} · {d.velocidad}</p>
+                      <p className="text-[11px] font-bold text-foreground">{d.nombre}</p>
+                      <p className="text-[10px] text-muted-foreground">{d.ubicacion.split(',')[0]}</p>
+                      <p className="text-[10px] text-muted-foreground">{d.ultimaPosicion} · {d.velocidad}</p>
                     </div>
                   </motion.div>
                 );
@@ -175,15 +175,15 @@ export default function GeolocalizacionFlotaPage() {
                       <div className={cn("h-2 w-2 rounded-full", config.dot)} />
                       <span className="text-xs font-semibold text-foreground">{d.nombre}</span>
                     </div>
-                    <Badge variant="outline" className={cn("text-[8px] px-1.5", config.bg, config.color, config.border)}>
+                    <Badge variant="outline" className={cn("text-[10px] px-1.5", config.bg, config.color, config.border)}>
                       {config.label}
                     </Badge>
                   </div>
                   <p className="text-[10px] text-muted-foreground pl-4">{d.ubicacion}</p>
                   <div className="flex items-center gap-3 pl-4 mt-1">
-                    <span className="text-[9px] text-muted-foreground">{d.departamento}</span>
-                    <span className="text-[9px] text-muted-foreground">🔋 {d.bateria}%</span>
-                    <span className="text-[9px] text-muted-foreground">{d.ultimaPosicion}</span>
+                    <span className="text-[11px] text-muted-foreground">{d.departamento}</span>
+                    <span className="text-[11px] text-muted-foreground">🔋 {d.bateria}%</span>
+                    <span className="text-[11px] text-muted-foreground">{d.ultimaPosicion}</span>
                   </div>
                 </div>
               );

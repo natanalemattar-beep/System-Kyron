@@ -217,10 +217,10 @@ export default function MultasFiscalesPage() {
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                        <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] mb-3 border", bgColorMap[tributoActual.color], colorMap[tributoActual.color])}>
+                        <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-semibold uppercase tracking-wide mb-3 border", bgColorMap[tributoActual.color], colorMap[tributoActual.color])}>
                             <ShieldAlert className="h-3.5 w-3.5" /> Simulador de Contingencia
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                             Multas y <span className="text-rose-500">Sanciones</span> Fiscales
                         </h1>
                         <p className="text-sm text-muted-foreground mt-1">
@@ -335,14 +335,14 @@ export default function MultasFiscalesPage() {
                                             <Percent className="h-3.5 w-3.5 text-muted-foreground" />
                                             <span className="text-xs font-bold text-muted-foreground">Multa ({gravedad === "leve" ? "100%" : gravedad === "grave" ? "200%" : "300%"} — {tributoActual.sancionArticulo})</span>
                                         </div>
-                                        <span className="font-black text-rose-500">{formatCurrency(resultado.multa, 'Bs.')}</span>
+                                        <span className="font-bold text-rose-500">{formatCurrency(resultado.multa, 'Bs.')}</span>
                                     </div>
                                     <div className="flex justify-between items-center py-3 border-b">
                                         <div className="flex items-center gap-2">
                                             <Clock className="h-3.5 w-3.5 text-muted-foreground" />
                                             <span className="text-xs font-bold text-muted-foreground">Intereses moratorios ({mesesRetraso} mes(es) — Art. 66 COT)</span>
                                         </div>
-                                        <span className="font-black text-amber-500">{formatCurrency(resultado.intereses, 'Bs.')}</span>
+                                        <span className="font-bold text-amber-500">{formatCurrency(resultado.intereses, 'Bs.')}</span>
                                     </div>
                                     <div className="p-5 rounded-xl bg-rose-500/5 border border-rose-500/15 dark:bg-rose-500/10">
                                         <div className="flex justify-between items-center">
@@ -354,7 +354,7 @@ export default function MultasFiscalesPage() {
                                                     </p>
                                                 )}
                                             </div>
-                                            <span className="text-2xl md:text-3xl font-black text-rose-500">
+                                            <span className="text-2xl md:text-3xl font-bold text-rose-500">
                                                 {formatCurrency(resultado.total, 'Bs.')}
                                             </span>
                                         </div>
@@ -383,8 +383,8 @@ export default function MultasFiscalesPage() {
                                     )}
                                 >
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className={cn("text-sm font-black", gravedad === g.nivel.toLowerCase() ? colorMap[g.color] : "text-foreground")}>{g.nivel}</span>
-                                        <span className={cn("text-lg font-black", colorMap[g.color])}>{g.factor}</span>
+                                        <span className={cn("text-sm font-bold", gravedad === g.nivel.toLowerCase() ? colorMap[g.color] : "text-foreground")}>{g.nivel}</span>
+                                        <span className={cn("text-lg font-bold", colorMap[g.color])}>{g.factor}</span>
                                     </div>
                                     <p className="text-[11px] text-muted-foreground leading-relaxed">{g.desc}</p>
                                     <p className="text-[10px] font-bold text-muted-foreground/70 mt-1">{g.articulo}</p>

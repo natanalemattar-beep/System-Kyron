@@ -36,13 +36,13 @@ export default function InfraestructuraPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2 mt-10"
       >
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             <Server className="h-3 w-3" /> INFRAESTRUCTURA
           </div>
-          <h1 className="text-2xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Infraestructura <span className="text-primary italic">IT</span>
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-2 italic">
             Servidores • Redes • Cloud • Monitoreo en Tiempo Real
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function InfraestructuraPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{kpi.label}</span>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
               </div>
-              <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.val}</p>
             </Card>
           </motion.div>
         ))}
@@ -69,7 +69,7 @@ export default function InfraestructuraPage() {
 
       <Card className="rounded-2xl overflow-hidden">
         <CardHeader className="p-5 border-b bg-muted/10">
-          <CardTitle className="text-xs font-black uppercase tracking-widest">Servidores</CardTitle>
+          <CardTitle className="text-xs font-semibold uppercase tracking-widest">Servidores</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {servidores.map((srv, i) => (
@@ -77,25 +77,25 @@ export default function InfraestructuraPage() {
               <div className={cn("w-2 h-2 rounded-full shrink-0", srv.estado === "activo" ? "bg-emerald-500" : "bg-amber-500 animate-pulse")} />
               <div className="w-40 shrink-0">
                 <p className="text-xs font-bold font-mono">{srv.nombre}</p>
-                <p className="text-[9px] text-muted-foreground">{srv.tipo} • {srv.os}</p>
+                <p className="text-[11px] text-muted-foreground">{srv.tipo} • {srv.os}</p>
               </div>
               <div className="flex-1 grid grid-cols-3 gap-4">
                 <div>
-                  <p className="text-[9px] text-muted-foreground mb-1">CPU {srv.cpu}%</p>
+                  <p className="text-[11px] text-muted-foreground mb-1">CPU {srv.cpu}%</p>
                   <Progress value={srv.cpu} className={cn("h-1.5", srv.cpu > 80 && "[&>div]:bg-rose-500")} />
                 </div>
                 <div>
-                  <p className="text-[9px] text-muted-foreground mb-1">RAM {srv.ram}%</p>
+                  <p className="text-[11px] text-muted-foreground mb-1">RAM {srv.ram}%</p>
                   <Progress value={srv.ram} className={cn("h-1.5", srv.ram > 80 && "[&>div]:bg-rose-500")} />
                 </div>
                 <div>
-                  <p className="text-[9px] text-muted-foreground mb-1">Disco {srv.disco}%</p>
+                  <p className="text-[11px] text-muted-foreground mb-1">Disco {srv.disco}%</p>
                   <Progress value={srv.disco} className={cn("h-1.5", srv.disco > 80 && "[&>div]:bg-rose-500")} />
                 </div>
               </div>
               <div className="text-right shrink-0 w-28">
-                <p className="text-[9px] font-mono text-muted-foreground">{srv.ip}</p>
-                <p className="text-[9px] text-muted-foreground">Uptime: {srv.uptime}</p>
+                <p className="text-[11px] font-mono text-muted-foreground">{srv.ip}</p>
+                <p className="text-[11px] text-muted-foreground">Uptime: {srv.uptime}</p>
               </div>
               {srv.estado === "activo" ? (
                 <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
@@ -109,7 +109,7 @@ export default function InfraestructuraPage() {
 
       <Card className="rounded-2xl overflow-hidden">
         <CardHeader className="p-5 border-b bg-muted/10">
-          <CardTitle className="text-xs font-black uppercase tracking-widest">Redes y Conectividad</CardTitle>
+          <CardTitle className="text-xs font-semibold uppercase tracking-widest">Redes y Conectividad</CardTitle>
         </CardHeader>
         <CardContent className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -119,11 +119,11 @@ export default function InfraestructuraPage() {
                   <Wifi className="h-4 w-4 text-primary" />
                   <p className="text-xs font-bold">{red.nombre}</p>
                 </div>
-                <p className="text-sm font-black text-primary">{red.velocidad}</p>
-                <p className="text-[9px] text-muted-foreground mt-1">{red.dispositivos} dispositivos</p>
+                <p className="text-sm font-bold text-primary">{red.velocidad}</p>
+                <p className="text-[11px] text-muted-foreground mt-1">{red.dispositivos} dispositivos</p>
                 <div className="flex items-center gap-1 mt-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[9px] text-emerald-500 font-medium">Operativo</span>
+                  <span className="text-[11px] text-emerald-500 font-medium">Operativo</span>
                 </div>
               </div>
             ))}

@@ -107,10 +107,10 @@ export default function TributosHubPage() {
     return (
         <div className="space-y-10 pb-20 px-4 md:px-10 min-h-screen">
             <header className="pt-8 space-y-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wide text-primary">
                     <Landmark className="h-3.5 w-3.5" /> Centro Tributario
                 </div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                     Centro <span className="text-primary">Tributario</span>
                 </h1>
                 <p className="text-sm text-muted-foreground">Gestión fiscal y cumplimiento tributario venezolano.</p>
@@ -173,7 +173,7 @@ export default function TributosHubPage() {
                                     </div>
                                     <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                                 </div>
-                                <h3 className="text-lg font-black tracking-tight">Calendario Fiscal</h3>
+                                <h3 className="text-lg font-bold tracking-tight">Calendario Fiscal</h3>
                                 <p className="text-xs text-muted-foreground mt-2">Vencimientos de obligaciones tributarias SENIAT.</p>
                             </Card>
                         </Link>
@@ -186,7 +186,7 @@ export default function TributosHubPage() {
                                     </div>
                                     <ArrowRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-rose-500 group-hover:translate-x-1 transition-all" />
                                 </div>
-                                <h3 className="text-lg font-black tracking-tight">Multas y Sanciones</h3>
+                                <h3 className="text-lg font-bold tracking-tight">Multas y Sanciones</h3>
                                 <p className="text-xs text-muted-foreground mt-2">Simulador de contingencia fiscal (COT 2020).</p>
                             </Card>
                         </Link>

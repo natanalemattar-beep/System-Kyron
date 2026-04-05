@@ -44,7 +44,7 @@ export default function ActasMatrimonioPage() {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
-      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
+      <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
         <ArrowLeft className="h-3.5 w-3.5" /> Volver al Dashboard
       </Link>
 
@@ -60,18 +60,18 @@ export default function ActasMatrimonioPage() {
             <Heart className="h-7 w-7 text-rose-500" />
           </div>
           <div className="space-y-2 min-w-0">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">Actas de Matrimonio</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Actas de Matrimonio</h1>
             <p className="text-sm text-muted-foreground font-medium max-w-lg">
               Consulta y solicita copias certificadas de registros conyugales ante el Registro Civil correspondiente.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[9px] font-bold uppercase tracking-widest text-emerald-500">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-[11px] font-bold uppercase tracking-widest text-emerald-500">
                 <ShieldCheck className="h-3 w-3" /> Documento Legal
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                 <Clock className="h-3 w-3" /> 5-7 días hábiles
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted/30 border border-border/20 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                 <FileText className="h-3 w-3" /> Copia certificada
               </span>
             </div>

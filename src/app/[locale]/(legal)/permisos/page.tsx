@@ -291,13 +291,13 @@ export default function PermisosPage() {
     <div className="space-y-8 pb-20">
       <header className="border-l-4 border-primary pl-8 py-2 mt-6 md:mt-10">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary shadow-glow mb-3">
             <Gavel className="h-3 w-3" /> ASESORÍA JURÍDICA — PERMISOLOGÍA
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase leading-none">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground uppercase leading-none">
             Centro de <span className="text-primary italic">Permisología</span> Integral
           </h1>
-          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] mt-1 md:mt-2">
+          <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mt-1 md:mt-2">
             {totalOrganismos} Organismos · {totalPermisosCatalogo} Permisos · Catálogo Completo Venezuela
           </p>
         </div>
@@ -312,10 +312,10 @@ export default function PermisosPage() {
         ].map((kpi, i) => (
           <Card key={i} className="glass-card border-none bg-card/40 rounded-2xl p-4 md:p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[8px] font-black uppercase tracking-widest text-foreground/50">{kpi.label}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-foreground/50">{kpi.label}</span>
               <div className={cn("p-1.5 rounded-lg", kpi.bg)}><kpi.icon className={cn("h-3.5 w-3.5", kpi.color)} /></div>
             </div>
-            <p className={cn("text-xl font-black tracking-tight", kpi.color)}>{kpi.value}</p>
+            <p className={cn("text-xl font-bold tracking-tight", kpi.color)}>{kpi.value}</p>
           </Card>
         ))}
       </div>
@@ -323,14 +323,14 @@ export default function PermisosPage() {
       <Tabs defaultValue="catalogo" className="w-full">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-2">
           <TabsList className="bg-muted/30 border border-border/30 rounded-2xl p-1.5 h-auto flex-wrap">
-            <TabsTrigger value="catalogo" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
+            <TabsTrigger value="catalogo" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white px-5 py-2.5">
               <BookOpen className="mr-2 h-3.5 w-3.5" /> Catálogo Completo
             </TabsTrigger>
-            <TabsTrigger value="mis-tramites" className="rounded-xl text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-emerald-600 data-[state=active]:text-white px-5 py-2.5">
+            <TabsTrigger value="mis-tramites" className="rounded-xl text-[11px] font-semibold uppercase tracking-widest data-[state=active]:bg-emerald-600 data-[state=active]:text-white px-5 py-2.5">
               <ClipboardList className="mr-2 h-3.5 w-3.5" /> Mis Trámites {permisos.length > 0 && <Badge className="ml-1.5 bg-emerald-500 text-white text-[7px] px-1.5">{permisos.length}</Badge>}
             </TabsTrigger>
           </TabsList>
-          <Button onClick={() => setRegistroOpen(true)} className="btn-3d-primary h-10 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest shrink-0">
+          <Button onClick={() => setRegistroOpen(true)} className="btn-3d-primary h-10 px-6 rounded-xl font-bold text-[11px] uppercase tracking-widest shrink-0">
             <Plus className="mr-2 h-4 w-4" /> REGISTRAR TRÁMITE
           </Button>
         </div>
@@ -355,9 +355,9 @@ export default function PermisosPage() {
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <cat.icon className={cn("h-3.5 w-3.5", isActive ? cat.color : "text-foreground/30")} />
-                    <span className={cn("text-[8px] font-black uppercase tracking-widest", isActive ? cat.color : "text-foreground/50")}>{cat.label}</span>
+                    <span className={cn("text-[10px] font-semibold uppercase tracking-widest", isActive ? cat.color : "text-foreground/50")}>{cat.label}</span>
                   </div>
-                  <p className={cn("text-lg font-black", isActive ? cat.color : "text-foreground/60")}>{count}</p>
+                  <p className={cn("text-lg font-bold", isActive ? cat.color : "text-foreground/60")}>{count}</p>
                   <p className="text-[7px] font-bold uppercase text-foreground/30">{orgCount} organismos</p>
                 </button>
               );
@@ -399,12 +399,12 @@ export default function PermisosPage() {
           </div>
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 text-[9px] font-bold text-foreground/40 uppercase tracking-widest">
+            <div className="flex items-center gap-3 text-[11px] font-bold text-foreground/40 uppercase tracking-widest">
               <FileText className="h-3.5 w-3.5" />
               {permisosByTipoOrg.reduce((sum, g) => sum + g.permisos.length, 0)} permisos encontrados en {permisosByTipoOrg.length} organismos
             </div>
             {(filterTipoOrg !== 'todos' || filterOrg !== 'todos' || filterSector !== 'todos' || searchQuery) && (
-              <Button variant="ghost" size="sm" className="text-[8px] font-black uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
+              <Button variant="ghost" size="sm" className="text-[10px] font-semibold uppercase text-primary h-7 px-3 rounded-lg" onClick={() => { setFilterTipoOrg('todos'); setFilterOrg('todos'); setFilterSector('todos'); setSearchQuery(''); }}>
                 Limpiar filtros
               </Button>
             )}
@@ -424,7 +424,7 @@ export default function PermisosPage() {
             <>
               <div className="p-8 border-b border-border/20 bg-primary/5">
                 <DialogHeader>
-                  <DialogTitle className="text-xl font-black uppercase text-foreground">
+                  <DialogTitle className="text-xl font-semibold uppercase text-foreground">
                     {cartaDialog.tipo === 'inscripcion' ? 'Carta de Solicitud de Inscripción' : 'Carta de Solicitud de Renovación'}
                   </DialogTitle>
                   <DialogDescription className="text-[10px] font-bold uppercase text-primary/60">
@@ -439,8 +439,8 @@ export default function PermisosPage() {
                 <header className="flex justify-between items-center mb-8 border-b border-slate-200 pb-6 relative z-10">
                   <Logo className="h-12 w-12" />
                   <div className="text-right">
-                    <p className="font-black text-xs uppercase italic">[NOMBRE DE LA EMPRESA]</p>
-                    <p className="text-[8px] font-bold uppercase text-slate-500">RIF: [RIF]</p>
+                    <p className="font-semibold text-xs uppercase italic">[NOMBRE DE LA EMPRESA]</p>
+                    <p className="text-[10px] font-bold uppercase text-slate-500">RIF: [RIF]</p>
                   </div>
                 </header>
                 <div className="whitespace-pre-wrap text-sm leading-relaxed relative z-10 text-justify">
@@ -448,13 +448,13 @@ export default function PermisosPage() {
                 </div>
               </div>
               <DialogFooter className="p-6 border-t border-border/20 gap-3 flex-wrap">
-                <Button variant="outline" className="rounded-xl h-12 px-6 border-border/20 text-foreground/60 font-black uppercase text-[9px]" onClick={() => handleCopyCarta(cartaText)}>
+                <Button variant="outline" className="rounded-xl h-12 px-6 border-border/20 text-foreground/60 font-semibold uppercase text-[11px]" onClick={() => handleCopyCarta(cartaText)}>
                   <Copy className="mr-2 h-4 w-4" /> COPIAR
                 </Button>
-                <Button variant="outline" className="rounded-xl h-12 px-6 border-border/20 text-foreground/60 font-black uppercase text-[9px]" onClick={() => window.print()}>
+                <Button variant="outline" className="rounded-xl h-12 px-6 border-border/20 text-foreground/60 font-semibold uppercase text-[11px]" onClick={() => window.print()}>
                   <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                 </Button>
-                <Button className="rounded-xl h-12 px-8 btn-3d-primary font-black uppercase text-[9px]" onClick={() => {
+                <Button className="rounded-xl h-12 px-8 btn-3d-primary font-semibold uppercase text-[11px]" onClick={() => {
                   const blob = new Blob([cartaText], { type: 'text/plain;charset=utf-8' });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
@@ -476,7 +476,7 @@ export default function PermisosPage() {
         <DialogContent className="max-w-2xl rounded-3xl bg-card/95 backdrop-blur-3xl border-border/20 p-0 max-h-[90vh] flex flex-col overflow-y-auto">
           <div className="p-6 sm:p-8 border-b border-border/20 bg-primary/5 shrink-0">
             <DialogHeader>
-              <DialogTitle className="text-lg sm:text-xl font-black uppercase text-foreground flex items-center gap-3">
+              <DialogTitle className="text-lg sm:text-xl font-semibold uppercase text-foreground flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-primary/10"><Plus className="h-5 w-5 text-primary" /></div>
                 Registrar Nuevo Permiso
               </DialogTitle>
@@ -489,7 +489,7 @@ export default function PermisosPage() {
           <div className="p-6 sm:p-8 space-y-4 overflow-y-auto flex-1 min-h-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">Tipo</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">Tipo</label>
                 <Select value={formData.tipo} onValueChange={v => setFormData(p => ({ ...p, tipo: v }))}>
                   <SelectTrigger className="h-11 rounded-xl border-border/30"><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                   <SelectContent>
@@ -510,7 +510,7 @@ export default function PermisosPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">Organismo *</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">Organismo *</label>
                 <Select value={formData.organismo} onValueChange={v => setFormData(p => ({ ...p, organismo: v }))}>
                   <SelectTrigger className="h-11 rounded-xl border-border/30"><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                   <SelectContent className="max-h-[300px]">
@@ -522,16 +522,16 @@ export default function PermisosPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-foreground/60">Nombre del permiso *</label>
+              <label className="text-[11px] font-semibold uppercase text-foreground/60">Nombre del permiso *</label>
               <Input className="h-11 rounded-xl border-border/30" placeholder="Ej: Licencia de Actividades Económicas" value={formData.nombre} onChange={e => setFormData(p => ({ ...p, nombre: e.target.value }))} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">N° Expediente</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">N° Expediente</label>
                 <Input className="h-11 rounded-xl border-border/30" value={formData.numero} onChange={e => setFormData(p => ({ ...p, numero: e.target.value }))} />
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">Estado</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">Estado</label>
                 <Select value={formData.estado} onValueChange={v => setFormData(p => ({ ...p, estado: v }))}>
                   <SelectTrigger className="h-11 rounded-xl border-border/30"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -542,20 +542,20 @@ export default function PermisosPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">Fecha de Emisión *</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">Fecha de Emisión *</label>
                 <Input type="date" className="h-11 rounded-xl border-border/30" value={formData.fechaEmision} onChange={e => setFormData(p => ({ ...p, fechaEmision: e.target.value }))} />
               </div>
               <div className="space-y-2">
-                <label className="text-[9px] font-black uppercase text-foreground/60">Fecha de Vencimiento</label>
+                <label className="text-[11px] font-semibold uppercase text-foreground/60">Fecha de Vencimiento</label>
                 <Input type="date" className="h-11 rounded-xl border-border/30" value={formData.fechaVencimiento} onChange={e => setFormData(p => ({ ...p, fechaVencimiento: e.target.value }))} />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-foreground/60">Alertar (días antes del vencimiento)</label>
+              <label className="text-[11px] font-semibold uppercase text-foreground/60">Alertar (días antes del vencimiento)</label>
               <Input type="number" className="h-11 rounded-xl border-border/30" value={formData.alertarDias} onChange={e => setFormData(p => ({ ...p, alertarDias: e.target.value }))} />
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-black uppercase text-foreground/60">Descripción / Notas</label>
+              <label className="text-[11px] font-semibold uppercase text-foreground/60">Descripción / Notas</label>
               <textarea
                 className="w-full min-h-[80px] rounded-xl border border-border/30 bg-transparent px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/30"
                 placeholder="Observaciones adicionales sobre este trámite..."
@@ -566,10 +566,10 @@ export default function PermisosPage() {
           </div>
 
           <DialogFooter className="p-6 border-t border-border/20 gap-3 shrink-0">
-            <Button type="button" variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-12 px-6 font-black text-[9px] uppercase tracking-widest">
+            <Button type="button" variant="outline" onClick={() => { setRegistroOpen(false); resetForm(); }} className="rounded-xl h-12 px-6 font-bold text-[11px] uppercase tracking-widest">
               CANCELAR
             </Button>
-            <Button type="button" onClick={handleRegistrar} disabled={loading} className="btn-3d-primary rounded-xl h-12 px-8 font-black text-[9px] uppercase tracking-widest">
+            <Button type="button" onClick={handleRegistrar} disabled={loading} className="btn-3d-primary rounded-xl h-12 px-8 font-bold text-[11px] uppercase tracking-widest">
               {loading ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
               {loading ? "GUARDANDO..." : "REGISTRAR"}
             </Button>
@@ -582,14 +582,14 @@ export default function PermisosPage() {
           {detallePermiso && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-lg font-black uppercase tracking-tight flex items-center gap-3">
+                <DialogTitle className="text-lg font-semibold uppercase tracking-tight flex items-center gap-3">
                   <div className="p-2 rounded-xl bg-primary/10"><FileText className="h-5 w-5 text-primary" /></div>
                   Detalle del Trámite
                 </DialogTitle>
               </DialogHeader>
               <div className="space-y-3 py-4">
                 {[
-                  { label: "ID", value: detallePermiso.id, className: "text-primary font-black italic" },
+                  { label: "ID", value: detallePermiso.id, className: "text-primary font-bold" },
                   { label: "Nombre", value: detallePermiso.nombre },
                   { label: "Tipo", value: detallePermiso.tipo },
                   { label: "Organismo", value: detallePermiso.emisor },
@@ -598,19 +598,19 @@ export default function PermisosPage() {
                   { label: "Vencimiento", value: detallePermiso.fechaVencimiento },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center justify-between p-3.5 rounded-2xl bg-muted/30">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-foreground/50">{item.label}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-widest text-foreground/50">{item.label}</span>
                     <span className={cn("text-xs font-bold text-foreground/80 text-right max-w-[60%]", item.className)}>{item.value}</span>
                   </div>
                 ))}
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-muted/30">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-foreground/50">Estado</span>
-                  <Badge className={cn("text-[8px] font-black uppercase tracking-widest border", estadoConfig[detallePermiso.estado]?.color || "")}>
+                  <span className="text-[11px] font-semibold uppercase tracking-widest text-foreground/50">Estado</span>
+                  <Badge className={cn("text-[10px] font-semibold uppercase tracking-widest border", estadoConfig[detallePermiso.estado]?.color || "")}>
                     {detallePermiso.estado}
                   </Badge>
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setDetallePermiso(null)} className="rounded-xl h-11 font-black text-[9px] uppercase tracking-widest w-full">
+                <Button variant="outline" onClick={() => setDetallePermiso(null)} className="rounded-xl h-11 font-bold text-[11px] uppercase tracking-widest w-full">
                   Cerrar
                 </Button>
               </DialogFooter>
@@ -625,7 +625,7 @@ export default function PermisosPage() {
 function CatalogoSection({ groups, onGenerarCarta }: { groups: { org: Organismo; permisos: PermisoTipo[] }[]; onGenerarCarta: (p: PermisoTipo, t: 'inscripcion' | 'renovacion') => void }) {
   if (groups.length === 0) {
     return (
-      <Card className="glass-card border-none rounded-[2rem] bg-card/40 p-16 text-center">
+      <Card className="glass-card border-none rounded-xl bg-card/40 p-16 text-center">
         <Search className="h-12 w-12 text-foreground/15 mx-auto mb-4" />
         <p className="text-sm font-bold text-foreground/40 uppercase">No se encontraron permisos con los filtros seleccionados</p>
       </Card>
@@ -649,15 +649,15 @@ function CatalogoSection({ groups, onGenerarCarta }: { groups: { org: Organismo;
                   </div>
                   <div className="text-left">
                     <div className="flex items-center gap-2">
-                      <p className="font-black uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
-                      <Badge variant="outline" className={cn("text-[6px] font-black uppercase px-1.5 py-0 h-4 border", tipoCfg.bg, tipoCfg.color)}>
+                      <p className="font-semibold uppercase text-sm text-foreground/80">{org.siglas || org.nombre}</p>
+                      <Badge variant="outline" className={cn("text-[6px] font-semibold uppercase px-1.5 py-0 h-4 border", tipoCfg.bg, tipoCfg.color)}>
                         {tipoCfg.label}
                       </Badge>
                     </div>
-                    <p className="text-[8px] font-bold uppercase tracking-widest text-foreground/40">{org.nombre}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/40">{org.nombre}</p>
                   </div>
                 </div>
-                <Badge className="bg-muted/50 border-border/30 text-[8px] font-black uppercase px-3 text-foreground/60">{permisos.length} {permisos.length === 1 ? 'permiso' : 'permisos'}</Badge>
+                <Badge className="bg-muted/50 border-border/30 text-[10px] font-semibold uppercase px-3 text-foreground/60">{permisos.length} {permisos.length === 1 ? 'permiso' : 'permisos'}</Badge>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-0 pb-0">
@@ -679,9 +679,9 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
       <div className="px-6 md:px-8 py-5 flex items-center gap-4 cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1 flex-wrap">
-            <p className="font-black text-sm text-foreground/90 uppercase">{permiso.nombre}</p>
+            <p className="font-semibold text-sm text-foreground/90 uppercase">{permiso.nombre}</p>
             {permiso.vigencia && (
-              <Badge variant="outline" className="text-[7px] font-black uppercase border-border/30 px-2 shrink-0 text-foreground/50">
+              <Badge variant="outline" className="text-[7px] font-semibold uppercase border-border/30 px-2 shrink-0 text-foreground/50">
                 <Calendar className="mr-1 h-2.5 w-2.5" /> {permiso.vigencia} MESES
               </Badge>
             )}
@@ -689,11 +689,11 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
           <p className="text-[10px] text-foreground/50 line-clamp-1">{permiso.descripcion}</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-primary text-[8px] font-black uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
+          <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-primary text-[10px] font-semibold uppercase hover:bg-primary/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'inscripcion'); }}>
             <FileSignature className="mr-1 h-3 w-3" /> Inscripción
           </Button>
           {permiso.requisitosRenovacion.length > 0 && (
-            <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-amber-600 text-[8px] font-black uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
+            <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-amber-600 text-[10px] font-semibold uppercase hover:bg-amber-500/10" onClick={e => { e.stopPropagation(); onGenerarCarta(permiso, 'renovacion'); }}>
               <RefreshCw className="mr-1 h-3 w-3" /> Renovación
             </Button>
           )}
@@ -703,7 +703,7 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
       {expanded && (
         <div className="px-6 md:px-8 pb-6 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-border/15 pt-5">
           <div className="space-y-3">
-            <p className="text-[8px] font-black uppercase tracking-widest text-primary">Requisitos de Inscripción</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">Requisitos de Inscripción</p>
             <ul className="space-y-2">
               {permiso.requisitosInscripcion.map((r, i) => (
                 <li key={i} className="flex items-start gap-2 text-[10px] text-foreground/70">
@@ -715,7 +715,7 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
           </div>
           {permiso.requisitosRenovacion.length > 0 && (
             <div className="space-y-3">
-              <p className="text-[8px] font-black uppercase tracking-widest text-amber-600">Requisitos de Renovación</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-600">Requisitos de Renovación</p>
               <ul className="space-y-2">
                 {permiso.requisitosRenovacion.map((r, i) => (
                   <li key={i} className="flex items-start gap-2 text-[10px] text-foreground/70">
@@ -728,20 +728,20 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
           )}
           <div className="md:col-span-2 flex flex-wrap gap-4 pt-3 border-t border-border/15">
             {permiso.baseLegal && (
-              <div className="flex items-center gap-2 text-[9px] text-foreground/50">
+              <div className="flex items-center gap-2 text-[11px] text-foreground/50">
                 <Zap className="h-3 w-3" /> <span className="font-bold">Base legal:</span> {permiso.baseLegal}
               </div>
             )}
             {permiso.costoEstimado && (
-              <div className="flex items-center gap-2 text-[9px] text-foreground/50">
+              <div className="flex items-center gap-2 text-[11px] text-foreground/50">
                 <Landmark className="h-3 w-3" /> <span className="font-bold">Costo:</span> {permiso.costoEstimado}
               </div>
             )}
-            <div className="flex items-center gap-2 text-[9px] text-foreground/50">
+            <div className="flex items-center gap-2 text-[11px] text-foreground/50">
               <Clock className="h-3 w-3" /> <span className="font-bold">Vigencia:</span> {permiso.vigencia ? `${permiso.vigencia} meses` : 'Permanente'}
             </div>
             {permiso.aplica.length > 0 && (
-              <div className="flex items-center gap-2 text-[9px] text-foreground/50 flex-wrap">
+              <div className="flex items-center gap-2 text-[11px] text-foreground/50 flex-wrap">
                 <ShieldCheck className="h-3 w-3 shrink-0" /> <span className="font-bold shrink-0">Sectores:</span>
                 {permiso.aplica.map(s => (
                   <Badge key={s} variant="outline" className="text-[7px] px-1.5 py-0 h-4 font-bold border-border/20 text-foreground/40">
@@ -760,19 +760,19 @@ function PermisoCard({ permiso, onGenerarCarta }: { permiso: PermisoTipo; onGene
 function MisTramitesSection({ permisos, onRegistrar, onDetalle }: { permisos: PermisoRegistrado[]; onRegistrar: () => void; onDetalle: (p: PermisoRegistrado) => void }) {
   if (permisos.length === 0) {
     return (
-      <Card className="glass-card border-none rounded-[2rem] bg-card/40 overflow-hidden">
+      <Card className="glass-card border-none rounded-xl bg-card/40 overflow-hidden">
         <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
           <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-6">
             <ShieldCheck className="h-10 w-10 text-primary/30" />
           </div>
-          <p className="text-lg font-black uppercase tracking-tight text-foreground/50 mb-2">Sin Trámites Registrados</p>
+          <p className="text-lg font-semibold uppercase tracking-tight text-foreground/50 mb-2">Sin Trámites Registrados</p>
           <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 max-w-md mb-8 leading-relaxed">
             Su expediente de permisos está vacío. Registre los permisos y licencias de su empresa para llevar un control centralizado de vencimientos y renovaciones.
           </p>
-          <Button onClick={onRegistrar} className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest">
+          <Button onClick={onRegistrar} className="btn-3d-primary h-12 px-8 rounded-xl font-semibold text-[10px] uppercase tracking-widest">
             <Plus className="mr-2 h-4 w-4" /> Registrar Primer Trámite
           </Button>
-          <p className="text-[9px] font-bold text-foreground/30 mt-6 uppercase tracking-widest">
+          <p className="text-[11px] font-bold text-foreground/30 mt-6 uppercase tracking-widest">
             Consulte el &quot;Catálogo Completo&quot; para ver todos los permisos disponibles en Venezuela
           </p>
         </div>
@@ -793,7 +793,7 @@ function MisTramitesSection({ permisos, onRegistrar, onDetalle }: { permisos: Pe
                 <StatusIcon className={cn("h-5 w-5", config.color.split(' ')[1])} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-black uppercase text-sm text-foreground/80 truncate">{p.nombre}</p>
+                <p className="font-semibold uppercase text-sm text-foreground/80 truncate">{p.nombre}</p>
                 <p className="text-[10px] text-foreground/50 mt-0.5 flex items-center gap-2">
                   <Landmark className="h-3 w-3" /> {p.emisor}
                   {p.numero && <span className="text-primary/50">· N° {p.numero}</span>}
@@ -801,14 +801,14 @@ function MisTramitesSection({ permisos, onRegistrar, onDetalle }: { permisos: Pe
               </div>
               <div className="text-right shrink-0">
                 {p.fechaVencimiento && p.fechaVencimiento !== "Permanente" ? (
-                  <p className="text-[8px] font-bold uppercase tracking-widest text-foreground/40">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-foreground/40">
                     Vence: {new Date(p.fechaVencimiento).toLocaleDateString('es-VE')}
                   </p>
                 ) : (
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-foreground/30">Permanente</p>
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/30">Permanente</p>
                 )}
               </div>
-              <Badge className={cn("text-[7px] font-black uppercase px-3 py-1 border shrink-0", config.color)}>{config.label}</Badge>
+              <Badge className={cn("text-[7px] font-semibold uppercase px-3 py-1 border shrink-0", config.color)}>{config.label}</Badge>
               <Eye className="h-4 w-4 text-foreground/30 shrink-0" />
             </CardContent>
           </Card>

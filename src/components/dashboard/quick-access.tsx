@@ -47,7 +47,7 @@ export function QuickAccess({ navGroups }: QuickAccessProps) {
                             <div className="p-2 md:p-2.5 bg-primary/10 rounded-lg md:rounded-xl border border-primary/10 shadow-inner group-hover:scale-105 transition-transform">
                                 <group.icon className="h-4 w-4 md:h-5 md:w-5 text-primary"/>
                             </div>
-                            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/70">{group.title}</span>
+                            <span className="text-[11px] md:text-[10px] font-bold uppercase tracking-wide md:tracking-wide text-white/70">{group.title}</span>
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 md:p-6 flex-grow">
@@ -57,7 +57,7 @@ export function QuickAccess({ navGroups }: QuickAccessProps) {
                                 key={`${item.href}-${item.label}`}
                                 asChild
                                 variant="ghost"
-                                className="justify-between h-8 md:h-9 w-full px-2 md:px-3 rounded-lg text-[8px] md:text-[9px] font-bold uppercase tracking-wider bg-white/[0.01] border border-white/5 hover:bg-primary/10 hover:text-primary transition-all duration-200"
+                                className="justify-between h-8 md:h-9 w-full px-2 md:px-3 rounded-lg text-[10px] md:text-[11px] font-bold uppercase tracking-wider bg-white/[0.01] border border-white/5 hover:bg-primary/10 hover:text-primary transition-all duration-200"
                             >
                                 <Link href={item.href as any}>
                                     <div className="flex items-center gap-2 md:gap-2.5">

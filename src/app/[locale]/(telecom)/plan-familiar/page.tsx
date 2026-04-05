@@ -64,7 +64,7 @@ export default function PlanFamiliarPage() {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
                 <div className={cn("p-1.5 rounded-lg", stat.iconBg)}><stat.icon className={cn("h-3 w-3", stat.color)} /></div>
               </div>
-              <p className={cn("text-xl font-black tracking-tight", stat.color)}>{stat.val}</p>
+              <p className={cn("text-xl font-bold tracking-tight", stat.color)}>{stat.val}</p>
             </div>
           </motion.div>
         ))}
@@ -80,7 +80,7 @@ export default function PlanFamiliarPage() {
                 <p className="text-[10px] text-muted-foreground">{datosUsadosTotal.toFixed(1)} GB usados de {datosCompartidosTotal} GB</p>
               </div>
             </div>
-            <span className="text-2xl font-black text-primary">{((datosUsadosTotal / datosCompartidosTotal) * 100).toFixed(0)}%</span>
+            <span className="text-2xl font-bold text-primary">{((datosUsadosTotal / datosCompartidosTotal) * 100).toFixed(0)}%</span>
           </div>
           <div className="h-3 w-full bg-muted/30 rounded-full overflow-hidden">
             <div className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-500 transition-all" style={{ width: `${(datosUsadosTotal / datosCompartidosTotal) * 100}%` }} />
@@ -106,7 +106,7 @@ export default function PlanFamiliarPage() {
                         <p className="text-[10px] text-muted-foreground font-mono">{m.numero}</p>
                       </div>
                     </div>
-                    <Badge variant="outline" className={cn("text-[9px]", m.rol === "titular" ? "text-primary border-primary/20" : m.rol === "menor" ? "text-amber-500 border-amber-500/20" : "text-cyan-500 border-cyan-500/20")}>
+                    <Badge variant="outline" className={cn("text-[11px]", m.rol === "titular" ? "text-primary border-primary/20" : m.rol === "menor" ? "text-amber-500 border-amber-500/20" : "text-cyan-500 border-cyan-500/20")}>
                       {m.rol === "titular" ? "Titular" : m.rol === "menor" ? "Menor" : "Miembro"}
                     </Badge>
                   </div>
@@ -120,11 +120,11 @@ export default function PlanFamiliarPage() {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="h-7 rounded-lg text-[9px] flex-1"
+                    <Button variant="outline" size="sm" className="h-7 rounded-lg text-[11px] flex-1"
                       onClick={() => toast({ title: "Compartir Datos", description: `Transferir datos a ${m.nombre}` })}>
                       <ArrowLeftRight className="mr-1 h-3 w-3" /> Compartir
                     </Button>
-                    <Button variant="outline" size="sm" className="h-7 rounded-lg text-[9px] flex-1"
+                    <Button variant="outline" size="sm" className="h-7 rounded-lg text-[11px] flex-1"
                       onClick={() => toast({ title: "Ajustar", description: `Configurar límites de ${m.nombre}` })}>
                       <Settings className="mr-1 h-3 w-3" /> Ajustar
                     </Button>
@@ -151,9 +151,9 @@ export default function PlanFamiliarPage() {
             <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-muted/10 border border-border/30">
               <div>
                 <p className="text-xs font-semibold text-foreground">{c.nombre}</p>
-                <p className="text-[9px] text-muted-foreground">Aplica a: {c.aplica.join(", ")}</p>
+                <p className="text-[11px] text-muted-foreground">Aplica a: {c.aplica.join(", ")}</p>
               </div>
-              <Badge variant="outline" className={cn("text-[9px]", c.activo ? "text-emerald-500 border-emerald-500/20 bg-emerald-500/10" : "text-muted-foreground border-border")}>
+              <Badge variant="outline" className={cn("text-[11px]", c.activo ? "text-emerald-500 border-emerald-500/20 bg-emerald-500/10" : "text-muted-foreground border-border")}>
                 {c.activo ? "Activo" : "Inactivo"}
               </Badge>
             </div>

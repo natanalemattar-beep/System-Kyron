@@ -129,7 +129,7 @@ export default function MiInternetPage() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">MI INTERNET Y TELÉFONO</h1>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">MI INTERNET Y TELÉFONO</h1>
             <p className="text-sm text-muted-foreground mt-1">
               Gestión de tus servicios de internet y líneas telefónicas personales
             </p>
@@ -144,7 +144,7 @@ export default function MiInternetPage() {
               <Wifi className="h-4 w-4 text-blue-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Servicios Internet</span>
             </div>
-            <p className="text-2xl font-black mt-1">{servicios.length}</p>
+            <p className="text-2xl font-bold mt-1">{servicios.length}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/20 border-emerald-200/50">
@@ -153,7 +153,7 @@ export default function MiInternetPage() {
               <Phone className="h-4 w-4 text-emerald-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Líneas Telefónicas</span>
             </div>
-            <p className="text-2xl font-black mt-1">{lineas.length}</p>
+            <p className="text-2xl font-bold mt-1">{lineas.length}</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/20 border-amber-200/50">
@@ -162,7 +162,7 @@ export default function MiInternetPage() {
               <Gauge className="h-4 w-4 text-amber-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Vel. Máxima</span>
             </div>
-            <p className="text-2xl font-black mt-1">—</p>
+            <p className="text-2xl font-bold mt-1">—</p>
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-violet-50 to-violet-100/50 dark:from-violet-950/30 dark:to-violet-900/20 border-violet-200/50">
@@ -171,7 +171,7 @@ export default function MiInternetPage() {
               <DollarSign className="h-4 w-4 text-violet-500" />
               <span className="text-[10px] font-bold uppercase text-muted-foreground">Gasto Mensual</span>
             </div>
-            <p className="text-2xl font-black mt-1">$0,00</p>
+            <p className="text-2xl font-bold mt-1">$0,00</p>
           </CardContent>
         </Card>
       </div>
@@ -221,7 +221,7 @@ export default function MiInternetPage() {
                       <CardContent className="p-3 text-center">
                         <span className="text-2xl">{p.logo}</span>
                         <p className="text-xs font-bold mt-1">{p.nombre}</p>
-                        <Badge variant="outline" className="text-[9px] mt-1">{p.tipo.toUpperCase()}</Badge>
+                        <Badge variant="outline" className="text-[11px] mt-1">{p.tipo.toUpperCase()}</Badge>
                       </CardContent>
                     </Card>
                   ))}
@@ -244,7 +244,7 @@ export default function MiInternetPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-black">${s.monto_mensual.toFixed(2)}/mes</p>
+                        <p className="font-bold">${s.monto_mensual.toFixed(2)}/mes</p>
                         <Badge variant="secondary" className={s.estado === "activo" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}>
                           {s.estado}
                         </Badge>
@@ -289,7 +289,7 @@ export default function MiInternetPage() {
                       <CardContent className="p-3 text-center">
                         <Phone className={cn("h-6 w-6 mx-auto", p.color)} />
                         <p className="text-xs font-bold mt-1">{p.nombre}</p>
-                        <Badge variant="outline" className="text-[9px] mt-1">{p.tipo === "fijo" ? "FIJO" : "MÓVIL"}</Badge>
+                        <Badge variant="outline" className="text-[11px] mt-1">{p.tipo === "fijo" ? "FIJO" : "MÓVIL"}</Badge>
                       </CardContent>
                     </Card>
                   ))}
@@ -312,7 +312,7 @@ export default function MiInternetPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-black">${l.monto_mensual.toFixed(2)}/mes</p>
+                        <p className="font-bold">${l.monto_mensual.toFixed(2)}/mes</p>
                         <Badge variant="secondary" className={l.estado === "activa" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}>
                           {l.estado}
                         </Badge>
@@ -374,7 +374,7 @@ export default function MiInternetPage() {
                           </Badge>
                         </div>
                         <div className="text-right min-w-[80px]">
-                          <p className="font-black text-sm">${plan.precio.toFixed(2)}</p>
+                          <p className="font-semibold text-sm">${plan.precio.toFixed(2)}</p>
                           <p className="text-[10px] text-muted-foreground">/mes</p>
                         </div>
                       </div>
