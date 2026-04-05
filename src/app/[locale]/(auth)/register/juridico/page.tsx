@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { useAuth } from '@/lib/auth/context';
 import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 import { DocumentInput } from '@/components/document-input';
@@ -183,6 +184,7 @@ export default function RegisterJuridicoPage() {
   const [countdown, setCountdown] = useState(0);
   const { toast } = useToast();
   const router = useRouter();
+  const { refreshUser } = useAuth();
 
   const onMagicLinkVerified = useCallback(() => {
     setVerifVerified(true);
@@ -407,6 +409,7 @@ export default function RegisterJuridicoPage() {
         return;
       }
 
+      await refreshUser();
       setRegisteredEmail(data.repEmail);
       setRegisteredRazon(data.razonSocial);
       setStep(TOTAL_STEPS);
@@ -876,8 +879,8 @@ export default function RegisterJuridicoPage() {
                     legal: '/legal',
                     sostenibilidad: '/sostenibilidad',
                   };
-                  const route = moduleRoutes[module] || '/';
-                  router.push(route);
+                  const route = moduleRoutes[module] || '/es/dashboard-empresa';
+                  window.location.href = route.startsWith('/es') ? route : `/es${route}`;
                 }}>
                   Ir al Módulo <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

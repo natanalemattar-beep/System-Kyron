@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useVerificationPoll } from "@/hooks/use-verification-poll";
+import { useAuth } from "@/lib/auth/context";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
@@ -137,6 +138,7 @@ export default function RegisterSostenibilidadPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const router = useRouter();
+    const { refreshUser } = useAuth();
     const searchParams = useSearchParams();
     const { toast } = useToast();
 
@@ -344,6 +346,7 @@ export default function RegisterSostenibilidadPage() {
                 }
                 throw new Error(result.error);
             }
+            await refreshUser();
             setStep(TOTAL_STEPS);
         } catch (e: any) {
             toast({
@@ -986,7 +989,7 @@ export default function RegisterSostenibilidadPage() {
                                 <Button
                                     className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700"
                                     onClick={() => {
-                                        router.push("/");
+                                        window.location.href = "/es/dashboard-empresa";
                                     }}
                                 >
                                     Ir al Portal Ambiental

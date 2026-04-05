@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { useAuth } from '@/lib/auth/context';
 import { DocumentInput } from '@/components/document-input';
 import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
 import { cn } from '@/lib/utils';
@@ -92,6 +93,7 @@ export default function RegisterNaturalPage() {
 
   const { toast } = useToast();
   const router = useRouter();
+  const { refreshUser } = useAuth();
 
   const onMagicLinkVerified = useCallback(() => {
     setVerifVerified(true);
@@ -295,6 +297,7 @@ export default function RegisterNaturalPage() {
         toast({ title: 'Error al registrarse', description: json.error, variant: 'destructive' });
         return;
       }
+      await refreshUser();
       setRegisteredEmail(data.email);
       try { sessionStorage.removeItem('kyron-register-natural'); sessionStorage.removeItem('kyron-register-natural-step'); } catch {}
       setStep(TOTAL_STEPS);
@@ -362,7 +365,7 @@ export default function RegisterNaturalPage() {
             <Button
               className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-emerald-500 hover:opacity-90 text-white font-bold text-base shadow-lg shadow-primary/20 transition-all"
               onClick={() => {
-                router.push('/');
+                window.location.href = '/es/dashboard';
               }}
             >
               Explorar la Plataforma

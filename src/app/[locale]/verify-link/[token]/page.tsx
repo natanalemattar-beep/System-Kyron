@@ -4,10 +4,12 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Loader2, CircleCheck, CircleX, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/lib/auth/context';
 import { motion } from 'framer-motion';
 
 export default function VerifyLinkPage() {
   const router = useRouter();
+  const { refreshUser } = useAuth();
   const params = useParams();
   const token = params?.token as string;
   const locale = (params?.locale as string) || 'es';
@@ -42,12 +44,13 @@ export default function VerifyLinkPage() {
 
         setStatus('success');
         setUserName(json.user?.nombre || '');
+        await refreshUser();
 
         const redirectPath = json.user?.tipo === 'juridico'
-          ? '/dashboard-empresa'
-          : '/dashboard';
+          ? '/es/dashboard-empresa'
+          : '/es/dashboard';
 
-        setTimeout(() => router.push(redirectPath), 2000);
+        setTimeout(() => { window.location.href = redirectPath; }, 2000);
       } catch {
         setStatus('error');
         setErrorMsg('Error de conexión. Intenta de nuevo.');

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { useAuth } from '@/lib/auth/context';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -151,6 +152,7 @@ export default function RegisterTelecomPage() {
     const [docFromParams, setDocFromParams] = useState(false);
     const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
+    const { refreshUser } = useAuth();
     const searchParams = useSearchParams();
     const { toast } = useToast();
 
@@ -361,6 +363,7 @@ export default function RegisterTelecomPage() {
                 }
                 throw new Error(result.error);
             }
+            await refreshUser();
             setStep(TOTAL_STEPS);
         } catch (e: any) { toast({ title: 'Error de registro', description: e.message, variant: 'destructive' }); }
         finally { setIsLoading(false); submittingRef.current = false; }
@@ -771,7 +774,7 @@ export default function RegisterTelecomPage() {
                                     {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
                                     {tipoCliente === 'empresarial' && <p className="text-muted-foreground">✓ Flota Empresarial</p>}
                                 </div>
-                                <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { router.push('/'); }}>
+                                <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { window.location.href = '/es/dashboard-empresa'; }}>
                                     Ir a Mis Líneas<ArrowRight className="ml-2 h-4 w-4"/>
                                 </Button>
                             </div>
