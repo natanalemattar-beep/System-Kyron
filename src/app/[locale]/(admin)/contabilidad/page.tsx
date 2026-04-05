@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Link } from "@/navigation";
@@ -135,6 +135,8 @@ export default function ContabilidadPage() {
   const [showAI, setShowAI] = useState(false);
   const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiStreaming, setAiStreaming] = useState(false);
+  const aiAbortRef = useMemo(() => ({ current: null as AbortController | null }), []);
   const [kpi, setKpi] = useState<DashboardKPI | null>(null);
   const [kpiLoading, setKpiLoading] = useState(true);
 
@@ -157,29 +159,76 @@ export default function ContabilidadPage() {
   }, []);
 
   const handleAIAnalysis = useCallback(async () => {
+    if (aiAbortRef.current) aiAbortRef.current.abort();
+    const abort = new AbortController();
+    aiAbortRef.current = abort;
+
     setShowAI(true);
     setAiLoading(true);
-    setAiAnalysis(null);
+    setAiStreaming(false);
+    setAiAnalysis("");
     try {
       const res = await fetch("/api/ai/analyze-dashboard", {
         method: "POST",
+        signal: abort.signal,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          module: "Contabilidad VEN-NIF",
+          module: "Centro Contable — VEN-NIF",
+          stream: true,
           data: kpi ?? {},
-          context: "Dashboard contable empresarial Venezuela. Normas VEN-NIF. Fecha: " + new Date().toLocaleDateString("es-VE"),
+          context: "Dashboard contable empresarial Venezuela. Normas VEN-NIF, SENIAT, retenciones ISLR/IVA. Fecha: " + new Date().toLocaleDateString("es-VE"),
         }),
       });
-      const json = await res.json();
-      if (res.ok) setAiAnalysis(json.analysis);
-      else { toast({ title: "Error", description: json.error, variant: "destructive" }); setShowAI(false); }
-    } catch {
-      toast({ title: "Error de conexión", variant: "destructive" });
-      setShowAI(false);
+
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({ error: "Error del servidor" }));
+        toast({ title: "Error", description: json.error, variant: "destructive" });
+        setShowAI(false);
+        setAiLoading(false);
+        return;
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) { setAiLoading(false); return; }
+
+      setAiStreaming(true); setAiLoading(false);
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let fullText = "";
+
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              try {
+                const parsed = JSON.parse(line.slice(6));
+                if (parsed.text) {
+                  fullText += parsed.text;
+                  setAiAnalysis(fullText);
+                }
+              } catch {}
+            }
+          }
+        }
+      } finally {
+        setAiStreaming(false);
+      }
+      if (!fullText) setAiAnalysis("No se pudo generar el análisis. Intente nuevamente.");
+    } catch (err) {
+      if ((err as Error)?.name !== "AbortError") {
+        toast({ title: "Error de conexión", variant: "destructive" });
+        setShowAI(false);
+      }
     } finally {
-      setAiLoading(false);
+      setAiLoading(false); setAiStreaming(false);
     }
-  }, [toast, kpi]);
+  }, [toast, kpi, aiAbortRef]);
 
   const runForensicAudit = async () => {
     setIsAuditing(true);
@@ -388,27 +437,51 @@ export default function ContabilidadPage() {
       </section>
 
       <Dialog open={showAI} onOpenChange={setShowAI}>
-        <DialogContent className="max-w-2xl rounded-2xl">
+        <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-3 text-lg font-black uppercase">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Análisis IA — Contabilidad
+            <DialogTitle className="text-sm font-bold flex items-center gap-2">
+              <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
+                <Sparkles className="h-3.5 w-3.5 text-white" />
+              </div>
+              <div>
+                <span>KYRON Analytics — Contabilidad</span>
+                <p className="text-[9px] font-normal text-muted-foreground/50 mt-0.5">Análisis contable VEN-NIF en tiempo real</p>
+              </div>
             </DialogTitle>
           </DialogHeader>
-          <div className="py-4">
-            {aiLoading ? (
+          <div className="flex-1 overflow-y-auto py-2 min-h-0">
+            {aiLoading && !aiAnalysis ? (
               <div className="flex items-center justify-center py-12 gap-3 text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin" />
-                <span className="text-sm font-bold uppercase tracking-widest">Analizando datos...</span>
+                <span className="text-sm font-medium">Procesando análisis contable...</span>
               </div>
             ) : aiAnalysis ? (
-              <MarkdownRenderer content={aiAnalysis} />
+              <div className="space-y-3">
+                <div className="p-5 bg-gradient-to-br from-cyan-500/[0.02] to-blue-500/[0.02] rounded-xl border border-cyan-500/8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                    <span className="text-[9px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Ejecutivo</span>
+                    {aiStreaming && <span className="text-[9px] text-muted-foreground/40 animate-pulse ml-auto">● Generando...</span>}
+                  </div>
+                  <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-sm prose-headings:font-bold prose-p:text-xs prose-p:leading-relaxed prose-li:text-xs prose-li:leading-relaxed prose-strong:text-foreground">
+                    <MarkdownRenderer content={aiAnalysis} />
+                  </div>
+                </div>
+                {!aiLoading && !aiStreaming && (
+                  <p className="text-[9px] text-muted-foreground/30 px-1">Powered by KYRON AI</p>
+                )}
+              </div>
             ) : (
               <p className="text-muted-foreground text-sm text-center py-8">No se pudo generar el análisis.</p>
             )}
           </div>
-          <DialogFooter>
-            <Button variant="outline" className="rounded-xl" onClick={() => setShowAI(false)}>Cerrar</Button>
+          <DialogFooter className="flex-row gap-2">
+            {(aiAnalysis && !aiLoading && !aiStreaming) && (
+              <Button variant="outline" onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming} className="rounded-xl text-xs h-8 mr-auto">
+                <RefreshCw className="mr-1.5 h-3 w-3" /> Regenerar
+              </Button>
+            )}
+            <Button variant="outline" className="rounded-xl text-xs h-8" onClick={() => setShowAI(false)}>Cerrar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
