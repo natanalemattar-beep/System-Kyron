@@ -111,7 +111,7 @@ export function buildKyronEmailTemplate(content: { title: string; body: string; 
           </div>
           ${content.magicLink ? `
           <div style="text-align: center; margin-bottom: 24px;">
-            <a href="${content.magicLink}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #0EA5E9, #22C55E); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 16px 40px; border-radius: 12px;">
+            <a href="${content.magicLink}" style="display: inline-block; background: linear-gradient(135deg, #0EA5E9, #22C55E); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 16px 40px; border-radius: 12px;">
               Verificar mi identidad
             </a>
             <p style="color: #475569; font-size: 11px; margin: 12px 0 0 0;">Haz clic en el botón o usa el código de abajo</p>
