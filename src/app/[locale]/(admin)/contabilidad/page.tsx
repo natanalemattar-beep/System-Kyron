@@ -15,6 +15,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -401,7 +402,7 @@ export default function ContabilidadPage() {
                 <span className="text-sm font-bold uppercase tracking-widest">Analizando datos...</span>
               </div>
             ) : aiAnalysis ? (
-              <div className="prose prose-sm max-w-none text-foreground whitespace-pre-wrap">{aiAnalysis}</div>
+              <MarkdownRenderer content={aiAnalysis} />
             ) : (
               <p className="text-muted-foreground text-sm text-center py-8">No se pudo generar el análisis.</p>
             )}

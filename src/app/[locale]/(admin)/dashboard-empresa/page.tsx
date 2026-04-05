@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -806,7 +807,7 @@ export default function DashboardEmpresaPage() {
               <div className="space-y-3">
                 <div className="p-4 bg-cyan-500/[0.03] rounded-xl border border-cyan-500/8">
                   <div className="flex items-center gap-2 mb-2"><Sparkles className="h-3.5 w-3.5 text-cyan-400" /><span className="text-[9px] font-semibold uppercase tracking-wider text-cyan-400">Análisis Generado</span></div>
-                  <div className="text-sm text-foreground/70 leading-relaxed whitespace-pre-wrap">{aiAnalysis}</div>
+                  <MarkdownRenderer content={aiAnalysis} />
                 </div>
                 <p className="text-[9px] text-muted-foreground/30 flex items-center gap-1.5"><CheckCircle className="h-3 w-3" /> Datos en tiempo real · {clientDateStr ?? ""}</p>
               </div>
