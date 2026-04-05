@@ -109,8 +109,38 @@ function renderMarkdown(text: string) {
   return <div className="space-y-0.5">{elements}</div>;
 }
 
+const PERSONAL_CHAT_KEY = 'kyron-personal-chat-history';
+const PERSONAL_CHAT_MAX = 50;
+
+function isValidMessage(m: unknown): m is Message {
+  return typeof m === 'object' && m !== null &&
+    ('role' in m) && (m as Message).role !== undefined &&
+    ((m as Message).role === 'user' || (m as Message).role === 'assistant') &&
+    ('content' in m) && typeof (m as Message).content === 'string';
+}
+
+function loadPersonalChat(): Message[] {
+  try {
+    const stored = localStorage.getItem(PERSONAL_CHAT_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed.filter(isValidMessage).slice(-PERSONAL_CHAT_MAX);
+    }
+  } catch {}
+  return [];
+}
+
+function savePersonalChat(messages: Message[]) {
+  try {
+    localStorage.setItem(PERSONAL_CHAT_KEY, JSON.stringify(messages.slice(-PERSONAL_CHAT_MAX)));
+  } catch {}
+}
+
 export default function KyronChatPersonalPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return loadPersonalChat();
+  });
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState('');
@@ -118,6 +148,12 @@ export default function KyronChatPersonalPage() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      savePersonalChat(messages);
+    }
+  }, [messages]);
 
   useEffect(() => {
     const el = chatContainerRef.current;
@@ -253,6 +289,7 @@ export default function KyronChatPersonalPage() {
     if (isStreaming) stopStreaming();
     setMessages([]);
     setStreamingText('');
+    try { localStorage.removeItem(PERSONAL_CHAT_KEY); } catch {}
   };
 
   const hasMessages = messages.length > 0 || isStreaming;

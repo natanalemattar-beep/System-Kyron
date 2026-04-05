@@ -172,8 +172,38 @@ function renderMarkdown(text: string) {
   return <div className="space-y-0.5">{elements}</div>;
 }
 
+const FULLCHAT_STORAGE_KEY = 'kyron-fullchat-history';
+const FULLCHAT_MAX_STORED = 50;
+
+function isValidMessage(m: unknown): m is Message {
+  return typeof m === 'object' && m !== null &&
+    ('role' in m) && (m as Message).role !== undefined &&
+    ((m as Message).role === 'user' || (m as Message).role === 'assistant') &&
+    ('content' in m) && typeof (m as Message).content === 'string';
+}
+
+function loadFullChatHistory(): Message[] {
+  try {
+    const stored = localStorage.getItem(FULLCHAT_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed.filter(isValidMessage).slice(-FULLCHAT_MAX_STORED);
+    }
+  } catch {}
+  return [];
+}
+
+function saveFullChatHistory(messages: Message[]) {
+  try {
+    localStorage.setItem(FULLCHAT_STORAGE_KEY, JSON.stringify(messages.slice(-FULLCHAT_MAX_STORED)));
+  } catch {}
+}
+
 export default function KyronChatPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return loadFullChatHistory();
+  });
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState('');
@@ -185,6 +215,12 @@ export default function KyronChatPage() {
 
   const identity = IDENTITIES.find(i => i.key === selectedIdentity) || IDENTITIES[0];
   const IconComponent = identity.icon;
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      saveFullChatHistory(messages);
+    }
+  }, [messages]);
 
   useEffect(() => {
     const el = chatContainerRef.current;
@@ -320,6 +356,7 @@ export default function KyronChatPage() {
     if (isStreaming) stopStreaming();
     setMessages([]);
     setStreamingText('');
+    try { localStorage.removeItem(FULLCHAT_STORAGE_KEY); } catch {}
   };
 
   const hasMessages = messages.length > 0 || isStreaming;
@@ -364,6 +401,7 @@ export default function KyronChatPage() {
                       setSelectedIdentity(id.key);
                       setMessages([]);
                       setStreamingText('');
+                      try { localStorage.removeItem(FULLCHAT_STORAGE_KEY); } catch {}
                     }
                   }}
                   className={cn(

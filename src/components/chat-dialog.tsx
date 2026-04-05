@@ -190,8 +190,38 @@ const QUICK_PROMPTS = [
   "¿Cómo funciona el IGTF?",
 ];
 
+const CHAT_STORAGE_KEY = 'kyron-chat-history';
+const CHAT_MAX_STORED = 50;
+
+function isValidMessage(m: unknown): m is Message {
+  return typeof m === 'object' && m !== null &&
+    ('role' in m) && (m as Message).role !== undefined &&
+    ((m as Message).role === 'user' || (m as Message).role === 'assistant') &&
+    ('content' in m) && typeof (m as Message).content === 'string';
+}
+
+function loadChatHistory(): Message[] {
+  try {
+    const stored = localStorage.getItem(CHAT_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed.filter(isValidMessage).slice(-CHAT_MAX_STORED);
+    }
+  } catch {}
+  return [];
+}
+
+function saveChatHistory(messages: Message[]) {
+  try {
+    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-CHAT_MAX_STORED)));
+  } catch {}
+}
+
 export function ChatDialog() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === 'undefined') return [];
+    return loadChatHistory();
+  });
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState('');
@@ -202,6 +232,12 @@ export function ChatDialog() {
 
   const identity = getAIIdentity(pathname || "");
   const IconComponent = identity.icon;
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      saveChatHistory(messages);
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -313,6 +349,7 @@ export function ChatDialog() {
     if (isStreaming) stopStreaming();
     setMessages([]);
     setStreamingText('');
+    try { localStorage.removeItem(CHAT_STORAGE_KEY); } catch {}
   };
 
   const hasMessages = messages.length > 0 || isStreaming;
