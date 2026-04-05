@@ -47,8 +47,8 @@ export default function VerifyLinkPage() {
         await refreshUser();
 
         const redirectPath = json.user?.tipo === 'juridico'
-          ? '/es/dashboard-empresa'
-          : '/es/dashboard';
+          ? `/${locale}/dashboard-empresa`
+          : `/${locale}/dashboard`;
 
         setTimeout(() => { window.location.href = redirectPath; }, 2000);
       } catch {
@@ -128,7 +128,7 @@ export default function VerifyLinkPage() {
               Tu correo ha sido verificado exitosamente. Puedes cerrar esta pestaña y continuar con tu registro.
             </p>
             <Button
-              onClick={() => router.push(`/${locale}/register`)}
+              onClick={() => { window.location.href = `/${locale}/register`; }}
               className="rounded-xl font-bold text-xs uppercase tracking-widest"
             >
               Ir al registro
@@ -147,7 +147,7 @@ export default function VerifyLinkPage() {
             </h1>
             <p className="text-sm text-muted-foreground">{errorMsg}</p>
             <Button
-              onClick={() => router.push('/')}
+              onClick={() => { window.location.href = `/${locale}`; }}
               className="rounded-xl font-bold text-xs uppercase tracking-widest"
             >
               Volver al inicio
