@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleAutomation } from "@/components/module-automation";
 import { ImportMovimientos } from "@/components/import-movimientos";
+import { BankConnect } from "@/components/bank-connect";
 
 interface CuentaBancaria {
   id: number;
@@ -199,6 +200,10 @@ export default function ConciliacionBancariaPage() {
             <p className="text-sm text-muted-foreground mt-1">Sincronización de cuentas bancarias · Control de movimientos</p>
           </div>
           <div className="flex gap-2 flex-wrap">
+            <BankConnect
+              cuentas={cuentas.map(c => ({ id: c.id, banco: c.banco, cuenta: c.cuenta }))}
+              onSyncComplete={loadData}
+            />
             <ImportMovimientos
               cuentas={cuentas.map(c => ({ id: c.id, banco: c.banco, cuenta: c.cuenta }))}
               onImportComplete={loadData}
