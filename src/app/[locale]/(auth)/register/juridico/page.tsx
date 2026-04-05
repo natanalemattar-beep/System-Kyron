@@ -398,6 +398,11 @@ export default function RegisterJuridicoPage() {
 
       const json = await res.json();
       if (!res.ok) {
+        if (res.status === 409) {
+          toast({ title: 'Cuenta existente', description: 'Ya existe una cuenta con ese correo. Serás redirigido al inicio de sesión.', variant: 'destructive' });
+          setTimeout(() => router.push('/login-empresa'), 2000);
+          return;
+        }
         toast({ title: 'Error al registrarse', description: json.error, variant: 'destructive' });
         return;
       }

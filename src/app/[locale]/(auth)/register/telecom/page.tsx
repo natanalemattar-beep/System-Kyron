@@ -353,7 +353,14 @@ export default function RegisterTelecomPage() {
                 body: JSON.stringify(bodyWithDocs),
             });
             const result = await res.json();
-            if (!res.ok) throw new Error(result.error);
+            if (!res.ok) {
+                if (res.status === 409) {
+                    toast({ title: 'Cuenta existente', description: 'Ya existe una cuenta con ese correo. Serás redirigido al inicio de sesión.', variant: 'destructive' });
+                    setTimeout(() => router.push('/login-empresa'), 2000);
+                    return;
+                }
+                throw new Error(result.error);
+            }
             setStep(TOTAL_STEPS);
         } catch (e: any) { toast({ title: 'Error de registro', description: e.message, variant: 'destructive' }); }
         finally { setIsLoading(false); submittingRef.current = false; }

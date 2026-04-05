@@ -53,6 +53,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
     if (!user) {
       setChecked(true);
       setAuthorized(false);
+      router.replace('/login');
       return;
     }
 
