@@ -58,6 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png" />
         <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
