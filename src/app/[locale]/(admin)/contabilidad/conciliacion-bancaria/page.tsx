@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { RefreshCw, Building2, Banknote, TrendingUp, Clock, Loader2, Inbox, AlertTriangle, Plus, Trash2, Pencil } from "lucide-react";
+import { RefreshCw, Building2, Banknote, TrendingUp, Clock, Loader2, Inbox, AlertTriangle, Plus, Trash2, Pencil, Upload } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleAutomation } from "@/components/module-automation";
+import { ImportMovimientos } from "@/components/import-movimientos";
 
 interface CuentaBancaria {
   id: number;
@@ -197,7 +198,11 @@ export default function ConciliacionBancariaPage() {
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Sincronización de cuentas bancarias · Control de movimientos</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            <ImportMovimientos
+              cuentas={cuentas.map(c => ({ id: c.id, banco: c.banco, cuenta: c.cuenta }))}
+              onImportComplete={loadData}
+            />
             <Button variant="outline" onClick={() => { if (showForm) resetForm(); else setShowForm(true); }} className="rounded-xl">
               <Plus className="mr-2 h-4 w-4" /> Nueva Cuenta
             </Button>
