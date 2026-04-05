@@ -66,15 +66,11 @@ registerAction('bcv_sync', async () => {
 });
 
 registerAction('fiscal_alerts', async () => {
-  const { verificarAlertasPredictivas } = await import('@/lib/alertas-predictivas');
-  const alertas = await verificarAlertasPredictivas();
-  return `${alertas.length} alerta(s) fiscal(es) verificada(s) — SENIAT, IVSS, INCES, BANAVIH, INPSASEL, SUNDDE, SUNAGRO, SENCAMER, municipales`;
+  return 'Alertas fiscales: solo notificaciones in-app (sin envío automático de correo)';
 });
 
 registerAction('regulatory_alerts', async () => {
-  const { verificarAlertasRegulatorias } = await import('@/lib/alertas-regulatorias');
-  const alertasGeneradas = await verificarAlertasRegulatorias();
-  return `${alertasGeneradas} alerta(s) regulatoria(s) generada(s) — Gacetas Oficiales y cambios Asamblea Nacional`;
+  return 'Monitor regulatorio: datos de referencia disponibles en la app (sin envío automático)';
 });
 
 registerAction('db_health_check', async () => {

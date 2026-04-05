@@ -4,7 +4,7 @@ import { ModuleTutorial } from "@/components/module-tutorial";
 import { moduleTutorials } from "@/lib/module-tutorials";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, BarChart3, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck } from "lucide-react";
+import { FileText, ArrowRight, TabletSmartphone, CreditCard, Receipt, FilePlus, FileMinus, ShieldAlert, CircleCheck as CheckCircle, Loader as Loader2, Activity, TrendingUp, DollarSign, FileCheck, AlertTriangle, BarChart3, Users, Wallet, Zap, Shield, Clock, ArrowUpRight, Sparkles, ChevronRight, BadgeCheck, Inbox } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -23,7 +23,6 @@ const facturacionModules = [
         color: "text-blue-500",
         bgColor: "bg-blue-500/10 border-blue-500/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]",
-        stat: "2,847 ops",
     },
     {
         title: "Facturación a Crédito",
@@ -33,7 +32,6 @@ const facturacionModules = [
         color: "text-emerald-500",
         bgColor: "bg-emerald-500/10 border-emerald-500/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.3)]",
-        stat: "156 activas",
     },
     {
         title: "Facturas Proforma",
@@ -43,7 +41,6 @@ const facturacionModules = [
         color: "text-violet-500",
         bgColor: "bg-violet-500/10 border-violet-500/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(139,92,246,0.3)]",
-        stat: "45 este mes",
     },
     {
         title: "Modelo de Factura SENIAT",
@@ -53,7 +50,6 @@ const facturacionModules = [
         color: "text-primary",
         bgColor: "bg-primary/10 border-primary/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(14,165,233,0.3)]",
-        stat: "Homologado",
     },
     {
         title: "Nota de Débito",
@@ -63,7 +59,6 @@ const facturacionModules = [
         color: "text-amber-500",
         bgColor: "bg-amber-500/10 border-amber-500/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.3)]",
-        stat: "12 emitidas",
     },
     {
         title: "Nota de Crédito",
@@ -73,44 +68,55 @@ const facturacionModules = [
         color: "text-rose-500",
         bgColor: "bg-rose-500/10 border-rose-500/15",
         glowColor: "group-hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]",
-        stat: "8 procesadas",
     },
 ];
 
-const recentActivity = [
-    { doc: "Factura #0089", client: "Inversiones Bolívar C.A.", amount: 50000, status: "Pagada", date: "28/03/2026", type: "factura" },
-    { doc: "Factura #0088", client: "Tech Solutions VE", amount: 139200, status: "Pendiente", date: "27/03/2026", type: "factura" },
-    { doc: "N/C #0012", client: "Servicios Delta S.R.L.", amount: -18000, status: "Procesada", date: "26/03/2026", type: "nota_credito" },
-    { doc: "Proforma #0045", client: "Constructora Norte C.A.", amount: 356000, status: "Enviada", date: "25/03/2026", type: "proforma" },
-    { doc: "Factura #0087", client: "Logística Express C.A.", amount: 84000, status: "Pagada", date: "24/03/2026", type: "factura" },
-    { doc: "N/D #0005", client: "Importadora Central", amount: 12800, status: "Emitida", date: "23/03/2026", type: "nota_debito" },
-];
+interface KpiData {
+  facturadoMes: number;
+  documentosEmitidos: number;
+  porCobrar: number;
+  clientesActivos: number;
+}
 
-function AnimatedCounter({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const duration = 1500;
-    const steps = 40;
-    const increment = value / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-    return () => clearInterval(timer);
-  }, [value]);
-  return <span>{prefix}{count.toLocaleString('es-VE')}{suffix}</span>;
+interface RecentDoc {
+  doc: string;
+  client: string;
+  amount: number;
+  status: string;
+  date: string;
+  type: string;
+}
+
+interface BottomStats {
+  tasaBcv: string;
+  proximaDeclaracion: string;
+  estadoFiscal: string;
 }
 
 export default function FacturacionPage() {
   const { toast } = useToast();
   const { format: fmtCur } = useCurrency();
   const [isCorrecting, setIsCorrecting] = useState(false);
+  const [kpis, setKpis] = useState<KpiData>({ facturadoMes: 0, documentosEmitidos: 0, porCobrar: 0, clientesActivos: 0 });
+  const [recentActivity, setRecentActivity] = useState<RecentDoc[]>([]);
+  const [bottomStats, setBottomStats] = useState<BottomStats>({ tasaBcv: "—", proximaDeclaracion: "—", estadoFiscal: "—" });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch("/api/facturacion/stats");
+        if (res.ok) {
+          const data = await res.json();
+          setKpis(data.kpis || { facturadoMes: 0, documentosEmitidos: 0, porCobrar: 0, clientesActivos: 0 });
+          setRecentActivity(data.recentActivity || []);
+          setBottomStats(data.bottomStats || { tasaBcv: "—", proximaDeclaracion: "—", estadoFiscal: "—" });
+        }
+      } catch { /* silent */ }
+      setLoading(false);
+    };
+    load();
+  }, []);
 
   const handleAutoCorrect = async () => {
     setIsCorrecting(true);
@@ -131,6 +137,13 @@ export default function FacturacionPage() {
       setIsCorrecting(false);
     }
   };
+
+  const kpiItems = [
+    { label: "Facturado Este Mes", val: kpis.facturadoMes, isCurrency: true, icon: DollarSign, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
+    { label: "Documentos Emitidos", val: kpis.documentosEmitidos, isCurrency: false, icon: FileCheck, color: "text-blue-500", glow: "shadow-blue-500/20" },
+    { label: "Cuentas por Cobrar", val: kpis.porCobrar, isCurrency: true, icon: Wallet, color: "text-amber-500", glow: "shadow-amber-500/20" },
+    { label: "Clientes Activos", val: kpis.clientesActivos, isCurrency: false, icon: Users, color: "text-violet-500", glow: "shadow-violet-500/20" },
+  ];
 
   return (
     <div className="space-y-8 pb-20 relative">
@@ -163,7 +176,7 @@ export default function FacturacionPage() {
               Centro de{' '}
               <span className="bg-gradient-to-r from-primary via-blue-400 to-cyan-400 bg-clip-text text-transparent italic">Facturación</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Ciclo de Vida Documental • Control de Ingresos 2026</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mt-2">Ciclo de Vida Documental • Control de Ingresos</p>
           </div>
           <motion.div
             className="flex items-center gap-3"
@@ -185,12 +198,7 @@ export default function FacturacionPage() {
       </div>
 
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        {[
-          { label: "Facturado Este Mes", val: 994000, isCurrency: true, change: "+12.4%", up: true, icon: DollarSign, color: "text-emerald-500", glow: "shadow-emerald-500/20" },
-          { label: "Documentos Emitidos", val: 89, change: "+8 hoy", up: true, icon: FileCheck, color: "text-blue-500", glow: "shadow-blue-500/20" },
-          { label: "Cuentas por Cobrar", val: 249200, isCurrency: true, change: "14 pendientes", up: false, icon: Wallet, color: "text-amber-500", glow: "shadow-amber-500/20" },
-          { label: "Clientes Activos", val: 156, change: "+3 nuevos", up: true, icon: Users, color: "text-violet-500", glow: "shadow-violet-500/20" },
-        ].map((kpi, i) => (
+        {kpiItems.map((kpi, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
@@ -214,16 +222,8 @@ export default function FacturacionPage() {
                 </div>
               </div>
               <p className="text-3xl font-black text-foreground tracking-tight">
-                {kpi.isCurrency ? fmtCur(kpi.val) : <AnimatedCounter value={kpi.val} />}
+                {loading ? <span className="text-muted-foreground/30">—</span> : kpi.isCurrency ? fmtCur(kpi.val) : kpi.val.toLocaleString('es-VE')}
               </p>
-              <div className="flex items-center gap-2 mt-2">
-                <div className={cn("flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold",
-                  kpi.up ? "bg-emerald-500/10 text-emerald-500" : "bg-amber-500/10 text-amber-500"
-                )}>
-                  <TrendingUp className={cn("h-2.5 w-2.5", !kpi.up && "rotate-180")} />
-                  {kpi.change}
-                </div>
-              </div>
             </Card>
           </motion.div>
         ))}
@@ -247,10 +247,6 @@ export default function FacturacionPage() {
             </div>
           </div>
           <div className="flex items-center gap-3 ml-auto">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-              <BadgeCheck className="h-3.5 w-3.5 text-emerald-500" />
-              <span className="text-[9px] font-black text-emerald-500 uppercase tracking-wider">100% Compliant</span>
-            </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
               <Shield className="h-3.5 w-3.5 text-primary" />
               <span className="text-[9px] font-black text-primary uppercase tracking-wider">SHA-256</span>
@@ -278,9 +274,6 @@ export default function FacturacionPage() {
                     <div className={cn("p-3 rounded-xl border w-fit transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3", module.bgColor)}>
                       <module.icon className={cn("h-5 w-5", module.color)} />
                     </div>
-                    <span className={cn("text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border opacity-60 group-hover:opacity-100 transition-opacity", module.bgColor, module.color)}>
-                      {module.stat}
-                    </span>
                   </div>
                   <div>
                     <CardTitle className="text-sm font-black uppercase tracking-tight text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{module.title}</CardTitle>
@@ -315,7 +308,7 @@ export default function FacturacionPage() {
                   <Clock className="h-3.5 w-3.5 text-primary" />
                   Actividad Reciente
                 </CardTitle>
-                <CardDescription className="text-[10px] mt-1">Últimos documentos fiscales procesados — actualizado en tiempo real</CardDescription>
+                <CardDescription className="text-[10px] mt-1">Últimos documentos fiscales procesados</CardDescription>
               </div>
               <Button variant="outline" size="sm" className="rounded-xl text-[10px] font-bold uppercase tracking-wider h-9 hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all">
                 <BarChart3 className="mr-2 h-3.5 w-3.5" /> Ver Reportes
@@ -323,56 +316,70 @@ export default function FacturacionPage() {
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="divide-y divide-border/20">
-              {recentActivity.map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/20 transition-all group/row cursor-pointer"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i + 0.7 }}
-                >
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className={cn(
-                      "p-2.5 rounded-xl border shrink-0 transition-all duration-300 group-hover/row:scale-110",
-                      item.type === "factura" ? "bg-primary/8 border-primary/10" :
-                      item.type === "nota_credito" ? "bg-rose-500/8 border-rose-500/10" :
-                      item.type === "nota_debito" ? "bg-amber-500/8 border-amber-500/10" :
-                      "bg-violet-500/8 border-violet-500/10"
-                    )}>
-                      <FileText className={cn(
-                        "h-4 w-4",
-                        item.type === "factura" ? "text-primary" :
-                        item.type === "nota_credito" ? "text-rose-500" :
-                        item.type === "nota_debito" ? "text-amber-500" :
-                        "text-violet-500"
-                      )} />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-foreground truncate group-hover/row:text-primary transition-colors">{item.doc}</p>
-                      <p className="text-[10px] text-muted-foreground truncate">{item.client}</p>
-                    </div>
-                  </div>
-                  <div className="text-right shrink-0 flex items-center gap-4">
-                    <div>
-                      <p className={cn("text-sm font-black tabular-nums", item.amount < 0 ? "text-rose-500" : "text-foreground")}>{item.amount < 0 ? '-' : ''}{fmtCur(Math.abs(item.amount))}</p>
-                      <div className="flex items-center gap-2 justify-end mt-0.5">
-                        <span className={cn(
-                          "text-[9px] font-bold uppercase px-2 py-0.5 rounded-md",
-                          item.status === "Pagada" ? "bg-emerald-500/10 text-emerald-500" :
-                          item.status === "Pendiente" ? "bg-amber-500/10 text-amber-500" :
-                          item.status === "Procesada" ? "bg-blue-500/10 text-blue-500" :
-                          item.status === "Emitida" ? "bg-cyan-500/10 text-cyan-500" :
-                          "bg-violet-500/10 text-violet-500"
-                        )}>{item.status}</span>
-                        <span className="text-[9px] text-muted-foreground/40">{item.date}</span>
+            {loading ? (
+              <div className="flex items-center justify-center py-16">
+                <Loader2 className="animate-spin h-5 w-5 text-muted-foreground/40" />
+              </div>
+            ) : recentActivity.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="p-4 rounded-2xl bg-muted/30 border border-border/30">
+                  <Inbox className="h-8 w-8 text-muted-foreground/30" />
+                </div>
+                <p className="text-xs font-bold text-muted-foreground/40 uppercase tracking-wider">Sin documentos recientes</p>
+                <p className="text-[10px] text-muted-foreground/30">Los documentos aparecerán aquí conforme se emitan</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-border/20">
+                {recentActivity.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    className="px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/20 transition-all group/row cursor-pointer"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i + 0.7 }}
+                  >
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <div className={cn(
+                        "p-2.5 rounded-xl border shrink-0 transition-all duration-300 group-hover/row:scale-110",
+                        item.type === "factura" ? "bg-primary/8 border-primary/10" :
+                        item.type === "nota_credito" ? "bg-rose-500/8 border-rose-500/10" :
+                        item.type === "nota_debito" ? "bg-amber-500/8 border-amber-500/10" :
+                        "bg-violet-500/8 border-violet-500/10"
+                      )}>
+                        <FileText className={cn(
+                          "h-4 w-4",
+                          item.type === "factura" ? "text-primary" :
+                          item.type === "nota_credito" ? "text-rose-500" :
+                          item.type === "nota_debito" ? "text-amber-500" :
+                          "text-violet-500"
+                        )} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold text-foreground truncate group-hover/row:text-primary transition-colors">{item.doc}</p>
+                        <p className="text-[10px] text-muted-foreground truncate">{item.client}</p>
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover/row:text-primary group-hover/row:translate-x-1 transition-all" />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                    <div className="text-right shrink-0 flex items-center gap-4">
+                      <div>
+                        <p className={cn("text-sm font-black tabular-nums", item.amount < 0 ? "text-rose-500" : "text-foreground")}>{item.amount < 0 ? '-' : ''}{fmtCur(Math.abs(item.amount))}</p>
+                        <div className="flex items-center gap-2 justify-end mt-0.5">
+                          <span className={cn(
+                            "text-[9px] font-bold uppercase px-2 py-0.5 rounded-md",
+                            item.status === "Pagada" ? "bg-emerald-500/10 text-emerald-500" :
+                            item.status === "Pendiente" ? "bg-amber-500/10 text-amber-500" :
+                            item.status === "Procesada" ? "bg-blue-500/10 text-blue-500" :
+                            item.status === "Emitida" ? "bg-cyan-500/10 text-cyan-500" :
+                            "bg-violet-500/10 text-violet-500"
+                          )}>{item.status}</span>
+                          <span className="text-[9px] text-muted-foreground/40">{item.date}</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover/row:text-primary group-hover/row:translate-x-1 transition-all" />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </motion.div>
@@ -404,9 +411,9 @@ export default function FacturacionPage() {
         transition={{ delay: 0.9 }}
       >
         {[
-          { label: "Tasa BCV", value: "Bs. 40.00 / USD", icon: DollarSign, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15", desc: "Última actualización: hoy 09:00 AM" },
-          { label: "Próxima Declaración", value: "IVA — 15/04/2026", icon: Clock, color: "text-amber-500", bgColor: "bg-amber-500/10 border-amber-500/15", desc: "Formulario IVA 30 (quincenal)" },
-          { label: "Estado Fiscal", value: "Al Día", icon: BadgeCheck, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15", desc: "Sin observaciones pendientes" },
+          { label: "Tasa BCV", value: bottomStats.tasaBcv, icon: DollarSign, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15" },
+          { label: "Próxima Declaración", value: bottomStats.proximaDeclaracion, icon: Clock, color: "text-amber-500", bgColor: "bg-amber-500/10 border-amber-500/15" },
+          { label: "Estado Fiscal", value: bottomStats.estadoFiscal, icon: BadgeCheck, color: "text-emerald-500", bgColor: "bg-emerald-500/10 border-emerald-500/15" },
         ].map((info, i) => (
           <div key={i} className="flex items-start gap-4 p-5 rounded-2xl border bg-card/30 hover:bg-card/50 transition-all group">
             <div className={cn("p-2.5 rounded-xl border shrink-0 transition-transform group-hover:scale-110", info.bgColor)}>
@@ -415,7 +422,6 @@ export default function FacturacionPage() {
             <div>
               <p className="text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/40 mb-1">{info.label}</p>
               <p className="text-sm font-black text-foreground">{info.value}</p>
-              <p className="text-[10px] text-muted-foreground mt-0.5">{info.desc}</p>
             </div>
           </div>
         ))}

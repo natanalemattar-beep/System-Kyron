@@ -1,23 +1,48 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { Heart, Send, Printer, UserCheck, Star, Activity, Sparkles } from "lucide-react";
+import { Heart, Send, Star, Activity, Inbox, Loader as Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
-const frequentCustomers = [
-    { id: "CLI-001", name: "Tech Solutions LLC", totalPurchases: 65000, invoiceCount: 15, score: 98 },
-    { id: "CLI-002", name: "Innovate Corp", totalPurchases: 120000, invoiceCount: 8, score: 95 },
-    { id: "CLI-004", name: "Constructora XYZ", totalPurchases: 85000, invoiceCount: 22, score: 88 },
-];
+interface TopCliente {
+  id: string;
+  name: string;
+  totalPurchases: number;
+  invoiceCount: number;
+  score: number;
+}
+
+interface CarteraStats {
+  retencion: string;
+  churnRate: string;
+}
 
 export default function FidelizacionClientesPage() {
     const { toast } = useToast();
+    const [customers, setCustomers] = useState<TopCliente[]>([]);
+    const [stats, setStats] = useState<CarteraStats>({ retencion: "—", churnRate: "—" });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const load = async () => {
+        try {
+          const res = await fetch("/api/clientes/top");
+          if (res.ok) {
+            const data = await res.json();
+            setCustomers(data.customers || []);
+            setStats(data.stats || { retencion: "—", churnRate: "—" });
+          }
+        } catch { /* silent */ }
+        setLoading(false);
+      };
+      load();
+    }, []);
 
     return (
         <div className="space-y-12 pb-20">
@@ -26,7 +51,7 @@ export default function FidelizacionClientesPage() {
                     <Heart className="h-3 w-3" /> CENTRO DE LEALTAD
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Fidelización <span className="text-secondary italic">de Clientes</span></h1>
-                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Análisis de Retención • Customer Lifetime Value 2026</p>
+                <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Análisis de Retención • Customer Lifetime Value</p>
             </header>
 
             <div className="grid gap-10 lg:grid-cols-12">
@@ -37,9 +62,21 @@ export default function FidelizacionClientesPage() {
                                 <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Top Clientes Recurrentes</CardTitle>
                                 <CardDescription className="text-[9px] font-bold uppercase opacity-30 mt-1">Ranking por volumen y cumplimiento</CardDescription>
                             </div>
-                            <Button variant="ghost" className="text-secondary text-[9px] font-black uppercase tracking-widest hover:bg-secondary/10">Ver Histórico</Button>
                         </CardHeader>
                         <CardContent className="p-0">
+                          {loading ? (
+                            <div className="flex items-center justify-center py-20">
+                              <Loader2 className="animate-spin h-5 w-5 text-muted-foreground/40" />
+                            </div>
+                          ) : customers.length === 0 ? (
+                            <div className="flex flex-col items-center justify-center py-20 gap-3">
+                              <div className="p-4 rounded-2xl bg-muted/30 border border-border/30">
+                                <Inbox className="h-8 w-8 text-muted-foreground/30" />
+                              </div>
+                              <p className="text-xs font-bold text-muted-foreground/40 uppercase tracking-wider">Sin clientes registrados</p>
+                              <p className="text-[10px] text-muted-foreground/30">Los clientes aparecerán aquí conforme se registren facturas</p>
+                            </div>
+                          ) : (
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-muted/30 border-none">
@@ -51,7 +88,7 @@ export default function FidelizacionClientesPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {frequentCustomers.map(c => (
+                                    {customers.map(c => (
                                         <TableRow key={c.id} className="border-border/50 hover:bg-muted/20 transition-all group">
                                             <TableCell className="pl-10 py-6">
                                                 <p className="font-black text-xs text-foreground/80 uppercase italic">{c.name}</p>
@@ -71,6 +108,7 @@ export default function FidelizacionClientesPage() {
                                     ))}
                                 </TableBody>
                             </Table>
+                          )}
                         </CardContent>
                     </Card>
                 </div>
@@ -91,11 +129,11 @@ export default function FidelizacionClientesPage() {
                         <div className="space-y-6">
                             <div className="flex justify-between items-end border-b border-border pb-4">
                                 <span className="text-[9px] font-bold text-muted-foreground uppercase">Retención</span>
-                                <span className="text-xl font-black text-emerald-500 italic">92.4%</span>
+                                <span className="text-xl font-black text-emerald-500 italic">{stats.retencion}</span>
                             </div>
                             <div className="flex justify-between items-end">
                                 <span className="text-[9px] font-bold text-muted-foreground uppercase">Churn Rate</span>
-                                <span className="text-xl font-black text-rose-500 italic">1.2%</span>
+                                <span className="text-xl font-black text-rose-500 italic">{stats.churnRate}</span>
                             </div>
                         </div>
                     </Card>
