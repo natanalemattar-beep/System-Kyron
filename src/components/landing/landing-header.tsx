@@ -29,6 +29,7 @@ import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTheme } from "next-themes";
 import { useBannerVisible } from "@/components/demo-banner";
+import { motion, useMotionValueEvent, useScroll, useTransform, useSpring } from "framer-motion";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -39,15 +40,21 @@ export function LandingHeader() {
     const isDark = mounted && resolvedTheme === 'dark';
     const bannerVisible = useBannerVisible();
 
+    const { scrollY } = useScroll();
+    const headerBlur = useTransform(scrollY, [0, 60], [0, 20]);
+    const headerOpacity = useTransform(scrollY, [0, 40], [0, 1]);
+    const smoothBlur = useSpring(headerBlur, { stiffness: 200, damping: 30 });
+    const smoothOpacity = useSpring(headerOpacity, { stiffness: 200, damping: 30 });
+    const borderGlowOpacity = useTransform(scrollY, [10, 80], [0, 0.3]);
+    const smoothBorderGlow = useSpring(borderGlowOpacity, { stiffness: 150, damping: 25 });
+
     useEffect(() => {
         setMounted(true);
-        const onScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        setIsScrolled(latest > 20);
+    });
 
     const navItems = [
         { labelKey: 'home' as const, href: '#inicio' },
@@ -68,21 +75,38 @@ export function LandingHeader() {
     };
 
     return (
-        <header className={cn(
-            "fixed left-0 right-0 z-[150] transition-all duration-500 w-full",
-            bannerVisible ? "top-[36px]" : "top-0",
-            isScrolled
-                ? cn(
-                    "py-2.5",
-                    isDark
-                        ? "bg-[hsl(224,28%,8%)]/75 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.08),0_4px_16px_-8px_rgba(0,0,0,0.3)]"
-                        : "bg-background/80 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
-                  )
-                : "bg-transparent py-6 landing-hero-header"
-        )}>
-            {isScrolled && (
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <motion.header
+            initial={false}
+            animate={{
+                paddingTop: isScrolled ? 10 : 24,
+                paddingBottom: isScrolled ? 10 : 24,
+                top: bannerVisible ? 36 : 0,
+            }}
+            transition={{
+                paddingTop: { type: "spring", stiffness: 300, damping: 30 },
+                paddingBottom: { type: "spring", stiffness: 300, damping: 30 },
+                top: { type: "spring", stiffness: 200, damping: 28, mass: 0.8 },
+            }}
+            className={cn(
+                "fixed left-0 right-0 z-[150] w-full transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out",
+                isScrolled
+                    ? cn(
+                        isDark
+                            ? "bg-[hsl(224,28%,8%)]/75 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.08),0_4px_16px_-8px_rgba(0,0,0,0.3)]"
+                            : "bg-background/80 backdrop-blur-2xl shadow-[0_1px_20px_-4px_rgba(14,165,233,0.06),0_4px_16px_-8px_rgba(0,0,0,0.04)]"
+                      )
+                    : "bg-transparent shadow-none backdrop-blur-0 landing-hero-header"
             )}
+        >
+            <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{
+                    scaleX: isScrolled ? 1 : 0,
+                    opacity: isScrolled ? 1 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 25, delay: isScrolled ? 0.1 : 0 }}
+                className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent origin-center"
+            />
             <div className="container mx-auto px-5 md:px-10">
                 <div className="flex items-center justify-between h-11 w-full">
                     
@@ -269,6 +293,6 @@ export function LandingHeader() {
                     </div>
                 </div>
             </div>
-        </header>
+        </motion.header>
     )
 }
