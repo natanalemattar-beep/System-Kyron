@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import {
   Search, BarChart3, FileText, Users, Shield, Building2, Phone, Cpu, ShoppingCart,
@@ -152,6 +152,7 @@ export function GlobalSearch() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-[560px] p-0 rounded-2xl border-border/30 bg-background/95 backdrop-blur-xl shadow-2xl overflow-hidden gap-0">
+          <DialogTitle className="sr-only">Búsqueda global</DialogTitle>
           <div className="flex items-center gap-3 px-4 border-b border-border/30">
             <Search className="h-4 w-4 text-muted-foreground/50 shrink-0" />
             <Input
