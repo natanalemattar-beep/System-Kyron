@@ -36,7 +36,8 @@ export async function initializeDatabase(): Promise<void> {
     await createPerformanceOptimizations();
     await createMarketingTables();
     await createNewModulesTables();
-    console.log('[db-schema] Base de datos inicializada correctamente — v3.3.0');
+    await createCreditoComercioTables();
+    console.log('[db-schema] Base de datos inicializada correctamente — v3.4.0');
   } catch (err) {
     console.error('[db-schema] Error inicializando base de datos:', err);
     throw err;
@@ -3401,6 +3402,68 @@ async function createNewModulesTables(): Promise<void> {
     )
   `);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_cobros_user ON cobros(user_id)`);
+}
+
+async function createCreditoComercioTables(): Promise<void> {
+  await query(`
+    CREATE TABLE IF NOT EXISTS lineas_credito (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tipo TEXT NOT NULL DEFAULT 'recibida'
+        CHECK (tipo IN ('recibida', 'otorgada')),
+      entidad TEXT NOT NULL,
+      referencia TEXT,
+      monto_aprobado NUMERIC(18,2) NOT NULL DEFAULT 0,
+      monto_utilizado NUMERIC(18,2) NOT NULL DEFAULT 0,
+      moneda TEXT NOT NULL DEFAULT 'USD',
+      tasa_interes NUMERIC(6,3),
+      fecha_apertura DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_vencimiento DATE,
+      plazo_meses INTEGER,
+      estado TEXT NOT NULL DEFAULT 'activa'
+        CHECK (estado IN ('activa', 'suspendida', 'cerrada', 'vencida', 'en_mora')),
+      condiciones TEXT,
+      contacto TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_lineas_credito_user ON lineas_credito(user_id)`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS compras_internacionales (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      proveedor TEXT NOT NULL,
+      pais_origen TEXT NOT NULL,
+      descripcion TEXT NOT NULL,
+      referencia_orden TEXT,
+      monto NUMERIC(18,2) NOT NULL DEFAULT 0,
+      moneda TEXT NOT NULL DEFAULT 'USD',
+      tasa_cambio NUMERIC(18,4),
+      monto_bs NUMERIC(18,2),
+      flete NUMERIC(18,2) DEFAULT 0,
+      seguro NUMERIC(18,2) DEFAULT 0,
+      aranceles NUMERIC(18,2) DEFAULT 0,
+      iva_aduanero NUMERIC(18,2) DEFAULT 0,
+      costo_total NUMERIC(18,2) DEFAULT 0,
+      fecha_orden DATE NOT NULL DEFAULT CURRENT_DATE,
+      fecha_embarque DATE,
+      fecha_llegada DATE,
+      incoterm TEXT DEFAULT 'FOB',
+      estado TEXT NOT NULL DEFAULT 'pendiente'
+        CHECK (estado IN ('pendiente', 'en_transito', 'en_aduana', 'nacionalizada', 'entregada', 'cancelada')),
+      agente_aduanal TEXT,
+      numero_bl TEXT,
+      numero_dua TEXT,
+      notas TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_compras_intl_user ON compras_internacionales(user_id)`);
+  await safeQuery(`CREATE INDEX IF NOT EXISTS idx_compras_intl_pais ON compras_internacionales(pais_origen)`);
 }
 
 async function seedEmailAutomaticos(): Promise<void> {
