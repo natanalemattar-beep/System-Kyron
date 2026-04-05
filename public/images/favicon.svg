@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="hex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="arrow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14B8A6"/>
       <stop offset="100%" stop-color="#22C55E"/>
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
   <g transform="translate(256,256)">
-    <polygon points="0,-170 147.2,-85 147.2,85 0,170 -147.2,85 -147.2,-85" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="12"/>
-    <polyline points="40,-80 -60,0 40,80" fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="55" cy="-70" r="12" fill="#22C55E"/>
+    <polygon points="0,-180 155.9,-90 155.9,90 0,180 -155.9,90 -155.9,-90" fill="#0A1225" stroke="url(#hex)" stroke-width="10"/>
+    <polyline points="45,-85 -55,0 45,85" fill="none" stroke="url(#arrow)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="-55" cy="0" r="14" fill="white" stroke="#22C55E" stroke-width="4"/>
   </g>
 </svg>
