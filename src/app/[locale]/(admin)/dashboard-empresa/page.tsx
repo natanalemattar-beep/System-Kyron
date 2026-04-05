@@ -272,7 +272,7 @@ export default function DashboardEmpresaPage() {
             evolucionMensual: data.chartMensual,
             movimientosRecientes: data.movimientosRecientes?.slice(0, 8),
           },
-          context: `Empresa: ${user?.nombre ?? "N/A"}. Moneda de visualización: ${curConfig?.code ?? "VES"}. Fecha: ${clientDateStr ?? ""}. Hora: ${clientTimeStr ?? ""}.`,
+          context: `Empresa: ${user?.razon_social || user?.nombre || "N/A"}. Moneda de visualización: ${curConfig?.code ?? "VES"}. Fecha: ${clientDateStr ?? ""}. Hora: ${clientTimeStr ?? ""}.`,
         }),
       });
 
