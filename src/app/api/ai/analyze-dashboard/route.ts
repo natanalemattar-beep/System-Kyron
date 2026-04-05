@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
+import { sanitizeString } from '@/lib/input-sanitizer';
 import { openaiGenerateText } from '@/ai/openai';
 import { geminiGenerateText } from '@/ai/gemini';
 
@@ -28,27 +29,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Datos demasiado grandes para análisis' }, { status: 400 });
     }
 
+    const sanitizedModule = sanitizeString(module || 'Dashboard General', 200);
+    const sanitizedContext = context ? sanitizeString(context, 500) : '';
+
     const sysPrompt = `Eres el analista financiero y de negocios de System Kyron — la plataforma corporativa integral más avanzada de Venezuela.
 
 ANÁLISIS REQUERIDO:
 1. Un resumen ejecutivo en 2-3 líneas
 2. Los 3 puntos más críticos o destacados
-3. Recomendaciones accionables (indica la ruta del módulo relevante cuando sea posible, ej: "Revisa en /analisis-caja")
+3. Recomendaciones accionables (menciona el módulo relevante por nombre descriptivo, ej: "Revisa en el Centro de Análisis de Caja")
 4. Alertas o riesgos importantes
 
 CONTEXTO DE LA PLATAFORMA:
-- Módulos disponibles: /contabilidad, /facturacion, /inventario, /analisis, /analisis-caja, /analisis-ventas, /analisis-rentabilidad, /analisis-riesgo, /analisis-mercado, /cuentas-por-cobrar, /cuentas-por-pagar, /nominas, /declaracion-iva, /islr-arc
-- Las alertas críticas se envían automáticamente por email desde alertas_systemkyron@hotmail.com
-- La tasa BCV se actualiza en tiempo real desde el API
+- Módulos disponibles: Centro Contable, Facturación, Inventario, Análisis Financiero, Análisis de Caja, Análisis de Ventas, Análisis de Rentabilidad, Análisis de Riesgo, Análisis de Mercado, Cuentas por Cobrar, Cuentas por Pagar, Nóminas, Declaración IVA, Retenciones ISLR
+- Las alertas críticas se envían automáticamente por email
+- La tasa BCV se actualiza en tiempo real
 
 REGLAS:
 - Responde siempre en español, de forma concisa y profesional
+- Usa formato Markdown para organizar la respuesta (negritas, listas, encabezados)
 - Cita cifras específicas cuando estén disponibles
 - Considera el contexto económico venezolano (inflación, tipo de cambio BCV, normativa SENIAT)
-- Si detectas anomalías, sugiere los módulos específicos donde el usuario puede investigar más`;
+- Si detectas anomalías, sugiere los módulos específicos donde el usuario puede investigar más
+- NUNCA muestres rutas técnicas como /contabilidad — usa nombres descriptivos`;
 
-    const userPrompt = `Módulo: ${module || 'Dashboard General'}
-${context ? `Contexto adicional: ${context}` : ''}
+    const userPrompt = `Módulo: ${sanitizedModule}
+${sanitizedContext ? `Contexto adicional: ${sanitizedContext}` : ''}
 
 Datos del dashboard:
 ${dataStr}

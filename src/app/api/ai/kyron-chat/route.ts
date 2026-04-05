@@ -10,6 +10,13 @@ const RATE_LIMIT_MAP = new Map<number, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 30;
 const RATE_LIMIT_WINDOW = 60_000;
 
+if (RATE_LIMIT_MAP.size > 5000) {
+  const now = Date.now();
+  for (const [k, v] of RATE_LIMIT_MAP) {
+    if (now > v.resetAt) RATE_LIMIT_MAP.delete(k);
+  }
+}
+
 function checkRateLimit(userId: number): boolean {
   const now = Date.now();
   const entry = RATE_LIMIT_MAP.get(userId);

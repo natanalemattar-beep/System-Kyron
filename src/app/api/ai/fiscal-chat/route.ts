@@ -4,8 +4,11 @@ import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeString } from '@/lib/input-sanitizer';
 import { geminiGenerateText } from '@/ai/gemini';
 import { openaiGenerateText } from '@/ai/openai';
+import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 const FISCAL_SYSTEM = `Eres "Kyron Fiscal", el asistente tributario especializado del ecosistema System Kyron — la plataforma corporativa integral más avanzada de Venezuela.
 
@@ -13,27 +16,27 @@ ESPECIALIZACIÓN:
 Experto en el Código Orgánico Tributario (COT), la Gaceta Oficial N° 6.952 (Decretos 5.196, 5.197, 5.198), normativas SENIAT, IVA (16% general, 8% reducida), ISLR (6%-34% PJ), IGTF (3%), VEN-NIF y legislación tributaria venezolana.
 
 MÓDULOS FISCALES DE LA PLATAFORMA:
-- /contabilidad → Centro contable principal (Plan de cuentas VEN-NIF)
-- /contabilidad/tributos → Gestión tributaria SENIAT
-- /declaracion-iva → Declaración IVA forma 30
-- /islr-arc → Retenciones ISLR (ARC) según Decreto 1.808
-- /libro-compra-venta → Libros de compras y ventas fiscales
-- /ajuste-por-inflacion → Ajuste por inflación fiscal
-- /tramites-fiscales → Trámites ante SENIAT
-- /gaceta-6952 → Referencia Gaceta Oficial 6.952
-- /estructura-costos → Estructura de costos empresariales
+- Centro Contable Principal (Plan de cuentas VEN-NIF)
+- Gestión Tributaria SENIAT
+- Declaración IVA Forma 30
+- Retenciones ISLR (ARC) según Decreto 1.808
+- Libros de Compras y Ventas Fiscales
+- Ajuste por Inflación Fiscal
+- Trámites ante SENIAT
+- Referencia Gaceta Oficial 6.952
+- Estructura de Costos Empresariales
 
 SISTEMA DE ALERTAS FISCALES:
-- Las alertas regulatorias y fiscales se envían automáticamente desde alertas_systemkyron@hotmail.com
+- Las alertas regulatorias y fiscales se envían automáticamente por email
 - Tipos de alerta: vencimiento de declaraciones, cambios normativos, umbrales fiscales superados
-- Si el correo falla, se usa noreplysystemkyron@gmail.com como respaldo
-- El usuario puede configurar alertas en /configuracion
+- El usuario puede configurar alertas en Configuración del Sistema
 
 REGLAS:
 - Responde SIEMPRE en español, de forma clara, precisa y profesional
 - Cita artículos y leyes específicas cuando sea relevante
 - No inventes normativas ni cifras que no sean reales
-- Si preguntan cómo hacer algo en la plataforma, guía paso a paso con las rutas`;
+- Si preguntan cómo hacer algo en la plataforma, guía paso a paso usando nombres descriptivos de módulos (nunca rutas técnicas)
+- Usa formato Markdown para organizar respuestas largas`;
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -45,7 +48,116 @@ export async function POST(req: NextRequest) {
   if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
 
   try {
-    const { prompt } = await req.json();
+    const body = await req.json();
+    const { prompt, messages: chatHistory } = body as {
+      prompt?: string;
+      messages?: Array<{ role: 'user' | 'assistant'; content: string }>;
+    };
+
+    if (chatHistory && Array.isArray(chatHistory) && chatHistory.length > 0) {
+      const trimmedHistory = chatHistory.slice(-12).map(m => ({
+        role: m.role as 'user' | 'assistant',
+        content: sanitizeString(m.content, 2000),
+      }));
+
+      let geminiAvailable = false;
+      try { getGeminiClient(); geminiAvailable = true; } catch {}
+
+      let openaiAvailable = false;
+      try { getOpenAIClient(); openaiAvailable = true; } catch {}
+
+      if (!geminiAvailable && !openaiAvailable) {
+        return NextResponse.json({
+          content: 'El asistente IA no está disponible en este momento.',
+        }, { status: 503 });
+      }
+
+      const encoder = new TextEncoder();
+
+      async function streamGemini(ctrl: ReadableStreamDefaultController) {
+        const client = getGeminiClient();
+        const geminiHistory = trimmedHistory.map(m => ({
+          role: m.role === 'user' ? 'user' as const : 'model' as const,
+          parts: [{ text: m.content }],
+        }));
+        const response = await client.models.generateContentStream({
+          model: GEMINI_MODEL,
+          contents: geminiHistory,
+          config: {
+            systemInstruction: FISCAL_SYSTEM,
+            maxOutputTokens: 2048,
+            temperature: 0.3,
+          },
+        });
+        for await (const chunk of response) {
+          const text = chunk.text;
+          if (text) {
+            ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+          }
+        }
+        ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+      }
+
+      async function streamOpenAI(ctrl: ReadableStreamDefaultController) {
+        const client = getOpenAIClient();
+        const openaiHistory = trimmedHistory.map(m => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        }));
+        const stream = await client.chat.completions.create({
+          model: OPENAI_MODEL,
+          max_tokens: 2048,
+          temperature: 0.3,
+          stream: true,
+          messages: [
+            { role: 'system', content: FISCAL_SYSTEM },
+            ...openaiHistory,
+          ],
+        });
+        for await (const chunk of stream) {
+          const text = chunk.choices[0]?.delta?.content;
+          if (text) {
+            ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+          }
+        }
+        ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+      }
+
+      const readable = new ReadableStream({
+        async start(controller) {
+          try {
+            if (geminiAvailable) {
+              try {
+                await streamGemini(controller);
+              } catch (err) {
+                console.error('[fiscal-chat] Gemini failed, trying OpenAI fallback:', err);
+                if (openaiAvailable) {
+                  await streamOpenAI(controller);
+                } else {
+                  throw err;
+                }
+              }
+            } else {
+              await streamOpenAI(controller);
+            }
+            controller.close();
+          } catch (err) {
+            console.error('[fiscal-chat] stream error:', err);
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
+            controller.close();
+          }
+        },
+      });
+
+      return new Response(readable, {
+        headers: {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        },
+      });
+    }
+
     if (!prompt) {
       return NextResponse.json({ error: 'El mensaje es requerido' }, { status: 400 });
     }

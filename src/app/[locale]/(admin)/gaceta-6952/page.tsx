@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
-import { Bot, Search, BookOpen, FileText, MessageSquare, Loader, Send, ChevronRight, Landmark, Scale } from "lucide-react";
+import { Bot, Search, BookOpen, FileText, MessageSquare, Loader, Send, ChevronRight, Landmark, Scale, Trash2, StopCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
 
 const articulos = [
     {
@@ -77,31 +78,90 @@ export default function Gaceta6952Page() {
     ]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
+    const [streamingText, setStreamingText] = useState("");
+    const abortRef = useRef<AbortController | null>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }, [messages, streamingText]);
 
     const filtered = articulos.filter(a =>
         !search || a.titulo.toLowerCase().includes(search.toLowerCase()) || a.resumen.toLowerCase().includes(search.toLowerCase())
     );
 
-    const sendMessage = async () => {
-        if (!input.trim()) return;
+    const sendMessage = useCallback(async () => {
+        if (!input.trim() || loading) return;
         const userMsg = input.trim();
         setInput("");
-        setMessages(prev => [...prev, { role: "user", content: userMsg }]);
+        const newMessages: Message[] = [...messages, { role: "user", content: userMsg }];
+        setMessages(newMessages);
         setLoading(true);
+        setStreamingText("");
+
+        const controller = new AbortController();
+        abortRef.current = controller;
+
         try {
             const res = await fetch('/api/ai/fiscal-chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: userMsg }),
+                body: JSON.stringify({
+                    messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+                }),
+                signal: controller.signal,
             });
-            const json = await res.json();
-            setMessages(prev => [...prev, { role: "assistant", content: json.content ?? json.text ?? "No pude procesar la consulta en este momento. Intenta de nuevo." }]);
-        } catch {
+
+            const contentType = res.headers.get('content-type') || '';
+            if (contentType.includes('text/event-stream') && res.body) {
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder();
+                let accumulated = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value, { stream: true });
+                    for (const line of chunk.split('\n')) {
+                        if (!line.startsWith('data: ')) continue;
+                        try {
+                            const data = JSON.parse(line.slice(6));
+                            if (data.text) {
+                                accumulated += data.text;
+                                setStreamingText(accumulated);
+                            }
+                            if (data.done) {
+                                setMessages(prev => [...prev, { role: "assistant", content: accumulated }]);
+                                setStreamingText("");
+                                setLoading(false);
+                                return;
+                            }
+                            if (data.error) {
+                                setMessages(prev => [...prev, { role: "assistant", content: data.error }]);
+                                setStreamingText("");
+                                setLoading(false);
+                                return;
+                            }
+                        } catch {}
+                    }
+                }
+                if (accumulated && !controller.signal.aborted) {
+                    setMessages(prev => [...prev, { role: "assistant", content: accumulated }]);
+                    setStreamingText("");
+                }
+            } else {
+                const json = await res.json();
+                setMessages(prev => [...prev, { role: "assistant", content: json.content ?? json.text ?? "No pude procesar la consulta en este momento. Intenta de nuevo." }]);
+            }
+        } catch (err: any) {
+            if (err?.name === 'AbortError') return;
             setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Verifica tu red e intenta nuevamente." }]);
         } finally {
             setLoading(false);
+            setStreamingText("");
+            abortRef.current = null;
         }
-    };
+    }, [input, messages, loading]);
 
     return (
         <div className="space-y-10 pb-20 px-4 md:px-10">
@@ -184,15 +244,23 @@ export default function Gaceta6952Page() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-0 flex flex-col" style={{ height: 420 }}>
-                            <div className="flex-1 overflow-y-auto p-5 space-y-4">
+                            <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-4">
                                 {messages.map((msg, i) => (
                                     <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                                         <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-[11px] font-medium leading-relaxed ${msg.role === "user" ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-white/5 text-foreground/80 rounded-bl-sm border border-white/5"}`}>
-                                            {msg.content}
+                                            {msg.role === "assistant" ? <MarkdownRenderer content={msg.content} /> : msg.content}
                                         </div>
                                     </div>
                                 ))}
-                                {loading && (
+                                {loading && streamingText && (
+                                    <div className="flex justify-start">
+                                        <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white/5 text-foreground/80 border border-white/5 text-[11px] font-medium leading-relaxed">
+                                            <MarkdownRenderer content={streamingText} />
+                                            <span className="inline-block w-1.5 h-3 bg-primary/60 animate-pulse ml-0.5 rounded-sm" />
+                                        </div>
+                                    </div>
+                                )}
+                                {loading && !streamingText && (
                                     <div className="flex justify-start">
                                         <div className="bg-white/5 border border-white/5 px-4 py-3 rounded-2xl rounded-bl-sm">
                                             <Loader className="h-4 w-4 animate-spin text-primary" />

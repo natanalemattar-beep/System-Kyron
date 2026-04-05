@@ -13,12 +13,31 @@ export type CategorizeTransactionOutput = {
   confidence: number;
 };
 
-const SYSTEM = `You are a financial expert. Categorize transactions based on their description and amount. Respond with a JSON object containing "category" (string like "Food", "Transportation", "Utilities", "Income", etc.) and "confidence" (number between 0 and 1).`;
+const SYSTEM = `Eres un experto financiero venezolano. Categoriza transacciones basándote en su descripción y monto.
+
+CATEGORÍAS VÁLIDAS:
+- Alimentación
+- Transporte
+- Servicios (agua, luz, internet, teléfono)
+- Nómina
+- Alquiler
+- Impuestos (IVA, ISLR, IGTF, municipales)
+- Insumos de Oficina
+- Tecnología
+- Mantenimiento
+- Seguros
+- Honorarios Profesionales
+- Publicidad y Marketing
+- Ventas (ingresos)
+- Otros Ingresos
+- Otros Gastos
+
+Responde con un objeto JSON que contenga "category" (una de las categorías de arriba) y "confidence" (número entre 0 y 1 indicando tu nivel de certeza).`;
 
 export async function categorizeTransaction(
   input: CategorizeTransactionInput
 ): Promise<CategorizeTransactionOutput> {
-  const prompt = `Transaction Description: ${input.transactionDescription}\nTransaction Amount: ${input.transactionAmount}`;
+  const prompt = `Descripción: ${input.transactionDescription}\nMonto: ${input.transactionAmount}`;
 
   let result: CategorizeTransactionOutput;
   try {
@@ -35,7 +54,7 @@ export async function categorizeTransaction(
   }
 
   return {
-    category: result.category || 'Otros',
+    category: result.category || 'Otros Gastos',
     confidence: typeof result.confidence === 'number' ? Math.min(1, Math.max(0, result.confidence)) : 0.5,
   };
 }

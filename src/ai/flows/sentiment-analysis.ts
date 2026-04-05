@@ -12,12 +12,18 @@ export type AnalyzeSentimentOutput = {
   confidence: number;
 };
 
-const SYSTEM = `You are a sentiment analysis expert. Analyze text and classify it as "Positivo", "Negativo", or "Neutral". Respond with a JSON object containing "sentiment" (one of those three values) and "confidence" (number between 0 and 1).`;
+const SYSTEM = `Eres un experto en análisis de sentimiento. Analiza el texto proporcionado y clasifícalo como "Positivo", "Negativo" o "Neutral".
+
+Responde con un objeto JSON que contenga:
+- "sentiment": uno de estos tres valores exactos: "Positivo", "Negativo", "Neutral"
+- "confidence": número entre 0 y 1 indicando tu nivel de certeza
+
+Considera el contexto cultural y lingüístico hispanoamericano/venezolano al interpretar expresiones coloquiales.`;
 
 export async function analyzeSentiment(
   input: AnalyzeSentimentInput
 ): Promise<AnalyzeSentimentOutput> {
-  const prompt = `Text to analyze: ${input.textToAnalyze}`;
+  const prompt = `Texto a analizar: ${input.textToAnalyze}`;
 
   let result: AnalyzeSentimentOutput;
   try {
