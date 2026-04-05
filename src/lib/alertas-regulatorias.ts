@@ -1,7 +1,4 @@
 import { query, queryOne } from '@/lib/db';
-import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
-import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
-import { sendSmsNotification } from '@/lib/sms-service';
 
 export interface GacetaOficial {
   id: string;
@@ -464,7 +461,7 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
         `SELECT COUNT(*) as count FROM notificaciones
          WHERE user_id = $1
          AND metadata::text LIKE $2
-         AND created_at > NOW() - INTERVAL '7 days'`,
+         AND created_at > NOW() - INTERVAL '30 days'`,
         [empresa.user_id, `%"alerta_id":"${alerta.id}"%`]
       );
 
@@ -495,51 +492,6 @@ export async function verificarAlertasRegulatorias(): Promise<number> {
           }),
         ]
       );
-
-      const html = buildKyronEmailTemplate({
-        title: alerta.urgencia === 'critica' ? `🚨 ${titulo}` : `📋 ${titulo}`,
-        body: `
-          <p style="color: #E2E8F0; font-size: 14px; margin: 0 0 12px 0;">${alerta.resumen}</p>
-          <div style="background: #0A1530; border-radius: 8px; padding: 16px; margin: 16px 0;">
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">ENTE EMISOR</p>
-            <p style="color: #F1F5F9; font-size: 14px; font-weight: 700; margin: 0 0 12px 0;">${alerta.enteEmisor}</p>
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">TIPO</p>
-            <p style="color: #0EA5E9; font-size: 14px; font-weight: 700; margin: 0 0 12px 0;">${alerta.tipo.toUpperCase()}</p>
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">BASE LEGAL</p>
-            <p style="color: #22C55E; font-size: 14px; font-weight: 700; margin: 0 0 12px 0;">${alerta.baseLegal}</p>
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">ACCIÓN REQUERIDA</p>
-            <p style="color: ${alerta.urgencia === 'critica' ? '#EF4444' : '#F59E0B'}; font-size: 13px; margin: 0;">${alerta.accionRequerida}</p>
-          </div>
-        `,
-        footer: 'Alerta regulatoria generada por el Monitor Legal de System Kyron.',
-      });
-
-      const userConfig = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
-        `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
-        [empresa.user_id]
-      );
-      if (!userConfig || userConfig.notif_email !== false) {
-        const alertEmail = userConfig?.email_alertas || empresa.email;
-        sendEmail({
-          to: alertEmail,
-          subject: `[Kyron Legal] ${titulo}`,
-          html,
-          module: 'legal',
-          purpose: 'alert',
-        }).catch(() => {});
-      }
-
-      sendWhatsAppNotification(empresa.user_id, {
-        tipo: 'regulatorio',
-        titulo,
-        mensaje: alerta.resumen,
-      }).catch(() => {});
-
-      sendSmsNotification(empresa.user_id, {
-        tipo: 'regulatorio',
-        titulo,
-        mensaje: `${alerta.titulo}. ${alerta.accionRequerida}`,
-      }).catch(() => {});
 
       alertasGeneradas++;
     }

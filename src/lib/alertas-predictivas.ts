@@ -1,7 +1,4 @@
 import { query, queryOne } from '@/lib/db';
-import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
-import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
-import { sendSmsNotification } from '@/lib/sms-service';
 
 interface ObligacionFiscal {
   nombre: string;
@@ -1048,51 +1045,6 @@ export async function verificarAlertasPredictivas(): Promise<AlertaGenerada[]> {
           }),
         ]
       );
-
-      const html = buildKyronEmailTemplate({
-        title: diasRestantes <= 3 ? `⚠️ ${titulo}` : `📅 ${titulo}`,
-        body: `
-          <p style="color: #E2E8F0; font-size: 14px; margin: 0 0 12px 0;">${mensaje}</p>
-          <div style="background: #0A1530; border-radius: 8px; padding: 16px; margin: 16px 0;">
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">EMPRESA</p>
-            <p style="color: #F1F5F9; font-size: 14px; font-weight: 700; margin: 0 0 12px 0;">${empresa.nombre_empresa}</p>
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">RIF</p>
-            <p style="color: #0EA5E9; font-size: 14px; font-weight: 700; margin: 0 0 12px 0;">${empresa.rif}</p>
-            <p style="color: #64748B; font-size: 11px; margin: 0 0 4px 0;">VENCIMIENTO</p>
-            <p style="color: ${diasRestantes <= 3 ? '#F59E0B' : '#22C55E'}; font-size: 14px; font-weight: 700; margin: 0;">${fechaStr}</p>
-          </div>
-        `,
-        footer: diasRestantes <= 3
-          ? 'Esta obligación vence pronto. Evita sanciones presentando a tiempo.'
-          : 'Alerta predictiva generada automáticamente por System Kyron.',
-      });
-
-      const userConfig = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
-        `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
-        [empresa.user_id]
-      );
-      if (!userConfig || userConfig.notif_email !== false) {
-        const alertEmail = userConfig?.email_alertas || empresa.email;
-        sendEmail({
-          to: alertEmail,
-          subject: `[Kyron Fiscal] ${titulo}`,
-          html,
-          module: 'tributos',
-          purpose: 'alert',
-        }).catch(() => {});
-      }
-
-      sendWhatsAppNotification(empresa.user_id, {
-        tipo: obligacion.tipo,
-        titulo,
-        mensaje,
-      }).catch(() => {});
-
-      sendSmsNotification(empresa.user_id, {
-        tipo: obligacion.tipo,
-        titulo,
-        mensaje,
-      }).catch(() => {});
 
       alertasGeneradas.push({
         userId: empresa.user_id,

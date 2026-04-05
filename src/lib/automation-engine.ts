@@ -189,31 +189,9 @@ registerAction('email_automation', async () => {
             const u = row as Record<string, string>;
             await safeQuery(
               `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-               VALUES ($1, 'alerta', 'Facturas vencidas pendientes', $2, 'alta', 'multi')`,
+               VALUES ($1, 'alerta', 'Facturas vencidas pendientes', $2, 'alta', 'app')`,
               [u.user_id, `${cnt} factura(s) con fecha de vencimiento pasada requieren atención`]
             );
-            if (u.email) {
-              try {
-                const uc = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
-                  `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
-                  [u.user_id]
-                );
-                if (!uc || uc.notif_email !== false) {
-                  const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
-                  await sendEmail({
-                    to: uc?.email_alertas || u.email,
-                    subject: `${cnt} factura(s) vencida(s) — Acción requerida`,
-                    html: buildKyronEmailTemplate({
-                      title: `Facturas Vencidas`,
-                      body: `<p>Hola ${u.nombre || ''},</p><p>Tienes <strong>${cnt}</strong> factura(s) con fecha de vencimiento pasada que requieren atención inmediata.</p><p>Ingresa a System Kyron para gestionar tus pagos pendientes.</p>`,
-                      footer: 'Este es un recordatorio automático de System Kyron.',
-                    }),
-                    module: 'contabilidad',
-                    purpose: 'general',
-                  });
-                }
-              } catch { /* email delivery failure is non-fatal */ }
-            }
           }
         }
       } else if (rule.tipo === 'resumen_semanal') {
@@ -221,39 +199,12 @@ registerAction('email_automation', async () => {
           `SELECT COUNT(*) as total FROM activity_log WHERE created_at > NOW() - INTERVAL '7 days'`
         );
         const total = stats?.total || '0';
-        const adminUsers = await query(
-          `SELECT id, email, nombre FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`
+        await safeQuery(
+          `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
+           SELECT id, 'info', 'Resumen semanal disponible', $1, 'normal', 'app'
+           FROM users WHERE activo = true AND tipo IN ('juridico', 'admin')`,
+          [`Tu resumen de actividad semanal está listo: ${total} eventos registrados`]
         );
-        for (const row of adminUsers) {
-          const u = row as Record<string, string>;
-          await safeQuery(
-            `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
-             VALUES ($1, 'info', 'Resumen semanal disponible', $2, 'normal', 'app')`,
-            [u.id, `Tu resumen de actividad semanal está listo: ${total} eventos registrados`]
-          );
-          if (u.email) {
-            try {
-              const uc = await queryOne<{ notif_email: boolean; email_alertas: string | null }>(
-                `SELECT notif_email, email_alertas FROM configuracion_usuario WHERE user_id = $1`,
-                [u.id]
-              );
-              if (!uc || uc.notif_email !== false) {
-                const { sendEmail, buildKyronEmailTemplate } = await import('@/lib/email-service');
-                await sendEmail({
-                  to: uc?.email_alertas || u.email,
-                  subject: 'Tu resumen semanal — System Kyron',
-                  html: buildKyronEmailTemplate({
-                    title: 'Resumen Semanal',
-                    body: `<p>Hola ${u.nombre || ''},</p><p>Tu resumen de actividad semanal está listo: <strong>${total}</strong> eventos registrados en los últimos 7 días.</p>`,
-                    footer: 'Resumen automático generado por System Kyron.',
-                  }),
-                  module: 'sistema',
-                  purpose: 'general',
-                });
-              }
-            } catch { /* email delivery failure is non-fatal */ }
-          }
-        }
       } else if (rule.tipo === 'alerta_fiscal') {
         await safeQuery(
           `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal)
