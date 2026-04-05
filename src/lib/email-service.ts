@@ -1,7 +1,5 @@
 import { query } from '@/lib/db';
 
-const GMAIL_SENDER = 'noreplysystemkyron@gmail.com';
-
 export type EmailProvider = 'gmail';
 export type EmailPurpose = 'verification' | 'password-reset' | 'alert' | 'general';
 
@@ -48,7 +46,7 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
     ]);
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const fromAddr = opts.from ?? `System Kyron <${senderEmail || GMAIL_SENDER}>`;
+    const fromAddr = opts.from ?? `System Kyron <${senderEmail || process.env.GMAIL_USER || 'noreplysystemkyron@gmail.com'}>`;
     const rawEmail = [
       `From: ${fromAddr}`,
       `To: ${recipients.join(', ')}`,
