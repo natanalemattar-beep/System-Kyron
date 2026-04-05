@@ -177,6 +177,11 @@ const INSERT_CONFIGS: Record<string, { table: string; columns: string[]; returni
         columns: ['user_id', 'ejercicio_fiscal', 'fecha_declaracion', 'enriquecimiento_neto', 'impuesto_causado', 'anticipo_pagado', 'impuesto_a_pagar', 'estado'],
         returning: 'id',
     },
+    plan_cuentas: {
+        table: 'plan_cuentas',
+        columns: ['user_id', 'codigo', 'nombre', 'tipo', 'nivel', 'cuenta_padre', 'activa', 'descripcion'],
+        returning: 'id',
+    },
 };
 
 export async function GET(request: NextRequest) {
@@ -330,6 +335,7 @@ const UPDATE_TABLES: Record<string, string> = {
     asientos: 'libro_diario_asientos',
     declaraciones_iva: 'declaraciones_iva',
     declaraciones_islr: 'declaraciones_islr',
+    plan_cuentas: 'plan_cuentas',
 };
 
 export async function PUT(request: NextRequest) {
