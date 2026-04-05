@@ -271,6 +271,18 @@ export function AppHeader({ user, dashboardHref, navGroups, compact }: AppHeader
           </div>
 
           <nav className={cn("hidden lg:flex items-center justify-center gap-0.5 flex-1 mx-auto overflow-hidden", compact && "lg:hidden")}>
+            <Link href={dashboardHref as any}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "h-8 px-2.5 rounded-lg text-[8px] font-black uppercase tracking-[0.06em] hover:text-primary hover:bg-primary/5 whitespace-nowrap gap-1.5 transition-all duration-200",
+                  (pathname === dashboardHref || pathname.endsWith(dashboardHref)) ? "text-primary/80" : "text-muted-foreground/55"
+                )}
+              >
+                <Home className="h-3 w-3 opacity-40" />
+                Inicio
+              </Button>
+            </Link>
             {navGroups?.map((group) => {
                 const filteredItems = group.items.filter(item => 
                     item.href !== dashboardHref && 
