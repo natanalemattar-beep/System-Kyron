@@ -78,9 +78,12 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Animations:** Framer Motion
 - **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend, Replit Google Mail connector
 - **AI Integrations (Replit Managed):**
-  - Anthropic Claude (Kyron Chat corporate, document verification)
-  - Google Gemini (Personal chat, fiscal chat, legal docs)
-  - OpenAI (Dashboard analysis, sales strategies, sentiment analysis)
+  - Anthropic Claude (Kyron Chat corporate, document verification) — with Gemini fallback
+  - Google Gemini (Personal chat, fiscal chat, legal docs) — with OpenAI fallback
+  - OpenAI (Dashboard analysis, sales strategies, sentiment analysis) — with Gemini fallback
+  - All AI chat endpoints use SSE streaming with AbortController support
+  - Rate limiters use periodic cleanup (every 5 min) to prevent memory leaks
+  - Floating Kyron Chat (`voice-assistant.tsx`): localStorage persistence (`kyron-floating-chat-history`), MarkdownRenderer for AI responses, stop streaming button, auth guard on landing page
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API

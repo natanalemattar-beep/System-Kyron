@@ -9,8 +9,21 @@ export const maxDuration = 60;
 const RATE_LIMIT_MAP = new Map<number, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 20;
 const RATE_LIMIT_WINDOW = 60_000;
+const RATE_LIMIT_CLEANUP_INTERVAL = 5 * 60_000;
+
+let lastCleanup = Date.now();
+
+function cleanupRateLimits() {
+  const now = Date.now();
+  if (now - lastCleanup < RATE_LIMIT_CLEANUP_INTERVAL) return;
+  lastCleanup = now;
+  for (const [k, v] of RATE_LIMIT_MAP) {
+    if (now > v.resetAt) RATE_LIMIT_MAP.delete(k);
+  }
+}
 
 function checkRateLimit(userId: number): boolean {
+  cleanupRateLimits();
   const now = Date.now();
   const entry = RATE_LIMIT_MAP.get(userId);
   if (!entry || now > entry.resetAt) {
@@ -20,13 +33,6 @@ function checkRateLimit(userId: number): boolean {
   if (entry.count >= RATE_LIMIT_MAX) return false;
   entry.count++;
   return true;
-}
-
-if (RATE_LIMIT_MAP.size > 5000) {
-  const now = Date.now();
-  for (const [k, v] of RATE_LIMIT_MAP) {
-    if (now > v.resetAt) RATE_LIMIT_MAP.delete(k);
-  }
 }
 
 const SYSTEM_PROMPT = `Eres "Kyron Personal", el asistente del Portal Ciudadano en System Kyron — la plataforma integral más avanzada de Venezuela.
