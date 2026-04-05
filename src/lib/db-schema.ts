@@ -1415,6 +1415,7 @@ async function createContabilidadExtendedTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_libro_diario_user_id ON libro_diario_asientos(user_id)`);
+  await query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_libro_diario_ref_doc ON libro_diario_asientos(user_id, referencia_doc) WHERE referencia_doc IS NOT NULL`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS libro_diario_lineas (

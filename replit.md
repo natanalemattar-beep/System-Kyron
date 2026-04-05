@@ -52,6 +52,9 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Global Search:** Command palette for instant navigation.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
 - **Document Authenticity Verification:** Multi-AI forensic analysis system using Claude, OpenAI, and Gemini Vision in parallel. 6-layer scoring (Integrity, Visual, Quality/Blur, Forensic, Metadata, Content) with AI consensus voting (unanimous/majority/divided). Auto-verifies on upload. Includes JPEG quality estimation, image dimension analysis, and path-traversal security protection.
+- **Bank Connection & Auto-Sync:** Direct bank connection for 10 Venezuelan banks (Banesco, Mercantil, Provincial, BdV, BNC, BOD, Exterior, BFC, Bancaribe, Sofitasa) via Gmail email notification parsing. Automatic movement import with duplicate detection.
+- **Bulk Movement Import:** Excel (.xlsx/.xls) and CSV file import with smart column detection, flexible date/amount parsing (Venezuelan formats), drag-and-drop UI, and downloadable CSV template.
+- **Auto Journal Entries:** Automatic generation of double-entry journal entries from bank movements and invoices. Intelligent account classification using the chart of accounts (Plan de Cuentas). Tracks processed items via `referencia_doc` to prevent duplicates.
 - **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard.
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, multi-channel delivery, and JSONB metadata.
@@ -87,6 +90,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
+- **Excel/CSV Import:** `xlsx` (bank movement bulk import with smart column detection)
 - **Excel Export:** `exceljs`
 - **QR Generation:** `api.qrserver.com`
 - **Blockchain:** ethers.js v6 (Polygon/Ethereum/BSC)

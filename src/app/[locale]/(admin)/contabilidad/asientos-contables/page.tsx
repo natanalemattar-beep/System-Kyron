@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2 } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { BookOpen, Search, ArrowRightLeft, Loader2, Inbox, Printer, Plus, Trash2, Zap, AlertTriangle, CheckCircle2, FileText, Receipt } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -45,6 +45,21 @@ interface LineaForm {
   haber: string;
 }
 
+interface Pendientes {
+  movimientos: number;
+  facturas: number;
+}
+
+interface AutoResult {
+  success: boolean;
+  asientos_creados: number;
+  omitidos: number;
+  errores: number;
+  detalle_errores?: string[];
+  requiere_plan?: boolean;
+  error?: string;
+}
+
 export default function AsientosContablesPage() {
   const { toast } = useToast();
   const [rows, setRows] = useState<Asiento[]>([]);
@@ -54,6 +69,11 @@ export default function AsientosContablesPage() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ fecha_asiento: '', concepto: '', tipo_operacion: 'Ajuste' });
   const [lineas, setLineas] = useState<LineaForm[]>([{ cuenta_codigo: '', cuenta_nombre: '', debe: '', haber: '' }, { cuenta_codigo: '', cuenta_nombre: '', debe: '', haber: '' }]);
+  const [showAuto, setShowAuto] = useState(false);
+  const [pendientes, setPendientes] = useState<Pendientes | null>(null);
+  const [planCount, setPlanCount] = useState(0);
+  const [generating, setGenerating] = useState(false);
+  const [autoResult, setAutoResult] = useState<AutoResult | null>(null);
 
   const loadData = () => {
     setLoading(true);
@@ -64,7 +84,49 @@ export default function AsientosContablesPage() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { loadData(); }, []);
+  const loadPendientes = useCallback(() => {
+    fetch('/api/contabilidad/auto-asientos')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d) {
+          setPendientes(d.pendientes);
+          setPlanCount(d.plan_cuentas);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => { loadData(); loadPendientes(); }, [loadPendientes]);
+
+  const handleAutoGenerate = async (fuente: string) => {
+    setGenerating(true);
+    setAutoResult(null);
+    try {
+      const res = await fetch('/api/contabilidad/auto-asientos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fuente }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAutoResult({ success: false, asientos_creados: 0, omitidos: 0, errores: 0, error: data.error, requiere_plan: data.requiere_plan });
+        toast({ title: "Error", description: data.error, variant: "destructive" });
+      } else {
+        setAutoResult(data);
+        if (data.asientos_creados > 0) {
+          toast({ title: "Asientos generados", description: `${data.asientos_creados} asientos contables creados automáticamente` });
+          loadData();
+          loadPendientes();
+        } else {
+          toast({ title: "Sin pendientes", description: "No hay operaciones pendientes de contabilizar." });
+        }
+      }
+    } catch {
+      toast({ title: "Error de conexión", variant: "destructive" });
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const filtered = rows.filter(a =>
     !search || a.descripcion?.toLowerCase().includes(search.toLowerCase()) || a.numero?.toLowerCase().includes(search.toLowerCase())
@@ -161,7 +223,18 @@ export default function AsientosContablesPage() {
             </h1>
             <p className="text-sm text-muted-foreground mt-1">Registros de partida doble · Debe = Haber · Auditoría integrada</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              onClick={() => { setShowAuto(!showAuto); setAutoResult(null); }}
+              className="rounded-xl bg-gradient-to-r from-violet-600 to-blue-500 hover:from-violet-700 hover:to-blue-600 text-white shadow-lg shadow-violet-500/20"
+            >
+              <Zap className="mr-2 h-4 w-4" /> Generar Automáticamente
+              {pendientes && (pendientes.movimientos + pendientes.facturas) > 0 && (
+                <Badge className="ml-2 bg-white/20 text-white text-[9px] h-5 border-none">
+                  {pendientes.movimientos + pendientes.facturas}
+                </Badge>
+              )}
+            </Button>
             <Button variant="outline" onClick={() => setShowForm(!showForm)} className="rounded-xl">
               <Plus className="mr-2 h-4 w-4" /> Nuevo Asiento
             </Button>
@@ -171,6 +244,145 @@ export default function AsientosContablesPage() {
           </div>
         </div>
       </header>
+
+      {showAuto && (
+        <Card className="rounded-2xl border shadow-lg overflow-hidden border-violet-500/20">
+          <CardHeader className="p-5 border-b bg-gradient-to-r from-violet-500/10 to-blue-500/10 flex flex-row items-center justify-between">
+            <CardTitle className="text-sm font-bold flex items-center gap-2">
+              <Zap className="h-4 w-4 text-violet-500" /> Generación Automática de Asientos
+            </CardTitle>
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setShowAuto(false)}>
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </CardHeader>
+          <CardContent className="p-5 space-y-4">
+            {planCount < 2 ? (
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                <AlertTriangle className="h-6 w-6 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-bold text-amber-600 dark:text-amber-400">Plan de Cuentas requerido</p>
+                  <p className="text-xs text-muted-foreground mt-1">Necesita configurar al menos 2 cuentas en su Plan de Cuentas para que el sistema pueda clasificar los movimientos automáticamente.</p>
+                  <a href="/contabilidad/plan-cuentas" className="text-xs font-bold text-violet-500 hover:text-violet-400 mt-2 inline-block">Ir al Plan de Cuentas &rarr;</a>
+                </div>
+              </div>
+            ) : !autoResult ? (
+              <>
+                <div className="flex items-start gap-3 p-3 rounded-xl bg-violet-500/5 border border-violet-500/15">
+                  <Zap className="h-4 w-4 text-violet-500 shrink-0 mt-0.5" />
+                  <div className="text-[11px] text-muted-foreground leading-relaxed">
+                    <p className="font-bold text-foreground/70">Contabilización inteligente</p>
+                    <p className="mt-1">El sistema analiza sus movimientos bancarios y facturas pendientes, los clasifica según su Plan de Cuentas VEN-NIF, y genera los asientos de partida doble automáticamente.</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => handleAutoGenerate('movimientos')}
+                    disabled={generating || !pendientes?.movimientos}
+                    className={cn(
+                      "flex flex-col items-center gap-3 p-5 rounded-xl border-2 transition-all",
+                      pendientes?.movimientos ? "border-blue-500/30 hover:border-blue-500 hover:bg-blue-500/5 cursor-pointer" : "border-border/20 opacity-50 cursor-not-allowed"
+                    )}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-blue-500" />
+                    </div>
+                    <span className="text-xs font-bold">Movimientos Bancarios</span>
+                    <Badge className="bg-blue-500/10 text-blue-500 border-none text-[10px]">
+                      {pendientes?.movimientos || 0} pendientes
+                    </Badge>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleAutoGenerate('facturas')}
+                    disabled={generating || !pendientes?.facturas}
+                    className={cn(
+                      "flex flex-col items-center gap-3 p-5 rounded-xl border-2 transition-all",
+                      pendientes?.facturas ? "border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/5 cursor-pointer" : "border-border/20 opacity-50 cursor-not-allowed"
+                    )}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                      <Receipt className="h-6 w-6 text-emerald-500" />
+                    </div>
+                    <span className="text-xs font-bold">Facturas</span>
+                    <Badge className="bg-emerald-500/10 text-emerald-500 border-none text-[10px]">
+                      {pendientes?.facturas || 0} pendientes
+                    </Badge>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleAutoGenerate('todo')}
+                    disabled={generating || !(pendientes?.movimientos || pendientes?.facturas)}
+                    className={cn(
+                      "flex flex-col items-center gap-3 p-5 rounded-xl border-2 transition-all",
+                      (pendientes?.movimientos || pendientes?.facturas)
+                        ? "border-violet-500/30 hover:border-violet-500 hover:bg-violet-500/5 cursor-pointer"
+                        : "border-border/20 opacity-50 cursor-not-allowed"
+                    )}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/10 to-blue-500/10 flex items-center justify-center">
+                      <Zap className="h-6 w-6 text-violet-500" />
+                    </div>
+                    <span className="text-xs font-bold">Todo de una vez</span>
+                    <Badge className="bg-violet-500/10 text-violet-500 border-none text-[10px]">
+                      {(pendientes?.movimientos || 0) + (pendientes?.facturas || 0)} pendientes
+                    </Badge>
+                  </button>
+                </div>
+
+                {generating && (
+                  <div className="flex items-center justify-center gap-3 py-6">
+                    <Loader2 className="h-5 w-5 animate-spin text-violet-500" />
+                    <span className="text-sm font-semibold text-muted-foreground">Generando asientos contables...</span>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="space-y-4">
+                {autoResult.success ? (
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                    <CheckCircle2 className="h-8 w-8 text-emerald-500 shrink-0" />
+                    <div>
+                      <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                        {autoResult.asientos_creados > 0 ? `${autoResult.asientos_creados} asientos generados exitosamente` : 'No hay operaciones pendientes'}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {autoResult.omitidos > 0 && `${autoResult.omitidos} omitidos · `}
+                        {autoResult.errores > 0 && `${autoResult.errores} con errores`}
+                        {!autoResult.omitidos && !autoResult.errores && 'Todas las operaciones fueron contabilizadas correctamente.'}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                    <AlertTriangle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-bold text-red-600 dark:text-red-400">{autoResult.error}</p>
+                      {autoResult.requiere_plan && (
+                        <a href="/contabilidad/plan-cuentas" className="text-xs font-bold text-violet-500 hover:text-violet-400 mt-2 inline-block">Configurar Plan de Cuentas &rarr;</a>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {autoResult.detalle_errores && autoResult.detalle_errores.length > 0 && (
+                  <div className="max-h-40 overflow-y-auto rounded-lg border border-border/30 p-2 space-y-1">
+                    {autoResult.detalle_errores.map((e, i) => (
+                      <p key={i} className="text-[10px] text-muted-foreground">• {e}</p>
+                    ))}
+                  </div>
+                )}
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setAutoResult(null)} className="rounded-xl">Generar más</Button>
+                  <Button onClick={() => setShowAuto(false)} className="rounded-xl">Cerrar</Button>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {showForm && (
         <Card className="rounded-2xl border p-6">
