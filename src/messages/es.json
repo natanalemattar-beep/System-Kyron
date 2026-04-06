@@ -27,15 +27,32 @@
         "cta_main": "Comenzar Gratis",
         "cta_secondary": "Ver Capacidades",
         "tutorial_link": "¿Cómo registrarse? — Ver tutorial paso a paso",
-        "features": ["VEN-NIF Certificado", "IVA & IGTF Automático", "Tasa BCV en Vivo", "IA Multimodelo"],
+        "features": [
+            "VEN-NIF Certificado",
+            "IVA & IGTF Automático",
+            "Tasa BCV en Vivo",
+            "IA Multimodelo"
+        ],
         "compliance": "Cumplimiento",
         "modules_label": "Módulos",
         "modules_value": "7 Integrados",
         "stats": [
-            { "val": "IVA 16%", "label": "Automático" },
-            { "val": "IGTF 3%", "label": "Integrado" },
-            { "val": "BCV", "label": "Tiempo Real" },
-            { "val": "VEN-NIF", "label": "Certificado" }
+            {
+                "val": "IVA 16%",
+                "label": "Automático"
+            },
+            {
+                "val": "IGTF 3%",
+                "label": "Integrado"
+            },
+            {
+                "val": "BCV",
+                "label": "Tiempo Real"
+            },
+            {
+                "val": "VEN-NIF",
+                "label": "Certificado"
+            }
         ]
     },
     "FeaturesSection": {
@@ -45,21 +62,60 @@
         "subtitle": "9 módulos interconectados bajo un solo ecosistema digital. Automatización real para el mercado venezolano.",
         "ai_native_badge": "IA Nativa",
         "features": [
-            { "title": "Contabilidad VEN-NIF", "description": "Libros fiscales digitales, declaraciones de IVA, ISLR e IGTF calculadas al instante con sellado SENIAT automático." },
-            { "title": "RRHH & Nómina", "description": "Nóminas con SSO, FAOV, LPH, utilidades y prestaciones LOPCYMAT. Un clic y tu equipo está pagado." },
-            { "title": "Mi Línea 5G / eSIM", "description": "Conectividad de nueva generación: provisión de eSIM 5G, control de flota y telemetría empresarial en tiempo real." },
-            { "title": "Inteligencia Artificial", "description": "3 motores de IA especializados: Claude para chat, Gemini para documentos legales, OpenAI para análisis de negocio." },
-            { "title": "IA Legal & Permisos", "description": "Genera contratos y poderes notariales con IA. Permisos CONATEL, SENIAT y Gaceta Oficial actualizados al segundo." },
-            { "title": "Ameru — Eco-Créditos", "description": "Clasifica residuos con visión artificial, acumula eco-créditos certificados y accede al mercado verde." },
-            { "title": "Dashboard & Analítica", "description": "KPIs en vivo, flujo de caja proyectado, insights generados por IA y reportes ejecutivos en PDF y PowerPoint." },
-            { "title": "Gestión de Tributos", "description": "IVA, ISLR, IGTF, parafiscales, municipales y retenciones con calendario fiscal automatizado. Nunca más una multa." },
-            { "title": "Seguridad Blindada", "description": "Cifrado AES-256, auditoría inmutable con blockchain y sellado criptográfico en cada operación fiscal." }
+            {
+                "title": "Contabilidad VEN-NIF",
+                "description": "Libros fiscales digitales, declaraciones de IVA, ISLR e IGTF calculadas al instante con sellado SENIAT automático."
+            },
+            {
+                "title": "RRHH & Nómina",
+                "description": "Nóminas con SSO, FAOV, LPH, utilidades y prestaciones LOPCYMAT. Un clic y tu equipo está pagado."
+            },
+            {
+                "title": "Mi Línea 5G / eSIM",
+                "description": "Conectividad de nueva generación: provisión de eSIM 5G, control de flota y telemetría empresarial en tiempo real."
+            },
+            {
+                "title": "Inteligencia Artificial",
+                "description": "3 motores de IA especializados: Claude para chat, Gemini para documentos legales, OpenAI para análisis de negocio."
+            },
+            {
+                "title": "IA Legal & Permisos",
+                "description": "Genera contratos y poderes notariales con IA. Permisos CONATEL, SENIAT y Gaceta Oficial actualizados al segundo."
+            },
+            {
+                "title": "Ameru — Eco-Créditos",
+                "description": "Clasifica residuos con visión artificial, acumula eco-créditos certificados y accede al mercado verde."
+            },
+            {
+                "title": "Dashboard & Analítica",
+                "description": "KPIs en vivo, flujo de caja proyectado, insights generados por IA y reportes ejecutivos en PDF y PowerPoint."
+            },
+            {
+                "title": "Gestión de Tributos",
+                "description": "IVA, ISLR, IGTF, parafiscales, municipales y retenciones con calendario fiscal automatizado. Nunca más una multa."
+            },
+            {
+                "title": "Seguridad Blindada",
+                "description": "Cifrado AES-256, auditoría inmutable con blockchain y sellado criptográfico en cada operación fiscal."
+            }
         ],
         "stats": [
-            { "val": "48h", "detail": "Migración garantizada" },
-            { "val": "Multi-empresa", "detail": "Holdings y condominios" },
-            { "val": "Bilingüe", "detail": "Español & English" },
-            { "val": "3 IAs", "detail": "Claude · Gemini · OpenAI" }
+            {
+                "val": "48h",
+                "detail": "Migración garantizada"
+            },
+            {
+                "val": "Multi-empresa",
+                "detail": "Holdings y condominios"
+            },
+            {
+                "val": "Bilingüe",
+                "detail": "Español & English"
+            },
+            {
+                "val": "3 IAs",
+                "detail": "Claude · Gemini · OpenAI"
+            }
         ]
     },
     "ServicesSection": {
@@ -75,19 +131,34 @@
                 "title": "Contabilidad & Fiscal",
                 "subtitle": "VEN-NIF · SENIAT · ISLR",
                 "description": "Libros legales, plan de cuentas venezolano, IVA 16%, IGTF 3% e ISLR calculados automáticamente. Siempre alineado con la Gaceta Oficial vigente.",
-                "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
+                "badges": [
+                    "VEN-NIF",
+                    "SENIAT",
+                    "LOTTT",
+                    "BCV"
+                ]
             },
             {
                 "title": "Seguridad Impenetrable",
                 "subtitle": "Cifrado AES-256 · JWT · Blockchain",
                 "description": "Tu información protegida con estándares bancarios internacionales. Cifrado extremo, autenticación JWT, auditoría inmutable y sellado blockchain.",
-                "badges": ["AES-256", "JWT", "Blockchain", "Auditoría"]
+                "badges": [
+                    "AES-256",
+                    "JWT",
+                    "Blockchain",
+                    "Auditoría"
+                ]
             },
             {
                 "title": "Triple IA Integrada",
                 "subtitle": "Claude · Gemini · OpenAI",
                 "description": "Tres motores de inteligencia artificial especializados: Claude para chat y visión, Gemini para documentos legales, OpenAI para análisis estratégico y predicciones de negocio.",
-                "badges": ["Claude", "Gemini", "OpenAI", "Chat IA"]
+                "badges": [
+                    "Claude",
+                    "Gemini",
+                    "OpenAI",
+                    "Chat IA"
+                ]
             }
         ],
         "modules": [
@@ -115,18 +186,68 @@
         "title_rest": "blindado",
         "subtitle": "Cada módulo supera los requisitos de SENIAT, SUNDDE y entes regulatorios. No solo cumplimos: marcamos el estándar.",
         "regulations": {
-            "seniat":  { "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria", "badges": ["IVA 16%", "ISLR", "IGTF 3%"] },
-            "bcv":     { "full": "Banco Central de Venezuela", "badges": ["Tasas BCV", "Divisas"] },
-            "lottt":   { "full": "Ley Orgánica del Trabajo, Trabajadores y Trabajadoras", "badges": ["Nómina", "Prestaciones", "Utilidades"] },
-            "conatel": { "full": "Comisión Nacional de Telecomunicaciones", "badges": ["Permisos", "Habilitación"] },
-            "ven_nif": { "full": "Normas Internacionales de Información Financiera para Venezuela", "badges": ["NIIF", "Plan de Cuentas"] },
-            "sudeban": { "full": "Superintendencia de las Instituciones del Sector Bancario", "badges": ["Normativa", "Reportes"] }
+            "seniat": {
+                "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria",
+                "badges": [
+                    "IVA 16%",
+                    "ISLR",
+                    "IGTF 3%"
+                ]
+            },
+            "bcv": {
+                "full": "Banco Central de Venezuela",
+                "badges": [
+                    "Tasas BCV",
+                    "Divisas"
+                ]
+            },
+            "lottt": {
+                "full": "Ley Orgánica del Trabajo, Trabajadores y Trabajadoras",
+                "badges": [
+                    "Nómina",
+                    "Prestaciones",
+                    "Utilidades"
+                ]
+            },
+            "conatel": {
+                "full": "Comisión Nacional de Telecomunicaciones",
+                "badges": [
+                    "Permisos",
+                    "Habilitación"
+                ]
+            },
+            "ven_nif": {
+                "full": "Normas Internacionales de Información Financiera para Venezuela",
+                "badges": [
+                    "NIIF",
+                    "Plan de Cuentas"
+                ]
+            },
+            "sudeban": {
+                "full": "Superintendencia de las Instituciones del Sector Bancario",
+                "badges": [
+                    "Normativa",
+                    "Reportes"
+                ]
+            }
         },
         "security": {
-            "aes256": { "label": "AES-256", "desc": "Cifrado militar" },
-            "twofa":  { "label": "2FA", "desc": "Autenticación doble" },
-            "jwt":    { "label": "JWT + HTTPS", "desc": "Sesiones seguras" },
-            "audit":  { "label": "Auditoría", "desc": "Log inmutable" }
+            "aes256": {
+                "label": "AES-256",
+                "desc": "Cifrado militar"
+            },
+            "twofa": {
+                "label": "2FA",
+                "desc": "Autenticación doble"
+            },
+            "jwt": {
+                "label": "JWT + HTTPS",
+                "desc": "Sesiones seguras"
+            },
+            "audit": {
+                "label": "Auditoría",
+                "desc": "Log inmutable"
+            }
         },
         "security_badge": "Infraestructura Blindada",
         "security_title_1": "Seguridad de grado",
@@ -222,9 +343,30 @@
         "toast_success_desc": "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
         "toast_error_title": "FALLA DE PROTOCOLO",
         "toast_error_desc": "No se pudo transmitir la solicitud.",
-        "roles": ["CEO / Dueño", "Gerente General", "Administrador", "Otros"],
-        "sectors": ["Comercio", "Servicios", "Manufactura", "Tecnología", "Construcción", "Salud", "Educación", "Transporte", "Agricultura", "Otro"],
-        "urgencies": ["Inmediata", "Esta semana", "Este mes", "Explorando opciones"],
+        "roles": [
+            "CEO / Dueño",
+            "Gerente General",
+            "Administrador",
+            "Otros"
+        ],
+        "sectors": [
+            "Comercio",
+            "Servicios",
+            "Manufactura",
+            "Tecnología",
+            "Construcción",
+            "Salud",
+            "Educación",
+            "Transporte",
+            "Agricultura",
+            "Otro"
+        ],
+        "urgencies": [
+            "Inmediata",
+            "Esta semana",
+            "Este mes",
+            "Explorando opciones"
+        ],
         "validation": {
             "name_short": "El nombre es muy corto",
             "role_required": "Especifica tu cargo",
@@ -248,9 +390,15 @@
         "nav_about": "Nosotros",
         "nav_contact": "Contacto",
         "module_list": [
-            "Contabilidad VEN-NIF", "RRHH & Nómina", "Mi Línea 5G / eSIM",
-            "IA Legal & Permisos", "Ameru Eco-Créditos", "Analítica Avanzada",
-            "Facturación SENIAT", "Tributos & Retenciones", "Dashboard Ejecutivo"
+            "Contabilidad VEN-NIF",
+            "RRHH & Nómina",
+            "Mi Línea 5G / eSIM",
+            "IA Legal & Permisos",
+            "Ameru Eco-Créditos",
+            "Analítica Avanzada",
+            "Facturación SENIAT",
+            "Tributos & Retenciones",
+            "Dashboard Ejecutivo"
         ],
         "status_online": "Plataforma Operativa",
         "copyright": "System Kyron · Inteligencia Corporativa. Todos los derechos reservados.",
@@ -272,18 +420,60 @@
         "dashboard_subtitle": "Interfaz intuitiva",
         "dashboard_title": "Un dashboard. Todo el control.",
         "highlights": [
-            { "label": "Contabilidad & Fiscal", "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.", "stat": "VEN-NIF", "statLabel": "Cumplimiento fiscal" },
-            { "label": "Mi Línea 5G", "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.", "stat": "5G", "statLabel": "Velocidad de red" },
-            { "label": "IA Integrada", "desc": "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.", "stat": "IA", "statLabel": "Claude · Anthropic" },
-            { "label": "Seguridad AES-256", "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.", "stat": "256", "statLabel": "Bits de cifrado" },
-            { "label": "RR.HH & Nómina", "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.", "stat": "LOTTT", "statLabel": "Marco legal" },
-            { "label": "Facturación Fiscal", "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.", "stat": "3%", "statLabel": "IGTF automático" }
+            {
+                "label": "Contabilidad & Fiscal",
+                "desc": "IVA, IGTF e ISLR automáticos. Libros VEN-NIF y cumplimiento SENIAT en tiempo real.",
+                "stat": "VEN-NIF",
+                "statLabel": "Cumplimiento fiscal"
+            },
+            {
+                "label": "Mi Línea 5G",
+                "desc": "Provisión de eSIM 5G, gestión de flota móvil empresarial y conectividad de alto rendimiento.",
+                "stat": "5G",
+                "statLabel": "Velocidad de red"
+            },
+            {
+                "label": "IA Integrada",
+                "desc": "Kyron AI potenciado por Claude de Anthropic. Automatiza reportes, documentos y análisis.",
+                "stat": "IA",
+                "statLabel": "Claude · Anthropic"
+            },
+            {
+                "label": "Seguridad AES-256",
+                "desc": "Cifrado de grado bancario, JWT HTTP-only y auditoría inmutable de cada operación.",
+                "stat": "256",
+                "statLabel": "Bits de cifrado"
+            },
+            {
+                "label": "RR.HH & Nómina",
+                "desc": "Gestión LOTTT completa: nóminas, beneficios, vacaciones y liquidaciones en un clic.",
+                "stat": "LOTTT",
+                "statLabel": "Marco legal"
+            },
+            {
+                "label": "Facturación Fiscal",
+                "desc": "Facturas y notas crédito/débito con validación IGTF y tasa BCV automática.",
+                "stat": "3%",
+                "statLabel": "IGTF automático"
+            }
         ],
         "power_stats": [
-            { "value": "7", "label": "Módulos" },
-            { "value": "100%", "label": "Cumplimiento" },
-            { "value": "AES", "label": "256 bits" },
-            { "value": "VEN", "label": "Hecho aquí" }
+            {
+                "value": "7",
+                "label": "Módulos"
+            },
+            {
+                "value": "100%",
+                "label": "Cumplimiento"
+            },
+            {
+                "value": "AES",
+                "label": "256 bits"
+            },
+            {
+                "value": "VEN",
+                "label": "Hecho aquí"
+            }
         ]
     },
     "LoadingScreen": {
@@ -307,26 +497,81 @@
         "create_account": "Crear cuenta",
         "footer": "System Kyron · Infraestructura Segura · Venezuela",
         "options": {
-            "personal": { "label": "Cuenta Personal", "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." },
-            "lines_personal": { "label": "Mi Línea Personal", "description": "Gestión de tu línea móvil, recargas, consumo 5G y eSIM individual." },
-            "lines_business": { "label": "Mi Línea Empresa", "description": "Control de flota corporativa, límites por empleado y facturación consolidada." },
-            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo." },
-            "legal": { "label": "Asesoría Legal", "description": "Control de contratos, documentos legales y trámites ante registros." },
-            "invoicing": { "label": "Facturación", "description": "Punto de venta para cobros rápidos, control de inventario y ventas." },
-            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." },
-            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." },
-            "it": { "label": "Informática", "description": "Infraestructura, ciberseguridad, soporte técnico, licencias y respaldos." }
+            "personal": {
+                "label": "Cuenta Personal",
+                "description": "Acceso a sus documentos de identidad, trámites civiles y servicios de salud."
+            },
+            "lines_personal": {
+                "label": "Mi Línea Personal",
+                "description": "Gestión de tu línea móvil, recargas, consumo 5G y eSIM individual."
+            },
+            "lines_business": {
+                "label": "Mi Línea Empresa",
+                "description": "Control de flota corporativa, límites por empleado y facturación consolidada."
+            },
+            "accounting": {
+                "label": "Asesoría Contable",
+                "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo."
+            },
+            "legal": {
+                "label": "Asesoría Legal",
+                "description": "Control de contratos, documentos legales y trámites ante registros."
+            },
+            "invoicing": {
+                "label": "Facturación",
+                "description": "Punto de venta para cobros rápidos, control de inventario y ventas."
+            },
+            "partners": {
+                "label": "Socios y Directivos",
+                "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad."
+            },
+            "sustainability": {
+                "label": "Sostenibilidad",
+                "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente."
+            },
+            "it": {
+                "label": "Informática",
+                "description": "Infraestructura, ciberseguridad, soporte técnico, licencias y respaldos."
+            }
         }
     },
     "RegisterPage": {
         "options": {
-            "personal": { "label": "Cuenta Personal", "description": "Registro individual para ciudadanos. Accede al portal personal con tu cédula de identidad.", "badge": "Ciudadano" },
-            "telecom": { "label": "Mis Líneas", "description": "Registro para gestionar tus líneas telefónicas personales y flota empresarial.", "badge": "Telecom" },
-            "accounting": { "label": "Asesoría Contable", "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.", "badge": "Empresa" },
-            "legal": { "label": "Asesoría Legal", "description": "Registro para control de contratos, documentos legales y trámites ante registros.", "badge": "Legal" },
-            "invoicing": { "label": "Facturación", "description": "Acceso al punto de venta para cobros rápidos, control de inventario y ventas.", "badge": "Ventas" },
-            "partners": { "label": "Socios y Directivos", "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad.", "badge": "Directivos" },
-            "sustainability": { "label": "Sostenibilidad", "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.", "badge": "Ambiental" }
+            "personal": {
+                "label": "Cuenta Personal",
+                "description": "Registro individual para ciudadanos. Accede al portal personal con tu cédula de identidad.",
+                "badge": "Ciudadano"
+            },
+            "telecom": {
+                "label": "Mis Líneas",
+                "description": "Registro para gestionar tus líneas telefónicas personales y flota empresarial.",
+                "badge": "Telecom"
+            },
+            "accounting": {
+                "label": "Asesoría Contable",
+                "description": "Contabilidad, nómina, RRHH, ingeniería y marketing integrados en un solo módulo.",
+                "badge": "Empresa"
+            },
+            "legal": {
+                "label": "Asesoría Legal",
+                "description": "Registro para control de contratos, documentos legales y trámites ante registros.",
+                "badge": "Legal"
+            },
+            "invoicing": {
+                "label": "Facturación",
+                "description": "Acceso al punto de venta para cobros rápidos, control de inventario y ventas.",
+                "badge": "Ventas"
+            },
+            "partners": {
+                "label": "Socios y Directivos",
+                "description": "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad.",
+                "badge": "Directivos"
+            },
+            "sustainability": {
+                "label": "Sostenibilidad",
+                "description": "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente.",
+                "badge": "Ambiental"
+            }
         }
     },
     "Auth": {
@@ -453,5 +698,208 @@
         "toast_error_title": "Error",
         "toast_error_desc": "Error de conexión",
         "toast_publish_error": "No se pudo publicar"
+    },
+    "HowItWorksSection": {
+        "badge": "Proceso Simple",
+        "title_highlight": "Cómo",
+        "title_rest": "Funciona",
+        "subtitle": "De cero a productivo en menos de una hora. Sin consultores, sin implementaciones de meses, sin dolores de cabeza.",
+        "cta": "Comenzar Gratis",
+        "cta_sub": "Sin tarjeta de crédito · Activación instantánea",
+        "step_prefix": "Paso",
+        "steps": [
+            {
+                "title": "Regístrate en Minutos",
+                "description": "Crea tu cuenta con verificación de cédula o RIF real vía SAIME/SENIAT. Sin papeleos, sin esperas.",
+                "details": [
+                    "Verificación instantánea",
+                    "Validación de documentos",
+                    "Acceso inmediato"
+                ]
+            },
+            {
+                "title": "Configura tu Empresa",
+                "description": "Selecciona los módulos que necesitas. Desde contabilidad hasta RRHH, todo se activa con un clic.",
+                "details": [
+                    "9+ módulos disponibles",
+                    "Personalización total",
+                    "Importación de datos"
+                ]
+            },
+            {
+                "title": "Opera con IA",
+                "description": "Las 19 automatizaciones se activan automáticamente. La IA analiza tus documentos, la tasa BCV se sincroniza sola.",
+                "details": [
+                    "Automatización inmediata",
+                    "IA activa desde el día 1",
+                    "BCV en tiempo real"
+                ]
+            },
+            {
+                "title": "Cumple y Crece",
+                "description": "Mantente al día con SENIAT, VEN-NIF y LOTTT automáticamente. Alertas inteligentes te avisan antes de los vencimientos.",
+                "details": [
+                    "Cumplimiento automático",
+                    "Alertas preventivas",
+                    "Reportes fiscales"
+                ]
+            }
+        ]
+    },
+    "ModulesGridSection": {
+        "badge": "Ecosistema Completo",
+        "title_main": "Todos los Módulos,",
+        "title_highlight": "Una Plataforma",
+        "subtitle_template": "{count} herramientas especializadas que cubren cada aspecto de tu empresa. Sin módulos extra, sin costos ocultos.",
+        "modules_included": "{count} módulos incluidos",
+        "no_extra_costs": "Sin costos adicionales",
+        "cta": "Explorar Todos los Módulos",
+        "categories": {
+            "all": "Todos",
+            "finance": "Finanzas",
+            "hr": "Talento",
+            "legal": "Legal",
+            "ops": "Operaciones",
+            "tech": "Tecnología"
+        },
+        "modules": [
+            "Contabilidad General",
+            "Facturación Fiscal",
+            "CxC / CxP",
+            "Tributos & IVA",
+            "Presupuestos",
+            "Nómina",
+            "Reclutamiento",
+            "Vacaciones & Permisos",
+            "Clima Organizacional",
+            "Desarrollo Personal",
+            "Contratos Laborales",
+            "Marco Legal VE",
+            "Litigios",
+            "Permisología",
+            "Inventario",
+            "Proveedores",
+            "Marketing",
+            "Viáticos",
+            "Telecom",
+            "Informática / IT",
+            "IA Triple Motor",
+            "Seguridad AES-256",
+            "Automatizaciones",
+            "Auditoría Blockchain"
+        ]
+    },
+    "ShowcaseSection": {
+        "badge": "Vista Previa de la Plataforma",
+        "title_prefix": "Conoce",
+        "title_highlight": "System Kyron",
+        "subtitle": "Capturas reales de nuestra plataforma. Diseño profesional, seguridad de grado empresarial.",
+        "preview": "Vista previa",
+        "screenshots": [
+            {
+                "title": "Selector de Portales",
+                "description": "Acceso centralizado a todos los módulos con cifrado AES-256"
+            },
+            {
+                "title": "Acceso Seguro",
+                "description": "Login especializado por módulo con verificación 2FA"
+            },
+            {
+                "title": "Registro Inteligente",
+                "description": "Validación de cédula y RIF con consulta SAIME/SENIAT"
+            },
+            {
+                "title": "Guía Interactiva",
+                "description": "Tutorial paso a paso para nuevos usuarios"
+            },
+            {
+                "title": "Centro de Ayuda",
+                "description": "26 preguntas en 9 categorías especializadas"
+            }
+        ]
+    },
+    "WhyKyronSection": {
+        "badge": "Diferenciadores",
+        "title_prefix": "¿Por qué",
+        "title_highlight": "System Kyron",
+        "subtitle": "No somos un ERP genérico traducido al español. Somos la primera plataforma empresarial construida exclusivamente para la realidad fiscal y laboral de Venezuela.",
+        "cta": "Comenzar Ahora",
+        "comparison_title_vs": "vs",
+        "comparison_title_generic": "ERP Genéricos",
+        "comparison_subtitle": "Una comparación rápida de lo que nos diferencia de soluciones internacionales",
+        "comparison_header": "Funcionalidad",
+        "differentiators": [
+            {
+                "title": "100% Venezolano",
+                "description": "Diseñado desde cero para la normativa venezolana. SENIAT, BCV, LOTTT, VEN-NIF — no es un ERP genérico adaptado, es tu ecosistema local."
+            },
+            {
+                "title": "IA Integrada Triple",
+                "description": "Claude, OpenAI y Gemini trabajando en paralelo. Análisis forense de documentos, asistente contable, y automatizaciones inteligentes."
+            },
+            {
+                "title": "Cifrado AES-256 Real",
+                "description": "No promesas — cifrado de grado militar verificable en tiempo real. Datos sensibles encriptados en reposo, JWT seguro, y auditoría inmutable con blockchain."
+            },
+            {
+                "title": "19 Automatizaciones",
+                "description": "Motor de reglas que cubre inventario, nómina, CxC/CxP, presupuestos, contratos, seguridad y clientes. Se ejecutan automáticamente — sin intervención humana."
+            },
+            {
+                "title": "9+ Módulos Nativos",
+                "description": "Contabilidad, RRHH, Legal, Facturación, Telecom, IT, Marketing, Personal y Empresa. Todo conectado, sin módulos de terceros ni costos adicionales."
+            },
+            {
+                "title": "Tiempo Real BCV",
+                "description": "Sincronización automática de tasas BCV. Tus cálculos fiscales, facturas y reportes siempre al día con la tasa oficial más reciente."
+            }
+        ],
+        "comparison_rows": [
+            "Normativa Venezolana Nativa",
+            "Cifrado AES-256 Verificable",
+            "IA Triple (Claude + OpenAI + Gemini)",
+            "Sincronización BCV Automática",
+            "SENIAT / VEN-NIF / LOTTT",
+            "19 Automatizaciones Pre-configuradas",
+            "Auditoría Blockchain Inmutable",
+            "Sin Costos de Módulos Adicionales"
+        ]
+    },
+    "PanelControlHero": {
+        "title": "Panel de Control — System Kyron",
+        "activate": "Activar Portal",
+        "activate_sub": "Registro gratuito • 2 minutos",
+        "tagline": "Ecosistema Corporativo Venezuela",
+        "kpis": [
+            {
+                "label": "Ingresos / Mes",
+                "delta": "+0%"
+            },
+            {
+                "label": "Facturas Activas",
+                "delta": "SENIAT"
+            },
+            {
+                "label": "Empleados",
+                "delta": "LOTTT"
+            }
+        ],
+        "modules": [
+            "Contabilidad VEN-NIF",
+            "RRHH & Nómina",
+            "Mi Línea 5G / eSIM",
+            "IA Legal & Permisos",
+            "Eco-Créditos Ameru",
+            "Analítica Avanzada"
+        ]
+    },
+    "TrustNumbersBanner": {
+        "metrics": [
+            "Automatizaciones Activas",
+            "Módulos Integrados",
+            "Cifrado AES",
+            "Cumplimiento VEN-NIF",
+            "Regulaciones Cubiertas"
+        ]
     }
 }

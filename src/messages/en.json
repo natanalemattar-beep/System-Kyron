@@ -27,15 +27,32 @@
         "cta_main": "Access",
         "cta_secondary": "User Guide",
         "tutorial_link": "How to register? — View step-by-step tutorial",
-        "features": ["VEN-NIF Certified", "IVA & IGTF Auto", "BCV Real-Time", "AI Integrated"],
+        "features": [
+            "VEN-NIF Certified",
+            "IVA & IGTF Auto",
+            "BCV Real-Time",
+            "AI Integrated"
+        ],
         "compliance": "Compliance",
         "modules_label": "Modules",
         "modules_value": "7 Integrated",
         "stats": [
-            { "val": "IVA 16%", "label": "Automatic" },
-            { "val": "IGTF 3%", "label": "Integrated" },
-            { "val": "BCV", "label": "Real-Time" },
-            { "val": "VEN-NIF", "label": "Certified" }
+            {
+                "val": "IVA 16%",
+                "label": "Automatic"
+            },
+            {
+                "val": "IGTF 3%",
+                "label": "Integrated"
+            },
+            {
+                "val": "BCV",
+                "label": "Real-Time"
+            },
+            {
+                "val": "VEN-NIF",
+                "label": "Certified"
+            }
         ]
     },
     "FeaturesSection": {
@@ -45,21 +62,60 @@
         "subtitle": "Nine integrated modules within a single digital ecosystem built for the Venezuelan market.",
         "ai_native_badge": "AI-Powered",
         "features": [
-            { "title": "VEN-NIF Accounting", "description": "Digital ledgers, RIPF, automated IVA, ISLR & IGTF filings stamped with SENIAT seal." },
-            { "title": "HR & Payroll", "description": "Payroll with SSO, FAOV, LPH, bonuses, benefits and LOPCYMAT. Full LOTTT compliance." },
-            { "title": "My Line 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry." },
-            { "title": "Artificial Intelligence", "description": "Kyron AI built in (powered by Claude from Anthropic). Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
-            { "title": "Legal AI & Permits", "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette." },
-            { "title": "Ameru — Eco-Credits", "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace." },
-            { "title": "Dashboard & Analytics", "description": "Live KPIs, cash-flow analysis, financial projections, and exportable PDF and PowerPoint reports." },
-            { "title": "Tax Management", "description": "IVA, ISLR, IGTF, parafiscal contributions, municipal taxes, withholdings, and an automated tax calendar." },
-            { "title": "Enterprise Security", "description": "Cryptographic sealing, an immutable audit trail, and AES-256 encryption across the entire platform." }
+            {
+                "title": "VEN-NIF Accounting",
+                "description": "Digital ledgers, RIPF, automated IVA, ISLR & IGTF filings stamped with SENIAT seal."
+            },
+            {
+                "title": "HR & Payroll",
+                "description": "Payroll with SSO, FAOV, LPH, bonuses, benefits and LOPCYMAT. Full LOTTT compliance."
+            },
+            {
+                "title": "My Line 5G / eSIM",
+                "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry."
+            },
+            {
+                "title": "Artificial Intelligence",
+                "description": "Kyron AI built in (powered by Claude from Anthropic). Contract drafting, tax analysis, AI-powered pitches, waste classification, and more."
+            },
+            {
+                "title": "Legal AI & Permits",
+                "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette."
+            },
+            {
+                "title": "Ameru — Eco-Credits",
+                "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace."
+            },
+            {
+                "title": "Dashboard & Analytics",
+                "description": "Live KPIs, cash-flow analysis, financial projections, and exportable PDF and PowerPoint reports."
+            },
+            {
+                "title": "Tax Management",
+                "description": "IVA, ISLR, IGTF, parafiscal contributions, municipal taxes, withholdings, and an automated tax calendar."
+            },
+            {
+                "title": "Enterprise Security",
+                "description": "Cryptographic sealing, an immutable audit trail, and AES-256 encryption across the entire platform."
+            }
         ],
         "stats": [
-            { "val": "48h", "detail": "Migration Time" },
-            { "val": "Multi-Entity", "detail": "Holdings & Condos" },
-            { "val": "Bilingual", "detail": "Spanish & English" },
-            { "val": "Kyron AI", "detail": "Powered by Claude (Anthropic)" }
+            {
+                "val": "48h",
+                "detail": "Migration Time"
+            },
+            {
+                "val": "Multi-Entity",
+                "detail": "Holdings & Condos"
+            },
+            {
+                "val": "Bilingual",
+                "detail": "Spanish & English"
+            },
+            {
+                "val": "Kyron AI",
+                "detail": "Powered by Claude (Anthropic)"
+            }
         ]
     },
     "ServicesSection": {
@@ -75,19 +131,34 @@
                 "title": "Accounting & Tax",
                 "subtitle": "VEN-NIF · SENIAT · ISLR",
                 "description": "Complete accounting system with legal books, Venezuelan chart of accounts, automatic IVA 16%, IGTF 3% and ISLR calculation. Compliant with the current Official Gazette.",
-                "badges": ["VEN-NIF", "SENIAT", "LOTTT", "BCV"]
+                "badges": [
+                    "VEN-NIF",
+                    "SENIAT",
+                    "LOTTT",
+                    "BCV"
+                ]
             },
             {
                 "title": "AES-256 Security",
                 "subtitle": "Military Encryption · JWT · Audit",
                 "description": "Bank-grade security infrastructure. AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable log of every action.",
-                "badges": ["AES-256", "JWT", "HTTPS", "Audit"]
+                "badges": [
+                    "AES-256",
+                    "JWT",
+                    "HTTPS",
+                    "Audit"
+                ]
             },
             {
                 "title": "Artificial Intelligence",
                 "subtitle": "Kyron AI · Claude (Anthropic)",
                 "description": "AI powered by Claude from Anthropic. Tax monitoring of the Official Gazette, smart accounting assistant, predictive cash-flow analysis, and automatic executive report generation.",
-                "badges": ["Kyron AI", "Claude", "AI Chat", "Reports"]
+                "badges": [
+                    "Kyron AI",
+                    "Claude",
+                    "AI Chat",
+                    "Reports"
+                ]
             }
         ],
         "modules": [
@@ -115,18 +186,68 @@
         "title_rest": "certified",
         "subtitle": "System Kyron complies with all current Venezuelan regulations. Each module is designed to meet the requirements of regulatory entities.",
         "regulations": {
-            "seniat":  { "full": "National Integrated Customs and Tax Administration Service", "badges": ["IVA 16%", "ISLR", "IGTF 3%"] },
-            "bcv":     { "full": "Central Bank of Venezuela", "badges": ["BCV Rates", "Forex"] },
-            "lottt":   { "full": "Organic Labor Law for Workers", "badges": ["Payroll", "Benefits", "Bonuses"] },
-            "conatel": { "full": "National Telecommunications Commission", "badges": ["Permits", "Licensing"] },
-            "ven_nif": { "full": "International Financial Reporting Standards for Venezuela", "badges": ["IFRS", "Chart of Accounts"] },
-            "sudeban": { "full": "Superintendency of Banking Sector Institutions", "badges": ["Regulations", "Reports"] }
+            "seniat": {
+                "full": "National Integrated Customs and Tax Administration Service",
+                "badges": [
+                    "IVA 16%",
+                    "ISLR",
+                    "IGTF 3%"
+                ]
+            },
+            "bcv": {
+                "full": "Central Bank of Venezuela",
+                "badges": [
+                    "BCV Rates",
+                    "Forex"
+                ]
+            },
+            "lottt": {
+                "full": "Organic Labor Law for Workers",
+                "badges": [
+                    "Payroll",
+                    "Benefits",
+                    "Bonuses"
+                ]
+            },
+            "conatel": {
+                "full": "National Telecommunications Commission",
+                "badges": [
+                    "Permits",
+                    "Licensing"
+                ]
+            },
+            "ven_nif": {
+                "full": "International Financial Reporting Standards for Venezuela",
+                "badges": [
+                    "IFRS",
+                    "Chart of Accounts"
+                ]
+            },
+            "sudeban": {
+                "full": "Superintendency of Banking Sector Institutions",
+                "badges": [
+                    "Regulations",
+                    "Reports"
+                ]
+            }
         },
         "security": {
-            "aes256": { "label": "AES-256", "desc": "Military-grade encryption" },
-            "twofa":  { "label": "2FA", "desc": "Two-factor auth" },
-            "jwt":    { "label": "JWT + HTTPS", "desc": "Secure sessions" },
-            "audit":  { "label": "Audit", "desc": "Immutable log" }
+            "aes256": {
+                "label": "AES-256",
+                "desc": "Military-grade encryption"
+            },
+            "twofa": {
+                "label": "2FA",
+                "desc": "Two-factor auth"
+            },
+            "jwt": {
+                "label": "JWT + HTTPS",
+                "desc": "Secure sessions"
+            },
+            "audit": {
+                "label": "Audit",
+                "desc": "Immutable log"
+            }
         },
         "security_badge": "Security Infrastructure",
         "security_title_1": "Bank-grade",
@@ -222,9 +343,30 @@
         "toast_success_desc": "Dossier submitted for review. An account officer will reach out.",
         "toast_error_title": "PROTOCOL FAILURE",
         "toast_error_desc": "Could not transmit the request. Check your connection.",
-        "roles": ["CEO / Owner", "General Manager", "Administrator", "Other"],
-        "sectors": ["Commerce", "Services", "Manufacturing", "Technology", "Construction", "Healthcare", "Education", "Transportation", "Agriculture", "Other"],
-        "urgencies": ["Immediate", "This week", "This month", "Exploring options"],
+        "roles": [
+            "CEO / Owner",
+            "General Manager",
+            "Administrator",
+            "Other"
+        ],
+        "sectors": [
+            "Commerce",
+            "Services",
+            "Manufacturing",
+            "Technology",
+            "Construction",
+            "Healthcare",
+            "Education",
+            "Transportation",
+            "Agriculture",
+            "Other"
+        ],
+        "urgencies": [
+            "Immediate",
+            "This week",
+            "This month",
+            "Exploring options"
+        ],
         "validation": {
             "name_short": "Name is too short",
             "role_required": "Specify your role",
@@ -248,9 +390,15 @@
         "nav_about": "About Us",
         "nav_contact": "Contact",
         "module_list": [
-            "VEN-NIF Accounting", "HR & Payroll", "My Line 5G / eSIM",
-            "Legal AI & Permits", "Ameru Eco-Credits", "Advanced Analytics",
-            "SENIAT Invoicing", "Taxes & Withholdings", "Executive Dashboard"
+            "VEN-NIF Accounting",
+            "HR & Payroll",
+            "My Line 5G / eSIM",
+            "Legal AI & Permits",
+            "Ameru Eco-Credits",
+            "Advanced Analytics",
+            "SENIAT Invoicing",
+            "Taxes & Withholdings",
+            "Executive Dashboard"
         ],
         "status_online": "Platform Online",
         "copyright": "System Kyron · Corporate Intelligence. All rights reserved.",
@@ -272,18 +420,60 @@
         "dashboard_subtitle": "Intuitive interface",
         "dashboard_title": "One dashboard. Total control.",
         "highlights": [
-            { "label": "Accounting & Tax", "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.", "stat": "VEN-NIF", "statLabel": "Tax compliance" },
-            { "label": "My Line 5G", "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.", "stat": "5G", "statLabel": "Network speed" },
-            { "label": "Integrated AI", "desc": "Kyron AI powered by Claude from Anthropic. Automates reports, documents and analysis.", "stat": "AI", "statLabel": "Claude · Anthropic" },
-            { "label": "AES-256 Security", "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.", "stat": "256", "statLabel": "Encryption bits" },
-            { "label": "HR & Payroll", "desc": "Full LOTTT management: payroll, benefits, vacations and severance in one click.", "stat": "LOTTT", "statLabel": "Legal framework" },
-            { "label": "Fiscal Invoicing", "desc": "Invoices and credit/debit notes with IGTF validation and automatic BCV rate.", "stat": "3%", "statLabel": "Automatic IGTF" }
+            {
+                "label": "Accounting & Tax",
+                "desc": "Automatic IVA, IGTF & ISLR. VEN-NIF ledgers and real-time SENIAT compliance.",
+                "stat": "VEN-NIF",
+                "statLabel": "Tax compliance"
+            },
+            {
+                "label": "My Line 5G",
+                "desc": "5G eSIM provisioning, corporate mobile fleet management and high-performance connectivity.",
+                "stat": "5G",
+                "statLabel": "Network speed"
+            },
+            {
+                "label": "Integrated AI",
+                "desc": "Kyron AI powered by Claude from Anthropic. Automates reports, documents and analysis.",
+                "stat": "AI",
+                "statLabel": "Claude · Anthropic"
+            },
+            {
+                "label": "AES-256 Security",
+                "desc": "Bank-grade encryption, HTTP-only JWT and immutable audit of every operation.",
+                "stat": "256",
+                "statLabel": "Encryption bits"
+            },
+            {
+                "label": "HR & Payroll",
+                "desc": "Full LOTTT management: payroll, benefits, vacations and severance in one click.",
+                "stat": "LOTTT",
+                "statLabel": "Legal framework"
+            },
+            {
+                "label": "Fiscal Invoicing",
+                "desc": "Invoices and credit/debit notes with IGTF validation and automatic BCV rate.",
+                "stat": "3%",
+                "statLabel": "Automatic IGTF"
+            }
         ],
         "power_stats": [
-            { "value": "7", "label": "Modules" },
-            { "value": "100%", "label": "Compliance" },
-            { "value": "AES", "label": "256 bits" },
-            { "value": "VEN", "label": "Made here" }
+            {
+                "value": "7",
+                "label": "Modules"
+            },
+            {
+                "value": "100%",
+                "label": "Compliance"
+            },
+            {
+                "value": "AES",
+                "label": "256 bits"
+            },
+            {
+                "value": "VEN",
+                "label": "Made here"
+            }
         ]
     },
     "LoadingScreen": {
@@ -307,26 +497,81 @@
         "create_account": "Create account",
         "footer": "System Kyron · Secure Infrastructure · Venezuela",
         "options": {
-            "personal": { "label": "Personal Account", "description": "Access your identity documents, civil procedures, and health services." },
-            "lines_personal": { "label": "My Personal Line", "description": "Manage your mobile line, top-ups, 5G usage, and individual eSIM." },
-            "lines_business": { "label": "My Business Line", "description": "Corporate fleet control, per-employee limits, and consolidated billing." },
-            "accounting": { "label": "Accounting Advisory", "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module." },
-            "legal": { "label": "Legal Advisory", "description": "Contract management, legal documents, and registry procedures." },
-            "invoicing": { "label": "Invoicing", "description": "Point of sale for quick payments, inventory control, and sales." },
-            "partners": { "label": "Partners & Directors", "description": "Strategic oversight, profit sharing, and profitability analysis." },
-            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology." },
-            "it": { "label": "IT Department", "description": "Infrastructure, cybersecurity, technical support, licenses, and backups." }
+            "personal": {
+                "label": "Personal Account",
+                "description": "Access your identity documents, civil procedures, and health services."
+            },
+            "lines_personal": {
+                "label": "My Personal Line",
+                "description": "Manage your mobile line, top-ups, 5G usage, and individual eSIM."
+            },
+            "lines_business": {
+                "label": "My Business Line",
+                "description": "Corporate fleet control, per-employee limits, and consolidated billing."
+            },
+            "accounting": {
+                "label": "Accounting Advisory",
+                "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module."
+            },
+            "legal": {
+                "label": "Legal Advisory",
+                "description": "Contract management, legal documents, and registry procedures."
+            },
+            "invoicing": {
+                "label": "Invoicing",
+                "description": "Point of sale for quick payments, inventory control, and sales."
+            },
+            "partners": {
+                "label": "Partners & Directors",
+                "description": "Strategic oversight, profit sharing, and profitability analysis."
+            },
+            "sustainability": {
+                "label": "Sustainability",
+                "description": "Environmental management, Eco-Credits, and smart recycling technology."
+            },
+            "it": {
+                "label": "IT Department",
+                "description": "Infrastructure, cybersecurity, technical support, licenses, and backups."
+            }
         }
     },
     "RegisterPage": {
         "options": {
-            "personal": { "label": "Personal Account", "description": "Individual registration for citizens. Access the personal portal with your national ID.", "badge": "Citizen" },
-            "telecom": { "label": "My Lines", "description": "Register to manage your personal line and corporate fleet.", "badge": "Telecom" },
-            "accounting": { "label": "Accounting Advisory", "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module.", "badge": "Enterprise" },
-            "legal": { "label": "Legal Advisory", "description": "Register for contract management, legal documents, and registry procedures.", "badge": "Legal" },
-            "invoicing": { "label": "Invoicing", "description": "Access the point of sale for quick payments, inventory control, and sales.", "badge": "Sales" },
-            "partners": { "label": "Partners & Directors", "description": "Strategic oversight, profit sharing, and profitability analysis.", "badge": "Directors" },
-            "sustainability": { "label": "Sustainability", "description": "Environmental management, Eco-Credits, and smart recycling technology.", "badge": "Green" }
+            "personal": {
+                "label": "Personal Account",
+                "description": "Individual registration for citizens. Access the personal portal with your national ID.",
+                "badge": "Citizen"
+            },
+            "telecom": {
+                "label": "My Lines",
+                "description": "Register to manage your personal line and corporate fleet.",
+                "badge": "Telecom"
+            },
+            "accounting": {
+                "label": "Accounting Advisory",
+                "description": "Accounting, payroll, HR, engineering, and marketing unified in a single module.",
+                "badge": "Enterprise"
+            },
+            "legal": {
+                "label": "Legal Advisory",
+                "description": "Register for contract management, legal documents, and registry procedures.",
+                "badge": "Legal"
+            },
+            "invoicing": {
+                "label": "Invoicing",
+                "description": "Access the point of sale for quick payments, inventory control, and sales.",
+                "badge": "Sales"
+            },
+            "partners": {
+                "label": "Partners & Directors",
+                "description": "Strategic oversight, profit sharing, and profitability analysis.",
+                "badge": "Directors"
+            },
+            "sustainability": {
+                "label": "Sustainability",
+                "description": "Environmental management, Eco-Credits, and smart recycling technology.",
+                "badge": "Green"
+            }
         }
     },
     "Auth": {
@@ -453,5 +698,208 @@
         "toast_error_title": "Error",
         "toast_error_desc": "Connection error",
         "toast_publish_error": "Could not publish"
+    },
+    "HowItWorksSection": {
+        "badge": "Simple Process",
+        "title_highlight": "How It",
+        "title_rest": "Works",
+        "subtitle": "From zero to productive in less than an hour. No consultants, no month-long implementations, no headaches.",
+        "cta": "Get Started Free",
+        "cta_sub": "No credit card · Instant activation",
+        "step_prefix": "Step",
+        "steps": [
+            {
+                "title": "Register in Minutes",
+                "description": "Create your account with real ID or RIF verification via SAIME/SENIAT. No paperwork, no waiting.",
+                "details": [
+                    "Instant verification",
+                    "Document validation",
+                    "Immediate access"
+                ]
+            },
+            {
+                "title": "Set Up Your Company",
+                "description": "Select the modules you need. From accounting to HR, everything activates with one click.",
+                "details": [
+                    "9+ modules available",
+                    "Full customization",
+                    "Data import"
+                ]
+            },
+            {
+                "title": "Operate with AI",
+                "description": "All 19 automations activate automatically. AI analyzes your documents, BCV rate syncs on its own.",
+                "details": [
+                    "Instant automation",
+                    "AI active from day 1",
+                    "Real-time BCV"
+                ]
+            },
+            {
+                "title": "Comply and Grow",
+                "description": "Stay up to date with SENIAT, VEN-NIF and LOTTT automatically. Smart alerts notify you before deadlines.",
+                "details": [
+                    "Automatic compliance",
+                    "Preventive alerts",
+                    "Tax reports"
+                ]
+            }
+        ]
+    },
+    "ModulesGridSection": {
+        "badge": "Complete Ecosystem",
+        "title_main": "All Modules,",
+        "title_highlight": "One Platform",
+        "subtitle_template": "{count} specialized tools covering every aspect of your business. No extra modules, no hidden costs.",
+        "modules_included": "{count} modules included",
+        "no_extra_costs": "No additional costs",
+        "cta": "Explore All Modules",
+        "categories": {
+            "all": "All",
+            "finance": "Finance",
+            "hr": "Talent",
+            "legal": "Legal",
+            "ops": "Operations",
+            "tech": "Technology"
+        },
+        "modules": [
+            "General Accounting",
+            "Fiscal Invoicing",
+            "AR / AP",
+            "Taxes & VAT",
+            "Budgets",
+            "Payroll",
+            "Recruiting",
+            "Vacations & Leaves",
+            "Organizational Climate",
+            "Personal Development",
+            "Labor Contracts",
+            "VE Legal Framework",
+            "Litigation",
+            "Permits",
+            "Inventory",
+            "Suppliers",
+            "Marketing",
+            "Travel Expenses",
+            "Telecom",
+            "IT Department",
+            "Triple AI Engine",
+            "AES-256 Security",
+            "Automations",
+            "Blockchain Audit"
+        ]
+    },
+    "ShowcaseSection": {
+        "badge": "Platform Preview",
+        "title_prefix": "Discover",
+        "title_highlight": "System Kyron",
+        "subtitle": "Real screenshots from our platform. Professional design, enterprise-grade security.",
+        "preview": "Preview",
+        "screenshots": [
+            {
+                "title": "Portal Selector",
+                "description": "Centralized access to all modules with AES-256 encryption"
+            },
+            {
+                "title": "Secure Access",
+                "description": "Module-specific login with 2FA verification"
+            },
+            {
+                "title": "Smart Registration",
+                "description": "ID and RIF validation with SAIME/SENIAT lookup"
+            },
+            {
+                "title": "Interactive Guide",
+                "description": "Step-by-step tutorial for new users"
+            },
+            {
+                "title": "Help Center",
+                "description": "26 questions across 9 specialized categories"
+            }
+        ]
+    },
+    "WhyKyronSection": {
+        "badge": "Differentiators",
+        "title_prefix": "Why",
+        "title_highlight": "System Kyron",
+        "subtitle": "We're not a generic ERP translated into Spanish. We are the first enterprise platform built exclusively for Venezuela's fiscal and labor reality.",
+        "cta": "Get Started Now",
+        "comparison_title_vs": "vs",
+        "comparison_title_generic": "Generic ERPs",
+        "comparison_subtitle": "A quick comparison of what sets us apart from international solutions",
+        "comparison_header": "Feature",
+        "differentiators": [
+            {
+                "title": "100% Venezuelan",
+                "description": "Built from scratch for Venezuelan regulations. SENIAT, BCV, LOTTT, VEN-NIF — not a generic ERP adapted, it's your local ecosystem."
+            },
+            {
+                "title": "Triple Integrated AI",
+                "description": "Claude, OpenAI and Gemini working in parallel. Document forensic analysis, accounting assistant, and smart automations."
+            },
+            {
+                "title": "Real AES-256 Encryption",
+                "description": "Not promises — verifiable military-grade encryption in real time. Sensitive data encrypted at rest, secure JWT, and immutable blockchain audit."
+            },
+            {
+                "title": "19 Automations",
+                "description": "Rules engine covering inventory, payroll, AR/AP, budgets, contracts, security and clients. Runs automatically — no human intervention."
+            },
+            {
+                "title": "9+ Native Modules",
+                "description": "Accounting, HR, Legal, Invoicing, Telecom, IT, Marketing, Personal and Enterprise. All connected, no third-party modules or additional costs."
+            },
+            {
+                "title": "Real-Time BCV",
+                "description": "Automatic BCV rate synchronization. Your tax calculations, invoices and reports always up to date with the latest official rate."
+            }
+        ],
+        "comparison_rows": [
+            "Native Venezuelan Regulations",
+            "Verifiable AES-256 Encryption",
+            "Triple AI (Claude + OpenAI + Gemini)",
+            "Automatic BCV Synchronization",
+            "SENIAT / VEN-NIF / LOTTT",
+            "19 Pre-configured Automations",
+            "Immutable Blockchain Audit",
+            "No Additional Module Costs"
+        ]
+    },
+    "PanelControlHero": {
+        "title": "Control Panel — System Kyron",
+        "activate": "Activate Portal",
+        "activate_sub": "Free registration • 2 minutes",
+        "tagline": "Corporate Ecosystem Venezuela",
+        "kpis": [
+            {
+                "label": "Revenue / Month",
+                "delta": "+0%"
+            },
+            {
+                "label": "Active Invoices",
+                "delta": "SENIAT"
+            },
+            {
+                "label": "Employees",
+                "delta": "LOTTT"
+            }
+        ],
+        "modules": [
+            "VEN-NIF Accounting",
+            "HR & Payroll",
+            "My Line 5G / eSIM",
+            "Legal AI & Permits",
+            "Ameru Eco-Credits",
+            "Advanced Analytics"
+        ]
+    },
+    "TrustNumbersBanner": {
+        "metrics": [
+            "Active Automations",
+            "Integrated Modules",
+            "AES Encryption",
+            "VEN-NIF Compliance",
+            "Regulations Covered"
+        ]
     }
 }

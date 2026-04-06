@@ -1,26 +1,31 @@
-
 'use client';
 
 import { ArrowRight, ShieldCheck, TrendingUp, DollarSign, Users, Calculator, Smartphone, Recycle, Gavel, BarChart3 } from "lucide-react";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 
-const kpis = [
-  { label: "Ingresos / Mes", value: "Bs. 0", delta: "+0%",   icon: TrendingUp,  color: "text-emerald-400" },
-  { label: "Facturas Activas", value: "0",     delta: "SENIAT", icon: DollarSign,  color: "text-cyan-400" },
-  { label: "Empleados",        value: "0",     delta: "LOTTT",  icon: Users,       color: "text-violet-400" },
-];
+const kpiIcons = [TrendingUp, DollarSign, Users];
+const kpiColors = ["text-emerald-400", "text-cyan-400", "text-violet-400"];
+const kpiValues = ["Bs. 0", "0", "0"];
 
-const modules = [
-  { label: "Contabilidad VEN-NIF", icon: Calculator, color: "text-cyan-400",    bg: "from-cyan-500/20 to-cyan-500/5",      border: "border-cyan-500/25",    href: "/login-empresa" },
-  { label: "RRHH & Nómina",        icon: Users,      color: "text-violet-400",  bg: "from-violet-500/20 to-violet-500/5",  border: "border-violet-500/25",  href: "/login-rrhh" },
-  { label: "Mi Línea 5G / eSIM",    icon: Smartphone, color: "text-blue-400",    bg: "from-blue-500/20 to-blue-500/5",      border: "border-blue-500/25",    href: "/login-linea" },
-  { label: "IA Legal & Permisos",  icon: Gavel,      color: "text-amber-400",   bg: "from-amber-500/20 to-amber-500/5",    border: "border-amber-500/25",   href: "/login-escritorio-juridico" },
-  { label: "Eco-Créditos Ameru",   icon: Recycle,    color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5",border: "border-emerald-500/25", href: "/login-sostenibilidad" },
-  { label: "Analítica Avanzada",   icon: BarChart3,  color: "text-rose-400",    bg: "from-rose-500/20 to-rose-500/5",      border: "border-rose-500/25",    href: "/login-empresa" },
+const moduleIcons = [Calculator, Users, Smartphone, Gavel, Recycle, BarChart3];
+const moduleColors = ["text-cyan-400", "text-violet-400", "text-blue-400", "text-amber-400", "text-emerald-400", "text-rose-400"];
+const moduleBgs = [
+    "from-cyan-500/20 to-cyan-500/5", "from-violet-500/20 to-violet-500/5", "from-blue-500/20 to-blue-500/5",
+    "from-amber-500/20 to-amber-500/5", "from-emerald-500/20 to-emerald-500/5", "from-rose-500/20 to-rose-500/5"
 ];
+const moduleBorders = [
+    "border-cyan-500/25", "border-violet-500/25", "border-blue-500/25",
+    "border-amber-500/25", "border-emerald-500/25", "border-rose-500/25"
+];
+const moduleHrefs = ["/login-empresa", "/login-rrhh", "/login-linea", "/login-escritorio-juridico", "/login-sostenibilidad", "/login-empresa"];
 
 export function PanelControlHero() {
+  const t = useTranslations('PanelControlHero');
+  const kpis = t.raw('kpis') as Array<{ label: string; delta: string }>;
+  const moduleNames = t.raw('modules') as string[];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
 
@@ -47,7 +52,7 @@ export function PanelControlHero() {
                 <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
               </div>
               <span className="text-[11px] font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                Panel de Control — System Kyron
+                {t('title')}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -60,38 +65,44 @@ export function PanelControlHero() {
           </div>
 
           <div className="grid grid-cols-3 divide-x divide-border/30">
-            {kpis.map((kpi, i) => (
-              <div
-                key={kpi.label}
-                className="p-5 space-y-1 hover:bg-white/[0.02] transition-colors"
-              >
-                <kpi.icon className={cn("h-4 w-4 mb-2", kpi.color)} />
-                <p className="text-lg font-bold text-foreground leading-none">{kpi.value}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{kpi.label}</p>
-                <span className={cn("text-[10px] font-semibold uppercase tracking-wide", kpi.color)}>{kpi.delta}</span>
-              </div>
-            ))}
+            {kpis.map((kpi, i) => {
+              const Icon = kpiIcons[i];
+              return (
+                <div
+                  key={i}
+                  className="p-5 space-y-1 hover:bg-white/[0.02] transition-colors"
+                >
+                  <Icon className={cn("h-4 w-4 mb-2", kpiColors[i])} />
+                  <p className="text-lg font-bold text-foreground leading-none">{kpiValues[i]}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{kpi.label}</p>
+                  <span className={cn("text-[10px] font-semibold uppercase tracking-wide", kpiColors[i])}>{kpi.delta}</span>
+                </div>
+              );
+            })}
           </div>
 
           <div className="p-5 border-t border-border/30">
             <div className="grid grid-cols-3 gap-2.5">
-              {modules.map((mod, i) => (
-                <NextLink
-                  key={mod.label}
-                  href={mod.href}
-                  className={cn(
-                    "flex flex-col gap-3 p-4 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.04] hover:shadow-lg",
-                    mod.bg, mod.border
-                  )}
-                >
-                  <div className={cn("p-2 rounded-xl bg-muted/50 w-fit", mod.color)}>
-                    <mod.icon className="h-4 w-4" />
-                  </div>
-                  <p className="text-[11px] font-semibold uppercase tracking-tight text-muted-foreground leading-tight">
-                    {mod.label}
-                  </p>
-                </NextLink>
-              ))}
+              {moduleNames.map((name, i) => {
+                const Icon = moduleIcons[i];
+                return (
+                  <NextLink
+                    key={i}
+                    href={moduleHrefs[i]}
+                    className={cn(
+                      "flex flex-col gap-3 p-4 rounded-2xl border bg-gradient-to-br transition-all duration-300 hover:scale-[1.04] hover:shadow-lg",
+                      moduleBgs[i], moduleBorders[i]
+                    )}
+                  >
+                    <div className={cn("p-2 rounded-xl bg-muted/50 w-fit", moduleColors[i])}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <p className="text-[11px] font-semibold uppercase tracking-tight text-muted-foreground leading-tight">
+                      {name}
+                    </p>
+                  </NextLink>
+                );
+              })}
             </div>
           </div>
 
@@ -100,8 +111,8 @@ export function PanelControlHero() {
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-4 w-4 text-primary" />
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-primary leading-none">Activar Portal</p>
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Registro gratuito • 2 minutos</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-primary leading-none">{t('activate')}</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">{t('activate_sub')}</p>
                 </div>
               </div>
               <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
@@ -112,7 +123,7 @@ export function PanelControlHero() {
         <p
           className="text-center text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70 mt-6"
         >
-          Ecosistema Corporativo Venezuela
+          {t('tagline')}
         </p>
       </div>
     </section>

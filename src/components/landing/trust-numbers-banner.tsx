@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Shield, Building2, Cpu, CheckCircle2, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 function AnimatedCounter({ target, suffix = '', prefix = '' }: { target: number; suffix?: string; prefix?: string }) {
     const ref = useRef<HTMLSpanElement>(null);
@@ -31,15 +32,18 @@ function AnimatedCounter({ target, suffix = '', prefix = '' }: { target: number;
     );
 }
 
-const metrics = [
-    { target: 19, suffix: '', label: 'Automatizaciones Activas', icon: Cpu, color: 'text-cyan-600 dark:text-cyan-400' },
-    { target: 9, suffix: '+', label: 'Módulos Integrados', icon: Building2, color: 'text-blue-600 dark:text-blue-400' },
-    { target: 256, suffix: '-bit', label: 'Cifrado AES', icon: Lock, color: 'text-emerald-600 dark:text-emerald-400' },
-    { target: 100, suffix: '%', label: 'Cumplimiento VEN-NIF', icon: CheckCircle2, color: 'text-violet-600 dark:text-violet-400' },
-    { target: 6, suffix: '', label: 'Regulaciones Cubiertas', icon: Shield, color: 'text-amber-600 dark:text-amber-400' },
+const metricsMeta = [
+    { target: 19, suffix: '', icon: Cpu, color: 'text-cyan-600 dark:text-cyan-400' },
+    { target: 9, suffix: '+', icon: Building2, color: 'text-blue-600 dark:text-blue-400' },
+    { target: 256, suffix: '-bit', icon: Lock, color: 'text-emerald-600 dark:text-emerald-400' },
+    { target: 100, suffix: '%', icon: CheckCircle2, color: 'text-violet-600 dark:text-violet-400' },
+    { target: 6, suffix: '', icon: Shield, color: 'text-amber-600 dark:text-amber-400' },
 ];
 
 export function TrustNumbersBanner() {
+    const t = useTranslations('TrustNumbersBanner');
+    const labels = t.raw('metrics') as string[];
+
     return (
         <section className="relative py-16 md:py-20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-blue-50/80 to-slate-100 dark:from-[#0a0e1a] dark:via-[#0d1420] dark:to-[#0a0e1a]" />
@@ -50,7 +54,7 @@ export function TrustNumbersBanner() {
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
-                    {metrics.map((metric, i) => (
+                    {metricsMeta.map((metric, i) => (
                         <motion.div
                             key={i}
                             className="flex flex-col items-center text-center gap-2"
@@ -64,7 +68,7 @@ export function TrustNumbersBanner() {
                                 <AnimatedCounter target={metric.target} suffix={metric.suffix} />
                             </p>
                             <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground/40">
-                                {metric.label}
+                                {labels[i]}
                             </p>
                         </motion.div>
                     ))}

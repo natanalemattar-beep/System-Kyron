@@ -6,13 +6,12 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { Monitor, Smartphone, ShieldCheck, BookOpen, HelpCircle, Eye } from 'lucide-react';
 import { ThemeImage } from '@/components/ui/theme-image';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
-const screenshots = [
+const screenshotsMeta = [
   {
     darkSrc: '/images/landing/screenshot-portales-dark.jpg',
     lightSrc: '/images/landing/screenshot-portales-light.jpg',
-    title: 'Selector de Portales',
-    description: 'Acceso centralizado a todos los módulos con cifrado AES-256',
     icon: ShieldCheck,
     color: 'from-cyan-500 to-blue-500',
     accent: 'border-cyan-500/20',
@@ -22,8 +21,6 @@ const screenshots = [
   {
     darkSrc: '/images/landing/screenshot-contabilidad-dark.jpg',
     lightSrc: '/images/landing/screenshot-contabilidad-light.jpg',
-    title: 'Acceso Seguro',
-    description: 'Login especializado por módulo con verificación 2FA',
     icon: Monitor,
     color: 'from-blue-500 to-violet-500',
     accent: 'border-blue-500/20',
@@ -33,8 +30,6 @@ const screenshots = [
   {
     darkSrc: '/images/landing/screenshot-registro-dark.jpg',
     lightSrc: '/images/landing/screenshot-registro-light.jpg',
-    title: 'Registro Inteligente',
-    description: 'Validación de cédula y RIF con consulta SAIME/SENIAT',
     icon: Smartphone,
     color: 'from-emerald-500 to-cyan-500',
     accent: 'border-emerald-500/20',
@@ -44,8 +39,6 @@ const screenshots = [
   {
     darkSrc: '/images/landing/screenshot-guia-dark.jpg',
     lightSrc: '/images/landing/screenshot-guia-light.jpg',
-    title: 'Guía Interactiva',
-    description: 'Tutorial paso a paso para nuevos usuarios',
     icon: BookOpen,
     color: 'from-violet-500 to-purple-500',
     accent: 'border-violet-500/20',
@@ -55,8 +48,6 @@ const screenshots = [
   {
     darkSrc: '/images/landing/screenshot-faq-dark.jpg',
     lightSrc: '/images/landing/screenshot-faq-light.jpg',
-    title: 'Centro de Ayuda',
-    description: '26 preguntas en 9 categorías especializadas',
     icon: HelpCircle,
     color: 'from-amber-500 to-orange-500',
     accent: 'border-amber-500/20',
@@ -69,10 +60,16 @@ function ScreenshotCard({
   item,
   index,
   animate,
+  title,
+  description,
+  previewLabel,
 }: {
-  item: typeof screenshots[0];
+  item: typeof screenshotsMeta[0];
   index: number;
   animate: boolean;
+  title: string;
+  description: string;
+  previewLabel: string;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -104,7 +101,7 @@ function ScreenshotCard({
           <ThemeImage
             darkSrc={item.darkSrc}
             lightSrc={item.lightSrc}
-            alt={item.title}
+            alt={title}
             width={item.size === 'large' ? 800 : 640}
             height={item.size === 'large' ? 500 : 360}
             quality={75}
@@ -116,7 +113,7 @@ function ScreenshotCard({
           <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-black/70 backdrop-blur-md text-[9px] font-bold uppercase tracking-wider text-foreground/80">
               <Eye className="h-3 w-3" />
-              Vista previa
+              {previewLabel}
             </div>
           </div>
         </div>
@@ -131,10 +128,10 @@ function ScreenshotCard({
             </div>
             <div>
               <h3 className="text-sm font-bold text-foreground uppercase tracking-tight">
-                {item.title}
+                {title}
               </h3>
               <p className="text-[10px] text-muted-foreground font-medium">
-                {item.description}
+                {description}
               </p>
             </div>
           </div>
@@ -147,6 +144,8 @@ function ScreenshotCard({
 export function ShowcaseSection() {
   const { tier } = useDevicePerformance();
   const animate = tier !== 'low';
+  const t = useTranslations('ShowcaseSection');
+  const screenshots = t.raw('screenshots') as Array<{ title: string; description: string }>;
 
   return (
     <section className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-cyan-50/60 via-teal-50/40 to-emerald-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
@@ -165,22 +164,30 @@ export function ShowcaseSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
-            <Monitor className="h-3.5 w-3.5" /> Vista Previa de la Plataforma
+            <Monitor className="h-3.5 w-3.5" /> {t('badge')}
           </div>
           <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4">
-            Conoce{' '}
+            {t('title_prefix')}{' '}
             <span className="liquid-glass-text italic">
-              System Kyron
+              {t('title_highlight')}
             </span>
           </h2>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
-            Capturas reales de nuestra plataforma. Diseño profesional, seguridad de grado empresarial.
+            {t('subtitle')}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-auto gap-4 md:gap-6">
-          {screenshots.map((item, idx) => (
-            <ScreenshotCard key={item.title} item={item} index={idx} animate={animate} />
+          {screenshotsMeta.map((item, idx) => (
+            <ScreenshotCard
+              key={idx}
+              item={item}
+              index={idx}
+              animate={animate}
+              title={screenshots[idx]?.title ?? ''}
+              description={screenshots[idx]?.description ?? ''}
+              previewLabel={t('preview')}
+            />
           ))}
         </div>
       </div>
