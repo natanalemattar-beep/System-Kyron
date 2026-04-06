@@ -68,6 +68,12 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    await query(
+      `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito, usado)
+       VALUES ($1, 'email', 'MAGIC_VERIFIED', NOW() + INTERVAL '30 minutes', 'verification', true)`,
+      [result.email.toLowerCase()]
+    );
+
     const displayName = user.tipo === 'juridico'
       ? (user.razon_social ?? user.nombre)
       : user.nombre;

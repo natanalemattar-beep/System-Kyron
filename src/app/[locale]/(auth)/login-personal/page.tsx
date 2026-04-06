@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
@@ -35,6 +36,17 @@ export default function LoginPersonalPage() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { toast } = useToast();
+
+  const handleMagicLinkVerified = useCallback(() => {
+    toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    router.push('/dashboard');
+  }, [toast, router]);
+
+  useVerificationPoll(
+    verificationEmail,
+    step === 'verification' && !isLoading,
+    handleMagicLinkVerified
+  );
 
   useEffect(() => {
     if (countdown <= 0) return;

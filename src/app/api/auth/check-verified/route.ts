@@ -24,11 +24,19 @@ export async function GET(req: NextRequest) {
 
     const record = await queryOne<{ id: number }>(
       `SELECT id FROM verification_codes
-       WHERE destino = $1 AND usado = true AND tipo = 'email' AND proposito = 'verification'
-       AND expires_at > NOW() - INTERVAL '30 minutes'
+       WHERE destino = $1 AND usado = true AND codigo = 'MAGIC_VERIFIED'
+       AND tipo = 'email' AND proposito = 'verification'
+       AND expires_at > NOW()
        ORDER BY created_at DESC LIMIT 1`,
       [normalized]
     );
+
+    if (record) {
+      await queryOne(
+        `DELETE FROM verification_codes WHERE id = $1`,
+        [record.id]
+      );
+    }
 
     return NextResponse.json({ verified: !!record });
   } catch (err) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ import {
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { cn } from '@/lib/utils';
 
 const ACCESS_TYPES = {
@@ -55,6 +56,17 @@ export default function LoginLineaUnifiedPage() {
 
   const current = ACCESS_TYPES[selected];
   const Icon = current.icon;
+
+  const handleMagicLinkVerified = useCallback(() => {
+    toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    router.push(current.redirectPath as any);
+  }, [toast, router, current.redirectPath]);
+
+  useVerificationPoll(
+    verificationEmail,
+    step === 'verification' && !isLoading,
+    handleMagicLinkVerified
+  );
 
   useEffect(() => {
     if (countdown <= 0) return;

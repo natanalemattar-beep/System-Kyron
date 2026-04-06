@@ -104,13 +104,16 @@ export default function VerifyLinkPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-2"
+            className="space-y-3"
           >
             <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Identidad verificada
             </h1>
             <p className="text-sm text-muted-foreground">
               Bienvenido, <strong className="text-foreground">{userName}</strong>. Redirigiendo...
+            </p>
+            <p className="text-xs text-muted-foreground/60">
+              Si tienes otra pestaña abierta, se actualizará automáticamente.
             </p>
           </motion.div>
         )}
