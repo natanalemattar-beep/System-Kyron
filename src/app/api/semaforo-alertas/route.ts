@@ -4,14 +4,14 @@ import { getSession } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
-interface ModuleStatus {
-  module: string;
+interface AlertaVencimiento {
+  categoria: string;
   label: string;
-  level: "verde" | "amarillo" | "rojo";
-  criticas: number;
-  advertencias: number;
-  total: number;
-  detalle: string;
+  item: string;
+  dias: number;
+  nivel: "vencido" | "urgente" | "proximo" | "ok";
+  fecha: string;
+  href: string;
 }
 
 export async function GET() {
@@ -20,202 +20,167 @@ export async function GET() {
   const uid = session.userId;
 
   try {
-    const now = new Date();
-    const modules: ModuleStatus[] = [];
+    const alertas: AlertaVencimiento[] = [];
 
-    const [
-      inventarioRows,
-      cxcRows,
-      cxpRows,
-      contratosLaboralesRows,
-      nominaRows,
-      presupuestoRows,
-      contratosLegalesRows,
-      securityRows,
-      clientesRows,
-    ] = await Promise.all([
-      query<{ bajo: string; agotado: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE stock_actual <= stock_minimo AND stock_actual > 0) AS bajo,
-          COUNT(*) FILTER (WHERE stock_actual <= 0) AS agotado
-        FROM inventario WHERE user_id = $1`,
+    const [cxcRows, cxpRows, clRows, legRows, nomRows, presRows] = await Promise.all([
+      query<{ id: number; descripcion: string; fecha_vencimiento: string; monto: string; estado: string }>(
+        `SELECT id, COALESCE(descripcion, 'CxC #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
+         FROM cuentas_por_cobrar
+         WHERE user_id = $1 AND estado IN ('pendiente','parcial') AND fecha_vencimiento IS NOT NULL
+         ORDER BY fecha_vencimiento ASC LIMIT 20`,
         [uid]
       ),
-      query<{ vencidas: string; proximas: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE fecha_vencimiento < NOW() AND estado IN ('pendiente','parcial')) AS vencidas,
-          COUNT(*) FILTER (WHERE fecha_vencimiento BETWEEN NOW() AND NOW() + INTERVAL '7 days' AND estado IN ('pendiente','parcial')) AS proximas
-        FROM cuentas_por_cobrar WHERE user_id = $1`,
+      query<{ id: number; descripcion: string; fecha_vencimiento: string; monto: string; estado: string }>(
+        `SELECT id, COALESCE(descripcion, 'CxP #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
+         FROM cuentas_por_pagar
+         WHERE user_id = $1 AND estado IN ('pendiente','parcial') AND fecha_vencimiento IS NOT NULL
+         ORDER BY fecha_vencimiento ASC LIMIT 20`,
         [uid]
       ),
-      query<{ vencidas: string; proximas: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE fecha_vencimiento < NOW() AND estado IN ('pendiente','parcial')) AS vencidas,
-          COUNT(*) FILTER (WHERE fecha_vencimiento BETWEEN NOW() AND NOW() + INTERVAL '7 days' AND estado IN ('pendiente','parcial')) AS proximas
-        FROM cuentas_por_pagar WHERE user_id = $1`,
+      query<{ id: number; titulo: string; fecha_fin: string; cargo: string }>(
+        `SELECT id, titulo, fecha_fin::text, cargo
+         FROM contratos_laborales
+         WHERE user_id = $1 AND estado IN ('vigente','firmado') AND fecha_fin IS NOT NULL
+         ORDER BY fecha_fin ASC LIMIT 15`,
         [uid]
       ),
-      query<{ vencidos: string; proximos: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE fecha_fin < NOW() AND estado IN ('vigente','firmado')) AS vencidos,
-          COUNT(*) FILTER (WHERE fecha_fin BETWEEN NOW() AND NOW() + INTERVAL '30 days' AND estado IN ('vigente','firmado')) AS proximos
-        FROM contratos_laborales WHERE user_id = $1`,
+      query<{ id: number; titulo: string; fecha_fin: string; contraparte: string }>(
+        `SELECT id, titulo, fecha_fin::text, COALESCE(contraparte, '') AS contraparte
+         FROM contratos_legales
+         WHERE user_id = $1 AND estado = 'activo' AND fecha_fin IS NOT NULL
+         ORDER BY fecha_fin ASC LIMIT 15`,
         [uid]
       ),
-      query<{ pendientes: string }>(
-        `SELECT COUNT(*) AS pendientes FROM nominas WHERE user_id = $1 AND estado = 'pendiente'`,
+      query<{ id: number; periodo: string; fecha_pago: string; tipo: string; estado: string }>(
+        `SELECT id, periodo, COALESCE(fecha_pago, fecha_fin)::text AS fecha_pago, tipo, estado
+         FROM nominas
+         WHERE user_id = $1 AND estado = 'pendiente' AND (fecha_pago IS NOT NULL OR fecha_fin IS NOT NULL)
+         ORDER BY COALESCE(fecha_pago, fecha_fin) ASC LIMIT 10`,
         [uid]
       ),
-      query<{ excedidos: string; cerca: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE monto_ejecutado > monto_presupuestado) AS excedidos,
-          COUNT(*) FILTER (WHERE monto_ejecutado > monto_presupuestado * 0.85 AND monto_ejecutado <= monto_presupuestado) AS cerca
-        FROM presupuestos WHERE user_id = $1 AND estado = 'activo'`,
-        [uid]
-      ),
-      query<{ vencidos: string; proximos: string }>(
-        `SELECT
-          COUNT(*) FILTER (WHERE fecha_fin < NOW() AND estado = 'activo') AS vencidos,
-          COUNT(*) FILTER (WHERE fecha_fin BETWEEN NOW() AND NOW() + INTERVAL '30 days' AND estado = 'activo') AS proximos
-        FROM contratos_legales WHERE user_id = $1`,
-        [uid]
-      ),
-      query<{ intentos: string }>(
-        `SELECT COUNT(*) AS intentos FROM activity_log
-         WHERE evento LIKE '%fallido%' AND creado_en > NOW() - INTERVAL '24 hours'
-         AND user_id = $1`,
-        [uid]
-      ),
-      query<{ inactivos: string }>(
-        `SELECT COUNT(*) AS inactivos FROM clientes
-         WHERE user_id = $1 AND (ultima_compra IS NULL OR ultima_compra < NOW() - INTERVAL '90 days')`,
+      query<{ id: number; nombre: string; periodo_fin: string; pct: string }>(
+        `SELECT id, nombre, periodo_fin::text,
+           CASE WHEN monto_presupuestado > 0 THEN ROUND((monto_ejecutado / monto_presupuestado) * 100)::text ELSE '0' END AS pct
+         FROM presupuestos
+         WHERE user_id = $1 AND estado = 'activo' AND periodo_fin IS NOT NULL
+         ORDER BY periodo_fin ASC LIMIT 10`,
         [uid]
       ),
     ]);
 
-    const inv = inventarioRows[0];
-    const invAgotado = parseInt(inv?.agotado || "0");
-    const invBajo = parseInt(inv?.bajo || "0");
-    modules.push({
-      module: "inventario",
-      label: "Inventario",
-      level: invAgotado > 0 ? "rojo" : invBajo > 0 ? "amarillo" : "verde",
-      criticas: invAgotado,
-      advertencias: invBajo,
-      total: invAgotado + invBajo,
-      detalle: invAgotado > 0 ? `${invAgotado} agotado(s)` : invBajo > 0 ? `${invBajo} stock bajo` : "Stock OK",
-    });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    const cxc = cxcRows[0];
-    const cxcV = parseInt(cxc?.vencidas || "0");
-    const cxcP = parseInt(cxc?.proximas || "0");
-    modules.push({
-      module: "cuentas_por_cobrar",
-      label: "Ctas. por Cobrar",
-      level: cxcV > 0 ? "rojo" : cxcP > 0 ? "amarillo" : "verde",
-      criticas: cxcV,
-      advertencias: cxcP,
-      total: cxcV + cxcP,
-      detalle: cxcV > 0 ? `${cxcV} vencida(s)` : cxcP > 0 ? `${cxcP} próxima(s)` : "Al día",
-    });
+    function diasHasta(fechaStr: string): number {
+      const f = new Date(fechaStr);
+      f.setHours(0, 0, 0, 0);
+      return Math.ceil((f.getTime() - today.getTime()) / 86400000);
+    }
 
-    const cxp = cxpRows[0];
-    const cxpV = parseInt(cxp?.vencidas || "0");
-    const cxpP = parseInt(cxp?.proximas || "0");
-    modules.push({
-      module: "cuentas_por_pagar",
-      label: "Ctas. por Pagar",
-      level: cxpV > 0 ? "rojo" : cxpP > 0 ? "amarillo" : "verde",
-      criticas: cxpV,
-      advertencias: cxpP,
-      total: cxpV + cxpP,
-      detalle: cxpV > 0 ? `${cxpV} vencida(s)` : cxpP > 0 ? `${cxpP} próxima(s)` : "Al día",
-    });
+    function nivel(dias: number): "vencido" | "urgente" | "proximo" | "ok" {
+      if (dias < 0) return "vencido";
+      if (dias <= 7) return "urgente";
+      if (dias <= 30) return "proximo";
+      return "ok";
+    }
 
-    const cl = contratosLaboralesRows[0];
-    const clV = parseInt(cl?.vencidos || "0");
-    const clP = parseInt(cl?.proximos || "0");
-    modules.push({
-      module: "rrhh",
-      label: "RRHH",
-      level: clV > 0 ? "rojo" : clP > 0 ? "amarillo" : "verde",
-      criticas: clV,
-      advertencias: clP,
-      total: clV + clP,
-      detalle: clV > 0 ? `${clV} contrato(s) vencido(s)` : clP > 0 ? `${clP} por vencer` : "Sin alertas",
-    });
+    for (const r of cxcRows) {
+      const d = diasHasta(r.fecha_vencimiento);
+      if (d > 30) continue;
+      alertas.push({
+        categoria: "Ctas. por Cobrar",
+        label: r.descripcion,
+        item: `Bs ${parseFloat(r.monto).toLocaleString("es-VE")}`,
+        dias: d,
+        nivel: nivel(d),
+        fecha: r.fecha_vencimiento,
+        href: "/cuentas-por-cobrar",
+      });
+    }
 
-    const nom = nominaRows[0];
-    const nomP = parseInt(nom?.pendientes || "0");
-    modules.push({
-      module: "nomina",
-      label: "Nómina",
-      level: nomP > 3 ? "rojo" : nomP > 0 ? "amarillo" : "verde",
-      criticas: nomP > 3 ? nomP : 0,
-      advertencias: nomP > 0 && nomP <= 3 ? nomP : 0,
-      total: nomP,
-      detalle: nomP > 0 ? `${nomP} pendiente(s)` : "Procesada",
-    });
+    for (const r of cxpRows) {
+      const d = diasHasta(r.fecha_vencimiento);
+      if (d > 30) continue;
+      alertas.push({
+        categoria: "Ctas. por Pagar",
+        label: r.descripcion,
+        item: `Bs ${parseFloat(r.monto).toLocaleString("es-VE")}`,
+        dias: d,
+        nivel: nivel(d),
+        fecha: r.fecha_vencimiento,
+        href: "/cuentas-por-pagar",
+      });
+    }
 
-    const pres = presupuestoRows[0];
-    const presE = parseInt(pres?.excedidos || "0");
-    const presC = parseInt(pres?.cerca || "0");
-    modules.push({
-      module: "presupuestos",
-      label: "Presupuestos",
-      level: presE > 0 ? "rojo" : presC > 0 ? "amarillo" : "verde",
-      criticas: presE,
-      advertencias: presC,
-      total: presE + presC,
-      detalle: presE > 0 ? `${presE} excedido(s)` : presC > 0 ? `${presC} cerca del límite` : "Dentro del rango",
-    });
+    for (const r of clRows) {
+      const d = diasHasta(r.fecha_fin);
+      if (d > 60) continue;
+      alertas.push({
+        categoria: "Contrato Laboral",
+        label: r.titulo,
+        item: r.cargo,
+        dias: d,
+        nivel: nivel(d),
+        fecha: r.fecha_fin,
+        href: "/contratos-laborales",
+      });
+    }
 
-    const leg = contratosLegalesRows[0];
-    const legV = parseInt(leg?.vencidos || "0");
-    const legP = parseInt(leg?.proximos || "0");
-    modules.push({
-      module: "legal",
-      label: "Legal",
-      level: legV > 0 ? "rojo" : legP > 0 ? "amarillo" : "verde",
-      criticas: legV,
-      advertencias: legP,
-      total: legV + legP,
-      detalle: legV > 0 ? `${legV} contrato(s) vencido(s)` : legP > 0 ? `${legP} por vencer` : "Sin alertas",
-    });
+    for (const r of legRows) {
+      const d = diasHasta(r.fecha_fin);
+      if (d > 60) continue;
+      alertas.push({
+        categoria: "Contrato Legal",
+        label: r.titulo,
+        item: r.contraparte,
+        dias: d,
+        nivel: nivel(d),
+        fecha: r.fecha_fin,
+        href: "/escritorio-juridico",
+      });
+    }
 
-    const sec = securityRows[0];
-    const secI = parseInt(sec?.intentos || "0");
-    modules.push({
-      module: "seguridad",
-      label: "Seguridad",
-      level: secI > 10 ? "rojo" : secI > 3 ? "amarillo" : "verde",
-      criticas: secI > 10 ? secI : 0,
-      advertencias: secI > 3 && secI <= 10 ? secI : 0,
-      total: secI,
-      detalle: secI > 10 ? `${secI} intentos fallidos` : secI > 3 ? `${secI} intentos sospechosos` : "Sin amenazas",
-    });
+    for (const r of nomRows) {
+      const d = diasHasta(r.fecha_pago);
+      alertas.push({
+        categoria: "Nómina",
+        label: `${r.tipo} — ${r.periodo}`,
+        item: "Pendiente de pago",
+        dias: d,
+        nivel: d < 0 ? "vencido" : d <= 3 ? "urgente" : "proximo",
+        fecha: r.fecha_pago,
+        href: "/contabilidad/libros/nomina",
+      });
+    }
 
-    const cli = clientesRows[0];
-    const cliI = parseInt(cli?.inactivos || "0");
-    modules.push({
-      module: "clientes",
-      label: "Clientes",
-      level: cliI > 10 ? "rojo" : cliI > 0 ? "amarillo" : "verde",
-      criticas: cliI > 10 ? cliI : 0,
-      advertencias: cliI > 0 && cliI <= 10 ? cliI : 0,
-      total: cliI,
-      detalle: cliI > 0 ? `${cliI} inactivo(s) 90d+` : "Todos activos",
-    });
+    for (const r of presRows) {
+      const d = diasHasta(r.periodo_fin);
+      const pct = parseInt(r.pct);
+      if (d > 30 && pct < 85) continue;
+      alertas.push({
+        categoria: "Presupuesto",
+        label: r.nombre,
+        item: `${pct}% ejecutado`,
+        dias: d,
+        nivel: pct > 100 ? "vencido" : pct >= 85 ? "urgente" : nivel(d),
+        fecha: r.periodo_fin,
+        href: "/presupuestos",
+      });
+    }
 
-    const totalCriticas = modules.reduce((s, m) => s + m.criticas, 0);
-    const totalAdvertencias = modules.reduce((s, m) => s + m.advertencias, 0);
-    const globalLevel: "verde" | "amarillo" | "rojo" =
-      totalCriticas > 0 ? "rojo" : totalAdvertencias > 0 ? "amarillo" : "verde";
+    alertas.sort((a, b) => a.dias - b.dias);
+
+    const vencidos = alertas.filter(a => a.nivel === "vencido").length;
+    const urgentes = alertas.filter(a => a.nivel === "urgente").length;
+    const proximos = alertas.filter(a => a.nivel === "proximo").length;
+
+    const globalLevel: "rojo" | "amarillo" | "verde" =
+      vencidos > 0 ? "rojo" : urgentes > 0 ? "amarillo" : "verde";
 
     return NextResponse.json({
-      global: { level: globalLevel, criticas: totalCriticas, advertencias: totalAdvertencias },
-      modules,
-      timestamp: now.toISOString(),
+      global: { level: globalLevel, vencidos, urgentes, proximos },
+      alertas: alertas.slice(0, 25),
+      timestamp: new Date().toISOString(),
     });
   } catch (err: unknown) {
     console.error("[semaforo-alertas]", err);

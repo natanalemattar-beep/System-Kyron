@@ -145,7 +145,10 @@ export default function DashboardEmpresaPage() {
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientClosingForm, setClientClosingForm] = useState<{ periodo: string; fecha_inicio: string; fecha_fin: string } | null>(null);
   const [fiscalDeadlines, setFiscalDeadlines] = useState<Array<{ label: string; diff: number; dateStr: string; iconKey: string; color: string; bg: string }>>([]);
-  const [semaforo, setSemaforo] = useState<{ global: { level: string; criticas: number; advertencias: number }; modules: Array<{ module: string; label: string; level: string; criticas: number; advertencias: number; total: number; detalle: string }> } | null>(null);
+  const [semaforo, setSemaforo] = useState<{
+    global: { level: string; vencidos: number; urgentes: number; proximos: number };
+    alertas: Array<{ categoria: string; label: string; item: string; dias: number; nivel: string; fecha: string; href: string }>;
+  } | null>(null);
 
   useEffect(() => {
     const now = new Date();
@@ -776,85 +779,131 @@ export default function DashboardEmpresaPage() {
 
       {semaforo && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
-          <Card className="border border-border/30 rounded-xl bg-card/80 p-4 overflow-hidden">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className={cn(
-                  "h-9 w-9 rounded-xl flex items-center justify-center shadow-lg relative",
-                  semaforo.global.level === "rojo" ? "bg-gradient-to-br from-rose-500 to-red-600 shadow-rose-500/20" :
-                  semaforo.global.level === "amarillo" ? "bg-gradient-to-br from-amber-400 to-orange-500 shadow-amber-500/20" :
-                  "bg-gradient-to-br from-emerald-400 to-green-600 shadow-emerald-500/20"
-                )}>
-                  <AlertTriangle className="h-4 w-4 text-white" />
-                  {semaforo.global.level !== "verde" && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-white flex items-center justify-center">
-                      <span className={cn("w-2 h-2 rounded-full animate-pulse", semaforo.global.level === "rojo" ? "bg-rose-500" : "bg-amber-500")} />
-                    </span>
-                  )}
+          <Card className="border border-border/30 rounded-xl bg-card/80 overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              <div className={cn(
+                "flex flex-row lg:flex-col items-center justify-center gap-3 p-5 lg:p-6 lg:w-[100px] shrink-0 relative",
+                semaforo.global.level === "rojo" ? "bg-gradient-to-b from-rose-950/40 to-transparent" :
+                semaforo.global.level === "amarillo" ? "bg-gradient-to-b from-amber-950/40 to-transparent" :
+                "bg-gradient-to-b from-emerald-950/30 to-transparent"
+              )}>
+                <div className="flex flex-row lg:flex-col items-center gap-2.5 bg-zinc-900/80 rounded-2xl p-3 border border-white/[0.06] shadow-xl">
+                  {(["rojo", "amarillo", "verde"] as const).map((color) => {
+                    const isActive = semaforo.global.level === color;
+                    const colorMap = {
+                      rojo: { bg: "bg-rose-500", shadow: "shadow-rose-500/50", dim: "bg-rose-900/40" },
+                      amarillo: { bg: "bg-amber-400", shadow: "shadow-amber-400/50", dim: "bg-amber-900/40" },
+                      verde: { bg: "bg-emerald-500", shadow: "shadow-emerald-500/50", dim: "bg-emerald-900/40" },
+                    };
+                    const c = colorMap[color];
+                    return (
+                      <div key={color} className={cn(
+                        "w-6 h-6 rounded-full transition-all duration-500",
+                        isActive ? `${c.bg} ${c.shadow} shadow-lg` : c.dim
+                      )}>
+                        {isActive && <span className={cn("block w-full h-full rounded-full animate-pulse", c.bg, "opacity-40")} />}
+                      </div>
+                    );
+                  })}
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold tracking-tight">Semáforo de Alertas</h3>
-                  <p className="text-[10px] text-muted-foreground/40">Estado operativo en tiempo real</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                </div>
-                <Badge className={cn(
-                  "text-[10px] font-bold h-5 rounded-md border",
-                  semaforo.global.level === "rojo" ? "bg-rose-500/10 text-rose-400 border-rose-500/15" :
-                  semaforo.global.level === "amarillo" ? "bg-amber-500/10 text-amber-400 border-amber-500/15" :
-                  "bg-emerald-500/8 text-emerald-400 border-emerald-500/15"
-                )}>
-                  {semaforo.global.level === "rojo" ? `${semaforo.global.criticas} crítica(s)` :
-                   semaforo.global.level === "amarillo" ? `${semaforo.global.advertencias} advertencia(s)` :
-                   "Todo OK"}
-                </Badge>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
-              {semaforo.modules.map((mod) => (
-                <div
-                  key={mod.module}
-                  className={cn(
-                    "relative flex flex-col items-center gap-1.5 p-2.5 rounded-xl border transition-all duration-300 group cursor-default",
-                    mod.level === "rojo" ? "bg-rose-500/[0.04] border-rose-500/15 hover:bg-rose-500/[0.08]" :
-                    mod.level === "amarillo" ? "bg-amber-500/[0.04] border-amber-500/15 hover:bg-amber-500/[0.08]" :
-                    "bg-emerald-500/[0.03] border-emerald-500/10 hover:bg-emerald-500/[0.06]"
-                  )}
-                >
-                  <div className={cn(
-                    "w-4 h-4 rounded-full shadow-md flex items-center justify-center",
-                    mod.level === "rojo" ? "bg-rose-500 shadow-rose-500/30" :
-                    mod.level === "amarillo" ? "bg-amber-500 shadow-amber-500/30" :
-                    "bg-emerald-500 shadow-emerald-500/30"
+                <div className="text-center lg:mt-1">
+                  <p className={cn(
+                    "text-[10px] font-bold uppercase tracking-widest",
+                    semaforo.global.level === "rojo" ? "text-rose-400" :
+                    semaforo.global.level === "amarillo" ? "text-amber-400" :
+                    "text-emerald-400"
                   )}>
-                    {mod.level === "rojo" && <span className="w-2 h-2 rounded-full bg-white/30 animate-pulse" />}
-                    {mod.level === "amarillo" && <span className="w-1.5 h-1.5 rounded-full bg-white/40" />}
-                    {mod.level === "verde" && <CheckCircle className="w-2.5 h-2.5 text-white" />}
+                    {semaforo.global.level === "rojo" ? "Alerta" :
+                     semaforo.global.level === "amarillo" ? "Atención" :
+                     "OK"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex-1 p-4 min-w-0">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className={cn(
+                      "h-4 w-4",
+                      semaforo.global.level === "rojo" ? "text-rose-400" :
+                      semaforo.global.level === "amarillo" ? "text-amber-400" :
+                      "text-emerald-400"
+                    )} />
+                    <span className="text-[11px] font-semibold text-foreground/60">Vencimientos y Plazos</span>
                   </div>
-                  <span className="text-[9px] font-semibold text-foreground/60 text-center leading-tight">{mod.label}</span>
-                  <span className={cn(
-                    "text-[9px] font-medium text-center leading-tight",
-                    mod.level === "rojo" ? "text-rose-400" :
-                    mod.level === "amarillo" ? "text-amber-400" :
-                    "text-emerald-400/60"
-                  )}>
-                    {mod.detalle}
-                  </span>
-                  {mod.total > 0 && (
-                    <span className={cn(
-                      "absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] rounded-full text-[9px] font-bold flex items-center justify-center px-1 text-white",
-                      mod.level === "rojo" ? "bg-rose-500" : "bg-amber-500"
-                    )}>
-                      {mod.total}
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {semaforo.global.vencidos > 0 && (
+                      <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/15 text-[10px] font-bold h-5 rounded-md border">
+                        {semaforo.global.vencidos} vencido{semaforo.global.vencidos !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                    {semaforo.global.urgentes > 0 && (
+                      <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/15 text-[10px] font-bold h-5 rounded-md border">
+                        {semaforo.global.urgentes} urgente{semaforo.global.urgentes !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                    {semaforo.global.proximos > 0 && (
+                      <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/15 text-[10px] font-bold h-5 rounded-md border">
+                        {semaforo.global.proximos} próximo{semaforo.global.proximos !== 1 ? "s" : ""}
+                      </Badge>
+                    )}
+                    {semaforo.alertas.length === 0 && (
+                      <Badge className="bg-emerald-500/8 text-emerald-400 border-emerald-500/15 text-[10px] font-bold h-5 rounded-md border">
+                        Sin vencimientos
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-              ))}
+
+                {semaforo.alertas.length === 0 ? (
+                  <div className="py-6 text-center">
+                    <CheckCircle className="h-8 w-8 text-emerald-400/20 mx-auto mb-2" />
+                    <p className="text-[10px] text-muted-foreground/40">No hay vencimientos próximos ni pendientes</p>
+                  </div>
+                ) : (
+                  <div className="space-y-1 max-h-[220px] overflow-y-auto pr-1">
+                    {semaforo.alertas.map((alerta, idx) => (
+                      <Link key={idx} href={alerta.href as never}>
+                        <div className={cn(
+                          "flex items-center gap-3 p-2.5 rounded-lg border transition-all hover:shadow-sm cursor-pointer group",
+                          alerta.nivel === "vencido" ? "bg-rose-500/[0.04] border-rose-500/10 hover:bg-rose-500/[0.08]" :
+                          alerta.nivel === "urgente" ? "bg-amber-500/[0.04] border-amber-500/10 hover:bg-amber-500/[0.08]" :
+                          "bg-blue-500/[0.03] border-blue-500/8 hover:bg-blue-500/[0.06]"
+                        )}>
+                          <div className={cn(
+                            "w-2.5 h-2.5 rounded-full shrink-0",
+                            alerta.nivel === "vencido" ? "bg-rose-500 shadow-sm shadow-rose-500/30" :
+                            alerta.nivel === "urgente" ? "bg-amber-500 shadow-sm shadow-amber-500/30" :
+                            "bg-blue-400 shadow-sm shadow-blue-400/30"
+                          )} />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[10px] font-medium text-foreground/70 truncate">{alerta.label}</span>
+                              <Badge variant="outline" className="text-[9px] font-medium border-border/20 text-muted-foreground/40 h-4 px-1.5 shrink-0">{alerta.categoria}</Badge>
+                            </div>
+                            <p className="text-[10px] text-muted-foreground/40 truncate">{alerta.item}</p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className={cn(
+                              "text-[10px] font-bold",
+                              alerta.nivel === "vencido" ? "text-rose-400" :
+                              alerta.nivel === "urgente" ? "text-amber-400" :
+                              "text-blue-400"
+                            )}>
+                              {alerta.dias < 0 ? `${Math.abs(alerta.dias)}d vencido` :
+                               alerta.dias === 0 ? "HOY" :
+                               alerta.dias === 1 ? "Mañana" :
+                               `${alerta.dias}d`}
+                            </p>
+                            <p className="text-[9px] text-muted-foreground/30">{alerta.fecha}</p>
+                          </div>
+                          <ChevronRight className="h-3 w-3 text-muted-foreground/15 group-hover:text-foreground/30 transition-colors shrink-0" />
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </Card>
         </motion.div>
