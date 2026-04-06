@@ -38,8 +38,8 @@ export function ServicesSection() {
             <div className="py-20 md:py-28">
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mb-16 md:mb-20 text-center"
-                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -65,8 +65,8 @@ export function ServicesSection() {
                             <motion.div
                                 key={idx}
                                 className="container mx-auto px-4 md:px-10 max-w-7xl"
-                                initial={animate ? { opacity: 0, y: 40, filter: 'blur(6px)' } : undefined}
-                                whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                                initial={animate ? { opacity: 0, y: 40 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                                 viewport={{ once: true, margin: "-80px" }}
                                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                             >
@@ -117,8 +117,8 @@ export function ServicesSection() {
 
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"
-                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(6px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >

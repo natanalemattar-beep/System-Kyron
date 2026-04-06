@@ -25,8 +25,8 @@ export function FaqSection() {
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
                 <motion.div
                     className="text-center mb-12 md:mb-16 space-y-4"
-                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -46,8 +46,8 @@ export function FaqSection() {
                 </motion.div>
 
                 <motion.div
-                    initial={animate ? { opacity: 0, y: 25, filter: 'blur(4px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 25 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 >

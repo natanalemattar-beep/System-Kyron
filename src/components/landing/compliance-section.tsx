@@ -91,8 +91,8 @@ export function ComplianceSection() {
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <motion.div
                     className="text-center mb-16 md:mb-20"
-                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -117,8 +117,8 @@ export function ComplianceSection() {
                                 "group relative rounded-[1.5rem] liquid-glass p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl",
                                 reg.border
                             )}
-                            initial={animate ? { opacity: 0, y: 30, scale: 0.95, filter: 'blur(4px)' } : undefined}
-                            whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
+                            initial={animate ? { opacity: 0, y: 30, scale: 0.95 } : undefined}
+                            whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         >
@@ -150,8 +150,8 @@ export function ComplianceSection() {
 
                 <motion.div
                     className="rounded-xl liquid-glass p-8 md:p-10"
-                    initial={animate ? { opacity: 0, y: 30, scale: 0.97, filter: 'blur(6px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30, scale: 0.97 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >

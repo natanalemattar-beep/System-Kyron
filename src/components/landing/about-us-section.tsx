@@ -49,9 +49,9 @@ const Counter = ({ from, to, duration = 1500 }: { from: number, to: number, dura
 };
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(6px)' },
+    hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
-        opacity: 1, y: 0, filter: 'blur(0px)',
+        opacity: 1, y: 0,
         transition: { delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }
     })
 };
@@ -131,8 +131,8 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
-                        initial={animate ? { opacity: 0, y: 25, filter: 'blur(6px)' } : undefined}
-                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                        initial={animate ? { opacity: 0, y: 25 } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     >
@@ -140,8 +140,8 @@ export function AboutUsSection() {
                             <motion.div
                                 key={i}
                                 className="hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
-                                initial={animate ? { opacity: 0, scale: 0.9, filter: 'blur(4px)' } : undefined}
-                                whileInView={animate ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
+                                initial={animate ? { opacity: 0, scale: 0.9 } : undefined}
+                                whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.25 + i * 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                             >
@@ -163,8 +163,8 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
-                        initial={animate ? { opacity: 0, y: 20, filter: 'blur(4px)' } : undefined}
-                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                        initial={animate ? { opacity: 0, y: 20 } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
@@ -187,8 +187,8 @@ export function AboutUsSection() {
 
                     <motion.div
                         className="mt-10 flex justify-center"
-                        initial={animate ? { opacity: 0, y: 20, filter: 'blur(4px)' } : undefined}
-                        whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                        initial={animate ? { opacity: 0, y: 20 } : undefined}
+                        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >

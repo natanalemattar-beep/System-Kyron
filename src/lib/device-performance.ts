@@ -58,12 +58,12 @@ export function getAnimationConfig(tier: PerformanceTier) {
       };
     case "medium":
       return {
-        enableParticles: true,
-        enableBlur: true,
+        enableParticles: false,
+        enableBlur: false,
         enableComplexAnimations: false,
         transitionDuration: 0.3,
         staggerDelay: 0.04,
-        maxParticles: 3,
+        maxParticles: 0,
       };
     case "low":
       return {

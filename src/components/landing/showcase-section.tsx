@@ -74,8 +74,8 @@ function ScreenshotCard({
         'group relative',
         item.size === 'large' ? 'md:col-span-2 md:row-span-2' : ''
       )}
-      initial={animate ? { opacity: 0, y: 35, scale: 0.95, filter: 'blur(6px)' } : undefined}
-      whileInView={animate ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
+      initial={animate ? { opacity: 0, y: 35, scale: 0.95 } : undefined}
+      whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
     >
@@ -140,8 +140,8 @@ export function ShowcaseSection() {
       <div className="container mx-auto px-4 md:px-10 max-w-7xl">
         <motion.div
           className="text-center mb-12 md:mb-16"
-          initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
-          whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+          initial={animate ? { opacity: 0, y: 30 } : undefined}
+          whileInView={animate ? { opacity: 1, y: 0 } : undefined}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >

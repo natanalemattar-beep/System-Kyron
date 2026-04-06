@@ -30,8 +30,8 @@ function FeatureRow({ feature, meta, index, animate }: {
     return (
         <motion.div
             className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center"
-            initial={animate ? { opacity: 0, y: 30, filter: 'blur(6px)', scale: 0.97 } : undefined}
-            whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 } : undefined}
+            initial={animate ? { opacity: 0, y: 30, scale: 0.97 } : undefined}
+            whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
@@ -117,8 +117,8 @@ export function FeaturesSection() {
 
                 <motion.div
                     className="mb-16 md:mb-24 space-y-5 text-center"
-                    initial={animate ? { opacity: 0, y: 30, filter: 'blur(8px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -155,8 +155,8 @@ export function FeaturesSection() {
 
                 <motion.div
                     className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3"
-                    initial={animate ? { opacity: 0, y: 25, filter: 'blur(6px)' } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                    initial={animate ? { opacity: 0, y: 25 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 >

@@ -78,11 +78,10 @@ function HexGrid({ reduced }: { reduced?: boolean }) {
 }
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+    hidden: { opacity: 0, y: 30 },
     visible: (delay: number) => ({
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
         transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }
     })
 };
@@ -122,9 +121,9 @@ export function HeroSection() {
 
             {config.enableBlur && (
                 <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[120px] animate-[pulse_10s_ease-in-out_infinite] transition-colors duration-700 ${isDark ? 'bg-[#0ea5e9]/[0.08]' : 'bg-[#0ea5e9]/[0.12]'}`} />
-                    <div className={`absolute bottom-1/3 right-0 w-[400px] h-[400px] rounded-full blur-[100px] animate-[pulse_12s_ease-in-out_infinite_3s] transition-colors duration-700 ${isDark ? 'bg-[#3b82f6]/[0.06]' : 'bg-[#3b82f6]/[0.10]'}`} />
-                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full blur-[80px] animate-[pulse_8s_ease-in-out_infinite_1s] transition-colors duration-700 ${isDark ? 'bg-[#22c55e]/[0.05]' : 'bg-[#22c55e]/[0.08]'}`} />
+                    <div className={`absolute top-1/4 -left-20 w-[350px] h-[350px] rounded-full blur-[80px] transition-colors duration-700 ${isDark ? 'bg-[#0ea5e9]/[0.08]' : 'bg-[#0ea5e9]/[0.12]'}`} />
+                    <div className={`absolute bottom-1/3 right-0 w-[300px] h-[300px] rounded-full blur-[70px] transition-colors duration-700 ${isDark ? 'bg-[#3b82f6]/[0.06]' : 'bg-[#3b82f6]/[0.10]'}`} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] rounded-full blur-[60px] transition-colors duration-700 ${isDark ? 'bg-[#22c55e]/[0.05]' : 'bg-[#22c55e]/[0.08]'}`} />
                 </div>
             )}
 
@@ -224,8 +223,8 @@ export function HeroSection() {
 
                     <motion.div
                         className="hidden lg:block lg:col-span-6 relative"
-                        initial={{ opacity: 0, x: 50, scale: 0.92, filter: 'blur(12px)', rotateY: -8 }}
-                        animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', rotateY: 0 }}
+                        initial={{ opacity: 0, x: 50, scale: 0.92, rotateY: -8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1, rotateY: 0 }}
                         transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <div className="relative mx-auto max-w-[560px] lg:max-w-none">
@@ -257,8 +256,8 @@ export function HeroSection() {
 
                             <motion.div
                                 className="hidden sm:block absolute -top-3 -right-3 md:-right-6 rounded-2xl p-3 sm:p-4 liquid-glass animate-glass-breathe"
-                                initial={{ opacity: 0, y: -30, scale: 0.8, filter: 'blur(6px)' }}
-                                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                                initial={{ opacity: 0, y: -30, scale: 0.8 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
                                 transition={{ delay: 0.6, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                             >
                                 <div className="flex items-center gap-2 sm:gap-3">
@@ -284,8 +283,8 @@ export function HeroSection() {
 
             <motion.div
                 className="relative lg:absolute lg:bottom-6 left-0 right-0 z-10 pb-8 lg:pb-0 w-full"
-                initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
