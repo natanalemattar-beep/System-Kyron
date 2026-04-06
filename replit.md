@@ -49,7 +49,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
   - **Facturación:** Simulador Fiscal (IVA 16%, IGTF 3%, ISLR retentions, IVA retentions, 5-tab all-in-one tax calculator), Análisis de Clientes (ABC classification, Pareto analysis, profitability ranking)
   - **Asesoría Contable:** Calendario Fiscal SENIAT (all deadlines by RIF terminal digit, 4 tabs), Ratios Financieros (liquidity, solvency, profitability, efficiency ratios with visual gauges)
 - **Settings Page:** Allows user configuration of animation, navigation, notification, fiscal, and company data.
-- **Global Search:** Command palette for instant navigation.
+- **Global Search:** Command palette (⌘K) with 115+ searchable modules, accent-insensitive fuzzy scoring, text match highlighting, recent searches (localStorage), result count indicator, locale-aware navigation, and categorized grouping. Covers all contabilidad, tributos, libros, certificaciones, and ministerio routes.
 - **Accessibility & UI Enhancements:** Scroll-to-Top button, custom scrollbars, improved focus states, and auto-generated breadcrumbs.
 - **Document Authenticity Verification:** Multi-AI forensic analysis system using Claude, OpenAI, and Gemini Vision in parallel. 6-layer scoring (Integrity, Visual, Quality/Blur, Forensic, Metadata, Content) with AI consensus voting (unanimous/majority/divided). Auto-verifies on upload. Includes JPEG quality estimation, image dimension analysis, and path-traversal security protection.
 - **Bank Connection & Auto-Sync:** Direct bank connection for 10 Venezuelan banks (Banesco, Mercantil, Provincial, BdV, BNC, BOD, Exterior, BFC, Bancaribe, Sofitasa) via Gmail email notification parsing. Automatic movement import with duplicate detection.
