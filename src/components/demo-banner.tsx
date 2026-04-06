@@ -9,13 +9,21 @@ const BannerCtx = createContext(false);
 export const useBannerVisible = () => useContext(BannerCtx);
 
 export function DemoBannerProvider({ children }: { children: ReactNode }) {
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('demo-banner-dismissed') === '1';
+    }
+    return false;
+  });
   const [isLeaving, setIsLeaving] = useState(false);
   const t = useTranslations('DemoBanner');
 
   const handleDismiss = useCallback(() => {
     setIsLeaving(true);
-    setTimeout(() => setDismissed(true), 450);
+    setTimeout(() => {
+      setDismissed(true);
+      sessionStorage.setItem('demo-banner-dismissed', '1');
+    }, 450);
   }, []);
 
   return (
