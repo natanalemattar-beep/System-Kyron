@@ -169,7 +169,7 @@ export function HeroSection() {
 
             {config.enableParticles && <AnimatedGrid reduced={tier === 'low'} />}
 
-            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-24 pb-8 sm:pt-28 md:pt-36 md:pb-24 flex-1 flex items-center w-full">
+            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-24 pb-8 sm:pt-28 md:pt-36 md:pb-24 lg:pb-48 flex-1 flex items-center w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
                     <div className="lg:col-span-6 space-y-6 sm:space-y-8 text-center lg:text-left">
