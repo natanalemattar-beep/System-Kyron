@@ -439,7 +439,7 @@ export default function DashboardPersonalPage() {
               <Card className={cn("border border-border/30 rounded-xl p-4 bg-card/60 hover:bg-card hover:shadow-md hover:shadow-black/[0.03] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer ring-0 hover:ring-4", serv.ring)}>
                 <div className="flex items-center gap-3">
                   <div className={cn("h-10 w-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300", serv.bg)}>
-                    <serv.icon className={cn("h-4.5 w-4.5", serv.color)} />
+                    <serv.icon className={cn("h-[18px] w-[18px]", serv.color)} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-[12px] font-bold text-foreground/70 group-hover:text-foreground transition-colors">{serv.title}</h4>

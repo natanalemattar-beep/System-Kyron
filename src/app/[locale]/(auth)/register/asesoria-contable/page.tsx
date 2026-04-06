@@ -517,7 +517,7 @@ export default function RegisterContabilidadPage() {
                                             {isDone ? (
                                                 <Check className="h-5 w-5 text-white" />
                                             ) : (
-                                                <Icon className={cn("h-4.5 w-4.5", isActive ? "text-white" : "text-slate-300")} />
+                                                <Icon className={cn("h-[18px] w-[18px]", isActive ? "text-white" : "text-slate-300")} />
                                             )}
                                         </div>
                                         <p className={cn(

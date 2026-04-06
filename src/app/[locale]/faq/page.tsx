@@ -326,7 +326,7 @@ export default function FaqPage() {
                                     <section key={category.id} id={category.id}>
                                         <div className="flex items-center gap-3 mb-5">
                                             <div className={`h-10 w-10 rounded-xl bg-gradient-to-br ${category.color} border ${category.borderColor} flex items-center justify-center shrink-0`}>
-                                                <Icon className={`h-4.5 w-4.5 ${category.textColor}`} />
+                                                <Icon className={`h-[18px] w-[18px] ${category.textColor}`} />
                                             </div>
                                             <div>
                                                 <h2 className="text-sm font-semibold uppercase tracking-tight text-foreground">

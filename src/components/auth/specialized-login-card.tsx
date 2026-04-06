@@ -667,7 +667,7 @@ export function SpecializedLoginCard({
                     animate={{ opacity: 1, y: 0 }}
                   >
                     <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md">
-                      <Shield className="h-4.5 w-4.5 text-white" />
+                      <Shield className="h-[18px] w-[18px] text-white" />
                     </div>
                     <div className="flex-1">
                       <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>

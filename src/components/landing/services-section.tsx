@@ -58,7 +58,7 @@ export function ServicesSection() {
                     </p>
                 </motion.div>
 
-                <div className="space-y-20 md:space-y-28">
+                <div className="space-y-12 md:space-y-28">
                     {features.map((feat, idx) => {
                         const meta = featuresMeta[idx];
                         return (
@@ -144,7 +144,7 @@ export function ServicesSection() {
                                 <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-[1]", stat.bg)} />
                                 <div className="relative p-3 sm:p-5 flex flex-col items-center text-center gap-2">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-xl liquid-glass-subtle group-hover:scale-110 transition-transform duration-300">
-                                        <stat.icon className={cn("h-4.5 w-4.5", stat.color)} />
+                                        <stat.icon className={cn("h-[18px] w-[18px]", stat.color)} />
                                     </div>
                                     <div className={cn("text-lg sm:text-2xl font-bold tracking-tight", stat.color)}>
                                         {stat.value}
@@ -158,7 +158,7 @@ export function ServicesSection() {
                     </div>
 
                     <div className="mt-12 flex justify-center">
-                        <Link href="/register" className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-500">
+                        <Link href="/register" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] transition-all duration-500">
                             {t('start_now')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>

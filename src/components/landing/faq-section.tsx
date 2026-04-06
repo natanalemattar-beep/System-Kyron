@@ -56,7 +56,7 @@ export function FaqSection() {
                             <div key={index}>
                                 <AccordionItem
                                     value={`item-${index}`}
-                                    className="liquid-glass rounded-3xl px-6 transition-all duration-500 hover:border-primary/20 data-[state=open]:border-primary/30 data-[state=open]:shadow-xl"
+                                    className="liquid-glass rounded-3xl px-4 sm:px-6 transition-all duration-500 hover:border-primary/20 data-[state=open]:border-primary/30 data-[state=open]:shadow-xl"
                                 >
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">

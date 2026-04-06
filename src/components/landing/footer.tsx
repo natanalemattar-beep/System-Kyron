@@ -143,7 +143,7 @@ export function Footer() {
                         <p className="font-semibold text-foreground/45 tracking-wide text-[10px]">
                             Fernanda Lucia · CEO-Fundadora y también Hermanita de Carlitos ♥️
                         </p>
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex flex-wrap justify-center items-center gap-2 mt-2">
                             {["Cifrado AES-256", "JWT", "HTTPS", "Auditoría Inmutable"].map((tech, i) => (
                                 <span key={i} className="text-[8px] font-bold uppercase tracking-widest text-foreground/25 px-2 py-0.5 rounded-full border border-border/15">
                                     {tech}

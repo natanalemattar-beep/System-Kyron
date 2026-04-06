@@ -216,13 +216,13 @@ export function HeroSection() {
                             animate="visible"
                             custom={0.2}
                         >
-                            <Button asChild size="lg" className="relative h-13 sm:h-14 px-8 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.35)] hover:scale-[1.02]">
+                            <Button asChild size="lg" className="relative h-12 sm:h-14 px-6 sm:px-10 text-[11px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.35)] hover:scale-[1.02]">
                                 <Link href="/login" className="flex items-center gap-2 sm:gap-3 justify-center">
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                     {t('cta_main')} <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild size="lg" className="h-13 sm:h-14 px-8 sm:px-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 bg-muted/30 text-foreground/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 hover:text-foreground transition-all duration-500 backdrop-blur-sm hover:scale-[1.02]">
+                            <Button variant="outline" asChild size="lg" className="h-12 sm:h-14 px-6 sm:px-10 text-[11px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl border-border/30 bg-muted/30 text-foreground/80 hover:border-[#0ea5e9]/30 hover:bg-muted/60 hover:text-foreground transition-all duration-500 backdrop-blur-sm hover:scale-[1.02]">
                                 <Link href="/manual-usuario" className="flex items-center gap-2">
                                     <Play className="h-4 w-4" />
                                     {t('cta_secondary')}

@@ -117,7 +117,7 @@ export function ComplianceSection() {
                 </div>
 
                 <motion.div
-                    className="rounded-xl liquid-glass p-8 md:p-10"
+                    className="rounded-xl liquid-glass p-5 sm:p-8 md:p-10"
                     initial={animate ? { opacity: 0, y: 30, scale: 0.97 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
                     viewport={{ once: true, margin: "-50px" }}

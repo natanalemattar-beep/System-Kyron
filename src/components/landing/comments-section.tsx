@@ -166,7 +166,7 @@ export function CommentsSection() {
                                         <div className="flex items-start justify-between">
                                             <StarRating value={c.calificacion} readonly />
                                             {c.modulo && (
-                                                <span className="text-[11px] sm:text-[7px] font-semibold uppercase tracking-wide text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+                                                <span className="text-[7px] sm:text-[9px] font-semibold uppercase tracking-wide text-primary/60 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
                                                     {c.modulo}
                                                 </span>
                                             )}
@@ -224,7 +224,7 @@ export function CommentsSection() {
                             <Link href="/login">
                                 <Button
                                     variant="outline"
-                                    className="rounded-2xl h-12 px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
+                                    className="rounded-2xl h-12 px-6 sm:px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
                                 >
                                     <LogIn className="h-4 w-4 mr-2 text-violet-500" />
                                     {t('login_to_comment')}
@@ -236,7 +236,7 @@ export function CommentsSection() {
                             <Button
                                 onClick={() => setShowForm(true)}
                                 variant="outline"
-                                className="rounded-2xl h-12 px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
+                                className="rounded-2xl h-12 px-6 sm:px-8 text-xs font-semibold uppercase tracking-wide border-violet-500/20 hover:bg-violet-500/5 hover:border-violet-500/40 transition-all duration-500"
                             >
                                 <Sparkles className="h-4 w-4 mr-2 text-violet-500" />
                                 {t('leave_comment')}

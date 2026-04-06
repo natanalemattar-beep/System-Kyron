@@ -322,7 +322,7 @@ export default function MultasFiscalesPage() {
 
                             <Button
                                 onClick={handleCalcular}
-                                className="w-full h-13 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-bold text-sm shadow-lg"
+                                className="w-full h-12 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-bold text-sm shadow-lg"
                             >
                                 <Scale className="mr-2 h-4 w-4" />
                                 Ejecutar Simulación
