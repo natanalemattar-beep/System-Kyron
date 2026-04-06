@@ -93,29 +93,17 @@ function LandingContent() {
           <>
             <HeroSection />
             <TrustNumbersBanner />
-            <div className="section-divider" />
             <LazySection fallbackHeight="700px"><WhyKyronSection /></LazySection>
-            <div className="section-divider" />
-            <LazySection fallbackHeight="600px"><ModulesGridSection /></LazySection>
-            <div className="section-divider" />
-            <LazySection fallbackHeight="500px"><HowItWorksSection /></LazySection>
-            <div className="section-divider" />
+            <LazySection fallbackHeight="800px"><ModulesGridSection /></LazySection>
+            <LazySection fallbackHeight="600px"><HowItWorksSection /></LazySection>
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
-            <div className="section-divider" />
             <LazySection fallbackHeight="600px"><ShowcaseSection /></LazySection>
-            <div className="section-divider" />
-            <LazySection fallbackHeight="500px"><ServicesSection /></LazySection>
-            <div className="section-divider" />
+            <LazySection fallbackHeight="600px"><ServicesSection /></LazySection>
             <LazySection fallbackHeight="500px"><ComplianceSection /></LazySection>
-            <div className="section-divider" />
             <LazySection fallbackHeight="400px"><IntegrationsStrip /></LazySection>
-            <div className="section-divider" />
             <LazySection fallbackHeight="500px"><AboutUsSection /></LazySection>
-            <div className="section-divider" />
             <LazySection fallbackHeight="400px"><CommentsSection /></LazySection>
-            <div className="section-divider" />
-            <LazySection fallbackHeight="300px"><CtaSection /></LazySection>
-            <div className="section-divider" />
+            <LazySection fallbackHeight="600px"><CtaSection /></LazySection>
             <LazySection fallbackHeight="400px"><FaqSection /></LazySection>
           </>
         )}

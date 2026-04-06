@@ -53,6 +53,18 @@
                 "val": "VEN-NIF",
                 "label": "Certificado"
             }
+        ],
+        "rotating_2": "IA Integrada",
+        "rotating_3": "Riesgo Cero",
+        "backed_by": "Respaldado por",
+        "modules_card": "Módulos",
+        "automations_card": "Automatizaciones",
+        "encryption_label": "AES-256",
+        "encryption_active": "Cifrado activo",
+        "rotating_words": [
+            "Inteligencia Total",
+            "IA Integrada",
+            "Riesgo Cero"
         ]
     },
     "FeaturesSection": {
@@ -116,13 +128,57 @@
                 "val": "3 IAs",
                 "detail": "Claude · Gemini · OpenAI"
             }
+        ],
+        "speed_title": "Velocidad de Respuesta",
+        "speed_subtitle": "Tiempo promedio de procesamiento",
+        "fastest": "Más rápido",
+        "cta": "Probar la Velocidad",
+        "competitors": [
+            {
+                "name": "System Kyron",
+                "speed": 90
+            },
+            {
+                "name": "SAP Business One",
+                "speed": 450
+            },
+            {
+                "name": "Odoo",
+                "speed": 800
+            },
+            {
+                "name": "QuickBooks",
+                "speed": 1200
+            }
+        ],
+        "metrics": [
+            {
+                "value": 90,
+                "suffix": "%",
+                "label": "Reducción en tiempo de procesamiento fiscal"
+            },
+            {
+                "value": 3,
+                "suffix": "x",
+                "label": "Más rápido que ERPs tradicionales"
+            },
+            {
+                "value": 19,
+                "suffix": "",
+                "label": "Automatizaciones sin intervención humana"
+            },
+            {
+                "value": 99,
+                "suffix": ".9%",
+                "label": "Disponibilidad garantizada (uptime)"
+            }
         ]
     },
     "ServicesSection": {
-        "badge": "Ecosistema Inteligente",
-        "title_highlight": "Todo automatizado,",
-        "title_rest": "sin esfuerzo",
-        "subtitle": "Contabilidad, facturación, legal, telecom e IA trabajando juntos. Tú decides, Kyron ejecuta.",
+        "badge": "Planes & Precios",
+        "title_highlight": "El Plan Perfecto Para",
+        "title_rest": "Tu Empresa",
+        "subtitle": "Todos los planes incluyen cifrado AES-256, cumplimiento venezolano y actualizaciones automáticas.",
         "modules_title": "Todo Integrado,",
         "modules_highlight": "Un Ecosistema",
         "explore": "Explorar Ecosistema",
@@ -178,7 +234,62 @@
         "stat_encryption": "Cifrado Empresarial",
         "stat_compliance": "Cumplimiento Fiscal",
         "stat_support": "Soporte IA Activo",
-        "start_now": "Comenzar Ahora"
+        "start_now": "Comenzar Ahora",
+        "monthly": "Mensual",
+        "annual": "Anual",
+        "discount": "-20%",
+        "per_month": "/mes",
+        "free_forever": "Gratis para siempre",
+        "billed_annually": "Facturado anualmente",
+        "per_year": "/año",
+        "most_popular": "Más Popular",
+        "plans": [
+            {
+                "name": "Starter",
+                "description": "Para emprendedores y pequeñas empresas",
+                "features": [
+                    "3 módulos básicos",
+                    "Contabilidad general",
+                    "Facturación fiscal",
+                    "Hasta 5 usuarios",
+                    "Soporte por email",
+                    "Cifrado AES-256",
+                    "Actualizaciones automáticas"
+                ],
+                "cta": "Comenzar Gratis"
+            },
+            {
+                "name": "Profesional",
+                "description": "Para empresas en crecimiento",
+                "features": [
+                    "Todos los módulos incluidos",
+                    "IA Triple Motor (Claude, GPT, Gemini)",
+                    "19 automatizaciones",
+                    "Hasta 25 usuarios",
+                    "Soporte prioritario 24/7",
+                    "Auditoría blockchain",
+                    "API completa",
+                    "Personalización avanzada"
+                ],
+                "cta": "Elegir Profesional"
+            },
+            {
+                "name": "Enterprise",
+                "description": "Para corporaciones y holdings",
+                "features": [
+                    "Todo en Profesional",
+                    "Usuarios ilimitados",
+                    "Multi-empresa / holding",
+                    "Servidor dedicado",
+                    "SLA garantizado 99.99%",
+                    "Consultoría fiscal incluida",
+                    "Integración personalizada",
+                    "Capacitación in-company",
+                    "Gerente de cuenta dedicado"
+                ],
+                "cta": "Contactar Ventas"
+            }
+        ]
     },
     "ComplianceSection": {
         "badge": "Cumplimiento Total",
@@ -288,25 +399,38 @@
         "items": [
             {
                 "question": "¿Cómo garantizan el cumplimiento fiscal?",
-                "answer": "Monitoreamos la Gaceta Oficial con IA. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente."
+                "answer": "Monitoreamos la Gaceta Oficial con IA. IVA 16%, IGTF 3% e ISLR se calculan automáticamente según la normativa VEN-NIF vigente.",
+                "category": "fiscal"
             },
             {
                 "question": "¿Puedo gestionar varias empresas?",
-                "answer": "Sí. El portal de Socios permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado."
+                "answer": "Sí. El portal de Socios permite consolidar la contabilidad de múltiples entidades en un Centro de Mando unificado.",
+                "category": "platform"
             },
             {
                 "question": "¿Cómo funciona la tasa BCV?",
-                "answer": "Se actualiza automáticamente. Cada factura genera su equivalente en USD con la tasa BCV del momento."
+                "answer": "Se actualiza automáticamente. Cada factura genera su equivalente en USD con la tasa BCV del momento.",
+                "category": "fiscal"
             },
             {
                 "question": "¿Es difícil migrar mis datos?",
-                "answer": "No. Para sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional."
+                "answer": "No. Para sistemas estándar (Excel, Profit, Mónica), la migración se completa en menos de 48 horas sin costo adicional.",
+                "category": "migration"
             },
             {
                 "question": "¿Qué nivel de seguridad tienen?",
-                "answer": "Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro de auditoría inmutable para cada acción."
+                "answer": "Cifrado AES-256, autenticación JWT con cookies HTTP-only, y registro de auditoría inmutable para cada acción.",
+                "category": "security"
             }
-        ]
+        ],
+        "search_placeholder": "Buscar pregunta...",
+        "all_categories": "Todas",
+        "categories": {
+            "fiscal": "Fiscal",
+            "platform": "Plataforma",
+            "security": "Seguridad",
+            "migration": "Migración"
+        }
     },
     "CtaSection": {
         "badge": "Acceso Inmediato",
@@ -377,7 +501,10 @@
             "sector_required": "Selecciona el sector",
             "urgency_required": "Selecciona la urgencia",
             "module_required": "Selecciona un módulo"
-        }
+        },
+        "guarantee_encryption": "Datos Cifrados AES-256",
+        "guarantee_activation": "Activación Inmediata",
+        "guarantee_support": "Soporte 24/7"
     },
     "Footer": {
         "description": "Ingeniería de software de grado corporativo. Soluciones de misión crítica para el futuro de las finanzas y telecomunicaciones de Venezuela.",
@@ -700,121 +827,30 @@
         "toast_publish_error": "No se pudo publicar"
     },
     "HowItWorksSection": {
-        "badge": "Proceso Simple",
-        "title_highlight": "Cómo",
-        "title_rest": "Funciona",
-        "subtitle": "De cero a productivo en menos de una hora. Sin consultores, sin implementaciones de meses, sin dolores de cabeza.",
-        "cta": "Comenzar Gratis",
-        "cta_sub": "Sin tarjeta de crédito · Activación instantánea",
-        "step_prefix": "Paso",
-        "steps": [
+        "badge": "Inteligencia Artificial",
+        "title_prefix": "Triple Motor de",
+        "title_highlight": "IA",
+        "subtitle": "Tres motores de inteligencia artificial trabajando en paralelo para darte análisis más precisos, verificaciones más seguras y recomendaciones más inteligentes.",
+        "cta": "Probar IA Gratis",
+        "demo_label": "Demo en vivo",
+        "capabilities": [
             {
-                "title": "Regístrate en Minutos",
-                "description": "Crea tu cuenta con verificación de cédula o RIF real vía SAIME/SENIAT. Sin papeleos, sin esperas.",
-                "details": [
-                    "Verificación instantánea",
-                    "Validación de documentos",
-                    "Acceso inmediato"
-                ]
+                "title": "Asistente Fiscal IA",
+                "description": "Consulta cualquier duda fiscal venezolana. El asistente conoce SENIAT, LOTTT, BCV y todas las regulaciones vigentes. Respuestas precisas en segundos.",
+                "demo_user": "¿Cuánto debo retener de IVA a un contribuyente especial?",
+                "demo_ai": "Según la Providencia SNAT/2015/0049, la retención de IVA a contribuyentes especiales es del 75% del impuesto facturado. Si el proveedor es ordinario, la retención es del 100%."
             },
             {
-                "title": "Configura tu Empresa",
-                "description": "Selecciona los módulos que necesitas. Desde contabilidad hasta RRHH, todo se activa con un clic.",
-                "details": [
-                    "9+ módulos disponibles",
-                    "Personalización total",
-                    "Importación de datos"
-                ]
+                "title": "Análisis Forense de Documentos",
+                "description": "Triple motor de IA que analiza la autenticidad de documentos en paralelo. Detecta manipulaciones, valida metadatos y verifica integridad visual.",
+                "demo_system": "Analizando factura #2847...",
+                "demo_ai": "✓ Integridad visual: 98% · ✓ Metadatos válidos · ✓ Hash fiscal verificado · ⚠ Resolución baja en sello fiscal — se recomienda escáner de alta calidad."
             },
             {
-                "title": "Opera con IA",
-                "description": "Las 19 automatizaciones se activan automáticamente. La IA analiza tus documentos, la tasa BCV se sincroniza sola.",
-                "details": [
-                    "Automatización inmediata",
-                    "IA activa desde el día 1",
-                    "BCV en tiempo real"
-                ]
-            },
-            {
-                "title": "Cumple y Crece",
-                "description": "Mantente al día con SENIAT, VEN-NIF y LOTTT automáticamente. Alertas inteligentes te avisan antes de los vencimientos.",
-                "details": [
-                    "Cumplimiento automático",
-                    "Alertas preventivas",
-                    "Reportes fiscales"
-                ]
-            }
-        ]
-    },
-    "ModulesGridSection": {
-        "badge": "Ecosistema Completo",
-        "title_main": "Todos los Módulos,",
-        "title_highlight": "Una Plataforma",
-        "subtitle_template": "{count} herramientas especializadas que cubren cada aspecto de tu empresa. Sin módulos extra, sin costos ocultos.",
-        "modules_included": "{count} módulos incluidos",
-        "no_extra_costs": "Sin costos adicionales",
-        "cta": "Explorar Todos los Módulos",
-        "categories": {
-            "all": "Todos",
-            "finance": "Finanzas",
-            "hr": "Talento",
-            "legal": "Legal",
-            "ops": "Operaciones",
-            "tech": "Tecnología"
-        },
-        "modules": [
-            "Contabilidad General",
-            "Facturación Fiscal",
-            "CxC / CxP",
-            "Tributos & IVA",
-            "Presupuestos",
-            "Nómina",
-            "Reclutamiento",
-            "Vacaciones & Permisos",
-            "Clima Organizacional",
-            "Desarrollo Personal",
-            "Contratos Laborales",
-            "Marco Legal VE",
-            "Litigios",
-            "Permisología",
-            "Inventario",
-            "Proveedores",
-            "Marketing",
-            "Viáticos",
-            "Telecom",
-            "Informática / IT",
-            "IA Triple Motor",
-            "Seguridad AES-256",
-            "Automatizaciones",
-            "Auditoría Blockchain"
-        ]
-    },
-    "ShowcaseSection": {
-        "badge": "Vista Previa de la Plataforma",
-        "title_prefix": "Conoce",
-        "title_highlight": "System Kyron",
-        "subtitle": "Capturas reales de nuestra plataforma. Diseño profesional, seguridad de grado empresarial.",
-        "preview": "Vista previa",
-        "screenshots": [
-            {
-                "title": "Selector de Portales",
-                "description": "Acceso centralizado a todos los módulos con cifrado AES-256"
-            },
-            {
-                "title": "Acceso Seguro",
-                "description": "Login especializado por módulo con verificación 2FA"
-            },
-            {
-                "title": "Registro Inteligente",
-                "description": "Validación de cédula y RIF con consulta SAIME/SENIAT"
-            },
-            {
-                "title": "Guía Interactiva",
-                "description": "Tutorial paso a paso para nuevos usuarios"
-            },
-            {
-                "title": "Centro de Ayuda",
-                "description": "26 preguntas en 9 categorías especializadas"
+                "title": "Análisis Predictivo",
+                "description": "IA que analiza patrones de gasto, flujo de caja y sentimiento del equipo. Genera recomendaciones estratégicas basadas en datos reales de tu empresa.",
+                "demo_system": "Análisis Q1 2026 completado",
+                "demo_ai": "📈 Flujo de caja +23% vs Q4 · 📊 3 proveedores con facturas recurrentes identificados para negociación · 🎯 Recomendación: renegociar contratos antes del 15/04"
             }
         ]
     },
@@ -863,6 +899,154 @@
             "19 Automatizaciones Pre-configuradas",
             "Auditoría Blockchain Inmutable",
             "Sin Costos de Módulos Adicionales"
+        ],
+        "comparison_title_kyron": "System Kyron",
+        "comparison_vs": "vs"
+    },
+    "ModulesGridSection": {
+        "badge": "Ecosistema Completo",
+        "title_prefix": "Universo de",
+        "title_highlight": "Módulos",
+        "subtitle": "{count} herramientas especializadas que cubren cada aspecto de tu empresa. Sin módulos extra, sin costos ocultos.",
+        "modules_included": "{count} módulos incluidos",
+        "no_extra_costs": "Sin costos adicionales",
+        "cta": "Explorar Todos los Módulos",
+        "search_placeholder": "Buscar módulo...",
+        "explore_module": "Explorar módulo",
+        "categories": {
+            "all": "Todos",
+            "finance": "Finanzas",
+            "hr": "RRHH",
+            "legal": "Legal",
+            "ops": "Operaciones",
+            "tech": "Tecnología"
+        },
+        "modules": [
+            {
+                "name": "Contabilidad General",
+                "desc": "Plan de cuentas, asientos, mayor, balances VEN-NIF"
+            },
+            {
+                "name": "Facturación Fiscal",
+                "desc": "Facturas SENIAT con control de secuencia y hash fiscal"
+            },
+            {
+                "name": "CxC / CxP",
+                "desc": "Gestión de cuentas por cobrar y pagar con alertas"
+            },
+            {
+                "name": "Tributos & IVA",
+                "desc": "IVA 16%, IGTF 3%, ISLR — cálculos automáticos"
+            },
+            {
+                "name": "Presupuestos",
+                "desc": "Planificación y control presupuestario con alertas"
+            },
+            {
+                "name": "Nómina",
+                "desc": "Cálculos LOTTT: prestaciones, utilidades, vacaciones"
+            },
+            {
+                "name": "Reclutamiento",
+                "desc": "Pipeline de candidatos con filtros inteligentes"
+            },
+            {
+                "name": "Vacaciones & Permisos",
+                "desc": "Control de vacaciones Art. 190 LOTTT"
+            },
+            {
+                "name": "Clima Organizacional",
+                "desc": "Encuestas y métricas de satisfacción laboral"
+            },
+            {
+                "name": "Desarrollo Personal",
+                "desc": "Planes de carrera y capacitación continua"
+            },
+            {
+                "name": "Contratos Laborales",
+                "desc": "Gestión de contratos con alertas de vencimiento"
+            },
+            {
+                "name": "Marco Legal VE",
+                "desc": "Base de datos de leyes y regulaciones vigentes"
+            },
+            {
+                "name": "Litigios",
+                "desc": "Seguimiento de casos legales y audiencias"
+            },
+            {
+                "name": "Permisología",
+                "desc": "483+ permisos en organismos venezolanos"
+            },
+            {
+                "name": "Inventario",
+                "desc": "Control de stock con alertas de niveles mínimos"
+            },
+            {
+                "name": "Proveedores",
+                "desc": "Directorio de proveedores con evaluaciones"
+            },
+            {
+                "name": "Marketing",
+                "desc": "Campañas, embudos de venta y redes sociales"
+            },
+            {
+                "name": "Viáticos",
+                "desc": "Gestión de gastos de viaje y reembolsos"
+            },
+            {
+                "name": "Telecom",
+                "desc": "VoIP, PBX virtual, WhatsApp Business API"
+            },
+            {
+                "name": "Informática / IT",
+                "desc": "Help desk, inventario TI y gestión de activos"
+            },
+            {
+                "name": "IA Triple Motor",
+                "desc": "Claude + OpenAI + Gemini para análisis inteligente"
+            },
+            {
+                "name": "Seguridad AES-256",
+                "desc": "Cifrado militar, JWT, auditoría blockchain"
+            },
+            {
+                "name": "Automatizaciones",
+                "desc": "19 reglas automáticas sin intervención humana"
+            },
+            {
+                "name": "Auditoría Blockchain",
+                "desc": "Merkle tree con anclaje en Polygon/Ethereum"
+            }
+        ]
+    },
+    "ShowcaseSection": {
+        "badge": "Vista Previa de la Plataforma",
+        "title_prefix": "Conoce",
+        "title_highlight": "System Kyron",
+        "subtitle": "Capturas reales de nuestra plataforma. Diseño profesional, seguridad de grado empresarial.",
+        "preview": "Vista previa",
+        "screenshots": [
+            {
+                "title": "Selector de Portales",
+                "description": "Acceso centralizado a todos los módulos con cifrado AES-256"
+            },
+            {
+                "title": "Acceso Seguro",
+                "description": "Login especializado por módulo con verificación 2FA"
+            },
+            {
+                "title": "Registro Inteligente",
+                "description": "Validación de cédula y RIF con consulta SAIME/SENIAT"
+            },
+            {
+                "title": "Guía Interactiva",
+                "description": "Tutorial paso a paso para nuevos usuarios"
+            },
+            {
+                "title": "Centro de Ayuda",
+                "description": "26 preguntas en 9 categorías especializadas"
+            }
         ]
     },
     "PanelControlHero": {

@@ -249,6 +249,34 @@
     "LoadingScreen": {
         "subtitle": "Corporate Intelligence"
     },
+    "HowItWorksSection": {
+        "badge": "Cutting-edge AI",
+        "title_prefix": "Powered by",
+        "title_highlight": "AI Engines",
+        "subtitle": "We interconnect the world's most advanced language models to offer you absolute precision in accounting, legal, and analysis.",
+        "demo_label": "REAL-TIME INTERACTION",
+        "cta": "Explore Capabilities",
+        "capabilities": [
+            {
+                "title": "Smart Fiscal Assistant",
+                "description": "Deep analysis of the Official Gazette, tax laws, and SENIAT compliance. Complex queries resolved in seconds.",
+                "demo_user": "What is the ISLR withholding limit for professional services according to Decree 1.808?",
+                "demo_system": "Consulting Official Gazette and VEN-NIF Legal Base...",
+                "demo_ai": "For professional services paid to resident natural persons, the withholding is 3% on the excess of 83.33 UT. If it is a domiciled legal entity, it is 5% on the total amount paid."
+            },
+            {
+                "title": "Document Generator",
+                "description": "Create contracts, assembly minutes, and legal powers with legal validity. Impeccable technical drafting adapted to civil regulations.",
+                "demo_user": "Generate an arbitration clause for a service contract in Caracas.",
+                "demo_ai": "Any controversy derived from this contract will be resolved through legal arbitration, in accordance with the Regulations of the Caracas Chamber Arbitration Center, by one (1) arbitrator appointed according to said Regulations."
+            },
+            {
+                "title": "Data & Flow Analysis",
+                "description": "Financial projections, anomaly detection in transactions, and cash flow optimization using neural networks.",
+                "demo_ai": "I have detected an anomaly in the 'Operating Expenses' item. Electric service payments have increased by 45% compared to the previous quarter without a correlative increase in production. I recommend a consumption audit."
+            }
+        ]
+    },
     "LoginPage": {
         "back": "Home",
         "badge": "Secure Access · AES-256",

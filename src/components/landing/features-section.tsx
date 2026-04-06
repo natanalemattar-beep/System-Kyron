@@ -1,205 +1,192 @@
 'use client';
 
-import { Calculator, Users, Smartphone, BrainCircuit, Gavel, Recycle, BarChart3, Landmark, Lock, Sparkles } from "lucide-react";
+import { Zap, Clock, Gauge, BarChart3, ArrowRight, TrendingUp, Timer, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
-import Image from 'next/image';
+import { Link } from '@/navigation';
 
-const featuresMeta = [
-    { icon: Calculator, color: "text-blue-600", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary", image: "/images/landing/screenshot-contabilidad-light.jpg" },
-    { icon: Users, color: "text-violet-600", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500", image: "/images/landing/features-collaboration.webp" },
-    { icon: Smartphone, color: "text-blue-600", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500", image: "/images/landing/devices-mockup.webp" },
-    { icon: BrainCircuit, color: "text-rose-600", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true, image: "/images/landing/features-analytics.webp" },
-    { icon: Gavel, color: "text-amber-600", accent: "from-amber-500/20 to-amber-600/5", line: "from-amber-500 to-amber-600", dot: "bg-amber-500" },
-    { icon: Recycle, color: "text-emerald-600", accent: "from-emerald-500/20 to-emerald-600/5", line: "from-emerald-500 to-emerald-600", dot: "bg-emerald-500" },
-    { icon: BarChart3, color: "text-cyan-600", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500", image: "/images/landing/screenshot-portales-light.jpg" },
-    { icon: Landmark, color: "text-indigo-600", accent: "from-indigo-500/20 to-indigo-600/5", line: "from-indigo-500 to-indigo-600", dot: "bg-indigo-500" },
-    { icon: Lock, color: "text-orange-600", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500", image: "/images/landing/features-security.webp" },
-];
-
-function FeatureRow({ feature, meta, index, animate }: {
-    feature: { title: string; description: string };
-    meta: typeof featuresMeta[0];
-    index: number;
-    animate: boolean;
-}) {
-    const isLeft = index % 2 === 0;
-
-    return (
-        <motion.div
-            className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 items-center"
-            initial={animate ? { opacity: 0, y: 30, scale: 0.97 } : undefined}
-            whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-        >
-            <div className={cn(
-                "md:px-8",
-                isLeft ? "md:text-right md:order-1" : "md:text-left md:order-3"
-            )}>
-                <div className={cn(
-                    "group relative p-6 rounded-2xl liquid-glass transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
-                )}>
-                    <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-[1]", meta.accent)} />
-
-                    <div className="relative">
-                        <div className={cn("inline-flex items-center gap-2.5 mb-3", isLeft ? "md:flex-row-reverse" : "")}>
-                            <div className={cn("p-2.5 rounded-xl border border-border/20 group-hover:scale-110 transition-transform duration-300", `bg-gradient-to-br ${meta.accent}`)}>
-                                <meta.icon className={cn("h-5 w-5", meta.color)} />
-                            </div>
-                            <h3 className={cn("text-sm font-semibold uppercase tracking-tight flex items-center gap-2", meta.color)}>
-                                {feature.title}
-                                {meta.featured && (
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/20 text-[7px] font-semibold uppercase tracking-widest text-rose-400">
-                                        <Sparkles className="h-2 w-2" /> IA
-                                    </span>
-                                )}
-                            </h3>
-                        </div>
-                        <p className="text-[11.5px] text-muted-foreground font-medium leading-relaxed">
-                            {feature.description}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="hidden md:flex flex-col items-center order-2 relative z-10">
-                <div className={cn("w-4 h-4 rounded-full border-2 border-background shadow-lg ring-2 ring-offset-0", meta.dot, `ring-${meta.dot.replace('bg-', '')}/30`)}>
-                    <div className={cn("absolute inset-0 rounded-full animate-ping opacity-20", meta.dot)} />
-                </div>
-            </div>
-
-            <div className={cn(
-                "hidden md:block md:px-8",
-                isLeft ? "md:order-3" : "md:order-1"
-            )}>
-                {meta.image && (
-                    <motion.div
-                        className="relative rounded-2xl overflow-hidden shadow-lg border border-border/20 bg-card/40 backdrop-blur-sm"
-                        initial={animate ? { opacity: 0, scale: 0.92 } : undefined}
-                        whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <div className={cn("absolute -inset-2 rounded-2xl blur-xl opacity-15 -z-[1]", `bg-gradient-to-br ${meta.accent}`)} />
-                        <Image
-                            src={meta.image}
-                            alt=""
-                            width={640}
-                            height={450}
-                            quality={75}
-                            className="w-full h-auto object-cover aspect-[4/3]"
-                            loading="lazy"
-                            sizes="(max-width: 768px) 0px, 33vw"
-                        />
-                    </motion.div>
-                )}
-            </div>
-        </motion.div>
-    );
-}
-
-function TimelineProgress() {
+function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; maxValue: number; color: string; delay?: number }) {
     const ref = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start center", "end center"]
-    });
-    const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const width = (value / maxValue) * 100;
 
     return (
-        <div ref={ref} className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px]">
-            <div className="absolute inset-0 bg-blue-200/40 dark:bg-blue-800/30 rounded-full" />
+        <div ref={ref} className="w-full h-3 rounded-full bg-white/[0.04] overflow-hidden">
             <motion.div
-                className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-violet-500 to-emerald-500 rounded-full origin-top"
-                style={{ scaleY, height: '100%' }}
+                className={cn("h-full rounded-full", color)}
+                initial={{ width: 0 }}
+                animate={isInView ? { width: `${width}%` } : { width: 0 }}
+                transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
             />
         </div>
     );
 }
 
+function AnimatedNumber({ target, suffix = '', duration = 2000 }: { target: number; suffix?: string; duration?: number }) {
+    const ref = useRef<HTMLSpanElement>(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const [value, setValue] = useState(0);
+
+    useEffect(() => {
+        if (!isInView) return;
+        let start: number | null = null;
+        const step = (ts: number) => {
+            if (!start) start = ts;
+            const progress = Math.min((ts - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 4);
+            setValue(Math.round(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }, [isInView, target, duration]);
+
+    return <span ref={ref} className="tabular-nums">{value}{suffix}</span>;
+}
+
+const competitorStyles = [
+    { color: 'bg-gradient-to-r from-cyan-400 to-blue-500', textColor: 'text-cyan-400', isFastest: true },
+    { color: 'bg-gradient-to-r from-orange-400/40 to-orange-500/40', textColor: 'text-orange-400/60' },
+    { color: 'bg-gradient-to-r from-red-400/30 to-red-500/30', textColor: 'text-red-400/50' },
+    { color: 'bg-gradient-to-r from-gray-400/20 to-gray-500/20', textColor: 'text-gray-400/40' },
+];
+
+const metricConfigs = [
+    { icon: Timer, color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-700', border: 'border-cyan-500/20', bg: 'bg-cyan-500/5' },
+    { icon: TrendingUp, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', border: 'border-emerald-500/20', bg: 'bg-emerald-500/5' },
+    { icon: Clock, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-700', border: 'border-violet-500/20', bg: 'bg-violet-500/5' },
+    { icon: Gauge, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-700', border: 'border-amber-500/20', bg: 'bg-amber-500/5' },
+];
+
 export function FeaturesSection() {
     const t = useTranslations('FeaturesSection');
-    const features = t.raw('features') as { title: string; description: string }[];
-    const stats = t.raw('stats') as { val: string; detail: string }[];
     const { tier } = useDevicePerformance();
     const animate = tier !== 'low';
+    const competitors = t.raw('competitors') as { name: string; speed: number }[];
+    const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
 
     return (
-        <section id="caracteristicas" className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]" style={{ position: 'relative' }}>
+        <section id="caracteristicas" className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-violet-300/30 dark:via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-300/25 dark:via-transparent to-transparent" />
-                <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-violet-400/[0.08] dark:bg-violet-500/[0.04] blur-[120px]" />
-                <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-rose-400/[0.06] dark:bg-rose-500/[0.03] blur-[100px]" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/15 to-transparent" />
+                <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-cyan-500/[0.03] blur-[150px]" />
+                <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-emerald-500/[0.02] blur-[120px]" />
             </div>
-            <div className="container mx-auto px-4 md:px-10 max-w-6xl">
 
+            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                 <motion.div
-                    className="mb-16 md:mb-24 space-y-5 text-center"
-                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    className="mb-20 md:mb-24 space-y-5 text-center"
+                    initial={animate ? { opacity: 0, y: 40 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-wide text-secondary mx-auto">
-                        <Sparkles className="h-3 w-3" /> {t('badge')}
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400 mx-auto">
+                        <Zap className="h-3.5 w-3.5" />
+                        {t('badge')}
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground uppercase leading-[1.2]">
-                        <span className="liquid-glass-highlight">{t('title_highlight')}</span> <br className="hidden sm:block" />
-                        <span className="liquid-glass-text italic">{t('title_rest')}</span>
+                    <h2 className="text-[clamp(2rem,5vw,4rem)] font-black tracking-[-0.02em] text-foreground leading-[0.95]">
+                        <span className="text-foreground">{t('title_highlight')}</span>{' '}
+                        <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">{t('title_rest')}</span>
                     </h2>
-                    <p className="text-muted-foreground max-w-xl mx-auto font-semibold text-sm leading-relaxed">
+                    <p className="text-muted-foreground/60 max-w-xl mx-auto font-medium text-base leading-relaxed">
                         {t('subtitle')}
                     </p>
                 </motion.div>
 
-                <div className="relative">
-                    <TimelineProgress />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+                    <motion.div
+                        className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8"
+                        initial={animate ? { opacity: 0, x: -30 } : undefined}
+                        whileInView={animate ? { opacity: 1, x: 0 } : undefined}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-700 shadow-lg">
+                                <Gauge className="h-4 w-4 text-white" />
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-bold text-foreground">{t('speed_title')}</h3>
+                                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-muted-foreground/30">{t('speed_subtitle')}</p>
+                            </div>
+                        </div>
 
-                    <div className="space-y-8 md:space-y-6">
-                        {features.map((f, idx) => {
-                            const meta = featuresMeta[idx] || featuresMeta[0];
+                        <div className="space-y-5">
+                            {competitors.map((comp, i) => {
+                                const style = competitorStyles[i] || competitorStyles[competitorStyles.length - 1];
+                                return (
+                                    <div key={comp.name} className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <span className={cn("text-xs font-bold", style.isFastest ? style.textColor : 'text-muted-foreground/40')}>
+                                                {comp.name}
+                                                {style.isFastest && (
+                                                    <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[7px] font-bold uppercase tracking-[0.15em] text-cyan-400">
+                                                        <Zap className="h-2 w-2" /> {t('fastest')}
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <span className={cn("text-xs font-bold tabular-nums", style.textColor)}>
+                                                {comp.speed}ms
+                                            </span>
+                                        </div>
+                                        <AnimatedBar value={comp.speed} maxValue={1200} color={style.color} delay={i * 0.15} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        className="grid grid-cols-2 gap-4"
+                        initial={animate ? { opacity: 0, x: 30 } : undefined}
+                        whileInView={animate ? { opacity: 1, x: 0 } : undefined}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        {metrics.map((metric, i) => {
+                            const config = metricConfigs[i];
                             return (
-                                <FeatureRow
-                                    key={f.title}
-                                    feature={f}
-                                    meta={meta}
-                                    index={idx}
-                                    animate={animate}
-                                />
+                                <motion.div
+                                    key={i}
+                                    className={cn(
+                                        "group flex flex-col items-center justify-center text-center p-6 rounded-2xl border backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl cursor-default",
+                                        config.border,
+                                        config.bg
+                                    )}
+                                    initial={animate ? { opacity: 0, y: 20 } : undefined}
+                                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1, duration: 0.6 }}
+                                >
+                                    <div className={cn("p-3 rounded-xl bg-gradient-to-br shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300", config.gradient)}>
+                                        <config.icon className="h-5 w-5 text-white" />
+                                    </div>
+                                    <p className={cn("text-4xl font-black tracking-tight mb-2", config.color)}>
+                                        <AnimatedNumber target={metric.value} suffix={metric.suffix} />
+                                    </p>
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/35 leading-tight">
+                                        {metric.label}
+                                    </p>
+                                </motion.div>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 </div>
 
                 <motion.div
-                    className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3"
-                    initial={animate ? { opacity: 0, y: 25 } : undefined}
+                    className="flex justify-center"
+                    initial={animate ? { opacity: 0, y: 15 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                    {stats.map((r, i) => {
-                        const colors = [
-                            "text-cyan-600",
-                            "text-violet-600",
-                            "text-blue-600",
-                            "text-emerald-600",
-                        ];
-                        return (
-                            <div
-                                key={i}
-                                className="flex flex-col items-center text-center gap-2 p-5 rounded-2xl liquid-glass hover:border-primary/20 transition-all duration-300 cursor-default hover:-translate-y-1.5 hover:shadow-lg"
-                            >
-                                <p className={cn("text-lg font-semibold uppercase tracking-tight", colors[i % colors.length])}>{r.val}</p>
-                                <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">{r.detail}</p>
-                            </div>
-                        );
-                    })}
+                    <Link href="/register" className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-[0.2em] shadow-[0_8px_32px_-4px_rgba(14,165,233,0.3)] hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.4)] hover:scale-[1.03] transition-all duration-500">
+                        {t('cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
+                    </Link>
                 </motion.div>
             </div>
         </section>

@@ -53,6 +53,18 @@
                 "val": "VEN-NIF",
                 "label": "Certified"
             }
+        ],
+        "rotating_2": "AI Integrated",
+        "rotating_3": "Zero Risk",
+        "backed_by": "Backed by",
+        "modules_card": "Modules",
+        "automations_card": "Automations",
+        "encryption_label": "AES-256",
+        "encryption_active": "Encryption active",
+        "rotating_words": [
+            "Total Intelligence",
+            "AI Integrated",
+            "Zero Risk"
         ]
     },
     "FeaturesSection": {
@@ -116,13 +128,57 @@
                 "val": "Kyron AI",
                 "detail": "Powered by Claude (Anthropic)"
             }
+        ],
+        "speed_title": "Response Speed",
+        "speed_subtitle": "Average processing time",
+        "fastest": "Fastest",
+        "cta": "Test the Speed",
+        "competitors": [
+            {
+                "name": "System Kyron",
+                "speed": 90
+            },
+            {
+                "name": "SAP Business One",
+                "speed": 450
+            },
+            {
+                "name": "Odoo",
+                "speed": 800
+            },
+            {
+                "name": "QuickBooks",
+                "speed": 1200
+            }
+        ],
+        "metrics": [
+            {
+                "value": 90,
+                "suffix": "%",
+                "label": "Tax processing time reduction"
+            },
+            {
+                "value": 3,
+                "suffix": "x",
+                "label": "Faster than traditional ERPs"
+            },
+            {
+                "value": 19,
+                "suffix": "",
+                "label": "Automations without human intervention"
+            },
+            {
+                "value": 99,
+                "suffix": ".9%",
+                "label": "Guaranteed uptime (availability)"
+            }
         ]
     },
     "ServicesSection": {
-        "badge": "Complete Ecosystem",
-        "title_highlight": "Everything you need,",
-        "title_rest": "integrated",
-        "subtitle": "Interconnected solutions covering accounting, invoicing, legal, telecommunications and artificial intelligence.",
+        "badge": "Plans & Pricing",
+        "title_highlight": "The Perfect Plan For",
+        "title_rest": "Your Business",
+        "subtitle": "All plans include AES-256 encryption, Venezuelan compliance and automatic updates.",
         "modules_title": "All Integrated,",
         "modules_highlight": "One Ecosystem",
         "explore": "Explore Ecosystem",
@@ -178,7 +234,62 @@
         "stat_encryption": "Enterprise Encryption",
         "stat_compliance": "Tax Compliance",
         "stat_support": "Active AI Support",
-        "start_now": "Get Started"
+        "start_now": "Get Started",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "discount": "-20%",
+        "per_month": "/mo",
+        "free_forever": "Free forever",
+        "billed_annually": "Billed annually",
+        "per_year": "/year",
+        "most_popular": "Most Popular",
+        "plans": [
+            {
+                "name": "Starter",
+                "description": "For entrepreneurs and small businesses",
+                "features": [
+                    "3 basic modules",
+                    "General accounting",
+                    "Fiscal invoicing",
+                    "Up to 5 users",
+                    "Email support",
+                    "AES-256 encryption",
+                    "Automatic updates"
+                ],
+                "cta": "Start Free"
+            },
+            {
+                "name": "Professional",
+                "description": "For growing businesses",
+                "features": [
+                    "All modules included",
+                    "Triple AI Engine (Claude, GPT, Gemini)",
+                    "19 automations",
+                    "Up to 25 users",
+                    "Priority 24/7 support",
+                    "Blockchain audit",
+                    "Full API",
+                    "Advanced customization"
+                ],
+                "cta": "Choose Professional"
+            },
+            {
+                "name": "Enterprise",
+                "description": "For corporations and holdings",
+                "features": [
+                    "Everything in Professional",
+                    "Unlimited users",
+                    "Multi-company / holding",
+                    "Dedicated server",
+                    "99.99% SLA guaranteed",
+                    "Tax consulting included",
+                    "Custom integration",
+                    "In-company training",
+                    "Dedicated account manager"
+                ],
+                "cta": "Contact Sales"
+            }
+        ]
     },
     "ComplianceSection": {
         "badge": "Regulatory Compliance",
@@ -288,25 +399,38 @@
         "items": [
             {
                 "question": "How do you guarantee tax compliance?",
-                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations."
+                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
+                "category": "fiscal"
             },
             {
                 "question": "Can I manage multiple companies?",
-                "answer": "Yes. The Partners portal lets you consolidate the accounting of multiple entities into a unified Command Center."
+                "answer": "Yes. The Partners portal lets you consolidate the accounting of multiple entities into a unified Command Center.",
+                "category": "platform"
             },
             {
                 "question": "How does the BCV rate work?",
-                "answer": "It updates automatically. Every invoice generates its USD equivalent with the current BCV rate."
+                "answer": "It updates automatically. Every invoice generates its USD equivalent with the current BCV rate.",
+                "category": "fiscal"
             },
             {
                 "question": "Is it hard to migrate my data?",
-                "answer": "No. For standard systems (Excel, Profit, Monica), migration is completed in less than 48 hours at no extra cost."
+                "answer": "No. For standard systems (Excel, Profit, Monica), migration is completed in less than 48 hours at no extra cost.",
+                "category": "migration"
             },
             {
                 "question": "What level of security do you have?",
-                "answer": "AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable audit log for every action."
+                "answer": "AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable audit log for every action.",
+                "category": "security"
             }
-        ]
+        ],
+        "search_placeholder": "Search questions...",
+        "all_categories": "All",
+        "categories": {
+            "fiscal": "Tax",
+            "platform": "Platform",
+            "security": "Security",
+            "migration": "Migration"
+        }
     },
     "CtaSection": {
         "badge": "Priority Access",
@@ -377,7 +501,10 @@
             "sector_required": "Select an industry",
             "urgency_required": "Select urgency",
             "module_required": "Select a module"
-        }
+        },
+        "guarantee_encryption": "AES-256 Encrypted Data",
+        "guarantee_activation": "Instant Activation",
+        "guarantee_support": "24/7 Support"
     },
     "Footer": {
         "description": "Corporate-grade software engineering. Mission-critical solutions for the future of Venezuelan finance and telecommunications.",
@@ -700,121 +827,30 @@
         "toast_publish_error": "Could not publish"
     },
     "HowItWorksSection": {
-        "badge": "Simple Process",
-        "title_highlight": "How It",
-        "title_rest": "Works",
-        "subtitle": "From zero to productive in less than an hour. No consultants, no month-long implementations, no headaches.",
-        "cta": "Get Started Free",
-        "cta_sub": "No credit card · Instant activation",
-        "step_prefix": "Step",
-        "steps": [
+        "badge": "Artificial Intelligence",
+        "title_prefix": "Triple",
+        "title_highlight": "AI Engine",
+        "subtitle": "Three artificial intelligence engines working in parallel to deliver more precise analysis, more secure verifications and smarter recommendations.",
+        "demo_label": "Live demo",
+        "cta": "Try AI Free",
+        "capabilities": [
             {
-                "title": "Register in Minutes",
-                "description": "Create your account with real ID or RIF verification via SAIME/SENIAT. No paperwork, no waiting.",
-                "details": [
-                    "Instant verification",
-                    "Document validation",
-                    "Immediate access"
-                ]
+                "title": "AI Tax Assistant",
+                "description": "Ask any Venezuelan tax question. The assistant knows SENIAT, LOTTT, BCV and all current regulations. Precise answers in seconds.",
+                "demo_user": "How much VAT should I withhold from a special taxpayer?",
+                "demo_ai": "According to SNAT/2015/0049, VAT withholding for special taxpayers is 75% of the invoiced tax. If the supplier is ordinary, withholding is 100%."
             },
             {
-                "title": "Set Up Your Company",
-                "description": "Select the modules you need. From accounting to HR, everything activates with one click.",
-                "details": [
-                    "9+ modules available",
-                    "Full customization",
-                    "Data import"
-                ]
+                "title": "Document Forensic Analysis",
+                "description": "Triple AI engine analyzing document authenticity in parallel. Detects manipulations, validates metadata and verifies visual integrity.",
+                "demo_system": "Analyzing invoice #2847...",
+                "demo_ai": "✓ Visual integrity: 98% · ✓ Valid metadata · ✓ Fiscal hash verified · ⚠ Low resolution on tax stamp — high-quality scanner recommended."
             },
             {
-                "title": "Operate with AI",
-                "description": "All 19 automations activate automatically. AI analyzes your documents, BCV rate syncs on its own.",
-                "details": [
-                    "Instant automation",
-                    "AI active from day 1",
-                    "Real-time BCV"
-                ]
-            },
-            {
-                "title": "Comply and Grow",
-                "description": "Stay up to date with SENIAT, VEN-NIF and LOTTT automatically. Smart alerts notify you before deadlines.",
-                "details": [
-                    "Automatic compliance",
-                    "Preventive alerts",
-                    "Tax reports"
-                ]
-            }
-        ]
-    },
-    "ModulesGridSection": {
-        "badge": "Complete Ecosystem",
-        "title_main": "All Modules,",
-        "title_highlight": "One Platform",
-        "subtitle_template": "{count} specialized tools covering every aspect of your business. No extra modules, no hidden costs.",
-        "modules_included": "{count} modules included",
-        "no_extra_costs": "No additional costs",
-        "cta": "Explore All Modules",
-        "categories": {
-            "all": "All",
-            "finance": "Finance",
-            "hr": "Talent",
-            "legal": "Legal",
-            "ops": "Operations",
-            "tech": "Technology"
-        },
-        "modules": [
-            "General Accounting",
-            "Fiscal Invoicing",
-            "AR / AP",
-            "Taxes & VAT",
-            "Budgets",
-            "Payroll",
-            "Recruiting",
-            "Vacations & Leaves",
-            "Organizational Climate",
-            "Personal Development",
-            "Labor Contracts",
-            "VE Legal Framework",
-            "Litigation",
-            "Permits",
-            "Inventory",
-            "Suppliers",
-            "Marketing",
-            "Travel Expenses",
-            "Telecom",
-            "IT Department",
-            "Triple AI Engine",
-            "AES-256 Security",
-            "Automations",
-            "Blockchain Audit"
-        ]
-    },
-    "ShowcaseSection": {
-        "badge": "Platform Preview",
-        "title_prefix": "Discover",
-        "title_highlight": "System Kyron",
-        "subtitle": "Real screenshots from our platform. Professional design, enterprise-grade security.",
-        "preview": "Preview",
-        "screenshots": [
-            {
-                "title": "Portal Selector",
-                "description": "Centralized access to all modules with AES-256 encryption"
-            },
-            {
-                "title": "Secure Access",
-                "description": "Module-specific login with 2FA verification"
-            },
-            {
-                "title": "Smart Registration",
-                "description": "ID and RIF validation with SAIME/SENIAT lookup"
-            },
-            {
-                "title": "Interactive Guide",
-                "description": "Step-by-step tutorial for new users"
-            },
-            {
-                "title": "Help Center",
-                "description": "26 questions across 9 specialized categories"
+                "title": "Predictive Analytics",
+                "description": "AI analyzing spending patterns, cash flow and team sentiment. Generates strategic recommendations based on your company's real data.",
+                "demo_system": "Q1 2026 analysis complete",
+                "demo_ai": "📈 Cash flow +23% vs Q4 · 📊 3 suppliers with recurring invoices identified for negotiation · 🎯 Recommendation: renegotiate contracts before 04/15"
             }
         ]
     },
@@ -863,6 +899,155 @@
             "19 Pre-configured Automations",
             "Immutable Blockchain Audit",
             "No Additional Module Costs"
+        ],
+        "comparison_title_kyron": "System Kyron",
+        "comparison_vs": "vs"
+    },
+    "ModulesGridSection": {
+        "badge": "Complete Ecosystem",
+        "title_prefix": "Module",
+        "title_highlight": "Universe",
+        "subtitle_prefix": "specialized tools covering every aspect of your business. No extra modules, no hidden costs.",
+        "search_placeholder": "Search module...",
+        "explore_module": "Explore module",
+        "modules_included": "modules included",
+        "no_extra_costs": "No extra costs",
+        "cta": "Explore All Modules",
+        "categories": {
+            "all": "All",
+            "finance": "Finance",
+            "hr": "Talent",
+            "legal": "Legal",
+            "ops": "Operations",
+            "tech": "Technology"
+        },
+        "modules": [
+            {
+                "name": "General Accounting",
+                "desc": "Chart of accounts, journal entries, ledger, VEN-NIF balances"
+            },
+            {
+                "name": "Fiscal Invoicing",
+                "desc": "SENIAT invoices with sequence control and fiscal hash"
+            },
+            {
+                "name": "AR / AP",
+                "desc": "Accounts receivable and payable management with alerts"
+            },
+            {
+                "name": "Taxes & VAT",
+                "desc": "IVA 16%, IGTF 3%, ISLR — automatic calculations"
+            },
+            {
+                "name": "Budgets",
+                "desc": "Budget planning and control with alerts"
+            },
+            {
+                "name": "Payroll",
+                "desc": "LOTTT calculations: benefits, bonuses, vacations"
+            },
+            {
+                "name": "Recruiting",
+                "desc": "Candidate pipeline with smart filters"
+            },
+            {
+                "name": "Vacations & Permits",
+                "desc": "Vacation control Art. 190 LOTTT"
+            },
+            {
+                "name": "Org Climate",
+                "desc": "Surveys and workplace satisfaction metrics"
+            },
+            {
+                "name": "Personal Development",
+                "desc": "Career plans and continuous training"
+            },
+            {
+                "name": "Labor Contracts",
+                "desc": "Contract management with expiration alerts"
+            },
+            {
+                "name": "VE Legal Framework",
+                "desc": "Database of current laws and regulations"
+            },
+            {
+                "name": "Litigation",
+                "desc": "Legal case and hearing tracking"
+            },
+            {
+                "name": "Permits",
+                "desc": "483+ permits across Venezuelan agencies"
+            },
+            {
+                "name": "Inventory",
+                "desc": "Stock control with minimum level alerts"
+            },
+            {
+                "name": "Suppliers",
+                "desc": "Supplier directory with evaluations"
+            },
+            {
+                "name": "Marketing",
+                "desc": "Campaigns, sales funnels and social media"
+            },
+            {
+                "name": "Travel Expenses",
+                "desc": "Travel expense management and reimbursements"
+            },
+            {
+                "name": "Telecom",
+                "desc": "VoIP, virtual PBX, WhatsApp Business API"
+            },
+            {
+                "name": "IT Department",
+                "desc": "Help desk, IT inventory and asset management"
+            },
+            {
+                "name": "Triple AI Engine",
+                "desc": "Claude + OpenAI + Gemini for intelligent analysis"
+            },
+            {
+                "name": "AES-256 Security",
+                "desc": "Military encryption, JWT, blockchain audit"
+            },
+            {
+                "name": "Automations",
+                "desc": "19 automatic rules without human intervention"
+            },
+            {
+                "name": "Blockchain Audit",
+                "desc": "Merkle tree anchored on Polygon/Ethereum"
+            }
+        ],
+        "subtitle": "{count} specialized tools covering every aspect of your business. No extra modules, no hidden costs."
+    },
+    "ShowcaseSection": {
+        "badge": "Platform Preview",
+        "title_prefix": "Explore",
+        "title_highlight": "System Kyron",
+        "subtitle": "Real screenshots of our platform. Professional design, enterprise-grade security.",
+        "preview": "Preview",
+        "screenshots": [
+            {
+                "title": "Portal Selector",
+                "description": "Centralized access to all modules with AES-256 encryption"
+            },
+            {
+                "title": "Secure Login",
+                "description": "Module-specific login with 2FA verification"
+            },
+            {
+                "title": "Smart Registration",
+                "description": "ID and tax number validation with SAIME/SENIAT lookup"
+            },
+            {
+                "title": "Interactive Guide",
+                "description": "Step-by-step tutorial for new users"
+            },
+            {
+                "title": "Help Center",
+                "description": "26 questions across 9 specialized categories"
+            }
         ]
     },
     "PanelControlHero": {

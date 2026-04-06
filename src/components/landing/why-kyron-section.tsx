@@ -9,87 +9,103 @@ import {
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
-const diffMeta = [
-    { icon: Globe, color: 'text-blue-600 dark:text-blue-400', accent: 'from-blue-500/15 to-blue-500/5', glow: 'group-hover:shadow-blue-500/10' },
-    { icon: Brain, color: 'text-violet-600 dark:text-violet-400', accent: 'from-violet-500/15 to-violet-500/5', glow: 'group-hover:shadow-violet-500/10', badge: 'IA' },
-    { icon: Lock, color: 'text-emerald-600 dark:text-emerald-400', accent: 'from-emerald-500/15 to-emerald-500/5', glow: 'group-hover:shadow-emerald-500/10' },
-    { icon: Zap, color: 'text-amber-600 dark:text-amber-400', accent: 'from-amber-500/15 to-amber-500/5', glow: 'group-hover:shadow-amber-500/10' },
-    { icon: Server, color: 'text-cyan-600 dark:text-cyan-400', accent: 'from-cyan-500/15 to-cyan-500/5', glow: 'group-hover:shadow-cyan-500/10' },
-    { icon: Clock, color: 'text-rose-600 dark:text-rose-400', accent: 'from-rose-500/15 to-rose-500/5', glow: 'group-hover:shadow-rose-500/10' },
+const differentiatorConfigs = [
+    { icon: Globe, color: 'text-blue-400', gradient: 'from-blue-500 to-blue-700', accent: 'from-blue-500/15 to-blue-500/5', border: 'border-blue-500/15', glow: 'group-hover:shadow-blue-500/10', visual: '🇻🇪' },
+    { icon: Brain, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-700', accent: 'from-violet-500/15 to-violet-500/5', border: 'border-violet-500/15', glow: 'group-hover:shadow-violet-500/10', badge: 'IA', visual: '🧠' },
+    { icon: Lock, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', accent: 'from-emerald-500/15 to-emerald-500/5', border: 'border-emerald-500/15', glow: 'group-hover:shadow-emerald-500/10', visual: '🔐' },
+    { icon: Zap, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-700', accent: 'from-amber-500/15 to-amber-500/5', border: 'border-amber-500/15', glow: 'group-hover:shadow-amber-500/10', visual: '⚡' },
+    { icon: Server, color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-700', accent: 'from-cyan-500/15 to-cyan-500/5', border: 'border-cyan-500/15', glow: 'group-hover:shadow-cyan-500/10', visual: '📦' },
+    { icon: Clock, color: 'text-rose-400', gradient: 'from-rose-500 to-pink-700', accent: 'from-rose-500/15 to-rose-500/5', border: 'border-rose-500/15', glow: 'group-hover:shadow-rose-500/10', visual: '📊' },
 ];
 
 export function WhyKyronSection() {
     const { tier } = useDevicePerformance();
     const animate = tier !== 'low';
     const t = useTranslations('WhyKyronSection');
+    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     const differentiators = t.raw('differentiators') as Array<{ title: string; description: string }>;
     const comparisonRows = t.raw('comparison_rows') as string[];
 
     return (
-        <section className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-slate-50/60 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
+        <section className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-br from-indigo-50/60 via-blue-50/40 to-slate-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-300/30 dark:via-indigo-500/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-300/25 dark:via-blue-500/10 to-transparent" />
-                <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-indigo-400/[0.06] dark:bg-indigo-500/[0.03] blur-[120px]" />
-                <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-blue-400/[0.05] dark:bg-blue-500/[0.02] blur-[100px]" />
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/15 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/15 to-transparent" />
+                <div className="absolute top-[20%] right-[5%] w-[600px] h-[600px] rounded-full bg-indigo-500/[0.04] dark:bg-indigo-500/[0.02] blur-[150px]" />
+                <div className="absolute bottom-[10%] left-[10%] w-[500px] h-[500px] rounded-full bg-blue-500/[0.03] dark:bg-blue-500/[0.02] blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
                 <motion.div
-                    className="text-center mb-16 md:mb-20"
-                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    className="text-center mb-20 md:mb-24"
+                    initial={animate ? { opacity: 0, y: 40 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400 mx-auto mb-6">
                         <BadgeCheck className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
                     <h2 className="text-[clamp(1.5rem,4.5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4 break-words">
                         {t('title_prefix')}{' '}
-                        <span className="liquid-glass-text italic">{t('title_highlight')}</span>?
+                        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent italic">{t('title_highlight')}</span>?
                     </h2>
-                    <p className="text-base text-muted-foreground max-w-2xl mx-auto font-medium">
+                    <p className="text-base md:text-lg text-muted-foreground/70 max-w-2xl mx-auto font-medium">
                         {t('subtitle')}
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
-                    {diffMeta.map((item, i) => {
-                        const diff = differentiators[i];
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-24">
+                    {differentiators.map((item, i) => {
+                        const config = differentiatorConfigs[i];
+                        if (!config) return null;
                         return (
                             <motion.div
                                 key={i}
                                 className={cn(
-                                    "group relative p-6 rounded-2xl liquid-glass transition-all duration-500 hover:-translate-y-2 hover:shadow-xl cursor-default",
-                                    item.glow
+                                    "group relative p-7 rounded-2xl border backdrop-blur-sm transition-all duration-500 hover:-translate-y-3 cursor-default overflow-hidden",
+                                    config.border,
+                                    hoveredCard === i ? 'shadow-2xl' : 'shadow-none',
+                                    config.glow
                                 )}
-                                initial={animate ? { opacity: 0, y: 25, scale: 0.97 } : undefined}
+                                style={{
+                                    background: hoveredCard === i
+                                        ? 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))'
+                                        : 'rgba(255,255,255,0.02)'
+                                }}
+                                initial={animate ? { opacity: 0, y: 30, scale: 0.95 } : undefined}
                                 whileInView={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
                                 viewport={{ once: true, margin: "-50px" }}
-                                transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                transition={{ delay: i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                                onMouseEnter={() => setHoveredCard(i)}
+                                onMouseLeave={() => setHoveredCard(null)}
                             >
-                                <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-[1]", item.accent)} />
+                                <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-[1]", config.accent)} />
 
                                 <div className="flex items-start gap-4">
-                                    <div className={cn("p-3 rounded-xl border border-border/20 shrink-0 group-hover:scale-110 transition-transform duration-300", `bg-gradient-to-br ${item.accent}`)}>
-                                        <item.icon className={cn("h-5 w-5", item.color)} />
+                                    <div className={cn("p-3.5 rounded-2xl bg-gradient-to-br shrink-0 shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3", config.gradient)}>
+                                        <config.icon className="h-5 w-5 text-white" />
                                     </div>
-                                    <div className="space-y-2 min-w-0">
-                                        <h3 className={cn("text-sm font-bold uppercase tracking-tight flex items-center gap-2", item.color)}>
-                                            {diff.title}
-                                            {item.badge && (
-                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/15 border border-violet-500/20 text-[7px] font-semibold uppercase tracking-widest text-violet-500 dark:text-violet-400">
-                                                    <Sparkles className="h-2 w-2" /> {item.badge}
+                                    <div className="space-y-2.5 min-w-0">
+                                        <h3 className={cn("text-sm font-bold uppercase tracking-tight flex items-center gap-2", config.color)}>
+                                            {item.title}
+                                            {config.badge && (
+                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/15 border border-violet-500/20 text-[7px] font-semibold uppercase tracking-[0.2em] text-violet-400">
+                                                    <Sparkles className="h-2 w-2" /> {config.badge}
                                                 </span>
                                             )}
                                         </h3>
-                                        <p className="text-[11.5px] text-muted-foreground font-medium leading-relaxed">
-                                            {diff.description}
+                                        <p className="text-[12px] text-muted-foreground/60 font-medium leading-relaxed">
+                                            {item.description}
                                         </p>
                                     </div>
+                                </div>
+
+                                <div className="absolute top-4 right-4 text-3xl opacity-[0.06] group-hover:opacity-[0.12] transition-opacity duration-500 group-hover:scale-125 transform">
+                                    {config.visual}
                                 </div>
                             </motion.div>
                         );
@@ -98,17 +114,17 @@ export function WhyKyronSection() {
 
                 <motion.div
                     className="relative"
-                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    initial={animate ? { opacity: 0, y: 40 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <div className="text-center mb-10">
-                        <h3 className="text-xl sm:text-2xl font-bold tracking-tight uppercase text-foreground mb-2">
-                            System Kyron <span className="text-muted-foreground font-medium lowercase">{t('comparison_title_vs')}</span>{' '}
-                            <span className="text-muted-foreground">{t('comparison_title_generic')}</span>
+                    <div className="text-center mb-12">
+                        <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground mb-3 uppercase">
+                            {t('comparison_title_kyron')} <span className="text-muted-foreground/40 font-medium text-lg lowercase">{t('comparison_vs')}</span>{' '}
+                            <span className="text-muted-foreground/60">{t('comparison_title_generic')}</span>
                         </h3>
-                        <p className="text-sm text-muted-foreground font-medium">
+                        <p className="text-sm text-muted-foreground/50 font-medium">
                             {t('comparison_subtitle')}
                         </p>
                     </div>
@@ -122,11 +138,11 @@ export function WhyKyronSection() {
                         {comparisonRows.map((feature, i) => (
                             <motion.div
                                 key={i}
-                                className="grid grid-cols-[1fr_auto_auto] items-center border-b border-border/15 last:border-b-0 hover:bg-primary/[0.02] transition-colors"
-                                initial={animate ? { opacity: 0, x: -10 } : undefined}
+                                className="grid grid-cols-[1fr_auto_auto] items-center border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02] transition-colors"
+                                initial={animate ? { opacity: 0, x: -15 } : undefined}
                                 whileInView={animate ? { opacity: 1, x: 0 } : undefined}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.05 * i, duration: 0.4 }}
+                                transition={{ delay: 0.05 * i, duration: 0.5 }}
                             >
                                 <div className="px-3 sm:px-5 py-3 text-[11px] sm:text-xs font-medium text-foreground/80">
                                     {feature}
@@ -143,11 +159,11 @@ export function WhyKyronSection() {
                 </motion.div>
 
                 <motion.div
-                    className="mt-12 flex justify-center"
-                    initial={animate ? { opacity: 0, y: 10 } : undefined}
+                    className="mt-14 flex justify-center"
+                    initial={animate ? { opacity: 0, y: 15 } : undefined}
                     whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
                 >
                     <Link href="/register" className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-2xl kyron-gradient-bg text-white text-xs font-bold uppercase tracking-widest shadow-kyron hover:shadow-[0_12px_40px_-8px_rgba(14,165,233,0.3)] hover:scale-[1.02] transition-all duration-500">
                         {t('cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

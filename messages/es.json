@@ -249,6 +249,34 @@
     "LoadingScreen": {
         "subtitle": "Inteligencia Corporativa"
     },
+    "HowItWorksSection": {
+        "badge": "IA de Vanguardia",
+        "title_prefix": "Potenciado por",
+        "title_highlight": "Motores de IA",
+        "subtitle": "Interconectamos los modelos de lenguaje más avanzados del mundo para ofrecerte precisión absoluta en contabilidad, legal y análisis.",
+        "demo_label": "INTERACCIÓN EN TIEMPO REAL",
+        "cta": "Explorar Capacidades",
+        "capabilities": [
+            {
+                "title": "Asistente Fiscal Inteligente",
+                "description": "Análisis profundo de la Gaceta Oficial, leyes tributarias y cumplimiento SENIAT. Consultas complejas resueltas en segundos.",
+                "demo_user": "¿Cuál es el límite de retención de ISLR para servicios profesionales según el Decreto 1.808?",
+                "demo_system": "Consultando Gaceta Oficial y Base Legal VEN-NIF...",
+                "demo_ai": "Para servicios profesionales pagados a personas naturales residentes, la retención es del 3% sobre el excedente de 83.33 UT. Si es persona jurídica domiciliada, es el 5% sobre el total abonado."
+            },
+            {
+                "title": "Generador de Documentos",
+                "description": "Crea contratos, actas de asamblea y poderes legales con validez jurídica. Redacción técnica impecable adaptada a la normativa civil.",
+                "demo_user": "Genera una cláusula de arbitraje para un contrato de servicios en Caracas.",
+                "demo_ai": "Cualquier controversia derivada de este contrato será resuelta mediante arbitraje de derecho, de conformidad con el Reglamento del Centro de Arbitraje de la Cámara de Caracas, por un (1) árbitro nombrado conforme a dicho Reglamento."
+            },
+            {
+                "title": "Análisis de Datos & Flujo",
+                "description": "Proyecciones financieras, detección de anomalías en transacciones y optimización de flujo de caja mediante redes neuronales.",
+                "demo_ai": "He detectado una anomalía en la partida de 'Gastos Operativos'. Los pagos de servicios eléctricos han aumentado un 45% respecto al trimestre anterior sin un aumento correlativo en la producción. Recomiendo auditoría de consumo."
+            }
+        ]
+    },
     "LoginPage": {
         "back": "Inicio",
         "badge": "Acceso Seguro · AES-256",
