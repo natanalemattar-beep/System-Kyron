@@ -90,7 +90,7 @@ function FeatureRow({ feature, meta, index, animate }: {
                             alt=""
                             width={640}
                             height={450}
-                            quality={80}
+                            quality={75}
                             className="w-full h-auto object-cover aspect-[4/3]"
                             loading="lazy"
                             sizes="(max-width: 768px) 0px, 33vw"
