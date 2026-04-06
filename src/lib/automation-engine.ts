@@ -1,7 +1,18 @@
 import { query, queryOne } from '@/lib/db';
+import { sendNotificationEmail } from '@/lib/alert-email-service';
+import { sendWhatsAppNotification } from '@/lib/whatsapp-service';
+import { sendSmsNotification } from '@/lib/sms-service';
 
 async function safeQuery(sql: string, params?: unknown[]): Promise<void> {
   try { await query(sql, params); } catch { /* non-fatal */ }
+}
+
+async function dispatchMultichannel(userId: number, notification: { tipo: string; titulo: string; mensaje: string }) {
+  await Promise.allSettled([
+    sendNotificationEmail(userId, notification),
+    sendWhatsAppNotification(userId, notification),
+    sendSmsNotification(userId, notification),
+  ]);
 }
 
 export interface AutomationRule {
@@ -850,6 +861,515 @@ registerAction('activity_digest', async () => {
 
   return `Resumen 24h: ${s?.last_24h || 0} eventos, ${s?.auth_events || 0} auth, ${s?.accounting_events || 0} contables, ${s?.errors || 0} errores`;
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RRHH ALERTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+registerAction('hr_contract_alerts', async () => {
+  const thresholds = [30, 15, 7];
+  let totalAlerts = 0;
+
+  for (const days of thresholds) {
+    const contracts = await query(
+      `SELECT cl.id, cl.user_id, cl.titulo, cl.cargo, cl.fecha_fin,
+              e.nombre || ' ' || e.apellido as empleado_nombre
+       FROM contratos_laborales cl
+       LEFT JOIN empleados e ON cl.empleado_id = e.id
+       WHERE cl.estado IN ('vigente','firmado')
+         AND cl.fecha_fin IS NOT NULL
+         AND cl.fecha_fin = CURRENT_DATE + $1::int
+      `,
+      [days]
+    );
+
+    for (const c of contracts) {
+      const row = c as Record<string, unknown>;
+      const prioridad = days <= 7 ? 'alta' : 'normal';
+      const titulo = 'Contrato laboral próximo a vencer';
+      const mensaje = `El contrato "${row.titulo}" de ${row.empleado_nombre || 'empleado'} (${row.cargo}) vence en ${days} día(s) — ${row.fecha_fin}`;
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+         VALUES ($1, 'alerta', $2, $3, $4, 'multi', $5)`,
+        [row.user_id, titulo, mensaje, prioridad, JSON.stringify({ contrato_id: row.id, dias_restantes: days })]
+      );
+      await dispatchMultichannel(Number(row.user_id), { tipo: 'alerta', titulo, mensaje });
+      totalAlerts++;
+    }
+  }
+
+  return `Contratos laborales: ${totalAlerts} alerta(s) generada(s)`;
+});
+
+registerAction('hr_birthday_alerts', async () => {
+  const birthdays = await query(
+    `SELECT e.id, e.user_id, e.nombre, e.apellido, e.fecha_nacimiento, e.departamento
+     FROM empleados e
+     WHERE e.activo = true
+       AND e.fecha_nacimiento IS NOT NULL
+       AND EXTRACT(MONTH FROM e.fecha_nacimiento) = EXTRACT(MONTH FROM CURRENT_DATE + INTERVAL '1 day')
+       AND EXTRACT(DAY FROM e.fecha_nacimiento) = EXTRACT(DAY FROM CURRENT_DATE + INTERVAL '1 day')`
+  );
+
+  for (const emp of birthdays) {
+    const row = emp as Record<string, unknown>;
+    const titulo = 'Cumpleaños de empleado mañana';
+    const mensaje = `Mañana es el cumpleaños de ${row.nombre} ${row.apellido} (${row.departamento || 'Sin depto.'})`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'info', $2, $3, 'normal', 'multi', $4)`,
+      [row.user_id, titulo, mensaje, JSON.stringify({ empleado_id: row.id })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'info', titulo, mensaje });
+  }
+
+  return `Cumpleaños: ${birthdays.length} alerta(s) generada(s)`;
+});
+
+registerAction('hr_evaluation_alerts', async () => {
+  const probation = await query(
+    `SELECT e.id, e.user_id, e.nombre, e.apellido, e.cargo, e.fecha_ingreso,
+            e.fecha_ingreso + INTERVAL '90 days' as fin_prueba
+     FROM empleados e
+     WHERE e.activo = true
+       AND e.tipo_contrato IN ('tiempo_indeterminado','tiempo_determinado')
+       AND e.fecha_ingreso IS NOT NULL
+       AND (e.fecha_ingreso + INTERVAL '90 days') BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '15 days'`
+  );
+
+  for (const emp of probation) {
+    const row = emp as Record<string, unknown>;
+    const titulo = 'Período de prueba próximo a finalizar';
+    const mensaje = `El empleado ${row.nombre} ${row.apellido} (${row.cargo}) finaliza su período de prueba el ${row.fin_prueba}. Evalúe su desempeño.`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'advertencia', $2, $3, 'alta', 'multi', $4)`,
+      [row.user_id, titulo, mensaje, JSON.stringify({ empleado_id: row.id })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'advertencia', titulo, mensaje });
+  }
+
+  return `Evaluaciones/Prueba: ${probation.length} alerta(s) generada(s)`;
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FINANZAS OPERATIVAS ALERTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+registerAction('accounts_payable_alerts', async () => {
+  const thresholds = [7, 3, 1];
+  let totalAlerts = 0;
+
+  for (const days of thresholds) {
+    const payables = await query(
+      `SELECT cp.id, cp.user_id, cp.concepto, cp.monto_pendiente, cp.moneda,
+              cp.fecha_vencimiento, p.razon_social as proveedor_nombre
+       FROM cuentas_por_pagar cp
+       LEFT JOIN proveedores p ON cp.proveedor_id = p.id
+       WHERE cp.estado IN ('pendiente','parcial')
+         AND cp.fecha_vencimiento IS NOT NULL
+         AND cp.fecha_vencimiento = CURRENT_DATE + $1::int`,
+      [days]
+    );
+
+    for (const pay of payables) {
+      const row = pay as Record<string, unknown>;
+      const prioridad = days <= 1 ? 'critica' : days <= 3 ? 'alta' : 'normal';
+      const titulo = 'Cuenta por pagar próxima a vencer';
+      const mensaje = `Pago a ${row.proveedor_nombre || 'proveedor'}: "${row.concepto}" por ${row.monto_pendiente} ${row.moneda} vence en ${days} día(s) — ${row.fecha_vencimiento}`;
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+         VALUES ($1, 'alerta', $2, $3, $4, 'multi', $5)`,
+        [row.user_id, titulo, mensaje, prioridad, JSON.stringify({ cuenta_por_pagar_id: row.id, dias_restantes: days })]
+      );
+      await dispatchMultichannel(Number(row.user_id), { tipo: 'alerta', titulo, mensaje });
+      totalAlerts++;
+    }
+  }
+
+  const overdue = await query(
+    `SELECT cp.id, cp.user_id, cp.concepto, cp.monto_pendiente, cp.moneda,
+            cp.fecha_vencimiento, p.razon_social as proveedor_nombre
+     FROM cuentas_por_pagar cp
+     LEFT JOIN proveedores p ON cp.proveedor_id = p.id
+     WHERE cp.estado IN ('pendiente','parcial')
+       AND cp.fecha_vencimiento < CURRENT_DATE
+       AND cp.fecha_vencimiento >= CURRENT_DATE - INTERVAL '30 days'`
+  );
+
+  for (const pay of overdue) {
+    const row = pay as Record<string, unknown>;
+    const titulo = 'Cuenta por pagar VENCIDA';
+    const mensaje = `Pago vencido a ${row.proveedor_nombre || 'proveedor'}: "${row.concepto}" por ${row.monto_pendiente} ${row.moneda} — venció el ${row.fecha_vencimiento}`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'alerta', $2, $3, 'critica', 'multi', $4)`,
+      [row.user_id, titulo, mensaje, JSON.stringify({ cuenta_por_pagar_id: row.id, vencida: true })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'alerta', titulo, mensaje });
+    totalAlerts++;
+  }
+
+  return `Cuentas por pagar: ${totalAlerts} alerta(s) generada(s) (${overdue.length} vencida(s))`;
+});
+
+registerAction('credit_limit_alerts', async () => {
+  const HIGH_BALANCE_THRESHOLD = 10000;
+  const highBalances = await query(
+    `SELECT cc.user_id, cc.cliente_id,
+            SUM(cc.monto_pendiente) as total_pendiente,
+            cc.moneda,
+            COALESCE(c.razon_social, c.nombre_contacto) as cliente_nombre,
+            COUNT(*) as facturas_pendientes
+     FROM cuentas_por_cobrar cc
+     JOIN clientes c ON cc.cliente_id = c.id
+     WHERE cc.estado IN ('pendiente','parcial','vencida')
+       AND cc.cliente_id IS NOT NULL
+     GROUP BY cc.user_id, cc.cliente_id, cc.moneda, c.razon_social, c.nombre_contacto
+     HAVING SUM(cc.monto_pendiente) >= $1`,
+    [HIGH_BALANCE_THRESHOLD]
+  );
+
+  for (const row of highBalances) {
+    const r = row as Record<string, unknown>;
+    const titulo = 'Saldo elevado de cliente';
+    const mensaje = `El cliente ${r.cliente_nombre || 'desconocido'} tiene ${r.facturas_pendientes} factura(s) pendiente(s) con saldo total de ${r.total_pendiente} ${r.moneda} (umbral: ${HIGH_BALANCE_THRESHOLD}).`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'advertencia', $2, $3, 'alta', 'multi', $4)`,
+      [r.user_id, titulo, mensaje, JSON.stringify({ cliente_id: r.cliente_id, total_pendiente: r.total_pendiente, umbral: HIGH_BALANCE_THRESHOLD })]
+    );
+    await dispatchMultichannel(Number(r.user_id), { tipo: 'advertencia', titulo, mensaje });
+  }
+
+  return `Saldos elevados: ${highBalances.length} alerta(s) generada(s)`;
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INVENTARIO Y VENTAS ALERTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+registerAction('low_stock_alerts', async () => {
+  const lowStock = await query(
+    `SELECT id, user_id, codigo, nombre, categoria, stock_actual, stock_minimo, unidad_medida
+     FROM inventario
+     WHERE activo = true
+       AND stock_minimo > 0
+       AND stock_actual < stock_minimo`
+  );
+
+  for (const item of lowStock) {
+    const row = item as Record<string, unknown>;
+    const prioridad = Number(row.stock_actual) <= 0 ? 'critica' : 'alta';
+    const titulo = 'Stock bajo en inventario';
+    const mensaje = `Producto "${row.nombre}" (${row.codigo || 'sin código'}): stock actual ${row.stock_actual} ${row.unidad_medida} — mínimo requerido: ${row.stock_minimo} ${row.unidad_medida}`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'alerta', $2, $3, $4, 'multi', $5)`,
+      [row.user_id, titulo, mensaje, prioridad, JSON.stringify({ inventario_id: row.id, categoria: row.categoria })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'alerta', titulo, mensaje });
+  }
+
+  return `Stock bajo: ${lowStock.length} producto(s) por debajo del mínimo`;
+});
+
+registerAction('kpi_progress_alerts', async () => {
+  const KPI_PROGRESS_THRESHOLD = 50;
+  const PERIOD_ELAPSED_THRESHOLD = 75;
+
+  const laggingKpis = await query(
+    `SELECT id, user_id, nombre, categoria, indicador, meta_valor, valor_actual, unidad,
+            fecha_inicio, fecha_fin, responsable
+     FROM metas_kpi
+     WHERE estado = 'en_progreso'
+       AND fecha_fin > CURRENT_DATE
+       AND meta_valor > 0
+       AND (valor_actual / meta_valor * 100) < $1
+       AND (
+         EXTRACT(EPOCH FROM (CURRENT_DATE - fecha_inicio)) /
+         NULLIF(EXTRACT(EPOCH FROM (fecha_fin - fecha_inicio)), 0) * 100
+       ) > $2`,
+    [KPI_PROGRESS_THRESHOLD, PERIOD_ELAPSED_THRESHOLD]
+  );
+
+  for (const kpi of laggingKpis) {
+    const row = kpi as Record<string, unknown>;
+    const progress = Number(row.meta_valor) > 0
+      ? ((Number(row.valor_actual) / Number(row.meta_valor)) * 100).toFixed(1)
+      : '0';
+    const titulo = 'Meta KPI con bajo progreso';
+    const mensaje = `KPI "${row.nombre}" (${row.categoria}): progreso ${progress}% con menos del 25% del período restante. Meta: ${row.meta_valor} ${row.unidad}, actual: ${row.valor_actual} ${row.unidad}. Responsable: ${row.responsable || 'No asignado'}`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'advertencia', $2, $3, 'alta', 'multi', $4)`,
+      [row.user_id, titulo, mensaje, JSON.stringify({ meta_kpi_id: row.id, progreso_pct: parseFloat(progress) })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'advertencia', titulo, mensaje });
+  }
+
+  return `KPIs con bajo progreso: ${laggingKpis.length} alerta(s) generada(s)`;
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TELECOMUNICACIONES ALERTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+registerAction('telecom_alerts', async () => {
+  let totalAlerts = 0;
+
+  const invoiceThresholds = [7, 3, 1];
+  for (const days of invoiceThresholds) {
+    const invoices = await query(
+      `SELECT ft.id, ft.user_id, ft.monto, ft.moneda, ft.fecha_vencimiento,
+              ft.numero_factura, ft.periodo, lt.numero as linea_numero, lt.operadora
+       FROM facturas_telecom ft
+       LEFT JOIN lineas_telecom lt ON ft.linea_id = lt.id
+       WHERE ft.estado = 'pendiente'
+         AND ft.fecha_vencimiento IS NOT NULL
+         AND ft.fecha_vencimiento = CURRENT_DATE + $1::int`,
+      [days]
+    );
+
+    for (const inv of invoices) {
+      const row = inv as Record<string, unknown>;
+      const prioridad = days <= 1 ? 'critica' : days <= 3 ? 'alta' : 'normal';
+      const titulo = 'Factura telecom próxima a vencer';
+      const mensaje = `Factura ${row.numero_factura || ''} (${row.operadora || 'operadora'}, línea ${row.linea_numero || 'N/A'}) por ${row.monto} ${row.moneda} — vence en ${days} día(s)`;
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+         VALUES ($1, 'alerta', $2, $3, $4, 'multi', $5)`,
+        [row.user_id, titulo, mensaje, prioridad, JSON.stringify({ factura_telecom_id: row.id, dias_restantes: days })]
+      );
+      await dispatchMultichannel(Number(row.user_id), { tipo: 'alerta', titulo, mensaje });
+      totalAlerts++;
+    }
+  }
+
+  const lineThresholds = [30, 15, 7];
+  for (const days of lineThresholds) {
+    const lines = await query(
+      `SELECT id, user_id, numero, operadora, tipo_linea, plan_contratado, fecha_vencimiento
+       FROM lineas_telecom
+       WHERE activa = true
+         AND fecha_vencimiento IS NOT NULL
+         AND fecha_vencimiento = CURRENT_DATE + $1::int`,
+      [days]
+    );
+
+    for (const line of lines) {
+      const row = line as Record<string, unknown>;
+      const titulo = 'Vencimiento de contrato de línea telecom';
+      const mensaje = `La línea ${row.numero} (${row.operadora}, ${row.tipo_linea}) con plan "${row.plan_contratado || 'N/A'}" vence en ${days} día(s) — ${row.fecha_vencimiento}`;
+      await safeQuery(
+        `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+         VALUES ($1, 'advertencia', $2, $3, $4, 'multi', $5)`,
+        [row.user_id, titulo, mensaje, days <= 7 ? 'alta' : 'normal', JSON.stringify({ linea_telecom_id: row.id, dias_restantes: days })]
+      );
+      await dispatchMultichannel(Number(row.user_id), { tipo: 'advertencia', titulo, mensaje });
+      totalAlerts++;
+    }
+  }
+
+  const excessiveUsage = await query(
+    `SELECT id, user_id, numero, operadora, uso_datos_gb, limite_datos_gb
+     FROM lineas_telecom
+     WHERE activa = true
+       AND limite_datos_gb IS NOT NULL
+       AND limite_datos_gb > 0
+       AND uso_datos_gb > limite_datos_gb * 0.9`
+  );
+
+  for (const line of excessiveUsage) {
+    const row = line as Record<string, unknown>;
+    const pct = Number(row.limite_datos_gb) > 0
+      ? ((Number(row.uso_datos_gb) / Number(row.limite_datos_gb)) * 100).toFixed(0)
+      : '100';
+    const titulo = 'Consumo excesivo de datos';
+    const mensaje = `Línea ${row.numero} (${row.operadora}): uso ${row.uso_datos_gb} GB de ${row.limite_datos_gb} GB (${pct}% del límite)`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       VALUES ($1, 'advertencia', $2, $3, 'alta', 'multi', $4)`,
+      [row.user_id, titulo, mensaje, JSON.stringify({ linea_telecom_id: row.id, uso_pct: parseFloat(pct) })]
+    );
+    await dispatchMultichannel(Number(row.user_id), { tipo: 'advertencia', titulo, mensaje });
+    totalAlerts++;
+  }
+
+  return `Telecom: ${totalAlerts} alerta(s) generada(s)`;
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SEGURIDAD ALERTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+registerAction('security_alerts', async () => {
+  let totalAlerts = 0;
+
+  const adminUsers = await query<{ id: number }>(
+    `SELECT id FROM users WHERE activo = true AND tipo = 'admin'`
+  );
+
+  const failedLogins = await query(
+    `SELECT ip_address, COUNT(*) as intentos, 
+            array_agg(DISTINCT user_id) as user_ids,
+            MIN(created_at) as primer_intento,
+            MAX(created_at) as ultimo_intento
+     FROM auditoria_detallada
+     WHERE operacion = 'LOGIN'
+       AND risk_level IN ('high','critical')
+       AND created_at > NOW() - INTERVAL '1 hour'
+     GROUP BY ip_address
+     HAVING COUNT(*) >= 5`
+  );
+
+  for (const attempt of failedLogins) {
+    const row = attempt as Record<string, unknown>;
+    const titulo = 'Múltiples intentos de login fallidos';
+    const mensaje = `Detectados ${row.intentos} intentos de login desde IP ${row.ip_address} en la última hora (${row.primer_intento} - ${row.ultimo_intento})`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       SELECT id, 'alerta', $1, $2, 'critica', 'multi', $3
+       FROM users WHERE activo = true AND tipo = 'admin'`,
+      [titulo, mensaje, JSON.stringify({ ip_address: row.ip_address, intentos: row.intentos, user_ids: row.user_ids })]
+    );
+    for (const admin of adminUsers) {
+      await dispatchMultichannel(admin.id, { tipo: 'alerta', titulo, mensaje });
+    }
+    totalAlerts++;
+  }
+
+  const permissionChanges = await query(
+    `SELECT ad.id, ad.user_id, ad.tabla_afectada, ad.campos_modificados,
+            ad.datos_anteriores, ad.datos_nuevos, ad.ip_address, ad.created_at,
+            u.nombre || ' ' || u.apellido as usuario_nombre
+     FROM auditoria_detallada ad
+     LEFT JOIN users u ON ad.user_id = u.id
+     WHERE ad.tabla_afectada IN ('users','roles','permisos','user_roles')
+       AND ad.operacion IN ('UPDATE','INSERT','DELETE')
+       AND ad.created_at > NOW() - INTERVAL '1 hour'
+       AND (
+         ad.campos_modificados && ARRAY['tipo','activo','role','permisos','permissions']
+         OR ad.tabla_afectada IN ('roles','permisos','user_roles')
+       )`
+  );
+
+  for (const change of permissionChanges) {
+    const row = change as Record<string, unknown>;
+    const titulo = 'Cambio de permisos/roles detectado';
+    const mensaje = `Usuario ${row.usuario_nombre || 'ID:' + row.user_id} modificó ${row.tabla_afectada} (campos: ${row.campos_modificados || 'N/A'}) desde IP ${row.ip_address} a las ${row.created_at}`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       SELECT id, 'alerta', $1, $2, 'critica', 'multi', $3
+       FROM users WHERE activo = true AND tipo = 'admin'`,
+      [titulo, mensaje, JSON.stringify({ auditoria_id: row.id, tabla: row.tabla_afectada })]
+    );
+    for (const admin of adminUsers) {
+      await dispatchMultichannel(admin.id, { tipo: 'alerta', titulo, mensaje });
+    }
+    totalAlerts++;
+  }
+
+  const offHoursActivity = await query(
+    `SELECT user_id, COUNT(*) as operaciones,
+            u.nombre || ' ' || u.apellido as usuario_nombre
+     FROM auditoria_detallada ad
+     JOIN users u ON ad.user_id = u.id
+     WHERE ad.created_at > NOW() - INTERVAL '1 hour'
+       AND EXTRACT(HOUR FROM ad.created_at AT TIME ZONE 'America/Caracas') NOT BETWEEN 6 AND 22
+       AND ad.operacion NOT IN ('LOGIN','LOGOUT','SELECT')
+     GROUP BY ad.user_id, u.nombre, u.apellido
+     HAVING COUNT(*) >= 10`
+  );
+
+  for (const activity of offHoursActivity) {
+    const row = activity as Record<string, unknown>;
+    const titulo = 'Actividad inusual fuera de horario';
+    const mensaje = `Usuario ${row.usuario_nombre} realizó ${row.operaciones} operaciones de escritura fuera de horario laboral en la última hora`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       SELECT id, 'alerta', $1, $2, 'critica', 'multi', $3
+       FROM users WHERE activo = true AND tipo = 'admin'`,
+      [titulo, mensaje, JSON.stringify({ user_id: row.user_id, operaciones: row.operaciones })]
+    );
+    for (const admin of adminUsers) {
+      await dispatchMultichannel(admin.id, { tipo: 'alerta', titulo, mensaje });
+    }
+    totalAlerts++;
+  }
+
+  const INACTIVE_SESSION_HOURS = 24;
+  const inactiveSessions = await query(
+    `SELECT us.id as session_id, us.user_id, us.ip, us.user_agent, us.created_at,
+            u.nombre || ' ' || u.apellido as usuario_nombre, u.email
+     FROM user_sessions us
+     JOIN users u ON us.user_id = u.id
+     WHERE us.activa = true
+       AND us.created_at < NOW() - ($1 || ' hours')::interval
+       AND us.expires_at > NOW()`,
+    [INACTIVE_SESSION_HOURS]
+  );
+
+  for (const session of inactiveSessions) {
+    const row = session as Record<string, unknown>;
+    const titulo = 'Sesión inactiva prolongada';
+    const mensaje = `Sesión activa del usuario ${row.usuario_nombre} (${row.email}) desde ${row.created_at}, IP: ${row.ip || 'N/A'} — lleva más de ${INACTIVE_SESSION_HOURS}h sin renovación`;
+    await safeQuery(
+      `INSERT INTO notificaciones (user_id, tipo, titulo, mensaje, prioridad, canal, metadata)
+       SELECT id, 'alerta', $1, $2, 'critica', 'multi', $3
+       FROM users WHERE activo = true AND tipo = 'admin'`,
+      [titulo, mensaje, JSON.stringify({ session_id: row.session_id, user_id: row.user_id, ip: row.ip })]
+    );
+    for (const admin of adminUsers) {
+      await dispatchMultichannel(admin.id, { tipo: 'alerta', titulo, mensaje });
+    }
+    totalAlerts++;
+  }
+
+  return `Seguridad: ${totalAlerts} alerta(s) generada(s) (${failedLogins.length} login sospechoso(s), ${permissionChanges.length} cambio(s) de permisos, ${offHoursActivity.length} actividad(es) fuera de horario, ${inactiveSessions.length} sesión(es) inactiva(s))`;
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SEED: Insert automation rules for new alert types
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function seedAlertAutomationRules(): Promise<number> {
+  const rules = [
+    { name: 'Alertas de contratos laborales', description: 'Detecta contratos laborales próximos a vencer (30, 15, 7 días)', action_type: 'hr_contract_alerts', interval_hours: 24, module: 'rrhh' },
+    { name: 'Alertas de cumpleaños', description: 'Notifica el día anterior al cumpleaños de empleados', action_type: 'hr_birthday_alerts', interval_hours: 24, module: 'rrhh' },
+    { name: 'Alertas de evaluación/período de prueba', description: 'Detecta empleados en período de prueba próximo a finalizar', action_type: 'hr_evaluation_alerts', interval_hours: 24, module: 'rrhh' },
+    { name: 'Alertas de cuentas por pagar', description: 'Detecta pagos a proveedores próximos a vencer (7, 3, 1 día) y vencidos', action_type: 'accounts_payable_alerts', interval_hours: 12, module: 'finanzas' },
+    { name: 'Alertas de saldo elevado de clientes', description: 'Detecta clientes con saldos pendientes que superan el umbral configurado', action_type: 'credit_limit_alerts', interval_hours: 12, module: 'finanzas' },
+    { name: 'Alertas de stock bajo', description: 'Detecta productos con stock por debajo del mínimo', action_type: 'low_stock_alerts', interval_hours: 6, module: 'inventario' },
+    { name: 'Alertas de progreso KPI', description: 'Detecta metas KPI con bajo progreso relativo al período', action_type: 'kpi_progress_alerts', interval_hours: 6, module: 'inventario' },
+    { name: 'Alertas de telecomunicaciones', description: 'Detecta facturas telecom por vencer, líneas con vencimiento de contrato y consumo excesivo', action_type: 'telecom_alerts', interval_hours: 24, module: 'telecom' },
+    { name: 'Alertas de seguridad', description: 'Detecta intentos de login fallidos, cambios de permisos y actividad fuera de horario', action_type: 'security_alerts', interval_hours: 1, module: 'seguridad' },
+  ];
+
+  let inserted = 0;
+  for (const rule of rules) {
+    try {
+      const result = await query(
+        `INSERT INTO automation_rules (name, description, trigger_type, trigger_config, action_type, action_config, enabled, module)
+         VALUES ($1, $2, 'schedule', $3, $4, '{}', true, $5)
+         ON CONFLICT (action_type) WHERE trigger_type = 'schedule' DO UPDATE SET module = EXCLUDED.module
+         RETURNING id`,
+        [
+          rule.name,
+          rule.description,
+          JSON.stringify({ interval_hours: rule.interval_hours }),
+          rule.action_type,
+          rule.module,
+        ]
+      );
+      if (result.length > 0) inserted++;
+    } catch (err) {
+      console.error(`[seed] Failed to insert rule ${rule.action_type}:`, err);
+    }
+  }
+
+  return inserted;
+}
 
 export async function executeAutomation(ruleId: string): Promise<AutomationLog> {
   const rule = await queryOne<AutomationRule>(
