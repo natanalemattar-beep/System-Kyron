@@ -75,7 +75,7 @@ function TypingText({ texts, interval = 3000 }: { texts: string[]; interval?: nu
     }, [texts.length, interval]);
 
     return (
-        <span className="inline-block min-w-[120px]">
+        <span className="block overflow-visible">
             <motion.span
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -126,7 +126,7 @@ export function HeroSection() {
     ], [t]);
 
     return (
-        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-hidden">
+        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-clip">
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
@@ -188,7 +188,7 @@ export function HeroSection() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-[clamp(2rem,6.5vw,5rem)] font-extrabold tracking-tight uppercase leading-[0.95]"
+                            className="text-[clamp(2rem,5.8vw,4.75rem)] font-extrabold tracking-tight uppercase leading-[0.95]"
                             variants={fadeUp}
                             initial="hidden"
                             animate="visible"

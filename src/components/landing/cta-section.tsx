@@ -52,7 +52,7 @@ export function CtaSection() {
                             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[10px] font-semibold uppercase tracking-[0.35em] text-foreground/80 mx-auto lg:ml-0">
                                <Sparkles className="h-3.5 w-3.5 text-cyan-400" /> {t('badge')}
                             </div>
-                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-extrabold tracking-tight leading-[1.05] text-foreground uppercase">
+                            <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-extrabold tracking-tight leading-[1.05] text-foreground uppercase overflow-visible" lang="es">
                                 {t('title_highlight')}{' '}
                                 <span className="liquid-glass-text italic">
                                     {t('title_rest')}
