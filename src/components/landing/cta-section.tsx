@@ -5,6 +5,7 @@ import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
+import Image from 'next/image';
 
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
@@ -59,6 +60,28 @@ export function CtaSection() {
                                     </div>
                                 ))}
                             </div>
+
+                            <motion.div
+                                className="relative mt-8 hidden lg:block"
+                                initial={animate ? { opacity: 0, y: 20 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-emerald-400/10 to-cyan-400/10 blur-xl -z-[1]" />
+                                <div className="relative rounded-2xl overflow-hidden border border-border/20 shadow-xl bg-card/40 backdrop-blur-sm">
+                                    <Image
+                                        src="/images/landing/devices-mockup.webp"
+                                        alt=""
+                                        width={1408}
+                                        height={768}
+                                        quality={85}
+                                        className="w-full h-auto"
+                                        loading="lazy"
+                                        sizes="(max-width: 1024px) 0px, 45vw"
+                                    />
+                                </div>
+                            </motion.div>
                         </motion.div>
 
                         <motion.div

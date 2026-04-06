@@ -18,6 +18,24 @@ uri = "file://public/images/landing/services-ia.png"
 type = "image"
 title = "AI assistant illustration"
 
+[[generated]]
+id = "oWX9hYatq_khPa05yXlHE"
+uri = "file://public/images/landing/features-collaboration.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "e9y7E23qjrLt5cPUMxo9S"
+uri = "file://public/images/landing/features-analytics.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "SWSz7dMzSFarhJyjMJvQ5"
+uri = "file://public/images/landing/features-security.png"
+type = "image"
+title = "generated_image"
+
 [[outputs]]
 id = "y_cROB4qJJJl7zjUHR2Ar"
 uri = "file://screenshots/01-loading-screen.jpg"

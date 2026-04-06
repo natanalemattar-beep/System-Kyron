@@ -6,17 +6,18 @@ import { useTranslations } from 'next-intl';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
+import Image from 'next/image';
 
 const featuresMeta = [
-    { icon: Calculator, color: "text-blue-600", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary" },
-    { icon: Users, color: "text-violet-600", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500" },
-    { icon: Smartphone, color: "text-blue-600", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500" },
-    { icon: BrainCircuit, color: "text-rose-600", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true },
+    { icon: Calculator, color: "text-blue-600", accent: "from-primary/20 to-blue-600/5", line: "from-primary to-blue-600", dot: "bg-primary", image: "/images/landing/screenshot-contabilidad-light.jpg" },
+    { icon: Users, color: "text-violet-600", accent: "from-violet-500/20 to-violet-600/5", line: "from-violet-500 to-violet-600", dot: "bg-violet-500", image: "/images/landing/features-collaboration.webp" },
+    { icon: Smartphone, color: "text-blue-600", accent: "from-blue-500/20 to-blue-600/5", line: "from-blue-500 to-blue-600", dot: "bg-blue-500", image: "/images/landing/devices-mockup.webp" },
+    { icon: BrainCircuit, color: "text-rose-600", accent: "from-rose-500/20 to-rose-600/5", line: "from-rose-500 to-rose-600", dot: "bg-rose-500", featured: true, image: "/images/landing/features-analytics.webp" },
     { icon: Gavel, color: "text-amber-600", accent: "from-amber-500/20 to-amber-600/5", line: "from-amber-500 to-amber-600", dot: "bg-amber-500" },
     { icon: Recycle, color: "text-emerald-600", accent: "from-emerald-500/20 to-emerald-600/5", line: "from-emerald-500 to-emerald-600", dot: "bg-emerald-500" },
-    { icon: BarChart3, color: "text-cyan-600", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500" },
+    { icon: BarChart3, color: "text-cyan-600", accent: "from-cyan-500/20 to-cyan-600/5", line: "from-cyan-500 to-cyan-600", dot: "bg-cyan-500", image: "/images/landing/screenshot-portales-light.jpg" },
     { icon: Landmark, color: "text-indigo-600", accent: "from-indigo-500/20 to-indigo-600/5", line: "from-indigo-500 to-indigo-600", dot: "bg-indigo-500" },
-    { icon: Lock, color: "text-orange-600", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500" },
+    { icon: Lock, color: "text-orange-600", accent: "from-orange-500/20 to-orange-600/5", line: "from-orange-500 to-orange-600", dot: "bg-orange-500", image: "/images/landing/features-security.webp" },
 ];
 
 function FeatureRow({ feature, meta, index, animate }: {
@@ -74,7 +75,29 @@ function FeatureRow({ feature, meta, index, animate }: {
             <div className={cn(
                 "hidden md:block md:px-8",
                 isLeft ? "md:order-3" : "md:order-1"
-            )} />
+            )}>
+                {meta.image && (
+                    <motion.div
+                        className="relative rounded-2xl overflow-hidden shadow-lg border border-border/20 bg-card/40 backdrop-blur-sm"
+                        initial={animate ? { opacity: 0, scale: 0.92 } : undefined}
+                        whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className={cn("absolute -inset-2 rounded-2xl blur-xl opacity-15 -z-[1]", `bg-gradient-to-br ${meta.accent}`)} />
+                        <Image
+                            src={meta.image}
+                            alt=""
+                            width={640}
+                            height={450}
+                            quality={80}
+                            className="w-full h-auto object-cover aspect-[4/3]"
+                            loading="lazy"
+                            sizes="(max-width: 768px) 0px, 33vw"
+                        />
+                    </motion.div>
+                )}
+            </div>
         </motion.div>
     );
 }

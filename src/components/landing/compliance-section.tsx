@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import {
     ShieldCheck, Landmark, Scale, Radio, FileCheck,
     Building2, Fingerprint, Globe, BadgeCheck, Lock,
@@ -110,6 +111,26 @@ export function ComplianceSection() {
                     transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className="flex flex-col md:flex-row items-center gap-8">
+                        <div className="hidden md:block shrink-0">
+                            <motion.div
+                                className="relative w-32 h-32 lg:w-40 lg:h-40"
+                                initial={animate ? { opacity: 0, scale: 0.8, rotate: -10 } : undefined}
+                                whileInView={animate ? { opacity: 1, scale: 1, rotate: 0 } : undefined}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400/20 to-cyan-400/20 blur-2xl" />
+                                <Image
+                                    src="/images/landing/security-shield.webp"
+                                    alt=""
+                                    width={1024}
+                                    height={1024}
+                                    quality={85}
+                                    className="relative w-full h-full object-contain drop-shadow-lg"
+                                    loading="lazy"
+                                />
+                            </motion.div>
+                        </div>
                         <div className="flex-1 text-center md:text-left">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[11px] font-semibold uppercase tracking-widest mb-4">
                                 <Globe className="h-3 w-3" />
