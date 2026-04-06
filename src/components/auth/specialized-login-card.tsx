@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
-  Smartphone, MessageSquare, MessageCircle
+  Smartphone, MessageSquare, MessageCircle, Fingerprint, CheckCircle, RefreshCw
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -70,7 +71,6 @@ export function SpecializedLoginCard({
   const [verificationEmail, setVerificationEmail] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
   const [userName, setUserName] = useState('');
-  const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
   const [countdown, setCountdown] = useState(0);
   const [emailDeliveryFailed, setEmailDeliveryFailed] = useState(false);
   const [savedCredentials, setSavedCredentials] = useState<{ email: string; password: string } | null>(null);
@@ -80,10 +80,24 @@ export function SpecializedLoginCard({
   const [switchingMethod, setSwitchingMethod] = useState(false);
   const [challengeToken, setChallengeToken] = useState('');
   const [devCode, setDevCode] = useState<string | null>(null);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [singleCode, setSingleCode] = useState('');
+  const [verifVerified, setVerifVerified] = useState(false);
+  const singleInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const { toast } = useToast();
   const theme = ACCENT_THEMES[accentColor] || ACCENT_THEMES['primary'];
+
+  const handleMagicLinkVerified = useCallback(() => {
+    setVerifVerified(true);
+    toast({ title: 'Identidad verificada', description: 'Acceso verificado automáticamente.', action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
+    router.push(redirectPath as any);
+  }, [toast, router, redirectPath]);
+
+  useVerificationPoll(
+    verificationEmail,
+    step === 'verification' && verificationMethod === 'email' && !devCode && !verifVerified,
+    handleMagicLinkVerified
+  );
 
   useEffect(() => {
     if (countdown <= 0) return;
@@ -92,7 +106,7 @@ export function SpecializedLoginCard({
   }, [countdown]);
 
   useEffect(() => {
-    if (step === 'verification') setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    if (step === 'verification') setTimeout(() => singleInputRef.current?.focus(), 200);
   }, [step]);
 
   const attemptLogin = async (email: string, password: string, accessKey?: string) => {
@@ -212,47 +226,55 @@ export function SpecializedLoginCard({
     } catch { setError('Error de conexión.'); setIsLoading(false); }
   };
 
-  const handleCodeChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
-    const newDigits = [...codeDigits];
-    if (value.length > 1) {
-      const chars = value.slice(0, 6).split('');
-      chars.forEach((char, i) => { if (index + i < 6) newDigits[index + i] = char; });
-      setCodeDigits(newDigits);
-      inputRefs.current[Math.min(index + chars.length, 5)]?.focus();
-      if (newDigits.every(d => d !== '')) submitCode(newDigits.join(''));
-      return;
-    }
-    newDigits[index] = value;
-    setCodeDigits(newDigits);
-    if (value && index < 5) inputRefs.current[index + 1]?.focus();
-    if (newDigits.every(d => d !== '')) submitCode(newDigits.join(''));
-  };
-
-  const handleCodeKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !codeDigits[index] && index > 0) inputRefs.current[index - 1]?.focus();
-  };
-
   const submitCode = async (code: string) => {
     setIsLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/auth/verify-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: verificationEmail, code }) });
       const json = await res.json();
-      if (!res.ok) { setError(json.error || 'Código incorrecto.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); setTimeout(() => inputRefs.current[0]?.focus(), 100); return; }
+      if (!res.ok) { setError(json.error || 'Código incorrecto.'); setSingleCode(''); setIsLoading(false); setTimeout(() => singleInputRef.current?.focus(), 100); return; }
+      setVerifVerified(true);
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch { setError('Error de conexión.'); setCodeDigits(['', '', '', '', '', '']); setIsLoading(false); }
+    } catch { setError('Error de conexión.'); setSingleCode(''); setIsLoading(false); }
   };
 
-  const handleResendCode = () => { setStep('credentials'); setError(null); setCodeDigits(['', '', '', '', '', '']); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
+  const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
   const formatCountdown = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
+
+  const handleResendCode = async () => {
+    setIsLoading(true);
+    setError(null);
+    setSingleCode('');
+    try {
+      const body: Record<string, string> = { method: verificationMethod, destino: verificationEmail, tipo: verificationMethod };
+      if ((verificationMethod === 'sms' || verificationMethod === 'whatsapp') && challengeToken) {
+        body.challengeToken = challengeToken;
+      }
+      const res = await fetch('/api/auth/send-code', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const json = await res.json();
+      if (!res.ok) { setError(json.error || 'No se pudo reenviar el código.'); setIsLoading(false); return; }
+      setCountdown(600);
+      if (json.devCode || json.kyronCode) {
+        setDevCode(json.devCode || json.kyronCode);
+      }
+      toast({ title: 'Código reenviado', description: `Se envió un nuevo código por ${verificationMethod === 'email' ? 'correo' : verificationMethod}.`, action: <RefreshCw className="text-primary h-4 w-4" /> });
+    } catch { setError('Error de conexión al reenviar.'); }
+    setIsLoading(false);
+    setTimeout(() => singleInputRef.current?.focus(), 100);
+  };
+
+  useEffect(() => {
+    if (singleCode.length === 6 && step === 'verification' && !verifVerified) {
+      submitCode(singleCode);
+    }
+  }, [singleCode, step, verifVerified]);
 
   const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
     if (method === verificationMethod || switchingMethod) return;
     setSwitchingMethod(true);
     setError(null);
-    setCodeDigits(['', '', '', '', '', '']);
+    setSingleCode('');
     try {
       const body: Record<string, string> = { method, destino: verificationEmail, tipo: method };
       if ((method === 'sms' || method === 'whatsapp') && challengeToken) {
@@ -284,7 +306,7 @@ export function SpecializedLoginCard({
         const ch = channelLabels[method];
         toast({ title: ch.title, description: ch.desc, action: ch.icon });
       }
-      setTimeout(() => inputRefs.current[0]?.focus(), 100);
+      setTimeout(() => singleInputRef.current?.focus(), 100);
     } catch {
       setError('Error de conexión al reenviar código.');
     } finally {
@@ -541,179 +563,213 @@ export function SpecializedLoginCard({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
+            className="space-y-6"
           >
-            <div className="mb-8 text-center">
+            <div className="text-center space-y-3">
               <motion.div
-                className={cn("mx-auto w-16 h-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-5")}
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.3, type: "spring" }}
+                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-lg"
+                style={{ background: verificationMethod === 'whatsapp' ? 'linear-gradient(135deg, #22c55e, #16a34a)' : verificationMethod === 'sms' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #3b82f6, #1e40af)' }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4, type: "spring" }}
               >
                 {verificationMethod === 'whatsapp'
-                  ? <MessageCircle className={cn("h-7 w-7 text-green-500")} />
+                  ? <MessageCircle className="h-8 w-8 text-white" />
                   : verificationMethod === 'sms'
-                    ? <Smartphone className={cn("h-7 w-7", theme.accent)} />
-                    : <KeyRound className={cn("h-7 w-7", theme.accent)} />
+                    ? <Smartphone className="h-8 w-8 text-white" />
+                    : <Fingerprint className="h-8 w-8 text-white" />
                 }
               </motion.div>
-              <h2 className="text-xl font-bold tracking-tight text-foreground">Verificación</h2>
-              <p className="text-[13px] text-muted-foreground mt-2">
-                {devCode ? 'Ingresa el código mostrado abajo' : (
-                  <>Código de 6 dígitos enviado a{' '}
-                  <strong className="text-foreground">
-                    {verificationMethod === 'email' ? maskedEmail : maskedPhone}
-                  </strong>
-                  {verificationMethod === 'whatsapp' && <span className="text-green-500 ml-1">(WhatsApp)</span>}
-                  </>
-                )}
+              <h2 className="text-xl font-bold text-foreground">Verifica tu identidad</h2>
+              <p className="text-sm text-muted-foreground">
+                {devCode ? 'Ingresa el código de verificación segura' : `Código de 6 dígitos enviado a tu ${verificationMethod === 'email' ? 'correo' : verificationMethod === 'sms' ? 'SMS' : 'WhatsApp'}.`}
               </p>
-              {!devCode && verificationMethod === 'email' && (
-                <p className="text-[11px] text-muted-foreground/60 mt-1.5">
-                  También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
-                </p>
-              )}
-              {countdown > 0 && (
-                <p className="text-xs text-muted-foreground mt-1.5">
-                  Expira en <span className="font-mono font-bold text-amber-500">{formatCountdown(countdown)}</span>
-                </p>
-              )}
-
-              {hasPhone && (
-                <div className="flex items-center justify-center gap-1.5 mt-4 flex-wrap">
-                  {([
-                    { method: 'email' as const, icon: Mail, label: 'Correo', activeColor: theme.accent },
-                    { method: 'sms' as const, icon: Smartphone, label: 'SMS', activeColor: theme.accent },
-                    { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', activeColor: 'text-green-500' },
-                  ]).map(({ method, icon: MethodIcon, label, activeColor }) => (
-                    <button
-                      key={method}
-                      type="button"
-                      onClick={() => handleSwitchMethod(method)}
-                      disabled={switchingMethod || isLoading}
-                      className={cn(
-                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all",
-                        verificationMethod === method
-                          ? cn("bg-primary/10 border border-primary/20", activeColor)
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
-                      )}
-                    >
-                      <MethodIcon className="h-3.5 w-3.5" />
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {switchingMethod && (
-                <div className="flex items-center justify-center gap-2 mt-3">
-                  <Loader2 className={cn("h-3.5 w-3.5 animate-spin", theme.accent)} />
-                  <span className="text-[11px] text-muted-foreground">Enviando código...</span>
-                </div>
-              )}
             </div>
 
-            {devCode && (
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 mb-5">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
-                  <Shield className="h-4 w-4 text-white" />
-                </div>
+            {verifVerified ? (
+              <div className="text-center py-6 space-y-4">
+                <motion.div
+                  className="inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-lg shadow-emerald-100 dark:shadow-emerald-900/30 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900 dark:to-emerald-800"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", duration: 0.5 }}
+                >
+                  <CheckCircle className="h-10 w-10 text-emerald-600" />
+                </motion.div>
                 <div>
-                  <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
-                  <p className="text-[12px] text-muted-foreground mt-0.5">Ingresa este código para continuar:</p>
-                  <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600 dark:text-cyan-400 mt-2">{devCode}</p>
-                  <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · No lo compartas</p>
+                  <p className="text-lg font-bold text-emerald-600 uppercase tracking-widest">¡Verificado!</p>
+                  <p className="text-sm text-muted-foreground mt-1">Redirigiendo...</p>
                 </div>
               </div>
-            )}
-
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden mb-5"
-                >
-                  <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15">
-                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                    <p className="text-[13px] text-destructive">{error}</p>
+            ) : (
+              <div className="p-5 rounded-2xl border border-border/40 bg-muted/20 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl" style={{
+                    background: verificationMethod === 'email'
+                      ? 'linear-gradient(135deg, #dbeafe, #bfdbfe)'
+                      : verificationMethod === 'whatsapp'
+                        ? 'linear-gradient(135deg, #bbf7d0, #86efac)'
+                        : 'linear-gradient(135deg, #d1fae5, #a7f3d0)'
+                  }}>
+                    {verificationMethod === 'email'
+                      ? <Mail className="h-5 w-5 text-blue-600" />
+                      : verificationMethod === 'whatsapp'
+                        ? <MessageCircle className="h-5 w-5 text-green-700" />
+                        : <Smartphone className="h-5 w-5 text-emerald-600" />
+                    }
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-foreground/80">
+                      {verificationMethod === 'email' ? 'Código enviado por correo' : verificationMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
+                    </p>
+                    <p className="text-sm text-muted-foreground truncate">
+                      {verificationMethod === 'email' ? maskedEmail : maskedPhone}
+                    </p>
+                  </div>
+                  {hasPhone && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSingleCode('');
+                        setError(null);
+                        const methodsEl = document.getElementById('login-method-cards');
+                        if (methodsEl) methodsEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }}
+                      className="text-xs font-bold text-muted-foreground hover:text-foreground px-2 py-1 rounded-lg hover:bg-muted/50 transition-colors shrink-0"
+                    >
+                      Cambiar
+                    </button>
+                  )}
+                </div>
 
-            <div className="flex justify-center gap-1.5 xs:gap-2 sm:gap-2.5 mb-6">
-              {codeDigits.map((digit, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
-                >
+                {devCode && (
+                  <motion.div
+                    className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md">
+                      <Shield className="h-4.5 w-4.5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs font-bold text-cyan-600 dark:text-cyan-400">System Kyron — Verificación Segura</p>
+                      <p className="text-[12px] text-muted-foreground mt-0.5">Usa este código o haz clic para autocompletar:</p>
+                      <button
+                        type="button"
+                        onClick={() => { setSingleCode(devCode); }}
+                        className="text-3xl font-bold font-mono tracking-wider text-cyan-600 dark:text-cyan-400 mt-2 hover:text-cyan-500 dark:hover:text-cyan-300 transition-colors cursor-pointer"
+                      >
+                        {devCode}
+                      </button>
+                      <p className="text-[10px] text-muted-foreground/60 mt-1.5">Válido por 10 minutos · Toca el código para usar</p>
+                    </div>
+                  </motion.div>
+                )}
+
+                <div className="space-y-3">
+                  <div className="flex items-center justify-center gap-2 py-1">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <p className="text-xs text-emerald-600 font-semibold uppercase tracking-widest">
+                      {verificationMethod === 'email' ? 'Esperando verificación' : verificationMethod === 'sms' ? 'Código enviado por SMS' : 'Código enviado por WhatsApp'}
+                    </p>
+                  </div>
+
                   <Input
-                    ref={el => { inputRefs.current[i] = el; }}
-                    type="text" inputMode="numeric" maxLength={6} value={digit}
-                    onChange={e => handleCodeChange(i, e.target.value)}
-                    onKeyDown={e => handleCodeKeyDown(i, e)}
-                    onPaste={e => { e.preventDefault(); const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6); if (pasted) handleCodeChange(0, pasted); }}
-                    className={cn("w-10 h-12 xs:w-11 xs:h-13 sm:w-12 sm:h-14 md:w-13 md:h-16 text-center text-xl sm:text-2xl font-bold rounded-lg sm:rounded-xl border-2 transition-all duration-200 bg-muted/20", digit ? cn(theme.codeBorder, "bg-primary/5") : "border-border/40 focus:border-primary")}
-                    disabled={isLoading} autoComplete="one-time-code"
+                    ref={singleInputRef}
+                    placeholder="000000"
+                    inputMode="numeric"
+                    maxLength={6}
+                    value={singleCode}
+                    onChange={e => setSingleCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    className={cn("text-center text-3xl font-bold tracking-wider h-16 rounded-2xl bg-card border-2 border-border/40 focus:border-primary shadow-sm text-foreground", singleCode.length === 6 && theme.codeBorder)}
+                    disabled={isLoading}
+                    autoComplete="one-time-code"
                   />
-                </motion.div>
-              ))}
-            </div>
 
-            {isLoading && (
-              <div className="flex items-center justify-center gap-2 mb-5">
-                <Loader2 className={cn("h-4 w-4 animate-spin", theme.accent)} />
-                <span className="text-[13px] text-muted-foreground">Verificando...</span>
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex items-start gap-3 p-3 rounded-xl bg-destructive/5 border border-destructive/15">
+                          <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                          <p className="text-[13px] text-destructive">{error}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {isLoading && (
+                    <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Verificando...
+                    </div>
+                  )}
+
+                  {!devCode && verificationMethod === 'email' && (
+                    <p className="text-[11px] text-muted-foreground/60 text-center">
+                      También puedes hacer clic en el <strong className="text-primary/70">enlace</strong> del correo para verificar automáticamente
+                    </p>
+                  )}
+
+                  <div className="text-center">
+                    {countdown > 0 ? (
+                      <p className="text-xs text-muted-foreground">Expira en <span className="font-bold font-mono text-amber-500">{formatCountdown(countdown)}</span></p>
+                    ) : (
+                      <button type="button" onClick={handleResendCode} disabled={isLoading} className={cn("text-xs font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors", theme.accent)}>
+                        <RefreshCw className="h-3 w-3" /> Reenviar código
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {hasPhone && (
+                  <div id="login-method-cards" className="space-y-2 pt-2 border-t border-border/30">
+                    <p className="text-[11px] font-semibold text-muted-foreground text-center uppercase tracking-widest">Cambiar método</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {([
+                        { method: 'email' as const, icon: Mail, label: 'Correo', gradientBg: 'linear-gradient(135deg, #dbeafe, #bfdbfe)', iconColor: 'text-blue-600', borderActive: 'border-blue-400', hoverBg: 'hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30' },
+                        { method: 'sms' as const, icon: Smartphone, label: 'SMS', gradientBg: 'linear-gradient(135deg, #d1fae5, #a7f3d0)', iconColor: 'text-emerald-600', borderActive: 'border-emerald-400', hoverBg: 'hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30' },
+                        { method: 'whatsapp' as const, icon: MessageCircle, label: 'WhatsApp', gradientBg: 'linear-gradient(135deg, #bbf7d0, #86efac)', iconColor: 'text-green-700', borderActive: 'border-green-500', hoverBg: 'hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30' },
+                      ]).map(({ method, icon: MethodIcon, label, gradientBg, iconColor, borderActive, hoverBg }) => (
+                        <button
+                          key={method}
+                          type="button"
+                          onClick={() => handleSwitchMethod(method)}
+                          disabled={switchingMethod || isLoading || verificationMethod === method}
+                          className={cn(
+                            "flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all duration-200",
+                            verificationMethod === method
+                              ? cn(borderActive, "bg-primary/5")
+                              : cn("border-border/30", hoverBg),
+                            (switchingMethod || isLoading) && "opacity-50 cursor-not-allowed"
+                          )}
+                        >
+                          <div className="p-2 rounded-lg" style={{ background: gradientBg }}>
+                            <MethodIcon className={cn("h-4 w-4", iconColor)} />
+                          </div>
+                          <span className="text-[11px] font-bold text-foreground/70">{label}</span>
+                        </button>
+                      ))}
+                    </div>
+                    {switchingMethod && (
+                      <div className="flex items-center justify-center gap-2 py-1">
+                        <Loader2 className={cn("h-3.5 w-3.5 animate-spin", theme.accent)} />
+                        <span className="text-[11px] text-muted-foreground">Enviando código...</span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
-            <div className="space-y-3 mt-4">
-              <Button variant="outline" onClick={handleResendCode} className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40" disabled={isLoading}>
-                <RotateCcw className="mr-2 h-4 w-4" /> Volver a iniciar sesión
+            <div className="space-y-3">
+              <Button variant="outline" onClick={handleBackToLogin} className="w-full h-11 rounded-xl text-[13px] font-semibold border-border/40 hover:bg-muted/50" disabled={isLoading}>
+                <ChevronLeft className="mr-2 h-4 w-4" /> Volver a iniciar sesión
               </Button>
-              <p className="text-center text-xs text-muted-foreground/60">
-                ¿No recibiste el código?{' '}
-                <button onClick={handleResendCode} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading}>Solicitar nuevo</button>
-                {hasPhone && verificationMethod === 'email' && (
-                  <>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                      SMS
-                    </button>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
-                      WhatsApp
-                    </button>
-                  </>
-                )}
-                {verificationMethod === 'sms' && (
-                  <>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                      Correo
-                    </button>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('whatsapp')} className="hover:underline font-medium text-green-500" disabled={isLoading || switchingMethod}>
-                      WhatsApp
-                    </button>
-                  </>
-                )}
-                {verificationMethod === 'whatsapp' && (
-                  <>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('email')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                      Correo
-                    </button>
-                    {' · '}
-                    <button onClick={() => handleSwitchMethod('sms')} className={cn("hover:underline font-medium", theme.accent)} disabled={isLoading || switchingMethod}>
-                      SMS
-                    </button>
-                  </>
-                )}
-              </p>
             </div>
           </motion.div>
         )}
