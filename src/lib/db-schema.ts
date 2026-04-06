@@ -2095,7 +2095,7 @@ async function createConfiguracionTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user_id ON notificaciones(user_id)`);
   await query(`CREATE INDEX IF NOT EXISTS idx_notificaciones_leida   ON notificaciones(user_id, leida)`);
   await safeQuery(`ALTER TABLE notificaciones DROP CONSTRAINT IF EXISTS notificaciones_tipo_check`);
-  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('alerta','info','exito','advertencia','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental','sistema','bienvenida','recordatorio'))`);
+  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('info','alerta','advertencia','exito','cobranza','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental','sistema','bienvenida','recordatorio'))`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS demo_requests (
@@ -2563,6 +2563,86 @@ async function seedAutomationRules(): Promise<void> {
       action_type: 'email_automation',
       module: 'sistema',
     },
+    {
+      name: 'Alertas de Inventario',
+      description: 'Detecta productos con stock bajo o agotados y genera alertas automáticas para reabastecimiento',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
+      action_type: 'inventory_alerts',
+      module: 'inventario',
+    },
+    {
+      name: 'Contratos Laborales — Vencimientos',
+      description: 'Monitorea contratos laborales próximos a vencer (30 días) y marca como finalizados los vencidos',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 12, label: 'Cada 12 horas' },
+      action_type: 'hr_contract_alerts',
+      module: 'rrhh',
+    },
+    {
+      name: 'Vacaciones — Acumulación y Próximas',
+      description: 'Alerta sobre empleados con +30 días de vacaciones acumuladas y vacaciones que inician esta semana',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 24, label: 'Diario' },
+      action_type: 'hr_vacation_alerts',
+      module: 'rrhh',
+    },
+    {
+      name: 'Alertas de Nómina',
+      description: 'Recordatorios de cierre de nómina quincenal/mensual y nóminas pendientes de pago',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 12, label: 'Cada 12 horas' },
+      action_type: 'payroll_alerts',
+      module: 'nomina',
+    },
+    {
+      name: 'Cuentas por Cobrar — Vencimientos',
+      description: 'Detecta cuentas por cobrar vencidas y próximas a vencer, actualiza estados y genera alertas',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 8, label: 'Cada 8 horas' },
+      action_type: 'accounts_receivable_alerts',
+      module: 'cuentas_por_cobrar',
+    },
+    {
+      name: 'Cuentas por Pagar — Vencimientos',
+      description: 'Monitorea pagos a proveedores vencidos y próximos, genera alertas para evitar recargos',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 8, label: 'Cada 8 horas' },
+      action_type: 'accounts_payable_alerts',
+      module: 'cuentas_por_pagar',
+    },
+    {
+      name: 'Control de Presupuestos',
+      description: 'Detecta presupuestos excedidos (>100%), cerca del límite (>85%) y próximos a cerrar',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 6, label: 'Cada 6 horas' },
+      action_type: 'budget_alerts',
+      module: 'presupuestos',
+    },
+    {
+      name: 'Contratos Legales — Vencimientos',
+      description: 'Monitorea contratos legales activos: marca vencidos y alerta sobre los que vencen en 30 días',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 24, label: 'Diario' },
+      action_type: 'legal_contract_alerts',
+      module: 'legal',
+    },
+    {
+      name: 'Monitor de Seguridad',
+      description: 'Detecta intentos masivos de login fallidos, IPs sospechosas y cuentas bloqueadas',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 1, label: 'Cada hora' },
+      action_type: 'security_alerts',
+      module: 'sistema',
+    },
+    {
+      name: 'Alertas de Clientes',
+      description: 'Identifica clientes inactivos (+90 días) y clientes con baja satisfacción para seguimiento',
+      trigger_type: 'schedule',
+      trigger_config: { interval_hours: 24, label: 'Diario' },
+      action_type: 'client_alerts',
+      module: 'clientes',
+    },
   ];
 
   for (const rule of rules) {
@@ -2648,6 +2728,10 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS prioridad TEXT NOT NULL DEFAULT 'normal'`);
   await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS canal TEXT NOT NULL DEFAULT 'app'`);
   await safeQuery(`ALTER TABLE notificaciones ADD COLUMN IF NOT EXISTS metadata JSONB DEFAULT '{}'`);
+  await safeQuery(`ALTER TABLE notificaciones DROP CONSTRAINT IF EXISTS notificaciones_tipo_check`);
+  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN ('info','alerta','advertencia','exito','cobranza','fiscal','vencimiento','parafiscal','laboral','regulatorio','municipal','ambiental','sistema','bienvenida','recordatorio'))`);
+  await safeQuery(`ALTER TABLE notificaciones DROP CONSTRAINT IF EXISTS notificaciones_prioridad_check`);
+  await safeQuery(`ALTER TABLE notificaciones ADD CONSTRAINT notificaciones_prioridad_check CHECK (prioridad IN ('baja','normal','media','alta','critica'))`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_user ON notificaciones(user_id, leida, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_tipo ON notificaciones(tipo, created_at DESC)`);
   await safeQuery(`CREATE INDEX IF NOT EXISTS idx_notificaciones_prioridad ON notificaciones(prioridad) WHERE leida = false`);

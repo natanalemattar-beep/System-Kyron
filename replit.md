@@ -55,7 +55,8 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Bank Connection & Auto-Sync:** Direct bank connection for 10 Venezuelan banks (Banesco, Mercantil, Provincial, BdV, BNC, BOD, Exterior, BFC, Bancaribe, Sofitasa) via Gmail email notification parsing. Automatic movement import with duplicate detection.
 - **Bulk Movement Import:** Excel (.xlsx/.xls) and CSV file import with smart column detection, flexible date/amount parsing (Venezuelan formats), drag-and-drop UI, and downloadable CSV template.
 - **Auto Journal Entries:** Automatic generation of double-entry journal entries from bank movements and invoices. Intelligent account classification using the chart of accounts (Plan de Cuentas). Tracks processed items via `referencia_doc` to prevent duplicates.
-- **Real Automation Engine:** Database-backed system with 9 scheduled rules, execution logging, and a live dashboard.
+- **Real Automation Engine:** Database-backed system with 19 scheduled rules covering all modules (fiscal, RRHH, inventario, nómina, CxC/CxP, presupuestos, legal, seguridad, clientes), execution logging, and a live dashboard.
+- **Automated Alert Categories:** Inventory (stock bajo/agotado), HR contracts (vencimientos 30d), vacations (acumulación excesiva), payroll (nómina pendiente), accounts receivable/payable (vencidas/próximas), budget (excedido >100%, cerca >85%), legal contracts (vencidos/próximos), security (login fallidos, IPs sospechosas), clients (inactivos 90d+, baja satisfacción).
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, multi-channel delivery, and JSONB metadata.
 - **Alerts:** Expanded Fiscal Alerts monitoring 30+ Venezuelan fiscal obligations and Regulatory Alerts for legislative changes.
