@@ -10,69 +10,19 @@ import {
     Banknote, Wifi
 } from "lucide-react";
 
-const regulations = [
-    {
-        name: "SENIAT",
-        full: "Servicio Nacional Integrado de Administración Aduanera y Tributaria",
-        icon: Landmark,
-        color: "text-blue-600",
-        accent: "from-blue-500/20 to-blue-500/5",
-        border: "border-blue-500/20",
-        badges: ["IVA 16%", "ISLR", "IGTF 3%"],
-    },
-    {
-        name: "BCV",
-        full: "Banco Central de Venezuela",
-        icon: Banknote,
-        color: "text-emerald-600",
-        accent: "from-emerald-500/20 to-emerald-500/5",
-        border: "border-emerald-500/20",
-        badges: ["Tasas BCV", "Divisas"],
-    },
-    {
-        name: "LOTTT",
-        full: "Ley Orgánica del Trabajo, Trabajadores y Trabajadoras",
-        icon: Scale,
-        color: "text-violet-600",
-        accent: "from-violet-500/20 to-violet-500/5",
-        border: "border-violet-500/20",
-        badges: ["Nómina", "Prestaciones", "Utilidades"],
-    },
-    {
-        name: "CONATEL",
-        full: "Comisión Nacional de Telecomunicaciones",
-        icon: Radio,
-        color: "text-cyan-600",
-        accent: "from-cyan-500/20 to-cyan-500/5",
-        border: "border-cyan-500/20",
-        badges: ["Permisos", "Habilitación"],
-    },
-    {
-        name: "VEN-NIF",
-        full: "Normas Internacionales de Información Financiera para Venezuela",
-        icon: FileCheck,
-        color: "text-amber-600",
-        accent: "from-amber-500/20 to-amber-500/5",
-        border: "border-amber-500/20",
-        badges: ["NIIF", "Plan de Cuentas"],
-    },
-    {
-        name: "SUDEBAN",
-        full: "Superintendencia de las Instituciones del Sector Bancario",
-        icon: Building2,
-        color: "text-rose-600",
-        accent: "from-rose-500/20 to-rose-500/5",
-        border: "border-rose-500/20",
-        badges: ["Normativa", "Reportes"],
-    },
-];
+const regulationKeys = ["seniat", "bcv", "lottt", "conatel", "ven_nif", "sudeban"] as const;
 
-const securityFeatures = [
-    { icon: Lock, label: "AES-256", desc: "Cifrado militar" },
-    { icon: Fingerprint, label: "2FA", desc: "Autenticación doble" },
-    { icon: ShieldCheck, label: "JWT + HTTPS", desc: "Sesiones seguras" },
-    { icon: BadgeCheck, label: "Auditoría", desc: "Log inmutable" },
-];
+const regulationStyles = {
+    seniat:  { name: "SENIAT",  icon: Landmark,  color: "text-blue-600",    accent: "from-blue-500/20 to-blue-500/5",    border: "border-blue-500/20" },
+    bcv:     { name: "BCV",     icon: Banknote,  color: "text-emerald-600", accent: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    lottt:   { name: "LOTTT",   icon: Scale,     color: "text-violet-600",  accent: "from-violet-500/20 to-violet-500/5",  border: "border-violet-500/20" },
+    conatel: { name: "CONATEL", icon: Radio,     color: "text-cyan-600",    accent: "from-cyan-500/20 to-cyan-500/5",    border: "border-cyan-500/20" },
+    ven_nif: { name: "VEN-NIF", icon: FileCheck, color: "text-amber-600",   accent: "from-amber-500/20 to-amber-500/5",   border: "border-amber-500/20" },
+    sudeban: { name: "SUDEBAN", icon: Building2, color: "text-rose-600",    accent: "from-rose-500/20 to-rose-500/5",    border: "border-rose-500/20" },
+};
+
+const securityKeys = ["aes256", "twofa", "jwt", "audit"] as const;
+const securityIcons = { aes256: Lock, twofa: Fingerprint, jwt: ShieldCheck, audit: BadgeCheck };
 
 export function ComplianceSection() {
     const { tier } = useDevicePerformance();
@@ -110,7 +60,10 @@ export function ComplianceSection() {
                 </motion.div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mb-16">
-                    {regulations.map((reg, idx) => (
+                    {regulationKeys.map((key, idx) => {
+                        const reg = regulationStyles[key];
+                        const badges = (t.raw(`regulations.${key}.badges`) as string[]);
+                        return (
                         <motion.div
                             key={reg.name}
                             className={cn(
@@ -133,10 +86,10 @@ export function ComplianceSection() {
                                         {reg.name}
                                     </h3>
                                     <p className="text-[10px] font-medium text-muted-foreground leading-snug mb-3">
-                                        {reg.full}
+                                        {t(`regulations.${key}.full`)}
                                     </p>
                                     <div className="flex flex-wrap gap-1.5">
-                                        {reg.badges.map(b => (
+                                        {badges.map((b: string) => (
                                             <span key={b} className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider liquid-glass-subtle text-muted-foreground">
                                                 {b}
                                             </span>
@@ -145,7 +98,8 @@ export function ComplianceSection() {
                                 </div>
                             </div>
                         </motion.div>
-                    ))}
+                    );
+                    })}
                 </div>
 
                 <motion.div
@@ -171,20 +125,23 @@ export function ComplianceSection() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 shrink-0">
-                            {securityFeatures.map((feat, i) => (
+                            {securityKeys.map((key) => {
+                                const Icon = securityIcons[key];
+                                return (
                                 <div
-                                    key={feat.label}
+                                    key={key}
                                     className="flex items-center gap-3 p-3 rounded-xl liquid-glass-subtle hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300"
                                 >
                                     <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/15">
-                                        <feat.icon className="h-4 w-4 text-emerald-500" />
+                                        <Icon className="h-4 w-4 text-emerald-500" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-tight text-foreground">{feat.label}</p>
-                                        <p className="text-[11px] font-medium text-muted-foreground">{feat.desc}</p>
+                                        <p className="text-xs font-semibold uppercase tracking-tight text-foreground">{t(`security.${key}.label`)}</p>
+                                        <p className="text-[11px] font-medium text-muted-foreground">{t(`security.${key}.desc`)}</p>
                                     </div>
                                 </div>
-                            ))}
+                            );
+                            })}
                         </div>
                     </div>
                 </motion.div>

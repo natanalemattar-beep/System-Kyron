@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from "react";
 import { Construction, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from 'next-intl';
 
 const BannerCtx = createContext(false);
 export const useBannerVisible = () => useContext(BannerCtx);
@@ -10,6 +11,7 @@ export const useBannerVisible = () => useContext(BannerCtx);
 export function DemoBannerProvider({ children }: { children: ReactNode }) {
   const [dismissed, setDismissed] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
+  const t = useTranslations('DemoBanner');
 
   const handleDismiss = useCallback(() => {
     setIsLeaving(true);
@@ -48,7 +50,7 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
               transition={{ duration: 0.4, ease: "easeOut", delay: isLeaving ? 0 : 0.25 }}
               className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/70 relative z-10"
             >
-              Plataforma en construcción — Pueden ocurrir cambios y caídas temporales del servicio.
+              {t('message')}
             </motion.p>
             <motion.button
               onClick={handleDismiss}
@@ -58,7 +60,7 @@ export function DemoBannerProvider({ children }: { children: ReactNode }) {
               animate={{ opacity: isLeaving ? 0 : 1 }}
               transition={{ duration: 0.3, delay: isLeaving ? 0 : 0.35 }}
               className="ml-2 p-1 rounded-full transition-colors flex-shrink-0 relative z-10"
-              aria-label="Cerrar banner"
+              aria-label={t('dismiss')}
             >
               <X className="h-3 w-3 text-foreground/40" />
             </motion.button>

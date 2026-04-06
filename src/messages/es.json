@@ -13,6 +13,10 @@
         "see_all_services": "Ver Todos los Servicios",
         "mobile_portal": "Portal Kyron"
     },
+    "DemoBanner": {
+        "message": "Plataforma en construcción — Pueden ocurrir cambios y caídas temporales del servicio.",
+        "dismiss": "Cerrar banner"
+    },
     "HeroSection": {
         "title_line1": "Domina tu",
         "title_line2": "empresa con",
@@ -22,6 +26,7 @@
         "badge": "Plataforma Empresarial con IA",
         "cta_main": "Comenzar Gratis",
         "cta_secondary": "Ver Capacidades",
+        "tutorial_link": "¿Cómo registrarse? — Ver tutorial paso a paso",
         "features": ["VEN-NIF Certificado", "IVA & IGTF Automático", "Tasa BCV en Vivo", "IA Multimodelo"],
         "compliance": "Cumplimiento",
         "modules_label": "Módulos",
@@ -109,6 +114,20 @@
         "title_highlight": "Regulado,",
         "title_rest": "blindado",
         "subtitle": "Cada módulo supera los requisitos de SENIAT, SUNDDE y entes regulatorios. No solo cumplimos: marcamos el estándar.",
+        "regulations": {
+            "seniat":  { "full": "Servicio Nacional Integrado de Administración Aduanera y Tributaria", "badges": ["IVA 16%", "ISLR", "IGTF 3%"] },
+            "bcv":     { "full": "Banco Central de Venezuela", "badges": ["Tasas BCV", "Divisas"] },
+            "lottt":   { "full": "Ley Orgánica del Trabajo, Trabajadores y Trabajadoras", "badges": ["Nómina", "Prestaciones", "Utilidades"] },
+            "conatel": { "full": "Comisión Nacional de Telecomunicaciones", "badges": ["Permisos", "Habilitación"] },
+            "ven_nif": { "full": "Normas Internacionales de Información Financiera para Venezuela", "badges": ["NIIF", "Plan de Cuentas"] },
+            "sudeban": { "full": "Superintendencia de las Instituciones del Sector Bancario", "badges": ["Normativa", "Reportes"] }
+        },
+        "security": {
+            "aes256": { "label": "AES-256", "desc": "Cifrado militar" },
+            "twofa":  { "label": "2FA", "desc": "Autenticación doble" },
+            "jwt":    { "label": "JWT + HTTPS", "desc": "Sesiones seguras" },
+            "audit":  { "label": "Auditoría", "desc": "Log inmutable" }
+        },
         "security_badge": "Infraestructura Blindada",
         "security_title_1": "Seguridad de grado",
         "security_title_2": "bancario",

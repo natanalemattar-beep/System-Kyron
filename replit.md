@@ -17,7 +17,7 @@ System Kyron is an integrated technological ecosystem designed for comprehensive
 - Registration email verification supports both 6-digit OTP code entry AND magic link click (in a new tab). A polling hook (`use-verification-poll.ts`) checks `/api/auth/check-verified` every 3 seconds to auto-detect when the magic link is clicked, only for email verification (not SMS/WhatsApp).
 
 ## System Architecture
-The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopack. It uses `next-intl` for internationalization, Tailwind CSS and shadcn/ui for styling, and PostgreSQL as the database. Authentication uses JWT with HTTP-only cookies.
+The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopack. It uses `next-intl` for internationalization, Tailwind CSS and shadcn/ui for styling, and PostgreSQL as the database. Authentication uses JWT with HTTP-only cookies. Typography uses Inter (sans-serif) and JetBrains Mono (monospace) via `next/font/google`, mapped to CSS variables `--font-inter` and `--font-jetbrains-mono`.
 
 **UI/UX Decisions:**
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.

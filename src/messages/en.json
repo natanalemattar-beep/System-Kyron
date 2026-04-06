@@ -13,6 +13,10 @@
         "see_all_services": "View All Services",
         "mobile_portal": "Kyron Portal"
     },
+    "DemoBanner": {
+        "message": "Platform under construction — Temporary changes and outages may occur.",
+        "dismiss": "Dismiss banner"
+    },
     "HeroSection": {
         "title_line1": "Your entire",
         "title_line2": "business in",
@@ -22,6 +26,7 @@
         "badge": "Intelligent Business Platform",
         "cta_main": "Access",
         "cta_secondary": "User Guide",
+        "tutorial_link": "How to register? — View step-by-step tutorial",
         "features": ["VEN-NIF Certified", "IVA & IGTF Auto", "BCV Real-Time", "AI Integrated"],
         "compliance": "Compliance",
         "modules_label": "Modules",
@@ -109,6 +114,20 @@
         "title_highlight": "Regulated and",
         "title_rest": "certified",
         "subtitle": "System Kyron complies with all current Venezuelan regulations. Each module is designed to meet the requirements of regulatory entities.",
+        "regulations": {
+            "seniat":  { "full": "National Integrated Customs and Tax Administration Service", "badges": ["IVA 16%", "ISLR", "IGTF 3%"] },
+            "bcv":     { "full": "Central Bank of Venezuela", "badges": ["BCV Rates", "Forex"] },
+            "lottt":   { "full": "Organic Labor Law for Workers", "badges": ["Payroll", "Benefits", "Bonuses"] },
+            "conatel": { "full": "National Telecommunications Commission", "badges": ["Permits", "Licensing"] },
+            "ven_nif": { "full": "International Financial Reporting Standards for Venezuela", "badges": ["IFRS", "Chart of Accounts"] },
+            "sudeban": { "full": "Superintendency of Banking Sector Institutions", "badges": ["Regulations", "Reports"] }
+        },
+        "security": {
+            "aes256": { "label": "AES-256", "desc": "Military-grade encryption" },
+            "twofa":  { "label": "2FA", "desc": "Two-factor auth" },
+            "jwt":    { "label": "JWT + HTTPS", "desc": "Secure sessions" },
+            "audit":  { "label": "Audit", "desc": "Immutable log" }
+        },
         "security_badge": "Security Infrastructure",
         "security_title_1": "Bank-grade",
         "security_title_2": "security",
