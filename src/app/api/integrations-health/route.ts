@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
+import { INTEGRATIONS, getIntegrationStatus } from '@/lib/integrations-manifest';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const results: Record<string, unknown> = {};
+
+  const status = getIntegrationStatus();
+  results.manifest = {
+    total: INTEGRATIONS.length,
+    required: INTEGRATIONS.filter(i => i.required).length,
+    status,
+  };
 
   results.anthropic = {
     key_present: !!(process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY),
