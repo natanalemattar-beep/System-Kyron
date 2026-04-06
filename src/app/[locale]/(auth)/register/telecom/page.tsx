@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
 import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
@@ -37,8 +38,7 @@ const PLANES_TELECOM = [
         id: 'Plan Estándar 4G/LTE',
         nombre: 'Estándar LTE',
         precioUsd: 10,
-        descripcion: 'El más popular para uso diario',
-        popular: true,
+        descripcion: 'Perfecto para uso diario',
         color: 'from-blue-500 to-cyan-500',
         features: ['10 GB de datos 4G/LTE', 'Llamadas ilimitadas nacionales', 'SMS ilimitados', 'Redes sociales ilimitadas', 'Roaming nacional incluido', 'Hotspot compartido'],
     },
@@ -150,6 +150,7 @@ export default function RegisterTelecomPage() {
     const [verifLoading, setVerifLoading] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [docFromParams, setDocFromParams] = useState(false);
+    const { popularPlan, recordSelection } = usePopularPlan('telecom');
     const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
     const { refreshUser } = useAuth();
@@ -295,6 +296,7 @@ export default function RegisterTelecomPage() {
         setIsLoading(true);
         const esEmpresa = data.tipo_cliente === 'empresarial';
         try {
+            if (data.tipo_plan) recordSelection(data.tipo_plan);
             const telecomMeta = {
                 motivo_linea: data.motivo_linea,
                 tipo_plan: data.tipo_plan,
@@ -584,7 +586,7 @@ export default function RegisterTelecomPage() {
                                                                 : "border-border/50 bg-muted/10 hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
                                                         )}
                                                     >
-                                                        {'popular' in plan && plan.popular && (
+                                                        {popularPlan === plan.id && (
                                                             <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-[10px] font-semibold uppercase tracking-widest flex items-center gap-1">
                                                                 <Crown className="h-2.5 w-2.5" /> Popular
                                                             </span>

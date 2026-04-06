@@ -2577,6 +2577,16 @@ async function seedAutomationRules(): Promise<void> {
 
 async function createPlanUsageTables(): Promise<void> {
   await query(`
+    CREATE TABLE IF NOT EXISTS plan_selections (
+      id              SERIAL PRIMARY KEY,
+      category        TEXT NOT NULL,
+      plan_id         TEXT NOT NULL,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_plan_selections_cat ON plan_selections(category)`);
+
+  await query(`
     CREATE TABLE IF NOT EXISTS uso_plan (
       id              SERIAL PRIMARY KEY,
       user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

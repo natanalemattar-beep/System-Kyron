@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
+import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
@@ -34,7 +35,6 @@ const PLANES = [
         precio: 12,
         icon: BookOpen,
         color: 'lightblue',
-        popular: false,
         descripcion: 'Contabilidad simple para emprendedores',
         features: ['Libro diario y mayor', 'Balance general', 'Estado de resultados', 'Hasta 200 asientos/mes', 'IA Kyron: 10 consultas/mes'],
     },
@@ -44,7 +44,6 @@ const PLANES = [
         precio: 28,
         icon: Zap,
         color: 'green',
-        popular: true,
         descripcion: 'Facturación electrónica y cumplimiento fiscal',
         features: ['Todo del Básico', 'Facturación SENIAT', 'Declaración IVA', 'Conciliación bancaria', 'IA Kyron: 50 consultas/mes'],
     },
@@ -54,7 +53,6 @@ const PLANES = [
         precio: 52,
         icon: Building,
         color: 'darkblue',
-        popular: false,
         descripcion: 'Multi-usuario con retenciones y nómina',
         features: ['Todo del Profesional', 'Retenciones IVA/ISLR', 'Multi-usuario (5)', 'Nómina básica', 'IA Kyron: 200 consultas/mes'],
     },
@@ -64,7 +62,6 @@ const PLANES = [
         precio: 95,
         icon: Crown,
         color: 'neon',
-        popular: false,
         descripcion: 'Solución completa con IA ilimitada y asesoría',
         features: ['Todo del Empresarial', 'IA Kyron ilimitada', 'Usuarios ilimitados', 'Soporte prioritario 24/7'],
     },
@@ -236,6 +233,7 @@ export default function RegisterContabilidadPage() {
     const router = useRouter();
     const { refreshUser } = useAuth();
     const { toast } = useToast();
+    const { popularPlan, recordSelection } = usePopularPlan('asesoria-contable');
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [verifSent, setVerifSent] = useState(false);
     const [verifCode, setVerifCode] = useState('');
@@ -427,6 +425,7 @@ export default function RegisterContabilidadPage() {
         submittingRef.current = true;
         setIsLoading(true);
         try {
+            if (selectedPlan) recordSelection(selectedPlan);
             const res = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -590,7 +589,7 @@ export default function RegisterContabilidadPage() {
                                                             : `bg-white dark:bg-slate-800 ${c.border} ${c.bgHover}`
                                                     )}
                                                 >
-                                                    {plan.popular && (
+                                                    {popularPlan === plan.id && (
                                                         <div className={cn(
                                                             "absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest text-white bg-gradient-to-r shadow-md",
                                                             c.gradient, c.shadow
