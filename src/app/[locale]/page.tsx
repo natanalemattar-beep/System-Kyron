@@ -8,6 +8,7 @@ import { HeroSection } from '@/components/landing';
 import { PageTracker } from '@/components/page-tracker';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
+const TrustNumbersBanner = dynamic(() => import('@/components/landing/trust-numbers-banner').then(m => ({ default: m.TrustNumbersBanner })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
 const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: false });
 const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
@@ -88,6 +89,7 @@ function LandingContent() {
         {mounted && (
           <>
             <HeroSection />
+            <TrustNumbersBanner />
             <div className="section-divider" />
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
             <div className="section-divider" />
