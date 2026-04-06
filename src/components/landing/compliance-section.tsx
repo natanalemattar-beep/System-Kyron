@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import {
     ShieldCheck, Landmark, Scale, Radio, FileCheck,
     Building2, Fingerprint, Globe, BadgeCheck, Lock,
-    Banknote, Wifi
+    Banknote, Wifi, CheckCircle2
 } from "lucide-react";
 
 const regulationKeys = ["seniat", "bcv", "lottt", "conatel", "ven_nif", "sudeban"] as const;
@@ -29,6 +30,18 @@ export function ComplianceSection() {
     const { tier } = useDevicePerformance();
     const animate = tier !== 'low';
     const t = useTranslations('ComplianceSection');
+    const [securityScore, setSecurityScore] = useState<number | null>(null);
+    const [activeFeatures, setActiveFeatures] = useState<number>(0);
+
+    useEffect(() => {
+        fetch('/api/security-status')
+            .then(r => r.json())
+            .then(data => {
+                setSecurityScore(data.securityScore ?? null);
+                setActiveFeatures(data.activeFeatures ?? 0);
+            })
+            .catch(() => {});
+    }, []);
 
     return (
         <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-amber-50/50 via-orange-50/30 to-yellow-50/40 dark:from-[hsl(224,28%,9%)] dark:via-[hsl(224,24%,8%)] dark:to-[hsl(224,28%,10%)]">
@@ -132,9 +145,17 @@ export function ComplianceSection() {
                             </motion.div>
                         </div>
                         <div className="flex-1 text-center md:text-left">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[11px] font-semibold uppercase tracking-widest mb-4">
-                                <Globe className="h-3 w-3" />
-                                {t('security_badge')}
+                            <div className="flex flex-wrap items-center gap-2 mb-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[11px] font-semibold uppercase tracking-widest">
+                                    <Globe className="h-3 w-3" />
+                                    {t('security_badge')}
+                                </div>
+                                {securityScore !== null && (
+                                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
+                                        <CheckCircle2 className="h-3 w-3" />
+                                        {activeFeatures} protecciones activas
+                                    </div>
+                                )}
                             </div>
                             <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight text-foreground mb-2">
                                 {t('security_title_1')}{' '}

@@ -8,6 +8,7 @@ import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { generateCode, storeCode, generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
 import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { createLoginChallenge } from '@/lib/login-challenge';
+import { decryptIfEncrypted } from '@/lib/encryption';
 
 interface DbUser {
     id: number;
@@ -179,10 +180,11 @@ export async function POST(req: NextRequest) {
             (_, a, b, c) => a + '*'.repeat(Math.min(b.length, 6)) + c
         );
 
-        const hasPhone = !!(user.telefono && user.telefono.length >= 7 && user.telefono_verificado);
+        const decryptedPhone = decryptIfEncrypted(user.telefono);
+        const hasPhone = !!(decryptedPhone && decryptedPhone.length >= 7 && user.telefono_verificado);
         let maskedPhone = '';
-        if (hasPhone && user.telefono) {
-            const cleaned = user.telefono.replace(/[\s\-\(\)]/g, '');
+        if (hasPhone && decryptedPhone) {
+            const cleaned = decryptedPhone.replace(/[\s\-\(\)]/g, '');
             maskedPhone = cleaned.length > 4
                 ? '•'.repeat(cleaned.length - 4) + cleaned.slice(-4)
                 : '•••' + cleaned.slice(-2);

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { decryptIfEncrypted } from '@/lib/encryption';
 
 interface DbUser {
     id: number;
@@ -43,6 +44,7 @@ export async function GET() {
     return NextResponse.json({
         user: {
             ...user,
+            cedula: user.cedula ? decryptIfEncrypted(user.cedula) : null,
             modules: modules.map(m => m.module_id),
         },
     });

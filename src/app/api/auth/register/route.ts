@@ -6,6 +6,7 @@ import { logActivity } from '@/lib/activity-logger';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail, isStrongPassword, sanitizeString } from '@/lib/input-sanitizer';
 import { validarRIF, validarFormatoCedula } from '@/lib/validacion-venezuela';
+import { encryptIfNotEmpty } from '@/lib/encryption';
 
 async function verificarCodigoUsado(destino: string): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
@@ -88,6 +89,9 @@ async function registerNatural(body: Record<string, unknown>) {
 
     const password_hash = await bcrypt.hash(password, 12);
 
+    const encTelefono = encryptIfNotEmpty(telefono);
+    const encTelefonoAlt = encryptIfNotEmpty(telefono_alt);
+
     const [user] = await query<{ id: number; email: string }>(
         `INSERT INTO users (
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
@@ -100,7 +104,7 @@ async function registerNatural(body: Record<string, unknown>) {
         [
             normalizedEmail, password_hash,
             nombre, apellido, cedula,
-            telefono ?? '', telefono_alt ?? '',
+            encTelefono, encTelefonoAlt,
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
             emailVerified, phoneVerified,
@@ -255,16 +259,16 @@ async function registerJuridico(body: Record<string, unknown>) {
             fecha_constitucion ? sanitizeString(fecha_constitucion as string, 20) : null,
             sanitizeString((registro_mercantil ?? '') as string, 100),
             sanitizedCapitalSocial,
-            sanitizeString((telefono ?? '') as string, 20),
-            sanitizeString((telefono_alt ?? '') as string, 20),
+            encryptIfNotEmpty(sanitizeString((telefono ?? '') as string, 20)),
+            encryptIfNotEmpty(sanitizeString((telefono_alt ?? '') as string, 20)),
             sanitizeString((estado_empresa ?? '') as string, 100),
             sanitizeString((municipio_empresa ?? '') as string, 100),
-            sanitizeString((resolvedDireccion ?? '') as string, 500),
+            encryptIfNotEmpty(sanitizeString((resolvedDireccion ?? '') as string, 500)),
             repNombreStr,
-            sanitizeString((repCedula ?? '') as string, 20),
+            encryptIfNotEmpty(sanitizeString((repCedula ?? '') as string, 20)),
             email,
             sanitizeString((rep_cargo ?? '') as string, 100),
-            sanitizeString((rep_telefono ?? '') as string, 20),
+            encryptIfNotEmpty(sanitizeString((rep_telefono ?? '') as string, 20)),
             validatedPlan,
             validatedPlanMonto,
             emailVerified,

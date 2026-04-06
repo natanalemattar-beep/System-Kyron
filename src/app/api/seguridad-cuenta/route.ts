@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { query, queryOne } from '@/lib/db';
+import { decryptIfEncrypted } from '@/lib/encryption';
 
 export const dynamic = 'force-dynamic';
 
@@ -173,7 +174,7 @@ export async function GET(req: NextRequest) {
       creado: user?.created_at || '',
       emailVerificado: user?.email_verificado || false,
       telefonoVerificado: user?.telefono_verificado || false,
-      telefono: user?.telefono || null,
+      telefono: user?.telefono ? decryptIfEncrypted(user.telefono) : null,
       ultimoLogin: user?.ultimo_login || null,
     },
     configuracion: {
