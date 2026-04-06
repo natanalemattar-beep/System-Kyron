@@ -127,7 +127,7 @@ export function HeroSection() {
                 </div>
             )}
 
-            <HexGrid reduced={tier === 'low'} />
+            {config.enableParticles && <HexGrid reduced={tier === 'low'} />}
 
             <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[80%] kyron-accent-line opacity-30" />
 
