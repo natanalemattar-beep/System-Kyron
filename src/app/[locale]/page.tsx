@@ -9,6 +9,9 @@ import { PageTracker } from '@/components/page-tracker';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const TrustNumbersBanner = dynamic(() => import('@/components/landing/trust-numbers-banner').then(m => ({ default: m.TrustNumbersBanner })), { ssr: false });
+const WhyKyronSection = dynamic(() => import('@/components/landing/why-kyron-section').then(m => ({ default: m.WhyKyronSection })), { ssr: false });
+const ModulesGridSection = dynamic(() => import('@/components/landing/modules-grid-section').then(m => ({ default: m.ModulesGridSection })), { ssr: false });
+const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
 const ShowcaseSection = dynamic(() => import('@/components/landing/showcase-section').then(m => ({ default: m.ShowcaseSection })), { ssr: false });
 const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
@@ -90,6 +93,12 @@ function LandingContent() {
           <>
             <HeroSection />
             <TrustNumbersBanner />
+            <div className="section-divider" />
+            <LazySection fallbackHeight="700px"><WhyKyronSection /></LazySection>
+            <div className="section-divider" />
+            <LazySection fallbackHeight="600px"><ModulesGridSection /></LazySection>
+            <div className="section-divider" />
+            <LazySection fallbackHeight="500px"><HowItWorksSection /></LazySection>
             <div className="section-divider" />
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
             <div className="section-divider" />

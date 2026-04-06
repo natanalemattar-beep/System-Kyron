@@ -21,7 +21,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 
 **UI/UX Decisions:**
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
-- Features premium landing page (hero with rotating text, floating metric cards, animated gradient orbs, trust numbers banner with animated counters, enhanced showcase with hover glow effects, trust logos bar, premium CTA section with guarantees, refined footer with tech badges). Intuitive mobile sidebar, redesigned Login/Dashboard, and dynamic pricing display.
+- Features premium landing page (16 sections total): hero with rotating text + floating metric cards + animated gradient orbs, trust numbers banner with animated counters, "¿Por qué System Kyron?" differentiator section with comparison table vs generic ERPs, interactive modules grid (24 modules with category filter tabs), "Cómo Funciona" 4-step timeline, features timeline, showcase gallery with hover glow effects, services showcase, compliance section, integrations strip, about us, comments, CTA with guarantee badges, FAQ, and refined footer with tech badges. Intuitive mobile sidebar, redesigned Login/Dashboard, and dynamic pricing display.
 - Custom form components include registration (prefix selectors, RIF/Cédula lookup), reusable document upload, and Venezuela geography data for cascading dropdowns.
 - All authentication pages support both light and dark themes, with a dark mode default and Apple-style liquid glass effects.
 - Specific module pages use brand colors and varied color schemes for plan cards.
