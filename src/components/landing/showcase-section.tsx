@@ -166,7 +166,7 @@ export function ShowcaseSection() {
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full liquid-glass-subtle text-[11px] font-semibold uppercase tracking-widest text-primary mx-auto mb-6">
             <Monitor className="h-3.5 w-3.5" /> {t('badge')}
           </div>
-          <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4">
+          <h2 className="text-[clamp(1.5rem,4.5vw,3.75rem)] font-bold tracking-tight text-foreground uppercase leading-[1.05] mb-4 break-words">
             {t('title_prefix')}{' '}
             <span className="liquid-glass-text italic">
               {t('title_highlight')}

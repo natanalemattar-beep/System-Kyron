@@ -133,7 +133,7 @@ export function CommentsSection() {
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass-subtle text-violet-700 text-[11px] font-semibold uppercase tracking-[0.35em] mb-5">
                         <MessageSquare className="h-3 w-3" /> {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight uppercase leading-[1.1] mb-4">
+                    <h2 className="text-[clamp(1.5rem,4.5vw,3rem)] font-bold tracking-tight uppercase leading-[1.1] mb-4 break-words">
                         <span className="text-foreground">{t('title_prefix')} </span>
                         <span className="liquid-glass-text italic">{t('title_highlight')}</span>
                     </h2>

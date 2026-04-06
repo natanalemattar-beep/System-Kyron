@@ -34,7 +34,7 @@ export function FaqSection() {
                         <MessageCircle className="h-3.5 w-3.5" />
                         {t('badge')}
                     </div>
-                    <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight text-foreground uppercase leading-[1.1]">
+                    <h2 className="text-[clamp(1.5rem,4.5vw,3rem)] font-bold tracking-tight text-foreground uppercase leading-[1.1] break-words">
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">
                             {t('title_rest')}

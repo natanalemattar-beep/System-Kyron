@@ -118,7 +118,7 @@ export function AboutUsSection() {
                                 {t('badge')}
                             </div>
                         </motion.div>
-                        <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold tracking-tight uppercase leading-[1.05] text-foreground">
+                        <motion.h2 variants={animate ? fadeUp : undefined} custom={1} className="text-[clamp(1.5rem,4.5vw,3.75rem)] font-bold tracking-tight uppercase leading-[1.05] text-foreground break-words">
                             {t('title_highlight')}{' '}
                             <span className="liquid-glass-text italic">
                                 {t('title_rest')}
