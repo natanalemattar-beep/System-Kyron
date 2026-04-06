@@ -38,7 +38,10 @@ import {
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
 
-const motion = { div: dynamic(() => import('framer-motion').then(m => { const C = m.motion.div; return { default: C }; }), { ssr: false }) as any };
+const motion = {
+  div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any,
+  header: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.header })), { ssr: false }) as any,
+};
 
 interface DashboardData {
   ingresos: number;
