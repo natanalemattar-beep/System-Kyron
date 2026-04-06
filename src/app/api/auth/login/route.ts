@@ -30,10 +30,16 @@ export async function POST(req: NextRequest) {
         const rl = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
         if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
-        const { email, password, accessKey } = await req.json();
+        const { email, password, accessKey, portal } = await req.json();
 
         if (!email || !password) {
             return NextResponse.json({ error: 'Correo y contraseña son requeridos' }, { status: 400 });
+        }
+
+        const validPortals = ['personal', 'business'] as const;
+        const normalizedPortal = typeof portal === 'string' ? portal.trim().toLowerCase() : '';
+        if (!normalizedPortal || !validPortals.includes(normalizedPortal as typeof validPortals[number])) {
+            return NextResponse.json({ error: 'Portal de acceso no válido' }, { status: 400 });
         }
 
         if (!isValidEmail(email)) {
@@ -88,6 +94,29 @@ export async function POST(req: NextRequest) {
         }
 
         clearLoginFailures(`bf:${normalizedEmail}`);
+
+        const portalMismatch =
+            (normalizedPortal === 'personal' && user.tipo === 'juridico') ||
+            (normalizedPortal === 'business' && user.tipo === 'natural');
+
+        if (portalMismatch) {
+            const wrongPortalMsg = normalizedPortal === 'personal'
+                ? 'Esta cuenta está registrada como empresa. Por favor ingresa por el portal de Contabilidad / Empresa.'
+                : 'Esta cuenta está registrada como persona natural. Por favor ingresa por el portal Personal.';
+            await logActivity({
+                userId: user.id,
+                evento: 'LOGIN_PORTAL_MISMATCH',
+                categoria: 'auth',
+                descripcion: `Usuario ${user.tipo} intentó acceder por portal ${normalizedPortal}: ${user.email}`,
+                entidadTipo: 'usuario',
+                entidadId: user.id,
+                metadata: { ip, portal: normalizedPortal, userTipo: user.tipo },
+            });
+            return NextResponse.json(
+                { error: wrongPortalMsg, portalMismatch: true },
+                { status: 403 }
+            );
+        }
 
         const displayName = user.tipo === 'juridico'
             ? (user.razon_social ?? user.nombre)

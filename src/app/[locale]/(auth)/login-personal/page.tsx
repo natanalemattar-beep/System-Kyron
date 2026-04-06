@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus,
+  Loader2, User, ChevronLeft, Fingerprint, ShieldCheck, UserPlus, Shield,
   Eye, EyeOff, CircleCheck, ArrowRight, TriangleAlert, Mail, Lock,
   KeyRound, RotateCcw, Scan, Sparkles, Smartphone, MessageSquare, MessageCircle
 } from 'lucide-react';
@@ -55,11 +55,19 @@ export default function LoginPersonalPage() {
     const password = formData.get('password') as string;
     const accessKey = (formData.get('accessKey') as string || '').trim();
     try {
-      const body: Record<string, string> = { email, password };
+      const body: Record<string, string> = { email, password, portal: 'personal' };
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const json = await res.json();
-      if (!res.ok) { setError(json.error || 'Correo o contraseña incorrectos.'); setIsLoading(false); return; }
+      if (!res.ok) {
+        if (res.status === 403 && json.portalMismatch) {
+          setError('PORTAL_MISMATCH:' + (json.error || 'No tienes acceso a este portal.'));
+        } else {
+          setError(json.error || 'Correo o contraseña incorrectos.');
+        }
+        setIsLoading(false);
+        return;
+      }
       if (json.accessKeyUsed || json.success) {
         toast({ title: json.accessKeyUsed ? 'Acceso con llave' : 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
         router.push('/dashboard');
@@ -243,10 +251,27 @@ export default function LoginPersonalPage() {
               </div>
 
               {error && (
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-5">
-                  <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                  <p className="text-sm text-destructive">{error}</p>
-                </div>
+                error.startsWith('PORTAL_MISMATCH:') ? (
+                  <div className="flex flex-col gap-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20 mb-5">
+                    <div className="flex items-start gap-3">
+                      <Shield className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <p className="text-[13px] font-semibold text-foreground">Portal incorrecto</p>
+                        <p className="text-[12px] text-muted-foreground">{error.replace('PORTAL_MISMATCH:', '')}</p>
+                      </div>
+                    </div>
+                    <Link href="/login-empresa">
+                      <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-blue-500/25 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-300">
+                        <ArrowRight className="mr-1.5 h-3.5 w-3.5" /> Ir al Portal Empresa
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-5">
+                    <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )
               )}
 
               {loginMode === 'email' ? (

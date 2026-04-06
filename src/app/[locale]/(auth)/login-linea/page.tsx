@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight,
+  Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound,
   Smartphone, Signal, RotateCcw
 } from 'lucide-react';
@@ -77,7 +77,7 @@ export default function LoginLineaUnifiedPage() {
     const accessKey = (formData.get('accessKey') as string || '').trim();
 
     try {
-      const body: Record<string, string> = { email, password };
+      const body: Record<string, string> = { email, password, portal: selected === 'empresa' ? 'business' : 'personal' };
       if (accessKey) body.accessKey = accessKey;
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -86,7 +86,11 @@ export default function LoginLineaUnifiedPage() {
       });
       const json = await res.json();
       if (!res.ok) {
-        setError(json.error || 'Credenciales incorrectas.');
+        if (res.status === 403 && json.portalMismatch) {
+          setError('PORTAL_MISMATCH:' + (json.error || 'No tienes acceso a este portal.'));
+        } else {
+          setError(json.error || 'Credenciales incorrectas.');
+        }
         setIsLoading(false);
         return;
       }
@@ -226,10 +230,27 @@ export default function LoginLineaUnifiedPage() {
 
                 <form onSubmit={handleAuth} className="space-y-5">
                   {error && (
-                    <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20">
-                      <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                      <p className="text-sm text-destructive">{error}</p>
-                    </div>
+                    error.startsWith('PORTAL_MISMATCH:') ? (
+                      <div className="flex flex-col gap-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
+                        <div className="flex items-start gap-3">
+                          <Shield className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                          <div className="space-y-1">
+                            <p className="text-[13px] font-semibold text-foreground">Portal incorrecto</p>
+                            <p className="text-[12px] text-muted-foreground">{error.replace('PORTAL_MISMATCH:', '')}</p>
+                          </div>
+                        </div>
+                        <Link href={selected === 'personal' ? '/login-empresa' : '/login-personal'}>
+                          <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-blue-500/25 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-300">
+                            <ArrowRight className="mr-1.5 h-3.5 w-3.5" /> {selected === 'personal' ? 'Ir al Portal Empresa' : 'Ir al Portal Personal'}
+                          </Button>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="flex items-start gap-3 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20">
+                        <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                        <p className="text-sm text-destructive">{error}</p>
+                      </div>
+                    )
                   )}
 
                   <div className="space-y-2">

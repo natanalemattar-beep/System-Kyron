@@ -114,7 +114,7 @@ export function SpecializedLoginCard({
     setError(null);
     setEmailDeliveryFailed(false);
     try {
-      const body: Record<string, string> = { email, password };
+      const body: Record<string, string> = { email, password, portal: 'business' };
       if (accessKey && accessKey.trim()) body.accessKey = accessKey.trim();
 
       const res = await fetch('/api/auth/login', {
@@ -131,6 +131,9 @@ export function SpecializedLoginCard({
         } else if (res.status === 401) {
           setSavedCredentials(null);
           setError('NO_ACCOUNT');
+        } else if (res.status === 403 && json.portalMismatch) {
+          setSavedCredentials(null);
+          setError('PORTAL_MISMATCH:' + (json.error || 'No tienes acceso a este portal.'));
         } else {
           setSavedCredentials(null);
           setError(json.error || 'Error al iniciar sesión.');
@@ -377,6 +380,21 @@ export function SpecializedLoginCard({
                       <Link href="/register">
                         <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-amber-500/25 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 hover:text-amber-700 dark:hover:text-amber-300">
                           <UserPlus className="mr-1.5 h-3.5 w-3.5" /> Crear Cuenta Ahora
+                        </Button>
+                      </Link>
+                    </div>
+                  ) : error?.startsWith('PORTAL_MISMATCH:') ? (
+                    <div className="flex flex-col gap-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
+                      <div className="flex items-start gap-3">
+                        <Shield className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="text-[13px] font-semibold text-foreground">Portal incorrecto</p>
+                          <p className="text-[12px] text-muted-foreground">{error.replace('PORTAL_MISMATCH:', '')}</p>
+                        </div>
+                      </div>
+                      <Link href="/login-personal">
+                        <Button type="button" variant="outline" size="sm" className="w-full h-9 text-xs font-bold rounded-lg border-blue-500/25 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-300">
+                          <ArrowRight className="mr-1.5 h-3.5 w-3.5" /> Ir al Portal Personal
                         </Button>
                       </Link>
                     </div>
