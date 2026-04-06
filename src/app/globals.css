@@ -1171,8 +1171,56 @@ html[data-tier="low"] .hud-grid {
 
 html[data-tier="mid"] .animate-float-particle,
 html[data-tier="mid"] .animate-kyron-orbit,
-html[data-tier="mid"] .animate-spin-slow {
+html[data-tier="mid"] .animate-spin-slow,
+html[data-tier="mid"] .animate-orb-drift,
+html[data-tier="mid"] .animate-glass-breathe,
+html[data-tier="mid"] .aurora-bg {
   animation: none !important;
+}
+html[data-tier="mid"] .glass-card,
+html[data-tier="mid"] .glass-liquid,
+html[data-tier="mid"] .liquid-glass {
+  backdrop-filter: blur(var(--backdrop-blur, 8px)) !important;
+  -webkit-backdrop-filter: blur(var(--backdrop-blur, 8px)) !important;
+}
+html[data-tier="mid"] .bg-orb {
+  opacity: 0.02 !important;
+}
+html[data-tier="mid"] .shadow-glow,
+html[data-tier="mid"] .shadow-glow-sm {
+  box-shadow: 0 2px 12px -3px rgba(0,0,0,0.12) !important;
+}
+html[data-tier="mid"] .shimmer-border::before {
+  animation: none !important;
+  display: none !important;
+}
+html[data-tier="mid"] .seasonal-particle {
+  display: none !important;
+}
+
+html[data-tier="low"] * {
+  transition-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+html[data-tier="low"] .seasonal-particle {
+  display: none !important;
+}
+html[data-tier="low"] .shimmer-border::before {
+  display: none !important;
+}
+html[data-tier="low"] .card-hover-lift:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+html[data-tier="low"] .badge-pulse::after {
+  display: none !important;
+}
+html[data-tier="low"] .glow-text {
+  text-shadow: none !important;
+}
+
+html[data-auto-downgraded="true"] .bg-orb {
+  transition: opacity 1s ease-out;
 }
 
 .animate-marquee {
