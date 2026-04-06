@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { Construction, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from 'next-intl';
@@ -9,13 +9,16 @@ const BannerCtx = createContext(false);
 export const useBannerVisible = () => useContext(BannerCtx);
 
 export function DemoBannerProvider({ children }: { children: ReactNode }) {
-  const [dismissed, setDismissed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('demo-banner-dismissed') === '1';
-    }
-    return false;
-  });
+  const [dismissed, setDismissed] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('demo-banner-dismissed') === '1') {
+      setDismissed(true);
+    }
+    setHydrated(true);
+  }, []);
   const t = useTranslations('DemoBanner');
 
   const handleDismiss = useCallback(() => {

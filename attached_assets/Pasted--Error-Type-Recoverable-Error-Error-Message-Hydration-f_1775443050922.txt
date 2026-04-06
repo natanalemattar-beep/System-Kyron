@@ -1,0 +1,77 @@
+## Error Type
+Recoverable Error
+
+## Error Message
+Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <LoadingBoundary loading={null}>
+      <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+        <HTTPAccessFallbackErrorBoundary pathname="/es" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/es" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+                <SegmentViewNode type="layout" pagePath="[locale]/l...">
+                  <SegmentTrieNode>
+                  <script>
+                  <script>
+                  <script>
+                  <script>
+                  <LocaleLayout>
+                    <i>
+                      <r locale="es" now={Date} timeZone="UTC" messages={{...}}>
+                        <IntlProvider locale="es" now={Date} timeZone="UTC" messages={{...}}>
+                          <DynamicBackground>
+                          <DemoBannerProvider>
+                            <AnimatePresence>
+                            <DemoBannerSpacer>
+                            <div
++                             className="relative flex min-h-screen flex-col"
+-                             className="fixed top-0 left-0 right-0 z-[9999] py-2.5 px-4 flex items-center justify-cen..."
+-                             style={{opacity:"0",transform:"translateY..."}}
+                            >
+                              ...
+                                <SegmentViewNode type="page" pagePath="[locale]/p...">
+                                  <SegmentTrieNode>
+                                  <ClientPageRoot Component={function LandingPage} searchParams={{}} ...>
+                                    <LandingPage params={Promise} searchParams={Promise}>
+                                      <div
++                                       className="relative min-h-screen selection:bg-primary/20 w-full bg-transparent"
+-                                       className="absolute inset-0 bg-gradient-to-r from-sky-400/[0.08] via-violet-40..."
+                                      >
+                                        <LandingContent>
+                                          <LoadingScreen ...>
++                                           <div
++                                             className="fixed inset-0 z-[9999] flex flex-col items-center justify-cen..."
++                                             style={{opacity:1,transition:"opacity 0...."}}
++                                           >
+                                          ...
+              ...
+
+
+
+    at div (<anonymous>:null:null)
+    at LoadingScreen (src/components/landing/loading-screen.tsx:99:9)
+    at LandingContent (src/app/[locale]/page.tsx:77:43)
+    at LandingPage (src/app/[locale]/page.tsx:122:7)
+
+## Code Frame
+   97 |
+   98 |     return (
+>  99 |         <div
+      |         ^
+  100 |             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
+  101 |             style={{
+  102 |                 opacity: exiting ? 0 : 1,
+
+Next.js version: 15.5.14 (Turbopack)
