@@ -145,6 +145,7 @@ export default function DashboardEmpresaPage() {
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientClosingForm, setClientClosingForm] = useState<{ periodo: string; fecha_inicio: string; fecha_fin: string } | null>(null);
   const [fiscalDeadlines, setFiscalDeadlines] = useState<Array<{ label: string; diff: number; dateStr: string; iconKey: string; color: string; bg: string }>>([]);
+  const [semaforo, setSemaforo] = useState<{ global: { level: string; criticas: number; advertencias: number }; modules: Array<{ module: string; label: string; level: string; criticas: number; advertencias: number; total: number; detalle: string }> } | null>(null);
 
   useEffect(() => {
     const now = new Date();
@@ -190,6 +191,10 @@ export default function DashboardEmpresaPage() {
   }, [toast]);
 
   useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
+
+  useEffect(() => {
+    fetch("/api/semaforo-alertas").then(r => r.ok ? r.json() : null).then(d => { if (d) setSemaforo(d); }).catch(() => {});
+  }, []);
 
   const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);
   const sparklineData = useMemo(() => {
@@ -768,6 +773,92 @@ export default function DashboardEmpresaPage() {
           </div>
         </Card>
       </motion.div>
+
+      {semaforo && (
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
+          <Card className="border border-border/30 rounded-xl bg-card/80 p-4 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className={cn(
+                  "h-9 w-9 rounded-xl flex items-center justify-center shadow-lg relative",
+                  semaforo.global.level === "rojo" ? "bg-gradient-to-br from-rose-500 to-red-600 shadow-rose-500/20" :
+                  semaforo.global.level === "amarillo" ? "bg-gradient-to-br from-amber-400 to-orange-500 shadow-amber-500/20" :
+                  "bg-gradient-to-br from-emerald-400 to-green-600 shadow-emerald-500/20"
+                )}>
+                  <AlertTriangle className="h-4 w-4 text-white" />
+                  {semaforo.global.level !== "verde" && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-white flex items-center justify-center">
+                      <span className={cn("w-2 h-2 rounded-full animate-pulse", semaforo.global.level === "rojo" ? "bg-rose-500" : "bg-amber-500")} />
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold tracking-tight">Semáforo de Alertas</h3>
+                  <p className="text-[10px] text-muted-foreground/40">Estado operativo en tiempo real</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                </div>
+                <Badge className={cn(
+                  "text-[10px] font-bold h-5 rounded-md border",
+                  semaforo.global.level === "rojo" ? "bg-rose-500/10 text-rose-400 border-rose-500/15" :
+                  semaforo.global.level === "amarillo" ? "bg-amber-500/10 text-amber-400 border-amber-500/15" :
+                  "bg-emerald-500/8 text-emerald-400 border-emerald-500/15"
+                )}>
+                  {semaforo.global.level === "rojo" ? `${semaforo.global.criticas} crítica(s)` :
+                   semaforo.global.level === "amarillo" ? `${semaforo.global.advertencias} advertencia(s)` :
+                   "Todo OK"}
+                </Badge>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
+              {semaforo.modules.map((mod) => (
+                <div
+                  key={mod.module}
+                  className={cn(
+                    "relative flex flex-col items-center gap-1.5 p-2.5 rounded-xl border transition-all duration-300 group cursor-default",
+                    mod.level === "rojo" ? "bg-rose-500/[0.04] border-rose-500/15 hover:bg-rose-500/[0.08]" :
+                    mod.level === "amarillo" ? "bg-amber-500/[0.04] border-amber-500/15 hover:bg-amber-500/[0.08]" :
+                    "bg-emerald-500/[0.03] border-emerald-500/10 hover:bg-emerald-500/[0.06]"
+                  )}
+                >
+                  <div className={cn(
+                    "w-4 h-4 rounded-full shadow-md flex items-center justify-center",
+                    mod.level === "rojo" ? "bg-rose-500 shadow-rose-500/30" :
+                    mod.level === "amarillo" ? "bg-amber-500 shadow-amber-500/30" :
+                    "bg-emerald-500 shadow-emerald-500/30"
+                  )}>
+                    {mod.level === "rojo" && <span className="w-2 h-2 rounded-full bg-white/30 animate-pulse" />}
+                    {mod.level === "amarillo" && <span className="w-1.5 h-1.5 rounded-full bg-white/40" />}
+                    {mod.level === "verde" && <CheckCircle className="w-2.5 h-2.5 text-white" />}
+                  </div>
+                  <span className="text-[9px] font-semibold text-foreground/60 text-center leading-tight">{mod.label}</span>
+                  <span className={cn(
+                    "text-[9px] font-medium text-center leading-tight",
+                    mod.level === "rojo" ? "text-rose-400" :
+                    mod.level === "amarillo" ? "text-amber-400" :
+                    "text-emerald-400/60"
+                  )}>
+                    {mod.detalle}
+                  </span>
+                  {mod.total > 0 && (
+                    <span className={cn(
+                      "absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] rounded-full text-[9px] font-bold flex items-center justify-center px-1 text-white",
+                      mod.level === "rojo" ? "bg-rose-500" : "bg-amber-500"
+                    )}>
+                      {mod.total}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Card>
+        </motion.div>
+      )}
 
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
         <div className="flex items-center gap-2 mb-3 ml-1">
