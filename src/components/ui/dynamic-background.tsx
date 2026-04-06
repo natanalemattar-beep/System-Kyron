@@ -2,14 +2,14 @@
 
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useTheme } from "next-themes";
-import { holidays } from "@/lib/holidays";
+import { getActiveEvent } from "@/lib/seasonal-themes";
 import { useDeviceTierContext } from "@/hooks/use-device-tier";
 
 const FestiveEffect = lazy(() => import("./confetti-effect").then(m => ({ default: m.FestiveEffect })));
 const SlowConnectionBanner = lazy(() => import("./slow-connection-banner").then(m => ({ default: m.SlowConnectionBanner })));
 
 export function DynamicBackground() {
-  const [isSnow, setIsSnow] = useState(false);
+  const [festiveEffect, setFestiveEffect] = useState<'snow' | 'fireworks' | null>(null);
   const [mounted, setMounted] = useState(false);
   const { tier } = useDeviceTierContext();
   const { resolvedTheme } = useTheme();
@@ -17,14 +17,9 @@ export function DynamicBackground() {
 
   useEffect(() => {
     setMounted(true);
-    const now = new Date();
-    for (const holiday of holidays) {
-      const start = new Date(now.getFullYear(), holiday.month, holiday.day);
-      const end = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration);
-      if (now >= start && now < end && holiday.effect === 'snow') {
-        setIsSnow(true);
-        break;
-      }
+    const event = getActiveEvent();
+    if (event && event.effect !== 'none') {
+      setFestiveEffect(event.effect);
     }
   }, []);
 
@@ -36,9 +31,9 @@ export function DynamicBackground() {
   return (
     <>
       <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background pointer-events-none">
-        {mounted && isSnow && !isLow && (
+        {mounted && festiveEffect && !isLow && (
           <Suspense fallback={null}>
-            <FestiveEffect type="snow" />
+            <FestiveEffect type={festiveEffect} />
           </Suspense>
         )}
 

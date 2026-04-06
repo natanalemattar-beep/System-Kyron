@@ -7,6 +7,7 @@ export interface SeasonalEvent {
   acento: string;
   acentoSecundario: string;
   saludo: string;
+  effect: 'snow' | 'fireworks' | 'none';
   getRange: (year: number) => { inicio: Date; fin: Date };
 }
 
@@ -51,9 +52,10 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#EAB308',
     acentoSecundario: '#A855F7',
     saludo: '¡Feliz Año Nuevo!',
+    effect: 'fireworks',
     getRange: (year) => ({
       inicio: new Date(year, 0, 1),
-      fin: new Date(year, 0, 6),
+      fin: new Date(year, 0, 5),
     }),
   },
   {
@@ -65,6 +67,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#F43F5E',
     acentoSecundario: '#FB7185',
     saludo: '¡Feliz Día de San Valentín!',
+    effect: 'none',
     getRange: (year) => ({
       inicio: new Date(year, 1, 12),
       fin: new Date(year, 1, 15),
@@ -79,6 +82,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#A855F7',
     acentoSecundario: '#EC4899',
     saludo: '¡Felices Carnavales!',
+    effect: 'fireworks',
     getRange: (year) => {
       const easter = getEasterDate(year);
       return {
@@ -96,11 +100,12 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#7C3AED',
     acentoSecundario: '#D97706',
     saludo: '¡Feliz Semana Santa!',
+    effect: 'none',
     getRange: (year) => {
       const easter = getEasterDate(year);
       return {
         inicio: addDays(easter, -7),
-        fin: addDays(easter, 1),
+        fin: easter,
       };
     },
   },
@@ -113,6 +118,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#EF4444',
     acentoSecundario: '#EAB308',
     saludo: '¡Feliz Día del Trabajador!',
+    effect: 'none',
     getRange: (year) => ({
       inicio: new Date(year, 4, 1),
       fin: new Date(year, 4, 2),
@@ -127,6 +133,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#EC4899',
     acentoSecundario: '#F472B6',
     saludo: '¡Feliz Día de las Madres!',
+    effect: 'none',
     getRange: (year) => {
       const secondSunday = getNthSundayOfMonth(year, 4, 2);
       return {
@@ -144,6 +151,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#0EA5E9',
     acentoSecundario: '#06B6D4',
     saludo: '¡Feliz Día del Padre!',
+    effect: 'none',
     getRange: (year) => {
       const thirdSunday = getNthSundayOfMonth(year, 5, 3);
       return {
@@ -161,6 +169,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#EAB308',
     acentoSecundario: '#2563EB',
     saludo: '¡Viva Venezuela! Feliz 5 de Julio',
+    effect: 'fireworks',
     getRange: (year) => ({
       inicio: new Date(year, 6, 4),
       fin: new Date(year, 6, 6),
@@ -175,6 +184,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#F97316',
     acentoSecundario: '#A855F7',
     saludo: '¡Feliz Halloween!',
+    effect: 'none',
     getRange: (year) => ({
       inicio: new Date(year, 9, 28),
       fin: new Date(year, 10, 1),
@@ -189,6 +199,7 @@ export const SEASONAL_EVENTS: SeasonalEvent[] = [
     acento: '#DC2626',
     acentoSecundario: '#22C55E',
     saludo: '¡Feliz Navidad!',
+    effect: 'snow',
     getRange: (year) => ({
       inicio: new Date(year, 11, 15),
       fin: new Date(year, 11, 31),

@@ -26,7 +26,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - All authentication pages support both light and dark themes, with a dark mode default and Apple-style liquid glass effects.
 - Specific module pages use brand colors and varied color schemes for plan cards.
 - Kyron Chat provides context-aware AI chat with 10+ identity modes, using Gemini Flash for personal portals and Claude Sonnet for business/admin portals.
-- The system includes a comprehensive welcome and per-module tutorial system, and a seasonal theming system for Venezuelan holidays.
+- The system includes a comprehensive welcome and per-module tutorial system, and a unified seasonal calendar system (`src/lib/seasonal-themes.ts`) that auto-detects 10 Venezuelan/global holidays with computed dates (Easter-based via computus algorithm for Carnaval and Semana Santa, nth-Sunday for Día de las Madres/Padres). Each event defines particles, gradients, effects (snow/fireworks/none), and date ranges. `getActiveEvent()` returns the current event or null; consumed by `SeasonalThemeProvider`, `SeasonalDecorations`, and `DynamicBackground`.
 - Consolidated Navigation: Header navigation is reorganized into 5 mega-groups: Finanzas, Talento, Legal, Negocio, and Sistema.
 - Terminology: The platform consistently uses "CENTRO" instead of "NODO."
 - Dark Mode Layouts: All 9 layout groups use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants.
