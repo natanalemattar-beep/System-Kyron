@@ -4,7 +4,7 @@ let pool: Pool | undefined;
 let queryCount = 0;
 let slowQueryCount = 0;
 
-const SLOW_QUERY_THRESHOLD_MS = 500;
+const SLOW_QUERY_THRESHOLD_MS = 300;
 
 export function getPool(): Pool {
     if (!pool) {
@@ -12,12 +12,12 @@ export function getPool(): Pool {
         pool = new Pool({
             connectionString: process.env.DATABASE_URL,
             ssl: isProduction ? { rejectUnauthorized: false } : false,
-            max: isProduction ? 25 : 12,
+            max: isProduction ? 30 : 12,
             min: isProduction ? 5 : 2,
-            idleTimeoutMillis: 30000,
+            idleTimeoutMillis: 20000,
             connectionTimeoutMillis: 5000,
-            statement_timeout: 30000,
-            query_timeout: 30000,
+            statement_timeout: 25000,
+            query_timeout: 25000,
             allowExitOnIdle: false,
             application_name: 'system-kyron',
         });

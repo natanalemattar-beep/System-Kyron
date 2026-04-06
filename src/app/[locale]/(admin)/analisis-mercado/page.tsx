@@ -7,7 +7,8 @@ import { DollarSign, Users, Lightbulb, Activity, Loader2, Inbox, TrendingUp } fr
 import { BarChart, CartesianGrid, XAxis, YAxis, Bar, ResponsiveContainer } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any };
 import { Link } from "@/navigation";
 
 interface MercadoData {

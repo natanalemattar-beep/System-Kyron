@@ -9,7 +9,8 @@ import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, RefreshCw, 
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { Link } from "@/navigation";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any };
 import { useToast } from "@/hooks/use-toast";
 
 interface ResumenVentas {

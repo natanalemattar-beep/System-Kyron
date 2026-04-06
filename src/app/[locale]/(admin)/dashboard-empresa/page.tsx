@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
@@ -37,6 +37,8 @@ import {
 } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { ChartErrorBoundary } from "@/components/chart-error-boundary";
+
+const motion = { div: dynamic(() => import('framer-motion').then(m => { const C = m.motion.div; return { default: C }; }), { ssr: false }) as any };
 
 interface DashboardData {
   ingresos: number;

@@ -14,7 +14,8 @@ import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Cell }
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+const motion = { div: dynamic(() => import('framer-motion').then(m => ({ default: m.motion.div })), { ssr: false }) as any };
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";

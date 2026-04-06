@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { query } from '@/lib/db';
+import { query, batchInsert } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
 import { createHash } from 'crypto';
 
@@ -286,16 +286,19 @@ export async function POST(req: NextRequest) {
         );
 
         if (Array.isArray(items) && items.length > 0) {
-            for (const item of items) {
+            const validItems = items.filter((item: any) => {
                 const cant = parseFloat(item.cantidad ?? '1');
                 const pu   = parseFloat(item.precio_unitario ?? '0');
                 const desc = parseFloat(item.descuento_pct ?? '0');
-                if (isNaN(cant) || isNaN(pu) || isNaN(desc)) continue;
-                const itemSub = cant * pu * (1 - desc / 100);
-                await query(
-                    `INSERT INTO factura_items (factura_id, descripcion, codigo, unidad, cantidad, precio_unitario, descuento_pct, subtotal, aplica_iva, tipo_gravamen)
-                     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-                    [
+                return !isNaN(cant) && !isNaN(pu) && !isNaN(desc);
+            });
+            if (validItems.length > 0) {
+                const itemRows = validItems.map((item: any) => {
+                    const cant = parseFloat(item.cantidad ?? '1');
+                    const pu   = parseFloat(item.precio_unitario ?? '0');
+                    const desc = parseFloat(item.descuento_pct ?? '0');
+                    const itemSub = cant * pu * (1 - desc / 100);
+                    return [
                         factura.id,
                         item.descripcion,
                         item.codigo ?? null,
@@ -303,7 +306,12 @@ export async function POST(req: NextRequest) {
                         cant, pu, desc, itemSub,
                         (item.tipo_gravamen ?? 'gravado') === 'gravado',
                         item.tipo_gravamen ?? 'gravado',
-                    ]
+                    ];
+                });
+                await batchInsert(
+                    'factura_items',
+                    ['factura_id', 'descripcion', 'codigo', 'unidad', 'cantidad', 'precio_unitario', 'descuento_pct', 'subtotal', 'aplica_iva', 'tipo_gravamen'],
+                    itemRows
                 );
             }
         }

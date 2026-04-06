@@ -2907,6 +2907,18 @@ async function createPerformanceOptimizations(): Promise<void> {
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_contact_messages_leido ON contact_messages(leido, created_at DESC)`);
   await safeIndex(`CREATE INDEX IF NOT EXISTS idx_dashboard_cache_key ON dashboard_cache(cache_key, generated_at DESC)`);
 
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_factura_items_factura ON factura_items(factura_id)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_user_cliente ON facturas(user_id, cliente_id)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_facturas_tipo_doc ON facturas(tipo_documento, estado)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_clientes_user_rif ON clientes(user_id, rif)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_libro_diario_lineas_asiento ON libro_diario_lineas(asiento_id)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_libro_diario_lineas_cuenta ON libro_diario_lineas(cuenta_codigo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_plan_cuentas_user_codigo ON plan_cuentas(user_id, codigo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_cuentas_bancarias_user ON cuentas_bancarias(user_id, activa)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_proveedores_user ON proveedores(user_id, activo)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_activity_log_user_created ON activity_log(user_id, created_at DESC)`);
+  await safeIndex(`CREATE INDEX IF NOT EXISTS idx_users_email_tipo ON users(email, tipo)`);
+
   await seedEmailAutomaticos();
 
   await query(`ALTER TABLE facturas ADD COLUMN IF NOT EXISTS emitida_at TIMESTAMPTZ`);

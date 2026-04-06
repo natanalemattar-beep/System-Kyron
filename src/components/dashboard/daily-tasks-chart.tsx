@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
@@ -30,7 +30,7 @@ interface ChartPoint {
   pending: number;
 }
 
-export function DailyTasksChart() {
+export const DailyTasksChart = memo(function DailyTasksChart() {
   const [chartData, setChartData] = useState<ChartPoint[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -89,4 +89,4 @@ export function DailyTasksChart() {
       </CardContent>
     </Card>
   );
-}
+});

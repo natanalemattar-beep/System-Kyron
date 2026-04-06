@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
@@ -18,7 +18,7 @@ interface ChartItem {
   gastos: number;
 }
 
-export function OverviewChart() {
+export const OverviewChart = memo(function OverviewChart() {
   const [data, setData] = useState<ChartItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -90,4 +90,4 @@ export function OverviewChart() {
       </CardContent>
     </Card>
   );
-}
+});

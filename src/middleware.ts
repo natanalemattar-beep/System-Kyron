@@ -121,8 +121,28 @@ function isPublicPage(pathname: string): boolean {
 }
 
 const sessionCache = new Map<string, { valid: boolean; expiresAt: number }>();
-const SESSION_CACHE_TTL = 15_000;
+const SESSION_CACHE_TTL = 20_000;
 const SESSION_CACHE_MAX = 500;
+
+function enforceMaxSize(now: number): void {
+  if (sessionCache.size < SESSION_CACHE_MAX * 0.8) return;
+  const toDelete: string[] = [];
+  for (const [key, entry] of sessionCache) {
+    if (now >= entry.expiresAt) toDelete.push(key);
+  }
+  for (const key of toDelete) sessionCache.delete(key);
+  while (sessionCache.size >= SESSION_CACHE_MAX) {
+    const oldest = sessionCache.keys().next().value;
+    if (oldest) sessionCache.delete(oldest); else break;
+  }
+}
+
+function cacheSet(token: string, valid: boolean, expiresAt: number, now: number): void {
+  if (expiresAt <= now) return;
+  enforceMaxSize(now);
+  sessionCache.delete(token);
+  sessionCache.set(token, { valid, expiresAt });
+}
 
 async function verifySession(req: NextRequest): Promise<boolean> {
   const token = req.cookies.get(COOKIE_NAME)?.value;
@@ -130,18 +150,20 @@ async function verifySession(req: NextRequest): Promise<boolean> {
 
   const now = Date.now();
   const cached = sessionCache.get(token);
-  if (cached && now < cached.expiresAt) return cached.valid;
+  if (cached && now < cached.expiresAt) {
+    sessionCache.delete(token);
+    sessionCache.set(token, cached);
+    return cached.valid;
+  }
 
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    if (sessionCache.size >= SESSION_CACHE_MAX) sessionCache.clear();
     const expMs = typeof payload.exp === 'number' ? payload.exp * 1000 : now + SESSION_CACHE_TTL;
     const cacheUntil = Math.min(now + SESSION_CACHE_TTL, expMs);
-    if (cacheUntil <= now) return true;
-    sessionCache.set(token, { valid: true, expiresAt: cacheUntil });
+    cacheSet(token, true, cacheUntil, now);
     return true;
   } catch {
-    sessionCache.set(token, { valid: false, expiresAt: now + 5_000 });
+    cacheSet(token, false, now + 5_000, now);
     return false;
   }
 }

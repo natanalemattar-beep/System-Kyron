@@ -5,8 +5,8 @@ import { cachedQuery } from '@/lib/cache';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-const STATS_TTL = 30_000;
-const TASA_TTL = 300_000;
+const STATS_TTL = 60_000;
+const TASA_TTL = 600_000;
 
 export async function GET() {
     try {

@@ -4,7 +4,7 @@ import { queryOne, query } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 
 let cachedRate: { rate: number; date: string; fetchedAt: number } | null = null;
-const CACHE_DURATION_MS = 15 * 60 * 1000;
+const CACHE_DURATION_MS = 30 * 60 * 1000;
 
 async function fetchFromPyDolar(): Promise<{ rate: number; date: string } | null> {
   try {
@@ -113,13 +113,19 @@ async function fetchBcvRate(): Promise<{ rate: number; date: string; fuente: str
     { fn: fetchFromDolarApi, name: 'dolarapi' },
   ];
 
-  for (const source of sources) {
-    const result = await source.fn();
-    if (result && result.rate > 0) {
-      saveToDB(result.rate, source.name).catch(() => {});
-      return { ...result, fuente: source.name };
-    }
-  }
+  try {
+    const controller = new AbortController();
+    const result = await Promise.any(
+      sources.map(async (source) => {
+        const r = await source.fn();
+        if (!r || r.rate <= 0) throw new Error('no-rate');
+        controller.abort();
+        return { ...r, fuente: source.name };
+      })
+    );
+    saveToDB(result.rate, result.fuente).catch(() => {});
+    return result;
+  } catch {}
 
   const dbResult = await fetchFromDb();
   if (dbResult) {
