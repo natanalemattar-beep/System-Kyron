@@ -155,6 +155,19 @@ const SEARCH_ITEMS: SearchItem[] = [
   { title: 'Sector Energético', description: 'Gestión energética', href: '/sector-energetico', icon: Zap, category: 'Sostenibilidad', keywords: ['energia', 'sector', 'electricidad'] },
 ];
 
+const CATEGORY_GRADIENTS: Record<string, string> = {
+  'General': 'from-slate-500/[0.03] to-transparent',
+  'Inteligencia Artificial': 'from-violet-500/[0.04] to-transparent',
+  'Contabilidad': 'from-emerald-500/[0.03] to-transparent',
+  'Ventas y Facturación': 'from-blue-500/[0.03] to-transparent',
+  'Recursos Humanos': 'from-orange-500/[0.03] to-transparent',
+  'Legal': 'from-amber-500/[0.03] to-transparent',
+  'Telecom': 'from-cyan-500/[0.03] to-transparent',
+  'Informática': 'from-indigo-500/[0.03] to-transparent',
+  'Activos': 'from-teal-500/[0.03] to-transparent',
+  'Sostenibilidad': 'from-green-500/[0.04] to-transparent',
+};
+
 const RECENT_KEY = 'kyron-search-recent';
 const MAX_RECENT = 5;
 
@@ -375,7 +388,14 @@ export function GlobalSearch() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-[600px] p-0 rounded-2xl border-border/30 bg-background/95 backdrop-blur-xl shadow-2xl overflow-hidden gap-0">
           <DialogTitle className="sr-only">Búsqueda global</DialogTitle>
-          <div className="flex items-center gap-3 px-4 border-b border-border/30">
+
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+            <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br from-cyan-500/[0.07] to-blue-500/[0.05] blur-3xl" />
+            <div className="absolute -bottom-16 -left-16 w-40 h-40 rounded-full bg-gradient-to-tr from-emerald-500/[0.06] to-teal-500/[0.04] blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full bg-gradient-to-r from-violet-500/[0.03] via-transparent to-sky-500/[0.03] blur-2xl" />
+          </div>
+
+          <div className="relative flex items-center gap-3 px-4 border-b border-border/30 bg-gradient-to-r from-transparent via-primary/[0.02] to-transparent">
             <Search className={cn(
               "h-4 w-4 shrink-0 transition-colors",
               query.trim() ? "text-primary" : "text-muted-foreground/50"
@@ -402,7 +422,7 @@ export function GlobalSearch() {
           </div>
 
           {query.trim() && (
-            <div className="px-4 py-1.5 border-b border-border/20 bg-muted/5">
+            <div className="relative px-4 py-1.5 border-b border-border/20 bg-muted/5">
               <p className="text-[11px] text-muted-foreground/50">
                 {flatFiltered.length === 0
                   ? 'Sin resultados'
@@ -412,24 +432,36 @@ export function GlobalSearch() {
             </div>
           )}
           
-          <div ref={listRef} className="max-h-[420px] overflow-y-auto py-1 scroll-smooth">
+          <div ref={listRef} className="relative max-h-[420px] overflow-y-auto py-1 scroll-smooth">
             {totalItems === 0 ? (
-              <div className="py-14 text-center">
-                <div className="h-12 w-12 rounded-2xl bg-muted/30 flex items-center justify-center mx-auto mb-3">
-                  <Search className="h-6 w-6 text-muted-foreground/20" />
+              <div className="relative py-14 text-center overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-64 h-32 rounded-full bg-gradient-to-b from-primary/[0.06] to-transparent blur-2xl" />
+                  <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                    }}
+                  />
                 </div>
-                <p className="text-sm font-semibold text-muted-foreground/50 mb-1">
-                  Sin resultados para &ldquo;{query}&rdquo;
-                </p>
-                <p className="text-[11px] text-muted-foreground/35">
-                  Intenta con otro término o revisa la ortografía
-                </p>
+                <div className="relative">
+                  <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-muted/40 to-muted/20 border border-border/20 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <Search className="h-6 w-6 text-muted-foreground/25" />
+                  </div>
+                  <p className="text-sm font-semibold text-muted-foreground/50 mb-1">
+                    Sin resultados para &ldquo;{query}&rdquo;
+                  </p>
+                  <p className="text-[11px] text-muted-foreground/35">
+                    Intenta con otro término o revisa la ortografía
+                  </p>
+                </div>
               </div>
             ) : (
               <>
                 {showRecent && recentItems.length > 0 && (
-                  <div>
-                    <p className="px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40 flex items-center gap-1.5">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-amber-500/[0.03] to-transparent pointer-events-none rounded-lg" />
+                    <p className="relative px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40 flex items-center gap-1.5">
                       <FileClock className="h-3 w-3" />
                       Recientes
                     </p>
@@ -440,27 +472,31 @@ export function GlobalSearch() {
                     <div className="mx-4 my-1 border-b border-border/20" />
                   </div>
                 )}
-                {Object.entries(grouped).map(([category, items]) => (
-                  <div key={category}>
-                    <p className="px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40">
-                      {category}
-                      {query.trim() && (
-                        <span className="ml-1.5 text-muted-foreground/25 normal-case tracking-normal">
-                          ({items.length})
-                        </span>
-                      )}
-                    </p>
-                    {items.map(item => {
-                      runningIndex++;
-                      return renderItem(item, runningIndex);
-                    })}
-                  </div>
-                ))}
+                {Object.entries(grouped).map(([category, items]) => {
+                  const catGradient = CATEGORY_GRADIENTS[category] || 'from-gray-500/[0.02] to-transparent';
+                  return (
+                    <div key={category} className="relative">
+                      <div className={cn("absolute inset-0 bg-gradient-to-b pointer-events-none", catGradient)} style={{ height: '60px' }} />
+                      <p className="relative px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/40">
+                        {category}
+                        {query.trim() && (
+                          <span className="ml-1.5 text-muted-foreground/25 normal-case tracking-normal">
+                            ({items.length})
+                          </span>
+                        )}
+                      </p>
+                      {items.map(item => {
+                        runningIndex++;
+                        return renderItem(item, runningIndex);
+                      })}
+                    </div>
+                  );
+                })}
               </>
             )}
           </div>
 
-          <div className="flex items-center gap-4 px-4 py-2 border-t border-border/20 bg-muted/5">
+          <div className="relative flex items-center gap-4 px-4 py-2 border-t border-border/20 bg-gradient-to-r from-muted/5 via-muted/8 to-muted/5">
             <span className="flex items-center gap-1 text-[11px] text-muted-foreground/40">
               <kbd className="px-1 rounded border border-border/40 bg-muted/30 font-mono text-[10px]">↑↓</kbd> navegar
             </span>
