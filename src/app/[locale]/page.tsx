@@ -8,14 +8,8 @@ import { HeroSection } from '@/components/landing';
 import { PageTracker } from '@/components/page-tracker';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 
-const TrustNumbersBanner = dynamic(() => import('@/components/landing/trust-numbers-banner').then(m => ({ default: m.TrustNumbersBanner })), { ssr: false });
-const WhyKyronSection = dynamic(() => import('@/components/landing/why-kyron-section').then(m => ({ default: m.WhyKyronSection })), { ssr: false });
-const ModulesGridSection = dynamic(() => import('@/components/landing/modules-grid-section').then(m => ({ default: m.ModulesGridSection })), { ssr: false });
+const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
-const ComplianceSection = dynamic(() => import('@/components/landing/compliance-section').then(m => ({ default: m.ComplianceSection })), { ssr: false });
-const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: false });
-const CommentsSection = dynamic(() => import('@/components/landing/comments-section').then(m => ({ default: m.CommentsSection })), { ssr: false });
-const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
@@ -88,15 +82,9 @@ function LandingContent() {
         {mounted && (
           <>
             <HeroSection />
-            <TrustNumbersBanner />
-            <LazySection fallbackHeight="700px"><WhyKyronSection /></LazySection>
-            <LazySection fallbackHeight="800px"><ModulesGridSection /></LazySection>
+            <LazySection fallbackHeight="700px"><HowItWorksSection /></LazySection>
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
-            <LazySection fallbackHeight="500px"><ComplianceSection /></LazySection>
-            <LazySection fallbackHeight="500px"><AboutUsSection /></LazySection>
-            <LazySection fallbackHeight="400px"><CommentsSection /></LazySection>
             <LazySection fallbackHeight="600px"><CtaSection /></LazySection>
-            <LazySection fallbackHeight="400px"><FaqSection /></LazySection>
           </>
         )}
       </main>
