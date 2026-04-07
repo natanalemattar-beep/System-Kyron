@@ -1,6 +1,6 @@
 import { query, queryOne } from '@/lib/db';
 
-export type PlanTier = 'starter' | 'profesional' | 'empresarial' | 'kyron_max';
+export type PlanTier = 'personal' | 'profesional' | 'empresarial' | 'kyron_max';
 export type CicloFacturacion = 'mensual' | 'anual';
 
 export interface PlanKyron {
@@ -44,44 +44,46 @@ const ILIMITADO = 999999;
 
 export const PLANES: PlanKyron[] = [
   {
-    id: 'starter',
-    nombre: 'Starter',
-    nombreCompleto: 'Kyron Starter',
-    precioMensualUSD: 0,
-    precioAnualUSD: 0,
-    precioAnualMensualizado: 0,
-    ahorroAnualUSD: 0,
-    ahorroAnualPorcentaje: 0,
-    color: '#64748B',
-    descripcion: 'Para emprendedores y freelancers que inician. Incluye AI y alertas de cortesía.',
+    id: 'personal',
+    nombre: 'Personal',
+    nombreCompleto: 'Kyron Personal',
+    precioMensualUSD: 9,
+    precioAnualUSD: 90,
+    precioAnualMensualizado: 7.50,
+    ahorroAnualUSD: 18,
+    ahorroAnualPorcentaje: 17,
+    color: '#22C55E',
+    descripcion: 'Para profesionales independientes. Cuenta personal, sostenibilidad y máximo provecho de cada módulo esencial.',
     destacado: false,
-    etiqueta: 'GRATIS',
+    etiqueta: 'SOSTENIBLE',
     limites: {
-      consultasAI: 10,
-      alertasFiscales: 5,
-      alertasRegulatorias: 3,
-      facturasMensuales: 20,
-      empleadosNomina: 3,
-      clientesCRM: 25,
-      documentosLegales: 5,
-      lineasTelecom: 1,
-      reportesMensuales: 2,
+      consultasAI: 30,
+      alertasFiscales: 10,
+      alertasRegulatorias: 5,
+      facturasMensuales: 50,
+      empleadosNomina: 5,
+      clientesCRM: 50,
+      documentosLegales: 10,
+      lineasTelecom: 2,
+      reportesMensuales: 5,
       usuariosConcurrentes: 1,
-      almacenamientoGB: 1,
-      chatAIMensajes: 15,
-      simuladorMultas: 3,
-      exportacionesExcel: 3,
-      consultasRIF: 5,
-      declaracionesAsistidas: 0,
-      blockchainProofs: 5,
+      almacenamientoGB: 5,
+      chatAIMensajes: 50,
+      simuladorMultas: 10,
+      exportacionesExcel: 10,
+      consultasRIF: 15,
+      declaracionesAsistidas: 2,
+      blockchainProofs: 15,
     },
     modulosIncluidos: [
-      'Contabilidad básica',
-      'Facturación (20/mes)',
+      'Cuenta Personal completa',
+      'Módulo Sostenibilidad',
+      'Contabilidad personal',
+      'Facturación fiscal (50/mes)',
       'Tasa BCV en vivo',
-      'Alertas SENIAT (5/mes)',
-      'Chat AI (15 msgs/mes)',
-      'Consulta RIF/Cédula (5/mes)',
+      'Alertas SENIAT (10/mes)',
+      'Chat AI (50 msgs/mes)',
+      'Consulta RIF/Cédula (15/mes)',
       '1 usuario',
     ],
   },
@@ -117,7 +119,7 @@ export const PLANES: PlanKyron[] = [
       blockchainProofs: 50,
     },
     modulosIncluidos: [
-      'Todo lo del Starter +',
+      'Todo en Personal +',
       'Contabilidad VEN-NIF completa',
       'Nómina hasta 15 empleados',
       'CRM 200 clientes',
@@ -280,12 +282,12 @@ export async function obtenerUsoPlan(userId: number): Promise<UsoPlan> {
     `INSERT INTO uso_plan (user_id, plan, ciclo, periodo)
      VALUES ($1, $2, $3, $4)
      ON CONFLICT (user_id, periodo) DO NOTHING`,
-    [userId, 'starter', 'mensual', periodo]
+    [userId, 'personal', 'mensual', periodo]
   );
 
   return {
     userId,
-    plan: 'starter',
+    plan: 'personal',
     ciclo: 'mensual' as CicloFacturacion,
     periodo,
     consultas_ai: 0,
@@ -336,7 +338,7 @@ export async function verificarLimite(
   recurso: RecursoLimite
 ): Promise<{ permitido: boolean; usado: number; limite: number; plan: PlanTier; porcentaje: number; trackable: boolean }> {
   if (!esRecursoValido(recurso)) {
-    return { permitido: false, usado: 0, limite: 0, plan: 'starter', porcentaje: 100, trackable: false };
+    return { permitido: false, usado: 0, limite: 0, plan: 'personal', porcentaje: 100, trackable: false };
   }
 
   const uso = await obtenerUsoPlan(userId);

@@ -248,18 +248,20 @@
         "most_popular": "Most Popular",
         "plans": [
             {
-                "name": "Starter",
-                "description": "For entrepreneurs and freelancers getting started",
+                "name": "Personal",
+                "description": "Maximum personal value and sustainability",
                 "features": [
-                    "Basic accounting",
-                    "Fiscal invoicing (20/mo)",
+                    "Full Personal Account",
+                    "Sustainability Module",
+                    "Personal accounting",
+                    "Fiscal invoicing (50/mo)",
                     "Live BCV exchange rate",
-                    "SENIAT alerts (5/mo)",
-                    "AI Chat (15 msgs/mo)",
-                    "RIF/ID lookup (5/mo)",
+                    "SENIAT alerts (10/mo)",
+                    "AI Chat (50 msgs/mo)",
+                    "RIF/ID lookup (15/mo)",
                     "1 user"
                 ],
-                "cta": "Start Free"
+                "cta": "Choose Personal"
             },
             {
                 "name": "Professional",

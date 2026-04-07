@@ -17,7 +17,7 @@ import {
 
 export const dynamic = 'force-dynamic';
 
-const PLANES_VALIDOS = ['starter', 'profesional', 'empresarial', 'kyron_max'];
+const PLANES_VALIDOS = ['personal', 'profesional', 'empresarial', 'kyron_max'];
 
 export async function GET(req: NextRequest) {
   try {

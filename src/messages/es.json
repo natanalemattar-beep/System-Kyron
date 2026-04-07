@@ -248,18 +248,20 @@
         "most_popular": "Más Popular",
         "plans": [
             {
-                "name": "Starter",
-                "description": "Para emprendedores y freelancers que inician",
+                "name": "Personal",
+                "description": "Máximo provecho personal y sostenibilidad",
                 "features": [
-                    "Contabilidad básica",
-                    "Facturación fiscal (20/mes)",
+                    "Cuenta Personal completa",
+                    "Módulo Sostenibilidad",
+                    "Contabilidad personal",
+                    "Facturación fiscal (50/mes)",
                     "Tasa BCV en vivo",
-                    "Alertas SENIAT (5/mes)",
-                    "Chat AI (15 msgs/mes)",
-                    "Consulta RIF/Cédula (5/mes)",
+                    "Alertas SENIAT (10/mes)",
+                    "Chat AI (50 msgs/mes)",
+                    "Consulta RIF/Cédula (15/mes)",
                     "1 usuario"
                 ],
-                "cta": "Comenzar Gratis"
+                "cta": "Elegir Personal"
             },
             {
                 "name": "Profesional",

@@ -2718,8 +2718,8 @@ async function createPlanUsageTables(): Promise<void> {
     CREATE TABLE IF NOT EXISTS uso_plan (
       id              SERIAL PRIMARY KEY,
       user_id         INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      plan            TEXT NOT NULL DEFAULT 'starter'
-                      CHECK (plan IN ('starter','profesional','empresarial','kyron_max')),
+      plan            TEXT NOT NULL DEFAULT 'personal'
+                      CHECK (plan IN ('personal','profesional','empresarial','kyron_max')),
       ciclo           TEXT NOT NULL DEFAULT 'mensual'
                       CHECK (ciclo IN ('mensual','anual')),
       periodo         TEXT NOT NULL,
