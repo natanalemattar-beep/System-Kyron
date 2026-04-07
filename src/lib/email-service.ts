@@ -32,47 +32,29 @@ async function logEmail(opts: EmailOptions, result: EmailResult) {
   }
 }
 
-let _cachedGmailSender: string | null = null;
-
 async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
   try {
-    const { getUncachableGmailClient, getGmailSenderAddress } = await import('@/lib/gmail-client');
+    const { getSmtpTransporter, getGmailSenderAddress } = await import('@/lib/gmail-client');
 
-    const [gmail, senderEmail] = await Promise.all([
-      getUncachableGmailClient(),
-      _cachedGmailSender
-        ? Promise.resolve(_cachedGmailSender)
-        : getGmailSenderAddress().then(addr => { _cachedGmailSender = addr; return addr; }),
-    ]);
+    const transporter = getSmtpTransporter();
+    const senderEmail = await getGmailSenderAddress();
 
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
-    const fromAddr = opts.from ?? `System Kyron <${senderEmail || process.env.GMAIL_USER || 'noreplysystemkyron@gmail.com'}>`;
-    const rawEmail = [
-      `From: ${fromAddr}`,
-      `To: ${recipients.join(', ')}`,
-      `Subject: =?utf-8?B?${Buffer.from(opts.subject).toString('base64')}?=`,
-      'MIME-Version: 1.0',
-      'Content-Type: text/html; charset=utf-8',
-      '',
-      opts.html,
-    ].join('\r\n');
+    const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
 
-    const encodedMessage = Buffer.from(rawEmail)
-      .toString('base64')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
-
-    await gmail.users.messages.send({
-      userId: 'me',
-      requestBody: { raw: encodedMessage },
+    await transporter.sendMail({
+      from: fromAddr,
+      to: recipients.join(', '),
+      subject: opts.subject,
+      html: opts.html,
+      replyTo: opts.replyTo,
     });
 
-    console.log(`[email-service] Gmail sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
+    console.log(`[email-service] Gmail SMTP sent to ${recipients.join(', ')} (${opts.purpose ?? 'general'})`);
     return { success: true, provider: 'gmail' };
   } catch (err) {
     const errorMsg = String(err);
-    console.error(`[email-service] Gmail failed:`, errorMsg);
+    console.error(`[email-service] Gmail SMTP failed:`, errorMsg);
     return { success: false, provider: 'gmail', error: errorMsg };
   }
 }
