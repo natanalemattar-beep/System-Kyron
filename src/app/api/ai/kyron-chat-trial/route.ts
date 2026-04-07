@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -81,22 +82,42 @@ export async function POST(req: NextRequest) {
       return Response.json({ error: 'Mensaje requerido' }, { status: 400 });
     }
 
-    const gemini = getGeminiClient();
     const startTime = Date.now();
+    let text = '';
 
-    const response = await gemini.models.generateContent({
-      model: GEMINI_MODEL,
-      contents: [{ role: 'user', parts: [{ text: message.substring(0, 500) }] }],
-      config: {
-        systemInstruction: TRIAL_SYSTEM_PROMPT,
-        maxOutputTokens: 300,
-        temperature: 0.7,
-      },
-    });
+    try {
+      const gemini = getGeminiClient();
+      const response = await gemini.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: [{ role: 'user', parts: [{ text: message.substring(0, 500) }] }],
+        config: {
+          systemInstruction: TRIAL_SYSTEM_PROMPT,
+          maxOutputTokens: 300,
+          temperature: 0.7,
+        },
+      });
+      text = response.text ?? '';
+    } catch (geminiErr) {
+      console.warn('[kyron-chat-trial] Gemini failed, trying DeepSeek fallback:', geminiErr);
+      try {
+        const deepseek = getDeepSeekClient();
+        const response = await deepseek.chat.completions.create({
+          model: DEEPSEEK_MODEL,
+          max_tokens: 300,
+          temperature: 0.7,
+          messages: [
+            { role: 'system', content: TRIAL_SYSTEM_PROMPT },
+            { role: 'user', content: message.substring(0, 500) },
+          ],
+        });
+        text = response.choices[0]?.message?.content ?? '';
+      } catch (deepseekErr) {
+        console.error('[kyron-chat-trial] DeepSeek also failed:', deepseekErr);
+        throw deepseekErr;
+      }
+    }
 
     const responseTime = Date.now() - startTime;
-    const text = response.text ?? '';
-
     return Response.json({ text, remaining, responseTime });
   } catch (err) {
     console.error('[kyron-chat-trial]', err);
