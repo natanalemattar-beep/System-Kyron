@@ -518,6 +518,8 @@
         "explore_module": "Explorar módulo",
         "modules_included": "{count} módulos incluidos",
         "no_extra_costs": "Sin costos adicionales",
+        "show_more": "Ver {remaining} módulos más",
+        "show_less": "Ver menos",
         "cta": "Comenzar Ahora",
         "categories": {
             "all": "Todos",

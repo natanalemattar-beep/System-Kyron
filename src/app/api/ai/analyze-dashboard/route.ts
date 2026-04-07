@@ -4,6 +4,7 @@ import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeString } from '@/lib/input-sanitizer';
 import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 
@@ -137,7 +138,32 @@ Realiza un análisis financiero y estratégico completo de estos datos siguiendo
               }
             }
 
-            if (!streamed && !openaiPartialFail) {
+            if (!streamed) {
+              try {
+                const ds = getDeepSeekClient();
+                const dsStream = await ds.chat.completions.create({
+                  model: DEEPSEEK_MODEL,
+                  max_tokens: 3000,
+                  temperature: 0.4,
+                  stream: true,
+                  messages: [
+                    { role: 'system', content: SYSTEM_PROMPT },
+                    { role: 'user', content: userPrompt },
+                  ],
+                });
+                for await (const chunk of dsStream) {
+                  const text = chunk.choices[0]?.delta?.content;
+                  if (text) {
+                    send('chunk', JSON.stringify({ text }));
+                    streamed = true;
+                  }
+                }
+              } catch (dsErr) {
+                console.error('[analyze-dashboard] DeepSeek stream failed:', dsErr);
+              }
+            }
+
+            if (!streamed) {
               try {
                 const gemini = getGeminiClient();
                 const response = await gemini.models.generateContentStream({
@@ -186,13 +212,18 @@ Realiza un análisis financiero y estratégico completo de estos datos siguiendo
     }
 
     const { openaiGenerateText } = await import('@/ai/openai');
+    const { deepseekGenerateText } = await import('@/ai/deepseek');
     const { geminiGenerateText } = await import('@/ai/gemini');
 
     let analysis: string;
     try {
       analysis = await openaiGenerateText({ system: SYSTEM_PROMPT, prompt: userPrompt, maxTokens: 3000, temperature: 0.4 });
     } catch {
-      analysis = await geminiGenerateText({ system: SYSTEM_PROMPT, prompt: userPrompt, maxTokens: 3000, temperature: 0.4 });
+      try {
+        analysis = await deepseekGenerateText({ system: SYSTEM_PROMPT, prompt: userPrompt, maxTokens: 3000, temperature: 0.4 });
+      } catch {
+        analysis = await geminiGenerateText({ system: SYSTEM_PROMPT, prompt: userPrompt, maxTokens: 3000, temperature: 0.4 });
+      }
     }
 
     return new Response(JSON.stringify({ analysis: analysis || 'No se pudo generar el análisis.', module: sanitizedModule }), {

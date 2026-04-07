@@ -910,6 +910,8 @@
         "subtitle": "{count} herramientas especializadas que cubren cada aspecto de tu empresa. Sin módulos extra, sin costos ocultos.",
         "modules_included": "{count} módulos incluidos",
         "no_extra_costs": "Sin costos adicionales",
+        "show_more": "Ver {remaining} módulos más",
+        "show_less": "Ver menos",
         "cta": "Explorar Todos los Módulos",
         "search_placeholder": "Buscar módulo...",
         "explore_module": "Explorar módulo",

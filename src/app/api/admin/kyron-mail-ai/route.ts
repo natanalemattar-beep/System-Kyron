@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { geminiGenerateText } from '@/ai/gemini';
 import { openaiGenerateText } from '@/ai/openai';
+import { deepseekGenerateText } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 
-const MASTER_KEY = 'Carlos0507..';
+const MASTER_KEY = process.env.KYRON_MAIL_AI_KEY || 'Carlos0507..';
 
 const SYSTEM_PROMPT = `Eres el asistente de comunicaciones de System Kyron, una plataforma de inteligencia corporativa en Venezuela.
 
@@ -90,6 +91,7 @@ export async function POST(req: NextRequest) {
 
     const providers: [string, GenerateFn][] = [
       ['Gemini', () => geminiGenerateText(opts)],
+      ['DeepSeek', () => deepseekGenerateText(opts)],
       ['OpenAI', () => openaiGenerateText(opts)],
       ['Claude', async () => {
         const { generateText } = await import('@/ai/anthropic');

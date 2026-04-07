@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -74,21 +75,37 @@ export async function POST(req: NextRequest) {
       return Response.json({ error: 'Consulta requerida' }, { status: 400 });
     }
 
-    const gemini = getGeminiClient();
     const startTime = Date.now();
+    let text = '';
 
-    const response = await gemini.models.generateContent({
-      model: GEMINI_MODEL,
-      contents: [{ role: 'user', parts: [{ text: query.substring(0, 300) }] }],
-      config: {
-        systemInstruction: SPEED_SYSTEM_PROMPT,
-        maxOutputTokens: 200,
+    try {
+      const gemini = getGeminiClient();
+      const response = await gemini.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: [{ role: 'user', parts: [{ text: query.substring(0, 300) }] }],
+        config: {
+          systemInstruction: SPEED_SYSTEM_PROMPT,
+          maxOutputTokens: 200,
+          temperature: 0.6,
+        },
+      });
+      text = response.text ?? '';
+    } catch (geminiErr) {
+      console.error('[speed-test] Gemini failed, trying DeepSeek:', geminiErr);
+      const ds = getDeepSeekClient();
+      const resp = await ds.chat.completions.create({
+        model: DEEPSEEK_MODEL,
+        max_tokens: 200,
         temperature: 0.6,
-      },
-    });
+        messages: [
+          { role: 'system', content: SPEED_SYSTEM_PROMPT },
+          { role: 'user', content: query.substring(0, 300) },
+        ],
+      });
+      text = resp.choices[0]?.message?.content ?? '';
+    }
 
     const kyronTime = Date.now() - startTime;
-    const text = response.text ?? '';
 
     const competitors = Object.entries(COMPETITORS).map(([name, cfg]) => ({
       name,

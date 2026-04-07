@@ -4,8 +4,10 @@ import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeString } from '@/lib/input-sanitizer';
 import { geminiGenerateText } from '@/ai/gemini';
 import { openaiGenerateText } from '@/ai/openai';
+import { deepseekGenerateText } from '@/ai/deepseek';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
 import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
+import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -63,10 +65,13 @@ export async function POST(req: NextRequest) {
       let geminiAvailable = false;
       try { getGeminiClient(); geminiAvailable = true; } catch {}
 
+      let deepseekAvailable = false;
+      try { getDeepSeekClient(); deepseekAvailable = true; } catch {}
+
       let openaiAvailable = false;
       try { getOpenAIClient(); openaiAvailable = true; } catch {}
 
-      if (!geminiAvailable && !openaiAvailable) {
+      if (!geminiAvailable && !deepseekAvailable && !openaiAvailable) {
         return NextResponse.json({
           content: 'El asistente IA no está disponible en este momento.',
         }, { status: 503 });
@@ -91,6 +96,31 @@ export async function POST(req: NextRequest) {
         });
         for await (const chunk of response) {
           const text = chunk.text;
+          if (text) {
+            ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+          }
+        }
+        ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+      }
+
+      async function streamDeepSeek(ctrl: ReadableStreamDefaultController) {
+        const client = getDeepSeekClient();
+        const dsHistory = trimmedHistory.map(m => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        }));
+        const stream = await client.chat.completions.create({
+          model: DEEPSEEK_MODEL,
+          max_tokens: 2048,
+          temperature: 0.3,
+          stream: true,
+          messages: [
+            { role: 'system', content: FISCAL_SYSTEM },
+            ...dsHistory,
+          ],
+        });
+        for await (const chunk of stream) {
+          const text = chunk.choices[0]?.delta?.content;
           if (text) {
             ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
           }
@@ -123,27 +153,43 @@ export async function POST(req: NextRequest) {
         ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
       }
 
+      const streamFns: [string, boolean, (ctrl: ReadableStreamDefaultController) => Promise<void>][] = [
+        ['Gemini', geminiAvailable, streamGemini],
+        ['DeepSeek', deepseekAvailable, streamDeepSeek],
+        ['OpenAI', openaiAvailable, streamOpenAI],
+      ];
+
       const readable = new ReadableStream({
         async start(controller) {
+          let hasEmitted = false;
           try {
-            if (geminiAvailable) {
+            for (const [name, available, fn] of streamFns) {
+              if (!available || hasEmitted) continue;
               try {
-                await streamGemini(controller);
+                const trackingCtrl = new Proxy(controller, {
+                  get(target, prop) {
+                    if (prop === 'enqueue') {
+                      return (chunk: Uint8Array) => { hasEmitted = true; target.enqueue(chunk); };
+                    }
+                    return (target as any)[prop];
+                  }
+                }) as ReadableStreamDefaultController;
+                await fn(trackingCtrl);
+                break;
               } catch (err) {
-                console.error('[fiscal-chat] Gemini failed, trying OpenAI fallback:', err);
-                if (openaiAvailable) {
-                  await streamOpenAI(controller);
-                } else {
-                  throw err;
-                }
+                console.error(`[fiscal-chat] ${name} stream failed:`, err);
+                if (hasEmitted) break;
               }
-            } else {
-              await streamOpenAI(controller);
+            }
+            if (!hasEmitted) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
             }
             controller.close();
           } catch (err) {
             console.error('[fiscal-chat] stream error:', err);
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
+            if (!hasEmitted) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
+            }
             controller.close();
           }
         },
@@ -172,12 +218,21 @@ export async function POST(req: NextRequest) {
         maxTokens: 2048,
       });
     } catch (geminiErr) {
-      console.error('[fiscal-chat] Gemini failed, trying OpenAI fallback:', geminiErr);
-      content = await openaiGenerateText({
-        system: FISCAL_SYSTEM,
-        prompt: sanitizedPrompt,
-        maxTokens: 2048,
-      });
+      console.error('[fiscal-chat] Gemini failed, trying DeepSeek fallback:', geminiErr);
+      try {
+        content = await deepseekGenerateText({
+          system: FISCAL_SYSTEM,
+          prompt: sanitizedPrompt,
+          maxTokens: 2048,
+        });
+      } catch (dsErr) {
+        console.error('[fiscal-chat] DeepSeek failed, trying OpenAI fallback:', dsErr);
+        content = await openaiGenerateText({
+          system: FISCAL_SYSTEM,
+          prompt: sanitizedPrompt,
+          maxTokens: 2048,
+        });
+      }
     }
 
     return NextResponse.json({ content: content || 'No pude procesar la consulta. Intenta de nuevo.' });

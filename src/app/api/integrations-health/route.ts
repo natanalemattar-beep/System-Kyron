@@ -1,50 +1,35 @@
 import { NextResponse } from 'next/server';
-import { INTEGRATIONS, getIntegrationStatus } from '@/lib/integrations-manifest';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const results: Record<string, unknown> = {};
 
-  const status = getIntegrationStatus();
-  results.manifest = {
-    total: INTEGRATIONS.length,
-    required: INTEGRATIONS.filter(i => i.required).length,
-    status,
-  };
-
   results.anthropic = {
-    key_present: !!(process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY),
-    source: process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY ? 'replit_integration' : (process.env.ANTHROPIC_API_KEY ? 'env_var' : 'none'),
+    key_present: !!process.env.ANTHROPIC_API_KEY,
+    source: process.env.ANTHROPIC_API_KEY ? 'env_var' : 'none',
   };
 
   results.gemini = {
-    key_present: !!(process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY),
-    source: process.env.AI_INTEGRATIONS_GEMINI_API_KEY ? 'replit_integration' : (process.env.GEMINI_API_KEY ? 'env_var' : 'none'),
+    key_present: !!process.env.GEMINI_API_KEY,
+    source: process.env.GEMINI_API_KEY ? 'env_var' : 'none',
   };
 
   results.openai = {
-    key_present: !!(process.env.AI_INTEGRATIONS_OPENAI_API_KEY || process.env.OPENAI_API_KEY),
-    source: process.env.AI_INTEGRATIONS_OPENAI_API_KEY ? 'replit_integration' : (process.env.OPENAI_API_KEY ? 'env_var' : 'none'),
+    key_present: !!process.env.OPENAI_API_KEY,
+    source: process.env.OPENAI_API_KEY ? 'env_var' : 'none',
   };
 
-  results.gmail_connector = {
-    hostname_set: !!process.env.REPLIT_CONNECTORS_HOSTNAME,
-    identity_set: !!(process.env.REPL_IDENTITY || process.env.WEB_REPL_RENEWAL),
+  results.deepseek = {
+    key_present: !!process.env.DEEPSEEK_API_KEY,
+    source: process.env.DEEPSEEK_API_KEY ? 'env_var' : 'none',
   };
 
-  let gmailStatus = 'unknown';
-  try {
-    const { getUncachableGmailClient, getGmailSenderAddress } = await import('@/lib/gmail-client');
-    const gmail = await getUncachableGmailClient();
-    const labels = await gmail.users.labels.list({ userId: 'me' });
-    const sender = await getGmailSenderAddress();
-    gmailStatus = 'connected';
-    results.gmail_live = { status: gmailStatus, sender, labels_count: labels.data.labels?.length ?? 0 };
-  } catch (err) {
-    gmailStatus = 'error';
-    results.gmail_live = { status: gmailStatus, error: String(err).substring(0, 200) };
-  }
+  results.gmail = {
+    smtp_user: !!process.env.GMAIL_USER,
+    smtp_password: !!process.env.GMAIL_APP_PASSWORD,
+    method: 'nodemailer_smtp',
+  };
 
   let claudeStatus = 'unknown';
   try {
@@ -55,6 +40,17 @@ export async function GET() {
   } catch (err) {
     claudeStatus = 'error';
     results.claude_live = { status: claudeStatus, error: String(err).substring(0, 200) };
+  }
+
+  let deepseekStatus = 'unknown';
+  try {
+    const { deepseekGenerateText } = await import('@/ai/deepseek');
+    const resp = await deepseekGenerateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 5 });
+    deepseekStatus = resp ? 'connected' : 'empty_response';
+    results.deepseek_live = { status: deepseekStatus };
+  } catch (err) {
+    deepseekStatus = 'error';
+    results.deepseek_live = { status: deepseekStatus, error: String(err).substring(0, 200) };
   }
 
   let geminiStatus = 'unknown';
@@ -77,6 +73,19 @@ export async function GET() {
   } catch (err) {
     openaiStatus = 'error';
     results.openai_live = { status: openaiStatus, error: String(err).substring(0, 200) };
+  }
+
+  let gmailStatus = 'unknown';
+  try {
+    const { getSmtpTransporter, getGmailSenderAddress } = await import('@/lib/gmail-client');
+    const transporter = getSmtpTransporter();
+    const sender = await getGmailSenderAddress();
+    await transporter.verify();
+    gmailStatus = 'connected';
+    results.gmail_live = { status: gmailStatus, sender, method: 'smtp' };
+  } catch (err) {
+    gmailStatus = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD ? 'configured_but_verify_failed' : 'not_configured';
+    results.gmail_live = { status: gmailStatus, error: String(err).substring(0, 200) };
   }
 
   return NextResponse.json(results);

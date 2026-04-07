@@ -4,14 +4,14 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Calculator, Users, Gavel, Receipt, Smartphone,
     BrainCircuit, BarChart3, Landmark, Lock, ArrowRight,
     Briefcase, FileText, Shield, Globe, Zap,
     Building2, Wallet, Scale, BadgeCheck,
     Wrench, GraduationCap, HeartPulse, Car, CreditCard, Sparkles,
-    ChevronRight, Search
+    ChevronRight, Search, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { Link } from '@/navigation';
 
@@ -58,6 +58,8 @@ export function ModulesGridSection() {
     const [activeCategory, setActiveCategory] = useState('all');
     const [expandedModule, setExpandedModule] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [showAll, setShowAll] = useState(false);
+    const MOBILE_LIMIT = 8;
     const t = useTranslations('ModulesGridSection');
 
     const moduleData = t.raw('modules') as { name: string; desc: string }[];
@@ -69,9 +71,21 @@ export function ModulesGridSection() {
         desc: moduleData[i]?.desc ?? '',
     }));
 
-    const filteredModules = modules
+    const allFiltered = modules
         .filter(m => activeCategory === 'all' || m.category === activeCategory)
         .filter(m => !searchQuery || m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.desc.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
+    const shouldLimit = isMobile && !showAll && !searchQuery && activeCategory === 'all';
+    const filteredModules = shouldLimit ? allFiltered.slice(0, MOBILE_LIMIT) : allFiltered;
+    const hasMore = isMobile && !searchQuery && activeCategory === 'all' && allFiltered.length > MOBILE_LIMIT;
 
     return (
         <section className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-br from-purple-50/40 via-indigo-50/30 to-blue-50/40 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
@@ -203,6 +217,18 @@ export function ModulesGridSection() {
                         ))}
                     </AnimatePresence>
                 </motion.div>
+
+                {hasMore && (
+                    <div className="mt-6 flex justify-center md:hidden">
+                        <button
+                            onClick={() => setShowAll(!showAll)}
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-[0.15em] border border-white/[0.08] bg-white/[0.03] text-muted-foreground/60 hover:text-foreground hover:border-white/[0.15] hover:bg-white/[0.05] transition-all duration-300"
+                        >
+                            {showAll ? t('show_less') : t('show_more', { remaining: allFiltered.length - MOBILE_LIMIT })}
+                            {showAll ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                        </button>
+                    </div>
+                )}
 
                 <motion.div
                     className="mt-14 flex flex-col items-center gap-4"

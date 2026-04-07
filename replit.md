@@ -31,8 +31,13 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - Terminology: The platform consistently uses "CENTRO" instead of "NODO."
 - Dark Mode Layouts: All 9 layout groups use `dark:from-[hsl(...)]` and `dark:to-[hsl(...)]` gradient variants.
 
-**Integrations Manifest (`src/lib/integrations-manifest.ts`):**
-All external integrations are documented in a single manifest file that serves as both runtime config and migration documentation. Required integrations: Anthropic (`src/ai/anthropic.ts`), OpenAI (`src/ai/openai.ts`), Gemini (`src/ai/gemini.ts`), Gmail (`src/lib/gmail-client.ts`), PostgreSQL (`src/lib/db.ts`). Optional: Outlook (`src/lib/outlook-client.ts`), Twilio (`src/lib/twilio-client.ts`), Google Calendar. AI providers check `AI_INTEGRATIONS_*_API_KEY` first, then fallback env vars. OAuth services (Gmail, Outlook, Calendar) use the Replit Connector pattern (`REPLIT_CONNECTORS_HOSTNAME`). Health check: `/api/integrations-health` runs live tests against all providers.
+**AI & External Services (migrated from Replit integrations to direct API keys):**
+All AI providers use direct API keys only (no `AI_INTEGRATIONS_*` prefix). DeepSeek added as new provider via OpenAI-compatible SDK. Gmail migrated from OAuth connector to Nodemailer SMTP.
+- **AI Clients:** Anthropic (`src/ai/anthropic.ts`), OpenAI (`src/ai/openai.ts`), Gemini (`src/ai/gemini.ts`), DeepSeek (`src/ai/deepseek.ts`)
+- **Fallback chains:** Kyron Chat: Anthropic → DeepSeek → Gemini. Trial Chat: Gemini → DeepSeek. Fiscal Chat: Gemini → DeepSeek → OpenAI. Analyze Dashboard: OpenAI → DeepSeek → Gemini. Kyron Chat Personal: Gemini → DeepSeek → OpenAI. Mail AI: Gemini → DeepSeek → OpenAI → Anthropic. Speed Test: Gemini → DeepSeek.
+- **Gmail:** Nodemailer SMTP via `smtp.gmail.com:587` using `GMAIL_USER` + `GMAIL_APP_PASSWORD` (Google App Password). No expiring OAuth tokens.
+- **Health check:** `/api/integrations-health` runs live tests against all 4 AI providers + Gmail SMTP.
+- **Required env vars:** `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `DEEPSEEK_API_KEY`, `GMAIL_USER`, `GMAIL_APP_PASSWORD`, `DATABASE_URL`
 
 **Technical Implementations:**
 - **Database Layer:** PostgreSQL schema v3.3.0 with 95+ tables (including marketing: `campanas_marketing`, `email_campaigns`, `email_lists`, `embudos_ventas`, `etapas_embudo`, `redes_sociales` and `desarrollo_personal` for career plans), GIN indexes for JSONB metadata, and numerous composite/partial indexes, supporting batch operations, upserts, and pagination. The `clientes` table includes marketing fields: `segmento`, `valor_estimado`, `satisfaccion`. Employee seed data has been removed — the system starts without fictitious employees.
