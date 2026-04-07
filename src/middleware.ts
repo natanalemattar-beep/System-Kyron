@@ -74,6 +74,8 @@ const PUBLIC_SEGMENTS = new Set([
   'faq',
   'verify-link',
   'k7r0n-mail',
+  'prueba-gratuita',
+  'prueba-velocidad',
 ]);
 
 // Public API routes — explicit whitelist (fail-closed)
@@ -95,6 +97,8 @@ const PUBLIC_API_SET = new Set([
   '/api/auth/check-verified',
   '/api/plan-popularity',
   '/api/security-status',
+  '/api/ai/kyron-chat-trial',
+  '/api/ai/speed-test',
   '/api/auth/access-key',
   '/api/cedula/consulta',
   '/api/rif/consulta',

@@ -184,7 +184,7 @@ export function FeaturesSection() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                    <Link href="/register" className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-[0.2em] shadow-[0_8px_32px_-4px_rgba(14,165,233,0.3)] hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.4)] hover:scale-[1.03] transition-all duration-500">
+                    <Link href="/prueba-velocidad" className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-[0.2em] shadow-[0_8px_32px_-4px_rgba(14,165,233,0.3)] hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.4)] hover:scale-[1.03] transition-all duration-500">
                         {t('cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
                     </Link>
                 </motion.div>
