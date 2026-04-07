@@ -20,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/navigation";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import dynamic from "next/dynamic";
-import { cn } from "@/lib/utils";
+import { cn, isNetworkError } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { ModuleTutorial } from "@/components/module-tutorial";
 import { useCurrency } from "@/lib/currency-context";
@@ -194,14 +194,20 @@ export default function DashboardEmpresaPage() {
       const res = await fetch("/api/dashboard", { cache: "no-store" });
       if (res.ok) { setData(await res.json()); }
       else { toast({ variant: "destructive", title: "Error al cargar dashboard", description: "No se pudieron obtener los datos. Intente nuevamente." }); }
-    } catch { toast({ variant: "destructive", title: "Error de conexión", description: "No se pudo conectar al servidor. Verifique su conexión." }); }
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: isNetworkError(err) ? "Error de conexión" : "Error al cargar",
+        description: isNetworkError(err) ? "No se pudo conectar al servidor. Verifique su conexión." : "Ocurrió un error inesperado. Intente nuevamente."
+      });
+    }
     finally { setLoading(false); setRefreshing(false); }
   }, [toast]);
 
   useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
 
   useEffect(() => {
-    fetch("/api/semaforo-alertas").then(r => r.ok ? r.json() : null).then(d => { if (d) setSemaforo(d); }).catch(() => {});
+    fetch("/api/semaforo-alertas").then(r => r.ok ? r.json() : null).then(d => { if (d) setSemaforo(d); }).catch((err) => { console.warn('[semaforo-alertas]', err.message); });
   }, []);
 
   const healthScore = useMemo(() => data ? getHealthScore(data) : null, [data]);

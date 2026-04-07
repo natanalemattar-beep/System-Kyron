@@ -9,7 +9,7 @@ import {
   BarChart3, Clock, Award, Target
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { formatCurrency, cn } from "@/lib/utils";
+import { formatCurrency, cn, isNetworkError } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Cell } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
@@ -70,8 +70,12 @@ export default function RecursosHumanosPage() {
       } else {
         toast({ variant: "destructive", title: "Error al cargar empleados", description: "No se pudieron obtener los datos. Intente nuevamente." });
       }
-    } catch {
-      toast({ variant: "destructive", title: "Error de conexión", description: "No se pudo conectar al servidor." });
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: isNetworkError(err) ? "Error de conexión" : "Error al cargar",
+        description: isNetworkError(err) ? "No se pudo conectar al servidor. Verifique su conexión." : "Ocurrió un error inesperado al cargar empleados."
+      });
     }
     finally { setLoading(false); }
   }, [toast]);

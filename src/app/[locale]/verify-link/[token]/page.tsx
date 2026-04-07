@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { Loader2, CircleCheck, CircleX, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { isNetworkError } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 export default function VerifyLinkPage() {
@@ -41,9 +42,9 @@ export default function VerifyLinkPage() {
 
         setStatus('success');
         setUserName(json.user?.nombre || '');
-      } catch {
+      } catch (err) {
         setStatus('error');
-        setErrorMsg('Error de conexión. Intenta de nuevo.');
+        setErrorMsg(isNetworkError(err) ? 'Error de conexión. Verifica tu internet e intenta de nuevo.' : 'Error inesperado al verificar el enlace. Intenta de nuevo.');
       }
     })();
   }, [token]);

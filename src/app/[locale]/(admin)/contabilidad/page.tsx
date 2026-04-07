@@ -147,14 +147,14 @@ export default function ContabilidadPage() {
         if (d) {
           setKpi({
             liquidez: d.liquidezTotal ?? 0,
-            cuentasCobrar: d.ingresos ?? 0,
-            cuentasPagar: d.gastos ?? 0,
+            cuentasCobrar: d.cuentasCobrar?.total ?? d.ingresos ?? 0,
+            cuentasPagar: d.cuentasPagar?.total ?? d.gastos ?? 0,
             facturasActivas: d.facturas?.emitidas ?? 0,
             compromisos: d.facturas?.vencidas ?? 0,
           });
         }
       })
-      .catch(() => {})
+      .catch((err) => { console.warn('[contabilidad-kpi]', err.message); })
       .finally(() => setKpiLoading(false));
   }, []);
 

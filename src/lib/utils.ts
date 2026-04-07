@@ -6,6 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function isNetworkError(err: unknown): boolean {
+  return err instanceof TypeError && (err.message.includes('fetch') || err.message.includes('network') || err.message.includes('Failed to fetch'));
+}
+
 export function formatCurrency(amount: number, currency: string = "Bs.", locale?: string) {
   const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : "Bs.";
   const safe = Number.isFinite(amount) ? amount : 0;

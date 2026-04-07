@@ -14,7 +14,7 @@ import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
-import { cn } from '@/lib/utils';
+import { cn, isNetworkError } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type LayoutVariant = 'split-left' | 'split-right' | 'centered' | 'stacked' | 'minimal' | 'dark-immersive';
@@ -172,7 +172,10 @@ export function SpecializedLoginCard({
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch { setError('Error de conexión.'); setIsLoading(false); }
+    } catch (err) {
+      setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet e intenta de nuevo.' : 'Error inesperado. Intenta de nuevo.');
+      setIsLoading(false);
+    }
   };
 
   const handleAuth = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -229,7 +232,10 @@ export function SpecializedLoginCard({
           : <MessageCircle className="text-green-500 h-4 w-4" />;
         toast({ title: `Código enviado por ${channelLabel}`, description: `Revisa tu ${channelLabel} en ${json.maskedPhone}`, action: icon });
       }
-    } catch { setError('Error de conexión.'); setIsLoading(false); }
+    } catch (err) {
+      setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet.' : 'Error inesperado. Intenta de nuevo.');
+      setIsLoading(false);
+    }
   };
 
   const submitCode = async (code: string) => {
@@ -242,7 +248,11 @@ export function SpecializedLoginCard({
       setVerifVerified(true);
       toast({ title: 'Identidad verificada', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch { setError('Error de conexión.'); setSingleCode(''); setIsLoading(false); }
+    } catch (err) {
+      setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet.' : 'Error al verificar el código. Intenta de nuevo.');
+      setSingleCode('');
+      setIsLoading(false);
+    }
   };
 
   const handleBackToLogin = () => { setStep('credentials'); setError(null); setSingleCode(''); setVerifVerified(false); setVerificationMethod('email'); setChallengeToken(''); setHasPhone(false); setMaskedPhone(''); setDevCode(null); };
@@ -265,7 +275,9 @@ export function SpecializedLoginCard({
         setDevCode(json.devCode || json.kyronCode);
       }
       toast({ title: 'Código reenviado', description: `Se envió un nuevo código por ${verificationMethod === 'email' ? 'correo' : verificationMethod}.`, action: <RefreshCw className="text-primary h-4 w-4" /> });
-    } catch { setError('Error de conexión al reenviar.'); }
+    } catch (err) {
+      setError(isNetworkError(err) ? 'Error de conexión al reenviar.' : 'No se pudo reenviar el código. Intenta de nuevo.');
+    }
     setIsLoading(false);
     setTimeout(() => singleInputRef.current?.focus(), 100);
   };
@@ -318,8 +330,8 @@ export function SpecializedLoginCard({
         toast({ title: ch.title, description: ch.desc, action: ch.icon });
       }
       setTimeout(() => singleInputRef.current?.focus(), 100);
-    } catch {
-      setError('Error de conexión al reenviar código.');
+    } catch (err) {
+      setError(isNetworkError(err) ? 'Error de conexión al reenviar código.' : 'No se pudo cambiar el método. Intenta de nuevo.');
     } finally {
       setSwitchingMethod(false);
     }
