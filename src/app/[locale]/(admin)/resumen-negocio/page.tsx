@@ -1,6 +1,10 @@
-import { redirect } from "@/navigation";
+import { redirect } from "next/navigation";
 
-export default async function ResumenNegocioRedirect() {
-  redirect("/dashboard-empresa");
-  return null;
+export default async function ResumenNegocioRedirect({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}/dashboard-empresa`);
 }

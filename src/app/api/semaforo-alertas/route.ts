@@ -24,14 +24,14 @@ export async function GET() {
 
     const [cxcRows, cxpRows, clRows, legRows, nomRows, presRows] = await Promise.all([
       query<{ id: number; descripcion: string; fecha_vencimiento: string; monto: string; estado: string }>(
-        `SELECT id, COALESCE(descripcion, 'CxC #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
+        `SELECT id, COALESCE(concepto, 'CxC #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
          FROM cuentas_por_cobrar
          WHERE user_id = $1 AND estado IN ('pendiente','parcial') AND fecha_vencimiento IS NOT NULL
          ORDER BY fecha_vencimiento ASC LIMIT 20`,
         [uid]
       ),
       query<{ id: number; descripcion: string; fecha_vencimiento: string; monto: string; estado: string }>(
-        `SELECT id, COALESCE(descripcion, 'CxP #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
+        `SELECT id, COALESCE(concepto, 'CxP #' || id) AS descripcion, fecha_vencimiento::text, monto::text, estado
          FROM cuentas_por_pagar
          WHERE user_id = $1 AND estado IN ('pendiente','parcial') AND fecha_vencimiento IS NOT NULL
          ORDER BY fecha_vencimiento ASC LIMIT 20`,

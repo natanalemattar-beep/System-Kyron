@@ -11,6 +11,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     try {
         const { id } = await params;
+        if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
         const idNum = parseInt(id);
 
         const embudo = await queryOne(
@@ -36,6 +37,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne(`SELECT id FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);
@@ -98,6 +100,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
 
     const { id } = await params;
+    if (!/^\d+$/.test(id)) return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
     const idNum = parseInt(id);
 
     const existing = await queryOne<{ nombre: string }>(`SELECT nombre FROM embudos_ventas WHERE id = $1 AND user_id = $2`, [idNum, session.userId]);

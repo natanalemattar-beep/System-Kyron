@@ -77,7 +77,7 @@ export function ThemeToggle() {
     >
       <div className="absolute inset-0 flex items-center justify-center">
         <div className={cn(
-          "absolute transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+          "absolute transition-all duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
           isDark ? "opacity-0 rotate-90 scale-0" : "opacity-100 rotate-0 scale-100"
         )}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
@@ -86,7 +86,7 @@ export function ThemeToggle() {
           </svg>
         </div>
         <div className={cn(
-          "absolute transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+          "absolute transition-all duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
           isDark ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-0"
         )}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-300">

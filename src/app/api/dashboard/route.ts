@@ -32,29 +32,29 @@ export async function GET() {
                  WHERE user_id = $1 AND tipo = 'credito'
                    AND date_trunc('month', fecha_operacion) = date_trunc('month', CURRENT_DATE)`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(monto), 0)::text AS total
                  FROM movimientos_bancarios
                  WHERE user_id = $1 AND tipo = 'debito'
                    AND date_trunc('month', fecha_operacion) = date_trunc('month', CURRENT_DATE)`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(saldo_actual), 0)::text AS total
                  FROM cuentas_bancarias WHERE user_id = $1 AND activa = true`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string; count: string }>(
                 `SELECT COALESCE(SUM(total), 0)::text AS total, COUNT(*)::text AS count
                  FROM facturas WHERE user_id = $1 AND tipo = 'venta' AND estado IN ('emitida', 'pendiente')`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0', count: '0' })),
             queryOne<{ total: string; count: string }>(
                 `SELECT COALESCE(SUM(total), 0)::text AS total, COUNT(*)::text AS count
                  FROM facturas WHERE user_id = $1 AND tipo = 'compra' AND estado IN ('emitida', 'pendiente')`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0', count: '0' })),
             queryOne<{ emitidas: string; cobradas: string; vencidas: string; pagadas: string; total: string }>(
                 `SELECT
                    COUNT(*) FILTER (WHERE estado = 'emitida')::text AS emitidas,
@@ -64,13 +64,13 @@ export async function GET() {
                    COUNT(*)::text AS total
                  FROM facturas WHERE user_id = $1`,
                 [uid]
-            ),
+            ).catch(() => ({ emitidas: '0', cobradas: '0', vencidas: '0', pagadas: '0', total: '0' })),
             queryOne<{ total: string; nomina_mensual: string }>(
                 `SELECT COUNT(*)::text AS total,
                         COALESCE(SUM(salario_base), 0)::text AS nomina_mensual
                  FROM empleados WHERE user_id = $1 AND activo = true`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0', nomina_mensual: '0' })),
             query<{
                 id: number;
                 fecha_operacion: string;
@@ -86,36 +86,36 @@ export async function GET() {
                  ORDER BY fecha_operacion DESC, id DESC
                  LIMIT 8`,
                 [uid]
-            ),
+            ).catch(() => []),
             cachedQuery(`dashboard:tasa`, TASA_TTL, () =>
                 queryOne<{ tasa_usd_ves: string; fecha: string }>(
                     `SELECT tasa_usd_ves::text, fecha::text FROM tasas_bcv ORDER BY fecha DESC LIMIT 1`
                 ).catch(() => null)
-            ),
+            ).catch(() => null),
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(monto), 0)::text AS total
                  FROM movimientos_bancarios
                  WHERE user_id = $1 AND tipo = 'credito'
                    AND date_trunc('month', fecha_operacion) = date_trunc('month', CURRENT_DATE - INTERVAL '1 month')`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string }>(
                 `SELECT COALESCE(SUM(monto), 0)::text AS total
                  FROM movimientos_bancarios
                  WHERE user_id = $1 AND tipo = 'debito'
                    AND date_trunc('month', fecha_operacion) = date_trunc('month', CURRENT_DATE - INTERVAL '1 month')`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string }>(
                 `SELECT COUNT(*)::text AS total FROM clientes WHERE user_id = $1 AND activo = true`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0' })),
             queryOne<{ total: string; monto: string }>(
                 `SELECT COUNT(*)::text AS total, COALESCE(SUM(total), 0)::text AS monto
                  FROM facturas WHERE user_id = $1
                    AND date_trunc('month', fecha_emision) = date_trunc('month', CURRENT_DATE)`,
                 [uid]
-            ),
+            ).catch(() => ({ total: '0', monto: '0' })),
             queryOne<{ total: string }>(
                 `SELECT COUNT(*)::text AS total FROM inventario
                  WHERE user_id = $1 AND stock_actual <= stock_minimo AND activo = true`,
