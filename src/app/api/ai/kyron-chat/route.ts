@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/auth';
 import Anthropic from '@anthropic-ai/sdk';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -351,11 +352,13 @@ export async function POST(req: NextRequest) {
       content: m.content.substring(0, 4000),
     }));
 
-    const anthropicKey = process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
     let geminiAvailable = false;
+    let deepseekAvailable = false;
     try { getGeminiClient(); geminiAvailable = true; } catch {}
+    try { getDeepSeekClient(); deepseekAvailable = true; } catch {}
 
-    if (!anthropicKey && !geminiAvailable) {
+    if (!anthropicKey && !geminiAvailable && !deepseekAvailable) {
       return new Response(JSON.stringify({
         error: 'El chat IA no está disponible en este momento.',
       }), { status: 503, headers: { 'Content-Type': 'application/json' } });
@@ -366,7 +369,6 @@ export async function POST(req: NextRequest) {
     async function streamAnthropic(ctrl: ReadableStreamDefaultController) {
       const client = new Anthropic({
         apiKey: anthropicKey!,
-        baseURL: process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL || undefined,
       });
       const stream = await client.messages.stream({
         model: 'claude-sonnet-4-6',
@@ -380,6 +382,27 @@ export async function POST(req: NextRequest) {
           if ('text' in delta) {
             ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text: delta.text })}\n\n`));
           }
+        }
+      }
+      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+    }
+
+    async function streamDeepSeek(ctrl: ReadableStreamDefaultController) {
+      const client = getDeepSeekClient();
+      const stream = await client.chat.completions.create({
+        model: DEEPSEEK_MODEL,
+        max_tokens: 4096,
+        temperature: 0.7,
+        stream: true,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT + ctx },
+          ...trimmedHistory,
+        ],
+      });
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content;
+        if (text) {
+          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
         }
       }
       ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
@@ -416,7 +439,29 @@ export async function POST(req: NextRequest) {
             try {
               await streamAnthropic(controller);
             } catch (err) {
-              console.error('[kyron-chat] Anthropic failed, trying Gemini fallback:', err);
+              console.error('[kyron-chat] Anthropic failed, trying DeepSeek fallback:', err);
+              if (deepseekAvailable) {
+                try {
+                  await streamDeepSeek(controller);
+                } catch (err2) {
+                  console.error('[kyron-chat] DeepSeek failed, trying Gemini fallback:', err2);
+                  if (geminiAvailable) {
+                    await streamGemini(controller);
+                  } else {
+                    throw err2;
+                  }
+                }
+              } else if (geminiAvailable) {
+                await streamGemini(controller);
+              } else {
+                throw err;
+              }
+            }
+          } else if (deepseekAvailable) {
+            try {
+              await streamDeepSeek(controller);
+            } catch (err) {
+              console.error('[kyron-chat] DeepSeek failed, trying Gemini fallback:', err);
               if (geminiAvailable) {
                 await streamGemini(controller);
               } else {

@@ -102,6 +102,23 @@ export const INTEGRATIONS: IntegrationDef[] = [
     notes: 'Default for personal portal chat. Fast model for document processing.',
   },
 
+  {
+    id: 'deepseek',
+    name: 'DeepSeek',
+    category: 'ai',
+    required: false,
+    clientFile: 'src/ai/deepseek.ts',
+    envVars: {
+      replit: [],
+      fallback: ['DEEPSEEK_API_KEY'],
+    },
+    usedBy: [
+      'src/app/api/ai/kyron-chat/route.ts — Kyron Chat (fallback provider)',
+    ],
+    models: ['deepseek-chat', 'deepseek-reasoner'],
+    notes: 'OpenAI-compatible API. Used as additional fallback in chat. Base URL: https://api.deepseek.com',
+  },
+
   // ── EMAIL ─────────────────────────────────────────────────────
   {
     id: 'gmail',
