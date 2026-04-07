@@ -2,27 +2,24 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+function aiKeyInfo(integrationKey: string | undefined, integrationBaseUrl: string | undefined, directKey: string | undefined) {
+  const useIntegration = !!(integrationKey && integrationBaseUrl);
+  if (useIntegration) return { key_present: true, source: 'replit_integration' };
+  if (integrationKey && !integrationBaseUrl) return { key_present: true, source: 'replit_integration_misconfigured' };
+  if (directKey) return { key_present: true, source: 'direct_env_var' };
+  return { key_present: false, source: 'none' };
+}
+
 export async function GET() {
   const results: Record<string, unknown> = {};
 
-  results.anthropic = {
-    key_present: !!process.env.ANTHROPIC_API_KEY,
-    source: process.env.ANTHROPIC_API_KEY ? 'env_var' : 'none',
-  };
-
-  results.gemini = {
-    key_present: !!process.env.GEMINI_API_KEY,
-    source: process.env.GEMINI_API_KEY ? 'env_var' : 'none',
-  };
-
-  results.openai = {
-    key_present: !!process.env.OPENAI_API_KEY,
-    source: process.env.OPENAI_API_KEY ? 'env_var' : 'none',
-  };
+  results.anthropic = aiKeyInfo(process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY, process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL, process.env.ANTHROPIC_API_KEY);
+  results.gemini = aiKeyInfo(process.env.AI_INTEGRATIONS_GEMINI_API_KEY, process.env.AI_INTEGRATIONS_GEMINI_BASE_URL, process.env.GEMINI_API_KEY);
+  results.openai = aiKeyInfo(process.env.AI_INTEGRATIONS_OPENAI_API_KEY, process.env.AI_INTEGRATIONS_OPENAI_BASE_URL, process.env.OPENAI_API_KEY);
 
   results.deepseek = {
     key_present: !!process.env.DEEPSEEK_API_KEY,
-    source: process.env.DEEPSEEK_API_KEY ? 'env_var' : 'none',
+    source: process.env.DEEPSEEK_API_KEY ? 'direct_env_var' : 'none',
   };
 
   results.gmail = {
@@ -56,7 +53,7 @@ export async function GET() {
   let geminiStatus = 'unknown';
   try {
     const { geminiGenerateText } = await import('@/ai/gemini');
-    const resp = await geminiGenerateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 5 });
+    const resp = await geminiGenerateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 256 });
     geminiStatus = resp ? 'connected' : 'empty_response';
     results.gemini_live = { status: geminiStatus };
   } catch (err) {

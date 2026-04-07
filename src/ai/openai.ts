@@ -1,12 +1,20 @@
 import OpenAI from 'openai';
 
 export function getOpenAIClient(): OpenAI {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const integrationKey = process.env.AI_INTEGRATIONS_OPENAI_API_KEY;
+  const integrationBaseUrl = process.env.AI_INTEGRATIONS_OPENAI_BASE_URL;
+  const directKey = process.env.OPENAI_API_KEY;
+
+  const useIntegration = !!(integrationKey && integrationBaseUrl);
+  const apiKey = useIntegration ? integrationKey : directKey;
   if (!apiKey) throw new Error('OpenAI API key not configured');
 
-  return new OpenAI({
-    apiKey,
-  });
+  const opts: ConstructorParameters<typeof OpenAI>[0] = { apiKey };
+  if (useIntegration) {
+    opts.baseURL = integrationBaseUrl;
+  }
+
+  return new OpenAI(opts);
 }
 
 export const OPENAI_MODEL = 'gpt-4o-mini';

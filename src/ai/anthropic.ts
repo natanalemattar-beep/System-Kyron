@@ -1,12 +1,20 @@
 import Anthropic from '@anthropic-ai/sdk';
 
 export function getAnthropicClient(): Anthropic {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const integrationKey = process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY;
+  const integrationBaseUrl = process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL;
+  const directKey = process.env.ANTHROPIC_API_KEY;
+
+  const useIntegration = !!(integrationKey && integrationBaseUrl);
+  const apiKey = useIntegration ? integrationKey : directKey;
   if (!apiKey) throw new Error('Anthropic API key not configured');
 
-  return new Anthropic({
-    apiKey,
-  });
+  const opts: ConstructorParameters<typeof Anthropic>[0] = { apiKey };
+  if (useIntegration) {
+    opts.baseURL = integrationBaseUrl;
+  }
+
+  return new Anthropic(opts);
 }
 
 export const CLAUDE_MODEL = 'claude-sonnet-4-6';

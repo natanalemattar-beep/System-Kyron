@@ -1,12 +1,23 @@
 import { GoogleGenAI } from '@google/genai';
 
 export function getGeminiClient(): GoogleGenAI {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const integrationKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY;
+  const integrationBaseUrl = process.env.AI_INTEGRATIONS_GEMINI_BASE_URL;
+  const directKey = process.env.GEMINI_API_KEY;
+
+  const useIntegration = !!(integrationKey && integrationBaseUrl);
+  const apiKey = useIntegration ? integrationKey : directKey;
   if (!apiKey) throw new Error('Gemini API key not configured');
 
-  return new GoogleGenAI({
-    apiKey,
-  });
+  const opts: ConstructorParameters<typeof GoogleGenAI>[0] = { apiKey };
+  if (useIntegration) {
+    opts.httpOptions = {
+      apiVersion: '',
+      baseUrl: integrationBaseUrl,
+    };
+  }
+
+  return new GoogleGenAI(opts);
 }
 
 export const GEMINI_MODEL = 'gemini-2.5-flash';
