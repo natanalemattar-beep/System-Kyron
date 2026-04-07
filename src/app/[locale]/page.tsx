@@ -11,6 +11,7 @@ import { useDevicePerformance } from '@/hooks/use-device-performance';
 const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
+const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: false });
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(m => ({ default: m.WelcomeTutorial })), { ssr: false });
 const WhatsAppButton = dynamic(() => import('@/components/whatsapp-button').then(m => ({ default: m.WhatsAppButton })), { ssr: false });
@@ -85,6 +86,7 @@ function LandingContent() {
             <LazySection fallbackHeight="700px"><HowItWorksSection /></LazySection>
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
             <LazySection fallbackHeight="600px"><CtaSection /></LazySection>
+            <LazySection fallbackHeight="400px"><FaqSection /></LazySection>
           </>
         )}
       </main>
