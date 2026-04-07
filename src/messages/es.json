@@ -249,46 +249,62 @@
         "plans": [
             {
                 "name": "Starter",
-                "description": "Para emprendedores y pequeñas empresas",
+                "description": "Para emprendedores y freelancers que inician",
                 "features": [
-                    "3 módulos básicos",
-                    "Contabilidad general",
-                    "Facturación fiscal",
-                    "Hasta 5 usuarios",
-                    "Soporte por email",
-                    "Cifrado AES-256",
-                    "Actualizaciones automáticas"
+                    "Contabilidad básica",
+                    "Facturación fiscal (20/mes)",
+                    "Tasa BCV en vivo",
+                    "Alertas SENIAT (5/mes)",
+                    "Chat AI (15 msgs/mes)",
+                    "Consulta RIF/Cédula (5/mes)",
+                    "1 usuario"
                 ],
                 "cta": "Comenzar Gratis"
             },
             {
                 "name": "Profesional",
-                "description": "Para empresas en crecimiento",
+                "description": "Para PYMEs y contadores profesionales",
                 "features": [
-                    "Todos los módulos incluidos",
+                    "Contabilidad VEN-NIF completa",
+                    "Nómina hasta 15 empleados",
+                    "CRM 200 clientes",
                     "IA Triple Motor (Claude, GPT, Gemini)",
-                    "19 automatizaciones",
-                    "Hasta 25 usuarios",
-                    "Soporte prioritario 24/7",
-                    "Auditoría blockchain",
-                    "API completa",
-                    "Personalización avanzada"
+                    "Alertas fiscales (30/mes)",
+                    "Declaraciones asistidas IVA/ISLR",
+                    "Blockchain audit trail (50/mes)",
+                    "3 usuarios"
                 ],
                 "cta": "Elegir Profesional"
             },
             {
-                "name": "Enterprise",
-                "description": "Para corporaciones y holdings",
+                "name": "Empresarial",
+                "description": "Para empresas medianas con AI avanzada",
                 "features": [
-                    "Todo en Profesional",
-                    "Usuarios ilimitados",
-                    "Multi-empresa / holding",
-                    "Servidor dedicado",
-                    "SLA garantizado 99.99%",
-                    "Consultoría fiscal incluida",
-                    "Integración personalizada",
-                    "Capacitación in-company",
-                    "Gerente de cuenta dedicado"
+                    "Todo en Profesional +",
+                    "Nómina hasta 75 empleados",
+                    "CRM 1.000 clientes",
+                    "RRHH completo + Bienestar Laboral",
+                    "Módulo Legal + Permisología",
+                    "Telecom corporativo (20 líneas)",
+                    "Alertas multicanal (Email, WhatsApp, SMS)",
+                    "Scoring de riesgo fiscal",
+                    "10 usuarios"
+                ],
+                "cta": "Elegir Empresarial"
+            },
+            {
+                "name": "Kyron MAX",
+                "description": "Todo ilimitado, sin restricciones",
+                "features": [
+                    "TODOS los módulos sin límites",
+                    "AI Claude ilimitado 24/7",
+                    "Empleados y clientes ilimitados",
+                    "Facturación ilimitada",
+                    "Telecom ilimitado",
+                    "Blockchain immutable ilimitado",
+                    "API dedicada + White-label",
+                    "Soporte prioritario VIP",
+                    "Usuarios ilimitados"
                 ],
                 "cta": "Contactar Ventas"
             }

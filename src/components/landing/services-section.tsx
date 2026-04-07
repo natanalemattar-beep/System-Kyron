@@ -10,8 +10,9 @@ import { useState } from 'react';
 
 const planConfigs = [
     { monthlyPrice: 0, annualPrice: 0, color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-600', border: 'border-cyan-500/15', bg: 'bg-cyan-500/[0.03]', icon: Zap, popular: false },
-    { monthlyPrice: 49, annualPrice: 39, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', border: 'border-violet-500/20', bg: 'bg-violet-500/[0.03]', icon: Star, popular: true },
-    { monthlyPrice: 149, annualPrice: 119, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/15', bg: 'bg-amber-500/[0.03]', icon: Crown, popular: false },
+    { monthlyPrice: 29, annualPrice: 24, color: 'text-sky-400', gradient: 'from-sky-500 to-blue-600', border: 'border-sky-500/20', bg: 'bg-sky-500/[0.03]', icon: Star, popular: false },
+    { monthlyPrice: 79, annualPrice: 66, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', border: 'border-violet-500/20', bg: 'bg-violet-500/[0.03]', icon: Crown, popular: true },
+    { monthlyPrice: 199, annualPrice: 166, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/15', bg: 'bg-amber-500/[0.03]', icon: Building2, popular: false },
 ];
 
 const statsMeta = [
@@ -90,7 +91,7 @@ export function ServicesSection() {
                     </div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
                     {plans.map((plan, i) => {
                         const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
                         return (
@@ -99,8 +100,8 @@ export function ServicesSection() {
                                 className={cn(
                                     "group relative rounded-2xl border-2 backdrop-blur-sm transition-all duration-700 overflow-hidden",
                                     plan.popular
-                                        ? 'border-violet-500/30 bg-white/[0.04] shadow-[0_8px_40px_-8px_rgba(139,92,246,0.15)] scale-[1.02] md:scale-105'
-                                        : cn(plan.border, plan.bg, 'hover:-translate-y-3 hover:shadow-xl')
+                                        ? 'border-violet-500/30 bg-white/[0.04] shadow-[0_8px_40px_-8px_rgba(139,92,246,0.15)]'
+                                        : cn(plan.border, plan.bg, 'hover:-translate-y-2 hover:shadow-xl')
                                 )}
                                 initial={animate ? { opacity: 0, y: 40 } : undefined}
                                 whileInView={animate ? { opacity: 1, y: 0 } : undefined}
@@ -129,7 +130,7 @@ export function ServicesSection() {
 
                                     <div className="mb-6">
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-5xl font-black text-foreground">
+                                            <span className="text-4xl font-black text-foreground">
                                                 ${price}
                                             </span>
                                             {price > 0 && (

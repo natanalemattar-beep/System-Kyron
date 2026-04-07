@@ -8,6 +8,7 @@ import { HeroSection } from '@/components/landing';
 import { PageTracker } from '@/components/page-tracker';
 
 const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: false });
+const ServicesSection = dynamic(() => import('@/components/landing/services-section').then(m => ({ default: m.ServicesSection })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: false });
 const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: false });
@@ -74,6 +75,7 @@ function LandingContent() {
           <>
             <HeroSection />
             <LazySection fallbackHeight="700px"><HowItWorksSection /></LazySection>
+            <LazySection fallbackHeight="800px"><ServicesSection /></LazySection>
             <LazySection fallbackHeight="600px"><FeaturesSection /></LazySection>
             <LazySection fallbackHeight="600px"><CtaSection /></LazySection>
             <LazySection fallbackHeight="400px"><FaqSection /></LazySection>

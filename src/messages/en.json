@@ -249,46 +249,62 @@
         "plans": [
             {
                 "name": "Starter",
-                "description": "For entrepreneurs and small businesses",
+                "description": "For entrepreneurs and freelancers getting started",
                 "features": [
-                    "3 basic modules",
-                    "General accounting",
-                    "Fiscal invoicing",
-                    "Up to 5 users",
-                    "Email support",
-                    "AES-256 encryption",
-                    "Automatic updates"
+                    "Basic accounting",
+                    "Fiscal invoicing (20/mo)",
+                    "Live BCV exchange rate",
+                    "SENIAT alerts (5/mo)",
+                    "AI Chat (15 msgs/mo)",
+                    "RIF/ID lookup (5/mo)",
+                    "1 user"
                 ],
                 "cta": "Start Free"
             },
             {
                 "name": "Professional",
-                "description": "For growing businesses",
+                "description": "For SMBs and professional accountants",
                 "features": [
-                    "All modules included",
+                    "Full VEN-NIF accounting",
+                    "Payroll up to 15 employees",
+                    "CRM 200 clients",
                     "Triple AI Engine (Claude, GPT, Gemini)",
-                    "19 automations",
-                    "Up to 25 users",
-                    "Priority 24/7 support",
-                    "Blockchain audit",
-                    "Full API",
-                    "Advanced customization"
+                    "Fiscal alerts (30/mo)",
+                    "Assisted IVA/ISLR filings",
+                    "Blockchain audit trail (50/mo)",
+                    "3 users"
                 ],
                 "cta": "Choose Professional"
             },
             {
                 "name": "Enterprise",
-                "description": "For corporations and holdings",
+                "description": "For mid-size companies with advanced AI",
                 "features": [
-                    "Everything in Professional",
-                    "Unlimited users",
-                    "Multi-company / holding",
-                    "Dedicated server",
-                    "99.99% SLA guaranteed",
-                    "Tax consulting included",
-                    "Custom integration",
-                    "In-company training",
-                    "Dedicated account manager"
+                    "Everything in Professional +",
+                    "Payroll up to 75 employees",
+                    "CRM 1,000 clients",
+                    "Full HR + Employee Wellness",
+                    "Legal Module + Permits",
+                    "Corporate Telecom (20 lines)",
+                    "Multichannel alerts (Email, WhatsApp, SMS)",
+                    "Fiscal risk scoring",
+                    "10 users"
+                ],
+                "cta": "Choose Enterprise"
+            },
+            {
+                "name": "Kyron MAX",
+                "description": "Everything unlimited, no restrictions",
+                "features": [
+                    "ALL modules without limits",
+                    "Unlimited AI Claude 24/7",
+                    "Unlimited employees & clients",
+                    "Unlimited invoicing",
+                    "Unlimited Telecom",
+                    "Unlimited immutable Blockchain",
+                    "Dedicated API + White-label",
+                    "VIP priority support",
+                    "Unlimited users"
                 ],
                 "cta": "Contact Sales"
             }
