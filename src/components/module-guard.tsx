@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/context';
+import { Logo } from '@/components/logo';
 
 const MODULE_ROUTE_MAP: Record<string, string[]> = {
   admin: ['contabilidad', 'facturacion', 'inventario', 'nomina', 'tesoreria', 'asesoria-contable', 'contabilidad-comunal', 'rendicion-cuentas', 'presupuesto-participativo', 'contraloria-social', 'presupuesto-publico', 'sigecof', 'rendicion-cgr', 'onapre', 'transparencia'],
@@ -12,16 +13,6 @@ const MODULE_ROUTE_MAP: Record<string, string[]> = {
   legal: ['legal', 'asesoria-legal', 'permisologia', 'contabilidad', 'facturacion', 'asesoria-contable'],
   socios: ['socios', 'gestion-socios'],
   informatica: ['informatica', 'it', 'sistemas'],
-};
-
-const LAYOUT_DASHBOARD_MAP: Record<string, string> = {
-  admin: '/dashboard-empresa',
-  telecom: '/dashboard-telecom',
-  ventas: '/estrategias-ventas',
-  hr: '/dashboard-rrhh',
-  legal: '/escritorio-juridico',
-  socios: '/dashboard-socios',
-  informatica: '/dashboard-it',
 };
 
 function getUserDefaultDashboard(modules: string[], tipo: string): string {
@@ -46,6 +37,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   const [checked, setChecked] = useState(false);
+  const redirectedRef = useRef(false);
 
   useEffect(() => {
     if (isLoading) return;
@@ -53,17 +45,10 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
     if (!user) {
       setChecked(true);
       setAuthorized(false);
-      router.replace('/login');
       return;
     }
 
-    if (layoutKey === 'natural') {
-      setAuthorized(true);
-      setChecked(true);
-      return;
-    }
-
-    if (layoutKey === 'main') {
+    if (layoutKey === 'natural' || layoutKey === 'main') {
       setAuthorized(true);
       setChecked(true);
       return;
@@ -72,10 +57,11 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
     const userModules = user.modules || [];
 
     if (userModules.length === 0 && user.tipo === 'natural') {
-      setAuthorized(layoutKey === 'natural');
-      if (layoutKey !== 'natural') {
+      if (layoutKey !== 'natural' && !redirectedRef.current) {
+        redirectedRef.current = true;
         router.replace('/dashboard');
       }
+      setAuthorized(layoutKey === 'natural');
       setChecked(true);
       return;
     }
@@ -91,7 +77,8 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
 
     if (hasAccess) {
       setAuthorized(true);
-    } else {
+    } else if (!redirectedRef.current) {
+      redirectedRef.current = true;
       const redirectTo = getUserDefaultDashboard(userModules, user.tipo);
       router.replace(redirectTo);
       setAuthorized(false);
@@ -102,8 +89,8 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
   if (isLoading || !checked) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="flex flex-col items-center gap-5">
+          <Logo className="h-10 w-10 animate-pulse" />
           <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Verificando acceso...</p>
         </div>
       </div>
@@ -111,14 +98,7 @@ export function ModuleGuard({ layoutKey, children }: ModuleGuardProps) {
   }
 
   if (!authorized) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Redirigiendo...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return <>{children}</>;

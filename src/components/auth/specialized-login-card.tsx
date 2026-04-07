@@ -715,14 +715,17 @@ export function SpecializedLoginCard({
                   <AnimatePresence>
                     {error && (
                       <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
+                        initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 24 }}
                         className="overflow-hidden"
                       >
-                        <div className="flex items-start gap-3 p-3 rounded-xl bg-destructive/5 border border-destructive/15">
-                          <TriangleAlert className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-                          <p className="text-[13px] text-destructive">{error}</p>
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/[0.06] dark:bg-amber-500/[0.08] border border-amber-500/20">
+                          <div className="shrink-0 h-7 w-7 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                            <TriangleAlert className="h-3.5 w-3.5 text-amber-500" />
+                          </div>
+                          <p className="text-[12px] font-medium text-amber-600 dark:text-amber-400">{error}</p>
                         </div>
                       </motion.div>
                     )}
