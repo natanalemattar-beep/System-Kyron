@@ -59,7 +59,8 @@ export function LandingHeader() {
     const navItems = [
         { labelKey: 'home' as const, href: '#inicio' },
         { labelKey: 'platform' as const, href: '#caracteristicas' },
-        { labelKey: 'contact' as const, href: '#contacto' }
+        { labelKey: 'contact' as const, href: '#contacto' },
+        { labelKey: 'faq' as const, href: '#faq' }
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

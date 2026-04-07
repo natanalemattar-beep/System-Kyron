@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Play, Sparkles, Shield, Zap, Globe, TrendingUp, Users, Landmark, Receipt, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Play, Sparkles, Shield, Zap, Globe, TrendingUp, Users, Landmark, Receipt, CheckCircle2, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
@@ -116,7 +116,14 @@ export function HeroSection() {
     const { tier, config } = useDevicePerformance();
     const { resolvedTheme } = useTheme();
     const [themeMounted, setThemeMounted] = useState(false);
+    const [liveStats, setLiveStats] = useState<{ totalUsuarios: number; totalEmpresas: number } | null>(null);
     useEffect(() => { setThemeMounted(true); }, []);
+    useEffect(() => {
+        fetch('/api/stats').then(r => r.json()).then(json => {
+            const data = json.data ?? json;
+            if (data.totalUsuarios !== undefined) setLiveStats(data);
+        }).catch(() => {});
+    }, []);
     const isDark = themeMounted && resolvedTheme === 'dark';
 
     const rotatingTexts = t.raw('rotating_words') as string[];
@@ -204,6 +211,29 @@ export function HeroSection() {
                         >
                             {t('subtitle')}
                         </motion.p>
+
+                        {liveStats && typeof liveStats.totalUsuarios === 'number' && typeof liveStats.totalEmpresas === 'number' && (
+                            <motion.div
+                                className="flex items-center justify-center lg:justify-start gap-5"
+                                variants={fadeUp}
+                                initial="hidden"
+                                animate="visible"
+                                custom={0.3}
+                                aria-live="polite"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <Users className="h-3.5 w-3.5 text-cyan-500" />
+                                    <span className="text-xs font-bold text-foreground/70">{liveStats.totalUsuarios.toLocaleString()}</span>
+                                    <span className="text-[10px] text-muted-foreground font-medium">{t('live_users_label')}</span>
+                                </div>
+                                <div className="w-px h-4 bg-border/50" />
+                                <div className="flex items-center gap-2">
+                                    <Building2 className="h-3.5 w-3.5 text-emerald-500" />
+                                    <span className="text-xs font-bold text-foreground/70">{liveStats.totalEmpresas.toLocaleString()}</span>
+                                    <span className="text-[10px] text-muted-foreground font-medium">{t('live_companies_label')}</span>
+                                </div>
+                            </motion.div>
+                        )}
 
                         <motion.div
                             className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
