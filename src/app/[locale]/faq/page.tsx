@@ -343,7 +343,7 @@ export default function FaqPage() {
                                                 <AccordionItem
                                                     key={index}
                                                     value={`${category.id}-${index}`}
-                                                    className="border border-border/30 rounded-2xl px-6 overflow-hidden bg-card/50 hover:bg-card/80 transition-all duration-500 hover:border-primary/20 hover:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:bg-card/70"
+                                                    className="border border-border/30 rounded-2xl px-6 overflow-hidden bg-card/50 hover:bg-card/80 transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-primary/20 hover:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:bg-card/70"
                                                 >
                                                     <AccordionTrigger className="text-left hover:no-underline py-4">
                                                         <span className="text-xs md:text-sm font-bold text-foreground/90 leading-snug">
