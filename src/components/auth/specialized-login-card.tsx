@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import {
   Loader2, ChevronLeft, CircleCheck, ShieldCheck, ArrowRight, Shield,
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
-  Smartphone, MessageSquare, MessageCircle, Fingerprint, CheckCircle, RefreshCw
+  Smartphone, MessageSquare, MessageCircle, Fingerprint, CheckCircle, RefreshCw, Construction
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
@@ -191,6 +191,9 @@ export function SpecializedLoginCard({
 
   const handlePhoneLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const channelName = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
+    toast({ title: `${channelName} en construcción`, description: `La verificación por ${channelName} estará disponible próximamente. Usa tu correo electrónico para iniciar sesión.`, action: <Construction className="text-amber-500 h-4 w-4" /> });
+    return;
     const formData = new FormData(event.currentTarget);
     const phone = (formData.get('phone') as string || '').trim();
     if (!phone) { setError('Ingresa tu número de teléfono'); return; }
@@ -275,6 +278,11 @@ export function SpecializedLoginCard({
 
   const handleSwitchMethod = async (method: 'email' | 'sms' | 'whatsapp') => {
     if (method === verificationMethod || switchingMethod) return;
+    if (method === 'sms' || method === 'whatsapp') {
+      const channelName = method === 'sms' ? 'SMS' : 'WhatsApp';
+      toast({ title: `${channelName} en construcción`, description: `La verificación por ${channelName} estará disponible próximamente. Usa el correo electrónico por ahora.`, action: <Construction className="text-amber-500 h-4 w-4" /> });
+      return;
+    }
     setSwitchingMethod(true);
     setError(null);
     setSingleCode('');

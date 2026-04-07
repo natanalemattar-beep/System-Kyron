@@ -26,6 +26,7 @@ import {
   CheckCircle2,
   Building2,
   Receipt,
+  Construction,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -224,39 +225,27 @@ export default function ConfiguracionPage() {
             <ToggleRow
               label="Notificaciones por WhatsApp"
               description="Recibe mensajes directamente a tu WhatsApp."
-              checked={config.notif_whatsapp}
-              onCheckedChange={(v) => updateConfig('notif_whatsapp', v)}
+              checked={false}
+              onCheckedChange={() => {
+                toast({ title: 'WhatsApp en construcción', description: 'Las notificaciones por WhatsApp estarán disponibles próximamente.' });
+              }}
             />
-            {config.notif_whatsapp && (
-              <div className="mt-3 pl-1">
-                <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Teléfono WhatsApp</Label>
-                <Input
-                  value={config.telefono_whatsapp}
-                  onChange={(e) => updateConfig('telefono_whatsapp', e.target.value)}
-                  placeholder="+58 412 1234567"
-                  className="mt-1.5 h-9 rounded-xl text-sm"
-                />
-              </div>
-            )}
+            <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-2 pl-1">
+              <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
+            </p>
           </div>
           <div className="border-t border-border/15 pt-5">
             <ToggleRow
               label="Notificaciones SMS"
               description="Recibe alertas por mensaje de texto."
-              checked={config.notif_sms}
-              onCheckedChange={(v) => updateConfig('notif_sms', v)}
+              checked={false}
+              onCheckedChange={() => {
+                toast({ title: 'SMS en construcción', description: 'Las notificaciones por SMS estarán disponibles próximamente.' });
+              }}
             />
-            {config.notif_sms && (
-              <div className="mt-3 pl-1">
-                <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">Teléfono SMS</Label>
-                <Input
-                  value={config.telefono_sms}
-                  onChange={(e) => updateConfig('telefono_sms', e.target.value)}
-                  placeholder="+58 412 1234567"
-                  className="mt-1.5 h-9 rounded-xl text-sm"
-                />
-              </div>
-            )}
+            <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-2 pl-1">
+              <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
+            </p>
           </div>
           <div className="border-t border-border/15 pt-5 space-y-4">
             <ToggleRow

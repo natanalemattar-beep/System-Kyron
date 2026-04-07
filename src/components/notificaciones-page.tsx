@@ -8,7 +8,7 @@ import {
   Bell, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle,
   Activity, ArrowLeft, Mail, MessageSquare, Smartphone, Loader2,
   CheckCheck, RefreshCw, Settings, FileText, CalendarClock,
-  ShieldCheck, CreditCard
+  ShieldCheck, CreditCard, Construction
 } from "lucide-react";
 import { Link } from '@/navigation';
 import { useToast } from '@/hooks/use-toast';
@@ -312,18 +312,15 @@ export function NotificacionesPageContent() {
                     </div>
                   </div>
                   <Switch
-                    checked={config.notif_whatsapp}
-                    onCheckedChange={(v) => setConfig({ ...config, notif_whatsapp: v })}
+                    checked={false}
+                    onCheckedChange={() => {
+                      toast({ title: 'WhatsApp en construcción', description: 'Las alertas por WhatsApp estarán disponibles próximamente.' });
+                    }}
                   />
                 </div>
-                {config.notif_whatsapp && (
-                  <Input
-                    placeholder="+58 412 1234567"
-                    value={config.telefono_whatsapp || ''}
-                    onChange={(e) => setConfig({ ...config, telefono_whatsapp: e.target.value })}
-                    className="h-10 rounded-lg text-sm"
-                  />
-                )}
+                <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-1">
+                  <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
+                </p>
               </div>
 
               <div className="space-y-3 p-4 rounded-xl bg-muted/30 border border-border/50">
@@ -338,18 +335,15 @@ export function NotificacionesPageContent() {
                     </div>
                   </div>
                   <Switch
-                    checked={config.notif_sms}
-                    onCheckedChange={(v) => setConfig({ ...config, notif_sms: v })}
+                    checked={false}
+                    onCheckedChange={() => {
+                      toast({ title: 'SMS en construcción', description: 'Las alertas por SMS estarán disponibles próximamente.' });
+                    }}
                   />
                 </div>
-                {config.notif_sms && (
-                  <Input
-                    placeholder="+58 412 1234567"
-                    value={config.telefono_sms || ''}
-                    onChange={(e) => setConfig({ ...config, telefono_sms: e.target.value })}
-                    className="h-10 rounded-lg text-sm"
-                  />
-                )}
+                <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1.5 mt-1">
+                  <Construction className="h-3.5 w-3.5" /> En construcción — disponible próximamente
+                </p>
               </div>
             </div>
 
