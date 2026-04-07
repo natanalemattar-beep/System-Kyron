@@ -15,6 +15,7 @@ System Kyron is an integrated technological ecosystem designed for comprehensive
 - The system should support both `{destino, tipo}` and `{method, email, phone}` formats for `/api/auth/send-code`.
 - The system should support both `{destino, codigo}` and `{email, code}` formats for `/api/auth/verify-code`. Both paths use the centralized `verifyCode()` helper from `src/lib/verification-codes.ts`.
 - Registration email verification supports both 6-digit OTP code entry AND magic link click (in a new tab). A polling hook (`use-verification-poll.ts`) checks `/api/auth/check-verified` every 3 seconds to auto-detect when the magic link is clicked, only for email verification (not SMS/WhatsApp).
+- **Magic link single-session design:** When user clicks magic link in a new tab, the verify-link API creates the session cookie (shared across tabs via domain). The verify-link *page* does NOT redirect — it shows "Vuelve a la pestaña original" message. The original login tab's polling detects verification and navigates to the dashboard. This prevents the double-session bug (two dashboard tabs opening).
 
 ## System Architecture
 The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopack. It uses `next-intl` for internationalization, Tailwind CSS and shadcn/ui for styling, and PostgreSQL as the database. Authentication uses JWT with HTTP-only cookies. Typography uses Inter (sans-serif) and JetBrains Mono (monospace) via `next/font/google`, mapped to CSS variables `--font-inter` and `--font-jetbrains-mono`.

@@ -1,15 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { Loader2, CircleCheck, CircleX, ShieldCheck } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { Loader2, CircleCheck, CircleX, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/auth/context';
 import { motion } from 'framer-motion';
 
 export default function VerifyLinkPage() {
-  const router = useRouter();
-  const { refreshUser } = useAuth();
   const params = useParams();
   const token = params?.token as string;
   const locale = (params?.locale as string) || 'es';
@@ -44,19 +41,12 @@ export default function VerifyLinkPage() {
 
         setStatus('success');
         setUserName(json.user?.nombre || '');
-        await refreshUser();
-
-        const redirectPath = json.user?.tipo === 'juridico'
-          ? `/${locale}/dashboard-empresa`
-          : `/${locale}/dashboard`;
-
-        setTimeout(() => { window.location.href = redirectPath; }, 2000);
       } catch {
         setStatus('error');
         setErrorMsg('Error de conexión. Intenta de nuevo.');
       }
     })();
-  }, [token, router]);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -104,16 +94,26 @@ export default function VerifyLinkPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-3"
+            className="space-y-4"
           >
             <h1 className="text-xl font-bold tracking-tight text-foreground uppercase">
               Identidad verificada
             </h1>
             <p className="text-sm text-muted-foreground">
-              Bienvenido, <strong className="text-foreground">{userName}</strong>. Redirigiendo...
+              {userName ? (
+                <>Bienvenido, <strong className="text-foreground">{userName}</strong>.</>
+              ) : (
+                'Tu identidad ha sido confirmada.'
+              )}
             </p>
-            <p className="text-xs text-muted-foreground/60">
-              Si tienes otra pestaña abierta, se actualizará automáticamente.
+            <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20 mx-auto max-w-xs">
+              <ArrowLeft className="h-4 w-4 text-emerald-500 shrink-0" />
+              <p className="text-[12px] font-medium text-emerald-600 dark:text-emerald-400">
+                Vuelve a la pestaña donde iniciaste sesión. Se actualizará automáticamente.
+              </p>
+            </div>
+            <p className="text-[11px] text-muted-foreground/50">
+              Puedes cerrar esta pestaña.
             </p>
           </motion.div>
         )}
@@ -131,10 +131,10 @@ export default function VerifyLinkPage() {
               Tu correo ha sido verificado exitosamente. Puedes cerrar esta pestaña y continuar con tu registro.
             </p>
             <Button
-              onClick={() => { window.location.href = `/${locale}/register`; }}
+              onClick={() => { window.close(); }}
               className="rounded-xl font-bold text-xs uppercase tracking-widest"
             >
-              Ir al registro
+              Cerrar pestaña
             </Button>
           </motion.div>
         )}
