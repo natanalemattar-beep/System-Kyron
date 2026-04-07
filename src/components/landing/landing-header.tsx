@@ -123,13 +123,13 @@ export function LandingHeader() {
                             <div className="flex flex-col">
                                 <span className={cn(
                                     "text-xs sm:text-[13px] font-black tracking-[0.15em] sm:tracking-wide uppercase leading-none transition-colors duration-500",
-                                    isScrolled ? "text-foreground" : isDark ? "text-foreground" : "text-white"
+                                    "text-foreground"
                                 )}>
                                     System Kyron
                                 </span>
                                 <span className={cn(
                                     "hidden md:inline-block text-[7px] font-bold uppercase tracking-[0.3em] mt-1 transition-opacity duration-500",
-                                    isScrolled ? "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-70" : isDark ? "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-60" : "text-white/50"
+                                    "bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent opacity-70"
                                 )}>
                                     {tHero('slogan')}
                                 </span>
@@ -147,9 +147,7 @@ export function LandingHeader() {
                                     "text-[11px] font-semibold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1",
                                     isScrolled
                                         ? "text-foreground/50 hover:text-cyan-400"
-                                        : isDark
-                                            ? "text-foreground/40 hover:text-cyan-400"
-                                            : "text-white/60 hover:text-white"
+                                        : "text-foreground/40 hover:text-cyan-400"
                                 )}
                             >
                                 {t(item.labelKey)}
@@ -238,10 +236,8 @@ export function LandingHeader() {
                                     className={cn(
                                         "lg:hidden rounded-xl h-9 w-9 border transition-all duration-500",
                                         isScrolled
-                                            ? "bg-white/[0.03] border-white/[0.08]"
-                                            : isDark
-                                                ? "bg-white/[0.03] border-white/[0.06] text-foreground"
-                                                : "bg-white/10 border-white/15 text-white"
+                                            ? "bg-white/[0.03] border-white/[0.08] text-foreground"
+                                            : "bg-black/[0.03] dark:bg-white/[0.03] border-black/[0.06] dark:border-white/[0.06] text-foreground"
                                     )}
                                     aria-label={t('mobile_portal')}
                                 >
