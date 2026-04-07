@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { Link } from '@/navigation';
 
 function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; maxValue: number; color: string; delay?: number }) {
@@ -61,9 +60,8 @@ const metricConfigs = [
 ];
 
 export function FeaturesSection() {
+    const animate = true;
     const t = useTranslations('FeaturesSection');
-    const { tier } = useDevicePerformance();
-    const animate = tier !== 'low';
     const competitors = t.raw('competitors') as { name: string; speed: number }[];
     const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
 

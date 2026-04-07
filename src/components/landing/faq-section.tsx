@@ -7,15 +7,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useState } from 'react';
 
 export function FaqSection() {
     const t = useTranslations('FaqSection');
     const faqItems = t.raw('items') as Array<{ question: string; answer: string; category: string }>;
     const categories = t.raw('categories') as Record<string, string>;
-    const { tier } = useDevicePerformance();
-    const animate = tier !== 'low';
+    const animate = true;
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('all');
 

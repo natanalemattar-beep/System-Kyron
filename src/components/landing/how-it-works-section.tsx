@@ -2,7 +2,6 @@
 
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { BrainCircuit, MessageSquare, FileSearch, BarChart3, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
@@ -21,8 +20,7 @@ const aiEngines = [
 ];
 
 export function HowItWorksSection() {
-    const { tier } = useDevicePerformance();
-    const animate = tier !== 'low';
+    const animate = true;
     const [activeCapability, setActiveCapability] = useState(0);
     const t = useTranslations('HowItWorksSection');
     const capabilities = t.raw('capabilities') as { title: string; description: string; demo_user?: string; demo_system?: string; demo_ai: string }[];

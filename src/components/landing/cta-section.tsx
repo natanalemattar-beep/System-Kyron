@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { Sparkles, ArrowRight, CheckCircle2, Shield, Zap, Clock } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -24,8 +23,7 @@ const guaranteeConfigs = [
 export function CtaSection() {
     const t = useTranslations('CtaSection');
     const checks = [t('check_1'), t('check_2'), t('check_3')];
-    const { tier, config } = useDevicePerformance();
-    const animate = tier !== 'low';
+    const animate = true;
 
     return (
         <section id="contacto" className="relative overflow-hidden">
@@ -33,12 +31,8 @@ export function CtaSection() {
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-teal-50/40 to-cyan-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]" />
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
-                    {config.enableBlur && (
-                        <>
-                            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.04] blur-[150px]" />
-                            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.03] blur-[120px]" />
-                        </>
-                    )}
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.04] blur-[150px]" />
+                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.03] blur-[120px]" />
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">

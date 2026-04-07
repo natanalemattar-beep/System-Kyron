@@ -6,7 +6,6 @@ import { LoadingScreen } from '@/components/landing/loading-screen';
 import { LandingHeader } from '@/components/landing/landing-header';
 import { HeroSection } from '@/components/landing';
 import { PageTracker } from '@/components/page-tracker';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 
 const HowItWorksSection = dynamic(() => import('@/components/landing/how-it-works-section').then(m => ({ default: m.HowItWorksSection })), { ssr: false });
 const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { ssr: false });
@@ -47,19 +46,10 @@ function LazySection({ children, fallbackHeight = '200px' }: { children: React.R
 function LandingContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const { tier } = useDevicePerformance();
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
   }, []);
-
-  const skipLoadingScreen = tier === 'low';
-
-  useEffect(() => {
-    if (skipLoadingScreen && isLoading) {
-      setIsLoading(false);
-    }
-  }, [skipLoadingScreen, isLoading]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -69,7 +59,7 @@ function LandingContent() {
 
   return (
     <>
-      {isLoading && !skipLoadingScreen && <LoadingScreen onComplete={handleLoadingComplete} />}
+      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       {mounted && (
         <>

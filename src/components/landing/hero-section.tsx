@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { ThemeImage } from '@/components/ui/theme-image';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
@@ -78,17 +77,6 @@ function FloatingCard({ children, className, delay = 0 }: { children: React.Reac
     );
 }
 
-function ParticleField({ reduced }: { reduced?: boolean }) {
-    if (reduced) return null;
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-[4]">
-            <div className="absolute inset-0 opacity-[0.03]" style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-                backgroundSize: '50px 50px'
-            }} />
-        </div>
-    );
-}
 
 const trustLogos = [
     { name: "SENIAT", icon: Shield },
@@ -113,7 +101,6 @@ export function HeroSection() {
     const automationsCount = useCountUp(19, 3, 1.3);
     const heroFeatures = t.raw('features') as string[];
     const heroStats = t.raw('stats') as { val: string; label: string }[];
-    const { tier, config } = useDevicePerformance();
     const { resolvedTheme } = useTheme();
     const [themeMounted, setThemeMounted] = useState(false);
     const [liveStats, setLiveStats] = useState<{ totalUsuarios: number; totalEmpresas: number } | null>(null);
@@ -150,27 +137,11 @@ export function HeroSection() {
                 }`} />
             </div>
 
-            {config.enableBlur && (
-                <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
-                    <motion.div
-                        className={`absolute top-[10%] -left-32 w-[600px] h-[600px] rounded-full blur-[150px] transition-colors duration-700 ${isDark ? 'bg-cyan-500/[0.06]' : 'bg-[#0ea5e9]/[0.10]'}`}
-                        animate={{ scale: [1, 1.2, 1], x: [0, 40, 0] }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                        className={`absolute bottom-[15%] right-[-8%] w-[500px] h-[500px] rounded-full blur-[130px] transition-colors duration-700 ${isDark ? 'bg-violet-500/[0.05]' : 'bg-[#8b5cf6]/[0.08]'}`}
-                        animate={{ scale: [1, 1.15, 1], y: [0, -30, 0] }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-                    />
-                    <motion.div
-                        className={`absolute top-[50%] left-[35%] w-[400px] h-[400px] rounded-full blur-[100px] transition-colors duration-700 ${isDark ? 'bg-emerald-500/[0.03]' : 'bg-[#22c55e]/[0.06]'}`}
-                        animate={{ scale: [1, 1.25, 1] }}
-                        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-                    />
-                </div>
-            )}
-
-            {config.enableParticles && <ParticleField reduced={tier === 'low'} />}
+            <div className="absolute inset-0 pointer-events-none -z-[5] overflow-hidden">
+                <div className={`absolute top-[10%] -left-32 w-[600px] h-[600px] rounded-full blur-[150px] transition-colors duration-700 ${isDark ? 'bg-cyan-500/[0.06]' : 'bg-[#0ea5e9]/[0.10]'}`} />
+                <div className={`absolute bottom-[15%] right-[-8%] w-[500px] h-[500px] rounded-full blur-[130px] transition-colors duration-700 ${isDark ? 'bg-violet-500/[0.05]' : 'bg-[#8b5cf6]/[0.08]'}`} />
+                <div className={`absolute top-[50%] left-[35%] w-[400px] h-[400px] rounded-full blur-[100px] transition-colors duration-700 ${isDark ? 'bg-emerald-500/[0.03]' : 'bg-[#22c55e]/[0.06]'}`} />
+            </div>
 
             <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-28 pb-8 sm:pt-32 md:pt-40 md:pb-24 lg:pb-48 flex-1 flex items-center w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
@@ -297,9 +268,7 @@ export function HeroSection() {
                         transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="relative mx-auto max-w-[580px] lg:max-w-none">
-                            {config.enableBlur && (
-                                <div className="absolute -inset-12 rounded-[3rem] opacity-30" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.2), rgba(139,92,246,0.12), rgba(34,197,94,0.10))', filter: 'blur(50px)' }} />
-                            )}
+                            <div className="absolute -inset-12 rounded-[3rem] opacity-30" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.2), rgba(139,92,246,0.12), rgba(34,197,94,0.10))', filter: 'blur(50px)' }} />
 
                             <div className={`relative rounded-[2rem] overflow-hidden border-2 transition-all duration-700 ${isDark
                                 ? 'border-white/[0.08] shadow-[0_30px_80px_-20px_rgba(14,165,233,0.15),0_15px_40px_-15px_rgba(0,0,0,0.6)]'
