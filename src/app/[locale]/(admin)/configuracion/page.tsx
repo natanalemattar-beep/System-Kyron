@@ -27,8 +27,10 @@ import {
   Building2,
   Receipt,
   Construction,
+  Timer,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getStoredTimeoutConfig, storeTimeoutConfig, type SessionTimeoutConfig, type TimeoutMode } from '@/hooks/use-session-timeout';
 
 interface ConfigData {
   idioma: string;
@@ -124,6 +126,7 @@ export default function ConfiguracionPage() {
   const [config, setConfig] = useState<ConfigData>(defaultConfig);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [timeoutConfig, setTimeoutConfig] = useState<SessionTimeoutConfig>(getStoredTimeoutConfig());
 
   useEffect(() => {
     fetch('/api/configuracion')
@@ -212,6 +215,65 @@ export default function ConfiguracionPage() {
               onCheckedChange={(v) => updatePref('nav_lateral', v)}
             />
           </div>
+        </SectionCard>
+
+        <SectionCard icon={Timer} title="Tiempo de Sesión" description="Controla cuándo se cierra tu sesión por inactividad">
+          <ToggleRow
+            label="Cierre Automático por Inactividad"
+            description="Cierra tu sesión automáticamente después de un tiempo sin actividad."
+            checked={timeoutConfig.mode === 'auto'}
+            onCheckedChange={(v) => {
+              const updated = { ...timeoutConfig, mode: (v ? 'auto' : 'manual') as TimeoutMode };
+              setTimeoutConfig(updated);
+              storeTimeoutConfig(updated);
+              toast({
+                title: v ? 'Cierre automático activado' : 'Sesión permanente activada',
+                description: v
+                  ? `Tu sesión se cerrará tras ${updated.timeoutMinutes} min de inactividad.`
+                  : 'Tu sesión permanecerá abierta hasta que cierres manualmente.',
+              });
+            }}
+          />
+          {timeoutConfig.mode === 'auto' && (
+            <div className="border-t border-border/15 pt-5 space-y-4">
+              <div>
+                <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">
+                  Tiempo de inactividad (minutos)
+                </Label>
+                <div className="flex items-center gap-3 mt-2">
+                  {[3, 5, 6, 10, 15, 30].map((mins) => (
+                    <button
+                      key={mins}
+                      onClick={() => {
+                        const updated = { ...timeoutConfig, timeoutMinutes: mins };
+                        setTimeoutConfig(updated);
+                        storeTimeoutConfig(updated);
+                      }}
+                      className={cn(
+                        "px-3 py-2 rounded-xl text-[11px] font-bold transition-all border",
+                        timeoutConfig.timeoutMinutes === mins
+                          ? "bg-primary/10 border-primary/30 text-primary"
+                          : "border-border/20 text-muted-foreground hover:border-border/40"
+                      )}
+                    >
+                      {mins} min
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <p className="text-[10px] text-muted-foreground/40 leading-relaxed">
+                Un aviso aparecerá 60 segundos antes del cierre. Podrás extender la sesión o cerrar manualmente.
+              </p>
+            </div>
+          )}
+          {timeoutConfig.mode === 'manual' && (
+            <div className="border-t border-border/15 pt-4">
+              <p className="text-[10px] text-emerald-500 font-medium flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                Sesión permanente — no se cerrará por inactividad
+              </p>
+            </div>
+          )}
         </SectionCard>
 
         <SectionCard icon={Bell} title="Notificaciones" description="Elige cómo quieres recibir alertas">

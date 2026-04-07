@@ -6,6 +6,7 @@ import { AuthProvider } from '@/lib/auth/context';
 import { PerformanceProvider } from '@/components/performance-provider';
 import { SeasonalThemeProvider } from '@/components/seasonal-theme-provider';
 import { SeasonalDecorations } from '@/components/seasonal-decorations';
+import { SessionTimeoutDialog } from '@/components/session-timeout-dialog';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
@@ -20,6 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                     <SeasonalThemeProvider>
                         {children}
                         <SeasonalDecorations />
+                        <SessionTimeoutDialog />
                         <Toaster />
                     </SeasonalThemeProvider>
                 </AuthProvider>
