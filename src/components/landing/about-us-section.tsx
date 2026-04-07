@@ -70,7 +70,7 @@ export function AboutUsSection() {
                 if (!res.ok) throw new Error('stats fetch failed');
                 return res.json();
             })
-            .then((data: SiteStats) => setStats(data))
+            .then((json) => setStats(json.data ?? json))
             .catch(() => {});
     }, []);
 

@@ -54,8 +54,9 @@ export default function CRMPage() {
         toast({ variant: "destructive", title: "Error al cargar clientes" });
         return;
       }
-      const data = await res.json();
-      setClientes(data.clientes ?? []);
+      const json = await res.json();
+      const list = json.data ?? json.clientes ?? [];
+      setClientes(list);
       setError(false);
     } catch {
       setError(true);

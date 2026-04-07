@@ -59,8 +59,9 @@ export default function CampanasPage() {
         toast({ variant: "destructive", title: "Error al cargar campañas" });
         return;
       }
-      const data = await res.json();
-      setCampanas(data.campanas ?? []);
+      const json = await res.json();
+      const list = json.data ?? json.campanas ?? [];
+      setCampanas(list);
       setError(false);
     } catch {
       setError(true);

@@ -180,20 +180,35 @@ function applySecurityHeaders(response: NextResponse): void {
   }
 }
 
+function generateRequestId(): string {
+  const ts = Date.now().toString(36);
+  const rand = Math.random().toString(36).substring(2, 8);
+  return `req-${ts}-${rand}`;
+}
+
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith('/api/')) {
+    const requestId = generateRequestId();
+    const start = Date.now();
+
     if (!isPublicApi(pathname)) {
       const authed = await verifySession(req);
       if (!authed) {
-        const response = NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+        const response = NextResponse.json(
+          { success: false, error: { code: 'AUTHENTICATION_ERROR', message: 'No autenticado' } },
+          { status: 401 }
+        );
         applySecurityHeaders(response);
+        response.headers.set('x-request-id', requestId);
         return response;
       }
     }
     const response = NextResponse.next();
     applySecurityHeaders(response);
+    response.headers.set('x-request-id', requestId);
+    response.headers.set('x-response-time', `${Date.now() - start}ms`);
     return response;
   }
 

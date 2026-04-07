@@ -1,79 +1,84 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSession } from '@/lib/auth';
-import { query } from '@/lib/db';
+import { z } from 'zod';
+import { apiHandler } from '@/lib/api-handler';
+import { ApiResponse } from '@/lib/api-response';
+import { validateBody } from '@/lib/api-validation';
+import { parsePagination } from '@/lib/pagination';
+import { query, queryOne } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logger';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+const createCampanaSchema = z.object({
+  nombre: z.string().min(1, 'Nombre requerido').max(200),
+  tipo: z.string().max(50).default('Digital'),
+  canales: z.array(z.string()).default([]),
+  estado: z.enum(['borrador', 'activa', 'pausada', 'finalizada']).default('borrador'),
+  fecha_inicio: z.string().nullish(),
+  fecha_fin: z.string().nullish(),
+  presupuesto: z.coerce.number().min(0).default(0),
+  gastado: z.coerce.number().min(0).default(0),
+  alcance: z.coerce.number().int().min(0).default(0),
+  impresiones: z.coerce.number().int().min(0).default(0),
+  clicks: z.coerce.number().int().min(0).default(0),
+  conversiones: z.coerce.number().int().min(0).default(0),
+  roi: z.coerce.number().default(0),
+  notas: z.string().max(2000).nullish(),
+});
 
-    try {
-        const campanas = await query(
-            `SELECT * FROM campanas_marketing WHERE user_id = $1 ORDER BY created_at DESC`,
-            [session.userId]
-        );
-        return NextResponse.json({ campanas });
-    } catch (err) {
-        console.error('[marketing/campanas] GET error:', err);
-        return NextResponse.json({ error: 'Error al obtener campañas' }, { status: 500 });
-    }
-}
+export const GET = apiHandler(async (ctx) => {
+  const { page, limit, offset } = parsePagination(ctx.request);
 
-export async function POST(req: NextRequest) {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
+  const [campanas, countResult] = await Promise.all([
+    query(
+      `SELECT * FROM campanas_marketing WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3`,
+      [ctx.session!.userId, limit, offset]
+    ),
+    queryOne<{ count: string }>(
+      `SELECT COUNT(*) as count FROM campanas_marketing WHERE user_id = $1`,
+      [ctx.session!.userId]
+    ),
+  ]);
 
-    try {
-        const body = await req.json();
-        const { nombre, tipo, canales, estado, fecha_inicio, fecha_fin, presupuesto, gastado, alcance, impresiones, clicks, conversiones, roi, notas } = body;
+  const total = parseInt(countResult?.count || '0', 10);
+  return ApiResponse.paginated(campanas, total, page, limit);
+});
 
-        if (!nombre) return NextResponse.json({ error: 'Nombre requerido' }, { status: 400 });
+export const POST = apiHandler(async (ctx) => {
+  const data = await validateBody(ctx.request, createCampanaSchema);
 
-        const safeBudget = Math.max(0, parseFloat(presupuesto) || 0);
-        const safeGastado = Math.max(0, parseFloat(gastado) || 0);
-        const safeAlcance = Math.max(0, parseInt(alcance) || 0);
-        const safeImpresiones = Math.max(0, parseInt(impresiones) || 0);
-        const safeClicks = Math.max(0, parseInt(clicks) || 0);
-        const safeConversiones = Math.max(0, parseInt(conversiones) || 0);
-        const safeRoi = parseFloat(roi) || 0;
+  const [campana] = await query(
+    `INSERT INTO campanas_marketing (user_id, nombre, tipo, canales, estado, fecha_inicio, fecha_fin, presupuesto, gastado, alcance, impresiones, clicks, conversiones, roi, notas)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+     RETURNING *`,
+    [
+      ctx.session!.userId,
+      data.nombre,
+      data.tipo,
+      data.canales,
+      data.estado,
+      data.fecha_inicio ?? null,
+      data.fecha_fin ?? null,
+      data.presupuesto,
+      data.gastado,
+      data.alcance,
+      data.impresiones,
+      data.clicks,
+      data.conversiones,
+      data.roi,
+      data.notas ?? null,
+    ]
+  );
 
-        const [campana] = await query(
-            `INSERT INTO campanas_marketing (user_id, nombre, tipo, canales, estado, fecha_inicio, fecha_fin, presupuesto, gastado, alcance, impresiones, clicks, conversiones, roi, notas)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
-             RETURNING *`,
-            [
-                session.userId,
-                nombre,
-                tipo ?? 'Digital',
-                canales ?? [],
-                estado ?? 'borrador',
-                fecha_inicio ?? null,
-                fecha_fin ?? null,
-                safeBudget,
-                safeGastado,
-                safeAlcance,
-                safeImpresiones,
-                safeClicks,
-                safeConversiones,
-                safeRoi,
-                notas ?? null,
-            ]
-        );
+  const c = campana as { id: number };
+  await logActivity({
+    userId: ctx.session!.userId,
+    evento: 'NUEVA_CAMPANA',
+    categoria: 'marketing',
+    descripcion: `Campaña creada: ${data.nombre}`,
+    entidadTipo: 'campana_marketing',
+    entidadId: c.id,
+  });
 
-        await logActivity({
-            userId: session.userId,
-            evento: 'NUEVA_CAMPANA',
-            categoria: 'marketing',
-            descripcion: `Campaña creada: ${nombre}`,
-            entidadTipo: 'campana_marketing',
-            entidadId: (campana as { id: number }).id,
-        });
-
-        return NextResponse.json({ success: true, campana });
-    } catch (err) {
-        console.error('[marketing/campanas] POST error:', err);
-        return NextResponse.json({ error: 'Error al crear campaña' }, { status: 500 });
-    }
-}
+  ctx.log.info('Campaña creada', { campanaId: c.id });
+  return ApiResponse.created(campana);
+});
