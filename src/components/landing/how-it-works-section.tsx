@@ -60,7 +60,7 @@ export function HowItWorksSection() {
                         {t('title_highlight')}{' '}
                         <span className="liquid-glass-text italic">{t('title_rest')}</span>
                     </h2>
-                    <p className="text-base md:text-lg text-muted-foreground/60 max-w-2xl mx-auto font-medium">
+                    <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
                         {t('subtitle')}
                     </p>
                 </motion.div>
@@ -100,8 +100,8 @@ export function HowItWorksSection() {
                                     className={cn(
                                         "w-full text-left p-5 rounded-2xl border transition-all duration-500",
                                         activeCapability === i
-                                            ? cn('bg-white/[0.05] shadow-xl', config.border)
-                                            : 'border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/[0.08]'
+                                            ? cn('bg-white/80 dark:bg-white/[0.05] shadow-xl', config.border)
+                                            : 'border-gray-200 dark:border-white/[0.04] bg-white/60 dark:bg-white/[0.01] hover:bg-white/80 dark:hover:bg-white/[0.03] hover:border-gray-300 dark:hover:border-white/[0.08]'
                                     )}
                                     onClick={() => setActiveCapability(i)}
                                     initial={animate ? { opacity: 0, x: -20 } : undefined}
@@ -137,7 +137,7 @@ export function HowItWorksSection() {
                         <div className={cn(
                             "rounded-2xl border p-8 backdrop-blur-sm min-h-[320px]",
                             capabilityConfigs[activeCapability].border,
-                            'bg-white/[0.02]'
+                            'bg-white/80 dark:bg-white/[0.02]'
                         )}>
                             <div className="flex items-center gap-3 mb-4">
                                 <div className={cn("p-2 rounded-lg bg-gradient-to-br", capabilityConfigs[activeCapability].gradient)}>
@@ -150,7 +150,7 @@ export function HowItWorksSection() {
                                 </div>
                             </div>
 
-                            <p className="text-sm text-muted-foreground/50 font-medium leading-relaxed mb-8">
+                            <p className="text-sm text-muted-foreground font-medium leading-relaxed mb-8">
                                 {capabilities[activeCapability].description}
                             </p>
 
@@ -166,8 +166,8 @@ export function HowItWorksSection() {
                                             msg.role === 'user'
                                                 ? 'ml-auto bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/15'
                                                 : msg.role === 'system'
-                                                    ? 'mx-auto text-center bg-white/[0.03] border border-white/[0.06]'
-                                                    : 'bg-white/[0.03] border border-white/[0.06]'
+                                                    ? 'mx-auto text-center bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06]'
+                                                    : 'bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06]'
                                         )}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ export function HowItWorksSection() {
                                                 </span>
                                             </div>
                                         )}
-                                        <p className="text-xs text-foreground/60 font-medium leading-relaxed">
+                                        <p className="text-xs text-foreground/80 dark:text-foreground/60 font-medium leading-relaxed">
                                             {msg.text}
                                         </p>
                                     </motion.div>

@@ -55,7 +55,7 @@ export function FaqSection() {
                             {t('title_rest')}
                         </span>
                     </h2>
-                    <p className="text-muted-foreground/50 text-sm max-w-lg mx-auto font-medium">
+                    <p className="text-muted-foreground text-sm max-w-lg mx-auto font-medium">
                         {t('subtitle')}
                     </p>
 
@@ -68,7 +68,7 @@ export function FaqSection() {
                                     "px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 border",
                                     activeCategory === key
                                         ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-transparent shadow-[0_4px_16px_-4px_rgba(14,165,233,0.4)]"
-                                        : "border-white/[0.08] bg-white/[0.02] text-muted-foreground/50 hover:text-foreground hover:border-white/[0.15]"
+                                        : "border-gray-200 dark:border-white/[0.08] bg-gray-50 dark:bg-white/[0.02] text-muted-foreground hover:text-foreground hover:border-gray-300 dark:hover:border-white/[0.15]"
                                 )}
                             >
                                 {key === 'all' ? t('all_categories') : categories[key]}
@@ -83,7 +83,7 @@ export function FaqSection() {
                             placeholder={t('search_placeholder')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 rounded-xl text-sm font-medium bg-white/[0.03] border border-white/[0.08] text-foreground placeholder:text-muted-foreground/25 focus:outline-none focus:border-cyan-500/30 transition-colors"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl text-sm font-medium bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.08] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-cyan-500/30 transition-colors"
                         />
                     </div>
                 </motion.div>
@@ -99,7 +99,7 @@ export function FaqSection() {
                             <div key={index}>
                                 <AccordionItem
                                     value={`item-${index}`}
-                                    className="rounded-2xl border-2 border-white/[0.06] bg-white/[0.02] px-6 transition-all duration-500 hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
+                                    className="rounded-2xl border-2 border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] px-6 transition-all duration-500 hover:border-gray-300 dark:hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white dark:data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
                                 >
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">
@@ -111,7 +111,7 @@ export function FaqSection() {
                                             </span>
                                         </div>
                                     </AccordionTrigger>
-                                    <AccordionContent className="pb-5 text-muted-foreground/50 text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-white/[0.06] pt-4">
+                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-gray-100 dark:border-white/[0.06] pt-4">
                                         {item.answer}
                                     </AccordionContent>
                                 </AccordionItem>

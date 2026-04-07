@@ -251,7 +251,7 @@ export function HeroSection() {
                             <span className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground font-semibold">{t('backed_by')}</span>
                             <div className="flex items-center gap-5">
                                 {trustLogos.map((logo, i) => (
-                                    <div key={i} className="flex items-center gap-1.5 text-muted-foreground/50 hover:text-foreground/50 transition-colors">
+                                    <div key={i} className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground/70 transition-colors">
                                         <logo.icon className="h-3.5 w-3.5" />
                                         <span className="text-[10px] font-bold tracking-wider">{logo.name}</span>
                                     </div>
@@ -362,7 +362,7 @@ export function HeroSection() {
                                 >
                                     <g.icon className={cn("h-4 w-4 mb-0.5 opacity-40 group-hover:opacity-70 transition-opacity", g.text)} />
                                     <p className={`text-base sm:text-lg font-black leading-none ${g.text}`}>{s.val}</p>
-                                    <p className="text-[9px] sm:text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-[0.2em] text-center">{s.label}</p>
+                                    <p className="text-[9px] sm:text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] text-center">{s.label}</p>
                                 </motion.div>
                             );
                         })}

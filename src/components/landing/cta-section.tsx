@@ -11,7 +11,7 @@ import Image from 'next/image';
 const CtaForm = dynamic(() => import('./cta-form').then(mod => ({ default: mod.CtaForm })), {
     ssr: false,
     loading: () => (
-        <div className="space-y-4 p-6 md:p-10 rounded-2xl shadow-xl animate-pulse min-h-[500px] bg-white/[0.02] border border-white/[0.06]" />
+        <div className="space-y-4 p-6 md:p-10 rounded-2xl shadow-xl animate-pulse min-h-[500px] bg-white/80 dark:bg-white/[0.02] border border-gray-200 dark:border-white/[0.06]" />
     ),
 });
 
@@ -59,14 +59,14 @@ export function CtaSection() {
                                     {t('title_rest')}
                                 </span>?
                             </h2>
-                            <p className="text-base md:text-lg text-muted-foreground/50 max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
+                            <p className="text-base md:text-lg text-muted-foreground max-w-md mx-auto lg:ml-0 leading-relaxed font-medium">
                                 {t('subtitle')}
                             </p>
                             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                                 {checks.map((label, i) => (
                                     <div key={i} className="flex items-center gap-2">
                                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/40">{label}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -75,14 +75,14 @@ export function CtaSection() {
                                 {guaranteeConfigs.map((g, i) => (
                                     <motion.div
                                         key={i}
-                                        className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-white/[0.06] bg-white/[0.02]"
+                                        className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02]"
                                         initial={animate ? { opacity: 0, y: 15 } : undefined}
                                         whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                                         viewport={{ once: true }}
                                         transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                                     >
                                         <g.icon className={cn("h-4 w-4", g.color)} />
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-foreground/40">{t(g.labelKey)}</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-foreground/70">{t(g.labelKey)}</span>
                                     </motion.div>
                                 ))}
                             </div>
@@ -95,7 +95,7 @@ export function CtaSection() {
                                 transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-emerald-400/10 to-cyan-400/10 blur-xl -z-[1]" />
-                                <div className="relative rounded-2xl overflow-hidden border-2 border-white/[0.06] shadow-2xl bg-white/[0.02] backdrop-blur-sm">
+                                <div className="relative rounded-2xl overflow-hidden border-2 border-gray-200 dark:border-white/[0.06] shadow-2xl bg-white/80 dark:bg-white/[0.02] backdrop-blur-sm">
                                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent" />
                                     <Image
                                         src="/images/landing/devices-mockup.webp"

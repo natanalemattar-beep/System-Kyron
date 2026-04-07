@@ -14,7 +14,7 @@ function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; max
     const width = (value / maxValue) * 100;
 
     return (
-        <div ref={ref} className="w-full h-3 rounded-full bg-white/[0.04] overflow-hidden">
+        <div ref={ref} className="w-full h-3 rounded-full bg-gray-100 dark:bg-white/[0.04] overflow-hidden">
             <motion.div
                 className={cn("h-full rounded-full", color)}
                 initial={{ width: 0 }}
@@ -92,14 +92,14 @@ export function FeaturesSection() {
                         <span className="text-foreground">{t('title_highlight')}</span>{' '}
                         <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">{t('title_rest')}</span>
                     </h2>
-                    <p className="text-muted-foreground/60 max-w-xl mx-auto font-medium text-base leading-relaxed">
+                    <p className="text-muted-foreground max-w-xl mx-auto font-medium text-base leading-relaxed">
                         {t('subtitle')}
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
                     <motion.div
-                        className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8"
+                        className="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] p-8"
                         initial={animate ? { opacity: 0, x: -30 } : undefined}
                         whileInView={animate ? { opacity: 1, x: 0 } : undefined}
                         viewport={{ once: true, margin: "-60px" }}
