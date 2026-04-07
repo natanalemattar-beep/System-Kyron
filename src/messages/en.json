@@ -246,50 +246,90 @@
         "billed_annually": "Billed annually",
         "per_year": "/year",
         "most_popular": "Most Popular",
+        "modules_badge": "Individual Modules",
+        "modules_title": "Build your plan",
+        "modules_highlight": "your way",
+        "modules_subtitle": "Need only invoicing? Or just accounting advisory? Pay only for what you use. Each module works independently.",
+        "individual_modules": [
+            {
+                "name": "My Line",
+                "description": "Phone line management",
+                "features": ["Up to 3 lines", "Plan comparator", "Usage control", "eSIM & 5G"]
+            },
+            {
+                "name": "Accounting Advisory",
+                "description": "Full VEN-NIF accounting",
+                "features": ["Legal books", "Tax Center", "Auto withholdings", "Fiscal AI"]
+            },
+            {
+                "name": "Invoicing",
+                "description": "SENIAT fiscal invoicing",
+                "features": ["100 invoices/mo", "Point of Sale", "Quotes", "Debit/credit notes"]
+            },
+            {
+                "name": "Payroll & HR",
+                "description": "Full LOTTT payroll",
+                "features": ["Up to 10 employees", "Social benefits", "IVSS, FAOV, INCES", "Work certificates"]
+            },
+            {
+                "name": "Legal Advisory",
+                "description": "AI-powered documents & contracts",
+                "features": ["AI document generator", "Contract archive", "Permit tracking", "Expiry alerts"]
+            },
+            {
+                "name": "Sustainability",
+                "description": "Environmental dashboard & eco-credits",
+                "features": ["Eco-Exchange", "Recycling card", "Carbon footprint", "Impact reports"]
+            },
+            {
+                "name": "Corporate Telecom",
+                "description": "Corporate fleet & MDM",
+                "features": ["Up to 20 lines", "Business internet", "Corporate MDM", "CONATEL reports"]
+            }
+        ],
         "plans": [
             {
                 "name": "Personal",
-                "description": "Maximum personal value and sustainability",
+                "description": "Personal account, My Line & sustainability",
                 "features": [
                     "Full Personal Account",
+                    "My Line (3 lines)",
                     "Sustainability Module",
-                    "Personal accounting",
-                    "Fiscal invoicing (50/mo)",
                     "Live BCV exchange rate",
-                    "SENIAT alerts (10/mo)",
                     "AI Chat (50 msgs/mo)",
-                    "RIF/ID lookup (15/mo)",
+                    "SENIAT alerts (10/mo)",
+                    "RIF/ID lookup",
                     "1 user"
                 ],
                 "cta": "Choose Personal"
             },
             {
                 "name": "Professional",
-                "description": "For SMBs and professional accountants",
+                "description": "Accounting + Invoicing + My Line bundle",
                 "features": [
-                    "Full VEN-NIF accounting",
-                    "Payroll up to 15 employees",
-                    "CRM 200 clients",
-                    "Triple AI Engine (Claude, GPT, Gemini)",
-                    "Fiscal alerts (30/mo)",
-                    "Assisted IVA/ISLR filings",
-                    "Blockchain audit trail (50/mo)",
+                    "Everything in Personal +",
+                    "VEN-NIF Accounting Advisory",
+                    "SENIAT Invoicing (200/mo)",
+                    "My Line (5 lines)",
+                    "Full Tax Center",
+                    "Assisted filings",
+                    "Blockchain audit trail",
                     "3 users"
                 ],
                 "cta": "Choose Professional"
             },
             {
                 "name": "Enterprise",
-                "description": "For mid-size companies with advanced AI",
+                "description": "All-in-one with Payroll + Legal + Telecom",
                 "features": [
-                    "Everything in Professional +",
-                    "Payroll up to 75 employees",
+                    "ALL modules included",
+                    "Payroll up to 50 employees",
                     "CRM 1,000 clients",
-                    "Full HR + Employee Wellness",
-                    "Legal Module + Permits",
+                    "HR + Employee Wellness",
+                    "Legal Advisory + Permits",
                     "Corporate Telecom (20 lines)",
-                    "Multichannel alerts (Email, WhatsApp, SMS)",
-                    "Fiscal risk scoring",
+                    "Multichannel alerts",
+                    "Advanced AI (500 msgs/mo)",
                     "10 users"
                 ],
                 "cta": "Choose Enterprise"
@@ -303,8 +343,8 @@
                     "Unlimited employees & clients",
                     "Unlimited invoicing",
                     "Unlimited Telecom",
-                    "Unlimited immutable Blockchain",
                     "Dedicated API + White-label",
+                    "AI bank reconciliation",
                     "VIP priority support",
                     "Unlimited users"
                 ],

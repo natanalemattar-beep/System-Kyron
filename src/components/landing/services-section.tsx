@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, Leaf, RadioTower, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
@@ -10,9 +10,19 @@ import { useState } from 'react';
 
 const planConfigs = [
     { monthlyPrice: 9, annualPrice: 7, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', border: 'border-emerald-500/15', bg: 'bg-emerald-500/[0.03]', icon: Zap, popular: false },
-    { monthlyPrice: 29, annualPrice: 24, color: 'text-sky-400', gradient: 'from-sky-500 to-blue-600', border: 'border-sky-500/20', bg: 'bg-sky-500/[0.03]', icon: Star, popular: false },
-    { monthlyPrice: 79, annualPrice: 66, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', border: 'border-violet-500/20', bg: 'bg-violet-500/[0.03]', icon: Crown, popular: true },
-    { monthlyPrice: 199, annualPrice: 166, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/15', bg: 'bg-amber-500/[0.03]', icon: Building2, popular: false },
+    { monthlyPrice: 29, annualPrice: 23, color: 'text-sky-400', gradient: 'from-sky-500 to-blue-600', border: 'border-sky-500/20', bg: 'bg-sky-500/[0.03]', icon: Star, popular: false },
+    { monthlyPrice: 59, annualPrice: 47, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', border: 'border-violet-500/20', bg: 'bg-violet-500/[0.03]', icon: Crown, popular: true },
+    { monthlyPrice: 149, annualPrice: 119, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/15', bg: 'bg-amber-500/[0.03]', icon: Building2, popular: false },
+];
+
+const moduleConfigs = [
+    { price: 5, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Phone },
+    { price: 15, color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', icon: Calculator },
+    { price: 10, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', icon: Receipt },
+    { price: 12, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', icon: Users },
+    { price: 8, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', icon: Scale },
+    { price: 3, color: 'text-green-400', gradient: 'from-green-500 to-emerald-600', icon: Leaf },
+    { price: 15, color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', icon: RadioTower },
 ];
 
 const statsMeta = [
@@ -28,8 +38,10 @@ export function ServicesSection() {
     const animate = tier !== 'low';
     const [isAnnual, setIsAnnual] = useState(true);
     const plansData = t.raw('plans') as { name: string; description: string; features: string[]; cta: string }[];
+    const modulesData = t.raw('individual_modules') as { name: string; description: string; features: string[] }[];
 
     const plans = plansData.map((p, i) => ({ ...p, ...planConfigs[i] }));
+    const modules = modulesData.map((m, i) => ({ ...m, ...moduleConfigs[i] }));
 
     return (
         <section id="servicios" className="py-24 md:py-36 relative z-10 overflow-hidden">
@@ -169,6 +181,60 @@ export function ServicesSection() {
                         );
                     })}
                 </div>
+
+                <motion.div
+                    className="mt-20 md:mt-28 text-center"
+                    initial={animate ? { opacity: 0, y: 30 } : undefined}
+                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400 mx-auto mb-6">
+                        <Package className="h-3.5 w-3.5" />
+                        {t('modules_badge')}
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-bold tracking-tight uppercase text-foreground mb-3">
+                        {t('modules_title')} <span className="kyron-gradient-text italic">{t('modules_highlight')}</span>
+                    </h3>
+                    <p className="text-sm text-muted-foreground/60 max-w-2xl mx-auto font-medium mb-10">
+                        {t('modules_subtitle')}
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                        {modules.map((mod, i) => (
+                            <motion.div
+                                key={mod.name}
+                                className="group relative rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-5 text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                                initial={animate ? { opacity: 0, y: 20 } : undefined}
+                                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                                viewport={{ once: true, margin: "-30px" }}
+                                transition={{ duration: 0.5, delay: i * 0.06 }}
+                            >
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className={cn("p-2 rounded-lg bg-gradient-to-br shadow-md", mod.gradient)}>
+                                        <mod.icon className="h-4 w-4 text-white" />
+                                    </div>
+                                    <div>
+                                        <h4 className={cn("text-sm font-bold", mod.color)}>{mod.name}</h4>
+                                        <p className="text-[10px] text-muted-foreground/40">{mod.description}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-baseline gap-1 mb-3">
+                                    <span className="text-2xl font-black text-foreground">${mod.price}</span>
+                                    <span className="text-[10px] text-muted-foreground/40 font-medium">{t('per_month')}</span>
+                                </div>
+                                <div className="space-y-1.5">
+                                    {mod.features.slice(0, 4).map((feat: string, j: number) => (
+                                        <div key={j} className="flex items-center gap-2">
+                                            <Check className={cn("h-3 w-3 shrink-0", mod.color)} />
+                                            <span className="text-[10px] text-foreground/50 font-medium">{feat}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
 
                 <motion.div
                     className="container mx-auto px-4 md:px-10 max-w-7xl mt-24 md:mt-32"

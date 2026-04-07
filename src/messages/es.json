@@ -246,50 +246,90 @@
         "billed_annually": "Facturado anualmente",
         "per_year": "/año",
         "most_popular": "Más Popular",
+        "modules_badge": "Módulos Individuales",
+        "modules_title": "Arma tu plan",
+        "modules_highlight": "a tu medida",
+        "modules_subtitle": "¿Solo necesitas facturación? ¿O asesoría contable? Paga solo lo que usas. Cada módulo funciona de forma independiente.",
+        "individual_modules": [
+            {
+                "name": "Mi Línea",
+                "description": "Gestión de líneas telefónicas",
+                "features": ["Hasta 3 líneas", "Comparador de planes", "Control de consumo", "eSIM y 5G"]
+            },
+            {
+                "name": "Asesoría Contable",
+                "description": "Contabilidad VEN-NIF completa",
+                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"]
+            },
+            {
+                "name": "Facturación",
+                "description": "Facturación fiscal SENIAT",
+                "features": ["100 facturas/mes", "Punto de Venta", "Cotizaciones", "Notas débito/crédito"]
+            },
+            {
+                "name": "Nómina & RRHH",
+                "description": "Nómina LOTTT completa",
+                "features": ["Hasta 10 empleados", "Prestaciones sociales", "IVSS, FAOV, INCES", "Certificados laborales"]
+            },
+            {
+                "name": "Asesoría Legal",
+                "description": "Documentos y contratos con IA",
+                "features": ["Generador con IA", "Archivo contratos", "Control de permisos", "Alertas vencimiento"]
+            },
+            {
+                "name": "Sostenibilidad",
+                "description": "Dashboard ambiental y eco-créditos",
+                "features": ["Eco-Exchange", "Tarjeta reciclaje", "Huella de carbono", "Reportes impacto"]
+            },
+            {
+                "name": "Telecom Empresarial",
+                "description": "Flota corporativa y MDM",
+                "features": ["Hasta 20 líneas", "Internet empresarial", "MDM corporativo", "Reportes CONATEL"]
+            }
+        ],
         "plans": [
             {
                 "name": "Personal",
-                "description": "Máximo provecho personal y sostenibilidad",
+                "description": "Cuenta personal, Mi Línea y sostenibilidad",
                 "features": [
                     "Cuenta Personal completa",
+                    "Mi Línea (3 líneas)",
                     "Módulo Sostenibilidad",
-                    "Contabilidad personal",
-                    "Facturación fiscal (50/mes)",
                     "Tasa BCV en vivo",
-                    "Alertas SENIAT (10/mes)",
                     "Chat AI (50 msgs/mes)",
-                    "Consulta RIF/Cédula (15/mes)",
+                    "Alertas SENIAT (10/mes)",
+                    "Consulta RIF/Cédula",
                     "1 usuario"
                 ],
                 "cta": "Elegir Personal"
             },
             {
                 "name": "Profesional",
-                "description": "Para PYMEs y contadores profesionales",
+                "description": "Contabilidad + Facturación + Mi Línea en paquete",
                 "features": [
-                    "Contabilidad VEN-NIF completa",
-                    "Nómina hasta 15 empleados",
-                    "CRM 200 clientes",
-                    "IA Triple Motor (Claude, GPT, Gemini)",
-                    "Alertas fiscales (30/mes)",
-                    "Declaraciones asistidas IVA/ISLR",
-                    "Blockchain audit trail (50/mes)",
+                    "Todo en Personal +",
+                    "Asesoría Contable VEN-NIF",
+                    "Facturación SENIAT (200/mes)",
+                    "Mi Línea (5 líneas)",
+                    "Centro Tributario completo",
+                    "Declaraciones asistidas",
+                    "Blockchain audit trail",
                     "3 usuarios"
                 ],
                 "cta": "Elegir Profesional"
             },
             {
                 "name": "Empresarial",
-                "description": "Para empresas medianas con AI avanzada",
+                "description": "Todo incluido con Nómina + Legal + Telecom",
                 "features": [
-                    "Todo en Profesional +",
-                    "Nómina hasta 75 empleados",
+                    "TODOS los módulos incluidos",
+                    "Nómina hasta 50 empleados",
                     "CRM 1.000 clientes",
-                    "RRHH completo + Bienestar Laboral",
-                    "Módulo Legal + Permisología",
+                    "RRHH + Bienestar Laboral",
+                    "Asesoría Legal + Permisología",
                     "Telecom corporativo (20 líneas)",
-                    "Alertas multicanal (Email, WhatsApp, SMS)",
-                    "Scoring de riesgo fiscal",
+                    "Alertas multicanal",
+                    "IA avanzada (500 msgs/mes)",
                     "10 usuarios"
                 ],
                 "cta": "Elegir Empresarial"
@@ -299,12 +339,12 @@
                 "description": "Todo ilimitado, sin restricciones",
                 "features": [
                     "TODOS los módulos sin límites",
-                    "AI Claude ilimitado 24/7",
+                    "IA Claude ilimitado 24/7",
                     "Empleados y clientes ilimitados",
                     "Facturación ilimitada",
                     "Telecom ilimitado",
-                    "Blockchain immutable ilimitado",
                     "API dedicada + White-label",
+                    "Conciliación bancaria AI",
                     "Soporte prioritario VIP",
                     "Usuarios ilimitados"
                 ],
