@@ -1,14 +1,11 @@
 import { GoogleGenAI } from '@google/genai';
 
 export function getGeminiClient(): GoogleGenAI {
-  const apiKey = process.env.AI_INTEGRATIONS_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('Gemini API key not configured');
 
   return new GoogleGenAI({
     apiKey,
-    httpOptions: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL
-      ? { baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL, apiVersion: '' }
-      : undefined,
   });
 }
 

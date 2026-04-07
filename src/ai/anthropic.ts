@@ -1,12 +1,11 @@
 import Anthropic from '@anthropic-ai/sdk';
 
 export function getAnthropicClient(): Anthropic {
-  const apiKey = process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('Anthropic API key not configured');
 
   return new Anthropic({
     apiKey,
-    baseURL: process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL || undefined,
   });
 }
 
