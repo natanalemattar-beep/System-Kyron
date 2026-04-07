@@ -79,7 +79,7 @@ All external integrations are documented in a single manifest file that serves a
 
 ## External Dependencies
 - **Database:** PostgreSQL
-- **Internationalization:** `next-intl`
+- **Internationalization:** `next-intl` — translation files live in `src/messages/{es,en}.json` (loaded by `src/i18n/request.ts`). The root `messages/` folder is NOT used at runtime.
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion

@@ -828,8 +828,8 @@
     },
     "HowItWorksSection": {
         "badge": "Artificial Intelligence",
-        "title_prefix": "Triple",
-        "title_highlight": "AI Engine",
+        "title_highlight": "Triple",
+        "title_rest": "AI Engine",
         "subtitle": "Three artificial intelligence engines working in parallel to deliver more precise analysis, more secure verifications and smarter recommendations.",
         "demo_label": "Live demo",
         "cta": "Try AI Free",
@@ -905,12 +905,12 @@
     },
     "ModulesGridSection": {
         "badge": "Complete Ecosystem",
-        "title_prefix": "Module",
+        "title_main": "Module",
         "title_highlight": "Universe",
-        "subtitle_prefix": "specialized tools covering every aspect of your business. No extra modules, no hidden costs.",
+        "subtitle": "{count} specialized tools covering every aspect of your business. No extra modules, no hidden costs.",
         "search_placeholder": "Search module...",
         "explore_module": "Explore module",
-        "modules_included": "modules included",
+        "modules_included": "{count} modules included",
         "no_extra_costs": "No extra costs",
         "cta": "Explore All Modules",
         "categories": {

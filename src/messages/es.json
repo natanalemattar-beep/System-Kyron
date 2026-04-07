@@ -828,8 +828,8 @@
     },
     "HowItWorksSection": {
         "badge": "Inteligencia Artificial",
-        "title_prefix": "Triple Motor de",
-        "title_highlight": "IA",
+        "title_highlight": "Triple Motor de",
+        "title_rest": "IA",
         "subtitle": "Tres motores de inteligencia artificial trabajando en paralelo para darte análisis más precisos, verificaciones más seguras y recomendaciones más inteligentes.",
         "cta": "Probar IA Gratis",
         "demo_label": "Demo en vivo",
@@ -905,7 +905,7 @@
     },
     "ModulesGridSection": {
         "badge": "Ecosistema Completo",
-        "title_prefix": "Universo de",
+        "title_main": "Universo de",
         "title_highlight": "Módulos",
         "subtitle": "{count} herramientas especializadas que cubren cada aspecto de tu empresa. Sin módulos extra, sin costos ocultos.",
         "modules_included": "{count} módulos incluidos",

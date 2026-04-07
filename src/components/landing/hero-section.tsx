@@ -135,7 +135,7 @@ export function HeroSection() {
                 />
                 <div className={`absolute inset-0 transition-colors duration-700 ${isDark
                     ? 'bg-gradient-to-b from-[#050816]/98 via-[#080c1a]/95 to-[#0a0e1a]/98'
-                    : 'bg-gradient-to-b from-[#e8f0fe]/92 via-[#edf2fb]/75 to-[#e8f0fe]'
+                    : 'bg-gradient-to-b from-[#e8f0fe]/95 via-[#edf2fb]/88 to-[#e8f0fe]'
                 }`} />
                 <div className={`absolute inset-0 transition-colors duration-700 ${isDark
                     ? 'bg-[radial-gradient(ellipse_60%_50%_at_50%_40%,rgba(14,165,233,0.08),transparent_70%)]'

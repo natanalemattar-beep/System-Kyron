@@ -31,30 +31,29 @@
             { "val": "IGTF 3%", "label": "Integrated" },
             { "val": "BCV", "label": "Real-Time" },
             { "val": "VEN-NIF", "label": "Certified" }
-        ]
+        ],
+        "rotating_words": ["Total Intelligence", "Tax Precision", "AI Automation", "Zero Risk"]
     },
     "FeaturesSection": {
-        "badge": "Platform Capabilities",
-        "title_highlight": "Everything your",
-        "title_rest": "business needs",
-        "subtitle": "Nine integrated modules within a single digital ecosystem built for the Venezuelan market.",
-        "ai_native_badge": "AI-Powered",
-        "features": [
-            { "title": "VEN-NIF Accounting", "description": "Digital ledgers, RIPF, automated IVA, ISLR & IGTF filings stamped with SENIAT seal." },
-            { "title": "HR & Payroll", "description": "Payroll with SSO, FAOV, LPH, bonuses, benefits and LOPCYMAT. Full LOTTT compliance." },
-            { "title": "My Line 5G / eSIM", "description": "Physical and eSIM line provisioning, corporate fleet management, usage monitoring, and real-time telemetry." },
-            { "title": "Artificial Intelligence", "description": "Kyron AI built in (powered by Claude from Anthropic). Contract drafting, tax analysis, AI-powered pitches, waste classification, and more." },
-            { "title": "Legal AI & Permits", "description": "Automated contracts, notarial powers, CONATEL and SENIAT permits, and auto-updated Official Gazette." },
-            { "title": "Ameru — Eco-Credits", "description": "AI-driven waste classification, certified eco-credit issuance, and a sustainability marketplace." },
-            { "title": "Dashboard & Analytics", "description": "Live KPIs, cash-flow analysis, financial projections, and exportable PDF and PowerPoint reports." },
-            { "title": "Tax Management", "description": "IVA, ISLR, IGTF, parafiscal contributions, municipal taxes, withholdings, and an automated tax calendar." },
-            { "title": "Enterprise Security", "description": "Cryptographic sealing, an immutable audit trail, and AES-256 encryption across the entire platform." }
+        "badge": "Superior Performance",
+        "title_highlight": "Speed that",
+        "title_rest": "makes the difference",
+        "subtitle": "We compare System Kyron against leading market platforms in response time.",
+        "speed_title": "Response Time",
+        "speed_subtitle": "Average milliseconds per operation",
+        "fastest": "Fastest",
+        "cta": "Test Speed",
+        "competitors": [
+            { "name": "System Kyron", "speed": 120 },
+            { "name": "SAP", "speed": 850 },
+            { "name": "Odoo", "speed": 620 },
+            { "name": "QuickBooks", "speed": 480 }
         ],
-        "stats": [
-            { "val": "48h", "detail": "Migration Time" },
-            { "val": "Multi-Entity", "detail": "Holdings & Condos" },
-            { "val": "Bilingual", "detail": "Spanish & English" },
-            { "val": "Kyron AI", "detail": "Powered by Claude (Anthropic)" }
+        "metrics": [
+            { "value": 120, "suffix": "ms", "label": "Average Response" },
+            { "value": 99, "suffix": "%", "label": "Uptime" },
+            { "value": 48, "suffix": "h", "label": "Full Migration" },
+            { "value": 3, "suffix": "x", "label": "Faster than Odoo" }
         ]
     },
     "ServicesSection": {
@@ -124,26 +123,39 @@
         "title_rest": "Asked Questions",
         "subtitle": "The most common questions about the System Kyron ecosystem.",
         "view_more": "View more FAQs",
+        "search_placeholder": "Search question...",
+        "all_categories": "All",
+        "categories": {
+            "fiscal": "Fiscal",
+            "security": "Security",
+            "general": "General",
+            "technical": "Technical"
+        },
         "items": [
             {
                 "question": "How do you guarantee tax compliance?",
-                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations."
+                "answer": "We monitor the Official Gazette with AI. IVA 16%, IGTF 3% and ISLR are calculated automatically according to current VEN-NIF regulations.",
+                "category": "fiscal"
             },
             {
                 "question": "Can I manage multiple companies?",
-                "answer": "Yes. The Partners portal lets you consolidate the accounting of multiple entities into a unified Command Center."
+                "answer": "Yes. The Partners portal lets you consolidate the accounting of multiple entities into a unified Command Center.",
+                "category": "general"
             },
             {
                 "question": "How does the BCV rate work?",
-                "answer": "It updates automatically. Every invoice generates its USD equivalent with the current BCV rate."
+                "answer": "It updates automatically. Every invoice generates its USD equivalent with the current BCV rate.",
+                "category": "fiscal"
             },
             {
                 "question": "Is it hard to migrate my data?",
-                "answer": "No. For standard systems (Excel, Profit, Monica), migration is completed in less than 48 hours at no extra cost."
+                "answer": "No. For standard systems (Excel, Profit, Monica), migration is completed in less than 48 hours at no extra cost.",
+                "category": "technical"
             },
             {
                 "question": "What level of security do you have?",
-                "answer": "AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable audit log for every action."
+                "answer": "AES-256 encryption, JWT authentication with HTTP-only cookies, and an immutable audit log for every action.",
+                "category": "security"
             }
         ]
     },
@@ -177,6 +189,9 @@
         "field_module_placeholder": "Select...",
         "btn_submit": "REQUEST AUDIT",
         "btn_submitting": "TRANSMITTING...",
+        "guarantee_encryption": "AES-256 Encryption",
+        "guarantee_activation": "Instant Activation",
+        "guarantee_support": "24/7 Support",
         "footer_text": "AES-256 Encrypted · 2026",
         "toast_success_title": "TRANSMISSION COMPLETE",
         "toast_success_desc": "Dossier submitted for review. An account officer will reach out.",
@@ -251,8 +266,8 @@
     },
     "HowItWorksSection": {
         "badge": "Cutting-edge AI",
-        "title_prefix": "Powered by",
-        "title_highlight": "AI Engines",
+        "title_highlight": "Powered by",
+        "title_rest": "AI Engines",
         "subtitle": "We interconnect the world's most advanced language models to offer you absolute precision in accounting, legal, and analysis.",
         "demo_label": "REAL-TIME INTERACTION",
         "cta": "Explore Capabilities",
@@ -439,5 +454,132 @@
         "toast_error_title": "Error",
         "toast_error_desc": "Connection error",
         "toast_publish_error": "Could not publish"
+    },
+    "WhyKyronSection": {
+        "badge": "Competitive Edge",
+        "title_prefix": "Why choose",
+        "title_highlight": "System Kyron",
+        "subtitle": "Built from scratch for Venezuela. No generic adaptations, no compromises.",
+        "cta": "Get Started",
+        "differentiators": [
+            { "title": "100% Venezuelan", "description": "Designed for VEN-NIF, SENIAT, LOTTT, and BCV regulations. Not a generic adaptation." },
+            { "title": "Integrated AI", "description": "Claude from Anthropic powers tax analysis, document generation, and accounting assistance." },
+            { "title": "AES-256 Security", "description": "Bank-grade encryption, HTTP-only JWT, and an immutable audit trail." },
+            { "title": "Superior Speed", "description": "120ms average response. 3x faster than Odoo and 7x faster than SAP." },
+            { "title": "All-in-One", "description": "Accounting, payroll, invoicing, telecom, legal, and AI in one platform." },
+            { "title": "24/7 Support", "description": "Local technical team with deep knowledge of Venezuela's fiscal ecosystem." }
+        ],
+        "comparison_title_kyron": "System Kyron",
+        "comparison_vs": "vs",
+        "comparison_title_generic": "Generic Platforms",
+        "comparison_subtitle": "Features that only System Kyron offers natively",
+        "comparison_header": "Feature",
+        "comparison_rows": [
+            "Native VEN-NIF",
+            "Real-Time BCV Rate",
+            "Automatic IGTF 3%",
+            "Full LOTTT Payroll",
+            "Integrated Fiscal AI",
+            "Corporate eSIM / 5G",
+            "Certified Eco-Credits",
+            "AES-256 Encryption"
+        ]
+    },
+    "ComplianceSection": {
+        "badge": "Full Compliance",
+        "title_highlight": "Regulation",
+        "title_rest": "guaranteed",
+        "subtitle": "Every module is aligned with Venezuela's current regulations. Automated fiscal compliance.",
+        "security_badge": "Secure Infrastructure",
+        "security_title_1": "Bank-grade",
+        "security_title_2": "security",
+        "security_desc": "Every operation is protected with the highest industry standards.",
+        "regulations": {
+            "seniat": { "full": "National Integrated Customs and Tax Administration Service", "badges": ["IVA 16%", "ISLR", "IGTF 3%", "Withholdings"] },
+            "bcv": { "full": "Central Bank of Venezuela — Real-time exchange rates", "badges": ["Official Rate", "USD/Bs", "EUR/Bs", "Historical"] },
+            "lottt": { "full": "Organic Law of Labor, Workers and Working Women", "badges": ["Payroll", "Benefits", "Vacations", "Bonuses"] },
+            "conatel": { "full": "National Telecommunications Commission", "badges": ["5G", "eSIM", "PBX", "Permits"] },
+            "ven_nif": { "full": "International Financial Reporting Standards (Venezuela)", "badges": ["Ledgers", "RIPF", "Chart of Accounts", "Balances"] },
+            "sudeban": { "full": "Superintendency of Banking Sector Institutions", "badges": ["AES-256", "JWT", "Audit", "Encryption"] }
+        },
+        "security": {
+            "aes256": { "label": "AES-256", "desc": "Military-grade encryption" },
+            "twofa": { "label": "2FA", "desc": "Two-factor authentication" },
+            "jwt": { "label": "JWT HTTP-only", "desc": "Secure tokens" },
+            "audit": { "label": "Audit", "desc": "Immutable record" }
+        }
+    },
+    "ModulesGridSection": {
+        "badge": "System Modules",
+        "title_main": "Explore our",
+        "title_highlight": "modules",
+        "subtitle": "{count} modules integrated in one digital ecosystem.",
+        "search_placeholder": "Search module...",
+        "explore_module": "Explore module",
+        "modules_included": "{count} modules included",
+        "no_extra_costs": "No extra costs",
+        "cta": "Get Started",
+        "categories": {
+            "all": "All",
+            "finance": "Finance",
+            "hr": "HR",
+            "legal": "Legal",
+            "ops": "Operations",
+            "tech": "Technology"
+        },
+        "modules": [
+            { "name": "VEN-NIF Accounting", "desc": "Digital ledgers, IVA, ISLR & IGTF automated." },
+            { "name": "SENIAT Invoicing", "desc": "Invoices, credit/debit notes with fiscal seal." },
+            { "name": "HR & Payroll", "desc": "LOTTT payroll, benefits, vacations and bonuses." },
+            { "name": "Legal Management", "desc": "Contracts, powers, permits and legal documents." },
+            { "name": "My Line 5G", "desc": "eSIM, corporate fleet, usage and telemetry." },
+            { "name": "Kyron AI", "desc": "Fiscal AI powered by Claude from Anthropic." },
+            { "name": "Dashboard & Analytics", "desc": "Real-time KPIs and executive reports." },
+            { "name": "Taxes", "desc": "IVA, ISLR, IGTF, parafiscal and tax calendar." },
+            { "name": "Security", "desc": "AES-256, JWT, immutable audit." },
+            { "name": "Ameru Eco-Credits", "desc": "Waste classification and sustainability marketplace." },
+            { "name": "Inventory", "desc": "Stock control, entries, exits and alerts." },
+            { "name": "Point of Sale", "desc": "Quick payments, daily register and direct invoicing." }
+        ]
+    },
+    "IntegrationsStrip": {
+        "badge": "Integrations",
+        "title_highlight": "Connected with",
+        "title_rest": "your ecosystem",
+        "subtitle": "Banks, payment gateways, telecommunications and AI — all interconnected.",
+        "cat_banking": "Banking",
+        "cat_payments": "Payments",
+        "cat_telecom": "Telecom",
+        "cat_tech": "Technology",
+        "cta": "View All Integrations"
+    },
+    "TrustNumbersBanner": {
+        "metrics": ["Automations", "Integrated Modules", "AES Encryption", "Tax Compliance", "Legal Frameworks"]
+    },
+    "ShowcaseSection": {
+        "badge": "Interface in Action",
+        "title_prefix": "Designed to",
+        "title_highlight": "impress",
+        "subtitle": "Every screen is precision-designed to deliver the best user experience.",
+        "preview": "Preview",
+        "screenshots": [
+            { "title": "Access Portal", "description": "Module selection with AES-256 security and biometric authentication." },
+            { "title": "Accounting Center", "description": "Accounting dashboard with VEN-NIF ledgers, IVA and ISLR in real time." },
+            { "title": "Business Registration", "description": "Streamlined registration process for businesses and individuals." },
+            { "title": "User Guide", "description": "Interactive manual with step-by-step tutorials for each module." },
+            { "title": "FAQ", "description": "Intelligent help center with category-based search." }
+        ]
+    },
+    "PanelControlHero": {
+        "title": "Command Center",
+        "activate": "Access Panel",
+        "activate_sub": "Available modules",
+        "tagline": "System Kyron v2.8.5 · Intelligent Platform",
+        "kpis": [
+            { "label": "Revenue", "delta": "+0%" },
+            { "label": "Operations", "delta": "0 today" },
+            { "label": "Users", "delta": "Active" }
+        ],
+        "modules": ["Accounting", "HR", "Telecom", "Legal", "Sustainability", "Analytics"]
     }
 }
