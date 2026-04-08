@@ -55,16 +55,16 @@ export function LandingSidebar() {
             <nav className="flex-grow py-8 px-4 space-y-1.5 overflow-y-auto custom-scrollbar">
                 <p className="text-[11px] font-semibold uppercase text-muted-foreground/70 tracking-wide mb-6 px-4 italic">Navegación Maestro</p>
                 {navLinks.map((link) => (
-                    <Link 
+                    <a 
                         key={link.label} 
-                        href={link.href as any}
+                        href={link.href}
                         onClick={(e) => handleAnchorClick(e, link.href)}
-                        className="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-primary/5 text-muted-foreground hover:text-primary relative overflow-hidden"
+                        className="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-primary/5 text-muted-foreground hover:text-primary relative overflow-hidden cursor-pointer"
                     >
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform"></div>
                         <link.icon className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:rotate-3" />
                         <span className="text-[10px] font-semibold uppercase tracking-widest">{link.label}</span>
-                    </Link>
+                    </a>
                 ))}
                 
                 <div className="pt-8 px-4 space-y-4">

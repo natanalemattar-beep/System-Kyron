@@ -139,12 +139,12 @@ export function LandingHeader() {
 
                     <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-10 flex-1">
                         {navItems.map((item) => (
-                            <Link 
+                            <a 
                                 key={item.labelKey}
-                                href={item.href as any} 
+                                href={item.href} 
                                 onClick={(e) => handleAnchorClick(e, item.href)}
                                 className={cn(
-                                    "text-[11px] font-semibold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1",
+                                    "text-[11px] font-semibold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
                                     isScrolled
                                         ? "text-foreground/50 hover:text-cyan-400"
                                         : "text-foreground/40 hover:text-cyan-400"
@@ -152,7 +152,7 @@ export function LandingHeader() {
                             >
                                 {t(item.labelKey)}
                                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 group-hover:w-full" />
-                            </Link>
+                            </a>
                         ))}
                     </nav>
 
@@ -257,14 +257,14 @@ export function LandingHeader() {
                                 <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-0.5">
                                     {navItems.map((item) => (
                                         <SheetClose key={item.labelKey} asChild>
-                                            <Link 
-                                                href={item.href as any} 
+                                            <a 
+                                                href={item.href} 
                                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                                className="text-sm font-semibold py-3 px-4 rounded-xl text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.03] transition-all flex items-center justify-between"
+                                                className="text-sm font-semibold py-3 px-4 rounded-xl text-muted-foreground/50 hover:text-foreground hover:bg-white/[0.03] transition-all flex items-center justify-between cursor-pointer"
                                             >
                                                 {t(item.labelKey)}
                                                 <ChevronRight className="h-3.5 w-3.5 opacity-15" />
-                                            </Link>
+                                            </a>
                                         </SheetClose>
                                     ))}
                                 </nav>
