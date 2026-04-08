@@ -11,6 +11,9 @@ export interface PlanMiLinea {
   precioMensualUSD: number;
   popular: boolean;
   color: string;
+  minutosNacionales: string;
+  mensajesSMS: string;
+  llamadasInternacionales: string;
   caracteristicas: string[];
 }
 
@@ -23,7 +26,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 3,
     popular: false,
     color: 'slate',
-    caracteristicas: ['Llamadas ilimitadas nacionales', '50 SMS', 'WhatsApp incluido', 'Redes sociales básicas'],
+    minutosNacionales: '60 min',
+    mensajesSMS: '30 SMS',
+    llamadasInternacionales: 'No incluidas',
+    caracteristicas: ['WhatsApp incluido', 'Redes sociales básicas'],
   },
   {
     id: 'conecta_5gb',
@@ -33,7 +39,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 5,
     popular: false,
     color: 'blue',
-    caracteristicas: ['Llamadas ilimitadas', '100 SMS', 'Redes sociales ilimitadas', 'Música streaming'],
+    minutosNacionales: '150 min',
+    mensajesSMS: '80 SMS',
+    llamadasInternacionales: 'No incluidas',
+    caracteristicas: ['Redes sociales ilimitadas', 'Música streaming'],
   },
   {
     id: 'plus_10gb',
@@ -43,7 +52,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 8,
     popular: false,
     color: 'indigo',
-    caracteristicas: ['Llamadas ilimitadas', '200 SMS', 'Redes sociales ilimitadas', 'Streaming música y video SD', 'Roaming básico'],
+    minutosNacionales: '300 min',
+    mensajesSMS: '150 SMS',
+    llamadasInternacionales: '15 min',
+    caracteristicas: ['Redes sociales ilimitadas', 'Streaming música y video SD', 'Roaming básico'],
   },
   {
     id: 'global_25gb',
@@ -53,7 +65,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 14,
     popular: true,
     color: 'primary',
-    caracteristicas: ['Llamadas ilimitadas', '500 SMS', 'Apps ilimitadas', 'Streaming HD', 'Roaming premium', 'Hotspot 10 GB'],
+    minutosNacionales: 'Ilimitados',
+    mensajesSMS: '500 SMS',
+    llamadasInternacionales: '60 min',
+    caracteristicas: ['Apps ilimitadas', 'Streaming HD', 'Roaming premium', 'Hotspot 10 GB'],
   },
   {
     id: 'ultra_50gb',
@@ -63,7 +78,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 22,
     popular: false,
     color: 'cyan',
-    caracteristicas: ['Todo ilimitado', 'Streaming 4K', 'Roaming global', 'Hotspot 25 GB', 'VPN incluida', 'Prioridad de red'],
+    minutosNacionales: 'Ilimitados',
+    mensajesSMS: 'Ilimitados',
+    llamadasInternacionales: '200 min',
+    caracteristicas: ['Streaming 4K', 'Roaming global', 'Hotspot 25 GB', 'VPN incluida', 'Prioridad de red'],
   },
   {
     id: 'infinite',
@@ -73,7 +91,10 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
     precioMensualUSD: 35,
     popular: false,
     color: 'violet',
-    caracteristicas: ['Todo ilimitado', 'Streaming 4K/8K', 'Roaming global premium', 'Hotspot ilimitado', 'VPN + seguridad avanzada', 'Soporte prioritario 24/7', 'eSIM múltiple'],
+    minutosNacionales: 'Ilimitados',
+    mensajesSMS: 'Ilimitados',
+    llamadasInternacionales: 'Ilimitadas',
+    caracteristicas: ['Streaming 4K/8K', 'Roaming global premium', 'Hotspot ilimitado', 'VPN + seguridad avanzada', 'Soporte prioritario 24/7', 'eSIM múltiple'],
   },
 ];
 
@@ -108,7 +129,12 @@ export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
       nombre: `${p.nombre} — ${p.datos}`,
       precioMensualUSD: p.precioMensualUSD,
       popular: p.popular,
-      caracteristicas: p.caracteristicas,
+      caracteristicas: [
+        `${p.minutosNacionales} llamadas nacionales`,
+        `${p.mensajesSMS}`,
+        `Internac.: ${p.llamadasInternacionales}`,
+        ...p.caracteristicas,
+      ],
     })),
   },
   {

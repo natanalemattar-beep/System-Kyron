@@ -55,7 +55,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Alerts:** Expanded Fiscal Alerts monitoring 30+ Venezuelan fiscal obligations and Regulatory Alerts for legislative changes.
 - **Subscription Plans:** Four bundle plans (Personal GRATIS, Profesional $29, Empresarial $59, Kyron MAX $149) with progressive resource limits.
 - **6 Paid Modules (each with tiered sub-plans):** Defined in `MODULOS_INDIVIDUALES` (planes-kyron.ts) with `SubPlanModulo[]` sub-plans from cheapest to most expensive:
-  1. Mi Línea Personal — 6 data plans (Básico 2GB $3 → Infinite Ilimitado $35)
+  1. Mi Línea Personal — 6 data plans (Básico 2GB $3 → Infinite Ilimitado $35) with differentiated minutes, SMS, data, and international calls per tier
   2. Mi Línea Jurídica — 4 enterprise fleet plans (Básico 5 líneas $15 → Enterprise Ilimitado $120)
   3. Asesoría Contable — 4 accounting tiers (Esencial $8 → MAX $60)
   4. Asesoría Legal — 4 legal tiers (Básico $5 → MAX $50)

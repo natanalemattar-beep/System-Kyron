@@ -200,6 +200,7 @@ export default function MiLineaPage() {
       numero: linea.numero,
       operadora: linea.operadora,
       tipo_linea: linea.tipo_linea,
+      tipo_registro: (linea as Record<string, unknown>).tipo_registro === 'empresarial' ? 'empresarial' : 'personal',
       titular: linea.titular || '',
       cedula_titular: linea.cedula_titular || '',
       plan_contratado: linea.plan_contratado || '',
@@ -428,6 +429,7 @@ export default function MiLineaPage() {
             const limiteGB = Math.max(parseFloat(linea.limite_datos_gb || '30') || 30, 0.1);
             const pctUso = Number.isFinite(usoGB / limiteGB) ? (usoGB / limiteGB) * 100 : 0;
             const operadoraLabel = OPERADORAS.find(o => o.value === linea.operadora)?.label || linea.operadora;
+            const planActual = PLANES_MI_LINEA.find(p => linea.plan_contratado?.toLowerCase().includes(p.nombre.toLowerCase()) || linea.plan_contratado?.includes(p.id));
             const gaugeColor = pctUso > 90 ? '#f43f5e' : pctUso > 70 ? '#f59e0b' : '#10b981';
             const gaugeR = 28;
             const gaugeC = 2 * Math.PI * gaugeR;
@@ -496,9 +498,9 @@ export default function MiLineaPage() {
                       </div>
                       <div className="grid grid-cols-3 gap-1.5">
                         {[
-                          { label: 'Llamadas', val: '∞', color: 'text-emerald-400' },
-                          { label: 'SMS', val: '500', color: 'text-primary' },
-                          { label: 'Red', val: '5G', color: 'text-kyron-cyan' },
+                          { label: 'Llamadas', val: planActual?.minutosNacionales ?? '∞', color: 'text-emerald-400' },
+                          { label: 'SMS', val: planActual?.mensajesSMS ?? '500', color: 'text-primary' },
+                          { label: 'Red', val: planActual?.velocidad ?? '5G', color: 'text-kyron-cyan' },
                         ].map(item => (
                           <div key={item.label} className="text-center p-1.5 rounded-lg bg-muted/10 border border-border/30">
                             <p className="text-[10px] text-muted-foreground">{item.label}</p>
@@ -572,7 +574,22 @@ export default function MiLineaPage() {
                   <p className="text-3xl font-black text-foreground mb-0.5">
                     ${plan.precioMensualUSD}<span className="text-xs text-muted-foreground font-medium">/mes</span>
                   </p>
-                  <p className={cn("text-sm font-bold mb-3", c.text)}>{plan.datos}</p>
+                  <p className={cn("text-sm font-bold mb-2", c.text)}>{plan.datos}</p>
+
+                  <div className="grid grid-cols-2 gap-1.5 mb-3">
+                    {[
+                      { label: 'Llamadas', value: plan.minutosNacionales, icon: '📞' },
+                      { label: 'Mensajes', value: plan.mensajesSMS, icon: '💬' },
+                      { label: 'Internac.', value: plan.llamadasInternacionales, icon: '🌎' },
+                      { label: 'Datos', value: plan.datos, icon: '📶' },
+                    ].map(m => (
+                      <div key={m.label} className="text-center p-1.5 rounded-lg bg-muted/30 border border-border/30">
+                        <p className="text-[9px] text-muted-foreground">{m.icon} {m.label}</p>
+                        <p className={cn("text-[10px] font-bold", m.value === 'No incluidas' || m.value === 'No incluidos' ? 'text-muted-foreground/50' : c.text)}>{m.value}</p>
+                      </div>
+                    ))}
+                  </div>
+
                   <div className="space-y-1.5 mb-4">
                     {plan.caracteristicas.map((f) => (
                       <div key={f} className="flex items-center gap-1.5">
@@ -585,7 +602,7 @@ export default function MiLineaPage() {
                     size="sm"
                     variant={plan.popular ? "default" : "outline"}
                     className="w-full h-8 rounded-lg text-[10px] font-bold"
-                    onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: `plan_${plan.id}`, descripcion: `Plan ${plan.nombre} — ${plan.datos} $${plan.precioMensualUSD}/mes` }) }); if (res.ok) toast({ title: `Plan ${plan.nombre}`, description: `Seleccionaste ${plan.nombre} — ${plan.datos} por $${plan.precioMensualUSD}/mes` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
+                    onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: `plan_${plan.id}`, descripcion: `Plan ${plan.nombre} — ${plan.datos}, ${plan.minutosNacionales} llamadas, ${plan.mensajesSMS}, internac. ${plan.llamadasInternacionales} · $${plan.precioMensualUSD}/mes` }) }); if (res.ok) toast({ title: `Plan ${plan.nombre}`, description: `${plan.datos} · ${plan.minutosNacionales} · ${plan.mensajesSMS} · Internac. ${plan.llamadasInternacionales} — $${plan.precioMensualUSD}/mes` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
                   >
                     Contratar
                   </Button>
