@@ -23,6 +23,7 @@ import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { ReservaDatosPanel } from "@/components/telecom/reserva-datos-panel";
+import { PLANES_MI_LINEA } from "@/lib/planes-kyron";
 
 type LineaTelecom = {
   id: number;
@@ -518,61 +519,79 @@ export default function MiLineaPage() {
 
       <Card className="bg-card/60 border border-border/50 rounded-xl overflow-hidden">
         <CardHeader className="px-5 py-4 border-b border-border/50">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-cyan-500/10 rounded-lg">
-              <Wifi className="h-4 w-4 text-cyan-500" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-cyan-500/10 rounded-lg">
+                <Wifi className="h-4 w-4 text-cyan-500" />
+              </div>
+              <div>
+                <CardTitle className="text-sm font-semibold text-foreground">Planes de Datos</CardTitle>
+                <CardDescription className="text-[10px] text-muted-foreground">
+                  Elige tu plan Kyron · {PLANES_MI_LINEA.length} opciones desde ${PLANES_MI_LINEA[0].precioMensualUSD}/mes
+                </CardDescription>
+              </div>
             </div>
-            <div>
-              <CardTitle className="text-sm font-semibold text-foreground">Planes Disponibles</CardTitle>
-              <CardDescription className="text-[10px] text-muted-foreground">
-                Planes de telefonía Kyron 5G
-              </CardDescription>
-            </div>
+            <Badge variant="outline" className="text-[9px] font-bold border-cyan-500/30 text-cyan-500">
+              5G READY
+            </Badge>
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              { name: "Conecta", data: "10 GB", price: "$8", speed: "4G LTE", color: "border-blue-500/20", highlight: false, features: ["Llamadas ilimitadas", "100 SMS", "Roaming básico"] },
-              { name: "Global", data: "40 GB", price: "$18", speed: "5G", color: "border-primary/30", highlight: true, features: ["Llamadas ilimitadas", "500 SMS", "Roaming premium", "Hotspot 15GB"] },
-              { name: "Infinite", data: "Ilimitado", price: "$35", speed: "5G Ultra", color: "border-cyan-500/20", highlight: false, features: ["Todo ilimitado", "Roaming global", "Hotspot ilimitado", "VPN incluida"] },
-            ].map((plan) => (
-              <div
-                key={plan.name}
-                role="group"
-                aria-label={`Plan ${plan.name} — ${plan.data} por ${plan.price}/mes`}
-                className={cn(
-                  "relative rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
-                  plan.highlight ? "border-primary/40 bg-primary/5 ring-2 ring-primary/10" : "border-border/50 bg-card/40",
-                  plan.color
-                )}
-              >
-                {plan.highlight && (
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
-                    <span className="text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Popular</span>
-                  </div>
-                )}
-                <p className="text-lg font-bold text-foreground mb-0.5">{plan.name}</p>
-                <p className="text-2xl font-bold text-primary mb-1">{plan.price}<span className="text-xs text-muted-foreground font-medium">/mes</span></p>
-                <p className="text-xs font-bold text-cyan-500 mb-3">{plan.data} · {plan.speed}</p>
-                <div className="space-y-1.5">
-                  {plan.features.map((f) => (
-                    <div key={f} className="flex items-center gap-1.5">
-                      <CheckCircle className="h-3 w-3 text-emerald-500 shrink-0" />
-                      <span className="text-[10px] text-muted-foreground">{f}</span>
-                    </div>
-                  ))}
-                </div>
-                <Button
-                  size="sm"
-                  variant={plan.highlight ? "default" : "outline"}
-                  className="w-full mt-3 h-8 rounded-lg text-[10px] font-bold"
-                  onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: 'plan_planname', descripcion: `Plan ${plan.name}` }) }); if (res.ok) toast({ title: `Plan ${plan.name}`, description: `Seleccionaste el plan ${plan.name} — ${plan.data} por ${plan.price}/mes` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {PLANES_MI_LINEA.map((plan) => {
+              const colorMap: Record<string, { border: string; bg: string; text: string; badge: string }> = {
+                slate: { border: 'border-slate-500/20', bg: 'bg-slate-500/5', text: 'text-slate-500', badge: 'bg-slate-500' },
+                blue: { border: 'border-blue-500/20', bg: 'bg-blue-500/5', text: 'text-blue-500', badge: 'bg-blue-500' },
+                indigo: { border: 'border-indigo-500/20', bg: 'bg-indigo-500/5', text: 'text-indigo-500', badge: 'bg-indigo-500' },
+                primary: { border: 'border-primary/30', bg: 'bg-primary/5', text: 'text-primary', badge: 'bg-primary' },
+                cyan: { border: 'border-cyan-500/20', bg: 'bg-cyan-500/5', text: 'text-cyan-500', badge: 'bg-cyan-500' },
+                violet: { border: 'border-violet-500/20', bg: 'bg-violet-500/5', text: 'text-violet-500', badge: 'bg-violet-500' },
+              };
+              const c = colorMap[plan.color] ?? colorMap.blue;
+              return (
+                <div
+                  key={plan.id}
+                  role="group"
+                  aria-label={`Plan ${plan.nombre} — ${plan.datos} por $${plan.precioMensualUSD}/mes`}
+                  className={cn(
+                    "relative rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+                    plan.popular ? cn(c.border, c.bg, "ring-2 ring-primary/10") : cn("border-border/50 bg-card/40", c.border)
+                  )}
                 >
-                  Contratar
-                </Button>
-              </div>
-            ))}
+                  {plan.popular && (
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
+                      <span className={cn("text-[10px] font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded-full text-white", c.badge)}>Popular</span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-lg font-bold text-foreground">{plan.nombre}</p>
+                    <Badge variant="outline" className={cn("text-[8px] font-bold", c.text, c.border)}>
+                      {plan.velocidad}
+                    </Badge>
+                  </div>
+                  <p className="text-3xl font-black text-foreground mb-0.5">
+                    ${plan.precioMensualUSD}<span className="text-xs text-muted-foreground font-medium">/mes</span>
+                  </p>
+                  <p className={cn("text-sm font-bold mb-3", c.text)}>{plan.datos}</p>
+                  <div className="space-y-1.5 mb-4">
+                    {plan.caracteristicas.map((f) => (
+                      <div key={f} className="flex items-center gap-1.5">
+                        <CheckCircle className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <span className="text-[10px] text-muted-foreground">{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    size="sm"
+                    variant={plan.popular ? "default" : "outline"}
+                    className="w-full h-8 rounded-lg text-[10px] font-bold"
+                    onClick={async () => { try { const res = await fetch('/api/solicitudes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categoria: 'telecom', subcategoria: `plan_${plan.id}`, descripcion: `Plan ${plan.nombre} — ${plan.datos} $${plan.precioMensualUSD}/mes` }) }); if (res.ok) toast({ title: `Plan ${plan.nombre}`, description: `Seleccionaste ${plan.nombre} — ${plan.datos} por $${plan.precioMensualUSD}/mes` }); else toast({ title: "Error", variant: "destructive" }); } catch { toast({ title: "Error de conexión", variant: "destructive" }); } }}
+                  >
+                    Contratar
+                  </Button>
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>

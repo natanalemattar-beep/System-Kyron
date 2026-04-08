@@ -16,7 +16,7 @@ const planConfigs = [
 ];
 
 const moduleConfigs = [
-    { price: 5, color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Phone },
+    { price: 3, priceLabel: 'desde', color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Phone },
     { price: 15, color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', icon: Calculator },
     { price: 10, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', icon: Receipt },
     { price: 12, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', icon: Users },
@@ -225,6 +225,7 @@ export function ServicesSection() {
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-1 mb-3">
+                                    {mod.priceLabel && <span className="text-[10px] text-muted-foreground/50 font-medium mr-0.5">{mod.priceLabel}</span>}
                                     <span className="text-2xl font-black text-foreground">${mod.price}</span>
                                     <span className="text-[10px] text-muted-foreground/40 font-medium">{t('per_month')}</span>
                                 </div>

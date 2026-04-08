@@ -254,8 +254,8 @@
         "individual_modules": [
             {
                 "name": "Mi Línea",
-                "description": "Gestión de líneas telefónicas",
-                "features": ["Hasta 3 líneas", "Comparador de planes", "Control de consumo", "eSIM y 5G"]
+                "description": "6 planes de datos desde 2 GB",
+                "features": ["Desde $3/mes (2 GB)", "Hasta Ilimitado ($35)", "Cobertura 4G/5G", "eSIM y roaming"]
             },
             {
                 "name": "Asesoría Contable",

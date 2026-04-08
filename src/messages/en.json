@@ -254,8 +254,8 @@
         "individual_modules": [
             {
                 "name": "My Line",
-                "description": "Phone line management",
-                "features": ["Up to 3 lines", "Plan comparator", "Usage control", "eSIM & 5G"]
+                "description": "6 data plans from 2 GB",
+                "features": ["From $3/mo (2 GB)", "Up to Unlimited ($35)", "4G/5G coverage", "eSIM & roaming"]
             },
             {
                 "name": "Accounting Advisory",

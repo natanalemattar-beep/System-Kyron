@@ -3,6 +3,80 @@ import { query, queryOne } from '@/lib/db';
 export type PlanTier = 'personal' | 'profesional' | 'empresarial' | 'kyron_max';
 export type CicloFacturacion = 'mensual' | 'anual';
 
+export interface PlanMiLinea {
+  id: string;
+  nombre: string;
+  datos: string;
+  velocidad: string;
+  precioMensualUSD: number;
+  popular: boolean;
+  color: string;
+  caracteristicas: string[];
+}
+
+export const PLANES_MI_LINEA: PlanMiLinea[] = [
+  {
+    id: 'basico_2gb',
+    nombre: 'Básico',
+    datos: '2 GB',
+    velocidad: '4G',
+    precioMensualUSD: 3,
+    popular: false,
+    color: 'slate',
+    caracteristicas: ['Llamadas ilimitadas nacionales', '50 SMS', 'WhatsApp incluido', 'Redes sociales básicas'],
+  },
+  {
+    id: 'conecta_5gb',
+    nombre: 'Conecta',
+    datos: '5 GB',
+    velocidad: '4G LTE',
+    precioMensualUSD: 5,
+    popular: false,
+    color: 'blue',
+    caracteristicas: ['Llamadas ilimitadas', '100 SMS', 'Redes sociales ilimitadas', 'Música streaming'],
+  },
+  {
+    id: 'plus_10gb',
+    nombre: 'Plus',
+    datos: '10 GB',
+    velocidad: '4G LTE',
+    precioMensualUSD: 8,
+    popular: false,
+    color: 'indigo',
+    caracteristicas: ['Llamadas ilimitadas', '200 SMS', 'Redes sociales ilimitadas', 'Streaming música y video SD', 'Roaming básico'],
+  },
+  {
+    id: 'global_25gb',
+    nombre: 'Global',
+    datos: '25 GB',
+    velocidad: '5G',
+    precioMensualUSD: 14,
+    popular: true,
+    color: 'primary',
+    caracteristicas: ['Llamadas ilimitadas', '500 SMS', 'Apps ilimitadas', 'Streaming HD', 'Roaming premium', 'Hotspot 10 GB'],
+  },
+  {
+    id: 'ultra_50gb',
+    nombre: 'Ultra',
+    datos: '50 GB',
+    velocidad: '5G',
+    precioMensualUSD: 22,
+    popular: false,
+    color: 'cyan',
+    caracteristicas: ['Todo ilimitado', 'Streaming 4K', 'Roaming global', 'Hotspot 25 GB', 'VPN incluida', 'Prioridad de red'],
+  },
+  {
+    id: 'infinite',
+    nombre: 'Infinite',
+    datos: 'Ilimitado',
+    velocidad: '5G Ultra',
+    precioMensualUSD: 35,
+    popular: false,
+    color: 'violet',
+    caracteristicas: ['Todo ilimitado', 'Streaming 4K/8K', 'Roaming global premium', 'Hotspot ilimitado', 'VPN + seguridad avanzada', 'Soporte prioritario 24/7', 'eSIM múltiple'],
+  },
+];
+
 export interface ModuloIndividual {
   id: string;
   nombre: string;
@@ -18,18 +92,18 @@ export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
   {
     id: 'mi_linea',
     nombre: 'Mi Línea',
-    descripcion: 'Gestión de líneas telefónicas, recargas, consumo 5G, eSIM y analítica.',
-    precioMensualUSD: 5,
-    precioAnualMensualizado: 4,
+    descripcion: 'Línea telefónica con 6 planes de datos desde 2 GB hasta ilimitado.',
+    precioMensualUSD: 3,
+    precioAnualMensualizado: 2,
     color: '#06B6D4',
     icono: 'phone',
     caracteristicas: [
-      'Gestión de hasta 3 líneas',
-      'Comparador de planes Movistar/Digitel/Movilnet',
-      'Control de consumo y recargas',
-      'Facturación por línea',
-      'Soporte eSIM y 5G',
-      'Analítica de consumo',
+      '6 planes: Básico, Conecta, Plus, Global, Ultra, Infinite',
+      'Desde 2 GB ($3) hasta Ilimitado ($35)',
+      'Cobertura 4G LTE y 5G',
+      'Comparador Movistar/Digitel/Movilnet',
+      'Soporte eSIM y roaming',
+      'Analítica de consumo en tiempo real',
     ],
   },
   {

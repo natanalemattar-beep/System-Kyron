@@ -53,7 +53,8 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Automated Email System:** 10 email automation templates with scheduling, logging, and multi-channel delivery.
 - **Notifications System:** `notificaciones` table with typed notifications, priority levels, and multi-channel delivery.
 - **Alerts:** Expanded Fiscal Alerts monitoring 30+ Venezuelan fiscal obligations and Regulatory Alerts for legislative changes.
-- **Subscription Plans:** Four plans (Personal $9, Profesional $29, Empresarial $59, Kyron MAX $149) with progressive resource limits, plus 7 individual purchasable modules.
+- **Subscription Plans:** Four plans (Personal GRATIS, Profesional $29, Empresarial $59, Kyron MAX $149) with progressive resource limits, plus 7 individual purchasable modules.
+- **Mi Línea Data Plans:** 6 tiered data plans defined in `PLANES_MI_LINEA` (planes-kyron.ts): Básico 2GB $3, Conecta 5GB $5, Plus 10GB $8, Global 25GB $14 (popular), Ultra 50GB $22, Infinite Ilimitado $35.
 - **Error Handling:** Centralized `isNetworkError()` utility in `src/lib/utils.ts` differentiates network failures from server errors across all catch blocks (auth, dashboards, verify-link). No more false "Error de conexión" messages.
 - **SENIAT Compliant Billing:** Facturación Homologada SENIAT with fiscal hashes and immutability.
 - **Dashboard Widgets:** Company dashboard includes Tax Calendar, Cuentas por Cobrar/Pagar, and Fiscal Status cards. Natural person dashboard includes Document Expiry Alerts and Eco-Credits chart.
