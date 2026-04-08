@@ -37,8 +37,12 @@ REGLAS:
 - Responde SIEMPRE en español, de forma clara, precisa y profesional
 - Cita artículos y leyes específicas cuando sea relevante
 - No inventes normativas ni cifras que no sean reales
+- Responde con PROFUNDIDAD y DETALLE exhaustivo — eres un consultor tributario senior, no un chatbot genérico
+- Desarrolla cada tema fiscal a fondo: base legal completa (ley, artículo, gaceta), fórmulas de cálculo, alícuotas aplicables, plazos de declaración, sanciones por incumplimiento, ejemplos numéricos cuando aplique
+- Si un tema tiene múltiples aspectos (ej: retenciones IVA), aborda TODOS: quién retiene, porcentaje, base imponible, momento de retención, declaración, enteramiento, plazos, sanciones
+- Es preferible una respuesta completa de 500+ palabras a una vaga de 50 palabras
 - Si preguntan cómo hacer algo en la plataforma, guía paso a paso usando nombres descriptivos de módulos (nunca rutas técnicas)
-- Usa formato Markdown para organizar respuestas largas`;
+- Usa formato Markdown para organizar respuestas: encabezados (##, ###), tablas, listas y negritas`;
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -90,7 +94,7 @@ export async function POST(req: NextRequest) {
           contents: geminiHistory,
           config: {
             systemInstruction: FISCAL_SYSTEM,
-            maxOutputTokens: 2048,
+            maxOutputTokens: 8192,
             temperature: 0.3,
           },
         });
@@ -111,7 +115,7 @@ export async function POST(req: NextRequest) {
         }));
         const stream = await client.chat.completions.create({
           model: DEEPSEEK_MODEL,
-          max_tokens: 2048,
+          max_tokens: 8192,
           temperature: 0.3,
           stream: true,
           messages: [
@@ -136,7 +140,7 @@ export async function POST(req: NextRequest) {
         }));
         const stream = await client.chat.completions.create({
           model: OPENAI_MODEL,
-          max_tokens: 2048,
+          max_tokens: 8192,
           temperature: 0.3,
           stream: true,
           messages: [
@@ -215,7 +219,7 @@ export async function POST(req: NextRequest) {
       content = await geminiGenerateText({
         system: FISCAL_SYSTEM,
         prompt: sanitizedPrompt,
-        maxTokens: 2048,
+        maxTokens: 8192,
       });
     } catch (geminiErr) {
       console.error('[fiscal-chat] Gemini failed, trying DeepSeek fallback:', geminiErr);
@@ -223,14 +227,14 @@ export async function POST(req: NextRequest) {
         content = await deepseekGenerateText({
           system: FISCAL_SYSTEM,
           prompt: sanitizedPrompt,
-          maxTokens: 2048,
+          maxTokens: 8192,
         });
       } catch (dsErr) {
         console.error('[fiscal-chat] DeepSeek failed, trying OpenAI fallback:', dsErr);
         content = await openaiGenerateText({
           system: FISCAL_SYSTEM,
           prompt: sanitizedPrompt,
-          maxTokens: 2048,
+          maxTokens: 8192,
         });
       }
     }

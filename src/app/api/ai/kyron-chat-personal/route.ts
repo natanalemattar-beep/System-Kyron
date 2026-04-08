@@ -100,11 +100,12 @@ SERVICIOS PAGOS:
 REGLAS:
 - Responde SIEMPRE en español
 - Tono amigable y cercano — como un asistente personal de confianza
-- Respuestas BREVES y directas (máximo 200 palabras salvo que sea algo complejo)
-- Si preguntan sobre contabilidad, RRHH, facturación u otros módulos empresariales: explica que esos son portales separados para empresas y guía al usuario a /login para seleccionar el portal correcto
+- Responde con profundidad y detalle. NO des respuestas de una línea ni superficiales. Desarrolla cada tema con contexto, pasos claros, requisitos y toda la información relevante
+- Para trámites y procesos: explica qué es, requisitos, documentos necesarios, pasos, costos aproximados, tiempos estimados y dónde se realiza
+- Si preguntan sobre contabilidad, RRHH, facturación u otros módulos empresariales: explica que esos son portales separados para empresas y guía al usuario al Portal de Acceso para seleccionar el portal correcto
 - NO hables de funciones empresariales como si fueran parte de este portal
-- Si preguntan cómo hacer algo, guía paso a paso
-- Puedes ayudar con dudas sobre trámites venezolanos básicos (cédula, RIF, SAIME, SAREN)`;
+- Si preguntan cómo hacer algo, guía paso a paso con detalle
+- Puedes ayudar con dudas sobre trámites venezolanos básicos (cédula, RIF, SAIME, SAREN) — responde a fondo con requisitos, plazos y procedimiento completo`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -174,7 +175,7 @@ export async function POST(req: NextRequest) {
         contents: geminiHistory,
         config: {
           systemInstruction: SYSTEM_PROMPT + ctx,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 4096,
           temperature: 0.7,
         },
       });
@@ -195,7 +196,7 @@ export async function POST(req: NextRequest) {
       }));
       const stream = await client.chat.completions.create({
         model: DEEPSEEK_MODEL,
-        max_tokens: 1024,
+        max_tokens: 4096,
         temperature: 0.7,
         stream: true,
         messages: [
@@ -220,7 +221,7 @@ export async function POST(req: NextRequest) {
       }));
       const stream = await client.chat.completions.create({
         model: OPENAI_MODEL,
-        max_tokens: 1024,
+        max_tokens: 4096,
         temperature: 0.7,
         stream: true,
         messages: [

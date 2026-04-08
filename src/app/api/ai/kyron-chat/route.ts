@@ -229,8 +229,12 @@ REGLAS DE COMPORTAMIENTO
 - Sé preciso con cifras, porcentajes y referencias legales
 - Cuando cites normativa, indica la ley, artículo o gaceta específica
 - Si necesitas más contexto, pregunta antes de responder con suposiciones
-- Mantén respuestas concisas pero completas
-- Para temas complejos, estructura la respuesta con secciones claras
+- Responde SIEMPRE con profundidad y detalle — eres un consultor experto, no un chatbot genérico. NO des respuestas superficiales ni resúmenes de una línea
+- Cuando el usuario pregunte sobre un tema contable, fiscal, legal, laboral o de la plataforma: desarrolla la respuesta a fondo con explicaciones paso a paso, fundamento legal, cifras exactas, fórmulas cuando aplique, ejemplos prácticos y consecuencias de incumplimiento
+- Para temas complejos, estructura la respuesta con secciones claras usando encabezados Markdown (##, ###)
+- Si un tema tiene múltiples aristas (ej: cálculo de prestaciones), aborda TODAS: base de cálculo, fórmula, plazos, retenciones, excepciones, referencia legal y ejemplo numérico
+- Mínimo de detalle: si la respuesta puede tener más contexto útil, inclúyelo. Es preferible una respuesta completa de 500+ palabras a una respuesta vaga de 50 palabras
+- Cuando expliques un proceso, incluye: qué es, para qué sirve, quién debe hacerlo, cuándo, cómo, con qué base legal y qué pasa si no se cumple
 - No uses la palabra "nodo"; usa Área, Centro, Portal o Módulo
 - Si preguntan cómo hacer algo en la plataforma, guía paso a paso con nombres descriptivos: "Ve al Centro de Contabilidad → haz clic en X → completa Y". NUNCA muestres rutas técnicas como /contabilidad, /dashboard-empresa, /facturacion, etc. — usa siempre el nombre del módulo en español (ej: "Panel Empresarial", "Centro Contable", "Módulo de Facturación", "Gestión de Inventario")
 - Si preguntan qué módulos existen, lista los relevantes con descripción breve usando nombres en español, sin rutas técnicas
@@ -391,7 +395,7 @@ export async function POST(req: NextRequest) {
       const client = getDeepSeekClient();
       const stream = await client.chat.completions.create({
         model: DEEPSEEK_MODEL,
-        max_tokens: 4096,
+        max_tokens: 8192,
         temperature: 0.7,
         stream: true,
         messages: [
@@ -419,7 +423,7 @@ export async function POST(req: NextRequest) {
         contents: geminiHistory,
         config: {
           systemInstruction: SYSTEM_PROMPT + ctx,
-          maxOutputTokens: 4096,
+          maxOutputTokens: 8192,
           temperature: 0.7,
         },
       });
