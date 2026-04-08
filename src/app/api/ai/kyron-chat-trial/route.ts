@@ -1,49 +1,57 @@
 import { NextRequest } from 'next/server';
 import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
 import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
+import { query } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
-const TRIAL_RATE_LIMIT = new Map<string, { count: number; resetAt: number }>();
 const TRIAL_MAX_MESSAGES = 3;
-const TRIAL_WINDOW = 24 * 60 * 60 * 1000;
-const CLEANUP_INTERVAL = 30 * 60 * 1000;
-let lastCleanup = Date.now();
-
-function cleanup() {
-  const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL) return;
-  lastCleanup = now;
-  for (const [k, v] of TRIAL_RATE_LIMIT) {
-    if (now > v.resetAt) TRIAL_RATE_LIMIT.delete(k);
-  }
-}
 
 function getClientIP(req: NextRequest): string {
   return (
     req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     req.headers.get('x-real-ip') ||
+    req.headers.get('cf-connecting-ip') ||
     'unknown'
   );
 }
 
-function checkTrialLimit(ip: string): { allowed: boolean; remaining: number; resetAt: number } {
-  cleanup();
+async function checkTrialLimit(ip: string): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
   const now = Date.now();
-  const entry = TRIAL_RATE_LIMIT.get(ip);
 
-  if (!entry || now > entry.resetAt) {
-    TRIAL_RATE_LIMIT.set(ip, { count: 1, resetAt: now + TRIAL_WINDOW });
-    return { allowed: true, remaining: TRIAL_MAX_MESSAGES - 1, resetAt: now + TRIAL_WINDOW };
+  await query(`DELETE FROM trial_chat_usage WHERE expires_at < NOW()`);
+
+  const existing = await query(
+    `SELECT message_count, expires_at FROM trial_chat_usage WHERE ip_address = $1 AND expires_at > NOW()`,
+    [ip]
+  );
+
+  if (existing.rows.length === 0) {
+    const res = await query(
+      `INSERT INTO trial_chat_usage (ip_address, message_count, first_used_at, last_used_at, expires_at)
+       VALUES ($1, 1, NOW(), NOW(), NOW() + INTERVAL '24 hours')
+       RETURNING expires_at`,
+      [ip]
+    );
+    const expiresAt = new Date(res.rows[0].expires_at).getTime();
+    return { allowed: true, remaining: TRIAL_MAX_MESSAGES - 1, resetAt: expiresAt };
   }
 
-  if (entry.count >= TRIAL_MAX_MESSAGES) {
-    return { allowed: false, remaining: 0, resetAt: entry.resetAt };
+  const row = existing.rows[0];
+  const currentCount = row.message_count;
+  const expiresAt = new Date(row.expires_at).getTime();
+
+  if (currentCount >= TRIAL_MAX_MESSAGES) {
+    return { allowed: false, remaining: 0, resetAt: expiresAt };
   }
 
-  entry.count++;
-  return { allowed: true, remaining: TRIAL_MAX_MESSAGES - entry.count, resetAt: entry.resetAt };
+  await query(
+    `UPDATE trial_chat_usage SET message_count = message_count + 1, last_used_at = NOW() WHERE ip_address = $1 AND expires_at > NOW()`,
+    [ip]
+  );
+
+  return { allowed: true, remaining: TRIAL_MAX_MESSAGES - (currentCount + 1), resetAt: expiresAt };
 }
 
 const TRIAL_SYSTEM_PROMPT = `Eres Kyron, el asistente inteligente de System Kyron — la plataforma empresarial número uno de Venezuela especializada en contabilidad VEN-NIF, SENIAT, LOTTT, BCV y cumplimiento legal venezolano.
@@ -66,7 +74,7 @@ CONOCIMIENTO CLAVE:
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIP(req);
-    const { allowed, remaining, resetAt } = checkTrialLimit(ip);
+    const { allowed, remaining, resetAt } = await checkTrialLimit(ip);
 
     if (!allowed) {
       return Response.json(

@@ -2318,6 +2318,18 @@ async function createAdvancedSystemTables() {
   await query(`CREATE INDEX IF NOT EXISTS idx_api_log_time ON api_request_log(created_at DESC)`);
 
   await query(`
+    CREATE TABLE IF NOT EXISTS trial_chat_usage (
+      id              SERIAL PRIMARY KEY,
+      ip_address      TEXT NOT NULL,
+      message_count   INT NOT NULL DEFAULT 1,
+      first_used_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_used_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      expires_at      TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '24 hours')
+    )
+  `);
+  await query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_trial_chat_ip ON trial_chat_usage(ip_address)`);
+
+  await query(`
     CREATE TABLE IF NOT EXISTS backup_log (
       id              SERIAL PRIMARY KEY,
       tipo_backup     TEXT NOT NULL CHECK (tipo_backup IN ('full','incremental','schema','datos','tabla')),
