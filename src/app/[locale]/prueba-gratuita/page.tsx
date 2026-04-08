@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   Send, Sparkles, Lock, CheckCircle2, ArrowRight,
-  MessageSquare, Zap, Shield, Bot, ChevronRight
+  MessageSquare, Zap, Shield, Bot, ChevronRight, ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -102,13 +102,25 @@ export default function PruebaGratuitaPage() {
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#060a14]/90 backdrop-blur-xl px-4 sm:px-6 py-3">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Logo className="h-8 w-8" />
-            <div>
-              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-foreground leading-none">System Kyron</p>
-              <p className="text-[9px] text-muted-foreground/40 uppercase tracking-[0.15em] leading-none mt-0.5">Prueba Gratuita</p>
-            </div>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="rounded-xl h-9 w-9 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.08] text-foreground/60 hover:text-foreground shrink-0"
+            >
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Link href="/" className="flex items-center gap-2.5">
+              <Logo className="h-8 w-8" />
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-foreground leading-none">System Kyron</p>
+                <p className="text-[9px] text-muted-foreground/40 uppercase tracking-[0.15em] leading-none mt-0.5">Prueba Gratuita</p>
+              </div>
+            </Link>
+          </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="hidden sm:flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06]">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
