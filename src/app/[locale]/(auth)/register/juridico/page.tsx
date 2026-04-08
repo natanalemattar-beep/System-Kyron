@@ -18,9 +18,8 @@ import {
 import {
   Building, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
-  BookOpen, BarChart2, Users, Landmark, ShieldCheck, Wallet, FileText, Package,
-  Scale, Cpu, Handshake, Megaphone, Globe, TrendingUp, Smartphone, Signal,
-  Recycle, Gavel, ShoppingCart, Briefcase, MessageSquare, RefreshCw,
+  BookOpen, Users, ShieldCheck, Smartphone, Signal, FileText,
+  Gavel, ShoppingCart, MessageSquare, RefreshCw,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -48,73 +47,13 @@ const TIPOS_EMPRESA = [
   'Otro',
 ];
 
-const moduleGroups = [
-  {
-    group: 'Portal Ciudadano',
-    modules: [
-      { id: 'cuenta-personal', label: 'Cuenta Personal', icon: Users },
-      { id: 'linea-personal', label: 'Mi Línea Personal', icon: Smartphone },
-    ],
-  },
-  {
-    group: 'Módulos Empresariales Principales',
-    modules: [
-      { id: 'linea-empresa', label: 'Mi Línea Empresa', icon: Signal },
-      { id: 'contabilidad', label: 'Contabilidad', icon: BookOpen },
-      { id: 'asesoria-legal', label: 'Asesoría Legal', icon: Gavel },
-      { id: 'facturacion', label: 'Facturación', icon: ShoppingCart },
-      { id: 'recursos-humanos', label: 'Recursos Humanos', icon: Briefcase },
-      { id: 'socios-directivos', label: 'Socios y Directivos', icon: Users },
-      { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle },
-      { id: 'administracion-red', label: 'Administración de Red', icon: Signal },
-      { id: 'ingenieria-it', label: 'Ingeniería e IT', icon: Cpu },
-    ],
-  },
-  {
-    group: 'Administración & Finanzas',
-    modules: [
-      { id: 'inventario', label: 'Inventario', icon: Package },
-      { id: 'cuentas-cobrar', label: 'Cuentas por Cobrar', icon: TrendingUp },
-      { id: 'cuentas-pagar', label: 'Cuentas por Pagar', icon: Landmark },
-      { id: 'pasarelas-pago', label: 'Pasarelas de Pago', icon: Wallet },
-      { id: 'analisis-caja', label: 'Análisis de Caja', icon: BarChart2 },
-      { id: 'tramites-fiscales', label: 'Trámites Fiscales', icon: Scale },
-    ],
-  },
-  {
-    group: 'Recursos Humanos',
-    modules: [
-      { id: 'nominas', label: 'Nóminas', icon: Users },
-      { id: 'prestaciones', label: 'Prestaciones Sociales', icon: ShieldCheck },
-      { id: 'reclutamiento', label: 'Reclutamiento', icon: Handshake },
-      { id: 'libro-vacaciones', label: 'Libro de Vacaciones', icon: BookOpen },
-    ],
-  },
-  {
-    group: 'Legal & Corporativo',
-    modules: [
-      { id: 'escritorio-juridico', label: 'Escritorio Jurídico', icon: Scale },
-      { id: 'tramites-corporativos', label: 'Trámites Corporativos', icon: FileText },
-      { id: 'poderes', label: 'Poderes y Representación', icon: ShieldCheck },
-    ],
-  },
-  {
-    group: 'Tecnología & Análisis',
-    modules: [
-      { id: 'ingenieria-ia', label: 'Ingeniería IA', icon: Cpu },
-      { id: 'analisis-mercado', label: 'Análisis de Mercado', icon: Globe },
-      { id: 'analisis-riesgo', label: 'Análisis de Riesgo', icon: BarChart2 },
-      { id: 'factibilidad', label: 'Factibilidad Económica', icon: TrendingUp },
-    ],
-  },
-  {
-    group: 'Ventas & Clientes',
-    modules: [
-      { id: 'fidelizacion', label: 'Fidelización de Clientes', icon: Handshake },
-      { id: 'credito', label: 'Solicitud de Crédito', icon: Wallet },
-      { id: 'propuesta', label: 'Propuesta de Proyecto', icon: Megaphone },
-    ],
-  },
+const paidModules = [
+  { id: 'mi_linea_personal', label: 'Mi Línea Personal', icon: Smartphone, desde: '$3/mes', desc: '6 planes de datos desde 2 GB hasta ilimitado' },
+  { id: 'mi_linea_juridica', label: 'Mi Línea Jurídica', icon: Signal, desde: '$15/mes', desc: 'Flota corporativa con gestión centralizada' },
+  { id: 'asesoria_contable', label: 'Asesoría Contable', icon: BookOpen, desde: '$8/mes', desc: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal' },
+  { id: 'asesoria_legal', label: 'Asesoría Legal', icon: Gavel, desde: '$5/mes', desc: 'Documentos con IA, contratos, permisos y litigios' },
+  { id: 'facturacion', label: 'Facturación', icon: ShoppingCart, desde: '$6/mes', desc: 'Facturación fiscal SENIAT, POS y ventas' },
+  { id: 'socios_directivos', label: 'Socios y Directivos', icon: Users, desde: '$10/mes', desc: 'Gobierno corporativo, actas y dividendos' },
 ];
 
 const fullSchema = z.object({
@@ -363,9 +302,9 @@ export default function RegisterJuridicoPage() {
     }
 
     setIsLoading(true);
-    const selectedModuleList = moduleGroups.flatMap(g =>
-      g.modules.filter(m => selectedModules.has(m.id)).map(m => ({ id: m.id, label: m.label }))
-    );
+    const selectedModuleList = paidModules
+      .filter(m => selectedModules.has(m.id))
+      .map(m => ({ id: m.id, label: m.label }));
 
     try {
       const res = await fetch('/api/auth/register', {
@@ -413,7 +352,7 @@ export default function RegisterJuridicoPage() {
       setRegisteredEmail(data.repEmail);
       setRegisteredRazon(data.razonSocial);
       setStep(TOTAL_STEPS);
-      const module = sessionStorage.getItem('kyron-register-module') || 'contabilidad';
+      const module = sessionStorage.getItem('kyron-register-module') || 'asesoria_contable';
       sessionStorage.setItem('kyron-register-module-done', module);
     } catch {
       toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
@@ -708,33 +647,30 @@ export default function RegisterJuridicoPage() {
                 <p className="text-xs text-muted-foreground mb-4">
                   Selecciona los módulos que tu empresa necesita. Puedes cambiarlos desde la configuración.
                 </p>
-                <div className="space-y-5 max-h-[400px] overflow-y-auto pr-1">
-                  {moduleGroups.map(group => (
-                    <div key={group.group}>
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-2">{group.group}</p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {group.modules.map(mod => {
-                          const selected = selectedModules.has(mod.id);
-                          return (
-                            <button
-                              key={mod.id}
-                              type="button"
-                              onClick={() => toggleModule(mod.id)}
-                              className={cn(
-                                'flex items-center gap-2 p-2.5 rounded-xl border text-left transition-all text-xs font-medium',
-                                selected
-                                  ? 'border-primary bg-primary/5 text-primary'
-                                  : 'border-border bg-background text-muted-foreground hover:border-primary/30 hover:bg-primary/2'
-                              )}
-                            >
-                              <mod.icon className={`h-4 w-4 shrink-0 ${selected ? 'text-primary' : 'text-muted-foreground'}`} />
-                              <span className="leading-tight">{mod.label}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-1">
+                  {paidModules.map(mod => {
+                    const selected = selectedModules.has(mod.id);
+                    return (
+                      <button
+                        key={mod.id}
+                        type="button"
+                        onClick={() => toggleModule(mod.id)}
+                        className={cn(
+                          'flex flex-col gap-1.5 p-3.5 rounded-xl border-2 text-left transition-all',
+                          selected
+                            ? 'border-primary bg-primary/5 shadow-sm'
+                            : 'border-border bg-background hover:border-primary/30'
+                        )}
+                      >
+                        <div className="flex items-center gap-2">
+                          <mod.icon className={`h-4 w-4 shrink-0 ${selected ? 'text-primary' : 'text-muted-foreground'}`} />
+                          <span className={`text-sm font-semibold leading-tight ${selected ? 'text-primary' : 'text-foreground'}`}>{mod.label}</span>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground leading-snug">{mod.desc}</p>
+                        <span className={`text-[10px] font-bold uppercase tracking-wide ${selected ? 'text-primary' : 'text-muted-foreground/70'}`}>Desde {mod.desde}</span>
+                      </button>
+                    );
+                  })}
                 </div>
                 <p className="text-xs text-muted-foreground text-center mt-2">
                   {selectedModules.size} módulo(s) seleccionado(s)
@@ -871,13 +807,14 @@ export default function RegisterJuridicoPage() {
                   <p className="text-muted-foreground">• Importa tus datos contables y de nómina</p>
                 </div>
                 <Button className="mt-6 w-full" onClick={() => {
-                  const module = sessionStorage.getItem('kyron-register-module-done') || 'contabilidad';
+                  const module = sessionStorage.getItem('kyron-register-module-done') || 'asesoria_contable';
                   const moduleRoutes: Record<string, string> = {
-                    contabilidad: '/contabilidad',
-                    rrhh: '/rrhh',
-                    telecom: '/mi-linea',
-                    legal: '/legal',
-                    sostenibilidad: '/sostenibilidad',
+                    mi_linea_personal: '/mi-linea',
+                    mi_linea_juridica: '/mi-linea',
+                    asesoria_contable: '/contabilidad',
+                    asesoria_legal: '/legal',
+                    facturacion: '/facturacion',
+                    socios_directivos: '/dashboard-empresa',
                   };
                   const route = moduleRoutes[module] || '/es/dashboard-empresa';
                   window.location.href = route.startsWith('/es') ? route : `/es${route}`;

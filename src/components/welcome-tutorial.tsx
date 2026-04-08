@@ -123,7 +123,7 @@ interface TutorialStep {
 const steps: TutorialStep[] = [
   {
     title: "Bienvenido a System Kyron",
-    description: "La plataforma de gestión empresarial más completa de Venezuela. Contabilidad, nómina, facturación, legal, marketing, telecom, sostenibilidad e IA — todo en un solo ecosistema.",
+    description: "La plataforma de gestión empresarial más completa de Venezuela. Asesoría contable, facturación, asesoría legal, socios y directivos, Mi Línea e IA — todo en un solo ecosistema.",
     icon: Sparkles,
     color: "text-yellow-400",
     bg: "bg-yellow-400/15",

@@ -77,135 +77,107 @@ export const PLANES_MI_LINEA: PlanMiLinea[] = [
   },
 ];
 
+export interface SubPlanModulo {
+  id: string;
+  nombre: string;
+  precioMensualUSD: number;
+  popular?: boolean;
+  caracteristicas: string[];
+}
+
 export interface ModuloIndividual {
   id: string;
   nombre: string;
   descripcion: string;
-  precioMensualUSD: number;
-  precioAnualMensualizado: number;
+  precioDesdeUSD: number;
   color: string;
   icono: string;
-  caracteristicas: string[];
+  subPlanes: SubPlanModulo[];
 }
 
 export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
   {
-    id: 'mi_linea',
-    nombre: 'Mi Línea',
-    descripcion: 'Línea telefónica con 6 planes de datos desde 2 GB hasta ilimitado.',
-    precioMensualUSD: 3,
-    precioAnualMensualizado: 2,
+    id: 'mi_linea_personal',
+    nombre: 'Mi Línea Personal',
+    descripcion: 'Tu línea móvil con planes desde 2 GB hasta ilimitado.',
+    precioDesdeUSD: 3,
     color: '#06B6D4',
     icono: 'phone',
-    caracteristicas: [
-      '6 planes: Básico, Conecta, Plus, Global, Ultra, Infinite',
-      'Desde 2 GB ($3) hasta Ilimitado ($35)',
-      'Cobertura 4G LTE y 5G',
-      'Comparador Movistar/Digitel/Movilnet',
-      'Soporte eSIM y roaming',
-      'Analítica de consumo en tiempo real',
+    subPlanes: PLANES_MI_LINEA.map(p => ({
+      id: p.id,
+      nombre: `${p.nombre} — ${p.datos}`,
+      precioMensualUSD: p.precioMensualUSD,
+      popular: p.popular,
+      caracteristicas: p.caracteristicas,
+    })),
+  },
+  {
+    id: 'mi_linea_juridica',
+    nombre: 'Mi Línea Jurídica',
+    descripcion: 'Flota corporativa con gestión centralizada de líneas empresariales.',
+    precioDesdeUSD: 15,
+    color: '#EC4899',
+    icono: 'radio-tower',
+    subPlanes: [
+      { id: 'juridica_basico', nombre: 'Básico — 5 líneas', precioMensualUSD: 15, caracteristicas: ['Hasta 5 líneas corporativas', '10 GB compartidos', 'Panel de administración', 'Facturación consolidada'] },
+      { id: 'juridica_plus', nombre: 'Plus — 15 líneas', precioMensualUSD: 35, caracteristicas: ['Hasta 15 líneas', '50 GB compartidos', 'Límites por empleado', 'MDM básico', 'Reportes de consumo'] },
+      { id: 'juridica_pro', nombre: 'Pro — 50 líneas', precioMensualUSD: 65, popular: true, caracteristicas: ['Hasta 50 líneas', '200 GB compartidos', 'MDM completo', 'Reportes CONATEL', 'Internet empresarial', 'Soporte prioritario'] },
+      { id: 'juridica_max', nombre: 'Enterprise — Ilimitado', precioMensualUSD: 120, caracteristicas: ['Líneas ilimitadas', 'Datos ilimitados', 'MDM avanzado + BYOD', 'Reportes CONATEL premium', 'Internet dedicado', 'VPN corporativa', 'Gerente de cuenta dedicado'] },
     ],
   },
   {
     id: 'asesoria_contable',
     nombre: 'Asesoría Contable',
-    descripcion: 'Contabilidad VEN-NIF, libros legales, centro tributario e IA fiscal.',
-    precioMensualUSD: 15,
-    precioAnualMensualizado: 12,
+    descripcion: 'Contabilidad VEN-NIF con libros, tributos e IA fiscal.',
+    precioDesdeUSD: 8,
     color: '#3B82F6',
     icono: 'calculator',
-    caracteristicas: [
-      'Contabilidad VEN-NIF completa',
-      'Libros legales (Diario, Mayor, Inventario)',
-      'Centro Tributario (IVA, ISLR, IGTF)',
-      'Retenciones automáticas',
-      'Calendario fiscal con alertas',
-      'Simulador de multas COT 2020',
-      'IA Fiscal para consultas',
+    subPlanes: [
+      { id: 'contable_esencial', nombre: 'Esencial', precioMensualUSD: 8, caracteristicas: ['Libros legales básicos (Diario, Mayor)', 'Calendario fiscal con alertas', 'Consulta RIF/Cédula (20/mes)', 'Tasa BCV en vivo', '1 usuario'] },
+      { id: 'contable_profesional', nombre: 'Profesional', precioMensualUSD: 18, popular: true, caracteristicas: ['Todo en Esencial +', 'Libro de Inventario', 'Centro Tributario (IVA, ISLR, IGTF)', 'Retenciones automáticas', 'Simulador de multas COT', 'Exportación Excel', '3 usuarios'] },
+      { id: 'contable_avanzado', nombre: 'Avanzado', precioMensualUSD: 35, caracteristicas: ['Todo en Profesional +', 'IA Fiscal para consultas', 'Declaraciones asistidas (12/año)', 'Conciliación bancaria', 'Asientos automáticos', 'Auditoría forense', '5 usuarios'] },
+      { id: 'contable_max', nombre: 'MAX', precioMensualUSD: 60, caracteristicas: ['Todo en Avanzado +', 'Dictamen de Contador Público', 'Blockchain audit trail', 'Multi-empresa', 'Usuarios ilimitados', 'Soporte VIP 24/7', 'API de integración'] },
+    ],
+  },
+  {
+    id: 'asesoria_legal',
+    nombre: 'Asesoría Legal',
+    descripcion: 'Documentos con IA, contratos, permisos y litigios.',
+    precioDesdeUSD: 5,
+    color: '#F59E0B',
+    icono: 'scale',
+    subPlanes: [
+      { id: 'legal_basico', nombre: 'Básico', precioMensualUSD: 5, caracteristicas: ['Generador de documentos básico', 'Archivo de hasta 20 contratos', 'Alertas de vencimiento', '1 usuario'] },
+      { id: 'legal_profesional', nombre: 'Profesional', precioMensualUSD: 15, popular: true, caracteristicas: ['Todo en Básico +', 'Generador con IA avanzada', 'Contratos ilimitados', 'Gestión de permisos vigentes', 'Poderes de representación', '3 usuarios'] },
+      { id: 'legal_escritorio', nombre: 'Escritorio Jurídico', precioMensualUSD: 30, caracteristicas: ['Todo en Profesional +', 'Control de litigios', 'Cumplimiento normativo', 'Marco Legal Venezuela', 'Calendario de audiencias', '5 usuarios'] },
+      { id: 'legal_max', nombre: 'MAX', precioMensualUSD: 50, caracteristicas: ['Todo en Escritorio +', 'IA Legal avanzada', 'Multi-empresa', 'Usuarios ilimitados', 'Due diligence automatizado', 'Soporte legal prioritario'] },
     ],
   },
   {
     id: 'facturacion',
     nombre: 'Facturación',
-    descripcion: 'Facturación fiscal SENIAT, POS, cotizaciones y ventas a crédito.',
-    precioMensualUSD: 10,
-    precioAnualMensualizado: 8,
+    descripcion: 'Facturación fiscal SENIAT, POS y ventas.',
+    precioDesdeUSD: 6,
     color: '#10B981',
     icono: 'receipt',
-    caracteristicas: [
-      'Facturación fiscal SENIAT (100/mes)',
-      'Punto de Venta (POS)',
-      'Cotizaciones y proformas',
-      'Ventas a crédito',
-      'Notas de débito/crédito',
-      'Análisis comercial',
+    subPlanes: [
+      { id: 'fact_basico', nombre: 'Básico', precioMensualUSD: 6, caracteristicas: ['Hasta 50 facturas/mes', 'Facturación fiscal SENIAT', 'Cotizaciones y proformas', 'Notas de débito/crédito', '1 usuario'] },
+      { id: 'fact_comercial', nombre: 'Comercial', precioMensualUSD: 15, popular: true, caracteristicas: ['Todo en Básico +', 'Hasta 300 facturas/mes', 'Punto de Venta (POS)', 'Ventas a crédito', 'Análisis comercial', 'Órdenes de compra', '3 usuarios'] },
+      { id: 'fact_enterprise', nombre: 'Enterprise', precioMensualUSD: 30, caracteristicas: ['Todo en Comercial +', 'Facturas ilimitadas', 'Multi-sucursal', 'Inventario integrado', 'Pasarelas de pago', 'API de integración', '10 usuarios'] },
+      { id: 'fact_max', nombre: 'MAX', precioMensualUSD: 50, caracteristicas: ['Todo en Enterprise +', 'Facturación electrónica avanzada', 'Multi-empresa', 'Usuarios ilimitados', 'Automatización total', 'Soporte VIP'] },
     ],
   },
   {
-    id: 'nomina',
-    nombre: 'Nómina & RRHH',
-    descripcion: 'Procesamiento de nómina LOTTT, prestaciones, vacaciones y bienestar.',
-    precioMensualUSD: 12,
-    precioAnualMensualizado: 10,
+    id: 'socios_directivos',
+    nombre: 'Socios y Directivos',
+    descripcion: 'Gestión de accionistas, actas, dividendos y gobierno corporativo.',
+    precioDesdeUSD: 10,
     color: '#8B5CF6',
     icono: 'users',
-    caracteristicas: [
-      'Nómina hasta 10 empleados',
-      'Cálculo LOTTT automático',
-      'Prestaciones sociales',
-      'Vacaciones y ausencias',
-      'Certificados laborales',
-      'IVSS, FAOV, INCES',
-    ],
-  },
-  {
-    id: 'legal',
-    nombre: 'Asesoría Legal',
-    descripcion: 'Generador de documentos con IA, contratos, permisos y litigios.',
-    precioMensualUSD: 8,
-    precioAnualMensualizado: 7,
-    color: '#F59E0B',
-    icono: 'scale',
-    caracteristicas: [
-      'Generador de documentos con IA',
-      'Archivo de contratos',
-      'Gestión de permisos vigentes',
-      'Control de litigios',
-      'Poderes de representación',
-      'Alertas de vencimiento',
-    ],
-  },
-  {
-    id: 'sostenibilidad',
-    nombre: 'Sostenibilidad',
-    descripcion: 'Dashboard ambiental, eco-créditos y tarjeta de reciclaje. Gratis para todos.',
-    precioMensualUSD: 0,
-    precioAnualMensualizado: 0,
-    color: '#22C55E',
-    icono: 'leaf',
-    caracteristicas: [
-      'Dashboard ambiental',
-      'Eco-Exchange (eco-créditos)',
-      'Tarjeta de reciclaje avanzada',
-      'Huella de carbono',
-      'Reportes de impacto',
-    ],
-  },
-  {
-    id: 'telecom_empresarial',
-    nombre: 'Telecom Empresarial',
-    descripcion: 'Flota corporativa, MDM, límites por empleado y reportes CONATEL.',
-    precioMensualUSD: 15,
-    precioAnualMensualizado: 12,
-    color: '#EC4899',
-    icono: 'radio-tower',
-    caracteristicas: [
-      'Flota hasta 20 líneas',
-      'Internet empresarial',
-      'Límites por empleado',
-      'MDM corporativo',
-      'Reportes CONATEL',
-      'Facturación consolidada',
+    subPlanes: [
+      { id: 'socios_basico', nombre: 'Básico', precioMensualUSD: 10, caracteristicas: ['Registro de hasta 5 socios', 'Actas de asambleas', 'Distribución de dividendos', 'Directorio corporativo básico'] },
+      { id: 'socios_profesional', nombre: 'Profesional', precioMensualUSD: 25, popular: true, caracteristicas: ['Todo en Básico +', 'Socios ilimitados', 'Flujo de aprobaciones', 'Gobierno corporativo', 'Reportes para accionistas', 'Calendario de asambleas'] },
+      { id: 'socios_enterprise', nombre: 'Enterprise', precioMensualUSD: 45, caracteristicas: ['Todo en Profesional +', 'Multi-empresa', 'Grupos empresariales', 'Auditoría de decisiones', 'Blockchain proof', 'Cumplimiento SOX/BIS', 'Soporte dedicado'] },
     ],
   },
 ];
@@ -260,7 +232,7 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 0,
     ahorroAnualPorcentaje: 0,
     color: '#22C55E',
-    descripcion: 'Cuenta personal, sostenibilidad y Mi Línea. Totalmente gratis, para siempre.',
+    descripcion: 'Cuenta personal con herramientas básicas. Totalmente gratis, para siempre.',
     destacado: false,
     etiqueta: 'GRATIS',
     limites: {
@@ -284,12 +256,12 @@ export const PLANES: PlanKyron[] = [
     },
     modulosIncluidos: [
       'Cuenta Personal completa',
-      'Mi Línea (3 líneas)',
-      'Módulo Sostenibilidad',
       'Tasa BCV en vivo',
       'Chat AI (50 msgs/mes)',
       'Alertas SENIAT (10/mes)',
       'Consulta RIF/Cédula (15/mes)',
+      'Documentos personales',
+      'Dashboard personal',
       '1 usuario',
     ],
   },
@@ -347,7 +319,7 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 142,
     ahorroAnualPorcentaje: 20,
     color: '#A78BFA',
-    descripcion: 'Todo incluido: Contabilidad + Facturación + Nómina + Legal + Telecom. Ahorra $6/mes vs. individual.',
+    descripcion: 'Todo incluido para empresas en crecimiento. Ahorra $6/mes vs. individual.',
     destacado: true,
     etiqueta: 'MÁS POPULAR',
     limites: {
@@ -371,11 +343,11 @@ export const PLANES: PlanKyron[] = [
     },
     modulosIncluidos: [
       'TODOS los módulos incluidos',
-      'Nómina hasta 50 empleados',
-      'CRM 1.000 clientes',
-      'RRHH + Bienestar Laboral',
-      'Asesoría Legal + Permisología',
-      'Telecom corporativo (20 líneas)',
+      'Asesoría Contable avanzada',
+      'Asesoría Legal completa',
+      'Facturación ilimitada',
+      'Socios y Directivos',
+      'Mi Línea Jurídica (20 líneas)',
       'IA avanzada (500 msgs/mes)',
       'Alertas multicanal (Email, WhatsApp, SMS)',
       'Scoring de riesgo fiscal',
@@ -416,12 +388,12 @@ export const PLANES: PlanKyron[] = [
     },
     modulosIncluidos: [
       'TODOS los módulos sin restricción',
-      'Empleados y clientes ilimitados',
       'IA Claude ilimitado 24/7',
       'Facturación ilimitada',
-      'Telecom ilimitado',
+      'Mi Línea Jurídica ilimitada',
+      'Asesoría Contable MAX',
+      'Asesoría Legal MAX',
       'API dedicada + White-label',
-      'Conciliación bancaria AI',
       'Soporte prioritario VIP',
       'Usuarios ilimitados',
       'Almacenamiento ilimitado',

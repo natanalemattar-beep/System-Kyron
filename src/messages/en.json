@@ -222,12 +222,12 @@
         ],
         "modules": [
             "Personal Account",
-            "My Lines",
+            "My Line Personal",
+            "My Line Corporate",
             "Accounting Advisory",
             "Legal Advisory",
             "Invoicing",
-            "Partners",
-            "Sustainability"
+            "Partners & Board"
         ],
         "platform_badge": "Platform in Numbers",
         "platform_title": "Results that",
@@ -253,53 +253,48 @@
         "modules_subtitle": "Need only invoicing? Or just accounting advisory? Pay only for what you use. Each module works independently.",
         "individual_modules": [
             {
-                "name": "My Line",
+                "name": "My Line Personal",
                 "description": "6 data plans from 2 GB",
                 "features": ["From $3/mo (2 GB)", "Up to Unlimited ($35)", "4G/5G coverage", "eSIM & roaming"]
             },
             {
+                "name": "My Line Corporate",
+                "description": "Corporate fleet from 5 lines",
+                "features": ["From $15/mo", "Corporate MDM", "CONATEL reports", "Business internet"]
+            },
+            {
                 "name": "Accounting Advisory",
-                "description": "Full VEN-NIF accounting",
-                "features": ["Legal books", "Tax Center", "Auto withholdings", "Fiscal AI"]
-            },
-            {
-                "name": "Invoicing",
-                "description": "SENIAT fiscal invoicing",
-                "features": ["100 invoices/mo", "Point of Sale", "Quotes", "Debit/credit notes"]
-            },
-            {
-                "name": "Payroll & HR",
-                "description": "Full LOTTT payroll",
-                "features": ["Up to 10 employees", "Social benefits", "IVSS, FAOV, INCES", "Work certificates"]
+                "description": "VEN-NIF accounting with AI",
+                "features": ["From $8/mo", "Legal books", "Tax Center", "Fiscal AI"]
             },
             {
                 "name": "Legal Advisory",
                 "description": "AI-powered documents & contracts",
-                "features": ["AI document generator", "Contract archive", "Permit tracking", "Expiry alerts"]
+                "features": ["From $5/mo", "AI document generator", "Contract archive", "Litigation tracking"]
             },
             {
-                "name": "Sustainability",
-                "description": "Environmental dashboard · Free",
-                "features": ["Free Eco-Exchange", "Recycling card", "Carbon footprint", "Impact reports"]
+                "name": "Invoicing",
+                "description": "SENIAT fiscal invoicing",
+                "features": ["From $6/mo", "Point of Sale", "Quotes", "Debit/credit notes"]
             },
             {
-                "name": "Corporate Telecom",
-                "description": "Corporate fleet & MDM",
-                "features": ["Up to 20 lines", "Business internet", "Corporate MDM", "CONATEL reports"]
+                "name": "Partners & Board",
+                "description": "Corporate governance & shareholders",
+                "features": ["From $10/mo", "Assembly minutes", "Dividends", "Approval workflows"]
             }
         ],
         "plans": [
             {
                 "name": "Personal",
-                "description": "Personal account, My Line & sustainability",
+                "description": "Personal account with basic tools",
                 "features": [
                     "Full Personal Account",
-                    "My Line (3 lines)",
-                    "Sustainability Module",
                     "Live BCV exchange rate",
                     "AI Chat (50 msgs/mo)",
                     "SENIAT alerts (10/mo)",
                     "RIF/ID lookup",
+                    "Personal documents",
+                    "Personal dashboard",
                     "1 user"
                 ],
                 "cta": "Start Free"
@@ -321,14 +316,14 @@
             },
             {
                 "name": "Enterprise",
-                "description": "All-in-one with Payroll + Legal + Telecom",
+                "description": "All-in-one for growing businesses",
                 "features": [
                     "ALL modules included",
-                    "Payroll up to 50 employees",
-                    "CRM 1,000 clients",
-                    "HR + Employee Wellness",
-                    "Legal Advisory + Permits",
-                    "Corporate Telecom (20 lines)",
+                    "Advanced Accounting Advisory",
+                    "Full Legal Advisory",
+                    "Unlimited invoicing",
+                    "Partners & Board",
+                    "My Line Corporate (20 lines)",
                     "Multichannel alerts",
                     "Advanced AI (500 msgs/mo)",
                     "10 users"
@@ -341,11 +336,11 @@
                 "features": [
                     "ALL modules without limits",
                     "Unlimited AI Claude 24/7",
-                    "Unlimited employees & clients",
                     "Unlimited invoicing",
-                    "Unlimited Telecom",
+                    "Unlimited My Line Corporate",
+                    "Accounting Advisory MAX",
+                    "Legal Advisory MAX",
                     "Dedicated API + White-label",
-                    "AI bank reconciliation",
                     "VIP priority support",
                     "Unlimited users"
                 ],

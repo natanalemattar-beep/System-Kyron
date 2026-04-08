@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, Leaf, RadioTower, Package } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, RadioTower, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
@@ -17,16 +17,15 @@ const planConfigs = [
 
 const moduleConfigs = [
     { price: 3, priceLabel: 'desde', color: 'text-cyan-400', gradient: 'from-cyan-500 to-teal-600', icon: Phone },
-    { price: 15, color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', icon: Calculator },
-    { price: 10, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', icon: Receipt },
-    { price: 12, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', icon: Users },
-    { price: 8, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', icon: Scale },
-    { price: 0, color: 'text-green-400', gradient: 'from-green-500 to-emerald-600', icon: Leaf },
-    { price: 15, color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', icon: RadioTower },
+    { price: 15, priceLabel: 'desde', color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', icon: RadioTower },
+    { price: 8, priceLabel: 'desde', color: 'text-blue-400', gradient: 'from-blue-500 to-indigo-600', icon: Calculator },
+    { price: 5, priceLabel: 'desde', color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', icon: Scale },
+    { price: 6, priceLabel: 'desde', color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', icon: Receipt },
+    { price: 10, priceLabel: 'desde', color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', icon: Users },
 ];
 
 const statsMeta = [
-    { key: 'stat_modules', value: '7', icon: Sparkles, color: 'text-cyan-400', bg: 'from-cyan-500/10 to-blue-500/10' },
+    { key: 'stat_modules', value: '6', icon: Sparkles, color: 'text-cyan-400', bg: 'from-cyan-500/10 to-blue-500/10' },
     { key: 'stat_encryption', value: '256', icon: ShieldCheck, color: 'text-blue-400', bg: 'from-blue-500/10 to-indigo-500/10' },
     { key: 'stat_compliance', value: '100%', icon: Building2, color: 'text-violet-400', bg: 'from-violet-500/10 to-purple-500/10' },
     { key: 'stat_support', value: '24/7', icon: Zap, color: 'text-amber-400', bg: 'from-amber-500/10 to-orange-500/10' },

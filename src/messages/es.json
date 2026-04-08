@@ -221,13 +221,12 @@
             }
         ],
         "modules": [
-            "Cuenta Personal",
-            "Mis Líneas",
+            "Mi Línea Personal",
+            "Mi Línea Jurídica",
             "Asesoría Contable",
             "Asesoría Legal",
             "Facturación",
-            "Socios",
-            "Sostenibilidad"
+            "Socios y Directivos"
         ],
         "platform_badge": "Impacto Medible",
         "platform_title": "Resultados que",
@@ -253,53 +252,48 @@
         "modules_subtitle": "¿Solo necesitas facturación? ¿O asesoría contable? Paga solo lo que usas. Cada módulo funciona de forma independiente.",
         "individual_modules": [
             {
-                "name": "Mi Línea",
+                "name": "Mi Línea Personal",
                 "description": "6 planes de datos desde 2 GB",
                 "features": ["Desde $3/mes (2 GB)", "Hasta Ilimitado ($35)", "Cobertura 4G/5G", "eSIM y roaming"]
             },
             {
+                "name": "Mi Línea Jurídica",
+                "description": "Flota corporativa desde 5 líneas",
+                "features": ["Desde $15/mes", "MDM corporativo", "Reportes CONATEL", "Internet empresarial"]
+            },
+            {
                 "name": "Asesoría Contable",
-                "description": "Contabilidad VEN-NIF completa",
-                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"]
-            },
-            {
-                "name": "Facturación",
-                "description": "Facturación fiscal SENIAT",
-                "features": ["100 facturas/mes", "Punto de Venta", "Cotizaciones", "Notas débito/crédito"]
-            },
-            {
-                "name": "Nómina & RRHH",
-                "description": "Nómina LOTTT completa",
-                "features": ["Hasta 10 empleados", "Prestaciones sociales", "IVSS, FAOV, INCES", "Certificados laborales"]
+                "description": "Contabilidad VEN-NIF con IA",
+                "features": ["Desde $8/mes", "Libros legales", "Centro Tributario", "IA Fiscal"]
             },
             {
                 "name": "Asesoría Legal",
                 "description": "Documentos y contratos con IA",
-                "features": ["Generador con IA", "Archivo contratos", "Control de permisos", "Alertas vencimiento"]
+                "features": ["Desde $5/mes", "Generador con IA", "Archivo contratos", "Control de litigios"]
             },
             {
-                "name": "Sostenibilidad",
-                "description": "Dashboard ambiental · Gratis",
-                "features": ["Eco-Exchange gratis", "Tarjeta reciclaje", "Huella de carbono", "Reportes impacto"]
+                "name": "Facturación",
+                "description": "Facturación fiscal SENIAT",
+                "features": ["Desde $6/mes", "Punto de Venta", "Cotizaciones", "Notas débito/crédito"]
             },
             {
-                "name": "Telecom Empresarial",
-                "description": "Flota corporativa y MDM",
-                "features": ["Hasta 20 líneas", "Internet empresarial", "MDM corporativo", "Reportes CONATEL"]
+                "name": "Socios y Directivos",
+                "description": "Gobierno corporativo y accionistas",
+                "features": ["Desde $10/mes", "Actas de asambleas", "Dividendos", "Flujo de aprobaciones"]
             }
         ],
         "plans": [
             {
                 "name": "Personal",
-                "description": "Cuenta personal, Mi Línea y sostenibilidad",
+                "description": "Cuenta personal con herramientas básicas",
                 "features": [
                     "Cuenta Personal completa",
-                    "Mi Línea (3 líneas)",
-                    "Módulo Sostenibilidad",
                     "Tasa BCV en vivo",
                     "Chat AI (50 msgs/mes)",
                     "Alertas SENIAT (10/mes)",
                     "Consulta RIF/Cédula",
+                    "Documentos personales",
+                    "Dashboard personal",
                     "1 usuario"
                 ],
                 "cta": "Comenzar Gratis"
@@ -321,14 +315,14 @@
             },
             {
                 "name": "Empresarial",
-                "description": "Todo incluido con Nómina + Legal + Telecom",
+                "description": "Todo incluido para empresas en crecimiento",
                 "features": [
                     "TODOS los módulos incluidos",
-                    "Nómina hasta 50 empleados",
-                    "CRM 1.000 clientes",
-                    "RRHH + Bienestar Laboral",
-                    "Asesoría Legal + Permisología",
-                    "Telecom corporativo (20 líneas)",
+                    "Asesoría Contable avanzada",
+                    "Asesoría Legal completa",
+                    "Facturación ilimitada",
+                    "Socios y Directivos",
+                    "Mi Línea Jurídica (20 líneas)",
                     "Alertas multicanal",
                     "IA avanzada (500 msgs/mes)",
                     "10 usuarios"
@@ -341,11 +335,11 @@
                 "features": [
                     "TODOS los módulos sin límites",
                     "IA Claude ilimitado 24/7",
-                    "Empleados y clientes ilimitados",
                     "Facturación ilimitada",
-                    "Telecom ilimitado",
+                    "Mi Línea Jurídica ilimitada",
+                    "Asesoría Contable MAX",
+                    "Asesoría Legal MAX",
                     "API dedicada + White-label",
-                    "Conciliación bancaria AI",
                     "Soporte prioritario VIP",
                     "Usuarios ilimitados"
                 ],
