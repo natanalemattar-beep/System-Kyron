@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 const planConfigs = [
-    { monthlyPrice: 9, annualPrice: 7, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', border: 'border-emerald-500/15', bg: 'bg-emerald-500/[0.03]', icon: Zap, popular: false },
+    { monthlyPrice: 0, annualPrice: 0, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', border: 'border-emerald-500/15', bg: 'bg-emerald-500/[0.03]', icon: Zap, popular: false },
     { monthlyPrice: 29, annualPrice: 23, color: 'text-sky-400', gradient: 'from-sky-500 to-blue-600', border: 'border-sky-500/20', bg: 'bg-sky-500/[0.03]', icon: Star, popular: false },
     { monthlyPrice: 59, annualPrice: 47, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', border: 'border-violet-500/20', bg: 'bg-violet-500/[0.03]', icon: Crown, popular: true },
     { monthlyPrice: 149, annualPrice: 119, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', border: 'border-amber-500/15', bg: 'bg-amber-500/[0.03]', icon: Building2, popular: false },
@@ -143,12 +143,17 @@ export function ServicesSection() {
                                     <div className="mb-6">
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-4xl font-black text-foreground">
-                                                ${price}
+                                                {price === 0 ? t('free_label') : `$${price}`}
                                             </span>
                                             {price > 0 && (
                                                 <span className="text-sm text-muted-foreground/40 font-medium">{t('per_month')}</span>
                                             )}
                                         </div>
+                                        {price === 0 && (
+                                            <p className="text-[10px] font-bold text-emerald-500/70 mt-1">
+                                                {t('free_forever')}
+                                            </p>
+                                        )}
                                         {isAnnual && plan.annualPrice > 0 && (
                                             <p className="text-[10px] font-bold text-muted-foreground/30 mt-1">
                                                 {t('billed_annually')} · ${plan.annualPrice * 12}{t('per_year')}

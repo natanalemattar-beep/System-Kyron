@@ -242,7 +242,8 @@
         "annual": "Annual",
         "discount": "-20%",
         "per_month": "/mo",
-        "free_forever": "Free forever",
+        "free_label": "Free",
+        "free_forever": "Forever · No credit card required",
         "billed_annually": "Billed annually",
         "per_year": "/year",
         "most_popular": "Most Popular",
@@ -301,7 +302,7 @@
                     "RIF/ID lookup",
                     "1 user"
                 ],
-                "cta": "Choose Personal"
+                "cta": "Start Free"
             },
             {
                 "name": "Professional",

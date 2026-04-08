@@ -242,7 +242,8 @@
         "annual": "Anual",
         "discount": "-20%",
         "per_month": "/mes",
-        "free_forever": "Gratis para siempre",
+        "free_label": "Gratis",
+        "free_forever": "Para siempre · Sin tarjeta de crédito",
         "billed_annually": "Facturado anualmente",
         "per_year": "/año",
         "most_popular": "Más Popular",
@@ -301,7 +302,7 @@
                     "Consulta RIF/Cédula",
                     "1 usuario"
                 ],
-                "cta": "Elegir Personal"
+                "cta": "Comenzar Gratis"
             },
             {
                 "name": "Profesional",
