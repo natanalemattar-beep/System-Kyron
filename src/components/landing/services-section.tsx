@@ -21,7 +21,7 @@ const moduleConfigs = [
     { price: 10, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', icon: Receipt },
     { price: 12, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-600', icon: Users },
     { price: 8, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-600', icon: Scale },
-    { price: 3, color: 'text-green-400', gradient: 'from-green-500 to-emerald-600', icon: Leaf },
+    { price: 0, color: 'text-green-400', gradient: 'from-green-500 to-emerald-600', icon: Leaf },
     { price: 15, color: 'text-pink-400', gradient: 'from-pink-500 to-rose-600', icon: RadioTower },
 ];
 
@@ -226,8 +226,8 @@ export function ServicesSection() {
                                 </div>
                                 <div className="flex items-baseline gap-1 mb-3">
                                     {mod.priceLabel && <span className="text-[10px] text-muted-foreground/50 font-medium mr-0.5">{mod.priceLabel}</span>}
-                                    <span className="text-2xl font-black text-foreground">${mod.price}</span>
-                                    <span className="text-[10px] text-muted-foreground/40 font-medium">{t('per_month')}</span>
+                                    <span className="text-2xl font-black text-foreground">{mod.price === 0 ? t('free_label') : `$${mod.price}`}</span>
+                                    {mod.price > 0 && <span className="text-[10px] text-muted-foreground/40 font-medium">{t('per_month')}</span>}
                                 </div>
                                 <div className="space-y-1.5">
                                     {mod.features.slice(0, 4).map((feat: string, j: number) => (

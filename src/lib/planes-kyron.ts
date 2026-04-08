@@ -178,9 +178,9 @@ export const MODULOS_INDIVIDUALES: ModuloIndividual[] = [
   {
     id: 'sostenibilidad',
     nombre: 'Sostenibilidad',
-    descripcion: 'Dashboard ambiental, eco-créditos y tarjeta de reciclaje.',
-    precioMensualUSD: 3,
-    precioAnualMensualizado: 2,
+    descripcion: 'Dashboard ambiental, eco-créditos y tarjeta de reciclaje. Gratis para todos.',
+    precioMensualUSD: 0,
+    precioAnualMensualizado: 0,
     color: '#22C55E',
     icono: 'leaf',
     caracteristicas: [
