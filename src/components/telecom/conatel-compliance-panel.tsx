@@ -47,12 +47,12 @@ const ESTADO_PERMISO_CONFIG = {
   en_tramite: { label: "En Trámite", color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20" },
 };
 
-const MOCK_PERMISOS_PERSONAL: PermisoConatel[] = [
+const PERMISOS_PERSONAL: PermisoConatel[] = [
   { id: "P1", nombre: "Habilitación Servicio Móvil", numero: "HAB-2024-001234", estado: "vigente", fechaEmision: "15/01/2025", fechaVencimiento: "15/01/2027", diasRestantes: 651 },
   { id: "P2", nombre: "Registro de Equipos", numero: "REQ-2024-005678", estado: "vigente", fechaEmision: "01/03/2025", fechaVencimiento: "01/03/2026", diasRestantes: 331 },
 ];
 
-const MOCK_PERMISOS_EMPRESA: PermisoConatel[] = [
+const PERMISOS_EMPRESA: PermisoConatel[] = [
   { id: "P1", nombre: "Habilitación Administrativa ISP", numero: "HAB-ADM-2024-0012", estado: "vigente", fechaEmision: "01/06/2024", fechaVencimiento: "01/06/2026", diasRestantes: 423 },
   { id: "P2", nombre: "Concesión Espectro 5G", numero: "ESP-5G-2024-0034", estado: "vigente", fechaEmision: "15/03/2025", fechaVencimiento: "15/03/2030", diasRestantes: 1807 },
   { id: "P3", nombre: "Licencia Red Privada Corp.", numero: "RED-PRI-2025-0089", estado: "por_vencer", fechaEmision: "10/01/2025", fechaVencimiento: "10/07/2026", diasRestantes: 97 },
@@ -67,7 +67,7 @@ export function ConatelCompliancePanel({
 }: ConatelCompliancePanelProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const permisosData = permisos || (tipo === "empresa" ? MOCK_PERMISOS_EMPRESA : MOCK_PERMISOS_PERSONAL);
+  const permisosData = permisos || (tipo === "empresa" ? PERMISOS_EMPRESA : PERMISOS_PERSONAL);
   const homoConfig = ESTADO_HOMOLOGACION_CONFIG[estadoHomologacion];
   const HomoIcon = homoConfig.icon;
 

@@ -24,13 +24,7 @@ const companyInfo = {
   web: "systemkyron.com",
 };
 
-const sampleEmployees = [
-  { id: "EMP-001", nombre: "Carlos", apellido: "Mattar", cedula: "V-32.855.496", cargo: "Director General de Tecnología", departamento: "Dirección", telefono: "+58 414-9377068", email: "c.mattar@systemkyron.com", fechaIngreso: "2020-01-15", tipoSangre: "O+", foto: null },
-  { id: "EMP-002", nombre: "Beatriz Elena", apellido: "Martínez de López", cedula: "V-14.589.031", cargo: "Directora de Gestión de Talento", departamento: "RRHH", telefono: "+58 412-5551234", email: "b.martinez@systemkyron.com", fechaIngreso: "2020-02-01", tipoSangre: "A+", foto: null },
-  { id: "EMP-003", nombre: "María Teresa", apellido: "Hernández Urdaneta", cedula: "V-10.347.825", cargo: "Consultora Jurídica Senior", departamento: "Legal", telefono: "+58 416-7890123", email: "m.hernandez@systemkyron.com", fechaIngreso: "2021-03-15", tipoSangre: "B+", foto: null },
-  { id: "EMP-004", nombre: "Alejandro", apellido: "Rodríguez Pérez", cedula: "V-25.123.456", cargo: "Analista Contable Senior", departamento: "Contabilidad", telefono: "+58 424-3456789", email: "a.rodriguez@systemkyron.com", fechaIngreso: "2022-06-01", tipoSangre: "AB+", foto: null },
-  { id: "EMP-005", nombre: "Daniela", apellido: "Gómez Fuentes", cedula: "V-28.654.321", cargo: "Ingeniera de Software", departamento: "Tecnología", telefono: "+58 412-1234567", email: "d.gomez@systemkyron.com", fechaIngreso: "2023-01-10", tipoSangre: "O-", foto: null },
-];
+const emptyEmployee = { id: "—", nombre: "Nombre", apellido: "Apellido", cedula: "—", cargo: "Cargo", departamento: "—", telefono: "—", email: "—", fechaIngreso: "—", tipoSangre: "—", foto: null };
 
 function getQrUrl(data: string, size = 200) {
   return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(data)}&bgcolor=ffffff&color=0a1628&margin=2`;
@@ -43,13 +37,14 @@ function getInitials(nombre: string, apellido: string) {
 export default function CarnetsPage() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("presentacion");
-  const [employees, setEmployees] = useState(sampleEmployees);
-  const [selectedEmployee, setSelectedEmployee] = useState(sampleEmployees[0]);
+  const [employees, setEmployees] = useState<(typeof emptyEmployee)[]>([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(emptyEmployee);
 
   useEffect(() => {
     fetch('/api/empleados').then(r => r.json()).then(data => {
-      if (Array.isArray(data) && data.length > 0) {
-        const mapped = data.map((e: any, i: number) => ({
+      const list = Array.isArray(data) ? data : (data?.empleados ?? []);
+      if (list.length > 0) {
+        const mapped = list.map((e: any, i: number) => ({
           id: `EMP-${String(i + 1).padStart(3, '0')}`,
           nombre: e.nombre || 'Sin nombre',
           apellido: e.apellido || '',
@@ -68,15 +63,15 @@ export default function CarnetsPage() {
     }).catch(() => {});
   }, []);
   const [businessCardData, setBusinessCardData] = useState({
-    nombre: "Carlos Mattar", cargo: "Director General de Tecnología",
-    telefono: "+58 414-9377068", email: "c.mattar@systemkyron.com",
-    departamento: "Dirección"
+    nombre: "", cargo: "",
+    telefono: "", email: "",
+    departamento: ""
   });
   const [insuranceData, setInsuranceData] = useState({
-    poliza: "POL-2026-001847", aseguradora: "Seguros Kyron Shield",
-    tipoCobertura: "Premium Corporativo", titular: "Carlos Mattar",
-    cedula: "V-32.855.496", vigencia: "01/01/2026 — 31/12/2026",
-    serviciosAprobados: "Consulta General, Emergencias, Hospitalización, Laboratorio, Imagenología, Odontología"
+    poliza: "", aseguradora: "",
+    tipoCobertura: "", titular: "",
+    cedula: "", vigencia: "",
+    serviciosAprobados: ""
   });
   const handlePrint = useCallback(() => {
     window.print();
@@ -306,7 +301,7 @@ function BusinessCardBack({ data }: { data: { nombre: string; email: string } })
   );
 }
 
-function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }) {
+function EmployeeCardFront({ employee }: { employee: typeof emptyEmployee }) {
   const qrData = `KYRON-EMP:${employee.id}|${employee.cedula}|${employee.nombre} ${employee.apellido}|${employee.cargo}`;
   return (
     <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
@@ -358,7 +353,7 @@ function EmployeeCardFront({ employee }: { employee: typeof sampleEmployees[0] }
   );
 }
 
-function EmployeeCardBack({ employee }: { employee: typeof sampleEmployees[0] }) {
+function EmployeeCardBack({ employee }: { employee: typeof emptyEmployee }) {
   return (
     <div className="mx-auto w-full max-w-[400px] aspect-[0.63/1] rounded-2xl overflow-hidden shadow-lg relative" style={{ background: 'linear-gradient(180deg, #020810 0%, #0a1628 50%, #0d1f3c 100%)' }}>
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '20px 20px' }} />

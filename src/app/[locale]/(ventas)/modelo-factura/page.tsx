@@ -8,7 +8,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-const sampleInvoice = {
+const FACTURA_MODELO = {
   tipo_documento: "FACTURA",
   numero_factura: "FAC-000001",
   numero_control: "00-000001",
@@ -38,13 +38,13 @@ const sampleInvoice = {
   rango_control: "Desde el N° 00-000001 hasta el N° 00-001000",
 };
 
-function calcItem(item: typeof sampleInvoice.items[0]) {
+function calcItem(item: typeof FACTURA_MODELO.items[0]) {
   return item.cantidad * item.precio_unitario * (1 - item.descuento_pct / 100);
 }
 
 export default function ModeloFacturaPage() {
   const [showPreview, setShowPreview] = useState(true);
-  const inv = sampleInvoice;
+  const inv = FACTURA_MODELO;
 
   let baseImponible = 0;
   let baseExenta = 0;

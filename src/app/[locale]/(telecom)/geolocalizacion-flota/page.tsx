@@ -26,7 +26,7 @@ interface DispositivoFlota {
   velocidad: string;
 }
 
-const MOCK_DISPOSITIVOS: DispositivoFlota[] = [
+const DISPOSITIVOS_FLOTA: DispositivoFlota[] = [
   { id: "D1", nombre: "Carlos Pérez", numero: "+58 412-1234567", departamento: "Ventas", ubicacion: "Caracas Centro, Av. Urdaneta", coordenadas: { lat: 10.4961, lng: -66.8988 }, estadoConexion: "online", ultimaPosicion: "Hace 2 min", bateria: 85, velocidad: "0 km/h" },
   { id: "D2", nombre: "María Gómez", numero: "+58 414-7654321", departamento: "Marketing", ubicacion: "Chacao, C.C. Sambil", coordenadas: { lat: 10.4867, lng: -66.8524 }, estadoConexion: "en_movimiento", ultimaPosicion: "Ahora", bateria: 62, velocidad: "45 km/h" },
   { id: "D3", nombre: "Juan Rodríguez", numero: "+58 416-9876543", departamento: "IT", ubicacion: "Los Ruices, Torre Kyron", coordenadas: { lat: 10.4923, lng: -66.8456 }, estadoConexion: "online", ultimaPosicion: "Hace 5 min", bateria: 93, velocidad: "0 km/h" },
@@ -46,15 +46,15 @@ export default function GeolocalizacionFlotaPage() {
   const [search, setSearch] = useState("");
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
 
-  const filtrados = MOCK_DISPOSITIVOS.filter(d =>
+  const filtrados = DISPOSITIVOS_FLOTA.filter(d =>
     d.nombre.toLowerCase().includes(search.toLowerCase()) ||
     d.departamento.toLowerCase().includes(search.toLowerCase()) ||
     d.numero.includes(search)
   );
 
-  const online = MOCK_DISPOSITIVOS.filter(d => d.estadoConexion === "online").length;
-  const enMovimiento = MOCK_DISPOSITIVOS.filter(d => d.estadoConexion === "en_movimiento").length;
-  const offline = MOCK_DISPOSITIVOS.filter(d => d.estadoConexion === "offline").length;
+  const online = DISPOSITIVOS_FLOTA.filter(d => d.estadoConexion === "online").length;
+  const enMovimiento = DISPOSITIVOS_FLOTA.filter(d => d.estadoConexion === "en_movimiento").length;
+  const offline = DISPOSITIVOS_FLOTA.filter(d => d.estadoConexion === "offline").length;
 
   return (
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
@@ -75,7 +75,7 @@ export default function GeolocalizacionFlotaPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Total Dispositivos", val: `${MOCK_DISPOSITIVOS.length}`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
+          { label: "Total Dispositivos", val: `${DISPOSITIVOS_FLOTA.length}`, icon: Users, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "En Línea", val: `${online}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "En Movimiento", val: `${enMovimiento}`, icon: Truck, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10" },
           { label: "Sin Conexión", val: `${offline}`, icon: AlertTriangle, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
@@ -114,7 +114,7 @@ export default function GeolocalizacionFlotaPage() {
                 </div>
               </div>
 
-              {MOCK_DISPOSITIVOS.map((d, i) => {
+              {DISPOSITIVOS_FLOTA.map((d, i) => {
                 const config = ESTADO_CONEXION[d.estadoConexion];
                 const positions = [
                   { top: "30%", left: "45%" }, { top: "40%", left: "60%" },

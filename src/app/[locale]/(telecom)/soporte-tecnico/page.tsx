@@ -26,7 +26,7 @@ interface Ticket {
   mensajes: number;
 }
 
-const MOCK_TICKETS: Ticket[] = [
+const TICKETS_SOPORTE: Ticket[] = [
   { id: "TK-2026-0145", titulo: "Caída de señal en zona sur de Caracas", categoria: "Señal", prioridad: "alta", estado: "en_progreso", fechaCreacion: "02/04/2026", ultimaActualizacion: "03/04/2026", mensajes: 4 },
   { id: "TK-2026-0138", titulo: "Velocidad 5G inferior a la contratada", categoria: "Velocidad", prioridad: "media", estado: "abierto", fechaCreacion: "29/03/2026", ultimaActualizacion: "01/04/2026", mensajes: 2 },
   { id: "TK-2026-0122", titulo: "eSIM no se activa en iPhone 15", categoria: "eSIM", prioridad: "media", estado: "resuelto", fechaCreacion: "20/03/2026", ultimaActualizacion: "22/03/2026", mensajes: 6 },
@@ -78,9 +78,9 @@ export default function SoporteTecnicoPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Tickets Abiertos", val: `${MOCK_TICKETS.filter(t => t.estado === 'abierto' || t.estado === 'en_progreso').length}`, icon: MessageSquare, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
-          { label: "En Progreso", val: `${MOCK_TICKETS.filter(t => t.estado === 'en_progreso').length}`, icon: RefreshCw, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
-          { label: "Resueltos", val: `${MOCK_TICKETS.filter(t => t.estado === 'resuelto' || t.estado === 'cerrado').length}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
+          { label: "Tickets Abiertos", val: `${TICKETS_SOPORTE.filter(t => t.estado === 'abierto' || t.estado === 'en_progreso').length}`, icon: MessageSquare, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
+          { label: "En Progreso", val: `${TICKETS_SOPORTE.filter(t => t.estado === 'en_progreso').length}`, icon: RefreshCw, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
+          { label: "Resueltos", val: `${TICKETS_SOPORTE.filter(t => t.estado === 'resuelto' || t.estado === 'cerrado').length}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "Calidad de Red", val: "98.5%", icon: Signal, color: "text-cyan-500", accent: "from-cyan-500/20 to-cyan-500/0", ring: "ring-cyan-500/20", iconBg: "bg-cyan-500/10" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
@@ -156,12 +156,12 @@ export default function SoporteTecnicoPage() {
             <div className="p-2 bg-primary/10 rounded-lg"><FileText className="h-4 w-4 text-primary" /></div>
             <div>
               <CardTitle className="text-sm font-semibold text-foreground">Mis Tickets</CardTitle>
-              <CardDescription className="text-[10px] text-muted-foreground">{MOCK_TICKETS.length} tickets registrados</CardDescription>
+              <CardDescription className="text-[10px] text-muted-foreground">{TICKETS_SOPORTE.length} tickets registrados</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          {MOCK_TICKETS.map((ticket) => {
+          {TICKETS_SOPORTE.map((ticket) => {
             const prioConf = PRIORIDAD_CONFIG[ticket.prioridad];
             const estadoConf = ESTADO_CONFIG[ticket.estado];
             return (

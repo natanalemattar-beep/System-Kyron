@@ -22,7 +22,7 @@ interface ReglaApp {
   motivo: string;
 }
 
-const MOCK_REGLAS: ReglaApp[] = [
+const REGLAS_APP: ReglaApp[] = [
   { id: "R1", nombre: "TikTok", categoria: "Redes Sociales", accion: "bloqueada", horario: null, aplicaA: "Todos los dispositivos", motivo: "Política de productividad corporativa" },
   { id: "R2", nombre: "Instagram", categoria: "Redes Sociales", accion: "restringida", horario: "09:00-18:00 (bloqueada)", aplicaA: "Dispositivos de trabajo", motivo: "Acceso limitado en horario laboral" },
   { id: "R3", nombre: "YouTube", categoria: "Entretenimiento", accion: "restringida", horario: "09:00-13:00 (bloqueada)", aplicaA: "Todos los dispositivos", motivo: "Alto consumo de datos en horario laboral" },
@@ -50,9 +50,9 @@ const CATEGORIAS_BLOQUEADAS = [
 export default function RestriccionAppsPage() {
   const { toast } = useToast();
 
-  const bloqueadas = MOCK_REGLAS.filter(r => r.accion === "bloqueada").length;
-  const restringidas = MOCK_REGLAS.filter(r => r.accion === "restringida").length;
-  const permitidas = MOCK_REGLAS.filter(r => r.accion === "permitida").length;
+  const bloqueadas = REGLAS_APP.filter(r => r.accion === "bloqueada").length;
+  const restringidas = REGLAS_APP.filter(r => r.accion === "restringida").length;
+  const permitidas = REGLAS_APP.filter(r => r.accion === "permitida").length;
 
   return (
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
@@ -73,7 +73,7 @@ export default function RestriccionAppsPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Total Reglas", val: `${MOCK_REGLAS.length}`, icon: Settings, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
+          { label: "Total Reglas", val: `${REGLAS_APP.length}`, icon: Settings, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "Bloqueadas", val: `${bloqueadas}`, icon: Ban, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
           { label: "Restringidas", val: `${restringidas}`, icon: Clock, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
           { label: "Permitidas", val: `${permitidas}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
@@ -98,12 +98,12 @@ export default function RestriccionAppsPage() {
               <div className="p-2 bg-primary/10 rounded-lg"><Shield className="h-4 w-4 text-primary" /></div>
               <div>
                 <CardTitle className="text-sm font-semibold text-foreground">Reglas Activas</CardTitle>
-                <CardDescription className="text-[10px] text-muted-foreground">{MOCK_REGLAS.length} reglas configuradas</CardDescription>
+                <CardDescription className="text-[10px] text-muted-foreground">{REGLAS_APP.length} reglas configuradas</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="p-0">
-            {MOCK_REGLAS.map((r) => {
+            {REGLAS_APP.map((r) => {
               const config = ACCION_CONFIG[r.accion];
               const AccionIcon = config.icon;
               return (

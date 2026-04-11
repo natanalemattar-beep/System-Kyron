@@ -33,7 +33,7 @@ interface SolicitudLegal {
   responsable: string;
 }
 
-const MOCK_SOLICITUDES: SolicitudLegal[] = [
+const SOLICITUDES_LEGALES: SolicitudLegal[] = [
   { id: "SL-001", tipo: "interceptacion", numeroOficio: "OFI-2026-03-0234", tribunalOrigen: "Tribunal 5° Control — Caracas", fechaRecepcion: "15/03/2026", fechaRespuesta: "16/03/2026", estado: "respondida", lineaAfectada: "+58 412-****567", descripcion: "Orden judicial de interceptación lícita conforme al COPP Art. 283", responsable: "Dir. Legal" },
   { id: "SL-002", tipo: "datos_trafico", numeroOficio: "OFI-2026-02-0178", tribunalOrigen: "Fiscalía 12° — Maracaibo", fechaRecepcion: "22/02/2026", fechaRespuesta: "25/02/2026", estado: "respondida", lineaAfectada: "+58 414-****321", descripcion: "Solicitud de registros de tráfico de datos últimos 6 meses", responsable: "Dir. Legal" },
   { id: "SL-003", tipo: "preservacion", numeroOficio: "OFI-2026-03-0312", tribunalOrigen: "CICPC — Div. Delitos Informáticos", fechaRecepcion: "28/03/2026", fechaRespuesta: null, estado: "en_proceso", lineaAfectada: "+58 416-****543", descripcion: "Preservación inmediata de datos de comunicaciones por 90 días", responsable: "Coord. Cumplimiento" },
@@ -67,7 +67,7 @@ export default function SolicitudesLegalesPage() {
   const { toast } = useToast();
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
-  const [solicitudes, setSolicitudes] = useState<SolicitudLegal[]>(MOCK_SOLICITUDES);
+  const [solicitudes, setSolicitudes] = useState<SolicitudLegal[]>(SOLICITUDES_LEGALES);
   const [form, setForm] = useState(emptyForm);
 
   const filtradas = solicitudes.filter(s =>

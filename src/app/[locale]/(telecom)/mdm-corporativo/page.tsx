@@ -29,7 +29,7 @@ interface DispositivoMDM {
   politicasAplicadas: number;
 }
 
-const MOCK_DISPOSITIVOS: DispositivoMDM[] = [
+const DISPOSITIVOS_MDM: DispositivoMDM[] = [
   { id: "M1", nombre: "iPhone 15 Pro — Carlos P.", modelo: "iPhone 15 Pro", os: "iOS", version: "18.3", ultimoCheckIn: "Hace 5 min", cumplimiento: "compliant", cifrado: true, vpn: true, antivirus: true, mdmActivo: true, politicas: 12, politicasAplicadas: 12 },
   { id: "M2", nombre: "Galaxy S24 — María G.", modelo: "Samsung Galaxy S24", os: "Android", version: "15", ultimoCheckIn: "Hace 12 min", cumplimiento: "compliant", cifrado: true, vpn: true, antivirus: true, mdmActivo: true, politicas: 12, politicasAplicadas: 12 },
   { id: "M3", nombre: "Pixel 9 — Juan R.", modelo: "Google Pixel 9", os: "Android", version: "15", ultimoCheckIn: "Hace 8 min", cumplimiento: "warning", cifrado: true, vpn: false, antivirus: true, mdmActivo: true, politicas: 12, politicasAplicadas: 10 },
@@ -55,9 +55,9 @@ const POLITICAS_MDM = [
 export default function MDMCorporativoPage() {
   const { toast } = useToast();
 
-  const compliant = MOCK_DISPOSITIVOS.filter(d => d.cumplimiento === "compliant").length;
-  const warnings = MOCK_DISPOSITIVOS.filter(d => d.cumplimiento === "warning").length;
-  const nonCompliant = MOCK_DISPOSITIVOS.filter(d => d.cumplimiento === "non_compliant").length;
+  const compliant = DISPOSITIVOS_MDM.filter(d => d.cumplimiento === "compliant").length;
+  const warnings = DISPOSITIVOS_MDM.filter(d => d.cumplimiento === "warning").length;
+  const nonCompliant = DISPOSITIVOS_MDM.filter(d => d.cumplimiento === "non_compliant").length;
 
   return (
     <div className="space-y-6 pb-16 px-4 md:px-6 lg:px-8 animate-in fade-in duration-700">
@@ -84,7 +84,7 @@ export default function MDMCorporativoPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "Total Dispositivos", val: `${MOCK_DISPOSITIVOS.length}`, icon: Smartphone, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
+          { label: "Total Dispositivos", val: `${DISPOSITIVOS_MDM.length}`, icon: Smartphone, color: "text-primary", accent: "from-primary/20 to-primary/0", ring: "ring-primary/20", iconBg: "bg-primary/10" },
           { label: "Cumplen Políticas", val: `${compliant}`, icon: CircleCheck, color: "text-emerald-500", accent: "from-emerald-500/20 to-emerald-500/0", ring: "ring-emerald-500/20", iconBg: "bg-emerald-500/10" },
           { label: "Con Alertas", val: `${warnings}`, icon: AlertTriangle, color: "text-amber-500", accent: "from-amber-500/20 to-amber-500/0", ring: "ring-amber-500/20", iconBg: "bg-amber-500/10" },
           { label: "No Cumplen", val: `${nonCompliant}`, icon: Shield, color: "text-rose-500", accent: "from-rose-500/20 to-rose-500/0", ring: "ring-rose-500/20", iconBg: "bg-rose-500/10" },
@@ -108,12 +108,12 @@ export default function MDMCorporativoPage() {
             <div className="p-2 bg-primary/10 rounded-lg"><Smartphone className="h-4 w-4 text-primary" /></div>
             <div>
               <CardTitle className="text-sm font-semibold text-foreground">Inventario de Dispositivos</CardTitle>
-              <CardDescription className="text-[10px] text-muted-foreground">{MOCK_DISPOSITIVOS.length} dispositivos gestionados</CardDescription>
+              <CardDescription className="text-[10px] text-muted-foreground">{DISPOSITIVOS_MDM.length} dispositivos gestionados</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          {MOCK_DISPOSITIVOS.map((d) => {
+          {DISPOSITIVOS_MDM.map((d) => {
             const config = CUMPLIMIENTO_CONFIG[d.cumplimiento];
             return (
               <div key={d.id} className="px-5 py-4 border-b border-border/30 last:border-0 hover:bg-muted/5 transition-colors">

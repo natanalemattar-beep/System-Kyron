@@ -32,7 +32,7 @@ interface Equipo {
   imagen: string;
 }
 
-const MOCK_EQUIPOS: Equipo[] = [
+const CATALOGO_EQUIPOS: Equipo[] = [
   { id: "E1", nombre: "iPhone 16 Pro", marca: "Apple", modelo: "A3078", precio: 1199, precioDescuento: 1099, homologado: true, red5G: true, ram: "8 GB", almacenamiento: "256 GB", pantalla: "6.3\"", bateria: "4685 mAh", rating: 4.8, stock: 15, imagen: "" },
   { id: "E2", nombre: "Galaxy S25 Ultra", marca: "Samsung", modelo: "SM-S938", precio: 1299, precioDescuento: null, homologado: true, red5G: true, ram: "12 GB", almacenamiento: "512 GB", pantalla: "6.9\"", bateria: "5000 mAh", rating: 4.7, stock: 8, imagen: "" },
   { id: "E3", nombre: "Pixel 9 Pro", marca: "Google", modelo: "G4HPD", precio: 999, precioDescuento: 899, homologado: true, red5G: true, ram: "16 GB", almacenamiento: "256 GB", pantalla: "6.3\"", bateria: "4700 mAh", rating: 4.6, stock: 12, imagen: "" },
@@ -47,7 +47,7 @@ export default function CotizadorEquiposPage() {
   const [filtro, setFiltro] = useState("todos");
   const [carrito, setCarrito] = useState<{ id: string; cantidad: number }[]>([]);
 
-  const filtrados = MOCK_EQUIPOS.filter(e => {
+  const filtrados = CATALOGO_EQUIPOS.filter(e => {
     const matchSearch = e.nombre.toLowerCase().includes(search.toLowerCase()) || e.marca.toLowerCase().includes(search.toLowerCase());
     if (filtro === "homologados") return matchSearch && e.homologado;
     if (filtro === "5g") return matchSearch && e.red5G;
@@ -56,7 +56,7 @@ export default function CotizadorEquiposPage() {
   });
 
   const totalCarrito = carrito.reduce((s, c) => {
-    const eq = MOCK_EQUIPOS.find(e => e.id === c.id);
+    const eq = CATALOGO_EQUIPOS.find(e => e.id === c.id);
     if (!eq) return s;
     return s + (eq.precioDescuento || eq.precio) * c.cantidad;
   }, 0);
@@ -182,7 +182,7 @@ export default function CotizadorEquiposPage() {
         ))}
       </div>
 
-      {!MOCK_EQUIPOS.every(e => e.homologado) && (
+      {!CATALOGO_EQUIPOS.every(e => e.homologado) && (
         <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15 flex items-start gap-3">
           <Shield className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
           <div>
