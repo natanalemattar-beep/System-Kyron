@@ -108,6 +108,10 @@ async function createCoreAuthTables() {
     )
   `);
 
+  await query(`ALTER TABLE user_modules ADD COLUMN IF NOT EXISTS plan_id TEXT`);
+  await query(`ALTER TABLE user_modules ADD COLUMN IF NOT EXISTS plan_nombre TEXT`);
+  await query(`ALTER TABLE user_modules ADD COLUMN IF NOT EXISTS plan_precio NUMERIC(10,2)`);
+
   await query(`
     CREATE TABLE IF NOT EXISTS activity_log (
       id           SERIAL PRIMARY KEY,

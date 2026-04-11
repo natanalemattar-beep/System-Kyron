@@ -171,7 +171,12 @@ async function registerJuridico(body: Record<string, unknown>) {
     }
 
     const VALID_PLANS: Record<string, number> = {
-        basico: 12, profesional: 28, empresarial: 52, premium: 95,
+        contable_esencial: 8, contable_profesional: 18, contable_avanzado: 35, contable_max: 60,
+        basico_2gb: 3, conecta_5gb: 5, plus_10gb: 8, global_25gb: 14, ultra_50gb: 22, infinite: 35,
+        juridica_basico: 15, juridica_plus: 35, juridica_pro: 65, juridica_max: 120,
+        legal_basico: 5, legal_profesional: 15, legal_escritorio: 30, legal_max: 50,
+        fact_basico: 6, fact_comercial: 15, fact_enterprise: 30, fact_max: 50,
+        socios_basico: 10, socios_profesional: 25, socios_enterprise: 45,
     };
     let validatedPlan: string | null = null;
     let validatedPlanMonto: number | null = null;
@@ -278,11 +283,11 @@ async function registerJuridico(body: Record<string, unknown>) {
     );
 
     if (Array.isArray(modules) && modules.length > 0) {
-        for (const mod of modules as Array<{ id: string; label: string }>) {
+        for (const mod of modules as Array<{ id: string; label: string; plan?: string; planNombre?: string; precio?: number }>) {
             await query(
-                `INSERT INTO user_modules (user_id, module_id, module_label)
-                 VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
-                [user.id, mod.id, mod.label]
+                `INSERT INTO user_modules (user_id, module_id, module_label, plan_id, plan_nombre, plan_precio)
+                 VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (user_id, module_id) DO UPDATE SET plan_id = $4, plan_nombre = $5, plan_precio = $6`,
+                [user.id, mod.id, mod.label, mod.plan || null, mod.planNombre || null, mod.precio ?? null]
             );
         }
     }
