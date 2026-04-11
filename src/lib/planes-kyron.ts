@@ -544,7 +544,7 @@ export async function verificarLimite(
   }
 
   const campo = CAMPO_USO_MAP[recurso];
-  const usado = campo ? (uso as Record<string, number>)[campo] || 0 : 0;
+  const usado = campo ? (uso as unknown as Record<string, number>)[campo] || 0 : 0;
   const porcentaje = limite >= ILIMITADO ? 0 : limite > 0 ? Math.round((usado / limite) * 100) : 100;
 
   return {
