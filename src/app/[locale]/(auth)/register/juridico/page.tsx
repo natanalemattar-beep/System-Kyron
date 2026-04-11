@@ -28,6 +28,7 @@ import { Progress } from '@/components/ui/progress';
 import { FileInputTrigger } from '@/components/file-input-trigger';
 import { DocumentInput } from '@/components/document-input';
 import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
+import { Check } from 'lucide-react';
 
 const TOTAL_STEPS = 7;
 
@@ -47,13 +48,13 @@ const TIPOS_EMPRESA = [
   'Otro',
 ];
 
-const paidModules = [
-  { id: 'mi_linea_personal', label: 'Mi Línea Personal', icon: Smartphone, desde: '$3/mes', desc: '6 planes de datos desde 2 GB hasta ilimitado' },
-  { id: 'mi_linea_juridica', label: 'Mi Línea Jurídica', icon: Signal, desde: '$15/mes', desc: 'Flota corporativa con gestión centralizada' },
-  { id: 'asesoria_contable', label: 'Asesoría Contable', icon: BookOpen, desde: '$8/mes', desc: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal' },
-  { id: 'asesoria_legal', label: 'Asesoría Legal', icon: Gavel, desde: '$5/mes', desc: 'Documentos con IA, contratos, permisos y litigios' },
-  { id: 'facturacion', label: 'Facturación', icon: ShoppingCart, desde: '$6/mes', desc: 'Facturación fiscal SENIAT, POS y ventas' },
-  { id: 'socios_directivos', label: 'Socios y Directivos', icon: Users, desde: '$10/mes', desc: 'Gobierno corporativo, actas y dividendos' },
+const MODULOS_REGISTRO = [
+  { id: 'mi_linea_personal', nombre: 'Mi Línea Personal', descripcion: 'Tu línea móvil con planes desde 2 GB hasta ilimitado.', precioDesde: 3, icon: Smartphone, gradient: 'from-cyan-500 to-teal-600', color: 'text-cyan-500', border: 'border-cyan-500/30', bg: 'bg-cyan-500/5', planes: 6, features: ['WhatsApp incluido', 'Redes sociales ilimitadas', 'Streaming HD'] },
+  { id: 'mi_linea_juridica', nombre: 'Mi Línea Jurídica', descripcion: 'Flota corporativa con gestión centralizada.', precioDesde: 15, icon: Signal, gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500', border: 'border-pink-500/30', bg: 'bg-pink-500/5', planes: 4, features: ['Hasta 50 líneas corporativas', 'MDM completo', 'Reportes CONATEL'] },
+  { id: 'asesoria_contable', nombre: 'Asesoría Contable', descripcion: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal.', precioDesde: 8, icon: BookOpen, gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500', border: 'border-blue-500/30', bg: 'bg-blue-500/5', planes: 4, features: ['Libros legales (Diario, Mayor)', 'Centro Tributario IVA/ISLR/IGTF', 'Retenciones automáticas'] },
+  { id: 'asesoria_legal', nombre: 'Asesoría Legal', descripcion: 'Documentos con IA, contratos, permisos y litigios.', precioDesde: 5, icon: Gavel, gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500', border: 'border-amber-500/30', bg: 'bg-amber-500/5', planes: 4, features: ['Generador con IA avanzada', 'Contratos ilimitados', 'Gestión de permisos vigentes'] },
+  { id: 'facturacion', nombre: 'Facturación', descripcion: 'Facturación fiscal SENIAT, POS y ventas.', precioDesde: 6, icon: ShoppingCart, gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500', border: 'border-emerald-500/30', bg: 'bg-emerald-500/5', planes: 4, features: ['Facturación fiscal SENIAT', 'Punto de Venta (POS)', 'Análisis comercial'] },
+  { id: 'socios_directivos', nombre: 'Socios y Directivos', descripcion: 'Gobierno corporativo, actas y dividendos.', precioDesde: 10, icon: Users, gradient: 'from-violet-500 to-purple-600', color: 'text-violet-500', border: 'border-violet-500/30', bg: 'bg-violet-500/5', planes: 3, features: ['Socios ilimitados', 'Gobierno corporativo', 'Reportes para accionistas'] },
 ];
 
 const fullSchema = z.object({
@@ -302,9 +303,9 @@ export default function RegisterJuridicoPage() {
     }
 
     setIsLoading(true);
-    const selectedModuleList = paidModules
+    const selectedModuleList = MODULOS_REGISTRO
       .filter(m => selectedModules.has(m.id))
-      .map(m => ({ id: m.id, label: m.label }));
+      .map(m => ({ id: m.id, label: m.nombre }));
 
     try {
       const res = await fetch('/api/auth/register', {
@@ -647,8 +648,8 @@ export default function RegisterJuridicoPage() {
                 <p className="text-xs text-muted-foreground mb-4">
                   Selecciona los módulos que tu empresa necesita. Puedes cambiarlos desde la configuración.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-1">
-                  {paidModules.map(mod => {
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[480px] overflow-y-auto pr-1">
+                  {MODULOS_REGISTRO.map(mod => {
                     const selected = selectedModules.has(mod.id);
                     return (
                       <button
@@ -656,23 +657,49 @@ export default function RegisterJuridicoPage() {
                         type="button"
                         onClick={() => toggleModule(mod.id)}
                         className={cn(
-                          'flex flex-col gap-1.5 p-3.5 rounded-xl border-2 text-left transition-all',
+                          'group relative flex flex-col gap-3 p-4 rounded-2xl border-2 text-left transition-all duration-300',
                           selected
-                            ? 'border-primary bg-primary/5 shadow-sm'
-                            : 'border-border bg-background hover:border-primary/30'
+                            ? cn(mod.border, mod.bg, 'shadow-md scale-[1.01]')
+                            : 'border-border/60 bg-background hover:border-border hover:shadow-sm'
                         )}
                       >
-                        <div className="flex items-center gap-2">
-                          <mod.icon className={`h-4 w-4 shrink-0 ${selected ? 'text-primary' : 'text-muted-foreground'}`} />
-                          <span className={`text-sm font-semibold leading-tight ${selected ? 'text-primary' : 'text-foreground'}`}>{mod.label}</span>
+                        {selected && (
+                          <div className="absolute top-3 right-3">
+                            <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-br', mod.gradient)}>
+                              <CheckCircle className="h-3 w-3 text-white" />
+                            </div>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-3">
+                          <div className={cn('p-2 rounded-xl bg-gradient-to-br shadow-md transition-transform duration-300', mod.gradient, selected && 'scale-110')}>
+                            <mod.icon className="h-4 w-4 text-white" />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className={cn('text-sm font-bold leading-tight', selected ? mod.color : 'text-foreground')}>{mod.nombre}</h4>
+                            <p className="text-[10px] text-muted-foreground/50 leading-snug truncate">{mod.descripcion}</p>
+                          </div>
                         </div>
-                        <p className="text-[11px] text-muted-foreground leading-snug">{mod.desc}</p>
-                        <span className={`text-[10px] font-bold uppercase tracking-wide ${selected ? 'text-primary' : 'text-muted-foreground/70'}`}>Desde {mod.desde}</span>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-[10px] text-muted-foreground/50 font-medium">desde</span>
+                          <span className={cn('text-xl font-black', selected ? mod.color : 'text-foreground')}>${mod.precioDesde}</span>
+                          <span className="text-[10px] text-muted-foreground/40 font-medium">/mes</span>
+                        </div>
+                        <div className="space-y-1.5">
+                          {mod.features.map((feat, j) => (
+                            <div key={j} className="flex items-center gap-2">
+                              <Check className={cn('h-3 w-3 shrink-0', selected ? mod.color : 'text-muted-foreground/40')} />
+                              <span className="text-[10px] text-muted-foreground/70 font-medium leading-snug">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="text-[9px] font-semibold text-muted-foreground/40 uppercase tracking-widest mt-1">
+                          {mod.planes} planes disponibles
+                        </div>
                       </button>
                     );
                   })}
                 </div>
-                <p className="text-xs text-muted-foreground text-center mt-2">
+                <p className="text-xs text-muted-foreground text-center mt-3">
                   {selectedModules.size} módulo(s) seleccionado(s)
                 </p>
 
