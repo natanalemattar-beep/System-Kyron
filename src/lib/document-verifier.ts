@@ -1,6 +1,7 @@
-import { getAnthropicClient, CLAUDE_MODEL } from '@/ai/anthropic';
-import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
-import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
+import { getAnthropicClient, getOpenAIClient, getGeminiClient, MODELS, cleanJSON } from '@/ai/providers';
+const CLAUDE_MODEL = MODELS.CLAUDE;
+const OPENAI_MODEL = MODELS.OPENAI;
+const GEMINI_MODEL = MODELS.GEMINI;
 import { readFile } from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
@@ -406,7 +407,7 @@ async function analyzeWithClaude(
       }],
     });
     const text = response.content[0]?.type === 'text' ? response.content[0].text : '';
-    const parsed = JSON.parse(text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim());
+    const parsed = JSON.parse(cleanJSON(text));
 
     return {
       provider: 'claude',
@@ -453,7 +454,7 @@ async function analyzeWithOpenAI(
       ],
     });
     const text = response.choices[0]?.message?.content ?? '';
-    const parsed = JSON.parse(text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim());
+    const parsed = JSON.parse(cleanJSON(text));
 
     return {
       provider: 'openai',
@@ -502,7 +503,7 @@ async function analyzeWithGemini(
       },
     });
     const text = response.text ?? '';
-    const parsed = JSON.parse(text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim());
+    const parsed = JSON.parse(cleanJSON(text));
 
     return {
       provider: 'gemini',

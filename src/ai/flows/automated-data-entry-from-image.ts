@@ -1,6 +1,6 @@
 'use server';
 
-import { getAnthropicClient, CLAUDE_MODEL } from '@/ai/anthropic';
+import { getAnthropicClient, MODELS, cleanJSON } from '@/ai/providers';
 
 export type AutomatedDataEntryInput = {
   photoDataUri: string;
@@ -37,7 +37,7 @@ export async function automatedDataEntry(input: AutomatedDataEntryInput): Promis
   const mediaType = rawMediaType as AllowedMimeType;
 
   const response = await client.messages.create({
-    model: CLAUDE_MODEL,
+    model: MODELS.CLAUDE,
     max_tokens: 2048,
     system: `Eres un especialista en extracción de datos financieros. Extrae datos de imágenes de recibos y facturas venezolanas y devuelve JSON válido únicamente, sin markdown ni backticks.
 
@@ -45,43 +45,33 @@ El JSON debe tener:
 - vendorName (string): nombre del proveedor/comercio
 - date (string, formato YYYY-MM-DD): fecha de la transacción
 - totalAmount (number): monto total
-- items (array de objetos con: description (string), quantity (number opcional), unitPrice (number)): lista de productos/servicios
-- paymentMethod (string o null): método de pago (efectivo, tarjeta, Pago Móvil, Zelle, transferencia, etc.)
+- items (array de objetos con: description (string), quantity (number opcional), unitPrice (number))
+- paymentMethod (string o null): método de pago
 
-Si algún dato no está disponible, usa valores por defecto (cadena vacía, 0, null).
-Reconoce montos en Bs. (bolívares) y USD. Si hay RIF, inclúyelo en el nombre del proveedor.`,
+Si algún dato no está disponible, usa valores por defecto. Reconoce montos en Bs. y USD. Si hay RIF, inclúyelo en vendorName.`,
     messages: [
       {
         role: 'user',
         content: [
           {
             type: 'image',
-            source: {
-              type: 'base64',
-              media_type: mediaType,
-              data: base64Data,
-            },
+            source: { type: 'base64', media_type: mediaType, data: base64Data },
           },
           {
             type: 'text',
-            text: `Extrae todos los datos de esta imagen de recibo/factura.${input.description ? ` Contexto adicional: ${input.description}` : ''}
-Devuelve SOLO JSON válido.`,
+            text: `Extrae todos los datos de esta imagen de recibo/factura.${input.description ? ` Contexto: ${input.description}` : ''}\nDevuelve SOLO JSON válido.`,
           },
         ],
       },
     ],
   });
 
-  if (!response.content.length) {
-    throw new Error('La IA no devolvió contenido para la extracción de imagen');
-  }
+  if (!response.content.length) throw new Error('La IA no devolvió contenido');
 
   const block = response.content[0];
-  if (block.type !== 'text') {
-    throw new Error('La IA devolvió una respuesta no textual para la extracción de imagen');
-  }
+  if (block.type !== 'text') throw new Error('La IA devolvió respuesta no textual');
 
-  const cleaned = block.text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+  const cleaned = cleanJSON(block.text);
 
   let data: Record<string, unknown>;
   try {

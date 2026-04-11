@@ -1,7 +1,6 @@
 'use server';
 
-import { openaiGenerateJSON } from '@/ai/openai';
-import { geminiGenerateJSON } from '@/ai/gemini';
+import { generateJSON } from '@/ai/providers';
 
 export type CategorizeTransactionInput = {
   transactionDescription: string;
@@ -13,45 +12,18 @@ export type CategorizeTransactionOutput = {
   confidence: number;
 };
 
-const SYSTEM = `Eres un experto financiero venezolano. Categoriza transacciones basándote en su descripción y monto.
+const SYSTEM = `Eres un experto financiero venezolano. Categoriza transacciones por descripción y monto.
 
-CATEGORÍAS VÁLIDAS:
-- Alimentación
-- Transporte
-- Servicios (agua, luz, internet, teléfono)
-- Nómina
-- Alquiler
-- Impuestos (IVA, ISLR, IGTF, municipales)
-- Insumos de Oficina
-- Tecnología
-- Mantenimiento
-- Seguros
-- Honorarios Profesionales
-- Publicidad y Marketing
-- Ventas (ingresos)
-- Otros Ingresos
-- Otros Gastos
+CATEGORÍAS: Alimentación, Transporte, Servicios, Nómina, Alquiler, Impuestos, Insumos de Oficina, Tecnología, Mantenimiento, Seguros, Honorarios Profesionales, Publicidad y Marketing, Ventas, Otros Ingresos, Otros Gastos
 
-Responde con un objeto JSON que contenga "category" (una de las categorías de arriba) y "confidence" (número entre 0 y 1 indicando tu nivel de certeza).`;
+Responde con JSON: { "category": "...", "confidence": 0-1 }`;
 
-export async function categorizeTransaction(
-  input: CategorizeTransactionInput
-): Promise<CategorizeTransactionOutput> {
-  const prompt = `Descripción: ${input.transactionDescription}\nMonto: ${input.transactionAmount}`;
-
-  let result: CategorizeTransactionOutput;
-  try {
-    result = await openaiGenerateJSON<CategorizeTransactionOutput>({
-      system: SYSTEM,
-      prompt,
-    });
-  } catch (err) {
-    console.error('[categorize-tx] OpenAI failed, trying Gemini:', err);
-    result = await geminiGenerateJSON<CategorizeTransactionOutput>({
-      system: SYSTEM,
-      prompt,
-    });
-  }
+export async function categorizeTransaction(input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput> {
+  const result = await generateJSON<CategorizeTransactionOutput>(
+    ['openai', 'gemini', 'deepseek'],
+    { system: SYSTEM, prompt: `Descripción: ${input.transactionDescription}\nMonto: ${input.transactionAmount}` },
+    'categorize-tx'
+  );
 
   return {
     category: result.category || 'Otros Gastos',

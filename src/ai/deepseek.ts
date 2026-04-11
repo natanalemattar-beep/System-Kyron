@@ -1,70 +1,19 @@
-import OpenAI from 'openai';
+export { getDeepSeekClient, MODELS } from './providers';
+import { MODELS } from './providers';
+import { generateText as providerGenText, generateJSON as providerGenJSON, type GenerateTextOpts } from './providers';
 
-export function getDeepSeekClient(): OpenAI {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  if (!apiKey) throw new Error('DeepSeek API key not configured');
+export const DEEPSEEK_MODEL = MODELS.DEEPSEEK;
+export const DEEPSEEK_MODEL_REASONER = MODELS.DEEPSEEK_REASONER;
 
-  return new OpenAI({
-    apiKey,
-    baseURL: 'https://api.deepseek.com',
-  });
+export async function deepseekGenerateText(opts: GenerateTextOpts): Promise<string> {
+  return providerGenText('deepseek', opts);
 }
 
-export const DEEPSEEK_MODEL = 'deepseek-chat';
-export const DEEPSEEK_MODEL_REASONER = 'deepseek-reasoner';
-
-export async function deepseekGenerateText(opts: {
-  system: string;
-  prompt: string;
-  maxTokens?: number;
-  temperature?: number;
-}): Promise<string> {
-  const client = getDeepSeekClient();
-  const response = await client.chat.completions.create({
-    model: DEEPSEEK_MODEL,
-    max_tokens: opts.maxTokens ?? 1024,
-    temperature: opts.temperature,
-    messages: [
-      { role: 'system', content: opts.system },
-      { role: 'user', content: opts.prompt },
-    ],
-  });
-
-  return response.choices[0]?.message?.content ?? '';
-}
-
-export async function deepseekGenerateJSON<T = unknown>(opts: {
-  system: string;
-  prompt: string;
-  maxTokens?: number;
-  temperature?: number;
+export async function deepseekGenerateJSON<T = unknown>(opts: GenerateTextOpts & {
   validate?: (data: unknown) => data is T;
 }): Promise<T> {
-  const text = await deepseekGenerateText({
-    ...opts,
-    system: opts.system + '\n\nResponde UNICAMENTE con un objeto JSON valido, sin markdown, sin backticks, sin texto adicional.',
-  });
-
-  if (!text.trim()) {
-    throw new Error('DeepSeek returned empty response');
-  }
-
-  const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
-
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(cleaned);
-  } catch {
-    throw new Error(`DeepSeek returned invalid JSON: ${cleaned.substring(0, 200)}`);
-  }
-
-  if (parsed === null || typeof parsed !== 'object') {
-    throw new Error('DeepSeek returned non-object JSON');
-  }
-
-  if (opts.validate && !opts.validate(parsed)) {
-    throw new Error('DeepSeek output failed schema validation');
-  }
-
-  return parsed as T;
+  return providerGenJSON<T>(['deepseek'], opts, 'deepseek', opts.validate);
 }
+
+export const generateText = deepseekGenerateText;
+export const generateJSON = deepseekGenerateJSON;

@@ -1,111 +1,11 @@
 import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { getGeminiClient, GEMINI_MODEL } from '@/ai/gemini';
-import { getOpenAIClient, OPENAI_MODEL } from '@/ai/openai';
-import { getDeepSeekClient, DEEPSEEK_MODEL } from '@/ai/deepseek';
+import { rateLimit, rateLimitResponse } from '@/lib/rate-limiter';
+import { PROMPTS } from '@/ai/prompts';
+import { streamResponse } from '@/ai/stream';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
-
-const RATE_LIMIT_MAP = new Map<number, { count: number; resetAt: number }>();
-const RATE_LIMIT_MAX = 20;
-const RATE_LIMIT_WINDOW = 60_000;
-const RATE_LIMIT_CLEANUP_INTERVAL = 5 * 60_000;
-
-let lastCleanup = Date.now();
-
-function cleanupRateLimits() {
-  const now = Date.now();
-  if (now - lastCleanup < RATE_LIMIT_CLEANUP_INTERVAL) return;
-  lastCleanup = now;
-  for (const [k, v] of RATE_LIMIT_MAP) {
-    if (now > v.resetAt) RATE_LIMIT_MAP.delete(k);
-  }
-}
-
-function checkRateLimit(userId: number): boolean {
-  cleanupRateLimits();
-  const now = Date.now();
-  const entry = RATE_LIMIT_MAP.get(userId);
-  if (!entry || now > entry.resetAt) {
-    RATE_LIMIT_MAP.set(userId, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-  if (entry.count >= RATE_LIMIT_MAX) return false;
-  entry.count++;
-  return true;
-}
-
-const SYSTEM_PROMPT = `Eres "Kyron Personal", el asistente del Portal Ciudadano en System Kyron — la plataforma integral más avanzada de Venezuela.
-
-TU IDENTIDAD:
-- Nombre: Kyron Personal
-- Función: Asistente del Portal Ciudadano para personas naturales
-- Plataforma: System Kyron v2.8.5
-
-ALCANCE DEL PORTAL CIUDADANO:
-Este portal es GRATUITO para personas naturales. Ayudas con:
-
-📄 DOCUMENTOS Y TRÁMITES:
-- Bóveda Digital: almacenamiento seguro de documentos personales
-- Partidas de Nacimiento: solicitud y consulta
-- Actas de Matrimonio: solicitud y consulta
-- Antecedentes Penales: consulta de estatus
-- Registro de RIF: gestión del RIF personal ante SENIAT
-- Documentos Judiciales: buzón de documentos judiciales
-
-👤 IDENTIDAD DIGITAL:
-- Tarjeta Digital 3D: identificación digital personal
-- Carnet Personal: carnet digital con código QR
-- Perfil: datos maestros personales
-- Seguridad: configuración de privacidad y 2FA
-
-🏥 SALUD:
-- Directorio Médico: red de centros de salud
-- Carnet de Salud: identificación sanitaria
-- Manutención (LOPNNA): gestión de pensiones alimentarias
-
-🌱 SOSTENIBILIDAD:
-- Tarjeta de Reciclaje: Eco-Créditos por reciclaje
-
-📬 NOTIFICACIONES Y COMUNICACIONES:
-- Centro de avisos en /notificaciones: email, WhatsApp, SMS, in-app
-- Los códigos de verificación (login, registro, 2FA) se envían desde noreplysystemkyron@gmail.com
-- Las alertas del sistema se envían desde alertas_systemkyron@hotmail.com
-- Si un canal falla, el sistema cambia automáticamente al canal de respaldo
-- En /configuracion puedes activar/desactivar notificaciones por email y configurar un email alternativo para alertas
-- WhatsApp y SMS disponibles vía Twilio para notificaciones urgentes
-
-NAVEGACIÓN DEL PORTAL:
-- /dashboard → Panel personal principal
-- /perfil → Datos personales
-- /seguridad → Privacidad y seguridad
-- /documentos → Bóveda digital
-- /tarjeta-digital → ID Digital 3D
-- /carnet-personal → Carnet con QR
-- /directorio-medico → Red médica
-- /antecedentes-penales → Antecedentes
-- /partidas-nacimiento → Partidas
-- /actas-matrimonio → Actas nupciales
-- /manutencion → LOPNNA Sync
-- /registro-rif → RIF personal
-- /documentos-judiciales → Buzón judicial
-- /notificaciones → Centro de avisos
-- /tarjeta-reciclaje → Eco-Créditos
-
-SERVICIOS PAGOS:
-- Los únicos servicios con costo son las solicitudes de documentos civiles (partidas, actas, antecedentes)
-- Todo lo demás del portal personal es GRATUITO
-
-REGLAS:
-- Responde SIEMPRE en español
-- Tono amigable y cercano — como un asistente personal de confianza
-- Responde con profundidad y detalle. NO des respuestas de una línea ni superficiales. Desarrolla cada tema con contexto, pasos claros, requisitos y toda la información relevante
-- Para trámites y procesos: explica qué es, requisitos, documentos necesarios, pasos, costos aproximados, tiempos estimados y dónde se realiza
-- Si preguntan sobre contabilidad, RRHH, facturación u otros módulos empresariales: explica que esos son portales separados para empresas y guía al usuario al Portal de Acceso para seleccionar el portal correcto
-- NO hables de funciones empresariales como si fueran parte de este portal
-- Si preguntan cómo hacer algo, guía paso a paso con detalle
-- Puedes ayudar con dudas sobre trámites venezolanos básicos (cédula, RIF, SAIME, SAREN) — responde a fondo con requisitos, plazos y procedimiento completo`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -117,12 +17,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (!checkRateLimit(session.userId)) {
-      return new Response(JSON.stringify({ error: 'Demasiadas solicitudes. Espera un momento.' }), {
-        status: 429,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+    const rl = rateLimit(`ai:personal:${session.userId}`, 20, 60_000);
+    if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs);
 
     const body = await req.json();
     const { messages: chatHistory, context } = body as {
@@ -145,147 +41,19 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    let geminiAvailable = false;
-    try { getGeminiClient(); geminiAvailable = true; } catch {}
-
-    let deepseekAvailable = false;
-    try { getDeepSeekClient(); deepseekAvailable = true; } catch {}
-
-    let openaiAvailable = false;
-    try { getOpenAIClient(); openaiAvailable = true; } catch {}
-
-    if (!geminiAvailable && !deepseekAvailable && !openaiAvailable) {
-      return new Response(JSON.stringify({
-        error: 'El chat IA no está disponible en este momento.',
-      }), { status: 503, headers: { 'Content-Type': 'application/json' } });
-    }
-
     const ctx = context ? `\n\nCONTEXTO: ${context.substring(0, 300)}` : '';
-    const encoder = new TextEncoder();
-    const recentHistory = chatHistory.slice(-12);
+    const recentHistory = chatHistory.slice(-12).map(m => ({
+      role: m.role as 'user' | 'assistant',
+      content: m.content.substring(0, 2000),
+    }));
 
-    async function streamGemini(ctrl: ReadableStreamDefaultController) {
-      const client = getGeminiClient();
-      const geminiHistory = recentHistory.map(m => ({
-        role: m.role === 'user' ? 'user' as const : 'model' as const,
-        parts: [{ text: m.content.substring(0, 2000) }],
-      }));
-      const response = await client.models.generateContentStream({
-        model: GEMINI_MODEL,
-        contents: geminiHistory,
-        config: {
-          systemInstruction: SYSTEM_PROMPT + ctx,
-          maxOutputTokens: 4096,
-          temperature: 0.7,
-        },
-      });
-      for await (const chunk of response) {
-        const text = chunk.text;
-        if (text) {
-          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
-        }
-      }
-      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
-    }
-
-    async function streamDeepSeek(ctrl: ReadableStreamDefaultController) {
-      const client = getDeepSeekClient();
-      const dsHistory = recentHistory.map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content.substring(0, 2000),
-      }));
-      const stream = await client.chat.completions.create({
-        model: DEEPSEEK_MODEL,
-        max_tokens: 4096,
-        temperature: 0.7,
-        stream: true,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT + ctx },
-          ...dsHistory,
-        ],
-      });
-      for await (const chunk of stream) {
-        const text = chunk.choices[0]?.delta?.content;
-        if (text) {
-          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
-        }
-      }
-      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
-    }
-
-    async function streamOpenAI(ctrl: ReadableStreamDefaultController) {
-      const client = getOpenAIClient();
-      const openaiHistory = recentHistory.map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content.substring(0, 2000),
-      }));
-      const stream = await client.chat.completions.create({
-        model: OPENAI_MODEL,
-        max_tokens: 4096,
-        temperature: 0.7,
-        stream: true,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT + ctx },
-          ...openaiHistory,
-        ],
-      });
-      for await (const chunk of stream) {
-        const text = chunk.choices[0]?.delta?.content;
-        if (text) {
-          ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
-        }
-      }
-      ctrl.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
-    }
-
-    const streamFns: [string, boolean, (ctrl: ReadableStreamDefaultController) => Promise<void>][] = [
-      ['Gemini', geminiAvailable, streamGemini],
-      ['DeepSeek', deepseekAvailable, streamDeepSeek],
-      ['OpenAI', openaiAvailable, streamOpenAI],
-    ];
-
-    const readable = new ReadableStream({
-      async start(controller) {
-        let hasEmitted = false;
-        try {
-          for (const [name, available, fn] of streamFns) {
-            if (!available || hasEmitted) continue;
-            try {
-              const trackingCtrl = new Proxy(controller, {
-                get(target, prop) {
-                  if (prop === 'enqueue') {
-                    return (chunk: Uint8Array) => { hasEmitted = true; target.enqueue(chunk); };
-                  }
-                  return (target as any)[prop];
-                }
-              }) as ReadableStreamDefaultController;
-              await fn(trackingCtrl);
-              break;
-            } catch (err) {
-              console.error(`[kyron-chat-personal] ${name} failed:`, err);
-              if (hasEmitted) break;
-            }
-          }
-          if (!hasEmitted) {
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
-          }
-          controller.close();
-        } catch (err) {
-          console.error('[kyron-chat-personal] stream error:', err);
-          if (!hasEmitted) {
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Error en la respuesta' })}\n\n`));
-          }
-          controller.close();
-        }
-      },
-    });
-
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
+    return streamResponse({
+      system: PROMPTS.KYRON_PERSONAL + ctx,
+      messages: recentHistory,
+      maxTokens: 4096,
+      temperature: 0.7,
+      providers: ['gemini', 'deepseek', 'openai'],
+      label: 'kyron-chat-personal',
     });
   } catch (err) {
     console.error('[kyron-chat-personal] error:', err);

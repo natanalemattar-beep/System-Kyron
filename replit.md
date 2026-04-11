@@ -79,10 +79,12 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 - **Authentication:** `bcryptjs`, `jose`
 - **Animations:** Framer Motion
 - **Email Services:** Gmail, Hotmail/Outlook, SMTP, Resend, Replit Google Mail connector
-- **AI Integrations (Replit Managed):**
-  - Anthropic Claude (Kyron Chat corporate, document verification)
-  - Google Gemini (Personal chat, fiscal chat, legal docs)
-  - OpenAI (Dashboard analysis, sales strategies, sentiment analysis)
+- **AI System (Centralized Architecture v2.0):**
+  - **Core:** `src/ai/providers.ts` (singleton clients, unified config, fallback chains), `src/ai/stream.ts` (multi-provider SSE streaming), `src/ai/prompts.ts` (composable system prompts)
+  - **Providers:** Anthropic Claude, Google Gemini, OpenAI, DeepSeek — all with automatic failover
+  - **Endpoints:** kyron-chat (Claude→DeepSeek→Gemini), kyron-chat-personal (Gemini→DeepSeek→OpenAI), fiscal-chat, analyze-dashboard, kyron-mail-ai, kyron-chat-trial, speed-test
+  - **Flows:** automated-data-entry (Claude Vision), gaceta-6952, legal-doc-generator, sales-strategy, sentiment-analysis, transaction-categorization
+  - **Document Verifier:** Multi-AI forensic analysis (Claude+OpenAI+Gemini Vision consensus)
 - **SMS:** Twilio
 - **WhatsApp:** Twilio
 - **BCV Rate Auto-fetch:** PyDolar BCV, ExchangeRate API
