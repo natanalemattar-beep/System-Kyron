@@ -57,12 +57,95 @@
         ]
     },
     "ServicesSection": {
-        "badge": "Ecosistema Completo",
-        "title_highlight": "Todo lo que necesitas,",
-        "title_rest": "integrado",
-        "subtitle": "Soluciones interconectadas que cubren asesoría contable, facturación, legal, telecomunicaciones e inteligencia artificial.",
+        "badge": "Planes & Precios",
+        "title_highlight": "EL PLAN PERFECTO PARA",
+        "title_rest": "TU EMPRESA",
+        "subtitle": "Todos los planes incluyen cifrado AES-256, cumplimiento venezolano y actualizaciones automáticas.",
+        "monthly": "Mensual",
+        "annual": "Anual",
+        "discount": "-20%",
+        "most_popular": "Más Popular",
+        "per_month": "/mes",
+        "free_label": "Gratis",
+        "free_forever": "Para siempre · Sin tarjeta de crédito",
+        "billed_annually": "Facturado anualmente",
+        "per_year": "/año",
+        "show_details": "Ver detalle completo",
+        "hide_details": "Ocultar detalle",
+        "plans": [
+            {
+                "name": "Personal",
+                "description": "Cuenta personal con herramientas básicas",
+                "cta": "Comenzar Gratis",
+                "features": ["Cuenta Personal completa", "Tasa BCV en vivo", "Chat AI (50 msgs/mes)", "Alertas SENIAT (10/mes)", "Consulta RIF/Cédula"],
+                "details": {
+                    "sections": [
+                        { "title": "Cuenta Personal", "items": ["Panel personal completo", "Documentos de identidad", "Directorio fiscal", "Tasa BCV en vivo"] },
+                        { "title": "IA Kyron", "items": ["Chat AI — 50 mensajes/mes", "Consulta básica de normativas"] },
+                        { "title": "Herramientas", "items": ["Consulta RIF/Cédula", "Alertas SENIAT (10/mes)", "Calculadora fiscal básica"] }
+                    ]
+                }
+            },
+            {
+                "name": "Profesional",
+                "description": "Contabilidad + Facturación + Mi Línea en paquete",
+                "cta": "Comenzar Ahora",
+                "features": ["Todo en Personal +", "Asesoría Contable VEN-NIF", "Facturación SENIAT (200/mes)", "Mi Línea (5 líneas)", "Centro Tributario completo"],
+                "details": {
+                    "sections": [
+                        { "title": "Asesoría Contable — Profesional", "items": ["Libros legales (Diario, Mayor, Inventario)", "Centro Tributario (IVA, ISLR, IGTF)", "Retenciones automáticas", "Simulador de multas COT", "Exportación Excel", "3 usuarios"] },
+                        { "title": "Facturación — Comercial", "items": ["300 facturas/mes", "Punto de Venta (POS)", "Notas débito/crédito", "Análisis comercial"] },
+                        { "title": "Mi Línea — Conecta 5 GB", "items": ["5 GB datos 4G LTE", "150 min nacionales", "Redes sociales ilimitadas"] },
+                        { "title": "IA Kyron", "items": ["Chat AI — 200 mensajes/mes", "Asistente contable inteligente"] }
+                    ]
+                }
+            },
+            {
+                "name": "Empresarial",
+                "description": "Todo incluido para empresas en crecimiento",
+                "cta": "Comenzar Ahora",
+                "features": ["TODOS los módulos incluidos", "Asesoría Contable avanzada", "Asesoría Legal completa", "Facturación ilimitada", "Socios y Directivos"],
+                "details": {
+                    "sections": [
+                        { "title": "Asesoría Contable — Avanzado", "items": ["IA Fiscal para consultas", "Declaraciones asistidas (12/año)", "Conciliación bancaria", "Asientos automáticos", "Auditoría forense", "5 usuarios"] },
+                        { "title": "Asesoría Legal — Escritorio Jurídico", "items": ["Control de litigios", "Marco Legal VE completo", "Contratos ilimitados", "Calendario de audiencias"] },
+                        { "title": "Facturación — Enterprise", "items": ["Facturas ilimitadas", "Multi-sucursal", "Pasarelas de pago", "Facturación electrónica"] },
+                        { "title": "Mi Línea — Global 25 GB", "items": ["25 GB datos 5G", "Llamadas nacionales ilimitadas", "60 min internacionales", "Hotspot 10 GB"] },
+                        { "title": "Socios y Directivos — Profesional", "items": ["Socios ilimitados", "Gobierno corporativo", "Reportes para accionistas"] },
+                        { "title": "IA Kyron", "items": ["Chat AI — 500 mensajes/mes", "IA Fiscal avanzada", "Generación de reportes"] }
+                    ]
+                }
+            },
+            {
+                "name": "Kyron MAX",
+                "description": "Todo ilimitado, sin restricciones",
+                "cta": "Escríbenos",
+                "features": ["TODOS los módulos sin límites", "IA Claude ilimitado 24/7", "Facturación ilimitada", "Mi Línea Jurídica ilimitada", "Asesoría Contable MAX"],
+                "details": {
+                    "sections": [
+                        { "title": "Asesoría Contable — MAX", "items": ["Dictamen de Contador Público", "Blockchain audit trail", "Multi-empresa", "Usuarios ilimitados", "Soporte VIP 24/7", "API de integración"] },
+                        { "title": "Asesoría Legal — MAX", "items": ["IA Legal avanzada", "Due diligence completo", "Multi-empresa", "Contratos ilimitados"] },
+                        { "title": "Facturación — MAX", "items": ["Facturación electrónica ilimitada", "Multi-empresa", "Automatización total", "Integraciones API"] },
+                        { "title": "Mi Línea Jurídica — Enterprise", "items": ["Líneas ilimitadas", "Datos ilimitados 5G", "VPN corporativa", "MDM completo"] },
+                        { "title": "Mi Línea Personal — Infinite", "items": ["Datos ilimitados 5G Ultra", "Llamadas internacionales ilimitadas", "eSIM múltiple"] },
+                        { "title": "Socios y Directivos — Enterprise", "items": ["Multi-empresa", "Blockchain proof", "Soporte dedicado 24/7"] },
+                        { "title": "IA Kyron", "items": ["IA Claude ilimitada 24/7", "Reportes ejecutivos automáticos", "Análisis predictivo", "Prioridad máxima"] }
+                    ]
+                }
+            }
+        ],
+        "modules_badge": "Módulos Individuales",
         "modules_title": "Todo Integrado,",
         "modules_highlight": "Un Ecosistema",
+        "modules_subtitle": "Contrata solo lo que necesitas. Cada módulo funciona de manera independiente con sus propios planes.",
+        "individual_modules": [
+            { "name": "Mi Línea Personal", "description": "Línea móvil 5G personal", "features": ["WhatsApp incluido", "Redes sociales ilimitadas", "Streaming HD", "eSIM compatible"] },
+            { "name": "Mi Línea Jurídica", "description": "Flota corporativa centralizada", "features": ["Hasta 50 líneas", "MDM completo", "Reportes CONATEL", "VPN corporativa"] },
+            { "name": "Asesoría Contable", "description": "Contabilidad VEN-NIF completa", "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"] },
+            { "name": "Asesoría Legal", "description": "Documentos e IA legal", "features": ["Generador con IA", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"] },
+            { "name": "Facturación", "description": "Facturación fiscal SENIAT", "features": ["Facturación SENIAT", "Punto de Venta POS", "Multi-sucursal", "Análisis comercial"] },
+            { "name": "Socios y Directivos", "description": "Gobierno corporativo", "features": ["Socios ilimitados", "Actas de asamblea", "Dividendos", "Reportes accionistas"] }
+        ],
         "explore": "Explorar Ecosistema",
         "features": [
             {

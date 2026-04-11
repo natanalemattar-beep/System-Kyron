@@ -1,9 +1,9 @@
 'use client';
 
-import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, RadioTower, Package } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Crown, Zap, Building2, Star, Globe, ShieldCheck, Phone, Calculator, Receipt, Users, Scale, RadioTower, Package, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -31,12 +31,17 @@ const statsMeta = [
     { key: 'stat_support', value: '24/7', icon: Zap, color: 'text-amber-400', bg: 'from-amber-500/10 to-orange-500/10' },
 ];
 
+interface PlanDetail {
+    sections: { title: string; items: string[] }[];
+}
+
 export function ServicesSection() {
     const t = useTranslations('ServicesSection');
     const { tier } = useDevicePerformance();
     const animate = tier !== 'low';
     const [isAnnual, setIsAnnual] = useState(true);
-    const plansData = t.raw('plans') as { name: string; description: string; features: string[]; cta: string }[];
+    const [expandedPlan, setExpandedPlan] = useState<number | null>(null);
+    const plansData = t.raw('plans') as { name: string; description: string; features: string[]; cta: string; details?: PlanDetail }[];
     const modulesData = t.raw('individual_modules') as { name: string; description: string; features: string[] }[];
 
     const plans = plansData.map((p, i) => ({ ...p, ...planConfigs[i] }));
@@ -160,7 +165,7 @@ export function ServicesSection() {
                                         )}
                                     </div>
 
-                                    <div className="space-y-3 mb-8">
+                                    <div className="space-y-3 mb-6">
                                         {plan.features.map((feature, j) => (
                                             <div key={j} className="flex items-center gap-2.5">
                                                 <Check className={cn("h-3.5 w-3.5 shrink-0", plan.color)} />
@@ -168,6 +173,50 @@ export function ServicesSection() {
                                             </div>
                                         ))}
                                     </div>
+
+                                    {plan.details && (
+                                        <>
+                                            <button
+                                                onClick={() => setExpandedPlan(expandedPlan === i ? null : i)}
+                                                className={cn(
+                                                    "flex items-center justify-center gap-1.5 w-full py-2 mb-4 rounded-lg text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 border",
+                                                    expandedPlan === i
+                                                        ? cn('border-white/10 bg-white/[0.04]', plan.color)
+                                                        : 'border-white/[0.06] text-muted-foreground/40 hover:text-muted-foreground/60 hover:border-white/10'
+                                                )}
+                                            >
+                                                <ChevronDown className={cn("h-3 w-3 transition-transform duration-300", expandedPlan === i && "rotate-180")} />
+                                                {expandedPlan === i ? t('hide_details') : t('show_details')}
+                                            </button>
+                                            <AnimatePresence>
+                                                {expandedPlan === i && (
+                                                    <motion.div
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: 'auto', opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                        className="overflow-hidden mb-4"
+                                                    >
+                                                        <div className="space-y-4 pt-2 border-t border-white/[0.06]">
+                                                            {plan.details.sections.map((section, si) => (
+                                                                <div key={si}>
+                                                                    <p className={cn("text-[10px] font-bold uppercase tracking-wider mb-1.5", plan.color)}>{section.title}</p>
+                                                                    <div className="space-y-1.5 pl-1">
+                                                                        {section.items.map((item, ii) => (
+                                                                            <div key={ii} className="flex items-start gap-2">
+                                                                                <Check className={cn("h-2.5 w-2.5 shrink-0 mt-0.5", plan.color, "opacity-60")} />
+                                                                                <span className="text-[10px] text-foreground/40 font-medium leading-tight">{item}</span>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </>
+                                    )}
 
                                     <Link
                                         href="/register"

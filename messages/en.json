@@ -57,12 +57,95 @@
         ]
     },
     "ServicesSection": {
-        "badge": "Complete Ecosystem",
-        "title_highlight": "Everything you need,",
-        "title_rest": "integrated",
-        "subtitle": "Interconnected solutions covering accounting, invoicing, legal, telecommunications and artificial intelligence.",
+        "badge": "Plans & Pricing",
+        "title_highlight": "THE PERFECT PLAN FOR",
+        "title_rest": "YOUR BUSINESS",
+        "subtitle": "All plans include AES-256 encryption, Venezuelan compliance, and automatic updates.",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "discount": "-20%",
+        "most_popular": "Most Popular",
+        "per_month": "/mo",
+        "free_label": "Free",
+        "free_forever": "Forever · No credit card required",
+        "billed_annually": "Billed annually",
+        "per_year": "/yr",
+        "show_details": "Show full details",
+        "hide_details": "Hide details",
+        "plans": [
+            {
+                "name": "Personal",
+                "description": "Personal account with basic tools",
+                "cta": "Start Free",
+                "features": ["Complete Personal Account", "Live BCV rate", "AI Chat (50 msgs/mo)", "SENIAT Alerts (10/mo)", "RIF/ID Lookup"],
+                "details": {
+                    "sections": [
+                        { "title": "Personal Account", "items": ["Complete personal panel", "Identity documents", "Tax directory", "Live BCV rate"] },
+                        { "title": "Kyron AI", "items": ["AI Chat — 50 messages/mo", "Basic regulation queries"] },
+                        { "title": "Tools", "items": ["RIF/ID Lookup", "SENIAT Alerts (10/mo)", "Basic tax calculator"] }
+                    ]
+                }
+            },
+            {
+                "name": "Professional",
+                "description": "Accounting + Invoicing + My Line bundled",
+                "cta": "Get Started",
+                "features": ["Everything in Personal +", "VEN-NIF Accounting", "SENIAT Invoicing (200/mo)", "My Line (5 lines)", "Full Tax Center"],
+                "details": {
+                    "sections": [
+                        { "title": "Accounting — Professional", "items": ["Legal books (Journal, Ledger, Inventory)", "Tax Center (IVA, ISLR, IGTF)", "Automatic withholdings", "COT penalty simulator", "Excel export", "3 users"] },
+                        { "title": "Invoicing — Commercial", "items": ["300 invoices/mo", "Point of Sale (POS)", "Debit/credit notes", "Sales analytics"] },
+                        { "title": "My Line — Conecta 5 GB", "items": ["5 GB 4G LTE data", "150 min national calls", "Unlimited social media"] },
+                        { "title": "Kyron AI", "items": ["AI Chat — 200 messages/mo", "Smart accounting assistant"] }
+                    ]
+                }
+            },
+            {
+                "name": "Enterprise",
+                "description": "All-inclusive for growing businesses",
+                "cta": "Get Started",
+                "features": ["ALL modules included", "Advanced Accounting", "Full Legal Advisory", "Unlimited Invoicing", "Partners & Directors"],
+                "details": {
+                    "sections": [
+                        { "title": "Accounting — Advanced", "items": ["Tax AI for queries", "Assisted filings (12/yr)", "Bank reconciliation", "Auto journal entries", "Forensic audit", "5 users"] },
+                        { "title": "Legal Advisory — Law Office", "items": ["Litigation tracking", "Full VE Legal Framework", "Unlimited contracts", "Hearing calendar"] },
+                        { "title": "Invoicing — Enterprise", "items": ["Unlimited invoices", "Multi-branch", "Payment gateways", "Electronic invoicing"] },
+                        { "title": "My Line — Global 25 GB", "items": ["25 GB 5G data", "Unlimited national calls", "60 min international", "10 GB Hotspot"] },
+                        { "title": "Partners & Directors — Professional", "items": ["Unlimited partners", "Corporate governance", "Shareholder reports"] },
+                        { "title": "Kyron AI", "items": ["AI Chat — 500 messages/mo", "Advanced Tax AI", "Report generation"] }
+                    ]
+                }
+            },
+            {
+                "name": "Kyron MAX",
+                "description": "Everything unlimited, no restrictions",
+                "cta": "Contact Us",
+                "features": ["ALL modules, no limits", "Unlimited Claude AI 24/7", "Unlimited Invoicing", "Unlimited Corporate Lines", "MAX Accounting"],
+                "details": {
+                    "sections": [
+                        { "title": "Accounting — MAX", "items": ["CPA Opinion Letter", "Blockchain audit trail", "Multi-company", "Unlimited users", "VIP Support 24/7", "API integration"] },
+                        { "title": "Legal Advisory — MAX", "items": ["Advanced Legal AI", "Full due diligence", "Multi-company", "Unlimited contracts"] },
+                        { "title": "Invoicing — MAX", "items": ["Unlimited electronic invoicing", "Multi-company", "Full automation", "API integrations"] },
+                        { "title": "Corporate Lines — Enterprise", "items": ["Unlimited lines", "Unlimited 5G data", "Corporate VPN", "Full MDM"] },
+                        { "title": "Personal Line — Infinite", "items": ["Unlimited 5G Ultra data", "Unlimited international calls", "Multiple eSIM"] },
+                        { "title": "Partners & Directors — Enterprise", "items": ["Multi-company", "Blockchain proof", "Dedicated support 24/7"] },
+                        { "title": "Kyron AI", "items": ["Unlimited Claude AI 24/7", "Auto executive reports", "Predictive analytics", "Top priority"] }
+                    ]
+                }
+            }
+        ],
+        "modules_badge": "Individual Modules",
         "modules_title": "All Integrated,",
         "modules_highlight": "One Ecosystem",
+        "modules_subtitle": "Pay only for what you need. Each module works independently with its own plans.",
+        "individual_modules": [
+            { "name": "My Personal Line", "description": "Personal 5G mobile line", "features": ["WhatsApp included", "Unlimited social media", "HD Streaming", "eSIM compatible"] },
+            { "name": "My Corporate Lines", "description": "Centralized corporate fleet", "features": ["Up to 50 lines", "Full MDM", "CONATEL reports", "Corporate VPN"] },
+            { "name": "Accounting Advisory", "description": "Full VEN-NIF accounting", "features": ["Legal books", "Tax Center", "Auto withholdings", "Tax AI"] },
+            { "name": "Legal Advisory", "description": "AI-powered legal docs", "features": ["AI document generator", "Unlimited contracts", "Litigation tracking", "VE Legal Framework"] },
+            { "name": "Invoicing", "description": "SENIAT tax invoicing", "features": ["SENIAT Invoicing", "POS System", "Multi-branch", "Sales analytics"] },
+            { "name": "Partners & Directors", "description": "Corporate governance", "features": ["Unlimited partners", "Assembly minutes", "Dividends", "Shareholder reports"] }
+        ],
         "explore": "Explore Ecosystem",
         "features": [
             {
