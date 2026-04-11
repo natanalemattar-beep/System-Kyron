@@ -70,6 +70,12 @@
         "free_forever": "Forever · No credit card required",
         "billed_annually": "Billed annually",
         "per_year": "/yr",
+        "tab_combo": "All-In-One Combo",
+        "tab_individual": "Individual Modules",
+        "tab_combo_desc": "Save up to 40% by bundling all modules into a single plan.",
+        "tab_individual_desc": "Choose only the modules you need, each with its own pricing tiers.",
+        "select_module": "View Plans",
+        "price_from": "from",
         "show_details": "Show full details",
         "hide_details": "Hide details",
         "plans": [

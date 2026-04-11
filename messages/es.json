@@ -70,6 +70,12 @@
         "free_forever": "Para siempre · Sin tarjeta de crédito",
         "billed_annually": "Facturado anualmente",
         "per_year": "/año",
+        "tab_combo": "Combo Todo Incluido",
+        "tab_individual": "Módulos Individuales",
+        "tab_combo_desc": "Ahorra hasta un 40% contratando todos los módulos en un solo plan.",
+        "tab_individual_desc": "Contrata solo los módulos que necesitas, cada uno con sus propios planes.",
+        "select_module": "Ver Planes",
+        "price_from": "desde",
         "show_details": "Ver detalle completo",
         "hide_details": "Ocultar detalle",
         "plans": [
