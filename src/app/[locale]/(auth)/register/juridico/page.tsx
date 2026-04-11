@@ -19,7 +19,7 @@ import {
   Building, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
   CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
   BookOpen, Users, ShieldCheck, Smartphone, Signal, FileText,
-  Gavel, ShoppingCart, MessageSquare, RefreshCw, ChevronDown,
+  Gavel, ShoppingCart, MessageSquare, RefreshCw,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
@@ -48,88 +48,13 @@ const TIPOS_EMPRESA = [
   'Otro',
 ];
 
-interface SubPlan {
-  id: string;
-  nombre: string;
-  precio: number;
-  popular?: boolean;
-  features: string[];
-}
-
-interface ModuloRegistro {
-  id: string;
-  nombre: string;
-  descripcion: string;
-  icon: any;
-  gradient: string;
-  color: string;
-  border: string;
-  bg: string;
-  subPlanes: SubPlan[];
-}
-
-const MODULOS_REGISTRO: ModuloRegistro[] = [
-  {
-    id: 'mi_linea_personal', nombre: 'Mi Línea Personal', descripcion: 'Tu línea móvil con planes desde 2 GB hasta ilimitado.',
-    icon: Smartphone, gradient: 'from-cyan-500 to-teal-600', color: 'text-cyan-500', border: 'border-cyan-500/30', bg: 'bg-cyan-500/5',
-    subPlanes: [
-      { id: 'basico_2gb', nombre: 'Básico — 2 GB', precio: 3, features: ['60 min nacionales', '30 SMS', 'WhatsApp incluido'] },
-      { id: 'conecta_5gb', nombre: 'Conecta — 5 GB', precio: 5, features: ['150 min nacionales', '80 SMS', 'Redes sociales ilimitadas'] },
-      { id: 'plus_10gb', nombre: 'Plus — 10 GB', precio: 8, features: ['300 min nacionales', '15 min internac.', 'Streaming SD'] },
-      { id: 'global_25gb', nombre: 'Global — 25 GB', precio: 14, popular: true, features: ['Llamadas ilimitadas', '60 min internac.', 'Streaming HD', 'Hotspot 10 GB'] },
-      { id: 'ultra_50gb', nombre: 'Ultra — 50 GB', precio: 22, features: ['Todo ilimitado', '200 min internac.', 'Streaming 4K', 'VPN incluida'] },
-      { id: 'infinite', nombre: 'Infinite', precio: 35, features: ['Todo ilimitado', 'Internac. ilimitadas', '5G Ultra', 'eSIM múltiple'] },
-    ],
-  },
-  {
-    id: 'mi_linea_juridica', nombre: 'Mi Línea Jurídica', descripcion: 'Flota corporativa con gestión centralizada.',
-    icon: Signal, gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500', border: 'border-pink-500/30', bg: 'bg-pink-500/5',
-    subPlanes: [
-      { id: 'juridica_basico', nombre: 'Básico — 5 líneas', precio: 15, features: ['10 GB compartidos', 'Panel admin', 'Facturación consolidada'] },
-      { id: 'juridica_plus', nombre: 'Plus — 15 líneas', precio: 35, features: ['50 GB compartidos', 'Límites por empleado', 'MDM básico'] },
-      { id: 'juridica_pro', nombre: 'Pro — 50 líneas', precio: 65, popular: true, features: ['200 GB compartidos', 'MDM completo', 'Reportes CONATEL'] },
-      { id: 'juridica_max', nombre: 'Enterprise', precio: 120, features: ['Líneas ilimitadas', 'Datos ilimitados', 'VPN corporativa'] },
-    ],
-  },
-  {
-    id: 'asesoria_contable', nombre: 'Asesoría Contable', descripcion: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal.',
-    icon: BookOpen, gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500', border: 'border-blue-500/30', bg: 'bg-blue-500/5',
-    subPlanes: [
-      { id: 'contable_esencial', nombre: 'Esencial', precio: 8, features: ['Libros legales básicos', 'Calendario fiscal', 'Tasa BCV en vivo'] },
-      { id: 'contable_profesional', nombre: 'Profesional', precio: 18, popular: true, features: ['Centro Tributario IVA/ISLR/IGTF', 'Retenciones automáticas', 'Exportación Excel'] },
-      { id: 'contable_avanzado', nombre: 'Avanzado', precio: 35, features: ['IA Fiscal', 'Conciliación bancaria', 'Asientos automáticos'] },
-      { id: 'contable_max', nombre: 'MAX', precio: 60, features: ['Blockchain audit', 'Multi-empresa', 'Soporte VIP 24/7'] },
-    ],
-  },
-  {
-    id: 'asesoria_legal', nombre: 'Asesoría Legal', descripcion: 'Documentos con IA, contratos, permisos y litigios.',
-    icon: Gavel, gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500', border: 'border-amber-500/30', bg: 'bg-amber-500/5',
-    subPlanes: [
-      { id: 'legal_basico', nombre: 'Básico', precio: 5, features: ['Generador de documentos', '20 contratos', 'Alertas vencimiento'] },
-      { id: 'legal_profesional', nombre: 'Profesional', precio: 15, popular: true, features: ['IA avanzada', 'Contratos ilimitados', 'Poderes de representación'] },
-      { id: 'legal_escritorio', nombre: 'Escritorio Jurídico', precio: 30, features: ['Control de litigios', 'Marco Legal VE', 'Calendario audiencias'] },
-      { id: 'legal_max', nombre: 'MAX', precio: 50, features: ['IA Legal avanzada', 'Multi-empresa', 'Due diligence'] },
-    ],
-  },
-  {
-    id: 'facturacion', nombre: 'Facturación', descripcion: 'Facturación fiscal SENIAT, POS y ventas.',
-    icon: ShoppingCart, gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500', border: 'border-emerald-500/30', bg: 'bg-emerald-500/5',
-    subPlanes: [
-      { id: 'fact_basico', nombre: 'Básico', precio: 6, features: ['50 facturas/mes', 'Facturación SENIAT', 'Notas débito/crédito'] },
-      { id: 'fact_comercial', nombre: 'Comercial', precio: 15, popular: true, features: ['300 facturas/mes', 'Punto de Venta (POS)', 'Análisis comercial'] },
-      { id: 'fact_enterprise', nombre: 'Enterprise', precio: 30, features: ['Facturas ilimitadas', 'Multi-sucursal', 'Pasarelas de pago'] },
-      { id: 'fact_max', nombre: 'MAX', precio: 50, features: ['Facturación electrónica', 'Multi-empresa', 'Automatización total'] },
-    ],
-  },
-  {
-    id: 'socios_directivos', nombre: 'Socios y Directivos', descripcion: 'Gobierno corporativo, actas y dividendos.',
-    icon: Users, gradient: 'from-violet-500 to-purple-600', color: 'text-violet-500', border: 'border-violet-500/30', bg: 'bg-violet-500/5',
-    subPlanes: [
-      { id: 'socios_basico', nombre: 'Básico', precio: 10, features: ['Hasta 5 socios', 'Actas de asambleas', 'Distribución dividendos'] },
-      { id: 'socios_profesional', nombre: 'Profesional', precio: 25, popular: true, features: ['Socios ilimitados', 'Gobierno corporativo', 'Reportes accionistas'] },
-      { id: 'socios_enterprise', nombre: 'Enterprise', precio: 45, features: ['Multi-empresa', 'Blockchain proof', 'Soporte dedicado'] },
-    ],
-  },
+const MODULOS_REGISTRO = [
+  { id: 'mi_linea_personal', nombre: 'Mi Línea Personal', descripcion: 'Tu línea móvil con planes desde 2 GB hasta ilimitado.', precioDesde: 3, icon: Smartphone, gradient: 'from-cyan-500 to-teal-600', color: 'text-cyan-500', border: 'border-cyan-500/30', bg: 'bg-cyan-500/5', planes: 6, features: ['WhatsApp incluido', 'Redes sociales ilimitadas', 'Streaming HD'] },
+  { id: 'mi_linea_juridica', nombre: 'Mi Línea Jurídica', descripcion: 'Flota corporativa con gestión centralizada.', precioDesde: 15, icon: Signal, gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500', border: 'border-pink-500/30', bg: 'bg-pink-500/5', planes: 4, features: ['Hasta 50 líneas corporativas', 'MDM completo', 'Reportes CONATEL'] },
+  { id: 'asesoria_contable', nombre: 'Asesoría Contable', descripcion: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal.', precioDesde: 8, icon: BookOpen, gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500', border: 'border-blue-500/30', bg: 'bg-blue-500/5', planes: 4, features: ['Libros legales (Diario, Mayor)', 'Centro Tributario IVA/ISLR/IGTF', 'Retenciones automáticas'] },
+  { id: 'asesoria_legal', nombre: 'Asesoría Legal', descripcion: 'Documentos con IA, contratos, permisos y litigios.', precioDesde: 5, icon: Gavel, gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500', border: 'border-amber-500/30', bg: 'bg-amber-500/5', planes: 4, features: ['Generador con IA avanzada', 'Contratos ilimitados', 'Gestión de permisos vigentes'] },
+  { id: 'facturacion', nombre: 'Facturación', descripcion: 'Facturación fiscal SENIAT, POS y ventas.', precioDesde: 6, icon: ShoppingCart, gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500', border: 'border-emerald-500/30', bg: 'bg-emerald-500/5', planes: 4, features: ['Facturación fiscal SENIAT', 'Punto de Venta (POS)', 'Análisis comercial'] },
+  { id: 'socios_directivos', nombre: 'Socios y Directivos', descripcion: 'Gobierno corporativo, actas y dividendos.', precioDesde: 10, icon: Users, gradient: 'from-violet-500 to-purple-600', color: 'text-violet-500', border: 'border-violet-500/30', bg: 'bg-violet-500/5', planes: 3, features: ['Socios ilimitados', 'Gobierno corporativo', 'Reportes para accionistas'] },
 ];
 
 const fullSchema = z.object({
@@ -182,8 +107,6 @@ export default function RegisterJuridicoPage() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
-  const [selectedSubPlans, setSelectedSubPlans] = useState<Record<string, string>>({});
-  const [expandedModule, setExpandedModule] = useState<string | null>(null);
   const [registeredEmail, setRegisteredEmail] = useState('');
   const [registeredRazon, setRegisteredRazon] = useState('');
   const [fileRifName, setFileRifName] = useState<string | null>(null);
@@ -235,25 +158,9 @@ export default function RegisterJuridicoPage() {
   const toggleModule = (id: string) => {
     setSelectedModules(prev => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        setSelectedSubPlans(sp => { const n = { ...sp }; delete n[id]; return n; });
-        if (expandedModule === id) setExpandedModule(null);
-      } else {
-        next.add(id);
-        const mod = MODULOS_REGISTRO.find(m => m.id === id);
-        if (mod) {
-          const popular = mod.subPlanes.find(p => p.popular);
-          setSelectedSubPlans(sp => ({ ...sp, [id]: popular ? popular.id : mod.subPlanes[0].id }));
-        }
-        setExpandedModule(id);
-      }
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
-  };
-
-  const selectSubPlan = (moduleId: string, planId: string) => {
-    setSelectedSubPlans(sp => ({ ...sp, [moduleId]: planId }));
   };
 
   const estadoEmpresa = watch('estado_empresa');
@@ -398,11 +305,7 @@ export default function RegisterJuridicoPage() {
     setIsLoading(true);
     const selectedModuleList = MODULOS_REGISTRO
       .filter(m => selectedModules.has(m.id))
-      .map(m => {
-        const subPlanId = selectedSubPlans[m.id];
-        const subPlan = m.subPlanes.find(p => p.id === subPlanId);
-        return { id: m.id, label: m.nombre, plan: subPlanId, planNombre: subPlan?.nombre, precio: subPlan?.precio };
-      });
+      .map(m => ({ id: m.id, label: m.nombre }));
 
     try {
       const res = await fetch('/api/auth/register', {
@@ -743,139 +646,62 @@ export default function RegisterJuridicoPage() {
                   <BookOpen className="h-4 w-4" /> Módulos del Sistema
                 </div>
                 <p className="text-xs text-muted-foreground mb-4">
-                  Selecciona los módulos que tu empresa necesita y elige un plan para cada uno.
+                  Selecciona los módulos que tu empresa necesita. Podrás elegir el plan de cada módulo desde la configuración.
                 </p>
-                <div className="space-y-3 max-h-[520px] overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[480px] overflow-y-auto pr-1">
                   {MODULOS_REGISTRO.map(mod => {
                     const selected = selectedModules.has(mod.id);
-                    const isExpanded = expandedModule === mod.id;
-                    const currentSubPlan = selectedSubPlans[mod.id];
-                    const currentSubPlanObj = mod.subPlanes.find(p => p.id === currentSubPlan);
                     return (
-                      <div key={mod.id} className={cn(
-                        'rounded-2xl border-2 transition-all duration-300 overflow-hidden',
-                        selected
-                          ? cn(mod.border, mod.bg, 'shadow-md')
-                          : 'border-border/60 bg-background hover:border-border'
-                      )}>
-                        <button
-                          type="button"
-                          onClick={() => toggleModule(mod.id)}
-                          className="w-full flex items-center gap-3 p-4 text-left"
-                        >
-                          <div className={cn('p-2 rounded-xl bg-gradient-to-br shadow-md shrink-0', mod.gradient)}>
-                            <mod.icon className="h-4 w-4 text-white" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <h4 className={cn('text-sm font-bold leading-tight', selected ? mod.color : 'text-foreground')}>{mod.nombre}</h4>
-                            <p className="text-[10px] text-muted-foreground/60 leading-snug">{mod.descripcion}</p>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            {selected && currentSubPlanObj && (
-                              <span className="text-xs font-bold text-muted-foreground">
-                                {currentSubPlanObj.nombre} · ${currentSubPlanObj.precio}/mes
-                              </span>
-                            )}
-                            <div className={cn(
-                              'w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all duration-300',
-                              selected ? cn('bg-gradient-to-br', mod.gradient) : 'border-2 border-border/60'
-                            )}>
-                              {selected && <CheckCircle className="h-3 w-3 text-white" />}
+                      <button
+                        key={mod.id}
+                        type="button"
+                        onClick={() => toggleModule(mod.id)}
+                        className={cn(
+                          'group relative flex flex-col gap-3 p-4 rounded-2xl border-2 text-left transition-all duration-300',
+                          selected
+                            ? cn(mod.border, mod.bg, 'shadow-md scale-[1.01]')
+                            : 'border-border/60 bg-background hover:border-border hover:shadow-sm'
+                        )}
+                      >
+                        {selected && (
+                          <div className="absolute top-3 right-3">
+                            <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-br', mod.gradient)}>
+                              <CheckCircle className="h-3 w-3 text-white" />
                             </div>
                           </div>
-                        </button>
-
-                        {selected && (
-                          <div className="px-4 pb-4">
-                            <button
-                              type="button"
-                              onClick={(e) => { e.stopPropagation(); setExpandedModule(isExpanded ? null : mod.id); }}
-                              className={cn('flex items-center gap-1.5 text-[11px] font-semibold mb-2 transition-colors', mod.color)}
-                            >
-                              <ChevronDown className={cn('h-3 w-3 transition-transform duration-200', isExpanded && 'rotate-180')} />
-                              {isExpanded ? 'Ocultar planes' : `Ver ${mod.subPlanes.length} planes disponibles`}
-                            </button>
-
-                            {isExpanded && (
-                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
-                                {mod.subPlanes.map(plan => {
-                                  const isPlanSelected = currentSubPlan === plan.id;
-                                  return (
-                                    <button
-                                      key={plan.id}
-                                      type="button"
-                                      onClick={(e) => { e.stopPropagation(); selectSubPlan(mod.id, plan.id); }}
-                                      className={cn(
-                                        'relative text-left rounded-xl border p-3 transition-all duration-200',
-                                        isPlanSelected
-                                          ? cn(mod.border, 'bg-white dark:bg-slate-800 shadow-sm ring-1', mod.border.replace('border-', 'ring-'))
-                                          : 'border-border/40 bg-background/50 hover:border-border'
-                                      )}
-                                    >
-                                      {plan.popular && (
-                                        <div className={cn(
-                                          'absolute -top-2 right-2 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider text-white bg-gradient-to-r',
-                                          mod.gradient
-                                        )}>
-                                          Popular
-                                        </div>
-                                      )}
-                                      <p className={cn('text-[11px] font-bold', isPlanSelected ? mod.color : 'text-foreground')}>{plan.nombre}</p>
-                                      <div className="flex items-baseline gap-0.5 mt-0.5">
-                                        <span className={cn('text-lg font-black', isPlanSelected ? mod.color : 'text-foreground')}>${plan.precio}</span>
-                                        <span className="text-[9px] text-muted-foreground/50">/mes</span>
-                                      </div>
-                                      <div className="mt-1.5 space-y-1">
-                                        {plan.features.map((f, i) => (
-                                          <div key={i} className="flex items-start gap-1">
-                                            <Check className={cn('h-2.5 w-2.5 shrink-0 mt-0.5', isPlanSelected ? mod.color : 'text-muted-foreground/40')} />
-                                            <span className="text-[9px] text-muted-foreground/70 leading-tight">{f}</span>
-                                          </div>
-                                        ))}
-                                      </div>
-                                      <div className={cn(
-                                        'mt-2 w-full py-1 rounded-lg text-center text-[9px] font-bold uppercase tracking-wider transition-all',
-                                        isPlanSelected
-                                          ? cn('bg-gradient-to-r text-white', mod.gradient)
-                                          : 'bg-muted/50 text-muted-foreground/50'
-                                      )}>
-                                        {isPlanSelected ? 'Seleccionado' : 'Seleccionar'}
-                                      </div>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
                         )}
-                      </div>
+                        <div className="flex items-center gap-3">
+                          <div className={cn('p-2 rounded-xl bg-gradient-to-br shadow-md transition-transform duration-300', mod.gradient, selected && 'scale-110')}>
+                            <mod.icon className="h-4 w-4 text-white" />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className={cn('text-sm font-bold leading-tight', selected ? mod.color : 'text-foreground')}>{mod.nombre}</h4>
+                            <p className="text-[10px] text-muted-foreground/50 leading-snug truncate">{mod.descripcion}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-[10px] text-muted-foreground/50 font-medium">desde</span>
+                          <span className={cn('text-xl font-black', selected ? mod.color : 'text-foreground')}>${mod.precioDesde}</span>
+                          <span className="text-[10px] text-muted-foreground/40 font-medium">/mes</span>
+                        </div>
+                        <div className="space-y-1.5">
+                          {mod.features.map((feat, j) => (
+                            <div key={j} className="flex items-center gap-2">
+                              <Check className={cn('h-3 w-3 shrink-0', selected ? mod.color : 'text-muted-foreground/40')} />
+                              <span className="text-[10px] text-muted-foreground/70 font-medium leading-snug">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="text-[9px] font-semibold text-muted-foreground/40 uppercase tracking-widest mt-1">
+                          {mod.planes} planes disponibles
+                        </div>
+                      </button>
                     );
                   })}
                 </div>
-
-                {selectedModules.size > 0 && (
-                  <div className="mt-3 p-3 rounded-xl bg-muted/30 border border-border/50">
-                    <p className="text-[11px] font-semibold text-muted-foreground mb-1.5">{selectedModules.size} módulo(s) seleccionado(s)</p>
-                    <div className="space-y-1">
-                      {MODULOS_REGISTRO.filter(m => selectedModules.has(m.id)).map(m => {
-                        const sp = m.subPlanes.find(p => p.id === selectedSubPlans[m.id]);
-                        return sp ? (
-                          <div key={m.id} className="flex items-center justify-between text-[10px]">
-                            <span className={cn('font-semibold', m.color)}>{m.nombre}</span>
-                            <span className="text-muted-foreground">{sp.nombre} — <span className="font-bold text-foreground">${sp.precio}/mes</span></span>
-                          </div>
-                        ) : null;
-                      })}
-                      <div className="flex items-center justify-between text-xs font-bold pt-1.5 mt-1.5 border-t border-border/50">
-                        <span>Total mensual</span>
-                        <span>${MODULOS_REGISTRO.filter(m => selectedModules.has(m.id)).reduce((sum, m) => {
-                          const sp = m.subPlanes.find(p => p.id === selectedSubPlans[m.id]);
-                          return sum + (sp?.precio || 0);
-                        }, 0)}/mes</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <p className="text-xs text-muted-foreground text-center mt-3">
+                  {selectedModules.size} módulo(s) seleccionado(s)
+                </p>
 
                 <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
                   <input
