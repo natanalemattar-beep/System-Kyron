@@ -97,7 +97,7 @@ export function FaqSection() {
                             <div key={index}>
                                 <AccordionItem
                                     value={`item-${index}`}
-                                    className="rounded-2xl border-2 border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] px-6 transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 dark:hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white dark:data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
+                                    className="rounded-2xl border-2 border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] px-6 transition-all duration-350 ease-out hover:border-gray-300 dark:hover:border-white/[0.1] data-[state=open]:border-cyan-500/20 data-[state=open]:bg-white dark:data-[state=open]:bg-white/[0.04] data-[state=open]:shadow-xl"
                                 >
                                     <AccordionTrigger className="text-left hover:no-underline py-5">
                                         <div className="flex items-center gap-4">
@@ -118,7 +118,7 @@ export function FaqSection() {
                     </Accordion>
 
                     <div className="flex justify-center mt-12">
-                        <Link href="/faq">
+                        <Link href={"/faq" as any}>
                             <Button
                                 variant="outline"
                                 className="group h-12 px-8 rounded-2xl border-2 border-cyan-500/20 bg-cyan-500/[0.04] hover:bg-cyan-500/[0.08] text-cyan-400 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5"

@@ -162,7 +162,6 @@ export function createAIStream(config: StreamConfig): ReadableStream {
 
         for (let i = 0; i < available.length; i++) {
           const provider = available[i];
-          const emittedBefore = hasEmitted;
           try {
             await STREAM_FNS[provider](controller, config, emitText);
             if (hasEmitted) {
@@ -173,10 +172,6 @@ export function createAIStream(config: StreamConfig): ReadableStream {
             continue;
           } catch (err) {
             console.error(`[${config.label}] ${provider} failed:`, err);
-            if (hasEmitted && !emittedBefore) {
-              emitDone();
-              break;
-            }
             if (hasEmitted) {
               emitDone();
               break;
