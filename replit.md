@@ -22,7 +22,7 @@ The system is built on Next.js 15.5.14 (App Router) with TypeScript and Turbopac
 
 **UI/UX Decisions:**
 - Application routes are organized under `src/app/[locale]/` with grouped routes for various modules.
-- Features a premium cinematic landing page with a dark-first design, interactive elements, and a focus on AI capabilities and compliance.
+- Features a premium cinematic landing page with a dark-first design, interactive elements, and a focus on AI capabilities and compliance. The pricing section offers three tabs: "Combo Todo Incluido" (bundled plans), "Módulos Individuales" (standalone modules), and "IA Presupuesto" (AI budget configurator with employee slider, module toggles, budget tier selector, and instant personalized recommendations via `/api/budget`).
 - All authentication pages support both light and dark themes, with a dark mode default and Apple-style liquid glass effects.
 - Kyron Chat provides context-aware AI chat with 10+ identity modes, using Gemini Flash for personal portals and Claude Sonnet for business/admin portals.
 - The system includes a comprehensive welcome and per-module tutorial system, and a unified seasonal calendar system (`src/lib/seasonal-themes.ts`) that auto-detects 10 Venezuelan/global holidays with dynamic effects.

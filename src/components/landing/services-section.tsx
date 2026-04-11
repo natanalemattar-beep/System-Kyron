@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDevicePerformance } from '@/hooks/use-device-performance';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { BudgetConfigurator } from './budget-configurator';
 
 const planConfigs = [
     { monthlyPrice: 0, annualPrice: 0, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-600', border: 'border-emerald-500/15', bg: 'bg-emerald-500/[0.03]', icon: Zap, popular: false },
@@ -40,7 +41,7 @@ export function ServicesSection() {
     const { tier } = useDevicePerformance();
     const animate = tier !== 'low';
     const [isAnnual, setIsAnnual] = useState(true);
-    const [mode, setMode] = useState<'combo' | 'individual'>('combo');
+    const [mode, setMode] = useState<'combo' | 'individual' | 'budget'>('combo');
     const [expandedPlan, setExpandedPlan] = useState<number | null>(null);
     const plansData = t.raw('plans') as { name: string; description: string; features: string[]; cta: string; details?: PlanDetail }[];
     const modulesData = t.raw('individual_modules') as { name: string; description: string; features: string[] }[];
@@ -104,15 +105,27 @@ export function ServicesSection() {
                             <Package className="h-3.5 w-3.5" />
                             {t('tab_individual')}
                         </button>
+                        <button
+                            onClick={() => { setMode('budget'); setExpandedPlan(null); }}
+                            className={cn(
+                                "flex items-center gap-2 px-6 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-400",
+                                mode === 'budget'
+                                    ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/20"
+                                    : "text-muted-foreground/50 hover:text-foreground"
+                            )}
+                        >
+                            <Sparkles className="h-3.5 w-3.5" />
+                            {t('tab_budget')}
+                        </button>
                     </div>
 
                     <p className="text-xs text-muted-foreground/40 font-medium max-w-lg mx-auto">
-                        {mode === 'combo' ? t('tab_combo_desc') : t('tab_individual_desc')}
+                        {mode === 'combo' ? t('tab_combo_desc') : mode === 'individual' ? t('tab_individual_desc') : t('tab_budget_desc')}
                     </p>
                 </motion.div>
 
                 <AnimatePresence mode="wait">
-                    {mode === 'combo' ? (
+                    {mode === 'combo' && (
                         <motion.div
                             key="combo"
                             initial={{ opacity: 0, y: 20 }}
@@ -278,7 +291,8 @@ export function ServicesSection() {
                                 })}
                             </div>
                         </motion.div>
-                    ) : (
+                    )}
+                    {mode === 'individual' && (
                         <motion.div
                             key="individual"
                             initial={{ opacity: 0, y: 20 }}
@@ -329,6 +343,17 @@ export function ServicesSection() {
                                     </motion.div>
                                 ))}
                             </div>
+                        </motion.div>
+                    )}
+                    {mode === 'budget' && (
+                        <motion.div
+                            key="budget"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <BudgetConfigurator />
                         </motion.div>
                     )}
                 </AnimatePresence>

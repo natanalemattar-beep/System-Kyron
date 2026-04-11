@@ -102,6 +102,7 @@ const PUBLIC_API_SET = new Set([
   '/api/auth/access-key',
   '/api/cedula/consulta',
   '/api/rif/consulta',
+  '/api/budget',
 ]);
 
 // Routes that handle their own header-based auth (e.g. x-admin-key)
