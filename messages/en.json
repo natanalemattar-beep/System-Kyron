@@ -78,6 +78,7 @@
         "tab_budget_desc": "Tell us what you need and our AI builds the ideal budget for you instantly.",
         "select_module": "View Plans",
         "price_from": "from",
+        "see_all_plans": "See all plans",
         "show_details": "Show full details",
         "hide_details": "Hide details",
         "plans": [
@@ -147,12 +148,73 @@
         "modules_highlight": "One Ecosystem",
         "modules_subtitle": "Pay only for what you need. Each module works independently with its own plans.",
         "individual_modules": [
-            { "name": "My Personal Line", "description": "Personal 5G mobile line", "features": ["WhatsApp included", "Unlimited social media", "HD Streaming", "eSIM compatible"] },
-            { "name": "My Corporate Lines", "description": "Centralized corporate fleet", "features": ["Up to 50 lines", "Full MDM", "CONATEL reports", "Corporate VPN"] },
-            { "name": "Accounting Advisory", "description": "Full VEN-NIF accounting", "features": ["Legal books", "Tax Center", "Auto withholdings", "Tax AI"] },
-            { "name": "Legal Advisory", "description": "AI-powered legal docs", "features": ["AI document generator", "Unlimited contracts", "Litigation tracking", "VE Legal Framework"] },
-            { "name": "Invoicing", "description": "SENIAT tax invoicing", "features": ["SENIAT Invoicing", "POS System", "Multi-branch", "Sales analytics"] },
-            { "name": "Partners & Directors", "description": "Corporate governance", "features": ["Unlimited partners", "Assembly minutes", "Dividends", "Shareholder reports"] }
+            {
+                "name": "My Personal Line",
+                "description": "Personal 5G mobile line",
+                "features": ["WhatsApp included", "Unlimited social media", "HD Streaming", "eSIM compatible"],
+                "tiers": [
+                    { "name": "Basic 2 GB", "price": 3, "highlight": "2 GB data · 50 min · WhatsApp" },
+                    { "name": "Connect 5 GB", "price": 5, "highlight": "5 GB data · 150 min · Unlimited socials" },
+                    { "name": "Plus 10 GB", "price": 8, "highlight": "10 GB data · 300 min · HD Streaming" },
+                    { "name": "Global 25 GB", "price": 14, "highlight": "25 GB data · Unlimited min · 60 min intl" },
+                    { "name": "Ultra 50 GB", "price": 22, "highlight": "50 GB 5G · Unlimited · eSIM · Hotspot" },
+                    { "name": "Infinite", "price": 35, "highlight": "Unlimited 5G Ultra data · Everything unlimited" }
+                ]
+            },
+            {
+                "name": "My Corporate Lines",
+                "description": "Centralized corporate fleet",
+                "features": ["Up to 50 lines", "Full MDM", "CONATEL reports", "Corporate VPN"],
+                "tiers": [
+                    { "name": "Starter", "price": 15, "highlight": "5 lines · 3 GB each · Basic MDM" },
+                    { "name": "SMB", "price": 30, "highlight": "15 lines · 10 GB each · VPN · Reports" },
+                    { "name": "Corporate", "price": 55, "highlight": "30 lines · 25 GB each · Full MDM" },
+                    { "name": "Enterprise", "price": 120, "highlight": "50 lines · Unlimited · VPN · CONATEL" }
+                ]
+            },
+            {
+                "name": "Accounting Advisory",
+                "description": "Full VEN-NIF accounting",
+                "features": ["Legal books", "Tax Center", "Auto withholdings", "Tax AI"],
+                "tiers": [
+                    { "name": "Essential", "price": 8, "highlight": "Legal books · VAT · 1 user" },
+                    { "name": "Professional", "price": 18, "highlight": "Tax Center · Withholdings · 3 users" },
+                    { "name": "Advanced", "price": 35, "highlight": "Fiscal AI · Reconciliation · Audit · 5 users" },
+                    { "name": "MAX", "price": 60, "highlight": "CPA Report · Blockchain · Multi-company · Unlimited" }
+                ]
+            },
+            {
+                "name": "Legal Advisory",
+                "description": "AI-powered legal docs",
+                "features": ["AI document generator", "Unlimited contracts", "Litigation tracking", "VE Legal Framework"],
+                "tiers": [
+                    { "name": "Documents", "price": 5, "highlight": "AI Generator · 10 docs/mo · Templates" },
+                    { "name": "Professional", "price": 15, "highlight": "Unlimited contracts · VE Legal Framework" },
+                    { "name": "Law Office", "price": 30, "highlight": "Litigation · Hearings · Contracts · Legal AI" },
+                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-company · Advanced AI" }
+                ]
+            },
+            {
+                "name": "Invoicing",
+                "description": "SENIAT tax invoicing",
+                "features": ["SENIAT Invoicing", "POS System", "Multi-branch", "Sales analytics"],
+                "tiers": [
+                    { "name": "Starter", "price": 6, "highlight": "50 invoices/mo · SENIAT · 1 branch" },
+                    { "name": "Commercial", "price": 15, "highlight": "300 invoices/mo · POS · Credit/debit notes" },
+                    { "name": "Enterprise", "price": 30, "highlight": "Unlimited · Multi-branch · Payment gateways" },
+                    { "name": "MAX", "price": 50, "highlight": "Unlimited e-invoicing · Multi-company · API" }
+                ]
+            },
+            {
+                "name": "Partners & Directors",
+                "description": "Corporate governance",
+                "features": ["Unlimited partners", "Assembly minutes", "Dividends", "Shareholder reports"],
+                "tiers": [
+                    { "name": "Basic", "price": 10, "highlight": "10 partners · Minutes · Basic dividends" },
+                    { "name": "Professional", "price": 25, "highlight": "Unlimited partners · Corporate governance" },
+                    { "name": "Enterprise", "price": 45, "highlight": "Multi-company · Blockchain · Dedicated support" }
+                ]
+            }
         ],
         "explore": "Explore Ecosystem",
         "features": [

@@ -78,6 +78,7 @@
         "tab_budget_desc": "Dinos qué necesitas y nuestra IA te arma el presupuesto ideal al instante.",
         "select_module": "Ver Planes",
         "price_from": "desde",
+        "see_all_plans": "Ver todos los planes",
         "show_details": "Ver detalle completo",
         "hide_details": "Ocultar detalle",
         "plans": [
@@ -147,12 +148,73 @@
         "modules_highlight": "Un Ecosistema",
         "modules_subtitle": "Contrata solo lo que necesitas. Cada módulo funciona de manera independiente con sus propios planes.",
         "individual_modules": [
-            { "name": "Mi Línea Personal", "description": "Línea móvil 5G personal", "features": ["WhatsApp incluido", "Redes sociales ilimitadas", "Streaming HD", "eSIM compatible"] },
-            { "name": "Mi Línea Jurídica", "description": "Flota corporativa centralizada", "features": ["Hasta 50 líneas", "MDM completo", "Reportes CONATEL", "VPN corporativa"] },
-            { "name": "Asesoría Contable", "description": "Contabilidad VEN-NIF completa", "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"] },
-            { "name": "Asesoría Legal", "description": "Documentos e IA legal", "features": ["Generador con IA", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"] },
-            { "name": "Facturación", "description": "Facturación fiscal SENIAT", "features": ["Facturación SENIAT", "Punto de Venta POS", "Multi-sucursal", "Análisis comercial"] },
-            { "name": "Socios y Directivos", "description": "Gobierno corporativo", "features": ["Socios ilimitados", "Actas de asamblea", "Dividendos", "Reportes accionistas"] }
+            {
+                "name": "Mi Línea Personal",
+                "description": "Línea móvil 5G personal",
+                "features": ["WhatsApp incluido", "Redes sociales ilimitadas", "Streaming HD", "eSIM compatible"],
+                "tiers": [
+                    { "name": "Básico 2 GB", "price": 3, "highlight": "2 GB datos · 50 min · WhatsApp" },
+                    { "name": "Conecta 5 GB", "price": 5, "highlight": "5 GB datos · 150 min · Redes ilimitadas" },
+                    { "name": "Plus 10 GB", "price": 8, "highlight": "10 GB datos · 300 min · Streaming HD" },
+                    { "name": "Global 25 GB", "price": 14, "highlight": "25 GB datos · Min ilimitados · 60 min intl" },
+                    { "name": "Ultra 50 GB", "price": 22, "highlight": "50 GB 5G · Ilimitados · eSIM · Hotspot" },
+                    { "name": "Infinite", "price": 35, "highlight": "Datos ilimitados 5G Ultra · Todo ilimitado" }
+                ]
+            },
+            {
+                "name": "Mi Línea Jurídica",
+                "description": "Flota corporativa centralizada",
+                "features": ["Hasta 50 líneas", "MDM completo", "Reportes CONATEL", "VPN corporativa"],
+                "tiers": [
+                    { "name": "Emprendedor", "price": 15, "highlight": "5 líneas · 3 GB c/u · MDM básico" },
+                    { "name": "PyME", "price": 30, "highlight": "15 líneas · 10 GB c/u · VPN · Reportes" },
+                    { "name": "Corporativo", "price": 55, "highlight": "30 líneas · 25 GB c/u · MDM completo" },
+                    { "name": "Enterprise", "price": 120, "highlight": "50 líneas · Ilimitado · VPN · CONATEL" }
+                ]
+            },
+            {
+                "name": "Asesoría Contable",
+                "description": "Contabilidad VEN-NIF completa",
+                "features": ["Libros legales", "Centro Tributario", "Retenciones automáticas", "IA Fiscal"],
+                "tiers": [
+                    { "name": "Esencial", "price": 8, "highlight": "Libros legales · IVA · 1 usuario" },
+                    { "name": "Profesional", "price": 18, "highlight": "Centro Tributario · Retenciones · 3 usuarios" },
+                    { "name": "Avanzado", "price": 35, "highlight": "IA Fiscal · Conciliación · Auditoría · 5 usuarios" },
+                    { "name": "MAX", "price": 60, "highlight": "Dictamen CP · Blockchain · Multi-empresa · Ilimitados" }
+                ]
+            },
+            {
+                "name": "Asesoría Legal",
+                "description": "Documentos e IA legal",
+                "features": ["Generador con IA", "Contratos ilimitados", "Control de litigios", "Marco Legal VE"],
+                "tiers": [
+                    { "name": "Documentos", "price": 5, "highlight": "Generador IA · 10 docs/mes · Plantillas" },
+                    { "name": "Profesional", "price": 15, "highlight": "Contratos ilimitados · Marco Legal VE" },
+                    { "name": "Escritorio Jurídico", "price": 30, "highlight": "Litigios · Audiencias · Contratos · IA Legal" },
+                    { "name": "MAX", "price": 50, "highlight": "Due Diligence · Multi-empresa · IA avanzada" }
+                ]
+            },
+            {
+                "name": "Facturación",
+                "description": "Facturación fiscal SENIAT",
+                "features": ["Facturación SENIAT", "Punto de Venta POS", "Multi-sucursal", "Análisis comercial"],
+                "tiers": [
+                    { "name": "Inicio", "price": 6, "highlight": "50 facturas/mes · SENIAT · 1 sucursal" },
+                    { "name": "Comercial", "price": 15, "highlight": "300 facturas/mes · POS · Notas crédito/débito" },
+                    { "name": "Enterprise", "price": 30, "highlight": "Ilimitadas · Multi-sucursal · Pasarelas pago" },
+                    { "name": "MAX", "price": 50, "highlight": "Electrónica ilimitada · Multi-empresa · API" }
+                ]
+            },
+            {
+                "name": "Socios y Directivos",
+                "description": "Gobierno corporativo",
+                "features": ["Socios ilimitados", "Actas de asamblea", "Dividendos", "Reportes accionistas"],
+                "tiers": [
+                    { "name": "Básico", "price": 10, "highlight": "10 socios · Actas · Dividendos básico" },
+                    { "name": "Profesional", "price": 25, "highlight": "Socios ilimitados · Gobierno corporativo" },
+                    { "name": "Enterprise", "price": 45, "highlight": "Multi-empresa · Blockchain · Soporte dedicado" }
+                ]
+            }
         ],
         "explore": "Explorar Ecosistema",
         "features": [

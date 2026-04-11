@@ -44,7 +44,8 @@ export function ServicesSection() {
     const [mode, setMode] = useState<'combo' | 'individual' | 'budget'>('combo');
     const [expandedPlan, setExpandedPlan] = useState<number | null>(null);
     const plansData = t.raw('plans') as { name: string; description: string; features: string[]; cta: string; details?: PlanDetail }[];
-    const modulesData = t.raw('individual_modules') as { name: string; description: string; features: string[] }[];
+    const modulesData = t.raw('individual_modules') as { name: string; description: string; features: string[]; tiers?: { name: string; price: number; highlight: string }[] }[];
+    const [expandedModule, setExpandedModule] = useState<number | null>(null);
 
     const plans = plansData.map((p, i) => ({ ...p, ...planConfigs[i] }));
     const modules = modulesData.map((m, i) => ({ ...m, ...moduleConfigs[i] }));
@@ -94,7 +95,7 @@ export function ServicesSection() {
                             {t('tab_combo')}
                         </button>
                         <button
-                            onClick={() => { setMode('individual'); setExpandedPlan(null); }}
+                            onClick={() => { setMode('individual'); setExpandedPlan(null); setExpandedModule(null); }}
                             className={cn(
                                 "flex items-center gap-2 px-6 py-3 rounded-xl text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-400",
                                 mode === 'individual'
@@ -324,14 +325,56 @@ export function ServicesSection() {
                                             <span className="text-3xl font-black text-foreground">${mod.price}</span>
                                             <span className="text-[10px] text-muted-foreground/40 font-medium">{t('per_month')}</span>
                                         </div>
-                                        <div className="space-y-2 mb-5">
-                                            {mod.features.map((feat: string, j: number) => (
-                                                <div key={j} className="flex items-center gap-2">
-                                                    <Check className={cn("h-3 w-3 shrink-0", mod.color)} />
-                                                    <span className="text-[11px] text-foreground/50 font-medium">{feat}</span>
-                                                </div>
-                                            ))}
-                                        </div>
+
+                                        {mod.tiers && (
+                                            <>
+                                                <button
+                                                    onClick={() => setExpandedModule(expandedModule === i ? null : i)}
+                                                    className={cn(
+                                                        "flex items-center justify-center gap-1.5 w-full py-2 mb-3 rounded-lg text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 border",
+                                                        expandedModule === i
+                                                            ? cn('border-white/10 bg-white/[0.04]', mod.color)
+                                                            : 'border-white/[0.06] text-muted-foreground/40 hover:text-muted-foreground/60 hover:border-white/10'
+                                                    )}
+                                                >
+                                                    <ChevronDown className={cn("h-3 w-3 transition-transform duration-300", expandedModule === i && "rotate-180")} />
+                                                    {expandedModule === i ? t('hide_details') : t('see_all_plans')}
+                                                </button>
+                                                <AnimatePresence>
+                                                    {expandedModule === i && (
+                                                        <motion.div
+                                                            initial={{ height: 0, opacity: 0 }}
+                                                            animate={{ height: 'auto', opacity: 1 }}
+                                                            exit={{ height: 0, opacity: 0 }}
+                                                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                            className="overflow-hidden mb-3"
+                                                        >
+                                                            <div className="space-y-2 pt-2 border-t border-white/[0.06]">
+                                                                {mod.tiers.map((tier, ti) => (
+                                                                    <div
+                                                                        key={ti}
+                                                                        className={cn(
+                                                                            "flex items-center justify-between p-2.5 rounded-lg border transition-all",
+                                                                            ti === 0 ? cn('border-white/[0.06] bg-white/[0.02]') : 'border-white/[0.04] hover:border-white/[0.08]'
+                                                                        )}
+                                                                    >
+                                                                        <div className="flex-1 min-w-0">
+                                                                            <p className={cn("text-[11px] font-bold", mod.color)}>{tier.name}</p>
+                                                                            <p className="text-[9px] text-muted-foreground/35 font-medium truncate">{tier.highlight}</p>
+                                                                        </div>
+                                                                        <div className="text-right shrink-0 ml-3">
+                                                                            <span className="text-base font-black text-foreground">${tier.price}</span>
+                                                                            <span className="text-[8px] text-muted-foreground/40 font-medium">/mes</span>
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </>
+                                        )}
+
                                         <Link
                                             href="/register"
                                             className={cn(
