@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
       has_db_url: !!(process.env.DATABASE_URL || process.env.POSTGRES_URL),
       has_jwt_secret: !!process.env.JWT_SECRET,
       has_encryption_key: !!process.env.ENCRYPTION_KEY,
+      has_gemini_key: !!(process.env.GEMINI_API_KEY || process.env.AI_INTEGRATIONS_GEMINI_API_KEY),
       node_env: process.env.NODE_ENV,
     },
     tables: {},
