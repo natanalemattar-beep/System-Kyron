@@ -250,6 +250,17 @@
         "modules_title": "Arma tu plan",
         "modules_highlight": "a tu medida",
         "modules_subtitle": "¿Solo necesitas facturación? ¿O asesoría contable? Paga solo lo que usas. Cada módulo funciona de forma independiente.",
+        "tab_combo": "Planes Combo",
+        "tab_individual": "Módulos",
+        "tab_budget": "Personalizado",
+        "tab_combo_desc": "Paquetes optimizados con las herramientas esenciales integradas.",
+        "tab_individual_desc": "Selecciona módulos específicos según las necesidades exactas de tu negocio.",
+        "tab_budget_desc": "Configura un presupuesto a medida basado en tus requerimientos técnicos.",
+        "show_details": "Mostrar detalles",
+        "hide_details": "Ocultar detalles",
+        "price_from": "Desde",
+        "see_all_plans": "Ver todos los planes",
+        "select_module": "Elegir módulo",
         "individual_modules": [
             {
                 "name": "Mi Línea Personal",
@@ -1143,5 +1154,31 @@
             "Cumplimiento VEN-NIF",
             "Regulaciones Cubiertas"
         ]
+    },
+    "BudgetConfigurator": {
+        "employees_label": "Número de Empleados",
+        "employees_unit": "usuarios",
+        "modules_label": "Módulos Requeridos",
+        "modules_selected": "módulos seleccionados",
+        "budget_label": "Nivel de Presupuesto",
+        "budget_low": "Económico",
+        "budget_medium": "Estándar",
+        "budget_high": "Premium",
+        "generating": "Analizando...",
+        "generate_button": "Calcular Presupuesto",
+        "result_title": "Configuración Recomendada",
+        "plan_label": "Plan",
+        "total_individual": "Total Individual",
+        "save": "Ahorra",
+        "combo_recommended": "Combo Recomendado",
+        "combo_desc": "Este paquete incluye todo lo que seleccionaste con un descuento aplicado.",
+        "start_combo": "Comenzar con el Combo",
+        "start_individual": "Comenzar con Módulos",
+        "module_mi_linea_personal": "Línea Personal",
+        "module_mi_linea_juridica": "Línea Jurídica",
+        "module_asesoria_contable": "Contabilidad",
+        "module_asesoria_legal": "Asesoría Legal",
+        "module_facturacion": "Facturación",
+        "module_socios_directivos": "Socios"
     }
 }

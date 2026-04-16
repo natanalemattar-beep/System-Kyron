@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const startTime = Date.now();
 
     const text = await generateTextWithFallback(
-      ['gemini', 'deepseek'],
+      ['gemini'],
       { system: PROMPTS.SPEED_TEST, prompt: userQuery.substring(0, 300), maxTokens: 200, temperature: 0.6 },
       'speed-test'
     );

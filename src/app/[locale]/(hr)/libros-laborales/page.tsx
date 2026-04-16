@@ -124,24 +124,24 @@ function exportCSV(rows: any[], filename: string) {
 
 function estadoBadge(estado: string) {
   const colors: Record<string, string> = {
-    vigente: 'bg-emerald-100 text-emerald-700
-    activo: 'bg-emerald-100 text-emerald-700
-    activa: 'bg-emerald-100 text-emerald-700
-    en_curso: 'bg-blue-100 text-blue-700
-    pendiente: 'bg-amber-100 text-amber-700
-    prenatal: 'bg-purple-100 text-purple-700
-    postnatal: 'bg-pink-100 text-pink-700
-    lactancia: 'bg-rose-100 text-rose-700
-    por_vencer: 'bg-orange-100 text-orange-700
-    vencida: 'bg-red-100 text-red-700
-    vencido: 'bg-red-100 text-red-700
-    cancelado: 'bg-red-100 text-red-700
-    disfrutado: 'bg-green-100 text-green-700
-    finalizado: 'bg-slate-100 text-slate-600
-    reintegrada: 'bg-teal-100 text-teal-700
-    calculado: 'bg-cyan-100 text-cyan-700
-    liquidado: 'bg-green-100 text-green-700
-    pagado_parcial: 'bg-yellow-100 text-yellow-700
+    vigente: 'bg-emerald-100 text-emerald-700',
+    activo: 'bg-emerald-100 text-emerald-700',
+    activa: 'bg-emerald-100 text-emerald-700',
+    en_curso: 'bg-blue-100 text-blue-700',
+    pendiente: 'bg-amber-100 text-amber-700',
+    prenatal: 'bg-purple-100 text-purple-700',
+    postnatal: 'bg-pink-100 text-pink-700',
+    lactancia: 'bg-rose-100 text-rose-700',
+    por_vencer: 'bg-orange-100 text-orange-700',
+    vencida: 'bg-red-100 text-red-700',
+    vencido: 'bg-red-100 text-red-700',
+    cancelado: 'bg-red-100 text-red-700',
+    disfrutado: 'bg-green-100 text-green-700',
+    finalizado: 'bg-slate-100 text-slate-600',
+    reintegrada: 'bg-teal-100 text-teal-700',
+    calculado: 'bg-cyan-100 text-cyan-700',
+    liquidado: 'bg-green-100 text-green-700',
+    pagado_parcial: 'bg-yellow-100 text-yellow-700',
   };
   return (
     <span className={cn('px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide', colors[estado] || 'bg-slate-100 text-slate-600')}>

@@ -251,6 +251,17 @@
         "modules_title": "Build your plan",
         "modules_highlight": "your way",
         "modules_subtitle": "Need only invoicing? Or just accounting advisory? Pay only for what you use. Each module works independently.",
+        "tab_combo": "Combo Plans",
+        "tab_individual": "Modules",
+        "tab_budget": "Customized",
+        "tab_combo_desc": "Optimized bundles with essential integrated tools.",
+        "tab_individual_desc": "Select specific modules according to your exact business needs.",
+        "tab_budget_desc": "Configure a custom budget based on your technical requirements.",
+        "show_details": "Show details",
+        "hide_details": "Hide details",
+        "price_from": "From",
+        "see_all_plans": "View all plans",
+        "select_module": "Choose module",
         "individual_modules": [
             {
                 "name": "My Line Personal",
@@ -1145,5 +1156,31 @@
             "VEN-NIF Compliance",
             "Regulations Covered"
         ]
+    },
+    "BudgetConfigurator": {
+        "employees_label": "Employees",
+        "employees_unit": "users",
+        "modules_label": "Required Modules",
+        "modules_selected": "modules selected",
+        "budget_label": "Budget Level",
+        "budget_low": "Economic",
+        "budget_medium": "Standard",
+        "budget_high": "Premium",
+        "generating": "Analyzing...",
+        "generate_button": "Calculate Budget",
+        "result_title": "Recommended Configuration",
+        "plan_label": "Plan",
+        "total_individual": "Total Individual",
+        "save": "Save",
+        "combo_recommended": "Recommended Combo",
+        "combo_desc": "This bundle includes everything you selected with an applied discount.",
+        "start_combo": "Start with Combo",
+        "start_individual": "Start with Modules",
+        "module_mi_linea_personal": "Personal Line",
+        "module_mi_linea_juridica": "Business Line",
+        "module_asesoria_contable": "Accounting",
+        "module_asesoria_legal": "Legal Advisory",
+        "module_facturacion": "Invoicing",
+        "module_socios_directivos": "Partners"
     }
 }

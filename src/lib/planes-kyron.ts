@@ -1,3 +1,4 @@
+import 'server-only';
 import { query, queryOne } from '@/lib/db';
 
 export type PlanTier = 'personal' | 'profesional' | 'empresarial' | 'kyron_max';

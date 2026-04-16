@@ -31,12 +31,7 @@ export async function POST(req: NextRequest) {
         content: sanitizeString(m.content, 2000),
       }));
 
-      return streamResponse({
-        system: PROMPTS.KYRON_FISCAL,
-        messages: trimmedHistory,
-        maxTokens: 8192,
-        temperature: 0.3,
-        providers: ['gemini', 'deepseek', 'openai'],
+        providers: ['gemini'],
         label: 'fiscal-chat',
       });
     }
@@ -46,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     const content = await generateTextWithFallback(
-      ['gemini', 'deepseek', 'openai'],
+      ['gemini'],
       { system: PROMPTS.KYRON_FISCAL, prompt: sanitizeString(prompt, 4000), maxTokens: 8192 },
       'fiscal-chat'
     );

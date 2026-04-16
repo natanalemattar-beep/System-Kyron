@@ -37,12 +37,18 @@ export async function POST(req: NextRequest) {
 
       const user = await queryOne<DbUser>(
         `SELECT id, email, tipo, nombre, apellido, cedula, razon_social, rif
-         FROM users WHERE id = $1`,
-        [result.userId]
+         FROM users WHERE email = $1`,
+        [normalizedEmail]
       );
 
+      // Si el código es válido pero el usuario no existe, es un flujo de registro exitoso o un limbo
       if (!user) {
-        return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+        return NextResponse.json({ 
+          success: true, 
+          verified: true, 
+          requiresRegistration: true,
+          message: 'Código verificado correctamente. Procede con el registro.'
+        });
       }
 
       const displayName = user.tipo === 'juridico'
@@ -86,21 +92,22 @@ export async function POST(req: NextRequest) {
     }
 
     if (body.destino && body.codigo) {
-      const destino = body.destino;
-      const codigo = body.codigo;
+      const destino = String(body.destino).trim().toLowerCase();
+      const codigo = String(body.codigo).trim();
 
       if (!destino || !codigo) {
         return NextResponse.json({ error: 'Destino y código son requeridos' }, { status: 400 });
       }
 
-      const result = await verifyCode(destino, codigo.trim());
+      console.log(`[verify-code] Verificando destino: ${destino}`);
+      const result = await verifyCode(destino, codigo);
 
       if (!result.valid) {
         const status = result.error?.includes('Demasiados') ? 429 : 400;
         return NextResponse.json({ error: result.error }, { status });
       }
 
-      return NextResponse.json({ success: true, verified: true });
+      return NextResponse.json({ success: true, verified: true, message: 'Identidad confirmada.' });
     }
 
     return NextResponse.json({ error: 'Datos de verificación incompletos' }, { status: 400 });

@@ -1,6 +1,6 @@
-import { getAnthropicClient, getOpenAIClient, getGeminiClient, getDeepSeekClient, MODELS, isAvailable } from './providers';
+import { getGeminiClient, MODELS, isAvailable } from './providers';
 
-type ProviderName = 'anthropic' | 'openai' | 'gemini' | 'deepseek';
+type ProviderName = 'gemini';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 
@@ -24,50 +24,8 @@ function encodeSSEEvent(event: string, payload: string): Uint8Array {
   return encoder.encode(`event: ${event}\ndata: ${payload}\n\n`);
 }
 
-async function streamAnthropic(
-  ctrl: ReadableStreamDefaultController,
-  config: StreamConfig,
-  encode: (text: string) => void
-) {
-  const client = getAnthropicClient();
-  const stream = await client.messages.stream({
-    model: MODELS.CLAUDE,
-    max_tokens: config.maxTokens ?? 8192,
-    system: config.system,
-    messages: config.messages,
-  });
-  for await (const event of stream) {
-    if (event.type === 'content_block_delta') {
-      const delta = event.delta;
-      if ('text' in delta) encode(delta.text);
-    }
-  }
-}
-
-async function streamOpenAI(
-  ctrl: ReadableStreamDefaultController,
-  config: StreamConfig,
-  encode: (text: string) => void
-) {
-  const client = getOpenAIClient();
-  const stream = await client.chat.completions.create({
-    model: MODELS.OPENAI,
-    max_tokens: config.maxTokens ?? 4096,
-    temperature: config.temperature ?? 0.7,
-    stream: true,
-    messages: [
-      { role: 'system', content: config.system },
-      ...config.messages,
-    ],
-  });
-  for await (const chunk of stream) {
-    const text = chunk.choices[0]?.delta?.content;
-    if (text) encode(text);
-  }
-}
-
 async function streamGemini(
-  ctrl: ReadableStreamDefaultController,
+  _ctrl: ReadableStreamDefaultController,
   config: StreamConfig,
   encode: (text: string) => void
 ) {
@@ -91,37 +49,7 @@ async function streamGemini(
   }
 }
 
-async function streamDeepSeek(
-  ctrl: ReadableStreamDefaultController,
-  config: StreamConfig,
-  encode: (text: string) => void
-) {
-  const client = getDeepSeekClient();
-  const stream = await client.chat.completions.create({
-    model: MODELS.DEEPSEEK,
-    max_tokens: config.maxTokens ?? 8192,
-    temperature: config.temperature ?? 0.7,
-    stream: true,
-    messages: [
-      { role: 'system', content: config.system },
-      ...config.messages,
-    ],
-  });
-  for await (const chunk of stream) {
-    const text = chunk.choices[0]?.delta?.content;
-    if (text) encode(text);
-  }
-}
-
-const STREAM_FNS: Record<ProviderName, typeof streamAnthropic> = {
-  anthropic: streamAnthropic,
-  openai: streamOpenAI,
-  gemini: streamGemini,
-  deepseek: streamDeepSeek,
-};
-
 export function createAIStream(config: StreamConfig): ReadableStream {
-  const available = config.providers.filter(p => isAvailable(p));
   const format = config.eventFormat ?? 'sse-data';
 
   return new ReadableStream({
@@ -154,38 +82,33 @@ export function createAIStream(config: StreamConfig): ReadableStream {
       };
 
       try {
-        if (available.length === 0) {
-          emitError('No hay proveedores de IA disponibles');
+        if (!isAvailable('gemini')) {
+          emitError('Servicio de IA (Gemini) no disponible. Verifica la API KEY.');
           controller.close();
           return;
         }
 
-        for (let i = 0; i < available.length; i++) {
-          const provider = available[i];
-          try {
-            await STREAM_FNS[provider](controller, config, emitText);
-            if (hasEmitted) {
-              emitDone();
-              break;
-            }
-            console.warn(`[${config.label}] ${provider} returned zero tokens, trying next`);
-            continue;
-          } catch (err) {
-            console.error(`[${config.label}] ${provider} failed:`, err);
-            if (hasEmitted) {
-              emitDone();
-              break;
-            }
+        try {
+          await streamGemini(controller, config, emitText);
+          if (hasEmitted) {
+            emitDone();
+          } else {
+            console.warn(`[${config.label}] Gemini returned zero tokens`);
+            emitError('No se pudo generar respuesta');
+          }
+        } catch (err) {
+          console.error(`[${config.label}] Gemini failed:`, err);
+          if (hasEmitted) {
+            emitDone();
+          } else {
+            emitError('Error al generar respuesta con Gemini');
           }
         }
 
-        if (!hasEmitted) {
-          emitError('No se pudo generar respuesta');
-        }
       } catch (err) {
         console.error(`[${config.label}] stream critical error:`, err);
         if (!hasEmitted) {
-          emitError('Error interno del servidor');
+          emitError('Error interno del servidor de IA');
         }
       } finally {
         controller.close();

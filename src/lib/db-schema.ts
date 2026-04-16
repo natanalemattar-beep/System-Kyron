@@ -143,8 +143,25 @@ async function createCoreAuthTables() {
     )
   `);
   await query(`CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id)`);
-  await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verificado BOOLEAN NOT NULL DEFAULT false`);
   await query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS telefono_verificado BOOLEAN NOT NULL DEFAULT false`);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS verification_codes (
+      id          SERIAL PRIMARY KEY,
+      destino     TEXT NOT NULL,
+      tipo        TEXT NOT NULL CHECK (tipo IN ('email', 'sms', 'whatsapp', 'otp')),
+      codigo      TEXT NOT NULL,
+      intentos    INT NOT NULL DEFAULT 0,
+      usado       BOOLEAN NOT NULL DEFAULT false,
+      expires_at  TIMESTAMPTZ NOT NULL,
+      proposito   TEXT NOT NULL DEFAULT 'verification' 
+                  CHECK (proposito IN ('verification', 'magic_link', 'password_reset', 'recovery')),
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_destino ON verification_codes(destino)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_codigo  ON verification_codes(codigo)`);
+  await query(`CREATE INDEX IF NOT EXISTS idx_verification_codes_expires ON verification_codes(expires_at)`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS saime_registros (

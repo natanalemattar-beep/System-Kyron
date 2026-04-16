@@ -2,7 +2,12 @@
 
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
-import { Mail, MapPin, FileText, Shield, Gavel, ArrowUpRight, Hexagon, Github, Twitter, Linkedin } from "lucide-react";
+import { 
+    Mail, MapPin, FileText, Shield, Gavel, 
+    ArrowUpRight, Hexagon, Github, Twitter, 
+    Linkedin, Heart 
+} from "lucide-react";
+
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
@@ -56,7 +61,7 @@ export function Footer() {
                                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] mt-1 bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">{tHero('slogan')}</span>
                             </div>
                         </div>
-                        <p className="text-xs text-foreground/30 font-medium leading-relaxed max-w-sm">
+                        <p className="text-xs text-foreground/45 font-medium leading-relaxed max-w-sm">
                             {t('description')}
                         </p>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-emerald-500/15 bg-emerald-500/[0.04]">
@@ -115,17 +120,22 @@ export function Footer() {
                 <div className="mt-12 pt-8 border-t border-white/[0.04]">
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
                         {["SENIAT", "BCV", "VEN-NIF", "LOTTT", "CONATEL", "SUDEBAN"].map(ent => (
-                            <span key={ent} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/15 flex items-center gap-1.5 hover:text-foreground/30 transition-colors cursor-default">
-                                <Shield className="h-2.5 w-2.5 text-cyan-500/15" /> {ent}
+                            <span key={ent} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/35 flex items-center gap-1.5 hover:text-foreground/55 transition-colors cursor-default">
+                                <Shield className="h-2.5 w-2.5 text-cyan-500/30" /> {ent}
                             </span>
                         ))}
                     </div>
 
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="flex items-center gap-3">
-                            <Hexagon className="h-3.5 w-3.5 text-cyan-500/15" />
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/20">
-                                &copy; 2026 {t('copyright')}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-3">
+                                <Hexagon className="h-3.5 w-3.5 text-cyan-500/30" />
+                                <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground/40">
+                                    &copy; 2026 {t('copyright')}
+                                </p>
+                            </div>
+                            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400/50 ml-6">
+                                Fundador y CEO Carlos Mattar
                             </p>
                         </div>
                         <div className="flex items-center gap-4">
@@ -156,9 +166,14 @@ export function Footer() {
                                 </span>
                             ))}
                         </div>
+                        <p className="text-[8px] font-black uppercase tracking-[0.3em] text-foreground/20 mt-8 flex items-center gap-2">
+                             Lucia Fernanda hermanita de carlitos <Heart className="h-2.5 w-2.5 text-rose-500/80 fill-rose-500/60 animate-pulse" />
+                        </p>
+
                     </div>
                 </div>
             </div>
         </footer>
+
     );
 }

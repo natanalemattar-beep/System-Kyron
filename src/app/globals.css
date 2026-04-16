@@ -107,6 +107,17 @@
     min-height: 100dvh;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pan-y;
+    will-change: auto; /* Optimización de renderizado */
+  }
+
+  /* Desactivar efectos pesados en dispositivos lentos o que prefieren reducción de movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   html.theme-switching,
@@ -252,15 +263,20 @@
   }
 
   .kyron-surface {
-    @apply relative border rounded-2xl transition-all duration-500;
+    @apply relative border rounded-2xl transition-all duration-300;
     background: var(--glass-bg);
-    backdrop-filter: blur(24px) saturate(1.8);
-    -webkit-backdrop-filter: blur(24px) saturate(1.8);
     border-color: var(--glass-border);
     box-shadow:
       0 4px 16px -4px var(--glass-shadow),
       0 1px 3px rgba(0, 0, 0, 0.04),
       inset 0 1px 0 var(--glass-highlight);
+  }
+
+  @media (min-width: 1024px) {
+    .kyron-surface {
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    }
   }
   .kyron-surface:hover {
     border-color: hsl(var(--primary) / 0.25);
@@ -424,9 +440,10 @@
     animation: orb-float-5 38s ease-in-out infinite;
   }
 
-  @media (max-width: 768px) {
-    .bg-orb { display: none; }
-    .hud-grid { display: none; }
+  @media (max-width: 1024px) {
+    .bg-orb { display: none !important; }
+    .hud-grid { display: none !important; }
+    [class*="backdrop-blur"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
   }
 
   .bg-mesh-light {

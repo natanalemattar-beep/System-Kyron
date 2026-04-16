@@ -81,18 +81,18 @@ export function WhatsAppButton() {
   }, []);
 
   return (
-    <div className="fixed bottom-28 right-6 z-[99]">
+    <div className="fixed bottom-6 right-6 z-[99]">
       <motion.a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.5, type: 'spring', stiffness: 260, damping: 20 }}
+        transition={{ delay: 1.5, type: 'spring', stiffness: 260, damping: 20 }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Contactar por WhatsApp"
-        className="relative flex items-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-[0_8px_32px_rgba(37,211,102,0.45)] hover:shadow-[0_8px_40px_rgba(37,211,102,0.6)] transition-all duration-500"
+        className="relative flex items-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-[0_8px_32px_rgba(37,211,102,0.35)] hover:shadow-[0_8px_40px_rgba(37,211,102,0.55)] transition-all duration-500"
         style={{
           padding: expanded ? '12px 20px 12px 16px' : '14px',
           gap: expanded ? '10px' : '0px',
@@ -139,9 +139,6 @@ export function WhatsAppButton() {
             </>
           )}
         </AnimatePresence>
-
-        <span className="absolute -top-1 -right-1 h-3 w-3 bg-emerald-300 rounded-full animate-ping opacity-75" />
-        <span className="absolute -top-1 -right-1 h-3 w-3 bg-white rounded-full" />
       </motion.a>
     </div>
   );

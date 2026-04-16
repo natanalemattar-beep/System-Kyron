@@ -39,6 +39,10 @@ async function sendViaGmail(opts: EmailOptions): Promise<EmailResult> {
     const transporter = getSmtpTransporter();
     const senderEmail = await getGmailSenderAddress();
 
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      console.error('[email-service] CRÍTICO: GMAIL_APP_PASSWORD no está definida en las variables de entorno.');
+    }
+
     const recipients = Array.isArray(opts.to) ? opts.to : [opts.to];
     const fromAddr = opts.from ?? `System Kyron <${senderEmail}>`;
 
@@ -72,50 +76,162 @@ export async function sendEmail(opts: EmailOptions): Promise<EmailResult> {
   return result;
 }
 
-export function buildKyronEmailTemplate(content: { title: string; body: string; code?: string; magicLink?: string; footer?: string }) {
-    const baseUrl = process.env.REPLIT_DEV_DOMAIN
-      ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-      : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
-  return `
-    <div style="font-family: 'Helvetica Neue', sans-serif; max-width: 520px; margin: 0 auto; background: #060D1F; border-radius: 16px; overflow: hidden;">
-      <div style="background: linear-gradient(135deg, #0EA5E9, #22C55E); padding: 2px;">
-        <div style="background: #060D1F; border-radius: 14px; padding: 40px 36px;">
-          <div style="text-align: center; margin-bottom: 32px;">
-            <img src="${baseUrl}/logo-kyron-email.png" alt="System Kyron" width="72" height="72" style="display: block; margin: 0 auto 12px auto;" />
-              <p style="color: #F1F5F9; font-size: 15px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin: 0;">SYSTEM KYRON</p>
-              <p style="color: #64748B; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 4px 0 0 0;">Inteligencia Corporativa</p>
-            </div>
-          <h1 style="color: #F1F5F9; font-size: 20px; font-weight: 700; text-align: center; margin: 0 0 8px 0;">
-            ${content.title}
-          </h1>
-          <div style="color: #94A3B8; font-size: 14px; text-align: center; margin: 0 0 36px 0;">
-            ${content.body}
-          </div>
-          ${content.magicLink ? `
-          <div style="text-align: center; margin-bottom: 24px;">
-            <a href="${content.magicLink}" style="display: inline-block; background: linear-gradient(135deg, #0EA5E9, #22C55E); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 16px 40px; border-radius: 12px;">
-              Verificar mi identidad
-            </a>
-            <p style="color: #475569; font-size: 11px; margin: 12px 0 0 0;">Haz clic en el botón o usa el código de abajo</p>
-          </div>
-          ` : ''}
-          ${content.code ? `
-          <div style="background: #0A1530; border: 2px solid #0EA5E9; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 28px;">
-            <p style="color: #94A3B8; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px 0;">Tu código de verificación</p>
-            <p style="color: #0EA5E9; font-size: 42px; font-weight: 900; letter-spacing: 12px; margin: 0; font-family: 'Courier New', monospace;">${content.code}</p>
-            <p style="color: #475569; font-size: 12px; margin: 12px 0 0 0;">Válido por <strong style="color: #F59E0B;">10 minutos</strong></p>
-          </div>
-          ` : ''}
-          <div style="background: #0A1530; border-left: 3px solid #F59E0B; padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 28px;">
-            <p style="color: #94A3B8; font-size: 12px; margin: 0;">
-              <strong style="color: #F59E0B;">Seguridad:</strong> ${content.footer ?? 'Este es un mensaje automático de System Kyron.'}
-            </p>
-          </div>
-          <p style="color: #475569; font-size: 11px; text-align: center; margin: 0;">
-            System Kyron · Inteligencia Corporativa · Venezuela
-          </p>
-        </div>
-      </div>
-    </div>
-  `;
+export function buildKyronEmailTemplate(content: {
+  title: string;
+  body: string;
+  code?: string;
+  magicLink?: string;
+  footer?: string;
+  type?: 'verification' | 'alert' | 'welcome' | 'reset' | 'general';
+}) {
+  const type = content.type ?? 'general';
+
+  // Colores por tipo de correo
+  const palette = {
+    verification: { accent: '#0EA5E9', accentDark: '#0284C7', badge: '#0EA5E9', badgeText: 'VERIFICACIÓN' },
+    alert:        { accent: '#F59E0B', accentDark: '#D97706', badge: '#EF4444', badgeText: '⚠ ALERTA DE SEGURIDAD' },
+    welcome:      { accent: '#22C55E', accentDark: '#16A34A', badge: '#22C55E', badgeText: 'BIENVENIDO' },
+    reset:        { accent: '#A855F7', accentDark: '#9333EA', badge: '#A855F7', badgeText: 'RECUPERACIÓN' },
+    general:      { accent: '#0EA5E9', accentDark: '#0284C7', badge: '#0EA5E9', badgeText: 'SYSTEM KYRON' },
+  }[type];
+
+  // Logo IMG: Usamos una imagen real con URL absoluta en vez de SVG para que
+  // funcione garantizado en Gmail Móvil, iPhone, Outlook, etc. (que bloquean los SVG)
+  const appUrl = typeof process !== 'undefined' && process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
+    ? process.env.NEXT_PUBLIC_APP_URL
+    : 'https://system-kyron.vercel.app';
+    
+  const logoIMG = `<img src="${appUrl}/images/logo-kyron-hq.png" width="80" height="80" alt="System Kyron" style="display:block; margin: 0 auto; outline:none; border:none; max-width:80px; max-height:80px;" />`;
+
+  const plainTextPreview = content.body.replace(/<[^>]*>?/gm, '').substring(0, 120);
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${content.title} — System Kyron</title>
+</head>
+<body style="margin:0;padding:0;background-color:#060D1F;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <!-- INICIO PREHEADER INVISIBLE PARA GMAIL -->
+  <span style="display:none;font-size:1px;color:#060D1F;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;">${plainTextPreview}...</span>
+  <!-- FIN PREHEADER -->
+
+  <!-- Wrapper -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#060D1F;padding:40px 16px;">
+    <tr>
+      <td align="center">
+        <!-- Container -->
+        <table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;">
+
+          <!-- HEADER GRADIENT BORDER -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#0EA5E9,#22C55E);border-radius:20px 20px 0 0;padding:2px 2px 0 2px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="background:#060D1F;border-radius:18px 18px 0 0;padding:36px 40px 28px 40px;text-align:center;">
+
+                    <!-- Logo -->
+                    <div>${logoIMG}</div>
+
+                    <!-- Brand Name -->
+                    <p style="margin:12px 0 2px 0;color:#F1F5F9;font-size:16px;font-weight:800;letter-spacing:4px;text-transform:uppercase;">SYSTEM KYRON</p>
+                    <p style="margin:0;color:#475569;font-size:10px;letter-spacing:2px;text-transform:uppercase;">Inteligencia Corporativa · Venezuela</p>
+
+                    <!-- Badge tipo -->
+                    <div style="margin-top:20px;">
+                      <span style="display:inline-block;background:${palette.badge};color:#ffffff;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:20px;">${palette.badgeText}</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#0EA5E9,#22C55E);padding:0 2px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="background:#0A1225;padding:32px 40px;">
+
+                    <!-- Title -->
+                    <h1 style="margin:0 0 12px 0;color:#F1F5F9;font-size:22px;font-weight:700;text-align:center;line-height:1.3;">${content.title}</h1>
+
+                    <!-- Body text -->
+                    <p style="margin:0 0 28px 0;color:#94A3B8;font-size:14px;line-height:1.7;text-align:center;">${content.body}</p>
+
+                    <!-- Magic Link Button -->
+                    ${content.magicLink ? `
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+                      <tr>
+                        <td align="center">
+                          <a href="${content.magicLink}" style="display:inline-block;background:linear-gradient(135deg,#0EA5E9,#22C55E);color:#ffffff;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:16px 44px;border-radius:14px;box-shadow:0 4px 24px rgba(14,165,233,0.3);">
+                            ✓ &nbsp;Verificar mi identidad
+                          </a>
+                          <p style="margin:12px 0 0 0;color:#475569;font-size:11px;">El enlace expira en <strong style="color:#F59E0B;">15 minutos</strong></p>
+                        </td>
+                      </tr>
+                    </table>
+                    ` : ''}
+
+                    <!-- Verification Code Box -->
+                    ${content.code ? `
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                      <tr>
+                        <td style="background:#060D1F;border:2px solid ${palette.accent};border-radius:16px;padding:28px;text-align:center;">
+                          <p style="margin:0 0 8px 0;color:#64748B;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;">Tu código de verificación</p>
+                          <p style="margin:0 0 10px 0;color:${palette.accent};font-size:46px;font-weight:900;letter-spacing:14px;font-family:'Courier New',Courier,monospace;">${content.code}</p>
+                          <p style="margin:0;color:#475569;font-size:12px;">Válido por <strong style="color:#F59E0B;">10 minutos</strong> · No lo compartas con nadie</p>
+                        </td>
+                      </tr>
+                    </table>
+                    ` : ''}
+
+                    <!-- Divider -->
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+                      <tr>
+                        <td style="border-top:1px solid #1E293B;font-size:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+
+                    <!-- Security Note -->
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;">
+                      <tr>
+                        <td style="background:#0F172A;border-left:3px solid #F59E0B;border-radius:0 10px 10px 0;padding:14px 18px;">
+                          <p style="margin:0;color:#94A3B8;font-size:12px;line-height:1.6;">
+                            <strong style="color:#F59E0B;">🔒 Seguridad:</strong> ${content.footer ?? 'Nunca compartiremos tu código con nadie. Si no solicitaste esto, ignora este mensaje o contacta a soporte.'}
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#0EA5E9,#22C55E);border-radius:0 0 20px 20px;padding:0 2px 2px 2px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="background:#060D1F;border-radius:0 0 18px 18px;padding:20px 40px 24px 40px;text-align:center;">
+                    <p style="margin:0 0 6px 0;color:#334155;font-size:11px;">© 2026 System Kyron · Todos los derechos reservados</p>
+                    <p style="margin:0;color:#1E293B;font-size:10px;letter-spacing:1px;">LOTTT · LOPCYMAT · VEN-NIF · ISO 27001</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>`;
 }
+

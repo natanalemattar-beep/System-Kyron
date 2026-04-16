@@ -49,14 +49,14 @@ Realiza un análisis financiero y estratégico completo de estos datos siguiendo
         messages: [{ role: 'user', content: userPrompt }],
         maxTokens: 3000,
         temperature: 0.4,
-        providers: ['openai', 'deepseek', 'gemini'],
+        providers: ['gemini'],
         label: 'analyze-dashboard',
         eventFormat: 'sse-event',
       });
     }
 
     const analysis = await generateTextWithFallback(
-      ['openai', 'deepseek', 'gemini'],
+      ['gemini'],
       { system: PROMPTS.KYRON_ANALYTICS, prompt: userPrompt, maxTokens: 3000, temperature: 0.4 },
       'analyze-dashboard'
     );

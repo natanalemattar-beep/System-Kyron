@@ -20,6 +20,15 @@ import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ActivityTimeline } from "@/components/activity-timeline";
+import { AgentChatModal } from "@/components/chat/agent-chat-modal";
+
+interface AgentConfig {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
 
 interface NaturalDashboardData {
   solicitudes: { total: number; pendientes: number; aprobadas: number };
@@ -50,8 +59,16 @@ export default function DashboardPersonalPage() {
   const [greeting, setGreeting] = useState<{ text: string; icon: typeof Sun } | null>(null);
   const [clientTimeStr, setClientTimeStr] = useState<string | null>(null);
   const [clientDateStr, setClientDateStr] = useState<string | null>(null);
+  const [isAgentChatOpen, setIsAgentChatOpen] = useState(false);
+  const [selectedAgent, setSelectedAgent] = useState<AgentConfig | null>(null);
+
+  const openAgentChat = (config: AgentConfig) => {
+    setSelectedAgent(config);
+    setIsAgentChatOpen(true);
+  };
 
   useEffect(() => {
+
     const now = new Date();
     const loc = currentLocale || 'es';
     setGreeting(getGreeting(now.getHours()));
@@ -119,47 +136,58 @@ export default function DashboardPersonalPage() {
   }
 
   return (
-    <div className="space-y-6 pb-16 max-w-6xl mx-auto">
+    <div className="space-y-6 pb-20 max-w-7xl mx-auto px-4 md:px-0">
       <ModuleTutorial config={moduleTutorials["ciudadano"]} />
+      
+      {/* Header Elite con Efecto de Cristal Sagrado */}
       <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 p-6 md:p-8 text-white mt-4 md:mt-6"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative overflow-hidden rounded-[2rem] bg-slate-950 border border-white/10 p-8 md:p-12 text-white mt-6 group shadow-2xl shadow-blue-500/10"
       >
         <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-blue-500/[0.06] blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] rounded-full bg-indigo-500/[0.04] blur-[80px]" />
+          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-600/[0.1] blur-[140px] group-hover:bg-blue-600/[0.15] transition-colors duration-1000" />
+          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-600/[0.08] blur-[120px]" />
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light pointer-events-none" />
         </div>
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <Shield className="h-5 w-5 text-white" />
+
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.3)] border border-white/20">
+                <Shield className="h-8 w-8 text-white animate-pulse" />
               </div>
-              <div>
+              <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  {greeting && <GreetingIcon className="h-4 w-4 text-amber-300/60" />}
-                  <h1 className="text-lg md:text-xl font-bold tracking-tight">
-                    {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
-                  </h1>
+                  <Sparkles className="h-4 w-4 text-blue-400" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400/80">Inteligencia Corporativa</span>
                 </div>
-                <p className="text-[11px] text-muted-foreground/60 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tighter leading-none">
+                  {greeting?.text ?? "Hola"}{firstName ? `, ${firstName}` : ""}
+                </h1>
               </div>
             </div>
-            <div className="flex items-center gap-2.5 mt-1">
-              <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400/80 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En vivo
-              </span>
-              <span className={cn("text-[10px] px-2.5 py-0.5 rounded-lg bg-muted/50 border border-border/30 font-semibold flex items-center gap-1.5", verif.color)}>
-                <Trophy className="h-3 w-3" /> {verif.label}
-              </span>
+            
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                <span className="text-[11px] font-bold text-emerald-400">SISTEMA EN VIVO</span>
+              </div>
+              <div className={cn("text-[11px] px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md font-bold flex items-center gap-2", verif.color)}>
+                <Trophy className="h-3.5 w-3.5" /> {verif.label.toUpperCase()}
+              </div>
+              <div className="text-[11px] text-white/40 font-medium tracking-tight">
+                {clientDateStr ?? ""}
+              </div>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button asChild size="sm" className="h-9 px-5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-400 hover:to-indigo-400 shadow-lg shadow-blue-500/15">
-              <Link href="/tarjeta-digital">ID Digital</Link>
+
+          <div className="flex flex-col gap-3 min-w-[200px]">
+             <Button asChild size="lg" className="h-12 px-8 rounded-2xl text-[12px] font-black uppercase tracking-widest bg-white text-slate-950 hover:bg-white/90 hover:scale-[1.02] transition-all shadow-xl shadow-white/10">
+              <Link href="/tarjeta-digital">ID DIGITAL 3.0</Link>
             </Button>
+            <p className="text-[10px] text-center text-white/30 font-bold uppercase tracking-widest">Nivel de Acceso: 0{verif.level}</p>
           </div>
         </div>
       </motion.header>
@@ -319,9 +347,19 @@ export default function DashboardPersonalPage() {
               <p className="text-[10px] text-muted-foreground/60 mb-4 leading-relaxed">
                 ¿Dudas sobre ISLR o trámites sucesorales? Solicita orientación.
               </p>
-              <Button asChild size="sm" className="w-full h-8 text-[10px] font-semibold rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/15">
-                <Link href="/manual-usuario">Pedir ayuda IA</Link>
+              <Button 
+                onClick={() => openAgentChat({
+                  id: 'legal',
+                  name: 'Consultor Legal Elite',
+                  description: 'Experto en Derecho Mercantil, Civil y Laboral venezolano.',
+                  icon: <Scale className="h-6 w-6" />
+                })}
+                size="sm" 
+                className="w-full h-8 text-[10px] font-semibold rounded-lg bg-primary/10 border border-primary/20 text-primary hover:bg-primary/15"
+              >
+                Pedir ayuda IA
               </Button>
+
             </div>
           </Card>
 
@@ -454,6 +492,132 @@ export default function DashboardPersonalPage() {
       </motion.div>
 
       <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.4 }}
+      >
+        <span className="text-[11px] font-semibold text-muted-foreground/40 ml-1 mb-3 block">Hub de Entes de Validez Nacional</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* SAIME Card */}
+          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full group-hover:bg-blue-500/10 transition-colors" />
+            <div className="flex items-center gap-3 mb-4 relative z-10">
+              <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
+                 <Fingerprint className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <h4 className="text-[11px] font-bold text-foreground">SAIME</h4>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Identidad Ciudadana</p>
+              </div>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded hover:bg-emerald-500/10 text-[9px]">Sincronizado</Badge>
+            </div>
+            <div className="space-y-2 mb-4 relative z-10">
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Estatus de Cédula</span>
+                <span className="font-semibold text-foreground">Vigente</span>
+              </div>
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Última validación</span>
+                <span className="font-medium text-foreground">{clientDateStr?.split(' ')[1] || 'Hoy'}</span>
+              </div>
+            </div>
+            <Button 
+              onClick={() => openAgentChat({
+                id: 'saime',
+                name: 'Agente SAIME',
+                description: 'Consultoría en pasaportes, cédulas y trámites de identidad.',
+                icon: <Fingerprint className="h-6 w-6" />
+              })}
+              variant="outline" 
+              size="sm" 
+              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-blue-500/5 hover:text-blue-500 relative z-10"
+            >
+              Ver datos biométricos
+            </Button>
+
+          </Card>
+
+          {/* SENIAT Card */}
+          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full group-hover:bg-amber-500/10 transition-colors" />
+            <div className="flex items-center gap-3 mb-4 relative z-10">
+               <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
+                 <FileText className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-[11px] font-bold text-foreground">SENIAT</h4>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Perfil Tributario</p>
+              </div>
+               <Badge className="ml-auto bg-amber-500/10 text-amber-500 border-none rounded hover:bg-amber-500/10 text-[9px]">Revisión</Badge>
+            </div>
+            <div className="space-y-2 mb-4 relative z-10">
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Registro de RIF</span>
+                <span className="font-semibold text-foreground">Actualizado</span>
+              </div>
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Declaración ISLR</span>
+                <span className="font-medium text-amber-500">Pendiente</span>
+              </div>
+            </div>
+            <Button 
+              onClick={() => openAgentChat({
+                id: 'seniat',
+                name: 'Agente SENIAT',
+                description: 'Especialista en Tributación, RIF, IVA e ISLR.',
+                icon: <FileText className="h-6 w-6" />
+              })}
+              variant="outline" 
+              size="sm" 
+              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-amber-500/5 hover:text-amber-500 relative z-10"
+            >
+              Consultar RIF Digital
+            </Button>
+
+          </Card>
+
+          {/* IVSS/BANAVIH Card */}
+          <Card className="border border-border/30 rounded-xl bg-card/80 p-5 overflow-hidden relative group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full group-hover:bg-rose-500/10 transition-colors" />
+            <div className="flex items-center gap-3 mb-4 relative z-10">
+               <div className="h-10 w-10 rounded-xl bg-slate-900 border border-border/40 flex items-center justify-center p-2 shadow-sm">
+                 <Heart className="w-5 h-5 text-rose-400" />
+              </div>
+              <div>
+                <h4 className="text-[11px] font-bold text-foreground">IVSS & FAOV</h4>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Seguridad Social</p>
+              </div>
+              <Badge className="ml-auto bg-emerald-500/10 text-emerald-500 border-none rounded hover:bg-emerald-500/10 text-[9px]">Al día</Badge>
+            </div>
+            <div className="space-y-2 mb-4 relative z-10">
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Cotizaciones IVSS</span>
+                <span className="font-semibold text-foreground">12 Activas</span>
+              </div>
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="text-muted-foreground">Aportes FAOV</span>
+                <span className="font-medium text-foreground">Solvente</span>
+              </div>
+            </div>
+             <Button 
+              onClick={() => openAgentChat({
+                id: 'ivss',
+                name: 'Agente IVSS & FAOV',
+                description: 'Gestión de pensiones, cotizaciones y seguridad social.',
+                icon: <Heart className="h-6 w-6" />
+              })}
+              variant="outline" 
+              size="sm" 
+              className="w-full h-8 text-[10px] bg-background/50 border-border/40 shadow-none hover:bg-rose-500/5 hover:text-rose-500 relative z-10"
+             >
+              Descargar Solvencias
+            </Button>
+
+          </Card>
+        </div>
+      </motion.div>
+
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.65, duration: 0.4 }}
@@ -461,27 +625,17 @@ export default function DashboardPersonalPage() {
         <ActivityTimeline limit={8} />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.4 }}
-        className="rounded-xl border border-border/20 bg-gradient-to-r from-blue-500/[0.02] to-indigo-500/[0.02] p-4 flex flex-col sm:flex-row items-center justify-between gap-3"
-      >
-        <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-blue-500/8 flex items-center justify-center">
-            <CheckCircle className="h-4 w-4 text-blue-400" />
-          </div>
-          <div>
-            <p className="text-[11px] font-semibold text-foreground/60">Cuenta Verificada</p>
-            <p className="text-[10px] text-muted-foreground/30">Acceso completo al ecosistema ciudadano</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          {["VEN-NIF", "SAIME", "SENIAT"].map((b, i) => (
-            <span key={i} className="text-[11px] font-semibold text-muted-foreground/25 px-2 py-0.5 rounded-md border border-border/15 bg-muted/10">{b}</span>
-          ))}
-        </div>
-      </motion.div>
+      {selectedAgent && (
+        <AgentChatModal
+          isOpen={isAgentChatOpen}
+          onClose={() => setIsAgentChatOpen(false)}
+          agentId={selectedAgent.id}
+          agentName={selectedAgent.name}
+          agentDescription={selectedAgent.description}
+          agentIcon={selectedAgent.icon}
+        />
+      )}
     </div>
   );
 }
+

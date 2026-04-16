@@ -23,7 +23,7 @@ import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { ReservaDatosPanel } from "@/components/telecom/reserva-datos-panel";
-import { PLANES_MI_LINEA } from "@/lib/planes-kyron";
+import { PLANES_MI_LINEA } from "@/lib/planes-data";
 
 type LineaTelecom = {
   id: number;

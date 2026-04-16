@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       messages: recentHistory,
       maxTokens: 4096,
       temperature: 0.7,
-      providers: ['gemini', 'deepseek', 'openai'],
+      providers: ['gemini'],
       label: 'kyron-chat-personal',
     });
   } catch (err) {

@@ -65,8 +65,11 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                 if (loaded.count === total) setStatusText('Casi listo...');
             });
 
-            const timeout = delay(2000);
-            await Promise.race([Promise.all(preloadPromises), timeout]);
+            const timeout = delay(1000); // Reducido para no bloquear dispositivos lentos
+            await Promise.race([
+                Promise.all(preloadPromises),
+                timeout
+            ]);
 
             if (cancelled) return;
             setProgress(90);

@@ -28,7 +28,7 @@ export function FaqSection() {
         );
 
     return (
-        <section id="faq" className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/40 to-indigo-50/30 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
+        <section id="faq" className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/40 to-indigo-50/30 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/15 to-transparent" />
@@ -109,7 +109,7 @@ export function FaqSection() {
                                             </span>
                                         </div>
                                     </AccordionTrigger>
-                                    <AccordionContent className="pb-5 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-gray-100 dark:border-white/[0.06] pt-4">
+                                    <AccordionContent className="pb-5 text-muted-foreground/70 text-xs md:text-sm font-medium leading-relaxed pl-[3.25rem] border-t border-gray-100 dark:border-white/[0.06] pt-4">
                                         {item.answer}
                                     </AccordionContent>
                                 </AccordionItem>
@@ -117,7 +117,7 @@ export function FaqSection() {
                         ))}
                     </Accordion>
 
-                    <div className="flex justify-center mt-12">
+                    <div className="flex justify-center mt-8">
                         <Link href={"/faq" as any}>
                             <Button
                                 variant="outline"

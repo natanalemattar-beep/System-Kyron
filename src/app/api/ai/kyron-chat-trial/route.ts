@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
     const startTime = Date.now();
 
     const text = await generateTextWithFallback(
-      ['gemini', 'deepseek'],
+      ['gemini'],
       { system: PROMPTS.KYRON_TRIAL, prompt: message.substring(0, 500), maxTokens: 300, temperature: 0.7 },
       'kyron-chat-trial'
     );

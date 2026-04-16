@@ -136,11 +136,19 @@ function savePersonalChat(messages: Message[]) {
   } catch {}
 }
 
+import { useSearchParams } from "next/navigation";
+
+// ... (renderMarkdown and helper functions)
+
 export default function KyronChatPersonalPage() {
+  const searchParams = useSearchParams();
+  const agentParam = searchParams.get('agent') || 'personal';
+
   const [messages, setMessages] = useState<Message[]>(() => {
     if (typeof window === 'undefined') return [];
     return loadPersonalChat();
   });
+
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingText, setStreamingText] = useState('');
@@ -206,15 +214,17 @@ export default function KyronChatPersonalPage() {
     abortControllerRef.current = controller;
 
     try {
-      const res = await fetch('/api/ai/kyron-chat-personal', {
+      const res = await fetch('/api/ai/agent-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          agentId: agentParam,
           messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-          context: "Portal Ciudadano Personal",
+          context: `Portal Ciudadano - Modo Agente: ${agentParam}`,
         }),
         signal: controller.signal,
       });
+
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: 'Error de conexión' }));

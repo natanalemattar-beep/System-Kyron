@@ -1,17 +1,33 @@
 import { Pool, PoolClient, QueryResult } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
-let pool: Pool | undefined;
+const globalForDb = globalThis as unknown as {
+    pool: Pool | undefined;
+    queryCache: Map<string, { data: any; expiry: number }>;
+};
+
+if (!globalForDb.queryCache) {
+    globalForDb.queryCache = new Map();
+}
+
 let queryCount = 0;
 let slowQueryCount = 0;
 
 const SLOW_QUERY_THRESHOLD_MS = 300;
 
 export function getPool(): Pool {
-    if (!pool) {
+    if (!globalForDb.pool) {
         const isProduction = process.env.NODE_ENV === 'production';
-        pool = new Pool({
-            connectionString: process.env.DATABASE_URL,
-            ssl: isProduction ? { rejectUnauthorized: false } : false,
+        // Vercel inyecta POSTGRES_URL automáticamente con Supabase / neon / etc.
+        const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+        
+        if (!connectionString) {
+            console.warn('[db] AVISO: DATABASE_URL no está definida. La base de datos no funcionará.');
+        }
+
+        globalForDb.pool = new Pool({
+            connectionString: connectionString || 'postgres://localhost:5432/postgres',
+            ssl: { rejectUnauthorized: false },
             max: isProduction ? 30 : 12,
             min: isProduction ? 5 : 2,
             idleTimeoutMillis: 20000,
@@ -21,32 +37,72 @@ export function getPool(): Pool {
             allowExitOnIdle: false,
             application_name: 'system-kyron',
         });
-        pool.on('error', (err) => {
+        globalForDb.pool.on('error', (err) => {
             console.error('[db] Error inesperado en cliente idle:', err.message);
         });
     }
-    return pool;
+    return globalForDb.pool;
+}
+
+export interface QueryOptions {
+    useCache?: boolean;
+    ttlMs?: number; // Tiempo de vida de la caché
+    retries?: number; // Número de reintentos automáticos
 }
 
 export async function query<T = Record<string, unknown>>(
     text: string,
-    params?: unknown[]
+    params?: unknown[],
+    options?: QueryOptions
 ): Promise<T[]> {
     const start = Date.now();
     queryCount++;
-    try {
-        const result = await getPool().query(text, params);
-        const duration = Date.now() - start;
-        if (duration > SLOW_QUERY_THRESHOLD_MS) {
-            slowQueryCount++;
-            console.warn(`[db] Query lenta (${duration}ms): ${text.substring(0, 120)}...`);
+
+    // Lógica ultrarrápida de Caché en memoria para evitar hacer la consulta repetida
+    const cacheKey = options?.useCache ? `${text}::${JSON.stringify(params)}` : null;
+    if (cacheKey) {
+        const cached = globalForDb.queryCache.get(cacheKey);
+        if (cached && cached.expiry > Date.now()) {
+            return cached.data as T[];
         }
-        return result.rows as T[];
-    } catch (err: any) {
-        const duration = Date.now() - start;
-        console.error(`[db] Error en query (${duration}ms):`, err.message);
-        throw err;
     }
+
+    const retries = options?.retries ?? 2; // Por defecto intentamos 2 veces (Resiliencia en Vercel)
+    let attempt = 0;
+
+    while (attempt <= retries) {
+        try {
+            const result = await getPool().query(text, params);
+            const duration = Date.now() - start;
+            
+            if (duration > SLOW_QUERY_THRESHOLD_MS) {
+                slowQueryCount++;
+                console.warn(`[db] Query lenta (${duration}ms): ${text.substring(0, 120)}...`);
+            }
+
+            if (cacheKey && result.rows) {
+                // Guardamos en caché y limpiamos la caché si crece demasiado
+                if (globalForDb.queryCache.size > 1000) globalForDb.queryCache.clear();
+                globalForDb.queryCache.set(cacheKey, {
+                    data: result.rows,
+                    expiry: Date.now() + (options?.ttlMs ?? 10000) // 10 segundos por defecto
+                });
+            }
+
+            return result.rows as T[];
+        } catch (err: any) {
+            attempt++;
+            if (attempt > retries) {
+                const duration = Date.now() - start;
+                console.error(`[db] Error fatal en query tras ${retries} reintentos (${duration}ms):`, err.message);
+                throw err;
+            }
+            // Pequeña pausa antes de reintentar por si se cayó la conexión momentáneamente
+            await new Promise(r => setTimeout(r, 200 * attempt));
+            console.warn(`[db] Reintentando query (${attempt}/${retries})...`);
+        }
+    }
+    return [];
 }
 
 export async function queryOne<T = Record<string, unknown>>(
@@ -197,3 +253,6 @@ export async function healthCheck(): Promise<{
 export function getQueryMetrics() {
     return { queryCount, slowQueryCount };
 }
+
+// Exportamos 'db' para compatibilidad con Drizzle ORM en otros módulos
+export const db = drizzle(getPool());

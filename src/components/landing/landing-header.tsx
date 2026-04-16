@@ -144,10 +144,10 @@ export function LandingHeader() {
                                 href={item.href} 
                                 onClick={(e) => handleAnchorClick(e, item.href)}
                                 className={cn(
-                                    "text-[11px] font-semibold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
+                                    "text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group py-1 cursor-pointer",
                                     isScrolled
-                                        ? "text-foreground/50 hover:text-cyan-400"
-                                        : "text-foreground/40 hover:text-cyan-400"
+                                        ? "text-foreground/70 hover:text-cyan-400"
+                                        : "text-foreground/65 hover:text-cyan-500"
                                 )}
                             >
                                 {t(item.labelKey)}

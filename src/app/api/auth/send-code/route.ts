@@ -51,6 +51,15 @@ async function trySendViaTwilio(tipo: 'sms' | 'whatsapp', phone: string, codigo:
 
 export async function POST(req: NextRequest) {
   try {
+    // Verificación temprana: si no hay DB configurada en producción, dar error claro
+    if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
+      console.error('[send-code] POSTGRES_URL no está configurada en el entorno de producción.');
+      return NextResponse.json(
+        { error: 'El servicio de verificación no está disponible en este momento. Contacta soporte.' },
+        { status: 503 }
+      );
+    }
+
     const ip = getClientIP(req);
     const rl = rateLimit(`send-code:${ip}`, 5, 60 * 1000);
     if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
@@ -128,22 +137,25 @@ export async function POST(req: NextRequest) {
       }
 
       const codigo = generateOTP();
-      const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+      
+      console.log(`[send-code] Generando código para ${originalEmail} (vía ${destino})`);
 
       // Store code and magic token under originalEmail so verify-code can find them
       // by the user's login email, regardless of which address receives the email.
       const [, user] = await Promise.all([
         query(
-          `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, $2, $3, $4, 'verification')`,
-          [originalEmail.toLowerCase(), tipo, codigo, expiresAt]
+          `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) 
+           VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', 'verification')`,
+          [originalEmail.toLowerCase(), tipo, codigo]
         ),
         queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [originalEmail.toLowerCase()]),
       ]);
 
       const token = generateMagicToken();
-      const baseUrl = process.env.REPLIT_DEV_DOMAIN
-        ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-        : (process.env.REPLIT_DEPLOYMENT_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://system-kyron.replit.app');
+      // Prioridad: Vercel > NEXT_PUBLIC_APP_URL > fallback correcto a Vercel (ya NO a Replit)
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
+        ? process.env.NEXT_PUBLIC_APP_URL
+        : 'https://system-kyron.vercel.app';
       const magicLink = `${baseUrl}/es/verify-link/${token}`;
       // Store magic token under originalEmail so verify-link can find the user account
       storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => {});
@@ -154,9 +166,8 @@ export async function POST(req: NextRequest) {
         code: codigo,
         magicLink,
         footer: 'Si no solicitaste este codigo, ignora este correo. El enlace y el codigo expiran en 10 minutos.',
+        type: 'verification',
       });
-
-      const isDev = !process.env.REPLIT_DEPLOYMENT_URL;
 
       const result = await sendEmail({
         to: destino,
@@ -170,11 +181,9 @@ export async function POST(req: NextRequest) {
       });
 
       if (!result.success) {
-        if (isDev) {
-          console.log(`[send-code][DEV] Codigo para ${originalEmail}: ${codigo}`);
-        }
+        console.error(`[send-code] Fallo al enviar correo a ${destino}:`, result.error);
         return NextResponse.json(
-          { error: 'No se pudo enviar el correo. Verifica tu direccion e intenta de nuevo.' },
+          { error: 'No se pudo enviar el correo de verificacion. Revisa tu direccion de correo e intenta de nuevo.' },
           { status: 502 }
         );
       }
@@ -206,9 +215,10 @@ export async function POST(req: NextRequest) {
         `SELECT telefono FROM users WHERE email = $1`,
         [destino]
       );
-      if (!userPhone[0]?.telefono) {
+      if (!userPhone || userPhone.length === 0 || !userPhone[0]?.telefono) {
+        console.warn(`[send-code] Intento de verificación por teléfono para usuario sin número o inexistente: ${destino}`);
         return NextResponse.json(
-          { error: 'No tienes un numero de telefono registrado. Usa verificacion por correo.' },
+          { error: 'No tienes un numero de telefono registrado o la cuenta no existe. Usa verificacion por correo.' },
           { status: 400 }
         );
       }
@@ -224,11 +234,11 @@ export async function POST(req: NextRequest) {
     }
 
     const codigo = generateOTP();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
     await query(
-      `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) VALUES ($1, $2, $3, $4, 'verification')`,
-      [destino, tipo, codigo, expiresAt]
+      `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) 
+       VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', 'verification')`,
+      [destino, tipo, codigo]
     );
 
     const channelLabel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
@@ -253,8 +263,15 @@ export async function POST(req: NextRequest) {
       { status: 502 }
     );
 
-  } catch (err) {
-    console.error('[send-code] error:', err);
-    return NextResponse.json({ error: 'Error al enviar codigo de verificacion. Intenta de nuevo.' }, { status: 500 });
+  } catch (err: any) {
+    console.error('[send-code] CRITICAL ERROR:', err);
+    // Si el error es que la tabla no existe, dar un mensaje más útil en logs
+    if (err.message && err.message.includes('relation "verification_codes" does not exist')) {
+      console.error('[send-code] Error: La tabla verification_codes no existe. Ejecuta la inicialización de DB.');
+    }
+    return NextResponse.json(
+      { error: 'Error interno al procesar la solicitud de verificacion. Intenta de nuevo.' },
+      { status: 500 }
+    );
   }
 }

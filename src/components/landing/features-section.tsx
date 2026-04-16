@@ -66,7 +66,7 @@ export function FeaturesSection() {
     const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
 
     return (
-        <section id="caracteristicas" className="py-24 md:py-36 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
+        <section id="caracteristicas" className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/15 to-transparent" />
@@ -151,7 +151,7 @@ export function FeaturesSection() {
                                 <motion.div
                                     key={i}
                                     className={cn(
-                                        "group flex flex-col items-center justify-center text-center p-6 rounded-2xl border backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl cursor-default",
+                                        "group flex flex-col items-center justify-center text-center p-6 rounded-2xl border-2 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl cursor-default",
                                         config.border,
                                         config.bg
                                     )}
@@ -166,7 +166,7 @@ export function FeaturesSection() {
                                     <p className={cn("text-4xl font-black tracking-tight mb-2", config.color)}>
                                         <AnimatedNumber target={metric.value} suffix={metric.suffix} />
                                     </p>
-                                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/35 leading-tight">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/55 leading-tight">
                                         {metric.label}
                                     </p>
                                 </motion.div>

@@ -53,6 +53,7 @@ function RotatingWords({ words, interval = 3000 }: { words: string[]; interval?:
                     exit={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent"
+                    viewport={{ once: true }}
                 >
                     {words[index]}
                 </motion.span>
@@ -71,6 +72,7 @@ function FloatingCard({ children, className, delay = 0 }: { children: React.Reac
             initial={{ opacity: 0, y: 30, scale: 0.85 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
         >
             {children}
         </motion.div>
@@ -116,7 +118,16 @@ export function HeroSection() {
     const rotatingTexts = t.raw('rotating_words') as string[];
 
     return (
-        <section id="inicio" className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-clip">
+        <section 
+            id="inicio" 
+            className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-clip"
+            onMouseMove={(e) => {
+                const { currentTarget, clientX, clientY } = e;
+                const { left, top } = currentTarget.getBoundingClientRect();
+                currentTarget.style.setProperty('--mouse-x', `${clientX - left}px`);
+                currentTarget.style.setProperty('--mouse-y', `${clientY - top}px`);
+            }}
+        >
             <div className="absolute inset-0 -z-10">
                 <Image
                     src="/images/landing/hero-bg-light.webp"
@@ -143,6 +154,14 @@ export function HeroSection() {
                 <div className={`absolute top-[50%] left-[35%] w-[400px] h-[400px] rounded-full blur-[100px] transition-colors duration-700 ${isDark ? 'bg-emerald-500/[0.03]' : 'bg-[#22c55e]/[0.06]'}`} />
             </div>
 
+            {/* Nuevo efecto interactivo del cursor (Novedad Premium) */}
+            <motion.div
+                className="pointer-events-none absolute inset-0 z-0 h-full w-full hidden md:block"
+                style={{
+                  background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(14, 165, 233, 0.08), transparent 40%)'
+                }}
+            />
+
             <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-28 pb-8 sm:pt-32 md:pt-40 md:pb-24 lg:pb-48 flex-1 flex items-center w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
@@ -151,7 +170,8 @@ export function HeroSection() {
                             className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mx-auto lg:ml-0"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.05}
                         >
                             <span className="relative flex h-2 w-2">
@@ -165,7 +185,8 @@ export function HeroSection() {
                             className="text-[clamp(2.2rem,7vw,5.5rem)] font-black tracking-[-0.02em] leading-[1.05]"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.15}
                         >
                             <span className="block text-foreground">{t('title_line1')}</span>
@@ -177,7 +198,8 @@ export function HeroSection() {
                             className="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto lg:ml-0 font-medium leading-relaxed"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.25}
                         >
                             {t('subtitle')}
@@ -188,7 +210,8 @@ export function HeroSection() {
                                 className="flex items-center justify-center lg:justify-start gap-5"
                                 variants={fadeUp}
                                 initial="hidden"
-                                animate="visible"
+                                whileInView="visible"
+                                viewport={{ once: true }}
                                 custom={0.3}
                                 aria-live="polite"
                             >
@@ -210,7 +233,8 @@ export function HeroSection() {
                             className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.35}
                         >
                             <Button asChild size="lg" className="relative h-14 sm:h-16 px-10 sm:px-12 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] rounded-2xl overflow-hidden group border-0 transition-all duration-500 kyron-gradient-bg text-white shadow-kyron hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.35)] hover:scale-[1.03]">
@@ -231,7 +255,8 @@ export function HeroSection() {
                             className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 pt-2"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.45}
                         >
                             {heroFeatures.map((feat, i) => (
@@ -246,7 +271,8 @@ export function HeroSection() {
                             className="flex items-center justify-center lg:justify-start gap-6 pt-4 opacity-40"
                             variants={fadeUp}
                             initial="hidden"
-                            animate="visible"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             custom={0.55}
                         >
                             <span className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground font-semibold">{t('backed_by')}</span>
@@ -266,6 +292,7 @@ export function HeroSection() {
                         initial={{ opacity: 0, x: 80, scale: 0.85 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        viewport={{ once: true }}
                     >
                         <div className="relative mx-auto max-w-[580px] lg:max-w-none">
                             <div className="absolute -inset-12 rounded-[3rem] opacity-30" style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.2), rgba(139,92,246,0.12), rgba(34,197,94,0.10))', filter: 'blur(50px)' }} />
@@ -337,6 +364,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true }}
             >
                 <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -358,6 +386,7 @@ export function HeroSection() {
                                     initial={{ opacity: 0, y: 25, scale: 0.9 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{ delay: 0.7 + i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                    viewport={{ once: true }}
                                 >
                                     <g.icon className={cn("h-4 w-4 mb-0.5 opacity-40 group-hover:opacity-70 transition-opacity", g.text)} />
                                     <p className={`text-base sm:text-lg font-black leading-none ${g.text}`}>{s.val}</p>
