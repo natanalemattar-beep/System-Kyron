@@ -13,42 +13,13 @@ function aiKeyInfo(integrationKey: string | undefined, integrationBaseUrl: strin
 export async function GET() {
   const results: Record<string, unknown> = {};
 
-  results.anthropic = aiKeyInfo(process.env.AI_INTEGRATIONS_ANTHROPIC_API_KEY, process.env.AI_INTEGRATIONS_ANTHROPIC_BASE_URL, process.env.ANTHROPIC_API_KEY);
   results.gemini = aiKeyInfo(process.env.AI_INTEGRATIONS_GEMINI_API_KEY, process.env.AI_INTEGRATIONS_GEMINI_BASE_URL, process.env.GEMINI_API_KEY);
-  results.openai = aiKeyInfo(process.env.AI_INTEGRATIONS_OPENAI_API_KEY, process.env.AI_INTEGRATIONS_OPENAI_BASE_URL, process.env.OPENAI_API_KEY);
-
-  results.deepseek = {
-    key_present: !!process.env.DEEPSEEK_API_KEY,
-    source: process.env.DEEPSEEK_API_KEY ? 'direct_env_var' : 'none',
-  };
-
+  
   results.gmail = {
     smtp_user: !!process.env.GMAIL_USER,
     smtp_password: !!process.env.GMAIL_APP_PASSWORD,
     method: 'nodemailer_smtp',
   };
-
-  let claudeStatus = 'unknown';
-  try {
-    const { generateText } = await import('@/ai/anthropic');
-    const resp = await generateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 5 });
-    claudeStatus = resp ? 'connected' : 'empty_response';
-    results.claude_live = { status: claudeStatus };
-  } catch (err) {
-    claudeStatus = 'error';
-    results.claude_live = { status: claudeStatus, error: String(err).substring(0, 200) };
-  }
-
-  let deepseekStatus = 'unknown';
-  try {
-    const { deepseekGenerateText } = await import('@/ai/deepseek');
-    const resp = await deepseekGenerateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 5 });
-    deepseekStatus = resp ? 'connected' : 'empty_response';
-    results.deepseek_live = { status: deepseekStatus };
-  } catch (err) {
-    deepseekStatus = 'error';
-    results.deepseek_live = { status: deepseekStatus, error: String(err).substring(0, 200) };
-  }
 
   let geminiStatus = 'unknown';
   try {
@@ -59,17 +30,6 @@ export async function GET() {
   } catch (err) {
     geminiStatus = 'error';
     results.gemini_live = { status: geminiStatus, error: String(err).substring(0, 200) };
-  }
-
-  let openaiStatus = 'unknown';
-  try {
-    const { openaiGenerateText } = await import('@/ai/openai');
-    const resp = await openaiGenerateText({ system: 'Respond with exactly: OK', prompt: 'status check', maxTokens: 5 });
-    openaiStatus = resp ? 'connected' : 'empty_response';
-    results.openai_live = { status: openaiStatus };
-  } catch (err) {
-    openaiStatus = 'error';
-    results.openai_live = { status: openaiStatus, error: String(err).substring(0, 200) };
   }
 
   let gmailStatus = 'unknown';

@@ -41,7 +41,7 @@ interface SAIMEData {
 
 async function consultarCedulaConIA(cedula: string, nacionalidad: string): Promise<SAIMEData | null> {
   try {
-    const { generateJSON } = await import('@/ai/anthropic');
+    const { generateJSON } = await import('@/ai/gemini');
 
     const result = await generateJSON<SAIMEData>({
       system: `Eres un asistente especializado en identificación ciudadana venezolana. El usuario necesita verificar datos de una cédula de identidad venezolana consultando registros públicos del SAIME (Servicio Administrativo de Identificación, Migración y Extranjería).

@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Check, ArrowRight, ShieldCheck, Zap, Bot, Eye, Sparkles, Lock } from 'lucide-react';
