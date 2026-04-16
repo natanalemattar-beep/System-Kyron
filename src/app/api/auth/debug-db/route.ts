@@ -8,8 +8,10 @@ export async function GET(req: NextRequest) {
   const results: any = {
     timestamp: new Date().toISOString(),
     env: {
-      has_db_url: !!process.env.DATABASE_URL,
-      db_url_is_localhost: process.env.DATABASE_URL?.includes('localhost') || process.env.DATABASE_URL?.includes('127.0.0.1'),
+      has_db_url: !!(process.env.DATABASE_URL || process.env.POSTGRES_URL),
+      has_jwt_secret: !!process.env.JWT_SECRET,
+      has_encryption_key: !!process.env.ENCRYPTION_KEY,
+      node_env: process.env.NODE_ENV,
     },
     tests: {},
   };
@@ -23,7 +25,7 @@ export async function GET(req: NextRequest) {
     results.tests.connection = { status: 'error', message: err.message };
   }
 
-  // Test 2: Table existence
+  // Test 2: Table existence & Columns
   try {
     const tables = await query(`
       SELECT table_name 
@@ -31,31 +33,28 @@ export async function GET(req: NextRequest) {
       WHERE table_schema = 'public'
     `);
     const tableNames = (tables as any[]).map(t => t.table_name);
+    
+    // Get columns for users
+    const columns = await query(`
+      SELECT column_name, data_type 
+      FROM information_schema.columns 
+      WHERE table_name = 'users'
+    `);
+
     results.tests.tables = {
       count: tableNames.length,
       names: tableNames,
+      users_columns: columns,
       required_present: {
         users: tableNames.includes('users'),
         verification_codes: tableNames.includes('verification_codes'),
-        tasas_bcv: tableNames.includes('tasas_bcv'),
       }
     };
   } catch (err: any) {
     results.tests.tables = { status: 'error', message: err.message };
   }
 
-  // Action: Auto-init if missing and secret is provided
-  const secret = req.nextUrl.searchParams.get('init_secret');
-  if (secret === 'kyron_force_2026') {
-    try {
-      await initializeDatabase();
-      results.action = 'Database initialized successfully';
-    } catch (err: any) {
-      results.action = 'Error initializing database: ' + err.message;
-    }
-  }
-
-  return NextResponse.json(results, { status: results.tests.connection?.status === 'ok' ? 200 : 500 });
+  return NextResponse.json(results);
 }
 
 export async function POST(req: NextRequest) {
