@@ -166,7 +166,7 @@ export function Footer() {
                                 </span>
                             ))}
                         </div>
-                        <p className="text-[8px] font-black uppercase tracking-[0.3em] text-foreground/20 mt-8 flex items-center gap-2">
+                        <p className="text-[7px] font-black uppercase tracking-[0.3em] text-foreground/20 mt-8 flex items-center gap-2">
                              Lucia Fernanda hermanita de carlitos <Heart className="h-2.5 w-2.5 text-rose-500/80 fill-rose-500/60 animate-pulse" />
                         </p>
 
