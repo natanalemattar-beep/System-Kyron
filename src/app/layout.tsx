@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from 'next/font/google';
 import { JetBrains_Mono } from 'next/font/google';
 import { Providers } from "@/components/providers";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           {children}
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
