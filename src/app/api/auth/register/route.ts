@@ -34,9 +34,12 @@ export async function POST(req: NextRequest) {
         }
 
         return NextResponse.json({ error: 'Tipo de registro inválido' }, { status: 400 });
-    } catch (err) {
+    } catch (err: any) {
         console.error('Register error:', err);
-        return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
+        return NextResponse.json({ 
+            error: 'Error interno del servidor', 
+            debugError: err.message || String(err)
+        }, { status: 500 });
     }
 }
 
