@@ -18,14 +18,8 @@ const SLOW_QUERY_THRESHOLD_MS = 300;
 export function getPool(): Pool {
     if (!globalForDb.pool) {
         const isProduction = process.env.NODE_ENV === 'production';
-        const rawConnectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
-        
-        let connectionString = rawConnectionString;
-        if (rawConnectionString) {
-            // Limpia sslmode=require inyectado por Vercel para evitar SELF_SIGNED_CERT_IN_CHAIN en pg
-            connectionString = rawConnectionString.replace(/\?sslmode=[a-zA-Z\-]+/, '');
-            connectionString = connectionString.replace(/&sslmode=[a-zA-Z\-]+/, '');
-        }
+        // Vercel inyecta POSTGRES_URL automáticamente con Supabase / Neon / etc.
+        const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
         
         if (!connectionString) {
             console.warn('[db] AVISO: DATABASE_URL no está definida. La base de datos no funcionará.');
@@ -33,7 +27,9 @@ export function getPool(): Pool {
 
         globalForDb.pool = new Pool({
             connectionString: connectionString || 'postgres://localhost:5432/postgres',
-            ssl: { rejectUnauthorized: false },
+            // rejectUnauthorized: false permite conexiones SSL auto-firmadas en Supabase/Neon
+            // sin necesidad de modificar la URL (que puede tener parámetros propios como ?supa=...)
+            ssl: isProduction ? { rejectUnauthorized: false } : false,
             max: isProduction ? 30 : 12,
             min: isProduction ? 5 : 2,
             idleTimeoutMillis: 20000,
