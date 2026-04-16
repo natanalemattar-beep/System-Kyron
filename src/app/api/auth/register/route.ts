@@ -100,9 +100,9 @@ async function registerNatural(body: Record<string, unknown>) {
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
             fecha_nacimiento, genero, estado_civil,
             estado_residencia, municipio, ciudad, direccion, tipo,
-            email_verificado, telefono_verificado, verificado
+            verificado
          )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -110,7 +110,6 @@ async function registerNatural(body: Record<string, unknown>) {
             encTelefono, encTelefonoAlt,
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
-            emailVerified, phoneVerified,
             emailVerified || phoneVerified,
         ]
     );
@@ -246,7 +245,7 @@ async function registerJuridico(body: Record<string, unknown>) {
             telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
             rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
             plan, plan_monto,
-            email_verificado, telefono_verificado, verificado
+            verificado
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
@@ -254,7 +253,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                  $12, $13, $14, $15, $16,
                  $17, $18, $19, $20, $21,
                  $22, $23,
-                 $24, $25, $26)
+                 $24)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -279,8 +278,6 @@ async function registerJuridico(body: Record<string, unknown>) {
             encryptIfNotEmpty(sanitizeString((rep_telefono ?? '') as string, 20)),
             validatedPlan,
             validatedPlanMonto,
-            emailVerified,
-            phoneVerified,
             emailVerified || phoneVerified,
         ]
     );
