@@ -11,7 +11,7 @@ import { encryptIfNotEmpty } from '@/lib/encryption';
 async function verificarCodigoUsado(destino: string): Promise<boolean> {
     const record = await queryOne<{ id: number }>(
         `SELECT id FROM verification_codes
-         WHERE destino = $1 AND usado = true AND expires_at > NOW() - INTERVAL '30 minutes'
+         WHERE destino = $1 AND usado = true AND created_at > NOW() - INTERVAL '60 minutes'
          ORDER BY created_at DESC LIMIT 1`,
         [destino]
     );

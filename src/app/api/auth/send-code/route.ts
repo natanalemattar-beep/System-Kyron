@@ -51,15 +51,6 @@ async function trySendViaTwilio(tipo: 'sms' | 'whatsapp', phone: string, codigo:
 
 export async function POST(req: NextRequest) {
   try {
-    // Verificación temprana: si no hay DB configurada en producción, dar error claro
-    if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
-      console.error('[send-code] POSTGRES_URL no está configurada en el entorno de producción.');
-      return NextResponse.json(
-        { error: 'El servicio de verificación no está disponible en este momento. Contacta soporte.' },
-        { status: 503 }
-      );
-    }
-
     const ip = getClientIP(req);
     const rl = rateLimit(`send-code:${ip}`, 5, 60 * 1000);
     if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs) as unknown as NextResponse;
@@ -110,91 +101,115 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Formato de correo invalido' }, { status: 400 });
       }
 
-      const [userConfig, recentCheck] = await Promise.all([
-        query<{ email_verificacion: string | null }>(
-          `SELECT cu.email_verificacion FROM configuracion_usuario cu
-           JOIN users u ON u.id = cu.user_id
-           WHERE u.email = $1`,
-          [destino]
-        ),
-        query<{ count: string }>(
+      // Chequeo de rate limit por destino (además del chequeo por IP de arriba)
+      let recentCount = 0;
+      try {
+        const recentCheck = await query<{ count: string }>(
           `SELECT COUNT(*) as count FROM verification_codes
            WHERE destino = $1 AND created_at > NOW() - INTERVAL '1 minute'`,
           [destino]
-        ),
-      ]);
-
-      const originalEmail = destino;
-      if (userConfig[0]?.email_verificacion) {
-        destino = userConfig[0].email_verificacion;
+        );
+        recentCount = parseInt(recentCheck[0]?.count ?? '0');
+      } catch (dbErr) {
+        console.error('[send-code] Error al verificar rate limit en DB:', dbErr);
+        return NextResponse.json(
+          { error: 'El servicio de verificación no está disponible. Verifica tu conexión o contacta soporte.' },
+          { status: 503 }
+        );
       }
 
-      if (parseInt(recentCheck[0]?.count ?? '0') >= 3) {
+      if (recentCount >= 3) {
         return NextResponse.json(
           { error: 'Demasiados intentos. Espera 1 minuto antes de solicitar otro codigo.' },
           { status: 429 }
         );
       }
 
-      const codigo = generateOTP();
-      
-      console.log(`[send-code] Generando código para ${originalEmail} (vía ${destino})`);
+      // Obtener email de verificación alternativo si el usuario lo tiene configurado
+      let emailDestino = destino;
+      let originalEmail = destino;
+      try {
+        const [userConfig, user] = await Promise.all([
+          query<{ email_verificacion: string | null }>(
+            `SELECT cu.email_verificacion FROM configuracion_usuario cu
+             JOIN users u ON u.id = cu.user_id
+             WHERE u.email = $1`,
+            [destino]
+          ),
+          queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [destino.toLowerCase()]),
+        ]);
+        if (userConfig[0]?.email_verificacion) {
+          emailDestino = userConfig[0].email_verificacion;
+        }
 
-      // Store code and magic token under originalEmail so verify-code can find them
-      // by the user's login email, regardless of which address receives the email.
-      const [, user] = await Promise.all([
-        query(
+        const codigo = generateOTP();
+        console.log(`[send-code] Generando código para ${originalEmail} (vía ${emailDestino})`);
+
+        // PASO 1: Guardar en DB PRIMERO — si falla aquí, el email no se envía
+        await query(
           `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) 
            VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', 'verification')`,
           [originalEmail.toLowerCase(), tipo, codigo]
-        ),
-        queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [originalEmail.toLowerCase()]),
-      ]);
+        );
 
-      const token = generateMagicToken();
-      // Prioridad: Vercel > NEXT_PUBLIC_APP_URL > fallback correcto a Vercel (ya NO a Replit)
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
-        ? process.env.NEXT_PUBLIC_APP_URL
-        : 'https://system-kyron.vercel.app';
-      const magicLink = `${baseUrl}/es/verify-link/${token}`;
-      // Store magic token under originalEmail so verify-link can find the user account
-      storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => {});
+        // PASO 2: Generar magic link y guardarlo
+        const token = generateMagicToken();
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost')
+          ? process.env.NEXT_PUBLIC_APP_URL
+          : 'https://system-kyron.vercel.app';
+        const magicLink = `${baseUrl}/es/verify-link/${token}`;
+        storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => {});
 
-      const html = buildKyronEmailTemplate({
-        title: 'Verificacion de Identidad',
-        body: 'Verifica tu identidad haciendo clic en el boton o ingresando el codigo de verificacion.',
-        code: codigo,
-        magicLink,
-        footer: 'Si no solicitaste este codigo, ignora este correo. El enlace y el codigo expiran en 10 minutos.',
-        type: 'verification',
-      });
+        // PASO 3: Construir y enviar email
+        const html = buildKyronEmailTemplate({
+          title: 'Verificacion de Identidad',
+          body: 'Verifica tu identidad haciendo clic en el boton o ingresando el codigo de verificacion.',
+          code: codigo,
+          magicLink,
+          footer: 'Si no solicitaste este codigo, ignora este correo. El enlace y el codigo expiran en 10 minutos.',
+          type: 'verification',
+        });
 
-      const result = await sendEmail({
-        to: destino,
-        subject: `${codigo} — Verificacion de Identidad · System Kyron`,
-        html,
-        module: 'auth',
-        purpose: 'verification',
-      }).catch(err => {
-        console.error('[send-code] Email send error:', err);
-        return { success: false, provider: 'none' as const, error: String(err) };
-      });
+        const result = await sendEmail({
+          to: emailDestino,
+          subject: `${codigo} — Verificacion de Identidad · System Kyron`,
+          html,
+          module: 'auth',
+          purpose: 'verification',
+        }).catch(err => {
+          console.error('[send-code] Email send error:', err);
+          return { success: false, provider: 'none' as const, error: String(err) };
+        });
 
-      if (!result.success) {
-        console.error(`[send-code] Fallo al enviar correo a ${destino}:`, result.error);
+        if (!result.success) {
+          console.error(`[send-code] Fallo al enviar correo a ${emailDestino}:`, result.error);
+          return NextResponse.json(
+            { error: 'No se pudo enviar el correo de verificacion. Revisa tu direccion de correo e intenta de nuevo.' },
+            { status: 502 }
+          );
+        }
+
+        return NextResponse.json({
+          success: true,
+          message: 'Codigo de verificacion enviado a tu correo electronico',
+          channel: tipo,
+          destination: emailDestino,
+          expiresIn: 600,
+        });
+
+      } catch (dbErr: any) {
+        console.error('[send-code] Error de DB en flujo de email:', dbErr);
+        if (dbErr.message?.includes('verification_codes')) {
+          return NextResponse.json(
+            { error: 'El sistema de verificación está siendo inicializado. Intenta en unos segundos.' },
+            { status: 503 }
+          );
+        }
         return NextResponse.json(
-          { error: 'No se pudo enviar el correo de verificacion. Revisa tu direccion de correo e intenta de nuevo.' },
-          { status: 502 }
+          { error: 'Error interno al procesar la solicitud de verificacion. Intenta de nuevo.' },
+          { status: 500 }
         );
       }
-
-      return NextResponse.json({
-        success: true,
-        message: 'Codigo de verificacion enviado a tu correo electronico',
-        channel: tipo,
-        destination: destino,
-        expiresIn: 600,
-      });
     }
 
     const recentCheck = await query<{ count: string }>(
