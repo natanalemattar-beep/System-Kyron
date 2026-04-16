@@ -13,45 +13,22 @@ export async function GET(req: NextRequest) {
       has_encryption_key: !!process.env.ENCRYPTION_KEY,
       node_env: process.env.NODE_ENV,
     },
-    tests: {},
+    tables: {},
   };
 
-  // Test 1: Basic Connection
   try {
-    const startTime = Date.now();
-    await query('SELECT 1');
-    results.tests.connection = { status: 'ok', latency: `${Date.now() - startTime}ms` };
+    const tableList = ['users', 'user_modules', 'activity_log', 'verification_codes'];
+    for (const table of tableList) {
+      const columns = await query(`
+        SELECT column_name, data_type, is_nullable
+        FROM information_schema.columns 
+        WHERE table_name = $1
+        ORDER BY ordinal_position
+      `, [table]);
+      results.tables[table] = columns;
+    }
   } catch (err: any) {
-    results.tests.connection = { status: 'error', message: err.message };
-  }
-
-  // Test 2: Table existence & Columns
-  try {
-    const tables = await query(`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema = 'public'
-    `);
-    const tableNames = (tables as any[]).map(t => t.table_name);
-    
-    // Get columns for users
-    const columns = await query(`
-      SELECT column_name, data_type 
-      FROM information_schema.columns 
-      WHERE table_name = 'users'
-    `);
-
-    results.tests.tables = {
-      count: tableNames.length,
-      names: tableNames,
-      users_columns: columns,
-      required_present: {
-        users: tableNames.includes('users'),
-        verification_codes: tableNames.includes('verification_codes'),
-      }
-    };
-  } catch (err: any) {
-    results.tests.tables = { status: 'error', message: err.message };
+    results.error = err.message;
   }
 
   return NextResponse.json(results);
