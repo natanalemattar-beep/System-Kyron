@@ -18,8 +18,14 @@ const SLOW_QUERY_THRESHOLD_MS = 300;
 export function getPool(): Pool {
     if (!globalForDb.pool) {
         const isProduction = process.env.NODE_ENV === 'production';
-        // Vercel inyecta POSTGRES_URL automáticamente con Supabase / neon / etc.
-        const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+        const rawConnectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+        
+        let connectionString = rawConnectionString;
+        if (rawConnectionString) {
+            // Limpia sslmode=require inyectado por Vercel para evitar SELF_SIGNED_CERT_IN_CHAIN en pg
+            connectionString = rawConnectionString.replace(/\?sslmode=[a-zA-Z\-]+/, '');
+            connectionString = connectionString.replace(/&sslmode=[a-zA-Z\-]+/, '');
+        }
         
         if (!connectionString) {
             console.warn('[db] AVISO: DATABASE_URL no está definida. La base de datos no funcionará.');
