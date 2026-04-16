@@ -14,6 +14,9 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -54,7 +57,11 @@ const nextConfig = {
       'react-intersection-observer',
       'input-otp',
     ],
+    serverActions: {
+      bodySizeLimit: '4mb',
+    },
   },
+
   allowedDevOrigins: ['*.replit.dev', '*.picard.replit.dev', '*.kirk.replit.dev', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev'],
   images: {
     remotePatterns: [
