@@ -18,10 +18,22 @@ const SLOW_QUERY_THRESHOLD_MS = 300;
 export function getPool(): Pool {
     if (!globalForDb.pool) {
         const isProduction = process.env.NODE_ENV === 'production';
-        // Vercel inyecta POSTGRES_URL automáticamente con Supabase / Neon / etc.
-        const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+        let connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
         
-        if (!connectionString) {
+        if (connectionString) {
+            try {
+                // Eliminar sslmode de forma SEGURA usando el parser de URLs de Node.
+                // Vercel inyecta ?sslmode=require, que sobrescribe la directiva ssl: {...} del Pool
+                // y causa el error "self-signed certificate". Al borrarlo usando la URL API
+                // conservamos cualquier otro parámetro importante (ej: supa=base-pooler.x).
+                const url = new URL(connectionString);
+                url.searchParams.delete('sslmode');
+                url.searchParams.delete('ssl');
+                connectionString = url.toString();
+            } catch (err) {
+                console.warn('[db] AVISO: No se pudo parsear la cadena de conexión.', err);
+            }
+        } else {
             console.warn('[db] AVISO: DATABASE_URL no está definida. La base de datos no funcionará.');
         }
 
