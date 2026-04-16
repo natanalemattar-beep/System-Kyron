@@ -110,10 +110,13 @@ export async function POST(req: NextRequest) {
           [destino]
         );
         recentCount = parseInt(recentCheck[0]?.count ?? '0');
-      } catch (dbErr) {
+      } catch (dbErr: any) {
         console.error('[send-code] Error al verificar rate limit en DB:', dbErr);
         return NextResponse.json(
-          { error: 'El servicio de verificación no está disponible. Verifica tu conexión o contacta soporte.' },
+          { 
+            error: 'El servicio de verificación no está disponible. Verifica tu conexión o contacta soporte.',
+            debugError: dbErr.message || String(dbErr)
+          },
           { status: 503 }
         );
       }
