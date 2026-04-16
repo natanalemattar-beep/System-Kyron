@@ -37,8 +37,7 @@ export async function POST(req: NextRequest) {
     } catch (err: any) {
         console.error('Register error:', err);
         return NextResponse.json({ 
-            error: 'Error interno del servidor', 
-            debugError: err.message || String(err)
+            error: `DB_CRASH: ${err.message || String(err)}`, 
         }, { status: 500 });
     }
 }
@@ -237,7 +236,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
     const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
 
-    const [user] = await query<{ id: number; email: string }>(
+    const [user] = await query<{ id: string; email: string }>(
         `INSERT INTO users (
             email, password_hash, tipo,
             nombre, razon_social, rif, tipo_empresa, actividad_economica, codigo_ciiu,
@@ -245,7 +244,7 @@ async function registerJuridico(body: Record<string, unknown>) {
             telefono, telefono_alt, estado_empresa, municipio_empresa, direccion,
             rep_nombre, rep_cedula, rep_email, rep_cargo, rep_telefono,
             plan, plan_monto,
-            verificado
+            verificado, email_verificado, telefono_verificado
          )
          VALUES ($1, $2, 'juridico',
                  $3, $4, $5, $6, $7, $8,
@@ -253,7 +252,7 @@ async function registerJuridico(body: Record<string, unknown>) {
                  $12, $13, $14, $15, $16,
                  $17, $18, $19, $20, $21,
                  $22, $23,
-                 $24)
+                 $24, $25, $26)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -279,16 +278,23 @@ async function registerJuridico(body: Record<string, unknown>) {
             validatedPlan,
             validatedPlanMonto,
             emailVerified || phoneVerified,
+            emailVerified,
+            phoneVerified,
         ]
     );
 
     if (Array.isArray(modules) && modules.length > 0) {
-        for (const mod of modules as Array<{ id: string; label: string }>) {
-            await query(
-                `INSERT INTO user_modules (user_id, module_id, module_label)
-                 VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
-                [user.id, mod.id, mod.label]
-            );
+        try {
+            for (const mod of modules as Array<{ id: string; label: string }>) {
+                await query(
+                    `INSERT INTO user_modules (user_id, module_id, module_label)
+                     VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
+                    [user.id, mod.id, mod.label]
+                );
+            }
+        } catch (modErr) {
+            console.error('[register] Fallo al insertar módulos (posible tabla faltante):', modErr);
+            // No crasheamos el registro por los módulos
         }
     }
 
