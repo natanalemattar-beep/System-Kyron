@@ -31,6 +31,11 @@ export async function POST(req: NextRequest) {
         content: sanitizeString(m.content, 2000),
       }));
 
+      return streamResponse({
+        system: PROMPTS.KYRON_FISCAL,
+        messages: trimmedHistory,
+        maxTokens: 8192,
+        temperature: 0.6,
         providers: ['gemini'],
         label: 'fiscal-chat',
       });

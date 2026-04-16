@@ -30,7 +30,7 @@ Productos menos vendidos: ${JSON.stringify(input.bottomProducts)}
 Genera 3 estrategias de combos, ventas cruzadas y fidelización.`;
 
   const result = await generateJSON<SalesStrategyOutput>(
-    ['openai', 'gemini', 'deepseek'],
+    ['gemini'],
     { system: SYSTEM, prompt, maxTokens: 2048 },
     'sales-strategy'
   );

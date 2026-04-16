@@ -19,7 +19,7 @@ const GACETA_SYSTEM = `**Rol:** Eres el "Asistente Consultor de la Gaceta 6.952"
 
 export async function consultGaceta6952(input: GacetaConsultantInput): Promise<GacetaConsultantOutput> {
   return generateTextWithFallback(
-    ['gemini', 'openai', 'deepseek'],
+    ['gemini'],
     { system: GACETA_SYSTEM, prompt: input.query, maxTokens: 2048, temperature: 0.1 },
     'gaceta-6952'
   );

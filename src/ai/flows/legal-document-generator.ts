@@ -27,7 +27,7 @@ ${input.specificClauses ?? 'Ninguno especificado.'}
 Escribe el documento completo con formato profesional.`;
 
   return generateTextWithFallback(
-    ['gemini', 'openai', 'deepseek'],
+    ['gemini'],
     { system: LEGAL_SYSTEM, prompt, maxTokens: 4096 },
     'legal-doc'
   );

@@ -27,7 +27,7 @@ export type PermisoTipo = {
   baseLegal?: string;
   urlBanco?: string;
   esPasarelaPago?: boolean;
-  aplica: ('comercio' | 'industria' | 'servicios' | 'construccion' | 'telecomunicaciones' | 'alimentos' | 'salud' | 'educacion' | 'transporte' | 'mineria' | 'ambiente' | 'turismo' | 'energia' | 'agricultura' | 'pesca' | 'petroleo' | 'financiero' | 'farmaceutico' | 'cultura' | 'deporte' | 'tecnologia' | 'todos')[];
+  aplica: ('comercio' | 'industria' | 'servicios' | 'construccion' | 'telecomunicaciones' | 'alimentos' | 'salud' | 'educacion' | 'transporte' | 'mineria' | 'ambiente' | 'turismo' | 'energia' | 'agricultura' | 'pesca' | 'petroleo' | 'financiero' | 'farmaceutico' | 'cultura' | 'deporte' | 'tecnologia' | 'seguridad' | 'manufactura' | 'banca' | 'seguros' | 'ingenieria' | 'todos')[];
 };
 
 export type PermisoRegistro = {

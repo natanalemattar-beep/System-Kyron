@@ -67,7 +67,7 @@ export async function sendSms(to: string, body: string): Promise<{ success: bool
     const client = await getTwilioClient();
     const creds = await getCredentials();
 
-    const msgOpts: Record<string, string> = { body, to };
+    const msgOpts: any = { body, to };
 
     if (creds.messagingServiceSid) {
       msgOpts.messagingServiceSid = creds.messagingServiceSid;

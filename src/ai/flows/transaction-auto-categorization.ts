@@ -20,7 +20,7 @@ Responde con JSON: { "category": "...", "confidence": 0-1 }`;
 
 export async function categorizeTransaction(input: CategorizeTransactionInput): Promise<CategorizeTransactionOutput> {
   const result = await generateJSON<CategorizeTransactionOutput>(
-    ['openai', 'gemini', 'deepseek'],
+    ['gemini'],
     { system: SYSTEM, prompt: `Descripción: ${input.transactionDescription}\nMonto: ${input.transactionAmount}` },
     'categorize-tx'
   );

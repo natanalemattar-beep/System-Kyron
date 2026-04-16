@@ -1,6 +1,4 @@
-import { getAnthropicClient, getOpenAIClient, getGeminiClient, MODELS, cleanJSON } from '@/ai/providers';
-const CLAUDE_MODEL = MODELS.CLAUDE;
-const OPENAI_MODEL = MODELS.OPENAI;
+import { getGeminiClient, MODELS, cleanJSON } from '@/ai/providers';
 const GEMINI_MODEL = MODELS.GEMINI;
 import { readFile } from 'fs/promises';
 import path from 'path';
@@ -18,7 +16,7 @@ export interface CalidadImagenSection extends AnalysisSection {
 }
 
 export interface AIProviderResult {
-  provider: 'claude' | 'openai' | 'gemini';
+  provider: 'gemini';
   disponible: boolean;
   visual_puntaje: number;
   calidad_puntaje: number;
@@ -388,97 +386,6 @@ function parseVeredicto(val: unknown): 'autentico' | 'sospechoso' | 'fraudulento
   return 'sospechoso';
 }
 
-async function analyzeWithClaude(
-  base64: string, mediaType: string, docCategory: string, fileName: string
-): Promise<AIProviderResult> {
-  try {
-    const client = getAnthropicClient();
-    const response = await client.messages.create({
-      model: CLAUDE_MODEL,
-      max_tokens: 2400,
-      temperature: 0,
-      system: VISION_SYSTEM_PROMPT,
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'image', source: { type: 'base64', media_type: mediaType as any, data: base64 } },
-          { type: 'text', text: `Analiza este documento. Categoría: "${docCategory}". Archivo: "${fileName}". Evalúa calidad, autenticidad y contenido.` },
-        ],
-      }],
-    });
-    const text = response.content[0]?.type === 'text' ? response.content[0].text : '';
-    const parsed = JSON.parse(cleanJSON(text));
-
-    return {
-      provider: 'claude',
-      disponible: true,
-      visual_puntaje: parseAIScore(parsed.consistencia_visual?.puntaje, 50),
-      calidad_puntaje: parseAIScore(parsed.calidad_imagen?.puntaje, 50),
-      contenido_puntaje: parseAIScore(parsed.contenido?.puntaje, 50),
-      es_borrosa: parsed.calidad_imagen?.es_borrosa === true,
-      nivel_nitidez: parseNitidez(parsed.calidad_imagen?.nivel_nitidez),
-      veredicto_individual: parseVeredicto(parsed.veredicto),
-      alertas: Array.isArray(parsed.alertas) ? parsed.alertas : [],
-      detalles_clave: Array.isArray(parsed.detalles_clave) ? parsed.detalles_clave : [],
-      resumen: String(parsed.resumen || ''),
-    };
-  } catch (err) {
-    console.error('[verifier] Claude error:', err);
-    return {
-      provider: 'claude', disponible: false,
-      visual_puntaje: 0, calidad_puntaje: 0, contenido_puntaje: 0,
-      es_borrosa: false, nivel_nitidez: 'media', veredicto_individual: 'sospechoso',
-      alertas: [], detalles_clave: [], resumen: '', error: String(err),
-    };
-  }
-}
-
-async function analyzeWithOpenAI(
-  base64: string, mediaType: string, docCategory: string, fileName: string
-): Promise<AIProviderResult> {
-  try {
-    const client = getOpenAIClient();
-    const response = await client.chat.completions.create({
-      model: OPENAI_MODEL,
-      max_tokens: 2400,
-      temperature: 0,
-      messages: [
-        { role: 'system', content: VISION_SYSTEM_PROMPT },
-        {
-          role: 'user',
-          content: [
-            { type: 'image_url', image_url: { url: `data:${mediaType};base64,${base64}`, detail: 'high' } },
-            { type: 'text', text: `Analiza este documento. Categoría: "${docCategory}". Archivo: "${fileName}". Evalúa calidad, autenticidad y contenido.` },
-          ],
-        },
-      ],
-    });
-    const text = response.choices[0]?.message?.content ?? '';
-    const parsed = JSON.parse(cleanJSON(text));
-
-    return {
-      provider: 'openai',
-      disponible: true,
-      visual_puntaje: parseAIScore(parsed.consistencia_visual?.puntaje, 50),
-      calidad_puntaje: parseAIScore(parsed.calidad_imagen?.puntaje, 50),
-      contenido_puntaje: parseAIScore(parsed.contenido?.puntaje, 50),
-      es_borrosa: parsed.calidad_imagen?.es_borrosa === true,
-      nivel_nitidez: parseNitidez(parsed.calidad_imagen?.nivel_nitidez),
-      veredicto_individual: parseVeredicto(parsed.veredicto),
-      alertas: Array.isArray(parsed.alertas) ? parsed.alertas : [],
-      detalles_clave: Array.isArray(parsed.detalles_clave) ? parsed.detalles_clave : [],
-      resumen: String(parsed.resumen || ''),
-    };
-  } catch (err) {
-    console.error('[verifier] OpenAI error:', err);
-    return {
-      provider: 'openai', disponible: false,
-      visual_puntaje: 0, calidad_puntaje: 0, contenido_puntaje: 0,
-      es_borrosa: false, nivel_nitidez: 'media', veredicto_individual: 'sospechoso',
-      alertas: [], detalles_clave: [], resumen: '', error: String(err),
-    };
-  }
-}
 
 async function analyzeWithGemini(
   base64: string, mediaType: string, docCategory: string, fileName: string
@@ -602,9 +509,8 @@ function computeConsensus(providers: AIProviderResult[]): {
   }
 
   for (const p of activos) {
-    const label = p.provider === 'claude' ? 'Claude' : p.provider === 'openai' ? 'OpenAI' : 'Gemini';
-    calidadDetalles.push(`${label}: nitidez ${p.nivel_nitidez}${p.es_borrosa ? ' (borrosa)' : ''} — ${p.calidad_puntaje}%`);
-    contenidoDetalles.push(`${label}: contenido ${p.contenido_puntaje}%`);
+    calidadDetalles.push(`Gemini: nitidez ${p.nivel_nitidez}${p.es_borrosa ? ' (borrosa)' : ''} — ${p.calidad_puntaje}%`);
+    contenidoDetalles.push(`Gemini: contenido ${p.contenido_puntaje}%`);
   }
 
   const bestProvider = activos.sort((a, b) =>
@@ -724,20 +630,20 @@ export async function verifyDocument(
 
   if (isImage) {
     const base64 = buffer.toString('base64');
-    const timeoutFallback = (provider: 'claude' | 'openai' | 'gemini'): AIProviderResult => ({
+    const timeoutFallback = (provider: 'gemini'): AIProviderResult => ({
       provider, disponible: false,
       visual_puntaje: 0, calidad_puntaje: 0, contenido_puntaje: 0,
       es_borrosa: false, nivel_nitidez: 'media', veredicto_individual: 'sospechoso',
       alertas: [], detalles_clave: [], resumen: '', error: 'Timeout',
     });
 
-    const [claude, openai, gemini] = await Promise.all([
-      withTimeout(analyzeWithClaude(base64, mimeType, docCategory, originalName), AI_TIMEOUT_MS, timeoutFallback('claude')),
-      withTimeout(analyzeWithOpenAI(base64, mimeType, docCategory, originalName), AI_TIMEOUT_MS, timeoutFallback('openai')),
-      withTimeout(analyzeWithGemini(base64, mimeType, docCategory, originalName), AI_TIMEOUT_MS, timeoutFallback('gemini')),
-    ]);
+    const gemini = await withTimeout(
+      analyzeWithGemini(base64, mimeType, docCategory, originalName), 
+      AI_TIMEOUT_MS, 
+      timeoutFallback('gemini')
+    );
 
-    const result = computeConsensus([claude, openai, gemini]);
+    const result = computeConsensus([gemini]);
     consistencia_visual = result.visual;
     calidad_imagen      = result.calidad_imagen;
     contenido           = result.contenido;

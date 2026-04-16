@@ -15,7 +15,7 @@ Considera contexto hispanoamericano/venezolano para expresiones coloquiales.`;
 
 export async function analyzeSentiment(input: AnalyzeSentimentInput): Promise<AnalyzeSentimentOutput> {
   const result = await generateJSON<AnalyzeSentimentOutput>(
-    ['openai', 'gemini', 'deepseek'],
+    ['gemini'],
     { system: SYSTEM, prompt: `Texto a analizar: ${input.textToAnalyze}` },
     'sentiment'
   );

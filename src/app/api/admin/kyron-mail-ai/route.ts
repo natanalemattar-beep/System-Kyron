@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     }
 
     const raw = await generateTextWithFallback(
-      ['gemini', 'deepseek', 'openai', 'anthropic'],
+      ['gemini'],
       { system: PROMPTS.KYRON_MAIL, prompt: prompt.trim(), maxTokens: 1500, temperature: 0.7 },
       'kyron-mail-ai'
     );
