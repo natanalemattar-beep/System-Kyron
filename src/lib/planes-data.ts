@@ -84,8 +84,8 @@ export const PLANES: PlanKyron[] = [
     ahorroAnualUSD: 70, ahorroAnualPorcentaje: 20, color: '#0EA5E9',
     descripcion: 'Paquete completo: Contabilidad + Facturación + Mi Línea.',
     destacado: false, etiqueta: 'AHORRA 30%',
-    limites: { consultasAI: 100, alertasFiscales: 30, alertasRegulatorias: 15, facturasMensuales: 200, empleadosNomina: 5, clientesCRM: 200, documentosLegales: 30, lineasTelecom: 5, reportesMensuales: 10, usuariosConcurrentes: 3, almacenamientoGB: 10, chatAIMensajes: 150, simuladorMultas: 20, exportacionesExcel: 20, consultasRIF: 50, declaracionesAsistidas: 6, blockchainProofs: 50 },
-    modulosIncluidos: ['Todo en Personal +', 'Asesoría Contable VEN-NIF', 'Facturación SENIAT (200/mes)', 'Mi Línea (5 líneas)', 'Centro Tributario completo', 'Simulador de multas COT', 'Declaraciones asistidas (6/año)', 'Blockchain audit trail', '3 usuarios'],
+    limites: { consultasAI: 250, alertasFiscales: 50, alertasRegulatorias: 30, facturasMensuales: 500, empleadosNomina: 15, clientesCRM: 500, documentosLegales: 50, lineasTelecom: 10, reportesMensuales: 20, usuariosConcurrentes: 5, almacenamientoGB: 25, chatAIMensajes: 500, simuladorMultas: 50, exportacionesExcel: 50, consultasRIF: 100, declaracionesAsistidas: 12, blockchainProofs: 100 },
+    modulosIncluidos: ['Todo en Personal +', 'Asesoría Contable VEN-NIF Pro', 'Facturación SENIAT (500/mes)', 'Mi Línea (10 líneas)', 'IA Avanzada (250 consultas)', 'Bóveda Digital (25GB)', 'Auditoría Fiscal en Tiempo Real', 'Simulador de multas COT Pro', 'Declaraciones asistidas (12/año)', '5 usuarios'],
   },
   {
     id: 'empresarial', nombre: 'Empresarial', nombreCompleto: 'Kyron Empresarial',

@@ -171,21 +171,14 @@ async function registerJuridico(body: Record<string, unknown>) {
         }, { status: 403 });
     }
 
-    const VALID_PLANS: Record<string, number> = {
-        contable_esencial: 8, contable_profesional: 18, contable_avanzado: 35, contable_max: 60,
-        basico_2gb: 3, conecta_5gb: 5, plus_10gb: 8, global_25gb: 14, ultra_50gb: 22, infinite: 35,
-        juridica_basico: 15, juridica_plus: 35, juridica_pro: 65, juridica_max: 120,
-        legal_basico: 5, legal_profesional: 15, legal_escritorio: 30, legal_max: 50,
-        fact_basico: 6, fact_comercial: 15, fact_enterprise: 30, fact_max: 50,
-        socios_basico: 10, socios_profesional: 25, socios_enterprise: 45,
-    };
+    const { VALID_PLANS_MAP } = await import('@/lib/planes-kyron');
     let validatedPlan: string | null = null;
     let validatedPlanMonto: number | null = null;
     if (plan && typeof plan === 'string') {
         const planKey = plan.toLowerCase().trim();
-        if (planKey in VALID_PLANS) {
+        if (planKey in VALID_PLANS_MAP) {
             validatedPlan = planKey;
-            validatedPlanMonto = VALID_PLANS[planKey];
+            validatedPlanMonto = VALID_PLANS_MAP[planKey];
         }
     }
 
@@ -236,7 +229,7 @@ async function registerJuridico(body: Record<string, unknown>) {
     const sanitizedCodigoCiiu = codigo_ciiu ? sanitizeString(String(codigo_ciiu), 10) : '';
     const repNombreStr = sanitizeString((repNombre ?? '') as string, 200);
 
-    const [user] = await query<{ id: string; email: string }>(
+    const results = await query<{ id: string; email: string }>(
         `INSERT INTO users (
             email, password_hash, tipo,
             nombre, razon_social, rif, tipo_empresa, actividad_economica, codigo_ciiu,
@@ -282,6 +275,11 @@ async function registerJuridico(body: Record<string, unknown>) {
             phoneVerified,
         ]
     );
+
+    if (!results || results.length === 0) {
+        throw new Error('No se pudo crear el usuario jurídico (INSERT retornó vacío)');
+    }
+    const user = results[0];
 
     if (Array.isArray(modules) && modules.length > 0) {
         try {

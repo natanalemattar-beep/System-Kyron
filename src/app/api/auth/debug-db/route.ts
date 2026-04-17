@@ -68,7 +68,19 @@ export async function POST(req: NextRequest) {
     );
     // Cleanup if it worked magically
     await query("DELETE FROM users WHERE email = 'debug_test_empresa@kyron.com'");
-    return NextResponse.json({ success: true, inserted: res });
+        // Check Plan Mapping
+        const { VALID_PLANS_MAP } = await import('@/lib/planes-kyron');
+        const results: any[] = [];
+        results.push({
+            name: 'Plan Configuration',
+            status: VALID_PLANS_MAP ? 'OK' : 'ERROR',
+            details: {
+                total_plans_mapped: Object.keys(VALID_PLANS_MAP).length,
+                mapped_tiers: Object.keys(VALID_PLANS_MAP).filter(k => ['personal', 'profesional', 'empresarial'].includes(k))
+            }
+        });
+
+        return NextResponse.json({ success: true, timestamp: new Date().toISOString(), results });
   } catch (err: any) {
     return NextResponse.json({ 
       success: false, 

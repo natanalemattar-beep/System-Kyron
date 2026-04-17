@@ -89,8 +89,63 @@ export async function generateTextWithFallback(
   opts: GenerateTextOpts,
   label: string
 ): Promise<string> {
-  if (!isAvailable('gemini')) throw new Error('Gemini AI not available');
-  return generateText('gemini', opts);
+  const isAvailableStatus = isAvailable('gemini');
+  
+  if (!isAvailableStatus) {
+    if (label === 'analyze-dashboard') {
+      console.warn('[AI] Gemini not available. Using Rule-Based Analytics Fallback.');
+      return generateSimulatedAnalysis(opts.prompt);
+    }
+    throw new Error('Gemini AI not available');
+  }
+
+  try {
+    return await generateText('gemini', opts);
+  } catch (err: any) {
+    if (label === 'analyze-dashboard') {
+      console.warn('[AI] Gemini call failed. Using Rule-Based Fallback. Error:', err.message);
+      return generateSimulatedAnalysis(opts.prompt);
+    }
+    throw err;
+  }
+}
+
+function generateSimulatedAnalysis(prompt: string): string {
+  // Simple heuristic analysis for when AI fails
+  try {
+    const dataMatch = prompt.match(/DATOS COMPLETOS DEL DASHBOARD:\n([\s\S]*)\n\nRealiza/);
+    if (!dataMatch) return "No se pudieron extraer datos para el análisis simulado.";
+    
+    const data = JSON.parse(dataMatch[1]);
+    const fin = data.resumenFinanciero || {};
+    const varMoM = data.variacionesMensuales || {};
+    
+    const health = fin.utilidadNeta > 0 ? "Positivo" : "Requiere Atención";
+    const trend = varMoM.ingresos > 0 ? "Crecimiento" : "Contracción";
+
+    return `## 📊 Diagnóstico Ejecutivo (Modo Resiliencia)
+El sistema detecta un estado **${health}** con una tendencia de **${trend}**. El análisis inteligente completo requiere la configuración de la API Key en el servidor.
+
+## 🔑 Indicadores Clave
+- **Ingresos**: ${fin.ingresosMesActual || 0}
+- **Gastos**: ${fin.gastosMesActual || 0}
+- **Utilidad**: ${fin.utilidadNeta || 0}
+- **Variación Ingresos**: ${varMoM.ingresos || 0}%
+
+## ⚠️ Alertas y Riesgos
+${fin.gastosMesActual > fin.ingresosMesActual ? "- **Déficit Operativo**: Los gastos superan los ingresos." : "- **Salud Financiera**: El flujo es positivo."}
+${data.cartera?.cuentasPorCobrar?.total > 1000 ? "- **Cartera Pendiente**: Nivel de cuentas por cobrar considerable." : ""}
+
+## 💡 Recomendaciones Estratégicas
+1. Monitorear de cerca los gastos operativos del próximo ciclo.
+2. Incentivar la cobranza de facturas pendientes.
+3. Configurar la API Key de Gemini para obtener recomendaciones avanzadas basadas en IA.
+
+---
+*Nota: Este análisis fue generado mediante el motor de reglas de System Kyron debido a la indisponibilidad temporal del proveedor de IA.*`;
+  } catch {
+    return "Análisis financiero simplificado: El sistema está operativo pero requiere configuración de IA para detalles profundos.";
+  }
 }
 
 export async function generateJSON<T>(

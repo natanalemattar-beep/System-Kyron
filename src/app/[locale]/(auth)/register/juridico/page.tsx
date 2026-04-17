@@ -186,7 +186,7 @@ export default function RegisterJuridicoPage() {
       const res = await fetch('/api/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino, tipo: verifMethod }),
+        body: JSON.stringify({ destino, tipo: verifMethod, proposito: 'registration' }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -215,7 +215,7 @@ export default function RegisterJuridicoPage() {
       const res = await fetch('/api/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: code }),
+        body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -386,30 +386,65 @@ export default function RegisterJuridicoPage() {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <Card className="bg-card border-border shadow-lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-xl text-foreground">
-            <div className="p-2 bg-primary/10 rounded-lg"><Building className="h-5 w-5 text-primary" /></div>
-            Registro de Persona Jurídica
-          </CardTitle>
-          <CardDescription className="text-muted-foreground">
-            {step < TOTAL_STEPS
-              ? `Paso ${step} de ${TOTAL_STEPS - 1} · ${stepLabels[step - 1]}`
-              : stepLabels[TOTAL_STEPS - 1]}
-          </CardDescription>
-          <Progress value={progressValue} className="mt-3" />
-          {step < TOTAL_STEPS && (
-            <div className="flex gap-1 mt-2">
-              {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i < step ? 'bg-primary' : 'bg-border'}`} />
-              ))}
-            </div>
-          )}
-        </CardHeader>
+    <div className="relative min-h-screen py-12 px-4">
+      {/* Background elements to match dashboard */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="bg-orb bg-orb--primary opacity-[0.03] dark:opacity-[0.05]" />
+        <div className="bg-orb bg-orb--cyan opacity-[0.02] dark:opacity-[0.04]" />
+        <div className="absolute inset-0 bg-mesh-light dark:bg-mesh-dark opacity-20" />
+      </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="space-y-5">
+      <div className="relative z-10 w-full max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="liquid-glass-apple border-white/[0.05] shadow-2xl overflow-hidden rounded-3xl">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-3xl -mr-24 -mt-24 pointer-events-none" />
+            
+            <CardHeader className="space-y-4 pb-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-lg shadow-primary/20">
+                    <Building className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl font-black tracking-tight uppercase italic kyron-gradient-text">
+                      Registro Empresarial
+                    </CardTitle>
+                    <CardDescription className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground/50">
+                      Onboarding Corporativo System Kyron
+                    </CardDescription>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-black tracking-widest text-primary uppercase">
+                    Paso {step} de {TOTAL_STEPS - 1}
+                  </span>
+                  <p className="text-xs font-bold text-foreground/70">{stepLabels[step - 1]}</p>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Progress value={progressValue} className="h-1.5 bg-primary/5" />
+                <div className="flex gap-1.5">
+                  {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={cn(
+                        "h-1 flex-1 rounded-full transition-all duration-500",
+                        i < step ? "bg-primary shadow-[0_0_8px_hsla(var(--primary),0.5)]" : "bg-muted/10"
+                      )} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </CardHeader>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <CardContent className="space-y-6">
 
             {step === 1 && (
               <>
@@ -878,6 +913,8 @@ export default function RegisterJuridicoPage() {
           )}
         </form>
       </Card>
+    </motion.div>
+      </div>
     </div>
   );
 }

@@ -345,142 +345,184 @@ export default function DashboardEmpresaPage() {
 
   const variacionIcon = (v: number) => v > 0 ? <ArrowUpRight className="h-3 w-3" /> : v < 0 ? <ArrowDownRight className="h-3 w-3" /> : null;
   const variacionColor = (v: number, invert = false) => { if (v === 0) return "text-muted-foreground"; return (invert ? v < 0 : v > 0) ? "text-emerald-400" : "text-rose-400"; };
-  const facturasPie = data ? [{ name: "Cobradas", value: data.facturas.cobradas }, { name: "Emitidas", value: data.facturas.emitidas }, { name: "Pagadas", value: data.facturas.pagadas }, { name: "Vencidas", value: data.facturas.vencidas }].filter(d => d.value > 0) : [];
+  const facturasPie = useMemo(() => {
+    if (!data?.facturas) return [];
+    return [
+      { name: "Cobradas", value: data.facturas.cobradas },
+      { name: "Emitidas", value: data.facturas.emitidas },
+      { name: "Pagadas", value: data.facturas.pagadas },
+      { name: "Vencidas", value: data.facturas.vencidas }
+    ].filter(d => d.value > 0);
+  }, [data]);
   const GreetingIcon = greeting?.icon ?? Sun;
 
   return (
-    <div className="space-y-5 pb-16 max-w-6xl mx-auto">
-      <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
-      <SeasonalBanner />
-      <motion.header
-        initial={{ opacity: 0, y: -20, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0a1225] via-[#101d38] to-[#0d162c] dark:from-[#1a2a3a] dark:via-[#202d3a] dark:to-[#1d2a35] p-6 md:p-8 text-white mt-4 md:mt-6 shadow-lg dark:shadow-cyan-500/[0.15]"
-      >
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.06] blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] rounded-full bg-indigo-500/[0.04] blur-[80px]" />
-        </div>
+    <div className="relative min-h-screen pb-20">
+      {/* Background Orbs and Mesh */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="bg-orb bg-orb--primary opacity-[0.05] dark:opacity-[0.08]" />
+        <div className="bg-orb bg-orb--cyan opacity-[0.04] dark:opacity-[0.06]" />
+        <div className="bg-orb bg-orb--emerald opacity-[0.03] dark:opacity-[0.05]" />
+        <div className="absolute inset-0 bg-mesh-light dark:bg-mesh-dark opacity-40" />
+        <div className="absolute inset-0 hud-grid opacity-[0.03] dark:opacity-[0.05]" />
+      </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/15">
-                <Building2 className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  {activeEvent ? (
-                    <span className="text-lg">{activeEvent.emoji}</span>
-                  ) : (
-                    greeting && <GreetingIcon className="h-4 w-4 text-amber-300/60" />
+      <div className="relative z-10 space-y-6 max-w-7xl mx-auto px-4 md:px-6">
+        <ModuleTutorial config={moduleTutorials["dashboard-empresa"]} />
+        <SeasonalBanner />
+
+        {/* Header Ultra-Premium */}
+        <motion.header
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative mt-6 group"
+        >
+          <div className="absolute -inset-1 bg-gradient-to-r from-kyron-cyan/20 via-primary/20 to-kyron-emerald/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+          <div className="relative liquid-glass-apple p-6 md:p-8 rounded-3xl overflow-hidden border-white/[0.05] shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[80px] -mr-32 -mt-32" />
+            
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-lg shadow-primary/20 relative">
+                    <Building2 className="h-7 w-7 text-white" />
+                    <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 border-2 border-background flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                       <h1 className="text-2xl md:text-3xl font-black tracking-tighter kyron-gradient-text uppercase italic">
+                        {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
+                      </h1>
+                      {activeEvent && <span className="text-2xl animate-bounce-subtle">{activeEvent.emoji}</span>}
+                    </div>
+                    <p className="text-xs font-bold text-muted-foreground/60 tracking-widest uppercase flex items-center gap-2">
+                      <Calendar className="h-3 w-3" /> {clientDateStr ?? ""} <span className="opacity-30">•</span> <Clock className="h-3 w-3" /> {clientTimeStr ?? ""}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap items-center gap-3">
+                  {data?.tasaBCV && (
+                    <div className="px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-black tracking-widest text-primary">
+                      USD/VES {data.tasaBCV.usd_ves.toFixed(2)}
+                    </div>
                   )}
-                  <h1 className="text-lg md:text-xl font-bold tracking-tight">
-                    {activeEvent ? activeEvent.saludo : (greeting?.text ?? "Hola")}{user?.nombre ? `, ${user.nombre.split(" ")[0]}` : ""}
-                  </h1>
+                  {healthScore && !loading && (
+                    <div className={cn("px-3 py-1 rounded-full border text-[10px] font-black tracking-widest flex items-center gap-2", 
+                      healthScore.score >= 80 ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" : "bg-primary/10 border-primary/20 text-primary"
+                    )}>
+                      <Activity className="h-3 w-3" /> {healthScore.score}% SALUD FISCAL
+                    </div>
+                  )}
                 </div>
-                <p className="text-[11px] text-white/35 font-medium capitalize">{clientDateStr ?? ""} · {clientTimeStr ?? ""}</p>
+              </div>
+
+              <div className="flex gap-4 flex-wrap items-center">
+                <CurrencySelector className="border-border/40 bg-background/40 backdrop-blur-md h-12 rounded-xl" />
+                <div className="h-8 w-[1px] bg-border/40 hidden md:block mx-1" />
+                <Button variant="ghost" size="icon" className="rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={() => fetchDashboard(true)} disabled={refreshing}>
+                  <RefreshCw className={cn("h-4 w-4", refreshing && "animate-spin")} />
+                </Button>
+                <Button variant="ghost" size="icon" className="rounded-xl hover:bg-primary/5 text-muted-foreground transition-colors" onClick={handleAuditoria}>
+                  <History className="h-4 w-4" />
+                </Button>
+                <Button onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading} className="px-8 rounded-xl bg-primary text-primary-foreground font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                  <BrainCircuit className="h-4 w-4 mr-2" /> Kyron AI
+                </Button>
+                <Button onClick={() => { setClosingData(null); setShowCierre(true); }} className="px-8 rounded-xl bg-background/50 border border-border/40 hover:bg-background/80 font-bold text-xs uppercase tracking-widest transition-all">
+                  <Lock className="h-4 w-4 mr-2" /> Cierre Fiscal
+                </Button>
               </div>
             </div>
-            <div className="flex items-center gap-2.5 mt-1">
-              <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400/80 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> En línea
-              </span>
-              {data?.tasaBCV && (
-                <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/45 font-mono">
-                  USD/VES {data.tasaBCV.usd_ves.toFixed(2)}
-                </span>
-              )}
-              {healthScore && !loading && (
-                <span className={cn("text-[10px] px-2.5 py-0.5 rounded-lg bg-white/[0.04] border border-white/[0.06] font-semibold flex items-center gap-1.5", healthScore.color)}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                  {healthScore.score}% · {healthScore.label}
-                </span>
-              )}
-            </div>
           </div>
-          <div className="flex gap-2 flex-wrap no-print items-center">
-            <CurrencySelector className="border-white/10 bg-white/[0.04]" />
-            <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-[10px] font-medium text-white/40 hover:text-white hover:bg-white/[0.05]" onClick={() => fetchDashboard(true)} disabled={refreshing}>
-              <RefreshCw className={cn("h-3.5 w-3.5 mr-1.5", refreshing && "animate-spin")} /> Actualizar
-            </Button>
-            <Button variant="ghost" size="sm" className="h-8 px-3 rounded-lg text-[10px] font-medium text-white/40 hover:text-white hover:bg-white/[0.05]" onClick={handleAuditoria}>
-              <History className="h-3.5 w-3.5 mr-1.5" /> Auditoría
-            </Button>
-            <Button size="sm" className="h-8 px-4 rounded-lg text-[10px] font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-400 hover:to-blue-400 shadow-md shadow-cyan-500/15" onClick={handleAIAnalysis} disabled={aiLoading || aiStreaming || loading}>
-              <BrainCircuit className="h-3.5 w-3.5 mr-1.5" /> IA
-            </Button>
-            <Button size="sm" className="h-8 px-4 rounded-lg text-[10px] font-medium bg-white/[0.06] border border-white/[0.08] text-white hover:bg-white/[0.1]" onClick={() => { setClosingData(null); setShowCierre(true); }}>
-              <Lock className="h-3.5 w-3.5 mr-1.5" /> Cerrar Período
-            </Button>
-          </div>
+        </motion.header>
+
+        {/* KPIs Grid - Glass Style */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: "INGRESOS", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones.ingresos, icon: TrendingUp, color: "text-emerald-500", glow: "shadow-emerald-500/10", sparkData: sparklineData.ingresos },
+            { label: "GASTOS", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", glow: "shadow-rose-500/10", sparkData: sparklineData.gastos },
+            { label: "UTILIDAD", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", glow: "shadow-amber-500/10", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
+            { label: "LIQUIDEZ", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-primary", glow: "shadow-primary/10", sparkData: [] },
+          ].map((kpi, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + i * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="relative group cursor-pointer"
+            >
+              <div className={cn("kyron-surface p-5 h-full border-border/30 hover:border-primary/20 transition-all duration-500", kpi.glow)}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className={cn("p-2 rounded-lg bg-opacity-10 bg-current", kpi.color)}>
+                      <kpi.icon className="h-4 w-4" />
+                    </div>
+                    <span className="text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase">{kpi.label}</span>
+                  </div>
+                  {kpi.variacion !== undefined && (
+                    <div className={cn("text-[10px] font-black px-2 py-0.5 rounded-full bg-opacity-10 bg-current", variacionColor(kpi.variacion, kpi.invertVariacion))}>
+                      {kpi.variacion > 0 ? "+" : ""}{kpi.variacion}%
+                    </div>
+                  )}
+                </div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-black tracking-tighter text-foreground tabular-nums">
+                    {loading ? <div className="h-8 w-32 bg-muted/20 rounded-lg animate-pulse" /> : kpi.value}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[10px] font-medium text-muted-foreground/40 uppercase tracking-wider">Flujo Mensual</p>
+                    <div className="opacity-50 group-hover:opacity-100 transition-opacity">
+                      {kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color="currentColor" />}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Decorative background element */}
+                <div className={cn("absolute bottom-0 right-0 w-16 h-16 opacity-[0.03] -mr-4 -mb-4 transition-transform group-hover:scale-150 duration-700", kpi.color)}>
+                  <kpi.icon className="w-full h-full" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </motion.header>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {[
-          { label: "Ingresos", value: data ? fmtCur(data.ingresos) : "—", variacion: data?.variaciones.ingresos, icon: TrendingUp, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", sparkColor: "#10b981", sparkData: sparklineData.ingresos },
-          { label: "Gastos", value: data ? fmtCur(data.gastos) : "—", variacion: data?.variaciones.gastos, invertVariacion: true, icon: TrendingDown, color: "text-rose-500", bg: "bg-rose-500/8", ring: "ring-rose-500/10", sparkColor: "#f43f5e", sparkData: sparklineData.gastos },
-          { label: "Utilidad Neta", value: data ? fmtCur(data.utilidadNeta) : "—", variacion: data?.variaciones.utilidad, icon: Zap, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", sparkColor: "#f59e0b", sparkData: sparklineData.ingresos.map((v, i) => v - (sparklineData.gastos[i] || 0)) },
-          { label: "Liquidez", value: data ? fmtCur(data.liquidezTotal) : "—", icon: Wallet, color: "text-blue-500", bg: "bg-blue-500/8", ring: "ring-blue-500/10", sparkColor: "#3b82f6", sparkData: [] as number[] },
-        ].map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.08 + i * 0.06, duration: 0.5, ease: "easeOut" }} whileHover={{ y: -4 }}>
-            <Card className={cn("group border border-border/30 rounded-xl overflow-hidden h-full bg-card/80 transition-all hover:shadow-lg hover:shadow-black/[0.05] duration-500 ring-0 hover:ring-4 cursor-pointer", kpi.ring)}>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-semibold text-muted-foreground/60">{kpi.label}</span>
-                  <motion.div className={cn("h-8 w-8 rounded-lg flex items-center justify-center group-hover:scale-120 transition-transform duration-300", kpi.bg)} whileHover={{ scale: 1.2, rotate: 5 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                    <kpi.icon className={cn("h-4 w-4", kpi.color)} />
-                  </motion.div>
+        {/* Secondary Stats - Interactive Strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { label: "Clientes", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", href: "/fidelizacion-clientes" },
+            { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", href: "/dashboard-rrhh" },
+            { label: "Facturas", value: data?.facturasEsteMes?.count ?? 0, icon: Receipt, color: "text-amber-500", extra: data?.facturasEsteMes?.monto ? formatRaw(convert(data.facturasEsteMes.monto)) : null, href: "/facturacion" },
+            { label: "Alertas", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", href: "/notificaciones", alert: (data?.notificacionesNoLeidas ?? 0) > 0 },
+          ].map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 + i * 0.05 }}
+            >
+              <Link href={stat.href as never}>
+                <div className="liquid-glass-subtle p-4 rounded-2xl flex items-center gap-4 hover:bg-background/40 transition-all group overflow-hidden relative">
+                  <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform", 
+                    "bg-opacity-10 bg-current", stat.color
+                  )}>
+                    <stat.icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-lg font-black tracking-tighter">{loading ? "—" : stat.value}</p>
+                    <p className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-widest">{stat.label}</p>
+                  </div>
+                  {stat.extra && <div className="ml-auto text-[10px] font-bold text-muted-foreground/20 hidden xl:block">{curConfig.symbol}{stat.extra}</div>}
+                  {stat.alert && <span className="absolute top-3 right-3 w-2 h-2 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse" />}
                 </div>
-                {loading ? (
-                  <div className="h-7 w-28 bg-muted/20 rounded-lg animate-pulse" />
-                ) : (
-                  <div className="flex items-end justify-between gap-2">
-                    <p className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground truncate">{kpi.value}</p>
-                    <div className="hidden sm:block">{kpi.sparkData && kpi.sparkData.length > 1 && <MiniSparkline data={kpi.sparkData} color={kpi.sparkColor || "#888"} />}</div>
-                  </div>
-                )}
-                {kpi.variacion !== undefined && !loading && (
-                  <div className={cn("flex items-center gap-1 mt-1.5 text-[10px] font-semibold", variacionColor(kpi.variacion, kpi.invertVariacion))}>
-                    {variacionIcon(kpi.variacion)}
-                    <span>{kpi.variacion > 0 ? "+" : ""}{kpi.variacion}% vs mes anterior</span>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { label: "Clientes Activos", value: data?.clientesActivos ?? 0, icon: Users, color: "text-cyan-500", bg: "bg-cyan-500/8", ring: "ring-cyan-500/10", href: "/fidelizacion-clientes" },
-          { label: "Empleados", value: data?.empleados ?? 0, icon: Briefcase, color: "text-emerald-500", bg: "bg-emerald-500/8", ring: "ring-emerald-500/10", href: "/dashboard-rrhh" },
-          { label: "Facturas del Mes", value: data?.facturasEsteMes.count ?? 0, icon: Receipt, color: "text-amber-500", bg: "bg-amber-500/8", ring: "ring-amber-500/10", extra: data?.facturasEsteMes.monto ? fmtCur(data.facturasEsteMes.monto) : undefined, href: "/facturacion" },
-          { label: "Notificaciones", value: data?.notificacionesNoLeidas ?? 0, icon: Bell, color: "text-indigo-500", bg: "bg-indigo-500/8", ring: "ring-indigo-500/10", alert: (data?.notificacionesNoLeidas ?? 0) > 0, href: "/notificaciones" },
-        ].map((stat, i) => (
-          <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: "easeOut" }} whileHover={{ x: 4 }}>
-            <Link href={stat.href as never}>
-              <div className={cn("flex items-center gap-3 p-3.5 rounded-xl border border-border/30 bg-card/60 hover:bg-card hover:shadow-lg hover:shadow-black/[0.06] transition-all duration-500 cursor-pointer group ring-0 hover:ring-4", stat.ring)}>
-                <motion.div className={cn("h-9 w-9 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300", stat.bg)} whileHover={{ scale: 1.15 }}>
-                  <stat.icon className={cn("h-4 w-4", stat.color)} />
-                </motion.div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <p className="text-base font-bold tracking-tight">{loading ? "—" : stat.value}</p>
-                    {stat.extra && !loading && <span className="text-[11px] text-muted-foreground/35">{stat.extra}</span>}
-                  </div>
-                  <p className="text-[10px] font-medium text-muted-foreground/50 truncate">{stat.label}</p>
-                </div>
-                {stat.alert && <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />}
-                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/15 group-hover:text-foreground/30 group-hover:translate-x-0.5 transition-all shrink-0" />
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <motion.div className="lg:col-span-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.6, ease: "easeOut" }} whileHover={{ y: -2 }}>
@@ -692,8 +734,11 @@ export default function DashboardEmpresaPage() {
           <Card className="border border-border/30 rounded-xl bg-gradient-to-b from-[#0a1225] to-card/90 p-4 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-cyan-500/[0.06] blur-[40px]" />
             <div className="relative z-10">
-              <h3 className="text-sm font-bold mb-1 text-white/90">Escenarios IA</h3>
-              <p className="text-[11px] text-white/30 mb-3">Modelado predictivo</p>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-bold text-white/90">Escenarios IA</h3>
+                <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] font-black italic">PRO</Badge>
+              </div>
+              <p className="text-[11px] text-white/30 mb-3">Modelado predictivo avanzado</p>
               <div className="space-y-1.5">
                 <Button size="sm" variant="outline" className="w-full h-8 text-[10px] font-medium rounded-lg border-white/8 bg-white/[0.02] text-white/60 hover:bg-emerald-500/15 hover:border-emerald-500/15 hover:text-emerald-300 justify-start"
                   onClick={() => { const a = data ? data.ingresos * 1.2 : 0; toast({ title: "Ventas +20%", description: `Ingresos: ${fmtCur(a)} · Utilidad: ${fmtCur(a - (data?.gastos ?? 0))}` }); }}>
@@ -706,6 +751,51 @@ export default function DashboardEmpresaPage() {
               </div>
             </div>
           </Card>
+
+          <Card className="border border-primary/20 rounded-xl bg-card/80 p-4 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-2 opacity-5">
+              <Zap className="h-12 w-12 text-primary" />
+            </div>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[11px] font-black text-foreground/60 uppercase tracking-widest">Plan Professional</span>
+              <Sparkles className="h-3.5 w-3.5 text-primary animate-pulse" />
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
+                  <span className="text-muted-foreground">Empleados</span>
+                  <span className="text-foreground">{data?.empleados ?? 0} / 15</span>
+                </div>
+                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-primary transition-all duration-1000" 
+                    style={{ width: `${Math.min(((data?.empleados ?? 0) / 15) * 100, 100)}%` }} 
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
+                  <span className="text-muted-foreground">Consultas IA</span>
+                  <span className="text-foreground">124 / 250</span>
+                </div>
+                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-kyron-cyan w-[49.6%] transition-all duration-1000" />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-tight">
+                  <span className="text-muted-foreground">Almacenamiento Cloud</span>
+                  <span className="text-foreground">4.2 GB / 25 GB</span>
+                </div>
+                <div className="h-1.5 w-full bg-muted/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 w-[16.8%] transition-all duration-1000" />
+                </div>
+              </div>
+            </div>
+          </Card>
+
 
           <Card className="border border-border/30 rounded-xl bg-card/80 p-4">
             <span className="text-[11px] font-semibold text-foreground/60 mb-3 block">Nómina</span>
@@ -1093,5 +1183,6 @@ export default function DashboardEmpresaPage() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  </div>
+);
 }

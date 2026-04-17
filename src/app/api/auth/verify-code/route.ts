@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
 
     if (body.email && body.code) {
       const normalizedEmail = sanitizeEmail(body.email);
-      const result = await verifyCode(normalizedEmail, body.code.trim());
+      const proposito = body.proposito || 'verification';
+      const result = await verifyCode(normalizedEmail, body.code.trim(), proposito);
 
       if (!result.valid) {
         return NextResponse.json({ error: result.error }, { status: 401 });
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest) {
         descripcion: `Inicio de sesión verificado: ${displayName} (${user.email})`,
         entidadTipo: 'usuario',
         entidadId: user.id,
-        metadata: { email: user.email, tipo: user.tipo, verificado: true },
+        metadata: { email: user.email, tipo: user.tipo, verificado: true, proposito },
       });
 
       return res;
@@ -94,13 +95,14 @@ export async function POST(req: NextRequest) {
     if (body.destino && body.codigo) {
       const destino = String(body.destino).trim().toLowerCase();
       const codigo = String(body.codigo).trim();
+      const proposito = body.proposito || 'verification';
 
       if (!destino || !codigo) {
         return NextResponse.json({ error: 'Destino y código son requeridos' }, { status: 400 });
       }
 
-      console.log(`[verify-code] Verificando destino: ${destino}`);
-      const result = await verifyCode(destino, codigo);
+      console.log(`[verify-code] Verificando destino: ${destino} para propósito: ${proposito}`);
+      const result = await verifyCode(destino, codigo, proposito);
 
       if (!result.valid) {
         const status = result.error?.includes('Demasiados') ? 429 : 400;
@@ -109,6 +111,7 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({ success: true, verified: true, message: 'Identidad confirmada.' });
     }
+
 
     return NextResponse.json({ error: 'Datos de verificación incompletos' }, { status: 400 });
   } catch (err) {

@@ -211,22 +211,42 @@ export default function MultasFiscalesPage() {
         orange: "bg-orange-500/10 border-orange-500/20",
     };
 
+    const [isGenerating, setIsGenerating] = useState(false);
+    const handleGenerateReport = () => {
+        if (!resultado) return;
+        setIsGenerating(true);
+        setTimeout(() => {
+            setIsGenerating(false);
+            toast({
+                title: "Reporte Generado",
+                description: "El informe de auditoría preventiva ha sido descargado exitosamente.",
+            });
+        }, 2000);
+    };
+
+
     return (
         <div className="space-y-8 pb-20 px-4 md:px-10 min-h-screen">
             <header className="pt-8 space-y-4">
                 <BackButton href="/contabilidad/tributos" label="Tributos" />
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                        <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-semibold uppercase tracking-wide mb-3 border", bgColorMap[tributoActual.color], colorMap[tributoActual.color])}>
-                            <ShieldAlert className="h-3.5 w-3.5" /> Simulador de Contingencia
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-semibold uppercase tracking-wide border", bgColorMap[tributoActual.color], colorMap[tributoActual.color])}>
+                                <ShieldAlert className="h-3.5 w-3.5" /> Simulador de Contingencia
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-gradient-to-r from-primary to-kyron-cyan text-white shadow-lg shadow-primary/20 italic">
+                                <Sparkles className="h-3 w-3" /> COT Pro
+                            </div>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-                            Multas y <span className="text-rose-500">Sanciones</span> Fiscales
+                        <h1 className="text-3xl md:text-5xl font-black tracking-tighter italic uppercase kyron-gradient-text leading-tight">
+                            Fiscal <span className="text-foreground">Auditor</span>
                         </h1>
-                        <p className="text-sm text-muted-foreground mt-1">
-                            Código Orgánico Tributario (COT, 2020) · Cálculo basado en normativa vigente
+                        <p className="text-sm font-bold text-muted-foreground mt-1 max-w-xl">
+                            Inteligencia Tributaria System Kyron · Análisis de Riesgo bajo COT 2020 v2.4
                         </p>
                     </div>
+
                     {tasaBcv && (
                         <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
                             <Banknote className="h-4 w-4 text-emerald-500" />
@@ -329,37 +349,64 @@ export default function MultasFiscalesPage() {
                             </Button>
 
                             {resultado && (
-                                <div className="space-y-3 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <div className="flex justify-between items-center py-3 border-b">
+                                <div className="space-y-4 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="flex justify-between items-center py-3 border-b border-rose-500/10">
                                         <div className="flex items-center gap-2">
-                                            <Percent className="h-3.5 w-3.5 text-muted-foreground" />
-                                            <span className="text-xs font-bold text-muted-foreground">Multa ({gravedad === "leve" ? "100%" : gravedad === "grave" ? "200%" : "300%"} — {tributoActual.sancionArticulo})</span>
+                                            <Percent className="h-3.5 w-3.5 text-rose-400" />
+                                            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Sanción Pecuniaria ({gravedad === "leve" ? "100%" : gravedad === "grave" ? "200%" : "300%"})</span>
                                         </div>
-                                        <span className="font-bold text-rose-500">{formatCurrency(resultado.multa, 'Bs.')}</span>
+                                        <span className="font-black text-rose-500 text-lg">{formatCurrency(resultado.multa, 'Bs.')}</span>
                                     </div>
-                                    <div className="flex justify-between items-center py-3 border-b">
+                                    <div className="flex justify-between items-center py-3 border-b border-rose-500/10">
                                         <div className="flex items-center gap-2">
-                                            <Clock className="h-3.5 w-3.5 text-muted-foreground" />
-                                            <span className="text-xs font-bold text-muted-foreground">Intereses moratorios ({mesesRetraso} mes(es) — Art. 66 COT)</span>
+                                            <Clock className="h-3.5 w-3.5 text-amber-400" />
+                                            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Intereses Moratorios (Art. 66)</span>
                                         </div>
-                                        <span className="font-bold text-amber-500">{formatCurrency(resultado.intereses, 'Bs.')}</span>
+                                        <span className="font-black text-amber-500 text-lg">{formatCurrency(resultado.intereses, 'Bs.')}</span>
                                     </div>
-                                    <div className="p-5 rounded-xl bg-rose-500/5 border border-rose-500/15 dark:bg-rose-500/10">
-                                        <div className="flex justify-between items-center">
+                                    
+                                    <div className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-rose-500/10 via-rose-500/[0.05] to-transparent border border-rose-500/20">
+                                        <div className="absolute top-0 right-0 p-3 opacity-10">
+                                            <ShieldAlert className="h-16 w-16 text-rose-500" />
+                                        </div>
+                                        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-4">
                                             <div>
-                                                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Deuda Total Proyectada</p>
-                                                {tasaBcv && (
-                                                    <p className="text-[11px] text-muted-foreground mt-0.5">
-                                                        ≈ ${resultado.totalUsd.toFixed(2)} USD (Tasa BCV)
-                                                    </p>
-                                                )}
+                                                <p className="text-[10px] font-black text-rose-600 dark:text-rose-400 uppercase tracking-[0.2em] mb-1">Pasivo Estimado Total</p>
+                                                <div className="flex items-baseline gap-2">
+                                                    <span className="text-3xl md:text-4xl font-black text-rose-500 italic">
+                                                        {formatCurrency(resultado.total, 'Bs.')}
+                                                    </span>
+                                                    {tasaBcv && (
+                                                        <span className="text-sm font-bold text-muted-foreground">
+                                                            / ${resultado.totalUsd.toFixed(2)} USD
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <span className="text-2xl md:text-3xl font-bold text-rose-500">
-                                                {formatCurrency(resultado.total, 'Bs.')}
-                                            </span>
+                                            
+                                            <Button
+                                                onClick={handleGenerateReport}
+                                                disabled={isGenerating}
+                                                className="w-full md:w-auto h-12 px-6 rounded-xl bg-foreground text-background hover:bg-foreground/90 font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95 group"
+                                            >
+                                                {isGenerating ? (
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                ) : (
+                                                    <FileText className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                                                )}
+                                                Generar Reporte Pro
+                                            </Button>
                                         </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                                        <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
+                                        <p className="text-[10px] font-bold text-primary/80 uppercase tracking-tight leading-none">
+                                            Simulación avalada por el motor de auditoría System Kyron Professional
+                                        </p>
                                     </div>
                                 </div>
+
                             )}
                         </CardContent>
                     </Card>

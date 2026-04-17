@@ -4,87 +4,87 @@
 
 @layer base {
   :root {
-    --background: 210 20% 96%;
+    --background: 210 25% 98%;
     --foreground: 222 47% 11%;
 
-    --card: 210 18% 98%;
+    --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
 
-    --popover: 210 18% 98%;
+    --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 213 82% 44%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 72% 30%;
+    --secondary: 161 72% 38%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 214 14% 90%;
-    --muted-foreground: 218 16% 38%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 16% 93%;
-    --accent-foreground: 222 47% 12%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 76% 46%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 214 14% 84%;
-    --input: 214 14% 84%;
-    --ring: 213 82% 44%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
 
-    --radius: 1.5rem;
+    --radius: 1rem;
 
-    --kyron-cyan: 188 94% 34%;
-    --kyron-emerald: 156 76% 30%;
-    --kyron-indigo: 242 76% 50%;
-    --kyron-gold: 40 88% 44%;
-    --kyron-violet: 268 72% 48%;
+    --kyron-cyan: 191 91% 50%;
+    --kyron-emerald: 156 72% 45%;
+    --kyron-indigo: 239 84% 67%;
+    --kyron-gold: 45 93% 47%;
+    --kyron-violet: 262 83% 58%;
 
-    --glass-bg: rgba(255, 255, 255, 0.72);
-    --glass-border: rgba(255, 255, 255, 0.45);
-    --glass-shadow: rgba(14, 165, 233, 0.06);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
     --glass-highlight: rgba(255, 255, 255, 0.9);
   }
 
   .dark {
-    --background: 224 28% 8%;
-    --foreground: 210 20% 92%;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 224 24% 11%;
-    --card-foreground: 210 20% 92%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 224 24% 11%;
-    --popover-foreground: 210 20% 92%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
 
-    --primary: 199 89% 48%;
-    --primary-foreground: 222 47% 5%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 160 72% 36%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 224 18% 16%;
-    --muted-foreground: 215 16% 58%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
 
-    --accent: 224 18% 14%;
-    --accent-foreground: 210 20% 92%;
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 224 14% 18%;
-    --input: 224 14% 18%;
-    --ring: 199 89% 48%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 216 34% 17%;
 
-    --kyron-cyan: 188 94% 42%;
-    --kyron-emerald: 156 76% 40%;
-    --kyron-indigo: 242 76% 62%;
-    --kyron-gold: 40 88% 52%;
-    --kyron-violet: 268 72% 58%;
+    --kyron-cyan: 191 91% 50%;
+    --kyron-emerald: 156 72% 45%;
+    --kyron-indigo: 239 84% 67%;
+    --kyron-gold: 45 93% 47%;
+    --kyron-violet: 262 83% 58%;
 
-    --glass-bg: rgba(15, 20, 35, 0.65);
+    --glass-bg: rgba(15, 23, 42, 0.5);
     --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: rgba(14, 165, 233, 0.08);
-    --glass-highlight: rgba(255, 255, 255, 0.04);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --glass-highlight: rgba(255, 255, 255, 0.02);
   }
 }
 
@@ -1410,3 +1410,103 @@ input[type="search"]::-webkit-search-cancel-button {
 .dark-immersive-form input { color: var(--di-fg) !important; }
 .dark-immersive-form input::placeholder { color: var(--di-muted) !important; }
 .dark-immersive-form a:hover { color: var(--di-fg-80) !important; }
+  /* --- Elite Glassmorphism Utilities --- */
+  .glass-elite {
+    @apply relative overflow-hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .dark .glass-elite {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-elite-interactive {
+    @apply glass-elite transition-all duration-500 cursor-pointer;
+  }
+
+  .glass-elite-interactive:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 
+      0 20px 40px -12px rgba(0, 0, 0, 0.5),
+      0 0 20px 0 rgba(14, 165, 233, 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(var(--primary), 0.5);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  }
+
+  /* --- Premium Animations --- */
+  @keyframes mesh-drift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  .animate-mesh-drift {
+    background-size: 200% 200%;
+    animation: mesh-drift 20s ease infinite;
+  }
+
+  @keyframes premium-shine {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+  }
+
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-effect::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transform: rotate(30deg);
+    animation: premium-shine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* --- Scroll Driven Animations --- */
+  .reveal-on-scroll {
+    view-timeline-name: --reveal;
+    view-timeline-axis: block;
+    animation-timeline: --reveal;
+    animation-name: reveal-anim;
+    animation-range: entry 10% cover 30%;
+    animation-fill-mode: both;
+  }
+
+  @keyframes reveal-anim {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }

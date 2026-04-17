@@ -13,7 +13,7 @@ function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; max
     const width = (value / maxValue) * 100;
 
     return (
-        <div ref={ref} className="w-full h-3 rounded-full bg-gray-100 dark:bg-white/[0.04] overflow-hidden">
+        <div ref={ref} className="w-full h-3 rounded-full bg-white/[0.04] overflow-hidden border border-white/5">
             <motion.div
                 className={cn("h-full rounded-full", color)}
                 initial={{ width: 0 }}
@@ -46,18 +46,26 @@ function AnimatedNumber({ target, suffix = '', duration = 2000 }: { target: numb
 }
 
 const competitorStyles = [
-    { color: 'bg-gradient-to-r from-cyan-400 to-blue-500', textColor: 'text-cyan-400', isFastest: true },
-    { color: 'bg-gradient-to-r from-orange-400/40 to-orange-500/40', textColor: 'text-orange-400/60' },
-    { color: 'bg-gradient-to-r from-red-400/30 to-red-500/30', textColor: 'text-red-400/50' },
-    { color: 'bg-gradient-to-r from-gray-400/20 to-gray-500/20', textColor: 'text-gray-400/40' },
+    { color: 'bg-gradient-to-r from-cyan-400 to-blue-600', textColor: 'text-cyan-400', isFastest: true },
+    { color: 'bg-white/10', textColor: 'text-white/30' },
+    { color: 'bg-white/5', textColor: 'text-white/20' },
+    { color: 'bg-white/5', textColor: 'text-white/20' },
 ];
 
 const metricConfigs = [
-    { icon: Timer, color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-700', border: 'border-cyan-500/20', bg: 'bg-cyan-500/5' },
-    { icon: TrendingUp, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', border: 'border-emerald-500/20', bg: 'bg-emerald-500/5' },
-    { icon: Clock, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-700', border: 'border-violet-500/20', bg: 'bg-violet-500/5' },
-    { icon: Gauge, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-700', border: 'border-amber-500/20', bg: 'bg-amber-500/5' },
+    { icon: Timer, color: 'text-cyan-400', gradient: 'from-cyan-500 to-blue-700', border: 'border-white/5', bg: 'bg-white/2' },
+    { icon: TrendingUp, color: 'text-emerald-400', gradient: 'from-emerald-500 to-green-700', border: 'border-white/5', bg: 'bg-white/2' },
+    { icon: Clock, color: 'text-violet-400', gradient: 'from-violet-500 to-purple-700', border: 'border-white/5', bg: 'bg-white/2' },
+    { icon: Gauge, color: 'text-amber-400', gradient: 'from-amber-500 to-orange-700', border: 'border-white/5', bg: 'bg-white/2' },
 ];
+
+function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
+    return (
+        <span className={cn("inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest", className)}>
+            {children}
+        </span>
+    );
+}
 
 export function FeaturesSection() {
     const animate = true;
@@ -66,124 +74,123 @@ export function FeaturesSection() {
     const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
 
     return (
-        <section id="caracteristicas" className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-bl from-violet-50/70 via-fuchsia-50/40 to-rose-50/50 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]">
+        <section id="caracteristicas" className="py-24 md:py-40 relative overflow-hidden bg-[#050816]">
+            {/* Background elements */}
             <div className="absolute inset-0 -z-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/15 to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/15 to-transparent" />
-                <div className="absolute top-[20%] right-[5%] w-[500px] h-[500px] rounded-full bg-cyan-500/[0.03] blur-[150px]" />
-                <div className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-emerald-500/[0.02] blur-[120px]" />
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+                <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/[0.05] blur-[150px] animate-mesh-drift" />
+                <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-purple-500/[0.03] blur-[150px]" />
             </div>
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                 <motion.div
-                    className="mb-20 md:mb-24 space-y-5 text-center"
-                    initial={animate ? { opacity: 0, y: 40 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="mb-24 md:mb-32 space-y-6 text-center reveal-on-scroll"
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400 mx-auto">
-                        <Zap className="h-3.5 w-3.5" />
-                        {t('badge')}
+                    <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md transition-all group mx-auto">
+                        <Zap className="h-4 w-4 text-emerald-400" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-200/80">{t('badge')}</span>
                     </div>
-                    <h2 className="text-[clamp(2rem,5vw,4rem)] font-black tracking-[-0.02em] text-foreground leading-[0.95]">
-                        <span className="text-foreground">{t('title_highlight')}</span>{' '}
-                        <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">{t('title_rest')}</span>
+                    
+                    <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] leading-[0.95] text-white">
+                        <span className="opacity-90">{t('title_highlight')}</span>{' '}
+                        <span className="block text-glow-cyan mt-2">{t('title_rest')}</span>
                     </h2>
-                    <p className="text-muted-foreground max-w-xl mx-auto font-medium text-base leading-relaxed">
+                    
+                    <p className="text-lg text-cyan-100/40 max-w-2xl mx-auto font-medium leading-relaxed">
                         {t('subtitle')}
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+                {/* Performance Comparison & Metrics */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 items-stretch">
+                    
+                    {/* Speed Comparison Card */}
                     <motion.div
-                        className="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] p-8"
-                        initial={animate ? { opacity: 0, x: -30 } : undefined}
-                        whileInView={animate ? { opacity: 1, x: 0 } : undefined}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className="lg:col-span-12 xl:col-span-7 glass-elite p-8 md:p-10 reveal-on-scroll"
+                        style={{ animationDelay: '0.2s' }}
                     >
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-700 shadow-lg">
-                                <Gauge className="h-4 w-4 text-white" />
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30 font-black">
+                                <Gauge className="h-6 w-6" />
                             </div>
-                            <div>
-                                <h3 className="text-sm font-bold text-foreground">{t('speed_title')}</h3>
-                                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-muted-foreground/30">{t('speed_subtitle')}</p>
+                            <div className="text-left">
+                                <h3 className="text-xl font-black text-white">{t('speed_title')}</h3>
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">{t('speed_subtitle')}</p>
                             </div>
                         </div>
 
-                        <div className="space-y-5">
+                        <div className="space-y-8">
                             {competitors.map((comp, i) => {
                                 const style = competitorStyles[i] || competitorStyles[competitorStyles.length - 1];
                                 return (
-                                    <div key={comp.name} className="space-y-2">
+                                    <div key={comp.name} className="space-y-3 group">
                                         <div className="flex items-center justify-between">
-                                            <span className={cn("text-xs font-bold", style.isFastest ? style.textColor : 'text-muted-foreground/40')}>
-                                                {comp.name}
+                                            <div className="flex items-center gap-3">
+                                                <span className={cn("text-sm font-black tracking-tight transition-colors", style.isFastest ? "text-cyan-400" : "text-white/30")}>
+                                                    {comp.name}
+                                                </span>
                                                 {style.isFastest && (
-                                                    <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[7px] font-bold uppercase tracking-[0.15em] text-cyan-400">
-                                                        <Zap className="h-2 w-2" /> {t('fastest')}
-                                                    </span>
+                                                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-[8px] font-black h-5 uppercase tracking-widest">
+                                                        ELITE PERFORMANCE
+                                                    </Badge>
                                                 )}
-                                            </span>
-                                            <span className={cn("text-xs font-bold tabular-nums", style.textColor)}>
+                                            </div>
+                                            <span className={cn("text-sm font-black tabular-nums transition-colors", style.isFastest ? "text-cyan-400" : "text-white/20")}>
                                                 {comp.speed}ms
                                             </span>
                                         </div>
-                                        <AnimatedBar value={comp.speed} maxValue={1200} color={style.color} delay={i * 0.15} />
+                                        <AnimatedBar value={comp.speed} maxValue={1200} color={style.color} delay={i * 0.1} />
                                     </div>
                                 );
                             })}
                         </div>
                     </motion.div>
 
-                    <motion.div
-                        className="grid grid-cols-2 gap-4"
-                        initial={animate ? { opacity: 0, x: 30 } : undefined}
-                        whileInView={animate ? { opacity: 1, x: 0 } : undefined}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    >
+                    {/* Metrics Grid */}
+                    <div className="lg:col-span-12 xl:col-span-5 grid grid-cols-2 gap-6 reveal-on-scroll" style={{ animationDelay: '0.4s' }}>
                         {metrics.map((metric, i) => {
                             const config = metricConfigs[i];
                             return (
-                                <motion.div
+                                <div
                                     key={i}
                                     className={cn(
-                                        "group flex flex-col items-center justify-center text-center p-6 rounded-2xl border-2 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl cursor-default",
-                                        config.border,
-                                        config.bg
+                                        "glass-elite-interactive p-8 flex flex-col items-center justify-center group text-center border-white/5",
+                                        "hover:bg-cyan-500/5 hover:border-cyan-500/20"
                                     )}
-                                    initial={animate ? { opacity: 0, y: 20 } : undefined}
-                                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1, duration: 0.6 }}
                                 >
-                                    <div className={cn("p-3 rounded-xl bg-gradient-to-br shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300", config.gradient)}>
-                                        <config.icon className="h-5 w-5 text-white" />
+                                    <div className={cn("h-14 w-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6", 
+                                        "bg-white/5 border border-white/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-500/30"
+                                    )}>
+                                        <config.icon className="h-6 w-6 text-cyan-400" />
                                     </div>
-                                    <p className={cn("text-4xl font-black tracking-tight mb-2", config.color)}>
+                                    <span className="text-4xl md:text-5xl font-black tracking-tighter text-white mb-2 underline decoration-cyan-500/30 underline-offset-8">
                                         <AnimatedNumber target={metric.value} suffix={metric.suffix} />
-                                    </p>
-                                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/55 leading-tight">
+                                    </span>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
                                         {metric.label}
                                     </p>
-                                </motion.div>
+                                </div>
                             );
                         })}
-                    </motion.div>
+                    </div>
                 </div>
 
+                {/* Final CTA Strip */}
                 <motion.div
-                    className="flex justify-center"
-                    initial={animate ? { opacity: 0, y: 15 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
+                    className="flex justify-center mt-32 reveal-on-scroll"
                 >
-                    <Link href="/prueba-velocidad" className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-[0.2em] shadow-[0_8px_32px_-4px_rgba(14,165,233,0.3)] hover:shadow-[0_16px_48px_-8px_rgba(14,165,233,0.4)] hover:scale-[1.03] transition-all duration-500">
-                        {t('cta')} <ArrowRight className="h-4 w-4 group-hover:translate-x-1.5 transition-transform" />
+                    <Link href="/manual-usuario" className="group relative glass-elite px-12 py-6 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 shine-effect block">
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="flex items-center gap-4 relative z-10">
+                            <div className="h-10 w-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
+                                <Sparkles className="h-5 w-5" />
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-[0.3em] text-white">
+                                EXPLORAR EL ECOSISTEMA KYRON
+                            </span>
+                            <ArrowRight className="h-5 w-5 text-cyan-400 group-hover:translate-x-2 transition-transform" />
+                        </div>
                     </Link>
                 </motion.div>
             </div>

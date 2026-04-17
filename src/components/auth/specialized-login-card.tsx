@@ -9,8 +9,7 @@ import {
   UserPlus, Eye, EyeOff, TriangleAlert, Mail, Lock, KeyRound, RotateCcw, Sparkles, Zap,
   Smartphone, MessageSquare, MessageCircle, Fingerprint, CheckCircle, RefreshCw, Construction
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { Link } from '@/navigation';
+import { Link, useRouter } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { Logo } from '@/components/logo';
@@ -172,8 +171,13 @@ export function SpecializedLoginCard({
       }
       toast({ title: 'Acceso concedido', description: `Bienvenido, ${json.user?.nombre ?? ''}.`, action: <CircleCheck className="text-emerald-500 h-4 w-4" /> });
       router.push(redirectPath as any);
-    } catch (err) {
-      setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet e intenta de nuevo.' : 'Error inesperado. Intenta de nuevo.');
+    } catch (err: any) {
+      console.error('[Login] Connection error:', err);
+      const isNet = isNetworkError(err);
+      setError(isNet 
+        ? 'Error de conexión. El servidor no responde o no tienes internet.' 
+        : `Error: ${err.message || 'Error inesperado'}`);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -197,45 +201,6 @@ export function SpecializedLoginCard({
     const channelName = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
     toast({ title: `${channelName} en construcción`, description: `La verificación por ${channelName} estará disponible próximamente. Usa tu correo electrónico para iniciar sesión.`, action: <Construction className="text-amber-500 h-4 w-4" /> });
     return;
-    const formData = new FormData(event.currentTarget);
-    const phone = (formData.get('phone') as string || '').trim();
-    if (!phone) { setError('Ingresa tu número de teléfono'); return; }
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('/api/auth/login-phone', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, method: phoneMethod }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json.error || 'Error al enviar código.');
-        setIsLoading(false);
-        return;
-      }
-      if (json.requiresVerification) {
-        setVerificationEmail(json.email);
-        setMaskedPhone(json.maskedPhone || '');
-        setUserName(json.nombre || '');
-        setHasPhone(true);
-        setChallengeToken(json.challengeToken || '');
-        setDevCode(null);
-        setVerificationMethod(phoneMethod);
-        setStep('verification');
-        setCountdown(600);
-        setCodeDigits(['', '', '', '', '', '']);
-        setIsLoading(false);
-        const channelLabel = phoneMethod === 'sms' ? 'SMS' : 'WhatsApp';
-        const icon = phoneMethod === 'sms'
-          ? <Smartphone className="text-emerald-500 h-4 w-4" />
-          : <MessageCircle className="text-green-500 h-4 w-4" />;
-        toast({ title: `Código enviado por ${channelLabel}`, description: `Revisa tu ${channelLabel} en ${json.maskedPhone}`, action: icon });
-      }
-    } catch (err) {
-      setError(isNetworkError(err) ? 'Error de conexión. Verifica tu internet.' : 'Error inesperado. Intenta de nuevo.');
-      setIsLoading(false);
-    }
   };
 
   const submitCode = async (code: string) => {

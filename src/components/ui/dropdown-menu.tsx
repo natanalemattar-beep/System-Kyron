@@ -27,8 +27,8 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
-      inset && "pl-8",
+      "flex cursor-default select-none items-center rounded-xl px-4 py-3 text-base font-medium outline-none focus:bg-accent data-[state=open]:bg-accent",
+      inset && "pl-10",
       className
     )}
     {...props}
@@ -84,8 +84,8 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-pointer select-none items-center rounded-xl px-3 py-2 text-sm font-medium outline-none transition-colors focus:bg-primary/5 focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      inset && "pl-8",
+      "relative flex cursor-pointer select-none items-center rounded-xl px-4 py-3 text-base font-medium outline-none transition-colors focus:bg-primary/5 focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-10",
       className
     )}
     {...props}
@@ -148,8 +148,8 @@ const DropdownMenuLabel = React.forwardRef<
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
-      "px-3 py-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground/70",
-      inset && "pl-8",
+      "px-4 py-3 text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-1",
+      inset && "pl-10",
       className
     )}
     {...props}

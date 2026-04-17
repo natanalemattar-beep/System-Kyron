@@ -25,7 +25,7 @@ export async function GET() {
             (SELECT COUNT(*) FROM page_visits WHERE created_at >= NOW() - INTERVAL '7 days') AS visits_week,
             (SELECT COUNT(*) FROM page_visits WHERE created_at >= NOW() - INTERVAL '5 minutes') AS active_now,
             (SELECT COUNT(DISTINCT visitor_id) FROM page_visits WHERE visitor_id IS NOT NULL) AS unique_visitors,
-            (SELECT COUNT(*) FROM users) AS registered_users,
+            (SELECT COUNT(*) FROM users WHERE tipo = 'natural') AS registered_users,
             (SELECT COUNT(*) FROM users WHERE tipo = 'juridico') AS registered_companies
         `);
         const r = result.rows[0] || {};

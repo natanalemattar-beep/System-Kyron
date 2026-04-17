@@ -60,32 +60,45 @@ export async function verifyMagicToken(token: string): Promise<{ valid: boolean;
   return { valid: true, email: record.destino, userId: user?.id };
 }
 
-export async function storeCode(email: string, code: string, _userId: number): Promise<void> {
+export type VerificationPurpose = 'verification' | 'registration' | '2fa' | 'reset_password' | 'sensitive_action' | 'magic_link';
+
+export async function storeCode(
+  destino: string, 
+  code: string, 
+  proposito: VerificationPurpose = 'verification',
+  tipo: 'email' | 'sms' | 'whatsapp' = 'email'
+): Promise<void> {
   const expiresAt = new Date(Date.now() + CODE_EXPIRY_MS);
   await query(
     `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito)
-     VALUES ($1, 'email', $2, $3, 'verification')`,
-    [email.toLowerCase(), code, expiresAt]
+     VALUES ($1, $2, $3, $4, $5)`,
+    [destino.toLowerCase(), tipo, code, expiresAt, proposito]
   );
 }
 
-export async function verifyCode(email: string, inputCode: string): Promise<{ valid: boolean; userId?: number; error?: string }> {
-  const key = email.toLowerCase();
+export async function verifyCode(
+  destino: string, 
+  inputCode: string, 
+  proposito: VerificationPurpose = 'verification'
+): Promise<{ valid: boolean; userId?: number; error?: string }> {
+  const key = destino.toLowerCase();
 
+  // Usamos Row Level Locking para evitar race conditions
   const record = await queryOne<{ id: number; codigo: string; intentos: number }>(
     `SELECT id, codigo, COALESCE(intentos, 0) as intentos FROM verification_codes
-     WHERE destino = $1 AND tipo IN ('email', 'sms', 'whatsapp') AND usado = false AND expires_at > NOW()
-     AND COALESCE(proposito, 'verification') = 'verification'
-     ORDER BY created_at DESC LIMIT 1`,
-    [key]
+     WHERE destino = $1 AND usado = false AND expires_at > NOW()
+     AND proposito = $2
+     ORDER BY created_at DESC LIMIT 1
+     FOR UPDATE SKIP LOCKED`,
+    [key, proposito]
   );
 
   if (!record) {
-    return { valid: false, error: 'No hay código pendiente. Inicia sesión nuevamente.' };
+    return { valid: false, error: 'Código inválido o expirado. Solicita uno nuevo.' };
   }
 
   if (record.intentos >= MAX_ATTEMPTS) {
-    return { valid: false, error: 'Demasiados intentos. Inicia sesión nuevamente.' };
+    return { valid: false, error: 'Demasiados intentos fallidos. Solicita un nuevo código.' };
   }
 
   if (record.codigo !== inputCode.trim()) {
@@ -94,8 +107,11 @@ export async function verifyCode(email: string, inputCode: string): Promise<{ va
     return { valid: false, error: `Código incorrecto. ${remaining} intentos restantes.` };
   }
 
+  // Marcar como usado
   await query(`UPDATE verification_codes SET usado = true WHERE id = $1`, [record.id]);
 
+  // Intentar obtener el usuario si existe (opcional según el flujo)
   const user = await queryOne<{ id: number }>(`SELECT id FROM users WHERE email = $1`, [key]);
   return { valid: true, userId: user?.id };
 }
+

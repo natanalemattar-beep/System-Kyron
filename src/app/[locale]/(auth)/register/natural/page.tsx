@@ -200,7 +200,7 @@ export default function RegisterNaturalPage() {
       const res = await fetch('/api/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino, tipo: verifMethod }),
+        body: JSON.stringify({ destino, tipo: verifMethod, proposito: 'registration' }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -238,7 +238,7 @@ export default function RegisterNaturalPage() {
       const res = await fetch('/api/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: code }),
+        body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
       });
       const json = await res.json();
       if (!res.ok) {

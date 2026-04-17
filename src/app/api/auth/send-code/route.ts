@@ -4,14 +4,11 @@ import { sendEmail, buildKyronEmailTemplate } from '@/lib/email-service';
 import { rateLimit, getClientIP, rateLimitResponse } from '@/lib/rate-limiter';
 import { sanitizeEmail, isValidEmail } from '@/lib/input-sanitizer';
 import { verifyLoginChallenge } from '@/lib/login-challenge';
-import { generateMagicToken, storeMagicToken } from '@/lib/verification-codes';
+import { generateCode, generateMagicToken, storeMagicToken, storeCode } from '@/lib/verification-codes';
 
 export const dynamic = 'force-dynamic';
 
-function generateOTP(): string {
-  const crypto = require('crypto');
-  return crypto.randomInt(100000, 1000000).toString();
-}
+
 
 function normalizePhone(phone: string): string {
   let normalized = phone.replace(/[\s\-\(\)]/g, '');
@@ -78,6 +75,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Destino y tipo son requeridos' }, { status: 400 });
     }
 
+    const proposito = body.proposito || 'verification';
+
     if (!destino || !tipo) {
       return NextResponse.json({ error: 'Destino y tipo son requeridos' }, { status: 400 });
     }
@@ -110,13 +109,10 @@ export async function POST(req: NextRequest) {
           [destino]
         );
         recentCount = parseInt(recentCheck[0]?.count ?? '0');
-      } catch (dbErr: any) {
+      } catch (dbErr) {
         console.error('[send-code] Error al verificar rate limit en DB:', dbErr);
         return NextResponse.json(
-          { 
-            error: 'El servicio de verificación no está disponible. Verifica tu conexión o contacta soporte.',
-            debugError: dbErr.message || String(dbErr)
-          },
+          { error: 'El servicio de verificación no está disponible. Verifica tu conexión o contacta soporte.' },
           { status: 503 }
         );
       }
@@ -145,15 +141,11 @@ export async function POST(req: NextRequest) {
           emailDestino = userConfig[0].email_verificacion;
         }
 
-        const codigo = generateOTP();
+        const codigo = generateCode();
         console.log(`[send-code] Generando código para ${originalEmail} (vía ${emailDestino})`);
 
         // PASO 1: Guardar en DB PRIMERO — si falla aquí, el email no se envía
-        await query(
-          `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) 
-           VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', 'verification')`,
-          [originalEmail.toLowerCase(), tipo, codigo]
-        );
+        await storeCode(originalEmail.toLowerCase(), codigo, proposito, 'email');
 
         // PASO 2: Generar magic link y guardarlo
         const token = generateMagicToken();
@@ -161,7 +153,7 @@ export async function POST(req: NextRequest) {
           ? process.env.NEXT_PUBLIC_APP_URL
           : 'https://system-kyron.vercel.app';
         const magicLink = `${baseUrl}/es/verify-link/${token}`;
-        storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => {});
+        storeMagicToken(originalEmail.toLowerCase(), token, user?.id).catch(() => { });
 
         // PASO 3: Construir y enviar email
         const html = buildKyronEmailTemplate({
@@ -251,13 +243,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const codigo = generateOTP();
+    const codigo = generateCode();
 
-    await query(
-      `INSERT INTO verification_codes (destino, tipo, codigo, expires_at, proposito) 
-       VALUES ($1, $2, $3, NOW() + INTERVAL '10 minutes', 'verification')`,
-      [destino, tipo, codigo]
-    );
+    await storeCode(destino.toLowerCase(), codigo, proposito, tipo);
 
     const channelLabel = tipo === 'sms' ? 'SMS' : 'WhatsApp';
     const masked = maskPhone(normalized);
