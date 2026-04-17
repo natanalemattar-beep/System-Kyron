@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { 
     Shield, ShieldCheck, KeyRound, MonitorSmartphone, 
-    Activity, Mail, Smartphone, Bell, Loader2, 
+    Activity, Mail, Smartphone, Loader2, 
     CheckCircle2, AlertCircle, History, Fingerprint,
     ShieldAlert, Lock, ArrowRight, Sparkles
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -56,10 +56,7 @@ export default function SecurityPage() {
             const res = await fetch('/api/auth/profile/security', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    twoFactorEnabled: checked, 
-                    notificationMethod 
-                }),
+                body: JSON.stringify({ twoFactorEnabled: checked, notificationMethod }),
             });
             if (res.ok) {
                 setTwoFactorEnabled(checked);
@@ -72,11 +69,7 @@ export default function SecurityPage() {
                 });
             }
         } catch (err) {
-            toast({
-                title: "Error",
-                description: "No se pudo actualizar la configuración.",
-                variant: "destructive"
-            });
+            toast({ title: "Error", description: "No se pudo actualizar la configuración.", variant: "destructive" });
         } finally {
             setIsSaving(false);
         }
@@ -169,26 +162,15 @@ export default function SecurityPage() {
                                         </div>
                                     </div>
                                     {notificationMethod === 'email' && (
-                                        <motion.div layoutId="active" className="absolute bottom-1 right-1">
+                                        <div className="absolute bottom-1 right-1">
                                             <CheckCircle2 className="h-4 w-4 text-primary" />
-                                        </motion.div>
+                                        </div>
                                     )}
                                 </div>
 
-                                <div 
-                                    onClick={() => setNotificationMethod('sms')}
-                                    className={cn(
-                                        "p-4 rounded-2xl border transition-all cursor-pointer group relative overflow-hidden opacity-50 pointer-events-none",
-                                        notificationMethod === 'sms' 
-                                            ? "border-primary bg-primary/5 ring-1 ring-primary/20" 
-                                            : "border-border/40 bg-muted/20"
-                                    )}
-                                >
+                                <div className="p-4 rounded-2xl border transition-all relative overflow-hidden opacity-50 pointer-events-none border-border/40 bg-muted/20">
                                     <div className="flex items-start gap-4">
-                                        <div className={cn(
-                                            "p-3 rounded-xl transition-colors",
-                                            notificationMethod === 'sms' ? "bg-primary text-white" : "bg-card text-muted-foreground"
-                                        )}>
+                                        <div className="p-3 rounded-xl bg-card text-muted-foreground">
                                             <Smartphone className="h-5 w-5" />
                                         </div>
                                         <div>
@@ -213,7 +195,7 @@ export default function SecurityPage() {
                         </CardContent>
                     </Card>
 
-                    {/* Más Opciones */}
+                    {/* Acceso Biométrico */}
                     <Card className="border-border/40 bg-card/50 rounded-3xl">
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
@@ -253,7 +235,7 @@ export default function SecurityPage() {
                     </Card>
                 </motion.div>
 
-                {/* Sidebar Auditoría */}
+                {/* Sidebar */}
                 <motion.div 
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -336,7 +318,7 @@ export default function SecurityPage() {
                             <p className="text-[10px] font-black uppercase tracking-widest">Alerta Pro</p>
                         </div>
                         <p className="text-[10px] text-muted-foreground leading-relaxed font-medium">
-                            Se detectó un intento de inicio de sesión desde una ubicación inusual (<span className="font-bold text-foreground">Rusia</span>) hace 12 días. Tu cortafuegos lo bloqueó automáticamente.
+                            Página en modo prueba. Activa el 2FA para proteger tu cuenta con una capa adicional de seguridad.
                         </p>
                         <Button variant="link" className="p-0 h-auto text-[9px] font-black uppercase tracking-widest text-amber-600">
                             Ver Detalles <ArrowRight className="ml-1 h-3 w-3" />
