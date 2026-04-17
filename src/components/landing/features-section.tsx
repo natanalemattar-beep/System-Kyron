@@ -74,7 +74,7 @@ export function FeaturesSection() {
     const metrics = t.raw('metrics') as { value: number; suffix: string; label: string }[];
 
     return (
-        <section id="caracteristicas" className="py-24 md:py-40 relative overflow-hidden bg-[#050816]">
+        <section id="caracteristicas" className="py-24 md:py-40 relative overflow-hidden bg-[#050816] scroll-mt-20">
             {/* Background elements */}
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />

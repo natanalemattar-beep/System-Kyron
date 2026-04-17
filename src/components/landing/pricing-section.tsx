@@ -74,11 +74,11 @@ export function PricingSection() {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32 w-full bg-slate-950 overflow-hidden">
+    <section id="pricing" className="relative py-24 sm:py-32 w-full bg-slate-950 overflow-hidden scroll-mt-20">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light pointer-events-none" />
-      <div className="absolute top-0 right-1/4 w-[800px] h-[800px] rounded-full bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full bg-indigo-600/[0.03] blur-[120px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-slate-950 to-indigo-950/20 pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[800px] h-[800px] rounded-full bg-blue-600/[0.04] blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full bg-indigo-600/[0.04] blur-[120px] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 md:px-8 relative z-10">
         <div className="mx-auto max-w-3xl text-center mb-16 md:mb-24">

@@ -129,7 +129,7 @@ export function HeroSection() {
             <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-16 pb-8 md:pt-24 lg:pb-32 flex-1 flex items-center w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-                    <div className="lg:col-span-12 xl:col-span-7 space-y-8 text-center lg:text-left">
+                    <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
                         <motion.div
                             className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md transition-all hover:bg-cyan-500/20 group"
                             variants={fadeUp}
@@ -211,7 +211,7 @@ export function HeroSection() {
                         </motion.div>
                     </div>
 
-                    <div className="hidden xl:block xl:col-span-5 relative">
+                    <div className="hidden lg:block lg:col-span-5 relative">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
                             animate={{ opacity: 1, scale: 1, rotateY: 0 }}

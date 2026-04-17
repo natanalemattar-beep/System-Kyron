@@ -26,7 +26,7 @@ export function CtaSection() {
     const animate = true;
 
     return (
-        <section id="contacto" className="relative overflow-hidden">
+        <section id="contacto" className="relative overflow-hidden scroll-mt-20">
             <div className="relative py-24 md:py-36">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-teal-50/40 to-cyan-50/60 dark:from-[#060a14] dark:via-[#080d18] dark:to-[#060a14]" />
