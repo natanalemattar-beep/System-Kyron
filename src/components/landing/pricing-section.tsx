@@ -184,7 +184,7 @@ export function PricingSection() {
                   "w-full h-14 rounded-2xl font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.03] active:scale-95",
                   plan.popular 
                     ? "bg-blue-500 hover:bg-blue-600 text-white shadow-xl shadow-blue-500/40 border-b-4 border-blue-700" 
-                    : "bg-white/10 hover:bg-white/20 text-white border-b-4 border-white/5"
+                    : "bg-slate-700/80 hover:bg-slate-600/90 text-white/90 border border-slate-600/60 hover:border-slate-500 shadow-lg"
                 )}
               >
                 <Link href="/registro">

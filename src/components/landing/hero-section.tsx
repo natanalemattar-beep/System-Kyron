@@ -250,7 +250,7 @@ export function HeroSection() {
                                     </div>
                                     <div>
                                         <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label')}</p>
-                                        <p className="text-xl font-black text-white">{liveStats?.totalUsuarios.toLocaleString() ?? "2,840"}</p>
+                                        <p className="text-xl font-black text-white">{liveStats ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
                                     </div>
                                 </div>
                             </FloatingCard>

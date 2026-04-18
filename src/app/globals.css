@@ -1441,11 +1441,11 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(var(--primary), 0.5);
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.2), 0 2px 4px rgba(0,0,0,0.15);
   }
 
   .text-glow-cyan {
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    text-shadow: 0 0 40px rgba(6, 182, 212, 0.15), 0 0 10px rgba(6, 182, 212, 0.08);
   }
 
   /* --- Premium Animations --- */

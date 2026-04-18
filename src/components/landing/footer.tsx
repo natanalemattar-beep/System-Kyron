@@ -43,8 +43,8 @@ export function Footer() {
             <div className="border-b border-white/[0.04] py-3 overflow-hidden">
                 <div className="flex gap-8 animate-marquee whitespace-nowrap">
                     {[...modules, ...modules].map((m, i) => (
-                        <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/20 shrink-0 flex items-center gap-3">
-                            {m} <Hexagon className="h-2 w-2 text-cyan-500/10" />
+                        <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/40 shrink-0 flex items-center gap-3">
+                            {m} <Hexagon className="h-2 w-2 text-cyan-500/20" />
                         </span>
                     ))}
                 </div>
@@ -78,7 +78,7 @@ export function Footer() {
                         <nav className="flex flex-col gap-3">
                             {navItems.map(item => (
                                 <a key={item.label} href={item.href} onClick={(e) => handleAnchorClick(e, item.href)}
-                                    className="text-[10px] font-semibold text-foreground/30 hover:text-foreground/60 transition-colors uppercase tracking-[0.15em] group flex items-center gap-1">
+                                    className="text-[10px] font-semibold text-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] group flex items-center gap-1">
                                     {item.label}
                                     <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition-opacity" />
                                 </a>
@@ -90,7 +90,7 @@ export function Footer() {
                         <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">{t('modules')}</h4>
                         <nav className="flex flex-col gap-3">
                             {modules.slice(0, 5).map(m => (
-                                <Link key={m} href="/login" className="text-[10px] font-semibold text-foreground/30 hover:text-foreground/60 transition-colors uppercase tracking-[0.15em] flex items-center gap-1 group">
+                                <Link key={m} href="/login" className="text-[10px] font-semibold text-foreground/55 hover:text-foreground/90 transition-colors uppercase tracking-[0.15em] flex items-center gap-1 group">
                                     {m} <ArrowUpRight className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition-opacity" />
                                 </Link>
                             ))}
@@ -101,13 +101,13 @@ export function Footer() {
                         <h4 className="text-[10px] font-black uppercase tracking-[0.25em] bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">{t('contact')}</h4>
                         <div className="space-y-4">
                             <a href="mailto:infosystemkyron@gmail.com"
-                                className="flex items-center gap-3 group text-foreground/30 hover:text-foreground/60 transition-colors">
+                                className="flex items-center gap-3 group text-foreground/55 hover:text-foreground/90 transition-colors">
                                 <div className="h-9 w-9 rounded-xl border border-white/[0.06] bg-cyan-500/[0.04] flex items-center justify-center shrink-0 group-hover:border-cyan-500/20 group-hover:bg-cyan-500/[0.08] transition-all">
                                     <Mail className="h-4 w-4 text-cyan-400" />
                                 </div>
                                 <span className="text-[10px] font-semibold uppercase tracking-wide">infosystemkyron@gmail.com</span>
                             </a>
-                            <div className="flex items-center gap-3 text-foreground/30">
+                            <div className="flex items-center gap-3 text-foreground/45">
                                 <div className="h-9 w-9 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center shrink-0">
                                     <MapPin className="h-4 w-4 text-violet-400" />
                                 </div>
