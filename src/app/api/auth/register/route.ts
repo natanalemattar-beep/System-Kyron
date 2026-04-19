@@ -36,8 +36,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Tipo de registro inválido' }, { status: 400 });
     } catch (err: any) {
         console.error('Register error:', err);
+        const msg = err?.message || String(err);
+        // Hide raw DB errors from clients
+        const isSchemaError = msg.includes('column') || msg.includes('relation') || msg.includes('violates');
         return NextResponse.json({ 
-            error: `DB_CRASH: ${err.message || String(err)}`, 
+            error: isSchemaError 
+                ? 'Error interno de base de datos. Contacta soporte.' 
+                : (msg || 'Error al procesar el registro'), 
         }, { status: 500 });
     }
 }
@@ -99,9 +104,9 @@ async function registerNatural(body: Record<string, unknown>) {
             email, password_hash, nombre, apellido, cedula, telefono, telefono_alt,
             fecha_nacimiento, genero, estado_civil,
             estado_residencia, municipio, ciudad, direccion, tipo,
-            verificado
+            verificado, email_verificado, telefono_verificado
          )
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 'natural', $15, $16, $17)
          RETURNING id, email`,
         [
             normalizedEmail, password_hash,
@@ -110,6 +115,8 @@ async function registerNatural(body: Record<string, unknown>) {
             fecha_nacimiento ?? null, genero ?? '', estado_civil ?? '',
             estado_residencia ?? '', municipio ?? '', ciudad ?? '', direccion ?? '',
             emailVerified || phoneVerified,
+            emailVerified,
+            phoneVerified,
         ]
     );
 

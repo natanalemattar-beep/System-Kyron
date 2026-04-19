@@ -10,6 +10,17 @@ import {
   Check, Sparkles, ChevronRight, Zap, Star,
 } from 'lucide-react';
 
+// ─── Route mapping per module ───────────────────────
+const MODULE_ROUTES: Record<string, string> = {
+  personal:       '/register/natural',
+  milinea:        '/register/telecom',
+  contable:       '/register/asesoria-contable',
+  legal:          '/register/legal',
+  tpv:            '/register/asesoria-contable?modulo=ventas',
+  socios:         '/register/asesoria-contable?modulo=socios',
+  sostenibilidad: '/register/sostenibilidad',
+};
+
 // ─── Fade animation ────────────────────────────────
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -267,8 +278,8 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
           ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30'
           : 'bg-white/[0.08] hover:bg-white/[0.15] text-white border border-white/[0.1]'
       )}>
-        <Link href="/registro">
-          {isFree ? 'Crear Cuenta' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
+        <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
+          {isFree ? 'Crear Cuenta Gratis' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
         </Link>
       </Button>
     </motion.div>
