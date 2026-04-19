@@ -197,7 +197,7 @@ export function ServicesSection() {
                                                     </div>
                                                     <div>
                                                         <h3 className={cn("text-lg font-black", plan.color)}>{plan.name}</h3>
-                                                        <p className="text-[10px] text-muted-foreground/40 font-medium">{plan.description}</p>
+                                                        <p className="text-[11px] text-white/55 font-medium">{plan.description}</p>
                                                     </div>
                                                 </div>
 
@@ -226,7 +226,7 @@ export function ServicesSection() {
                                                     {plan.features.map((feature, j) => (
                                                         <div key={j} className="flex items-center gap-2.5">
                                                             <Check className={cn("h-3.5 w-3.5 shrink-0", plan.color)} />
-                                                            <span className="text-xs text-foreground/50 font-medium">{feature}</span>
+                                                            <span className="text-xs text-foreground/70 font-medium">{feature}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -317,7 +317,7 @@ export function ServicesSection() {
                                             </div>
                                             <div>
                                                 <h4 className={cn("text-base font-bold", mod.color)}>{mod.name}</h4>
-                                                <p className="text-[10px] text-muted-foreground/40 font-medium">{mod.description}</p>
+                                                <p className="text-[11px] text-white/55 font-medium">{mod.description}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-baseline gap-1 mb-4">
@@ -360,7 +360,7 @@ export function ServicesSection() {
                                                                     >
                                                                         <div className="flex-1 min-w-0">
                                                                             <p className={cn("text-[11px] font-bold", mod.color)}>{tier.name}</p>
-                                                                            <p className="text-[9px] text-muted-foreground/35 font-medium truncate">{tier.highlight}</p>
+                                                                            <p className="text-[10px] text-white/55 font-medium truncate">{tier.highlight}</p>
                                                                         </div>
                                                                         <div className="text-right shrink-0 ml-3">
                                                                             <span className="text-base font-black text-foreground">${tier.price}</span>

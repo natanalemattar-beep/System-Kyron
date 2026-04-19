@@ -27,6 +27,31 @@ interface Module {
 // ─── Datos de módulos ──────────────────────────────
 const MODULES: Module[] = [
   {
+    id: 'telecom',
+    nombre: 'Mi Línea (Telecom)',
+    descripcion: 'Líneas móviles personales y corporativas, eSIM, MDM y control de flotas Venezuela.',
+    icon: Phone,
+    color: 'cyan',
+    plans: [
+      {
+        nombre: 'Personal',
+        precio: 5,
+        features: ['1 línea móvil', 'Datos 4G LTE', 'WhatsApp y redes sociales', 'eSIM compatible', 'Soporte básico'],
+      },
+      {
+        nombre: 'Empresarial',
+        precio: 18,
+        popular: true,
+        features: ['Hasta 15 líneas', 'MDM corporativo', 'eSIM múltiple', 'Panel en tiempo real', 'Bloqueo/activación remota', 'Reportes de consumo'],
+      },
+      {
+        nombre: 'Corporativo',
+        precio: 39,
+        features: ['Líneas ilimitadas', 'MDM avanzado + GPS', 'API de gestión', 'White-label disponible', 'SLA garantizado 99.9%', 'Soporte 24/7 dedicado'],
+      },
+    ],
+  },
+  {
     id: 'contable',
     nombre: 'Asesoría Contable',
     descripcion: 'Contabilidad, facturación SENIAT y declaraciones bajo normas VEN-NIF.',
@@ -123,31 +148,6 @@ const MODULES: Module[] = [
         nombre: 'Enterprise',
         precio: 55,
         features: ['Empleados ilimitados', 'Multi-sede', 'Declaraciones automáticas', 'Integración BCV/SENIAT', 'Analítica de RR.HH.', 'API nómina'],
-      },
-    ],
-  },
-  {
-    id: 'telecom',
-    nombre: 'Mi Línea (Telecom)',
-    descripcion: 'Líneas móviles corporativas, eSIM, MDM y Control de flotas.',
-    icon: Phone,
-    color: 'cyan',
-    plans: [
-      {
-        nombre: 'Básico',
-        precio: 8,
-        features: ['Hasta 3 líneas', 'Panel de control básico', 'Recargas manuales', 'Soporte email'],
-      },
-      {
-        nombre: 'Profesional',
-        precio: 18,
-        popular: true,
-        features: ['Hasta 15 líneas', 'MDM corporativo', 'eSIM múltiple', 'Panel en tiempo real', 'Bloqueo/activación remota', 'Reportes de consumo'],
-      },
-      {
-        nombre: 'Enterprise',
-        precio: 39,
-        features: ['Líneas ilimitadas', 'MDM avanzado + GPS', 'API de gestión', 'White-label disponible', 'SLA garantizado 99.9%', 'Soporte 24/7 dedicado'],
       },
     ],
   },
@@ -367,7 +367,7 @@ export function PricingSection() {
             <Button
               variant="ghost"
               onClick={() => setShowAll(!showAll)}
-              className="group flex items-center gap-2 text-white/40 hover:text-white transition-all text-xs font-black uppercase tracking-widest py-5 px-8 rounded-full bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08]"
+              className="group flex items-center gap-2.5 text-white/70 hover:text-white transition-all text-xs font-black uppercase tracking-widest py-5 px-10 rounded-full bg-slate-800/60 border border-white/[0.1] hover:bg-slate-700/80 hover:border-white/[0.2] shadow-lg"
             >
               {showAll ? (
                 <><ChevronUp className="w-4 h-4" /> Ver menos módulos</>

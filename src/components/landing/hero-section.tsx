@@ -139,7 +139,7 @@ export function HeroSection() {
                             custom={0.05}
                         >
                             <Sparkles className="h-4 w-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">{t('badge')}</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Líneas · eSIM · Gestión Empresarial</span>
                         </motion.div>
 
                         <motion.div
@@ -160,14 +160,14 @@ export function HeroSection() {
                         </motion.div>
 
                         <motion.p
-                            className="text-lg md:text-xl text-cyan-100/60 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed"
+                            className="text-lg md:text-xl text-cyan-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed"
                             variants={fadeUp}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             custom={0.25}
                         >
-                            {t('subtitle')}
+                            Líneas móviles nacionales e internacionales, eSIM y gestión empresarial integral — contabilidad, nómina, socios y más. Todo desde una sola plataforma.
                         </motion.p>
 
                         <motion.div
