@@ -34,20 +34,20 @@ const MODULES: Module[] = [
     color: 'cyan',
     plans: [
       {
-        nombre: 'Personal',
+        nombre: 'Básico',
         precio: 5,
-        features: ['1 línea móvil', 'Datos 4G LTE', 'WhatsApp y redes sociales', 'eSIM compatible', 'Soporte básico'],
+        features: ['1-3 líneas móviles', 'Datos 4G LTE', 'WhatsApp y redes sociales', 'eSIM compatible', 'Panel básico de control'],
       },
       {
-        nombre: 'Empresarial',
+        nombre: 'Profesional',
         precio: 18,
         popular: true,
         features: ['Hasta 15 líneas', 'MDM corporativo', 'eSIM múltiple', 'Panel en tiempo real', 'Bloqueo/activación remota', 'Reportes de consumo'],
       },
       {
-        nombre: 'Corporativo',
+        nombre: 'Enterprise',
         precio: 39,
-        features: ['Líneas ilimitadas', 'MDM avanzado + GPS', 'API de gestión', 'White-label disponible', 'SLA garantizado 99.9%', 'Soporte 24/7 dedicado'],
+        features: ['Líneas ilimitadas', 'MDM avanzado + GPS flota', 'API de gestión', 'White-label disponible', 'SLA 99.9% garantizado', 'Soporte 24/7 dedicado'],
       },
     ],
   },
