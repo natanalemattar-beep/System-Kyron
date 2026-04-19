@@ -1,11 +1,100 @@
+"use client";
+
 import { ScrollReveal } from "./scroll-reveal";
 import { useScroll, useTransform, AnimatePresence, motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { useRef, useEffect, useState } from 'react';
+import { Sparkles, ArrowRight, Play, TrendingUp, Shield, Wifi, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { VideoHeroBg } from "./video-hero-bg";
+import Image from 'next/image';
+
+// ─── HELPER COMPONENTS ────────────────────────────────
 
 function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
-// ... existing code ...
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        let start = 0;
+        const end = target;
+        const totalDuration = duration * 1000;
+        const increment = end / (totalDuration / 16);
+
+        const timer = setTimeout(() => {
+            const handle = setInterval(() => {
+                start += increment;
+                if (start >= end) {
+                    setCount(end);
+                    clearInterval(handle);
+                } else {
+                    setCount(Math.floor(start));
+                }
+            }, 16);
+        }, delay * 1000);
+
+        return () => clearTimeout(timer);
+    }, [target, duration, delay]);
+    return count;
 }
 
-// ... existing code ...
+function RotatingWords({ words, interval = 3000 }: { words: string[], interval?: number }) {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIndex((prev) => (prev + 1) % words.length);
+        }, interval);
+        return () => clearInterval(timer);
+    }, [words.length, interval]);
+
+    return (
+        <div className="relative h-[1.1em] overflow-hidden">
+            <AnimatePresence mode="wait">
+                <motion.span
+                    key={index}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="absolute inset-0 block text-glow-gold"
+                >
+                    {words[index]}
+                </motion.span>
+            </AnimatePresence>
+        </div>
+    );
+}
+
+function ThemeImage({ darkSrc, lightSrc, alt, ...props }: any) {
+    return <Image src={darkSrc} alt={alt} {...props} />;
+}
+
+function FloatingCard({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+                opacity: 1, 
+                y: [0, -10, 0],
+            }}
+            transition={{
+                opacity: { duration: 0.5, delay },
+                y: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay
+                }
+            }}
+            className={cn("absolute z-30", className)}
+        >
+            {children}
+        </motion.div>
+    );
+}
+
+// ─── DATA & ANIMATIONS ────────────────────────────────
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.97 },
@@ -17,6 +106,22 @@ const fadeUp = {
         transition: { duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }
     })
 };
+
+const trustLogos = [
+    { name: "SENIAT", icon: Shield },
+    { name: "CONATEL", icon: Wifi },
+    { name: "BCV", icon: Zap },
+    { name: "LOTTT", icon: Shield }
+];
+
+const heroStats = [
+    { val: "24/7", label: "Soporte Elite" },
+    { val: "5G", label: "Red Pro" },
+    { val: "12", label: "Portales IA" },
+    { val: "100%", label: "Legalidad" }
+];
+
+// ─── MAIN COMPONENT ───────────────────────────────────
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
@@ -30,9 +135,8 @@ export function HeroSection() {
     const scaleParallax = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
     const opacityParallax = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-    const modulesCount = useCountUp(9, 2.5, 1);
-// ... existing code ...
-    const rotatingTexts = t.raw('rotating_words') as string[];
+    const liveStats = { totalUsuarios: 2840 };
+    const rotatingTexts = t.raw('rotating_words') as string[] || ["Corporativo", "Empresarial", "Soberano", "Elite"];
 
     return (
         <section 
@@ -47,9 +151,9 @@ export function HeroSection() {
 
                     <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
                         <ScrollReveal delay={0.1}>
-                            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md transition-all hover:bg-cyan-500/20 group">
-                                <Sparkles className="h-4 w-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Líneas · eSIM · Gestión Empresarial</span>
+                            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md transition-all hover:bg-amber-500/20 group shadow-glow-sm">
+                                <Sparkles className="h-4 w-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200/80">Líneas · eSIM · Gestión Elite</span>
                             </div>
                         </ScrollReveal>
 
@@ -57,34 +161,32 @@ export function HeroSection() {
                             <div className="space-y-4">
                                 <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance">
                                     <span className="block opacity-90">{t('title_line1')}</span>
-                                    <span className="block text-glow-cyan mb-2">{t('title_line2')}</span>
-                                    <div className="h-[1.1em] overflow-visible">
-                                        <RotatingWords words={rotatingTexts} interval={3500} />
-                                    </div>
+                                    <span className="block text-glow-gold mb-2">{t('title_line2')}</span>
+                                    <RotatingWords words={rotatingTexts} interval={3500} />
                                 </h1>
                             </div>
                         </ScrollReveal>
 
                         <ScrollReveal delay={0.3} y={20}>
-                            <p className="text-lg md:text-xl text-cyan-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed text-pretty">
-                                Líneas móviles nacionales e internacionales, eSIM y gestión empresarial integral — contabilidad, nómina, socios y más. Todo desde una sola plataforma.
+                            <p className="text-lg md:text-xl text-slate-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed text-pretty">
+                                Infraestructura móvil de grado empresarial, gestión fiscal automatizada y consultoría con IA. Todo en un ecosistema unificado para el sector privado venezolano.
                             </p>
                         </ScrollReveal>
 
                         <ScrollReveal delay={0.4} scale={0.95}>
                             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4">
-                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 kyron-gradient-bg text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(6,182,212,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect">
+                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(217,119,6,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect">
                                     <Link href="/login" className="flex items-center gap-3">
                                         {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
                                     </Link>
                                 </Button>
                                 
                                 <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]">
-                                    <Link href="/manual-usuario" className="flex items-center gap-2">
-                                        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                    <Link href="/es/sector-privado-system-kyron" className="flex items-center gap-2">
+                                        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
                                             <Play className="h-3 w-3 fill-current ml-1" />
                                         </div>
-                                        {t('cta_secondary')}
+                                        Explorar Modelo Zedu
                                     </Link>
                                 </Button>
                             </div>
@@ -150,7 +252,7 @@ export function HeroSection() {
                                         <TrendingUp className="h-6 w-6" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label')}</p>
+                                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{t('live_users_label') || "USUARIOS ACTIVOS"}</p>
                                         <p className="text-xl font-black text-white">{liveStats ? liveStats.totalUsuarios.toLocaleString() : "2,840"}</p>
                                     </div>
                                 </div>

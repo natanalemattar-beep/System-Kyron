@@ -97,10 +97,10 @@ export function PartnersSection() {
             <ScrollReveal
               key={partner.name}
               delay={0.15 + (i * 0.08)}
-              className="group relative flex flex-col items-center text-center p-5 rounded-2xl border border-white/[0.06] bg-white/5 hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 hover:-translate-y-1 h-full"
+              className="group relative flex flex-col items-center text-center p-5 rounded-2xl border border-white/[0.06] bg-white/5 hover:bg-white/[0.08] hover:border-amber-500/20 transition-all duration-300 hover:-translate-y-1 h-full shadow-lg"
             >
               {/* Badge for "En desarrollo" */}
-              <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-violet-500/20 border border-violet-500/30 text-[8px] font-black uppercase tracking-widest text-violet-400 whitespace-nowrap z-20">
+              <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-[8px] font-black uppercase tracking-widest text-amber-400 whitespace-nowrap z-20 shadow-glow-sm">
                 {partner.badge}
               </span>
 

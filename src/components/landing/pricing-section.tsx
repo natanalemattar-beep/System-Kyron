@@ -279,7 +279,7 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
           {isFree ? 'Crear Cuenta Gratis' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
         </Link>
       </Button>
-    </motion.div>
+    </ScrollReveal>
   );
 }
 
