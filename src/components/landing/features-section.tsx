@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from '@/navigation';
+import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 
 function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; maxValue: number; color: string; delay?: number }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -18,7 +19,7 @@ function AnimatedBar({ value, maxValue, color, delay = 0 }: { value: number; max
                 className={cn("h-full rounded-full", color)}
                 initial={{ width: 0 }}
                 animate={isInView ? { width: `${width}%` } : { width: 0 }}
-                transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] }}
             />
         </div>
     );
@@ -84,9 +85,7 @@ export function FeaturesSection() {
             </div>
 
             <div className="container mx-auto px-4 md:px-10 max-w-7xl">
-                <motion.div
-                    className="mb-24 md:mb-32 space-y-6 text-center reveal-on-scroll"
-                >
+                <ScrollReveal className="mb-24 md:mb-32 space-y-6 text-center">
                     <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md transition-all group mx-auto">
                         <Zap className="h-4 w-4 text-emerald-400" />
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-200/80">{t('badge')}</span>
@@ -100,15 +99,15 @@ export function FeaturesSection() {
                     <p className="text-lg text-cyan-100/40 max-w-2xl mx-auto font-medium leading-relaxed">
                         {t('subtitle')}
                     </p>
-                </motion.div>
+                </ScrollReveal>
 
                 {/* Performance Comparison & Metrics */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 items-stretch">
                     
                     {/* Speed Comparison Card */}
-                    <motion.div
-                        className="lg:col-span-12 xl:col-span-7 glass-elite p-8 md:p-10 reveal-on-scroll"
-                        style={{ animationDelay: '0.2s' }}
+                    <ScrollReveal
+                        className="lg:col-span-12 xl:col-span-7 glass-elite p-8 md:p-10"
+                        delay={0.2}
                     >
                         <div className="flex items-center gap-4 mb-10">
                             <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30 font-black">
@@ -145,15 +144,16 @@ export function FeaturesSection() {
                                 );
                             })}
                         </div>
-                    </motion.div>
+                    </ScrollReveal>
 
                     {/* Metrics Grid */}
-                    <div className="lg:col-span-12 xl:col-span-5 grid grid-cols-2 gap-6 reveal-on-scroll" style={{ animationDelay: '0.4s' }}>
+                    <div className="lg:col-span-12 xl:col-span-5 grid grid-cols-2 gap-6">
                         {metrics.map((metric, i) => {
                             const config = metricConfigs[i];
                             return (
-                                <div
+                                <ScrollReveal
                                     key={i}
+                                    delay={0.3 + (i * 0.1)}
                                     className={cn(
                                         "glass-elite-interactive p-8 flex flex-col items-center justify-center group text-center border-white/5",
                                         "hover:bg-cyan-500/5 hover:border-cyan-500/20"
@@ -170,15 +170,16 @@ export function FeaturesSection() {
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
                                         {metric.label}
                                     </p>
-                                </div>
+                                </ScrollReveal>
                             );
                         })}
                     </div>
                 </div>
 
                 {/* Final CTA Strip */}
-                <motion.div
-                    className="flex justify-center mt-32 reveal-on-scroll"
+                <ScrollReveal
+                    className="flex justify-center mt-32"
+                    delay={0.5}
                 >
                     <Link href="/manual-usuario" className="group relative glass-elite px-12 py-6 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 shine-effect block">
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -192,7 +193,7 @@ export function FeaturesSection() {
                             <ArrowRight className="h-5 w-5 text-cyan-400 group-hover:translate-x-2 transition-transform" />
                         </div>
                     </Link>
-                </motion.div>
+                </ScrollReveal>
             </div>
         </section>
     );

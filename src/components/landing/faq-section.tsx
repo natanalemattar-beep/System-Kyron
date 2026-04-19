@@ -6,8 +6,8 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { ScrollReveal } from './scroll-reveal';
 
 export function FaqSection() {
     const t = useTranslations('FaqSection');
@@ -36,12 +36,10 @@ export function FaqSection() {
                 <div className="absolute bottom-[20%] left-[10%] w-[350px] h-[350px] rounded-full bg-blue-500/[0.03] blur-[100px]" />
             </div>
             <div className="container mx-auto px-4 md:px-10 max-w-4xl relative z-10">
-                <motion.div
+                <ScrollReveal
                     className="text-center mb-14 md:mb-18 space-y-5"
-                    initial={animate ? { opacity: 0, y: 40 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    delay={0.1}
+                    y={30}
                 >
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400 mx-auto">
                         <MessageCircle className="h-3.5 w-3.5" />
@@ -84,13 +82,12 @@ export function FaqSection() {
                             className="w-full pl-11 pr-4 py-3 rounded-xl text-sm font-medium bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.08] text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-cyan-500/30 transition-colors"
                         />
                     </div>
-                </motion.div>
+                </ScrollReveal>
 
-                <motion.div
-                    initial={animate ? { opacity: 0, y: 30 } : undefined}
-                    whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                <ScrollReveal
+                    delay={0.2}
+                    y={20}
+                    blur={10}
                 >
                     <Accordion type="single" collapsible className="w-full space-y-3">
                         {filteredItems.map((item, index) => (
@@ -128,7 +125,7 @@ export function FaqSection() {
                             </Button>
                         </Link>
                     </div>
-                </motion.div>
+                </ScrollReveal>
             </div>
         </section>
     );

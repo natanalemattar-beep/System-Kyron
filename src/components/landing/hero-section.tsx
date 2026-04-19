@@ -1,127 +1,43 @@
-'use client';
-
-import { ArrowRight, Play, Sparkles, Shield, Zap, Globe, TrendingUp, Users, Landmark, Receipt, CheckCircle2, Building2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/navigation";
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect, useState, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeImage } from '@/components/ui/theme-image';
-import { useTheme } from 'next-themes';
-import { cn } from '@/lib/utils';
-import { VideoHeroBg } from "./video-hero-bg";
-
+import { ScrollReveal } from "./scroll-reveal";
+import { useScroll, useTransform, AnimatePresence, motion } from 'framer-motion';
 
 function useCountUp(target: number, duration: number = 2.5, delay: number = 1) {
-    const [value, setValue] = useState(0);
-    const rafRef = useRef<number>(0);
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            let start: number | null = null;
-            const step = (ts: number) => {
-                if (!start) start = ts;
-                const progress = Math.min((ts - start) / (duration * 1000), 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                setValue(Math.round(eased * target));
-                if (progress < 1) {
-                    rafRef.current = requestAnimationFrame(step);
-                }
-            };
-            rafRef.current = requestAnimationFrame(step);
-        }, delay * 1000);
-        return () => {
-            clearTimeout(timeout);
-            cancelAnimationFrame(rafRef.current);
-        };
-    }, [target, duration, delay]);
-    return value;
+// ... existing code ...
 }
 
-function RotatingWords({ words, interval = 3000 }: { words: string[]; interval?: number }) {
-    const [index, setIndex] = useState(0);
-    useEffect(() => {
-        const timer = setInterval(() => setIndex(i => (i + 1) % words.length), interval);
-        return () => clearInterval(timer);
-    }, [words.length, interval]);
-
-    return (
-        <span className="inline-block relative min-w-[200px] sm:min-w-[280px]">
-            <AnimatePresence mode="wait">
-                <motion.span
-                    key={index}
-                    initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent"
-                    viewport={{ once: true }}
-                >
-                    {words[index]}
-                </motion.span>
-            </AnimatePresence>
-        </span>
-    );
-}
-
-function FloatingCard({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-    return (
-        <motion.div
-            className={cn(
-                "absolute rounded-2xl bg-white/[0.07] dark:bg-white/[0.05] shadow-2xl border border-white/[0.1] dark:border-white/[0.08] backdrop-blur-2xl",
-                className
-            )}
-            initial={{ opacity: 0, y: 30, scale: 0.85 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            viewport={{ once: true }}
-        >
-            {children}
-        </motion.div>
-    );
-}
-
-
-const trustLogos = [
-    { name: "SENIAT", icon: Shield },
-    { name: "BCV", icon: Landmark },
-    { name: "VEN-NIF", icon: Receipt },
-    { name: "AES-256", icon: Shield },
-];
+// ... existing code ...
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 40, filter: 'blur(10px)' },
+    hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.97 },
     visible: (delay: number) => ({
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
-        transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }
+        scale: 1,
+        transition: { duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }
     })
 };
 
 export function HeroSection() {
     const t = useTranslations('HeroSection');
-    const modulesCount = useCountUp(9, 2.5, 1);
-    const automationsCount = useCountUp(19, 3, 1.3);
-    const heroFeatures = t.raw('features') as string[];
-    const heroStats = t.raw('stats') as { val: string; label: string }[];
-    const { resolvedTheme } = useTheme();
-    const [themeMounted, setThemeMounted] = useState(false);
-    const [liveStats, setLiveStats] = useState<{ totalUsuarios: number; totalEmpresas: number } | null>(null);
-    useEffect(() => { setThemeMounted(true); }, []);
-    useEffect(() => {
-        fetch('/api/stats').then(r => r.json()).then(json => {
-            const data = json.data ?? json;
-            if (data.totalUsuarios !== undefined) setLiveStats(data);
-        }).catch(() => {});
-    }, []);
-    const isDark = themeMounted && resolvedTheme === 'dark';
+    const containerRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
 
+    const yParallax = useTransform(scrollYProgress, [0, 1], [0, 120]);
+    const scaleParallax = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+    const opacityParallax = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+    const modulesCount = useCountUp(9, 2.5, 1);
+// ... existing code ...
     const rotatingTexts = t.raw('rotating_words') as string[];
 
     return (
         <section 
             id="inicio" 
+            ref={containerRef}
             className="relative min-h-screen flex flex-col items-center lg:justify-center overflow-x-clip pt-20"
         >
             <VideoHeroBg />
@@ -130,69 +46,49 @@ export function HeroSection() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                     <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-                        <motion.div
-                            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md transition-all hover:bg-cyan-500/20 group"
-                            variants={fadeUp}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            custom={0.05}
-                        >
-                            <Sparkles className="h-4 w-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Líneas · eSIM · Gestión Empresarial</span>
-                        </motion.div>
+                        <ScrollReveal delay={0.1}>
+                            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md transition-all hover:bg-cyan-500/20 group">
+                                <Sparkles className="h-4 w-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Líneas · eSIM · Gestión Empresarial</span>
+                            </div>
+                        </ScrollReveal>
 
-                        <motion.div
-                            variants={fadeUp}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            custom={0.15}
-                            className="space-y-4"
-                        >
-                            <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white">
-                                <span className="block opacity-90">{t('title_line1')}</span>
-                                <span className="block text-glow-cyan mb-2">{t('title_line2')}</span>
-                                <div className="h-[1.1em] overflow-visible">
-                                    <RotatingWords words={rotatingTexts} interval={3500} />
-                                </div>
-                            </h1>
-                        </motion.div>
-
-                        <motion.p
-                            className="text-lg md:text-xl text-cyan-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed"
-                            variants={fadeUp}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            custom={0.25}
-                        >
-                            Líneas móviles nacionales e internacionales, eSIM y gestión empresarial integral — contabilidad, nómina, socios y más. Todo desde una sola plataforma.
-                        </motion.p>
-
-                        <motion.div
-                            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4"
-                            variants={fadeUp}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            custom={0.35}
-                        >
-                            <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 kyron-gradient-bg text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(6,182,212,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect">
-                                <Link href="/login" className="flex items-center gap-3">
-                                    {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
-                                </Link>
-                            </Button>
-                            
-                            <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]">
-                                <Link href="/manual-usuario" className="flex items-center gap-2">
-                                    <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                        <Play className="h-3 w-3 fill-current ml-1" />
+                        <ScrollReveal delay={0.2} y={40}>
+                            <div className="space-y-4">
+                                <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance">
+                                    <span className="block opacity-90">{t('title_line1')}</span>
+                                    <span className="block text-glow-cyan mb-2">{t('title_line2')}</span>
+                                    <div className="h-[1.1em] overflow-visible">
+                                        <RotatingWords words={rotatingTexts} interval={3500} />
                                     </div>
-                                    {t('cta_secondary')}
-                                </Link>
-                            </Button>
-                        </motion.div>
+                                </h1>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal delay={0.3} y={20}>
+                            <p className="text-lg md:text-xl text-cyan-100/65 max-w-2xl mx-auto lg:ml-0 font-medium leading-relaxed text-pretty">
+                                Líneas móviles nacionales e internacionales, eSIM y gestión empresarial integral — contabilidad, nómina, socios y más. Todo desde una sola plataforma.
+                            </p>
+                        </ScrollReveal>
+
+                        <ScrollReveal delay={0.4} scale={0.95}>
+                            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4">
+                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 kyron-gradient-bg text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(6,182,212,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect">
+                                    <Link href="/login" className="flex items-center gap-3">
+                                        {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                                    </Link>
+                                </Button>
+                                
+                                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]">
+                                    <Link href="/manual-usuario" className="flex items-center gap-2">
+                                        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                            <Play className="h-3 w-3 fill-current ml-1" />
+                                        </div>
+                                        {t('cta_secondary')}
+                                    </Link>
+                                </Button>
+                            </div>
+                        </ScrollReveal>
 
                         <motion.div
                             className="flex flex-wrap justify-center lg:justify-start gap-8 pt-8 opacity-50"
@@ -213,9 +109,14 @@ export function HeroSection() {
 
                     <div className="hidden lg:block lg:col-span-5 relative">
                         <motion.div
+                            style={{ 
+                                y: yParallax, 
+                                scale: scaleParallax, 
+                                opacity: opacityParallax 
+                            }}
                             initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
                             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                             className="perspective-2000"
                         >
                             <div className="relative glass-elite p-2 rounded-[2.5rem] shadow-2xl border-white/10 hover:border-white/20 transition-all group overflow-hidden">

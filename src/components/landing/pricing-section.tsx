@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from '@/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { ScrollReveal, ScrollRevealGroup } from "./scroll-reveal";
 import {
   User, Phone, Calculator, Scale, Receipt, Users, Leaf,
   Shield, Wifi, Monitor, Printer, Package, ArrowRight,
@@ -227,14 +228,10 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
   const isFree = mod.precio === null;
 
   return (
-    <motion.div
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
-      custom={index * 0.07}
+    <ScrollReveal
+      delay={index * 0.08}
       className={cn(
-        'relative group rounded-2xl border p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl',
+        'relative group rounded-2xl border p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl h-full',
         mod.popular
           ? 'border-blue-500/40 shadow-lg shadow-blue-500/10'
           : 'border-white/[0.07] hover:border-white/[0.14]',
