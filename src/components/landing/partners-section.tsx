@@ -69,45 +69,49 @@ const PARTNERS = [
 
 export function PartnersSection() {
   return (
-    <section className="relative py-16 bg-slate-950/80 border-y border-white/[0.05] overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-950/20 via-transparent to-violet-950/20 pointer-events-none" />
+    <section className="relative py-24 md:py-32 bg-[#02040a] scroll-mt-20 overflow-hidden">
+      {/* Dynamic background effect */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-blue-500/[0.02] blur-[150px]" />
+      </div>
 
-      <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
+      <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px] relative z-10">
         {/* Header */}
         <ScrollReveal
-          className="text-center mb-12"
+          className="text-center mb-16 md:mb-20"
           delay={0.1}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-5">
-            <Handshake className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/50">Aliados Estratégicos</span>
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6 mx-auto transition-all duration-500 hover:bg-white/10">
+            <Handshake className="h-4 w-4 text-cyan-400" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Aliados Estratégicos</span>
           </div>
-          <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2">
-            Respaldado por las <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">mejores marcas</span>
+          <h3 className="text-[clamp(2rem,4vw,3.5rem)] font-black text-white tracking-tight mb-4 leading-none">
+            Respaldado por las <span className="text-glow-cyan">mejores marcas</span>
           </h3>
-          <p className="text-sm text-white/40 font-medium max-w-lg mx-auto">
+          <p className="text-base text-white/30 font-medium max-w-xl mx-auto leading-relaxed">
             Infraestructura tecnológica de clase mundial para tu empresa y tus líneas telefónicas.
           </p>
         </ScrollReveal>
 
         {/* Partners Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
           {PARTNERS.map((partner, i) => (
             <ScrollReveal
               key={partner.name}
               delay={0.15 + (i * 0.08)}
-              className="group relative flex flex-col items-center text-center p-5 rounded-2xl border border-white/[0.06] bg-white/5 hover:bg-white/[0.08] hover:border-amber-500/20 transition-all duration-300 hover:-translate-y-1 h-full shadow-lg"
+              className="group relative flex flex-col items-center text-center p-8 rounded-3xl glass-elite-interactive border-white/5 transition-all duration-500 h-full"
             >
-              {/* Badge for "En desarrollo" */}
-              <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-[8px] font-black uppercase tracking-widest text-amber-400 whitespace-nowrap z-20 shadow-glow-sm">
+              {/* Elegant Status Badge */}
+              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[7px] font-black uppercase tracking-[0.15em] text-amber-300 whitespace-nowrap z-20 shadow-glow-sm transition-all duration-500 group-hover:bg-amber-500/20">
                 {partner.badge}
               </span>
 
-              {/* Logo Image */}
-              <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${partner.color} flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-all duration-300 border border-white/5 relative overflow-hidden`}>
+              {/* Logo Container */}
+              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${partner.color} flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-white/10 relative overflow-hidden`}>
                 {partner.logo ? (
-                  <div className="relative w-10 h-10 filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                  <div className="relative w-12 h-12 filter grayscale group-hover:grayscale-0 transition-all duration-500">
                     <Image 
                       src={partner.logo} 
                       alt={partner.name}
@@ -116,19 +120,19 @@ export function PartnersSection() {
                     />
                   </div>
                 ) : (
-                  <span className={cn("text-sm font-black", partner.acento)}>
+                  <span className={cn("text-lg font-black", partner.acento)}>
                     {partner.initials}
                   </span>
                 )}
                 
-                {/* Overlay for inactive state */}
-                <div className="absolute inset-0 bg-slate-950/40 pointer-events-none group-hover:bg-transparent transition-colors duration-300" />
+                {/* Visual Depth Overlay */}
+                <div className="absolute inset-0 bg-slate-950/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500" />
               </div>
 
-              <p className="text-[11px] font-black text-white/80 group-hover:text-white transition-colors leading-tight">
+              <p className="text-sm font-black text-white/80 group-hover:text-white transition-all tracking-tight leading-tight mb-2">
                 {partner.name}
               </p>
-              <p className="text-[9px] text-white/35 font-medium mt-1 leading-tight group-hover:text-white/50 transition-colors">
+              <p className="text-[10px] text-white/20 font-medium leading-relaxed group-hover:text-white/40 transition-all">
                 {partner.description}
               </p>
             </ScrollReveal>
@@ -136,9 +140,11 @@ export function PartnersSection() {
         </div>
 
         {/* Bottom note */}
-        <p className="text-center text-[10px] text-white/25 font-medium mt-10 tracking-wider uppercase">
-          Más alianzas próximamente • Alianzas comerciales y tecnológicas
-        </p>
+        <div className="mt-20 pt-10 border-t border-white/5 text-center">
+          <p className="text-[10px] text-white/20 font-black tracking-[0.4em] uppercase">
+            Más alianzas próximamente • Alianzas comerciales y tecnológicas
+          </p>
+        </div>
       </div>
     </section>
   );

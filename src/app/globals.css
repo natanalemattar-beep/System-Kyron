@@ -1458,22 +1458,29 @@ input[type="search"]::-webkit-search-cancel-button {
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.2), 0 2px 4px rgba(0,0,0,0.15);
   }
 
-  .text-glow-cyan {
-    text-shadow: 0 0 40px rgba(6, 182, 212, 0.15), 0 0 10px rgba(6, 182, 212, 0.08);
+  .text-glow-emerald {
+    @apply text-emerald-400;
+    text-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
   }
 
-  /* --- Premium Animations --- */
+  .text-glow-cyan {
+    @apply text-cyan-400;
+    text-shadow: 0 0 40px rgba(34, 211, 238, 0.4);
+  }
+
   @keyframes mesh-drift {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
-    100% { background-position: 0% 0%; }
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
+    33% { transform: translate(5%, 2%) rotate(1deg); opacity: 1; }
+    66% { transform: translate(-2%, 5%) rotate(-1deg); opacity: 0.9; }
+    100% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
   }
 
   .animate-mesh-drift {
-    background-size: 200% 200%;
-    animation: mesh-drift 20s ease infinite;
+    animation: mesh-drift 25s ease-in-out infinite;
+    will-change: transform;
   }
 
+  /* --- Premium Animations --- */
   @keyframes premium-shine {
     0% { left: -100%; }
     20% { left: 100%; }

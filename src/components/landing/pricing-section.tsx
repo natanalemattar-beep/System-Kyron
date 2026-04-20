@@ -205,20 +205,20 @@ function SectionTitle({ badge, title, highlight, subtitle }: {
   badge: string; title: string; highlight?: string; subtitle: string;
 }) {
   return (
-    <div className="text-center mb-14">
-      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00FF00]/20 bg-[#00FF00]/[0.06] mb-5">
-        <Sparkles className="h-3 w-3 text-[#00FF00]" />
-        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#00FF00]/80">{badge}</span>
+    <div className="text-center mb-16 md:mb-20">
+      <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 backdrop-blur-sm mb-6 mx-auto transition-transform hover:scale-105 duration-500">
+        <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-200/60">{badge}</span>
       </div>
-      <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 leading-none">
         {title}{' '}
         {highlight && (
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 block sm:inline mt-2 sm:mt-0">
             {highlight}
           </span>
         )}
       </h3>
-      <p className="text-sm text-white/50 font-medium max-w-xl mx-auto">{subtitle}</p>
+      <p className="text-base text-white/30 font-medium max-w-xl mx-auto leading-relaxed">{subtitle}</p>
     </div>
   );
 }
@@ -231,52 +231,52 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
     <ScrollReveal
       delay={index * 0.08}
       className={cn(
-        'relative group rounded-2xl border p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl h-full',
-        mod.popular
-          ? 'border-blue-500/40 shadow-lg shadow-blue-500/10'
-          : 'border-white/[0.07] hover:border-white/[0.14]',
+        'relative group p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 h-full rounded-3xl glass-elite-interactive',
+        mod.popular ? 'border-primary/40' : 'border-white/5',
         `bg-gradient-to-br ${mod.color}`
       )}
     >
       {mod.popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="px-3 py-1 bg-blue-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
-            ⭐ Más Completo
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+          <span className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] border border-white/20">
+            ⭐ MÁS COMPLETO
           </span>
         </div>
       )}
 
-      <div className="flex items-start justify-between mb-4">
-        <div className={cn('p-3 rounded-xl bg-white/[0.06] border border-white/[0.08]')}>
-          <Icon className={cn('h-5 w-5', mod.acento)} />
+      <div className="flex items-start justify-between mb-8">
+        <div className={cn('h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3', 
+          'bg-white/5 border border-white/10 group-hover:bg-white/10'
+        )}>
+          <Icon className={cn('h-6 w-6', mod.acento)} />
         </div>
         {isFree ? (
-          <span className="px-2.5 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[9px] font-black uppercase tracking-wider rounded-full">
+          <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">
             GRATIS
           </span>
         ) : (
           <div className="text-right">
-            <span className="text-2xl font-black text-white">${mod.precio}</span>
-            <span className="text-[10px] text-white/35 font-medium block">/mes</span>
+            <span className="text-3xl font-black text-white leading-none">${mod.precio}</span>
+            <span className="text-[10px] text-white/30 font-black uppercase tracking-widest block mt-1">/mes</span>
           </div>
         )}
       </div>
 
-      <h4 className="text-base font-black text-white mb-2 leading-tight">{mod.nombre}</h4>
-      <p className="text-xs text-white/55 font-medium leading-relaxed flex-1 mb-5">{mod.descripcion}</p>
+      <h4 className="text-xl font-black text-white mb-3 tracking-tight">{mod.nombre}</h4>
+      <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{mod.descripcion}</p>
 
       {mod.etiqueta && (
-        <p className="text-[10px] font-bold text-emerald-400/80 mb-3 tracking-wide">{mod.etiqueta}</p>
+        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.1em] mb-4">{mod.etiqueta}</p>
       )}
 
       <Button asChild className={cn(
-        'w-full h-10 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all hover:scale-[1.02]',
+        'w-full h-12 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:scale-[1.03] active:scale-[0.98]',
         isFree
           ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30'
-          : 'bg-white/[0.08] hover:bg-white/[0.15] text-white border border-white/[0.1]'
+          : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
       )}>
         <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
-          {isFree ? 'Crear Cuenta Gratis' : mod.id === 'milinea' ? 'Elegir el plan' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
+          {isFree ? 'Crear Cuenta Gratis' : mod.id === 'milinea' ? 'Elegir el plan' : 'Activar Módulo'} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
         </Link>
       </Button>
     </ScrollReveal>
@@ -290,52 +290,43 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative py-24 sm:py-32 w-full overflow-hidden scroll-mt-20"
-      style={{ background: 'linear-gradient(135deg, #050d1f 0%, #0a2472 40%, #050d1f 100%)' }}
+      className="relative py-32 md:py-48 w-full overflow-hidden scroll-mt-20 bg-[#050816]"
     >
-      {/* Background glows */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #0a2472 0%, transparent 70%)' }} />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #00FF00 0%, transparent 70%)' }} />
-        <div className="absolute inset-0 opacity-[0.015]"
-          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      {/* Background elements */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/[0.04] blur-[150px] animate-mesh-drift" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-500/[0.03] blur-[150px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 md:px-8 relative z-10">
+      <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px] relative z-10">
 
         {/* ──── MAIN HEADER ──── */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-24 md:mb-32"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border mb-6"
-            style={{ borderColor: 'rgba(0,255,0,0.25)', background: 'rgba(0,255,0,0.06)' }}>
-            <Zap className="h-3.5 w-3.5" style={{ color: '#00FF00' }} />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: '#00FF00' }}>
-              Planes y Precios
-            </span>
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-8 mx-auto">
+            <Zap className="h-4 w-4 text-cyan-400" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-200/80">Planes y Precios</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-5">
+          <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-black tracking-[-0.04em] text-white leading-[0.95] mb-8">
             Elige solo lo que<br />
-            <span className="text-transparent bg-clip-text"
-              style={{ backgroundImage: 'linear-gradient(135deg, #00FF00, #00d4ff)' }}>
-              realmente necesitas
-            </span>
+            <span className="block text-glow-cyan mt-2">realmente necesitas</span>
           </h2>
-          <p className="text-lg text-white/50 font-medium max-w-2xl mx-auto">
+          <p className="text-lg text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-10">
             Módulos independientes + planes de líneas 5G + hardware fiscal certificado. Sin contratos anuales obligatorios.
           </p>
 
           {/* Free note */}
-          <div className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/[0.06]">
-            <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={3} />
-            <span className="text-xs font-bold text-emerald-300">
-              La Cuenta Personal y Sostenibilidad son gratis para siempre · Kyron Shield incluido en todos los planes 5G
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-sm">
+            <Check className="h-4 w-4 text-emerald-400" strokeWidth={3} />
+            <span className="text-xs font-black text-emerald-200 uppercase tracking-widest">
+              La Cuenta Personal y Sostenibilidad son gratis para siempre
             </span>
           </div>
         </motion.div>
@@ -343,7 +334,7 @@ export function PricingSection() {
         {/* ══════════════════════════════════════════
             BLOQUE 1 — MÓDULOS SAAS
         ══════════════════════════════════════════ */}
-        <div className="mb-24">
+        <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Módulos SaaS"
             title="Activa solo los módulos"
@@ -351,7 +342,7 @@ export function PricingSection() {
             subtitle="Precio fijo mensual. Sin sorpresas. Cancela cuando quieras."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {SAAS_MODULES.map((mod, i) => (
               <ModuleCard key={mod.id} mod={mod} index={i} />
             ))}
@@ -361,27 +352,27 @@ export function PricingSection() {
         {/* ══════════════════════════════════════════
             BLOQUE 2 — PLANES 5G
         ══════════════════════════════════════════ */}
-        <div className="mb-24">
+        <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Conectividad 5G"
             title="Planes de líneas"
             highlight="5G con Kyron Shield"
-            subtitle="Cada plan incluye 3 seguros: reposición de equipo, perito forense SENIAT y abogado en 1h + llamadas verificadas anti-estafa."
+            subtitle="Cada plan incluye 3 seguros: reposición de equipo, perito forense SENIAT y abogado en 1h."
           />
 
           {/* Kyron Shield badge */}
-          <div className="flex justify-center mb-10">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-blue-500/30 bg-blue-500/[0.07]">
-              <Shield className="h-5 w-5 text-blue-400" />
+          <div className="flex justify-center mb-16">
+            <div className="inline-flex items-center gap-4 px-8 py-5 rounded-3xl border border-blue-500/20 bg-blue-500/10 backdrop-blur-md">
+              <Shield className="h-6 w-6 text-blue-400" />
               <div className="text-left">
-                <p className="text-xs font-black text-white">Kyron Shield incluido en todos los planes</p>
-                <p className="text-[10px] text-white/45 font-medium">Reposición de equipo · Perito forense SENIAT · Abogado en 1h · Anti-estafa</p>
+                <p className="text-xs font-black text-white uppercase tracking-widest">Kyron Shield incluido</p>
+                <p className="text-[10px] text-white/40 font-medium">Reposición de equipo · Perito forense SENIAT · Abogado en 1h</p>
               </div>
             </div>
           </div>
 
           {/* Plans cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {PLANES_5G.map((plan, i) => (
               <motion.div
                 key={plan.nombre}
@@ -391,61 +382,55 @@ export function PricingSection() {
                 viewport={{ once: true }}
                 custom={i * 0.08}
                 className={cn(
-                  'relative rounded-2xl border p-6 flex flex-col transition-all duration-300 hover:-translate-y-1',
+                  'relative p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 rounded-3xl glass-elite-interactive',
                   plan.popular
-                    ? 'border-blue-500/40 bg-gradient-to-br from-blue-900/30 to-slate-900/40 shadow-xl shadow-blue-500/15'
-                    : 'border-white/[0.07] bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04]'
+                    ? 'border-blue-500/40 bg-blue-500/5'
+                    : 'border-white/5 bg-white/[0.02]'
                 )}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="px-3 py-1 bg-blue-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                      Más Elegido
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                    <span className="px-4 py-1.5 bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg border border-white/20">
+                      MÁS ELEGIDO
                     </span>
                   </div>
                 )}
 
-                <div className="flex items-center gap-2 mb-4">
-                  <Wifi className="h-4 w-4 text-cyan-400" />
-                  <h4 className={cn('text-sm font-black', plan.color)}>{plan.nombre}</h4>
+                <div className="flex items-center gap-3 mb-6">
+                  <Wifi className="h-5 w-5 text-cyan-400" />
+                  <h4 className={cn('text-sm font-black uppercase tracking-widest', plan.color)}>{plan.nombre}</h4>
                 </div>
 
                 {/* Price */}
-                <div className="mb-5">
+                <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-black text-white">${plan.precio.toFixed(2)}</span>
-                    <span className="text-[10px] text-white/35">/mes</span>
+                    <span className="text-4xl font-black text-white tracking-tighter">${plan.precio.toFixed(2)}</span>
+                    <span className="text-[10px] text-white/30 font-black uppercase tracking-widest ml-1">/mes</span>
                   </div>
                 </div>
 
                 {/* Specs */}
-                <div className="space-y-2.5 mb-6 flex-1">
+                <div className="space-y-4 mb-10 flex-1">
                   {[
                     { label: 'Datos', value: plan.datos },
                     { label: 'Minutos', value: plan.minutos },
                     { label: 'SMS', value: plan.sms },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between text-xs">
+                    <div key={label} className="flex items-center justify-between text-xs py-1 border-b border-white/5">
                       <span className="text-white/40 font-medium">{label}</span>
                       <span className={cn('font-black', plan.color)}>{value}</span>
                     </div>
                   ))}
-                  <div className="pt-2 border-t border-white/[0.05]">
-                    <div className="flex items-center gap-1.5 text-[10px] text-blue-400/80 font-bold">
-                      <Shield className="h-3 w-3" />
-                      Kyron Shield incluido
-                    </div>
-                  </div>
                 </div>
 
                 <Button asChild className={cn(
-                  'w-full h-10 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all hover:scale-[1.02]',
+                  'w-full h-11 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:scale-[1.03]',
                   plan.popular
-                    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/40'
-                    : 'bg-white/[0.07] hover:bg-white/[0.14] text-white border border-white/[0.1]'
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
                 )}>
                   <Link href="/registro">
-                    Contratar <ArrowRight className="w-3 h-3 ml-1.5" />
+                    Contratar <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -458,12 +443,14 @@ export function PricingSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="mt-8 p-4 rounded-2xl border border-cyan-500/20 bg-cyan-500/[0.04] flex items-start gap-3"
+            className="mt-12 p-8 rounded-3xl border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-md flex items-start gap-5 max-w-4xl mx-auto"
           >
-            <Phone className="h-4 w-4 text-cyan-400 shrink-0 mt-0.5" />
-            <p className="text-xs text-white/60 font-medium">
-              <span className="text-cyan-400 font-black">¿Ya tienes línea con otro operador?</span>{' '}
-              Contrata solo el módulo "Mi Línea 5G" por <span className="text-white font-black">$5/mes</span> para gestionar tu línea existente dentro de System Kyron, con todas las herramientas de administración y seguridad.
+            <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center shrink-0">
+              <Phone className="h-6 w-6 text-cyan-400" />
+            </div>
+            <p className="text-sm text-white/50 font-medium leading-relaxed">
+              <span className="text-cyan-400 font-black uppercase tracking-widest block mb-1">¿Ya tienes línea con otro operador?</span>{' '}
+              Contrata solo el módulo "Mi Línea 5G" por <span className="text-white font-black">$3/mes</span> para gestionar tu línea existente dentro de System Kyron, con todas las herramientas de administración y seguridad empresarial.
             </p>
           </motion.div>
         </div>
@@ -471,7 +458,7 @@ export function PricingSection() {
         {/* ══════════════════════════════════════════
             BLOQUE 3 — HARDWARE FISCAL
         ══════════════════════════════════════════ */}
-        <div className="mb-24">
+        <div className="mb-32 md:mb-48">
           <SectionTitle
             badge="Hardware Fiscal"
             title="Equipo certificado"
@@ -479,7 +466,7 @@ export function PricingSection() {
             subtitle="Pago único. Sin mensualidad. Entrega en todo Venezuela."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {HARDWARE.map((hw, i) => {
               const Icon = hw.icon;
               return (
@@ -490,28 +477,31 @@ export function PricingSection() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.1}
-                  className="rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all duration-300 hover:-translate-y-1 p-7 flex flex-col"
+                  className="rounded-3xl p-10 flex flex-col transition-all duration-500 hover:-translate-y-2 glass-elite-interactive border-white/5"
                 >
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                      <Icon className="h-6 w-6 text-amber-400" />
+                  <div className="flex items-center gap-5 mb-8">
+                    <div className="h-16 w-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                      <Icon className="h-8 w-8 text-amber-400" />
                     </div>
                     <div>
-                      <h4 className="text-base font-black text-white leading-tight">{hw.nombre}</h4>
-                      <p className="text-[10px] text-amber-400 font-bold mt-0.5">{hw.homologacion}</p>
+                      <h4 className="text-lg font-black text-white tracking-tight">{hw.nombre}</h4>
+                      <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/30 mt-1">
+                        <Check className="h-2.5 w-2.5 text-emerald-400" />
+                        <span className="text-[8px] text-emerald-400 font-black uppercase tracking-widest">SENIAT Certificado</span>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="text-xs text-white/55 font-medium leading-relaxed flex-1 mb-6">{hw.descripcion}</p>
+                  <p className="text-sm text-white/40 font-medium leading-relaxed flex-1 mb-8">{hw.descripcion}</p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.05]">
+                  <div className="flex items-center justify-between pt-8 border-t border-white/5">
                     <div>
-                      <p className="text-[10px] text-white/30 font-medium uppercase tracking-widest">Precio único</p>
-                      <p className="text-2xl font-black text-white">${hw.precio}</p>
+                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">Inversión única</p>
+                      <p className="text-3xl font-black text-white tracking-tighter">${hw.precio}</p>
                     </div>
-                    <Button asChild className="h-10 px-5 rounded-xl font-black text-[10px] uppercase tracking-widest bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/30 transition-all hover:scale-[1.02]">
+                    <Button asChild className="h-12 px-8 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.03]">
                       <Link href="#contacto">
-                        Cotizar <ArrowRight className="w-3 h-3 ml-1.5" />
+                        Cotizar <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>
@@ -526,13 +516,13 @@ export function PricingSection() {
         ══════════════════════════════════════════ */}
         <div>
           <SectionTitle
-            badge="Ejemplos de uso"
-            title="¿Cuánto pagarías"
-            highlight="según tu perfil?"
-            subtitle="Combina solo los módulos que necesitas. Siempre puedes agregar o quitar más adelante."
+            badge="Personalización"
+            title="Escalabilidad"
+            highlight="sin límites"
+            subtitle="Combina módulos según tu perfil. Crece con nosotros."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
             {COMBOS.map((combo, i) => {
               const Icon = combo.icon;
               return (
@@ -543,19 +533,86 @@ export function PricingSection() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   custom={i * 0.08}
-                  className={cn('rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1', combo.color)}
+                  className={cn('rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 glass-elite-interactive border-white/5', combo.color.replace('border-', 'border-opacity-0 border-'))}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.08]">
-                        <Icon className="h-4 w-4 text-white/60" />
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        <Icon className="h-5 w-5 text-white/60" />
                       </div>
-                      <h4 className="text-sm font-black text-white leading-tight">{combo.perfil}</h4>
+                      <h4 className="text-base font-black text-white tracking-tight">{combo.perfil}</h4>
                     </div>
                     {combo.badge && (
-                      <span className={cn('text-[8px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest shrink-0', combo.badgeColor)}>
+                      <span className={cn('text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0 border border-white/20 shadow-lg', combo.badgeColor)}>
                         {combo.badge}
                       </span>
+                    )}
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {combo.items.map((item, j) => (
+                      <li key={j} className="flex items-center gap-3 text-xs text-white/50 font-medium">
+                        <div className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                    <div>
+                      <p className="text-[9px] text-white/20 font-black uppercase tracking-[0.2em] mb-1">Costo Estimado</p>
+                      <p className="text-3xl font-black text-white tracking-tighter leading-none">
+                        {combo.total === 0 ? (
+                          <span className="text-emerald-400">Gratis</span>
+                        ) : (
+                          `$${combo.total.toFixed(2)}`
+                        )}
+                      </p>
+                    </div>
+                    <Button asChild className="h-11 px-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.25em] bg-white/10 hover:bg-white/20 text-white border border-white/10 transition-all hover:scale-[1.03]">
+                      <Link href="/registro">
+                        Iniciar <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Final trust note */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-24 text-center"
+          >
+            <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-4 px-10 py-8 rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-md max-w-5xl mx-auto">
+              <div className="flex flex-col items-center gap-3 p-4">
+                <Check className="h-5 w-5 text-emerald-400" strokeWidth={3} />
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Cuenta Personal<br/>Sempre Gratis</span>
+              </div>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
+                <Shield className="h-5 w-5 text-blue-400" />
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Kyron Shield<br/>Integrado</span>
+              </div>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
+                <Leaf className="h-5 w-5 text-green-400" />
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Sostenibilidad<br/>Certificada</span>
+              </div>
+              <div className="flex flex-col items-center gap-3 p-4 border-l border-white/5">
+                <Star className="h-5 w-5 text-amber-400" />
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest text-center leading-tight">Sin Contratos<br/>Obligatorios</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+</span>
                     )}
                   </div>
 
