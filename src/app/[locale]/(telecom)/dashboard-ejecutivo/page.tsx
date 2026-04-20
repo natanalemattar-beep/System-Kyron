@@ -12,6 +12,7 @@ import {
 import { cn, formatCurrency } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
+import { ProfileCompletionNotice } from "@/components/dashboard/profile-completion-notice";
 
 interface TelecomDashboardData {
   lineas: {
@@ -104,6 +105,8 @@ export default function DashboardEjecutivoPage() {
           <Download className="mr-1.5 h-3.5 w-3.5" /> Exportar Reporte
         </Button>
       </header>
+
+      <ProfileCompletionNotice />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {KPI_DATA.map((kpi, i) => (

@@ -29,22 +29,15 @@ import { format, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ESTADOS_VE, getMunicipios, getCiudades } from '@/lib/venezuela-geo';
 
-const TOTAL_STEPS = 5;
-const FORM_STEPS = TOTAL_STEPS - 1;
+const TOTAL_STEPS = 4;
+const FORM_STEPS = 2; // Identity & Access
 
 const fullSchema = z.object({
   nombre: z.string().min(2, 'El nombre es requerido.'),
   apellido: z.string().min(2, 'El apellido es requerido.'),
   cedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-18745632 o E-12345678'),
   fecha_nacimiento: z.string().min(1, 'La fecha de nacimiento es requerida.'),
-  genero: z.string().min(1, 'Selecciona el género.'),
-  estado_civil: z.string().min(1, 'Selecciona el estado civil.'),
-  telefono: z.string().min(10, 'El teléfono principal es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
-  telefono_alt: z.string().optional(),
-  estado_residencia: z.string().min(1, 'El estado es requerido.'),
-  municipio: z.string().min(2, 'El municipio es requerido.'),
-  ciudad: z.string().min(2, 'La ciudad/parroquia es requerida.'),
-  direccion: z.string().min(10, 'La dirección completa es requerida.'),
+  telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
   email: z.string().email('Correo electrónico inválido.'),
   password: z.string()
     .min(8, 'Mínimo 8 caracteres.')
@@ -60,9 +53,8 @@ const fullSchema = z.object({
 
 type FormData = z.infer<typeof fullSchema>;
 
-const step1Fields = ['nombre', 'apellido', 'cedula', 'fecha_nacimiento', 'genero', 'estado_civil'] as const;
-const step2Fields = ['telefono', 'estado_residencia', 'municipio', 'ciudad', 'direccion'] as const;
-const step3Fields = ['email', 'password', 'confirmPassword'] as const;
+const step1Fields = ['nombre', 'apellido', 'cedula', 'fecha_nacimiento'] as const;
+const step2Fields = ['telefono', 'email', 'password', 'confirmPassword'] as const;
 
 export default function RegisterNaturalPage() {
   const searchParams = useSearchParams();
@@ -174,14 +166,14 @@ export default function RegisterNaturalPage() {
   }, [estadoResidencia]);
 
   const nextStep = async () => {
-    const fields = step === 1 ? step1Fields : step === 2 ? step2Fields : step3Fields;
+    const fields = step === 1 ? step1Fields : step2Fields;
     const valid = await trigger(fields as any);
-    if (step === 3 && !acceptTerms) return;
+    if (step === 2 && !acceptTerms) return;
     if (valid) setStep(s => s + 1);
   };
 
   const prevStep = () => {
-    if (step === 4) {
+    if (step === 3) {
       setVerifSent(false);
       setVerifCode('');
       setVerifVerified(false);
@@ -309,8 +301,8 @@ export default function RegisterNaturalPage() {
     }
   };
 
-  const stepLabels = ['Datos Personales', 'Contacto y Dirección', 'Acceso', 'Verificación'];
-  const stepIcons = [User, Phone, Lock, Fingerprint];
+  const stepLabels = ['Datos Personales', 'Acceso y Contacto', 'Verificación'];
+  const stepIcons = [User, Lock, Fingerprint];
 
   const Field = ({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) => (
     <div className="space-y-1.5">
@@ -480,23 +472,6 @@ export default function RegisterNaturalPage() {
                   )} />
                 </Field>
 
-                <div className="pt-2">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                      <Upload className="h-3 w-3 text-white" />
-                    </div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos de Identidad</p>
-                  </div>
-                  <DocumentUpload
-                    requirements={[
-                      { id: 'cedula_frente', label: 'Cédula — Lado Frontal', description: 'Foto o escaneo legible del frente de su cédula', required: true },
-                      { id: 'cedula_reverso', label: 'Cédula — Lado Reverso', description: 'Foto o escaneo legible del reverso de su cédula', required: true },
-                    ]}
-                    documents={uploadedDocs}
-                    onDocumentsChange={setUploadedDocs}
-                  />
-                </div>
-
                 <Field id="fecha_nacimiento" label="Fecha de Nacimiento" error={errors.fecha_nacimiento?.message}>
                   <Controller
                     name="fecha_nacimiento"
@@ -555,66 +530,6 @@ export default function RegisterNaturalPage() {
                     }}
                   />
                 </Field>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="genero" label="Género" error={errors.genero?.message}>
-                    <Controller
-                      name="genero"
-                      control={control}
-                      render={({ field }) => {
-                        if (prefilledSexo) {
-                          return (
-                            <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
-                              <span className="text-sm text-foreground/80">{field.value}</span>
-                            </div>
-                          );
-                        }
-                        return (
-                          <Select value={field.value} onValueChange={field.onChange}>
-                            <SelectTrigger id="genero" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                              <SelectValue placeholder="Seleccionar" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Masculino">Masculino</SelectItem>
-                              <SelectItem value="Femenino">Femenino</SelectItem>
-                              <SelectItem value="No binario">No binario</SelectItem>
-                              <SelectItem value="Prefiero no decir">Prefiero no decir</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        );
-                      }}
-                    />
-                  </Field>
-                  <Field id="estado_civil" label="Estado Civil" error={errors.estado_civil?.message}>
-                    <Controller
-                      name="estado_civil"
-                      control={control}
-                      render={({ field }) => {
-                        if (prefilledCivil) {
-                          return (
-                            <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
-                              <span className="text-sm text-foreground/80">{field.value}</span>
-                            </div>
-                          );
-                        }
-                        return (
-                          <Select value={field.value} onValueChange={field.onChange}>
-                            <SelectTrigger id="estado_civil" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                              <SelectValue placeholder="Seleccionar" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Soltero/a">Soltero/a</SelectItem>
-                              <SelectItem value="Casado/a">Casado/a</SelectItem>
-                              <SelectItem value="Divorciado/a">Divorciado/a</SelectItem>
-                              <SelectItem value="Viudo/a">Viudo/a</SelectItem>
-                              <SelectItem value="Unión Estable de Hecho">Unión Estable de Hecho</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        );
-                      }}
-                    />
-                  </Field>
-                </div>
               </>
             )}
 
@@ -622,134 +537,28 @@ export default function RegisterNaturalPage() {
               <>
                 <div className="flex items-center gap-3 p-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-md shadow-emerald-500/20">
-                    <Phone className="h-5 w-5 text-white" />
+                    <Lock className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground">Contacto y Dirección</p>
-                    <p className="text-xs text-muted-foreground">Cómo te ubicamos</p>
+                    <p className="text-sm font-bold text-foreground">Acceso y Contacto</p>
+                    <p className="text-xs text-muted-foreground">Tus credenciales de seguridad</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="telefono" label="Teléfono Principal" error={errors.telefono?.message}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Field id="telefono" label="Teléfono Celular" error={errors.telefono?.message}>
                     <div className="relative">
                       <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                       <Input id="telefono" placeholder="0412-1234567" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('telefono')} />
                     </div>
                   </Field>
-                  <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message}>
+                  <Field id="email" label="Correo Electrónico" error={errors.email?.message}>
                     <div className="relative">
-                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('telefono_alt')} />
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                      <Input id="email" type="email" placeholder="tu@correo.com" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('email')} />
                     </div>
                   </Field>
                 </div>
-
-                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-1" />
-
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-orange-500/5 border border-orange-500/10">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20">
-                    <MapPin className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-foreground">Dirección de Residencia</p>
-                    <p className="text-xs text-muted-foreground">Tu ubicación en Venezuela</p>
-                  </div>
-                </div>
-
-                <Field id="estado_residencia" label="Estado / Entidad Federal" error={errors.estado_residencia?.message}>
-                  <Controller
-                    name="estado_residencia"
-                    control={control}
-                    render={({ field }) => {
-                      if (prefilledEstado) {
-                        return (
-                          <div className="flex items-center h-11 px-3 rounded-xl bg-muted/60 border border-border/50 cursor-not-allowed">
-                            <span className="text-sm text-foreground/80">{field.value}</span>
-                          </div>
-                        );
-                      }
-                      return (
-                        <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="estado_residencia" className="rounded-xl bg-muted/30 border-border/50 h-11">
-                            <SelectValue placeholder="Selecciona el estado" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      );
-                    }}
-                  />
-                </Field>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="municipio" label="Municipio" error={errors.municipio?.message}>
-                    <Controller
-                      name="municipio"
-                      control={control}
-                      render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoResidencia || !!prefilledMunicipio}>
-                          <SelectTrigger id="municipio" className={cn("rounded-xl bg-muted/30 border-border/50 h-11", prefilledMunicipio && "bg-muted/60 text-foreground/80 cursor-not-allowed")}>
-                            <SelectValue placeholder={estadoResidencia ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {getMunicipios(estadoResidencia || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </Field>
-                  <Field id="ciudad" label="Ciudad / Parroquia" error={errors.ciudad?.message}>
-                    <Controller
-                      name="ciudad"
-                      control={control}
-                      render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoResidencia || !!prefilledParroquia}>
-                          <SelectTrigger id="ciudad" className={cn("rounded-xl bg-muted/30 border-border/50 h-11", prefilledParroquia && "bg-muted/60 text-foreground/80 cursor-not-allowed")}>
-                            <SelectValue placeholder={estadoResidencia ? 'Selecciona ciudad/parroquia' : 'Primero selecciona el estado'} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {getCiudades(estadoResidencia || '').map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </Field>
-                </div>
-
-                <Field id="direccion" label="Dirección Completa" error={errors.direccion?.message}>
-                  <div className="relative">
-                    <MapPin className="absolute left-3.5 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
-                    <textarea
-                      id="direccion"
-                      placeholder="Av. Principal, Residencias X, Piso 2, Apto 2-B..."
-                      className="flex min-h-[80px] w-full rounded-xl border border-border/50 bg-muted/30 px-3 py-2.5 pl-10 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:bg-background transition-colors"
-                      {...register('direccion')}
-                    />
-                  </div>
-                </Field>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-amber-500/5 border border-amber-500/10">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-md shadow-amber-500/20">
-                    <Lock className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-foreground">Credenciales de Acceso</p>
-                    <p className="text-xs text-muted-foreground">Tu correo y contraseña</p>
-                  </div>
-                </div>
-
-                <Field id="email" label="Correo Electrónico" error={errors.email?.message}>
-                  <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                    <Input id="email" type="email" placeholder="tu@correo.com" className="pl-10 rounded-xl bg-muted/30 border-border/50 focus:bg-background h-11" {...register('email')} />
-                  </div>
-                </Field>
 
                 <Field id="password" label="Contraseña" error={errors.password?.message}>
                   <div className="relative">
@@ -774,7 +583,7 @@ export default function RegisterNaturalPage() {
                         )} />
                       ))}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">Min. 8, mayúscula, minúscula, número y carácter especial</span>
+                    <span className="text-[10px] text-muted-foreground">Seguridad: Media-Alta</span>
                   </div>
                 </Field>
 
@@ -797,18 +606,16 @@ export default function RegisterNaturalPage() {
                   />
                   <span className="text-xs text-muted-foreground">
                     He leído y acepto los{' '}
-                    <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
-                    y la{' '}
-                    <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
+                    <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>
                   </span>
                 </label>
-                {!acceptTerms && step === 3 && (
+                {!acceptTerms && step === 2 && (
                   <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>
                 )}
               </>
             )}
 
-            {step === 4 && (
+            {step === 3 && (
               <div className="space-y-5">
                 <div className="flex items-center gap-3 p-3 rounded-2xl bg-violet-500/5 border border-violet-500/10">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center shadow-md shadow-violet-500/20">
@@ -961,7 +768,7 @@ export default function RegisterNaturalPage() {
                 <ArrowLeft className="h-4 w-4" /> Anterior
               </Button>
 
-              {step < 3 && (
+              {step < 2 && (
                 <Button
                   type="button"
                   onClick={nextStep}
@@ -970,7 +777,7 @@ export default function RegisterNaturalPage() {
                   Siguiente <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
-              {step === 3 && (
+              {step === 2 && (
                 <Button
                   type="button"
                   onClick={nextStep}
@@ -979,7 +786,7 @@ export default function RegisterNaturalPage() {
                   Verificar Identidad <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
-              {step === 4 && (
+              {step === 3 && (
                 <Button
                   type="submit"
                   disabled={isLoading || !verifVerified}

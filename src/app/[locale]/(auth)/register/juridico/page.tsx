@@ -4,917 +4,449 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
-} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  Building, Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft,
-  CloudUpload as UploadCloud, MapPin, Phone, Mail, Calendar, Shield, Eye, EyeOff,
-  BookOpen, Users, ShieldCheck, Smartphone, Signal, FileText,
-  Gavel, ShoppingCart, MessageSquare, RefreshCw,
+    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Building, Check, Gavel, Mail, RefreshCw, Smartphone, Users, Lock, Phone,
+    GripVertical, Briefcase, Landmark, Shield,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { useAuth } from '@/lib/auth/context';
-import { Progress } from '@/components/ui/progress';
-import { FileInputTrigger } from '@/components/file-input-trigger';
+import { Link } from '@/navigation';
+import { cn } from '@/lib/utils';
 import { DocumentInput } from '@/components/document-input';
-import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
-import { Check } from 'lucide-react';
-
-const TOTAL_STEPS = 7;
 
 const TIPOS_EMPRESA = [
-  'Compañía Anónima (C.A.)',
-  'Compañía de Responsabilidad Limitada (C.R.L.)',
-  'Sociedad Anónima (S.A.)',
-  'Sociedad de Responsabilidad Limitada (S.R.L.)',
-  'Cooperativa',
-  'Asociación Civil sin Fines de Lucro',
-  'Fundación sin Fines de Lucro',
-  'ONG (Organización No Gubernamental)',
-  'Fundación del Estado',
-  'Empresa Pública',
-  'Organismo del Estado',
-  'Persona Natural con Actividad Económica',
-  'Otro',
+    'Compañía Anónima (C.A.)', 'S.A.', 'S.R.L.', 'Cooperativa',
+    'Asociación Civil', 'Fundación', 'Persona Natural con Actividad Económica', 'Otro',
 ];
 
-const MODULOS_REGISTRO = [
-  { id: 'mi_linea_personal', nombre: 'Mi Línea Personal', descripcion: 'Tu línea móvil con planes desde 2 GB hasta ilimitado.', precioDesde: 3, icon: Smartphone, gradient: 'from-cyan-500 to-teal-600', color: 'text-cyan-500', border: 'border-cyan-500/30', bg: 'bg-cyan-500/5', planes: 6, features: ['WhatsApp incluido', 'Redes sociales ilimitadas', 'Streaming HD'] },
-  { id: 'mi_linea_juridica', nombre: 'Mi Línea Jurídica', descripcion: 'Flota corporativa con gestión centralizada.', precioDesde: 15, icon: Signal, gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500', border: 'border-pink-500/30', bg: 'bg-pink-500/5', planes: 4, features: ['Hasta 50 líneas corporativas', 'MDM completo', 'Reportes CONATEL'] },
-  { id: 'asesoria_contable', nombre: 'Asesoría Contable', descripcion: 'Contabilidad VEN-NIF, libros, tributos e IA fiscal.', precioDesde: 8, icon: BookOpen, gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500', border: 'border-blue-500/30', bg: 'bg-blue-500/5', planes: 4, features: ['Libros legales (Diario, Mayor)', 'Centro Tributario IVA/ISLR/IGTF', 'Retenciones automáticas'] },
-  { id: 'asesoria_legal', nombre: 'Asesoría Legal', descripcion: 'Documentos con IA, contratos, permisos y litigios.', precioDesde: 5, icon: Gavel, gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500', border: 'border-amber-500/30', bg: 'bg-amber-500/5', planes: 4, features: ['Generador con IA avanzada', 'Contratos ilimitados', 'Gestión de permisos vigentes'] },
-  { id: 'facturacion', nombre: 'Facturación', descripcion: 'Facturación fiscal SENIAT, POS y ventas.', precioDesde: 6, icon: ShoppingCart, gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500', border: 'border-emerald-500/30', bg: 'bg-emerald-500/5', planes: 4, features: ['Facturación fiscal SENIAT', 'Punto de Venta (POS)', 'Análisis comercial'] },
-  { id: 'socios_directivos', nombre: 'Socios y Directivos', descripcion: 'Gobierno corporativo, actas y dividendos.', precioDesde: 10, icon: Users, gradient: 'from-violet-500 to-purple-600', color: 'text-violet-500', border: 'border-violet-500/30', bg: 'bg-violet-500/5', planes: 3, features: ['Socios ilimitados', 'Gobierno corporativo', 'Reportes para accionistas'] },
-];
-
-const fullSchema = z.object({
-  razonSocial: z.string().min(3, 'La razón social es requerida.'),
-  rif: z.string().min(9).regex(/^[JGCVEP][-]\d{8}[-]\d$/, 'Formato: J-50328471-6'),
-  tipo_empresa: z.string().min(1, 'Selecciona el tipo de empresa.'),
-  actividad_economica: z.string().min(5, 'Describe la actividad económica.'),
-  codigo_ciiu: z.string().optional(),
-  fecha_constitucion: z.string().optional(),
-  registro_mercantil: z.string().optional(),
-  capital_social: z.string().optional(),
-  telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Teléfono inválido.'),
-  telefono_alt: z.string().optional(),
-  estado_empresa: z.string().min(1, 'El estado es requerido.'),
-  municipio_empresa: z.string().min(2, 'El municipio es requerido.'),
-  direccion: z.string().min(10, 'La dirección fiscal es requerida.'),
-  repNombre: z.string().min(2, 'El nombre es requerido.'),
-  repApellido: z.string().min(2, 'El apellido es requerido.'),
-  repCedula: z.string().min(7).regex(/^[VE][-]\d+$/, 'Formato: V-18745632'),
-  rep_cargo: z.string().min(2, 'El cargo es requerido.'),
-  rep_telefono: z.string().min(10, 'El teléfono es requerido.').regex(/^[0-9()+\-\s]+$/, 'Inválido.'),
-  repEmail: z.string().email('Correo electrónico inválido.'),
-  password: z.string()
-    .min(8, 'Mínimo 8 caracteres.')
-    .regex(/[A-Z]/, 'Debe tener al menos una mayúscula.')
-    .regex(/[a-z]/, 'Debe tener al menos una minúscula.')
-    .regex(/[0-9]/, 'Debe tener al menos un número.')
-    .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Debe tener al menos un carácter especial (!@#$%...).'),
-  confirmPassword: z.string().min(8, 'Confirma tu contraseña.'),
-  fileRif: z.any().optional(),
-  fileActa: z.any().optional(),
+const schema = z.object({
+    razonSocial: z.string().min(3, 'Ingrese la razón social'),
+    rif: z.string().regex(/^[JGCVEPF]-\d{8}-\d$/, 'Formato: J-50328471-6'),
+    tipo_empresa: z.string().min(1, 'Seleccione el tipo'),
+    repNombre: z.string().min(2, 'Ingrese el nombre'),
+    repApellido: z.string().min(2, 'Ingrese el apellido'),
+    repEmail: z.string().email('Correo inválido'),
+    repCedula: z.string().min(6, 'Cédula inválida'),
+    telefono: z.string().min(7, 'Teléfono inválido'),
+    password: z.string()
+        .min(8, 'Mínimo 8 caracteres')
+        .regex(/[A-Z]/, 'Una mayúscula')
+        .regex(/[0-9]/, 'Un número')
+        .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Un carácter especial'),
+    confirmPassword: z.string(),
 }).refine(d => d.password === d.confirmPassword, {
-  message: 'Las contraseñas no coinciden.',
-  path: ['confirmPassword'],
+    message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
 });
 
-type FormData = z.infer<typeof fullSchema>;
+type FormData = z.infer<typeof schema>;
 
-const step1Fields = ['razonSocial', 'rif', 'tipo_empresa', 'actividad_economica'] as const;
-const step2Fields = ['telefono', 'estado_empresa', 'municipio_empresa', 'direccion'] as const;
-const step3Fields = ['repNombre', 'repApellido', 'repCedula', 'rep_cargo', 'rep_telefono', 'repEmail', 'password', 'confirmPassword'] as const;
+const TOTAL_STEPS = 4;
 
-const ALLOWED_FILE_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
-const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+const stepConfig = [
+    { title: 'Empresa', desc: 'Datos del negocio', icon: Building },
+    { title: 'Representante', desc: 'Acceso y contacto', icon: Users },
+    { title: 'Verificar', desc: 'Confirma tu identidad', icon: Mail },
+    { title: 'Listo', desc: 'Registro completo', icon: CheckCircle },
+];
 
 export default function RegisterJuridicoPage() {
-  const searchParams = useSearchParams();
-  const prefilledDoc = searchParams.get('doc') || '';
+    const searchParams = useSearchParams();
+    const [step, setStep] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
+    const { refreshUser } = useAuth();
+    const { toast } = useToast();
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [verifSent, setVerifSent] = useState(false);
+    const [verifCode, setVerifCode] = useState('');
+    const [verifVerified, setVerifVerified] = useState(false);
+    const [verifLoading, setVerifLoading] = useState(false);
+    const [verifDestino, setVerifDestino] = useState('');
+    const [countdown, setCountdown] = useState(0);
 
-  const [step, setStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
-  const [registeredEmail, setRegisteredEmail] = useState('');
-  const [registeredRazon, setRegisteredRazon] = useState('');
-  const [fileRifName, setFileRifName] = useState<string | null>(null);
-  const [fileActaName, setFileActaName] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [verifMethod, setVerifMethod] = useState<'email' | 'sms'>('email');
-  const [verifSent, setVerifSent] = useState(false);
-  const [verifCode, setVerifCode] = useState('');
-  const [devCode, setDevCode] = useState<string | null>(null);
-  const [verifLoading, setVerifLoading] = useState(false);
-  const [verifVerified, setVerifVerified] = useState(false);
-  const [verifDestino, setVerifDestino] = useState('');
-  const [countdown, setCountdown] = useState(0);
-  const { toast } = useToast();
-  const router = useRouter();
-  const { refreshUser } = useAuth();
+    const isLegalMode = searchParams.get('mode') === 'legal' || typeof window !== 'undefined' && window.location.pathname.includes('/legal');
 
-  const onMagicLinkVerified = useCallback(() => {
-    setVerifVerified(true);
-    toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
-  }, [toast]);
+    const onMagicLinkVerified = useCallback(() => {
+        setVerifVerified(true);
+        toast({ title: '¡Verificado!', description: 'Identidad confirmada exitosamente.' });
+    }, [toast]);
 
-  useVerificationPoll(verifDestino, verifMethod === 'email' && verifSent && !verifVerified, onMagicLinkVerified);
+    useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
-  const prefilledRazon = searchParams.get('razon') || '';
-  const prefilledTipo = searchParams.get('tipo') || '';
-  const prefilledActividad = searchParams.get('actividad') || '';
-  const prefilledEstado = searchParams.get('estado') || '';
-  const prefilledMunicipio = searchParams.get('municipio') || '';
-  const prefilledTel = searchParams.get('tel') || '';
-
-  const { register, handleSubmit, control, setValue, getValues, watch, formState: { errors }, trigger } =
-    useForm<FormData>({
-      resolver: zodResolver(fullSchema),
-      mode: 'onTouched',
-      defaultValues: {
-        rif: prefilledDoc || undefined,
-        razonSocial: prefilledRazon || undefined,
-        tipo_empresa: prefilledTipo || undefined,
-        actividad_economica: prefilledActividad || undefined,
-        estado_empresa: prefilledEstado || undefined,
-        municipio_empresa: prefilledMunicipio || undefined,
-        telefono: prefilledTel || undefined,
-      },
+    const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        mode: 'onChange',
+        defaultValues: {
+            rif: searchParams.get('doc') || '',
+            razonSocial: searchParams.get('razon') || '',
+            tipo_empresa: searchParams.get('tipo') || '',
+        },
     });
 
-  const toggleModule = (id: string) => {
-    setSelectedModules(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
+    const watchedPassword = watch('password');
 
-  const estadoEmpresa = watch('estado_empresa');
-  useEffect(() => { setValue('municipio_empresa', ''); }, [estadoEmpresa]);
+    const startCountdown = () => {
+        setCountdown(60);
+        const timer = setInterval(() => {
+            setCountdown(prev => {
+                if (prev <= 1) { clearInterval(timer); return 0; }
+                return prev - 1;
+            });
+        }, 1000);
+    };
 
-  const startCountdown = () => {
-    setCountdown(60);
-    const timer = setInterval(() => {
-      setCountdown(prev => {
-        if (prev <= 1) { clearInterval(timer); return 0; }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
-  const sendVerificationCode = async () => {
-    setVerifLoading(true);
-    const email = getValues('repEmail');
-    const telefono = getValues('telefono');
-    const destino = verifMethod === 'email' ? email : telefono;
-    setVerifDestino(destino);
-    try {
-      const res = await fetch('/api/auth/send-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino, tipo: verifMethod, proposito: 'registration' }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        toast({ title: 'Error al enviar código', description: json.error, variant: 'destructive' });
-        return;
-      }
-      setVerifSent(true);
-      startCountdown();
-      const returnedCode = json.devCode || json.kyronCode || null;
-      setDevCode(returnedCode);
-      if (returnedCode) setVerifCode(returnedCode);
-      toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : verifMethod === 'email' ? `Revisa ${email}` : `Enviado al ${telefono}` });
-    } catch {
-      toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
-    } finally {
-      setVerifLoading(false);
-    }
-  };
-
-  const verifyingRef = useRef(false);
-  const verifyCode = useCallback(async (code: string) => {
-    if (code.length !== 6 || verifyingRef.current || verifVerified) return;
-    verifyingRef.current = true;
-    setVerifLoading(true);
-    try {
-      const res = await fetch('/api/auth/verify-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destino: verifDestino, codigo: code, proposito: 'registration' }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        toast({ title: 'Código incorrecto', description: json.error, variant: 'destructive' });
-        setVerifCode('');
-        return;
-      }
-      setVerifVerified(true);
-      toast({ title: '¡Verificado!', description: 'Identidad confirmada.' });
-    } catch {
-      toast({ title: 'Error', description: 'No se pudo verificar el código.', variant: 'destructive' });
-      setVerifCode('');
-    } finally {
-      setVerifLoading(false);
-      verifyingRef.current = false;
-    }
-  }, [verifDestino, verifVerified, toast]);
-
-  useEffect(() => {
-    if (verifCode.length === 6 && verifSent && !verifVerified) {
-      verifyCode(verifCode);
-    }
-  }, [verifCode, verifSent, verifVerified, verifyCode]);
-
-  const nextStep = async () => {
-    if (step === 1) {
-      const valid = await trigger(step1Fields as any);
-      if (valid) setStep(s => s + 1);
-    } else if (step === 2) {
-      const valid = await trigger(step2Fields as any);
-      if (valid) setStep(s => s + 1);
-    } else if (step === 3) {
-      const valid = await trigger(step3Fields as any);
-      if (valid) setStep(s => s + 1);
-    } else if (step === 5) {
-      if (!acceptTerms) return;
-      setStep(s => s + 1);
-    } else {
-      setStep(s => s + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (step === 6) {
-      setVerifSent(false);
-      setVerifCode('');
-      setVerifVerified(false);
-    }
-    setStep(s => s - 1);
-  };
-
-  const submittingRef = useRef(false);
-  const onSubmit = async (data: FormData) => {
-    if (!verifVerified) {
-      toast({ title: 'Verificación requerida', description: 'Debes verificar tu identidad antes de completar el registro.', variant: 'destructive' });
-      return;
-    }
-    if (submittingRef.current || isLoading) return;
-    submittingRef.current = true;
-
-    if (data.fileRif instanceof File) {
-      if (!ALLOWED_FILE_TYPES.includes(data.fileRif.type)) {
-        toast({ title: 'Archivo no permitido', description: 'El RIF debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
-        submittingRef.current = false;
-        return;
-      }
-      if (data.fileRif.size > MAX_FILE_SIZE_BYTES) {
-        toast({ title: 'Archivo demasiado grande', description: 'El RIF no puede superar 10 MB.', variant: 'destructive' });
-        submittingRef.current = false;
-        return;
-      }
-    }
-
-    if (data.fileActa instanceof File) {
-      if (!ALLOWED_FILE_TYPES.includes(data.fileActa.type)) {
-        toast({ title: 'Archivo no permitido', description: 'El Acta Constitutiva debe ser un archivo PDF, JPG o PNG.', variant: 'destructive' });
-        submittingRef.current = false;
-        return;
-      }
-      if (data.fileActa.size > MAX_FILE_SIZE_BYTES) {
-        toast({ title: 'Archivo demasiado grande', description: 'El Acta Constitutiva no puede superar 10 MB.', variant: 'destructive' });
-        submittingRef.current = false;
-        return;
-      }
-    }
-
-    setIsLoading(true);
-    const selectedModuleList = MODULOS_REGISTRO
-      .filter(m => selectedModules.has(m.id))
-      .map(m => ({ id: m.id, label: m.nombre }));
-
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tipo: 'juridico',
-          razonSocial: data.razonSocial,
-          rif: data.rif,
-          tipo_empresa: data.tipo_empresa,
-          actividad_economica: data.actividad_economica,
-          codigo_ciiu: data.codigo_ciiu,
-          fecha_constitucion: data.fecha_constitucion,
-          registro_mercantil: data.registro_mercantil,
-          capital_social: data.capital_social,
-          telefono: data.telefono,
-          telefono_alt: data.telefono_alt,
-          estado_empresa: data.estado_empresa,
-          municipio_empresa: data.municipio_empresa,
-          direccion: data.direccion,
-          repNombre: `${data.repNombre} ${data.repApellido}`,
-          repCedula: data.repCedula,
-          rep_cargo: data.rep_cargo,
-          rep_telefono: data.rep_telefono,
-          repEmail: data.repEmail,
-          password: data.password,
-          modules: selectedModuleList,
-          email_verificado: verifMethod === 'email',
-          telefono_verificado: verifMethod === 'sms',
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok) {
-        if (res.status === 409) {
-          toast({ title: 'Cuenta existente', description: 'Ya existe una cuenta con ese correo. Serás redirigido al inicio de sesión.', variant: 'destructive' });
-          setTimeout(() => router.push('/login-empresa'), 2000);
-          return;
+    const sendVerificationCode = async () => {
+        setVerifLoading(true);
+        const destino = getValues('repEmail');
+        setVerifDestino(destino);
+        try {
+            const res = await fetch('/api/auth/send-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ destino, tipo: 'email' }),
+            });
+            if (!res.ok) throw new Error('Error');
+            setVerifSent(true);
+            startCountdown();
+            toast({ title: 'Código enviado', description: `Revisa tu correo ${destino}` });
+        } catch {
+            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
+        } finally {
+            setVerifLoading(false);
         }
-        toast({ title: 'Error al registrarse', description: json.error, variant: 'destructive' });
-        return;
-      }
+    };
 
-      await refreshUser();
-      setRegisteredEmail(data.repEmail);
-      setRegisteredRazon(data.razonSocial);
-      setStep(TOTAL_STEPS);
-      const module = sessionStorage.getItem('kyron-register-module') || 'asesoria_contable';
-      sessionStorage.setItem('kyron-register-module-done', module);
-    } catch {
-      toast({ title: 'Error', description: 'Error de conexión. Intenta de nuevo.', variant: 'destructive' });
-    } finally {
-      setIsLoading(false);
-      submittingRef.current = false;
-    }
-  };
+    const verifyCode = useCallback(async (code: string) => {
+        if (code.length !== 6 || verifVerified) return;
+        setVerifLoading(true);
+        try {
+            const res = await fetch('/api/auth/verify-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ destino: verifDestino, codigo: code }),
+            });
+            if (!res.ok) throw new Error('Código inválido');
+            setVerifVerified(true);
+            toast({ title: '¡Verificado!' });
+        } catch {
+            toast({ title: 'Código incorrecto', variant: 'destructive' });
+            setVerifCode('');
+        } finally {
+            setVerifLoading(false);
+        }
+    }, [verifDestino, verifVerified, toast]);
 
-  const progressValue = (step / TOTAL_STEPS) * 100;
-  const stepLabels = [
-    'Datos de la Empresa',
-    'Sede y Contacto',
-    'Representante Legal',
-    'Documentos',
-    'Módulos del Sistema',
-    'Verificación de Identidad',
-    'Registro Completado',
-  ];
+    useEffect(() => {
+        if (verifCode.length === 6 && verifSent && !verifVerified) verifyCode(verifCode);
+    }, [verifCode, verifSent, verifVerified, verifyCode]);
 
-  const Field = ({ id, label, error, children, optional }: { id: string; label: string; error?: string; children: React.ReactNode; optional?: boolean }) => (
-    <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-medium text-foreground flex items-center gap-2">
-        {label}
-        {optional && <span className="text-[10px] text-muted-foreground font-normal">(opcional)</span>}
-      </Label>
-      {children}
-      {error && <p className="text-destructive text-xs font-medium">{error}</p>}
-    </div>
-  );
+    const nextStep = async () => {
+        if (step === 1) {
+            const valid = await trigger(['razonSocial', 'rif', 'tipo_empresa']);
+            if (valid) setStep(2);
+            return;
+        }
+        if (step === 2) {
+            const valid = await trigger(['repNombre', 'repApellido', 'repCedula', 'repEmail', 'telefono', 'password', 'confirmPassword']);
+            if (!valid) return;
+            if (!acceptTerms) {
+                toast({ title: 'Términos requeridos', variant: 'destructive' });
+                return;
+            }
+            setStep(3);
+        }
+    };
 
-  return (
-    <div className="relative min-h-screen py-12 px-4">
-      {/* Background elements to match dashboard */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="bg-orb bg-orb--primary opacity-[0.03] dark:opacity-[0.05]" />
-        <div className="bg-orb bg-orb--cyan opacity-[0.02] dark:opacity-[0.04]" />
-        <div className="absolute inset-0 bg-mesh-light dark:bg-mesh-dark opacity-20" />
-      </div>
+    const onSubmit = async (data: FormData) => {
+        if (!verifVerified) {
+            toast({ title: 'Verificación requerida', variant: 'destructive' });
+            return;
+        }
+        setIsLoading(true);
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tipo: 'juridico',
+                    ...data,
+                    modules: isLegalMode 
+                        ? [{ id: 'legal', label: 'Asesoría Legal' }] 
+                        : [{ id: 'juridico', label: 'Gestión Empresarial' }],
+                    // Details deferred
+                }),
+            });
+            if (!res.ok) throw new Error('Error en el registro');
+            await refreshUser();
+            setStep(TOTAL_STEPS);
+        } catch (e: any) {
+            toast({ title: 'Error', description: e.message, variant: 'destructive' });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-      <div className="relative z-10 w-full max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Card className="liquid-glass-apple border-white/[0.05] shadow-2xl overflow-hidden rounded-3xl">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-3xl -mr-24 -mt-24 pointer-events-none" />
-            
-            <CardHeader className="space-y-4 pb-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-kyron-cyan flex items-center justify-center shadow-lg shadow-primary/20">
-                    <Building className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl font-black tracking-tight uppercase italic kyron-gradient-text">
-                      Registro Empresarial
-                    </CardTitle>
-                    <CardDescription className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground/50">
-                      Onboarding Corporativo System Kyron
-                    </CardDescription>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col items-end">
-                  <span className="text-[10px] font-black tracking-widest text-primary uppercase">
-                    Paso {step} de {TOTAL_STEPS - 1}
-                  </span>
-                  <p className="text-xs font-bold text-foreground/70">{stepLabels[step - 1]}</p>
-                </div>
-              </div>
+    return (
+        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 dark:from-slate-950 dark:via-amber-900/10 dark:to-slate-950">
+            {/* Ambient Background Elements */}
+            <div className="absolute top-[-200px] right-[-100px] w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #f59e0b40 0%, transparent 70%)' }} />
+            <div className="absolute bottom-[-200px] left-[-100px] w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #ea580c40 0%, transparent 70%)' }} />
 
-              <div className="space-y-2">
-                <Progress value={progressValue} className="h-1.5 bg-primary/5" />
-                <div className="flex gap-1.5">
-                  {Array.from({ length: TOTAL_STEPS - 1 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={cn(
-                        "h-1 flex-1 rounded-full transition-all duration-500",
-                        i < step ? "bg-primary shadow-[0_0_8px_hsla(var(--primary),0.5)]" : "bg-muted/10"
-                      )} 
-                    />
-                  ))}
-                </div>
-              </div>
-            </CardHeader>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <CardContent className="space-y-6">
-
-            {step === 1 && (
-              <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <Building className="h-4 w-4" /> Identificación de la Empresa
-                </div>
-                <Field id="razonSocial" label="Razón Social" error={errors.razonSocial?.message}>
-                  <Input id="razonSocial" placeholder="Empresa Ejemplo, C.A." className="bg-background border-input" {...register('razonSocial')} />
-                </Field>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="rif" label="RIF" error={errors.rif?.message}>
-                    <Controller name="rif" control={control} render={({ field }) => (
-                      <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
-                    )} />
-                  </Field>
-                  <Field id="tipo_empresa" label="Tipo de Empresa" error={errors.tipo_empresa?.message}>
-                    <Controller
-                      name="tipo_empresa"
-                      control={control}
-                      render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger id="tipo_empresa" className="bg-background border-input">
-                            <SelectValue placeholder="Seleccionar" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </Field>
-                </div>
-                <Field id="actividad_economica" label="Actividad Económica Principal" error={errors.actividad_economica?.message}>
-                  <textarea
-                    id="actividad_economica"
-                    placeholder="Describe el giro o actividad principal de la empresa..."
-                    className="flex min-h-[70px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    {...register('actividad_economica')}
-                  />
-                </Field>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="codigo_ciiu" label="Código CIIU" error={errors.codigo_ciiu?.message} optional>
-                    <Input id="codigo_ciiu" placeholder="Ej: 6201" className="bg-background border-input" {...register('codigo_ciiu')} />
-                  </Field>
-                  <Field id="fecha_constitucion" label="Fecha de Constitución" error={errors.fecha_constitucion?.message} optional>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="fecha_constitucion" type="date" className="pl-9 bg-background border-input" {...register('fecha_constitucion')} />
+            <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-screen max-w-xl">
+                {/* Header Branding */}
+                <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 shadow-lg shadow-amber-500/30 text-white">
+                        {isLegalMode ? <Gavel className="h-7 w-7" /> : <Building className="h-7 w-7" />}
                     </div>
-                  </Field>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="registro_mercantil" label="N° Registro Mercantil" error={errors.registro_mercantil?.message} optional>
-                    <Input id="registro_mercantil" placeholder="Tomo X, Folio Y, N° Z" className="bg-background border-input" {...register('registro_mercantil')} />
-                  </Field>
-                  <Field id="capital_social" label="Capital Social" error={errors.capital_social?.message} optional>
-                    <Input id="capital_social" placeholder="Ej: Bs. 1.000.000" className="bg-background border-input" {...register('capital_social')} />
-                  </Field>
-                </div>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <Phone className="h-4 w-4" /> Datos de Contacto Corporativo
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="telefono" label="Teléfono Corporativo" error={errors.telefono?.message}>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="telefono" placeholder="0212-1234567" className="pl-9 bg-background border-input" {...register('telefono')} />
+                    <div>
+                        <h1 className="text-2xl font-bold uppercase tracking-[0.1em] text-slate-800 dark:text-slate-100 italic">{isLegalMode ? 'Asesoría Legal' : 'Jurídico'}</h1>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-orange-600">System Kyron • Business</p>
                     </div>
-                  </Field>
-                  <Field id="telefono_alt" label="Teléfono Alternativo" error={errors.telefono_alt?.message} optional>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="telefono_alt" placeholder="0424-7654321" className="pl-9 bg-background border-input" {...register('telefono_alt')} />
+                </div>
+
+                {/* Progress Steps */}
+                {step < TOTAL_STEPS && (
+                    <div className="flex items-center gap-0 mb-10 w-full max-w-md">
+                        {stepConfig.slice(0, 3).map((s, i) => {
+                            const stepNum = i + 1;
+                            const isActive = step === stepNum;
+                            const isDone = step > stepNum;
+                            const Icon = s.icon;
+                            return (
+                                <div key={i} className="flex items-center flex-1 last:flex-none">
+                                    <div className="flex flex-col items-center">
+                                        <div className={cn(
+                                            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 border-2",
+                                            isDone ? "bg-amber-500 border-amber-500 text-white shadow-lg shadow-amber-500/20" :
+                                            isActive ? "bg-white dark:bg-slate-800 border-amber-500 text-amber-500 shadow-xl shadow-amber-500/10" :
+                                            "bg-white/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 text-slate-300"
+                                        )}>
+                                            {isDone ? <Check className="h-6 w-6" /> : <Icon className="h-5 w-5" />}
+                                        </div>
+                                        <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-2 px-1 text-center leading-tight", isActive ? "text-amber-600" : isDone ? "text-slate-600" : "text-slate-400")}>{s.title}</p>
+                                    </div>
+                                    {i < 2 && <div className={cn("flex-1 h-0.5 mx-2 -mt-6 rounded-full transition-colors duration-500", step > stepNum ? "bg-amber-500" : "bg-slate-200 dark:bg-slate-800")} />}
+                                </div>
+                            );
+                        })}
                     </div>
-                  </Field>
-                </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-1">
-                  <MapPin className="h-4 w-4" /> Dirección Fiscal / Sede Principal
-                </div>
-                <Field id="estado_empresa" label="Estado / Entidad Federal" error={errors.estado_empresa?.message}>
-                  <Controller
-                    name="estado_empresa"
-                    control={control}
-                    render={({ field }) => (
-                      <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger id="estado_empresa" className="bg-background border-input">
-                          <SelectValue placeholder="Selecciona el estado" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                </Field>
-                <Field id="municipio_empresa" label="Municipio" error={errors.municipio_empresa?.message}>
-                  <Controller
-                    name="municipio_empresa"
-                    control={control}
-                    render={({ field }) => (
-                      <Select value={field.value} onValueChange={field.onChange} disabled={!estadoEmpresa}>
-                        <SelectTrigger id="municipio_empresa" className="bg-background border-input">
-                          <SelectValue placeholder={estadoEmpresa ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {getMunicipios(estadoEmpresa || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                </Field>
-                <Field id="direccion" label="Dirección Fiscal Completa" error={errors.direccion?.message}>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
-                    <textarea
-                      id="direccion"
-                      placeholder="Av. Francisco de Miranda, Centro Lido, Torre A, Piso 8, Ofic. 8-B..."
-                      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                      {...register('direccion')}
-                    />
-                  </div>
-                </Field>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <Users className="h-4 w-4" /> Datos del Representante Legal
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="repNombre" label="Nombre(s)" error={errors.repNombre?.message}>
-                    <Input id="repNombre" placeholder="María José" className="bg-background border-input" {...register('repNombre')} />
-                  </Field>
-                  <Field id="repApellido" label="Apellido(s)" error={errors.repApellido?.message}>
-                    <Input id="repApellido" placeholder="Rodríguez López" className="bg-background border-input" {...register('repApellido')} />
-                  </Field>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="repCedula" label="Cédula de Identidad" error={errors.repCedula?.message}>
-                    <Controller name="repCedula" control={control} render={({ field }) => (
-                      <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.repCedula} />
-                    )} />
-                  </Field>
-                  <Field id="rep_cargo" label="Cargo en la Empresa" error={errors.rep_cargo?.message}>
-                    <Input id="rep_cargo" placeholder="Director Gerente / Presidente" className="bg-background border-input" {...register('rep_cargo')} />
-                  </Field>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Field id="rep_telefono" label="Teléfono Directo" error={errors.rep_telefono?.message}>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="rep_telefono" placeholder="0414-1234567" className="pl-9 bg-background border-input" {...register('rep_telefono')} />
-                    </div>
-                  </Field>
-                  <Field id="repEmail" label="Correo Electrónico" error={errors.repEmail?.message}>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                      <Input id="repEmail" type="email" placeholder="rep@empresa.com" className="pl-9 bg-background border-input" {...register('repEmail')} />
-                    </div>
-                  </Field>
-                </div>
-                <div className="border-t border-border pt-4 mt-2">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                    <Shield className="h-4 w-4" /> Credenciales de Acceso
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Field id="password" label="Contraseña" error={errors.password?.message}>
-                      <div className="relative">
-                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                        <Input id="password" type={showPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('password')} />
-                        <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      </div>
-                    </Field>
-                    <Field id="confirmPassword" label="Confirmar Contraseña" error={errors.confirmPassword?.message}>
-                      <div className="relative">
-                        <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                        <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} autoCapitalize="none" autoCorrect="off" className="pl-9 pr-10 bg-background border-input" {...register('confirmPassword')} />
-                        <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
-                          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      </div>
-                    </Field>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">Min. 8, mayúscula, minúscula, número y carácter especial.</p>
-                </div>
-              </>
-            )}
-
-            {step === 4 && (
-              <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <FileText className="h-4 w-4" /> Documentos Legales (Opcionales)
-                </div>
-                <p className="text-xs text-muted-foreground mb-4">
-                  Puedes subir los documentos ahora o completarlos más tarde desde tu perfil. Formato PDF o imagen (JPG, PNG). Máx. 10 MB.
-                </p>
-                {[
-                  { key: 'fileRif', label: 'RIF Digitalizado', desc: 'Registro de Información Fiscal vigente (PDF o imagen)', stateName: fileRifName, setStateFn: setFileRifName, field: 'fileRif' as keyof FormData },
-                  { key: 'fileActa', label: 'Acta Constitutiva', desc: 'Última acta notariada con todas sus modificaciones (PDF)', stateName: fileActaName, setStateFn: setFileActaName, field: 'fileActa' as keyof FormData },
-                ].map(({ key, label, desc, stateName, setStateFn, field }) => (
-                  <div key={key} className="space-y-2">
-                    <Label className="text-sm font-medium text-foreground">{label}</Label>
-                    <p className="text-xs text-muted-foreground">{desc}</p>
-                    <FileInputTrigger onFileSelect={f => { setValue(field, f); setStateFn(f.name); }}>
-                      <div className={cn(
-                        'flex items-center justify-center w-full p-4 border-2 border-dashed rounded-lg cursor-pointer transition-colors',
-                        stateName
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:border-primary/50 text-muted-foreground'
-                      )}>
-                        <div className="text-center">
-                          <UploadCloud className="h-7 w-7 mx-auto mb-2" />
-                          <p className="text-xs font-medium">{stateName ?? 'Haz clic para seleccionar archivo'}</p>
-                        </div>
-                      </div>
-                    </FileInputTrigger>
-                    {errors[field] && <p className="text-destructive text-xs font-medium">{String(errors[field]?.message)}</p>}
-                  </div>
-                ))}
-              </>
-            )}
-
-            {step === 5 && (
-              <>
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <BookOpen className="h-4 w-4" /> Módulos del Sistema
-                </div>
-                <p className="text-xs text-muted-foreground mb-4">
-                  Selecciona los módulos que tu empresa necesita. Podrás elegir el plan de cada módulo desde la configuración.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[480px] overflow-y-auto pr-1">
-                  {MODULOS_REGISTRO.map(mod => {
-                    const selected = selectedModules.has(mod.id);
-                    return (
-                      <button
-                        key={mod.id}
-                        type="button"
-                        onClick={() => toggleModule(mod.id)}
-                        className={cn(
-                          'group relative flex flex-col gap-3 p-4 rounded-2xl border-2 text-left transition-all duration-300',
-                          selected
-                            ? cn(mod.border, mod.bg, 'shadow-md scale-[1.01]')
-                            : 'border-border/60 bg-background hover:border-border hover:shadow-sm'
-                        )}
-                      >
-                        {selected && (
-                          <div className="absolute top-3 right-3">
-                            <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-br', mod.gradient)}>
-                              <CheckCircle className="h-3 w-3 text-white" />
-                            </div>
-                          </div>
-                        )}
-                        <div className="flex items-center gap-3">
-                          <div className={cn('p-2 rounded-xl bg-gradient-to-br shadow-md transition-transform duration-300', mod.gradient, selected && 'scale-110')}>
-                            <mod.icon className="h-4 w-4 text-white" />
-                          </div>
-                          <div className="min-w-0">
-                            <h4 className={cn('text-sm font-bold leading-tight', selected ? mod.color : 'text-foreground')}>{mod.nombre}</h4>
-                            <p className="text-[10px] text-muted-foreground/50 leading-snug truncate">{mod.descripcion}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-[10px] text-muted-foreground/50 font-medium">desde</span>
-                          <span className={cn('text-xl font-black', selected ? mod.color : 'text-foreground')}>${mod.precioDesde}</span>
-                          <span className="text-[10px] text-muted-foreground/40 font-medium">/mes</span>
-                        </div>
-                        <div className="space-y-1.5">
-                          {mod.features.map((feat, j) => (
-                            <div key={j} className="flex items-center gap-2">
-                              <Check className={cn('h-3 w-3 shrink-0', selected ? mod.color : 'text-muted-foreground/40')} />
-                              <span className="text-[10px] text-muted-foreground/70 font-medium leading-snug">{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="text-[9px] font-semibold text-muted-foreground/40 uppercase tracking-widest mt-1">
-                          {mod.planes} planes disponibles
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-                <p className="text-xs text-muted-foreground text-center mt-3">
-                  {selectedModules.size} módulo(s) seleccionado(s)
-                </p>
-
-                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
-                  <input
-                    type="checkbox"
-                    checked={acceptTerms}
-                    onChange={(e) => setAcceptTerms(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0"
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    He leído y acepto los{' '}
-                    <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
-                    y la{' '}
-                    <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
-                  </span>
-                </label>
-                {!acceptTerms && (
-                  <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>
                 )}
-              </>
-            )}
 
-            {step === 6 && (
-              <div className="space-y-5">
-                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                  <ShieldCheck className="h-4 w-4 text-primary" /> Verificación de Identidad
+                <div className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-orange-500/5 border border-white/20 dark:border-slate-800 overflow-hidden">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="p-8">
+                            {step === 1 && (
+                                <div className="space-y-6">
+                                    <div className="text-center space-y-1 mb-4">
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Perfil de la Empresa</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Inicia tu registro corporativo con datos básicos.</p>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div className="space-y-1.5 px-1">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Razón Social</Label>
+                                            <div className="relative">
+                                                <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300" />
+                                                <Input {...register('razonSocial')} placeholder="Nombre de la empresa" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pl-11 focus:ring-2 focus:ring-amber-500/20" />
+                                            </div>
+                                            {errors.razonSocial && <p className="text-xs text-red-500 ml-1">{errors.razonSocial.message}</p>}
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">RIF</Label>
+                                                <Controller name="rif" control={control} render={({ field }) => (
+                                                    <DocumentInput type="rif" value={field.value} onChange={field.onChange} error={!!errors.rif} />
+                                                )} />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Tipo</Label>
+                                                <Controller name="tipo_empresa" control={control} render={({ field }) => (
+                                                    <Select onValueChange={field.onChange} value={field.value}>
+                                                        <SelectTrigger className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20">
+                                                            <SelectValue placeholder="Seleccionar" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {TIPOS_EMPRESA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                                                        </SelectContent>
+                                                    </Select>
+                                                )} />
+                                            </div>
+                                        </div>
+
+                                        <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/10 space-y-2">
+                                            <div className="flex items-center gap-2">
+                                                <Shield className="h-4 w-4 text-amber-600" />
+                                                <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Validación System Kyron</p>
+                                            </div>
+                                            <p className="text-[11px] text-slate-500 leading-relaxed font-medium">Los documentos legales adicionales serán solicitados una vez ingreses a tu panel para completar el Nivel de Confianza de tu empresa.</p>
+                                        </div>
+
+                                        <Button type="button" onClick={nextStep} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-base shadow-xl shadow-amber-500/20 transition-all active:scale-[0.98] mt-4">
+                                            Continuar Registro <ArrowRight className="ml-2 h-5 w-5" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {step === 2 && (
+                                <div className="space-y-6">
+                                    <div className="text-center space-y-1 mb-4">
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 italic">Acceso y Contacto</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Datos del representante legal para la plataforma.</p>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre</Label>
+                                                <Input {...register('repNombre')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20" />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Apellido</Label>
+                                                <Input {...register('repApellido')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20" />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Cédula • Rep</Label>
+                                                <Controller name="repCedula" control={control} render={({ field }) => (
+                                                    <DocumentInput type="cedula" value={field.value} onChange={field.onChange} error={!!errors.repCedula} />
+                                                )} />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Teléfono</Label>
+                                                <Input {...register('telefono')} type="tel" placeholder="0412-XXXXXXX" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20" />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-1.5 px-1">
+                                            <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Correo Electrónico Corporativo</Label>
+                                            <Input {...register('repEmail')} type="email" placeholder="representante@empresa.com" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20" />
+                                            {errors.repEmail && <p className="text-xs text-red-500 ml-1">{errors.repEmail.message}</p>}
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Contraseña</Label>
+                                                <div className="relative">
+                                                    <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pr-10 focus:ring-2 focus:ring-amber-500/20" />
+                                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Confirmar</Label>
+                                                <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-amber-500/20" />
+                                            </div>
+                                        </div>
+
+                                        <button type="button" onClick={() => setAcceptTerms(!acceptTerms)} className="flex items-start gap-3 p-4 rounded-2xl bg-amber-500/5 hover:bg-amber-500/10 transition-colors w-full text-left mt-2">
+                                            <div className={cn("mt-1 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all", acceptTerms ? "bg-amber-600 border-amber-600 shadow-md" : "border-slate-300 dark:border-slate-600")}>
+                                                {acceptTerms && <Check className="h-3.5 w-3.5 text-white stroke-[3px]" />}
+                                            </div>
+                                            <p className="text-[11px] text-slate-500 font-bold leading-relaxed">Confirmo que soy el representante legal autorizado de la empresa para operar en System Kyron.</p>
+                                        </button>
+                                    </div>
+
+                                    <div className="flex gap-4 pt-2">
+                                        <Button type="button" variant="ghost" onClick={() => setStep(1)} className="h-14 rounded-2xl border border-slate-200 dark:border-slate-800 px-6 font-bold text-slate-400 hover:text-slate-800">
+                                            <ArrowLeft className="h-5 w-5" />
+                                        </Button>
+                                        <Button type="button" onClick={nextStep} className="flex-1 h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-xl shadow-amber-500/20 transition-all active:scale-[0.98]">
+                                            Crear Cuenta <ArrowRight className="ml-2 h-5 w-5" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {step === 3 && (
+                                <div className="space-y-8 py-4">
+                                    <div className="text-center space-y-2">
+                                        <div className="inline-flex p-4 rounded-[1.5rem] bg-amber-500/10 mb-2">
+                                            <Mail className="h-8 w-8 text-amber-600" />
+                                        </div>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Verifica el Email</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Enviamos el protocolo de seguridad a <span className="text-orange-600 font-bold">{getValues('repEmail')}</span></p>
+                                    </div>
+
+                                    {!verifSent ? (
+                                        <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 shadow-lg shadow-amber-500/20 font-bold text-base">
+                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Solicitar Código de Acceso'}
+                                        </Button>
+                                    ) : (
+                                        <div className="space-y-6">
+                                            <div className="flex justify-center gap-3">
+                                                <Input maxLength={6} value={verifCode} onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))} className="h-16 text-center text-3xl font-black font-mono tracking-[0.5em] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-4 focus:ring-amber-500/10" placeholder="000000" />
+                                            </div>
+                                            <div className="text-center">
+                                                {countdown > 0 ? (
+                                                    <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reenviar en <span className="text-orange-500">{countdown}s</span></p>
+                                                ) : (
+                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-orange-500 hover:underline">Reenviar código</button>
+                                                )}
+                                            </div>
+                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-amber-500 hover:bg-amber-600 shadow-xl shadow-amber-500/20 font-bold text-base">
+                                                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Finalizar Registro'}
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {step === 4 && (
+                                <div className="text-center py-10 space-y-6">
+                                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-amber-500 to-orange-600 shadow-2xl shadow-amber-500/40 mb-2">
+                                        <Check className="h-12 w-12 text-white stroke-[4px]" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100 italic">¡Bienvenido a Kyron!</h2>
+                                        <p className="text-sm text-slate-500 font-medium px-8">{isLegalMode ? 'Tu despacho legal digital ha sido creado exitosamente.' : 'Tu empresa ha sido registrada correctamente en el ecosistema Kyron.'}</p>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-3 pt-4">
+                                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-left">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Módulo</p>
+                                            <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{isLegalMode ? 'Legal' : 'Jurídico'}</p>
+                                        </div>
+                                        <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-left">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Empresa</p>
+                                            <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{getValues('razonSocial')}</p>
+                                        </div>
+                                    </div>
+
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-amber-600 hover:bg-slate-800 dark:hover:bg-amber-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => window.location.href = '/dashboard-empresa'}>
+                                        Ir al Portal Corporativo <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+                    </form>
                 </div>
-                {verifVerified ? (
-                  <div className="text-center py-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
-                      <CheckCircle className="h-9 w-9 text-green-500" />
+
+                <div className="mt-12 flex items-center justify-center gap-10 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div className="flex items-center gap-2">
+                        <Landmark className="h-4 w-4" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Legal Compliance x IA</span>
                     </div>
-                    <h3 className="text-lg font-bold text-foreground">¡Identidad Verificada!</h3>
-                    <p className="text-muted-foreground text-sm mt-1">
-                      Tu {verifMethod === 'email' ? 'correo electrónico' : 'número de teléfono'} ha sido confirmado.
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <p className="text-sm text-muted-foreground">
-                      Para garantizar la seguridad del registro empresarial, verifica la identidad del representante legal.
-                    </p>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        type="button"
-                        onClick={() => { setVerifMethod('email'); setVerifSent(false); setVerifCode(''); }}
-                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'email' ? 'border-primary bg-primary/5' : 'border-border bg-background hover:border-primary/50'}`}
-                      >
-                        <Mail className={`h-5 w-5 mb-2 ${verifMethod === 'email' ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <p className={`text-sm font-semibold ${verifMethod === 'email' ? 'text-primary' : 'text-foreground'}`}>Por Correo</p>
-                        <p className="text-xs text-muted-foreground truncate">{getValues('repEmail')}</p>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => { setVerifMethod('sms'); setVerifSent(false); setVerifCode(''); }}
-                        className={`p-4 rounded-lg border-2 transition-all text-left ${verifMethod === 'sms' ? 'border-primary bg-primary/5' : 'border-border bg-background hover:border-primary/50'}`}
-                      >
-                        <MessageSquare className={`h-5 w-5 mb-2 ${verifMethod === 'sms' ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <p className={`text-sm font-semibold ${verifMethod === 'sms' ? 'text-primary' : 'text-foreground'}`}>Por SMS</p>
-                        <p className="text-xs text-muted-foreground truncate">{getValues('telefono')}</p>
-                      </button>
+                    <div className="flex items-center gap-2">
+                        <ShieldCheck className="h-4 w-4" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Data Privacy Certified</span>
                     </div>
-                    {!verifSent ? (
-                      <button
-                        type="button"
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-50"
-                        onClick={sendVerificationCode}
-                        disabled={verifLoading}
-                      >
-                        {verifLoading ? <><Loader2 className="h-4 w-4 animate-spin" /> Enviando...</> : <>{verifMethod === 'email' ? <Mail className="h-4 w-4" /> : <MessageSquare className="h-4 w-4" />} Enviar Código de Verificación</>}
-                      </button>
-                    ) : (
-                      <div className="space-y-3">
-                        <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm text-center">
-                          {devCode ? 'Ingresa el código mostrado abajo' : <>Código enviado a <strong className="text-primary">{verifDestino}</strong></>}
-                        </div>
-                        {devCode && (
-                          <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
-                            <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                            <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
-                          </div>
-                        )}
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-foreground block">Ingresa el código de 6 dígitos</label>
-                          <input
-                            type="text"
-                            inputMode="numeric"
-                            maxLength={6}
-                            placeholder="_ _ _ _ _ _"
-                            value={verifCode}
-                            onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-center text-2xl tracking-wider font-mono text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                          />
-                        </div>
-                        {verifLoading && (
-                          <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Verificando...
-                          </div>
-                        )}
-                        <div className="text-center">
-                          {countdown > 0 ? (
-                            <p className="text-xs text-muted-foreground">Nuevo código disponible en <strong>{countdown}s</strong></p>
-                          ) : (
-                            <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
-                              <RefreshCw className="h-3 w-3" /> Reenviar código
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            )}
-
-            {step === TOTAL_STEPS && (
-              <div className="text-center py-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
-                  <CheckCircle className="h-12 w-12 text-green-500" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground">¡Empresa Registrada!</h2>
-                <p className="text-muted-foreground mt-2 text-sm">
-                  <span className="font-semibold text-primary">{registeredRazon}</span> ha sido registrada exitosamente.
-                </p>
-                <p className="text-muted-foreground text-xs mt-1">Acceso configurado para: <span className="font-medium">{registeredEmail}</span></p>
-                <div className="mt-6 p-4 bg-primary/5 border border-primary/10 rounded-lg text-left text-sm space-y-1">
-                  <p className="font-semibold text-primary">Próximos pasos:</p>
-                  <p className="text-muted-foreground">• Inicia sesión con el correo del representante legal</p>
-                  <p className="text-muted-foreground">• Completa la configuración de los módulos activados</p>
-                  <p className="text-muted-foreground">• Importa tus datos contables y de nómina</p>
-                </div>
-                <Button className="mt-6 w-full" onClick={() => {
-                  const module = sessionStorage.getItem('kyron-register-module-done') || 'asesoria_contable';
-                  const moduleRoutes: Record<string, string> = {
-                    mi_linea_personal: '/mi-linea',
-                    mi_linea_juridica: '/mi-linea',
-                    asesoria_contable: '/contabilidad',
-                    asesoria_legal: '/legal',
-                    facturacion: '/facturacion',
-                    socios_directivos: '/dashboard-empresa',
-                  };
-                  const route = moduleRoutes[module] || '/es/dashboard-empresa';
-                  window.location.href = route.startsWith('/es') ? route : `/es${route}`;
-                }}>
-                  Ir al Módulo <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </CardContent>
-
-          {step < TOTAL_STEPS && (
-            <CardFooter className="flex justify-between pt-2">
-              <Button type="button" variant="outline" onClick={prevStep} disabled={step === 1}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
-              </Button>
-              {step < 5 && (
-                <Button type="button" onClick={nextStep}>Siguiente <ArrowRight className="ml-2 h-4 w-4" /></Button>
-              )}
-              {step === 5 && (
-                <Button type="button" onClick={nextStep}>
-                  Continuar a Verificación <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              )}
-              {step === 6 && (
-                <Button type="submit" disabled={isLoading || !verifVerified}>
-                  {isLoading ? (
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Registrando...</>
-                  ) : (
-                    <>Finalizar Registro <ArrowRight className="ml-2 h-4 w-4" /></>
-                  )}
-                </Button>
-              )}
-            </CardFooter>
-          )}
-        </form>
-      </Card>
-    </motion.div>
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }

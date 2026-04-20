@@ -5,806 +5,494 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff, Signal, ShieldCheck, RefreshCw, Smartphone, Building, User, Check, Crown, Zap, Upload } from 'lucide-react';
+import {
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import {
+    Loader2, CircleCheck as CheckCircle, ArrowRight, ArrowLeft, Eye, EyeOff,
+    Signal, Check, Star, Crown, Zap, Mail, RefreshCw, Smartphone, Building, User, Lock, Phone,
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVerificationPoll } from '@/hooks/use-verification-poll';
 import { usePopularPlan } from '@/hooks/use-popular-plan';
 import { useAuth } from '@/lib/auth/context';
-import { Progress } from '@/components/ui/progress';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
-import { Checkbox } from '@/components/ui/checkbox';
 import { DocumentInput } from '@/components/document-input';
-import { DocumentUpload, type UploadedDoc } from '@/components/document-upload';
-import { ESTADOS_VE, getMunicipios } from '@/lib/venezuela-geo';
-
-const TOTAL_STEPS = 5;
 
 const PLANES_TELECOM = [
     {
-        id: 'basico_2gb',
-        nombre: 'Básico — 2 GB',
-        precioUsd: 3,
-        descripcion: 'Ideal para uso básico con WhatsApp incluido',
-        color: 'from-slate-500 to-gray-600',
-        features: ['2 GB de datos 4G', '60 min llamadas nacionales', '30 SMS incluidos', 'WhatsApp incluido', 'Redes sociales básicas'],
-    },
-    {
         id: 'conecta_5gb',
-        nombre: 'Conecta — 5 GB',
+        nombre: 'Conecta 5G',
         precioUsd: 5,
-        descripcion: 'Perfecto para uso diario con redes sociales',
-        color: 'from-blue-500 to-cyan-500',
-        features: ['5 GB de datos 4G LTE', '150 min llamadas nacionales', '80 SMS incluidos', 'Redes sociales ilimitadas', 'Música streaming'],
+        descripcion: 'Perfecto para uso diario con redes sociales ilimitadas.',
+        color: 'blue',
+        features: ['5 GB de datos 5G', '150 min llamadas', 'Redes Sociales ilimitadas', 'Música streaming'],
     },
     {
         id: 'plus_10gb',
-        nombre: 'Plus — 10 GB',
+        nombre: 'Plus 5G',
         precioUsd: 8,
-        descripcion: 'Navegación y streaming con roaming básico',
-        color: 'from-indigo-500 to-blue-600',
-        features: ['10 GB de datos 4G LTE', '300 min llamadas nacionales', '150 SMS incluidos', '15 min llamadas internacionales', 'Redes sociales ilimitadas', 'Streaming música y video SD', 'Roaming básico'],
+        descripcion: 'Navegación fluida y streaming en alta definición.',
+        color: 'indigo',
+        features: ['10 GB de datos 5G', '300 min llamadas', '150 SMS incluidos', 'Streaming video HD'],
     },
     {
         id: 'global_25gb',
-        nombre: 'Global — 25 GB',
+        nombre: 'Global 5G',
         precioUsd: 14,
-        descripcion: 'Velocidad 5G con apps y streaming HD',
-        color: 'from-violet-500 to-purple-600',
-        features: ['25 GB de datos 5G', 'Llamadas nacionales ilimitadas', '500 SMS incluidos', '60 min llamadas internacionales', 'Apps ilimitadas', 'Streaming HD', 'Roaming premium', 'Hotspot 10 GB'],
-    },
-    {
-        id: 'ultra_50gb',
-        nombre: 'Ultra — 50 GB',
-        precioUsd: 22,
-        descripcion: 'Prioridad de red con streaming 4K y VPN',
-        color: 'from-cyan-500 to-teal-600',
-        features: ['50 GB de datos 5G', 'Llamadas y SMS ilimitados', '200 min llamadas internacionales', 'Streaming 4K', 'Roaming global', 'Hotspot 25 GB', 'VPN incluida', 'Prioridad de red'],
+        descripcion: 'Potencia total para productividad y entretenimiento.',
+        color: 'violet',
+        features: ['25 GB de datos 5G', 'Llamadas ilimitadas', '500 SMS incluidos', 'Roaming Premium'],
     },
     {
         id: 'infinite',
-        nombre: 'Infinite — Ilimitado',
+        nombre: 'Infinite 5G',
         precioUsd: 35,
-        descripcion: 'Todo ilimitado con 5G Ultra y soporte 24/7',
-        color: 'from-rose-500 to-pink-600',
-        features: ['Datos ilimitados 5G Ultra', 'Llamadas y SMS ilimitados', 'Llamadas internacionales ilimitadas', 'Streaming 4K/8K', 'Roaming global premium', 'Hotspot ilimitado', 'VPN + seguridad avanzada', 'Soporte prioritario 24/7', 'eSIM múltiple'],
+        descripcion: 'La experiencia definitiva sin límites de velocidad.',
+        color: 'rose',
+        features: ['Datos ILIMITADOS 5G', 'Todo ilimitado', 'Soporte VIP 24/7', 'eSIM Multi-perfil'],
     },
 ];
-const TECNOLOGIAS = ['4G LTE','5G NSA','5G SA','Banda Dual (4G/5G)','Fibra Óptica'];
-const TIPOS_EMPRESA_TELECOM = ['Compañía Anónima (C.A.)','S.A.','S.R.L.','Cooperativa','Persona Natural con Actividad Económica','Otro'];
-const MOTIVOS_LINEA = ['Línea nueva (no tengo número)','Portar mi número actual','Segunda línea','Línea para empresa','Línea de datos (solo internet)'];
 
-const baseSchema = z.object({
-    tipo_cliente: z.enum(['personal','empresarial'], { required_error: 'Seleccione el tipo de cliente' }),
-
-    nombre: z.string().min(2, 'Ingrese el nombre'),
-    apellido: z.string().min(2, 'Ingrese el apellido'),
+const schema = z.object({
+    tipo_cliente: z.enum(['personal', 'empresarial']),
+    nombre: z.string().min(2, 'Ingrese su nombre'),
+    apellido: z.string().min(2, 'Ingrese su apellido'),
     cedula: z.string().min(6, 'Documento inválido'),
-
-    tiene_telefono: z.boolean().default(false),
-    telefono_contacto: z.string().optional(),
-    motivo_linea: z.string().min(1, 'Seleccione el motivo'),
-    numero_portar: z.string().optional(),
-
-    razon_social: z.string().optional(),
-    rif: z.string().optional(),
-    tipo_empresa: z.string().optional(),
-    cargo: z.string().optional(),
-    nro_lineas: z.string().optional(),
-
-    tipo_plan: z.string().min(1, 'Seleccione el plan'),
-    tecnologia: z.string().min(1, 'Seleccione la tecnología'),
-    iccid_esim: z.string().optional(),
-
-    estado_servicio: z.string().min(1, 'Seleccione el estado'),
-    municipio_servicio: z.string().min(2, 'Ingrese el municipio'),
-    direccion_servicio: z.string().min(5, 'Ingrese la dirección de servicio'),
-
     email: z.string().email('Correo inválido'),
-    password: z.string().min(8,'Mínimo 8 caracteres').regex(/[A-Z]/,'Una mayúscula').regex(/[a-z]/,'Una minúscula').regex(/[0-9]/,'Un número').regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/,'Un carácter especial (!@#$%...)'),
+    telefono: z.string().min(7, 'Teléfono inválido'),
+    password: z.string()
+        .min(8, 'Mínimo 8 caracteres')
+        .regex(/[A-Z]/, 'Una mayúscula')
+        .regex(/[0-9]/, 'Un número')
+        .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/, 'Un carácter especial'),
     confirmPassword: z.string(),
-}).refine(d => d.password === d.confirmPassword, { message:'Las contraseñas no coinciden', path:['confirmPassword'] })
-  .refine(d => {
-      if (d.tiene_telefono && (!d.telefono_contacto || d.telefono_contacto.length < 7)) return false;
-      return true;
-  }, { message: 'Ingrese su número de teléfono', path: ['telefono_contacto'] })
-  .refine(d => {
-      if (d.tipo_cliente === 'empresarial' && (!d.razon_social || d.razon_social.length < 3)) return false;
-      return true;
-  }, { message: 'Ingrese la razón social', path: ['razon_social'] })
-  .refine(d => {
-      if (d.tipo_cliente === 'empresarial' && (!d.rif || !/^[JGCVEPF]-\d{8}-\d$/.test(d.rif))) return false;
-      return true;
-  }, { message: 'Formato RIF: J-50328471-6', path: ['rif'] })
-  .refine(d => {
-      if (d.motivo_linea === 'Portar mi número actual' && (!d.numero_portar || d.numero_portar.length < 7)) return false;
-      return true;
-  }, { message: 'Ingrese el número que desea portar', path: ['numero_portar'] });
+    plan: z.string().min(1, 'Seleccione un plan'),
+}).refine(d => d.password === d.confirmPassword, {
+    message: 'Las contraseñas no coinciden', path: ['confirmPassword'],
+});
 
-type FormData = z.infer<typeof baseSchema>;
+type FormData = z.infer<typeof schema>;
 
-const MODULES_TELECOM = [
-    { id: 'linea-personal', label: 'Mi Línea Personal' },
-    { id: 'gestion-lineas', label: 'Gestión de Líneas' },
-    { id: 'esim-provisioning', label: 'eSIM Provisioning' },
-    { id: 'telemetria-red', label: 'Telemetría de Red' },
+const TOTAL_STEPS = 4;
+
+const stepConfig = [
+    { title: 'Plan', desc: 'Elige tu servicio', icon: Smartphone },
+    { title: 'Cuenta', desc: 'Tus datos básicos', icon: User },
+    { title: 'Verificar', desc: 'Confirma tu email', icon: Mail },
+    { title: 'Listo', desc: 'Línea activada', icon: CheckCircle },
 ];
 
 export default function RegisterTelecomPage() {
+    const searchParams = useSearchParams();
     const [step, setStep] = useState(1);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [uploadedDocs, setUploadedDocs] = useState<Record<string, UploadedDoc | null>>({});
-    const verifMethod = 'email' as const;
-    const [verifCode, setVerifCode] = useState('');
-    const [verifSent, setVerifSent] = useState(false);
-    const [verifVerified, setVerifVerified] = useState(false);
-    const [verifDestino, setVerifDestino] = useState('');
-    const [devCode, setDevCode] = useState<string | null>(null);
-    const [acceptTerms, setAcceptTerms] = useState(false);
-    const [verifLoading, setVerifLoading] = useState(false);
-    const [countdown, setCountdown] = useState(0);
-    const [docFromParams, setDocFromParams] = useState(false);
-    const { popularPlan, recordSelection } = usePopularPlan('telecom');
-    const [tasaBcv, setTasaBcv] = useState<number | null>(null);
     const router = useRouter();
     const { refreshUser } = useAuth();
-    const searchParams = useSearchParams();
     const { toast } = useToast();
+    const { popularPlan, recordSelection } = usePopularPlan('telecom');
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [verifSent, setVerifSent] = useState(false);
+    const [verifCode, setVerifCode] = useState('');
+    const [verifVerified, setVerifVerified] = useState(false);
+    const [verifLoading, setVerifLoading] = useState(false);
+    const [verifDestino, setVerifDestino] = useState('');
+    const [countdown, setCountdown] = useState(0);
 
     const onMagicLinkVerified = useCallback(() => {
         setVerifVerified(true);
-        toast({ title: '¡Verificado!', description: 'Tu identidad fue confirmada vía enlace de verificación.' });
+        toast({ title: '¡Verificado!', description: 'Identidad confirmada exitosamente.' });
     }, [toast]);
 
     useVerificationPoll(verifDestino, verifSent && !verifVerified, onMagicLinkVerified);
 
-    useEffect(() => {
-        fetch('/api/tasas-bcv?limit=1')
-            .then(r => r.json())
-            .then(d => {
-                const rate = parseFloat(d.ultima?.tasa_usd_ves);
-                if (!isNaN(rate) && rate > 0) setTasaBcv(rate);
-            })
-            .catch(() => {});
-    }, []);
-
-    const { register, handleSubmit, control, getValues, setValue, trigger, watch, formState: { errors } } = useForm<FormData>({
-        resolver: zodResolver(baseSchema), mode: 'onChange',
-        defaultValues: { tipo_cliente: 'personal', tiene_telefono: false },
+    const { register, handleSubmit, control, watch, setValue, trigger, getValues, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        mode: 'onChange',
+        defaultValues: {
+            tipo_cliente: 'personal',
+            plan: searchParams.get('plan') || '',
+        },
     });
 
-    useEffect(() => {
-        const doc = searchParams.get('doc');
-        if (doc) {
-            setValue('cedula', doc);
-            setDocFromParams(true);
-            if (doc.startsWith('J-') || doc.startsWith('G-')) {
-                setValue('tipo_cliente', 'empresarial');
-                setValue('rif', doc);
-            }
-            const nombre = searchParams.get('nombre');
-            if (nombre) setValue('nombre', nombre);
-            const apellido = searchParams.get('apellido');
-            if (apellido) setValue('apellido', apellido);
-            const razon = searchParams.get('razon');
-            if (razon) setValue('razon_social', razon);
-            const tipo = searchParams.get('tipo');
-            if (tipo) setValue('tipo_empresa', tipo);
-            const tel = searchParams.get('tel');
-            if (tel) {
-                setValue('tiene_telefono', true);
-                setValue('telefono_contacto', tel);
-            }
-            const estado = searchParams.get('estado');
-            if (estado) setValue('estado_servicio', estado);
-            const municipio = searchParams.get('municipio');
-            if (municipio) setValue('municipio_servicio', municipio);
-        }
-    }, [searchParams, setValue]);
-
-    const progress = ((step - 1) / (TOTAL_STEPS - 1)) * 100;
+    const watchedPassword = watch('password');
     const tipoCliente = watch('tipo_cliente');
-    const tieneTelefono = watch('tiene_telefono');
-    const motivoLinea = watch('motivo_linea');
-    const estadoServicio = watch('estado_servicio');
-    useEffect(() => { setValue('municipio_servicio', ''); }, [estadoServicio]);
-
-    const stepFields: Record<number, (keyof FormData)[]> = {
-        1: tipoCliente === 'empresarial'
-            ? ['tipo_cliente','nombre','apellido','cedula','razon_social','rif']
-            : ['tipo_cliente','nombre','apellido','cedula'],
-        2: ['motivo_linea','tipo_plan','tecnologia'],
-        3: ['estado_servicio','municipio_servicio','direccion_servicio','email','password','confirmPassword'],
-    };
-
-    const nextStep = async () => {
-        if (step === 3 && !acceptTerms) return;
-        const fields = stepFields[step];
-        if (fields) { const v = await trigger(fields); if (!v) return; }
-        if (step === 1 && tieneTelefono) {
-            const phoneValid = await trigger('telefono_contacto');
-            if (!phoneValid) return;
-        }
-        setStep(s => s + 1);
-    };
 
     const startCountdown = () => {
         setCountdown(60);
-        const i = setInterval(() => setCountdown(c => { if (c <= 1) { clearInterval(i); return 0; } return c - 1; }), 1000);
+        const timer = setInterval(() => {
+            setCountdown(prev => {
+                if (prev <= 1) { clearInterval(timer); return 0; }
+                return prev - 1;
+            });
+        }, 1000);
     };
 
     const sendVerificationCode = async () => {
+        setVerifLoading(true);
         const destino = getValues('email');
         setVerifDestino(destino);
-        setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/send-code', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ destino, tipo: 'email' }),
             });
-            const json = await res.json();
-            if (!res.ok) throw new Error(json.error);
-            setVerifSent(true); startCountdown();
-            const returnedCode = json.devCode || json.kyronCode || null;
-            setDevCode(returnedCode);
-            if (returnedCode) setVerifCode(returnedCode);
-            toast({ title: 'Código enviado', description: returnedCode ? 'Código de verificación generado por System Kyron.' : `Revisa tu correo ${destino}` });
-        } catch (e: any) { toast({ title: 'Error', description: e.message, variant: 'destructive' }); }
-        finally { setVerifLoading(false); }
+            if (!res.ok) throw new Error('Error al enviar código');
+            setVerifSent(true);
+            startCountdown();
+            toast({ title: 'Código enviado', description: `Revisa tu correo ${destino}` });
+        } catch {
+            toast({ title: 'Error', description: 'No se pudo enviar el código.', variant: 'destructive' });
+        } finally {
+            setVerifLoading(false);
+        }
     };
 
-    const verifyingRef = useRef(false);
     const verifyCode = useCallback(async (code: string) => {
-        if (code.length !== 6 || verifyingRef.current || verifVerified) return;
-        verifyingRef.current = true;
-        const destino = getValues('email');
+        if (code.length !== 6 || verifVerified) return;
         setVerifLoading(true);
         try {
             const res = await fetch('/api/auth/verify-code', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ destino, codigo: code }),
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ destino: verifDestino, codigo: code }),
             });
-            if (!res.ok) throw new Error((await res.json()).error);
+            if (!res.ok) throw new Error('Código inválido');
             setVerifVerified(true);
-            toast({ title: '¡Verificado!' });
-        } catch (e: any) {
-            toast({ title: 'Código incorrecto', description: e.message, variant: 'destructive' });
+            toast({ title: '¡Verificado!', description: 'Correo electrónico confirmado.' });
+        } catch {
+            toast({ title: 'Código incorrecto', variant: 'destructive' });
             setVerifCode('');
         } finally {
             setVerifLoading(false);
-            verifyingRef.current = false;
         }
-    }, [verifVerified, toast, getValues]);
+    }, [verifDestino, verifVerified, toast]);
 
     useEffect(() => {
-        if (verifCode.length === 6 && verifSent && !verifVerified) {
-            verifyCode(verifCode);
-        }
+        if (verifCode.length === 6 && verifSent && !verifVerified) verifyCode(verifCode);
     }, [verifCode, verifSent, verifVerified, verifyCode]);
 
-    const submittingRef = useRef(false);
-    const onSubmit = async (data: FormData) => {
-        if (!verifVerified) { toast({ title:'Verificación pendiente', variant:'destructive' }); return; }
-        if (submittingRef.current || isLoading) return;
-        submittingRef.current = true;
-        setIsLoading(true);
-        const esEmpresa = data.tipo_cliente === 'empresarial';
-        try {
-            if (data.tipo_plan) recordSelection(data.tipo_plan);
-            const telecomMeta = {
-                motivo_linea: data.motivo_linea,
-                tipo_plan: data.tipo_plan,
-                tecnologia: data.tecnologia,
-                numero_portar: data.numero_portar || '',
-                iccid_esim: data.iccid_esim || '',
-                tiene_telefono: data.tiene_telefono,
-            };
-
-            const body = esEmpresa ? {
-                tipo: 'juridico',
-                razonSocial: data.razon_social,
-                rif: data.rif,
-                tipo_empresa: data.tipo_empresa || 'Telecom Empresarial',
-                actividad_economica: `Servicio de telecomunicaciones — ${data.tipo_plan}`,
-                telefono: data.telefono_contacto || '',
-                estado_empresa: data.estado_servicio,
-                municipio_empresa: data.municipio_servicio,
-                direccion: data.direccion_servicio,
-                repNombre: data.nombre,
-                repApellido: data.apellido,
-                repCedula: data.cedula,
-                rep_cargo: data.cargo || 'Titular',
-                rep_telefono: data.telefono_contacto || '',
-                repEmail: data.email,
-                password: data.password,
-                email_verificado: true,
-                telefono_verificado: false,
-                nro_lineas: data.nro_lineas || '1',
-                modules: [...MODULES_TELECOM, { id: 'flota-empresarial', label: 'Flota Empresarial' }],
-                ...telecomMeta,
-            } : {
-                tipo: 'natural',
-                nombre: data.nombre,
-                apellido: data.apellido,
-                cedula: data.cedula,
-                telefono: data.telefono_contacto || '',
-                estado_residencia: data.estado_servicio,
-                municipio: data.municipio_servicio,
-                ciudad: data.municipio_servicio,
-                direccion: data.direccion_servicio,
-                email: data.email,
-                password: data.password,
-                email_verificado: true,
-                telefono_verificado: false,
-                ...telecomMeta,
-            };
-
-            const bodyWithDocs = {
-                ...body,
-                documentos_adjuntos: Object.fromEntries(
-                    Object.entries(uploadedDocs).filter(([, v]) => v != null)
-                ),
-            };
-
-            const res = await fetch('/api/auth/register', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bodyWithDocs),
-            });
-            const result = await res.json();
-            if (!res.ok) {
-                if (res.status === 409) {
-                    toast({ title: 'Cuenta existente', description: 'Ya existe una cuenta con ese correo. Serás redirigido al inicio de sesión.', variant: 'destructive' });
-                    const loginRoute = tipoCliente === 'personal' ? '/login-personal' : '/login-empresa';
-                    setTimeout(() => router.push(loginRoute), 2000);
-                    return;
-                }
-                throw new Error(result.error);
+    const nextStep = async () => {
+        if (step === 1) {
+            if (!selectedPlan) {
+                toast({ title: 'Selecciona un plan', variant: 'destructive' });
+                return;
             }
+            setValue('plan', selectedPlan);
+            setStep(2);
+            return;
+        }
+        if (step === 2) {
+            const valid = await trigger(['nombre', 'apellido', 'cedula', 'email', 'telefono', 'password', 'confirmPassword']);
+            if (!valid) return;
+            if (!acceptTerms) {
+                toast({ title: 'Términos requeridos', variant: 'destructive' });
+                return;
+            }
+            setStep(3);
+        }
+    };
+
+    const onSubmit = async (data: FormData) => {
+        if (!verifVerified) {
+            toast({ title: 'Verificación requerida', variant: 'destructive' });
+            return;
+        }
+        setIsLoading(true);
+        try {
+            recordSelection(data.plan);
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tipo: data.tipo_cliente === 'empresarial' ? 'juridico' : 'natural',
+                    ...data,
+                    modules: [{ id: 'telecom', label: 'Mi Línea 5G' }],
+                    plan: data.plan,
+                    // Defer docs and secondary info
+                }),
+            });
+            if (!res.ok) throw new Error('Error en el registro');
             await refreshUser();
             setStep(TOTAL_STEPS);
-        } catch (e: any) { toast({ title: 'Error de registro', description: e.message, variant: 'destructive' }); }
-        finally { setIsLoading(false); submittingRef.current = false; }
+        } catch (e: any) {
+            toast({ title: 'Error', description: e.message, variant: 'destructive' });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-2xl min-h-screen flex items-start justify-center pt-16">
-            <Card className="w-full border-none shadow-lg bg-card/60 backdrop-blur-xl rounded-xl overflow-hidden">
-                <CardHeader className="p-8 border-b border-border/50 bg-muted/5">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                            <Signal className="h-6 w-6 text-blue-500" />
-                        </div>
-                        <div>
-                            <CardTitle className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">Registro · Mis Líneas</CardTitle>
-                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-0.5">Mi Línea 5G · eSIM · Flota Corporativa · Telemetría</CardDescription>
-                        </div>
+        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50/30 to-slate-50 dark:from-slate-950 dark:via-blue-900/10 dark:to-slate-950">
+            {/* Ambient Background Elements */}
+            <div className="absolute top-[-200px] left-[-100px] w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #3b82f640 0%, transparent 70%)' }} />
+            <div className="absolute bottom-[-200px] right-[-100px] w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none" style={{ background: 'radial-gradient(circle, #0ea5e940 0%, transparent 70%)' }} />
+
+            <div className={cn(
+                "relative z-10 container mx-auto px-4 py-8 flex flex-col items-center min-h-screen",
+                step === 1 ? "max-w-4xl" : "max-w-xl"
+            )}>
+                {/* Header Branding */}
+                <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-500/30">
+                        <Signal className="h-7 w-7 text-white" />
                     </div>
-                    <Progress value={progress} className="h-1 mb-4" />
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Paso {step} de {TOTAL_STEPS}</p>
-                </CardHeader>
+                    <div>
+                        <h1 className="text-2xl font-bold uppercase tracking-[0.1em] text-slate-800 dark:text-slate-100 italic">Mi Línea 5G</h1>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-500">System Kyron • Telecom</p>
+                    </div>
+                </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent className="p-8 space-y-5">
-
-                        {step === 1 && (
-                            <div className="space-y-5">
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">¿Tipo de cuenta? *</Label>
-                                    <Controller name="tipo_cliente" control={control} render={({ field }) => (
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <button type="button" onClick={() => field.onChange('personal')}
-                                                className={cn("p-4 rounded-xl border text-left transition-all", field.value === 'personal' ? "border-blue-500 bg-blue-500/5" : "border-border")}>
-                                                <User className={cn("h-5 w-5 mb-2", field.value === 'personal' ? "text-blue-500" : "text-muted-foreground/40")} />
-                                                <p className="text-[10px] font-semibold uppercase tracking-widest">Personal</p>
-                                                <p className="text-[10px] text-muted-foreground mt-1">Persona natural · Cédula</p>
-                                            </button>
-                                            <button type="button" onClick={() => field.onChange('empresarial')}
-                                                className={cn("p-4 rounded-xl border text-left transition-all", field.value === 'empresarial' ? "border-blue-500 bg-blue-500/5" : "border-border")}>
-                                                <Building className={cn("h-5 w-5 mb-2", field.value === 'empresarial' ? "text-blue-500" : "text-muted-foreground/40")} />
-                                                <p className="text-[10px] font-semibold uppercase tracking-widest">Empresarial</p>
-                                                <p className="text-[10px] text-muted-foreground mt-1">Persona jurídica · RIF</p>
-                                            </button>
+                {/* Progress Steps */}
+                {step < TOTAL_STEPS && (
+                    <div className="flex items-center gap-0 mb-10 w-full max-w-md">
+                        {stepConfig.slice(0, 3).map((s, i) => {
+                            const stepNum = i + 1;
+                            const isActive = step === stepNum;
+                            const isDone = step > stepNum;
+                            const Icon = s.icon;
+                            return (
+                                <div key={i} className="flex items-center flex-1 last:flex-none">
+                                    <div className="flex flex-col items-center">
+                                        <div className={cn(
+                                            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 border-2",
+                                            isDone ? "bg-blue-500 border-blue-500 text-white shadow-lg shadow-blue-500/20" :
+                                            isActive ? "bg-white dark:bg-slate-800 border-blue-500 text-blue-500 shadow-xl shadow-blue-500/10" :
+                                            "bg-white/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 text-slate-300"
+                                        )}>
+                                            {isDone ? <Check className="h-6 w-6" /> : <Icon className="h-5 w-5" />}
                                         </div>
-                                    )} />
+                                        <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-2 px-1", isActive ? "text-blue-600" : isDone ? "text-slate-600" : "text-slate-400")}>{s.title}</p>
+                                    </div>
+                                    {i < 2 && <div className={cn("flex-1 h-0.5 mx-2 -mt-6 rounded-full transition-colors duration-500", step > stepNum ? "bg-blue-500" : "bg-slate-200 dark:bg-slate-800")} />}
                                 </div>
+                            );
+                        })}
+                    </div>
+                )}
 
-                                {tipoCliente === 'empresarial' && (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5">
-                                        <div className="sm:col-span-2">
-                                            <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3 flex items-center gap-2">
-                                                <Building className="h-3.5 w-3.5" /> Datos de la Empresa
-                                            </p>
-                                        </div>
-                                        <div className="sm:col-span-2 space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">Razón Social *</Label>
-                                            <Input placeholder="Mi Empresa C.A." {...register('razon_social')} className={cn(errors.razon_social && 'border-destructive')} />
-                                            {errors.razon_social && <p className="text-[10px] text-destructive">{errors.razon_social.message}</p>}
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">RIF *</Label>
-                                            <Controller name="rif" control={control} render={({ field }) => (
-                                                <DocumentInput type="rif" value={field.value || ''} onChange={field.onChange} error={!!errors.rif} />
-                                            )} />
-                                            {errors.rif && <p className="text-[10px] text-destructive">{errors.rif.message}</p>}
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">Tipo de Empresa</Label>
-                                            <Controller name="tipo_empresa" control={control} render={({ field }) => (
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <SelectTrigger><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                    <SelectContent>{TIPOS_EMPRESA_TELECOM.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                                </Select>
-                                            )} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">Cargo del Solicitante</Label>
-                                            <Input placeholder="Gerente, Director..." {...register('cargo')} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">N° de Líneas Requeridas</Label>
-                                            <Input type="number" placeholder="1" {...register('nro_lineas')} />
-                                        </div>
+                <div className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-blue-500/5 border border-white/20 dark:border-slate-800 overflow-hidden">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="p-8">
+                            {step === 1 && (
+                                <div className="space-y-8 text-center">
+                                    <div className="space-y-1">
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Selecciona tu Plan 5G</h2>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Planes residenciales y corporativos con ultra-velocidad.</p>
                                     </div>
-                                )}
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Nombre del Representante *' : 'Nombre *'}</Label>
-                                        <Input {...register('nombre')} className={cn(errors.nombre && 'border-destructive')} />
-                                        {errors.nombre && <p className="text-[10px] text-destructive">{errors.nombre.message}</p>}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {PLANES_TELECOM.map((p) => {
+                                            const isSelected = selectedPlan === p.id;
+                                            return (
+                                                <button
+                                                    key={p.id} type="button" onClick={() => setSelectedPlan(p.id)}
+                                                    className={cn(
+                                                        "relative text-left p-6 rounded-[2rem] border-2 transition-all duration-300 group",
+                                                        isSelected ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/5 ring-4 ring-blue-500/10 shadow-xl" : "bg-white dark:bg-slate-800/50 border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-800"
+                                                    )}
+                                                >
+                                                    {popularPlan === p.id && <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-white shadow-lg">Popular</div>}
+                                                    <div className="flex items-center justify-between mb-4">
+                                                        <div className={cn("p-2.5 rounded-xl transition-colors", isSelected ? "bg-blue-500 text-white" : "bg-blue-50 dark:bg-blue-900/20 text-blue-500")}>
+                                                            <Zap className="h-5 w-5" />
+                                                        </div>
+                                                        <div className={cn("w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all", isSelected ? "bg-blue-500 border-blue-500 shadow-md shadow-blue-500/20" : "border-slate-200 dark:border-slate-700")}>
+                                                            {isSelected && <Check className="h-3.5 w-3.5 text-white stroke-[3px]" />}
+                                                        </div>
+                                                    </div>
+                                                    <p className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">{p.nombre}</p>
+                                                    <div className="flex items-baseline gap-1 mb-2">
+                                                        <span className="text-3xl font-black text-slate-800 dark:text-slate-100">${p.precioUsd}</span>
+                                                        <span className="text-sm font-bold text-slate-400">/mes</span>
+                                                    </div>
+                                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4 font-medium leading-relaxed">{p.descripcion}</p>
+                                                    <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                                        {p.features.map((f, i) => (
+                                                            <div key={i} className="flex items-center gap-2">
+                                                                <CheckCircle className={cn("h-3.5 w-3.5", isSelected ? "text-blue-500" : "text-slate-300 dark:text-slate-700")} />
+                                                                <span className="text-[11px] font-bold text-slate-600 dark:text-slate-400">{f}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
                                     </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Apellido del Representante *' : 'Apellido *'}</Label>
-                                        <Input {...register('apellido')} className={cn(errors.apellido && 'border-destructive')} />
-                                        {errors.apellido && <p className="text-[10px] text-destructive">{errors.apellido.message}</p>}
+                                    <Button type="button" onClick={nextStep} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-xl shadow-blue-500/20 transition-all active:scale-[0.98]">
+                                        Continuar con el Plan <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
+
+                            {step === 2 && (
+                                <div className="space-y-6">
+                                    <div className="text-center space-y-1 mb-4">
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Crear tu Cuenta 5G</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Ingresa los datos del titular de la línea.</p>
                                     </div>
-                                    <div className="sm:col-span-2 space-y-2">
-                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">{tipoCliente === 'empresarial' ? 'Cédula del Representante *' : 'Cédula de Identidad *'}</Label>
-                                        {docFromParams ? (
-                                            <div className="flex items-center gap-3 p-3 rounded-xl border border-green-500/30 bg-green-500/5">
-                                                <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
-                                                <div className="flex-1">
-                                                    <p className="text-sm font-mono font-bold text-foreground">{watch('cedula')}</p>
-                                                    <p className="text-[11px] text-green-600 dark:text-green-400 font-bold uppercase tracking-widest">Detectada automáticamente</p>
-                                                </div>
-                                                <Button type="button" variant="ghost" size="sm" className="h-7 text-[11px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground" onClick={() => { setDocFromParams(false); setValue('cedula', ''); }}>
-                                                    Cambiar
-                                                </Button>
+
+                                    <div className="space-y-4">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="space-y-1.5 px-1">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">¿Tipo de Cuenta?</Label>
+                                                <Controller name="tipo_cliente" control={control} render={({ field }) => (
+                                                    <div className="flex gap-2 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                                                        <button type="button" onClick={() => field.onChange('personal')} className={cn("flex-1 h-9 rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all", field.value === 'personal' ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-600")}>
+                                                            <User className="h-3.5 w-3.5" /> Personal
+                                                        </button>
+                                                        <button type="button" onClick={() => field.onChange('empresarial')} className={cn("flex-1 h-9 rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest transition-all", field.value === 'empresarial' ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-600")}>
+                                                            <Building className="h-3.5 w-3.5" /> Empresa
+                                                        </button>
+                                                    </div>
+                                                )} />
                                             </div>
-                                        ) : (
-                                            <Controller name="cedula" control={control} render={({ field }) => (
-                                                <DocumentInput type="cedula" value={field.value || ''} onChange={field.onChange} error={!!errors.cedula} />
-                                            )} />
-                                        )}
-                                        {errors.cedula && <p className="text-[10px] text-destructive">{errors.cedula.message}</p>}
-                                    </div>
-                                </div>
-
-                                <div className="pt-2">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                                            <Upload className="h-3 w-3 text-white" />
+                                            <div className="space-y-1.5 px-1">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">{tipoCliente === 'personal' ? 'Cédula • ID' : 'RIF • Empresa'}</Label>
+                                                <Controller name="cedula" control={control} render={({ field }) => (
+                                                    <DocumentInput type={tipoCliente === 'personal' ? 'cedula' : 'rif'} value={field.value} onChange={field.onChange} error={!!errors.cedula} />
+                                                )} />
+                                            </div>
                                         </div>
-                                        <p className="text-xs font-bold uppercase tracking-wider text-foreground">Documentos de Identidad</p>
-                                    </div>
-                                    <DocumentUpload
-                                        requirements={
-                                            tipoCliente === 'empresarial'
-                                                ? [
-                                                    { id: 'cedula_frente', label: 'Cédula del Representante — Frente', description: 'Foto o escaneo legible del frente', required: true },
-                                                    { id: 'cedula_reverso', label: 'Cédula del Representante — Reverso', description: 'Foto o escaneo legible del reverso', required: true },
-                                                    { id: 'rif_documento', label: 'RIF de la Empresa', description: 'PDF o foto del RIF vigente emitido por SENIAT', required: true },
-                                                ]
-                                                : [
-                                                    { id: 'cedula_frente', label: 'Cédula — Lado Frontal', description: 'Foto o escaneo legible del frente de su cédula', required: true },
-                                                    { id: 'cedula_reverso', label: 'Cédula — Lado Reverso', description: 'Foto o escaneo legible del reverso de su cédula', required: true },
-                                                ]
-                                        }
-                                        documents={uploadedDocs}
-                                        onDocumentsChange={setUploadedDocs}
-                                    />
-                                </div>
 
-                                <div className="space-y-3 p-4 rounded-xl border border-border bg-muted/5">
-                                    <div className="flex items-center gap-3">
-                                        <Controller name="tiene_telefono" control={control} render={({ field }) => (
-                                            <Checkbox
-                                                id="tiene_telefono"
-                                                checked={field.value}
-                                                onCheckedChange={(checked) => {
-                                                    field.onChange(checked);
-                                                    if (!checked) {
-                                                        setValue('telefono_contacto', '');
-                                                    }
-                                                }}
-                                            />
-                                        )} />
-                                        <Label htmlFor="tiene_telefono" className="text-[10px] font-semibold uppercase tracking-widest cursor-pointer">
-                                            Ya poseo un número de teléfono
-                                        </Label>
-                                    </div>
-                                    {tieneTelefono && (
-                                        <div className="space-y-2 mt-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Número Actual</Label>
-                                            <Input type="tel" placeholder="0412-XXXXXXX" {...register('telefono_contacto')} className={cn(errors.telefono_contacto && 'border-destructive')} />
-                                            {errors.telefono_contacto && <p className="text-[10px] text-destructive">{errors.telefono_contacto.message}</p>}
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Nombre</Label>
+                                                <Input {...register('nombre')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Apellido</Label>
+                                                <Input {...register('apellido')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            </div>
                                         </div>
-                                    )}
-                                    {!tieneTelefono && (
-                                        <p className="text-[11px] text-muted-foreground italic">
-                                            No te preocupes — al activar tu línea recibirás un nuevo número de Mi Línea 5G.
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        )}
 
-                        {step === 2 && (
-                            <div className="space-y-5">
-                                <div className="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 mb-1">
-                                    <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1 flex items-center gap-2">
-                                        <Smartphone className="h-3.5 w-3.5" /> Selecciona tu Plan
-                                    </p>
-                                    <p className="text-[11px] text-muted-foreground">Elige el plan que mejor se adapte a tus necesidades. Podrás cambiarlo después.</p>
-                                </div>
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Teléfono Alternativo</Label>
+                                                <Input {...register('telefono')} type="tel" placeholder="0412-1234567" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Correo Electrónico</Label>
+                                                <Input {...register('email')} type="email" placeholder="usuario@email.com" className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            </div>
+                                        </div>
 
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">¿Qué necesitas? *</Label>
-                                    <Controller name="motivo_linea" control={control} render={({ field }) => (
-                                        <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className={cn(errors.motivo_linea && 'border-destructive')}><SelectValue placeholder="Seleccionar motivo..." /></SelectTrigger>
-                                            <SelectContent>{MOTIVOS_LINEA.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                        </Select>
-                                    )} />
-                                    {errors.motivo_linea && <p className="text-[10px] text-destructive">{errors.motivo_linea.message}</p>}
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Plan Seleccionado *</Label>
-                                    {tasaBcv && <p className="text-[10px] text-muted-foreground/60 mb-1">Tasa BCV del día: 1 USD = Bs. {tasaBcv.toFixed(2)}</p>}
-                                    {errors.tipo_plan && <p className="text-[10px] text-destructive mb-1">{errors.tipo_plan.message}</p>}
-                                    <Controller name="tipo_plan" control={control} render={({ field }) => (
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            {PLANES_TELECOM.map(plan => {
-                                                const selected = field.value === plan.id;
-                                                return (
-                                                    <button
-                                                        key={plan.id}
-                                                        type="button"
-                                                        onClick={() => field.onChange(plan.id)}
-                                                        aria-label={`Seleccionar ${plan.nombre}`}
-                                                        className={cn(
-                                                            "relative p-4 rounded-xl border text-left transition-all duration-200 group",
-                                                            selected
-                                                                ? "border-blue-500 bg-blue-500/5 ring-1 ring-blue-500/30 shadow-lg shadow-blue-500/10"
-                                                                : "border-border/50 bg-muted/10 hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
-                                                        )}
-                                                    >
-                                                        {popularPlan === plan.id && (
-                                                            <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-[10px] font-semibold uppercase tracking-widest flex items-center gap-1">
-                                                                <Crown className="h-2.5 w-2.5" /> Popular
-                                                            </span>
-                                                        )}
-                                                        <div className="flex items-start justify-between mb-2">
-                                                            <div>
-                                                                <div className={cn("inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[11px] font-semibold uppercase tracking-widest mb-1.5", selected ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-muted/30 text-muted-foreground")}>
-                                                                    <Zap className="h-2.5 w-2.5" />
-                                                                    {plan.nombre}
-                                                                </div>
-                                                                <p className="text-sm font-bold text-foreground">${plan.precioUsd}/mes</p>
-                                                                {tasaBcv && <p className="text-[11px] text-muted-foreground/70">Bs. {(plan.precioUsd * tasaBcv).toFixed(2)}</p>}
-                                                            </div>
-                                                            <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 transition-all", selected ? "border-blue-500 bg-blue-500" : "border-muted-foreground/30")}>
-                                                                {selected && <Check className="h-3 w-3 text-white" />}
-                                                            </div>
-                                                        </div>
-                                                        <p className="text-[10px] text-muted-foreground mb-2.5">{plan.descripcion}</p>
-                                                        <div className="space-y-1">
-                                                            {plan.features.map((f, i) => (
-                                                                <div key={i} className="flex items-center gap-1.5">
-                                                                    <Check className={cn("h-3 w-3 shrink-0", selected ? "text-blue-500" : "text-muted-foreground/40")} />
-                                                                    <span className="text-[11px] text-muted-foreground">{f}</span>
-                                                                </div>
-                                                            ))}
-                                                        </div>
+                                        <div className="grid grid-cols-2 gap-4 px-1">
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Contraseña</Label>
+                                                <div className="relative">
+                                                    <Input type={showPassword ? 'text' : 'password'} {...register('password')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none pr-10 focus:ring-2 focus:ring-blue-500/20" />
+                                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                                     </button>
-                                                );
-                                            })}
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Confirmar</Label>
+                                                <Input type="password" {...register('confirmPassword')} className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-2 focus:ring-blue-500/20" />
+                                            </div>
                                         </div>
-                                    )} />
-                                </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">Tecnología de Red *</Label>
-                                        <Controller name="tecnologia" control={control} render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className={cn(errors.tecnologia && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                                <SelectContent>{TECNOLOGIAS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-                                            </Select>
-                                        )} />
-                                        {errors.tecnologia && <p className="text-[10px] text-destructive">{errors.tecnologia.message}</p>}
-                                    </div>
-                                    {(motivoLinea === 'Portar mi número actual') && (
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-semibold uppercase tracking-widest">Número a Portar *</Label>
-                                            <Input placeholder="04XX-XXXXXXX" {...register('numero_portar')} className={cn(errors.numero_portar && 'border-destructive')} />
-                                            {errors.numero_portar && <p className="text-[10px] text-destructive">{errors.numero_portar.message}</p>}
-                                            <p className="text-[10px] text-muted-foreground">Ingresa el número que deseas trasladar a Mi Línea 5G</p>
-                                        </div>
-                                    )}
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-semibold uppercase tracking-widest">ICCID eSIM (opcional)</Label>
-                                        <Input placeholder="89580..." {...register('iccid_esim')} />
-                                        <p className="text-[10px] text-muted-foreground">Solo si tienes un chip eSIM físico</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {step === 3 && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Estado de Servicio *</Label>
-                                    <Controller name="estado_servicio" control={control} render={({ field }) => (
-                                        <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className={cn(errors.estado_servicio && 'border-destructive')}><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
-                                            <SelectContent>{ESTADOS_VE.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}</SelectContent>
-                                        </Select>
-                                    )} />
-                                    {errors.estado_servicio && <p className="text-[10px] text-destructive">{errors.estado_servicio.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Municipio *</Label>
-                                    <Controller name="municipio_servicio" control={control} render={({ field }) => (
-                                        <Select value={field.value} onValueChange={field.onChange} disabled={!estadoServicio}>
-                                            <SelectTrigger className={cn(errors.municipio_servicio && 'border-destructive')}>
-                                                <SelectValue placeholder={estadoServicio ? 'Selecciona el municipio' : 'Primero selecciona el estado'} />
-                                            </SelectTrigger>
-                                            <SelectContent>{getMunicipios(estadoServicio || '').map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
-                                        </Select>
-                                    )} />
-                                    {errors.municipio_servicio && <p className="text-[10px] text-destructive">{errors.municipio_servicio.message}</p>}
-                                </div>
-                                <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Dirección de Servicio *</Label>
-                                    <Input {...register('direccion_servicio')} className={cn(errors.direccion_servicio && 'border-destructive')} />
-                                    {errors.direccion_servicio && <p className="text-[10px] text-destructive">{errors.direccion_servicio.message}</p>}
-                                </div>
-                                <div className="sm:col-span-2 space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Correo Electrónico *</Label>
-                                    <Input type="email" {...register('email')} className={cn(errors.email && 'border-destructive')} />
-                                    {errors.email && <p className="text-[10px] text-destructive">{errors.email.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Contraseña *</Label>
-                                    <div className="relative">
-                                        <Input type={showPassword ? 'text' : 'password'} {...register('password')} className={cn('pr-10', errors.password && 'border-destructive')} />
-                                        <button type="button" onClick={() => setShowPassword(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                        <button type="button" onClick={() => setAcceptTerms(!acceptTerms)} className="flex items-start gap-3 p-4 rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full text-left">
+                                            <div className={cn("mt-1 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all", acceptTerms ? "bg-blue-600 border-blue-600 shadow-md" : "border-slate-300 dark:border-slate-600")}>
+                                                {acceptTerms && <Check className="h-3.5 w-3.5 text-white stroke-[3px]" />}
+                                            </div>
+                                            <p className="text-[11px] text-slate-500 font-bold leading-relaxed">Acepto los términos y condiciones de servicio y la política de privacidad de System Kyron Telecom.</p>
                                         </button>
                                     </div>
-                                    {errors.password && <p className="text-[10px] text-destructive">{errors.password.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-semibold uppercase tracking-widest">Confirmar Contraseña *</Label>
-                                    <Input type="password" {...register('confirmPassword')} className={cn(errors.confirmPassword && 'border-destructive')} />
-                                    {errors.confirmPassword && <p className="text-[10px] text-destructive">{errors.confirmPassword.message}</p>}
-                                </div>
-                                <label className="flex items-start gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/50 cursor-pointer select-none group hover:bg-muted/50 transition-colors mt-4">
-                                    <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0" />
-                                    <span className="text-xs text-muted-foreground">
-                                        He leído y acepto los{' '}
-                                        <a href="/terms" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Términos de Servicio</a>{' '}
-                                        y la{' '}
-                                        <a href="/politica-privacidad" target="_blank" className="text-primary font-semibold hover:underline" onClick={(e) => e.stopPropagation()}>Política de Privacidad</a>.
-                                    </span>
-                                </label>
-                                {!acceptTerms && <p className="text-xs text-destructive mt-1">Debes aceptar los términos y condiciones para continuar.</p>}
-                            </div>
-                        )}
 
-                        {step === 4 && (
-                            <div className="space-y-6">
-                                <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl">
-                                    <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1">Verificación por Correo Electrónico</p>
-                                    <p className="text-[11px] text-muted-foreground">Enviaremos un código de 6 dígitos a <strong className="text-foreground">{getValues('email')}</strong> para verificar tu identidad.</p>
-                                </div>
-                                {!verifSent ? (
-                                    <div className="space-y-4">
-                                        <Button type="button" className="w-full" onClick={sendVerificationCode} disabled={verifLoading}>
-                                            {verifLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Enviando...</> : 'Enviar Código de Verificación'}
+                                    <div className="flex gap-4 pt-2">
+                                        <Button type="button" variant="ghost" onClick={() => setStep(1)} className="h-14 rounded-2xl border border-slate-200 dark:border-slate-800 px-6 font-bold text-slate-400 hover:text-slate-800">
+                                            <ArrowLeft className="h-5 w-5" />
+                                        </Button>
+                                        <Button type="button" onClick={nextStep} className="flex-1 h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-xl shadow-blue-500/20 transition-all active:scale-[0.98]">
+                                            Crear Cuenta <ArrowRight className="ml-2 h-5 w-5" />
                                         </Button>
                                     </div>
-                                ) : verifVerified ? (
-                                    <div className="text-center py-6 space-y-3">
-                                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
-                                            <CheckCircle className="h-10 w-10 text-green-500" />
-                                        </div>
-                                        <p className="font-bold text-green-600 dark:text-green-400 uppercase tracking-widest text-xs">Identidad Verificada</p>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-4">
-                                        <p className="text-sm text-muted-foreground text-center">{devCode ? 'Ingresa el código mostrado abajo' : 'Ingresa el código de activación de 6 dígitos.'}</p>
-                                        {devCode && (
-                                            <div className="p-4 bg-cyan-500/10 border-2 border-cyan-500/30 rounded-xl text-center">
-                                                <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mb-1">Tu código de verificación</p>
-                                                <p className="text-3xl font-bold font-mono tracking-wide text-cyan-600">{devCode}</p>
-                                            </div>
-                                        )}
-                                        <Input maxLength={6} value={verifCode} onChange={e => setVerifCode(e.target.value.replace(/\D/g,'').slice(0,6))} className="text-center text-2xl tracking-wider font-mono" />
-                                        {verifLoading && (
-                                            <div className="flex items-center justify-center gap-2 py-3 text-sm text-primary font-semibold">
-                                                <Loader2 className="h-4 w-4 animate-spin" />
-                                                Verificando...
-                                            </div>
-                                        )}
-                                        <div className="text-center">
-                                            {countdown > 0 ? <p className="text-xs text-muted-foreground">Reenviar en <strong>{countdown}s</strong></p> :
-                                                <button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="text-xs text-primary underline inline-flex items-center gap-1">
-                                                    <RefreshCw className="h-3 w-3"/>Reenviar
-                                                </button>}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        {step === TOTAL_STEPS && (
-                            <div className="text-center py-8 space-y-4">
-                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 mb-2">
-                                    <CheckCircle className="h-12 w-12 text-blue-500" />
                                 </div>
-                                <h2 className="text-2xl font-semibold uppercase italic tracking-tight">¡Línea Activada!</h2>
-                                <p className="text-muted-foreground text-sm">Tu cuenta <strong className="text-blue-500">{tipoCliente === 'empresarial' ? 'Flota Empresarial 5G' : 'Mi Línea 5G'}</strong> fue registrada exitosamente.</p>
-                                {getValues('tipo_plan') && (() => {
-                                    const planSel = PLANES_TELECOM.find(p => p.id === getValues('tipo_plan'));
-                                    return planSel ? (
-                                        <div className="p-3 bg-blue-500/5 border border-blue-500/10 rounded-xl text-xs">
-                                            <p className="font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">Plan seleccionado:</p>
-                                            <p className="text-muted-foreground">{planSel.nombre} — ${planSel.precioUsd}/mes{tasaBcv ? ` (Bs. ${(planSel.precioUsd * tasaBcv).toFixed(2)})` : ''}</p>
-                                        </div>
-                                    ) : null;
-                                })()}
-                                <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl text-left text-xs space-y-2">
-                                    <p className="font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Servicios habilitados:</p>
-                                    {MODULES_TELECOM.map(m => <p key={m.id} className="text-muted-foreground">✓ {m.label}</p>)}
-                                    {tipoCliente === 'empresarial' && <p className="text-muted-foreground">✓ Flota Empresarial</p>}
-                                </div>
-                                <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { window.location.href = '/es/dashboard-empresa'; }}>
-                                    Ir a Mis Líneas<ArrowRight className="ml-2 h-4 w-4"/>
-                                </Button>
-                            </div>
-                        )}
-                    </CardContent>
-
-                    {step < TOTAL_STEPS && (
-                        <CardFooter className="flex justify-between p-8 pt-2">
-                            <Button type="button" variant="outline" onClick={() => setStep(s => s - 1)} disabled={step === 1}>
-                                <ArrowLeft className="mr-2 h-4 w-4"/>Anterior
-                            </Button>
-                            {step < 3 && <Button type="button" onClick={nextStep}>Siguiente<ArrowRight className="ml-2 h-4 w-4"/></Button>}
-                            {step === 3 && <Button type="button" onClick={nextStep}>Continuar<ArrowRight className="ml-2 h-4 w-4"/></Button>}
-                            {step === 4 && (
-                                <Button type="submit" disabled={isLoading || !verifVerified}>
-                                    {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Activando...</> : <>Activar Línea<ArrowRight className="ml-2 h-4 w-4"/></>}
-                                </Button>
                             )}
-                        </CardFooter>
-                    )}
-                    {step < TOTAL_STEPS && (
-                        <p className="text-center text-xs text-muted-foreground pb-6">
-                            ¿Ya tienes cuenta? <Link href="/login" className="text-primary font-semibold hover:underline">Iniciar sesión</Link>
-                        </p>
-                    )}
-                </form>
-            </Card>
+
+                            {step === 3 && (
+                                <div className="space-y-8 py-4">
+                                    <div className="text-center space-y-2">
+                                        <div className="inline-flex p-4 rounded-[1.5rem] bg-blue-500/10 mb-2">
+                                            <Mail className="h-8 w-8 text-blue-500" />
+                                        </div>
+                                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Verifica tu Correo</h2>
+                                        <p className="text-sm text-slate-500 font-medium">Enviamos un código de seguridad a <span className="text-blue-600 font-bold">{getValues('email')}</span></p>
+                                    </div>
+
+                                    {!verifSent ? (
+                                        <Button type="button" onClick={sendVerificationCode} disabled={verifLoading} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/20 font-bold text-base">
+                                            {verifLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Enviar Código 5G'}
+                                        </Button>
+                                    ) : (
+                                        <div className="space-y-6">
+                                            <div className="flex justify-center gap-3">
+                                                <Input maxLength={6} value={verifCode} onChange={e => setVerifCode(e.target.value.replace(/\D/g, '').slice(0, 6))} className="h-16 text-center text-3xl font-black font-mono tracking-[0.5em] rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-none focus:ring-4 focus:ring-blue-500/10" placeholder="000000" />
+                                            </div>
+                                            <div className="text-center">
+                                                {countdown > 0 ? (
+                                                    <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Reenviar en <span className="text-blue-500">{countdown}s</span></p>
+                                                ) : (
+                                                    <button type="button" onClick={sendVerificationCode} className="text-[11px] font-bold uppercase tracking-widest text-blue-500 hover:underline">Solicitar nuevo código</button>
+                                                )}
+                                            </div>
+                                            <Button type="submit" disabled={verifCode.length < 6 || verifLoading} className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/20 font-bold text-base">
+                                                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verificar y Activar'}
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {step === 4 && (
+                                <div className="text-center py-10 space-y-6">
+                                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-blue-500 to-blue-700 shadow-2xl shadow-blue-500/40 mb-2">
+                                        <Check className="h-12 w-12 text-white stroke-[4px]" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h2 className="text-3xl font-black italic tracking-tight text-slate-800 dark:text-slate-100">¡Línea Activada!</h2>
+                                        <p className="text-sm text-slate-500 font-medium px-8">Tu acceso a <span className="text-blue-600 font-bold">Mi Línea 5G</span> ha sido procesado exitosamente. Ahora puedes gestionar tu servicio desde el panel.</p>
+                                    </div>
+                                    <div className="py-6 px-4 bg-blue-50 dark:bg-blue-500/5 rounded-3xl border border-blue-100 dark:border-blue-500/10 space-y-3">
+                                        <div className="flex items-center justify-between text-xs px-2">
+                                            <span className="font-bold text-slate-400 uppercase tracking-widest">Plan Contratado</span>
+                                            <span className="font-black text-blue-600 uppercase tracking-wide">{PLANES_TELECOM.find(p => p.id === getValues('plan'))?.nombre}</span>
+                                        </div>
+                                        <div className="h-px bg-blue-200/50 dark:bg-blue-500/10" />
+                                        <div className="flex items-center justify-between text-xs px-2">
+                                            <span className="font-bold text-slate-400 uppercase tracking-widest">Estado</span>
+                                            <span className="px-2 py-0.5 bg-green-500 text-white rounded text-[9px] font-black uppercase tracking-widest">Activo</span>
+                                        </div>
+                                    </div>
+                                    <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-black uppercase tracking-widest shadow-xl transition-all" onClick={() => window.location.href = '/dashboard'}>
+                                        Ir al Panel de Control <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+                    </form>
+                </div>
+
+                <div className="mt-12 flex items-center justify-center gap-10 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div className="flex items-center gap-2">
+                        <Signal className="h-4 w-4" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Ultra 5G Network</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Lock className="h-4 w-4" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">AES-256 Encrypted</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

@@ -20,7 +20,7 @@ import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { ActivityTimeline } from "@/components/activity-timeline";
-import { AgentChatModal } from "@/components/chat/agent-chat-modal";
+import { ProfileCompletionNotice } from "@/components/dashboard/profile-completion-notice";
 
 interface AgentConfig {
   id: string;
@@ -138,6 +138,7 @@ export default function DashboardPersonalPage() {
   return (
     <div className="space-y-6 pb-20 max-w-7xl mx-auto px-4 md:px-0">
       <ModuleTutorial config={moduleTutorials["ciudadano"]} />
+      <ProfileCompletionNotice />
       
       {/* Header Elite con Efecto de Cristal Sagrado */}
       <motion.header
