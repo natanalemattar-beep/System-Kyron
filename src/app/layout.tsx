@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { Inter } from 'next/font/google';
+import { Space_Grotesk, Outfit } from 'next/font/google';
 import { JetBrains_Mono } from 'next/font/google';
 import { Providers } from "@/components/providers";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
   display: 'swap',
 });
 
@@ -76,7 +82,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="es" className={`${spaceGrotesk.variable} ${outfit.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png" />

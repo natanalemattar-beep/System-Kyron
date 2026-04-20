@@ -177,8 +177,10 @@ export function HeroSection() {
                             <div className="space-y-4">
                                 <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance" id="hero-title">
                                     <span className="block opacity-90">{t('title_line1')}</span>
-                                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] mb-2">
-                                        {t('title_line2')}
+                                    <span className="block relative">
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] animate-gradient-flow bg-[length:300%_100%]">
+                                            {t('title_line2')}
+                                        </span>
                                     </span>
                                     <RotatingWords words={rotatingTexts} interval={3500} />
                                 </h1>
@@ -193,20 +195,24 @@ export function HeroSection() {
 
                         <ScrollReveal delay={0.4} scale={0.95}>
                             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4">
-                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect" aria-label="Registrarse ahora en el ecosistema">
-                                    <Link href="/login" className="flex items-center gap-3">
-                                        {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
-                                    </Link>
-                                </Button>
+                                <motion.div whileHover={{ scale: 1.05, translateZ: 20 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                                    <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-cyan-600 via-blue-500 to-emerald-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(6,182,212,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(16,185,129,0.7)] transition-all duration-500 active:scale-95 shine-effect" aria-label="Registrarse ahora en el ecosistema">
+                                        <Link href="/login" className="flex items-center gap-3">
+                                            {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                                        </Link>
+                                    </Button>
+                                </motion.div>
                                 
-                                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]" aria-label="Ver planes y precios">
-                                    <Link href="#pricing" className="flex items-center gap-2">
-                                        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                                            <Play className="h-3 w-3 fill-current ml-1" />
-                                        </div>
-                                        {t('cta_secondary')}
-                                    </Link>
-                                </Button>
+                                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
+                                    <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group" aria-label="Ver planes y precios">
+                                        <Link href="#pricing" className="flex items-center gap-2">
+                                            <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                                                <Play className="h-3 w-3 fill-current ml-1" />
+                                            </div>
+                                            {t('cta_secondary')}
+                                        </Link>
+                                    </Button>
+                                </motion.div>
                             </div>
                         </ScrollReveal>
 
@@ -290,23 +296,39 @@ export function HeroSection() {
                         </motion.div>
                     </div>
                 </div>
-            </div>
 
-            <div className="w-full bg-gradient-to-b from-transparent to-[#050816] relative z-20 pb-20">
+            <div className="w-full bg-gradient-to-b from-transparent via-[#050816]/50 to-[#050816] relative z-20 pb-20">
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {heroStats.map((s, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.1 * i }}
-                                className="glass-elite-interactive p-6 flex flex-col items-center gap-2 group rounded-3xl"
-                            >
-                                <span className="text-2xl md:text-3xl font-black text-white group-hover:text-cyan-400 transition-colors">{s.val}</span>
-                                <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] text-center">{s.label}</span>
-                            </motion.div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+                        {heroStats.map((stat, i) => (
+                            <ScrollReveal key={stat.label} delay={0.1 * i}>
+                                <div className="group relative p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-3xl hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 shadow-2xl overflow-hidden">
+                                    {/* HUD accent corner */}
+                                    <div className="absolute top-0 right-0 w-10 h-10 pointer-events-none">
+                                        <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse" />
+                                        <div className="absolute top-3 right-3 w-[1px] h-4 bg-cyan-500/20" />
+                                        <div className="absolute top-3 right-3 w-4 h-[1px] bg-cyan-500/20" />
+                                    </div>
+                                    
+                                    <div className="relative z-10 text-center md:text-left">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-3 group-hover:text-cyan-400 transition-colors duration-300">{stat.label}</p>
+                                        <p className="text-3xl md:text-4xl font-black text-white tracking-tighter group-hover:scale-105 transition-transform duration-500 origin-left">{stat.val}</p>
+                                        
+                                        {/* Progress bar HUD */}
+                                        <div className="mt-6 h-[3px] w-full bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div 
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: '85%' }}
+                                                transition={{ duration: 1.5, delay: 0.5 + (i * 0.1), ease: "circOut" }}
+                                                className="h-full bg-gradient-to-r from-blue-600 via-cyan-400 to-emerald-500"
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Sub-glow effect */}
+                                    <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-cyan-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                                </div>
+                            </ScrollReveal>
                         ))}
                     </div>
                 </div>
