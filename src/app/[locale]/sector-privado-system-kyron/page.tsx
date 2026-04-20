@@ -34,6 +34,29 @@ const PRESENTATION_SCRIPT = [
     }
 ];
 
+const MASTER_PITCH_3MIN = [
+    {
+        title: "0:00 - Infrestructura y Soberanía",
+        content: "Bienvenidos al futuro de la gestión corporativa en Venezuela. System Kyron no es un proveedor, es su aliado en soberanía tecnológica. Somos la primera infraestructura en el país que fusiona conectividad 5G nativa con inteligencia artificial aplicada. No estamos vendiendo un software; estamos desplegando el estándar de eficiencia que el sector privado necesita para escalar en 2026."
+    },
+    {
+        title: "0:45 - El Ecosistema de 12 Portales",
+        content: "Nuestra plataforma unifica 12 portales críticos que eliminan la fricción operativa. Contamos con IA Legal impulsada por Claude 3.5 para blindaje de contratos, IA Fiscal para conciliación VEN-NIF en tiempo real, y un portal de RRHH que automatiza nómina bajo la LOTTT. Desde Eco-Créditos con Ameru.AI hasta Facturación POS certificada, todo vive en una nube segura AES-256."
+    },
+    {
+        title: "1:30 - Telecomunicaciones y Kyron Shield",
+        content: "El diferencial maestro es nuestra red. Ofrecemos líneas corporativas 5G y eSIMs gestionadas directamente desde el portal. Pero vamos más allá: cada línea incluye Kyron Shield. Esto significa reposición de equipos en 1h, peritaje forense ante el SENIAT y defensa legal inmediata. En System Kyron, la conectividad es seguridad, y la seguridad es continuidad de negocio."
+    },
+    {
+        title: "2:15 - Blindaje Fiscal y Productividad",
+        content: "Resolvemos el mayor dolor de cabeza del empresario venezolano: la descoordinación entre el BCV, el SENIAT y la banca. Automatizamos la tasa diaria, el cumplimiento tributario y la gestión de sostenibilidad. Con hardware fiscal homologado y trazabilidad total, permitimos que los líderes se enfoquen en crecer, mientras Kyron se encarga de la ingeniería regulatoria."
+    },
+    {
+        title: "2:45 - Conclusión y Equipo Elite",
+        content: "Respaldados por Google Cloud y liderados por Carlos Mattar, Sebastian Garrido y Marcos Sousa, System Kyron es la inversión más inteligente para el sector privado. Un solo ecosistema, integración total y el respaldo tecnológico más sólido de Venezuela. Estamos listos para dominar el mercado. ¿Están listos para unirse a la elite?"
+    }
+];
+
 export default function ModeloZeduPage() {
     const { toast } = useToast();
     const router = useRouter();
@@ -42,6 +65,7 @@ export default function ModeloZeduPage() {
     const [authChecked, setAuthChecked] = useState(false);
     const [presentationMode, setPresentationMode] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
+    const [activeScript, setActiveScript] = useState<'zedu' | 'master'>('zedu');
 
     useEffect(() => {
         // Check if already authorized in current session
@@ -146,34 +170,85 @@ export default function ModeloZeduPage() {
                         exit={{ opacity: 0, x: 100 }}
                         className="fixed top-24 right-8 w-80 z-[90] no-print"
                     >
-                        <div className="glass-elite p-6 rounded-[2rem] border-amber-500/20 shadow-2xl bg-slate-950/95 backdrop-blur-xl border border-amber-500/20">
+                        <div className="glass-elite p-6 rounded-[2.5rem] border-amber-500/20 shadow-2xl bg-slate-950/95 backdrop-blur-xl border border-amber-500/20">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="h-8 w-8 rounded-xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
-                                    <FileText className="h-4 w-4 text-amber-400" />
+                                <div className="h-10 w-10 rounded-2xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
+                                    <Presentation className="h-5 w-5 text-amber-400" />
                                 </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500">Guion de Pitch Elite</h4>
+                                <div>
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500 mb-0.5">Presentation AI</h4>
+                                    <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Pitch Interactivo</p>
+                                </div>
+                            </div>
+
+                            {/* Script Toggle */}
+                            <div className="grid grid-cols-2 gap-2 mb-6 p-1 bg-white/5 rounded-2xl border border-white/10">
+                                <button 
+                                    onClick={() => { setActiveScript('zedu'); setCurrentStep(0); }}
+                                    className={cn(
+                                        "py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all",
+                                        activeScript === 'zedu' 
+                                            ? "bg-amber-500 text-white shadow-glow-sm" 
+                                            : "text-white/40 hover:text-white"
+                                    )}
+                                >
+                                    ZEDU
+                                </button>
+                                <button 
+                                    onClick={() => { setActiveScript('master'); setCurrentStep(0); }}
+                                    className={cn(
+                                        "py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all",
+                                        activeScript === 'master' 
+                                            ? "bg-amber-500 text-white shadow-glow-sm" 
+                                            : "text-white/40 hover:text-white"
+                                    )}
+                                >
+                                    MAESTRO
+                                </button>
                             </div>
                             
-                            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                                {PRESENTATION_SCRIPT.map((step, i) => (
+                            <div className="space-y-4 max-h-[55vh] overflow-y-auto pr-2 custom-scrollbar">
+                                {(activeScript === 'zedu' ? PRESENTATION_SCRIPT : MASTER_PITCH_3MIN).map((step, i) => (
                                     <div 
                                         key={i}
                                         onClick={() => setCurrentStep(i)}
                                         className={cn(
-                                            "p-4 rounded-2xl border transition-all cursor-pointer",
+                                            "p-4 rounded-2xl border transition-all cursor-pointer group",
                                             currentStep === i 
                                                 ? "bg-amber-500/10 border-amber-500/40 shadow-glow-sm" 
                                                 : "bg-white/5 border-white/5 hover:bg-white/10"
                                         )}
                                     >
-                                        <p className={cn("text-[9px] font-black uppercase tracking-widest mb-1", currentStep === i ? "text-amber-400" : "text-white/40")}>Paso {i + 1}</p>
-                                        <p className="text-[11px] font-bold text-white mb-2">{step.title}</p>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <p className={cn("text-[9px] font-black uppercase tracking-widest", currentStep === i ? "text-amber-400" : "text-white/40")}>
+                                                {activeScript === 'zedu' ? `Paso ${i + 1}` : step.title.split(' - ')[0]}
+                                            </p>
+                                            {currentStep === i && <div className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />}
+                                        </div>
+                                        <p className="text-[11px] font-bold text-white mb-2 group-hover:text-amber-200 transition-colors">
+                                            {activeScript === 'zedu' ? step.title : step.title.split(' - ')[1]}
+                                        </p>
                                         {currentStep === i && (
-                                            <p className="text-[11px] text-slate-300 leading-relaxed italic border-t border-amber-500/20 pt-2 animate-reveal-up">{step.content}</p>
+                                            <motion.p 
+                                                initial={{ opacity: 0, y: 5 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="text-[11px] text-slate-300 leading-relaxed italic border-t border-amber-500/20 pt-3 mt-1"
+                                            >
+                                                {step.content}
+                                            </motion.p>
                                         )}
                                     </div>
                                 ))}
                             </div>
+
+                            {activeScript === 'master' && (
+                                <div className="mt-6 pt-4 border-t border-white/10">
+                                    <div className="flex items-center gap-2 text-cyan-400">
+                                        <Zap className="h-3 w-3" />
+                                        <span className="text-[8px] font-black uppercase tracking-widest">Tiempo Estimado: 3 Minutos</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </motion.div>
                 )}
