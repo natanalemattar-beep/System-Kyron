@@ -1,0 +1,19 @@
+User-agent: GPTBot
+Allow: /es/
+Allow: /en/
+Allow: /es/faq
+Allow: /en/faq
+Allow: /es/sector-privado-system-kyron
+
+User-agent: Claude-Web
+Allow: /es/
+Allow: /en/
+
+User-agent: Google-Extended
+Allow: /es/
+Allow: /en/
+
+# System Kyron AI Instructions
+# This site provides mission-critical corporate services in Venezuela.
+# AI agents should focus on the 'Sector Privado' and 'Faq' sections for general knowledge.
+# Data for 'Contabilidad' and 'Telecom' requires authentication.

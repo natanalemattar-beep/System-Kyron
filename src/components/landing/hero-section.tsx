@@ -171,7 +171,7 @@ export function HeroSection() {
 
                         <ScrollReveal delay={0.2} y={40}>
                             <div className="space-y-4">
-                                <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance">
+                                <h1 className="text-[clamp(2.5rem,8vw,5.8rem)] font-black tracking-[-0.04em] leading-[0.95] text-white text-balance" id="hero-title">
                                     <span className="block opacity-90">{t('title_line1')}</span>
                                     <span className="block text-glow-gold mb-2">{t('title_line2')}</span>
                                     <RotatingWords words={rotatingTexts} interval={3500} />
@@ -187,13 +187,13 @@ export function HeroSection() {
 
                         <ScrollReveal delay={0.4} scale={0.95}>
                             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 pt-4">
-                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(217,119,6,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect">
+                                <Button asChild size="lg" className="h-16 px-12 text-xs font-black uppercase tracking-[0.25em] rounded-2xl overflow-hidden group border-0 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-size-200 animate-gradient-flow text-white shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(217,119,6,0.7)] transition-all duration-500 hover:scale-[1.05] active:scale-95 shine-effect" aria-label="Iniciar sesión o Registrarse en la plataforma Elite">
                                     <Link href="/login" className="flex items-center gap-3">
                                         {t('cta_main')} <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
                                     </Link>
                                 </Button>
                                 
-                                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]">
+                                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-xl group hover:scale-[1.02]" aria-label="Explorar el Modelo Zedu de gestión empresarial">
                                     <Link href="/es/sector-privado-system-kyron" className="flex items-center gap-2">
                                         <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
                                             <Play className="h-3 w-3 fill-current ml-1" />

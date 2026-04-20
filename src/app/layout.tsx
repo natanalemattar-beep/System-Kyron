@@ -22,17 +22,25 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://systemkyron.replit
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "System Kyron",
+    default: "System Kyron | Ecosistema Corporativo de Misión Crítica",
     template: "%s — System Kyron",
   },
   description:
-    "Ecosistema corporativo de misión crítica para Venezuela. Asesoría Contable, Mi Línea 5G, IA Legal, Eco-Créditos y cumplimiento SENIAT en tiempo real.",
+    "System Kyron es el ecosistema corporativo de misión crítica líder en Venezuela. Soluciones integrales en Contabilidad VEN-NIF, Telecomunicaciones 5G, IA Legal y Gestión Empresarial.",
   keywords: [
     "contabilidad venezuela", "VEN-NIF", "SENIAT", "ISLR", "IVA Venezuela",
     "nómina Venezuela", "LOTTT", "Mi Línea 5G", "eSIM Venezuela",
     "software empresarial Venezuela", "ERP Venezuela", "System Kyron",
-    "Ameru eco-creditos", "inteligencia corporativa", "gestión empresarial"
+    "Ameru eco-creditos", "inteligencia corporativa", "gestión empresarial",
+    "transformación digital Venezuela", "IA corporativa"
   ],
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es-VE': '/es',
+      'en-US': '/en',
+    },
+  },
   authors: [{ name: "System Kyron", url: BASE_URL }],
   creator: "System Kyron",
   publisher: "System Kyron",
@@ -41,15 +49,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_VE",
     url: BASE_URL,
-    siteName: "System Kyron",
-    title: "System Kyron",
-    description: "Ecosistema corporativo de misión crítica. Asesoría Contable, Mi Línea 5G, IA Legal y cumplimiento SENIAT.",
-    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "System Kyron" }],
+    siteName: "System Kyron Elite",
+    title: "System Kyron | Ecosistema Corporativo de Misión Crítica",
+    description: "Líder en infraestructura móvil 5G, gestión fiscal VEN-NIF y consultoría estratégica con Inteligencia Artificial para el sector privado venezolano.",
+    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "System Kyron Elite Platform" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "System Kyron",
-    description: "Ecosistema corporativo de misión crítica para Venezuela.",
+    title: "System Kyron | Misión Crítica",
+    description: "Infraestructura móvil 5G y gestión fiscal inteligente para Venezuela.",
     images: [`${BASE_URL}/og-image.png`],
   },
   manifest: "/manifest.json",

@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/es/', '/en/', '/api/stats', '/sitemap.xml'],
+        allow: ['/es/', '/en/', '/api/stats', '/sitemap.xml', '/es/sector-privado-system-kyron'],
         disallow: [
           '/api/',
           '/es/dashboard-',
@@ -17,20 +17,13 @@ export default function robots(): MetadataRoute.Robots {
           '/es/nominas',
           '/en/nominas',
           '/es/reclutamiento',
-          '/en/reclutamiento',
-          '/es/sector-privado-system-kyron',
-          '/en/sector-privado-system-kyron',
-          '/es/identidad-marca',
-          '/en/identidad-marca',
-          '/es/salud-seguridad',
-          '/es/clima-organizacional',
-          '/es/prestaciones-sociales',
-          '/es/desarrollo-personal',
-          '/es/flota-empresarial',
-          '/es/mi-linea',
-          '/es/analisis-rentabilidad',
+          '/en/reclutamiento'
         ],
       },
+      {
+        userAgent: ['GPTBot', 'ChatGPT-User', 'Claude-Web', 'ClaudeBot', 'Google-Extended'],
+        allow: ['/es/', '/en/', '/es/sector-privado-system-kyron', '/es/faq'],
+      }
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,
