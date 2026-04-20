@@ -105,7 +105,7 @@ export function AboutUsSection() {
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-rose-100/20 to-amber-100/30 dark:from-transparent dark:via-transparent dark:to-transparent" />
                 </div>
 
-                <div className="container mx-auto px-4 md:px-10 max-w-7xl relative z-10">
+                <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px] relative z-10">
                     <motion.div
                         className="text-center space-y-5 mb-16"
                         initial={animate ? "hidden" : undefined}

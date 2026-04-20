@@ -84,7 +84,7 @@ export function FeaturesSection() {
                 <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-purple-500/[0.03] blur-[150px]" />
             </div>
 
-            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
+            <div className="container mx-auto px-4 md:px-10 lg:px-12 max-w-[1440px]">
                 <ScrollReveal className="mb-24 md:mb-32 space-y-6 text-center">
                     <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md transition-all group mx-auto">
                         <Zap className="h-4 w-4 text-emerald-400" />
@@ -101,79 +101,33 @@ export function FeaturesSection() {
                     </p>
                 </ScrollReveal>
 
-                {/* Performance Comparison & Metrics */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 items-stretch">
-                    
-                    {/* Speed Comparison Card */}
-                    <ScrollReveal
-                        className="lg:col-span-12 xl:col-span-7 glass-elite p-8 md:p-10"
-                        delay={0.2}
-                    >
-                        <div className="flex items-center gap-4 mb-10">
-                            <div className="h-12 w-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30 font-black">
-                                <Gauge className="h-6 w-6" />
-                            </div>
-                            <div className="text-left">
-                                <h3 className="text-xl font-black text-white">{t('speed_title')}</h3>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">{t('speed_subtitle')}</p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-8">
-                            {competitors.map((comp, i) => {
-                                const style = competitorStyles[i] || competitorStyles[competitorStyles.length - 1];
-                                return (
-                                    <div key={comp.name} className="space-y-3 group">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-3">
-                                                <span className={cn("text-sm font-black tracking-tight transition-colors", style.isFastest ? "text-cyan-400" : "text-white/30")}>
-                                                    {comp.name}
-                                                </span>
-                                                {style.isFastest && (
-                                                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-[8px] font-black h-5 uppercase tracking-widest">
-                                                        ELITE PERFORMANCE
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                            <span className={cn("text-sm font-black tabular-nums transition-colors", style.isFastest ? "text-cyan-400" : "text-white/20")}>
-                                                {comp.speed}ms
-                                            </span>
-                                        </div>
-                                        <AnimatedBar value={comp.speed} maxValue={1200} color={style.color} delay={i * 0.1} />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </ScrollReveal>
-
-                    {/* Metrics Grid */}
-                    <div className="lg:col-span-12 xl:col-span-5 grid grid-cols-2 gap-6">
-                        {metrics.map((metric, i) => {
-                            const config = metricConfigs[i];
-                            return (
-                                <ScrollReveal
-                                    key={i}
-                                    delay={0.3 + (i * 0.1)}
-                                    className={cn(
-                                        "glass-elite-interactive p-8 flex flex-col items-center justify-center group text-center border-white/5",
-                                        "hover:bg-cyan-500/5 hover:border-cyan-500/20"
-                                    )}
-                                >
-                                    <div className={cn("h-14 w-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6", 
-                                        "bg-white/5 border border-white/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-500/30"
-                                    )}>
-                                        <config.icon className="h-6 w-6 text-cyan-400" />
-                                    </div>
-                                    <span className="text-4xl md:text-5xl font-black tracking-tighter text-white mb-2 underline decoration-cyan-500/30 underline-offset-8">
-                                        <AnimatedNumber target={metric.value} suffix={metric.suffix} />
-                                    </span>
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">
-                                        {metric.label}
-                                    </p>
-                                </ScrollReveal>
-                            );
-                        })}
-                    </div>
+                {/* Metrics Grid */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    {metrics.map((metric, i) => {
+                        const config = metricConfigs[i];
+                        return (
+                            <ScrollReveal
+                                key={i}
+                                delay={0.1 * i}
+                                className={cn(
+                                    "glass-elite-interactive p-8 md:p-10 flex flex-col items-center justify-center group text-center border-white/5",
+                                    "hover:bg-cyan-500/5 hover:border-cyan-500/20"
+                                )}
+                            >
+                                <div className={cn("h-16 w-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6", 
+                                    "bg-white/5 border border-white/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-500/30"
+                                )}>
+                                    <config.icon className="h-7 w-7 text-cyan-400" />
+                                </div>
+                                <span className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-3 underline decoration-cyan-500/30 underline-offset-8">
+                                    <AnimatedNumber target={metric.value} suffix={metric.suffix} />
+                                </span>
+                                <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-white/30 text-balance">
+                                    {metric.label}
+                                </p>
+                            </ScrollReveal>
+                        );
+                    })}
                 </div>
 
                 {/* Final CTA Strip */}

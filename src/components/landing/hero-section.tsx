@@ -135,8 +135,20 @@ export function HeroSection() {
     const scaleParallax = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
     const opacityParallax = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-    const liveStats = { totalUsuarios: 2840 };
+    const [liveStats, setLiveStats] = useState({ totalUsuarios: 0 });
     const rotatingTexts = t.raw('rotating_words') as string[] || ["Corporativo", "Empresarial", "Soberano", "Elite"];
+
+    useEffect(() => {
+        fetch('/api/stats')
+            .then(res => res.json())
+            .then(json => {
+                const data = json.data ?? json;
+                if (data.totalUsuarios !== undefined) {
+                    setLiveStats({ totalUsuarios: data.totalUsuarios });
+                }
+            })
+            .catch(() => {});
+    }, []);
 
     return (
         <section 
@@ -146,8 +158,8 @@ export function HeroSection() {
         >
             <VideoHeroBg />
 
-            <div className="container mx-auto px-4 sm:px-6 md:px-10 max-w-7xl relative z-10 pt-16 pb-8 md:pt-24 lg:pb-32 flex-1 flex items-center w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-12 max-w-[1440px] relative z-10 pt-16 pb-8 md:pt-24 lg:pt-32 lg:pb-32 flex-1 flex items-center w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center w-full">
 
                     <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
                         <ScrollReveal delay={0.1}>
