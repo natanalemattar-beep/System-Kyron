@@ -1,6 +1,6 @@
 "use client";
 
-import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone, Loader2 } from "lucide-react";
+import { Printer, Download, ChevronLeft, CircleCheck as CheckCircle, Users, User, Cpu, Activity, Target, Zap, Lock, FileText, Scale, TrendingUp, ChartBar as BarChart3, Globe, Handshake, ClipboardList, MapPin, Sun, AlertTriangle, Lightbulb, ShieldCheck, BookOpen, Calculator, Presentation, Smartphone, Recycle, Gavel, Building2, ShoppingCart, Megaphone, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
