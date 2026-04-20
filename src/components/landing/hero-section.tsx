@@ -296,7 +296,7 @@ export function HeroSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 * i }}
-                                className="glass-elite-interactive p-6 flex flex-col items-center gap-2 group"
+                                className="glass-elite-interactive p-6 flex flex-col items-center gap-2 group rounded-3xl"
                             >
                                 <span className="text-2xl md:text-3xl font-black text-white group-hover:text-cyan-400 transition-colors">{s.val}</span>
                                 <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] text-center">{s.label}</span>

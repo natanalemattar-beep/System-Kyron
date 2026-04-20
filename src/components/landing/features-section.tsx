@@ -110,7 +110,7 @@ export function FeaturesSection() {
                                 key={i}
                                 delay={0.1 * i}
                                 className={cn(
-                                    "glass-elite-interactive p-8 md:p-10 flex flex-col items-center justify-center group text-center border-white/5",
+                                    "glass-elite-interactive p-8 md:p-10 flex flex-col items-center justify-center group text-center border-white/5 rounded-3xl",
                                     "hover:bg-cyan-500/5 hover:border-cyan-500/20"
                                 )}
                             >

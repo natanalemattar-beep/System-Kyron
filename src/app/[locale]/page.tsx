@@ -4,10 +4,6 @@ import { LandingClientWrapper } from '@/components/landing/landing-client-wrappe
 import { LazySection } from '@/components/landing/lazy-section';
 
 // Dynamic imports with prefetch and proper loading states
-const FeaturesSection = dynamic(() => import('@/components/landing/features-section').then(m => ({ default: m.FeaturesSection })), { 
-    ssr: true,
-    loading: () => <div className="min-h-[600px] w-full animate-pulse bg-white/[0.02] rounded-3xl" />
-});
 const PartnersSection = dynamic(() => import('@/components/landing/partners-section').then(m => ({ default: m.PartnersSection })), { ssr: true });
 const PricingSection = dynamic(() => import('@/components/landing/pricing-section').then(m => ({ default: m.PricingSection })), { ssr: true });
 const CtaSection = dynamic(() => import('@/components/landing/cta-section').then(m => ({ default: m.CtaSection })), { ssr: true });
@@ -20,9 +16,6 @@ export default function LandingPage() {
       <LandingClientWrapper>
         <main className="w-full">
             <HeroSection />
-            <LazySection fallbackHeight="600px">
-                <FeaturesSection />
-            </LazySection>
             <LazySection fallbackHeight="200px">
                 <PartnersSection />
             </LazySection>
