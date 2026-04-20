@@ -133,31 +133,51 @@ export default function ModeloZeduPage() {
         );
     }
 
-    const handleDownloadWord = async () => {
+    const handleDownloadPitchScript = () => {
+        const script = activeScript === 'zedu' ? PRESENTATION_SCRIPT : MASTER_PITCH_3MIN;
+        const text = script.map(s => `[${s.title}]\n${s.content}\n`).join('\n---\n\n');
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Kyron_Pitch_Script_${activeScript.toUpperCase()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
         toast({
-            title: "Generando Documento Elite",
-            description: "El Modelo Zedu se está preparando para descarga corporativa.",
+            title: "Guion Descargado",
+            description: "El guion ejecutivo se ha guardado en tu dispositivo.",
         });
     };
 
-    const tableHeaderClass = "header-cell bg-[#0A1128] text-white font-semibold uppercase p-5 text-[12px] border border-black/10 tracking-wide text-center";
-    const tableCellClass = "p-5 text-[13px] border border-black/5 text-slate-900 bg-white leading-relaxed font-medium text-justify";
-    const tableLabelClass = "label-cell bg-slate-50/50 p-5 text-[10px] font-semibold uppercase border border-black/5 text-slate-500 w-1/3 border-r-2";
+    const handleDownloadWord = async () => {
+        toast({
+            title: "Preparando Presentación",
+            description: "Optimizando diseño para exportación PDF/PowerPoint.",
+        });
+        setTimeout(() => window.print(), 1000);
+    };
+
+    const tableHeaderClass = "header-cell bg-[#0A1128] text-white font-black uppercase p-6 text-[11px] border border-black/10 tracking-widest text-center shadow-lg";
+    const tableCellClass = "p-6 text-[13px] border border-slate-200 text-slate-950 bg-white/80 backdrop-blur-sm leading-relaxed font-bold text-justify transition-colors hover:bg-white";
+    const tableLabelClass = "label-cell bg-slate-100/50 p-6 text-[9px] font-black uppercase border border-slate-200 text-slate-500 w-1/3 border-r-4 border-r-amber-500/20";
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-4 selection:bg-amber-100 relative" style={{ colorScheme: 'light' }}>
+        <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-50 via-emerald-50/30 to-slate-50 py-16 px-4 selection:bg-amber-100 relative" style={{ colorScheme: 'light' }}>
             {/* Presentation Mode FAB */}
-            <div className="fixed bottom-8 right-8 z-[100] no-print">
+            <div className="fixed bottom-10 right-10 z-[100] no-print">
                 <Button 
                     onClick={() => setPresentationMode(!presentationMode)}
                     className={cn(
-                        "h-16 w-16 rounded-full shadow-2xl transition-all duration-500 flex items-center justify-center border-2",
+                        "h-20 w-20 rounded-[2rem] shadow-[0_20px_50px_rgba(245,158,11,0.3)] transition-all duration-500 flex items-center justify-center border-4",
                         presentationMode 
                             ? "bg-slate-950 border-amber-400 text-amber-400 scale-110" 
-                            : "bg-amber-500 border-white text-white hover:scale-110"
+                            : "bg-amber-500 border-white text-white hover:scale-110 hover:shadow-glow"
                     )}
                 >
-                    {presentationMode ? <Users className="h-6 w-6" /> : <Megaphone className="h-6 w-6" />}
+                    {presentationMode ? <Users className="h-8 w-8" /> : <Megaphone className="h-8 w-8" />}
                 </Button>
             </div>
 
@@ -165,74 +185,79 @@ export default function ModeloZeduPage() {
             <AnimatePresence>
                 {presentationMode && (
                     <motion.div
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 100 }}
-                        className="fixed top-24 right-8 w-80 z-[90] no-print"
+                        initial={{ opacity: 0, x: 100, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: 100, scale: 0.9 }}
+                        className="fixed top-24 right-8 w-96 z-[90] no-print"
                     >
-                        <div className="glass-elite p-6 rounded-[2.5rem] border-amber-500/20 shadow-2xl bg-slate-950/95 backdrop-blur-xl border border-amber-500/20">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="h-10 w-10 rounded-2xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
-                                    <Presentation className="h-5 w-5 text-amber-400" />
+                        <div className="glass-elite p-8 rounded-[3rem] border-amber-500/30 shadow-[0_30px_60px_rgba(0,0,0,0.3)] bg-slate-950/95 backdrop-blur-2xl border border-white/5">
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center border border-white/20 shadow-glow-sm">
+                                        <Presentation className="h-6 w-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-amber-500 mb-0.5">Elite Presentation</h4>
+                                        <p className="text-[8px] font-bold text-white/30 uppercase tracking-[0.4em]">Pitch Maestro 2026</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500 mb-0.5">Presentation AI</h4>
-                                    <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Pitch Interactivo</p>
-                                </div>
+                                <Button variant="ghost" size="icon" onClick={() => setPresentationMode(false)} className="text-white/20 hover:text-white">
+                                    <ChevronLeft className="h-4 w-4 rotate-180" />
+                                </Button>
                             </div>
 
                             {/* Script Toggle */}
-                            <div className="grid grid-cols-2 gap-2 mb-6 p-1 bg-white/5 rounded-2xl border border-white/10">
+                            <div className="grid grid-cols-2 gap-2 mb-8 p-1.5 bg-white/5 rounded-2xl border border-white/10">
                                 <button 
                                     onClick={() => { setActiveScript('zedu'); setCurrentStep(0); }}
                                     className={cn(
-                                        "py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all",
+                                        "py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
                                         activeScript === 'zedu' 
                                             ? "bg-amber-500 text-white shadow-glow-sm" 
-                                            : "text-white/40 hover:text-white"
+                                            : "text-white/30 hover:text-white hover:bg-white/5"
                                     )}
                                 >
-                                    ZEDU
+                                    Modelo Zedu
                                 </button>
                                 <button 
                                     onClick={() => { setActiveScript('master'); setCurrentStep(0); }}
                                     className={cn(
-                                        "py-2.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all",
+                                        "py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
                                         activeScript === 'master' 
                                             ? "bg-amber-500 text-white shadow-glow-sm" 
-                                            : "text-white/40 hover:text-white"
+                                            : "text-white/30 hover:text-white hover:bg-white/5"
                                     )}
                                 >
-                                    MAESTRO
+                                    Master Pitch
                                 </button>
                             </div>
                             
-                            <div className="space-y-4 max-h-[55vh] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="space-y-4 max-h-[45vh] overflow-y-auto pr-3 custom-scrollbar mb-8">
                                 {(activeScript === 'zedu' ? PRESENTATION_SCRIPT : MASTER_PITCH_3MIN).map((step, i) => (
                                     <div 
                                         key={i}
                                         onClick={() => setCurrentStep(i)}
                                         className={cn(
-                                            "p-4 rounded-2xl border transition-all cursor-pointer group",
+                                            "p-5 rounded-[1.5rem] border transition-all cursor-pointer group relative overflow-hidden",
                                             currentStep === i 
                                                 ? "bg-amber-500/10 border-amber-500/40 shadow-glow-sm" 
                                                 : "bg-white/5 border-white/5 hover:bg-white/10"
                                         )}
                                     >
-                                        <div className="flex justify-between items-center mb-1">
-                                            <p className={cn("text-[9px] font-black uppercase tracking-widest", currentStep === i ? "text-amber-400" : "text-white/40")}>
-                                                {activeScript === 'zedu' ? `Paso ${i + 1}` : step.title.split(' - ')[0]}
+                                        <div className="flex justify-between items-center mb-2">
+                                            <p className={cn("text-[9px] font-black uppercase tracking-widest", currentStep === i ? "text-amber-400" : "text-white/20")}>
+                                                {activeScript === 'zedu' ? `SECCIÓN 0${i + 1}` : step.title.split(' - ')[0]}
                                             </p>
-                                            {currentStep === i && <div className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />}
+                                            {currentStep === i && <div className="h-2 w-2 rounded-full bg-amber-400 animate-pulse shadow-glow" />}
                                         </div>
-                                        <p className="text-[11px] font-bold text-white mb-2 group-hover:text-amber-200 transition-colors">
+                                        <p className="text-[12px] font-black text-white mb-2 group-hover:text-amber-200 transition-colors uppercase tracking-tight">
                                             {activeScript === 'zedu' ? step.title : step.title.split(' - ')[1]}
                                         </p>
                                         {currentStep === i && (
                                             <motion.p 
-                                                initial={{ opacity: 0, y: 5 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                className="text-[11px] text-slate-300 leading-relaxed italic border-t border-amber-500/20 pt-3 mt-1"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                className="text-[11px] text-slate-300 leading-relaxed italic border-t border-amber-500/20 pt-3 mt-2"
                                             >
                                                 {step.content}
                                             </motion.p>
@@ -241,14 +266,22 @@ export default function ModeloZeduPage() {
                                 ))}
                             </div>
 
-                            {activeScript === 'master' && (
-                                <div className="mt-6 pt-4 border-t border-white/10">
-                                    <div className="flex items-center gap-2 text-cyan-400">
-                                        <Zap className="h-3 w-3" />
-                                        <span className="text-[8px] font-black uppercase tracking-widest">Tiempo Estimado: 3 Minutos</span>
-                                    </div>
-                                </div>
-                            )}
+                            {/* Download Actions */}
+                            <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/10">
+                                <Button 
+                                    onClick={handleDownloadPitchScript}
+                                    variant="outline" 
+                                    className="bg-transparent border-white/10 rounded-2xl text-[9px] font-black uppercase tracking-widest h-12 text-white/60 hover:text-white hover:bg-white/5"
+                                >
+                                    <Download className="mr-2 h-3 w-3" /> Guion .TXT
+                                </Button>
+                                <Button 
+                                    onClick={handleDownloadWord}
+                                    className="bg-white text-slate-950 hover:bg-amber-400 rounded-2xl text-[9px] font-black uppercase tracking-widest h-12 transition-all shadow-xl"
+                                >
+                                    <Layout className="mr-2 h-3 w-3" /> Presentación
+                                </Button>
+                            </div>
                         </div>
                     </motion.div>
                 )}
