@@ -61,7 +61,7 @@ const SAAS_MODULES: SaasModule[] = [
     icon: Phone,
     nombre: 'Mi Línea 5G',
     descripcion: 'Gestión de tu línea telefónica dentro de la plataforma. No incluye plan de datos — solo la administración inteligente.',
-    precio: 5,
+    precio: 3,
     color: 'from-cyan-500/15 to-blue-500/10',
     acento: 'text-cyan-400',
   },
@@ -276,7 +276,7 @@ function ModuleCard({ mod, index }: { mod: SaasModule; index: number }) {
           : 'bg-white/[0.08] hover:bg-white/[0.15] text-white border border-white/[0.1]'
       )}>
         <Link href={(MODULE_ROUTES[mod.id] ?? '/register') as any}>
-          {isFree ? 'Crear Cuenta Gratis' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
+          {isFree ? 'Crear Cuenta Gratis' : mod.id === 'milinea' ? 'Elegir el plan' : 'Activar Módulo'} <ArrowRight className="w-3 h-3 ml-1.5" />
         </Link>
       </Button>
     </ScrollReveal>
