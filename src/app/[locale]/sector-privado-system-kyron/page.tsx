@@ -35,6 +35,7 @@ import {
     Image as ImageIcon
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
+import { toPng, toJpeg } from 'html-to-image';
 
 export function FolletoView() {
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
@@ -59,7 +60,7 @@ export function FolletoView() {
         if (toolbar) toolbar.style.display = 'none';
 
         try {
-            await document.fonts.ready; // Esperar a que carguen las tipografías
+            await document.fonts.ready;
             // @ts-ignore
             const html2pdf = (await import('html2pdf.js')).default;
             
@@ -72,7 +73,7 @@ export function FolletoView() {
                     useCORS: true,
                     logging: false,
                     backgroundColor: '#03050a',
-                    allowTaint: false // allowTaint bloquea exportación a dataURL, usar CORS es mejor
+                    allowTaint: false
                 },
                 jsPDF: { 
                     unit: 'in', 
@@ -99,16 +100,12 @@ export function FolletoView() {
 
         try {
             await document.fonts.ready;
-            const h2c = (await import('html2canvas')).default;
-            const canvas = await h2c(node, {
-                scale: 2,
-                useCORS: true,
+            const dataUrl = await toPng(node, {
+                pixelRatio: 2,
                 backgroundColor: '#03050a',
-                logging: false,
-                allowTaint: false
+                style: { transform: 'scale(1)', transformOrigin: 'top left' }
             });
             
-            const dataUrl = canvas.toDataURL('image/png', 1.0);
             const link = document.createElement('a');
             link.download = `System-Kyron-Folleto-${name}.png`;
             link.href = dataUrl;
@@ -130,14 +127,10 @@ export function FolletoView() {
 
         try {
             await document.fonts.ready;
-            const h2c = (await import('html2canvas')).default;
             
-            // Generar imágenes en JPEG para que el Word no pese cientos de megas
-            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
-            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
-            
-            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
-            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
+            // Generar imágenes en JPEG de altísima fidelidad
+            const imgFrontal = await toJpeg(frontal, { quality: 0.85, pixelRatio: 1.5, backgroundColor: '#03050a' });
+            const imgInterior = await toJpeg(interior, { quality: 0.85, pixelRatio: 1.5, backgroundColor: '#03050a' });
 
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
             let textContent = "";
@@ -149,22 +142,26 @@ export function FolletoView() {
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head><meta charset='utf-8'><title>System Kyron Elite Brochure</title>
                 <style>
-                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-                    .img-container { text-align: center; margin-bottom: 20px; }
-                    img { width: 100%; max-width: 800px; height: auto; border: 1px solid #eee; }
-                    .text-content { white-space: pre-wrap; font-size: 11pt; color: #333; margin-top: 40px; }
+                    @page {
+                        size: 11in 8.5in;
+                        margin: 0.2in;
+                        mso-page-orientation: landscape;
+                    }
+                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+                    .img-container { text-align: center; width: 100%; margin: 0; padding: 0; }
+                    img { width: 10.5in; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+                    .text-content { white-space: pre-wrap; font-size: 11pt; color: #333; margin-top: 40px; padding: 0.5in; }
                 </style>
                 </head>
                 <body>
                     <div class='img-container'>
-                        <h1>System Kyron - Cara Frontal</h1>
                         <img src='${imgFrontal}' />
                     </div>
-                    <div style='page-break-after:always'></div>
+                    <br clear=all style='mso-special-character:line-break;page-break-before:always'>
                     <div class='img-container'>
-                        <h1>System Kyron - Cara Interior</h1>
                         <img src='${imgInterior}' />
                     </div>
+                    <br clear=all style='mso-special-character:line-break;page-break-before:always'>
                     <div class='text-content'>
                         <hr>
                         <h2>CONTENIDO EDITABLE</h2>
@@ -372,7 +369,7 @@ export function FolletoView() {
                             <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
                                 <span className="h-px w-10 bg-slate-600 inline-block" /> Sector Privado
                             </p>
-                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">Kyron<br/><span className="text-cyan-400">Shield.</span></h1>
+                            <h1 className="text-[58px] font-black uppercase tracking-tighter leading-[0.8] mb-6 text-white">Kyron<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-500">Shield.</span></h1>
                             <p className="text-[12px] text-slate-200 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
                                 Protegiendo y potenciando el capital de las empresas líderes en Venezuela.
                             </p>
