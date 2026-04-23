@@ -214,9 +214,9 @@ export function FolletoView() {
                 <button 
                     onClick={handleDownloadWord}
                     disabled={isExporting}
-                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 disabled:bg-white/5 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5"
+                    className="flex items-center gap-2 px-5 py-3 bg-blue-600/10 hover:bg-blue-600/20 disabled:bg-blue-900/10 text-blue-400 hover:text-blue-300 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-blue-500/20 shadow-lg shadow-blue-500/10 hover:scale-105 active:scale-95"
                 >
-                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse' : ''}`} /> {isExporting ? 'Cargando...' : 'Texto'}
+                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse text-blue-500' : ''}`} /> {isExporting ? 'Generando...' : 'Word Doc'}
                 </button>
             </div>
 
