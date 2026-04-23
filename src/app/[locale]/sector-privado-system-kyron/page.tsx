@@ -66,23 +66,66 @@ export function FolletoView() {
         }
     };
 
-    const handleDownloadWord = () => {
-        // Solo capturar el texto de los paneles, no de la UI
-        const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
-        let content = "";
-        panels.forEach(p => {
-            content += (p as HTMLElement).innerText + "\n\n--- SIGUIENTE PÁGINA ---\n\n";
-        });
+    const handleDownloadWord = async () => {
+        const frontal = document.getElementById('cara-frontal');
+        const interior = document.getElementById('cara-interior');
+        
+        if (!frontal || !interior) return;
 
-        const blob = new Blob(['\ufeff', content], {
-            type: 'application/msword'
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'System-Kyron-Folleto-Contenido.doc';
-        link.click();
-        URL.revokeObjectURL(url);
+        try {
+            // Generar imágenes Base64
+            const imgFrontal = await toPng(frontal, { quality: 1, pixelRatio: 1.5 });
+            const imgInterior = await toPng(interior, { quality: 1, pixelRatio: 1.5 });
+
+            // Solo capturar el texto de los paneles
+            const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
+            let textContent = "";
+            panels.forEach(p => {
+                textContent += (p as HTMLElement).innerText + "\n\n";
+            });
+
+            // Crear HTML compatible con Word
+            const html = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>System Kyron Elite Brochure</title>
+                <style>
+                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+                    .img-container { text-align: center; margin-bottom: 20px; }
+                    img { width: 100%; max-width: 800px; height: auto; border: 1px solid #eee; }
+                    .text-content { white-space: pre-wrap; font-size: 11pt; color: #333; margin-top: 40px; }
+                </style>
+                </head>
+                <body>
+                    <div class='img-container'>
+                        <h1>System Kyron - Cara Frontal</h1>
+                        <img src='${imgFrontal}' />
+                    </div>
+                    <div style='page-break-after:always'></div>
+                    <div class='img-container'>
+                        <h1>System Kyron - Cara Interior</h1>
+                        <img src='${imgInterior}' />
+                    </div>
+                    <div class='text-content'>
+                        <hr>
+                        <h2>CONTENIDO EDITABLE</h2>
+                        ${textContent.replace(/\n/g, '<br>')}
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'System-Kyron-Elite-Corporate.doc';
+            link.click();
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error generando Súper Word:', error);
+        }
     };
 
     return (
