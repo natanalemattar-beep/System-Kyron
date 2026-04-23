@@ -31,9 +31,11 @@ import {
     Rocket,
     Download,
     FileText,
-    Printer as PrinterIcon
+    Printer as PrinterIcon,
+    Image as ImageIcon
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
+import { toPng } from 'html-to-image';
 
 export function FolletoView() {
     const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
@@ -43,16 +45,48 @@ export function FolletoView() {
         window.print();
     };
 
+    const handleDownloadPNG = async () => {
+        const node = document.getElementById('folleto-content');
+        if (!node) return;
+
+        try {
+            // Ocultar toolbar para la foto
+            const toolbar = document.getElementById('folleto-toolbar');
+            if (toolbar) toolbar.style.opacity = '0';
+            
+            // Captura de alta fidelidad (2x pixel ratio)
+            const dataUrl = await toPng(node, { 
+                quality: 1,
+                pixelRatio: 2,
+                backgroundColor: '#0f172a' // Slate-900 background
+            });
+            
+            if (toolbar) toolbar.style.opacity = '1';
+
+            const link = document.createElement('a');
+            link.download = 'System-Kyron-Folleto-Elite-HD.png';
+            link.href = dataUrl;
+            link.click();
+        } catch (error) {
+            console.error('Error generando PNG:', error);
+        }
+    };
+
     const handleDownloadWord = () => {
-        // Generar un archivo .doc básico con el contenido estructurado
-        const content = document.getElementById('folleto-content')?.innerText || "";
+        // Solo capturar el texto de los paneles, no de la UI
+        const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
+        let content = "";
+        panels.forEach(p => {
+            content += (p as HTMLElement).innerText + "\n\n--- SIGUIENTE PÁGINA ---\n\n";
+        });
+
         const blob = new Blob(['\ufeff', content], {
             type: 'application/msword'
         });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'System-Kyron-Folleto-Elite.doc';
+        link.download = 'System-Kyron-Folleto-Contenido.doc';
         link.click();
         URL.revokeObjectURL(url);
     };
@@ -61,23 +95,29 @@ export function FolletoView() {
         <div id="folleto-content" className="w-full bg-slate-900 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
             
             {/* Toolbar Flotante (Oculta en impresión) */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-4 bg-black/80 backdrop-blur-2xl px-6 py-4 rounded-[2rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] print:hidden">
+            <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-black/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] print:hidden transition-opacity duration-300">
                 <button 
                     onClick={handleDownloadPDF}
-                    className="flex items-center gap-3 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
+                    className="flex items-center gap-2 px-5 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
                 >
-                    <PrinterIcon className="h-4 w-4 group-hover:rotate-12 transition-transform" /> Exportar PDF
+                    <PrinterIcon className="h-4 w-4" /> PDF
+                </button>
+                <button 
+                    onClick={handleDownloadPNG}
+                    className="flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-emerald-500/20"
+                >
+                    <ImageIcon className="h-4 w-4" /> Imagen HD
                 </button>
                 <button 
                     onClick={handleDownloadWord}
-                    className="flex items-center gap-3 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-blue-500/20"
+                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5 hover:border-white/20"
                 >
-                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" /> Bajar Word
+                    <FileText className="h-4 w-4" /> Texto (Word)
                 </button>
-                <div className="w-px h-8 bg-white/10 mx-2" />
-                <div className="flex flex-col justify-center">
-                    <p className="text-[8px] font-black text-white/40 uppercase tracking-widest">Optimización</p>
-                    <p className="text-[10px] font-black text-emerald-400 uppercase tracking-tighter italic">Alta Fidelidad</p>
+                <div className="w-px h-8 bg-white/10 mx-1" />
+                <div className="flex flex-col justify-center pr-2">
+                    <p className="text-[7px] font-black text-white/30 uppercase tracking-[0.2em]">Exportación</p>
+                    <p className="text-[9px] font-black text-cyan-400 uppercase tracking-tighter italic">Kyron Elite</p>
                 </div>
             </div>
 
