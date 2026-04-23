@@ -35,7 +35,6 @@ import {
     Image as ImageIcon
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
-import { toPng } from 'html-to-image';
 
 export function FolletoView() {
     const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
@@ -83,13 +82,15 @@ export function FolletoView() {
         if (!node) return;
 
         try {
-            // Captura de alta fidelidad (2x pixel ratio)
-            const dataUrl = await toPng(node, { 
-                quality: 1,
-                pixelRatio: 2,
-                backgroundColor: '#03050a'
+            const h2c = (await import('html2canvas')).default;
+            const canvas = await h2c(node, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#03050a',
+                logging: false
             });
             
+            const dataUrl = canvas.toDataURL('image/png', 1.0);
             const link = document.createElement('a');
             link.download = `System-Kyron-Folleto-${name}.png`;
             link.href = dataUrl;
@@ -106,9 +107,14 @@ export function FolletoView() {
         if (!frontal || !interior) return;
 
         try {
-            // Generar imágenes Base64
-            const imgFrontal = await toPng(frontal, { quality: 1, pixelRatio: 1.5 });
-            const imgInterior = await toPng(interior, { quality: 1, pixelRatio: 1.5 });
+            const h2c = (await import('html2canvas')).default;
+            
+            // Generar imágenes con alta fidelidad
+            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a' });
+            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a' });
+            
+            const imgFrontal = canvasFrontal.toDataURL('image/png');
+            const imgInterior = canvasInterior.toDataURL('image/png');
 
             // Solo capturar el texto de los paneles
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
