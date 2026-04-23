@@ -1,42 +1,27 @@
 "use client";
 
 import React from 'react';
-import { 
-    Shield, 
-    Zap, 
-    Globe, 
-    Users, 
-    Calculator, 
-    Smartphone, 
-    Gavel, 
-    Building2, 
-    Target, 
-    TrendingUp, 
-    CheckCircle2, 
-    ArrowRight,
+import {
+    Shield,
+    Zap,
+    Users,
+    Calculator,
+    Smartphone,
+    TrendingUp,
+    CheckCircle2,
     Lock,
     Cpu,
-    Wifi,
     BarChart3,
     ShoppingCart,
-    Recycle,
-    BookOpen,
     ScanLine,
     Activity,
-    Handshake,
     ShieldCheck,
-    Coins,
-    BarChart4,
-    Scale,
-    Rocket,
-    Download,
     FileText,
     Printer as PrinterIcon,
     Image as ImageIcon,
     Cloud,
     Package
 } from 'lucide-react';
-import { Logo } from '@/components/logo';
 
 export function FolletoView() {
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
@@ -523,3 +508,5 @@ export function FolletoView() {
         </div>
     );
 }
+
+export default FolletoView;
