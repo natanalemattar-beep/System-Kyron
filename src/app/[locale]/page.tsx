@@ -9,20 +9,24 @@ const CtaSection = dynamic(() => import('@/components/landing/cta-section').then
 const FaqSection = dynamic(() => import('@/components/landing/faq-section').then(m => ({ default: m.FaqSection })), { ssr: true });
 const Footer = dynamic(() => import('@/components/landing/footer').then(m => ({ default: m.Footer })), { ssr: true });
 const FeaturesGrid = dynamic(() => import('@/components/landing/features-grid').then(m => ({ default: m.FeaturesGrid })), { ssr: true });
+const AboutUsSection = dynamic(() => import('@/components/landing/about-us-section').then(m => ({ default: m.AboutUsSection })), { ssr: true });
 import { JsonLd } from '@/components/seo/json-ld';
 
 export default function LandingPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://system-kyron.vercel.app');
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://systemkyron.replit.app/#organization",
+        "@id": `${baseUrl}/#organization`,
         "name": "System Kyron",
-        "url": "https://systemkyron.replit.app",
+        "url": baseUrl,
         "logo": {
           "@type": "ImageObject",
-          "url": "https://systemkyron.replit.app/og-image.png"
+          "url": `${baseUrl}/og-image.png`
         },
         "description": "Ecosistema corporativo de misión crítica para Venezuela. Especialistas en Contabilidad VEN-NIF, Telecomunicaciones 5G e IA Legal.",
         "sameAs": [
@@ -32,10 +36,10 @@ export default function LandingPage() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://systemkyron.replit.app/#website",
-        "url": "https://systemkyron.replit.app",
+        "@id": `${baseUrl}/#website`,
+        "url": baseUrl,
         "name": "System Kyron",
-        "publisher": { "@id": "https://systemkyron.replit.app/#organization" }
+        "publisher": { "@id": `${baseUrl}/#organization` }
       },
       {
         "@type": "SoftwareApplication",
@@ -63,6 +67,9 @@ export default function LandingPage() {
             </LazySection>
             <LazySection fallbackHeight="800px">
                 <FeaturesGrid />
+            </LazySection>
+            <LazySection fallbackHeight="600px">
+                <AboutUsSection />
             </LazySection>
             <LazySection fallbackHeight="600px">
                 <CtaSection />

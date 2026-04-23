@@ -130,35 +130,56 @@ export function AboutUsSection() {
                     </motion.div>
 
                     <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12"
+                        className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12"
                         initial={animate ? { opacity: 0, y: 25 } : undefined}
                         whileInView={animate ? { opacity: 1, y: 0 } : undefined}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        {statCards.map((stat, i) => (
-                            <motion.div
-                                key={i}
-                                className="hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
-                                initial={animate ? { opacity: 0, scale: 0.9 } : undefined}
-                                whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.25 + i * 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                            >
-                                <Card className="relative overflow-hidden rounded-xl liquid-glass p-8 text-center group cursor-default transition-all duration-300">
-                                    <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
-                                    <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-all duration-500">
-                                        <stat.icon className="h-16 w-16 text-foreground" />
+                        {/* 2026 Vision Card - High prominence */}
+                        <div className="lg:col-span-1">
+                            <Card className="relative h-full overflow-hidden rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-amber-500/20 p-8 group">
+                                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <Zap className="h-20 w-20 text-amber-500" />
+                                </div>
+                                <div className="relative z-10">
+                                    <div className="h-10 w-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center mb-6">
+                                        <Zap className="h-5 w-5 text-amber-400" />
                                     </div>
-                                    <div className="relative">
-                                        <p className={cn("text-4xl font-bold tracking-tight mb-2", stat.text)}>
-                                            <Counter from={0} to={stat.val} />
-                                        </p>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
-                                    </div>
-                                </Card>
-                            </motion.div>
-                        ))}
+                                    <h4 className="text-2xl font-black text-white uppercase tracking-tighter mb-4">{t('vision_2026_title')}</h4>
+                                    <p className="text-sm text-slate-400 leading-relaxed italic">
+                                        "{t('vision_2026_desc')}"
+                                    </p>
+                                </div>
+                            </Card>
+                        </div>
+
+                        {/* Stat Cards */}
+                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            {statCards.map((stat, i) => (
+                                <motion.div
+                                    key={i}
+                                    className="hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
+                                    initial={animate ? { opacity: 0, scale: 0.9 } : undefined}
+                                    whileInView={animate ? { opacity: 1, scale: 1 } : undefined}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.25 + i * 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+                                >
+                                    <Card className="relative h-full overflow-hidden rounded-2xl liquid-glass p-8 text-center group cursor-default transition-all duration-300">
+                                        <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.color)} />
+                                        <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-all duration-500">
+                                            <stat.icon className="h-16 w-16 text-foreground" />
+                                        </div>
+                                        <div className="relative">
+                                            <p className={cn("text-4xl font-bold tracking-tight mb-2", stat.text)}>
+                                                <Counter from={0} to={stat.val} />
+                                            </p>
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+                                        </div>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
 
                     <motion.div
