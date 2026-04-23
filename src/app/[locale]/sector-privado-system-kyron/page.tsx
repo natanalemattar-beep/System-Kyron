@@ -37,8 +37,16 @@ import {
 import { Logo } from '@/components/logo';
 
 export function FolletoView() {
-    const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
-    const QR_FEEDBACK = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app/es/feedback&color=03050a&bgcolor=ffffff&margin=4";
+    const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
+
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setBaseUrl(window.location.origin);
+        }
+    }, []);
+
+    const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${baseUrl}&color=03050a&bgcolor=ffffff&margin=4`;
+    const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${baseUrl}/es/feedback&color=03050a&bgcolor=ffffff&margin=4`;
     
     const handleDownloadPDF = async () => {
         const node = document.getElementById('folleto-content');
@@ -59,7 +67,8 @@ export function FolletoView() {
                     scale: 2, 
                     useCORS: true,
                     logging: false,
-                    backgroundColor: '#03050a'
+                    backgroundColor: '#03050a',
+                    allowTaint: true
                 },
                 jsPDF: { 
                     unit: 'in', 
