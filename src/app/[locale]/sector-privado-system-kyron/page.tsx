@@ -32,7 +32,9 @@ import {
     Download,
     FileText,
     Printer as PrinterIcon,
-    Image as ImageIcon
+    Image as ImageIcon,
+    Cloud,
+    Package
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 
@@ -46,9 +48,9 @@ export function FolletoView() {
         }
     }, []);
 
-    const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${baseUrl}&color=03050a&bgcolor=ffffff&margin=4`;
-    const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${baseUrl}/es/feedback&color=03050a&bgcolor=ffffff&margin=4`;
-    
+    const QR_PRINCIPAL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl)}&color=000000&bgcolor=ffffff&margin=2`;
+    const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(baseUrl + '/feedback')}&color=000000&bgcolor=ffffff&margin=2`;
+
     const handleDownloadPDF = async () => {
         if (isExporting) return;
         setIsExporting(true);
@@ -74,7 +76,7 @@ export function FolletoView() {
                     scale: 2, 
                     useCORS: true,
                     logging: false,
-                    backgroundColor: '#03050a',
+                    backgroundColor: '#09090b',
                     allowTaint: false
                 },
                 jsPDF: { 
@@ -106,7 +108,7 @@ export function FolletoView() {
             const canvas = await h2c(node, {
                 scale: 2,
                 useCORS: true,
-                backgroundColor: '#03050a',
+                backgroundColor: '#09090b',
                 logging: false,
                 allowTaint: false
             });
@@ -136,8 +138,8 @@ export function FolletoView() {
             const h2c = (await import('html2canvas')).default;
             
             // Reducir la escala a 1 para evitar bloqueos de memoria en la pestaña del navegador
-            const canvasFrontal = await h2c(frontal, { scale: 1.0, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
-            const canvasInterior = await h2c(interior, { scale: 1.0, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            const canvasFrontal = await h2c(frontal, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
+            const canvasInterior = await h2c(interior, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
             
             const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.80);
             const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.80);
@@ -196,10 +198,10 @@ export function FolletoView() {
     };
 
     return (
-        <div id="folleto-content" className="w-full bg-slate-900 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
+        <div id="folleto-content" className="w-full bg-zinc-950 p-8 flex flex-col items-center gap-12 overflow-x-auto print:bg-white print:p-0 print:gap-0 font-[family-name:var(--font-outfit)] relative">
             
             {/* Toolbar Flotante (Oculta en impresión) */}
-            <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-black/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] print:hidden transition-opacity duration-300">
+            <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-zinc-900/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] print:hidden transition-opacity duration-300">
                 <button 
                     onClick={handleDownloadPDF}
                     disabled={isExporting}
@@ -207,355 +209,314 @@ export function FolletoView() {
                 >
                     <PrinterIcon className={`h-4 w-4 ${isExporting ? 'animate-spin' : ''}`} /> {isExporting ? 'Procesando...' : 'PDF Full'}
                 </button>
-                <div className={`flex gap-1 bg-white/5 p-1 rounded-2xl border border-white/5 ${isExporting ? 'opacity-50 pointer-events-none' : ''}`}>
+                <div className={`flex gap-1 bg-white/5 p-1 rounded-2xl border border-zinc-800 ${isExporting ? 'opacity-50 pointer-events-none' : ''}`}>
                     <button 
                         onClick={() => handleDownloadPNG('cara-frontal', 'Frontal')}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-emerald-600/20 text-emerald-400 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
                     >
-                        <ImageIcon className="h-3.5 w-3.5" /> Cara 1
+                        <ImageIcon className="h-3.5 w-3.5 text-cyan-500" /> Cara 1
                     </button>
                     <button 
                         onClick={() => handleDownloadPNG('cara-interior', 'Interior')}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-emerald-600/20 text-emerald-400 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
+                        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-800 text-zinc-300 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
                     >
-                        <ImageIcon className="h-3.5 w-3.5" /> Cara 2
+                        <ImageIcon className="h-3.5 w-3.5 text-cyan-500" /> Cara 2
                     </button>
                 </div>
                 <button 
                     onClick={handleDownloadWord}
                     disabled={isExporting}
-                    className="flex items-center gap-2 px-5 py-3 bg-blue-600/10 hover:bg-blue-600/20 disabled:bg-blue-900/10 text-blue-400 hover:text-blue-300 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-blue-500/20 shadow-lg shadow-blue-500/10 hover:scale-105 active:scale-95"
+                    className="flex items-center gap-2 px-5 py-3 bg-zinc-800/50 hover:bg-zinc-800 disabled:bg-zinc-900/50 text-zinc-300 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-zinc-700 shadow-lg hover:scale-105 active:scale-95"
                 >
-                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse text-blue-500' : ''}`} /> {isExporting ? 'Generando...' : 'Word Doc'}
+                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse text-cyan-500' : ''}`} /> {isExporting ? 'Generando...' : 'Word Doc'}
                 </button>
             </div>
 
-            {/* ═ CARA 1: EXTERIOR (Paneles: Propósito, Beneficios, Portada) ═ */}
-            <div id="cara-frontal" style={{ pageBreakAfter: 'always' }} className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(14,165,233,0.12),transparent)] pointer-events-none" />
+            {/* ═ CARA 1: EXTERIOR (Paneles: Problemas, Qué es, Portada) ═ */}
+            <div id="cara-frontal" style={{ pageBreakAfter: 'always' }} className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative font-[family-name:var(--font-outfit)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.04),transparent_50%)] pointer-events-none" />
 
-                {/* P1: PROPÓSITO & RENTABILIDAD (Solapa Izquierda) */}
-                <div className="w-[3.62in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#020409]">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="h-9 w-9 rounded-full bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center">
-                            <Coins className="h-4 w-4 text-emerald-400" />
-                        </div>
-                        <span className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-400/80">Todo en Uno</span>
+                {/* P1: PROBLEMAS CRÍTICOS (Solapa Izquierda) */}
+                <div className="w-[3.62in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-black/40">
+                    <div className="mb-6">
+                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[7px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">El Reto Operativo</span>
+                        <h3 className="text-[20px] font-black text-white leading-tight tracking-tighter">Problemas Críticos <br/><span className="text-zinc-500 font-medium">que tu negocio enfrenta.</span></h3>
                     </div>
-                    <h3 className="text-[22px] font-black text-white leading-tight tracking-tighter mb-5">Crecer nunca fue tan<br/><span className="text-emerald-500">fácil y accesible.</span></h3>
                     
-                    <div className="space-y-4">
-                        <p className="text-[10px] text-slate-300 leading-relaxed text-justify">
-                            Olvídate de pagar por múltiples programas o pelear con herramientas complicadas. System Kyron agrupa tus ventas, inventario y cuentas en una sola plataforma muy fácil de usar, ahorrándote tiempo y dinero desde el primer día.
-                        </p>
-                        <p className="text-[10px] text-slate-400 leading-relaxed text-justify">
-                            Nuestra misión es que la tecnología trabaje para ti. Automatiza el trabajo aburrido para que puedas dedicarte a atender a tus clientes y hacer crecer tu negocio.
-                        </p>
-                    </div>
-
-                    <div className="mt-8 space-y-3">
-                        <div className="p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/20">
-                            <h5 className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-                                <BarChart4 className="h-3 w-3" /> Beneficios Inmediatos
-                            </h5>
-                            <ul className="space-y-2">
-                                <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Vende más rápido y controla tu caja.
-                                </li>
-                                <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Inventario siempre actualizado.
-                                </li>
-                                <li className="flex items-center gap-2 text-[9px] text-slate-300">
-                                    <CheckCircle2 className="h-3 w-3 text-emerald-500" /> Facturación sin estrés ni multas.
-                                </li>
-                            </ul>
+                    <div className="space-y-4 flex-1">
+                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                <Activity className="h-3.5 w-3.5 text-rose-400 group-hover:scale-110 transition-transform" /> Fuga de Capital Oculta
+                            </h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                La pérdida de mercancía, errores de cobro y el descontrol en los inventarios físicos generan hasta un 15% de pérdidas mensuales invisibles.
+                            </p>
+                        </div>
+                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                <TrendingUp className="h-3.5 w-3.5 text-rose-400 group-hover:scale-110 transition-transform" /> Caos Administrativo
+                            </h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                Invertir cientos de horas calculando impuestos, nóminas y cierres de caja a mano o en Excel, aumentando el riesgo de costosas multas fiscales.
+                            </p>
+                        </div>
+                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
+                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                <Cpu className="h-3.5 w-3.5 text-rose-400 group-hover:scale-110 transition-transform" /> Sistemas Desconectados
+                            </h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                Pagar por programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
+                            </p>
                         </div>
                     </div>
 
-                    <div className="mt-auto pt-6 border-t border-white/5">
-                         <div className="flex items-center gap-3">
-                            <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center">
-                                <TrendingUp className="h-4 w-4 text-emerald-400" />
-                            </div>
-                            <p className="text-[7px] text-slate-500 uppercase font-black tracking-widest leading-tight">Adaptable a tu tamaño:<br/>Perfecto para tu negocio de hoy y mañana.</p>
-                         </div>
+                    <div className="mt-6 pt-5 border-t border-zinc-800">
+                        <p className="text-[8px] text-zinc-500 font-medium leading-tight italic">"El 80% del tiempo de un comerciante se pierde en apagar fuegos operativos en lugar de pensar en expansión."</p>
                     </div>
                 </div>
 
-                {/* P2: BLINDAJE & RIESGO CERO -> TRANQUILIDAD (Contraportada) */}
-                <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a] overflow-hidden">
-                    {/* Grid Background Effect */}
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-                         style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                {/* P2: QUÉ ES SYSTEM KYRON (Contraportada) */}
+                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-[#09090b] overflow-hidden">
+                    <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                     
                     <div className="mb-6 relative z-10">
-                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-cyan-400/80 mb-2">Tranquilidad Total</p>
-                        <h3 className="text-[18px] font-black text-white uppercase tracking-tighter">Soporte y <span className="text-cyan-400">Seguridad</span></h3>
+                        <span className="inline-block px-2.5 py-1 bg-cyan-950 rounded-md text-[7px] font-bold uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900">La Solución Integral</span>
+                        <h3 className="text-[20px] font-black text-white uppercase tracking-tighter">¿Qué es <br/><span className="text-cyan-400">System Kyron?</span></h3>
                     </div>
 
-                    <div className="space-y-4 mb-6 relative z-10">
-                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
-                            <div className="flex items-center gap-3 mb-2">
-                                <Scale className="h-4 w-4 text-cyan-400" />
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Cumplimiento Legal Sencillo</h4>
-                            </div>
-                            <p className="text-[8.5px] text-slate-400 leading-relaxed">
-                                El sistema te guía para cumplir con todas las normativas sin necesidad de ser un experto en leyes. Haz tus cuentas con paz mental.
-                            </p>
-                        </div>
-
-                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
-                            <div className="flex items-center gap-3 mb-2">
-                                <ShieldCheck className="h-4 w-4 text-cyan-400" />
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Tus Datos Protegidos</h4>
-                            </div>
-                            <p className="text-[8.5px] text-slate-400 leading-relaxed">
-                                Respaldamos tu información automáticamente. Así se vaya el internet o se dañe una PC, nunca perderás tus datos de ventas.
-                            </p>
-                        </div>
+                    <div className="space-y-4 relative z-10 mb-8">
+                        <p className="text-[10px] text-zinc-300 leading-relaxed text-justify">
+                            System Kyron es un **Ecosistema Digital Unificado** (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
+                        </p>
+                        <p className="text-[10px] text-zinc-400 leading-relaxed text-justify">
+                            En lugar de tener múltiples herramientas dispersas, centralizamos tus ventas, inventario, finanzas y empleados en **una sola plataforma en la nube, rápida y segura**.
+                        </p>
                     </div>
 
-                    {/* NUEVA SECCIÓN PARA RELLENAR ESPACIO (Infraestructura de Misión Crítica -> Soporte Amigable) */}
-                    <div className="flex-1 flex flex-col justify-center relative z-10 py-4">
-                        <div className="space-y-6">
+                    <div className="flex-1 flex flex-col justify-center relative z-10 p-5 bg-zinc-900/40 rounded-2xl border border-zinc-800/50">
+                        <div className="space-y-5">
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Zap className="h-4 w-4 text-cyan-400/80" />
+                                <div className="h-8 w-8 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Cloud className="h-4 w-4 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Rápido y Efectivo</h5>
-                                    <p className="text-[7.5px] text-slate-500 leading-tight">Un sistema ligero que no necesita computadoras súper potentes para funcionar.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-0.5">Operación en la Nube</h5>
+                                    <p className="text-[8px] text-zinc-500 leading-tight">Accede a tu negocio desde cualquier lugar, dispositivo o ciudad del mundo.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Users className="h-4 w-4 text-cyan-400/80" />
+                                <div className="h-8 w-8 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Zap className="h-4 w-4 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Acompañamiento Real</h5>
-                                    <p className="text-[7.5px] text-slate-500 leading-tight">No estás solo. Nuestro equipo te enseña a usarlo paso a paso hasta que domines todo.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-0.5">Sincronización en Tiempo Real</h5>
+                                    <p className="text-[8px] text-zinc-500 leading-tight">Cada venta descuenta inventario y actualiza métricas financieras al segundo.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
-                                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Activity className="h-4 w-4 text-cyan-400/80" />
+                                <div className="h-8 w-8 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <ShieldCheck className="h-4 w-4 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Actualizaciones Gratis</h5>
-                                    <p className="text-[7.5px] text-slate-500 leading-tight">Siempre tendrás la mejor versión de la plataforma sin tener que pagar reinstalaciones.</p>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-0.5">Seguridad Robusta</h5>
+                                    <p className="text-[8px] text-zinc-500 leading-tight">Copias de seguridad automáticas y protección de datos bancarios.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="mt-auto relative z-10">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="flex-1 h-px bg-white/10" />
-                            <p className="text-[7px] text-slate-500 uppercase font-black tracking-widest">Confianza Total</p>
-                            <div className="flex-1 h-px bg-white/10" />
-                        </div>
-                        <div className="grid grid-cols-3 gap-4 opacity-60">
-                             <div className="text-center"><Shield className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">PROTEGIDO</p></div>
-                             <div className="text-center"><CheckCircle2 className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">FÁCIL DE USAR</p></div>
-                             <div className="text-center"><Zap className="h-6 w-6 mx-auto mb-1 text-cyan-400" /><p className="text-[6px] font-bold tracking-tighter">SÚPER RÁPIDO</p></div>
+                    <div className="mt-auto relative z-10 pt-5 border-t border-zinc-800">
+                        <div className="flex justify-between items-center px-2">
+                             <div className="text-center"><p className="text-[7px] font-bold tracking-widest text-zinc-400">TODO EN UNO</p></div>
+                             <div className="h-1 w-1 bg-zinc-600 rounded-full" />
+                             <div className="text-center"><p className="text-[7px] font-bold tracking-widest text-zinc-400">AUTOMATIZADO</p></div>
+                             <div className="h-1 w-1 bg-zinc-600 rounded-full" />
+                             <div className="text-center"><p className="text-[7px] font-bold tracking-widest text-cyan-400">EFICIENTE</p></div>
                         </div>
                     </div>
                 </div>
 
                 {/* P3: PORTADA DE IMPACTO (Derecha) */}
-                <div className="w-[3.69in] p-8 flex flex-col relative z-10 overflow-hidden bg-[#050816]">
-                    <div className="absolute top-1/4 -right-24 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[130px] pointer-events-none" />
+                <div className="w-[3.69in] p-9 flex flex-col relative z-10 overflow-hidden bg-black">
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
                     
                     <div className="relative z-10 flex flex-col h-full">
-                        <div className="flex justify-between items-start mb-8">
-                            <img src="/images/logo-black.png" alt="Kyron" className="h-16 w-16 drop-shadow-[0_0_30px_rgba(34,211,238,0.7)] object-contain" crossOrigin="anonymous" />
+                        <div className="flex justify-between items-start mb-10">
+                            <img src="/images/logo-black.png" alt="Kyron" className="h-14 w-14 object-contain opacity-90" crossOrigin="anonymous" />
                             <div className="flex flex-col items-end">
-                                <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/25 rounded-full text-[7px] font-black uppercase tracking-widest text-cyan-400 mb-1">Para Todo Negocio</span>
-                                <span className="text-[8px] font-black text-slate-400 tracking-widest uppercase">Ecosistema Simple</span>
+                                <span className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-[7px] font-black uppercase tracking-widest text-zinc-300 mb-1">Presentación Oficial</span>
+                                <span className="text-[7px] font-bold text-zinc-600 tracking-widest uppercase">Versión 2.0</span>
                             </div>
                         </div>
 
-                        <div className="mb-10">
-                            <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-4 flex items-center gap-3">
-                                <span className="h-px w-10 bg-slate-600 inline-block" /> Tecnología Accesible
+                        <div className="mb-8">
+                            <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-cyan-400 mb-3 flex items-center gap-2">
+                                <span className="h-[2px] w-8 bg-cyan-500 inline-block" /> Plataforma Empresarial
                             </p>
-                            <h1 className="text-[54px] font-black uppercase tracking-tighter leading-[0.9] mb-6 text-white">System<br/><span className="text-emerald-400">Kyron.</span></h1>
-                            <p className="text-[12px] text-slate-300 leading-relaxed border-l-4 border-cyan-500 pl-5 font-medium">
-                                El aliado digital que simplifica el trabajo de los emprendedores y comerciantes en Venezuela.
+                            <h1 className="text-[52px] font-black uppercase tracking-tighter leading-[0.9] mb-4 text-white">System<br/><span className="text-zinc-500">Kyron.</span></h1>
+                            <p className="text-[11px] text-zinc-400 leading-relaxed font-medium border-l-2 border-cyan-500 pl-4">
+                                El aliado digital definitivo que centraliza y optimiza todas las operaciones de tu negocio.
                             </p>
                         </div>
 
-                        {/* CALL TO ACTION DUAL QR REDISEÑADO */}
-                        <div className="mt-auto bg-white/5 backdrop-blur-2xl rounded-[3.5rem] border border-white/10 p-8 flex flex-col items-center shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-                            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/40 mb-7">DESCUBRE MÁS AQUÍ</p>
+                        <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[2rem] border border-zinc-800 p-6 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+                            <p className="text-[7px] font-bold uppercase tracking-[0.3em] text-zinc-500 mb-5">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
-                            <div className="flex gap-10 w-full justify-center mb-7">
-                                <div className="flex flex-col items-center gap-3 group">
-                                    <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(34,211,238,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
-                                        <div className="absolute inset-0 border-[3px] border-cyan-500/20 rounded-[2rem] animate-pulse" />
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
+                            <div className="flex gap-8 w-full justify-center mb-5">
+                                <div className="flex flex-col items-center gap-2.5 group">
+                                    <div className="p-1.5 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={80} height={80} className="rounded-xl" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">Ver Plataforma</p>
+                                    <p className="text-[7px] font-bold uppercase tracking-widest text-cyan-400">Portal Web</p>
                                 </div>
-                                
-                                <div className="flex flex-col items-center gap-3 group">
-                                    <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(16,185,129,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
-                                        <div className="absolute inset-0 border-[3px] border-emerald-500/20 rounded-[2rem] animate-pulse" />
-                                        <img src={QR_FEEDBACK} alt="Encuesta" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
+                                <div className="flex flex-col items-center gap-2.5 group">
+                                    <div className="p-1.5 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
+                                        <img src={QR_FEEDBACK} alt="Contacto" width={80} height={80} className="rounded-xl" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">Danos tu opinión</p>
+                                    <p className="text-[7px] font-bold uppercase tracking-widest text-zinc-400">Contáctanos</p>
                                 </div>
                             </div>
-
-                            <div className="flex items-center gap-3 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 group hover:border-cyan-500/30 transition-colors">
-                                <ScanLine className="h-4 w-4 text-cyan-400/50 group-hover:text-cyan-400 transition-colors animate-pulse" />
-                                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-white">Escanea con la cámara</p>
-                            </div>
+                            <p className="text-[7px] text-zinc-500 font-medium flex items-center gap-2">
+                                <ScanLine className="h-3 w-3" /> Escanea con la cámara de tu teléfono móvil
+                            </p>
                         </div>
 
-                        <div className="mt-6 flex justify-between items-center px-4">
-                            <p className="text-[8px] text-slate-500 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
-                            <div className="flex gap-2">
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                <div className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-                                <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                        <div className="mt-6 flex justify-between items-center px-2">
+                            <p className="text-[8px] text-zinc-600 tracking-widest font-black uppercase">system-kyron.vercel.app</p>
+                            <div className="flex gap-1.5">
+                                <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
+                                <div className="h-1.5 w-1.5 rounded-full bg-zinc-700" />
+                                <div className="h-1.5 w-1.5 rounded-full bg-zinc-800" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* ═ CARA 2: INTERIOR (Paneles: Unidades de Negocio, Garantía, Escalabilidad) ═ */}
-            <div id="cara-interior" className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none relative">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_-20%,rgba(16,185,129,0.06),transparent)] pointer-events-none" />
-
-                {/* P4: UNIDADES DE VALOR (Izquierda) */}
-                <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#020409]/60">
+            {/* ═ CARA 2: INTERIOR (Paneles: Lo Innovador, Módulos, Cierre) ═ */}
+            <div id="cara-interior" className="w-[11in] h-[8.5in] bg-[#09090b] text-zinc-300 shadow-[0_24px_60px_rgba(0,0,0,0.8)] flex shrink-0 overflow-hidden print:shadow-none relative font-[family-name:var(--font-outfit)]">
+                
+                {/* P4: LO INNOVADOR (Izquierda) */}
+                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-black/40">
                     <div className="mb-8">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-400/70 mb-2">Herramientas Incluidas</p>
-                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Módulos de <span className="text-emerald-400">Trabajo</span></h3>
+                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[7px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">Ventaja Competitiva</span>
+                        <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">La Innovación<br/><span className="text-zinc-500 font-medium">detrás del sistema.</span></h3>
                     </div>
 
-                    <div className="space-y-3 flex-1">
+                    <div className="space-y-6 flex-1 mt-4">
+                        <div className="relative pl-7 border-l-[1.5px] border-cyan-500/50 pb-2">
+                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-cyan-500 flex items-center justify-center">
+                                <div className="h-1 w-1 bg-cyan-400 rounded-full" />
+                            </div>
+                            <h4 className="font-black text-white uppercase text-[10px] tracking-widest mb-1.5">Conectividad Híbrida Inteligente</h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                ¿Se cayó el internet? No hay problema. Nuestro sistema te permite seguir facturando de manera local y **sincroniza todo automáticamente** en cuanto vuelve la conexión.
+                            </p>
+                        </div>
+
+                        <div className="relative pl-7 border-l-[1.5px] border-zinc-700 pb-2">
+                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[10px] tracking-widest mb-1.5">Actualización Normativa Autónoma</h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                System Kyron se actualiza a las últimas normas del SENIAT sin que tengas que descargar parches o pagar licencias extras. Cumples la ley por defecto.
+                            </p>
+                        </div>
+
+                        <div className="relative pl-7 border-l-[1.5px] border-zinc-700 pb-2">
+                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[10px] tracking-widest mb-1.5">Métricas Dinámicas</h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                Los reportes ya no son tablas de Excel aburridas. Observa gráficos interactivos que te dicen exactamente qué se vende más y a qué hora.
+                            </p>
+                        </div>
+
+                        <div className="relative pl-7 border-l-[1.5px] border-transparent">
+                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[10px] tracking-widest mb-1.5">Multi-Sucursal Escalable</h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                Empieza con una tienda y crece a cincuenta. Gestiona el inventario central y el traslado entre sedes desde tu mismo panel administrativo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* P5: EL ECOSISTEMA (Centro) */}
+                <div className="w-[3.69in] border-r border-zinc-800 p-9 flex flex-col relative z-10 bg-[#09090b]">
+                    <div className="mb-8">
+                        <span className="inline-block px-2.5 py-1 bg-cyan-950 rounded-md text-[7px] font-bold uppercase tracking-widest text-cyan-400 mb-3 border border-cyan-900">Herramientas Base</span>
+                        <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">El Ecosistema<br/><span className="text-cyan-400 font-medium">Funcional.</span></h3>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 flex-1 content-start mt-2">
                         {[
-                            {I:Calculator, t:"Finanzas y Contabilidad", d:"Lleva el control de tus ingresos y gastos de forma organizada y fácil."},
-                            {I:Users, t:"Gestión de Equipo", d:"Administra a tus empleados, sus pagos y turnos sin papeleo."},
-                            {I:ShoppingCart, t:"Facturación y Punto de Venta", d:"Emite facturas al instante y controla tu inventario al vender."},
-                            {I:Smartphone, t:"Acceso Móvil", d:"Supervisa tu negocio desde tu celular en cualquier lugar."},
-                            {I:BarChart3, t:"Reportes Claros", d:"Gráficos simples para entender cuánto estás ganando realmente."}
+                            {I:ShoppingCart, t:"Punto de Venta", d:"Ventas rápidas."},
+                            {I:Package, t:"Inventario", d:"Control de stock."},
+                            {I:Users, t:"Recursos Humanos", d:"Nómina y control."},
+                            {I:Calculator, t:"Finanzas", d:"Cuentas al día."},
+                            {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
+                            {I:BarChart3, t:"Reportes", d:"Métricas precisas."},
+                            {I:Lock, t:"Seguridad", d:"Permisos y roles."},
+                            {I:Smartphone, t:"App Móvil", d:"Acceso remoto."}
                         ].map(({I,t,d},i)=>(
-                            <div key={i} className="flex gap-4 p-3 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-emerald-500/20 transition-all group">
-                                <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:bg-emerald-500/30 transition-colors">
-                                    <I className="h-4 w-4 text-emerald-400" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-white uppercase text-[9px] tracking-widest mb-1">{t}</h4>
-                                    <p className="text-[9px] text-slate-400 leading-snug">{d}</p>
-                                </div>
+                            <div key={i} className="flex flex-col p-3.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default">
+                                <I className="h-5 w-5 text-cyan-400 mb-2.5" />
+                                <h4 className="font-bold text-white uppercase text-[8px] tracking-widest mb-1">{t}</h4>
+                                <p className="text-[7.5px] text-zinc-500 leading-tight">{d}</p>
                             </div>
                         ))}
                     </div>
-                </div>
 
-                {/* P5: GARANTÍA DE CONTINUIDAD (Centro) */}
-                <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a]">
-                    <div className="mb-8">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-blue-400/70 mb-2">Nuestro Compromiso</p>
-                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Garantía <span className="text-blue-500">Kyron</span></h3>
-                    </div>
-
-                    <div className="space-y-6 flex-1">
-                        <div className="p-7 rounded-[2rem] border border-blue-500/20 bg-blue-500/5 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:rotate-12 transition-transform">
-                                <Zap className="h-16 w-16 text-blue-400" />
-                            </div>
-                            <h4 className="font-black text-blue-400 uppercase text-[11px] tracking-widest mb-3">Siempre Funcionando</h4>
-                            <p className="text-[10px] text-slate-300 leading-relaxed">
-                                Si necesitas ayuda o algo falla, nuestro equipo te asiste rápidamente para que las ventas de tu negocio no se detengan ni un solo minuto.
-                            </p>
-                        </div>
-
-                        <div className="p-7 rounded-[2rem] border border-emerald-500/20 bg-emerald-500/5">
-                            <h4 className="font-black text-emerald-400 uppercase text-[11px] tracking-widest mb-3">Soporte Humano</h4>
-                            <p className="text-[10px] text-slate-300 leading-relaxed">
-                                No te atiende un robot. Hablas directamente con nuestros asesores locales que entienden cómo funciona tu comercio.
-                            </p>
-                        </div>
-
-                        <div className="p-7 rounded-[2rem] border border-white/10 bg-white/5">
-                            <h4 className="font-black text-white uppercase text-[11px] tracking-widest mb-3">Sin Enredos</h4>
-                            <p className="text-[10px] text-slate-300 leading-relaxed">
-                                Hacemos que la tecnología sea invisible. Tú solo ocúpate de atender a tus clientes, la plataforma hace los cálculos por ti.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="mt-8 p-6 bg-gradient-to-r from-blue-600/20 to-transparent rounded-[2rem] border border-blue-500/30">
-                        <p className="text-[11px] text-white font-black uppercase tracking-[0.2em] text-center italic">"Un aliado confiable para el día a día."</p>
+                    <div className="mt-auto p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center">
+                        <p className="text-[8px] text-zinc-400 font-medium leading-relaxed italic">
+                            "Módulos interconectados que trabajan en perfecta armonía."
+                        </p>
                     </div>
                 </div>
 
-                {/* P6: VISIÓN & ESCALABILIDAD 2026 (Derecha) */}
-                <div className="w-[3.62in] p-8 flex flex-col relative z-10 bg-[#050816]">
+                {/* P6: CIERRE Y ACCIÓN (Derecha) */}
+                <div className="w-[3.62in] p-9 flex flex-col relative z-10 bg-black">
                     <div className="absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none">
                         <img src="/images/logo-black.png" alt="Logo Fondo" className="w-[450px] h-[450px] object-contain opacity-20" crossOrigin="anonymous" />
                     </div>
                     
                     <div className="mb-10">
-                        <p className="text-[8px] font-black uppercase tracking-[0.4em] text-cyan-400/70 mb-2">Visión a Futuro</p>
-                        <h3 className="text-[26px] font-black uppercase tracking-tighter text-white leading-none">Crecemos <span className="text-cyan-400">Contigo</span></h3>
+                        <span className="inline-block px-2.5 py-1 bg-zinc-800 rounded-md text-[7px] font-bold uppercase tracking-widest text-zinc-400 mb-3 border border-zinc-700">El Siguiente Paso</span>
+                        <h3 className="text-[20px] font-black uppercase tracking-tighter text-white leading-tight">Únete a la<br/><span className="text-zinc-500 font-medium">Evolución.</span></h3>
                     </div>
 
                     <div className="space-y-6 flex-1">
-                        <div className="space-y-4">
-                            <p className="text-[11px] text-slate-300 leading-relaxed text-justify font-medium">
-                                Ya sea que tengas un emprendimiento desde casa o varias sucursales, System Kyron se ajusta a tu ritmo. Pagas solo por lo que necesitas y agregas funciones a medida que creces.
-                            </p>
-                            <p className="text-[11px] text-slate-400 leading-relaxed text-justify">
-                                Queremos ser el motor digital que impulse a los negocios locales hacia el éxito, brindándote herramientas que antes solo las grandes empresas podían tener.
-                            </p>
-                        </div>
+                        <p className="text-[11px] text-zinc-300 leading-relaxed text-justify font-medium">
+                            No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres **orden, rapidez y transparencia** desde el primer día.
+                        </p>
 
-                        <div className="pt-8 grid grid-cols-1 gap-6">
-                            <div className="flex items-center gap-5">
-                                <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                                    <Rocket className="h-6 w-6 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Innovación Constante</h5>
-                                    <p className="text-[8px] text-slate-400 uppercase font-bold tracking-tighter">Nuevas funciones cada mes</p>
-                                </div>
+                        <div className="p-6 bg-cyan-950/20 rounded-2xl border border-cyan-500/20 mt-6 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5">
+                                <Shield className="h-16 w-16 text-cyan-400" />
                             </div>
-                            <div className="flex items-center gap-5">
-                                <div className="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                                    <Users className="h-6 w-6 text-cyan-400" />
-                                </div>
-                                <div>
-                                    <h5 className="text-[10px] font-black text-white uppercase tracking-widest">Comunidad</h5>
-                                    <p className="text-[8px] text-slate-400 uppercase font-bold tracking-tighter">Eventos y capacitación gratis</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-auto p-6 bg-cyan-500/10 rounded-[2rem] border border-cyan-500/30 text-center">
-                            <p className="text-[10px] text-white font-black uppercase tracking-widest leading-relaxed">
-                                Súmate a la revolución comercial de Venezuela.
-                            </p>
+                            <h5 className="text-[11px] font-black text-cyan-400 uppercase tracking-widest mb-4">Nuestra Promesa</h5>
+                            <ul className="space-y-4 relative z-10">
+                                <li className="flex items-start gap-3 text-[10px] text-zinc-300 font-medium">
+                                    <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" /> Soporte técnico humano, local y siempre disponible.
+                                </li>
+                                <li className="flex items-start gap-3 text-[10px] text-zinc-300 font-medium">
+                                    <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
+                                </li>
+                                <li className="flex items-start gap-3 text-[10px] text-zinc-300 font-medium">
+                                    <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div className="mt-8 flex justify-between items-end pt-8 border-t border-white/5">
-                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
+                    <div className="mt-8 flex justify-between items-end pt-6 border-t border-zinc-800">
+                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-10 w-10 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
-                            <p className="text-[8px] text-slate-500 font-black uppercase tracking-[0.3em] mb-1">System Kyron</p>
-                            <p className="text-[7px] text-slate-600 font-bold">La solución para tu negocio</p>
+                            <p className="text-[8px] text-zinc-500 font-black uppercase tracking-[0.3em] mb-1">System Kyron</p>
+                            <p className="text-[7px] text-zinc-600 font-bold uppercase tracking-widest">Tecnología a tu alcance</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
-
-export default FolletoView;
