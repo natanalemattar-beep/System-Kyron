@@ -41,8 +41,41 @@ export function FolletoView() {
     const QR_PRINCIPAL = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app&color=03050a&bgcolor=ffffff&margin=4";
     const QR_FEEDBACK = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://system-kyron.vercel.app/es/feedback&color=03050a&bgcolor=ffffff&margin=4";
     
-    const handleDownloadPDF = () => {
-        window.print();
+    const handleDownloadPDF = async () => {
+        const node = document.getElementById('folleto-content');
+        if (!node) return;
+
+        const toolbar = document.getElementById('folleto-toolbar');
+        if (toolbar) toolbar.style.display = 'none';
+
+        try {
+            // @ts-ignore - Importación dinámica para evitar problemas de SSR
+            const html2pdf = (await import('html2pdf.js')).default;
+            
+            const opt = {
+                margin: 0,
+                filename: 'System-Kyron-Elite-Brochure.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#03050a'
+                },
+                jsPDF: { 
+                    unit: 'in', 
+                    format: [11, 8.5], 
+                    orientation: 'landscape' 
+                },
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
+
+            await html2pdf().from(node).set(opt).save();
+        } catch (error) {
+            console.error('Error descargando PDF:', error);
+        } finally {
+            if (toolbar) toolbar.style.display = 'flex';
+        }
     };
 
     const handleDownloadPNG = async (id: string, name: string) => {
