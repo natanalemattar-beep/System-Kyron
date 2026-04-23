@@ -40,44 +40,36 @@ export function FolletoView() {
     const handleDownloadPDF = async () => {
         if (isExporting) return;
         setIsExporting(true);
-        const node = document.getElementById('folleto-content');
-        if (!node) { setIsExporting(false); return; }
+
+        const frontal = document.getElementById('cara-frontal');
+        const interior = document.getElementById('cara-interior');
+        if (!frontal || !interior) { setIsExporting(false); return; }
 
         try {
-            // @ts-ignore
-            const html2pdf = (await import('html2pdf.js')).default;
-            
-            const opt = {
-                margin: 0,
-                filename: 'System-Kyron-Folleto-General.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#09090b',
-                    allowTaint: false,
-                    ignoreElements: (element: Element) => element.id === 'folleto-toolbar'
-                },
-                jsPDF: { 
-                    unit: 'in', 
-                    format: [11, 8.5], 
-                    orientation: 'landscape' 
-                },
-                pagebreak: { mode: ['css', 'legacy'] }
-            };
+            const h2c = (await import('html2canvas')).default;
+            const { jsPDF } = await import('jspdf');
 
-            // Remover temporalmente el gap previene un overflow en el canvas de jsPDF
-            const originalGap = node.style.gap;
-            node.style.gap = '0px';
+            // Capturar cada cara individualmente (sin padding/gap extra)
+            const canvasOpts = { scale: 2, useCORS: true, backgroundColor: '#09090b', logging: false, allowTaint: false };
+            const canvas1 = await h2c(frontal, canvasOpts);
+            const canvas2 = await h2c(interior, canvasOpts);
 
-            await html2pdf().from(node).set(opt).save();
+            // Crear PDF landscape letter (11 x 8.5 in)
+            const pdf = new jsPDF({ orientation: 'landscape', unit: 'in', format: 'letter' });
 
-            // Restaurar diseño web
-            node.style.gap = originalGap;
+            // Página 1: Cara Exterior
+            const img1 = canvas1.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(img1, 'JPEG', 0, 0, 11, 8.5);
+
+            // Página 2: Cara Interior
+            pdf.addPage();
+            const img2 = canvas2.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(img2, 'JPEG', 0, 0, 11, 8.5);
+
+            pdf.save('System-Kyron-Folleto-General.pdf');
         } catch (error) {
             console.error('Error descargando PDF:', error);
-            alert('Hubo un problema de memoria al renderizar el PDF. Intenta de nuevo.');
+            alert('Hubo un problema al generar el PDF. Intenta de nuevo.');
         } finally {
             setIsExporting(false);
         }
