@@ -57,13 +57,6 @@ export function FolletoView() {
         const node = document.getElementById('folleto-content');
         if (!node) { setIsExporting(false); return; }
 
-        const toolbar = document.getElementById('folleto-toolbar');
-        if (toolbar) toolbar.style.display = 'none';
-
-        // Remover el gap para evitar que el PDF se salga de la hoja por el espacio de diseño web
-        const originalGap = node.style.gap;
-        node.style.gap = '0px';
-
         try {
             // @ts-ignore
             const html2pdf = (await import('html2pdf.js')).default;
@@ -71,13 +64,14 @@ export function FolletoView() {
             const opt = {
                 margin: 0,
                 filename: 'System-Kyron-Folleto-General.pdf',
-                image: { type: 'jpeg', quality: 1.0 },
+                image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
                     scale: 2, 
                     useCORS: true,
                     logging: false,
                     backgroundColor: '#09090b',
-                    allowTaint: false
+                    allowTaint: false,
+                    ignoreElements: (element: Element) => element.id === 'folleto-toolbar'
                 },
                 jsPDF: { 
                     unit: 'in', 
@@ -87,12 +81,18 @@ export function FolletoView() {
                 pagebreak: { mode: ['css', 'legacy'] }
             };
 
+            // Remover temporalmente el gap previene un overflow en el canvas de jsPDF
+            const originalGap = node.style.gap;
+            node.style.gap = '0px';
+
             await html2pdf().from(node).set(opt).save();
+
+            // Restaurar diseño web
+            node.style.gap = originalGap;
         } catch (error) {
             console.error('Error descargando PDF:', error);
+            alert('Hubo un problema de memoria al renderizar el PDF. Intenta de nuevo.');
         } finally {
-            if (toolbar) toolbar.style.display = 'flex';
-            node.style.gap = originalGap; // Restaurar el espacio web
             setIsExporting(false);
         }
     };
@@ -106,21 +106,23 @@ export function FolletoView() {
         try {
             const h2c = (await import('html2canvas')).default;
             const canvas = await h2c(node, {
-                scale: 2,
+                scale: 1.5, // 1.5x es ideal para calidad sin saturar VRAM
                 useCORS: true,
                 backgroundColor: '#09090b',
                 logging: false,
                 allowTaint: false
             });
             
-            const dataUrl = canvas.toDataURL('image/png', 1.0);
+            // JPEG codifica más rápido y usa menos memoria que PNG
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
             
             const link = document.createElement('a');
-            link.download = `System-Kyron-Folleto-${name}.png`;
+            link.download = `System-Kyron-Folleto-${name}.jpg`;
             link.href = dataUrl;
             link.click();
         } catch (error) {
-            console.error('Error generando PNG:', error);
+            console.error('Error generando Imagen:', error);
+            alert('Hubo un error procesando la imagen de alta calidad.');
         } finally {
             setIsExporting(false);
         }
@@ -137,12 +139,12 @@ export function FolletoView() {
         try {
             const h2c = (await import('html2canvas')).default;
             
-            // Reducir la escala a 1 para evitar bloqueos de memoria en la pestaña del navegador
+            // Escala 1.0 para mantener el DOM del word ligero
             const canvasFrontal = await h2c(frontal, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
             const canvasInterior = await h2c(interior, { scale: 1.0, useCORS: true, backgroundColor: '#09090b', allowTaint: false });
             
-            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.80);
-            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.80);
+            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
+            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
 
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
             let textContent = "";
@@ -189,9 +191,12 @@ export function FolletoView() {
             link.href = url;
             link.download = 'System-Kyron-General.doc';
             link.click();
-            URL.revokeObjectURL(url);
+            
+            // Timeout de recolección de basura para evitar corrupción de descarga
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         } catch (error) {
             console.error('Error generando Súper Word:', error);
+            alert('Hubo un error de procesamiento. Reintenta la descarga.');
         } finally {
             setIsExporting(false);
         }
