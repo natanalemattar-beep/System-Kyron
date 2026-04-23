@@ -20,7 +20,8 @@ import {
     Printer as PrinterIcon,
     Image as ImageIcon,
     Cloud,
-    Package
+    Package,
+    Phone
 } from 'lucide-react';
 
 export function FolletoView() {
@@ -421,10 +422,18 @@ export function FolletoView() {
                                 Pagar por programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
                             </p>
                         </div>
+                        <div className="p-4 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
+                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                <Phone className="h-3.5 w-3.5 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas y Fraudes Telefónicos
+                            </h4>
+                            <p className="text-[9px] text-zinc-400 leading-relaxed text-justify">
+                                Llamadas fraudulentas que suplantan a proveedores, bancos o clientes generan pérdidas económicas directas y dañan la reputación del negocio sin dejar rastro.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="mt-6 pt-5 border-t border-zinc-800">
-                        <p className="text-[8px] text-zinc-500 font-medium leading-tight italic">"El 80% del tiempo de un comerciante se pierde en apagar fuegos operativos en lugar de pensar en expansión."</p>
+                    <div className="mt-4 pt-4 border-t border-zinc-800">
+                        <p className="text-[8px] text-zinc-500 font-medium leading-tight italic">"El fraude telefónico y el desorden administrativo son los enemigos silenciosos de cualquier negocio."</p>
                     </div>
                 </div>
 
@@ -444,7 +453,7 @@ export function FolletoView() {
                             {I:FileText, t:"Facturación", d:"Manejo de IGTF."},
                             {I:BarChart3, t:"Reportes", d:"Métricas precisas."},
                             {I:Lock, t:"Seguridad", d:"Permisos y roles."},
-                            {I:Smartphone, t:"App Móvil", d:"Acceso remoto."}
+                            {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
                             <div key={i} className="flex flex-col p-3.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default">
                                 <I className="h-5 w-5 text-cyan-400 mb-2.5" />
