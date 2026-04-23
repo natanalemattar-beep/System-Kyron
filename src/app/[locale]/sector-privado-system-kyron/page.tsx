@@ -59,7 +59,6 @@ export function FolletoView() {
         if (toolbar) toolbar.style.display = 'none';
 
         try {
-            await document.fonts.ready;
             // @ts-ignore
             const html2pdf = (await import('html2pdf.js')).default;
             
@@ -98,7 +97,6 @@ export function FolletoView() {
         if (!node) { setIsExporting(false); return; }
 
         try {
-            await document.fonts.ready;
             const h2c = (await import('html2canvas')).default;
             const canvas = await h2c(node, {
                 scale: 2,
@@ -130,14 +128,14 @@ export function FolletoView() {
         if (!frontal || !interior) { setIsExporting(false); return; }
 
         try {
-            await document.fonts.ready;
             const h2c = (await import('html2canvas')).default;
             
-            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
-            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            // Reducir la escala a 1 para evitar bloqueos de memoria en la pestaña del navegador
+            const canvasFrontal = await h2c(frontal, { scale: 1.0, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            const canvasInterior = await h2c(interior, { scale: 1.0, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
             
-            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
-            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
+            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.80);
+            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.80);
 
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
             let textContent = "";
