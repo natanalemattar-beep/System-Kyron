@@ -607,8 +607,8 @@ function FolletoView() {
             <div className="w-[11in] h-[8.5in] bg-[#03050a] text-white shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex shrink-0 overflow-hidden print:shadow-none print:break-after-page relative">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(14,165,233,0.12),transparent)] pointer-events-none" />
 
-                {/* P1: HISTORIA (Solapa Izquierda) */}
-                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]">
+                {/* P1: HISTORIA (Solapa Izquierda - La que dobla adentro) */}
+                <div className="w-[3.62in] border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="h-9 w-9 rounded-full bg-amber-500/15 border border-amber-500/40 flex items-center justify-center">
                             <BookOpen className="h-4 w-4 text-amber-400" />
@@ -638,7 +638,7 @@ function FolletoView() {
                 </div>
 
                 {/* P2: CONTRAPORTADA (Centro) */}
-                <div className="flex-1 border-r border-white/5 p-10 flex flex-col justify-between relative z-10 bg-[#03050a]">
+                <div className="w-[3.69in] border-r border-white/5 p-10 flex flex-col justify-between relative z-10 bg-[#03050a]">
                     <div>
                         <p className="text-[8px] font-black uppercase tracking-[0.5em] text-slate-700 mb-6 text-center">Infraestructura Crítica</p>
                         <div className="space-y-3">
@@ -663,7 +663,7 @@ function FolletoView() {
                 </div>
 
                 {/* P3: PORTADA (Derecha) */}
-                <div className="flex-1 p-10 flex flex-col relative z-10 overflow-hidden bg-[#050816]">
+                <div className="w-[3.69in] p-10 flex flex-col relative z-10 overflow-hidden bg-[#050816]">
                     <div className="absolute top-1/4 -right-24 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[130px] pointer-events-none" />
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex justify-between items-start mb-8">
@@ -697,7 +697,7 @@ function FolletoView() {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_-20%,rgba(14,165,233,0.06),transparent)] pointer-events-none" />
 
                 {/* P4: LOS 9 MÓDULOS (Izquierda) */}
-                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]/60">
+                <div className="w-[3.69in] border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#020409]/60">
                     <div className="mb-6">
                         <p className="text-[8px] font-black uppercase tracking-[0.4em] text-emerald-400/70 mb-1">Ecosistema Zedu</p>
                         <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-none">Los 9 <span className="text-emerald-400">Módulos</span></h3>
@@ -728,7 +728,7 @@ function FolletoView() {
                 </div>
 
                 {/* P5: DIFERENCIALES & SHIELD (Centro) */}
-                <div className="flex-1 border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#03050a]">
+                <div className="w-[3.69in] border-r border-white/5 p-10 flex flex-col relative z-10 bg-[#03050a]">
                     <div className="mb-6">
                         <p className="text-[8px] font-black uppercase tracking-[0.4em] text-blue-400/70 mb-1">Misión Crítica</p>
                         <h3 className="text-[24px] font-black uppercase tracking-tighter text-white leading-none">Kyron <span className="text-blue-500">Shield</span></h3>
@@ -752,8 +752,8 @@ function FolletoView() {
                     </div>
                 </div>
 
-                {/* P6: FEEDBACK & MEJORA (Derecha) */}
-                <div className="flex-1 p-10 flex flex-col relative z-10 bg-[#050816]">
+                {/* P6: FEEDBACK & MEJORA (Derecha - Solapa Interior) */}
+                <div className="w-[3.62in] p-10 flex flex-col relative z-10 bg-[#050816]">
                     <div className="absolute -right-16 -bottom-16 opacity-[0.05] pointer-events-none -rotate-12"><Target className="w-[400px] h-[400px] text-rose-500" /></div>
                     <div className="mb-6 text-center">
                         <p className="text-[8px] font-black uppercase tracking-[0.4em] text-rose-400/70 mb-1">Ayúdanos a Mejorar</p>
