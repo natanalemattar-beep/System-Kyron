@@ -318,6 +318,7 @@ export function FolletoView() {
                         <div className="text-right">
                             <p className="text-[8px] text-zinc-500 font-black uppercase tracking-[0.3em] mb-1">Contacto Directo</p>
                             <p className="text-[7px] text-zinc-600 font-medium uppercase tracking-widest">0424-1846016</p>
+                            <p className="text-[6.5px] text-zinc-600 font-medium tracking-wide">systemkyronofficial@gmail.com</p>
                         </div>
                     </div>
                 </div>
