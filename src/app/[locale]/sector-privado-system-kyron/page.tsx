@@ -134,44 +134,81 @@ export function FolletoView() {
                 </div>
 
                 {/* P2: BLINDAJE & RIESGO CERO (Contraportada) */}
-                <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a]">
-                    <div className="mb-6">
+                <div className="w-[3.69in] border-r border-white/5 p-8 flex flex-col relative z-10 bg-[#03050a] overflow-hidden">
+                    {/* Grid Background Effect */}
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+                         style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                    
+                    <div className="mb-6 relative z-10">
                         <p className="text-[8px] font-black uppercase tracking-[0.5em] text-rose-500/60 mb-2">Risk Mitigation</p>
                         <h3 className="text-[18px] font-black text-white uppercase tracking-tighter">Blindaje <span className="text-rose-500">Operativo</span></h3>
                     </div>
 
-                    <div className="space-y-4 mb-8">
-                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10">
+                    <div className="space-y-4 mb-6 relative z-10">
+                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <Scale className="h-4 w-4 text-rose-400" />
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Cumplimiento SENIAT 24/7</h4>
                             </div>
                             <p className="text-[8.5px] text-slate-500 leading-relaxed">
-                                Algoritmos entrenados con la Gaceta Oficial vigente aseguran que cada declaración de IVA, ISLR e IGTF sea perfecta. **Eliminamos el error humano** y el riesgo de cierres administrativos.
+                                Algoritmos entrenados con la Gaceta Oficial vigente aseguran que cada declaración sea perfecta. **Eliminamos el error humano**.
                             </p>
                         </div>
 
-                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10">
+                        <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <ShieldCheck className="h-4 w-4 text-rose-400" />
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Seguridad de Grado Bancario</h4>
                             </div>
                             <p className="text-[8.5px] text-slate-500 leading-relaxed">
-                                Cifrado AES-256 y protocolos de autenticación de misión crítica. Sus secretos industriales y estados financieros están protegidos bajo estándares de ciberseguridad global.
+                                Cifrado AES-256 y protocolos de misión crítica. Sus secretos financieros están protegidos bajo estándares globales.
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-auto">
+                    {/* NUEVA SECCIÓN PARA RELLENAR ESPACIO (Infraestructura de Misión Crítica) */}
+                    <div className="flex-1 flex flex-col justify-center relative z-10 py-4">
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+                                    <Cpu className="h-4 w-4 text-rose-400/80" />
+                                </div>
+                                <div>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Núcleo de Procesamiento Híbrido</h5>
+                                    <p className="text-[7.5px] text-slate-600 leading-tight">Cómputo distribuido que garantiza 99.99% de uptime incluso sin internet.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+                                    <Wifi className="h-4 w-4 text-rose-400/80" />
+                                </div>
+                                <div>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Conectividad Encriptada</h5>
+                                    <p className="text-[7.5px] text-slate-600 leading-tight">Canales dedicados punto a punto con rotación de llaves cada 60 segundos.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+                                    <Activity className="h-4 w-4 text-rose-400/80" />
+                                </div>
+                                <div>
+                                    <h5 className="text-[9px] font-black text-white uppercase tracking-widest mb-1">Monitoreo Proactivo</h5>
+                                    <p className="text-[7.5px] text-slate-600 leading-tight">Detección de anomalías en tiempo real antes de que afecten su operación.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-auto relative z-10">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="flex-1 h-px bg-white/10" />
                             <p className="text-[7px] text-slate-600 uppercase font-black tracking-widest">Confianza Corporativa</p>
                             <div className="flex-1 h-px bg-white/10" />
                         </div>
                         <div className="grid grid-cols-3 gap-4 opacity-40 grayscale group-hover:grayscale-0 transition-all duration-700">
-                             <div className="text-center"><Shield className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold">PROTECTED</p></div>
-                             <div className="text-center"><Lock className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold">ENCRYPTED</p></div>
-                             <div className="text-center"><CheckCircle2 className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold">VERIFIED</p></div>
+                             <div className="text-center"><Shield className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">PROTECTED</p></div>
+                             <div className="text-center"><Lock className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">ENCRYPTED</p></div>
+                             <div className="text-center"><CheckCircle2 className="h-6 w-6 mx-auto mb-1 text-white" /><p className="text-[6px] font-bold tracking-tighter">VERIFIED</p></div>
                         </div>
                     </div>
                 </div>
@@ -199,29 +236,31 @@ export function FolletoView() {
                             </p>
                         </div>
 
-                        {/* CALL TO ACTION DUAL QR */}
-                        <div className="mt-auto bg-white/5 backdrop-blur-2xl rounded-[3rem] border border-white/10 p-7 flex flex-col items-center">
-                            <p className="text-[8px] font-black uppercase tracking-[0.4em] text-white/40 mb-6">CENTRO DE GESTIÓN DIGITAL</p>
+                        {/* CALL TO ACTION DUAL QR REDISEÑADO */}
+                        <div className="mt-auto bg-white/5 backdrop-blur-2xl rounded-[3.5rem] border border-white/10 p-8 flex flex-col items-center shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
+                            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white/30 mb-7">CENTRO DE GESTIÓN DIGITAL</p>
                             
-                            <div className="flex gap-8 w-full justify-center mb-6">
+                            <div className="flex gap-10 w-full justify-center mb-7">
                                 <div className="flex flex-col items-center gap-3 group">
-                                    <div className="bg-white p-2 rounded-2xl shadow-[0_0_40px_rgba(34,211,238,0.3)] group-hover:scale-105 transition-transform">
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={90} height={90} className="rounded-lg" />
+                                    <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(34,211,238,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
+                                        <div className="absolute inset-0 border-[3px] border-cyan-500/20 rounded-[2rem] animate-pulse" />
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={95} height={95} className="rounded-[1.8rem] relative z-10" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400">Portal Web</p>
+                                    <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">Portal Web</p>
                                 </div>
                                 
                                 <div className="flex flex-col items-center gap-3 group">
-                                    <div className="bg-white p-2 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.3)] group-hover:scale-105 transition-transform">
-                                        <img src={QR_FEEDBACK} alt="Encuesta" width={90} height={90} className="rounded-lg" />
+                                    <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(16,185,129,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
+                                        <div className="absolute inset-0 border-[3px] border-emerald-500/20 rounded-[2rem] animate-pulse" />
+                                        <img src={QR_FEEDBACK} alt="Encuesta" width={95} height={95} className="rounded-[1.8rem] relative z-10" />
                                     </div>
-                                    <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400">Encuesta Elite</p>
+                                    <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">Encuesta Elite</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-2 bg-white/5 px-5 py-2 rounded-full border border-white/10">
-                                <ScanLine className="h-4 w-4 text-white/50 animate-pulse" />
-                                <p className="text-[8px] font-black uppercase tracking-[0.2em] text-white">Escanea para auditar</p>
+                            <div className="flex items-center gap-3 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 group hover:border-cyan-500/30 transition-colors">
+                                <ScanLine className="h-4 w-4 text-cyan-400/50 group-hover:text-cyan-400 transition-colors animate-pulse" />
+                                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-white/80 group-hover:text-white">Escanea para auditar</p>
                             </div>
                         </div>
 
