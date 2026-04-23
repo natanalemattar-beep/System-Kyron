@@ -38,6 +38,7 @@ import { Logo } from '@/components/logo';
 
 export function FolletoView() {
     const [baseUrl, setBaseUrl] = React.useState('https://system-kyron.vercel.app');
+    const [isExporting, setIsExporting] = React.useState(false);
 
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -49,14 +50,17 @@ export function FolletoView() {
     const QR_FEEDBACK = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${baseUrl}/es/feedback&color=03050a&bgcolor=ffffff&margin=4`;
     
     const handleDownloadPDF = async () => {
+        if (isExporting) return;
+        setIsExporting(true);
         const node = document.getElementById('folleto-content');
-        if (!node) return;
+        if (!node) { setIsExporting(false); return; }
 
         const toolbar = document.getElementById('folleto-toolbar');
         if (toolbar) toolbar.style.display = 'none';
 
         try {
-            // @ts-ignore - Importación dinámica para evitar problemas de SSR
+            await document.fonts.ready; // Esperar a que carguen las tipografías
+            // @ts-ignore
             const html2pdf = (await import('html2pdf.js')).default;
             
             const opt = {
@@ -68,7 +72,7 @@ export function FolletoView() {
                     useCORS: true,
                     logging: false,
                     backgroundColor: '#03050a',
-                    allowTaint: true
+                    allowTaint: false // allowTaint bloquea exportación a dataURL, usar CORS es mejor
                 },
                 jsPDF: { 
                     unit: 'in', 
@@ -83,20 +87,25 @@ export function FolletoView() {
             console.error('Error descargando PDF:', error);
         } finally {
             if (toolbar) toolbar.style.display = 'flex';
+            setIsExporting(false);
         }
     };
 
     const handleDownloadPNG = async (id: string, name: string) => {
+        if (isExporting) return;
+        setIsExporting(true);
         const node = document.getElementById(id);
-        if (!node) return;
+        if (!node) { setIsExporting(false); return; }
 
         try {
+            await document.fonts.ready;
             const h2c = (await import('html2canvas')).default;
             const canvas = await h2c(node, {
                 scale: 2,
                 useCORS: true,
                 backgroundColor: '#03050a',
-                logging: false
+                logging: false,
+                allowTaint: false
             });
             
             const dataUrl = canvas.toDataURL('image/png', 1.0);
@@ -106,33 +115,36 @@ export function FolletoView() {
             link.click();
         } catch (error) {
             console.error('Error generando PNG:', error);
+        } finally {
+            setIsExporting(false);
         }
     };
 
     const handleDownloadWord = async () => {
+        if (isExporting) return;
+        setIsExporting(true);
         const frontal = document.getElementById('cara-frontal');
         const interior = document.getElementById('cara-interior');
         
-        if (!frontal || !interior) return;
+        if (!frontal || !interior) { setIsExporting(false); return; }
 
         try {
+            await document.fonts.ready;
             const h2c = (await import('html2canvas')).default;
             
-            // Generar imágenes con alta fidelidad
-            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a' });
-            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a' });
+            // Generar imágenes en JPEG para que el Word no pese cientos de megas
+            const canvasFrontal = await h2c(frontal, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
+            const canvasInterior = await h2c(interior, { scale: 1.5, useCORS: true, backgroundColor: '#03050a', allowTaint: false });
             
-            const imgFrontal = canvasFrontal.toDataURL('image/png');
-            const imgInterior = canvasInterior.toDataURL('image/png');
+            const imgFrontal = canvasFrontal.toDataURL('image/jpeg', 0.85);
+            const imgInterior = canvasInterior.toDataURL('image/jpeg', 0.85);
 
-            // Solo capturar el texto de los paneles
             const panels = document.querySelectorAll('.print\\:break-after-page, .print\\:shadow-none');
             let textContent = "";
             panels.forEach(p => {
                 textContent += (p as HTMLElement).innerText + "\n\n";
             });
 
-            // Crear HTML compatible con Word
             const html = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head><meta charset='utf-8'><title>System Kyron Elite Brochure</title>
@@ -162,9 +174,7 @@ export function FolletoView() {
                 </html>
             `;
 
-            const blob = new Blob(['\ufeff', html], {
-                type: 'application/msword'
-            });
+            const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
@@ -173,6 +183,8 @@ export function FolletoView() {
             URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error generando Súper Word:', error);
+        } finally {
+            setIsExporting(false);
         }
     };
 
@@ -183,11 +195,12 @@ export function FolletoView() {
             <div id="folleto-toolbar" className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex gap-3 bg-black/90 backdrop-blur-3xl px-6 py-4 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] print:hidden transition-opacity duration-300">
                 <button 
                     onClick={handleDownloadPDF}
-                    className="flex items-center gap-2 px-5 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
+                    disabled={isExporting}
+                    className="flex items-center gap-2 px-5 py-3 bg-cyan-600 hover:bg-cyan-500 disabled:bg-cyan-600/50 text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-cyan-500/20"
                 >
-                    <PrinterIcon className="h-4 w-4" /> PDF Full
+                    <PrinterIcon className={`h-4 w-4 ${isExporting ? 'animate-spin' : ''}`} /> {isExporting ? 'Procesando...' : 'PDF Full'}
                 </button>
-                <div className="flex gap-1 bg-white/5 p-1 rounded-2xl border border-white/5">
+                <div className={`flex gap-1 bg-white/5 p-1 rounded-2xl border border-white/5 ${isExporting ? 'opacity-50 pointer-events-none' : ''}`}>
                     <button 
                         onClick={() => handleDownloadPNG('cara-frontal', 'Frontal')}
                         className="flex items-center gap-2 px-4 py-2 hover:bg-emerald-600/20 text-emerald-400 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all"
@@ -203,9 +216,10 @@ export function FolletoView() {
                 </div>
                 <button 
                     onClick={handleDownloadWord}
-                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5"
+                    disabled={isExporting}
+                    className="flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 disabled:bg-white/5 text-white/70 hover:text-white rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all border border-white/5"
                 >
-                    <FileText className="h-4 w-4" /> Texto
+                    <FileText className={`h-4 w-4 ${isExporting ? 'animate-pulse' : ''}`} /> {isExporting ? 'Cargando...' : 'Texto'}
                 </button>
             </div>
 
@@ -372,7 +386,7 @@ export function FolletoView() {
                                 <div className="flex flex-col items-center gap-3 group">
                                     <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(34,211,238,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
                                         <div className="absolute inset-0 border-[3px] border-cyan-500/20 rounded-[2rem] animate-pulse" />
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={95} height={95} className="rounded-[1.8rem] relative z-10" />
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
                                     </div>
                                     <p className="text-[7px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">Portal Web</p>
                                 </div>
@@ -380,7 +394,7 @@ export function FolletoView() {
                                 <div className="flex flex-col items-center gap-3 group">
                                     <div className="relative p-1 bg-white rounded-[2rem] shadow-[0_0_40px_rgba(16,185,129,0.2)] group-hover:scale-105 transition-all duration-500 overflow-hidden">
                                         <div className="absolute inset-0 border-[3px] border-emerald-500/20 rounded-[2rem] animate-pulse" />
-                                        <img src={QR_FEEDBACK} alt="Encuesta" width={95} height={95} className="rounded-[1.8rem] relative z-10" />
+                                        <img src={QR_FEEDBACK} alt="Encuesta" width={95} height={95} className="rounded-[1.8rem] relative z-10" crossOrigin="anonymous" />
                                     </div>
                                     <p className="text-[7px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">Encuesta Elite</p>
                                 </div>
