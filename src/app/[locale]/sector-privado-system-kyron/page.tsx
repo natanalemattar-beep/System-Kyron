@@ -229,41 +229,41 @@ export function FolletoView() {
                     </div>
 
                     <div className="space-y-4 relative z-10 mb-8">
-                        <p className="text-[12px] text-zinc-300 leading-relaxed text-justify">
+                        <p className="text-[16px] text-white font-black leading-tight text-justify">
                             System Kyron es un **Ecosistema Digital Unificado** (ERP + Punto de Venta + RRHH) diseñado para digitalizar el 100% de las operaciones de una empresa en una sola pantalla.
                         </p>
-                        <p className="text-[12px] text-zinc-400 leading-relaxed text-justify">
+                        <p className="text-[14px] text-white font-bold leading-snug text-justify">
                             En lugar de tener múltiples herramientas dispersas, centralizamos tus ventas, inventario, finanzas y empleados en **una sola plataforma en la nube, rápida y segura**.
                         </p>
                     </div>
 
                     <div className="flex-1 flex flex-col justify-center relative z-10 p-6 bg-zinc-900/40 rounded-2xl border border-zinc-800/50">
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Cloud className="h-5 w-5 text-cyan-400" />
+                        <div className="space-y-8">
+                            <div className="flex items-center gap-5">
+                                <div className="h-12 w-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Cloud className="h-7 w-7 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[11px] font-black text-white uppercase tracking-widest mb-0.5">Operación en la Nube</h5>
-                                    <p className="text-[10px] text-zinc-500 leading-tight">Accede a tu negocio desde cualquier lugar.</p>
+                                    <h5 className="text-[14px] font-black text-white uppercase tracking-widest mb-1">Operación en la Nube</h5>
+                                    <p className="text-[13px] text-zinc-200 font-bold leading-tight">Acceso total desde cualquier lugar.</p>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <Zap className="h-5 w-5 text-cyan-400" />
+                            <div className="flex items-center gap-5">
+                                <div className="h-12 w-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <Zap className="h-7 w-7 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[11px] font-black text-white uppercase tracking-widest mb-0.5">Sincronización Total</h5>
-                                    <p className="text-[10px] text-zinc-500 leading-tight">Ventas e inventario actualizados al segundo.</p>
+                                    <h5 className="text-[14px] font-black text-white uppercase tracking-widest mb-1">Sincronización Total</h5>
+                                    <p className="text-[13px] text-zinc-200 font-bold leading-tight">Actualización en tiempo real.</p>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-4">
-                                <div className="h-10 w-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                                    <ShieldCheck className="h-5 w-5 text-cyan-400" />
+                            <div className="flex items-center gap-5">
+                                <div className="h-12 w-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                                    <ShieldCheck className="h-7 w-7 text-cyan-400" />
                                 </div>
                                 <div>
-                                    <h5 className="text-[11px] font-black text-white uppercase tracking-widest mb-0.5">Seguridad Robusta</h5>
-                                    <p className="text-[10px] text-zinc-500 leading-tight">Copias de seguridad automáticas diarias.</p>
+                                    <h5 className="text-[14px] font-black text-white uppercase tracking-widest mb-1">Seguridad Robusta</h5>
+                                    <p className="text-[13px] text-zinc-200 font-bold leading-tight">Copias de seguridad diarias.</p>
                                 </div>
                             </div>
                         </div>
@@ -271,9 +271,9 @@ export function FolletoView() {
 
                     <div className="mt-auto relative z-10 pt-5 border-t border-zinc-800">
                         <div className="flex justify-between items-center px-1">
-                             <div className="text-center"><p className="text-[9px] font-bold tracking-widest text-zinc-400">TODO EN UNO</p></div>
-                             <div className="h-1.5 w-1.5 bg-zinc-600 rounded-full" />
-                             <div className="text-center"><p className="text-[9px] font-bold tracking-widest text-cyan-400">EFICIENTE</p></div>
+                             <div className="text-center"><p className="text-[11px] font-black tracking-widest text-zinc-400">TODO EN UNO</p></div>
+                             <div className="h-2 w-2 bg-zinc-600 rounded-full" />
+                             <div className="text-center"><p className="text-[11px] font-black tracking-widest text-cyan-400">EFICIENTE</p></div>
                         </div>
                     </div>
                 </div>
@@ -290,7 +290,7 @@ export function FolletoView() {
                     </div>
 
                     <div className="space-y-6 flex-1">
-                        <p className="text-[13px] text-zinc-300 leading-relaxed text-justify font-medium">
+                        <p className="text-[16px] text-white leading-tight text-justify font-black">
                             No dejes que el caos administrativo frene el potencial de tu empresa. Con System Kyron, adquieres **orden, rapidez y transparencia** desde el primer día.
                         </p>
 
@@ -298,27 +298,27 @@ export function FolletoView() {
                             <div className="absolute top-0 right-0 p-4 opacity-5">
                                 <Shield className="h-20 w-20 text-cyan-400" />
                             </div>
-                            <h5 className="text-[13px] font-black text-cyan-400 uppercase tracking-widest mb-4">Nuestra Promesa</h5>
-                            <ul className="space-y-4 relative z-10">
-                                <li className="flex items-start gap-3 text-[12px] text-zinc-300 font-medium">
-                                    <CheckCircle2 className="h-5 w-5 text-cyan-400 shrink-0" /> Soporte técnico humano, local y siempre disponible.
+                            <h5 className="text-[15px] font-black text-cyan-400 uppercase tracking-widest mb-4">Nuestra Promesa</h5>
+                            <ul className="space-y-5 relative z-10">
+                                <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
+                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Soporte técnico humano, local y siempre disponible.
                                 </li>
-                                <li className="flex items-start gap-3 text-[12px] text-zinc-300 font-medium">
-                                    <CheckCircle2 className="h-5 w-5 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
+                                <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
+                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Capacitación total para ti y todo tu equipo.
                                 </li>
-                                <li className="flex items-start gap-3 text-[12px] text-zinc-300 font-medium">
-                                    <CheckCircle2 className="h-5 w-5 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
+                                <li className="flex items-start gap-3 text-[14px] text-white font-bold leading-tight">
+                                    <CheckCircle2 className="h-6 w-6 text-cyan-400 shrink-0" /> Migración de datos sin perder tu información actual.
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     <div className="mt-8 flex justify-between items-end pt-6 border-t border-zinc-800">
-                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-12 w-12 opacity-30 object-contain" crossOrigin="anonymous" />
+                        <img src="/images/logo-black.png" alt="Kyron Mini" className="h-16 w-16 opacity-30 object-contain" crossOrigin="anonymous" />
                         <div className="text-right">
-                            <p className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.3em] mb-1">Contacto Directo</p>
-                            <p className="text-[9px] text-zinc-600 font-medium uppercase tracking-widest">0424-1846016</p>
-                            <p className="text-[8.5px] text-zinc-600 font-medium tracking-wide">systemkyronofficial@gmail.com</p>
+                            <p className="text-[14px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-1">Contacto Directo</p>
+                            <p className="text-[16px] text-white font-black uppercase tracking-widest">0424-1846016</p>
+                            <p className="text-[13px] text-zinc-300 font-bold tracking-wide">systemkyronofficial@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -347,24 +347,24 @@ export function FolletoView() {
                         </div>
 
                         <div className="mt-auto bg-zinc-900/50 backdrop-blur-xl rounded-[2rem] border border-zinc-800 p-6 flex flex-col items-center shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-                            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-zinc-500 mb-5">CONOCE MÁS DE NUESTRO SISTEMA</p>
+                            <p className="text-[12px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-5 text-center">CONOCE MÁS DE NUESTRO SISTEMA</p>
                             
                             <div className="flex gap-8 w-full justify-center mb-5">
-                                <div className="flex flex-col items-center gap-2.5 group">
+                                <div className="flex flex-col items-center gap-3 group">
                                     <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.15)] border border-cyan-500/20">
-                                        <img src={QR_PRINCIPAL} alt="Portal" width={90} height={90} className="rounded-xl" crossOrigin="anonymous" />
+                                        <img src={QR_PRINCIPAL} alt="Portal" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-cyan-400">Portal Web</p>
+                                    <p className="text-[12px] font-black uppercase tracking-widest text-cyan-400">Portal Web</p>
                                 </div>
-                                <div className="flex flex-col items-center gap-2.5 group">
+                                <div className="flex flex-col items-center gap-3 group">
                                     <div className="p-2 bg-white rounded-2xl group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-zinc-200">
-                                        <img src={QR_FEEDBACK} alt="Contacto" width={90} height={90} className="rounded-xl" crossOrigin="anonymous" />
+                                        <img src={QR_FEEDBACK} alt="Contacto" width={100} height={100} className="rounded-xl" crossOrigin="anonymous" />
                                     </div>
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-400">Contáctanos</p>
+                                    <p className="text-[12px] font-black uppercase tracking-widest text-white">Contáctanos</p>
                                 </div>
                             </div>
-                            <p className="text-[9px] text-zinc-500 font-medium flex items-center gap-2">
-                                <ScanLine className="h-4 w-4" /> Escanea con la cámara de tu móvil
+                            <p className="text-[12px] text-zinc-300 font-bold flex items-center gap-2">
+                                <ScanLine className="h-5 w-5" /> Escanea con tu móvil
                             </p>
                         </div>
 
@@ -392,41 +392,41 @@ export function FolletoView() {
                     
                     <div className="space-y-4 flex-1">
                         <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                <Activity className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Fuga de Capital Oculta
+                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <Activity className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Fuga de Capital Oculta
                             </h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
                                 La pérdida de mercancía, errores de cobro y el descontrol en los inventarios físicos generan hasta un 15% de pérdidas mensuales invisibles.
                             </p>
                         </div>
                         <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                <TrendingUp className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Caos Administrativo
+                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <TrendingUp className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Caos Administrativo
                             </h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
                                 Invertir cientos de horas calculando impuestos, nóminas y cierres de caja a mano o en Excel, aumentando el riesgo de costosas multas fiscales.
                             </p>
                         </div>
                         <div className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 hover:border-cyan-500/30 transition-colors group">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                <Cpu className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Sistemas Desconectados
+                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <Cpu className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Sistemas Desconectados
                             </h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
                                 Pagar por programas de facturación y hojas de cálculo que no se comunican entre sí, duplicando el trabajo del equipo.
                             </p>
                         </div>
                         <div className="p-4 bg-zinc-900/50 rounded-xl border border-rose-900/40 hover:border-rose-500/50 transition-colors group bg-rose-950/10">
-                            <h4 className="text-[12px] font-black text-white uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                <Phone className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas y Fraudes Telefónicos
+                            <h4 className="text-[15px] font-black text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <Phone className="h-5 w-5 text-rose-400 group-hover:scale-110 transition-transform" /> Estafas Telefónicas
                             </h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
-                                Llamadas fraudulentas que suplantan a proveedores, bancos o clientes generan pérdidas económicas directas y dañan la reputación del negocio sin dejar rastro.
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                                Llamadas fraudulentas que suplantan a proveedores o bancos generan pérdidas económicas directas y dañan la reputación sin dejar rastro.
                             </p>
                         </div>
                     </div>
 
                     <div className="mt-4 pt-4 border-t border-zinc-800">
-                        <p className="text-[10px] text-zinc-500 font-medium leading-tight italic">"El fraude telefónico y el desorden administrativo son los enemigos silenciosos de cualquier negocio."</p>
+                        <p className="text-[13px] text-white font-black leading-tight italic">"El fraude y el desorden son los enemigos silenciosos de tu negocio."</p>
                     </div>
                 </div>
 
@@ -449,16 +449,16 @@ export function FolletoView() {
                             {I:Phone, t:"Líneas Telefónicas", d:"Comunicación segura."}
                         ].map(({I,t,d},i)=>(
                             <div key={i} className="flex flex-col p-3.5 bg-zinc-900/40 rounded-xl border border-zinc-800 hover:border-cyan-500/30 hover:bg-zinc-900/80 transition-colors cursor-default">
-                                <I className="h-6 w-6 text-cyan-400 mb-2.5" />
-                                <h4 className="font-bold text-white uppercase text-[10px] tracking-widest mb-1">{t}</h4>
-                                <p className="text-[9.5px] text-zinc-500 leading-tight">{d}</p>
+                                <I className="h-8 w-8 text-cyan-400 mb-2.5" />
+                                <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1">{t}</h4>
+                                <p className="text-[11px] text-zinc-300 font-bold leading-tight">{d}</p>
                             </div>
                         ))}
                     </div>
 
                     <div className="mt-auto p-4 bg-zinc-900 rounded-xl border border-zinc-800 text-center">
-                        <p className="text-[10px] text-zinc-400 font-medium leading-relaxed italic">
-                            "Módulos interconectados que trabajan en perfecta armonía."
+                        <p className="text-[14px] text-white font-black leading-tight italic">
+                            "Módulos interconectados en armonía."
                         </p>
                     </div>
                 </div>
@@ -471,37 +471,37 @@ export function FolletoView() {
                     </div>
 
                     <div className="space-y-6 flex-1 mt-4">
-                        <div className="relative pl-7 border-l-[1.5px] border-cyan-500/50 pb-2">
-                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-cyan-500 flex items-center justify-center">
-                                <div className="h-1 w-1 bg-cyan-400 rounded-full" />
+                        <div className="relative pl-7 border-l-[2px] border-cyan-500 pb-4">
+                            <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-cyan-500 border-2 border-cyan-500 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+                                <div className="h-2 w-2 bg-white rounded-full" />
                             </div>
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1.5">Conectividad Híbrida</h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
-                                ¿Se cayó el internet? No hay problema. Nuestro sistema te permite seguir facturando de manera local y **sincroniza todo automáticamente** en cuanto vuelve la conexión.
+                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Conectividad Híbrida</h4>
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                                ¿Sin internet? Sigue facturando localmente. Todo se **sincroniza automáticamente** al recuperar la conexión.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[1.5px] border-zinc-700 pb-2">
-                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1.5">Actualización Autónoma</h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
-                                System Kyron se actualiza a las últimas normas del SENIAT sin que tengas que descargar parches o pagar licencias extras. Cumples la ley por defecto.
+                        <div className="relative pl-7 border-l-[2px] border-zinc-700 pb-4">
+                            <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Actualización Autónoma</h4>
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                                Normas del SENIAT al día automáticamente. Cumples la ley sin esfuerzo y sin parches manuales.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[1.5px] border-zinc-700 pb-2">
-                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1.5">Métricas Dinámicas</h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
-                                Los reportes ya no son tablas de Excel aburridas. Observa gráficos interactivos que te dicen exactamente qué se vende más y a qué hora.
+                        <div className="relative pl-7 border-l-[2px] border-zinc-700 pb-4">
+                            <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Métricas Dinámicas</h4>
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                                Gráficos interactivos en tiempo real. Analiza qué vendes y a qué hora para tomar decisiones inteligentes.
                             </p>
                         </div>
 
-                        <div className="relative pl-7 border-l-[1.5px] border-transparent">
-                            <div className="absolute left-[-9.5px] top-0 h-4 w-4 rounded-full bg-[#09090b] border-2 border-zinc-700" />
-                            <h4 className="font-black text-white uppercase text-[12px] tracking-widest mb-1.5">Multi-Sucursal Escalable</h4>
-                            <p className="text-[11px] text-zinc-400 leading-relaxed text-justify">
-                                Empieza con una tienda y crece a cincuenta. Gestiona el inventario central y el traslado entre sedes desde tu mismo panel administrativo.
+                        <div className="relative pl-7 border-l-[2px] border-transparent">
+                            <div className="absolute left-[-11px] top-0 h-5 w-5 rounded-full bg-[#09090b] border-2 border-zinc-700" />
+                            <h4 className="font-black text-white uppercase text-[15px] tracking-widest mb-2">Escalabilidad Total</h4>
+                            <p className="text-[14px] text-white font-bold leading-snug text-justify">
+                                Crece de una a cien sucursales. Gestiona inventarios centrales y sedes desde un único panel administrativo.
                             </p>
                         </div>
                     </div>
